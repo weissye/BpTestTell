@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/my-org/settings/network-configurations",
+      "method": "GET",
+      "operationId": "hosted-compute/list-network-configurations-for-org",
+      "summary": "",
+      "user": "User requests to list all network configurations for their organization to review current settings and ensure compliance with security policies.",
+      "ideal": "Returns a list of network configurations with details such as ID, name, and status."
+    },
+    {
+      "path": "/orgs/my-org/settings/network-configurations",
+      "method": "POST",
+      "operationId": "hosted-compute/create-network-configuration-for-org",
+      "summary": "",
+      "user": "User wants to create a new network configuration for their organization to enhance network security and performance.",
+      "ideal": "Creates a new network configuration and returns the configuration ID and status."
+    },
+    {
+      "path": "/orgs/my-org/settings/network-configurations/12345",
+      "method": "GET",
+      "operationId": "hosted-compute/get-network-configuration-for-org",
+      "summary": "",
+      "user": "User needs to retrieve details of a specific network configuration to troubleshoot connectivity issues.",
+      "ideal": "Returns the details of the specified network configuration including settings and status."
+    },
+    {
+      "path": "/orgs/my-org/settings/network-configurations/12345",
+      "method": "PATCH",
+      "operationId": "hosted-compute/update-network-configuration-for-org",
+      "summary": "",
+      "user": "User wants to update an existing network configuration to adjust bandwidth limits based on new requirements.",
+      "ideal": "Updates the network configuration and returns the updated configuration details."
+    },
+    {
+      "path": "/orgs/my-org/settings/network-configurations/12345",
+      "method": "DELETE",
+      "operationId": "hosted-compute/delete-network-configuration-from-org",
+      "summary": "",
+      "user": "User needs to delete an obsolete network configuration that is no longer in use to streamline their settings.",
+      "ideal": "Deletes the specified network configuration and confirms the deletion."
+    },
+    {
+      "path": "/orgs/my-org/settings/network-settings/67890",
+      "method": "GET",
+      "operationId": "hosted-compute/get-network-settings-for-org",
+      "summary": "",
+      "user": "User is looking to fetch the current network settings for their organization to ensure they align with best practices.",
+      "ideal": "Returns the current network settings including DNS, IP ranges, and firewall rules."
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "openapi_meta": {
+    "title": "Meilisearch Core API",
+    "version": "1.7.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/experimental-features",
+      "method": "GET",
+      "tags": [
+        "Experimental"
+      ],
+      "summary": "(EXPERIMENTAL) Get the status of runtime experimental features",
+      "operationId": "experimental.get"
+    },
+    {
+      "path": "/experimental-features",
+      "method": "PATCH",
+      "tags": [
+        "Experimental"
+      ],
+      "summary": "(EXPERIMENTAL) Set the status of runtime experimental features",
+      "operationId": "experimental.update"
+    },
+    {
+      "path": "/metrics",
+      "method": "GET",
+      "tags": [
+        "Stats",
+        "Experimental"
+      ],
+      "summary": "(EXPERIMENTAL) Get prometheus format metrics for observability and monitoring",
+      "operationId": "metrics.get"
+    }
+  ]
+}

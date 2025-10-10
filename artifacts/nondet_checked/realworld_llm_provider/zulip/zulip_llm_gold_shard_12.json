@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/users",
+      "method": "GET",
+      "operationId": "get-users",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all users in the organization."
+    },
+    {
+      "path": "/users",
+      "method": "POST",
+      "operationId": "create-user",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new user with specified details."
+    },
+    {
+      "path": "/users/me",
+      "method": "GET",
+      "operationId": "get-own-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Fetch the details of the currently authenticated user."
+    },
+    {
+      "path": "/users/me/alert_words",
+      "method": "POST",
+      "operationId": "add-alert-words",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add new alert words for the user to receive notifications."
+    },
+    {
+      "path": "/users/{user_id}/status",
+      "method": "POST",
+      "operationId": "update-status-for-user",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the status message for a specific user."
+    },
+    {
+      "path": "/users/me/presence",
+      "method": "POST",
+      "operationId": "update-presence",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the presence status of the currently authenticated user."
+    },
+    {
+      "path": "/user_groups",
+      "method": "GET",
+      "operationId": "get-user-groups",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all user groups in the organization."
+    },
+    {
+      "path": "/user_groups/{user_group_id}/members",
+      "method": "GET",
+      "operationId": "get-user-group-members",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get the members of a specific user group."
+    },
+    {
+      "path": "/attachments",
+      "method": "GET",
+      "operationId": "get-attachments",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all attachments available."
+    },
+    {
+      "path": "/users/{user_id}/reactivate",
+      "method": "POST",
+      "operationId": "reactivate-user",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Reactivate a previously deactivated user."
+    }
+  ]
+}

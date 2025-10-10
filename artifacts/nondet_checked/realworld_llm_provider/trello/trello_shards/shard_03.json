@@ -1,0 +1,585 @@
+{
+  "openapi_meta": {
+    "title": "Trello",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/boards",
+      "method": "POST",
+      "tags": [
+        "board"
+      ],
+      "summary": "addBoards()",
+      "operationId": "addBoards"
+    },
+    {
+      "path": "/boards/{idBoard}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsByIdBoard()",
+      "operationId": "getBoardsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsByIdBoard()",
+      "operationId": "updateBoardsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/actions",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsActionsByIdBoard()",
+      "operationId": "getBoardsActionsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/boardStars",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsBoardStarsByIdBoard()",
+      "operationId": "getBoardsBoardStarsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/calendarKey/generate",
+      "method": "POST",
+      "tags": [
+        "board"
+      ],
+      "summary": "addBoardsCalendarKeyGenerateByIdBoard()",
+      "operationId": "addBoardsCalendarKeyGenerateByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/cards",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsCardsByIdBoard()",
+      "operationId": "getBoardsCardsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/cards/{filter}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsCardsByIdBoardByFilter()",
+      "operationId": "getBoardsCardsByIdBoardByFilter"
+    },
+    {
+      "path": "/boards/{idBoard}/cards/{idCard}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsCardsByIdBoardByIdCard()",
+      "operationId": "getBoardsCardsByIdBoardByIdCard"
+    },
+    {
+      "path": "/boards/{idBoard}/checklists",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsChecklistsByIdBoard()",
+      "operationId": "getBoardsChecklistsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/checklists",
+      "method": "POST",
+      "tags": [
+        "board"
+      ],
+      "summary": "addBoardsChecklistsByIdBoard()",
+      "operationId": "addBoardsChecklistsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/closed",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsClosedByIdBoard()",
+      "operationId": "updateBoardsClosedByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/deltas",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsDeltasByIdBoard()",
+      "operationId": "getBoardsDeltasByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/desc",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsDescByIdBoard()",
+      "operationId": "updateBoardsDescByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/emailKey/generate",
+      "method": "POST",
+      "tags": [
+        "board"
+      ],
+      "summary": "addBoardsEmailKeyGenerateByIdBoard()",
+      "operationId": "addBoardsEmailKeyGenerateByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/idOrganization",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsIdOrganizationByIdBoard()",
+      "operationId": "updateBoardsIdOrganizationByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/labelNames/blue",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsLabelNamesBlueByIdBoard()",
+      "operationId": "updateBoardsLabelNamesBlueByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/labelNames/green",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsLabelNamesGreenByIdBoard()",
+      "operationId": "updateBoardsLabelNamesGreenByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/labelNames/orange",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsLabelNamesOrangeByIdBoard()",
+      "operationId": "updateBoardsLabelNamesOrangeByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/labelNames/purple",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsLabelNamesPurpleByIdBoard()",
+      "operationId": "updateBoardsLabelNamesPurpleByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/labelNames/red",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsLabelNamesRedByIdBoard()",
+      "operationId": "updateBoardsLabelNamesRedByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/labelNames/yellow",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsLabelNamesYellowByIdBoard()",
+      "operationId": "updateBoardsLabelNamesYellowByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/labels",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsLabelsByIdBoard()",
+      "operationId": "getBoardsLabelsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/labels",
+      "method": "POST",
+      "tags": [
+        "board"
+      ],
+      "summary": "addBoardsLabelsByIdBoard()",
+      "operationId": "addBoardsLabelsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/labels/{idLabel}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsLabelsByIdBoardByIdLabel()",
+      "operationId": "getBoardsLabelsByIdBoardByIdLabel"
+    },
+    {
+      "path": "/boards/{idBoard}/lists",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsListsByIdBoard()",
+      "operationId": "getBoardsListsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/lists",
+      "method": "POST",
+      "tags": [
+        "board"
+      ],
+      "summary": "addBoardsListsByIdBoard()",
+      "operationId": "addBoardsListsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/lists/{filter}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsListsByIdBoardByFilter()",
+      "operationId": "getBoardsListsByIdBoardByFilter"
+    },
+    {
+      "path": "/boards/{idBoard}/markAsViewed",
+      "method": "POST",
+      "tags": [
+        "board"
+      ],
+      "summary": "addBoardsMarkAsViewedByIdBoard()",
+      "operationId": "addBoardsMarkAsViewedByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/members",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsMembersByIdBoard()",
+      "operationId": "getBoardsMembersByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/members",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsMembersByIdBoard()",
+      "operationId": "updateBoardsMembersByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/members/{filter}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsMembersByIdBoardByFilter()",
+      "operationId": "getBoardsMembersByIdBoardByFilter"
+    },
+    {
+      "path": "/boards/{idBoard}/members/{idMember}",
+      "method": "DELETE",
+      "tags": [
+        "board"
+      ],
+      "summary": "deleteBoardsMembersByIdBoardByIdMember()",
+      "operationId": "deleteBoardsMembersByIdBoardByIdMember"
+    },
+    {
+      "path": "/boards/{idBoard}/members/{idMember}",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsMembersByIdBoardByIdMember()",
+      "operationId": "updateBoardsMembersByIdBoardByIdMember"
+    },
+    {
+      "path": "/boards/{idBoard}/members/{idMember}/cards",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsMembersCardsByIdBoardByIdMember()",
+      "operationId": "getBoardsMembersCardsByIdBoardByIdMember"
+    },
+    {
+      "path": "/boards/{idBoard}/membersInvited",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsMembersInvitedByIdBoard()",
+      "operationId": "getBoardsMembersInvitedByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/membersInvited/{field}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsMembersInvitedByIdBoardByField()",
+      "operationId": "getBoardsMembersInvitedByIdBoardByField"
+    },
+    {
+      "path": "/boards/{idBoard}/memberships",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsMembershipsByIdBoard()",
+      "operationId": "getBoardsMembershipsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/memberships/{idMembership}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsMembershipsByIdBoardByIdMembership()",
+      "operationId": "getBoardsMembershipsByIdBoardByIdMembership"
+    },
+    {
+      "path": "/boards/{idBoard}/memberships/{idMembership}",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsMembershipsByIdBoardByIdMembership()",
+      "operationId": "updateBoardsMembershipsByIdBoardByIdMembership"
+    },
+    {
+      "path": "/boards/{idBoard}/myPrefs",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsMyPrefsByIdBoard()",
+      "operationId": "getBoardsMyPrefsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/myPrefs/emailPosition",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsMyPrefsEmailPositionByIdBoard()",
+      "operationId": "updateBoardsMyPrefsEmailPositionByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/myPrefs/idEmailList",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsMyPrefsIdEmailListByIdBoard()",
+      "operationId": "updateBoardsMyPrefsIdEmailListByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/myPrefs/showListGuide",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsMyPrefsShowListGuideByIdBoard()",
+      "operationId": "updateBoardsMyPrefsShowListGuideByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/myPrefs/showSidebar",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsMyPrefsShowSidebarByIdBoard()",
+      "operationId": "updateBoardsMyPrefsShowSidebarByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/myPrefs/showSidebarActivity",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsMyPrefsShowSidebarActivityByIdBoard()",
+      "operationId": "updateBoardsMyPrefsShowSidebarActivityByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/myPrefs/showSidebarBoardActions",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsMyPrefsShowSidebarBoardActionsByIdBoard()",
+      "operationId": "updateBoardsMyPrefsShowSidebarBoardActionsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/myPrefs/showSidebarMembers",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsMyPrefsShowSidebarMembersByIdBoard()",
+      "operationId": "updateBoardsMyPrefsShowSidebarMembersByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/name",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsNameByIdBoard()",
+      "operationId": "updateBoardsNameByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/organization",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsOrganizationByIdBoard()",
+      "operationId": "getBoardsOrganizationByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/organization/{field}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsOrganizationByIdBoardByField()",
+      "operationId": "getBoardsOrganizationByIdBoardByField"
+    },
+    {
+      "path": "/boards/{idBoard}/powerUps",
+      "method": "POST",
+      "tags": [
+        "board"
+      ],
+      "summary": "addBoardsPowerUpsByIdBoard()",
+      "operationId": "addBoardsPowerUpsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/powerUps/{powerUp}",
+      "method": "DELETE",
+      "tags": [
+        "board"
+      ],
+      "summary": "deleteBoardsPowerUpsByIdBoardByPowerUp()",
+      "operationId": "deleteBoardsPowerUpsByIdBoardByPowerUp"
+    },
+    {
+      "path": "/boards/{idBoard}/prefs/background",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsPrefsBackgroundByIdBoard()",
+      "operationId": "updateBoardsPrefsBackgroundByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/prefs/calendarFeedEnabled",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsPrefsCalendarFeedEnabledByIdBoard()",
+      "operationId": "updateBoardsPrefsCalendarFeedEnabledByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/prefs/cardAging",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsPrefsCardAgingByIdBoard()",
+      "operationId": "updateBoardsPrefsCardAgingByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/prefs/cardCovers",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsPrefsCardCoversByIdBoard()",
+      "operationId": "updateBoardsPrefsCardCoversByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/prefs/comments",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsPrefsCommentsByIdBoard()",
+      "operationId": "updateBoardsPrefsCommentsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/prefs/invitations",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsPrefsInvitationsByIdBoard()",
+      "operationId": "updateBoardsPrefsInvitationsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/prefs/permissionLevel",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsPrefsPermissionLevelByIdBoard()",
+      "operationId": "updateBoardsPrefsPermissionLevelByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/prefs/selfJoin",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsPrefsSelfJoinByIdBoard()",
+      "operationId": "updateBoardsPrefsSelfJoinByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/prefs/voting",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsPrefsVotingByIdBoard()",
+      "operationId": "updateBoardsPrefsVotingByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/subscribed",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsSubscribedByIdBoard()",
+      "operationId": "updateBoardsSubscribedByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/{field}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsByIdBoardByField()",
+      "operationId": "getBoardsByIdBoardByField"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/app/field/value",
+      "method": "POST",
+      "operationId": "updateMultipleCustomFieldValues",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update multiple custom field values for a specific issue in Jira."
+    },
+    {
+      "path": "/rest/api/3/app/field/{fieldIdOrKey}/value",
+      "method": "PUT",
+      "operationId": "updateCustomFieldValue",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Update a specific custom field value for an issue using its field ID or key."
+    }
+  ]
+}

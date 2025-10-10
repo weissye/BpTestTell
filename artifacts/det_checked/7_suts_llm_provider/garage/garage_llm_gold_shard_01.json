@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "resetSystem",
+      "summary": "",
+      "user": "Admin user resets the system to clear all data for testing.",
+      "ideal": "System successfully reset."
+    },
+    {
+      "path": "/chains/{chainId}",
+      "method": "GET",
+      "operationId": "getChainById",
+      "summary": "",
+      "user": "User retrieves details of a specific garage chain using its ID.",
+      "ideal": "Returns the details of the garage chain with the specified ID."
+    },
+    {
+      "path": "/garages",
+      "method": "POST",
+      "operationId": "createGarage",
+      "summary": "",
+      "user": "A manager adds a new garage to the system with necessary details.",
+      "ideal": "Garage created successfully with a unique ID."
+    },
+    {
+      "path": "/garages/{garageId}",
+      "method": "PUT",
+      "operationId": "updateGarage",
+      "summary": "",
+      "user": "A manager updates the information of an existing garage.",
+      "ideal": "Garage information updated successfully."
+    },
+    {
+      "path": "/customers",
+      "method": "GET",
+      "operationId": "getAllCustomers",
+      "summary": "",
+      "user": "A support agent retrieves a list of all customers in the system.",
+      "ideal": "Returns a list of all customers with their details."
+    },
+    {
+      "path": "/customers/{customerId}",
+      "method": "DELETE",
+      "operationId": "deleteCustomer",
+      "summary": "",
+      "user": "An admin removes a customer from the system using their ID.",
+      "ideal": "Customer deleted successfully."
+    },
+    {
+      "path": "/cars/{vin}",
+      "method": "GET",
+      "operationId": "getCarByVin",
+      "summary": "",
+      "user": "A mechanic checks the details of a car using its VIN.",
+      "ideal": "Returns the car details associated with the provided VIN."
+    },
+    {
+      "path": "/periodic-maintenance",
+      "method": "POST",
+      "operationId": "scheduleMaintenance",
+      "summary": "",
+      "user": "A service advisor schedules periodic maintenance for a customer's vehicle.",
+      "ideal": "Periodic maintenance scheduled successfully."
+    },
+    {
+      "path": "/periodic-maintenance/{pmId}",
+      "method": "PUT",
+      "operationId": "updateMaintenance",
+      "summary": "",
+      "user": "A service advisor updates the details of a scheduled maintenance.",
+      "ideal": "Periodic maintenance details updated successfully."
+    },
+    {
+      "path": "/repair-orders",
+      "method": "GET",
+      "operationId": "getAllRepairOrders",
+      "summary": "",
+      "user": "A manager retrieves all active repair orders in the system.",
+      "ideal": "Returns a list of all active repair orders."
+    },
+    {
+      "path": "/repair-orders/{roId}",
+      "method": "DELETE",
+      "operationId": "deleteRepairOrder",
+      "summary": "",
+      "user": "An admin deletes a specific repair order using its ID.",
+      "ideal": "Repair order deleted successfully."
+    }
+  ]
+}

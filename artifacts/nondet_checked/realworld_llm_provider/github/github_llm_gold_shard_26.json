@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/markdown",
+      "method": "POST",
+      "operationId": "markdown/render",
+      "summary": "",
+      "user": "User wants to convert Markdown text to HTML format for a README file.",
+      "ideal": "The API should return the HTML representation of the provided Markdown."
+    },
+    {
+      "path": "/markdown/raw",
+      "method": "POST",
+      "operationId": "markdown/render-raw",
+      "summary": "",
+      "user": "User needs to render raw Markdown content without any additional processing, suitable for direct display.",
+      "ideal": "The API should return the raw HTML output of the Markdown input."
+    }
+  ]
+}

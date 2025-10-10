@@ -1,0 +1,108 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project",
+      "method": "GET",
+      "operationId": "getAllProjects",
+      "summary": "",
+      "user": "User requests to retrieve a list of all projects in the Jira Cloud instance.",
+      "ideal": "Returns a list of projects with their details."
+    },
+    {
+      "path": "/rest/api/3/project",
+      "method": "POST",
+      "operationId": "createProject",
+      "summary": "",
+      "user": "User wants to create a new project with specific parameters.",
+      "ideal": "Creates a new project and returns the project details."
+    },
+    {
+      "path": "/rest/api/3/project/recent",
+      "method": "GET",
+      "operationId": "getRecent",
+      "summary": "",
+      "user": "User wants to see the most recently accessed projects.",
+      "ideal": "Returns a list of recently accessed projects."
+    },
+    {
+      "path": "/rest/api/3/project/search",
+      "method": "GET",
+      "operationId": "searchProjects",
+      "summary": "",
+      "user": "User is searching for projects that match a specific query.",
+      "ideal": "Returns a list of projects that match the search criteria."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "method": "DELETE",
+      "operationId": "deleteProject",
+      "summary": "",
+      "user": "User wants to delete a specific project identified by its ID or key.",
+      "ideal": "Deletes the specified project and confirms deletion."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "method": "GET",
+      "operationId": "getProject",
+      "summary": "",
+      "user": "User requests detailed information about a specific project.",
+      "ideal": "Returns the details of the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "method": "PUT",
+      "operationId": "updateProject",
+      "summary": "",
+      "user": "User wants to update the details of an existing project.",
+      "ideal": "Updates the project details and returns the updated project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/archive",
+      "method": "POST",
+      "operationId": "archiveProject",
+      "summary": "",
+      "user": "User wants to archive a specific project.",
+      "ideal": "Archives the specified project and confirms the action."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/delete",
+      "method": "POST",
+      "operationId": "deleteProjectAsynchronously",
+      "summary": "",
+      "user": "User requests to delete a project asynchronously.",
+      "ideal": "Initiates asynchronous deletion of the project and returns a confirmation."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/restore",
+      "method": "POST",
+      "operationId": "restore",
+      "summary": "",
+      "user": "User wants to restore a previously deleted project.",
+      "ideal": "Restores the specified project and returns the project details."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/statuses",
+      "method": "GET",
+      "operationId": "getAllStatuses",
+      "summary": "",
+      "user": "User wants to retrieve all statuses associated with a specific project.",
+      "ideal": "Returns a list of all statuses for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectId}/hierarchy",
+      "method": "GET",
+      "operationId": "getHierarchy",
+      "summary": "",
+      "user": "User requests the hierarchy of a specific project.",
+      "ideal": "Returns the hierarchy structure of the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectKeyOrId}/notificationscheme",
+      "method": "GET",
+      "operationId": "getNotificationSchemeForProject",
+      "summary": "",
+      "user": "User wants to see the notification scheme for a specific project.",
+      "ideal": "Returns the notification scheme details for the specified project."
+    }
+  ]
+}

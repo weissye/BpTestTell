@@ -1,0 +1,98 @@
+{
+  "gold": [
+    {
+      "operationId": "CreateApplication",
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+      "body": {
+        "FriendlyName": "My New Application",
+        "VoiceUrl": "https://example.com/voice",
+        "StatusCallback": "https://example.com/callback"
+      }
+    },
+    {
+      "operationId": "ListApplication",
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json"
+    },
+    {
+      "operationId": "DeleteApplication",
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
+    },
+    {
+      "operationId": "FetchApplication",
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
+    },
+    {
+      "operationId": "UpdateApplication",
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "body": {
+        "FriendlyName": "Updated Application Name"
+      }
+    },
+    {
+      "operationId": "ListAvailablePhoneNumberLocal",
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json"
+    },
+    {
+      "operationId": "ListCallEvent",
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json"
+    },
+    {
+      "operationId": "FetchConference",
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
+    },
+    {
+      "operationId": "ListConference",
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences.json"
+    },
+    {
+      "operationId": "CreateMessage",
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "body": {
+        "To": "+1234567890",
+        "From": "+0987654321",
+        "Body": "Hello, this is a test message."
+      }
+    },
+    {
+      "operationId": "ListMessage",
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json"
+    },
+    {
+      "operationId": "FetchTranscription",
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json"
+    },
+    {
+      "operationId": "CreateQueue",
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "body": {
+        "FriendlyName": "Support Queue"
+      }
+    },
+    {
+      "operationId": "ListQueue",
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json"
+    },
+    {
+      "operationId": "CreateUserDefinedMessageSubscription",
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json",
+      "body": {
+        "Message": "User defined message content"
+      }
+    }
+  ]
+}

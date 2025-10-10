@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/boards/{idBoard}/cards",
+      "method": "GET",
+      "operationId": "getBoardsCardsByIdBoard",
+      "summary": "",
+      "user": "User requests to retrieve all cards on a specific board to review tasks.",
+      "ideal": "Returns a list of cards associated with the specified board."
+    },
+    {
+      "path": "/cards/{idCard}/desc",
+      "method": "PUT",
+      "operationId": "updateCardsDescByIdCard",
+      "summary": "",
+      "user": "User updates the description of a specific card to provide more details.",
+      "ideal": "Successfully updates the card description and returns the updated card."
+    },
+    {
+      "path": "/actions/{idAction}/card",
+      "method": "GET",
+      "operationId": "getActionsCardByIdAction",
+      "summary": "",
+      "user": "User wants to see which card an action is associated with.",
+      "ideal": "Returns the card details related to the specified action."
+    },
+    {
+      "path": "/members/{idMember}/boardsInvited",
+      "method": "GET",
+      "operationId": "getMembersBoardsInvitedByIdMember",
+      "summary": "",
+      "user": "User checks which boards they have been invited to.",
+      "ideal": "Returns a list of boards the member has been invited to."
+    },
+    {
+      "path": "/organizations/{idOrg}/memberships",
+      "method": "GET",
+      "operationId": "getOrganizationsMembershipsByIdOrg",
+      "summary": "",
+      "user": "User wants to see all memberships within a specific organization.",
+      "ideal": "Returns a list of memberships associated with the organization."
+    },
+    {
+      "path": "/checklists/{idChecklist}/cards/{filter}",
+      "method": "GET",
+      "operationId": "getChecklistsCardsByIdChecklistByFilter",
+      "summary": "",
+      "user": "User filters cards in a checklist to find specific tasks.",
+      "ideal": "Returns a filtered list of cards associated with the checklist."
+    },
+    {
+      "path": "/labels",
+      "method": "POST",
+      "operationId": "addLabels",
+      "summary": "",
+      "user": "User creates a new label to categorize cards.",
+      "ideal": "Successfully adds a new label and returns the label details."
+    },
+    {
+      "path": "/sessions",
+      "method": "POST",
+      "operationId": "addSessions",
+      "summary": "",
+      "user": "User logs in to start a new session.",
+      "ideal": "Returns session details including authentication token."
+    },
+    {
+      "path": "/webhooks",
+      "method": "POST",
+      "operationId": "addWebhooks",
+      "summary": "",
+      "user": "User sets up a webhook to receive notifications for board updates.",
+      "ideal": "Successfully creates a webhook and returns its details."
+    },
+    {
+      "path": "/notifications/{idNotification}/member",
+      "method": "GET",
+      "operationId": "getNotificationsMemberByIdNotification",
+      "summary": "",
+      "user": "User checks which member triggered a specific notification.",
+      "ideal": "Returns the member details associated with the notification."
+    }
+  ]
+}

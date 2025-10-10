@@ -1,0 +1,198 @@
+{
+  "gold": [
+    {
+      "operationId": "createUser",
+      "method": "POST",
+      "path": "/users",
+      "requestBody": {
+        "username": "john_doe",
+        "email": "john@example.com",
+        "password": "securepassword"
+      },
+      "response": {
+        "id": "1",
+        "username": "john_doe",
+        "email": "john@example.com"
+      },
+      "summary": ""
+    },
+    {
+      "operationId": "listUsers",
+      "method": "GET",
+      "path": "/users",
+      "response": [
+        {
+          "id": "1",
+          "username": "john_doe",
+          "email": "john@example.com"
+        },
+        {
+          "id": "2",
+          "username": "jane_doe",
+          "email": "jane@example.com"
+        }
+      ],
+      "summary": ""
+    },
+    {
+      "operationId": "deleteUser",
+      "method": "DELETE",
+      "path": "/users/{user_id}",
+      "pathParameters": {
+        "user_id": "1"
+      },
+      "response": {
+        "message": "User deleted successfully"
+      },
+      "summary": ""
+    },
+    {
+      "operationId": "createBook",
+      "method": "POST",
+      "path": "/books",
+      "requestBody": {
+        "title": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald",
+        "isbn": "9780743273565"
+      },
+      "response": {
+        "id": "1",
+        "title": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald",
+        "isbn": "9780743273565"
+      },
+      "summary": ""
+    },
+    {
+      "operationId": "listBooks",
+      "method": "GET",
+      "path": "/books",
+      "response": [
+        {
+          "id": "1",
+          "title": "The Great Gatsby",
+          "author": "F. Scott Fitzgerald",
+          "isbn": "9780743273565"
+        },
+        {
+          "id": "2",
+          "title": "1984",
+          "author": "George Orwell",
+          "isbn": "9780451524935"
+        }
+      ],
+      "summary": ""
+    },
+    {
+      "operationId": "getBook",
+      "method": "GET",
+      "path": "/books/{book_id}",
+      "pathParameters": {
+        "book_id": "1"
+      },
+      "response": {
+        "id": "1",
+        "title": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald",
+        "isbn": "9780743273565"
+      },
+      "summary": ""
+    },
+    {
+      "operationId": "deleteBook",
+      "method": "DELETE",
+      "path": "/books/{book_id}",
+      "pathParameters": {
+        "book_id": "1"
+      },
+      "response": {
+        "message": "Book deleted successfully"
+      },
+      "summary": ""
+    },
+    {
+      "operationId": "createLoan",
+      "method": "POST",
+      "path": "/loans",
+      "requestBody": {
+        "user_id": "1",
+        "book_id": "1",
+        "loan_date": "2023-10-01"
+      },
+      "response": {
+        "id": "1",
+        "user_id": "1",
+        "book_id": "1",
+        "loan_date": "2023-10-01"
+      },
+      "summary": ""
+    },
+    {
+      "operationId": "listLoans",
+      "method": "GET",
+      "path": "/loans",
+      "response": [
+        {
+          "id": "1",
+          "user_id": "1",
+          "book_id": "1",
+          "loan_date": "2023-10-01"
+        }
+      ],
+      "summary": ""
+    },
+    {
+      "operationId": "deleteLoan",
+      "method": "DELETE",
+      "path": "/loans/{user_id}/{book_id}",
+      "pathParameters": {
+        "user_id": "1",
+        "book_id": "1"
+      },
+      "response": {
+        "message": "Loan deleted successfully"
+      },
+      "summary": ""
+    },
+    {
+      "operationId": "createHold",
+      "method": "POST",
+      "path": "/holds",
+      "requestBody": {
+        "user_id": "1",
+        "book_id": "1"
+      },
+      "response": {
+        "id": "1",
+        "user_id": "1",
+        "book_id": "1"
+      },
+      "summary": ""
+    },
+    {
+      "operationId": "listHolds",
+      "method": "GET",
+      "path": "/holds",
+      "response": [
+        {
+          "id": "1",
+          "user_id": "1",
+          "book_id": "1"
+        }
+      ],
+      "summary": ""
+    },
+    {
+      "operationId": "deleteHold",
+      "method": "DELETE",
+      "path": "/holds/{hold_id}",
+      "pathParameters": {
+        "hold_id": "1"
+      },
+      "response": {
+        "message": "Hold deleted successfully"
+      },
+      "summary": ""
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/components",
+      "method": "GET",
+      "tags": [
+        "Component"
+      ],
+      "summary": "",
+      "operationId": "getComponents"
+    },
+    {
+      "path": "/{realm}/components",
+      "method": "POST",
+      "tags": [
+        "Component"
+      ],
+      "summary": "",
+      "operationId": "postComponents"
+    },
+    {
+      "path": "/{realm}/components/{id}",
+      "method": "GET",
+      "tags": [
+        "Component"
+      ],
+      "summary": "",
+      "operationId": "getComponent"
+    },
+    {
+      "path": "/{realm}/components/{id}",
+      "method": "PUT",
+      "tags": [
+        "Component"
+      ],
+      "summary": "",
+      "operationId": "putComponent"
+    },
+    {
+      "path": "/{realm}/components/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Component"
+      ],
+      "summary": "",
+      "operationId": "deleteComponent"
+    },
+    {
+      "path": "/{realm}/components/{id}/sub-component-types",
+      "method": "GET",
+      "tags": [
+        "Component"
+      ],
+      "summary": "",
+      "operationId": "getSubComponentTypes"
+    }
+  ]
+}

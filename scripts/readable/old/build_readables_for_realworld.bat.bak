@@ -1,0 +1,18 @@
+@echo off
+setlocal EnableExtensions
+for %%S in (airtable directus github jira_cloud notion shopify_admin stripe supabase trello twilio) do (
+  set "ROOT=artifacts\v25\realworld\%%S"
+  if exist "%ROOT%\%%S_llm_gold_merged_fixed.json" (
+    echo [RUN] %%S
+    python scripts\readable\emit_readables_from_gold.py ^
+      --gold "%ROOT%\%%S_llm_gold_merged_fixed.json" "%ROOT%\%%S_llm_gold_merged.json" ^
+      --out-dir "%ROOT%\readable" --force-crud || goto :err
+  ) else (
+    echo [SKIP] %%S (no GOLD merged json)
+  )
+)
+echo [DONE] realworld readables
+exit /b 0
+:err
+echo [ERR] Failure on %%S
+exit /b 1

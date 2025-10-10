@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/keys",
+      "method": "GET",
+      "operationId": "getKeys",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the public and private keys for the specified realm to manage authentication and encryption."
+    }
+  ]
+}

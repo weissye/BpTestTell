@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/repos/octocat/Hello-World/dependency-graph/compare/main...feature",
+      "method": "GET",
+      "operationId": "dependency-graph/diff-range",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve the differences in the dependency graph between the main branch and the feature branch."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/dependency-graph/sbom",
+      "method": "GET",
+      "operationId": "dependency-graph/export-sbom",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Export the Software Bill of Materials (SBOM) for the repository to understand its dependencies."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/dependency-graph/snapshots",
+      "method": "POST",
+      "operationId": "dependency-graph/create-repository-snapshot",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a snapshot of the current state of the dependency graph for the repository."
+    }
+  ]
+}

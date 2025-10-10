@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/drugs",
+      "method": "GET",
+      "operationId": "getDrugs",
+      "summary": "",
+      "user": "pharmacist",
+      "ideal": "Retrieve a list of all available drugs in the pharmacy inventory."
+    },
+    {
+      "path": "/orders",
+      "method": "GET",
+      "operationId": "getOrders",
+      "summary": "",
+      "user": "pharmacyManager",
+      "ideal": "Fetch the current list of all orders placed by customers."
+    }
+  ]
+}

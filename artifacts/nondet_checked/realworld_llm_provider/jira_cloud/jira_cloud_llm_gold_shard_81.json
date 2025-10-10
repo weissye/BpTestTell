@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/task/12345",
+      "method": "GET",
+      "operationId": "getTask",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve the details of a specific task by its ID so that I can review its status and assigned resources.",
+      "ideal": "The response should include the task's title, description, status, assignee, and any comments associated with it."
+    },
+    {
+      "path": "/rest/api/3/task/12345/cancel",
+      "method": "POST",
+      "operationId": "cancelTask",
+      "summary": "",
+      "user": "As a team member, I need to cancel a task that is no longer relevant to our project, so that it does not clutter our task list.",
+      "ideal": "The response should confirm that the task has been successfully canceled and provide any relevant information about the cancellation."
+    }
+  ]
+}

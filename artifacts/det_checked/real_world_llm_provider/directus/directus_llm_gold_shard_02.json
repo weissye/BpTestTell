@@ -1,0 +1,372 @@
+{
+  "gold": [
+    {
+      "path": "/activity/123",
+      "method": "GET",
+      "operationId": "getActivity",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the activity details for the given ID."
+    },
+    {
+      "path": "/auth/refresh",
+      "method": "POST",
+      "operationId": "refresh",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Refresh the authentication token for the user."
+    },
+    {
+      "path": "/auth/password/reset",
+      "method": "POST",
+      "operationId": "passwordReset",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Initiate a password reset process for the user."
+    },
+    {
+      "path": "/items/posts",
+      "method": "GET",
+      "operationId": "getItems",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Fetch all items from the 'posts' collection."
+    },
+    {
+      "path": "/items/posts",
+      "method": "DELETE",
+      "operationId": "deleteItems",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete all items from the 'posts' collection."
+    },
+    {
+      "path": "/items/posts/456",
+      "method": "DELETE",
+      "operationId": "deleteItem",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete the item with ID 456 from the 'posts' collection."
+    },
+    {
+      "path": "/presets",
+      "method": "PATCH",
+      "operationId": "updatePresets",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update multiple presets in the system."
+    },
+    {
+      "path": "/presets/789",
+      "method": "PATCH",
+      "operationId": "updatePreset",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the preset with ID 789."
+    },
+    {
+      "path": "/collections",
+      "method": "POST",
+      "operationId": "createCollection",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new collection in the system."
+    },
+    {
+      "path": "/collections/101",
+      "method": "DELETE",
+      "operationId": "deleteCollection",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete the collection with ID 101."
+    },
+    {
+      "path": "/comments",
+      "method": "PATCH",
+      "operationId": "updateComments",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update multiple comments in the system."
+    },
+    {
+      "path": "/comments/202",
+      "method": "PATCH",
+      "operationId": "updateComment",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the comment with ID 202."
+    },
+    {
+      "path": "/fields/posts",
+      "method": "GET",
+      "operationId": "getCollectionFields",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the fields for the 'posts' collection."
+    },
+    {
+      "path": "/fields/posts/303",
+      "method": "PATCH",
+      "operationId": "updateField",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the field with ID 303 in the 'posts' collection."
+    },
+    {
+      "path": "/files",
+      "method": "POST",
+      "operationId": "createFile",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Upload a new file to the system."
+    },
+    {
+      "path": "/files/404",
+      "method": "GET",
+      "operationId": "getFile",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the file with ID 404."
+    },
+    {
+      "path": "/flows",
+      "method": "GET",
+      "operationId": "getFlows",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Fetch all available flows in the system."
+    },
+    {
+      "path": "/flows",
+      "method": "DELETE",
+      "operationId": "deleteFlows",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete all flows in the system."
+    },
+    {
+      "path": "/flows/505",
+      "method": "DELETE",
+      "operationId": "deleteFlow",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete the flow with ID 505."
+    },
+    {
+      "path": "/folders",
+      "method": "PATCH",
+      "operationId": "updateFolders",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update multiple folders in the system."
+    },
+    {
+      "path": "/folders/606",
+      "method": "PATCH",
+      "operationId": "updateFolder",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the folder with ID 606."
+    },
+    {
+      "path": "/operations",
+      "method": "POST",
+      "operationId": "createOperation",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new operation in the system."
+    },
+    {
+      "path": "/operations/707",
+      "method": "GET",
+      "operationId": "getOperation",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the operation with ID 707."
+    },
+    {
+      "path": "/permissions",
+      "method": "GET",
+      "operationId": "getPermissions",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Fetch all permissions assigned to the user."
+    },
+    {
+      "path": "/permissions",
+      "method": "DELETE",
+      "operationId": "deletePermissions",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete all permissions assigned to the user."
+    },
+    {
+      "path": "/permissions/808",
+      "method": "PATCH",
+      "operationId": "updatePermission",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the permission with ID 808."
+    },
+    {
+      "path": "/relations",
+      "method": "POST",
+      "operationId": "createRelation",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new relation between collections."
+    },
+    {
+      "path": "/relations/909",
+      "method": "DELETE",
+      "operationId": "deleteRelation",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete the relation with ID 909."
+    },
+    {
+      "path": "/roles",
+      "method": "GET",
+      "operationId": "getRoles",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Fetch all roles assigned to the user."
+    },
+    {
+      "path": "/roles",
+      "method": "DELETE",
+      "operationId": "deleteRoles",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete all roles assigned to the user."
+    },
+    {
+      "path": "/roles/1010",
+      "method": "DELETE",
+      "operationId": "deleteRole",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete the role with ID 1010."
+    },
+    {
+      "path": "/schema/diff",
+      "method": "POST",
+      "operationId": "schemaDiff",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Generate a schema difference report."
+    },
+    {
+      "path": "/settings",
+      "method": "GET",
+      "operationId": "getSettings",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the current settings of the system."
+    },
+    {
+      "path": "/users",
+      "method": "POST",
+      "operationId": "createUser",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new user in the system."
+    },
+    {
+      "path": "/users/1111",
+      "method": "GET",
+      "operationId": "getUser",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the user details for ID 1111."
+    },
+    {
+      "path": "/users/invite",
+      "method": "POST",
+      "operationId": "invite",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Send an invitation to a new user."
+    },
+    {
+      "path": "/users/me",
+      "method": "PATCH",
+      "operationId": "updateMe",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the current user's profile information."
+    },
+    {
+      "path": "/users/me/tfa/disable",
+      "method": "POST",
+      "operationId": "meTfaDisable",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Disable two-factor authentication for the current user."
+    },
+    {
+      "path": "/utils/sort/posts",
+      "method": "POST",
+      "operationId": "sort",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Sort the items in the 'posts' collection."
+    },
+    {
+      "path": "/utils/cache/clear",
+      "method": "POST",
+      "operationId": "clear-cache",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Clear the cache for the system."
+    },
+    {
+      "path": "/versions",
+      "method": "POST",
+      "operationId": "createContentVersion",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new version of the content."
+    },
+    {
+      "path": "/versions/1212",
+      "method": "GET",
+      "operationId": "getContentVersion",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the content version with ID 1212."
+    },
+    {
+      "path": "/versions/1212/save",
+      "method": "POST",
+      "operationId": "saveContentVersion",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Save the content version with ID 1212."
+    },
+    {
+      "path": "/webhooks",
+      "method": "GET",
+      "operationId": "getWebhooks",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Fetch all webhooks configured in the system."
+    },
+    {
+      "path": "/webhooks",
+      "method": "DELETE",
+      "operationId": "deleteWebhooks",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete all webhooks configured in the system."
+    },
+    {
+      "path": "/webhooks/1313",
+      "method": "DELETE",
+      "operationId": "deleteWebhook",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete the webhook with ID 1313."
+    }
+  ]
+}

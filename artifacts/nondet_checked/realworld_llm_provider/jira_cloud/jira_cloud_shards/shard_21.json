@@ -1,0 +1,126 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/field/{fieldId}/context",
+      "method": "GET",
+      "tags": [
+        "Issue custom field contexts"
+      ],
+      "summary": "Get custom field contexts",
+      "operationId": "getContextsForField"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/context",
+      "method": "POST",
+      "tags": [
+        "Issue custom field contexts"
+      ],
+      "summary": "Create custom field context",
+      "operationId": "createCustomFieldContext"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/context/defaultValue",
+      "method": "GET",
+      "tags": [
+        "Issue custom field contexts"
+      ],
+      "summary": "Get custom field contexts default values",
+      "operationId": "getDefaultValues"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/context/defaultValue",
+      "method": "PUT",
+      "tags": [
+        "Issue custom field contexts"
+      ],
+      "summary": "Set custom field contexts default values",
+      "operationId": "setDefaultValues"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/context/issuetypemapping",
+      "method": "GET",
+      "tags": [
+        "Issue custom field contexts"
+      ],
+      "summary": "Get issue types for custom field context",
+      "operationId": "getIssueTypeMappingsForContexts"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/context/mapping",
+      "method": "POST",
+      "tags": [
+        "Issue custom field contexts"
+      ],
+      "summary": "Get custom field contexts for projects and issue types",
+      "operationId": "getCustomFieldContextsForProjectsAndIssueTypes"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/context/projectmapping",
+      "method": "GET",
+      "tags": [
+        "Issue custom field contexts"
+      ],
+      "summary": "Get project mappings for custom field context",
+      "operationId": "getProjectContextMapping"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/context/{contextId}",
+      "method": "DELETE",
+      "tags": [
+        "Issue custom field contexts"
+      ],
+      "summary": "Delete custom field context",
+      "operationId": "deleteCustomFieldContext"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/context/{contextId}",
+      "method": "PUT",
+      "tags": [
+        "Issue custom field contexts"
+      ],
+      "summary": "Update custom field context",
+      "operationId": "updateCustomFieldContext"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/context/{contextId}/issuetype",
+      "method": "PUT",
+      "tags": [
+        "Issue custom field contexts"
+      ],
+      "summary": "Add issue types to context",
+      "operationId": "addIssueTypesToContext"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/context/{contextId}/issuetype/remove",
+      "method": "POST",
+      "tags": [
+        "Issue custom field contexts"
+      ],
+      "summary": "Remove issue types from context",
+      "operationId": "removeIssueTypesFromContext"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/context/{contextId}/project",
+      "method": "PUT",
+      "tags": [
+        "Issue custom field contexts"
+      ],
+      "summary": "Assign custom field context to projects",
+      "operationId": "assignProjectsToCustomFieldContext"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/context/{contextId}/project/remove",
+      "method": "POST",
+      "tags": [
+        "Issue custom field contexts"
+      ],
+      "summary": "Remove custom field context from projects",
+      "operationId": "removeCustomFieldContextFromProjects"
+    }
+  ]
+}

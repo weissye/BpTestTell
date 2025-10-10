@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/fetch_api_key",
+      "method": "POST",
+      "operationId": "fetch-api-key",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Returns a new API key for the user based on their credentials."
+    },
+    {
+      "path": "/dev_fetch_api_key",
+      "method": "POST",
+      "operationId": "dev-fetch-api-key",
+      "summary": "",
+      "user": "dev_user@example.com",
+      "ideal": "Returns a development API key for testing purposes."
+    }
+  ]
+}

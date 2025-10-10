@@ -1,0 +1,81 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/issue/properties",
+      "method": "POST",
+      "tags": [
+        "Issue properties"
+      ],
+      "summary": "Bulk set issues properties by list",
+      "operationId": "bulkSetIssuesPropertiesList"
+    },
+    {
+      "path": "/rest/api/3/issue/properties/multi",
+      "method": "POST",
+      "tags": [
+        "Issue properties"
+      ],
+      "summary": "Bulk set issue properties by issue",
+      "operationId": "bulkSetIssuePropertiesByIssue"
+    },
+    {
+      "path": "/rest/api/3/issue/properties/{propertyKey}",
+      "method": "DELETE",
+      "tags": [
+        "Issue properties"
+      ],
+      "summary": "Bulk delete issue property",
+      "operationId": "bulkDeleteIssueProperty"
+    },
+    {
+      "path": "/rest/api/3/issue/properties/{propertyKey}",
+      "method": "PUT",
+      "tags": [
+        "Issue properties"
+      ],
+      "summary": "Bulk set issue property",
+      "operationId": "bulkSetIssueProperty"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties",
+      "method": "GET",
+      "tags": [
+        "Issue properties"
+      ],
+      "summary": "Get issue property keys",
+      "operationId": "getIssuePropertyKeys"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "method": "DELETE",
+      "tags": [
+        "Issue properties"
+      ],
+      "summary": "Delete issue property",
+      "operationId": "deleteIssueProperty"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "method": "GET",
+      "tags": [
+        "Issue properties"
+      ],
+      "summary": "Get issue property",
+      "operationId": "getIssueProperty"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "method": "PUT",
+      "tags": [
+        "Issue properties"
+      ],
+      "summary": "Set issue property",
+      "operationId": "setIssueProperty"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/credentials/revoke",
+      "method": "POST",
+      "operationId": "credentials/revoke",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Revokes the specified user's credentials, ensuring they can no longer access the API."
+    }
+  ]
+}

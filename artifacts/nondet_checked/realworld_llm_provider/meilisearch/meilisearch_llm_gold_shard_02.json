@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/dumps",
+      "method": "POST",
+      "operationId": "dumps.create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new dump of the Meilisearch database."
+    }
+  ]
+}

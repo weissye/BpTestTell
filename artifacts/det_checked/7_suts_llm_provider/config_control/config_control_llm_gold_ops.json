@@ -1,0 +1,114 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/envs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/configs",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/policies",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/apps",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/envs",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/releases",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/policies",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/apps",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/configs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/releases",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/envs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/configs",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/policies",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/apps",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/envs",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/releases",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/policies",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/apps",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/configs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/releases",
+      "body": null
+    }
+  ]
+}

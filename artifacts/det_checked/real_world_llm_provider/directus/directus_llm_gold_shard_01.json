@@ -1,0 +1,348 @@
+{
+  "gold": [
+    {
+      "path": "/activity",
+      "method": "GET",
+      "operationId": "getActivities",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all activities in the system."
+    },
+    {
+      "path": "/auth/login",
+      "method": "POST",
+      "operationId": "login",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Authenticate the user and return a token."
+    },
+    {
+      "path": "/auth/password/request",
+      "method": "POST",
+      "operationId": "passwordRequest",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Request a password reset link to be sent to the user's email."
+    },
+    {
+      "path": "/auth/oauth/google",
+      "method": "GET",
+      "operationId": "oauthProvider",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Authenticate the user via Google OAuth."
+    },
+    {
+      "path": "/items/posts",
+      "method": "PATCH",
+      "operationId": "updateItems",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update multiple posts in the 'posts' collection."
+    },
+    {
+      "path": "/items/posts/123",
+      "method": "PATCH",
+      "operationId": "updateItem",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update a specific post with ID 123."
+    },
+    {
+      "path": "/presets",
+      "method": "POST",
+      "operationId": "createPreset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new preset for the application."
+    },
+    {
+      "path": "/presets/456",
+      "method": "GET",
+      "operationId": "getPreset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the preset with ID 456."
+    },
+    {
+      "path": "/collections",
+      "method": "GET",
+      "operationId": "getCollections",
+      "summary": "",
+      "user": "admin",
+      "ideal": "List all collections available in the system."
+    },
+    {
+      "path": "/collections/789",
+      "method": "PATCH",
+      "operationId": "updateCollection",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the collection with ID 789."
+    },
+    {
+      "path": "/comments",
+      "method": "POST",
+      "operationId": "createComment",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Create a new comment on a post."
+    },
+    {
+      "path": "/comments/101",
+      "method": "GET",
+      "operationId": "getComment",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Retrieve the comment with ID 101."
+    },
+    {
+      "path": "/extensions",
+      "method": "GET",
+      "operationId": "listExtensions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "List all installed extensions."
+    },
+    {
+      "path": "/fields",
+      "method": "GET",
+      "operationId": "getFields",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve all fields in the system."
+    },
+    {
+      "path": "/fields/posts/1",
+      "method": "GET",
+      "operationId": "getCollectionField",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get details of the field with ID 1 in the 'posts' collection."
+    },
+    {
+      "path": "/files",
+      "method": "GET",
+      "operationId": "getFiles",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all files uploaded to the system."
+    },
+    {
+      "path": "/files/202",
+      "method": "DELETE",
+      "operationId": "deleteFile",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the file with ID 202."
+    },
+    {
+      "path": "/flows",
+      "method": "PATCH",
+      "operationId": "updateFlows",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the flow configurations."
+    },
+    {
+      "path": "/flows/303",
+      "method": "PATCH",
+      "operationId": "updateFlow",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the flow with ID 303."
+    },
+    {
+      "path": "/folders",
+      "method": "POST",
+      "operationId": "createFolder",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new folder for organizing files."
+    },
+    {
+      "path": "/folders/404",
+      "method": "GET",
+      "operationId": "getFolder",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the folder with ID 404."
+    },
+    {
+      "path": "/operations",
+      "method": "GET",
+      "operationId": "getOperations",
+      "summary": "",
+      "user": "admin",
+      "ideal": "List all operations available in the system."
+    },
+    {
+      "path": "/operations/505",
+      "method": "DELETE",
+      "operationId": "deleteOperation",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the operation with ID 505."
+    },
+    {
+      "path": "/permissions",
+      "method": "GET",
+      "operationId": "getPermissions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve all permissions set in the system."
+    },
+    {
+      "path": "/permissions/606",
+      "method": "GET",
+      "operationId": "getPermission",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the permission with ID 606."
+    },
+    {
+      "path": "/relations",
+      "method": "GET",
+      "operationId": "getRelations",
+      "summary": "",
+      "user": "admin",
+      "ideal": "List all relations between collections."
+    },
+    {
+      "path": "/relations/707",
+      "method": "PATCH",
+      "operationId": "updateRelation",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the relation with ID 707."
+    },
+    {
+      "path": "/revisions/808",
+      "method": "GET",
+      "operationId": "getRevision",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the revision with ID 808."
+    },
+    {
+      "path": "/roles",
+      "method": "PATCH",
+      "operationId": "updateRoles",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update role configurations in the system."
+    },
+    {
+      "path": "/roles/909",
+      "method": "PATCH",
+      "operationId": "updateRole",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the role with ID 909."
+    },
+    {
+      "path": "/schema/apply",
+      "method": "POST",
+      "operationId": "schemaApply",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Apply schema changes to the database."
+    },
+    {
+      "path": "/server/ping",
+      "method": "GET",
+      "operationId": "ping",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Check the server status."
+    },
+    {
+      "path": "/users",
+      "method": "GET",
+      "operationId": "getUsers",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all users in the system."
+    },
+    {
+      "path": "/users/1010",
+      "method": "DELETE",
+      "operationId": "deleteUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the user with ID 1010."
+    },
+    {
+      "path": "/users/me",
+      "method": "GET",
+      "operationId": "getMe",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Retrieve the current user's profile information."
+    },
+    {
+      "path": "/users/me/tfa/enable",
+      "method": "POST",
+      "operationId": "meTfaEnable",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Enable two-factor authentication for the current user."
+    },
+    {
+      "path": "/utils/hash/verify",
+      "method": "POST",
+      "operationId": "hash-verify",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Verify a hashed password."
+    },
+    {
+      "path": "/utils/export/posts",
+      "method": "POST",
+      "operationId": "export",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Export data from the 'posts' collection."
+    },
+    {
+      "path": "/versions",
+      "method": "GET",
+      "operationId": "getContentVersions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve all content versions in the system."
+    },
+    {
+      "path": "/versions/1111",
+      "method": "DELETE",
+      "operationId": "deleteContentVersion",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the content version with ID 1111."
+    },
+    {
+      "path": "/versions/1111/promote",
+      "method": "POST",
+      "operationId": "promoteContentVersion",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Promote the content version with ID 1111."
+    },
+    {
+      "path": "/webhooks",
+      "method": "PATCH",
+      "operationId": "updateWebhooks",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update webhook configurations."
+    },
+    {
+      "path": "/webhooks/1212",
+      "method": "PATCH",
+      "operationId": "updateWebhook",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the webhook with ID 1212."
+    }
+  ]
+}

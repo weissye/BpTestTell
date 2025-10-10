@@ -1,0 +1,10 @@
+{
+  "name": "banking",
+  "total_examples": 9,
+  "per_shard_counts": [
+    9,
+    0,
+    0
+  ],
+  "notes": "Lightweight sanity grade: counts only."
+}

@@ -1,0 +1,181 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import argparse, json, re, sys
+from pathlib import Path
+from typing import Any, Dict, List
+
+def _read_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8", errors="ignore"))
+
+def _extract_json_blocks(text: str) -> List[str]:
+    blocks: List[str] = []
+    # ```json ... ```
+    for m in re.finditer(r"```(?:json)?\s*([\s\S]*?)```", text, flags=re.I):
+        blocks.append(m.group(1).strip())
+    # Largest {...} or [...] chunks as fallback
+    candidates = []
+    for pattern in (r"(\{[\s\S]*\})", r"(\[[\s\S]*\])"):
+        for m in re.finditer(pattern, text):
+            candidates.append(m.group(1))
+    candidates.sort(key=len, reverse=True)
+    blocks.extend(candidates[:5])
+    return blocks
+
+def _jsonl_to_list(text: str) -> List[Dict[str, Any]]:
+    items: List[Dict[str, Any]] = []
+    for line in text.splitlines():
+        s = line.strip()
+        if not s:
+            continue
+        try:
+            obj = json.loads(s)
+            if isinstance(obj, dict):
+                items.append(obj)
+        except Exception:
+            pass
+    return items
+
+def _coerce_to_gold(obj: Any) -> Dict[str, Any]:
+    """
+    Normalize to: {"gold":[{path,method,user,ideal,...}, ...]}
+    Accepts:
+      - {"gold":[...]}
+      - {"examples":[...]}
+      - [...examples...]
+      - JSONL string
+      - single dict example
+      - arbitrary text containing JSON blocks
+    """
+    gold: List[Dict[str, Any]] = []
+
+    if isinstance(obj, dict):
+        if isinstance(obj.get("gold"), list):
+            gold = obj["gold"]
+        elif isinstance(obj.get("examples"), list):
+            gold = obj["examples"]
+        else:
+            # maybe a single example
+            gold = [obj]
+    elif isinstance(obj, list):
+        gold = obj
+    elif isinstance(obj, str):
+        items = _jsonl_to_list(obj)
+        if items:
+            gold = items
+        else:
+            for block in _extract_json_blocks(obj):
+                try:
+                    parsed = json.loads(block)
+                except Exception:
+                    continue
+                coerced = _coerce_to_gold(parsed)
+                if coerced.get("gold"):
+                    return coerced
+            gold = []
+    else:
+        gold = []
+
+    normalized: List[Dict[str, Any]] = []
+    for ex in gold:
+        if not isinstance(ex, dict):
+            continue
+        path = ex.get("path")
+        method = (ex.get("method") or ex.get("http_method") or "").upper()
+        user = ex.get("user") or ex.get("prompt") or ex.get("input")
+        ideal = ex.get("ideal") or ex.get("response") or ex.get("output")
+        if path and method and user and ideal:
+            normalized.append({
+                "path": path,
+                "method": method,
+                "operationId": ex.get("operationId", ""),
+                "summary": ex.get("summary", ""),
+                "user": user,
+                "ideal": ideal,
+            })
+    return {"gold": normalized}
+
+def call_llm(prompt: str, model: str, temperature: float, json_mode: bool) -> str:
+    # Minimal OpenAI SDK call; relies on OPENAI_API_KEY in env.
+    from openai import OpenAI
+    client = OpenAI()
+
+    sys_prompt = (
+        "You generate GOLD examples for an API. "
+        "Return ONLY JSON. Preferred shape:\n"
+        "{\"gold\":[{\"path\":\"/v1/...\",\"method\":\"GET\",\"operationId\":\"...\",\"user\":\"...\",\"ideal\":\"...\"}, ...]}"
+    )
+
+    kwargs = dict(
+        model=model,
+        temperature=temperature,
+        messages=[
+            {"role": "system", "content": sys_prompt},
+            {"role": "user", "content": prompt},
+        ],
+    )
+    if json_mode:
+        kwargs["response_format"] = {"type": "json_object"}
+
+    resp = client.chat.completions.create(**kwargs)
+    return resp.choices[0].message.content or ""
+
+def _summarize_ops(ops: List[Dict[str, Any]], limit_chars: int) -> str:
+    lines = [f"{o.get('method','').upper()} {o.get('path','')} :: {o.get('operationId','')}" for o in ops]
+    txt = "\n".join(lines)
+    return txt[:limit_chars]
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("shard_in")
+    ap.add_argument("gold_out")
+    ap.add_argument("--model", required=True, help="generation model (e.g. gpt-4o-mini)")
+    ap.add_argument("--temperature", type=float, default=0.2)
+    ap.add_argument("--max-spec-chars", type=int, default=18000)
+    ap.add_argument("--max-user-chars", type=int, default=4000)
+    ap.add_argument("--json-mode", action="store_true")
+    # retained for CLI compatibility (unused but harmless)
+    ap.add_argument("--provider", default="openai")
+    args = ap.parse_args()
+
+    shard_path = Path(args.shard_in)
+    out_path = Path(args.gold_out)
+    shard = _read_json(shard_path)
+
+    if "operations" in shard:
+        ops = shard["operations"] or []
+        ops_text = _summarize_ops(ops, args.max_spec_chars)
+        prompt = (
+            f"OpenAPI: {shard.get('openapi_meta',{})}\n"
+            f"Operations ({len(ops)}):\n{ops_text}\n\n"
+            f"Guidelines: Keep realistic. Each 'user' must be short (<= {args.max_user_chars} chars)."
+        )
+    else:
+        # fallback to spec excerpt if present
+        spec_txt = json.dumps(shard.get("spec", {}), ensure_ascii=False)[: args.max_spec_chars]
+        prompt = (
+            f"OpenAPI: {shard.get('openapi_meta',{})}\n"
+            f"Spec excerpt:\n{spec_txt}\n\n"
+            f"Guidelines: Keep realistic. Each 'user' must be short (<= {args.max_user_chars} chars)."
+        )
+
+    try:
+        raw = call_llm(prompt, args.model, args.temperature, args.json_mode)
+    except Exception as e:
+        # Make failures debuggable but still emit a valid file
+        sys.stderr.write(f"[ERR ] LLM call failed: {e}\n")
+        obj = {"gold": []}
+    else:
+        try:
+            parsed = json.loads(raw)
+        except Exception:
+            parsed = raw
+        obj = _coerce_to_gold(parsed)
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
+	path_str = str(out_path).replace('/', '\\')
+	print(f"[OK  ] wrote {path_str} with {len(obj.get('gold', []))} examples")
+
+if __name__ == "__main__":
+    main()

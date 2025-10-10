@@ -1,0 +1,81 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/issuetype",
+      "method": "GET",
+      "tags": [
+        "Issue types"
+      ],
+      "summary": "Get all issue types for user",
+      "operationId": "getIssueAllTypes"
+    },
+    {
+      "path": "/rest/api/3/issuetype",
+      "method": "POST",
+      "tags": [
+        "Issue types"
+      ],
+      "summary": "Create issue type",
+      "operationId": "createIssueType"
+    },
+    {
+      "path": "/rest/api/3/issuetype/project",
+      "method": "GET",
+      "tags": [
+        "Issue types"
+      ],
+      "summary": "Get issue types for project",
+      "operationId": "getIssueTypesForProject"
+    },
+    {
+      "path": "/rest/api/3/issuetype/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Issue types"
+      ],
+      "summary": "Delete issue type",
+      "operationId": "deleteIssueType"
+    },
+    {
+      "path": "/rest/api/3/issuetype/{id}",
+      "method": "GET",
+      "tags": [
+        "Issue types"
+      ],
+      "summary": "Get issue type",
+      "operationId": "getIssueType"
+    },
+    {
+      "path": "/rest/api/3/issuetype/{id}",
+      "method": "PUT",
+      "tags": [
+        "Issue types"
+      ],
+      "summary": "Update issue type",
+      "operationId": "updateIssueType"
+    },
+    {
+      "path": "/rest/api/3/issuetype/{id}/alternatives",
+      "method": "GET",
+      "tags": [
+        "Issue types"
+      ],
+      "summary": "Get alternative issue types",
+      "operationId": "getAlternativeIssueTypes"
+    },
+    {
+      "path": "/rest/api/3/issuetype/{id}/avatar2",
+      "method": "POST",
+      "tags": [
+        "Issue types"
+      ],
+      "summary": "Load issue type avatar",
+      "operationId": "createIssueTypeAvatar"
+    }
+  ]
+}

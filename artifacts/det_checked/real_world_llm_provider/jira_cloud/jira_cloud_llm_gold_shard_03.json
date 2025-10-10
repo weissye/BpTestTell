@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment",
+      "method": "GET",
+      "operationId": "getComments",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all comments for the specified issue."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/components",
+      "method": "GET",
+      "operationId": "getProjectComponents",
+      "summary": "",
+      "user": "projectManager456",
+      "ideal": "Fetch all components associated with the specified project."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/attachments",
+      "method": "POST",
+      "operationId": "addAttachment",
+      "summary": "",
+      "user": "dev789",
+      "ideal": "Add an attachment to the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "method": "POST",
+      "operationId": "doTransition",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Transition the specified issue to a new status."
+    },
+    {
+      "path": "/rest/api/3/dashboard",
+      "method": "GET",
+      "operationId": "getAllDashboards",
+      "summary": "",
+      "user": "adminUser",
+      "ideal": "Retrieve a list of all dashboards available to the user."
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/context",
+      "method": "GET",
+      "operationId": "getContextsForField",
+      "summary": "",
+      "user": "fieldAdmin",
+      "ideal": "Get context information for the specified custom field."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+      "method": "POST",
+      "operationId": "addWorklog",
+      "summary": "",
+      "user": "dev789",
+      "ideal": "Add a worklog entry for the specified issue."
+    },
+    {
+      "path": "/rest/api/3/user/search/query",
+      "method": "GET",
+      "operationId": "findUsersByQuery",
+      "summary": "",
+      "user": "teamLead",
+      "ideal": "Search for users based on a query string."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "method": "GET",
+      "operationId": "getIssueProperty",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a specific property for the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issueLinkType",
+      "method": "GET",
+      "operationId": "getIssueLinkTypes",
+      "summary": "",
+      "user": "adminUser",
+      "ideal": "Get all available issue link types."
+    }
+  ]
+}

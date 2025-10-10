@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/users",
+      "method": "POST",
+      "operationId": "createUser",
+      "summary": "",
+      "user": "{\"name\":\"Alice Smith\",\"email\":\"alice.smith@example.com\"}",
+      "ideal": "{\"id\":\"12345\",\"name\":\"Alice Smith\",\"email\":\"alice.smith@example.com\"}"
+    },
+    {
+      "path": "/books",
+      "method": "POST",
+      "operationId": "createBook",
+      "summary": "",
+      "user": "{\"title\":\"The Great Gatsby\",\"author\":\"F. Scott Fitzgerald\",\"isbn\":\"9780743273565\"}",
+      "ideal": "{\"id\":\"54321\",\"title\":\"The Great Gatsby\",\"author\":\"F. Scott Fitzgerald\",\"isbn\":\"9780743273565\"}"
+    },
+    {
+      "path": "/books/54321",
+      "method": "DELETE",
+      "operationId": "deleteBook",
+      "summary": "",
+      "user": "{\"book_id\":\"54321\"}",
+      "ideal": "{\"message\":\"Book deleted successfully\"}"
+    },
+    {
+      "path": "/loans/12345/54321",
+      "method": "DELETE",
+      "operationId": "deleteLoan",
+      "summary": "",
+      "user": "{\"user_id\":\"12345\",\"book_id\":\"54321\"}",
+      "ideal": "{\"message\":\"Loan deleted successfully\"}"
+    },
+    {
+      "path": "/holds/67890",
+      "method": "DELETE",
+      "operationId": "deleteHold",
+      "summary": "",
+      "user": "{\"hold_id\":\"67890\"}",
+      "ideal": "{\"message\":\"Hold deleted successfully\"}"
+    }
+  ]
+}

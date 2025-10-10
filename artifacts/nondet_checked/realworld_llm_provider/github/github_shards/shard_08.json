@@ -1,0 +1,198 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/orgs/{org}/code-scanning/alerts",
+      "method": "GET",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "List code scanning alerts for an organization",
+      "operationId": "code-scanning/list-alerts-for-org"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts",
+      "method": "GET",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "List code scanning alerts for a repository",
+      "operationId": "code-scanning/list-alerts-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}",
+      "method": "GET",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Get a code scanning alert",
+      "operationId": "code-scanning/get-alert"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}",
+      "method": "PATCH",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Update a code scanning alert",
+      "operationId": "code-scanning/update-alert"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/autofix",
+      "method": "GET",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Get the status of an autofix for a code scanning alert",
+      "operationId": "code-scanning/get-autofix"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/autofix",
+      "method": "POST",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Create an autofix for a code scanning alert",
+      "operationId": "code-scanning/create-autofix"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/autofix/commits",
+      "method": "POST",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Commit an autofix for a code scanning alert",
+      "operationId": "code-scanning/commit-autofix"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances",
+      "method": "GET",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "List instances of a code scanning alert",
+      "operationId": "code-scanning/list-alert-instances"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/analyses",
+      "method": "GET",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "List code scanning analyses for a repository",
+      "operationId": "code-scanning/list-recent-analyses"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}",
+      "method": "GET",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Get a code scanning analysis for a repository",
+      "operationId": "code-scanning/get-analysis"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}",
+      "method": "DELETE",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Delete a code scanning analysis from a repository",
+      "operationId": "code-scanning/delete-analysis"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/codeql/databases",
+      "method": "GET",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "List CodeQL databases for a repository",
+      "operationId": "code-scanning/list-codeql-databases"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/codeql/databases/{language}",
+      "method": "GET",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Get a CodeQL database for a repository",
+      "operationId": "code-scanning/get-codeql-database"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/codeql/databases/{language}",
+      "method": "DELETE",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Delete a CodeQL database",
+      "operationId": "code-scanning/delete-codeql-database"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses",
+      "method": "POST",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Create a CodeQL variant analysis",
+      "operationId": "code-scanning/create-variant-analysis"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses/{codeql_variant_analysis_id}",
+      "method": "GET",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Get the summary of a CodeQL variant analysis",
+      "operationId": "code-scanning/get-variant-analysis"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses/{codeql_variant_analysis_id}/repos/{repo_owner}/{repo_name}",
+      "method": "GET",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Get the analysis status of a repository in a CodeQL variant analysis",
+      "operationId": "code-scanning/get-variant-analysis-repo-task"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/default-setup",
+      "method": "GET",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Get a code scanning default setup configuration",
+      "operationId": "code-scanning/get-default-setup"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/default-setup",
+      "method": "PATCH",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Update a code scanning default setup configuration",
+      "operationId": "code-scanning/update-default-setup"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/sarifs",
+      "method": "POST",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Upload an analysis as SARIF data",
+      "operationId": "code-scanning/upload-sarif"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}",
+      "method": "GET",
+      "tags": [
+        "code-scanning"
+      ],
+      "summary": "Get information about a SARIF upload",
+      "operationId": "code-scanning/get-sarif"
+    }
+  ]
+}

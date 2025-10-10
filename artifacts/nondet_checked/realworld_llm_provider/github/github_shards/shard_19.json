@@ -1,0 +1,189 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/gists",
+      "method": "GET",
+      "tags": [
+        "gists"
+      ],
+      "summary": "List gists for the authenticated user",
+      "operationId": "gists/list"
+    },
+    {
+      "path": "/gists",
+      "method": "POST",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Create a gist",
+      "operationId": "gists/create"
+    },
+    {
+      "path": "/gists/public",
+      "method": "GET",
+      "tags": [
+        "gists"
+      ],
+      "summary": "List public gists",
+      "operationId": "gists/list-public"
+    },
+    {
+      "path": "/gists/starred",
+      "method": "GET",
+      "tags": [
+        "gists"
+      ],
+      "summary": "List starred gists",
+      "operationId": "gists/list-starred"
+    },
+    {
+      "path": "/gists/{gist_id}",
+      "method": "GET",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Get a gist",
+      "operationId": "gists/get"
+    },
+    {
+      "path": "/gists/{gist_id}",
+      "method": "PATCH",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Update a gist",
+      "operationId": "gists/update"
+    },
+    {
+      "path": "/gists/{gist_id}",
+      "method": "DELETE",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Delete a gist",
+      "operationId": "gists/delete"
+    },
+    {
+      "path": "/gists/{gist_id}/comments",
+      "method": "GET",
+      "tags": [
+        "gists"
+      ],
+      "summary": "List gist comments",
+      "operationId": "gists/list-comments"
+    },
+    {
+      "path": "/gists/{gist_id}/comments",
+      "method": "POST",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Create a gist comment",
+      "operationId": "gists/create-comment"
+    },
+    {
+      "path": "/gists/{gist_id}/comments/{comment_id}",
+      "method": "GET",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Get a gist comment",
+      "operationId": "gists/get-comment"
+    },
+    {
+      "path": "/gists/{gist_id}/comments/{comment_id}",
+      "method": "PATCH",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Update a gist comment",
+      "operationId": "gists/update-comment"
+    },
+    {
+      "path": "/gists/{gist_id}/comments/{comment_id}",
+      "method": "DELETE",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Delete a gist comment",
+      "operationId": "gists/delete-comment"
+    },
+    {
+      "path": "/gists/{gist_id}/commits",
+      "method": "GET",
+      "tags": [
+        "gists"
+      ],
+      "summary": "List gist commits",
+      "operationId": "gists/list-commits"
+    },
+    {
+      "path": "/gists/{gist_id}/forks",
+      "method": "GET",
+      "tags": [
+        "gists"
+      ],
+      "summary": "List gist forks",
+      "operationId": "gists/list-forks"
+    },
+    {
+      "path": "/gists/{gist_id}/forks",
+      "method": "POST",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Fork a gist",
+      "operationId": "gists/fork"
+    },
+    {
+      "path": "/gists/{gist_id}/star",
+      "method": "GET",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Check if a gist is starred",
+      "operationId": "gists/check-is-starred"
+    },
+    {
+      "path": "/gists/{gist_id}/star",
+      "method": "PUT",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Star a gist",
+      "operationId": "gists/star"
+    },
+    {
+      "path": "/gists/{gist_id}/star",
+      "method": "DELETE",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Unstar a gist",
+      "operationId": "gists/unstar"
+    },
+    {
+      "path": "/gists/{gist_id}/{sha}",
+      "method": "GET",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Get a gist revision",
+      "operationId": "gists/get-revision"
+    },
+    {
+      "path": "/users/{username}/gists",
+      "method": "GET",
+      "tags": [
+        "gists"
+      ],
+      "summary": "List gists for a user",
+      "operationId": "gists/list-for-user"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/TEST/role",
+      "method": "GET",
+      "operationId": "getProjectRoles",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all roles associated with the project 'TEST' so that I can manage permissions effectively.",
+      "ideal": "The API should return a list of roles for the specified project, including role IDs and names."
+    },
+    {
+      "path": "/rest/api/3/project/TEST/role/10000",
+      "method": "GET",
+      "operationId": "getProjectRole",
+      "summary": "",
+      "user": "As a developer, I need to get details of a specific role by its ID in the 'TEST' project to understand its permissions.",
+      "ideal": "The API should return the details of the role with ID 10000, including its name and description."
+    },
+    {
+      "path": "/rest/api/3/project/TEST/roledetails",
+      "method": "GET",
+      "operationId": "getProjectRoleDetails",
+      "summary": "",
+      "user": "As a team lead, I want to see detailed information about all roles in the 'TEST' project to ensure proper access control.",
+      "ideal": "The API should return detailed information about each role, including users assigned to each role."
+    },
+    {
+      "path": "/rest/api/3/role",
+      "method": "GET",
+      "operationId": "getAllProjectRoles",
+      "summary": "",
+      "user": "As an admin, I want to retrieve all project roles available in the system to manage role assignments across projects.",
+      "ideal": "The API should return a list of all project roles with their IDs and names."
+    },
+    {
+      "path": "/rest/api/3/role",
+      "method": "POST",
+      "operationId": "createProjectRole",
+      "summary": "",
+      "user": "As an admin, I want to create a new project role called 'Tester' to facilitate testing activities in projects.",
+      "ideal": "The API should create a new role and return the created role's details, including its ID."
+    },
+    {
+      "path": "/rest/api/3/role/10001",
+      "method": "DELETE",
+      "operationId": "deleteProjectRole",
+      "summary": "",
+      "user": "As an admin, I need to delete the role with ID 10001 as it is no longer needed in the project.",
+      "ideal": "The API should successfully delete the specified role and return a confirmation message."
+    },
+    {
+      "path": "/rest/api/3/role/10002",
+      "method": "GET",
+      "operationId": "getProjectRoleById",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve details of the role with ID 10002 to review its permissions.",
+      "ideal": "The API should return the details of the role with ID 10002, including its name and associated permissions."
+    },
+    {
+      "path": "/rest/api/3/role/10003",
+      "method": "POST",
+      "operationId": "partialUpdateProjectRole",
+      "summary": "",
+      "user": "As an admin, I want to update the name of the role with ID 10003 to 'Senior Developer' to reflect the new title.",
+      "ideal": "The API should update the role's name and return the updated role details."
+    },
+    {
+      "path": "/rest/api/3/role/10004",
+      "method": "PUT",
+      "operationId": "fullyUpdateProjectRole",
+      "summary": "",
+      "user": "As an admin, I need to fully update the role with ID 10004 to change its permissions and name to 'Project Owner'.",
+      "ideal": "The API should replace the existing role details with the new information and return the updated role."
+    }
+  ]
+}

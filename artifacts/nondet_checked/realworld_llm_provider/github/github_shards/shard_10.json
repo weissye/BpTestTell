@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/codes_of_conduct",
+      "method": "GET",
+      "tags": [
+        "codes-of-conduct"
+      ],
+      "summary": "Get all codes of conduct",
+      "operationId": "codes-of-conduct/get-all-codes-of-conduct"
+    },
+    {
+      "path": "/codes_of_conduct/{key}",
+      "method": "GET",
+      "tags": [
+        "codes-of-conduct"
+      ],
+      "summary": "Get a code of conduct",
+      "operationId": "codes-of-conduct/get-conduct-code"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/v1/gists",
+      "method": "GET",
+      "operationId": "gists/list",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all gists for the authenticated user."
+    },
+    {
+      "path": "/v1/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts",
+      "method": "GET",
+      "operationId": "actions/list-workflow-run-artifacts",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Fetch the artifacts for a specific workflow run in the repository."
+    },
+    {
+      "path": "/v1/orgs/{org}/teams",
+      "method": "GET",
+      "operationId": "teams/list",
+      "summary": "",
+      "user": "user789",
+      "ideal": "List all teams within the specified organization."
+    },
+    {
+      "path": "/v1/orgs/{org}/members/{username}/codespaces",
+      "method": "GET",
+      "operationId": "codespaces/get-codespaces-for-user-in-org",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Get a list of codespaces for a specific user in the organization."
+    },
+    {
+      "path": "/v1/repos/{owner}/{repo}/branches/{branch}/protection",
+      "method": "DELETE",
+      "operationId": "repos/delete-branch-protection",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Remove branch protection rules from the specified branch."
+    },
+    {
+      "path": "/v1/orgs/{org}/hooks",
+      "method": "POST",
+      "operationId": "orgs/create-webhook",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Create a new webhook for the specified organization."
+    },
+    {
+      "path": "/v1/repos/{owner}/{repo}/actions/secrets",
+      "method": "GET",
+      "operationId": "actions/list-repo-secrets",
+      "summary": "",
+      "user": "user404",
+      "ideal": "List all secrets for the specified repository."
+    },
+    {
+      "path": "/v1/orgs/{org}/packages/{package_type}/{package_name}/restore",
+      "method": "POST",
+      "operationId": "packages/restore-package-for-org",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Restore a deleted package for the specified organization."
+    },
+    {
+      "path": "/v1/orgs/{org}/members/{username}/copilot",
+      "method": "GET",
+      "operationId": "copilot/get-copilot-seat-details-for-user",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Retrieve Copilot seat details for a specific user in the organization."
+    },
+    {
+      "path": "/v1/repos/{owner}/{repo}/actions/permissions",
+      "method": "PUT",
+      "operationId": "actions/set-github-actions-permissions-repository",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Set GitHub Actions permissions for the specified repository."
+    }
+  ]
+}

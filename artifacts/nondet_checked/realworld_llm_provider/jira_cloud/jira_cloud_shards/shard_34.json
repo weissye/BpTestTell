@@ -1,0 +1,63 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink",
+      "method": "DELETE",
+      "tags": [
+        "Issue remote links"
+      ],
+      "summary": "Delete remote issue link by global ID",
+      "operationId": "deleteRemoteIssueLinkByGlobalId"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink",
+      "method": "GET",
+      "tags": [
+        "Issue remote links"
+      ],
+      "summary": "Get remote issue links",
+      "operationId": "getRemoteIssueLinks"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink",
+      "method": "POST",
+      "tags": [
+        "Issue remote links"
+      ],
+      "summary": "Create or update remote issue link",
+      "operationId": "createOrUpdateRemoteIssueLink"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink/{linkId}",
+      "method": "DELETE",
+      "tags": [
+        "Issue remote links"
+      ],
+      "summary": "Delete remote issue link by ID",
+      "operationId": "deleteRemoteIssueLinkById"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink/{linkId}",
+      "method": "GET",
+      "tags": [
+        "Issue remote links"
+      ],
+      "summary": "Get remote issue link by ID",
+      "operationId": "getRemoteIssueLinkById"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink/{linkId}",
+      "method": "PUT",
+      "tags": [
+        "Issue remote links"
+      ],
+      "summary": "Update remote issue link by ID",
+      "operationId": "updateRemoteIssueLink"
+    }
+  ]
+}

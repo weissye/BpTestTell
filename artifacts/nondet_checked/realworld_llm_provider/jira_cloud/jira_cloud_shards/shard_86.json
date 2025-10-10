@@ -1,0 +1,81 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/user/assignable/multiProjectSearch",
+      "method": "GET",
+      "tags": [
+        "User search"
+      ],
+      "summary": "Find users assignable to projects",
+      "operationId": "findBulkAssignableUsers"
+    },
+    {
+      "path": "/rest/api/3/user/assignable/search",
+      "method": "GET",
+      "tags": [
+        "User search"
+      ],
+      "summary": "Find users assignable to issues",
+      "operationId": "findAssignableUsers"
+    },
+    {
+      "path": "/rest/api/3/user/permission/search",
+      "method": "GET",
+      "tags": [
+        "User search"
+      ],
+      "summary": "Find users with permissions",
+      "operationId": "findUsersWithAllPermissions"
+    },
+    {
+      "path": "/rest/api/3/user/picker",
+      "method": "GET",
+      "tags": [
+        "User search"
+      ],
+      "summary": "Find users for picker",
+      "operationId": "findUsersForPicker"
+    },
+    {
+      "path": "/rest/api/3/user/search",
+      "method": "GET",
+      "tags": [
+        "User search"
+      ],
+      "summary": "Find users",
+      "operationId": "findUsers"
+    },
+    {
+      "path": "/rest/api/3/user/search/query",
+      "method": "GET",
+      "tags": [
+        "User search"
+      ],
+      "summary": "Find users by query",
+      "operationId": "findUsersByQuery"
+    },
+    {
+      "path": "/rest/api/3/user/search/query/key",
+      "method": "GET",
+      "tags": [
+        "User search"
+      ],
+      "summary": "Find user keys by query",
+      "operationId": "findUserKeysByQuery"
+    },
+    {
+      "path": "/rest/api/3/user/viewissue/search",
+      "method": "GET",
+      "tags": [
+        "User search"
+      ],
+      "summary": "Find users with browse permission",
+      "operationId": "findUsersWithBrowsePermission"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/projectCategory",
+      "method": "GET",
+      "operationId": "getAllProjectCategories",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all project categories to better organize my projects.",
+      "ideal": "The response should return a list of all project categories with their respective IDs and names."
+    },
+    {
+      "path": "/rest/api/3/projectCategory",
+      "method": "POST",
+      "operationId": "createProjectCategory",
+      "summary": "",
+      "user": "As an admin, I want to create a new project category to classify my projects effectively.",
+      "ideal": "The response should confirm the creation of the project category and return the new category's ID and name."
+    },
+    {
+      "path": "/rest/api/3/projectCategory/{id}",
+      "method": "DELETE",
+      "operationId": "removeProjectCategory",
+      "summary": "",
+      "user": "As an admin, I want to delete a project category that is no longer needed to keep the system organized.",
+      "ideal": "The response should confirm that the project category has been successfully deleted."
+    },
+    {
+      "path": "/rest/api/3/projectCategory/{id}",
+      "method": "GET",
+      "operationId": "getProjectCategoryById",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve details of a specific project category to understand its attributes.",
+      "ideal": "The response should return the details of the specified project category, including its ID and name."
+    },
+    {
+      "path": "/rest/api/3/projectCategory/{id}",
+      "method": "PUT",
+      "operationId": "updateProjectCategory",
+      "summary": "",
+      "user": "As an admin, I want to update the name of an existing project category to reflect recent changes.",
+      "ideal": "The response should confirm the update and return the updated project category details."
+    }
+  ]
+}

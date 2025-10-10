@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/labels",
+      "method": "POST",
+      "operationId": "addLabels",
+      "summary": "",
+      "user": "User wants to create a new label for their Trello board to categorize tasks.",
+      "ideal": "User successfully creates a label with the specified name and color."
+    },
+    {
+      "path": "/labels/{idLabel}",
+      "method": "DELETE",
+      "operationId": "deleteLabelsByIdLabel",
+      "summary": "",
+      "user": "User wants to remove a label that is no longer needed from their Trello board.",
+      "ideal": "User successfully deletes the specified label from the board."
+    },
+    {
+      "path": "/labels/{idLabel}",
+      "method": "GET",
+      "operationId": "getLabelsByIdLabel",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific label to check its properties.",
+      "ideal": "User receives the details of the specified label including its name and color."
+    },
+    {
+      "path": "/labels/{idLabel}",
+      "method": "PUT",
+      "operationId": "updateLabelsByIdLabel",
+      "summary": "",
+      "user": "User wants to update the properties of an existing label to better reflect its purpose.",
+      "ideal": "User successfully updates the label with new properties."
+    },
+    {
+      "path": "/labels/{idLabel}/board",
+      "method": "GET",
+      "operationId": "getLabelsBoardByIdLabel",
+      "summary": "",
+      "user": "User wants to find out which board a specific label is associated with.",
+      "ideal": "User receives the board information linked to the specified label."
+    },
+    {
+      "path": "/labels/{idLabel}/board/{field}",
+      "method": "GET",
+      "operationId": "getLabelsBoardByIdLabelByField",
+      "summary": "",
+      "user": "User wants to retrieve specific field information about the board associated with a label.",
+      "ideal": "User successfully gets the requested field information of the board for the specified label."
+    },
+    {
+      "path": "/labels/{idLabel}/color",
+      "method": "PUT",
+      "operationId": "updateLabelsColorByIdLabel",
+      "summary": "",
+      "user": "User wants to change the color of a label to make it more visually distinct.",
+      "ideal": "User successfully updates the color of the specified label."
+    },
+    {
+      "path": "/labels/{idLabel}/name",
+      "method": "PUT",
+      "operationId": "updateLabelsNameByIdLabel",
+      "summary": "",
+      "user": "User wants to rename a label to better describe its function.",
+      "ideal": "User successfully updates the name of the specified label."
+    }
+  ]
+}

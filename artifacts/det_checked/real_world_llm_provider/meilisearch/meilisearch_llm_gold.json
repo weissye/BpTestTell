@@ -1,0 +1,588 @@
+{
+  "gold": [
+    {
+      "path": "/dumps",
+      "method": "POST",
+      "operationId": "dumps.create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new dump of the current indexes."
+    },
+    {
+      "path": "/indexes",
+      "method": "GET",
+      "operationId": "indexes.list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all indexes."
+    },
+    {
+      "path": "/indexes/{indexUid}",
+      "method": "PATCH",
+      "operationId": "indexes.update",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update the settings of a specific index identified by indexUid."
+    },
+    {
+      "path": "/indexes/{indexUid}/documents",
+      "method": "POST",
+      "operationId": "indexes.documents.create",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Add new documents to the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/documents/fetch",
+      "method": "POST",
+      "operationId": "indexes.documents.fetch",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Fetch documents from an external source to add to the index."
+    },
+    {
+      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "method": "GET",
+      "operationId": "indexes.documents.get",
+      "summary": "",
+      "user": "viewer",
+      "ideal": "Retrieve a specific document by its ID from the index."
+    },
+    {
+      "path": "/indexes/{indexUid}/search",
+      "method": "POST",
+      "operationId": "indexes.documents.search",
+      "summary": "",
+      "user": "viewer",
+      "ideal": "Search for documents in the specified index based on query parameters."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings",
+      "method": "PATCH",
+      "operationId": "indexes.settings.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the settings of the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "method": "PUT",
+      "operationId": "indexes.settings.synonyms.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the synonyms settings for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "method": "PUT",
+      "operationId": "indexes.settings.sortable-attributes.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Set the sortable attributes for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "method": "PUT",
+      "operationId": "indexes.settings.stopWords.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the stop words for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "method": "PUT",
+      "operationId": "indexes.settings.rankingRules.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Define the ranking rules for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "method": "PATCH",
+      "operationId": "indexes.settings.typoTolerance.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Adjust the typo tolerance settings for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "method": "PATCH",
+      "operationId": "indexes.settings.pagination.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update pagination settings for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "method": "PATCH",
+      "operationId": "indexes.settings.faceting.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Modify faceting settings for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "method": "PUT",
+      "operationId": "indexes.settings.filterableAttributes.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Set the filterable attributes for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "method": "PUT",
+      "operationId": "indexes.settings.distinctAttribute.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Define the distinct attribute for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "method": "PUT",
+      "operationId": "indexes.settings.searchableAttributes.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Set the searchable attributes for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "method": "PUT",
+      "operationId": "indexes.settings.displayedAttributes.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the displayed attributes for the specified index."
+    },
+    {
+      "path": "/multi-search",
+      "method": "POST",
+      "operationId": "multi_search",
+      "summary": "",
+      "user": "viewer",
+      "ideal": "Perform a multi-search across multiple indexes."
+    },
+    {
+      "path": "/keys/{uid_or_key}",
+      "method": "GET",
+      "operationId": "keys.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the API key details using its UID or key."
+    },
+    {
+      "path": "/stats",
+      "method": "GET",
+      "operationId": "stats.list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get statistics about the indexes and documents."
+    },
+    {
+      "path": "/tasks",
+      "method": "DELETE",
+      "operationId": "tasks.delete",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete specific tasks from the task queue."
+    },
+    {
+      "path": "/swap-indexes",
+      "method": "POST",
+      "operationId": "indexes.swap",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Swap two indexes in the Meilisearch instance."
+    },
+    {
+      "path": "/metrics",
+      "method": "GET",
+      "operationId": "metrics.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve performance metrics for the Meilisearch instance."
+    },
+    {
+      "path": "/v1/snapshots",
+      "method": "POST",
+      "operationId": "snapshots.create",
+      "summary": "",
+      "user": "Admin user creating a snapshot of the current index state.",
+      "ideal": "Snapshot created successfully."
+    },
+    {
+      "path": "/v1/indexes",
+      "method": "POST",
+      "operationId": "indexes.create",
+      "summary": "",
+      "user": "User creating a new index for storing documents.",
+      "ideal": "Index created successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex",
+      "method": "DELETE",
+      "operationId": "indexes.remove",
+      "summary": "",
+      "user": "Admin user removing an obsolete index.",
+      "ideal": "Index removed successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/documents",
+      "method": "PUT",
+      "operationId": "indexes.documents.upsert",
+      "summary": "",
+      "user": "User updating documents in the index.",
+      "ideal": "Documents updated successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/documents/delete-batch",
+      "method": "POST",
+      "operationId": "indexes.documents.removeBatch",
+      "summary": "",
+      "user": "User deleting a batch of documents from the index.",
+      "ideal": "Batch of documents deleted successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/documents/123",
+      "method": "DELETE",
+      "operationId": "indexes.documents.removeOne",
+      "summary": "",
+      "user": "User removing a specific document by ID.",
+      "ideal": "Document removed successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/facet-search",
+      "method": "POST",
+      "operationId": "indexes.documents.facet.search",
+      "summary": "",
+      "user": "User performing a facet search on the index.",
+      "ideal": "Facet search results retrieved successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/settings",
+      "method": "DELETE",
+      "operationId": "indexes.settings.reset",
+      "summary": "",
+      "user": "Admin user resetting index settings to default.",
+      "ideal": "Index settings reset successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/settings/synonyms",
+      "method": "DELETE",
+      "operationId": "indexes.settings.synonyms.reset",
+      "summary": "",
+      "user": "User resetting synonyms for the index.",
+      "ideal": "Synonyms reset successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/settings/sortable-attributes",
+      "method": "DELETE",
+      "operationId": "indexes.settings.sortable-attributes.reset",
+      "summary": "",
+      "user": "Admin user resetting sortable attributes for the index.",
+      "ideal": "Sortable attributes reset successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/settings/stop-words",
+      "method": "DELETE",
+      "operationId": "indexes.settings.stopWords.reset",
+      "summary": "",
+      "user": "User resetting stop words for the index.",
+      "ideal": "Stop words reset successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/settings/ranking-rules",
+      "method": "DELETE",
+      "operationId": "indexes.settings.rankingRules.reset",
+      "summary": "",
+      "user": "Admin user resetting ranking rules for the index.",
+      "ideal": "Ranking rules reset successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/settings/typo-tolerance",
+      "method": "DELETE",
+      "operationId": "indexes.settings.typoTolerance.reset",
+      "summary": "",
+      "user": "User resetting typo tolerance settings for the index.",
+      "ideal": "Typo tolerance settings reset successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/settings/pagination",
+      "method": "DELETE",
+      "operationId": "indexes.settings.pagination.reset",
+      "summary": "",
+      "user": "Admin user resetting pagination settings for the index.",
+      "ideal": "Pagination settings reset successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/settings/faceting",
+      "method": "DELETE",
+      "operationId": "indexes.settings.faceting.reset",
+      "summary": "",
+      "user": "User resetting faceting settings for the index.",
+      "ideal": "Faceting settings reset successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/settings/filterable-attributes",
+      "method": "DELETE",
+      "operationId": "indexes.settings.filterableAttributes.reset",
+      "summary": "",
+      "user": "Admin user resetting filterable attributes for the index.",
+      "ideal": "Filterable attributes reset successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/settings/distinct-attribute",
+      "method": "DELETE",
+      "operationId": "indexes.settings.distinctAttribute.reset",
+      "summary": "",
+      "user": "User resetting distinct attribute settings for the index.",
+      "ideal": "Distinct attribute settings reset successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/settings/searchable-attributes",
+      "method": "DELETE",
+      "operationId": "indexes.settings.searchableAttributes.reset",
+      "summary": "",
+      "user": "Admin user resetting searchable attributes for the index.",
+      "ideal": "Searchable attributes reset successfully."
+    },
+    {
+      "path": "/v1/indexes/myIndex/settings/displayed-attributes",
+      "method": "DELETE",
+      "operationId": "indexes.settings.displayedAttributes.reset",
+      "summary": "",
+      "user": "User resetting displayed attributes for the index.",
+      "ideal": "Displayed attributes reset successfully."
+    },
+    {
+      "path": "/v1/keys",
+      "method": "GET",
+      "operationId": "keys.list",
+      "summary": "",
+      "user": "Admin user retrieving the list of API keys.",
+      "ideal": "List of API keys retrieved successfully."
+    },
+    {
+      "path": "/v1/keys/myKey",
+      "method": "DELETE",
+      "operationId": "keys.delete",
+      "summary": "",
+      "user": "Admin user deleting an API key.",
+      "ideal": "API key deleted successfully."
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "operationId": "version.get",
+      "summary": "",
+      "user": "User checking the current version of the API.",
+      "ideal": "Current API version retrieved successfully."
+    },
+    {
+      "path": "/v1/tasks/myTask",
+      "method": "GET",
+      "operationId": "tasks.get",
+      "summary": "",
+      "user": "User retrieving the status of a specific task.",
+      "ideal": "Task status retrieved successfully."
+    },
+    {
+      "path": "/v1/experimental-features",
+      "method": "GET",
+      "operationId": "experimental.get",
+      "summary": "",
+      "user": "User checking the status of experimental features.",
+      "ideal": "Experimental features status retrieved successfully."
+    },
+    {
+      "path": "/health",
+      "method": "GET",
+      "operationId": "health.check",
+      "summary": "",
+      "user": "Check the health status of the Meilisearch server to ensure it is running properly.",
+      "ideal": "The server should return a 200 OK status with a response indicating the server is healthy."
+    },
+    {
+      "path": "/indexes/my_index",
+      "method": "GET",
+      "operationId": "indexes.get",
+      "summary": "",
+      "user": "Retrieve the details of the index named 'my_index' to understand its configuration and status.",
+      "ideal": "The response should include the index UID, primary key, and other relevant settings."
+    },
+    {
+      "path": "/indexes/my_index/documents",
+      "method": "GET",
+      "operationId": "indexes.documents.list",
+      "summary": "",
+      "user": "List all documents in the index 'my_index' to see the current stored data.",
+      "ideal": "The response should return an array of documents with their respective IDs and attributes."
+    },
+    {
+      "path": "/indexes/my_index/documents",
+      "method": "DELETE",
+      "operationId": "indexes.documents.removeAll",
+      "summary": "",
+      "user": "Remove all documents from the index 'my_index' to clear the data for a fresh start.",
+      "ideal": "The response should confirm that all documents have been successfully removed."
+    },
+    {
+      "path": "/indexes/my_index/documents/delete",
+      "method": "POST",
+      "operationId": "indexes.documents.remove",
+      "summary": "",
+      "user": "Delete specific documents from 'my_index' using their IDs to manage the dataset.",
+      "ideal": "The response should indicate which documents were successfully deleted."
+    },
+    {
+      "path": "/indexes/my_index/search",
+      "method": "GET",
+      "operationId": "indexes.documents.searchGet",
+      "summary": "",
+      "user": "Search for documents in 'my_index' using a query string to find relevant results.",
+      "ideal": "The response should return a list of documents matching the search criteria."
+    },
+    {
+      "path": "/indexes/my_index/settings",
+      "method": "GET",
+      "operationId": "indexes.settings.get",
+      "summary": "",
+      "user": "Get the settings of the index 'my_index' to review its configuration.",
+      "ideal": "The response should include all settings related to the index, such as ranking rules and attributes."
+    },
+    {
+      "path": "/indexes/my_index/settings/synonyms",
+      "method": "GET",
+      "operationId": "indexes.settings.synonyms.get",
+      "summary": "",
+      "user": "Retrieve the synonyms configured for the index 'my_index' to understand how search terms are related.",
+      "ideal": "The response should list all synonyms currently set for the index."
+    },
+    {
+      "path": "/indexes/my_index/settings/sortable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.sortable-attributes.get",
+      "summary": "",
+      "user": "Check which attributes are sortable in the index 'my_index' to optimize search results.",
+      "ideal": "The response should return an array of attributes that can be sorted."
+    },
+    {
+      "path": "/indexes/my_index/settings/stop-words",
+      "method": "GET",
+      "operationId": "indexes.settings.stopWords.get",
+      "summary": "",
+      "user": "List the stop words configured for the index 'my_index' to understand which words are ignored in searches.",
+      "ideal": "The response should include all stop words that are currently set."
+    },
+    {
+      "path": "/indexes/my_index/settings/ranking-rules",
+      "method": "GET",
+      "operationId": "indexes.settings.rankingRules.get",
+      "summary": "",
+      "user": "Get the ranking rules for the index 'my_index' to see how search results are prioritized.",
+      "ideal": "The response should detail the ranking rules applied to the index."
+    },
+    {
+      "path": "/indexes/my_index/settings/typo-tolerance",
+      "method": "GET",
+      "operationId": "indexes.settings.typoTolerance.get",
+      "summary": "",
+      "user": "Check the typo tolerance settings for the index 'my_index' to understand how it handles misspellings.",
+      "ideal": "The response should indicate the current typo tolerance configuration."
+    },
+    {
+      "path": "/indexes/my_index/settings/pagination",
+      "method": "GET",
+      "operationId": "indexes.settings.pagination.get",
+      "summary": "",
+      "user": "Retrieve pagination settings for the index 'my_index' to manage how results are displayed.",
+      "ideal": "The response should include pagination settings such as limit and offset."
+    },
+    {
+      "path": "/indexes/my_index/settings/faceting",
+      "method": "GET",
+      "operationId": "indexes.settings.faceting.get",
+      "summary": "",
+      "user": "Get the faceting settings for the index 'my_index' to understand how results can be filtered.",
+      "ideal": "The response should list the attributes that can be used for faceting."
+    },
+    {
+      "path": "/indexes/my_index/settings/filterable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.filterableAttributes.get",
+      "summary": "",
+      "user": "Check which attributes are filterable in the index 'my_index' to refine search results.",
+      "ideal": "The response should return an array of attributes that can be used for filtering."
+    },
+    {
+      "path": "/indexes/my_index/settings/distinct-attribute",
+      "method": "GET",
+      "operationId": "indexes.settings.distinctAttribute.get",
+      "summary": "",
+      "user": "Retrieve the distinct attribute setting for the index 'my_index' to manage unique results.",
+      "ideal": "The response should indicate the attribute used for distinct results."
+    },
+    {
+      "path": "/indexes/my_index/settings/searchable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.searchableAttributes.get",
+      "summary": "",
+      "user": "List the searchable attributes for the index 'my_index' to understand which fields can be queried.",
+      "ideal": "The response should return an array of attributes that are searchable."
+    },
+    {
+      "path": "/indexes/my_index/settings/displayed-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.displayedAttributes.get",
+      "summary": "",
+      "user": "Get the displayed attributes for the index 'my_index' to know which fields are shown in search results.",
+      "ideal": "The response should include the attributes that are displayed in search results."
+    },
+    {
+      "path": "/indexes/my_index/stats",
+      "method": "GET",
+      "operationId": "indexes.stats.get",
+      "summary": "",
+      "user": "Retrieve statistics for the index 'my_index' to analyze its usage and performance.",
+      "ideal": "The response should provide metrics such as document count and last update time."
+    },
+    {
+      "path": "/keys",
+      "method": "POST",
+      "operationId": "keys.create",
+      "summary": "",
+      "user": "Create a new API key to manage access to the Meilisearch instance.",
+      "ideal": "The response should return the newly created API key with its permissions."
+    },
+    {
+      "path": "/keys/my_key",
+      "method": "PATCH",
+      "operationId": "keys.update",
+      "summary": "",
+      "user": "Update the permissions of an existing API key 'my_key' to adjust its access level.",
+      "ideal": "The response should confirm the successful update of the API key."
+    },
+    {
+      "path": "/tasks",
+      "method": "GET",
+      "operationId": "tasks.list",
+      "summary": "",
+      "user": "List all tasks to monitor the status of ongoing and completed operations.",
+      "ideal": "The response should return an array of tasks with their current status and details."
+    },
+    {
+      "path": "/tasks/cancel",
+      "method": "POST",
+      "operationId": "tasks.cancel",
+      "summary": "",
+      "user": "Cancel a specific task to stop an ongoing operation that is no longer needed.",
+      "ideal": "The response should confirm the cancellation of the specified task."
+    },
+    {
+      "path": "/experimental-features",
+      "method": "PATCH",
+      "operationId": "experimental.update",
+      "summary": "",
+      "user": "Update experimental features in the Meilisearch instance to enable or disable new functionalities.",
+      "ideal": "The response should confirm the successful update of the experimental features."
+    }
+  ]
+}

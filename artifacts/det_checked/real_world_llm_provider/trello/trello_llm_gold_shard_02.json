@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/boards/{idBoard}/members",
+      "method": "GET",
+      "operationId": "getBoardsMembersByIdBoard",
+      "summary": "",
+      "user": "User123 wants to retrieve all members associated with a specific board to manage collaboration.",
+      "ideal": "Returns a list of members with their details for the specified board."
+    },
+    {
+      "path": "/cards/{idCard}/checklists",
+      "method": "GET",
+      "operationId": "getCardsChecklistsByIdCard",
+      "summary": "",
+      "user": "User456 needs to check the status of all checklists on a specific card to track progress.",
+      "ideal": "Returns all checklists associated with the specified card."
+    },
+    {
+      "path": "/actions/{idAction}/memberCreator",
+      "method": "GET",
+      "operationId": "getActionsMemberCreatorByIdAction",
+      "summary": "",
+      "user": "User789 wants to find out who created a specific action to give credit.",
+      "ideal": "Returns the member details who created the specified action."
+    },
+    {
+      "path": "/lists/{idList}/cards/{filter}",
+      "method": "GET",
+      "operationId": "getListsCardsByIdListByFilter",
+      "summary": "",
+      "user": "User101 wants to filter cards in a list to focus on specific tasks.",
+      "ideal": "Returns a filtered list of cards based on the specified criteria."
+    },
+    {
+      "path": "/members/{idMember}/boards/{filter}",
+      "method": "GET",
+      "operationId": "getMembersBoardsByIdMemberByFilter",
+      "summary": "",
+      "user": "User202 wants to see all boards a member is part of, filtered by visibility.",
+      "ideal": "Returns a list of boards associated with the member based on the filter."
+    },
+    {
+      "path": "/organizations/{idOrg}/members",
+      "method": "GET",
+      "operationId": "getOrganizationsMembersByIdOrg",
+      "summary": "",
+      "user": "User303 needs to view all members of an organization for administrative purposes.",
+      "ideal": "Returns a list of members belonging to the specified organization."
+    },
+    {
+      "path": "/notifications/{idNotification}/display",
+      "method": "GET",
+      "operationId": "getNotificationsDisplayByIdNotification",
+      "summary": "",
+      "user": "User404 wants to see the display details of a specific notification for better understanding.",
+      "ideal": "Returns the display information for the specified notification."
+    },
+    {
+      "path": "/checklists/{idChecklist}/cards",
+      "method": "GET",
+      "operationId": "getChecklistsCardsByIdChecklist",
+      "summary": "",
+      "user": "User505 wants to see which cards are associated with a specific checklist.",
+      "ideal": "Returns a list of cards linked to the specified checklist."
+    },
+    {
+      "path": "/tokens/{token}/webhooks",
+      "method": "GET",
+      "operationId": "getTokensWebhooksByToken",
+      "summary": "",
+      "user": "User606 needs to retrieve all webhooks associated with a specific token for integration.",
+      "ideal": "Returns a list of webhooks linked to the specified token."
+    },
+    {
+      "path": "/boards/{idBoard}/membersInvited",
+      "method": "GET",
+      "operationId": "getBoardsMembersInvitedByIdBoard",
+      "summary": "",
+      "user": "User707 wants to check who has been invited to a board to follow up.",
+      "ideal": "Returns a list of members who have been invited to the specified board."
+    }
+  ]
+}

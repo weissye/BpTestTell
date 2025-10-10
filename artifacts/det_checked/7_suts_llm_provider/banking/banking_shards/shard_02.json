@@ -1,0 +1,30 @@
+{
+  "openapi_meta": {
+    "title": "banking SUT",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/customers",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /customers"
+    },
+    {
+      "path": "/accounts/{accountId}/transactions",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /accounts/{accountId}/transactions"
+    },
+    {
+      "path": "/loans",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /loans"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/enterprises/{enterprise}/secret-scanning/alerts",
+      "method": "GET",
+      "operationId": "secret-scanning/list-alerts-for-enterprise",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve a list of secret scanning alerts for the specified enterprise."
+    },
+    {
+      "path": "/orgs/{org}/secret-scanning/alerts",
+      "method": "GET",
+      "operationId": "secret-scanning/list-alerts-for-org",
+      "summary": "",
+      "user": "org_member",
+      "ideal": "Fetch all secret scanning alerts associated with the organization."
+    },
+    {
+      "path": "/orgs/{org}/secret-scanning/pattern-configurations",
+      "method": "GET",
+      "operationId": "secret-scanning/list-org-pattern-configs",
+      "summary": "",
+      "user": "org_admin",
+      "ideal": "List all pattern configurations for secret scanning in the organization."
+    },
+    {
+      "path": "/orgs/{org}/secret-scanning/pattern-configurations",
+      "method": "PATCH",
+      "operationId": "secret-scanning/update-org-pattern-configs",
+      "summary": "",
+      "user": "org_admin",
+      "ideal": "Update the secret scanning pattern configurations for the organization."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/alerts",
+      "method": "GET",
+      "operationId": "secret-scanning/list-alerts-for-repo",
+      "summary": "",
+      "user": "repo_contributor",
+      "ideal": "Get a list of secret scanning alerts for the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}",
+      "method": "GET",
+      "operationId": "secret-scanning/get-alert",
+      "summary": "",
+      "user": "repo_contributor",
+      "ideal": "Retrieve details of a specific secret scanning alert by its number."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}",
+      "method": "PATCH",
+      "operationId": "secret-scanning/update-alert",
+      "summary": "",
+      "user": "repo_admin",
+      "ideal": "Update the status or details of a specific secret scanning alert."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}/locations",
+      "method": "GET",
+      "operationId": "secret-scanning/list-locations-for-alert",
+      "summary": "",
+      "user": "repo_contributor",
+      "ideal": "List all locations associated with a specific secret scanning alert."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/push-protection-bypasses",
+      "method": "POST",
+      "operationId": "secret-scanning/create-push-protection-bypass",
+      "summary": "",
+      "user": "repo_admin",
+      "ideal": "Create a bypass for push protection related to secret scanning."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/scan-history",
+      "method": "GET",
+      "operationId": "secret-scanning/get-scan-history",
+      "summary": "",
+      "user": "repo_contributor",
+      "ideal": "Retrieve the history of secret scanning scans for the repository."
+    }
+  ]
+}

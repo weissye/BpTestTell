@@ -1,0 +1,297 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/users",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getUsersByRealm"
+    },
+    {
+      "path": "/{realm}/users",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "postUsers"
+    },
+    {
+      "path": "/{realm}/users/count",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getUsersCount"
+    },
+    {
+      "path": "/{realm}/users/profile",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getProfile"
+    },
+    {
+      "path": "/{realm}/users/profile",
+      "method": "PUT",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "putProfile"
+    },
+    {
+      "path": "/{realm}/users/{id}",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getUserByRealmById"
+    },
+    {
+      "path": "/{realm}/users/{id}",
+      "method": "PUT",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "putUser"
+    },
+    {
+      "path": "/{realm}/users/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "deleteUserByRealmById"
+    },
+    {
+      "path": "/{realm}/users/{id}/configured-user-storage-credential-types",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getConfiguredUserStorageCredentialTypes"
+    },
+    {
+      "path": "/{realm}/users/{id}/consents",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getConsents"
+    },
+    {
+      "path": "/{realm}/users/{id}/consents/{client}",
+      "method": "DELETE",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "deleteConsent"
+    },
+    {
+      "path": "/{realm}/users/{id}/credentials",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getCredentials"
+    },
+    {
+      "path": "/{realm}/users/{id}/credentials/{credentialId}",
+      "method": "DELETE",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "deleteCredential"
+    },
+    {
+      "path": "/{realm}/users/{id}/credentials/{credentialId}/moveAfter/{newPreviousCredentialId}",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "postMoveAfter"
+    },
+    {
+      "path": "/{realm}/users/{id}/credentials/{credentialId}/moveToFirst",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "postMoveToFirst"
+    },
+    {
+      "path": "/{realm}/users/{id}/credentials/{credentialId}/userLabel",
+      "method": "PUT",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "putUserLabel"
+    },
+    {
+      "path": "/{realm}/users/{id}/disable-credential-types",
+      "method": "PUT",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "putDisableCredentialTypes"
+    },
+    {
+      "path": "/{realm}/users/{id}/execute-actions-email",
+      "method": "PUT",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "putExecuteActionsEmail"
+    },
+    {
+      "path": "/{realm}/users/{id}/federated-identity",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getFederatedIdentity"
+    },
+    {
+      "path": "/{realm}/users/{id}/federated-identity/{provider}",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "postFederatedIdentity"
+    },
+    {
+      "path": "/{realm}/users/{id}/federated-identity/{provider}",
+      "method": "DELETE",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "deleteFederatedIdentity"
+    },
+    {
+      "path": "/{realm}/users/{id}/groups",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getUserGroups"
+    },
+    {
+      "path": "/{realm}/users/{id}/groups/count",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getUserGroupsCount"
+    },
+    {
+      "path": "/{realm}/users/{id}/groups/{groupId}",
+      "method": "PUT",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "putUserGroup"
+    },
+    {
+      "path": "/{realm}/users/{id}/groups/{groupId}",
+      "method": "DELETE",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "deleteUserGroup"
+    },
+    {
+      "path": "/{realm}/users/{id}/impersonation",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "postImpersonation"
+    },
+    {
+      "path": "/{realm}/users/{id}/logout",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "postLogout"
+    },
+    {
+      "path": "/{realm}/users/{id}/offline-sessions/{clientUuid}",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getOfflineSession"
+    },
+    {
+      "path": "/{realm}/users/{id}/reset-password",
+      "method": "PUT",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "putResetPassword"
+    },
+    {
+      "path": "/{realm}/users/{id}/reset-password-email",
+      "method": "PUT",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "putResetPasswordEmail"
+    },
+    {
+      "path": "/{realm}/users/{id}/send-verify-email",
+      "method": "PUT",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "putSendVerifyEmail"
+    },
+    {
+      "path": "/{realm}/users/{id}/sessions",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getSessions"
+    }
+  ]
+}

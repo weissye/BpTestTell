@@ -1,0 +1,244 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/announcementBanner",
+      "method": "GET",
+      "operationId": "getBanner",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Retrieve the current announcement banner for the Jira instance."
+    },
+    {
+      "path": "/rest/api/3/app/field/value",
+      "method": "POST",
+      "operationId": "updateMultipleCustomFieldValues",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Update multiple custom field values for a specific issue."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJ-123/comment",
+      "method": "POST",
+      "operationId": "addComment",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Add a comment to the issue with ID PROJ-123."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJ-123",
+      "method": "PUT",
+      "operationId": "editIssue",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Edit the details of the issue with ID PROJ-123."
+    },
+    {
+      "path": "/rest/api/3/dashboard",
+      "method": "POST",
+      "operationId": "createDashboard",
+      "summary": "",
+      "user": "User112",
+      "ideal": "Create a new dashboard in Jira."
+    },
+    {
+      "path": "/rest/api/3/project/PROJ-456/notificationscheme",
+      "method": "GET",
+      "operationId": "getNotificationSchemeForProject",
+      "summary": "",
+      "user": "User131",
+      "ideal": "Retrieve the notification scheme for the project with ID PROJ-456."
+    },
+    {
+      "path": "/rest/api/3/user/columns",
+      "method": "GET",
+      "operationId": "getUserDefaultColumns",
+      "summary": "",
+      "user": "User415",
+      "ideal": "Get the default columns for the user."
+    },
+    {
+      "path": "/rest/api/3/workflow/search",
+      "method": "GET",
+      "operationId": "getWorkflowsPaginated",
+      "summary": "",
+      "user": "User161",
+      "ideal": "Search for workflows in Jira."
+    },
+    {
+      "path": "/rest/api/3/version/1",
+      "method": "GET",
+      "operationId": "getVersion",
+      "summary": "",
+      "user": "User718",
+      "ideal": "Retrieve details of the version with ID 1."
+    },
+    {
+      "path": "/rest/api/3/issueLinkType",
+      "method": "POST",
+      "operationId": "createIssueLinkType",
+      "summary": "",
+      "user": "User192",
+      "ideal": "Create a new issue link type in Jira."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "method": "GET",
+      "operationId": "getTransitions",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all available transitions for the specified issue."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/versions",
+      "method": "GET",
+      "operationId": "getProjectVersions",
+      "summary": "",
+      "user": "projectManager456",
+      "ideal": "Fetch all versions associated with the specified project."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+      "method": "GET",
+      "operationId": "getIssueWorklog",
+      "summary": "",
+      "user": "developer789",
+      "ideal": "Get the worklog entries for the specified issue."
+    },
+    {
+      "path": "/rest/api/3/user/search",
+      "method": "GET",
+      "operationId": "findUsers",
+      "summary": "",
+      "user": "adminUser",
+      "ideal": "Search for users based on specified criteria."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/votes",
+      "method": "GET",
+      "operationId": "getVotes",
+      "summary": "",
+      "user": "teamLead",
+      "ideal": "Retrieve the voting information for the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comments",
+      "method": "GET",
+      "operationId": "getComments",
+      "summary": "",
+      "user": "collaborator",
+      "ideal": "Get all comments associated with the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
+      "method": "GET",
+      "operationId": "getIssueWatchers",
+      "summary": "",
+      "user": "stakeholder",
+      "ideal": "Retrieve the list of users watching the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/changelog/list",
+      "method": "POST",
+      "operationId": "getChangeLogsByIds",
+      "summary": "",
+      "user": "projectAnalyst",
+      "ideal": "Fetch the changelog entries for the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "method": "DELETE",
+      "operationId": "deleteIssueProperty",
+      "summary": "",
+      "user": "issueAdmin",
+      "ideal": "Remove a specific property from the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink",
+      "method": "DELETE",
+      "operationId": "deleteRemoteIssueLinkByGlobalId",
+      "summary": "",
+      "user": "integrationUser",
+      "ideal": "Delete a remote link associated with the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment",
+      "method": "GET",
+      "operationId": "getComments",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all comments for the specified issue."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/components",
+      "method": "GET",
+      "operationId": "getProjectComponents",
+      "summary": "",
+      "user": "projectManager456",
+      "ideal": "Fetch all components associated with the specified project."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/attachments",
+      "method": "POST",
+      "operationId": "addAttachment",
+      "summary": "",
+      "user": "dev789",
+      "ideal": "Add an attachment to the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "method": "POST",
+      "operationId": "doTransition",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Transition the specified issue to a new status."
+    },
+    {
+      "path": "/rest/api/3/dashboard",
+      "method": "GET",
+      "operationId": "getAllDashboards",
+      "summary": "",
+      "user": "adminUser",
+      "ideal": "Retrieve a list of all dashboards available to the user."
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/context",
+      "method": "GET",
+      "operationId": "getContextsForField",
+      "summary": "",
+      "user": "fieldAdmin",
+      "ideal": "Get context information for the specified custom field."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+      "method": "POST",
+      "operationId": "addWorklog",
+      "summary": "",
+      "user": "dev789",
+      "ideal": "Add a worklog entry for the specified issue."
+    },
+    {
+      "path": "/rest/api/3/user/search/query",
+      "method": "GET",
+      "operationId": "findUsersByQuery",
+      "summary": "",
+      "user": "teamLead",
+      "ideal": "Search for users based on a query string."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "method": "GET",
+      "operationId": "getIssueProperty",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a specific property for the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issueLinkType",
+      "method": "GET",
+      "operationId": "getIssueLinkTypes",
+      "summary": "",
+      "user": "adminUser",
+      "ideal": "Get all available issue link types."
+    }
+  ]
+}

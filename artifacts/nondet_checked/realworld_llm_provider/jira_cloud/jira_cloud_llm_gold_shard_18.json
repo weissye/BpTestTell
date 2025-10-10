@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/comment/list",
+      "method": "POST",
+      "operationId": "getCommentsByIds",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve comments by their IDs."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJECT-1/comment",
+      "method": "GET",
+      "operationId": "getComments",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Fetch all comments associated with the issue PROJECT-1."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJECT-1/comment",
+      "method": "POST",
+      "operationId": "addComment",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Add a new comment to the issue PROJECT-1."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
+      "method": "DELETE",
+      "operationId": "deleteComment",
+      "summary": "",
+      "user": "user321",
+      "ideal": "Delete the comment with ID 10001 from the issue PROJECT-1."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
+      "method": "GET",
+      "operationId": "getComment",
+      "summary": "",
+      "user": "user654",
+      "ideal": "Retrieve the details of comment ID 10001 from the issue PROJECT-1."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
+      "method": "PUT",
+      "operationId": "updateComment",
+      "summary": "",
+      "user": "user987",
+      "ideal": "Update the content of comment ID 10001 on the issue PROJECT-1."
+    }
+  ]
+}

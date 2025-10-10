@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/advisories/{ghsa_id}",
+      "method": "GET",
+      "operationId": "security-advisories/get-global-advisory",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve security advisory details for a specific GHSA ID."
+    },
+    {
+      "path": "/app/hook/config",
+      "method": "GET",
+      "operationId": "apps/get-webhook-config-for-app",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Fetch the current configuration of the webhook for the app."
+    },
+    {
+      "path": "/app/installations",
+      "method": "GET",
+      "operationId": "apps/list-installations",
+      "summary": "",
+      "user": "user789",
+      "ideal": "List all installations of the app across different accounts."
+    },
+    {
+      "path": "/orgs/{org}/actions/permissions",
+      "method": "GET",
+      "operationId": "actions/get-github-actions-permissions-organization",
+      "summary": "",
+      "user": "orgAdmin",
+      "ideal": "Get the GitHub Actions permissions for the organization."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}",
+      "method": "GET",
+      "operationId": "actions/get-workflow-run",
+      "summary": "",
+      "user": "devUser",
+      "ideal": "Retrieve details about a specific workflow run."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection",
+      "method": "PUT",
+      "operationId": "repos/update-branch-protection",
+      "summary": "",
+      "user": "repoAdmin",
+      "ideal": "Update the branch protection settings for a specified branch."
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/memberships/{username}",
+      "method": "GET",
+      "operationId": "teams/get-membership-for-user-in-org",
+      "summary": "",
+      "user": "teamLead",
+      "ideal": "Check the membership status of a user in a specific team."
+    },
+    {
+      "path": "/gists/public",
+      "method": "GET",
+      "operationId": "gists/list-public",
+      "summary": "",
+      "user": "publicUser",
+      "ideal": "List all public gists available on GitHub."
+    },
+    {
+      "path": "/orgs/{org}/projects",
+      "method": "POST",
+      "operationId": "projects-classic/create-for-org",
+      "summary": "",
+      "user": "projectManager",
+      "ideal": "Create a new project for the organization."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/check-runs",
+      "method": "POST",
+      "operationId": "checks/create",
+      "summary": "",
+      "user": "ciUser",
+      "ideal": "Create a new check run for the repository."
+    }
+  ]
+}

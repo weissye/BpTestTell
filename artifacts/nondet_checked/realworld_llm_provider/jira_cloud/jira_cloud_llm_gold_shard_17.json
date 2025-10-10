@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/comment/{commentId}/properties",
+      "method": "GET",
+      "operationId": "getCommentPropertyKeys",
+      "summary": "",
+      "user": "User wants to retrieve all property keys associated with a specific comment to understand its metadata and custom attributes.",
+      "ideal": "Returns a list of property keys for the specified comment."
+    },
+    {
+      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
+      "method": "GET",
+      "operationId": "getCommentProperty",
+      "summary": "",
+      "user": "User needs to fetch a specific property value for a comment to check its custom settings or configurations.",
+      "ideal": "Returns the value of the specified property key for the given comment."
+    },
+    {
+      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
+      "method": "DELETE",
+      "operationId": "deleteCommentProperty",
+      "summary": "",
+      "user": "User wants to remove a specific property from a comment to clean up unnecessary metadata.",
+      "ideal": "Successfully deletes the specified property from the comment."
+    },
+    {
+      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
+      "method": "PUT",
+      "operationId": "setCommentProperty",
+      "summary": "",
+      "user": "User intends to update or add a property to a comment to enhance its information or context.",
+      "ideal": "Successfully sets or updates the specified property for the comment."
+    }
+  ]
+}

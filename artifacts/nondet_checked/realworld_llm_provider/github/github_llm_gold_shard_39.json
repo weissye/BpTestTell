@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/search/code",
+      "method": "GET",
+      "operationId": "search/code",
+      "summary": "",
+      "user": "developer123",
+      "ideal": "Search for code snippets containing the term 'authentication' in public repositories."
+    },
+    {
+      "path": "/search/commits",
+      "method": "GET",
+      "operationId": "search/commits",
+      "summary": "",
+      "user": "dataAnalyst456",
+      "ideal": "Find commits related to 'data visualization' in the last month."
+    },
+    {
+      "path": "/search/issues",
+      "method": "GET",
+      "operationId": "search/issues-and-pull-requests",
+      "summary": "",
+      "user": "bugHunter789",
+      "ideal": "Retrieve open issues tagged with 'bug' in the repository 'example/repo'."
+    },
+    {
+      "path": "/search/labels",
+      "method": "GET",
+      "operationId": "search/labels",
+      "summary": "",
+      "user": "projectManager101",
+      "ideal": "List all labels in the repository 'example/repo'."
+    },
+    {
+      "path": "/search/repositories",
+      "method": "GET",
+      "operationId": "search/repos",
+      "summary": "",
+      "user": "repoExplorer202",
+      "ideal": "Search for repositories related to 'machine learning' that are public."
+    },
+    {
+      "path": "/search/topics",
+      "method": "GET",
+      "operationId": "search/topics",
+      "summary": "",
+      "user": "topicCurator303",
+      "ideal": "Get topics related to 'web development'."
+    },
+    {
+      "path": "/search/users",
+      "method": "GET",
+      "operationId": "search/users",
+      "summary": "",
+      "user": "networker404",
+      "ideal": "Find GitHub users with the username 'john_doe'."
+    }
+  ]
+}

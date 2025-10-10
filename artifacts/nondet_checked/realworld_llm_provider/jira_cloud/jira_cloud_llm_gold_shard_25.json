@@ -1,0 +1,124 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/fieldconfiguration",
+      "method": "GET",
+      "operationId": "getAllFieldConfigurations",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve all field configurations available in the Jira instance."
+    },
+    {
+      "path": "/rest/api/3/fieldconfiguration",
+      "method": "POST",
+      "operationId": "createFieldConfiguration",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new field configuration with specified settings."
+    },
+    {
+      "path": "/rest/api/3/fieldconfiguration/{id}",
+      "method": "DELETE",
+      "operationId": "deleteFieldConfiguration",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the field configuration identified by the specified ID."
+    },
+    {
+      "path": "/rest/api/3/fieldconfiguration/{id}",
+      "method": "PUT",
+      "operationId": "updateFieldConfiguration",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the field configuration with new settings for the specified ID."
+    },
+    {
+      "path": "/rest/api/3/fieldconfiguration/{id}/fields",
+      "method": "GET",
+      "operationId": "getFieldConfigurationItems",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve all fields associated with the specified field configuration."
+    },
+    {
+      "path": "/rest/api/3/fieldconfiguration/{id}/fields",
+      "method": "PUT",
+      "operationId": "updateFieldConfigurationItems",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the fields associated with the specified field configuration."
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme",
+      "method": "GET",
+      "operationId": "getAllFieldConfigurationSchemes",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve all field configuration schemes available in the Jira instance."
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme",
+      "method": "POST",
+      "operationId": "createFieldConfigurationScheme",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new field configuration scheme with specified settings."
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme/mapping",
+      "method": "GET",
+      "operationId": "getFieldConfigurationSchemeMappings",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve mappings of field configuration schemes to their respective field configurations."
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme/project",
+      "method": "GET",
+      "operationId": "getFieldConfigurationSchemeProjectMapping",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the project mapping for field configuration schemes."
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme/project",
+      "method": "PUT",
+      "operationId": "assignFieldConfigurationSchemeToProject",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Assign a field configuration scheme to a specific project."
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}",
+      "method": "DELETE",
+      "operationId": "deleteFieldConfigurationScheme",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the field configuration scheme identified by the specified ID."
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}",
+      "method": "PUT",
+      "operationId": "updateFieldConfigurationScheme",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the field configuration scheme with new settings for the specified ID."
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping",
+      "method": "PUT",
+      "operationId": "setFieldConfigurationSchemeMapping",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Set the mapping for the specified field configuration scheme."
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping/delete",
+      "method": "POST",
+      "operationId": "removeIssueTypesFromGlobalFieldConfigurationScheme",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove specified issue types from the global field configuration scheme."
+    }
+  ]
+}

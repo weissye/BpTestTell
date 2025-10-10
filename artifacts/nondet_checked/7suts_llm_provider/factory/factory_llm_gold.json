@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "resetFactory",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Resets the factory state to initial configuration."
+    },
+    {
+      "path": "/machines",
+      "method": "GET",
+      "operationId": "getMachines",
+      "summary": "",
+      "user": "operator",
+      "ideal": "Retrieves a list of all machines currently in the factory."
+    },
+    {
+      "path": "/machines",
+      "method": "POST",
+      "operationId": "addMachine",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Adds a new machine to the factory with specified parameters."
+    },
+    {
+      "path": "/workorders",
+      "method": "GET",
+      "operationId": "getWorkOrders",
+      "summary": "",
+      "user": "supervisor",
+      "ideal": "Fetches all active work orders in the system."
+    },
+    {
+      "path": "/workorders",
+      "method": "POST",
+      "operationId": "createWorkOrder",
+      "summary": "",
+      "user": "operator",
+      "ideal": "Creates a new work order for production with details."
+    },
+    {
+      "path": "/maintenance-tickets",
+      "method": "GET",
+      "operationId": "getMaintenanceTickets",
+      "summary": "",
+      "user": "maintenance",
+      "ideal": "Lists all maintenance tickets that are currently open."
+    },
+    {
+      "path": "/maintenance-tickets",
+      "method": "POST",
+      "operationId": "createMaintenanceTicket",
+      "summary": "",
+      "user": "operator",
+      "ideal": "Submits a new maintenance ticket for a machine issue."
+    },
+    {
+      "path": "/sensor-readings",
+      "method": "GET",
+      "operationId": "getSensorReadings",
+      "summary": "",
+      "user": "data-analyst",
+      "ideal": "Retrieves the latest sensor readings from all machines."
+    },
+    {
+      "path": "/sensor-readings",
+      "method": "POST",
+      "operationId": "submitSensorReading",
+      "summary": "",
+      "user": "machine",
+      "ideal": "Submits a new sensor reading from a specific machine."
+    }
+  ]
+}

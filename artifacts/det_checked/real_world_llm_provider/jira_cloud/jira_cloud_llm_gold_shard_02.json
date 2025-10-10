@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "method": "GET",
+      "operationId": "getTransitions",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all available transitions for the specified issue."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/versions",
+      "method": "GET",
+      "operationId": "getProjectVersions",
+      "summary": "",
+      "user": "projectManager456",
+      "ideal": "Fetch all versions associated with the specified project."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+      "method": "GET",
+      "operationId": "getIssueWorklog",
+      "summary": "",
+      "user": "developer789",
+      "ideal": "Get the worklog entries for the specified issue."
+    },
+    {
+      "path": "/rest/api/3/user/search",
+      "method": "GET",
+      "operationId": "findUsers",
+      "summary": "",
+      "user": "adminUser",
+      "ideal": "Search for users based on specified criteria."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/votes",
+      "method": "GET",
+      "operationId": "getVotes",
+      "summary": "",
+      "user": "teamLead",
+      "ideal": "Retrieve the voting information for the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comments",
+      "method": "GET",
+      "operationId": "getComments",
+      "summary": "",
+      "user": "collaborator",
+      "ideal": "Get all comments associated with the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
+      "method": "GET",
+      "operationId": "getIssueWatchers",
+      "summary": "",
+      "user": "stakeholder",
+      "ideal": "Retrieve the list of users watching the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/changelog/list",
+      "method": "POST",
+      "operationId": "getChangeLogsByIds",
+      "summary": "",
+      "user": "projectAnalyst",
+      "ideal": "Fetch the changelog entries for the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "method": "DELETE",
+      "operationId": "deleteIssueProperty",
+      "summary": "",
+      "user": "issueAdmin",
+      "ideal": "Remove a specific property from the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink",
+      "method": "DELETE",
+      "operationId": "deleteRemoteIssueLinkByGlobalId",
+      "summary": "",
+      "user": "integrationUser",
+      "ideal": "Delete a remote link associated with the specified issue."
+    }
+  ]
+}

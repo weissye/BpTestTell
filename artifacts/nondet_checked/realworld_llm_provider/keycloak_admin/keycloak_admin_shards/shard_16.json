@@ -1,0 +1,261 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/clients/{id}/roles",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getClientRoles"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles",
+      "method": "POST",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "postClientRoles"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getClientRole"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}",
+      "method": "PUT",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "putClientRole"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}",
+      "method": "DELETE",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "deleteClientRole"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}/composites",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getClientRoleComposites"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}/composites",
+      "method": "POST",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "postClientRoleComposites"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}/composites",
+      "method": "DELETE",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "deleteClientRoleComposites"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}/composites/clients/{clientUuid}",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getClientRoleCompositesClient"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}/composites/realm",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getClientRoleCompositesRealm"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}/groups",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getClientRoleGroups"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}/management/permissions",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getClientRoleManagementPermissions"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}/management/permissions",
+      "method": "PUT",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "putClientRoleManagementPermissions"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}/users",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getClientRoleUsers"
+    },
+    {
+      "path": "/{realm}/roles",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getRolesByRealm"
+    },
+    {
+      "path": "/{realm}/roles",
+      "method": "POST",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "postRolesByRealm"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getRoleByRealmByRoleName"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}",
+      "method": "PUT",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "putRoleByRealmByRoleName"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}",
+      "method": "DELETE",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "deleteRoleByRealmByRoleName"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}/composites",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getRoleCompositesByRealmByRoleName"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}/composites",
+      "method": "POST",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "postRoleCompositesByRealmByRoleName"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}/composites",
+      "method": "DELETE",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "deleteRoleCompositesByRealmByRoleName"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}/composites/clients/{clientUuid}",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getRoleCompositesClientByRealmByRoleNameByClientUuid"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}/composites/realm",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getRoleCompositesRealmByRealmByRoleName"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}/groups",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getRoleGroupsByRealmByRoleName"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}/management/permissions",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getRoleManagementPermissionsByRealmByRoleName"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}/management/permissions",
+      "method": "PUT",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "putRoleManagementPermissionsByRealmByRoleName"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}/users",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getRoleUsersByRealmByRoleName"
+    }
+  ]
+}

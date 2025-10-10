@@ -1,0 +1,304 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/rest/api/3/announcementBanner",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/app/field/value",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/PROJ-123/comment",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/PROJ-123",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/dashboard",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/PROJ-456/notificationscheme",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/columns",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/version/1",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issueLinkType",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/versions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/votes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/changelog/list",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/components",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/attachments",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/dashboard",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/{fieldId}/context",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/search/query",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issueLinkType",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/announcementBanner",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/app/field/value",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/PROJ-123/comment",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/PROJ-123",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/dashboard",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/PROJ-456/notificationscheme",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/columns",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/version/1",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issueLinkType",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/versions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/votes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/changelog/list",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/components",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/attachments",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/dashboard",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/{fieldId}/context",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/search/query",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issueLinkType",
+      "body": null
+    }
+  ]
+}

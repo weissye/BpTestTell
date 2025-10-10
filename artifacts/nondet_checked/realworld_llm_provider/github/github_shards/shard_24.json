@@ -1,0 +1,450 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/issues",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List issues assigned to the authenticated user",
+      "operationId": "issues/list"
+    },
+    {
+      "path": "/orgs/{org}/issues",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List organization issues assigned to the authenticated user",
+      "operationId": "issues/list-for-org"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/assignees",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List assignees",
+      "operationId": "issues/list-assignees"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/assignees/{assignee}",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Check if a user can be assigned",
+      "operationId": "issues/check-user-can-be-assigned"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List repository issues",
+      "operationId": "issues/list-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues",
+      "method": "POST",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Create an issue",
+      "operationId": "issues/create"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/comments",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List issue comments for a repository",
+      "operationId": "issues/list-comments-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/comments/{comment_id}",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Get an issue comment",
+      "operationId": "issues/get-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/comments/{comment_id}",
+      "method": "PATCH",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Update an issue comment",
+      "operationId": "issues/update-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/comments/{comment_id}",
+      "method": "DELETE",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Delete an issue comment",
+      "operationId": "issues/delete-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/events",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List issue events for a repository",
+      "operationId": "issues/list-events-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/events/{event_id}",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Get an issue event",
+      "operationId": "issues/get-event"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Get an issue",
+      "operationId": "issues/get"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}",
+      "method": "PATCH",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Update an issue",
+      "operationId": "issues/update"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/assignees",
+      "method": "POST",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Add assignees to an issue",
+      "operationId": "issues/add-assignees"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/assignees",
+      "method": "DELETE",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Remove assignees from an issue",
+      "operationId": "issues/remove-assignees"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/assignees/{assignee}",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Check if a user can be assigned to a issue",
+      "operationId": "issues/check-user-can-be-assigned-to-issue"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/comments",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List issue comments",
+      "operationId": "issues/list-comments"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/comments",
+      "method": "POST",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Create an issue comment",
+      "operationId": "issues/create-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/dependencies/blocked_by",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List dependencies an issue is blocked by",
+      "operationId": "issues/list-dependencies-blocked-by"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/dependencies/blocked_by",
+      "method": "POST",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Add a dependency an issue is blocked by",
+      "operationId": "issues/add-blocked-by-dependency"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/dependencies/blocked_by/{issue_id}",
+      "method": "DELETE",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Remove dependency an issue is blocked by",
+      "operationId": "issues/remove-dependency-blocked-by"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/dependencies/blocking",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List dependencies an issue is blocking",
+      "operationId": "issues/list-dependencies-blocking"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/events",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List issue events",
+      "operationId": "issues/list-events"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/labels",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List labels for an issue",
+      "operationId": "issues/list-labels-on-issue"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/labels",
+      "method": "POST",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Add labels to an issue",
+      "operationId": "issues/add-labels"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/labels",
+      "method": "PUT",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Set labels for an issue",
+      "operationId": "issues/set-labels"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/labels",
+      "method": "DELETE",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Remove all labels from an issue",
+      "operationId": "issues/remove-all-labels"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}",
+      "method": "DELETE",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Remove a label from an issue",
+      "operationId": "issues/remove-label"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/lock",
+      "method": "PUT",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Lock an issue",
+      "operationId": "issues/lock"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/lock",
+      "method": "DELETE",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Unlock an issue",
+      "operationId": "issues/unlock"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/parent",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Get parent issue",
+      "operationId": "issues/get-parent"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/sub_issue",
+      "method": "DELETE",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Remove sub-issue",
+      "operationId": "issues/remove-sub-issue"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/sub_issues",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List sub-issues",
+      "operationId": "issues/list-sub-issues"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/sub_issues",
+      "method": "POST",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Add sub-issue",
+      "operationId": "issues/add-sub-issue"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/sub_issues/priority",
+      "method": "PATCH",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Reprioritize sub-issue",
+      "operationId": "issues/reprioritize-sub-issue"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/timeline",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List timeline events for an issue",
+      "operationId": "issues/list-events-for-timeline"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/labels",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List labels for a repository",
+      "operationId": "issues/list-labels-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/labels",
+      "method": "POST",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Create a label",
+      "operationId": "issues/create-label"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/labels/{name}",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Get a label",
+      "operationId": "issues/get-label"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/labels/{name}",
+      "method": "PATCH",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Update a label",
+      "operationId": "issues/update-label"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/labels/{name}",
+      "method": "DELETE",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Delete a label",
+      "operationId": "issues/delete-label"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/milestones",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List milestones",
+      "operationId": "issues/list-milestones"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/milestones",
+      "method": "POST",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Create a milestone",
+      "operationId": "issues/create-milestone"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/milestones/{milestone_number}",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Get a milestone",
+      "operationId": "issues/get-milestone"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/milestones/{milestone_number}",
+      "method": "PATCH",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Update a milestone",
+      "operationId": "issues/update-milestone"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/milestones/{milestone_number}",
+      "method": "DELETE",
+      "tags": [
+        "issues"
+      ],
+      "summary": "Delete a milestone",
+      "operationId": "issues/delete-milestone"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/milestones/{milestone_number}/labels",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List labels for issues in a milestone",
+      "operationId": "issues/list-labels-for-milestone"
+    },
+    {
+      "path": "/user/issues",
+      "method": "GET",
+      "tags": [
+        "issues"
+      ],
+      "summary": "List user account issues assigned to the authenticated user",
+      "operationId": "issues/list-for-authenticated-user"
+    }
+  ]
+}

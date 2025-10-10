@@ -1,0 +1,63 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/clients/{id}/certificates/{attr}",
+      "method": "GET",
+      "tags": [
+        "Client Attribute Certificate"
+      ],
+      "summary": "",
+      "operationId": "getCertificate"
+    },
+    {
+      "path": "/{realm}/clients/{id}/certificates/{attr}/download",
+      "method": "POST",
+      "tags": [
+        "Client Attribute Certificate"
+      ],
+      "summary": "",
+      "operationId": "postDownload"
+    },
+    {
+      "path": "/{realm}/clients/{id}/certificates/{attr}/generate",
+      "method": "POST",
+      "tags": [
+        "Client Attribute Certificate"
+      ],
+      "summary": "",
+      "operationId": "postGenerate"
+    },
+    {
+      "path": "/{realm}/clients/{id}/certificates/{attr}/generate-and-download",
+      "method": "POST",
+      "tags": [
+        "Client Attribute Certificate"
+      ],
+      "summary": "",
+      "operationId": "postGenerateAndDownload"
+    },
+    {
+      "path": "/{realm}/clients/{id}/certificates/{attr}/upload",
+      "method": "POST",
+      "tags": [
+        "Client Attribute Certificate"
+      ],
+      "summary": "",
+      "operationId": "postUpload"
+    },
+    {
+      "path": "/{realm}/clients/{id}/certificates/{attr}/upload-certificate",
+      "method": "POST",
+      "tags": [
+        "Client Attribute Certificate"
+      ],
+      "summary": "",
+      "operationId": "postUploadCertificate"
+    }
+  ]
+}

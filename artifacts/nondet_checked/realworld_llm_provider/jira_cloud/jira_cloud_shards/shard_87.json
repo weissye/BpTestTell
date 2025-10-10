@@ -1,0 +1,126 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/user",
+      "method": "DELETE",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Delete user",
+      "operationId": "removeUser"
+    },
+    {
+      "path": "/rest/api/3/user",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Get user",
+      "operationId": "getUser"
+    },
+    {
+      "path": "/rest/api/3/user",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Create user",
+      "operationId": "createUser"
+    },
+    {
+      "path": "/rest/api/3/user/bulk",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Bulk get users",
+      "operationId": "bulkGetUsers"
+    },
+    {
+      "path": "/rest/api/3/user/bulk/migration",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Get account IDs for users",
+      "operationId": "bulkGetUsersMigration"
+    },
+    {
+      "path": "/rest/api/3/user/columns",
+      "method": "DELETE",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Reset user default columns",
+      "operationId": "resetUserColumns"
+    },
+    {
+      "path": "/rest/api/3/user/columns",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Get user default columns",
+      "operationId": "getUserDefaultColumns"
+    },
+    {
+      "path": "/rest/api/3/user/columns",
+      "method": "PUT",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Set user default columns",
+      "operationId": "setUserColumns"
+    },
+    {
+      "path": "/rest/api/3/user/email",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Get user email",
+      "operationId": "getUserEmail"
+    },
+    {
+      "path": "/rest/api/3/user/email/bulk",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Get user email bulk",
+      "operationId": "getUserEmailBulk"
+    },
+    {
+      "path": "/rest/api/3/user/groups",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Get user groups",
+      "operationId": "getUserGroups"
+    },
+    {
+      "path": "/rest/api/3/users",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Get all users default",
+      "operationId": "getAllUsersDefault"
+    },
+    {
+      "path": "/rest/api/3/users/search",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Get all users",
+      "operationId": "getAllUsers"
+    }
+  ]
+}

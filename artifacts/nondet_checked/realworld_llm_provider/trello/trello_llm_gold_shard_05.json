@@ -1,0 +1,132 @@
+{
+  "gold": [
+    {
+      "path": "/checklists",
+      "method": "POST",
+      "operationId": "addChecklists",
+      "summary": "",
+      "user": "User wants to create a new checklist for a specific board in Trello.",
+      "ideal": "The checklist is successfully created and returns the checklist ID."
+    },
+    {
+      "path": "/checklists/{idChecklist}",
+      "method": "DELETE",
+      "operationId": "deleteChecklistsByIdChecklist",
+      "summary": "",
+      "user": "User wants to delete a checklist that is no longer needed.",
+      "ideal": "The checklist is deleted successfully, and a confirmation message is returned."
+    },
+    {
+      "path": "/checklists/{idChecklist}",
+      "method": "GET",
+      "operationId": "getChecklistsByIdChecklist",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific checklist to review its contents.",
+      "ideal": "The checklist details are returned, including its name and items."
+    },
+    {
+      "path": "/checklists/{idChecklist}",
+      "method": "PUT",
+      "operationId": "updateChecklistsByIdChecklist",
+      "summary": "",
+      "user": "User wants to update the checklist name to reflect its current purpose.",
+      "ideal": "The checklist is updated successfully, and the new name is returned."
+    },
+    {
+      "path": "/checklists/{idChecklist}/board",
+      "method": "GET",
+      "operationId": "getChecklistsBoardByIdChecklist",
+      "summary": "",
+      "user": "User wants to find out which board a specific checklist belongs to.",
+      "ideal": "The board details associated with the checklist are returned."
+    },
+    {
+      "path": "/checklists/{idChecklist}/board/{field}",
+      "method": "GET",
+      "operationId": "getChecklistsBoardByIdChecklistByField",
+      "summary": "",
+      "user": "User wants to retrieve a specific field of the board associated with a checklist.",
+      "ideal": "The requested field data of the board is returned."
+    },
+    {
+      "path": "/checklists/{idChecklist}/cards",
+      "method": "GET",
+      "operationId": "getChecklistsCardsByIdChecklist",
+      "summary": "",
+      "user": "User wants to see all cards associated with a specific checklist.",
+      "ideal": "A list of cards linked to the checklist is returned."
+    },
+    {
+      "path": "/checklists/{idChecklist}/cards/{filter}",
+      "method": "GET",
+      "operationId": "getChecklistsCardsByIdChecklistByFilter",
+      "summary": "",
+      "user": "User wants to filter cards in a checklist based on a specific criterion.",
+      "ideal": "Filtered cards based on the specified criterion are returned."
+    },
+    {
+      "path": "/checklists/{idChecklist}/checkItems",
+      "method": "GET",
+      "operationId": "getChecklistsCheckItemsByIdChecklist",
+      "summary": "",
+      "user": "User wants to view all check items within a checklist.",
+      "ideal": "A list of check items in the checklist is returned."
+    },
+    {
+      "path": "/checklists/{idChecklist}/checkItems",
+      "method": "POST",
+      "operationId": "addChecklistsCheckItemsByIdChecklist",
+      "summary": "",
+      "user": "User wants to add a new check item to a checklist.",
+      "ideal": "The new check item is added successfully, and its details are returned."
+    },
+    {
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+      "method": "DELETE",
+      "operationId": "deleteChecklistsCheckItemsByIdChecklistByIdCheckItem",
+      "summary": "",
+      "user": "User wants to remove a specific check item from a checklist.",
+      "ideal": "The check item is deleted successfully, and a confirmation message is returned."
+    },
+    {
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+      "method": "GET",
+      "operationId": "getChecklistsCheckItemsByIdChecklistByIdCheckItem",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific check item.",
+      "ideal": "The details of the requested check item are returned."
+    },
+    {
+      "path": "/checklists/{idChecklist}/idCard",
+      "method": "PUT",
+      "operationId": "updateChecklistsIdCardByIdChecklist",
+      "summary": "",
+      "user": "User wants to associate a checklist with a specific card.",
+      "ideal": "The checklist is successfully linked to the card, and confirmation is returned."
+    },
+    {
+      "path": "/checklists/{idChecklist}/name",
+      "method": "PUT",
+      "operationId": "updateChecklistsNameByIdChecklist",
+      "summary": "",
+      "user": "User wants to change the name of a checklist to better describe its purpose.",
+      "ideal": "The checklist name is updated successfully, and the new name is returned."
+    },
+    {
+      "path": "/checklists/{idChecklist}/pos",
+      "method": "PUT",
+      "operationId": "updateChecklistsPosByIdChecklist",
+      "summary": "",
+      "user": "User wants to change the position of a checklist within a board.",
+      "ideal": "The position of the checklist is updated successfully."
+    },
+    {
+      "path": "/checklists/{idChecklist}/{field}",
+      "method": "GET",
+      "operationId": "getChecklistsByIdChecklistByField",
+      "summary": "",
+      "user": "User wants to retrieve a specific field of a checklist.",
+      "ideal": "The requested field data of the checklist is returned."
+    }
+  ]
+}

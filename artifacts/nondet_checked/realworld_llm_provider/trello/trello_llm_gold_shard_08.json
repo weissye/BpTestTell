@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/members/12345",
+      "method": "GET",
+      "operationId": "getMembersByIdMember",
+      "summary": "",
+      "user": "User requests details for member with ID 12345.",
+      "ideal": "Returns member details including name, email, and avatar."
+    },
+    {
+      "path": "/members/12345",
+      "method": "PUT",
+      "operationId": "updateMembersByIdMember",
+      "summary": "",
+      "user": "User updates member 12345's information with new email and full name.",
+      "ideal": "Successfully updates member details and returns updated information."
+    },
+    {
+      "path": "/members/12345/actions",
+      "method": "GET",
+      "operationId": "getMembersActionsByIdMember",
+      "summary": "",
+      "user": "User wants to see all actions performed by member 12345.",
+      "ideal": "Returns a list of actions including comments, card movements, and board changes."
+    },
+    {
+      "path": "/members/12345/avatar",
+      "method": "POST",
+      "operationId": "addMembersAvatarByIdMember",
+      "summary": "",
+      "user": "User uploads a new avatar for member 12345.",
+      "ideal": "Successfully uploads the avatar and returns the new avatar URL."
+    },
+    {
+      "path": "/members/12345/bio",
+      "method": "PUT",
+      "operationId": "updateMembersBioByIdMember",
+      "summary": "",
+      "user": "User updates the bio for member 12345 to include new interests.",
+      "ideal": "Successfully updates the bio and returns the updated bio text."
+    },
+    {
+      "path": "/members/12345/boards",
+      "method": "GET",
+      "operationId": "getMembersBoardsByIdMember",
+      "summary": "",
+      "user": "User retrieves all boards associated with member 12345.",
+      "ideal": "Returns a list of boards with their names and IDs."
+    },
+    {
+      "path": "/members/12345/notifications",
+      "method": "GET",
+      "operationId": "getMembersNotificationsByIdMember",
+      "summary": "",
+      "user": "User checks notifications for member 12345.",
+      "ideal": "Returns a list of notifications including unread messages and alerts."
+    },
+    {
+      "path": "/members/12345/savedSearches",
+      "method": "POST",
+      "operationId": "addMembersSavedSearchesByIdMember",
+      "summary": "",
+      "user": "User saves a new search query for member 12345.",
+      "ideal": "Successfully saves the search and returns the saved search details."
+    },
+    {
+      "path": "/members/12345/customEmoji",
+      "method": "GET",
+      "operationId": "getMembersCustomEmojiByIdMember",
+      "summary": "",
+      "user": "User wants to view custom emojis created by member 12345.",
+      "ideal": "Returns a list of custom emojis with their IDs and images."
+    },
+    {
+      "path": "/members/12345/organizations",
+      "method": "GET",
+      "operationId": "getMembersOrganizationsByIdMember",
+      "summary": "",
+      "user": "User retrieves organizations associated with member 12345.",
+      "ideal": "Returns a list of organizations with their names and IDs."
+    }
+  ]
+}

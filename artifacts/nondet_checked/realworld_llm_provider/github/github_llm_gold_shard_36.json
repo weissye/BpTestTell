@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/rate_limit",
+      "method": "GET",
+      "operationId": "rate-limit/get",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Returns the current rate limit status for the authenticated user, including the number of requests remaining and the time until the limit resets."
+    }
+  ]
+}

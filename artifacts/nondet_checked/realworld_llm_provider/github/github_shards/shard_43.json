@@ -1,0 +1,432 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/user",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get the authenticated user",
+      "operationId": "users/get-authenticated"
+    },
+    {
+      "path": "/user",
+      "method": "PATCH",
+      "tags": [
+        "users"
+      ],
+      "summary": "Update the authenticated user",
+      "operationId": "users/update-authenticated"
+    },
+    {
+      "path": "/user/blocks",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List users blocked by the authenticated user",
+      "operationId": "users/list-blocked-by-authenticated-user"
+    },
+    {
+      "path": "/user/blocks/{username}",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Check if a user is blocked by the authenticated user",
+      "operationId": "users/check-blocked"
+    },
+    {
+      "path": "/user/blocks/{username}",
+      "method": "PUT",
+      "tags": [
+        "users"
+      ],
+      "summary": "Block a user",
+      "operationId": "users/block"
+    },
+    {
+      "path": "/user/blocks/{username}",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Unblock a user",
+      "operationId": "users/unblock"
+    },
+    {
+      "path": "/user/email/visibility",
+      "method": "PATCH",
+      "tags": [
+        "users"
+      ],
+      "summary": "Set primary email visibility for the authenticated user",
+      "operationId": "users/set-primary-email-visibility-for-authenticated-user"
+    },
+    {
+      "path": "/user/emails",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List email addresses for the authenticated user",
+      "operationId": "users/list-emails-for-authenticated-user"
+    },
+    {
+      "path": "/user/emails",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Add an email address for the authenticated user",
+      "operationId": "users/add-email-for-authenticated-user"
+    },
+    {
+      "path": "/user/emails",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Delete an email address for the authenticated user",
+      "operationId": "users/delete-email-for-authenticated-user"
+    },
+    {
+      "path": "/user/followers",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List followers of the authenticated user",
+      "operationId": "users/list-followers-for-authenticated-user"
+    },
+    {
+      "path": "/user/following",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List the people the authenticated user follows",
+      "operationId": "users/list-followed-by-authenticated-user"
+    },
+    {
+      "path": "/user/following/{username}",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Check if a person is followed by the authenticated user",
+      "operationId": "users/check-person-is-followed-by-authenticated"
+    },
+    {
+      "path": "/user/following/{username}",
+      "method": "PUT",
+      "tags": [
+        "users"
+      ],
+      "summary": "Follow a user",
+      "operationId": "users/follow"
+    },
+    {
+      "path": "/user/following/{username}",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Unfollow a user",
+      "operationId": "users/unfollow"
+    },
+    {
+      "path": "/user/gpg_keys",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List GPG keys for the authenticated user",
+      "operationId": "users/list-gpg-keys-for-authenticated-user"
+    },
+    {
+      "path": "/user/gpg_keys",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Create a GPG key for the authenticated user",
+      "operationId": "users/create-gpg-key-for-authenticated-user"
+    },
+    {
+      "path": "/user/gpg_keys/{gpg_key_id}",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get a GPG key for the authenticated user",
+      "operationId": "users/get-gpg-key-for-authenticated-user"
+    },
+    {
+      "path": "/user/gpg_keys/{gpg_key_id}",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Delete a GPG key for the authenticated user",
+      "operationId": "users/delete-gpg-key-for-authenticated-user"
+    },
+    {
+      "path": "/user/keys",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List public SSH keys for the authenticated user",
+      "operationId": "users/list-public-ssh-keys-for-authenticated-user"
+    },
+    {
+      "path": "/user/keys",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Create a public SSH key for the authenticated user",
+      "operationId": "users/create-public-ssh-key-for-authenticated-user"
+    },
+    {
+      "path": "/user/keys/{key_id}",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get a public SSH key for the authenticated user",
+      "operationId": "users/get-public-ssh-key-for-authenticated-user"
+    },
+    {
+      "path": "/user/keys/{key_id}",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Delete a public SSH key for the authenticated user",
+      "operationId": "users/delete-public-ssh-key-for-authenticated-user"
+    },
+    {
+      "path": "/user/public_emails",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List public email addresses for the authenticated user",
+      "operationId": "users/list-public-emails-for-authenticated-user"
+    },
+    {
+      "path": "/user/social_accounts",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List social accounts for the authenticated user",
+      "operationId": "users/list-social-accounts-for-authenticated-user"
+    },
+    {
+      "path": "/user/social_accounts",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Add social accounts for the authenticated user",
+      "operationId": "users/add-social-account-for-authenticated-user"
+    },
+    {
+      "path": "/user/social_accounts",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Delete social accounts for the authenticated user",
+      "operationId": "users/delete-social-account-for-authenticated-user"
+    },
+    {
+      "path": "/user/ssh_signing_keys",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List SSH signing keys for the authenticated user",
+      "operationId": "users/list-ssh-signing-keys-for-authenticated-user"
+    },
+    {
+      "path": "/user/ssh_signing_keys",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Create a SSH signing key for the authenticated user",
+      "operationId": "users/create-ssh-signing-key-for-authenticated-user"
+    },
+    {
+      "path": "/user/ssh_signing_keys/{ssh_signing_key_id}",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get an SSH signing key for the authenticated user",
+      "operationId": "users/get-ssh-signing-key-for-authenticated-user"
+    },
+    {
+      "path": "/user/ssh_signing_keys/{ssh_signing_key_id}",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Delete an SSH signing key for the authenticated user",
+      "operationId": "users/delete-ssh-signing-key-for-authenticated-user"
+    },
+    {
+      "path": "/user/{account_id}",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get a user using their ID",
+      "operationId": "users/get-by-id"
+    },
+    {
+      "path": "/users",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List users",
+      "operationId": "users/list"
+    },
+    {
+      "path": "/users/{username}",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get a user",
+      "operationId": "users/get-by-username"
+    },
+    {
+      "path": "/users/{username}/attestations/bulk-list",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "List attestations by bulk subject digests",
+      "operationId": "users/list-attestations-bulk"
+    },
+    {
+      "path": "/users/{username}/attestations/delete-request",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Delete attestations in bulk",
+      "operationId": "users/delete-attestations-bulk"
+    },
+    {
+      "path": "/users/{username}/attestations/digest/{subject_digest}",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Delete attestations by subject digest",
+      "operationId": "users/delete-attestations-by-subject-digest"
+    },
+    {
+      "path": "/users/{username}/attestations/{attestation_id}",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Delete attestations by ID",
+      "operationId": "users/delete-attestations-by-id"
+    },
+    {
+      "path": "/users/{username}/attestations/{subject_digest}",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List attestations",
+      "operationId": "users/list-attestations"
+    },
+    {
+      "path": "/users/{username}/followers",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List followers of a user",
+      "operationId": "users/list-followers-for-user"
+    },
+    {
+      "path": "/users/{username}/following",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List the people a user follows",
+      "operationId": "users/list-following-for-user"
+    },
+    {
+      "path": "/users/{username}/following/{target_user}",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Check if a user follows another user",
+      "operationId": "users/check-following-for-user"
+    },
+    {
+      "path": "/users/{username}/gpg_keys",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List GPG keys for a user",
+      "operationId": "users/list-gpg-keys-for-user"
+    },
+    {
+      "path": "/users/{username}/hovercard",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get contextual information for a user",
+      "operationId": "users/get-context-for-user"
+    },
+    {
+      "path": "/users/{username}/keys",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List public keys for a user",
+      "operationId": "users/list-public-keys-for-user"
+    },
+    {
+      "path": "/users/{username}/social_accounts",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List social accounts for a user",
+      "operationId": "users/list-social-accounts-for-user"
+    },
+    {
+      "path": "/users/{username}/ssh_signing_keys",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "List SSH signing keys for a user",
+      "operationId": "users/list-ssh-signing-keys-for-user"
+    }
+  ]
+}

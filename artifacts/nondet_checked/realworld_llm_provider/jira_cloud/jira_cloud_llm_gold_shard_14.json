@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/group",
+      "method": "GET",
+      "operationId": "getGroup",
+      "summary": "",
+      "user": "Retrieve the details of a specific group by its ID.",
+      "ideal": "Successful retrieval of group details."
+    },
+    {
+      "path": "/rest/api/3/group",
+      "method": "POST",
+      "operationId": "createGroup",
+      "summary": "",
+      "user": "Create a new group with the specified name and description.",
+      "ideal": "Group is successfully created and returned with its ID."
+    },
+    {
+      "path": "/rest/api/3/group",
+      "method": "DELETE",
+      "operationId": "removeGroup",
+      "summary": "",
+      "user": "Remove an existing group by its ID.",
+      "ideal": "Group is successfully deleted."
+    },
+    {
+      "path": "/rest/api/3/group/bulk",
+      "method": "GET",
+      "operationId": "bulkGetGroups",
+      "summary": "",
+      "user": "Retrieve details of multiple groups in a single request.",
+      "ideal": "Successful retrieval of all specified groups."
+    },
+    {
+      "path": "/rest/api/3/group/member",
+      "method": "GET",
+      "operationId": "getUsersFromGroup",
+      "summary": "",
+      "user": "Get a list of users belonging to a specific group.",
+      "ideal": "Successful retrieval of users in the group."
+    },
+    {
+      "path": "/rest/api/3/group/user",
+      "method": "POST",
+      "operationId": "addUserToGroup",
+      "summary": "",
+      "user": "Add a user to a specified group by user ID.",
+      "ideal": "User is successfully added to the group."
+    },
+    {
+      "path": "/rest/api/3/group/user",
+      "method": "DELETE",
+      "operationId": "removeUserFromGroup",
+      "summary": "",
+      "user": "Remove a user from a specified group by user ID.",
+      "ideal": "User is successfully removed from the group."
+    },
+    {
+      "path": "/rest/api/3/groups/picker",
+      "method": "GET",
+      "operationId": "findGroups",
+      "summary": "",
+      "user": "Search for groups based on a query string.",
+      "ideal": "Successful retrieval of groups matching the query."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/atlassian-connect/1/migration/field",
+      "method": "PUT",
+      "tags": [
+        "App migration"
+      ],
+      "summary": "Bulk update custom field value",
+      "operationId": "AppIssueFieldValueUpdateResource.updateIssueFields_put"
+    },
+    {
+      "path": "/rest/atlassian-connect/1/migration/properties/{entityType}",
+      "method": "PUT",
+      "tags": [
+        "App migration"
+      ],
+      "summary": "Bulk update entity properties",
+      "operationId": "MigrationResource.updateEntityPropertiesValue_put"
+    },
+    {
+      "path": "/rest/atlassian-connect/1/migration/workflow/rule/search",
+      "method": "POST",
+      "tags": [
+        "App migration"
+      ],
+      "summary": "Get workflow transition rule configurations",
+      "operationId": "MigrationResource.workflowRuleSearch_post"
+    }
+  ]
+}

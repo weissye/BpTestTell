@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts.json",
+      "method": "POST",
+      "operationId": "CreateAccount",
+      "summary": "",
+      "user": "{\"FriendlyName\": \"My New Account\", \"Email\": \"user@example.com\"}",
+      "ideal": "{\"sid\": \"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"friendly_name\": \"My New Account\", \"email\": \"user@example.com\"}"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateAccount",
+      "summary": "",
+      "user": "{\"FriendlyName\": \"Updated Account Name\"}",
+      "ideal": "{\"sid\": \"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"friendly_name\": \"Updated Account Name\"}"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "method": "GET",
+      "operationId": "ListCall",
+      "summary": "",
+      "user": "{\"Status\": \"completed\"}",
+      "ideal": "[{\"sid\": \"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"status\": \"completed\", \"to\": \"+1234567890\", \"from\": \"+0987654321\"}]"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumber",
+      "summary": "",
+      "user": "{}",
+      "ideal": "[{\"sid\": \"PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"phone_number\": \"+1234567890\", \"friendly_name\": \"My Phone Number\"}]"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteMessage",
+      "summary": "",
+      "user": "{}",
+      "ideal": "{\"sid\": \"SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"status\": \"deleted\"}"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateCallRecording",
+      "summary": "",
+      "user": "{\"Status\": \"paused\"}",
+      "ideal": "{\"sid\": \"REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"status\": \"paused\"}"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+      "method": "GET",
+      "operationId": "ListSipDomain",
+      "summary": "",
+      "user": "{}",
+      "ideal": "[{\"sid\": \"SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"domain_name\": \"example.sip.twilio.com\"}]"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json",
+      "method": "GET",
+      "operationId": "ListUsageRecord",
+      "summary": "",
+      "user": "{\"Category\": \"calls\"}",
+      "ideal": "[{\"sid\": \"URXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"category\": \"calls\", \"count\": 100}]"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "method": "POST",
+      "operationId": "CreateQueue",
+      "summary": "",
+      "user": "{\"FriendlyName\": \"Support Queue\"}",
+      "ideal": "{\"sid\": \"QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"friendly_name\": \"Support Queue\"}"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "method": "GET",
+      "operationId": "ListSipCredentialList",
+      "summary": "",
+      "user": "{}",
+      "ideal": "[{\"sid\": \"CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"friendly_name\": \"My Credential List\"}]"
+    }
+  ]
+}

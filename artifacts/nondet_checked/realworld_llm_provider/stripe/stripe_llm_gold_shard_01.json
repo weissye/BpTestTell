@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/v1/account",
+      "method": "GET",
+      "operationId": "GetAccount",
+      "summary": "",
+      "user": "User requests their account details to verify information.",
+      "ideal": "Returns the account details including ID, type, and status."
+    },
+    {
+      "path": "/v1/accounts",
+      "method": "GET",
+      "operationId": "GetAccounts",
+      "summary": "",
+      "user": "User wants to retrieve a list of all accounts they manage.",
+      "ideal": "Returns a list of accounts with their respective details."
+    },
+    {
+      "path": "/v1/accounts/{account}",
+      "method": "GET",
+      "operationId": "GetAccountsAccount",
+      "summary": "",
+      "user": "User wants to view details of a specific account.",
+      "ideal": "Returns detailed information about the specified account."
+    },
+    {
+      "path": "/v1/accounts/{account}/bank_accounts",
+      "method": "POST",
+      "operationId": "PostAccountsAccountBankAccounts",
+      "summary": "",
+      "user": "User adds a new bank account to their account.",
+      "ideal": "Returns the newly created bank account details."
+    },
+    {
+      "path": "/v1/accounts/{account}/external_accounts",
+      "method": "GET",
+      "operationId": "GetAccountsAccountExternalAccounts",
+      "summary": "",
+      "user": "User wants to see all external accounts linked to their account.",
+      "ideal": "Returns a list of external accounts associated with the account."
+    },
+    {
+      "path": "/v1/charges",
+      "method": "GET",
+      "operationId": "GetCharges",
+      "summary": "",
+      "user": "User wants to retrieve a list of all charges made.",
+      "ideal": "Returns a list of charges with details such as amount and status."
+    },
+    {
+      "path": "/v1/charges/{charge}",
+      "method": "GET",
+      "operationId": "GetChargesCharge",
+      "summary": "",
+      "user": "User wants to view details of a specific charge.",
+      "ideal": "Returns detailed information about the specified charge."
+    },
+    {
+      "path": "/v1/customers",
+      "method": "POST",
+      "operationId": "PostCustomers",
+      "summary": "",
+      "user": "User creates a new customer profile.",
+      "ideal": "Returns the newly created customer details."
+    },
+    {
+      "path": "/v1/customers/{customer}",
+      "method": "GET",
+      "operationId": "GetCustomersCustomer",
+      "summary": "",
+      "user": "User wants to view details of a specific customer.",
+      "ideal": "Returns detailed information about the specified customer."
+    },
+    {
+      "path": "/v1/invoices",
+      "method": "GET",
+      "operationId": "GetInvoices",
+      "summary": "",
+      "user": "User wants to retrieve a list of all invoices.",
+      "ideal": "Returns a list of invoices with their respective details."
+    },
+    {
+      "path": "/v1/invoices/{invoice}",
+      "method": "GET",
+      "operationId": "GetInvoicesInvoice",
+      "summary": "",
+      "user": "User wants to view details of a specific invoice.",
+      "ideal": "Returns detailed information about the specified invoice."
+    }
+  ]
+}

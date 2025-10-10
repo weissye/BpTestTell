@@ -1,0 +1,180 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/orgs/{org}/projects",
+      "method": "GET",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "List organization projects",
+      "operationId": "projects-classic/list-for-org"
+    },
+    {
+      "path": "/orgs/{org}/projects",
+      "method": "POST",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "Create an organization project",
+      "operationId": "projects-classic/create-for-org"
+    },
+    {
+      "path": "/projects/columns/{column_id}",
+      "method": "GET",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "Get a project column",
+      "operationId": "projects-classic/get-column"
+    },
+    {
+      "path": "/projects/columns/{column_id}",
+      "method": "PATCH",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "Update an existing project column",
+      "operationId": "projects-classic/update-column"
+    },
+    {
+      "path": "/projects/columns/{column_id}",
+      "method": "DELETE",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "Delete a project column",
+      "operationId": "projects-classic/delete-column"
+    },
+    {
+      "path": "/projects/columns/{column_id}/moves",
+      "method": "POST",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "Move a project column",
+      "operationId": "projects-classic/move-column"
+    },
+    {
+      "path": "/projects/{project_id}",
+      "method": "GET",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "Get a project",
+      "operationId": "projects-classic/get"
+    },
+    {
+      "path": "/projects/{project_id}",
+      "method": "PATCH",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "Update a project",
+      "operationId": "projects-classic/update"
+    },
+    {
+      "path": "/projects/{project_id}",
+      "method": "DELETE",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "Delete a project",
+      "operationId": "projects-classic/delete"
+    },
+    {
+      "path": "/projects/{project_id}/collaborators",
+      "method": "GET",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "List project collaborators",
+      "operationId": "projects-classic/list-collaborators"
+    },
+    {
+      "path": "/projects/{project_id}/collaborators/{username}",
+      "method": "PUT",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "Add project collaborator",
+      "operationId": "projects-classic/add-collaborator"
+    },
+    {
+      "path": "/projects/{project_id}/collaborators/{username}",
+      "method": "DELETE",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "Remove user as a collaborator",
+      "operationId": "projects-classic/remove-collaborator"
+    },
+    {
+      "path": "/projects/{project_id}/collaborators/{username}/permission",
+      "method": "GET",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "Get project permission for a user",
+      "operationId": "projects-classic/get-permission-for-user"
+    },
+    {
+      "path": "/projects/{project_id}/columns",
+      "method": "GET",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "List project columns",
+      "operationId": "projects-classic/list-columns"
+    },
+    {
+      "path": "/projects/{project_id}/columns",
+      "method": "POST",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "Create a project column",
+      "operationId": "projects-classic/create-column"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/projects",
+      "method": "GET",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "List repository projects",
+      "operationId": "projects-classic/list-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/projects",
+      "method": "POST",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "Create a repository project",
+      "operationId": "projects-classic/create-for-repo"
+    },
+    {
+      "path": "/user/projects",
+      "method": "POST",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "Create a user project",
+      "operationId": "projects-classic/create-for-authenticated-user"
+    },
+    {
+      "path": "/users/{username}/projects",
+      "method": "GET",
+      "tags": [
+        "projects-classic"
+      ],
+      "summary": "List user projects",
+      "operationId": "projects-classic/list-for-user"
+    }
+  ]
+}

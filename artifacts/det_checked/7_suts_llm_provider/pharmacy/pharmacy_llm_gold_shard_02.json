@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/patients",
+      "method": "POST",
+      "operationId": "createPatient",
+      "summary": "",
+      "user": "A healthcare provider submits a new patient record to the pharmacy system, including details such as name, date of birth, and insurance information.",
+      "ideal": "The patient record is successfully created, and a unique patient ID is returned in the response."
+    },
+    {
+      "path": "/prescriptions",
+      "method": "POST",
+      "operationId": "createPrescription",
+      "summary": "",
+      "user": "A pharmacist enters a new prescription into the system for a patient, specifying the medication, dosage, and instructions for use.",
+      "ideal": "The prescription is successfully created, and a confirmation with the prescription ID is returned."
+    },
+    {
+      "path": "/inventory/{ndc}",
+      "method": "GET",
+      "operationId": "getInventoryItem",
+      "summary": "",
+      "user": "A pharmacy technician queries the inventory system to check the availability of a specific medication using its National Drug Code (NDC).",
+      "ideal": "The system returns the current stock level, expiration date, and other relevant details for the requested medication."
+    }
+  ]
+}

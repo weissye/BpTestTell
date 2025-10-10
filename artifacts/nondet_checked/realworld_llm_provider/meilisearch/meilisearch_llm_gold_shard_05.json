@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/health",
+      "method": "GET",
+      "operationId": "health.check",
+      "summary": "",
+      "user": "As a developer, I want to ensure that the Meilisearch service is running properly, so I will call the health check endpoint to verify its status.",
+      "ideal": "The response should indicate whether the service is healthy, typically returning a JSON object with a status key set to 'available'."
+    }
+  ]
+}

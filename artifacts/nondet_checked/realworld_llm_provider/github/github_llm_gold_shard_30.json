@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/example-org/members",
+      "method": "GET",
+      "operationId": "orgs/list-members",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all members in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/hooks",
+      "method": "POST",
+      "operationId": "orgs/create-webhook",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Create a new webhook for the organization 'example-org' with specified configuration."
+    },
+    {
+      "path": "/orgs/example-org/invitations",
+      "method": "GET",
+      "operationId": "orgs/list-pending-invitations",
+      "summary": "",
+      "user": "user789",
+      "ideal": "List all pending invitations for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/blocks/johndoe",
+      "method": "PUT",
+      "operationId": "orgs/block-user",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Block the user 'johndoe' from the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/attestations",
+      "method": "GET",
+      "operationId": "orgs/list-attestations",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Retrieve a list of all attestations for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/settings/immutable-releases",
+      "method": "PUT",
+      "operationId": "orgs/set-immutable-releases-settings",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Update the immutable releases settings for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/personal-access-tokens",
+      "method": "GET",
+      "operationId": "orgs/list-pat-grants",
+      "summary": "",
+      "user": "user404",
+      "ideal": "List all personal access tokens granted for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/memberships/janedoe",
+      "method": "DELETE",
+      "operationId": "orgs/remove-membership-for-user",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Remove the membership of user 'janedoe' from the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/artifacts/metadata/storage-record",
+      "method": "POST",
+      "operationId": "orgs/create-artifact-storage-record",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Create a storage record for an artifact in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/security-managers",
+      "method": "GET",
+      "operationId": "orgs/list-security-manager-teams",
+      "summary": "",
+      "user": "user707",
+      "ideal": "List all security manager teams for the organization 'example-org'."
+    }
+  ]
+}

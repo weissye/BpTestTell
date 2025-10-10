@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue",
+      "method": "POST",
+      "operationId": "createIssue",
+      "summary": "",
+      "user": "User A wants to create a new issue in the Jira project.",
+      "ideal": "A new issue is created successfully with a unique ID."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "method": "GET",
+      "operationId": "getIssue",
+      "summary": "",
+      "user": "User B needs to retrieve details of a specific issue by its ID.",
+      "ideal": "The issue details are returned, including its status and assignee."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "method": "PUT",
+      "operationId": "editIssue",
+      "summary": "",
+      "user": "User C wants to update the description of an existing issue.",
+      "ideal": "The issue is updated successfully with the new description."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "method": "GET",
+      "operationId": "getTransitions",
+      "summary": "",
+      "user": "User D wants to see the available transitions for an issue.",
+      "ideal": "A list of possible transitions for the issue is returned."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "method": "POST",
+      "operationId": "doTransition",
+      "summary": "",
+      "user": "User E wants to transition an issue to 'In Progress'.",
+      "ideal": "The issue is successfully transitioned to 'In Progress'."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/changelog",
+      "method": "GET",
+      "operationId": "getChangeLogs",
+      "summary": "",
+      "user": "User F needs to view the changelog for a specific issue.",
+      "ideal": "The changelog is returned, showing all changes made to the issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/editmeta",
+      "method": "GET",
+      "operationId": "getEditIssueMeta",
+      "summary": "",
+      "user": "User G wants to know what fields can be edited for an issue.",
+      "ideal": "A list of editable fields for the issue is returned."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/notify",
+      "method": "POST",
+      "operationId": "notify",
+      "summary": "",
+      "user": "User H wants to notify watchers of an issue about an update.",
+      "ideal": "Watchers are notified successfully about the issue update."
+    },
+    {
+      "path": "/rest/api/3/issue/createmeta",
+      "method": "GET",
+      "operationId": "getCreateIssueMeta",
+      "summary": "",
+      "user": "User I wants to retrieve metadata for creating new issues.",
+      "ideal": "Metadata for creating issues is returned, including available issue types."
+    },
+    {
+      "path": "/rest/api/3/issue/limit/report",
+      "method": "GET",
+      "operationId": "getIssueLimitReport",
+      "summary": "",
+      "user": "User J needs to generate a report on issue limits.",
+      "ideal": "A report detailing the issue limits is generated and returned."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "resetFactory",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Resets the factory state, clearing all work orders and maintenance tickets."
+    },
+    {
+      "path": "/workorders",
+      "method": "GET",
+      "operationId": "getWorkOrders",
+      "summary": "",
+      "user": "operator",
+      "ideal": "Retrieves a list of all current work orders in the system."
+    },
+    {
+      "path": "/maintenance-tickets",
+      "method": "POST",
+      "operationId": "createMaintenanceTicket",
+      "summary": "",
+      "user": "technician",
+      "ideal": "Creates a new maintenance ticket for equipment that requires servicing."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/clients-initial-access",
+      "method": "GET",
+      "operationId": "getClientsInitialAccess",
+      "summary": "",
+      "user": "Admin user retrieving initial access tokens for clients in the 'myrealm' realm to manage client access.",
+      "ideal": "Returns a list of initial access tokens for clients in the specified realm."
+    },
+    {
+      "path": "/myrealm/clients-initial-access",
+      "method": "POST",
+      "operationId": "postClientsInitialAccess",
+      "summary": "",
+      "user": "Admin user creating a new initial access token for a client in the 'myrealm' realm to facilitate client registration.",
+      "ideal": "Creates a new initial access token for the specified realm and returns the token details."
+    },
+    {
+      "path": "/myrealm/clients-initial-access/12345",
+      "method": "DELETE",
+      "operationId": "deleteClientsInitialAccess",
+      "summary": "",
+      "user": "Admin user deleting an existing initial access token with ID '12345' in the 'myrealm' realm to revoke client access.",
+      "ideal": "Successfully deletes the specified initial access token and returns a confirmation message."
+    }
+  ]
+}

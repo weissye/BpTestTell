@@ -1,0 +1,37 @@
+{
+  "openapi_meta": {
+    "title": "Meilisearch Core API",
+    "version": "1.7.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/indexes/{indexUid}/stats",
+      "method": "GET",
+      "tags": [
+        "Stats"
+      ],
+      "summary": "Get stat of an index",
+      "operationId": "indexes.stats.get"
+    },
+    {
+      "path": "/stats",
+      "method": "GET",
+      "tags": [
+        "Stats"
+      ],
+      "summary": "Get stats of all indexes",
+      "operationId": "stats.list"
+    },
+    {
+      "path": "/metrics",
+      "method": "GET",
+      "tags": [
+        "Stats",
+        "Experimental"
+      ],
+      "summary": "(EXPERIMENTAL) Get prometheus format metrics for observability and monitoring",
+      "operationId": "metrics.get"
+    }
+  ]
+}

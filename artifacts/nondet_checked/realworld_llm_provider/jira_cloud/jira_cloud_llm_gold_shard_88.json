@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/webhook",
+      "method": "GET",
+      "operationId": "getDynamicWebhooksForApp",
+      "summary": "",
+      "user": "As a developer, I want to retrieve all dynamic webhooks associated with my application to ensure they are correctly configured and functioning.",
+      "ideal": "The API should return a list of dynamic webhooks in JSON format, including their IDs, URLs, and status."
+    },
+    {
+      "path": "/rest/api/3/webhook",
+      "method": "POST",
+      "operationId": "registerDynamicWebhooks",
+      "summary": "",
+      "user": "As an application administrator, I need to register new dynamic webhooks for my app to receive real-time updates from Jira.",
+      "ideal": "The API should accept a JSON payload with the webhook details and return a success message along with the newly created webhook ID."
+    },
+    {
+      "path": "/rest/api/3/webhook/{webhookId}",
+      "method": "DELETE",
+      "operationId": "deleteWebhookById",
+      "summary": "",
+      "user": "As a developer, I want to delete a specific webhook that is no longer needed to keep my application clean and efficient.",
+      "ideal": "The API should confirm the deletion of the webhook and return a success message."
+    },
+    {
+      "path": "/rest/api/3/webhook/failed",
+      "method": "GET",
+      "operationId": "getFailedWebhooks",
+      "summary": "",
+      "user": "As a system administrator, I need to check for any failed webhooks to troubleshoot issues and ensure that my integrations are working properly.",
+      "ideal": "The API should return a list of failed webhooks with details about the failure reason and timestamps."
+    },
+    {
+      "path": "/rest/api/3/webhook/refresh",
+      "method": "PUT",
+      "operationId": "refreshWebhooks",
+      "summary": "",
+      "user": "As a developer, I want to refresh the webhooks to ensure they are up-to-date with the latest configuration changes.",
+      "ideal": "The API should process the refresh request and return a success message indicating that the webhooks have been updated."
+    }
+  ]
+}

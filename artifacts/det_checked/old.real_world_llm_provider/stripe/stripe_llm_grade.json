@@ -1,0 +1,10 @@
+{
+  "name": "stripe",
+  "total_examples": 32,
+  "per_shard_counts": [
+    32,
+    0,
+    0
+  ],
+  "notes": "Lightweight sanity grade: counts only."
+}

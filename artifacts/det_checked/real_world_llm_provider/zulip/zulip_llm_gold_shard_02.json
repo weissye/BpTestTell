@@ -1,0 +1,372 @@
+{
+  "gold": [
+    {
+      "path": "/dev_fetch_api_key",
+      "method": "POST",
+      "operationId": "dev-fetch-api-key",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully fetches the API key for development purposes."
+    },
+    {
+      "path": "/get_stream_id",
+      "method": "GET",
+      "operationId": "get-stream-id",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Returns the stream ID for the specified stream name."
+    },
+    {
+      "path": "/mark_topic_as_read",
+      "method": "POST",
+      "operationId": "mark-topic-as-read",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Marks the specified topic as read for the user."
+    },
+    {
+      "path": "/drafts",
+      "method": "GET",
+      "operationId": "get-drafts",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Retrieves a list of drafts created by the user."
+    },
+    {
+      "path": "/drafts/{draft_id}",
+      "method": "DELETE",
+      "operationId": "delete-draft",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully deletes the specified draft."
+    },
+    {
+      "path": "/navigation_views/{fragment}",
+      "method": "PATCH",
+      "operationId": "edit-navigation-view",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Updates the navigation view with the provided fragment."
+    },
+    {
+      "path": "/saved_snippets",
+      "method": "POST",
+      "operationId": "create-saved-snippet",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Creates a new saved snippet for the user."
+    },
+    {
+      "path": "/reminders",
+      "method": "GET",
+      "operationId": "get-reminders",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Retrieves a list of reminders set by the user."
+    },
+    {
+      "path": "/scheduled_messages",
+      "method": "GET",
+      "operationId": "get-scheduled-messages",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Returns a list of messages scheduled by the user."
+    },
+    {
+      "path": "/scheduled_messages/{scheduled_message_id}",
+      "method": "DELETE",
+      "operationId": "delete-scheduled-message",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully deletes the specified scheduled message."
+    },
+    {
+      "path": "/messages",
+      "method": "GET",
+      "operationId": "get-messages",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Retrieves messages from the user's streams."
+    },
+    {
+      "path": "/messages/flags",
+      "method": "POST",
+      "operationId": "update-message-flags",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Updates the flags for specified messages."
+    },
+    {
+      "path": "/messages/{message_id}/reactions",
+      "method": "POST",
+      "operationId": "add-reaction",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Adds a reaction to the specified message."
+    },
+    {
+      "path": "/messages/matches_narrow",
+      "method": "GET",
+      "operationId": "check-messages-match-narrow",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Checks if messages match the specified narrow."
+    },
+    {
+      "path": "/messages/{message_id}",
+      "method": "DELETE",
+      "operationId": "delete-message",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully deletes the specified message."
+    },
+    {
+      "path": "/user_uploads/{realm_id_str}/{filename}",
+      "method": "GET",
+      "operationId": "get-file-temporary-url",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Returns a temporary URL for the uploaded file."
+    },
+    {
+      "path": "/users/{user_id}/reactivate",
+      "method": "POST",
+      "operationId": "reactivate-user",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully reactivates the specified user."
+    },
+    {
+      "path": "/users/{user_id_or_email}/presence",
+      "method": "GET",
+      "operationId": "get-user-presence",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Retrieves the presence status of the specified user."
+    },
+    {
+      "path": "/users/me/alert_words",
+      "method": "GET",
+      "operationId": "get-alert-words",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Returns the alert words set by the user."
+    },
+    {
+      "path": "/users/me/presence",
+      "method": "POST",
+      "operationId": "update-presence",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Updates the user's presence status."
+    },
+    {
+      "path": "/users/me/subscriptions",
+      "method": "GET",
+      "operationId": "get-subscriptions",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Retrieves the user's current subscriptions."
+    },
+    {
+      "path": "/users/me/subscriptions",
+      "method": "DELETE",
+      "operationId": "unsubscribe",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully unsubscribes the user from all subscriptions."
+    },
+    {
+      "path": "/mobile_push/e2ee/test_notification",
+      "method": "POST",
+      "operationId": "e2ee-test-notify",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Sends a test notification for end-to-end encryption."
+    },
+    {
+      "path": "/user_topics",
+      "method": "POST",
+      "operationId": "update-user-topic",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Updates the user's topic preferences."
+    },
+    {
+      "path": "/users/me/apns_device_token",
+      "method": "POST",
+      "operationId": "add-apns-token",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully adds the APNs device token for notifications."
+    },
+    {
+      "path": "/users/me/android_gcm_reg_id",
+      "method": "DELETE",
+      "operationId": "remove-fcm-token",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully removes the FCM token for the user."
+    },
+    {
+      "path": "/realm/emoji/{emoji_name}",
+      "method": "DELETE",
+      "operationId": "deactivate-custom-emoji",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully deactivates the specified custom emoji."
+    },
+    {
+      "path": "/realm/profile_fields",
+      "method": "GET",
+      "operationId": "get-custom-profile-fields",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Retrieves the custom profile fields for the realm."
+    },
+    {
+      "path": "/realm/user_settings_defaults",
+      "method": "PATCH",
+      "operationId": "update-realm-user-settings-defaults",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Updates the default user settings for the realm."
+    },
+    {
+      "path": "/users/{email}",
+      "method": "PATCH",
+      "operationId": "update-user-by-email",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully updates the user information by email."
+    },
+    {
+      "path": "/users/{user_id}",
+      "method": "DELETE",
+      "operationId": "deactivate-user",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully deactivates the specified user."
+    },
+    {
+      "path": "/realm/filters",
+      "method": "POST",
+      "operationId": "add-linkifier",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully adds a new linkifier to the realm."
+    },
+    {
+      "path": "/realm/playgrounds",
+      "method": "POST",
+      "operationId": "add-code-playground",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully adds a new code playground to the realm."
+    },
+    {
+      "path": "/export/realm",
+      "method": "POST",
+      "operationId": "export-realm",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully exports the realm data."
+    },
+    {
+      "path": "/invites",
+      "method": "POST",
+      "operationId": "send-invites",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully sends invites to new users."
+    },
+    {
+      "path": "/invites/multiuse/{invite_id}",
+      "method": "DELETE",
+      "operationId": "revoke-invite-link",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully revokes the specified invite link."
+    },
+    {
+      "path": "/register",
+      "method": "POST",
+      "operationId": "register-queue",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully registers the user in the queue."
+    },
+    {
+      "path": "/streams/{stream_id}/members",
+      "method": "GET",
+      "operationId": "get-subscribers",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Retrieves the members subscribed to the specified stream."
+    },
+    {
+      "path": "/streams/{stream_id}",
+      "method": "DELETE",
+      "operationId": "archive-stream",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully archives the specified stream."
+    },
+    {
+      "path": "/streams/{stream_id}/delete_topic",
+      "method": "POST",
+      "operationId": "delete-topic",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully deletes the specified topic from the stream."
+    },
+    {
+      "path": "/channels/create",
+      "method": "POST",
+      "operationId": "create-channel",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully creates a new channel."
+    },
+    {
+      "path": "/user_groups/{user_group_id}/members",
+      "method": "GET",
+      "operationId": "get-user-group-members",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Retrieves the members of the specified user group."
+    },
+    {
+      "path": "/user_groups/{user_group_id}/subgroups",
+      "method": "POST",
+      "operationId": "update-user-group-subgroups",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully updates the subgroups of the specified user group."
+    },
+    {
+      "path": "/user_groups/{user_group_id}/deactivate",
+      "method": "POST",
+      "operationId": "deactivate-user-group",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully deactivates the specified user group."
+    },
+    {
+      "path": "/channel_folders",
+      "method": "PATCH",
+      "operationId": "patch-channel-folders",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Successfully updates the channel folders."
+    },
+    {
+      "path": "/rest-error-handling",
+      "method": "POST",
+      "operationId": "rest-error-handling",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "Handles REST errors appropriately."
+    }
+  ]
+}

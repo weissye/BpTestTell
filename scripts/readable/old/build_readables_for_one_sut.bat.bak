@@ -1,0 +1,93 @@
+@echo off
+setlocal EnableExtensions EnableDelayedExpansion
+
+:: Usage:
+::   scripts\readable\build_readables_for_one_sut.bat <SUT-NAME | GOLD-DIR>
+::
+:: Emits (next to GOLD or into that dir if no GOLD examples):
+::   interfaces.readable.js  (copy: interfaces.js)
+::   hle.readable.js         (copy: lifecycle.js)
+
+if "%~1"=="" (
+  echo Usage: %~nx0 ^<SUT-NAME ^| GOLD-DIR^>
+  exit /b 2
+)
+
+set "ARG=%~1"
+set "PY=python"
+if exist ".venv\Scripts\python.exe" set "PY=.venv\Scripts\python.exe"
+
+:: Resolve GOLD_DIR by argument or common locations
+set "GOLD_DIR="
+if exist "%ARG%\nul" set "GOLD_DIR=%ARG%"
+
+if not defined GOLD_DIR if exist "artifacts\v25\nondet_checked\7_suts_llm_provider\%ARG%\nul" set "GOLD_DIR=artifacts\v25\nondet_checked\7_suts_llm_provider\%ARG%"
+if not defined GOLD_DIR if exist "artifacts\v25\7_suts_llm_trained\%ARG%\nul"               set "GOLD_DIR=artifacts\v25\7_suts_llm_trained\%ARG%"
+if not defined GOLD_DIR if exist "artifacts\v25\nondet_checked\realworld_llm_provider\%ARG%\nul" set "GOLD_DIR=artifacts\v25\nondet_checked\realworld_llm_provider\%ARG%"
+if not defined GOLD_DIR if exist "artifacts\v25\realworld\%ARG%\nul"                         set "GOLD_DIR=artifacts\v25\realworld\%ARG%"
+
+:: Fallback scan by name
+if not defined GOLD_DIR (
+  for /f "delims=" %%D in ('dir /b /s /ad "artifacts\v25" 2^>nul ^| findstr /i "\\%ARG%$"') do (
+     for %%F in ("%%D\*_llm_gold*.json") do (
+        set "GOLD_DIR=%%D"
+        goto :FOUND
+     )
+  )
+)
+
+:FOUND
+if not defined GOLD_DIR (
+  echo [ERR] Can't find GOLD folder for "%ARG%".
+  exit /b 3
+)
+
+echo [FOUND] GOLD_DIR=%GOLD_DIR%
+
+:: Try example-driven emit (from GOLD)
+"%PY%" scripts\readable\emit_interface_js.py --gold-dir "%GOLD_DIR%"
+if errorlevel 1 (
+  echo [WARN] GOLD-based interfaces failed or empty. Trying OpenAPI synthesis...
+) else (
+  goto :EMIT_HLE
+)
+
+:: --- OpenAPI fallback: locate spec under packs ---
+set "SUTNAME=%ARG%"
+for %%A in ("%GOLD_DIR%") do set "SUTNAME=%%~nA"
+
+set "SPEC="
+for %%E in (json yaml yml) do (
+  if exist "packs\7_suts\%SUTNAME%\openapi.%%E" set "SPEC=packs\7_suts\%SUTNAME%\openapi.%%E"
+)
+if "%SPEC%"=="" (
+  for %%E in (json yaml yml) do (
+    if exist "packs\realworld\%SUTNAME%\openapi.%%E" set "SPEC=packs\realworld\%SUTNAME%\openapi.%%E"
+  )
+)
+
+if "%SPEC%"=="" (
+  echo [ERR] No OpenAPI found for "%SUTNAME%". Cannot synthesize.
+  exit /b 4
+)
+
+"%PY%" scripts\readable\emit_readables_from_oas.py --spec "%SPEC%" --out-dir "%GOLD_DIR%"
+if errorlevel 1 (
+  echo [ERR] OpenAPI synthesis failed.
+  exit /b 5
+)
+
+:EMIT_HLE
+:: Always try to emit HLE; if GOLD-based ran, this makes the pair consistent.
+"%PY%" scripts\readable\emit_hle_js.py --gold-dir "%GOLD_DIR%" 2>nul
+:: If HLE depended on examples and failed, it’s fine; OpenAPI fallback already wrote an HLE.
+
+:: Friendly copies
+if exist "%GOLD_DIR%\interfaces.readable.js" copy /Y "%GOLD_DIR%\interfaces.readable.js" "%GOLD_DIR%\interfaces.js" >nul
+if exist "%GOLD_DIR%\hle.readable.js"        copy /Y "%GOLD_DIR%\hle.readable.js"        "%GOLD_DIR%\lifecycle.js" >nul
+
+echo.
+echo [OK] Wrote (or refreshed):
+echo   %GOLD_DIR%\interfaces.readable.js  (copy: interfaces.js)
+echo   %GOLD_DIR%\hle.readable.js         (copy: lifecycle.js)
+endlocal

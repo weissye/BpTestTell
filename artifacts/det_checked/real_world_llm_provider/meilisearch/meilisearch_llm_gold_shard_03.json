@@ -1,0 +1,196 @@
+{
+  "gold": [
+    {
+      "path": "/health",
+      "method": "GET",
+      "operationId": "health.check",
+      "summary": "",
+      "user": "Check the health status of the Meilisearch server to ensure it is running properly.",
+      "ideal": "The server should return a 200 OK status with a response indicating the server is healthy."
+    },
+    {
+      "path": "/indexes/my_index",
+      "method": "GET",
+      "operationId": "indexes.get",
+      "summary": "",
+      "user": "Retrieve the details of the index named 'my_index' to understand its configuration and status.",
+      "ideal": "The response should include the index UID, primary key, and other relevant settings."
+    },
+    {
+      "path": "/indexes/my_index/documents",
+      "method": "GET",
+      "operationId": "indexes.documents.list",
+      "summary": "",
+      "user": "List all documents in the index 'my_index' to see the current stored data.",
+      "ideal": "The response should return an array of documents with their respective IDs and attributes."
+    },
+    {
+      "path": "/indexes/my_index/documents",
+      "method": "DELETE",
+      "operationId": "indexes.documents.removeAll",
+      "summary": "",
+      "user": "Remove all documents from the index 'my_index' to clear the data for a fresh start.",
+      "ideal": "The response should confirm that all documents have been successfully removed."
+    },
+    {
+      "path": "/indexes/my_index/documents/delete",
+      "method": "POST",
+      "operationId": "indexes.documents.remove",
+      "summary": "",
+      "user": "Delete specific documents from 'my_index' using their IDs to manage the dataset.",
+      "ideal": "The response should indicate which documents were successfully deleted."
+    },
+    {
+      "path": "/indexes/my_index/search",
+      "method": "GET",
+      "operationId": "indexes.documents.searchGet",
+      "summary": "",
+      "user": "Search for documents in 'my_index' using a query string to find relevant results.",
+      "ideal": "The response should return a list of documents matching the search criteria."
+    },
+    {
+      "path": "/indexes/my_index/settings",
+      "method": "GET",
+      "operationId": "indexes.settings.get",
+      "summary": "",
+      "user": "Get the settings of the index 'my_index' to review its configuration.",
+      "ideal": "The response should include all settings related to the index, such as ranking rules and attributes."
+    },
+    {
+      "path": "/indexes/my_index/settings/synonyms",
+      "method": "GET",
+      "operationId": "indexes.settings.synonyms.get",
+      "summary": "",
+      "user": "Retrieve the synonyms configured for the index 'my_index' to understand how search terms are related.",
+      "ideal": "The response should list all synonyms currently set for the index."
+    },
+    {
+      "path": "/indexes/my_index/settings/sortable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.sortable-attributes.get",
+      "summary": "",
+      "user": "Check which attributes are sortable in the index 'my_index' to optimize search results.",
+      "ideal": "The response should return an array of attributes that can be sorted."
+    },
+    {
+      "path": "/indexes/my_index/settings/stop-words",
+      "method": "GET",
+      "operationId": "indexes.settings.stopWords.get",
+      "summary": "",
+      "user": "List the stop words configured for the index 'my_index' to understand which words are ignored in searches.",
+      "ideal": "The response should include all stop words that are currently set."
+    },
+    {
+      "path": "/indexes/my_index/settings/ranking-rules",
+      "method": "GET",
+      "operationId": "indexes.settings.rankingRules.get",
+      "summary": "",
+      "user": "Get the ranking rules for the index 'my_index' to see how search results are prioritized.",
+      "ideal": "The response should detail the ranking rules applied to the index."
+    },
+    {
+      "path": "/indexes/my_index/settings/typo-tolerance",
+      "method": "GET",
+      "operationId": "indexes.settings.typoTolerance.get",
+      "summary": "",
+      "user": "Check the typo tolerance settings for the index 'my_index' to understand how it handles misspellings.",
+      "ideal": "The response should indicate the current typo tolerance configuration."
+    },
+    {
+      "path": "/indexes/my_index/settings/pagination",
+      "method": "GET",
+      "operationId": "indexes.settings.pagination.get",
+      "summary": "",
+      "user": "Retrieve pagination settings for the index 'my_index' to manage how results are displayed.",
+      "ideal": "The response should include pagination settings such as limit and offset."
+    },
+    {
+      "path": "/indexes/my_index/settings/faceting",
+      "method": "GET",
+      "operationId": "indexes.settings.faceting.get",
+      "summary": "",
+      "user": "Get the faceting settings for the index 'my_index' to understand how results can be filtered.",
+      "ideal": "The response should list the attributes that can be used for faceting."
+    },
+    {
+      "path": "/indexes/my_index/settings/filterable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.filterableAttributes.get",
+      "summary": "",
+      "user": "Check which attributes are filterable in the index 'my_index' to refine search results.",
+      "ideal": "The response should return an array of attributes that can be used for filtering."
+    },
+    {
+      "path": "/indexes/my_index/settings/distinct-attribute",
+      "method": "GET",
+      "operationId": "indexes.settings.distinctAttribute.get",
+      "summary": "",
+      "user": "Retrieve the distinct attribute setting for the index 'my_index' to manage unique results.",
+      "ideal": "The response should indicate the attribute used for distinct results."
+    },
+    {
+      "path": "/indexes/my_index/settings/searchable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.searchableAttributes.get",
+      "summary": "",
+      "user": "List the searchable attributes for the index 'my_index' to understand which fields can be queried.",
+      "ideal": "The response should return an array of attributes that are searchable."
+    },
+    {
+      "path": "/indexes/my_index/settings/displayed-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.displayedAttributes.get",
+      "summary": "",
+      "user": "Get the displayed attributes for the index 'my_index' to know which fields are shown in search results.",
+      "ideal": "The response should include the attributes that are displayed in search results."
+    },
+    {
+      "path": "/indexes/my_index/stats",
+      "method": "GET",
+      "operationId": "indexes.stats.get",
+      "summary": "",
+      "user": "Retrieve statistics for the index 'my_index' to analyze its usage and performance.",
+      "ideal": "The response should provide metrics such as document count and last update time."
+    },
+    {
+      "path": "/keys",
+      "method": "POST",
+      "operationId": "keys.create",
+      "summary": "",
+      "user": "Create a new API key to manage access to the Meilisearch instance.",
+      "ideal": "The response should return the newly created API key with its permissions."
+    },
+    {
+      "path": "/keys/my_key",
+      "method": "PATCH",
+      "operationId": "keys.update",
+      "summary": "",
+      "user": "Update the permissions of an existing API key 'my_key' to adjust its access level.",
+      "ideal": "The response should confirm the successful update of the API key."
+    },
+    {
+      "path": "/tasks",
+      "method": "GET",
+      "operationId": "tasks.list",
+      "summary": "",
+      "user": "List all tasks to monitor the status of ongoing and completed operations.",
+      "ideal": "The response should return an array of tasks with their current status and details."
+    },
+    {
+      "path": "/tasks/cancel",
+      "method": "POST",
+      "operationId": "tasks.cancel",
+      "summary": "",
+      "user": "Cancel a specific task to stop an ongoing operation that is no longer needed.",
+      "ideal": "The response should confirm the cancellation of the specified task."
+    },
+    {
+      "path": "/experimental-features",
+      "method": "PATCH",
+      "operationId": "experimental.update",
+      "summary": "",
+      "user": "Update experimental features in the Meilisearch instance to enable or disable new functionalities.",
+      "ideal": "The response should confirm the successful update of the experimental features."
+    }
+  ]
+}

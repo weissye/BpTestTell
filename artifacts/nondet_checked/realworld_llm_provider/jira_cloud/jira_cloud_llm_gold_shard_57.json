@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/plans/plan",
+      "method": "GET",
+      "operationId": "getPlans",
+      "summary": "",
+      "user": "Project Manager seeking to retrieve all existing plans for review.",
+      "ideal": "Returns a list of all plans with their details."
+    },
+    {
+      "path": "/rest/api/3/plans/plan",
+      "method": "POST",
+      "operationId": "createPlan",
+      "summary": "",
+      "user": "Team Lead creating a new plan for the upcoming sprint.",
+      "ideal": "Creates a new plan and returns the created plan's details."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/{planId}",
+      "method": "GET",
+      "operationId": "getPlan",
+      "summary": "",
+      "user": "Developer looking to view details of a specific plan.",
+      "ideal": "Returns the details of the specified plan."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/{planId}",
+      "method": "PUT",
+      "operationId": "updatePlan",
+      "summary": "",
+      "user": "Scrum Master updating the plan to reflect new deadlines.",
+      "ideal": "Updates the specified plan and returns the updated plan's details."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/{planId}/archive",
+      "method": "PUT",
+      "operationId": "archivePlan",
+      "summary": "",
+      "user": "Project Manager archiving a completed plan.",
+      "ideal": "Archives the specified plan and confirms the action."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/{planId}/duplicate",
+      "method": "POST",
+      "operationId": "duplicatePlan",
+      "summary": "",
+      "user": "Team Lead duplicating a plan to create a similar one for another project.",
+      "ideal": "Duplicates the specified plan and returns the new plan's details."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/{planId}/trash",
+      "method": "PUT",
+      "operationId": "trashPlan",
+      "summary": "",
+      "user": "Developer removing an outdated plan from the active list.",
+      "ideal": "Moves the specified plan to the trash and confirms the action."
+    }
+  ]
+}

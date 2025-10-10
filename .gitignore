@@ -1,0 +1,33 @@
+# Python
+/.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Node / front-end (if present)
+node_modules/
+dist/
+build/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Secrets / keys (never commit real keys)
+.env
+*.key
+*.pem
+*.crt
+secrets*/
+.env.*
+
+
+# Old snapshots
+.old/
+*/.old/
+
+# Keys
+OpenAiKey.txt

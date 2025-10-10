@@ -1,0 +1,334 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Balance.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Balance.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json",
+      "body": null
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/example-org/campaigns",
+      "method": "GET",
+      "operationId": "campaigns/list-org-campaigns",
+      "summary": "",
+      "user": "User requests to list all campaigns for the organization 'example-org' to review ongoing marketing efforts.",
+      "ideal": "Returns a list of campaigns associated with 'example-org', including campaign IDs, titles, and statuses."
+    },
+    {
+      "path": "/orgs/example-org/campaigns",
+      "method": "POST",
+      "operationId": "campaigns/create-campaign",
+      "summary": "",
+      "user": "User wants to create a new campaign for 'example-org' to promote a new product launch.",
+      "ideal": "Creates a new campaign with the specified details and returns the campaign ID and status."
+    },
+    {
+      "path": "/orgs/example-org/campaigns/123",
+      "method": "GET",
+      "operationId": "campaigns/get-campaign-summary",
+      "summary": "",
+      "user": "User needs to get a summary of campaign number 123 to analyze its performance metrics.",
+      "ideal": "Returns detailed information about campaign 123, including its performance metrics and engagement statistics."
+    },
+    {
+      "path": "/orgs/example-org/campaigns/123",
+      "method": "PATCH",
+      "operationId": "campaigns/update-campaign",
+      "summary": "",
+      "user": "User wants to update the details of campaign number 123 to reflect new marketing strategies.",
+      "ideal": "Updates the specified campaign with new details and returns the updated campaign information."
+    },
+    {
+      "path": "/orgs/example-org/campaigns/123",
+      "method": "DELETE",
+      "operationId": "campaigns/delete-campaign",
+      "summary": "",
+      "user": "User decides to delete campaign number 123 due to changes in marketing direction.",
+      "ideal": "Successfully deletes campaign 123 and confirms the deletion with a success message."
+    }
+  ]
+}

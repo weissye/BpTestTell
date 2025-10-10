@@ -1,0 +1,30 @@
+{
+  "openapi_meta": {
+    "title": "factory SUT",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/machines",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /machines"
+    },
+    {
+      "path": "/workorders",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /workorders"
+    },
+    {
+      "path": "/sensor-readings",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /sensor-readings"
+    }
+  ]
+}

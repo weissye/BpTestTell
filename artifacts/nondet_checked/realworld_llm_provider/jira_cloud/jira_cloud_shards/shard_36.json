@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/issue/picker",
+      "method": "GET",
+      "tags": [
+        "Issue search"
+      ],
+      "summary": "Get issue picker suggestions",
+      "operationId": "getIssuePickerResource"
+    },
+    {
+      "path": "/rest/api/3/jql/match",
+      "method": "POST",
+      "tags": [
+        "Issue search"
+      ],
+      "summary": "Check issues against JQL",
+      "operationId": "matchIssues"
+    },
+    {
+      "path": "/rest/api/3/search",
+      "method": "GET",
+      "tags": [
+        "Issue search"
+      ],
+      "summary": "Currently being removed. Search for issues using JQL (GET)",
+      "operationId": "searchForIssuesUsingJql"
+    },
+    {
+      "path": "/rest/api/3/search",
+      "method": "POST",
+      "tags": [
+        "Issue search"
+      ],
+      "summary": "Currently being removed. Search for issues using JQL (POST)",
+      "operationId": "searchForIssuesUsingJqlPost"
+    },
+    {
+      "path": "/rest/api/3/search/approximate-count",
+      "method": "POST",
+      "tags": [
+        "Issue search"
+      ],
+      "summary": "Count issues using JQL",
+      "operationId": "countIssues"
+    },
+    {
+      "path": "/rest/api/3/search/jql",
+      "method": "GET",
+      "tags": [
+        "Issue search"
+      ],
+      "summary": "Search for issues using JQL enhanced search (GET)",
+      "operationId": "searchAndReconsileIssuesUsingJql"
+    },
+    {
+      "path": "/rest/api/3/search/jql",
+      "method": "POST",
+      "tags": [
+        "Issue search"
+      ],
+      "summary": "Search for issues using JQL enhanced search (POST)",
+      "operationId": "searchAndReconsileIssuesUsingJqlPost"
+    }
+  ]
+}

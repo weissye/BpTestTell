@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm",
+      "method": "GET",
+      "operationId": "getByRealm",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve realm information successfully."
+    },
+    {
+      "path": "/myrealm/admin-events",
+      "method": "GET",
+      "operationId": "getAdminEvents",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch all admin events for the realm."
+    },
+    {
+      "path": "/myrealm/attack-detection/brute-force/users/user123",
+      "method": "GET",
+      "operationId": "getBruteForceUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get brute force detection status for user123."
+    },
+    {
+      "path": "/myrealm/authentication/client-authenticator-providers",
+      "method": "GET",
+      "operationId": "getClientAuthenticatorProviders",
+      "summary": "",
+      "user": "admin",
+      "ideal": "List all client authenticator providers."
+    },
+    {
+      "path": "/myrealm/authentication/config/authConfigId",
+      "method": "GET",
+      "operationId": "getAuthenticationConfig",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve authentication configuration by ID."
+    },
+    {
+      "path": "/myrealm/authentication/executions",
+      "method": "POST",
+      "operationId": "postExecutions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create new authentication execution."
+    },
+    {
+      "path": "/myrealm/client-scopes/myScope/protocol-mappers/models",
+      "method": "POST",
+      "operationId": "postClientScopeProtocolMappersModels",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add protocol mappers to client scope."
+    },
+    {
+      "path": "/myrealm/clients/myClient/roles/myRole",
+      "method": "GET",
+      "operationId": "getClientRole",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve role details for the specified client."
+    },
+    {
+      "path": "/myrealm/users/user456/role-mappings/clients/myClient",
+      "method": "GET",
+      "operationId": "getUserRoleMappingsClient",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch role mappings for user456 in myClient."
+    },
+    {
+      "path": "/myrealm/groups/myGroup/members",
+      "method": "GET",
+      "operationId": "getMembers",
+      "summary": "",
+      "user": "admin",
+      "ideal": "List all members of the specified group."
+    }
+  ]
+}

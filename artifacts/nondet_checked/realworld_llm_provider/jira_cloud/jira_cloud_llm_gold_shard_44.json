@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue/ABC-123/watching",
+      "method": "POST",
+      "operationId": "getIsWatchingIssueBulk",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Check if the user is watching the issue ABC-123."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/watchers",
+      "method": "GET",
+      "operationId": "getIssueWatchers",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Retrieve the list of users watching the issue ABC-123."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/watchers",
+      "method": "POST",
+      "operationId": "addWatcher",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Add user789 as a watcher to the issue ABC-123."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/watchers",
+      "method": "DELETE",
+      "operationId": "removeWatcher",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Remove user101 from the watchers of the issue ABC-123."
+    }
+  ]
+}

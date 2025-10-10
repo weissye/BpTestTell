@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/resolution",
+      "method": "GET",
+      "operationId": "getResolutions",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all available resolutions to understand the options for closing issues.",
+      "ideal": "A successful response with a list of all resolutions, including their IDs and names."
+    },
+    {
+      "path": "/rest/api/3/resolution",
+      "method": "POST",
+      "operationId": "createResolution",
+      "summary": "",
+      "user": "As a team lead, I want to create a new resolution for issues that are resolved by a specific team process.",
+      "ideal": "A successful response indicating the resolution has been created, including the new resolution ID."
+    },
+    {
+      "path": "/rest/api/3/resolution/default",
+      "method": "PUT",
+      "operationId": "setDefaultResolution",
+      "summary": "",
+      "user": "As a system administrator, I want to set a default resolution for all issues to streamline the workflow.",
+      "ideal": "A successful response confirming that the default resolution has been updated."
+    },
+    {
+      "path": "/rest/api/3/resolution/move",
+      "method": "PUT",
+      "operationId": "moveResolutions",
+      "summary": "",
+      "user": "As a project coordinator, I need to reorganize resolutions to better reflect our current processes.",
+      "ideal": "A successful response indicating that the resolutions have been moved as requested."
+    },
+    {
+      "path": "/rest/api/3/resolution/search",
+      "method": "GET",
+      "operationId": "searchResolutions",
+      "summary": "",
+      "user": "As a support agent, I want to search for specific resolutions to assist users with their issue resolution.",
+      "ideal": "A successful response with a filtered list of resolutions matching the search criteria."
+    },
+    {
+      "path": "/rest/api/3/resolution/{id}",
+      "method": "DELETE",
+      "operationId": "deleteResolution",
+      "summary": "",
+      "user": "As a project manager, I want to delete outdated resolutions that are no longer relevant to our projects.",
+      "ideal": "A successful response confirming that the resolution has been deleted."
+    },
+    {
+      "path": "/rest/api/3/resolution/{id}",
+      "method": "GET",
+      "operationId": "getResolution",
+      "summary": "",
+      "user": "As a developer, I want to retrieve details of a specific resolution to understand its purpose and usage.",
+      "ideal": "A successful response containing the details of the requested resolution."
+    },
+    {
+      "path": "/rest/api/3/resolution/{id}",
+      "method": "PUT",
+      "operationId": "updateResolution",
+      "summary": "",
+      "user": "As a product owner, I want to update the description of a resolution to better reflect its current use case.",
+      "ideal": "A successful response confirming that the resolution has been updated."
+    }
+  ]
+}

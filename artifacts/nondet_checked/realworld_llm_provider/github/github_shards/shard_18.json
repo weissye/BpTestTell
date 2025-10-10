@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/enterprises/{enterprise}/teams",
+      "method": "GET",
+      "tags": [
+        "enterprise-teams"
+      ],
+      "summary": "List enterprise teams",
+      "operationId": "enterprise-teams/list"
+    },
+    {
+      "path": "/enterprises/{enterprise}/teams",
+      "method": "POST",
+      "tags": [
+        "enterprise-teams"
+      ],
+      "summary": "Create an enterprise team",
+      "operationId": "enterprise-teams/create"
+    },
+    {
+      "path": "/enterprises/{enterprise}/teams/{team_slug}",
+      "method": "GET",
+      "tags": [
+        "enterprise-teams"
+      ],
+      "summary": "Get an enterprise team",
+      "operationId": "enterprise-teams/get"
+    },
+    {
+      "path": "/enterprises/{enterprise}/teams/{team_slug}",
+      "method": "PATCH",
+      "tags": [
+        "enterprise-teams"
+      ],
+      "summary": "Update an enterprise team",
+      "operationId": "enterprise-teams/update"
+    },
+    {
+      "path": "/enterprises/{enterprise}/teams/{team_slug}",
+      "method": "DELETE",
+      "tags": [
+        "enterprise-teams"
+      ],
+      "summary": "Delete an enterprise team",
+      "operationId": "enterprise-teams/delete"
+    }
+  ]
+}

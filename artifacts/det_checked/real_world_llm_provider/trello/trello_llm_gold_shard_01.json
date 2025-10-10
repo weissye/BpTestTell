@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/boards/{idBoard}/cards/{filter}",
+      "method": "GET",
+      "operationId": "getBoardsCardsByIdBoardByFilter",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Retrieve all cards from the specified board filtered by the given criteria."
+    },
+    {
+      "path": "/cards/{idCard}/members",
+      "method": "GET",
+      "operationId": "getCardsMembersByIdCard",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Get a list of members assigned to the specified card."
+    },
+    {
+      "path": "/actions/{idAction}/board",
+      "method": "GET",
+      "operationId": "getActionsBoardByIdAction",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Fetch the board associated with the specified action."
+    },
+    {
+      "path": "/checklists/{idChecklist}/checkItems",
+      "method": "GET",
+      "operationId": "getChecklistsCheckItemsByIdChecklist",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Retrieve all check items from the specified checklist."
+    },
+    {
+      "path": "/members/{idMember}/boards",
+      "method": "GET",
+      "operationId": "getMembersBoardsByIdMember",
+      "summary": "",
+      "user": "User202",
+      "ideal": "Get all boards that the specified member is part of."
+    },
+    {
+      "path": "/organizations/{idOrg}/members/{filter}",
+      "method": "GET",
+      "operationId": "getOrganizationsMembersByIdOrgByFilter",
+      "summary": "",
+      "user": "User303",
+      "ideal": "Retrieve members of the organization filtered by the specified criteria."
+    },
+    {
+      "path": "/notifications/{idNotification}/card/{field}",
+      "method": "GET",
+      "operationId": "getNotificationsCardByIdNotificationByField",
+      "summary": "",
+      "user": "User404",
+      "ideal": "Get specific field information about the card related to the notification."
+    },
+    {
+      "path": "/tokens/{token}/member/{field}",
+      "method": "GET",
+      "operationId": "getTokensMemberByTokenByField",
+      "summary": "",
+      "user": "User505",
+      "ideal": "Retrieve specific field information about the member associated with the token."
+    },
+    {
+      "path": "/lists/{idList}/board",
+      "method": "GET",
+      "operationId": "getListsBoardByIdList",
+      "summary": "",
+      "user": "User606",
+      "ideal": "Fetch the board associated with the specified list."
+    },
+    {
+      "path": "/cards/{idCard}/stickers",
+      "method": "GET",
+      "operationId": "getCardsStickersByIdCard",
+      "summary": "",
+      "user": "User707",
+      "ideal": "Retrieve all stickers applied to the specified card."
+    }
+  ]
+}

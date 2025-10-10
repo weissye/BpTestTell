@@ -1,0 +1,36 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/repos/{owner}/{repo}/dependency-graph/compare/{basehead}",
+      "method": "GET",
+      "tags": [
+        "dependency-graph"
+      ],
+      "summary": "Get a diff of the dependencies between commits",
+      "operationId": "dependency-graph/diff-range"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/dependency-graph/sbom",
+      "method": "GET",
+      "tags": [
+        "dependency-graph"
+      ],
+      "summary": "Export a software bill of materials (SBOM) for a repository.",
+      "operationId": "dependency-graph/export-sbom"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/dependency-graph/snapshots",
+      "method": "POST",
+      "tags": [
+        "dependency-graph"
+      ],
+      "summary": "Create a snapshot of dependencies for a repository",
+      "operationId": "dependency-graph/create-repository-snapshot"
+    }
+  ]
+}

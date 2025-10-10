@@ -1,0 +1,108 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/filter",
+      "method": "POST",
+      "operationId": "createFilter",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new filter with specified criteria."
+    },
+    {
+      "path": "/rest/api/3/filter/favourite",
+      "method": "GET",
+      "operationId": "getFavouriteFilters",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of filters marked as favourite by the user."
+    },
+    {
+      "path": "/rest/api/3/filter/my",
+      "method": "GET",
+      "operationId": "getMyFilters",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get a list of filters created by the user."
+    },
+    {
+      "path": "/rest/api/3/filter/search",
+      "method": "GET",
+      "operationId": "getFiltersPaginated",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Search for filters with pagination support."
+    },
+    {
+      "path": "/rest/api/3/filter/{id}",
+      "method": "DELETE",
+      "operationId": "deleteFilter",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete a specific filter by its ID."
+    },
+    {
+      "path": "/rest/api/3/filter/{id}",
+      "method": "GET",
+      "operationId": "getFilter",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve details of a specific filter by its ID."
+    },
+    {
+      "path": "/rest/api/3/filter/{id}",
+      "method": "PUT",
+      "operationId": "updateFilter",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update an existing filter with new criteria."
+    },
+    {
+      "path": "/rest/api/3/filter/{id}/columns",
+      "method": "DELETE",
+      "operationId": "resetColumns",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Reset the columns of a specific filter."
+    },
+    {
+      "path": "/rest/api/3/filter/{id}/columns",
+      "method": "GET",
+      "operationId": "getColumns",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get the columns of a specific filter."
+    },
+    {
+      "path": "/rest/api/3/filter/{id}/columns",
+      "method": "PUT",
+      "operationId": "setColumns",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Set the columns for a specific filter."
+    },
+    {
+      "path": "/rest/api/3/filter/{id}/favourite",
+      "method": "DELETE",
+      "operationId": "deleteFavouriteForFilter",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Remove a filter from the user's favourites."
+    },
+    {
+      "path": "/rest/api/3/filter/{id}/favourite",
+      "method": "PUT",
+      "operationId": "setFavouriteForFilter",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a filter to the user's favourites."
+    },
+    {
+      "path": "/rest/api/3/filter/{id}/owner",
+      "method": "PUT",
+      "operationId": "changeFilterOwner",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Change the owner of a specific filter."
+    }
+  ]
+}

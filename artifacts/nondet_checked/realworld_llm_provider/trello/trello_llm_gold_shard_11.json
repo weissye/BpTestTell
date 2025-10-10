@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/search",
+      "method": "GET",
+      "operationId": "getSearch",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Search for cards, lists, or boards that match the query."
+    },
+    {
+      "path": "/search/members",
+      "method": "GET",
+      "operationId": "getSearchMembers",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Retrieve a list of members that match the search criteria."
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "config_control SUT",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/reset": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/apps": {
+      "post": {
+        "responses": {
+          "201": {
+            "description": "created"
+          }
+        }
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "list"
+          }
+        }
+      }
+    },
+    "/envs": {
+      "post": {
+        "responses": {
+          "201": {
+            "description": "created"
+          }
+        }
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "list"
+          }
+        }
+      }
+    },
+    "/configs": {
+      "post": {
+        "responses": {
+          "201": {
+            "description": "created"
+          }
+        }
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "list"
+          }
+        }
+      }
+    },
+    "/releases": {
+      "post": {
+        "responses": {
+          "201": {
+            "description": "created"
+          }
+        }
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "list"
+          }
+        }
+      }
+    },
+    "/policies": {
+      "post": {
+        "responses": {
+          "201": {
+            "description": "created"
+          }
+        }
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "list"
+          }
+        }
+      }
+    }
+  }
+}

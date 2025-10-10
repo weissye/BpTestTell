@@ -1,0 +1,346 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/machines",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/machines",
+      "body": {
+        "name": "Machine C",
+        "status": "operational"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/workorders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/workorders",
+      "body": {
+        "description": "Work Order 3",
+        "status": "pending"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/maintenance-tickets",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/maintenance-tickets",
+      "body": {
+        "issue": "Issue C",
+        "status": "open"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sensor-readings",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/sensor-readings",
+      "body": {
+        "sensorId": 3,
+        "value": 85
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/machines",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/machines",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/machines",
+      "body": {
+        "name": "Machine C",
+        "status": "operational"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/machines",
+      "body": {
+        "name": "Machine C",
+        "status": "operational"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/workorders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/workorders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/workorders",
+      "body": {
+        "description": "Work Order 3",
+        "status": "pending"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/workorders",
+      "body": {
+        "description": "Work Order 3",
+        "status": "pending"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/maintenance-tickets",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/maintenance-tickets",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/maintenance-tickets",
+      "body": {
+        "issue": "Issue C",
+        "status": "open"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/maintenance-tickets",
+      "body": {
+        "issue": "Issue C",
+        "status": "open"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sensor-readings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/sensor-readings",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/sensor-readings",
+      "body": {
+        "sensorId": 3,
+        "value": 85
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/sensor-readings",
+      "body": {
+        "sensorId": 3,
+        "value": 85
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/machines",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/machines",
+      "body": {
+        "name": "Machine C",
+        "status": "operational"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/workorders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/workorders",
+      "body": {
+        "description": "Work Order 3",
+        "status": "pending"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/maintenance-tickets",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/maintenance-tickets",
+      "body": {
+        "issue": "Issue C",
+        "status": "open"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sensor-readings",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/sensor-readings",
+      "body": {
+        "sensorId": 3,
+        "value": 85
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/machines",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/machines",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/machines",
+      "body": {
+        "name": "Machine C",
+        "status": "operational"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/machines",
+      "body": {
+        "name": "Machine C",
+        "status": "operational"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/workorders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/workorders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/workorders",
+      "body": {
+        "description": "Work Order 3",
+        "status": "pending"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/workorders",
+      "body": {
+        "description": "Work Order 3",
+        "status": "pending"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/maintenance-tickets",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/maintenance-tickets",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/maintenance-tickets",
+      "body": {
+        "issue": "Issue C",
+        "status": "open"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/maintenance-tickets",
+      "body": {
+        "issue": "Issue C",
+        "status": "open"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sensor-readings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/sensor-readings",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/sensor-readings",
+      "body": {
+        "sensorId": 3,
+        "value": 85
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/sensor-readings",
+      "body": {
+        "sensorId": 3,
+        "value": 85
+      }
+    }
+  ]
+}

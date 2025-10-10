@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/indexes/myIndex/stats",
+      "method": "GET",
+      "operationId": "indexes.stats.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve statistics for the specified index, including document count, last update, and indexing speed."
+    },
+    {
+      "path": "/stats",
+      "method": "GET",
+      "operationId": "stats.list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get overall statistics of the Meilisearch instance, including total number of indexes and total documents."
+    },
+    {
+      "path": "/metrics",
+      "method": "GET",
+      "operationId": "metrics.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch performance metrics of the Meilisearch instance, such as query response times and resource usage."
+    }
+  ]
+}

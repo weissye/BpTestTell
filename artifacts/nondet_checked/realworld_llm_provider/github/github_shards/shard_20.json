@@ -1,0 +1,126 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/repos/{owner}/{repo}/git/blobs",
+      "method": "POST",
+      "tags": [
+        "git"
+      ],
+      "summary": "Create a blob",
+      "operationId": "git/create-blob"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/git/blobs/{file_sha}",
+      "method": "GET",
+      "tags": [
+        "git"
+      ],
+      "summary": "Get a blob",
+      "operationId": "git/get-blob"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/git/commits",
+      "method": "POST",
+      "tags": [
+        "git"
+      ],
+      "summary": "Create a commit",
+      "operationId": "git/create-commit"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/git/commits/{commit_sha}",
+      "method": "GET",
+      "tags": [
+        "git"
+      ],
+      "summary": "Get a commit object",
+      "operationId": "git/get-commit"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/git/matching-refs/{ref}",
+      "method": "GET",
+      "tags": [
+        "git"
+      ],
+      "summary": "List matching references",
+      "operationId": "git/list-matching-refs"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/git/ref/{ref}",
+      "method": "GET",
+      "tags": [
+        "git"
+      ],
+      "summary": "Get a reference",
+      "operationId": "git/get-ref"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/git/refs",
+      "method": "POST",
+      "tags": [
+        "git"
+      ],
+      "summary": "Create a reference",
+      "operationId": "git/create-ref"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/git/refs/{ref}",
+      "method": "PATCH",
+      "tags": [
+        "git"
+      ],
+      "summary": "Update a reference",
+      "operationId": "git/update-ref"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/git/refs/{ref}",
+      "method": "DELETE",
+      "tags": [
+        "git"
+      ],
+      "summary": "Delete a reference",
+      "operationId": "git/delete-ref"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/git/tags",
+      "method": "POST",
+      "tags": [
+        "git"
+      ],
+      "summary": "Create a tag object",
+      "operationId": "git/create-tag"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/git/tags/{tag_sha}",
+      "method": "GET",
+      "tags": [
+        "git"
+      ],
+      "summary": "Get a tag",
+      "operationId": "git/get-tag"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/git/trees",
+      "method": "POST",
+      "tags": [
+        "git"
+      ],
+      "summary": "Create a tree",
+      "operationId": "git/create-tree"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/git/trees/{tree_sha}",
+      "method": "GET",
+      "tags": [
+        "git"
+      ],
+      "summary": "Get a tree",
+      "operationId": "git/get-tree"
+    }
+  ]
+}

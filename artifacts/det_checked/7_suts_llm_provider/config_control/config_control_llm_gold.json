@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "resetSystem",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Resets the configuration control system to its default state."
+    },
+    {
+      "path": "/envs",
+      "method": "POST",
+      "operationId": "createEnvironment",
+      "summary": "",
+      "user": "dev_team",
+      "ideal": "Creates a new environment for testing configurations."
+    },
+    {
+      "path": "/configs",
+      "method": "GET",
+      "operationId": "getAllConfigs",
+      "summary": "",
+      "user": "qa_engineer",
+      "ideal": "Retrieves a list of all current configurations in the system."
+    },
+    {
+      "path": "/policies",
+      "method": "POST",
+      "operationId": "createPolicy",
+      "summary": "",
+      "user": "compliance_officer",
+      "ideal": "Creates a new policy for configuration management."
+    },
+    {
+      "path": "/apps",
+      "method": "POST",
+      "operationId": "createApp",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new application entry in the system with the necessary configurations."
+    },
+    {
+      "path": "/envs",
+      "method": "GET",
+      "operationId": "listEnvironments",
+      "summary": "",
+      "user": "developer",
+      "ideal": "Retrieve a list of all available environments for application deployment."
+    },
+    {
+      "path": "/releases",
+      "method": "POST",
+      "operationId": "createRelease",
+      "summary": "",
+      "user": "release_manager",
+      "ideal": "Submit a new release version for an application, including version details and release notes."
+    },
+    {
+      "path": "/policies",
+      "method": "GET",
+      "operationId": "getPolicies",
+      "summary": "",
+      "user": "compliance_officer",
+      "ideal": "Fetch the current policies governing application deployments and environment configurations."
+    },
+    {
+      "path": "/apps",
+      "method": "GET",
+      "operationId": "getApps",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all applications available in the system."
+    },
+    {
+      "path": "/configs",
+      "method": "POST",
+      "operationId": "createConfig",
+      "summary": "",
+      "user": "developer",
+      "ideal": "Create a new configuration for the application with specified parameters."
+    },
+    {
+      "path": "/releases",
+      "method": "GET",
+      "operationId": "getReleases",
+      "summary": "",
+      "user": "manager",
+      "ideal": "Fetch the latest release information for all applications."
+    }
+  ]
+}

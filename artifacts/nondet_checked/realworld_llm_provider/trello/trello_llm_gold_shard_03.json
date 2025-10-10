@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/v1/boards",
+      "method": "POST",
+      "operationId": "addBoards",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new board with the title 'Project Plan' and description 'This board is for planning the project.'"
+    },
+    {
+      "path": "/v1/boards/{idBoard}",
+      "method": "GET",
+      "operationId": "getBoardsByIdBoard",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Retrieve the board details for the board with ID 'abc123'."
+    },
+    {
+      "path": "/v1/boards/{idBoard}",
+      "method": "PUT",
+      "operationId": "updateBoardsByIdBoard",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Update the board with ID 'xyz789' to change its name to 'Updated Project Plan'."
+    },
+    {
+      "path": "/v1/boards/{idBoard}/actions",
+      "method": "GET",
+      "operationId": "getBoardsActionsByIdBoard",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Fetch all actions performed on the board with ID 'def456'."
+    },
+    {
+      "path": "/v1/boards/{idBoard}/cards",
+      "method": "GET",
+      "operationId": "getBoardsCardsByIdBoard",
+      "summary": "",
+      "user": "user112",
+      "ideal": "Get all cards associated with the board ID 'ghi789'."
+    },
+    {
+      "path": "/v1/boards/{idBoard}/checklists",
+      "method": "POST",
+      "operationId": "addBoardsChecklistsByIdBoard",
+      "summary": "",
+      "user": "user131",
+      "ideal": "Add a new checklist titled 'To Do' to the board with ID 'jkl012'."
+    },
+    {
+      "path": "/v1/boards/{idBoard}/members",
+      "method": "PUT",
+      "operationId": "updateBoardsMembersByIdBoard",
+      "summary": "",
+      "user": "user415",
+      "ideal": "Add a new member with ID 'mno345' to the board with ID 'pqr678'."
+    },
+    {
+      "path": "/v1/boards/{idBoard}/labels",
+      "method": "GET",
+      "operationId": "getBoardsLabelsByIdBoard",
+      "summary": "",
+      "user": "user161",
+      "ideal": "Retrieve all labels associated with the board ID 'stu901'."
+    },
+    {
+      "path": "/v1/boards/{idBoard}/lists",
+      "method": "POST",
+      "operationId": "addBoardsListsByIdBoard",
+      "summary": "",
+      "user": "user718",
+      "ideal": "Create a new list titled 'In Progress' on the board with ID 'vwx234'."
+    },
+    {
+      "path": "/v1/boards/{idBoard}/prefs/background",
+      "method": "PUT",
+      "operationId": "updateBoardsPrefsBackgroundByIdBoard",
+      "summary": "",
+      "user": "user192",
+      "ideal": "Change the background of the board with ID 'yz123' to a blue color."
+    }
+  ]
+}

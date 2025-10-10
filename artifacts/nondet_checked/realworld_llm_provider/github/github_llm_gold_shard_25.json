@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/licenses",
+      "method": "GET",
+      "operationId": "licenses/get-all-commonly-used",
+      "summary": "",
+      "user": "Alice is a software developer who frequently works on open-source projects. She wants to explore the commonly used licenses to choose the best one for her new project.",
+      "ideal": "Returns a list of commonly used licenses with their details."
+    },
+    {
+      "path": "/licenses/mit",
+      "method": "GET",
+      "operationId": "licenses/get",
+      "summary": "",
+      "user": "Bob is a project manager who needs to understand the MIT license for a new application his team is developing. He wants to read the full text and conditions of the license.",
+      "ideal": "Returns the details and full text of the MIT license."
+    },
+    {
+      "path": "/repos/alice/my-repo/license",
+      "method": "GET",
+      "operationId": "licenses/get-for-repo",
+      "summary": "",
+      "user": "Charlie is a contributor to Alice's GitHub repository. He wants to check the license type of the repository to ensure compliance with its terms before submitting his contributions.",
+      "ideal": "Returns the license information for Alice's repository, including the license type and its details."
+    }
+  ]
+}

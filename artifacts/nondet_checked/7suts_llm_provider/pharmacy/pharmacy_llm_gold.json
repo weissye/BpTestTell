@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "resetSystem",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Resets the pharmacy system to its initial state."
+    },
+    {
+      "path": "/patients",
+      "method": "POST",
+      "operationId": "createPatient",
+      "summary": "",
+      "user": "nurse",
+      "ideal": "Creates a new patient record in the system."
+    },
+    {
+      "path": "/drugs",
+      "method": "GET",
+      "operationId": "listDrugs",
+      "summary": "",
+      "user": "pharmacist",
+      "ideal": "Retrieves a list of all available drugs in the pharmacy."
+    },
+    {
+      "path": "/drugs",
+      "method": "POST",
+      "operationId": "addDrug",
+      "summary": "",
+      "user": "pharmacist",
+      "ideal": "Adds a new drug to the pharmacy inventory."
+    },
+    {
+      "path": "/prescriptions",
+      "method": "POST",
+      "operationId": "createPrescription",
+      "summary": "",
+      "user": "doctor",
+      "ideal": "Submits a new prescription for a patient."
+    },
+    {
+      "path": "/orders",
+      "method": "GET",
+      "operationId": "listOrders",
+      "summary": "",
+      "user": "pharmacist",
+      "ideal": "Fetches a list of all orders placed in the pharmacy."
+    },
+    {
+      "path": "/orders",
+      "method": "POST",
+      "operationId": "createOrder",
+      "summary": "",
+      "user": "pharmacist",
+      "ideal": "Places a new order for drugs from the supplier."
+    },
+    {
+      "path": "/inventory/{ndc}",
+      "method": "GET",
+      "operationId": "getInventoryByNDC",
+      "summary": "",
+      "user": "pharmacist",
+      "ideal": "Retrieves inventory details for a specific drug using its NDC."
+    }
+  ]
+}

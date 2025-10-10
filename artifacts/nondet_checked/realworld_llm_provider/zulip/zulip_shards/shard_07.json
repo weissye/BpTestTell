@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "Zulip REST API",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/navigation_views",
+      "method": "GET",
+      "tags": [
+        "navigation_views"
+      ],
+      "summary": "Get all navigation views",
+      "operationId": "get-navigation-views"
+    },
+    {
+      "path": "/navigation_views",
+      "method": "POST",
+      "tags": [
+        "navigation_views"
+      ],
+      "summary": "Add a navigation view",
+      "operationId": "add-navigation-view"
+    },
+    {
+      "path": "/navigation_views/{fragment}",
+      "method": "PATCH",
+      "tags": [
+        "navigation_views"
+      ],
+      "summary": "Update the navigation view",
+      "operationId": "edit-navigation-view"
+    },
+    {
+      "path": "/navigation_views/{fragment}",
+      "method": "DELETE",
+      "tags": [
+        "navigation_views"
+      ],
+      "summary": "Remove a navigation view",
+      "operationId": "remove-navigation-view"
+    }
+  ]
+}

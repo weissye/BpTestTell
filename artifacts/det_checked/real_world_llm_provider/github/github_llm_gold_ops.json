@@ -1,0 +1,304 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/v1/gists",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/orgs/{org}/teams",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/orgs/{org}/members/{username}/codespaces",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/repos/{owner}/{repo}/branches/{branch}/protection",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/orgs/{org}/hooks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/repos/{owner}/{repo}/actions/secrets",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/orgs/{org}/packages/{package_type}/{package_name}/restore",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/orgs/{org}/members/{username}/copilot",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/repos/{owner}/{repo}/actions/permissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/advisories",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/app-manifests/{code}/conversions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/hook/deliveries",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/classrooms/{classroom_id}/assignments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/gists/{gist_id}/comments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/dependabot/alerts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/projects",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/advisories/{ghsa_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/hook/config",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/installations",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/permissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/memberships/{username}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/gists/public",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/projects",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/check-runs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/gists",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/orgs/{org}/teams",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/orgs/{org}/members/{username}/codespaces",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/repos/{owner}/{repo}/branches/{branch}/protection",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/orgs/{org}/hooks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/repos/{owner}/{repo}/actions/secrets",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/orgs/{org}/packages/{package_type}/{package_name}/restore",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/orgs/{org}/members/{username}/copilot",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/repos/{owner}/{repo}/actions/permissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/advisories",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/app-manifests/{code}/conversions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/hook/deliveries",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/classrooms/{classroom_id}/assignments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/gists/{gist_id}/comments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/dependabot/alerts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/projects",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/advisories/{ghsa_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/hook/config",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/installations",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/permissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/memberships/{username}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/gists/public",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/projects",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/check-runs",
+      "body": null
+    }
+  ]
+}

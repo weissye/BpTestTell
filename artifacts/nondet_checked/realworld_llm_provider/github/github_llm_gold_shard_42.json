@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/example-org/teams",
+      "method": "GET",
+      "operationId": "teams/list",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all teams in the specified organization."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team",
+      "method": "GET",
+      "operationId": "teams/get-by-name",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Get details of the team named 'example-team' in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/members",
+      "method": "GET",
+      "operationId": "teams/list-members-in-org",
+      "summary": "",
+      "user": "user789",
+      "ideal": "List all members of the team 'example-team' in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/memberships/user123",
+      "method": "GET",
+      "operationId": "teams/get-membership-for-user-in-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Check the membership status of user 'user123' in the team 'example-team'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/projects",
+      "method": "GET",
+      "operationId": "teams/list-projects-in-org",
+      "summary": "",
+      "user": "user234",
+      "ideal": "Retrieve a list of projects associated with the team 'example-team' in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/repos/example-owner/example-repo",
+      "method": "GET",
+      "operationId": "teams/check-permissions-for-repo-in-org",
+      "summary": "",
+      "user": "user345",
+      "ideal": "Check the permissions of the team 'example-team' for the repository 'example-repo' owned by 'example-owner'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/discussions",
+      "method": "GET",
+      "operationId": "teams/list-discussions-in-org",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Get a list of discussions in the team 'example-team' within the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/memberships/user456",
+      "method": "DELETE",
+      "operationId": "teams/remove-membership-for-user-in-org",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Remove the membership of user 'user456' from the team 'example-team' in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/discussions/1/comments",
+      "method": "GET",
+      "operationId": "teams/list-discussion-comments-in-org",
+      "summary": "",
+      "user": "user567",
+      "ideal": "Retrieve comments for the discussion number 1 in the team 'example-team'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/discussions/1/comments/1",
+      "method": "DELETE",
+      "operationId": "teams/delete-discussion-comment-in-org",
+      "summary": "",
+      "user": "user678",
+      "ideal": "Delete the comment number 1 from discussion number 1 in the team 'example-team'."
+    }
+  ]
+}

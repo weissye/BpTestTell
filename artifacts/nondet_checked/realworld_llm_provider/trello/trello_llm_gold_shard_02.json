@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/batch",
+      "method": "GET",
+      "operationId": "getBatch",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a batch of cards from multiple boards in Trello."
+    }
+  ]
+}

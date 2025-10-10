@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "factory SUT",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /reset"
+    },
+    {
+      "path": "/machines",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /machines"
+    },
+    {
+      "path": "/machines",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /machines"
+    },
+    {
+      "path": "/workorders",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /workorders"
+    },
+    {
+      "path": "/workorders",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /workorders"
+    },
+    {
+      "path": "/maintenance-tickets",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /maintenance-tickets"
+    },
+    {
+      "path": "/maintenance-tickets",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /maintenance-tickets"
+    },
+    {
+      "path": "/sensor-readings",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /sensor-readings"
+    },
+    {
+      "path": "/sensor-readings",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /sensor-readings"
+    }
+  ]
+}

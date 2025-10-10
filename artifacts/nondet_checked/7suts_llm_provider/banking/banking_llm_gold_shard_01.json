@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "resetSystem",
+      "summary": "",
+      "user": "Admin user resets the banking system to clear all data for testing purposes.",
+      "ideal": "The system should respond with a success message indicating that the reset was successful."
+    },
+    {
+      "path": "/customers",
+      "method": "POST",
+      "operationId": "createCustomer",
+      "summary": "",
+      "user": "A bank employee creates a new customer profile with necessary details.",
+      "ideal": "The system should return the created customer object with a unique ID and a success status."
+    },
+    {
+      "path": "/accounts",
+      "method": "POST",
+      "operationId": "createAccount",
+      "summary": "",
+      "user": "A customer service representative opens a new bank account for a customer.",
+      "ideal": "The response should include the new account details and a confirmation of account creation."
+    },
+    {
+      "path": "/accounts",
+      "method": "GET",
+      "operationId": "getAllAccounts",
+      "summary": "",
+      "user": "A bank manager retrieves a list of all accounts to review account statuses.",
+      "ideal": "The system should return a list of all accounts with their details and a success status."
+    },
+    {
+      "path": "/accounts/{accountId}/transactions",
+      "method": "GET",
+      "operationId": "getAccountTransactions",
+      "summary": "",
+      "user": "A customer checks their account transactions for the last month.",
+      "ideal": "The response should include a list of transactions for the specified account with details."
+    },
+    {
+      "path": "/transfers",
+      "method": "POST",
+      "operationId": "createTransfer",
+      "summary": "",
+      "user": "A customer initiates a transfer of funds between their accounts.",
+      "ideal": "The system should confirm the transfer with a success message and transaction details."
+    },
+    {
+      "path": "/cards",
+      "method": "POST",
+      "operationId": "issueCard",
+      "summary": "",
+      "user": "A bank employee issues a new debit card for a customer.",
+      "ideal": "The response should include the card details and a confirmation of card issuance."
+    },
+    {
+      "path": "/loans",
+      "method": "POST",
+      "operationId": "applyForLoan",
+      "summary": "",
+      "user": "A customer applies for a personal loan through the banking app.",
+      "ideal": "The system should return the loan application status and next steps for the customer."
+    },
+    {
+      "path": "/loans",
+      "method": "GET",
+      "operationId": "getAllLoans",
+      "summary": "",
+      "user": "A loan officer reviews all active loans for compliance checks.",
+      "ideal": "The response should include a list of all loans with their statuses and details."
+    }
+  ]
+}

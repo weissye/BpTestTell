@@ -1,0 +1,86 @@
+{
+  "openapi_meta": {
+    "title": "Garage Chain SUT API (Demo)",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "tags": [],
+      "summary": "Reset demo data",
+      "operationId": "POST /reset"
+    },
+    {
+      "path": "/chains/{chainId}",
+      "method": "GET",
+      "tags": [],
+      "summary": "Read chain",
+      "operationId": "GET /chains/{chainId}"
+    },
+    {
+      "path": "/garages",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create garage",
+      "operationId": "POST /garages"
+    },
+    {
+      "path": "/garages/{garageId}",
+      "method": "PUT",
+      "tags": [],
+      "summary": "Update garage",
+      "operationId": "PUT /garages/{garageId}"
+    },
+    {
+      "path": "/customers",
+      "method": "GET",
+      "tags": [],
+      "summary": "List customers",
+      "operationId": "GET /customers"
+    },
+    {
+      "path": "/customers/{customerId}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete customer",
+      "operationId": "DELETE /customers/{customerId}"
+    },
+    {
+      "path": "/cars/{vin}",
+      "method": "GET",
+      "tags": [],
+      "summary": "Read car",
+      "operationId": "GET /cars/{vin}"
+    },
+    {
+      "path": "/periodic-maintenance",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create PM plan",
+      "operationId": "POST /periodic-maintenance"
+    },
+    {
+      "path": "/periodic-maintenance/{pmId}",
+      "method": "PUT",
+      "tags": [],
+      "summary": "Update PM plan",
+      "operationId": "PUT /periodic-maintenance/{pmId}"
+    },
+    {
+      "path": "/repair-orders",
+      "method": "GET",
+      "tags": [],
+      "summary": "List repair orders",
+      "operationId": "GET /repair-orders"
+    },
+    {
+      "path": "/repair-orders/{roId}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete repair order",
+      "operationId": "DELETE /repair-orders/{roId}"
+    }
+  ]
+}

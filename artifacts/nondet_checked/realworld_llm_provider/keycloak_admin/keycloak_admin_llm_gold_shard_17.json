@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/roles-by-id/12345",
+      "method": "GET",
+      "operationId": "getRolesById",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve role details for the role with ID 12345 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345",
+      "method": "PUT",
+      "operationId": "putRolesById",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Update the role with ID 12345 in the realm 'myrealm' with new data."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345",
+      "method": "DELETE",
+      "operationId": "deleteRolesById",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete the role with ID 12345 from the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345/composites",
+      "method": "GET",
+      "operationId": "getRolesByIdComposites",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Fetch all composite roles associated with the role ID 12345 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345/composites",
+      "method": "POST",
+      "operationId": "postRolesByIdComposites",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Add composite roles to the role with ID 12345 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345/composites",
+      "method": "DELETE",
+      "operationId": "deleteRolesByIdComposites",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Remove composite roles from the role with ID 12345 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345/composites/clients/67890",
+      "method": "GET",
+      "operationId": "getRolesByIdCompositesClient",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve composite roles for the role ID 12345 specific to client UUID 67890 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345/composites/realm",
+      "method": "GET",
+      "operationId": "getRolesByIdCompositesRealm",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Get all composite roles for the role ID 12345 at the realm level in 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345/management/permissions",
+      "method": "GET",
+      "operationId": "getRolesByIdManagementPermissions",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Fetch management permissions for the role with ID 12345 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345/management/permissions",
+      "method": "PUT",
+      "operationId": "putRolesByIdManagementPermissions",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Update management permissions for the role with ID 12345 in the realm 'myrealm'."
+    }
+  ]
+}

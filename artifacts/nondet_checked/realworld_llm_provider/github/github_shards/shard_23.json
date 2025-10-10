@@ -1,0 +1,90 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/orgs/{org}/interaction-limits",
+      "method": "GET",
+      "tags": [
+        "interactions"
+      ],
+      "summary": "Get interaction restrictions for an organization",
+      "operationId": "interactions/get-restrictions-for-org"
+    },
+    {
+      "path": "/orgs/{org}/interaction-limits",
+      "method": "PUT",
+      "tags": [
+        "interactions"
+      ],
+      "summary": "Set interaction restrictions for an organization",
+      "operationId": "interactions/set-restrictions-for-org"
+    },
+    {
+      "path": "/orgs/{org}/interaction-limits",
+      "method": "DELETE",
+      "tags": [
+        "interactions"
+      ],
+      "summary": "Remove interaction restrictions for an organization",
+      "operationId": "interactions/remove-restrictions-for-org"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/interaction-limits",
+      "method": "GET",
+      "tags": [
+        "interactions"
+      ],
+      "summary": "Get interaction restrictions for a repository",
+      "operationId": "interactions/get-restrictions-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/interaction-limits",
+      "method": "PUT",
+      "tags": [
+        "interactions"
+      ],
+      "summary": "Set interaction restrictions for a repository",
+      "operationId": "interactions/set-restrictions-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/interaction-limits",
+      "method": "DELETE",
+      "tags": [
+        "interactions"
+      ],
+      "summary": "Remove interaction restrictions for a repository",
+      "operationId": "interactions/remove-restrictions-for-repo"
+    },
+    {
+      "path": "/user/interaction-limits",
+      "method": "GET",
+      "tags": [
+        "interactions"
+      ],
+      "summary": "Get interaction restrictions for your public repositories",
+      "operationId": "interactions/get-restrictions-for-authenticated-user"
+    },
+    {
+      "path": "/user/interaction-limits",
+      "method": "PUT",
+      "tags": [
+        "interactions"
+      ],
+      "summary": "Set interaction restrictions for your public repositories",
+      "operationId": "interactions/set-restrictions-for-authenticated-user"
+    },
+    {
+      "path": "/user/interaction-limits",
+      "method": "DELETE",
+      "tags": [
+        "interactions"
+      ],
+      "summary": "Remove interaction restrictions from your public repositories",
+      "operationId": "interactions/remove-restrictions-for-authenticated-user"
+    }
+  ]
+}

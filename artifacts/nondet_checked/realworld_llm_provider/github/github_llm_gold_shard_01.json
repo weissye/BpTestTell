@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/my-org/actions/cache/usage",
+      "method": "GET",
+      "operationId": "actions/get-actions-cache-usage-for-org",
+      "summary": "",
+      "user": "Retrieve the cache usage statistics for the organization 'my-org'.",
+      "ideal": "The API should return the total cache size used by the organization."
+    },
+    {
+      "path": "/repos/my-user/my-repo/actions/artifacts",
+      "method": "GET",
+      "operationId": "actions/list-artifacts-for-repo",
+      "summary": "",
+      "user": "List all artifacts for the repository 'my-repo' owned by 'my-user'.",
+      "ideal": "The API should return a list of artifacts with their details."
+    },
+    {
+      "path": "/orgs/my-org/actions/permissions",
+      "method": "GET",
+      "operationId": "actions/get-github-actions-permissions-organization",
+      "summary": "",
+      "user": "Get the GitHub Actions permissions for the organization 'my-org'.",
+      "ideal": "The API should return the current permissions settings for GitHub Actions."
+    },
+    {
+      "path": "/repos/my-user/my-repo/actions/runs",
+      "method": "GET",
+      "operationId": "actions/list-workflow-runs-for-repo",
+      "summary": "",
+      "user": "Fetch all workflow runs for the repository 'my-repo' owned by 'my-user'.",
+      "ideal": "The API should return a list of workflow runs with their statuses."
+    },
+    {
+      "path": "/orgs/my-org/actions/secrets",
+      "method": "GET",
+      "operationId": "actions/list-org-secrets",
+      "summary": "",
+      "user": "Retrieve all organization secrets for 'my-org'.",
+      "ideal": "The API should return a list of secrets with their names and visibility."
+    },
+    {
+      "path": "/repos/my-user/my-repo/actions/secrets/my-secret",
+      "method": "GET",
+      "operationId": "actions/get-repo-secret",
+      "summary": "",
+      "user": "Get the secret named 'my-secret' for the repository 'my-repo'.",
+      "ideal": "The API should return the value of the secret if it exists."
+    },
+    {
+      "path": "/orgs/my-org/actions/runner-groups",
+      "method": "GET",
+      "operationId": "actions/list-self-hosted-runner-groups-for-org",
+      "summary": "",
+      "user": "List all self-hosted runner groups for the organization 'my-org'.",
+      "ideal": "The API should return a list of runner groups with their details."
+    },
+    {
+      "path": "/repos/my-user/my-repo/actions/workflows",
+      "method": "GET",
+      "operationId": "actions/list-repo-workflows",
+      "summary": "",
+      "user": "Fetch all workflows for the repository 'my-repo'.",
+      "ideal": "The API should return a list of workflows with their IDs and names."
+    },
+    {
+      "path": "/orgs/my-org/actions/permissions/self-hosted-runners",
+      "method": "GET",
+      "operationId": "actions/get-self-hosted-runners-permissions-organization",
+      "summary": "",
+      "user": "Get the permissions for self-hosted runners in the organization 'my-org'.",
+      "ideal": "The API should return the current permissions settings for self-hosted runners."
+    },
+    {
+      "path": "/repos/my-user/my-repo/actions/permissions",
+      "method": "PUT",
+      "operationId": "actions/set-github-actions-permissions-repository",
+      "summary": "",
+      "user": "Update the GitHub Actions permissions for the repository 'my-repo'.",
+      "ideal": "The API should successfully update the permissions and return a confirmation."
+    },
+    {
+      "path": "/orgs/my-org/actions/variables",
+      "method": "POST",
+      "operationId": "actions/create-org-variable",
+      "summary": "",
+      "user": "Create a new organization variable for 'my-org'.",
+      "ideal": "The API should create the variable and return its details."
+    }
+  ]
+}

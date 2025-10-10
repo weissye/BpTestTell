@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/mypreferences",
+      "method": "DELETE",
+      "operationId": "removePreference",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Successfully removed user preference."
+    },
+    {
+      "path": "/rest/api/3/mypreferences",
+      "method": "GET",
+      "operationId": "getPreference",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieved user preferences successfully."
+    },
+    {
+      "path": "/rest/api/3/mypreferences",
+      "method": "PUT",
+      "operationId": "setPreference",
+      "summary": "",
+      "user": "user123",
+      "ideal": "User preferences updated successfully."
+    },
+    {
+      "path": "/rest/api/3/mypreferences/locale",
+      "method": "GET",
+      "operationId": "getLocale",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieved user locale successfully."
+    },
+    {
+      "path": "/rest/api/3/mypreferences/locale",
+      "method": "PUT",
+      "operationId": "setLocale",
+      "summary": "",
+      "user": "user123",
+      "ideal": "User locale updated successfully."
+    },
+    {
+      "path": "/rest/api/3/myself",
+      "method": "GET",
+      "operationId": "getCurrentUser",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieved current user information successfully."
+    }
+  ]
+}

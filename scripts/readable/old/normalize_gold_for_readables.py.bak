@@ -1,0 +1,66 @@
+# scripts/readable/normalize_gold_for_readables.py
+# Extracts HTTP ops from one or more GOLD/GOLD_FIXED (JSON/JSONL) files and
+# writes a single {"ops":[...]} JSON for emit_readables_from_gold.py to consume.
+
+import argparse, json, sys, pathlib
+
+def load_any(path: pathlib.Path):
+    text = path.read_text(encoding="utf-8")
+    if path.suffix.lower() == ".jsonl":
+        items = [json.loads(line) for line in text.splitlines() if line.strip()]
+        return {"gold": items}
+    return json.loads(text)
+
+def collect_ops(obj):
+    ops = []
+
+    def isop(d):
+        if not isinstance(d, dict): return False
+        m = d.get("method") or d.get("http_method")
+        p = d.get("path") or d.get("http_path") or d.get("endpoint")
+        return bool(m and p)
+
+    def norm(d):
+        return {
+            "method": (d.get("method") or d.get("http_method")).upper(),
+            "path": d.get("path") or d.get("http_path") or d.get("endpoint"),
+            "body": d.get("body") or d.get("requestBody") or d.get("payload"),
+        }
+
+    def walk(x):
+        if isinstance(x, dict):
+            if isop(x):
+                ops.append(norm(x))
+            for v in x.values():
+                walk(v)
+        elif isinstance(x, list):
+            for v in x:
+                walk(v)
+
+    walk(obj)
+    return ops
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", required=True, help="Output JSON path for merged ops")
+    ap.add_argument("gold_files", nargs="+", help="Input GOLD/GOLD_FIXED JSON/JSONL files")
+    args = ap.parse_args()
+
+    all_ops = []
+    for p in args.gold_files:
+        try:
+            path = pathlib.Path(p)
+            obj  = load_any(path)
+            ops  = collect_ops(obj)
+            all_ops.extend(ops)
+        except Exception as e:
+            print(f"[WARN] normalize skipped '{p}' ({e})")
+
+    out_path = pathlib.Path(args.out)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with out_path.open("w", encoding="utf-8") as f:
+        json.dump({"ops": all_ops}, f, indent=2)
+    print(f"[OK] normalized {len(all_ops)} ops -> {out_path}")
+
+if __name__ == "__main__":
+    main()

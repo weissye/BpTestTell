@@ -1,0 +1,252 @@
+{
+  "gold": [
+    {
+      "path": "/v1/{realm}/users/{id}",
+      "method": "GET",
+      "operationId": "getUserByRealmById",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve user details by user ID in the specified realm."
+    },
+    {
+      "path": "/v1/{realm}/clients/{id}/roles/{role-name}",
+      "method": "PUT",
+      "operationId": "putClientRole",
+      "summary": "",
+      "user": "clientAdmin",
+      "ideal": "Update the specified role for the client in the given realm."
+    },
+    {
+      "path": "/v1/{realm}/groups/{id}/role-mappings/realm",
+      "method": "GET",
+      "operationId": "getGroupRoleMappingsRealm",
+      "summary": "",
+      "user": "groupManager",
+      "ideal": "Fetch role mappings for the specified group in the realm."
+    },
+    {
+      "path": "/v1/{realm}/authentication/flows/{flowAlias}/executions",
+      "method": "GET",
+      "operationId": "getExecutions",
+      "summary": "",
+      "user": "authAdmin",
+      "ideal": "List all executions for the specified authentication flow."
+    },
+    {
+      "path": "/v1/{realm}/clients/{id}/protocol-mappers/protocol/{protocol}",
+      "method": "GET",
+      "operationId": "getClientProtocolMappersProtocol",
+      "summary": "",
+      "user": "clientAdmin",
+      "ideal": "Retrieve protocol mappers for the specified client and protocol."
+    },
+    {
+      "path": "/v1/{realm}/users/{id}/credentials",
+      "method": "GET",
+      "operationId": "getCredentials",
+      "summary": "",
+      "user": "userAdmin",
+      "ideal": "Get the credentials associated with the specified user."
+    },
+    {
+      "path": "/v1/{realm}/identity-provider/instances/{alias}/mappers",
+      "method": "GET",
+      "operationId": "getMappers",
+      "summary": "",
+      "user": "identityProviderAdmin",
+      "ideal": "Retrieve mappers for the specified identity provider instance."
+    },
+    {
+      "path": "/v1/{realm}/roles/{role-name}/composites",
+      "method": "GET",
+      "operationId": "getRoleCompositesByRealmByRoleName",
+      "summary": "",
+      "user": "roleAdmin",
+      "ideal": "List composite roles for the specified role in the realm."
+    },
+    {
+      "path": "/v1/{realm}/clients/{id}/management/permissions",
+      "method": "GET",
+      "operationId": "getClientManagementPermissions",
+      "summary": "",
+      "user": "clientAdmin",
+      "ideal": "Retrieve management permissions for the specified client."
+    },
+    {
+      "path": "/v1/{realm}/users/{id}/role-mappings/clients/{client}",
+      "method": "POST",
+      "operationId": "postUserRoleMappingsClient",
+      "summary": "",
+      "user": "userAdmin",
+      "ideal": "Assign role mappings for the user to the specified client."
+    },
+    {
+      "path": "/v1/{realm}/authentication/authenticator-providers",
+      "method": "GET",
+      "operationId": "getAuthenticatorProviders",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of available authenticator providers for the specified realm."
+    },
+    {
+      "path": "/v1/{realm}/clients/{id}/roles/{role-name}/users",
+      "method": "GET",
+      "operationId": "getClientRoleUsers",
+      "summary": "",
+      "user": "manager",
+      "ideal": "Get a list of users assigned to the specified role in the client."
+    },
+    {
+      "path": "/v1/{realm}/users/{id}/role-mappings/realm",
+      "method": "GET",
+      "operationId": "getUserRoleMappingsRealm",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Fetch the realm role mappings for the specified user."
+    },
+    {
+      "path": "/v1/{realm}/groups/{id}/role-mappings/clients/{client}",
+      "method": "GET",
+      "operationId": "getGroupRoleMappingsClient",
+      "summary": "",
+      "user": "groupAdmin",
+      "ideal": "Retrieve the role mappings for a specified group in the context of a client."
+    },
+    {
+      "path": "/v1/{realm}/clients/{id}/client-secret",
+      "method": "GET",
+      "operationId": "getClientSecret",
+      "summary": "",
+      "user": "devOps",
+      "ideal": "Get the client secret for the specified client."
+    },
+    {
+      "path": "/v1/{realm}/roles/{role-name}/composites",
+      "method": "POST",
+      "operationId": "postRoleCompositesByRealmByRoleName",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add composite roles to the specified role in the realm."
+    },
+    {
+      "path": "/v1/{realm}/users/{id}/credentials/{credentialId}",
+      "method": "DELETE",
+      "operationId": "deleteCredential",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove a specific credential from the user."
+    },
+    {
+      "path": "/v1/{realm}/identity-provider/instances/{alias}/mappers",
+      "method": "POST",
+      "operationId": "postMappers",
+      "summary": "",
+      "user": "identityAdmin",
+      "ideal": "Create new mappers for the specified identity provider instance."
+    },
+    {
+      "path": "/v1/{realm}/clients/{id}/roles",
+      "method": "POST",
+      "operationId": "postClientRoles",
+      "summary": "",
+      "user": "clientAdmin",
+      "ideal": "Create new roles for the specified client."
+    },
+    {
+      "path": "/v1/{realm}/users/{id}/groups",
+      "method": "GET",
+      "operationId": "getUserGroups",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the groups that the specified user belongs to."
+    },
+    {
+      "path": "/v1/{realm}/authentication/flows",
+      "method": "POST",
+      "operationId": "postFlows",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new authentication flow in the specified realm."
+    },
+    {
+      "path": "/myrealm",
+      "method": "GET",
+      "operationId": "getByRealm",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve realm information successfully."
+    },
+    {
+      "path": "/myrealm/admin-events",
+      "method": "GET",
+      "operationId": "getAdminEvents",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch all admin events for the realm."
+    },
+    {
+      "path": "/myrealm/attack-detection/brute-force/users/user123",
+      "method": "GET",
+      "operationId": "getBruteForceUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get brute force detection status for user123."
+    },
+    {
+      "path": "/myrealm/authentication/client-authenticator-providers",
+      "method": "GET",
+      "operationId": "getClientAuthenticatorProviders",
+      "summary": "",
+      "user": "admin",
+      "ideal": "List all client authenticator providers."
+    },
+    {
+      "path": "/myrealm/authentication/config/authConfigId",
+      "method": "GET",
+      "operationId": "getAuthenticationConfig",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve authentication configuration by ID."
+    },
+    {
+      "path": "/myrealm/authentication/executions",
+      "method": "POST",
+      "operationId": "postExecutions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create new authentication execution."
+    },
+    {
+      "path": "/myrealm/client-scopes/myScope/protocol-mappers/models",
+      "method": "POST",
+      "operationId": "postClientScopeProtocolMappersModels",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add protocol mappers to client scope."
+    },
+    {
+      "path": "/myrealm/clients/myClient/roles/myRole",
+      "method": "GET",
+      "operationId": "getClientRole",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve role details for the specified client."
+    },
+    {
+      "path": "/myrealm/users/user456/role-mappings/clients/myClient",
+      "method": "GET",
+      "operationId": "getUserRoleMappingsClient",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch role mappings for user456 in myClient."
+    },
+    {
+      "path": "/myrealm/groups/myGroup/members",
+      "method": "GET",
+      "operationId": "getMembers",
+      "summary": "",
+      "user": "admin",
+      "ideal": "List all members of the specified group."
+    }
+  ]
+}

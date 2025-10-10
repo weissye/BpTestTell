@@ -1,0 +1,99 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/groups",
+      "method": "GET",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "",
+      "operationId": "getGroupsByRealm"
+    },
+    {
+      "path": "/{realm}/groups",
+      "method": "POST",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "",
+      "operationId": "postGroups"
+    },
+    {
+      "path": "/{realm}/groups/count",
+      "method": "GET",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "",
+      "operationId": "getGroupsCountByRealm"
+    },
+    {
+      "path": "/{realm}/groups/{id}",
+      "method": "GET",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "",
+      "operationId": "getGroup"
+    },
+    {
+      "path": "/{realm}/groups/{id}",
+      "method": "PUT",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "",
+      "operationId": "putGroupByRealmById"
+    },
+    {
+      "path": "/{realm}/groups/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "",
+      "operationId": "deleteGroupByRealmById"
+    },
+    {
+      "path": "/{realm}/groups/{id}/children",
+      "method": "POST",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "",
+      "operationId": "postChildren"
+    },
+    {
+      "path": "/{realm}/groups/{id}/management/permissions",
+      "method": "GET",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "",
+      "operationId": "getGroupManagementPermissions"
+    },
+    {
+      "path": "/{realm}/groups/{id}/management/permissions",
+      "method": "PUT",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "",
+      "operationId": "putGroupManagementPermissions"
+    },
+    {
+      "path": "/{realm}/groups/{id}/members",
+      "method": "GET",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "",
+      "operationId": "getMembers"
+    }
+  ]
+}

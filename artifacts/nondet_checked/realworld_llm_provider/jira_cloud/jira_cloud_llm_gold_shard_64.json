@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/ABC/features",
+      "method": "GET",
+      "operationId": "getFeaturesForProject",
+      "summary": "",
+      "user": "A project manager wants to retrieve the features associated with the project identified by the key 'ABC' to assess the current capabilities and plan future enhancements.",
+      "ideal": "The response should include a list of features with their statuses, descriptions, and any relevant metadata."
+    },
+    {
+      "path": "/rest/api/3/project/ABC/features/feature123",
+      "method": "PUT",
+      "operationId": "toggleFeatureForProject",
+      "summary": "",
+      "user": "A developer needs to enable a specific feature identified by 'feature123' for the project 'ABC' to allow for new functionality during the current sprint.",
+      "ideal": "The response should confirm that the feature has been successfully toggled and provide the updated status of the feature."
+    }
+  ]
+}

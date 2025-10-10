@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/chains",
+      "method": "POST",
+      "operationId": "createChain",
+      "summary": "",
+      "user": "Admin user creating a new garage chain.",
+      "ideal": "A new garage chain is successfully created with a unique ID."
+    },
+    {
+      "path": "/chains/{chainId}",
+      "method": "PUT",
+      "operationId": "updateChain",
+      "summary": "",
+      "user": "Admin user updating the details of an existing garage chain.",
+      "ideal": "The garage chain details are updated successfully."
+    },
+    {
+      "path": "/garages",
+      "method": "GET",
+      "operationId": "getGarages",
+      "summary": "",
+      "user": "User retrieving a list of all garages in the system.",
+      "ideal": "A list of all garages is returned with their details."
+    },
+    {
+      "path": "/garages/{garageId}",
+      "method": "DELETE",
+      "operationId": "deleteGarage",
+      "summary": "",
+      "user": "Admin user deleting a specific garage from the system.",
+      "ideal": "The specified garage is successfully deleted."
+    },
+    {
+      "path": "/customers/{customerId}",
+      "method": "GET",
+      "operationId": "getCustomer",
+      "summary": "",
+      "user": "User looking up details for a specific customer.",
+      "ideal": "The customer's details are returned successfully."
+    },
+    {
+      "path": "/cars",
+      "method": "POST",
+      "operationId": "createCar",
+      "summary": "",
+      "user": "User adding a new car to the system.",
+      "ideal": "The new car is successfully added with a unique VIN."
+    },
+    {
+      "path": "/cars/{vin}",
+      "method": "PUT",
+      "operationId": "updateCar",
+      "summary": "",
+      "user": "User updating the details of an existing car.",
+      "ideal": "The car details are updated successfully."
+    },
+    {
+      "path": "/periodic-maintenance",
+      "method": "GET",
+      "operationId": "getPeriodicMaintenance",
+      "summary": "",
+      "user": "User retrieving a list of all scheduled periodic maintenance tasks.",
+      "ideal": "A list of all periodic maintenance tasks is returned."
+    },
+    {
+      "path": "/periodic-maintenance/{pmId}",
+      "method": "DELETE",
+      "operationId": "deletePeriodicMaintenance",
+      "summary": "",
+      "user": "Admin user removing a specific periodic maintenance task.",
+      "ideal": "The specified periodic maintenance task is successfully deleted."
+    },
+    {
+      "path": "/repair-orders/{roId}",
+      "method": "GET",
+      "operationId": "getRepairOrder",
+      "summary": "",
+      "user": "User checking the details of a specific repair order.",
+      "ideal": "The repair order details are returned successfully."
+    },
+    {
+      "path": "/repair-orders/{roId}/approve",
+      "method": "POST",
+      "operationId": "approveRepairOrder",
+      "summary": "",
+      "user": "Admin user approving a specific repair order.",
+      "ideal": "The repair order is successfully approved."
+    }
+  ]
+}

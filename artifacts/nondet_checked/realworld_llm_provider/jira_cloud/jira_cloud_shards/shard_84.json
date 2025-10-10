@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/uiModifications",
+      "method": "GET",
+      "tags": [
+        "UI modifications (apps)"
+      ],
+      "summary": "Get UI modifications",
+      "operationId": "getUiModifications"
+    },
+    {
+      "path": "/rest/api/3/uiModifications",
+      "method": "POST",
+      "tags": [
+        "UI modifications (apps)"
+      ],
+      "summary": "Create UI modification",
+      "operationId": "createUiModification"
+    },
+    {
+      "path": "/rest/api/3/uiModifications/{uiModificationId}",
+      "method": "DELETE",
+      "tags": [
+        "UI modifications (apps)"
+      ],
+      "summary": "Delete UI modification",
+      "operationId": "deleteUiModification"
+    },
+    {
+      "path": "/rest/api/3/uiModifications/{uiModificationId}",
+      "method": "PUT",
+      "tags": [
+        "UI modifications (apps)"
+      ],
+      "summary": "Update UI modification",
+      "operationId": "updateUiModification"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/classification-levels",
+      "method": "GET",
+      "operationId": "getAllUserDataClassificationLevels",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all user data classification levels available in the Jira Cloud platform."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue/ABC-123/votes",
+      "method": "GET",
+      "operationId": "getVotes",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Retrieve the current vote count and details for the issue with ID ABC-123."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/votes",
+      "method": "POST",
+      "operationId": "addVote",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Add a vote to the issue with ID ABC-123 to show support for its resolution."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/votes",
+      "method": "DELETE",
+      "operationId": "removeVote",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Remove my vote from the issue with ID ABC-123 as I no longer support it."
+    }
+  ]
+}

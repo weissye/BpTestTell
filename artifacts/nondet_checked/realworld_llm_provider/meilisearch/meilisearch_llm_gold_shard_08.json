@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/indexes/myIndex/search",
+      "method": "GET",
+      "operationId": "indexes.documents.searchGet",
+      "summary": "",
+      "user": "A user wants to retrieve documents from the 'myIndex' index based on a specific query. They are looking for documents that contain the keyword 'AI' and want to see the top 10 results.",
+      "ideal": "The API should return a JSON response containing the top 10 documents that match the query 'AI' from the 'myIndex' index."
+    },
+    {
+      "path": "/indexes/myIndex/search",
+      "method": "POST",
+      "operationId": "indexes.documents.search",
+      "summary": "",
+      "user": "A user is searching for articles related to 'machine learning' in the 'myIndex' index. They want to include filters for the publication date and sort the results by relevance.",
+      "ideal": "The API should accept the search query and filters, returning a JSON response with the relevant articles sorted by relevance."
+    },
+    {
+      "path": "/indexes/myIndex/facet-search",
+      "method": "POST",
+      "operationId": "indexes.documents.facet.search",
+      "summary": "",
+      "user": "A user wants to perform a facet search on the 'myIndex' index to find products filtered by category and price range. They are interested in electronics within a specific price range.",
+      "ideal": "The API should return a JSON response with the products that match the category 'electronics' and fall within the specified price range, along with the facet counts."
+    },
+    {
+      "path": "/multi-search",
+      "method": "POST",
+      "operationId": "multi_search",
+      "summary": "",
+      "user": "A user needs to perform multiple searches across different indexes simultaneously. They want to search for 'data science' in 'index1' and 'AI trends' in 'index2'.",
+      "ideal": "The API should process the multi-search request and return a JSON response containing the results for both searches, organized by index."
+    }
+  ]
+}

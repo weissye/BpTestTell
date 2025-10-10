@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/user/properties",
+      "method": "GET",
+      "operationId": "getUserPropertyKeys",
+      "summary": "",
+      "user": "john.doe@example.com",
+      "ideal": "Retrieve all user property keys for the specified user."
+    },
+    {
+      "path": "/rest/api/3/user/properties/notificationPreference",
+      "method": "DELETE",
+      "operationId": "deleteUserProperty",
+      "summary": "",
+      "user": "jane.smith@example.com",
+      "ideal": "Delete the user's notification preference property."
+    },
+    {
+      "path": "/rest/api/3/user/properties/theme",
+      "method": "GET",
+      "operationId": "getUserProperty",
+      "summary": "",
+      "user": "alice.brown@example.com",
+      "ideal": "Fetch the user's theme property to determine their UI preferences."
+    },
+    {
+      "path": "/rest/api/3/user/properties/language",
+      "method": "PUT",
+      "operationId": "setUserProperty",
+      "summary": "",
+      "user": "bob.johnson@example.com",
+      "ideal": "Set the user's preferred language property to 'en-US'."
+    }
+  ]
+}

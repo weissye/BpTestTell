@@ -1,0 +1,306 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/client-scopes/{id}/scope-mappings",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeScopeMappings"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeScopeMappingsClient"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}",
+      "method": "POST",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "postClientScopeScopeMappingsClient"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}",
+      "method": "DELETE",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "deleteClientScopeScopeMappingsClient"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}/available",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeScopeMappingsClientAvailable"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}/composite",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeScopeMappingsClientComposite"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/realm",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeScopeMappingsRealm"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/realm",
+      "method": "POST",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "postClientScopeScopeMappingsRealm"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/realm",
+      "method": "DELETE",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "deleteClientScopeScopeMappingsRealm"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/realm/available",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeScopeMappingsRealmAvailable"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/realm/composite",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeScopeMappingsRealmComposite"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/scope-mappings",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplateScopeMappings"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplateScopeMappingsClient"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}",
+      "method": "POST",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "postClientTemplateScopeMappingsClient"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}",
+      "method": "DELETE",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "deleteClientTemplateScopeMappingsClient"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}/available",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplateScopeMappingsClientAvailable"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}/composite",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplateScopeMappingsClientComposite"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/scope-mappings/realm",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplateScopeMappingsRealm"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/scope-mappings/realm",
+      "method": "POST",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "postClientTemplateScopeMappingsRealm"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/scope-mappings/realm",
+      "method": "DELETE",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "deleteClientTemplateScopeMappingsRealm"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/scope-mappings/realm/available",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplateScopeMappingsRealmAvailable"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/scope-mappings/realm/composite",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplateScopeMappingsRealmComposite"
+    },
+    {
+      "path": "/{realm}/clients/{id}/scope-mappings",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeMappings"
+    },
+    {
+      "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeMappingsClient"
+    },
+    {
+      "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}",
+      "method": "POST",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "postClientScopeMappingsClient"
+    },
+    {
+      "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}",
+      "method": "DELETE",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "deleteClientScopeMappingsClient"
+    },
+    {
+      "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}/available",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeMappingsClientAvailable"
+    },
+    {
+      "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}/composite",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeMappingsClientComposite"
+    },
+    {
+      "path": "/{realm}/clients/{id}/scope-mappings/realm",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeMappingsRealm"
+    },
+    {
+      "path": "/{realm}/clients/{id}/scope-mappings/realm",
+      "method": "POST",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "postClientScopeMappingsRealm"
+    },
+    {
+      "path": "/{realm}/clients/{id}/scope-mappings/realm",
+      "method": "DELETE",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "deleteClientScopeMappingsRealm"
+    },
+    {
+      "path": "/{realm}/clients/{id}/scope-mappings/realm/available",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeMappingsRealmAvailable"
+    },
+    {
+      "path": "/{realm}/clients/{id}/scope-mappings/realm/composite",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeMappingsRealmComposite"
+    }
+  ]
+}

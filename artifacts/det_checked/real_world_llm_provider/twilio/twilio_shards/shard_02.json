@@ -1,0 +1,603 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Account"
+      ],
+      "summary": "Retrieves a collection of Accounts belonging to the account used to make the request",
+      "operationId": "ListAccount"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Address"
+      ],
+      "summary": "",
+      "operationId": "CreateAddress"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Address"
+      ],
+      "summary": "",
+      "operationId": "FetchAddress"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Application"
+      ],
+      "summary": "Retrieve a list of applications representing an application within the requesting account",
+      "operationId": "ListApplication"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Application"
+      ],
+      "summary": "Updates the application's properties",
+      "operationId": "UpdateApplication"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401AvailablePhoneNumberCountry"
+      ],
+      "summary": "",
+      "operationId": "ListAvailablePhoneNumberCountry"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401MachineToMachine"
+      ],
+      "summary": "",
+      "operationId": "ListAvailablePhoneNumberMachineToMachine"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401SharedCost"
+      ],
+      "summary": "",
+      "operationId": "ListAvailablePhoneNumberSharedCost"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Balance.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Balance"
+      ],
+      "summary": "Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information",
+      "operationId": "FetchBalance"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Call"
+      ],
+      "summary": "Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.",
+      "operationId": "DeleteCall"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Event"
+      ],
+      "summary": "Retrieve a list of all events for a call.",
+      "operationId": "ListCallEvent"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401CallRecording"
+      ],
+      "summary": "Create a recording for the call",
+      "operationId": "CreateCallRecording"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401CallRecording"
+      ],
+      "summary": "Fetch an instance of a recording for a call",
+      "operationId": "FetchCallRecording"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Conference"
+      ],
+      "summary": "",
+      "operationId": "UpdateConference"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401ConferenceRecording"
+      ],
+      "summary": "Changes the status of the recording to paused, stopped, or in-progress. Note: To use `Twilio.CURRENT`, pass it as recording sid.",
+      "operationId": "UpdateConferenceRecording"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401ConnectApp"
+      ],
+      "summary": "Fetch an instance of a connect-app",
+      "operationId": "FetchConnectApp"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401ConnectApp"
+      ],
+      "summary": "Retrieve a list of connect-apps belonging to the account used to make the request",
+      "operationId": "ListConnectApp"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401IncomingPhoneNumber"
+      ],
+      "summary": "Fetch an incoming-phone-number belonging to the account used to make the request.",
+      "operationId": "FetchIncomingPhoneNumber"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401IncomingPhoneNumber"
+      ],
+      "summary": "Purchase a phone-number for the account.",
+      "operationId": "CreateIncomingPhoneNumber"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401AssignedAddOn"
+      ],
+      "summary": "Retrieve a list of Add-on installations currently assigned to this Number.",
+      "operationId": "ListIncomingPhoneNumberAssignedAddOn"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401AssignedAddOnExtension"
+      ],
+      "summary": "Retrieve a list of Extensions for the Assigned Add-on.",
+      "operationId": "ListIncomingPhoneNumberAssignedAddOnExtension"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401IncomingPhoneNumberMobile"
+      ],
+      "summary": "",
+      "operationId": "ListIncomingPhoneNumberMobile"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401IncomingPhoneNumberTollFree"
+      ],
+      "summary": "",
+      "operationId": "CreateIncomingPhoneNumberTollFree"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Key"
+      ],
+      "summary": "",
+      "operationId": "DeleteKey"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401MediaInstance"
+      ],
+      "summary": "Delete the Media resource.",
+      "operationId": "DeleteMedia"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Member"
+      ],
+      "summary": "Fetch a specific member from the queue",
+      "operationId": "FetchMember"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Message"
+      ],
+      "summary": "Send a message",
+      "operationId": "CreateMessage"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Message"
+      ],
+      "summary": "Fetch a specific Message",
+      "operationId": "FetchMessage"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401NewSigningKey"
+      ],
+      "summary": "Create a new Signing Key for the account making the request.",
+      "operationId": "CreateNewSigningKey"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Notifications.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Notification"
+      ],
+      "summary": "Retrieve a list of notifications belonging to the account used to make the request",
+      "operationId": "ListNotification"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401OutgoingCallerId"
+      ],
+      "summary": "Delete the caller-id specified from the account",
+      "operationId": "DeleteOutgoingCallerId"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Participant"
+      ],
+      "summary": "Fetch an instance of a participant",
+      "operationId": "FetchParticipant"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Participant"
+      ],
+      "summary": "",
+      "operationId": "CreateParticipant"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Payment"
+      ],
+      "summary": "update an instance of payments with different phases of payment flows.",
+      "operationId": "UpdatePayments"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Queue"
+      ],
+      "summary": "Remove an empty queue",
+      "operationId": "DeleteQueue"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401CallTranscription"
+      ],
+      "summary": "Create a Transcription",
+      "operationId": "CreateRealtimeTranscription"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Recording"
+      ],
+      "summary": "Delete a recording from your account",
+      "operationId": "DeleteRecording"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401AddOnResult"
+      ],
+      "summary": "Delete a result and purge all associated Payloads",
+      "operationId": "DeleteRecordingAddOnResult"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Payload"
+      ],
+      "summary": "Delete a payload from the result along with all associated Data",
+      "operationId": "DeleteRecordingAddOnResultPayload"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401RecordingTranscription"
+      ],
+      "summary": "",
+      "operationId": "FetchRecordingTranscription"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401ShortCode"
+      ],
+      "summary": "Fetch an instance of a short code",
+      "operationId": "FetchShortCode"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401SigningKey"
+      ],
+      "summary": "",
+      "operationId": "FetchSigningKey"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401AuthCallsCredentialListMapping"
+      ],
+      "summary": "Create a new credential list mapping resource",
+      "operationId": "CreateSipAuthCallsCredentialListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401AuthCallsCredentialListMapping"
+      ],
+      "summary": "Delete a credential list mapping from the requested domain",
+      "operationId": "DeleteSipAuthCallsCredentialListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401AuthCallsIpAccessControlListMapping"
+      ],
+      "summary": "Fetch a specific instance of an IP Access Control List mapping",
+      "operationId": "FetchSipAuthCallsIpAccessControlListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401AuthRegistrationsCredentialListMapping"
+      ],
+      "summary": "Retrieve a list of credential list mappings belonging to the domain used in the request",
+      "operationId": "ListSipAuthRegistrationsCredentialListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Credential"
+      ],
+      "summary": "Retrieve a list of credentials.",
+      "operationId": "ListSipCredential"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Credential"
+      ],
+      "summary": "Update a credential resource.",
+      "operationId": "UpdateSipCredential"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401CredentialList"
+      ],
+      "summary": "Create a Credential List",
+      "operationId": "CreateSipCredentialList"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401CredentialList"
+      ],
+      "summary": "Delete a Credential List",
+      "operationId": "DeleteSipCredentialList"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401CredentialListMapping"
+      ],
+      "summary": "Fetch a single CredentialListMapping resource from an account.",
+      "operationId": "FetchSipCredentialListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Domain"
+      ],
+      "summary": "Create a new Domain",
+      "operationId": "CreateSipDomain"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Domain"
+      ],
+      "summary": "Delete an instance of a Domain",
+      "operationId": "DeleteSipDomain"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401IpAccessControlList"
+      ],
+      "summary": "Fetch a specific instance of an IpAccessControlList",
+      "operationId": "FetchSipIpAccessControlList"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401IpAccessControlListMapping"
+      ],
+      "summary": "Fetch an IpAccessControlListMapping resource.",
+      "operationId": "FetchSipIpAccessControlListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401IpAccessControlListMapping"
+      ],
+      "summary": "Retrieve a list of IpAccessControlListMapping resources.",
+      "operationId": "ListSipIpAccessControlListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401SipIpAddress"
+      ],
+      "summary": "Read one IpAddress resource.",
+      "operationId": "FetchSipIpAddress"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Siprec"
+      ],
+      "summary": "Create a Siprec",
+      "operationId": "CreateSiprec"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Stream"
+      ],
+      "summary": "Stop a Stream using either the SID of the Stream resource or the `name` used when creating the resource",
+      "operationId": "UpdateStream"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Transcription"
+      ],
+      "summary": "Delete a transcription from the account used to make the request",
+      "operationId": "DeleteTranscription"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401AllTime"
+      ],
+      "summary": "",
+      "operationId": "ListUsageRecordAllTime"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Monthly"
+      ],
+      "summary": "",
+      "operationId": "ListUsageRecordMonthly"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Yearly"
+      ],
+      "summary": "",
+      "operationId": "ListUsageRecordYearly"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Trigger"
+      ],
+      "summary": "Update an instance of a usage trigger",
+      "operationId": "UpdateUsageTrigger"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Trigger"
+      ],
+      "summary": "Retrieve a list of usage-triggers belonging to the account used to make the request",
+      "operationId": "ListUsageTrigger"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401UserDefinedMessageSubscription"
+      ],
+      "summary": "Delete a specific User Defined Message Subscription.",
+      "operationId": "DeleteUserDefinedMessageSubscription"
+    }
+  ]
+}

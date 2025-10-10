@@ -1,0 +1,204 @@
+{
+  "gold": [
+    {
+      "path": "/dumps",
+      "method": "POST",
+      "operationId": "dumps.create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new dump of the current indexes."
+    },
+    {
+      "path": "/indexes",
+      "method": "GET",
+      "operationId": "indexes.list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all indexes."
+    },
+    {
+      "path": "/indexes/{indexUid}",
+      "method": "PATCH",
+      "operationId": "indexes.update",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update the settings of a specific index identified by indexUid."
+    },
+    {
+      "path": "/indexes/{indexUid}/documents",
+      "method": "POST",
+      "operationId": "indexes.documents.create",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Add new documents to the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/documents/fetch",
+      "method": "POST",
+      "operationId": "indexes.documents.fetch",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Fetch documents from an external source to add to the index."
+    },
+    {
+      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "method": "GET",
+      "operationId": "indexes.documents.get",
+      "summary": "",
+      "user": "viewer",
+      "ideal": "Retrieve a specific document by its ID from the index."
+    },
+    {
+      "path": "/indexes/{indexUid}/search",
+      "method": "POST",
+      "operationId": "indexes.documents.search",
+      "summary": "",
+      "user": "viewer",
+      "ideal": "Search for documents in the specified index based on query parameters."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings",
+      "method": "PATCH",
+      "operationId": "indexes.settings.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the settings of the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "method": "PUT",
+      "operationId": "indexes.settings.synonyms.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the synonyms settings for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "method": "PUT",
+      "operationId": "indexes.settings.sortable-attributes.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Set the sortable attributes for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "method": "PUT",
+      "operationId": "indexes.settings.stopWords.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the stop words for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "method": "PUT",
+      "operationId": "indexes.settings.rankingRules.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Define the ranking rules for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "method": "PATCH",
+      "operationId": "indexes.settings.typoTolerance.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Adjust the typo tolerance settings for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "method": "PATCH",
+      "operationId": "indexes.settings.pagination.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update pagination settings for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "method": "PATCH",
+      "operationId": "indexes.settings.faceting.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Modify faceting settings for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "method": "PUT",
+      "operationId": "indexes.settings.filterableAttributes.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Set the filterable attributes for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "method": "PUT",
+      "operationId": "indexes.settings.distinctAttribute.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Define the distinct attribute for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "method": "PUT",
+      "operationId": "indexes.settings.searchableAttributes.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Set the searchable attributes for the specified index."
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "method": "PUT",
+      "operationId": "indexes.settings.displayedAttributes.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the displayed attributes for the specified index."
+    },
+    {
+      "path": "/multi-search",
+      "method": "POST",
+      "operationId": "multi_search",
+      "summary": "",
+      "user": "viewer",
+      "ideal": "Perform a multi-search across multiple indexes."
+    },
+    {
+      "path": "/keys/{uid_or_key}",
+      "method": "GET",
+      "operationId": "keys.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the API key details using its UID or key."
+    },
+    {
+      "path": "/stats",
+      "method": "GET",
+      "operationId": "stats.list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get statistics about the indexes and documents."
+    },
+    {
+      "path": "/tasks",
+      "method": "DELETE",
+      "operationId": "tasks.delete",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete specific tasks from the task queue."
+    },
+    {
+      "path": "/swap-indexes",
+      "method": "POST",
+      "operationId": "indexes.swap",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Swap two indexes in the Meilisearch instance."
+    },
+    {
+      "path": "/metrics",
+      "method": "GET",
+      "operationId": "metrics.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve performance metrics for the Meilisearch instance."
+    }
+  ]
+}

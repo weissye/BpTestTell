@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/machines",
+      "method": "GET",
+      "operationId": "getMachines",
+      "summary": "",
+      "user": "factoryAdmin",
+      "ideal": "Retrieve a list of all machines in the factory, including their status and operational details."
+    },
+    {
+      "path": "/workorders",
+      "method": "POST",
+      "operationId": "createWorkOrder",
+      "summary": "",
+      "user": "productionManager",
+      "ideal": "Create a new work order for the specified machine, including details like task description, priority, and due date."
+    },
+    {
+      "path": "/sensor-readings",
+      "method": "GET",
+      "operationId": "getSensorReadings",
+      "summary": "",
+      "user": "maintenanceTechnician",
+      "ideal": "Fetch the latest sensor readings from all machines to monitor performance and detect any anomalies."
+    }
+  ]
+}

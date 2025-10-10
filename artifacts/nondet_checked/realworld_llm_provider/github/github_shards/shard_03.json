@@ -1,0 +1,342 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/app",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Get the authenticated app",
+      "operationId": "apps/get-authenticated"
+    },
+    {
+      "path": "/app-manifests/{code}/conversions",
+      "method": "POST",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Create a GitHub App from a manifest",
+      "operationId": "apps/create-from-manifest"
+    },
+    {
+      "path": "/app/hook/config",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Get a webhook configuration for an app",
+      "operationId": "apps/get-webhook-config-for-app"
+    },
+    {
+      "path": "/app/hook/config",
+      "method": "PATCH",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Update a webhook configuration for an app",
+      "operationId": "apps/update-webhook-config-for-app"
+    },
+    {
+      "path": "/app/hook/deliveries",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "List deliveries for an app webhook",
+      "operationId": "apps/list-webhook-deliveries"
+    },
+    {
+      "path": "/app/hook/deliveries/{delivery_id}",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Get a delivery for an app webhook",
+      "operationId": "apps/get-webhook-delivery"
+    },
+    {
+      "path": "/app/hook/deliveries/{delivery_id}/attempts",
+      "method": "POST",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Redeliver a delivery for an app webhook",
+      "operationId": "apps/redeliver-webhook-delivery"
+    },
+    {
+      "path": "/app/installation-requests",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "List installation requests for the authenticated app",
+      "operationId": "apps/list-installation-requests-for-authenticated-app"
+    },
+    {
+      "path": "/app/installations",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "List installations for the authenticated app",
+      "operationId": "apps/list-installations"
+    },
+    {
+      "path": "/app/installations/{installation_id}",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Get an installation for the authenticated app",
+      "operationId": "apps/get-installation"
+    },
+    {
+      "path": "/app/installations/{installation_id}",
+      "method": "DELETE",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Delete an installation for the authenticated app",
+      "operationId": "apps/delete-installation"
+    },
+    {
+      "path": "/app/installations/{installation_id}/access_tokens",
+      "method": "POST",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Create an installation access token for an app",
+      "operationId": "apps/create-installation-access-token"
+    },
+    {
+      "path": "/app/installations/{installation_id}/suspended",
+      "method": "PUT",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Suspend an app installation",
+      "operationId": "apps/suspend-installation"
+    },
+    {
+      "path": "/app/installations/{installation_id}/suspended",
+      "method": "DELETE",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Unsuspend an app installation",
+      "operationId": "apps/unsuspend-installation"
+    },
+    {
+      "path": "/applications/{client_id}/grant",
+      "method": "DELETE",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Delete an app authorization",
+      "operationId": "apps/delete-authorization"
+    },
+    {
+      "path": "/applications/{client_id}/token",
+      "method": "POST",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Check a token",
+      "operationId": "apps/check-token"
+    },
+    {
+      "path": "/applications/{client_id}/token",
+      "method": "PATCH",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Reset a token",
+      "operationId": "apps/reset-token"
+    },
+    {
+      "path": "/applications/{client_id}/token",
+      "method": "DELETE",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Delete an app token",
+      "operationId": "apps/delete-token"
+    },
+    {
+      "path": "/applications/{client_id}/token/scoped",
+      "method": "POST",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Create a scoped access token",
+      "operationId": "apps/scope-token"
+    },
+    {
+      "path": "/apps/{app_slug}",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Get an app",
+      "operationId": "apps/get-by-slug"
+    },
+    {
+      "path": "/installation/repositories",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "List repositories accessible to the app installation",
+      "operationId": "apps/list-repos-accessible-to-installation"
+    },
+    {
+      "path": "/installation/token",
+      "method": "DELETE",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Revoke an installation access token",
+      "operationId": "apps/revoke-installation-access-token"
+    },
+    {
+      "path": "/marketplace_listing/accounts/{account_id}",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Get a subscription plan for an account",
+      "operationId": "apps/get-subscription-plan-for-account"
+    },
+    {
+      "path": "/marketplace_listing/plans",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "List plans",
+      "operationId": "apps/list-plans"
+    },
+    {
+      "path": "/marketplace_listing/plans/{plan_id}/accounts",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "List accounts for a plan",
+      "operationId": "apps/list-accounts-for-plan"
+    },
+    {
+      "path": "/marketplace_listing/stubbed/accounts/{account_id}",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Get a subscription plan for an account (stubbed)",
+      "operationId": "apps/get-subscription-plan-for-account-stubbed"
+    },
+    {
+      "path": "/marketplace_listing/stubbed/plans",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "List plans (stubbed)",
+      "operationId": "apps/list-plans-stubbed"
+    },
+    {
+      "path": "/marketplace_listing/stubbed/plans/{plan_id}/accounts",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "List accounts for a plan (stubbed)",
+      "operationId": "apps/list-accounts-for-plan-stubbed"
+    },
+    {
+      "path": "/orgs/{org}/installation",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Get an organization installation for the authenticated app",
+      "operationId": "apps/get-org-installation"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/installation",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Get a repository installation for the authenticated app",
+      "operationId": "apps/get-repo-installation"
+    },
+    {
+      "path": "/user/installations",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "List app installations accessible to the user access token",
+      "operationId": "apps/list-installations-for-authenticated-user"
+    },
+    {
+      "path": "/user/installations/{installation_id}/repositories",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "List repositories accessible to the user access token",
+      "operationId": "apps/list-installation-repos-for-authenticated-user"
+    },
+    {
+      "path": "/user/installations/{installation_id}/repositories/{repository_id}",
+      "method": "PUT",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Add a repository to an app installation",
+      "operationId": "apps/add-repo-to-installation-for-authenticated-user"
+    },
+    {
+      "path": "/user/installations/{installation_id}/repositories/{repository_id}",
+      "method": "DELETE",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Remove a repository from an app installation",
+      "operationId": "apps/remove-repo-from-installation-for-authenticated-user"
+    },
+    {
+      "path": "/user/marketplace_purchases",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "List subscriptions for the authenticated user",
+      "operationId": "apps/list-subscriptions-for-authenticated-user"
+    },
+    {
+      "path": "/user/marketplace_purchases/stubbed",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "List subscriptions for the authenticated user (stubbed)",
+      "operationId": "apps/list-subscriptions-for-authenticated-user-stubbed"
+    },
+    {
+      "path": "/users/{username}/installation",
+      "method": "GET",
+      "tags": [
+        "apps"
+      ],
+      "summary": "Get a user installation for the authenticated app",
+      "operationId": "apps/get-user-installation"
+    }
+  ]
+}

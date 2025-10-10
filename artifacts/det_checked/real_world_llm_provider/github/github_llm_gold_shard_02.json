@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/advisories",
+      "method": "GET",
+      "operationId": "security-advisories/list-global-advisories",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all global security advisories."
+    },
+    {
+      "path": "/app-manifests/{code}/conversions",
+      "method": "POST",
+      "operationId": "apps/create-from-manifest",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Create an app from the provided manifest code."
+    },
+    {
+      "path": "/app/hook/deliveries",
+      "method": "GET",
+      "operationId": "apps/list-webhook-deliveries",
+      "summary": "",
+      "user": "user789",
+      "ideal": "List all webhook deliveries for the authenticated app."
+    },
+    {
+      "path": "/classrooms/{classroom_id}/assignments",
+      "method": "GET",
+      "operationId": "classroom/list-assignments-for-a-classroom",
+      "summary": "",
+      "user": "teacher001",
+      "ideal": "Get all assignments for the specified classroom."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/runs",
+      "method": "GET",
+      "operationId": "actions/list-workflow-runs-for-repo",
+      "summary": "",
+      "user": "dev001",
+      "ideal": "List all workflow runs for the specified repository."
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/members",
+      "method": "GET",
+      "operationId": "teams/list-members-in-org",
+      "summary": "",
+      "user": "orgAdmin",
+      "ideal": "Retrieve a list of all members in the specified team."
+    },
+    {
+      "path": "/gists/{gist_id}/comments",
+      "method": "GET",
+      "operationId": "gists/list-comments",
+      "summary": "",
+      "user": "userCommenter",
+      "ideal": "Fetch all comments for the specified gist."
+    },
+    {
+      "path": "/orgs/{org}/dependabot/alerts",
+      "method": "GET",
+      "operationId": "dependabot/list-alerts-for-org",
+      "summary": "",
+      "user": "securityLead",
+      "ideal": "Get a list of all Dependabot alerts for the organization."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection",
+      "method": "GET",
+      "operationId": "repos/get-branch-protection",
+      "summary": "",
+      "user": "repoAdmin",
+      "ideal": "Retrieve branch protection settings for the specified branch."
+    },
+    {
+      "path": "/orgs/{org}/projects",
+      "method": "GET",
+      "operationId": "projects-classic/list-for-org",
+      "summary": "",
+      "user": "projectManager",
+      "ideal": "List all projects associated with the organization."
+    }
+  ]
+}

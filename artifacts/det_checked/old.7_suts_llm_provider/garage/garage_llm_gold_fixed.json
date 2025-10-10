@@ -1,0 +1,501 @@
+{
+  "gold": [
+    {
+      "operationId": "POST /reset",
+      "request": {
+        "method": "POST",
+        "path": "/reset",
+        "body": {}
+      },
+      "response": {
+        "status": 200,
+        "body": {}
+      }
+    },
+    {
+      "operationId": "POST /chains",
+      "request": {
+        "method": "POST",
+        "path": "/chains",
+        "body": {
+          "name": "New Chain"
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "id": "chain123",
+          "name": "New Chain"
+        }
+      }
+    },
+    {
+      "operationId": "GET /chains",
+      "request": {
+        "method": "GET",
+        "path": "/chains"
+      },
+      "response": {
+        "status": 200,
+        "body": [
+          {
+            "id": "chain123",
+            "name": "New Chain"
+          }
+        ]
+      }
+    },
+    {
+      "operationId": "GET /chains/{chainId}",
+      "request": {
+        "method": "GET",
+        "path": "/chains/chain123"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "chain123",
+          "name": "New Chain"
+        }
+      }
+    },
+    {
+      "operationId": "PUT /chains/{chainId}",
+      "request": {
+        "method": "PUT",
+        "path": "/chains/chain123",
+        "body": {
+          "name": "Updated Chain"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "chain123",
+          "name": "Updated Chain"
+        }
+      }
+    },
+    {
+      "operationId": "DELETE /chains/{chainId}",
+      "request": {
+        "method": "DELETE",
+        "path": "/chains/chain123"
+      },
+      "response": {
+        "status": 204,
+        "body": {}
+      }
+    },
+    {
+      "operationId": "POST /garages",
+      "request": {
+        "method": "POST",
+        "path": "/garages",
+        "body": {
+          "location": "123 Main St"
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "id": "garage456",
+          "location": "123 Main St"
+        }
+      }
+    },
+    {
+      "operationId": "GET /garages",
+      "request": {
+        "method": "GET",
+        "path": "/garages"
+      },
+      "response": {
+        "status": 200,
+        "body": [
+          {
+            "id": "garage456",
+            "location": "123 Main St"
+          }
+        ]
+      }
+    },
+    {
+      "operationId": "GET /garages/{garageId}",
+      "request": {
+        "method": "GET",
+        "path": "/garages/garage456"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "garage456",
+          "location": "123 Main St"
+        }
+      }
+    },
+    {
+      "operationId": "PUT /garages/{garageId}",
+      "request": {
+        "method": "PUT",
+        "path": "/garages/garage456",
+        "body": {
+          "location": "456 Elm St"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "garage456",
+          "location": "456 Elm St"
+        }
+      }
+    },
+    {
+      "operationId": "DELETE /garages/{garageId}",
+      "request": {
+        "method": "DELETE",
+        "path": "/garages/garage456"
+      },
+      "response": {
+        "status": 204,
+        "body": {}
+      }
+    },
+    {
+      "operationId": "POST /customers",
+      "request": {
+        "method": "POST",
+        "path": "/customers",
+        "body": {
+          "name": "John Doe"
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "id": "customer789",
+          "name": "John Doe"
+        }
+      }
+    },
+    {
+      "operationId": "GET /customers",
+      "request": {
+        "method": "GET",
+        "path": "/customers"
+      },
+      "response": {
+        "status": 200,
+        "body": [
+          {
+            "id": "customer789",
+            "name": "John Doe"
+          }
+        ]
+      }
+    },
+    {
+      "operationId": "GET /customers/{customerId}",
+      "request": {
+        "method": "GET",
+        "path": "/customers/customer789"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "customer789",
+          "name": "John Doe"
+        }
+      }
+    },
+    {
+      "operationId": "PUT /customers/{customerId}",
+      "request": {
+        "method": "PUT",
+        "path": "/customers/customer789",
+        "body": {
+          "name": "Jane Doe"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "customer789",
+          "name": "Jane Doe"
+        }
+      }
+    },
+    {
+      "operationId": "DELETE /customers/{customerId}",
+      "request": {
+        "method": "DELETE",
+        "path": "/customers/customer789"
+      },
+      "response": {
+        "status": 204,
+        "body": {}
+      }
+    },
+    {
+      "operationId": "POST /cars",
+      "request": {
+        "method": "POST",
+        "path": "/cars",
+        "body": {
+          "vin": "1HGCM82633A123456",
+          "make": "Honda",
+          "model": "Accord"
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "vin": "1HGCM82633A123456",
+          "make": "Honda",
+          "model": "Accord"
+        }
+      }
+    },
+    {
+      "operationId": "GET /cars",
+      "request": {
+        "method": "GET",
+        "path": "/cars"
+      },
+      "response": {
+        "status": 200,
+        "body": [
+          {
+            "vin": "1HGCM82633A123456",
+            "make": "Honda",
+            "model": "Accord"
+          }
+        ]
+      }
+    },
+    {
+      "operationId": "GET /cars/{vin}",
+      "request": {
+        "method": "GET",
+        "path": "/cars/1HGCM82633A123456"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "vin": "1HGCM82633A123456",
+          "make": "Honda",
+          "model": "Accord"
+        }
+      }
+    },
+    {
+      "operationId": "PUT /cars/{vin}",
+      "request": {
+        "method": "PUT",
+        "path": "/cars/1HGCM82633A123456",
+        "body": {
+          "make": "Honda",
+          "model": "Civic"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "vin": "1HGCM82633A123456",
+          "make": "Honda",
+          "model": "Civic"
+        }
+      }
+    },
+    {
+      "operationId": "DELETE /cars/{vin}",
+      "request": {
+        "method": "DELETE",
+        "path": "/cars/1HGCM82633A123456"
+      },
+      "response": {
+        "status": 204,
+        "body": {}
+      }
+    },
+    {
+      "operationId": "POST /periodic-maintenance",
+      "request": {
+        "method": "POST",
+        "path": "/periodic-maintenance",
+        "body": {
+          "description": "Oil Change"
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "id": "pm101",
+          "description": "Oil Change"
+        }
+      }
+    },
+    {
+      "operationId": "GET /periodic-maintenance",
+      "request": {
+        "method": "GET",
+        "path": "/periodic-maintenance"
+      },
+      "response": {
+        "status": 200,
+        "body": [
+          {
+            "id": "pm101",
+            "description": "Oil Change"
+          }
+        ]
+      }
+    },
+    {
+      "operationId": "GET /periodic-maintenance/{pmId}",
+      "request": {
+        "method": "GET",
+        "path": "/periodic-maintenance/pm101"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "pm101",
+          "description": "Oil Change"
+        }
+      }
+    },
+    {
+      "operationId": "PUT /periodic-maintenance/{pmId}",
+      "request": {
+        "method": "PUT",
+        "path": "/periodic-maintenance/pm101",
+        "body": {
+          "description": "Tire Rotation"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "pm101",
+          "description": "Tire Rotation"
+        }
+      }
+    },
+    {
+      "operationId": "DELETE /periodic-maintenance/{pmId}",
+      "request": {
+        "method": "DELETE",
+        "path": "/periodic-maintenance/pm101"
+      },
+      "response": {
+        "status": 204,
+        "body": {}
+      }
+    },
+    {
+      "operationId": "POST /repair-orders",
+      "request": {
+        "method": "POST",
+        "path": "/repair-orders",
+        "body": {
+          "description": "Brake Repair"
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "id": "ro202",
+          "description": "Brake Repair"
+        }
+      }
+    },
+    {
+      "operationId": "GET /repair-orders",
+      "request": {
+        "method": "GET",
+        "path": "/repair-orders"
+      },
+      "response": {
+        "status": 200,
+        "body": [
+          {
+            "id": "ro202",
+            "description": "Brake Repair"
+          }
+        ]
+      }
+    },
+    {
+      "operationId": "GET /repair-orders/{roId}",
+      "request": {
+        "method": "GET",
+        "path": "/repair-orders/ro202"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "ro202",
+          "description": "Brake Repair"
+        }
+      }
+    },
+    {
+      "operationId": "PUT /repair-orders/{roId}",
+      "request": {
+        "method": "PUT",
+        "path": "/repair-orders/ro202",
+        "body": {
+          "description": "Brake Pad Replacement"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "ro202",
+          "description": "Brake Pad Replacement"
+        }
+      }
+    },
+    {
+      "operationId": "DELETE /repair-orders/{roId}",
+      "request": {
+        "method": "DELETE",
+        "path": "/repair-orders/ro202"
+      },
+      "response": {
+        "status": 204,
+        "body": {}
+      }
+    },
+    {
+      "operationId": "POST /repair-orders/{roId}/approve",
+      "request": {
+        "method": "POST",
+        "path": "/repair-orders/ro202/approve"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "ro202",
+          "status": "approved"
+        }
+      }
+    },
+    {
+      "operationId": "POST /repair-orders/{roId}/close",
+      "request": {
+        "method": "POST",
+        "path": "/repair-orders/ro202/close"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "ro202",
+          "status": "closed"
+        }
+      }
+    }
+  ]
+}

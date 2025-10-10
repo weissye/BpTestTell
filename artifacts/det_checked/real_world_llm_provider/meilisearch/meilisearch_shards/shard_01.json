@@ -1,0 +1,235 @@
+{
+  "openapi_meta": {
+    "title": "Meilisearch Core API",
+    "version": "1.7.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/dumps",
+      "method": "POST",
+      "tags": [
+        "Dumps"
+      ],
+      "summary": "Create a Dump",
+      "operationId": "dumps.create"
+    },
+    {
+      "path": "/indexes",
+      "method": "GET",
+      "tags": [
+        "Indexes"
+      ],
+      "summary": "List Indexes",
+      "operationId": "indexes.list"
+    },
+    {
+      "path": "/indexes/{indexUid}",
+      "method": "PATCH",
+      "tags": [
+        "Indexes"
+      ],
+      "summary": "Update Index",
+      "operationId": "indexes.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents",
+      "method": "POST",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Add or replace documents",
+      "operationId": "indexes.documents.create"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents/fetch",
+      "method": "POST",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Get Documents",
+      "operationId": "indexes.documents.fetch"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "method": "GET",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Get one document",
+      "operationId": "indexes.documents.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/search",
+      "method": "POST",
+      "tags": [
+        "Search"
+      ],
+      "summary": "Search",
+      "operationId": "indexes.documents.search"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings",
+      "method": "PATCH",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update settings",
+      "operationId": "indexes.settings.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update synonyms",
+      "operationId": "indexes.settings.synonyms.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update sortable attributes",
+      "operationId": "indexes.settings.sortable-attributes.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update stop-words",
+      "operationId": "indexes.settings.stopWords.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update ranking rules",
+      "operationId": "indexes.settings.rankingRules.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "method": "PATCH",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update typo tolerance settings",
+      "operationId": "indexes.settings.typoTolerance.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "method": "PATCH",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update pagination settings",
+      "operationId": "indexes.settings.pagination.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "method": "PATCH",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update faceting settings",
+      "operationId": "indexes.settings.faceting.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update Filterable Attributes",
+      "operationId": "indexes.settings.filterableAttributes.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update distinct attribute",
+      "operationId": "indexes.settings.distinctAttribute.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update searchable attributes",
+      "operationId": "indexes.settings.searchableAttributes.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update displayed attributes",
+      "operationId": "indexes.settings.displayedAttributes.update"
+    },
+    {
+      "path": "/multi-search",
+      "method": "POST",
+      "tags": [
+        "Search"
+      ],
+      "summary": "Multi Search",
+      "operationId": "multi_search"
+    },
+    {
+      "path": "/keys/{uid_or_key}",
+      "method": "GET",
+      "tags": [
+        "Keys"
+      ],
+      "summary": "Get an API key from its uid or key field.",
+      "operationId": "keys.get"
+    },
+    {
+      "path": "/stats",
+      "method": "GET",
+      "tags": [
+        "Stats"
+      ],
+      "summary": "Get stats of all indexes",
+      "operationId": "stats.list"
+    },
+    {
+      "path": "/tasks",
+      "method": "DELETE",
+      "tags": [
+        "Tasks"
+      ],
+      "summary": "Delete tasks",
+      "operationId": "tasks.delete"
+    },
+    {
+      "path": "/swap-indexes",
+      "method": "POST",
+      "tags": [
+        "Indexes"
+      ],
+      "summary": "Swap Indexes",
+      "operationId": "indexes.swap"
+    },
+    {
+      "path": "/metrics",
+      "method": "GET",
+      "tags": [
+        "Stats",
+        "Experimental"
+      ],
+      "summary": "(EXPERIMENTAL) Get prometheus format metrics for observability and monitoring",
+      "operationId": "metrics.get"
+    }
+  ]
+}

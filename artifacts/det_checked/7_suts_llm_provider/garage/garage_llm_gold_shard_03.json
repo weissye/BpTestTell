@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/chains",
+      "method": "GET",
+      "operationId": "getChains",
+      "summary": "",
+      "user": "As a user, I want to retrieve a list of all garage chains available in the system so that I can choose one for my service needs.",
+      "ideal": "The response should return a JSON array of garage chains, including their IDs, names, and locations."
+    },
+    {
+      "path": "/chains/{chainId}",
+      "method": "DELETE",
+      "operationId": "deleteChain",
+      "summary": "",
+      "user": "As an admin, I want to delete a specific garage chain by its ID so that I can manage the chains in the system effectively.",
+      "ideal": "The response should confirm the deletion of the chain and return a success message."
+    },
+    {
+      "path": "/garages/{garageId}",
+      "method": "GET",
+      "operationId": "getGarage",
+      "summary": "",
+      "user": "As a customer, I want to get details about a specific garage by its ID so that I can understand the services they offer.",
+      "ideal": "The response should include the garage's name, address, services offered, and contact information."
+    },
+    {
+      "path": "/customers",
+      "method": "POST",
+      "operationId": "createCustomer",
+      "summary": "",
+      "user": "As a new user, I want to create a customer account so that I can book services and manage my vehicle information.",
+      "ideal": "The response should return the newly created customer's ID and a success message."
+    },
+    {
+      "path": "/customers/{customerId}",
+      "method": "PUT",
+      "operationId": "updateCustomer",
+      "summary": "",
+      "user": "As a customer, I want to update my account information so that my details are current and accurate.",
+      "ideal": "The response should confirm the update and return the updated customer information."
+    },
+    {
+      "path": "/cars",
+      "method": "GET",
+      "operationId": "getCars",
+      "summary": "",
+      "user": "As a customer, I want to retrieve a list of my registered cars so that I can manage their maintenance schedules.",
+      "ideal": "The response should return a JSON array of cars with their details including make, model, and VIN."
+    },
+    {
+      "path": "/cars/{vin}",
+      "method": "DELETE",
+      "operationId": "deleteCar",
+      "summary": "",
+      "user": "As a customer, I want to remove a car from my account by its VIN so that I can keep my account organized.",
+      "ideal": "The response should confirm the deletion of the car and return a success message."
+    },
+    {
+      "path": "/periodic-maintenance/{pmId}",
+      "method": "GET",
+      "operationId": "getPeriodicMaintenance",
+      "summary": "",
+      "user": "As a customer, I want to view the details of a specific periodic maintenance schedule so that I can keep track of my car's service needs.",
+      "ideal": "The response should include the maintenance type, schedule, and any recommended services."
+    },
+    {
+      "path": "/repair-orders",
+      "method": "POST",
+      "operationId": "createRepairOrder",
+      "summary": "",
+      "user": "As a customer, I want to create a repair order for my car so that I can get the necessary repairs done.",
+      "ideal": "The response should return the newly created repair order ID and a success message."
+    },
+    {
+      "path": "/repair-orders/{roId}",
+      "method": "PUT",
+      "operationId": "updateRepairOrder",
+      "summary": "",
+      "user": "As a customer, I want to update my existing repair order so that I can modify the requested services.",
+      "ideal": "The response should confirm the update and return the updated repair order details."
+    },
+    {
+      "path": "/repair-orders/{roId}/close",
+      "method": "POST",
+      "operationId": "closeRepairOrder",
+      "summary": "",
+      "user": "As a customer, I want to close my repair order once the services are completed so that I can finalize the transaction.",
+      "ideal": "The response should confirm the closure of the repair order and provide a summary of the services performed."
+    }
+  ]
+}

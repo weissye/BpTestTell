@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/projectvalidate/key",
+      "method": "GET",
+      "operationId": "validateProjectKey",
+      "summary": "",
+      "user": "A project manager wants to ensure that the project key 'PROJ123' is valid before creating a new project in Jira.",
+      "ideal": "The API should return a response indicating whether 'PROJ123' is a valid project key or not, along with any relevant error messages."
+    },
+    {
+      "path": "/rest/api/3/projectvalidate/validProjectKey",
+      "method": "GET",
+      "operationId": "getValidProjectKey",
+      "summary": "",
+      "user": "A developer is looking to generate a valid project key for a new software project and wants to check if 'NEWPROJ' is available.",
+      "ideal": "The API should return a confirmation that 'NEWPROJ' is a valid and available project key, or suggest alternatives if it is not."
+    },
+    {
+      "path": "/rest/api/3/projectvalidate/validProjectName",
+      "method": "GET",
+      "operationId": "getValidProjectName",
+      "summary": "",
+      "user": "A team lead is trying to name a new project and needs to verify if 'New Development Project' is a valid name according to Jira's naming conventions.",
+      "ideal": "The API should return a response indicating whether 'New Development Project' is a valid project name, including any restrictions or suggestions for modification."
+    }
+  ]
+}

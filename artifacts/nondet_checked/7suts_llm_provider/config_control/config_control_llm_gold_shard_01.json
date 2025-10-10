@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "resetSystem",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Resets the entire system to its default state."
+    },
+    {
+      "path": "/apps",
+      "method": "POST",
+      "operationId": "createApp",
+      "summary": "",
+      "user": "developer",
+      "ideal": "Creates a new application in the system."
+    },
+    {
+      "path": "/apps",
+      "method": "GET",
+      "operationId": "listApps",
+      "summary": "",
+      "user": "user",
+      "ideal": "Retrieves a list of all applications available in the system."
+    },
+    {
+      "path": "/envs",
+      "method": "POST",
+      "operationId": "createEnv",
+      "summary": "",
+      "user": "developer",
+      "ideal": "Creates a new environment for the application."
+    },
+    {
+      "path": "/envs",
+      "method": "GET",
+      "operationId": "listEnvs",
+      "summary": "",
+      "user": "user",
+      "ideal": "Retrieves a list of all environments available in the system."
+    },
+    {
+      "path": "/configs",
+      "method": "POST",
+      "operationId": "createConfig",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Creates a new configuration for the application."
+    },
+    {
+      "path": "/configs",
+      "method": "GET",
+      "operationId": "listConfigs",
+      "summary": "",
+      "user": "user",
+      "ideal": "Retrieves a list of all configurations available in the system."
+    },
+    {
+      "path": "/releases",
+      "method": "POST",
+      "operationId": "createRelease",
+      "summary": "",
+      "user": "developer",
+      "ideal": "Creates a new release for the application."
+    },
+    {
+      "path": "/releases",
+      "method": "GET",
+      "operationId": "listReleases",
+      "summary": "",
+      "user": "user",
+      "ideal": "Retrieves a list of all releases available in the system."
+    },
+    {
+      "path": "/policies",
+      "method": "POST",
+      "operationId": "createPolicy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Creates a new policy for the application."
+    },
+    {
+      "path": "/policies",
+      "method": "GET",
+      "operationId": "listPolicies",
+      "summary": "",
+      "user": "user",
+      "ideal": "Retrieves a list of all policies available in the system."
+    }
+  ]
+}

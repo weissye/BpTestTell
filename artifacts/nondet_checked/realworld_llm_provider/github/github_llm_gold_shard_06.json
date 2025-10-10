@@ -1,0 +1,100 @@
+{
+  "gold": [
+    {
+      "path": "/repos/octocat/Hello-World/check-runs",
+      "method": "POST",
+      "operationId": "checks/create",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new check run for the specified repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/123456",
+      "method": "GET",
+      "operationId": "checks/get",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve the details of a specific check run."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/123456",
+      "method": "PATCH",
+      "operationId": "checks/update",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Update the specified check run with new information."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/123456/annotations",
+      "method": "GET",
+      "operationId": "checks/list-annotations",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all annotations for a specific check run."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/123456/rerequest",
+      "method": "POST",
+      "operationId": "checks/rerequest-run",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Rerequest a specific check run to be executed again."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites",
+      "method": "POST",
+      "operationId": "checks/create-suite",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new check suite for the specified repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/preferences",
+      "method": "PATCH",
+      "operationId": "checks/set-suites-preferences",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Set preferences for check suites in the repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/78910",
+      "method": "GET",
+      "operationId": "checks/get-suite",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve details of a specific check suite."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/78910/check-runs",
+      "method": "GET",
+      "operationId": "checks/list-for-suite",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all check runs associated with a specific check suite."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/78910/rerequest",
+      "method": "POST",
+      "operationId": "checks/rerequest-suite",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Rerequest all check runs in a specific check suite."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/commits/main/check-runs",
+      "method": "GET",
+      "operationId": "checks/list-for-ref",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all check runs for a specific commit reference."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/commits/main/check-suites",
+      "method": "GET",
+      "operationId": "checks/list-suites-for-ref",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all check suites for a specific commit reference."
+    }
+  ]
+}

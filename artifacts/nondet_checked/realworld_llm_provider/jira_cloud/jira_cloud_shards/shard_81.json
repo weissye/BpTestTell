@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/task/{taskId}",
+      "method": "GET",
+      "tags": [
+        "Tasks"
+      ],
+      "summary": "Get task",
+      "operationId": "getTask"
+    },
+    {
+      "path": "/rest/api/3/task/{taskId}/cancel",
+      "method": "POST",
+      "tags": [
+        "Tasks"
+      ],
+      "summary": "Cancel task",
+      "operationId": "cancelTask"
+    }
+  ]
+}

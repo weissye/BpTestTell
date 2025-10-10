@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/my-org/copilot/billing",
+      "method": "GET",
+      "operationId": "copilot/get-copilot-organization-details",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the billing details for the organization 'my-org' regarding GitHub Copilot."
+    },
+    {
+      "path": "/orgs/my-org/copilot/billing/seats",
+      "method": "GET",
+      "operationId": "copilot/list-copilot-seats",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all the Copilot seats currently allocated to the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/copilot/billing/selected_teams",
+      "method": "POST",
+      "operationId": "copilot/add-copilot-seats-for-teams",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add Copilot seats for the specified teams in the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/copilot/billing/selected_teams",
+      "method": "DELETE",
+      "operationId": "copilot/cancel-copilot-seat-assignment-for-teams",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Cancel the Copilot seat assignments for the specified teams in 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/copilot/billing/selected_users",
+      "method": "POST",
+      "operationId": "copilot/add-copilot-seats-for-users",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add Copilot seats for the specified users in the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/copilot/billing/selected_users",
+      "method": "DELETE",
+      "operationId": "copilot/cancel-copilot-seat-assignment-for-users",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Cancel the Copilot seat assignments for the specified users in 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/copilot/metrics",
+      "method": "GET",
+      "operationId": "copilot/copilot-metrics-for-organization",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the Copilot usage metrics for the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/members/johndoe/copilot",
+      "method": "GET",
+      "operationId": "copilot/get-copilot-seat-details-for-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get the Copilot seat details for the user 'johndoe' in the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/team/my-team/copilot/metrics",
+      "method": "GET",
+      "operationId": "copilot/copilot-metrics-for-team",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the Copilot usage metrics for the team 'my-team' in the organization 'my-org'."
+    }
+  ]
+}

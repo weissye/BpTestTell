@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties",
+      "method": "GET",
+      "tags": [
+        "Issue type properties"
+      ],
+      "summary": "Get issue type property keys",
+      "operationId": "getIssueTypePropertyKeys"
+    },
+    {
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "method": "DELETE",
+      "tags": [
+        "Issue type properties"
+      ],
+      "summary": "Delete issue type property",
+      "operationId": "deleteIssueTypeProperty"
+    },
+    {
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "method": "GET",
+      "tags": [
+        "Issue type properties"
+      ],
+      "summary": "Get issue type property",
+      "operationId": "getIssueTypeProperty"
+    },
+    {
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "method": "PUT",
+      "tags": [
+        "Issue type properties"
+      ],
+      "summary": "Set issue type property",
+      "operationId": "setIssueTypeProperty"
+    }
+  ]
+}

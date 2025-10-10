@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue/picker",
+      "method": "GET",
+      "operationId": "getIssuePickerResource",
+      "summary": "",
+      "user": "User wants to quickly find issues to link in a comment.",
+      "ideal": "Returns a list of issues that match the user's input for easy selection."
+    },
+    {
+      "path": "/rest/api/3/jql/match",
+      "method": "POST",
+      "operationId": "matchIssues",
+      "summary": "",
+      "user": "User is trying to match issues based on specific criteria.",
+      "ideal": "Returns a list of issues that match the provided JQL query."
+    },
+    {
+      "path": "/rest/api/3/search",
+      "method": "GET",
+      "operationId": "searchForIssuesUsingJql",
+      "summary": "",
+      "user": "User wants to retrieve issues based on a JQL query to analyze project progress.",
+      "ideal": "Returns a paginated list of issues that match the JQL query."
+    },
+    {
+      "path": "/rest/api/3/search",
+      "method": "POST",
+      "operationId": "searchForIssuesUsingJqlPost",
+      "summary": "",
+      "user": "User needs to perform a complex search for issues using a detailed JQL query.",
+      "ideal": "Returns a list of issues that match the provided JQL query in the request body."
+    },
+    {
+      "path": "/rest/api/3/search/approximate-count",
+      "method": "POST",
+      "operationId": "countIssues",
+      "summary": "",
+      "user": "User wants to know how many issues match a specific JQL query without retrieving all issues.",
+      "ideal": "Returns an approximate count of issues that match the JQL query."
+    },
+    {
+      "path": "/rest/api/3/search/jql",
+      "method": "GET",
+      "operationId": "searchAndReconsileIssuesUsingJql",
+      "summary": "",
+      "user": "User is looking to reconcile issues from different projects using a JQL query.",
+      "ideal": "Returns a list of reconciled issues based on the JQL query."
+    },
+    {
+      "path": "/rest/api/3/search/jql",
+      "method": "POST",
+      "operationId": "searchAndReconsileIssuesUsingJqlPost",
+      "summary": "",
+      "user": "User needs to submit a JQL query to reconcile issues across multiple projects.",
+      "ideal": "Returns a list of reconciled issues based on the JQL query provided in the request body."
+    }
+  ]
+}

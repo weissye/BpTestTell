@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties",
+      "method": "GET",
+      "operationId": "getIssueTypePropertyKeys",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all custom properties associated with a specific issue type in Jira so that I can understand the additional metadata available for that issue type.",
+      "ideal": "The API should return a list of property keys for the specified issue type, allowing me to see all custom attributes defined."
+    },
+    {
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "method": "GET",
+      "operationId": "getIssueTypeProperty",
+      "summary": "",
+      "user": "As a developer, I need to fetch the value of a specific property for an issue type to ensure that my application can correctly interpret the data associated with that issue type.",
+      "ideal": "The API should return the value of the specified property key for the given issue type, enabling me to access the necessary information."
+    },
+    {
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "method": "PUT",
+      "operationId": "setIssueTypeProperty",
+      "summary": "",
+      "user": "As a system administrator, I want to set a custom property for an issue type to enhance the issue tracking capabilities in our Jira instance.",
+      "ideal": "The API should successfully update the specified property key with the new value for the issue type, confirming the change was made."
+    },
+    {
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "method": "DELETE",
+      "operationId": "deleteIssueTypeProperty",
+      "summary": "",
+      "user": "As a product owner, I need to remove an outdated property from an issue type to keep our issue types clean and relevant.",
+      "ideal": "The API should successfully delete the specified property key from the issue type, ensuring that it no longer appears in the property list."
+    }
+  ]
+}

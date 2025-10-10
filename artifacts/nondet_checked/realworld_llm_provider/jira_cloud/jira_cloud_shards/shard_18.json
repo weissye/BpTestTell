@@ -1,0 +1,63 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/comment/list",
+      "method": "POST",
+      "tags": [
+        "Issue comments"
+      ],
+      "summary": "Get comments by IDs",
+      "operationId": "getCommentsByIds"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment",
+      "method": "GET",
+      "tags": [
+        "Issue comments"
+      ],
+      "summary": "Get comments",
+      "operationId": "getComments"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment",
+      "method": "POST",
+      "tags": [
+        "Issue comments"
+      ],
+      "summary": "Add comment",
+      "operationId": "addComment"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Issue comments"
+      ],
+      "summary": "Delete comment",
+      "operationId": "deleteComment"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment/{id}",
+      "method": "GET",
+      "tags": [
+        "Issue comments"
+      ],
+      "summary": "Get comment",
+      "operationId": "getComment"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment/{id}",
+      "method": "PUT",
+      "tags": [
+        "Issue comments"
+      ],
+      "summary": "Update comment",
+      "operationId": "updateComment"
+    }
+  ]
+}

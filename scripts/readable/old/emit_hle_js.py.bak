@@ -1,0 +1,122 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import argparse
+import json
+from pathlib import Path
+import re
+import sys
+from typing import Dict, List, Tuple
+
+OUT_FILE = "hle.readable.js"
+
+PREAMBLE = """\
+// Auto-generated. DO NOT EDIT.
+// High-level example payloads collected from *_llm_gold*.json.
+"""
+
+IDENT_RE = re.compile(r"[^a-zA-Z0-9_]")
+def sanitize_identifier(name: str) -> str:
+    name = IDENT_RE.sub("_", name)
+    if not name or name[0].isdigit():
+        name = "_" + name
+    return name
+
+def load_json(path: Path) -> Dict:
+    with path.open("r", encoding="utf-8") as f:
+        return json.load(f)
+
+def find_gold_files(gold_dir: Path) -> List[Path]:
+    return sorted(list(gold_dir.glob("*_llm_gold*.json")))
+
+def pull_hle_examples(obj: Dict) -> List[Tuple[str, Dict]]:
+    out: List[Tuple[str, Dict]] = []
+    for g in obj.get("gold", []):
+        op_name = g.get("name") or g.get("operationId") or g.get("id") or "op"
+        safe = sanitize_identifier(op_name)
+
+        # “HLE” (high-level example) – be forgiving: accept any payload-ish fields
+        # Common fields we’ve used before: user, assistant, params, pathParams, query, body, etc.
+        example = {
+            k: v for k, v in g.items()
+            if k in ("user", "assistant", "params", "pathParams", "query", "body", "request", "response")
+        }
+        if not example:
+            # If nothing matched, keep something so it’s useful
+            example = {"example": g}
+        out.append((safe, example))
+    return out
+
+def stringify_js(obj: Dict, indent: int = 2) -> str:
+    return json.dumps(obj, ensure_ascii=False, indent=indent)
+
+ENTRY_TMPL = """
+export const {export_name} = {{
+  /* high-level example for this operation */
+  ...{payload}
+}};
+""".strip()
+
+# IMPORTANT: escape literal braces for Python .format
+AGGREGATE = """
+// ---------- Aggregate export ----------
+export const HLE = {{
+{entries}
+}};
+
+export default HLE;
+""".strip()
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--gold-dir", required=True, help="Directory containing *_llm_gold*.json")
+    ap.add_argument("--out", default=OUT_FILE, help=f"Output JS filename (default: {OUT_FILE})")
+    args = ap.parse_args()
+
+    gold_dir = Path(args.gold_dir)
+    out_path = gold_dir / args.out
+
+    try:
+        files = find_gold_files(gold_dir)
+        if not files:
+            print(f"[WARN] No gold files found in \"{gold_dir}\"")
+            out_path.write_text(PREAMBLE + "\nexport const HLE = {};\nexport default HLE;\n", encoding="utf-8")
+            print(f"[OK  ] wrote empty {str(out_path).replace('/', '\\')}")
+            return
+
+        entries: List[str] = []
+        parts: List[str] = []
+
+        seen: set = set()
+
+        for p in files:
+            try:
+                obj = load_json(p)
+            except Exception as e:
+                print(f"[WARN] Failed reading {p.name}: {e}; continuing.")
+                continue
+
+            for export_name, payload in pull_hle_examples(obj):
+                if export_name in seen:
+                    suffix = 2
+                    base = export_name
+                    while f"{base}_{suffix}" in seen:
+                        suffix += 1
+                    export_name = f"{base}_{suffix}"
+                seen.add(export_name)
+
+                parts.append(
+                    ENTRY_TMPL.format(export_name=export_name, payload=stringify_js(payload, indent=2))
+                )
+                entries.append(f"  {export_name},")
+
+        aggregate = AGGREGATE.format(entries=",\n".join(entries))
+        code = PREAMBLE + "\n\n" + "\n\n".join(parts) + "\n\n" + aggregate + "\n"
+        out_path.write_text(code, encoding="utf-8")
+        print(f"[OK  ] wrote {str(out_path).replace('/', '\\')}")
+    except Exception as e:
+        print(f"[ERR ] emit_hle_js: {e}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,23 @@
+{
+  "openapi_meta": {
+    "title": "pharmacy SUT",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/drugs",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /drugs"
+    },
+    {
+      "path": "/orders",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /orders"
+    }
+  ]
+}

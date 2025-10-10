@@ -1,0 +1,89 @@
+{
+  "api_name": "ecommerce",
+  "spec_file": "openapi.json",
+  "shard_index": 1,
+  "total_shards": 3,
+  "instructions": "Generate non-deterministic GOLD examples for the operations listed in 'operations'. Return strict JSON with a top-level key 'gold' (array).",
+  "operations": [
+    {
+      "operationId": "POST /reset",
+      "method": "POST",
+      "path": "/reset",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    },
+    {
+      "operationId": "POST /patients",
+      "method": "POST",
+      "path": "/patients",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    },
+    {
+      "operationId": "GET /drugs",
+      "method": "GET",
+      "path": "/drugs",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    },
+    {
+      "operationId": "POST /drugs",
+      "method": "POST",
+      "path": "/drugs",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    },
+    {
+      "operationId": "POST /prescriptions",
+      "method": "POST",
+      "path": "/prescriptions",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    },
+    {
+      "operationId": "GET /orders",
+      "method": "GET",
+      "path": "/orders",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    },
+    {
+      "operationId": "POST /orders",
+      "method": "POST",
+      "path": "/orders",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    },
+    {
+      "operationId": "GET /inventory/{ndc}",
+      "method": "GET",
+      "path": "/inventory/{ndc}",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issuesecurityschemes/123/members",
+      "method": "GET",
+      "operationId": "getIssueSecurityLevelMembers",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the members associated with the issue security scheme identified by ID 123."
+    },
+    {
+      "path": "/rest/api/3/securitylevel/456",
+      "method": "GET",
+      "operationId": "getIssueSecurityLevel",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Fetch the details of the security level with ID 456."
+    }
+  ]
+}

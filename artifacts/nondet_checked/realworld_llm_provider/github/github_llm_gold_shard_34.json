@@ -1,0 +1,156 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/my-org/projects",
+      "method": "GET",
+      "operationId": "projects-classic/list-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of projects for the specified organization."
+    },
+    {
+      "path": "/orgs/my-org/projects",
+      "method": "POST",
+      "operationId": "projects-classic/create-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new project for the specified organization."
+    },
+    {
+      "path": "/projects/columns/12345",
+      "method": "GET",
+      "operationId": "projects-classic/get-column",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get details of a specific column in a project."
+    },
+    {
+      "path": "/projects/columns/12345",
+      "method": "PATCH",
+      "operationId": "projects-classic/update-column",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the details of a specific column in a project."
+    },
+    {
+      "path": "/projects/columns/12345",
+      "method": "DELETE",
+      "operationId": "projects-classic/delete-column",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete a specific column from a project."
+    },
+    {
+      "path": "/projects/columns/12345/moves",
+      "method": "POST",
+      "operationId": "projects-classic/move-column",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Move a column to a different position in the project."
+    },
+    {
+      "path": "/projects/67890",
+      "method": "GET",
+      "operationId": "projects-classic/get",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve details of a specific project."
+    },
+    {
+      "path": "/projects/67890",
+      "method": "PATCH",
+      "operationId": "projects-classic/update",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the details of a specific project."
+    },
+    {
+      "path": "/projects/67890",
+      "method": "DELETE",
+      "operationId": "projects-classic/delete",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete a specific project."
+    },
+    {
+      "path": "/projects/67890/collaborators",
+      "method": "GET",
+      "operationId": "projects-classic/list-collaborators",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all collaborators for a specific project."
+    },
+    {
+      "path": "/projects/67890/collaborators/user456",
+      "method": "PUT",
+      "operationId": "projects-classic/add-collaborator",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a collaborator to a specific project."
+    },
+    {
+      "path": "/projects/67890/collaborators/user456",
+      "method": "DELETE",
+      "operationId": "projects-classic/remove-collaborator",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Remove a collaborator from a specific project."
+    },
+    {
+      "path": "/projects/67890/collaborators/user456/permission",
+      "method": "GET",
+      "operationId": "projects-classic/get-permission-for-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get the permission level of a specific user on a project."
+    },
+    {
+      "path": "/projects/67890/columns",
+      "method": "GET",
+      "operationId": "projects-classic/list-columns",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all columns in a specific project."
+    },
+    {
+      "path": "/projects/67890/columns",
+      "method": "POST",
+      "operationId": "projects-classic/create-column",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new column in a specific project."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/projects",
+      "method": "GET",
+      "operationId": "projects-classic/list-for-repo",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of projects for a specific repository."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/projects",
+      "method": "POST",
+      "operationId": "projects-classic/create-for-repo",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new project for a specific repository."
+    },
+    {
+      "path": "/user/projects",
+      "method": "POST",
+      "operationId": "projects-classic/create-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new project for the authenticated user."
+    },
+    {
+      "path": "/users/user456/projects",
+      "method": "GET",
+      "operationId": "projects-classic/list-for-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of projects for a specific user."
+    }
+  ]
+}

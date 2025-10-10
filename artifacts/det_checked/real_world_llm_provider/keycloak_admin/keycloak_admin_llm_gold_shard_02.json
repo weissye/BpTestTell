@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/v1/{realm}/authentication/authenticator-providers",
+      "method": "GET",
+      "operationId": "getAuthenticatorProviders",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of available authenticator providers for the specified realm."
+    },
+    {
+      "path": "/v1/{realm}/clients/{id}/roles/{role-name}/users",
+      "method": "GET",
+      "operationId": "getClientRoleUsers",
+      "summary": "",
+      "user": "manager",
+      "ideal": "Get a list of users assigned to the specified role in the client."
+    },
+    {
+      "path": "/v1/{realm}/users/{id}/role-mappings/realm",
+      "method": "GET",
+      "operationId": "getUserRoleMappingsRealm",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Fetch the realm role mappings for the specified user."
+    },
+    {
+      "path": "/v1/{realm}/groups/{id}/role-mappings/clients/{client}",
+      "method": "GET",
+      "operationId": "getGroupRoleMappingsClient",
+      "summary": "",
+      "user": "groupAdmin",
+      "ideal": "Retrieve the role mappings for a specified group in the context of a client."
+    },
+    {
+      "path": "/v1/{realm}/clients/{id}/client-secret",
+      "method": "GET",
+      "operationId": "getClientSecret",
+      "summary": "",
+      "user": "devOps",
+      "ideal": "Get the client secret for the specified client."
+    },
+    {
+      "path": "/v1/{realm}/roles/{role-name}/composites",
+      "method": "POST",
+      "operationId": "postRoleCompositesByRealmByRoleName",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add composite roles to the specified role in the realm."
+    },
+    {
+      "path": "/v1/{realm}/users/{id}/credentials/{credentialId}",
+      "method": "DELETE",
+      "operationId": "deleteCredential",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove a specific credential from the user."
+    },
+    {
+      "path": "/v1/{realm}/identity-provider/instances/{alias}/mappers",
+      "method": "POST",
+      "operationId": "postMappers",
+      "summary": "",
+      "user": "identityAdmin",
+      "ideal": "Create new mappers for the specified identity provider instance."
+    },
+    {
+      "path": "/v1/{realm}/clients/{id}/roles",
+      "method": "POST",
+      "operationId": "postClientRoles",
+      "summary": "",
+      "user": "clientAdmin",
+      "ideal": "Create new roles for the specified client."
+    },
+    {
+      "path": "/v1/{realm}/users/{id}/groups",
+      "method": "GET",
+      "operationId": "getUserGroups",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the groups that the specified user belongs to."
+    },
+    {
+      "path": "/v1/{realm}/authentication/flows",
+      "method": "POST",
+      "operationId": "postFlows",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new authentication flow in the specified realm."
+    }
+  ]
+}

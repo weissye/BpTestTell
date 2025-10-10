@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/groups",
+      "method": "GET",
+      "operationId": "getGroupsByRealm",
+      "summary": "",
+      "user": "Admin user requesting all groups in the realm to manage user roles and permissions.",
+      "ideal": "Returns a list of groups in the specified realm."
+    },
+    {
+      "path": "/myrealm/groups",
+      "method": "POST",
+      "operationId": "postGroups",
+      "summary": "",
+      "user": "Admin user creating a new group for organizing users based on their roles.",
+      "ideal": "Creates a new group in the specified realm and returns the created group's details."
+    },
+    {
+      "path": "/myrealm/groups/count",
+      "method": "GET",
+      "operationId": "getGroupsCountByRealm",
+      "summary": "",
+      "user": "Admin user checking the total number of groups in the realm for reporting purposes.",
+      "ideal": "Returns the count of groups in the specified realm."
+    },
+    {
+      "path": "/myrealm/groups/12345",
+      "method": "GET",
+      "operationId": "getGroup",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific group to review its members and permissions.",
+      "ideal": "Returns the details of the group with the specified ID."
+    },
+    {
+      "path": "/myrealm/groups/12345",
+      "method": "PUT",
+      "operationId": "putGroupByRealmById",
+      "summary": "",
+      "user": "Admin user updating the group's name and description to reflect its current purpose.",
+      "ideal": "Updates the specified group's details and returns the updated group."
+    },
+    {
+      "path": "/myrealm/groups/12345",
+      "method": "DELETE",
+      "operationId": "deleteGroupByRealmById",
+      "summary": "",
+      "user": "Admin user deleting an obsolete group that is no longer needed.",
+      "ideal": "Deletes the specified group and confirms the deletion."
+    },
+    {
+      "path": "/myrealm/groups/12345/children",
+      "method": "POST",
+      "operationId": "postChildren",
+      "summary": "",
+      "user": "Admin user adding a subgroup to an existing group for better organization.",
+      "ideal": "Adds a child group to the specified group and returns the updated group structure."
+    },
+    {
+      "path": "/myrealm/groups/12345/management/permissions",
+      "method": "GET",
+      "operationId": "getGroupManagementPermissions",
+      "summary": "",
+      "user": "Admin user checking the management permissions of a group to ensure proper access control.",
+      "ideal": "Returns the management permissions associated with the specified group."
+    },
+    {
+      "path": "/myrealm/groups/12345/management/permissions",
+      "method": "PUT",
+      "operationId": "putGroupManagementPermissions",
+      "summary": "",
+      "user": "Admin user updating the management permissions of a group to enhance security.",
+      "ideal": "Updates the management permissions for the specified group and returns the updated permissions."
+    },
+    {
+      "path": "/myrealm/groups/12345/members",
+      "method": "GET",
+      "operationId": "getMembers",
+      "summary": "",
+      "user": "Admin user retrieving the list of members in a group to manage user assignments.",
+      "ideal": "Returns a list of members belonging to the specified group."
+    }
+  ]
+}

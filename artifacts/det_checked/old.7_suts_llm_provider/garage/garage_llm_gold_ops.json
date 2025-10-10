@@ -1,0 +1,1156 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/chains",
+      "body": {
+        "name": "New Chain"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/chains",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/chains/chain123",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/chains/chain123",
+      "body": {
+        "name": "Updated Chain"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/chains/chain123",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/garages",
+      "body": {
+        "location": "123 Main St"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/garages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/garages/garage456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/garages/garage456",
+      "body": {
+        "location": "456 Elm St"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/garages/garage456",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/customers",
+      "body": {
+        "name": "John Doe"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/customers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/customers/customer789",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/customers/customer789",
+      "body": {
+        "name": "Jane Doe"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/customers/customer789",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cars",
+      "body": {
+        "vin": "1HGCM82633A123456",
+        "make": "Honda",
+        "model": "Accord"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cars",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cars/1HGCM82633A123456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cars/1HGCM82633A123456",
+      "body": {
+        "make": "Honda",
+        "model": "Civic"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/cars/1HGCM82633A123456",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/periodic-maintenance",
+      "body": {
+        "description": "Oil Change"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance/pm101",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/periodic-maintenance/pm101",
+      "body": {
+        "description": "Tire Rotation"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/periodic-maintenance/pm101",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders",
+      "body": {
+        "description": "Brake Repair"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders/ro202",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/repair-orders/ro202",
+      "body": {
+        "description": "Brake Pad Replacement"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/repair-orders/ro202",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/ro202/approve",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/ro202/close",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/chains",
+      "body": {
+        "name": "New Chain"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/chains",
+      "body": {
+        "name": "New Chain"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/chains",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/chains",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/chains/chain123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/chains/chain123",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/chains/chain123",
+      "body": {
+        "name": "Updated Chain"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/chains/chain123",
+      "body": {
+        "name": "Updated Chain"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/chains/chain123",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/chains/chain123",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/garages",
+      "body": {
+        "location": "123 Main St"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/garages",
+      "body": {
+        "location": "123 Main St"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/garages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/garages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/garages/garage456",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/garages/garage456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/garages/garage456",
+      "body": {
+        "location": "456 Elm St"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/garages/garage456",
+      "body": {
+        "location": "456 Elm St"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/garages/garage456",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/garages/garage456",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/customers",
+      "body": {
+        "name": "John Doe"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/customers",
+      "body": {
+        "name": "John Doe"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/customers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/customers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/customers/customer789",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/customers/customer789",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/customers/customer789",
+      "body": {
+        "name": "Jane Doe"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/customers/customer789",
+      "body": {
+        "name": "Jane Doe"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/customers/customer789",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/customers/customer789",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cars",
+      "body": {
+        "vin": "1HGCM82633A123456",
+        "make": "Honda",
+        "model": "Accord"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/cars",
+      "body": {
+        "vin": "1HGCM82633A123456",
+        "make": "Honda",
+        "model": "Accord"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cars",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cars",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cars/1HGCM82633A123456",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cars/1HGCM82633A123456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cars/1HGCM82633A123456",
+      "body": {
+        "make": "Honda",
+        "model": "Civic"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/cars/1HGCM82633A123456",
+      "body": {
+        "make": "Honda",
+        "model": "Civic"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/cars/1HGCM82633A123456",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cars/1HGCM82633A123456",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/periodic-maintenance",
+      "body": {
+        "description": "Oil Change"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/periodic-maintenance",
+      "body": {
+        "description": "Oil Change"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance/pm101",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance/pm101",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/periodic-maintenance/pm101",
+      "body": {
+        "description": "Tire Rotation"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/periodic-maintenance/pm101",
+      "body": {
+        "description": "Tire Rotation"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/periodic-maintenance/pm101",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/periodic-maintenance/pm101",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders",
+      "body": {
+        "description": "Brake Repair"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders",
+      "body": {
+        "description": "Brake Repair"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders/ro202",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders/ro202",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/repair-orders/ro202",
+      "body": {
+        "description": "Brake Pad Replacement"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/repair-orders/ro202",
+      "body": {
+        "description": "Brake Pad Replacement"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/repair-orders/ro202",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repair-orders/ro202",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/ro202/approve",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/ro202/approve",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/ro202/close",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/ro202/close",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/chains",
+      "body": {
+        "name": "New Chain"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/chains",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/chains/chain123",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/chains/chain123",
+      "body": {
+        "name": "Updated Chain"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/chains/chain123",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/garages",
+      "body": {
+        "location": "123 Main St"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/garages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/garages/garage456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/garages/garage456",
+      "body": {
+        "location": "456 Elm St"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/garages/garage456",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/customers",
+      "body": {
+        "name": "John Doe"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/customers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/customers/customer789",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/customers/customer789",
+      "body": {
+        "name": "Jane Doe"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/customers/customer789",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cars",
+      "body": {
+        "vin": "1HGCM82633A123456",
+        "make": "Honda",
+        "model": "Accord"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cars",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cars/1HGCM82633A123456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cars/1HGCM82633A123456",
+      "body": {
+        "make": "Honda",
+        "model": "Civic"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/cars/1HGCM82633A123456",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/periodic-maintenance",
+      "body": {
+        "description": "Oil Change"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance/pm101",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/periodic-maintenance/pm101",
+      "body": {
+        "description": "Tire Rotation"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/periodic-maintenance/pm101",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders",
+      "body": {
+        "description": "Brake Repair"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders/ro202",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/repair-orders/ro202",
+      "body": {
+        "description": "Brake Pad Replacement"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/repair-orders/ro202",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/ro202/approve",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/ro202/close",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/chains",
+      "body": {
+        "name": "New Chain"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/chains",
+      "body": {
+        "name": "New Chain"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/chains",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/chains",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/chains/chain123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/chains/chain123",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/chains/chain123",
+      "body": {
+        "name": "Updated Chain"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/chains/chain123",
+      "body": {
+        "name": "Updated Chain"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/chains/chain123",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/chains/chain123",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/garages",
+      "body": {
+        "location": "123 Main St"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/garages",
+      "body": {
+        "location": "123 Main St"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/garages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/garages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/garages/garage456",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/garages/garage456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/garages/garage456",
+      "body": {
+        "location": "456 Elm St"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/garages/garage456",
+      "body": {
+        "location": "456 Elm St"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/garages/garage456",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/garages/garage456",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/customers",
+      "body": {
+        "name": "John Doe"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/customers",
+      "body": {
+        "name": "John Doe"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/customers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/customers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/customers/customer789",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/customers/customer789",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/customers/customer789",
+      "body": {
+        "name": "Jane Doe"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/customers/customer789",
+      "body": {
+        "name": "Jane Doe"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/customers/customer789",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/customers/customer789",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cars",
+      "body": {
+        "vin": "1HGCM82633A123456",
+        "make": "Honda",
+        "model": "Accord"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/cars",
+      "body": {
+        "vin": "1HGCM82633A123456",
+        "make": "Honda",
+        "model": "Accord"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cars",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cars",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cars/1HGCM82633A123456",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cars/1HGCM82633A123456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cars/1HGCM82633A123456",
+      "body": {
+        "make": "Honda",
+        "model": "Civic"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/cars/1HGCM82633A123456",
+      "body": {
+        "make": "Honda",
+        "model": "Civic"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/cars/1HGCM82633A123456",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cars/1HGCM82633A123456",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/periodic-maintenance",
+      "body": {
+        "description": "Oil Change"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/periodic-maintenance",
+      "body": {
+        "description": "Oil Change"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance/pm101",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance/pm101",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/periodic-maintenance/pm101",
+      "body": {
+        "description": "Tire Rotation"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/periodic-maintenance/pm101",
+      "body": {
+        "description": "Tire Rotation"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/periodic-maintenance/pm101",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/periodic-maintenance/pm101",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders",
+      "body": {
+        "description": "Brake Repair"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders",
+      "body": {
+        "description": "Brake Repair"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders/ro202",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders/ro202",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/repair-orders/ro202",
+      "body": {
+        "description": "Brake Pad Replacement"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/repair-orders/ro202",
+      "body": {
+        "description": "Brake Pad Replacement"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/repair-orders/ro202",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repair-orders/ro202",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/ro202/approve",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/ro202/approve",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/ro202/close",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/ro202/close",
+      "body": null
+    }
+  ]
+}

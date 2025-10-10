@@ -1,0 +1,37 @@
+{
+  "openapi_meta": {
+    "title": "config_control SUT",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/apps",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /apps"
+    },
+    {
+      "path": "/envs",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /envs"
+    },
+    {
+      "path": "/releases",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /releases"
+    },
+    {
+      "path": "/policies",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /policies"
+    }
+  ]
+}

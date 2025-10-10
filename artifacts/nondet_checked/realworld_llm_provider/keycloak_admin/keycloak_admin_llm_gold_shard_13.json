@@ -1,0 +1,172 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models/456",
+      "method": "GET",
+      "operationId": "getClientScopeProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user requesting details of a specific protocol mapper model.",
+      "ideal": "Returns the details of the protocol mapper model with ID 456 for the client scope with ID 123."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models/456",
+      "method": "PUT",
+      "operationId": "putClientScopeProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user updating the protocol mapper model with new configurations.",
+      "ideal": "Updates the protocol mapper model with ID 456 for the client scope with ID 123 and returns the updated model."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models/456",
+      "method": "DELETE",
+      "operationId": "deleteClientScopeProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user removing a specific protocol mapper model from the client scope.",
+      "ideal": "Deletes the protocol mapper model with ID 456 for the client scope with ID 123 and confirms deletion."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/protocol-mappers/add-models",
+      "method": "POST",
+      "operationId": "postClientScopeProtocolMappersAddModels",
+      "summary": "",
+      "user": "Admin user adding new protocol mapper models to the client scope.",
+      "ideal": "Adds new protocol mapper models to the client scope with ID 123 and returns the added models."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models",
+      "method": "GET",
+      "operationId": "getClientScopeProtocolMappersModels",
+      "summary": "",
+      "user": "Admin user retrieving all protocol mapper models for a specific client scope.",
+      "ideal": "Returns a list of all protocol mapper models for the client scope with ID 123."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models",
+      "method": "POST",
+      "operationId": "postClientScopeProtocolMappersModels",
+      "summary": "",
+      "user": "Admin user creating multiple protocol mapper models for the client scope.",
+      "ideal": "Creates multiple protocol mapper models for the client scope with ID 123 and returns the created models."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/protocol-mappers/protocol/openid-connect",
+      "method": "GET",
+      "operationId": "getClientScopeProtocolMappersProtocol",
+      "summary": "",
+      "user": "Admin user checking protocol mappers for a specific protocol.",
+      "ideal": "Returns protocol mappers associated with the OpenID Connect protocol for the client scope with ID 123."
+    },
+    {
+      "path": "/myrealm/client-templates/abc/protocol-mappers/models/def",
+      "method": "GET",
+      "operationId": "getClientTemplateProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user requesting details of a specific protocol mapper model in a client template.",
+      "ideal": "Returns the details of the protocol mapper model with ID def for the client template with ID abc."
+    },
+    {
+      "path": "/myrealm/client-templates/abc/protocol-mappers/models/def",
+      "method": "PUT",
+      "operationId": "putClientTemplateProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user updating the protocol mapper model in the client template.",
+      "ideal": "Updates the protocol mapper model with ID def for the client template with ID abc and returns the updated model."
+    },
+    {
+      "path": "/myrealm/client-templates/abc/protocol-mappers/models/def",
+      "method": "DELETE",
+      "operationId": "deleteClientTemplateProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user removing a specific protocol mapper model from the client template.",
+      "ideal": "Deletes the protocol mapper model with ID def for the client template with ID abc and confirms deletion."
+    },
+    {
+      "path": "/myrealm/client-templates/abc/protocol-mappers/add-models",
+      "method": "POST",
+      "operationId": "postClientTemplateProtocolMappersAddModels",
+      "summary": "",
+      "user": "Admin user adding new protocol mapper models to the client template.",
+      "ideal": "Adds new protocol mapper models to the client template with ID abc and returns the added models."
+    },
+    {
+      "path": "/myrealm/client-templates/abc/protocol-mappers/models",
+      "method": "GET",
+      "operationId": "getClientTemplateProtocolMappersModels",
+      "summary": "",
+      "user": "Admin user retrieving all protocol mapper models for a specific client template.",
+      "ideal": "Returns a list of all protocol mapper models for the client template with ID abc."
+    },
+    {
+      "path": "/myrealm/client-templates/abc/protocol-mappers/models",
+      "method": "POST",
+      "operationId": "postClientTemplateProtocolMappersModels",
+      "summary": "",
+      "user": "Admin user creating multiple protocol mapper models for the client template.",
+      "ideal": "Creates multiple protocol mapper models for the client template with ID abc and returns the created models."
+    },
+    {
+      "path": "/myrealm/client-templates/abc/protocol-mappers/protocol/openid-connect",
+      "method": "GET",
+      "operationId": "getClientTemplateProtocolMappersProtocol",
+      "summary": "",
+      "user": "Admin user checking protocol mappers for a specific protocol in the client template.",
+      "ideal": "Returns protocol mappers associated with the OpenID Connect protocol for the client template with ID abc."
+    },
+    {
+      "path": "/myrealm/clients/789/protocol-mappers/models/101",
+      "method": "GET",
+      "operationId": "getClientProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user requesting details of a specific protocol mapper model for a client.",
+      "ideal": "Returns the details of the protocol mapper model with ID 101 for the client with ID 789."
+    },
+    {
+      "path": "/myrealm/clients/789/protocol-mappers/models/101",
+      "method": "PUT",
+      "operationId": "putClientProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user updating the protocol mapper model for the client.",
+      "ideal": "Updates the protocol mapper model with ID 101 for the client with ID 789 and returns the updated model."
+    },
+    {
+      "path": "/myrealm/clients/789/protocol-mappers/models/101",
+      "method": "DELETE",
+      "operationId": "deleteClientProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user removing a specific protocol mapper model from the client.",
+      "ideal": "Deletes the protocol mapper model with ID 101 for the client with ID 789 and confirms deletion."
+    },
+    {
+      "path": "/myrealm/clients/789/protocol-mappers/add-models",
+      "method": "POST",
+      "operationId": "postClientProtocolMappersAddModels",
+      "summary": "",
+      "user": "Admin user adding new protocol mapper models to the client.",
+      "ideal": "Adds new protocol mapper models to the client with ID 789 and returns the added models."
+    },
+    {
+      "path": "/myrealm/clients/789/protocol-mappers/models",
+      "method": "GET",
+      "operationId": "getClientProtocolMappersModels",
+      "summary": "",
+      "user": "Admin user retrieving all protocol mapper models for a specific client.",
+      "ideal": "Returns a list of all protocol mapper models for the client with ID 789."
+    },
+    {
+      "path": "/myrealm/clients/789/protocol-mappers/models",
+      "method": "POST",
+      "operationId": "postClientProtocolMappersModels",
+      "summary": "",
+      "user": "Admin user creating multiple protocol mapper models for the client.",
+      "ideal": "Creates multiple protocol mapper models for the client with ID 789 and returns the created models."
+    },
+    {
+      "path": "/myrealm/clients/789/protocol-mappers/protocol/openid-connect",
+      "method": "GET",
+      "operationId": "getClientProtocolMappersProtocol",
+      "summary": "",
+      "user": "Admin user checking protocol mappers for a specific protocol in the client.",
+      "ideal": "Returns protocol mappers associated with the OpenID Connect protocol for the client with ID 789."
+    }
+  ]
+}

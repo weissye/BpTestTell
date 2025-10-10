@@ -1,0 +1,7 @@
+@echo off
+setlocal EnableExtensions
+for %%S in (banking config_control ecommerce factory garage library pharmacy) do (
+  call "%~dp0build_readables_for_one_sut.bat" "%%S"
+)
+echo [DONE] 7 SUTs
+endlocal

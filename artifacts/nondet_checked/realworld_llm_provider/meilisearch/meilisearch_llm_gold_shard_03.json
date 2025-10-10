@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/experimental-features",
+      "method": "GET",
+      "operationId": "experimental.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the current status of experimental features in the Meilisearch instance."
+    },
+    {
+      "path": "/experimental-features",
+      "method": "PATCH",
+      "operationId": "experimental.update",
+      "summary": "",
+      "user": "developer",
+      "ideal": "Update the configuration of experimental features to enable or disable specific functionalities."
+    },
+    {
+      "path": "/metrics",
+      "method": "GET",
+      "operationId": "metrics.get",
+      "summary": "",
+      "user": "monitoring",
+      "ideal": "Fetch the current metrics of the Meilisearch instance to analyze performance and usage statistics."
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/keys",
+      "method": "GET",
+      "operationId": "keys.list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all API keys."
+    },
+    {
+      "path": "/keys",
+      "method": "POST",
+      "operationId": "keys.create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new API key with specified permissions."
+    },
+    {
+      "path": "/keys/{uid_or_key}",
+      "method": "GET",
+      "operationId": "keys.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get details of a specific API key using its UID or key."
+    },
+    {
+      "path": "/keys/{uid_or_key}",
+      "method": "DELETE",
+      "operationId": "keys.delete",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific API key using its UID or key."
+    },
+    {
+      "path": "/keys/{uid_or_key}",
+      "method": "PATCH",
+      "operationId": "keys.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update permissions or details of a specific API key."
+    }
+  ]
+}

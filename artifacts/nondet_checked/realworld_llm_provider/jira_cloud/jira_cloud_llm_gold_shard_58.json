@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/priorityscheme",
+      "method": "GET",
+      "operationId": "getPrioritySchemes",
+      "summary": "",
+      "user": "A project manager looking to retrieve all priority schemes available in the Jira Cloud platform to better manage project tasks.",
+      "ideal": "Returns a list of all priority schemes with their details."
+    },
+    {
+      "path": "/rest/api/3/priorityscheme",
+      "method": "POST",
+      "operationId": "createPriorityScheme",
+      "summary": "",
+      "user": "A Jira administrator wanting to create a new priority scheme for a specific project to ensure tasks are prioritized correctly.",
+      "ideal": "Creates a new priority scheme and returns the details of the created scheme."
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/mappings",
+      "method": "POST",
+      "operationId": "suggestedPrioritiesForMappings",
+      "summary": "",
+      "user": "A developer needing to find suggested priority mappings for a new project setup in Jira.",
+      "ideal": "Returns suggested priority mappings based on the provided input."
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/priorities/available",
+      "method": "GET",
+      "operationId": "getAvailablePrioritiesByPriorityScheme",
+      "summary": "",
+      "user": "A team lead wanting to check which priorities are available under a specific priority scheme to assign tasks effectively.",
+      "ideal": "Returns a list of available priorities for the specified priority scheme."
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/{schemeId}",
+      "method": "DELETE",
+      "operationId": "deletePriorityScheme",
+      "summary": "",
+      "user": "An administrator who needs to remove an outdated priority scheme that is no longer in use.",
+      "ideal": "Deletes the specified priority scheme and confirms the deletion."
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/{schemeId}",
+      "method": "PUT",
+      "operationId": "updatePriorityScheme",
+      "summary": "",
+      "user": "A project manager updating an existing priority scheme to reflect new project requirements and priorities.",
+      "ideal": "Updates the specified priority scheme and returns the updated details."
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/{schemeId}/priorities",
+      "method": "GET",
+      "operationId": "getPrioritiesByPriorityScheme",
+      "summary": "",
+      "user": "A project coordinator needing to review the priorities associated with a specific priority scheme for reporting purposes.",
+      "ideal": "Returns a list of priorities associated with the specified priority scheme."
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/{schemeId}/projects",
+      "method": "GET",
+      "operationId": "getProjectsByPriorityScheme",
+      "summary": "",
+      "user": "A product owner wanting to see which projects are using a specific priority scheme to assess its effectiveness.",
+      "ideal": "Returns a list of projects that are associated with the specified priority scheme."
+    }
+  ]
+}

@@ -1,0 +1,2239 @@
+{
+  "api_name": "github",
+  "spec_file": "openapi.json",
+  "shard_index": 2,
+  "total_shards": 3,
+  "instructions": "Generate non-deterministic GOLD examples for the operations listed in 'operations'. Return strict JSON with a top-level key 'gold' (array).",
+  "operations": [
+    {
+      "operationId": "security-advisories/list-global-advisories",
+      "method": "GET",
+      "path": "/advisories",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "List global security advisories",
+      "description": "Lists all global security advisories that match the specified parameters. If no other parameters are defined, the request will return only GitHub-reviewed advisories that are not malware.\n\nBy default, all responses will exclude advisories for malware, because malware are not standard vulnerabilities. To list advisories for malware, you must include the `type` parameter in your request, with the value `malware`. For more information about the different types of security advisories, see \"[About the GitHub Advisory database](https://docs.github.com/code-security/security-advisories/global-security-advisories/about-the-github-advisory-database#about-types-of-security-advisories).\""
+    },
+    {
+      "operationId": "security-advisories/get-global-advisory",
+      "method": "GET",
+      "path": "/advisories/{ghsa_id}",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "Get a global security advisory",
+      "description": "Gets a global security advisory using its GitHub Security Advisory (GHSA) identifier."
+    },
+    {
+      "operationId": "security-advisories/list-org-repository-advisories",
+      "method": "GET",
+      "path": "/orgs/{org}/security-advisories",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "List repository security advisories for an organization",
+      "description": "Lists repository security advisories for an organization.\n\nThe authenticated user must be an owner or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:write` scope to use this endpoint."
+    },
+    {
+      "operationId": "security-advisories/list-repository-advisories",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/security-advisories",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "List repository security advisories",
+      "description": "Lists security advisories in a repository.\n\nThe authenticated user can access unpublished security advisories from a repository if they are a security manager or administrator of that repository, or if they are a collaborator on any security advisory.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:read` scope to to get a published security advisory in a private repository, or any unpublished security advisory that the authenticated user has access to."
+    },
+    {
+      "operationId": "security-advisories/create-repository-advisory",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/security-advisories",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "Create a repository security advisory",
+      "description": "Creates a new repository security advisory.\n\nIn order to create a draft repository security advisory, the authenticated user must be a security manager or administrator of that repository.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:write` scope to use this endpoint."
+    },
+    {
+      "operationId": "security-advisories/create-private-vulnerability-report",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/security-advisories/reports",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "Privately report a security vulnerability",
+      "description": "Report a security vulnerability to the maintainers of the repository.\nSee \"[Privately reporting a security vulnerability](https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)\" for more information about private vulnerability reporting."
+    },
+    {
+      "operationId": "security-advisories/get-repository-advisory",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "Get a repository security advisory",
+      "description": "Get a repository security advisory using its GitHub Security Advisory (GHSA) identifier.\n\nAnyone can access any published security advisory on a public repository.\n\nThe authenticated user can access an unpublished security advisory from a repository if they are a security manager or administrator of that repository, or if they are a\ncollaborator on the security advisory.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:read` scope to to get a published security advisory in a private repository, or any unpublished security advisory that the authenticated user has access to."
+    },
+    {
+      "operationId": "security-advisories/update-repository-advisory",
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "Update a repository security advisory",
+      "description": "Update a repository security advisory using its GitHub Security Advisory (GHSA) identifier.\n\nIn order to update any security advisory, the authenticated user must be a security manager or administrator of that repository,\nor a collaborator on the repository security advisory.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:write` scope to use this endpoint."
+    },
+    {
+      "operationId": "security-advisories/create-repository-advisory-cve-request",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/cve",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "Request a CVE for a repository security advisory",
+      "description": "If you want a CVE identification number for the security vulnerability in your project, and don't already have one, you can request a CVE identification number from GitHub. For more information see \"[Requesting a CVE identification number](https://docs.github.com/code-security/security-advisories/repository-security-advisories/publishing-a-repository-security-advisory#requesting-a-cve-identification-number-optional).\"\n\nYou may request a CVE for public repositories, but cannot do so for private repositories.\n\nIn order to request a CVE for a repository security advisory, the authenticated user must be a security manager or administrator of that repository.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:write` scope to use this endpoint."
+    },
+    {
+      "operationId": "security-advisories/create-fork",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/forks",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "Create a temporary private fork",
+      "description": "Create a temporary private fork to collaborate on fixing a security vulnerability in your repository.\n\n> [!NOTE]\n> Forking a repository happens asynchronously. You may have to wait up to 5 minutes before you can access the fork."
+    },
+    {
+      "operationId": "codes-of-conduct/get-all-codes-of-conduct",
+      "method": "GET",
+      "path": "/codes_of_conduct",
+      "tags": [
+        "codes-of-conduct"
+      ],
+      "summary": "Get all codes of conduct",
+      "description": "Returns array of all GitHub's codes of conduct."
+    },
+    {
+      "operationId": "codes-of-conduct/get-conduct-code",
+      "method": "GET",
+      "path": "/codes_of_conduct/{key}",
+      "tags": [
+        "codes-of-conduct"
+      ],
+      "summary": "Get a code of conduct",
+      "description": "Returns information about the specified GitHub code of conduct."
+    },
+    {
+      "operationId": "code-security/get-configurations-for-enterprise",
+      "method": "GET",
+      "path": "/enterprises/{enterprise}/code-security/configurations",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get code security configurations for an enterprise",
+      "description": "Lists all code security configurations available in an enterprise.\n\nThe authenticated user must be an administrator of the enterprise in order to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `read:enterprise` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/create-configuration-for-enterprise",
+      "method": "POST",
+      "path": "/enterprises/{enterprise}/code-security/configurations",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Create a code security configuration for an enterprise",
+      "description": "Creates a code security configuration in an enterprise.\n\nThe authenticated user must be an administrator of the enterprise in order to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `admin:enterprise` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/get-default-configurations-for-enterprise",
+      "method": "GET",
+      "path": "/enterprises/{enterprise}/code-security/configurations/defaults",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get default code security configurations for an enterprise",
+      "description": "Lists the default code security configurations for an enterprise.\n\nThe authenticated user must be an administrator of the enterprise in order to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `read:enterprise` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/get-single-configuration-for-enterprise",
+      "method": "GET",
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Retrieve a code security configuration of an enterprise",
+      "description": "Gets a code security configuration available in an enterprise.\n\nThe authenticated user must be an administrator of the enterprise in order to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `read:enterprise` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/update-enterprise-configuration",
+      "method": "PATCH",
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Update a custom code security configuration for an enterprise",
+      "description": "Updates a code security configuration in an enterprise.\n\nThe authenticated user must be an administrator of the enterprise in order to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `admin:enterprise` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/delete-configuration-for-enterprise",
+      "method": "DELETE",
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Delete a code security configuration for an enterprise",
+      "description": "Deletes a code security configuration from an enterprise.\nRepositories attached to the configuration will retain their settings but will no longer be associated with\nthe configuration.\n\nThe authenticated user must be an administrator for the enterprise to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `admin:enterprise` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/attach-enterprise-configuration",
+      "method": "POST",
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}/attach",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Attach an enterprise configuration to repositories",
+      "description": "Attaches an enterprise code security configuration to repositories. If the repositories specified are already attached to a configuration, they will be re-attached to the provided configuration.\n\nIf insufficient GHAS licenses are available to attach the configuration to a repository, only free features will be enabled.\n\nThe authenticated user must be an administrator for the enterprise to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `admin:enterprise` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/set-configuration-as-default-for-enterprise",
+      "method": "PUT",
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}/defaults",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Set a code security configuration as a default for an enterprise",
+      "description": "Sets a code security configuration as a default to be applied to new repositories in your enterprise.\n\nThis configuration will be applied by default to the matching repository type when created, but only for organizations within the enterprise that do not already have a default code security configuration set.\n\nThe authenticated user must be an administrator for the enterprise to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `admin:enterprise` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/get-repositories-for-enterprise-configuration",
+      "method": "GET",
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}/repositories",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get repositories associated with an enterprise code security configuration",
+      "description": "Lists the repositories associated with an enterprise code security configuration in an organization.\n\nThe authenticated user must be an administrator of the enterprise in order to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `read:enterprise` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/get-configurations-for-org",
+      "method": "GET",
+      "path": "/orgs/{org}/code-security/configurations",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get code security configurations for an organization",
+      "description": "Lists all code security configurations available in an organization.\n\nThe authenticated user must be an administrator or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/create-configuration",
+      "method": "POST",
+      "path": "/orgs/{org}/code-security/configurations",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Create a code security configuration",
+      "description": "Creates a code security configuration in an organization.\n\nThe authenticated user must be an administrator or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/get-default-configurations",
+      "method": "GET",
+      "path": "/orgs/{org}/code-security/configurations/defaults",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get default code security configurations",
+      "description": "Lists the default code security configurations for an organization.\n\nThe authenticated user must be an administrator or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/detach-configuration",
+      "method": "DELETE",
+      "path": "/orgs/{org}/code-security/configurations/detach",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Detach configurations from repositories",
+      "description": "Detach code security configuration(s) from a set of repositories.\nRepositories will retain their settings but will no longer be associated with the configuration.\n\nThe authenticated user must be an administrator or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/get-configuration",
+      "method": "GET",
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get a code security configuration",
+      "description": "Gets a code security configuration available in an organization.\n\nThe authenticated user must be an administrator or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/update-configuration",
+      "method": "PATCH",
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Update a code security configuration",
+      "description": "Updates a code security configuration in an organization.\n\nThe authenticated user must be an administrator or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/delete-configuration",
+      "method": "DELETE",
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Delete a code security configuration",
+      "description": "Deletes the desired code security configuration from an organization.\nRepositories attached to the configuration will retain their settings but will no longer be associated with\nthe configuration.\n\nThe authenticated user must be an administrator or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/attach-configuration",
+      "method": "POST",
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}/attach",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Attach a configuration to repositories",
+      "description": "Attach a code security configuration to a set of repositories. If the repositories specified are already attached to a configuration, they will be re-attached to the provided configuration.\n\nIf insufficient GHAS licenses are available to attach the configuration to a repository, only free features will be enabled.\n\nThe authenticated user must be an administrator or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/set-configuration-as-default",
+      "method": "PUT",
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}/defaults",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Set a code security configuration as a default for an organization",
+      "description": "Sets a code security configuration as a default to be applied to new repositories in your organization.\n\nThis configuration will be applied to the matching repository type (all, none, public, private and internal) by default when they are created.\n\nThe authenticated user must be an administrator or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/get-repositories-for-configuration",
+      "method": "GET",
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}/repositories",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get repositories associated with a code security configuration",
+      "description": "Lists the repositories associated with a code security configuration in an organization.\n\nThe authenticated user must be an administrator or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint."
+    },
+    {
+      "operationId": "code-security/get-configuration-for-repository",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/code-security-configuration",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get the code security configuration associated with a repository",
+      "description": "Get the code security configuration that manages a repository's code security settings.\n\nThe authenticated user must be an administrator or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint."
+    },
+    {
+      "operationId": "enterprise-teams/list",
+      "method": "GET",
+      "path": "/enterprises/{enterprise}/teams",
+      "tags": [
+        "enterprise-teams"
+      ],
+      "summary": "List enterprise teams",
+      "description": "List all teams in the enterprise for the authenticated user"
+    },
+    {
+      "operationId": "enterprise-teams/create",
+      "method": "POST",
+      "path": "/enterprises/{enterprise}/teams",
+      "tags": [
+        "enterprise-teams"
+      ],
+      "summary": "Create an enterprise team",
+      "description": "To create an enterprise team, the authenticated user must be an owner of the enterprise."
+    },
+    {
+      "operationId": "enterprise-teams/get",
+      "method": "GET",
+      "path": "/enterprises/{enterprise}/teams/{team_slug}",
+      "tags": [
+        "enterprise-teams"
+      ],
+      "summary": "Get an enterprise team",
+      "description": "Gets a team using the team's slug. To create the slug, GitHub replaces special characters in the name string, changes all words to lowercase, and replaces spaces with a `-` separator and adds the \"ent:\" prefix. For example, \"My TEam Näme\" would become `ent:my-team-name`."
+    },
+    {
+      "operationId": "enterprise-teams/update",
+      "method": "PATCH",
+      "path": "/enterprises/{enterprise}/teams/{team_slug}",
+      "tags": [
+        "enterprise-teams"
+      ],
+      "summary": "Update an enterprise team",
+      "description": "To edit a team, the authenticated user must be an enterprise owner."
+    },
+    {
+      "operationId": "enterprise-teams/delete",
+      "method": "DELETE",
+      "path": "/enterprises/{enterprise}/teams/{team_slug}",
+      "tags": [
+        "enterprise-teams"
+      ],
+      "summary": "Delete an enterprise team",
+      "description": "To delete an enterprise team, the authenticated user must be an enterprise owner.\n\nIf you are an enterprise owner, deleting an enterprise team will delete all of its IdP mappings as well."
+    },
+    {
+      "operationId": "gists/list",
+      "method": "GET",
+      "path": "/gists",
+      "tags": [
+        "gists"
+      ],
+      "summary": "List gists for the authenticated user",
+      "description": "Lists the authenticated user's gists or if called anonymously, this endpoint returns all public gists:"
+    },
+    {
+      "operationId": "gists/create",
+      "method": "POST",
+      "path": "/gists",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Create a gist",
+      "description": "Allows you to add a new gist with one or more files.\n\n> [!NOTE]\n> Don't name your files \"gistfile\" with a numerical suffix. This is the format of the automatic naming scheme that Gist uses internally."
+    },
+    {
+      "operationId": "gists/list-public",
+      "method": "GET",
+      "path": "/gists/public",
+      "tags": [
+        "gists"
+      ],
+      "summary": "List public gists",
+      "description": "List public gists sorted by most recently updated to least recently updated.\n\nNote: With [pagination](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api), you can fetch up to 3000 gists. For example, you can fetch 100 pages with 30 gists per page or 30 pages with 100 gists per page."
+    },
+    {
+      "operationId": "gists/list-starred",
+      "method": "GET",
+      "path": "/gists/starred",
+      "tags": [
+        "gists"
+      ],
+      "summary": "List starred gists",
+      "description": "List the authenticated user's starred gists:"
+    },
+    {
+      "operationId": "gists/get",
+      "method": "GET",
+      "path": "/gists/{gist_id}",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Get a gist",
+      "description": "Gets a specified gist.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.\n- **`application/vnd.github.base64+json`**: Returns the base64-encoded contents. This can be useful if your gist contains any invalid UTF-8 sequences."
+    },
+    {
+      "operationId": "gists/update",
+      "method": "PATCH",
+      "path": "/gists/{gist_id}",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Update a gist",
+      "description": "Allows you to update a gist's description and to update, delete, or rename gist files. Files\nfrom the previous version of the gist that aren't explicitly changed during an edit\nare unchanged.\n\nAt least one of `description` or `files` is required.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.\n- **`application/vnd.github.base64+json`**: Returns the base64-encoded contents. This can be useful if your gist contains any invalid UTF-8 sequences."
+    },
+    {
+      "operationId": "gists/delete",
+      "method": "DELETE",
+      "path": "/gists/{gist_id}",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Delete a gist",
+      "description": ""
+    },
+    {
+      "operationId": "gists/list-comments",
+      "method": "GET",
+      "path": "/gists/{gist_id}/comments",
+      "tags": [
+        "gists"
+      ],
+      "summary": "List gist comments",
+      "description": "Lists the comments on a gist.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.\n- **`application/vnd.github.base64+json`**: Returns the base64-encoded contents. This can be useful if your gist contains any invalid UTF-8 sequences."
+    },
+    {
+      "operationId": "gists/create-comment",
+      "method": "POST",
+      "path": "/gists/{gist_id}/comments",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Create a gist comment",
+      "description": "Creates a comment on a gist.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.\n- **`application/vnd.github.base64+json`**: Returns the base64-encoded contents. This can be useful if your gist contains any invalid UTF-8 sequences."
+    },
+    {
+      "operationId": "gists/get-comment",
+      "method": "GET",
+      "path": "/gists/{gist_id}/comments/{comment_id}",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Get a gist comment",
+      "description": "Gets a comment on a gist.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.\n- **`application/vnd.github.base64+json`**: Returns the base64-encoded contents. This can be useful if your gist contains any invalid UTF-8 sequences."
+    },
+    {
+      "operationId": "gists/update-comment",
+      "method": "PATCH",
+      "path": "/gists/{gist_id}/comments/{comment_id}",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Update a gist comment",
+      "description": "Updates a comment on a gist.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.\n- **`application/vnd.github.base64+json`**: Returns the base64-encoded contents. This can be useful if your gist contains any invalid UTF-8 sequences."
+    },
+    {
+      "operationId": "gists/delete-comment",
+      "method": "DELETE",
+      "path": "/gists/{gist_id}/comments/{comment_id}",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Delete a gist comment",
+      "description": ""
+    },
+    {
+      "operationId": "gists/list-commits",
+      "method": "GET",
+      "path": "/gists/{gist_id}/commits",
+      "tags": [
+        "gists"
+      ],
+      "summary": "List gist commits",
+      "description": ""
+    },
+    {
+      "operationId": "gists/list-forks",
+      "method": "GET",
+      "path": "/gists/{gist_id}/forks",
+      "tags": [
+        "gists"
+      ],
+      "summary": "List gist forks",
+      "description": ""
+    },
+    {
+      "operationId": "gists/fork",
+      "method": "POST",
+      "path": "/gists/{gist_id}/forks",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Fork a gist",
+      "description": ""
+    },
+    {
+      "operationId": "gists/check-is-starred",
+      "method": "GET",
+      "path": "/gists/{gist_id}/star",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Check if a gist is starred",
+      "description": ""
+    },
+    {
+      "operationId": "gists/star",
+      "method": "PUT",
+      "path": "/gists/{gist_id}/star",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Star a gist",
+      "description": "Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see \"[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method).\""
+    },
+    {
+      "operationId": "gists/unstar",
+      "method": "DELETE",
+      "path": "/gists/{gist_id}/star",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Unstar a gist",
+      "description": ""
+    },
+    {
+      "operationId": "gists/get-revision",
+      "method": "GET",
+      "path": "/gists/{gist_id}/{sha}",
+      "tags": [
+        "gists"
+      ],
+      "summary": "Get a gist revision",
+      "description": "Gets a specified gist revision.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.\n- **`application/vnd.github.base64+json`**: Returns the base64-encoded contents. This can be useful if your gist contains any invalid UTF-8 sequences."
+    },
+    {
+      "operationId": "gists/list-for-user",
+      "method": "GET",
+      "path": "/users/{username}/gists",
+      "tags": [
+        "gists"
+      ],
+      "summary": "List gists for a user",
+      "description": "Lists public gists for the specified user:"
+    },
+    {
+      "operationId": "licenses/get-all-commonly-used",
+      "method": "GET",
+      "path": "/licenses",
+      "tags": [
+        "licenses"
+      ],
+      "summary": "Get all commonly used licenses",
+      "description": "Lists the most commonly used licenses on GitHub. For more information, see \"[Licensing a repository ](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository).\""
+    },
+    {
+      "operationId": "licenses/get",
+      "method": "GET",
+      "path": "/licenses/{license}",
+      "tags": [
+        "licenses"
+      ],
+      "summary": "Get a license",
+      "description": "Gets information about a specific license. For more information, see \"[Licensing a repository ](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository).\""
+    },
+    {
+      "operationId": "licenses/get-for-repo",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/license",
+      "tags": [
+        "licenses"
+      ],
+      "summary": "Get the license for a repository",
+      "description": "This method returns the contents of the repository's license file, if one is detected.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github.raw+json`**: Returns the raw contents of the license.\n- **`application/vnd.github.html+json`**: Returns the license contents in HTML. Markup languages are rendered to HTML using GitHub's open-source [Markup library](https://github.com/github/markup)."
+    },
+    {
+      "operationId": "billing/get-github-billing-premium-request-usage-report-org",
+      "method": "GET",
+      "path": "/organizations/{org}/settings/billing/premium_request/usage",
+      "tags": [
+        "billing"
+      ],
+      "summary": "Get billing premium request usage report for an organization",
+      "description": "Gets a report of premium request usage for an organization. To use this endpoint, you must be an administrator of an organization within an enterprise or an organization account."
+    },
+    {
+      "operationId": "billing/get-github-billing-usage-report-org",
+      "method": "GET",
+      "path": "/organizations/{org}/settings/billing/usage",
+      "tags": [
+        "billing"
+      ],
+      "summary": "Get billing usage report for an organization",
+      "description": "Gets a report of the total usage for an organization. To use this endpoint, you must be an administrator of an organization within an enterprise or an organization account.\n\n**Note:** This endpoint is only available to organizations with access to the enhanced billing platform. For more information, see \"[About the enhanced billing platform](https://docs.github.com/billing/using-the-new-billing-platform).\""
+    },
+    {
+      "operationId": "billing/get-github-actions-billing-org",
+      "method": "GET",
+      "path": "/orgs/{org}/settings/billing/actions",
+      "tags": [
+        "billing"
+      ],
+      "summary": "Get GitHub Actions billing for an organization",
+      "description": "Gets the summary of the free and paid GitHub Actions minutes used.\n\nPaid minutes only apply to workflows in private repositories that use GitHub-hosted runners. Minutes used is listed for each GitHub-hosted runner operating system. Any job re-runs are also included in the usage. The usage returned includes any minute multipliers for macOS and Windows runners, and is rounded up to the nearest whole minute. For more information, see \"[Managing billing for GitHub Actions](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)\".\n\nOAuth app tokens and personal access tokens (classic) need the `repo` or `admin:org` scope to use this endpoint."
+    },
+    {
+      "operationId": "billing/get-github-packages-billing-org",
+      "method": "GET",
+      "path": "/orgs/{org}/settings/billing/packages",
+      "tags": [
+        "billing"
+      ],
+      "summary": "Get GitHub Packages billing for an organization",
+      "description": "Gets the free and paid storage used for GitHub Packages in gigabytes.\n\nPaid minutes only apply to packages stored for private repositories. For more information, see \"[Managing billing for GitHub Packages](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages).\"\n\nOAuth app tokens and personal access tokens (classic) need the `repo` or `admin:org` scope to use this endpoint."
+    },
+    {
+      "operationId": "billing/get-shared-storage-billing-org",
+      "method": "GET",
+      "path": "/orgs/{org}/settings/billing/shared-storage",
+      "tags": [
+        "billing"
+      ],
+      "summary": "Get shared storage billing for an organization",
+      "description": "Gets the estimated paid and estimated total storage used for GitHub Actions and GitHub Packages.\n\nPaid minutes only apply to packages stored for private repositories. For more information, see \"[Managing billing for GitHub Packages](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages).\"\n\nOAuth app tokens and personal access tokens (classic) need the `repo` or `admin:org` scope to use this endpoint."
+    },
+    {
+      "operationId": "billing/get-github-actions-billing-user",
+      "method": "GET",
+      "path": "/users/{username}/settings/billing/actions",
+      "tags": [
+        "billing"
+      ],
+      "summary": "Get GitHub Actions billing for a user",
+      "description": "Gets the summary of the free and paid GitHub Actions minutes used.\n\nPaid minutes only apply to workflows in private repositories that use GitHub-hosted runners. Minutes used is listed for each GitHub-hosted runner operating system. Any job re-runs are also included in the usage. The usage returned includes any minute multipliers for macOS and Windows runners, and is rounded up to the nearest whole minute. For more information, see \"[Managing billing for GitHub Actions](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)\".\n\nOAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint."
+    },
+    {
+      "operationId": "billing/get-github-packages-billing-user",
+      "method": "GET",
+      "path": "/users/{username}/settings/billing/packages",
+      "tags": [
+        "billing"
+      ],
+      "summary": "Get GitHub Packages billing for a user",
+      "description": "Gets the free and paid storage used for GitHub Packages in gigabytes.\n\nPaid minutes only apply to packages stored for private repositories. For more information, see \"[Managing billing for GitHub Packages](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages).\"\n\nOAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint."
+    },
+    {
+      "operationId": "billing/get-github-billing-premium-request-usage-report-user",
+      "method": "GET",
+      "path": "/users/{username}/settings/billing/premium_request/usage",
+      "tags": [
+        "billing"
+      ],
+      "summary": "Get billing premium request usage report for a user",
+      "description": "Gets a report of premium request usage for a user."
+    },
+    {
+      "operationId": "billing/get-shared-storage-billing-user",
+      "method": "GET",
+      "path": "/users/{username}/settings/billing/shared-storage",
+      "tags": [
+        "billing"
+      ],
+      "summary": "Get shared storage billing for a user",
+      "description": "Gets the estimated paid and estimated total storage used for GitHub Actions and GitHub Packages.\n\nPaid minutes only apply to packages stored for private repositories. For more information, see \"[Managing billing for GitHub Packages](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages).\"\n\nOAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint."
+    },
+    {
+      "operationId": "billing/get-github-billing-usage-report-user",
+      "method": "GET",
+      "path": "/users/{username}/settings/billing/usage",
+      "tags": [
+        "billing"
+      ],
+      "summary": "Get billing usage report for a user",
+      "description": "Gets a report of the total usage for a user.\n\n**Note:** This endpoint is only available to users with access to the enhanced billing platform."
+    },
+    {
+      "operationId": "campaigns/list-org-campaigns",
+      "method": "GET",
+      "path": "/orgs/{org}/campaigns",
+      "tags": [
+        "campaigns"
+      ],
+      "summary": "List campaigns for an organization",
+      "description": "Lists campaigns in an organization.\n\nThe authenticated user must be an owner or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint."
+    },
+    {
+      "operationId": "campaigns/create-campaign",
+      "method": "POST",
+      "path": "/orgs/{org}/campaigns",
+      "tags": [
+        "campaigns"
+      ],
+      "summary": "Create a campaign for an organization",
+      "description": "Create a campaign for an organization.\n\nThe authenticated user must be an owner or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint.\n\nFine-grained tokens must have the \"Code scanning alerts\" repository permissions (read) on all repositories included\nin the campaign."
+    },
+    {
+      "operationId": "campaigns/get-campaign-summary",
+      "method": "GET",
+      "path": "/orgs/{org}/campaigns/{campaign_number}",
+      "tags": [
+        "campaigns"
+      ],
+      "summary": "Get a campaign for an organization",
+      "description": "Gets a campaign for an organization.\n\nThe authenticated user must be an owner or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint."
+    },
+    {
+      "operationId": "campaigns/update-campaign",
+      "method": "PATCH",
+      "path": "/orgs/{org}/campaigns/{campaign_number}",
+      "tags": [
+        "campaigns"
+      ],
+      "summary": "Update a campaign",
+      "description": "Updates a campaign in an organization.\n\nThe authenticated user must be an owner or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint."
+    },
+    {
+      "operationId": "campaigns/delete-campaign",
+      "method": "DELETE",
+      "path": "/orgs/{org}/campaigns/{campaign_number}",
+      "tags": [
+        "campaigns"
+      ],
+      "summary": "Delete a campaign for an organization",
+      "description": "Deletes a campaign in an organization.\n\nThe authenticated user must be an owner or security manager for the organization to use this endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint."
+    },
+    {
+      "operationId": "copilot/get-copilot-organization-details",
+      "method": "GET",
+      "path": "/orgs/{org}/copilot/billing",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Get Copilot seat information and settings for an organization",
+      "description": "> [!NOTE]\n> This endpoint is in public preview and is subject to change.\n\nGets information about an organization's Copilot subscription, including seat breakdown\nand feature policies. To configure these settings, go to your organization's settings on GitHub.com.\nFor more information, see \"[Managing policies for Copilot in your organization](https://docs.github.com/copilot/managing-copilot/managing-policies-for-copilot-business-in-your-organization).\"\n\nOnly organization owners can view details about the organization's Copilot Business or Copilot Enterprise subscription.\n\nOAuth app tokens and personal access tokens (classic) need either the `manage_billing:copilot` or `read:org` scopes to use this endpoint."
+    },
+    {
+      "operationId": "copilot/list-copilot-seats",
+      "method": "GET",
+      "path": "/orgs/{org}/copilot/billing/seats",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "List all Copilot seat assignments for an organization",
+      "description": "> [!NOTE]\n> This endpoint is in public preview and is subject to change.\n\nLists all Copilot seats for which an organization with a Copilot Business or Copilot Enterprise subscription is currently being billed.\nOnly organization owners can view assigned seats.\n\nEach seat object contains information about the assigned user's most recent Copilot activity. Users must have telemetry enabled in their IDE for Copilot in the IDE activity to be reflected in `last_activity_at`.\nFor more information about activity data, see [Metrics data properties for GitHub Copilot](https://docs.github.com/copilot/reference/metrics-data).\n\nOAuth app tokens and personal access tokens (classic) need either the `manage_billing:copilot` or `read:org` scopes to use this endpoint."
+    },
+    {
+      "operationId": "copilot/add-copilot-seats-for-teams",
+      "method": "POST",
+      "path": "/orgs/{org}/copilot/billing/selected_teams",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Add teams to the Copilot subscription for an organization",
+      "description": "> [!NOTE]\n> This endpoint is in public preview and is subject to change.\n\nPurchases a GitHub Copilot seat for all users within each specified team.\nThe organization will be billed for each seat based on the organization's Copilot plan. For more information about Copilot pricing, see \"[About billing for GitHub Copilot in your organization](https://docs.github.com/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-the-copilot-subscription-for-your-organization/about-billing-for-github-copilot-in-your-organization).\"\n\nOnly organization owners can purchase Copilot seats for their organization members. The organization must have a Copilot Business or Copilot Enterprise subscription and a configured suggestion matching policy.\nFor more information about setting up a Copilot subscription, see \"[Subscribing to Copilot for your organization](https://docs.github.com/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-the-copilot-subscription-for-your-organization/subscribing-to-copilot-for-your-organization).\"\nFor more information about setting a suggestion matching policy, see \"[Managing policies for Copilot in your organization](https://docs.github.com/copilot/managing-copilot/managing-github-copilot-in-your-organization/setting-policies-for-copilot-in-your-organization/managing-policies-for-copilot-in-your-organization#policies-for-suggestion-matching).\"\n\nThe response contains the total number of new seats that were created and existing seats that were refreshed.\n\nOAuth app tokens and personal access tokens (classic) need either the `manage_billing:copilot` or `admin:org` scopes to use this endpoint."
+    },
+    {
+      "operationId": "copilot/cancel-copilot-seat-assignment-for-teams",
+      "method": "DELETE",
+      "path": "/orgs/{org}/copilot/billing/selected_teams",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Remove teams from the Copilot subscription for an organization",
+      "description": "> [!NOTE]\n> This endpoint is in public preview and is subject to change.\n\nSets seats for all members of each team specified to \"pending cancellation\".\nThis will cause the members of the specified team(s) to lose access to GitHub Copilot at the end of the current billing cycle unless they retain access through another team.\nFor more information about disabling access to Copilot, see \"[Revoking access to Copilot for members of your organization](https://docs.github.com/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-access-to-github-copilot-in-your-organization/revoking-access-to-copilot-for-members-of-your-organization).\"\n\nOnly organization owners can cancel Copilot seats for their organization members.\n\nThe response contains the total number of seats set to \"pending cancellation\".\n\nOAuth app tokens and personal access tokens (classic) need either the `manage_billing:copilot` or `admin:org` scopes to use this endpoint."
+    },
+    {
+      "operationId": "copilot/add-copilot-seats-for-users",
+      "method": "POST",
+      "path": "/orgs/{org}/copilot/billing/selected_users",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Add users to the Copilot subscription for an organization",
+      "description": "> [!NOTE]\n> This endpoint is in public preview and is subject to change.\n\nPurchases a GitHub Copilot seat for each user specified.\nThe organization will be billed for each seat based on the organization's Copilot plan. For more information about Copilot pricing, see \"[About billing for GitHub Copilot in your organization](https://docs.github.com/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-the-copilot-subscription-for-your-organization/about-billing-for-github-copilot-in-your-organization).\"\n\nOnly organization owners can purchase Copilot seats for their organization members. The organization must have a Copilot Business or Copilot Enterprise subscription and a configured suggestion matching policy.\nFor more information about setting up a Copilot subscription, see \"[Subscribing to Copilot for your organization](https://docs.github.com/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-the-copilot-subscription-for-your-organization/subscribing-to-copilot-for-your-organization).\"\nFor more information about setting a suggestion matching policy, see \"[Managing policies for Copilot in your organization](https://docs.github.com/copilot/managing-copilot/managing-github-copilot-in-your-organization/setting-policies-for-copilot-in-your-organization/managing-policies-for-copilot-in-your-organization#policies-for-suggestion-matching).\"\n\nThe response contains the total number of new seats that were created and existing seats that were refreshed.\n\nOAuth app tokens and personal access tokens (classic) need either the `manage_billing:copilot` or `admin:org` scopes to use this endpoint."
+    },
+    {
+      "operationId": "copilot/cancel-copilot-seat-assignment-for-users",
+      "method": "DELETE",
+      "path": "/orgs/{org}/copilot/billing/selected_users",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Remove users from the Copilot subscription for an organization",
+      "description": "> [!NOTE]\n> This endpoint is in public preview and is subject to change.\n\nSets seats for all users specified to \"pending cancellation\".\nThis will cause the specified users to lose access to GitHub Copilot at the end of the current billing cycle unless they retain access through team membership.\nFor more information about disabling access to Copilot, see \"[Revoking access to Copilot for members of your organization](https://docs.github.com/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-access-to-github-copilot-in-your-organization/revoking-access-to-copilot-for-members-of-your-organization).\"\n\nOnly organization owners can cancel Copilot seats for their organization members.\n\nThe response contains the total number of seats set to \"pending cancellation\".\n\nOAuth app tokens and personal access tokens (classic) need either the `manage_billing:copilot` or `admin:org` scopes to use this endpoint."
+    },
+    {
+      "operationId": "copilot/copilot-metrics-for-organization",
+      "method": "GET",
+      "path": "/orgs/{org}/copilot/metrics",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Get Copilot metrics for an organization",
+      "description": "Use this endpoint to see a breakdown of aggregated metrics for various GitHub Copilot features. See the response schema tab for detailed metrics definitions.\n\n> [!NOTE]\n> This endpoint will only return results for a given day if the organization contained **five or more members with active Copilot licenses** on that day, as evaluated at the end of that day.\n\nThe response contains metrics for up to 100 days prior. Metrics are processed once per day for the previous day,\nand the response will only include data up until yesterday. In order for an end user to be counted towards these metrics,\nthey must have telemetry enabled in their IDE.\n\nTo access this endpoint, the Copilot Metrics API access policy must be enabled for the organization.\nOnly organization owners and owners and billing managers of the parent enterprise can view Copilot metrics.\n\nOAuth app tokens and personal access tokens (classic) need either the `manage_billing:copilot`, `read:org`, or `read:enterprise` scopes to use this endpoint."
+    },
+    {
+      "operationId": "copilot/get-copilot-seat-details-for-user",
+      "method": "GET",
+      "path": "/orgs/{org}/members/{username}/copilot",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Get Copilot seat assignment details for a user",
+      "description": "> [!NOTE]\n> This endpoint is in public preview and is subject to change.\n\nGets the GitHub Copilot seat details for a member of an organization who currently has access to GitHub Copilot.\n\nThe seat object contains information about the user's most recent Copilot activity. Users must have telemetry enabled in their IDE for Copilot in the IDE activity to be reflected in `last_activity_at`.\nFor more information about activity data, see [Metrics data properties for GitHub Copilot](https://docs.github.com/copilot/reference/metrics-data).\n\nOnly organization owners can view Copilot seat assignment details for members of their organization.\n\nOAuth app tokens and personal access tokens (classic) need either the `manage_billing:copilot` or `read:org` scopes to use this endpoint."
+    },
+    {
+      "operationId": "copilot/copilot-metrics-for-team",
+      "method": "GET",
+      "path": "/orgs/{org}/team/{team_slug}/copilot/metrics",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Get Copilot metrics for a team",
+      "description": "Use this endpoint to see a breakdown of aggregated metrics for various GitHub Copilot features. See the response schema tab for detailed metrics definitions.\n\n> [!NOTE]\n> This endpoint will only return results for a given day if the team had **five or more members with active Copilot licenses** on that day, as evaluated at the end of that day.\n\nThe response contains metrics for up to 100 days prior. Metrics are processed once per day for the previous day,\nand the response will only include data up until yesterday. In order for an end user to be counted towards these metrics,\nthey must have telemetry enabled in their IDE.\n\nTo access this endpoint, the Copilot Metrics API access policy must be enabled for the organization containing the team within GitHub settings.\nOnly organization owners for the organization that contains this team and owners and billing managers of the parent enterprise can view Copilot metrics for a team.\n\nOAuth app tokens and personal access tokens (classic) need either the `manage_billing:copilot`, `read:org`, or `read:enterprise` scopes to use this endpoint."
+    },
+    {
+      "operationId": "migrations/list-for-org",
+      "method": "GET",
+      "path": "/orgs/{org}/migrations",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "List organization migrations",
+      "description": "Lists the most recent migrations, including both exports (which can be started through the REST API) and imports (which cannot be started using the REST API).\n\nA list of `repositories` is only returned for export migrations."
+    },
+    {
+      "operationId": "migrations/start-for-org",
+      "method": "POST",
+      "path": "/orgs/{org}/migrations",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Start an organization migration",
+      "description": "Initiates the generation of a migration archive."
+    },
+    {
+      "operationId": "migrations/get-status-for-org",
+      "method": "GET",
+      "path": "/orgs/{org}/migrations/{migration_id}",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Get an organization migration status",
+      "description": "Fetches the status of a migration.\n\nThe `state` of a migration can be one of the following values:\n\n*   `pending`, which means the migration hasn't started yet.\n*   `exporting`, which means the migration is in progress.\n*   `exported`, which means the migration finished successfully.\n*   `failed`, which means the migration failed."
+    },
+    {
+      "operationId": "migrations/download-archive-for-org",
+      "method": "GET",
+      "path": "/orgs/{org}/migrations/{migration_id}/archive",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Download an organization migration archive",
+      "description": "Fetches the URL to a migration archive."
+    },
+    {
+      "operationId": "migrations/delete-archive-for-org",
+      "method": "DELETE",
+      "path": "/orgs/{org}/migrations/{migration_id}/archive",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Delete an organization migration archive",
+      "description": "Deletes a previous migration archive. Migration archives are automatically deleted after seven days."
+    },
+    {
+      "operationId": "migrations/unlock-repo-for-org",
+      "method": "DELETE",
+      "path": "/orgs/{org}/migrations/{migration_id}/repos/{repo_name}/lock",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Unlock an organization repository",
+      "description": "Unlocks a repository that was locked for migration. You should unlock each migrated repository and [delete them](https://docs.github.com/rest/repos/repos#delete-a-repository) when the migration is complete and you no longer need the source data."
+    },
+    {
+      "operationId": "migrations/list-repos-for-org",
+      "method": "GET",
+      "path": "/orgs/{org}/migrations/{migration_id}/repositories",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "List repositories in an organization migration",
+      "description": "List all the repositories for this organization migration."
+    },
+    {
+      "operationId": "migrations/get-import-status",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/import",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Get an import status",
+      "description": "View the progress of an import.\n\n> [!WARNING]\n> **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation).\n\n**Import status**\n\nThis section includes details about the possible values of the `status` field of the Import Progress response.\n\nAn import that does not have errors will progress through these steps:\n\n*   `detecting` - the \"detection\" step of the import is in progress because the request did not include a `vcs` parameter. The import is identifying the type of source control present at the URL.\n*   `importing` - the \"raw\" step of the import is in progress. This is where commit data is fetched from the original repository. The import progress response will include `commit_count` (the total number of raw commits that will be imported) and `percent` (0 - 100, the current progress through the import).\n*   `mapping` - the \"rewrite\" step of the import is in progress. This is where SVN branches are converted to Git branches, and where author updates are applied. The import progress response does not include progress information.\n*   `pushing` - the \"push\" step of the import is in progress. This is where the importer updates the repository on GitHub. The import progress response will include `push_percent`, which is the percent value reported by `git push` when it is \"Writing objects\".\n*   `complete` - the import is complete, and the repository is ready on GitHub.\n\nIf there are problems, you will see one of these in the `status` field:\n\n*   `auth_failed` - the import requires authentication in order to connect to the original repository. To update authentication for the import, please see the [Update an import](https://docs.github.com/rest/migrations/source-imports#update-an-import) section.\n*   `error` - the import encountered an error. The import progress response will include the `failed_step` and an error message. Contact [GitHub Support](https://support.github.com/contact?tags=dotcom-rest-api) for more information.\n*   `detection_needs_auth` - the importer requires authentication for the originating repository to continue detection. To update authentication for the import, please see the [Update an import](https://docs.github.com/rest/migrations/source-imports#update-an-import) section.\n*   `detection_found_nothing` - the importer didn't recognize any source control at the URL. To resolve, [Cancel the import](https://docs.github.com/rest/migrations/source-imports#cancel-an-import) and [retry](https://docs.github.com/rest/migrations/source-imports#start-an-import) with the correct URL.\n*   `detection_found_multiple` - the importer found several projects or repositories at the provided URL. When this is the case, the Import Progress response will also include a `project_choices` field with the possible project choices as values. To update project choice, please see the [Update an import](https://docs.github.com/rest/migrations/source-imports#update-an-import) section.\n\n**The project_choices field**\n\nWhen multiple projects are found at the provided URL, the response hash will include a `project_choices` field, the value of which is an array of hashes each representing a project choice. The exact key/value pairs of the project hashes will differ depending on the version control type.\n\n**Git LFS related fields**\n\nThis section includes details about Git LFS related fields that may be present in the Import Progress response.\n\n*   `use_lfs` - describes whether the import has been opted in or out of using Git LFS. The value can be `opt_in`, `opt_out`, or `undecided` if no action has been taken.\n*   `has_large_files` - the boolean value describing whether files larger than 100MB were found during the `importing` step.\n*   `large_files_size` - the total size in gigabytes of files larger than 100MB found in the originating repository.\n*   `large_files_count` - the total number of files larger than 100MB found in the originating repository. To see a list of these files, make a \"Get Large Files\" request."
+    },
+    {
+      "operationId": "migrations/start-import",
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/import",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Start an import",
+      "description": "Start a source import to a GitHub repository using GitHub Importer.\nImporting into a GitHub repository with GitHub Actions enabled is not supported and will\nreturn a status `422 Unprocessable Entity` response.\n\n> [!WARNING]\n> **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation)."
+    },
+    {
+      "operationId": "migrations/update-import",
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/import",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Update an import",
+      "description": "An import can be updated with credentials or a project choice by passing in the appropriate parameters in this API\nrequest. If no parameters are provided, the import will be restarted.\n\nSome servers (e.g. TFS servers) can have several projects at a single URL. In those cases the import progress will\nhave the status `detection_found_multiple` and the Import Progress response will include a `project_choices` array.\nYou can select the project to import by providing one of the objects in the `project_choices` array in the update request.\n\n> [!WARNING]\n> **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation)."
+    },
+    {
+      "operationId": "migrations/cancel-import",
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/import",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Cancel an import",
+      "description": "Stop an import for a repository.\n\n> [!WARNING]\n> **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation)."
+    },
+    {
+      "operationId": "migrations/get-commit-authors",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/import/authors",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Get commit authors",
+      "description": "Each type of source control system represents authors in a different way. For example, a Git commit author has a display name and an email address, but a Subversion commit author just has a username. The GitHub Importer will make the author information valid, but the author might not be correct. For example, it will change the bare Subversion username `hubot` into something like `hubot <hubot@12341234-abab-fefe-8787-fedcba987654>`.\n\nThis endpoint and the [Map a commit author](https://docs.github.com/rest/migrations/source-imports#map-a-commit-author) endpoint allow you to provide correct Git author information.\n\n> [!WARNING]\n> **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation)."
+    },
+    {
+      "operationId": "migrations/map-commit-author",
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/import/authors/{author_id}",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Map a commit author",
+      "description": "Update an author's identity for the import. Your application can continue updating authors any time before you push\nnew commits to the repository.\n\n> [!WARNING]\n> **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation)."
+    },
+    {
+      "operationId": "migrations/get-large-files",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/import/large_files",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Get large files",
+      "description": "List files larger than 100MB found during the import\n\n> [!WARNING]\n> **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation)."
+    },
+    {
+      "operationId": "migrations/set-lfs-preference",
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/import/lfs",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Update Git LFS preference",
+      "description": "You can import repositories from Subversion, Mercurial, and TFS that include files larger than 100MB. This ability\nis powered by [Git LFS](https://git-lfs.com).\n\nYou can learn more about our LFS feature and working with large files [on our help\nsite](https://docs.github.com/repositories/working-with-files/managing-large-files).\n\n> [!WARNING]\n> **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation)."
+    },
+    {
+      "operationId": "migrations/list-for-authenticated-user",
+      "method": "GET",
+      "path": "/user/migrations",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "List user migrations",
+      "description": "Lists all migrations a user has started."
+    },
+    {
+      "operationId": "migrations/start-for-authenticated-user",
+      "method": "POST",
+      "path": "/user/migrations",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Start a user migration",
+      "description": "Initiates the generation of a user migration archive."
+    },
+    {
+      "operationId": "migrations/get-status-for-authenticated-user",
+      "method": "GET",
+      "path": "/user/migrations/{migration_id}",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Get a user migration status",
+      "description": "Fetches a single user migration. The response includes the `state` of the migration, which can be one of the following values:\n\n*   `pending` - the migration hasn't started yet.\n*   `exporting` - the migration is in progress.\n*   `exported` - the migration finished successfully.\n*   `failed` - the migration failed.\n\nOnce the migration has been `exported` you can [download the migration archive](https://docs.github.com/rest/migrations/users#download-a-user-migration-archive)."
+    },
+    {
+      "operationId": "migrations/get-archive-for-authenticated-user",
+      "method": "GET",
+      "path": "/user/migrations/{migration_id}/archive",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Download a user migration archive",
+      "description": "Fetches the URL to download the migration archive as a `tar.gz` file. Depending on the resources your repository uses, the migration archive can contain JSON files with data for these objects:\n\n*   attachments\n*   bases\n*   commit\\_comments\n*   issue\\_comments\n*   issue\\_events\n*   issues\n*   milestones\n*   organizations\n*   projects\n*   protected\\_branches\n*   pull\\_request\\_reviews\n*   pull\\_requests\n*   releases\n*   repositories\n*   review\\_comments\n*   schema\n*   users\n\nThe archive will also contain an `attachments` directory that includes all attachment files uploaded to GitHub.com and a `repositories` directory that contains the repository's Git data."
+    },
+    {
+      "operationId": "migrations/delete-archive-for-authenticated-user",
+      "method": "DELETE",
+      "path": "/user/migrations/{migration_id}/archive",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Delete a user migration archive",
+      "description": "Deletes a previous migration archive. Downloadable migration archives are automatically deleted after seven days. Migration metadata, which is returned in the [List user migrations](https://docs.github.com/rest/migrations/users#list-user-migrations) and [Get a user migration status](https://docs.github.com/rest/migrations/users#get-a-user-migration-status) endpoints, will continue to be available even after an archive is deleted."
+    },
+    {
+      "operationId": "migrations/unlock-repo-for-authenticated-user",
+      "method": "DELETE",
+      "path": "/user/migrations/{migration_id}/repos/{repo_name}/lock",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Unlock a user repository",
+      "description": "Unlocks a repository. You can lock repositories when you [start a user migration](https://docs.github.com/rest/migrations/users#start-a-user-migration). Once the migration is complete you can unlock each repository to begin using it again or [delete the repository](https://docs.github.com/rest/repos/repos#delete-a-repository) if you no longer need the source data. Returns a status of `404 Not Found` if the repository is not locked."
+    },
+    {
+      "operationId": "migrations/list-repos-for-authenticated-user",
+      "method": "GET",
+      "path": "/user/migrations/{migration_id}/repositories",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "List repositories for a user migration",
+      "description": "Lists all the repositories for this user migration."
+    },
+    {
+      "operationId": "projects/list-for-org",
+      "method": "GET",
+      "path": "/orgs/{org}/projectsV2",
+      "tags": [
+        "projects"
+      ],
+      "summary": "List projects for organization",
+      "description": "List all projects owned by a specific organization accessible by the authenticated user."
+    },
+    {
+      "operationId": "projects/get-for-org",
+      "method": "GET",
+      "path": "/orgs/{org}/projectsV2/{project_number}",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Get project for organization",
+      "description": "Get a specific organization-owned project."
+    },
+    {
+      "operationId": "projects/list-fields-for-org",
+      "method": "GET",
+      "path": "/orgs/{org}/projectsV2/{project_number}/fields",
+      "tags": [
+        "projects"
+      ],
+      "summary": "List project fields for organization",
+      "description": "List all fields for a specific organization-owned project."
+    },
+    {
+      "operationId": "projects/get-field-for-org",
+      "method": "GET",
+      "path": "/orgs/{org}/projectsV2/{project_number}/fields/{field_id}",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Get project field for organization",
+      "description": "Get a specific field for an organization-owned project."
+    },
+    {
+      "operationId": "projects/list-items-for-org",
+      "method": "GET",
+      "path": "/orgs/{org}/projectsV2/{project_number}/items",
+      "tags": [
+        "projects"
+      ],
+      "summary": "List items for an organization owned project",
+      "description": "List all items for a specific organization-owned project accessible by the authenticated user."
+    },
+    {
+      "operationId": "projects/add-item-for-org",
+      "method": "POST",
+      "path": "/orgs/{org}/projectsV2/{project_number}/items",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Add item to organization owned project",
+      "description": "Add an issue or pull request item to the specified organization owned project."
+    },
+    {
+      "operationId": "projects/get-org-item",
+      "method": "GET",
+      "path": "/orgs/{org}/projectsV2/{project_number}/items/{item_id}",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Get an item for an organization owned project",
+      "description": "Get a specific item from an organization-owned project."
+    },
+    {
+      "operationId": "projects/update-item-for-org",
+      "method": "PATCH",
+      "path": "/orgs/{org}/projectsV2/{project_number}/items/{item_id}",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Update project item for organization",
+      "description": "Update a specific item in an organization-owned project."
+    },
+    {
+      "operationId": "projects/delete-item-for-org",
+      "method": "DELETE",
+      "path": "/orgs/{org}/projectsV2/{project_number}/items/{item_id}",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Delete project item for organization",
+      "description": "Delete a specific item from an organization-owned project."
+    },
+    {
+      "operationId": "projects/list-for-user",
+      "method": "GET",
+      "path": "/users/{username}/projectsV2",
+      "tags": [
+        "projects"
+      ],
+      "summary": "List projects for user",
+      "description": "List all projects owned by a specific user accessible by the authenticated user."
+    },
+    {
+      "operationId": "projects/get-for-user",
+      "method": "GET",
+      "path": "/users/{username}/projectsV2/{project_number}",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Get project for user",
+      "description": "Get a specific user-owned project."
+    },
+    {
+      "operationId": "projects/list-fields-for-user",
+      "method": "GET",
+      "path": "/users/{username}/projectsV2/{project_number}/fields",
+      "tags": [
+        "projects"
+      ],
+      "summary": "List project fields for user",
+      "description": "List all fields for a specific user-owned project."
+    },
+    {
+      "operationId": "projects/get-field-for-user",
+      "method": "GET",
+      "path": "/users/{username}/projectsV2/{project_number}/fields/{field_id}",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Get project field for user",
+      "description": "Get a specific field for a user-owned project."
+    },
+    {
+      "operationId": "projects/list-items-for-user",
+      "method": "GET",
+      "path": "/users/{username}/projectsV2/{project_number}/items",
+      "tags": [
+        "projects"
+      ],
+      "summary": "List items for a user owned project",
+      "description": "List all items for a specific user-owned project accessible by the authenticated user."
+    },
+    {
+      "operationId": "projects/add-item-for-user",
+      "method": "POST",
+      "path": "/users/{username}/projectsV2/{project_number}/items",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Add item to user owned project",
+      "description": "Add an issue or pull request item to the specified user owned project."
+    },
+    {
+      "operationId": "projects/get-user-item",
+      "method": "GET",
+      "path": "/users/{username}/projectsV2/{project_number}/items/{item_id}",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Get an item for a user owned project",
+      "description": "Get a specific item from a user-owned project."
+    },
+    {
+      "operationId": "projects/update-item-for-user",
+      "method": "PATCH",
+      "path": "/users/{username}/projectsV2/{project_number}/items/{item_id}",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Update project item for user",
+      "description": "Update a specific item in a user-owned project."
+    },
+    {
+      "operationId": "projects/delete-item-for-user",
+      "method": "DELETE",
+      "path": "/users/{username}/projectsV2/{project_number}/items/{item_id}",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Delete project item for user",
+      "description": "Delete a specific item from a user-owned project."
+    },
+    {
+      "operationId": "teams/list",
+      "method": "GET",
+      "path": "/orgs/{org}/teams",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List teams",
+      "description": "Lists all teams in an organization that are visible to the authenticated user."
+    },
+    {
+      "operationId": "teams/create",
+      "method": "POST",
+      "path": "/orgs/{org}/teams",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Create a team",
+      "description": "To create a team, the authenticated user must be a member or owner of `{org}`. By default, organization members can create teams. Organization owners can limit team creation to organization owners. For more information, see \"[Setting team creation permissions](https://docs.github.com/articles/setting-team-creation-permissions-in-your-organization).\"\n\nWhen you create a new team, you automatically become a team maintainer without explicitly adding yourself to the optional array of `maintainers`. For more information, see \"[About teams](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/about-teams)\"."
+    },
+    {
+      "operationId": "teams/get-by-name",
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get a team by name",
+      "description": "Gets a team using the team's `slug`. To create the `slug`, GitHub replaces special characters in the `name` string, changes all words to lowercase, and replaces spaces with a `-` separator. For example, `\"My TEam Näme\"` would become `my-team-name`.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}`."
+    },
+    {
+      "operationId": "teams/update-in-org",
+      "method": "PATCH",
+      "path": "/orgs/{org}/teams/{team_slug}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Update a team",
+      "description": "To edit a team, the authenticated user must either be an organization owner or a team maintainer.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}`."
+    },
+    {
+      "operationId": "teams/delete-in-org",
+      "method": "DELETE",
+      "path": "/orgs/{org}/teams/{team_slug}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Delete a team",
+      "description": "To delete a team, the authenticated user must be an organization owner or team maintainer.\n\nIf you are an organization owner, deleting a parent team will delete all of its child teams as well.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}`."
+    },
+    {
+      "operationId": "teams/list-discussions-in-org",
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List discussions",
+      "description": "List all discussions on a team's page.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/discussions`.\n\nOAuth app tokens and personal access tokens (classic) need the `read:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/create-discussion-in-org",
+      "method": "POST",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Create a discussion",
+      "description": "Creates a new discussion post on a team's page.\n\nThis endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see \"[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)\" and \"[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api).\"\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `POST /organizations/{org_id}/team/{team_id}/discussions`.\n\nOAuth app tokens and personal access tokens (classic) need the `write:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/get-discussion-in-org",
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get a discussion",
+      "description": "Get a specific discussion on a team's page.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}`.\n\nOAuth app tokens and personal access tokens (classic) need the `read:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/update-discussion-in-org",
+      "method": "PATCH",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Update a discussion",
+      "description": "Edits the title and body text of a discussion post. Only the parameters you provide are updated.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}`.\n\nOAuth app tokens and personal access tokens (classic) need the `write:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/delete-discussion-in-org",
+      "method": "DELETE",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Delete a discussion",
+      "description": "Delete a discussion from a team's page.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}`.\n\nOAuth app tokens and personal access tokens (classic) need the `write:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/list-discussion-comments-in-org",
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List discussion comments",
+      "description": "List all comments on a team discussion.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments`.\n\nOAuth app tokens and personal access tokens (classic) need the `read:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/create-discussion-comment-in-org",
+      "method": "POST",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Create a discussion comment",
+      "description": "Creates a new comment on a team discussion.\n\nThis endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see \"[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)\" and \"[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api).\"\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `POST /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments`.\n\nOAuth app tokens and personal access tokens (classic) need the `write:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/get-discussion-comment-in-org",
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get a discussion comment",
+      "description": "Get a specific comment on a team discussion.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments/{comment_number}`.\n\nOAuth app tokens and personal access tokens (classic) need the `read:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/update-discussion-comment-in-org",
+      "method": "PATCH",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Update a discussion comment",
+      "description": "Edits the body text of a discussion comment.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments/{comment_number}`.\n\nOAuth app tokens and personal access tokens (classic) need the `write:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/delete-discussion-comment-in-org",
+      "method": "DELETE",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Delete a discussion comment",
+      "description": "Deletes a comment on a team discussion.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}/discussions/{discussion_number}/comments/{comment_number}`.\n\nOAuth app tokens and personal access tokens (classic) need the `write:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/list-pending-invitations-in-org",
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/invitations",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List pending team invitations",
+      "description": "The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the following values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee is not a GitHub member, the `login` field in the return hash will be `null`.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/invitations`."
+    },
+    {
+      "operationId": "teams/list-members-in-org",
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/members",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List team members",
+      "description": "Team members will include the members of child teams.\n\nTo list members in a team, the team must be visible to the authenticated user."
+    },
+    {
+      "operationId": "teams/get-membership-for-user-in-org",
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/memberships/{username}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get team membership for a user",
+      "description": "Team members will include the members of child teams.\n\nTo get a user's membership with a team, the team must be visible to the authenticated user.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/memberships/{username}`.\n\n> [!NOTE]\n> The response contains the `state` of the membership and the member's `role`.\n\nThe `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see [Create a team](https://docs.github.com/rest/teams/teams#create-a-team)."
+    },
+    {
+      "operationId": "teams/add-or-update-membership-for-user-in-org",
+      "method": "PUT",
+      "path": "/orgs/{org}/teams/{team_slug}/memberships/{username}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Add or update team membership for a user",
+      "description": "Adds an organization member to a team. An authenticated organization owner or team maintainer can add organization members to a team.\n\nTeam synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.\n\n> [!NOTE]\n> When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see \"[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/).\"\n\nAn organization owner can add someone who is not part of the team's organization to a team. When an organization owner adds someone to a team who is not an organization member, this endpoint will send an invitation to the person via email. This newly-created membership will be in the \"pending\" state until the person accepts the invitation, at which point the membership will transition to the \"active\" state and the user will be added as a member of the team.\n\nIf the user is already a member of the team, this endpoint will update the role of the team member's role. To update the membership of a team member, the authenticated user must be an organization owner or a team maintainer.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `PUT /organizations/{org_id}/team/{team_id}/memberships/{username}`."
+    },
+    {
+      "operationId": "teams/remove-membership-for-user-in-org",
+      "method": "DELETE",
+      "path": "/orgs/{org}/teams/{team_slug}/memberships/{username}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Remove team membership for a user",
+      "description": "To remove a membership between a user and a team, the authenticated user must have 'admin' permissions to the team or be an owner of the organization that the team is associated with. Removing team membership does not delete the user, it just removes their membership from the team.\n\nTeam synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.\n\n> [!NOTE]\n> When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see \"[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/).\"\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}/memberships/{username}`."
+    },
+    {
+      "operationId": "teams/list-projects-in-org",
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/projects",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List team projects",
+      "description": "> [!WARNING]\n> **Closing down notice:** Projects (classic) is being deprecated in favor of the new Projects experience.\n> See the [changelog](https://github.blog/changelog/2024-05-23-sunset-notice-projects-classic/) for more information."
+    },
+    {
+      "operationId": "teams/check-permissions-for-project-in-org",
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/projects/{project_id}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Check team permissions for a project",
+      "description": "> [!WARNING]\n> **Closing down notice:** Projects (classic) is being deprecated in favor of the new Projects experience.\n> See the [changelog](https://github.blog/changelog/2024-05-23-sunset-notice-projects-classic/) for more information."
+    },
+    {
+      "operationId": "teams/add-or-update-project-permissions-in-org",
+      "method": "PUT",
+      "path": "/orgs/{org}/teams/{team_slug}/projects/{project_id}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Add or update team project permissions",
+      "description": "> [!WARNING]\n> **Closing down notice:** Projects (classic) is being deprecated in favor of the new Projects experience.\n> See the [changelog](https://github.blog/changelog/2024-05-23-sunset-notice-projects-classic/) for more information."
+    },
+    {
+      "operationId": "teams/remove-project-in-org",
+      "method": "DELETE",
+      "path": "/orgs/{org}/teams/{team_slug}/projects/{project_id}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Remove a project from a team",
+      "description": "> [!WARNING]\n> **Closing down notice:** Projects (classic) is being deprecated in favor of the new Projects experience.\n> See the [changelog](https://github.blog/changelog/2024-05-23-sunset-notice-projects-classic/) for more information."
+    },
+    {
+      "operationId": "teams/list-repos-in-org",
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/repos",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List team repositories",
+      "description": "Lists a team's repositories visible to the authenticated user.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/repos`."
+    },
+    {
+      "operationId": "teams/check-permissions-for-repo-in-org",
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Check team permissions for a repository",
+      "description": "Checks whether a team has `admin`, `push`, `maintain`, `triage`, or `pull` permission for a repository. Repositories inherited through a parent team will also be checked.\n\nYou can also get information about the specified repository, including what permissions the team grants on it, by passing the following custom [media type](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types/) via the `application/vnd.github.v3.repository+json` accept header.\n\nIf a team doesn't have permission for the repository, you will receive a `404 Not Found` response status.\n\nIf the repository is private, you must have at least `read` permission for that repository, and your token must have the `repo` or `admin:org` scope. Otherwise, you will receive a `404 Not Found` response status.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`."
+    },
+    {
+      "operationId": "teams/add-or-update-repo-permissions-in-org",
+      "method": "PUT",
+      "path": "/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Add or update team repository permissions",
+      "description": "To add a repository to a team or update the team's permission on a repository, the authenticated user must have admin access to the repository, and must be able to see the team. The repository must be owned by the organization, or a direct fork of a repository owned by the organization. You will get a `422 Unprocessable Entity` status if you attempt to add a repository to a team that is not owned by the organization. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see \"[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method).\"\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `PUT /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`.\n\nFor more information about the permission levels, see \"[Repository permission levels for an organization](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)\"."
+    },
+    {
+      "operationId": "teams/remove-repo-in-org",
+      "method": "DELETE",
+      "path": "/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Remove a repository from a team",
+      "description": "If the authenticated user is an organization owner or a team maintainer, they can remove any repositories from the team. To remove a repository from a team as an organization member, the authenticated user must have admin access to the repository and must be able to see the team. This does not delete the repository, it just removes it from the team.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`."
+    },
+    {
+      "operationId": "teams/list-child-in-org",
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/teams",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List child teams",
+      "description": "Lists the child teams of the team specified by `{team_slug}`.\n\n> [!NOTE]\n> You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/teams`."
+    },
+    {
+      "operationId": "teams/get-legacy",
+      "method": "GET",
+      "path": "/teams/{team_id}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get a team (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the [Get a team by name](https://docs.github.com/rest/teams/teams#get-a-team-by-name) endpoint."
+    },
+    {
+      "operationId": "teams/update-legacy",
+      "method": "PATCH",
+      "path": "/teams/{team_id}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Update a team (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a team](https://docs.github.com/rest/teams/teams#update-a-team) endpoint.\n\nTo edit a team, the authenticated user must either be an organization owner or a team maintainer.\n\n> [!NOTE]\n> With nested teams, the `privacy` for parent teams cannot be `secret`."
+    },
+    {
+      "operationId": "teams/delete-legacy",
+      "method": "DELETE",
+      "path": "/teams/{team_id}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Delete a team (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a team](https://docs.github.com/rest/teams/teams#delete-a-team) endpoint.\n\nTo delete a team, the authenticated user must be an organization owner or team maintainer.\n\nIf you are an organization owner, deleting a parent team will delete all of its child teams as well."
+    },
+    {
+      "operationId": "teams/list-discussions-legacy",
+      "method": "GET",
+      "path": "/teams/{team_id}/discussions",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List discussions (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List discussions`](https://docs.github.com/rest/teams/discussions#list-discussions) endpoint.\n\nList all discussions on a team's page.\n\nOAuth app tokens and personal access tokens (classic) need the `read:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/create-discussion-legacy",
+      "method": "POST",
+      "path": "/teams/{team_id}/discussions",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Create a discussion (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create a discussion`](https://docs.github.com/rest/teams/discussions#create-a-discussion) endpoint.\n\nCreates a new discussion post on a team's page.\n\nThis endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see \"[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)\" and \"[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api).\"\n\nOAuth app tokens and personal access tokens (classic) need the `write:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/get-discussion-legacy",
+      "method": "GET",
+      "path": "/teams/{team_id}/discussions/{discussion_number}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get a discussion (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get a discussion](https://docs.github.com/rest/teams/discussions#get-a-discussion) endpoint.\n\nGet a specific discussion on a team's page.\n\nOAuth app tokens and personal access tokens (classic) need the `read:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/update-discussion-legacy",
+      "method": "PATCH",
+      "path": "/teams/{team_id}/discussions/{discussion_number}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Update a discussion (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a discussion](https://docs.github.com/rest/teams/discussions#update-a-discussion) endpoint.\n\nEdits the title and body text of a discussion post. Only the parameters you provide are updated.\n\nOAuth app tokens and personal access tokens (classic) need the `write:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/delete-discussion-legacy",
+      "method": "DELETE",
+      "path": "/teams/{team_id}/discussions/{discussion_number}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Delete a discussion (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Delete a discussion`](https://docs.github.com/rest/teams/discussions#delete-a-discussion) endpoint.\n\nDelete a discussion from a team's page.\n\nOAuth app tokens and personal access tokens (classic) need the `write:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/list-discussion-comments-legacy",
+      "method": "GET",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List discussion comments (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [List discussion comments](https://docs.github.com/rest/teams/discussion-comments#list-discussion-comments) endpoint.\n\nList all comments on a team discussion.\n\nOAuth app tokens and personal access tokens (classic) need the `read:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/create-discussion-comment-legacy",
+      "method": "POST",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Create a discussion comment (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Create a discussion comment](https://docs.github.com/rest/teams/discussion-comments#create-a-discussion-comment) endpoint.\n\nCreates a new comment on a team discussion.\n\nThis endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see \"[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)\" and \"[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api).\"\n\nOAuth app tokens and personal access tokens (classic) need the `write:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/get-discussion-comment-legacy",
+      "method": "GET",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get a discussion comment (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get a discussion comment](https://docs.github.com/rest/teams/discussion-comments#get-a-discussion-comment) endpoint.\n\nGet a specific comment on a team discussion.\n\nOAuth app tokens and personal access tokens (classic) need the `read:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/update-discussion-comment-legacy",
+      "method": "PATCH",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Update a discussion comment (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a discussion comment](https://docs.github.com/rest/teams/discussion-comments#update-a-discussion-comment) endpoint.\n\nEdits the body text of a discussion comment.\n\nOAuth app tokens and personal access tokens (classic) need the `write:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/delete-discussion-comment-legacy",
+      "method": "DELETE",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Delete a discussion comment (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a discussion comment](https://docs.github.com/rest/teams/discussion-comments#delete-a-discussion-comment) endpoint.\n\nDeletes a comment on a team discussion.\n\nOAuth app tokens and personal access tokens (classic) need the `write:discussion` scope to use this endpoint."
+    },
+    {
+      "operationId": "teams/list-pending-invitations-legacy",
+      "method": "GET",
+      "path": "/teams/{team_id}/invitations",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List pending team invitations (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List pending team invitations`](https://docs.github.com/rest/teams/members#list-pending-team-invitations) endpoint.\n\nThe return hash contains a `role` field which refers to the Organization Invitation role and will be one of the following values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee is not a GitHub member, the `login` field in the return hash will be `null`."
+    },
+    {
+      "operationId": "teams/list-members-legacy",
+      "method": "GET",
+      "path": "/teams/{team_id}/members",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List team members (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List team members`](https://docs.github.com/rest/teams/members#list-team-members) endpoint.\n\nTeam members will include the members of child teams."
+    },
+    {
+      "operationId": "teams/get-member-legacy",
+      "method": "GET",
+      "path": "/teams/{team_id}/members/{username}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get team member (Legacy)",
+      "description": "The \"Get team member\" endpoint (described below) is closing down.\n\nWe recommend using the [Get team membership for a user](https://docs.github.com/rest/teams/members#get-team-membership-for-a-user) endpoint instead. It allows you to get both active and pending memberships.\n\nTo list members in a team, the team must be visible to the authenticated user."
+    },
+    {
+      "operationId": "teams/add-member-legacy",
+      "method": "PUT",
+      "path": "/teams/{team_id}/members/{username}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Add team member (Legacy)",
+      "description": "The \"Add team member\" endpoint (described below) is closing down.\n\nWe recommend using the [Add or update team membership for a user](https://docs.github.com/rest/teams/members#add-or-update-team-membership-for-a-user) endpoint instead. It allows you to invite new organization members to your teams.\n\nTeam synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.\n\nTo add someone to a team, the authenticated user must be an organization owner or a team maintainer in the team they're changing. The person being added to the team must be a member of the team's organization.\n\n> [!NOTE]\n> When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see \"[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/).\"\n\nNote that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see \"[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method).\""
+    },
+    {
+      "operationId": "teams/remove-member-legacy",
+      "method": "DELETE",
+      "path": "/teams/{team_id}/members/{username}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Remove team member (Legacy)",
+      "description": "The \"Remove team member\" endpoint (described below) is closing down.\n\nWe recommend using the [Remove team membership for a user](https://docs.github.com/rest/teams/members#remove-team-membership-for-a-user) endpoint instead. It allows you to remove both active and pending memberships.\n\nTeam synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.\n\nTo remove a team member, the authenticated user must have 'admin' permissions to the team or be an owner of the org that the team is associated with. Removing a team member does not delete the user, it just removes them from the team.\n\n> [!NOTE]\n> When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see \"[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/).\""
+    },
+    {
+      "operationId": "teams/get-membership-for-user-legacy",
+      "method": "GET",
+      "path": "/teams/{team_id}/memberships/{username}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get team membership for a user (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get team membership for a user](https://docs.github.com/rest/teams/members#get-team-membership-for-a-user) endpoint.\n\nTeam members will include the members of child teams.\n\nTo get a user's membership with a team, the team must be visible to the authenticated user.\n\n**Note:**\nThe response contains the `state` of the membership and the member's `role`.\n\nThe `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see [Create a team](https://docs.github.com/rest/teams/teams#create-a-team)."
+    },
+    {
+      "operationId": "teams/add-or-update-membership-for-user-legacy",
+      "method": "PUT",
+      "path": "/teams/{team_id}/memberships/{username}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Add or update team membership for a user (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Add or update team membership for a user](https://docs.github.com/rest/teams/members#add-or-update-team-membership-for-a-user) endpoint.\n\nTeam synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.\n\nIf the user is already a member of the team's organization, this endpoint will add the user to the team. To add a membership between an organization member and a team, the authenticated user must be an organization owner or a team maintainer.\n\n> [!NOTE]\n> When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see \"[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/).\"\n\nIf the user is unaffiliated with the team's organization, this endpoint will send an invitation to the user via email. This newly-created membership will be in the \"pending\" state until the user accepts the invitation, at which point the membership will transition to the \"active\" state and the user will be added as a member of the team. To add a membership between an unaffiliated user and a team, the authenticated user must be an organization owner.\n\nIf the user is already a member of the team, this endpoint will update the role of the team member's role. To update the membership of a team member, the authenticated user must be an organization owner or a team maintainer."
+    },
+    {
+      "operationId": "teams/remove-membership-for-user-legacy",
+      "method": "DELETE",
+      "path": "/teams/{team_id}/memberships/{username}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Remove team membership for a user (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove team membership for a user](https://docs.github.com/rest/teams/members#remove-team-membership-for-a-user) endpoint.\n\nTeam synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.\n\nTo remove a membership between a user and a team, the authenticated user must have 'admin' permissions to the team or be an owner of the organization that the team is associated with. Removing team membership does not delete the user, it just removes their membership from the team.\n\n> [!NOTE]\n> When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see \"[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/).\""
+    },
+    {
+      "operationId": "teams/list-projects-legacy",
+      "method": "GET",
+      "path": "/teams/{team_id}/projects",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List team projects (Legacy)",
+      "description": "> [!WARNING]\n> **Closing down notice:** Projects (classic) is being deprecated in favor of the new Projects experience.\n> See the [changelog](https://github.blog/changelog/2024-05-23-sunset-notice-projects-classic/) for more information."
+    },
+    {
+      "operationId": "teams/check-permissions-for-project-legacy",
+      "method": "GET",
+      "path": "/teams/{team_id}/projects/{project_id}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Check team permissions for a project (Legacy)",
+      "description": "> [!WARNING]\n> **Closing down notice:** Projects (classic) is being deprecated in favor of the new Projects experience.\n> See the [changelog](https://github.blog/changelog/2024-05-23-sunset-notice-projects-classic/) for more information."
+    },
+    {
+      "operationId": "teams/add-or-update-project-permissions-legacy",
+      "method": "PUT",
+      "path": "/teams/{team_id}/projects/{project_id}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Add or update team project permissions (Legacy)",
+      "description": "> [!WARNING]\n> **Closing down notice:** Projects (classic) is being deprecated in favor of the new Projects experience.\n> See the [changelog](https://github.blog/changelog/2024-05-23-sunset-notice-projects-classic/) for more information."
+    },
+    {
+      "operationId": "teams/remove-project-legacy",
+      "method": "DELETE",
+      "path": "/teams/{team_id}/projects/{project_id}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Remove a project from a team (Legacy)",
+      "description": "> [!WARNING]\n> **Closing down notice:** Projects (classic) is being deprecated in favor of the new Projects experience.\n> See the [changelog](https://github.blog/changelog/2024-05-23-sunset-notice-projects-classic/) for more information."
+    },
+    {
+      "operationId": "teams/list-repos-legacy",
+      "method": "GET",
+      "path": "/teams/{team_id}/repos",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List team repositories (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [List team repositories](https://docs.github.com/rest/teams/teams#list-team-repositories) endpoint."
+    },
+    {
+      "operationId": "teams/check-permissions-for-repo-legacy",
+      "method": "GET",
+      "path": "/teams/{team_id}/repos/{owner}/{repo}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Check team permissions for a repository (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Check team permissions for a repository](https://docs.github.com/rest/teams/teams#check-team-permissions-for-a-repository) endpoint.\n\n> [!NOTE]\n> Repositories inherited through a parent team will also be checked.\n\nYou can also get information about the specified repository, including what permissions the team grants on it, by passing the following custom [media type](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types/) via the `Accept` header:"
+    },
+    {
+      "operationId": "teams/add-or-update-repo-permissions-legacy",
+      "method": "PUT",
+      "path": "/teams/{team_id}/repos/{owner}/{repo}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Add or update team repository permissions (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new \"[Add or update team repository permissions](https://docs.github.com/rest/teams/teams#add-or-update-team-repository-permissions)\" endpoint.\n\nTo add a repository to a team or update the team's permission on a repository, the authenticated user must have admin access to the repository, and must be able to see the team. The repository must be owned by the organization, or a direct fork of a repository owned by the organization. You will get a `422 Unprocessable Entity` status if you attempt to add a repository to a team that is not owned by the organization.\n\nNote that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see \"[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method).\""
+    },
+    {
+      "operationId": "teams/remove-repo-legacy",
+      "method": "DELETE",
+      "path": "/teams/{team_id}/repos/{owner}/{repo}",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Remove a repository from a team (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove a repository from a team](https://docs.github.com/rest/teams/teams#remove-a-repository-from-a-team) endpoint.\n\nIf the authenticated user is an organization owner or a team maintainer, they can remove any repositories from the team. To remove a repository from a team as an organization member, the authenticated user must have admin access to the repository and must be able to see the team. NOTE: This does not delete the repository, it just removes it from the team."
+    },
+    {
+      "operationId": "teams/list-child-legacy",
+      "method": "GET",
+      "path": "/teams/{team_id}/teams",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List child teams (Legacy)",
+      "description": "> [!WARNING]\n> **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List child teams`](https://docs.github.com/rest/teams/teams#list-child-teams) endpoint."
+    },
+    {
+      "operationId": "teams/list-for-authenticated-user",
+      "method": "GET",
+      "path": "/user/teams",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List teams for the authenticated user",
+      "description": "List all of the teams across all of the organizations to which the authenticated\nuser belongs.\n\nOAuth app tokens and personal access tokens (classic) need the `user`, `repo`, or `read:org` scope to use this endpoint.\n\nWhen using a fine-grained personal access token, the resource owner of the token must be a single organization, and the response will only include the teams from that organization."
+    },
+    {
+      "operationId": "checks/create",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/check-runs",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Create a check run",
+      "description": "Creates a new check run for a specific commit in a repository.\n\nTo create a check run, you must use a GitHub App. OAuth apps and authenticated users are not able to create a check suite.\n\nIn a check suite, GitHub limits the number of check runs with the same name to 1000. Once these check runs exceed 1000, GitHub will start to automatically delete older check runs.\n\n> [!NOTE]\n> The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array."
+    },
+    {
+      "operationId": "checks/get",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/check-runs/{check_run_id}",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Get a check run",
+      "description": "Gets a single check run using its `id`.\n\n> [!NOTE]\n> The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint on a private repository."
+    },
+    {
+      "operationId": "checks/update",
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/check-runs/{check_run_id}",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Update a check run",
+      "description": "Updates a check run for a specific commit in a repository.\n\n> [!NOTE]\n> The endpoints to manage checks only look for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.\n\nOAuth apps and personal access tokens (classic) cannot use this endpoint."
+    },
+    {
+      "operationId": "checks/list-annotations",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations",
+      "tags": [
+        "checks"
+      ],
+      "summary": "List check run annotations",
+      "description": "Lists annotations for a check run using the annotation `id`.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint on a private repository."
+    },
+    {
+      "operationId": "checks/rerequest-run",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/check-runs/{check_run_id}/rerequest",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Rerequest a check run",
+      "description": "Triggers GitHub to rerequest an existing check run, without pushing new code to a repository. This endpoint will trigger the [`check_run` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) event with the action `rerequested`. When a check run is `rerequested`, the `status` of the check suite it belongs to is reset to `queued` and the `conclusion` is cleared. The check run itself is not updated. GitHub apps recieving the [`check_run` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) with the `rerequested` action should then decide if the check run should be reset or updated and call the [update `check_run` endpoint](https://docs.github.com/rest/checks/runs#update-a-check-run) to update the check_run if desired.\n\nFor more information about how to re-run GitHub Actions jobs, see \"[Re-run a job from a workflow run](https://docs.github.com/rest/actions/workflow-runs#re-run-a-job-from-a-workflow-run)\"."
+    },
+    {
+      "operationId": "checks/create-suite",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/check-suites",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Create a check suite",
+      "description": "Creates a check suite manually. By default, check suites are automatically created when you create a [check run](https://docs.github.com/rest/checks/runs). You only need to use this endpoint for manually creating check suites when you've disabled automatic creation using \"[Update repository preferences for check suites](https://docs.github.com/rest/checks/suites#update-repository-preferences-for-check-suites)\".\n\n> [!NOTE]\n> The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array and a `null` value for `head_branch`.\n\nOAuth apps and personal access tokens (classic) cannot use this endpoint."
+    },
+    {
+      "operationId": "checks/set-suites-preferences",
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/check-suites/preferences",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Update repository preferences for check suites",
+      "description": "Changes the default automatic flow when creating check suites. By default, a check suite is automatically created each time code is pushed to a repository. When you disable the automatic creation of check suites, you can manually [Create a check suite](https://docs.github.com/rest/checks/suites#create-a-check-suite).\nYou must have admin permissions in the repository to set preferences for check suites."
+    },
+    {
+      "operationId": "checks/get-suite",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/check-suites/{check_suite_id}",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Get a check suite",
+      "description": "Gets a single check suite using its `id`.\n\n> [!NOTE]\n> The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array and a `null` value for `head_branch`.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint on a private repository."
+    },
+    {
+      "operationId": "checks/list-for-suite",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs",
+      "tags": [
+        "checks"
+      ],
+      "summary": "List check runs in a check suite",
+      "description": "Lists check runs for a check suite using its `id`.\n\n> [!NOTE]\n> The endpoints to manage checks only look for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint on a private repository."
+    },
+    {
+      "operationId": "checks/rerequest-suite",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Rerequest a check suite",
+      "description": "Triggers GitHub to rerequest an existing check suite, without pushing new code to a repository. This endpoint will trigger the [`check_suite` webhook](https://docs.github.com/webhooks/event-payloads/#check_suite) event with the action `rerequested`. When a check suite is `rerequested`, its `status` is reset to `queued` and the `conclusion` is cleared."
+    },
+    {
+      "operationId": "checks/list-for-ref",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/commits/{ref}/check-runs",
+      "tags": [
+        "checks"
+      ],
+      "summary": "List check runs for a Git reference",
+      "description": "Lists check runs for a commit ref. The `ref` can be a SHA, branch name, or a tag name.\n\n> [!NOTE]\n> The endpoints to manage checks only look for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.\n\nIf there are more than 1000 check suites on a single git reference, this endpoint will limit check runs to the 1000 most recent check suites. To iterate over all possible check runs, use the [List check suites for a Git reference](https://docs.github.com/rest/reference/checks#list-check-suites-for-a-git-reference) endpoint and provide the `check_suite_id` parameter to the [List check runs in a check suite](https://docs.github.com/rest/reference/checks#list-check-runs-in-a-check-suite) endpoint.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint on a private repository."
+    },
+    {
+      "operationId": "checks/list-suites-for-ref",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/commits/{ref}/check-suites",
+      "tags": [
+        "checks"
+      ],
+      "summary": "List check suites for a Git reference",
+      "description": "Lists check suites for a commit `ref`. The `ref` can be a SHA, branch name, or a tag name.\n\n> [!NOTE]\n> The endpoints to manage checks only look for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array and a `null` value for `head_branch`.\n\nOAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint on a private repository."
+    },
+    {
+      "operationId": "pulls/list",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "List pull requests",
+      "description": "Lists pull requests in a specified repository.\n\nDraft pull requests are available in public repositories with GitHub\nFree and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing\nplans, and in public and private repositories with GitHub Team and GitHub Enterprise\nCloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)\nin the GitHub Help documentation.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/create",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Create a pull request",
+      "description": "Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.\n\nTo open or update a pull request in a public repository, you must have write access to the head or the source branch. For organization-owned repositories, you must be a member of the organization that owns the repository to open or update a pull request.\n\nThis endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see \"[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)\" and \"[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api).\"\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/list-review-comments-for-repo",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/comments",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "List review comments in a repository",
+      "description": "Lists review comments for all pull requests in a repository. By default,\nreview comments are in ascending order by ID.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/get-review-comment",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Get a review comment for a pull request",
+      "description": "Provides details for a specified review comment.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/update-review-comment",
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Update a review comment for a pull request",
+      "description": "Edits the content of a specified review comment.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/delete-review-comment",
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Delete a review comment for a pull request",
+      "description": "Deletes a review comment."
+    },
+    {
+      "operationId": "pulls/get",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Get a pull request",
+      "description": "Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.\n\nLists details of a pull request by providing its number.\n\nWhen you get, [create](https://docs.github.com/rest/pulls/pulls/#create-a-pull-request), or [edit](https://docs.github.com/rest/pulls/pulls#update-a-pull-request) a pull request, GitHub creates a merge commit to test whether the pull request can be automatically merged into the base branch. This test commit is not added to the base branch or the head branch. You can review the status of the test commit using the `mergeable` key. For more information, see \"[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)\".\n\nThe value of the `mergeable` attribute can be `true`, `false`, or `null`. If the value is `null`, then GitHub has started a background job to compute the mergeability. After giving the job time to complete, resubmit the request. When the job finishes, you will see a non-`null` value for the `mergeable` attribute in the response. If `mergeable` is `true`, then `merge_commit_sha` will be the SHA of the _test_ merge commit.\n\nThe value of the `merge_commit_sha` attribute changes depending on the state of the pull request. Before merging a pull request, the `merge_commit_sha` attribute holds the SHA of the _test_ merge commit. After merging a pull request, the `merge_commit_sha` attribute changes depending on how you merged the pull request:\n\n*   If merged as a [merge commit](https://docs.github.com/articles/about-merge-methods-on-github/), `merge_commit_sha` represents the SHA of the merge commit.\n*   If merged via a [squash](https://docs.github.com/articles/about-merge-methods-on-github/#squashing-your-merge-commits), `merge_commit_sha` represents the SHA of the squashed commit on the base branch.\n*   If [rebased](https://docs.github.com/articles/about-merge-methods-on-github/#rebasing-and-merging-your-commits), `merge_commit_sha` represents the commit that the base branch was updated to.\n\nPass the appropriate [media type](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types) to fetch diff and patch formats.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.\n- **`application/vnd.github.diff`**: For more information, see \"[git-diff](https://git-scm.com/docs/git-diff)\" in the Git documentation. If a diff is corrupt, contact us through the [GitHub Support portal](https://support.github.com/). Include the repository name and pull request ID in your message."
+    },
+    {
+      "operationId": "pulls/update",
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Update a pull request",
+      "description": "Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.\n\nTo open or update a pull request in a public repository, you must have write access to the head or the source branch. For organization-owned repositories, you must be a member of the organization that owns the repository to open or update a pull request.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/list-review-comments",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/comments",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "List review comments on a pull request",
+      "description": "Lists all review comments for a specified pull request. By default, review comments\nare in ascending order by ID.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/create-review-comment",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/comments",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Create a review comment for a pull request",
+      "description": "Creates a review comment on the diff of a specified pull request. To add a regular comment to a pull request timeline, see \"[Create an issue comment](https://docs.github.com/rest/issues/comments#create-an-issue-comment).\"\n\nIf your comment applies to more than one line in the pull request diff, you should use the parameters `line`, `side`, and optionally `start_line` and `start_side` in your request.\n\nThe `position` parameter is closing down. If you use `position`, the `line`, `side`, `start_line`, and `start_side` parameters are not required.\n\nThis endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see \"[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)\"\nand \"[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api).\"\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/create-reply-for-review-comment",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Create a reply for a review comment",
+      "description": "Creates a reply to a review comment for a pull request. For the `comment_id`, provide the ID of the review comment you are replying to. This must be the ID of a _top-level review comment_, not a reply to that comment. Replies to replies are not supported.\n\nThis endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see \"[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)\"\nand \"[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api).\"\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/list-commits",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/commits",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "List commits on a pull request",
+      "description": "Lists a maximum of 250 commits for a pull request. To receive a complete\ncommit list for pull requests with more than 250 commits, use the [List commits](https://docs.github.com/rest/commits/commits#list-commits)\nendpoint.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/list-files",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/files",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "List pull requests files",
+      "description": "Lists the files in a specified pull request.\n\n> [!NOTE]\n> Responses include a maximum of 3000 files. The paginated response returns 30 files per page by default.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/check-if-merged",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/merge",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Check if a pull request has been merged",
+      "description": "Checks if a pull request has been merged into the base branch. The HTTP status of the response indicates whether or not the pull request has been merged; the response body is empty."
+    },
+    {
+      "operationId": "pulls/merge",
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/merge",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Merge a pull request",
+      "description": "Merges a pull request into the base branch.\nThis endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see \"[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)\" and \"[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api).\""
+    },
+    {
+      "operationId": "pulls/list-requested-reviewers",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Get all requested reviewers for a pull request",
+      "description": "Gets the users or teams whose review is requested for a pull request. Once a requested reviewer submits a review, they are no longer considered a requested reviewer. Their review will instead be returned by the [List reviews for a pull request](https://docs.github.com/rest/pulls/reviews#list-reviews-for-a-pull-request) operation."
+    },
+    {
+      "operationId": "pulls/request-reviewers",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Request reviewers for a pull request",
+      "description": "Requests reviews for a pull request from a given set of users and/or teams.\nThis endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see \"[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)\" and \"[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api).\""
+    },
+    {
+      "operationId": "pulls/remove-requested-reviewers",
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Remove requested reviewers from a pull request",
+      "description": "Removes review requests from a pull request for a given set of users and/or teams."
+    },
+    {
+      "operationId": "pulls/list-reviews",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "List reviews for a pull request",
+      "description": "Lists all reviews for a specified pull request. The list of reviews returns in chronological order.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/create-review",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Create a review for a pull request",
+      "description": "Creates a review on a specified pull request.\n\nThis endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see \"[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)\" and \"[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api).\"\n\nPull request reviews created in the `PENDING` state are not submitted and therefore do not include the `submitted_at` property in the response. To create a pending review for a pull request, leave the `event` parameter blank. For more information about submitting a `PENDING` review, see \"[Submit a review for a pull request](https://docs.github.com/rest/pulls/reviews#submit-a-review-for-a-pull-request).\"\n\n> [!NOTE]\n> To comment on a specific line in a file, you need to first determine the position of that line in the diff. To see a pull request diff, add the `application/vnd.github.v3.diff` media type to the `Accept` header of a call to the [Get a pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) endpoint.\n\nThe `position` value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment. The line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/get-review",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Get a review for a pull request",
+      "description": "Retrieves a pull request review by its ID.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/update-review",
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Update a review for a pull request",
+      "description": "Updates the contents of a specified review summary comment.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/delete-pending-review",
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Delete a pending review for a pull request",
+      "description": "Deletes a pull request review that has not been submitted. Submitted reviews cannot be deleted.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/list-comments-for-review",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "List comments for a pull request review",
+      "description": "Lists comments for a specific pull request review.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/dismiss-review",
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Dismiss a review for a pull request",
+      "description": "Dismisses a specified review on a pull request.\n\n> [!NOTE]\n> To dismiss a pull request review on a [protected branch](https://docs.github.com/rest/branches/branch-protection), you must be a repository administrator or be included in the list of people or teams who can dismiss pull request reviews.\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/submit-review",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Submit a review for a pull request",
+      "description": "Submits a pending review for a pull request. For more information about creating a pending review for a pull request, see \"[Create a review for a pull request](https://docs.github.com/rest/pulls/reviews#create-a-review-for-a-pull-request).\"\n\nThis endpoint supports the following custom media types. For more information, see \"[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).\"\n\n- **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type.\n- **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`.\n- **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`.\n- **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`."
+    },
+    {
+      "operationId": "pulls/update-branch",
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/update-branch",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Update a pull request branch",
+      "description": "Updates the pull request branch with the latest upstream changes by merging HEAD from the base branch into the pull request branch.\nNote: If making a request on behalf of a GitHub App you must also have permissions to write the contents of the head repository."
+    }
+  ]
+}

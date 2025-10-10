@@ -1,0 +1,63 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/orgs/{org}/settings/network-configurations",
+      "method": "GET",
+      "tags": [
+        "hosted-compute"
+      ],
+      "summary": "List hosted compute network configurations for an organization",
+      "operationId": "hosted-compute/list-network-configurations-for-org"
+    },
+    {
+      "path": "/orgs/{org}/settings/network-configurations",
+      "method": "POST",
+      "tags": [
+        "hosted-compute"
+      ],
+      "summary": "Create a hosted compute network configuration for an organization",
+      "operationId": "hosted-compute/create-network-configuration-for-org"
+    },
+    {
+      "path": "/orgs/{org}/settings/network-configurations/{network_configuration_id}",
+      "method": "GET",
+      "tags": [
+        "hosted-compute"
+      ],
+      "summary": "Get a hosted compute network configuration for an organization",
+      "operationId": "hosted-compute/get-network-configuration-for-org"
+    },
+    {
+      "path": "/orgs/{org}/settings/network-configurations/{network_configuration_id}",
+      "method": "PATCH",
+      "tags": [
+        "hosted-compute"
+      ],
+      "summary": "Update a hosted compute network configuration for an organization",
+      "operationId": "hosted-compute/update-network-configuration-for-org"
+    },
+    {
+      "path": "/orgs/{org}/settings/network-configurations/{network_configuration_id}",
+      "method": "DELETE",
+      "tags": [
+        "hosted-compute"
+      ],
+      "summary": "Delete a hosted compute network configuration from an organization",
+      "operationId": "hosted-compute/delete-network-configuration-from-org"
+    },
+    {
+      "path": "/orgs/{org}/settings/network-settings/{network_settings_id}",
+      "method": "GET",
+      "tags": [
+        "hosted-compute"
+      ],
+      "summary": "Get a hosted compute network settings resource for an organization",
+      "operationId": "hosted-compute/get-network-settings-for-org"
+    }
+  ]
+}

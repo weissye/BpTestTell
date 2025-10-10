@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "resetPharmacy",
+      "summary": "",
+      "user": "admin_user_01",
+      "ideal": "Resets the pharmacy system to its initial state, clearing all data."
+    },
+    {
+      "path": "/drugs",
+      "method": "POST",
+      "operationId": "addDrug",
+      "summary": "",
+      "user": "pharmacist_02",
+      "ideal": "Adds a new drug to the pharmacy inventory with all required details."
+    },
+    {
+      "path": "/orders",
+      "method": "POST",
+      "operationId": "createOrder",
+      "summary": "",
+      "user": "customer_03",
+      "ideal": "Creates a new order for the specified drugs, including customer details and payment information."
+    }
+  ]
+}

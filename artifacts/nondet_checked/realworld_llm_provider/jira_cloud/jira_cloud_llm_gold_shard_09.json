@@ -1,0 +1,140 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/dashboard",
+      "method": "GET",
+      "operationId": "getAllDashboards",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all dashboards available to the user."
+    },
+    {
+      "path": "/rest/api/3/dashboard",
+      "method": "POST",
+      "operationId": "createDashboard",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Create a new dashboard with specified parameters."
+    },
+    {
+      "path": "/rest/api/3/dashboard/bulk/edit",
+      "method": "PUT",
+      "operationId": "bulkEditDashboards",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Bulk edit multiple dashboards in one request."
+    },
+    {
+      "path": "/rest/api/3/dashboard/gadgets",
+      "method": "GET",
+      "operationId": "getAllAvailableDashboardGadgets",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Fetch all available gadgets for dashboards."
+    },
+    {
+      "path": "/rest/api/3/dashboard/search",
+      "method": "GET",
+      "operationId": "getDashboardsPaginated",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Retrieve a paginated list of dashboards."
+    },
+    {
+      "path": "/rest/api/3/dashboard/{dashboardId}/gadget",
+      "method": "GET",
+      "operationId": "getAllGadgets",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Get all gadgets associated with a specific dashboard."
+    },
+    {
+      "path": "/rest/api/3/dashboard/{dashboardId}/gadget",
+      "method": "POST",
+      "operationId": "addGadget",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Add a new gadget to the specified dashboard."
+    },
+    {
+      "path": "/rest/api/3/dashboard/{dashboardId}/gadget/{gadgetId}",
+      "method": "DELETE",
+      "operationId": "removeGadget",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Remove a gadget from the specified dashboard."
+    },
+    {
+      "path": "/rest/api/3/dashboard/{dashboardId}/gadget/{gadgetId}",
+      "method": "PUT",
+      "operationId": "updateGadget",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Update the configuration of a specific gadget."
+    },
+    {
+      "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties",
+      "method": "GET",
+      "operationId": "getDashboardItemPropertyKeys",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Retrieve property keys for a dashboard item."
+    },
+    {
+      "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}",
+      "method": "DELETE",
+      "operationId": "deleteDashboardItemProperty",
+      "summary": "",
+      "user": "user808",
+      "ideal": "Delete a specific property from a dashboard item."
+    },
+    {
+      "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}",
+      "method": "GET",
+      "operationId": "getDashboardItemProperty",
+      "summary": "",
+      "user": "user909",
+      "ideal": "Get the value of a specific property for a dashboard item."
+    },
+    {
+      "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}",
+      "method": "PUT",
+      "operationId": "setDashboardItemProperty",
+      "summary": "",
+      "user": "user1010",
+      "ideal": "Set a specific property for a dashboard item."
+    },
+    {
+      "path": "/rest/api/3/dashboard/{id}",
+      "method": "DELETE",
+      "operationId": "deleteDashboard",
+      "summary": "",
+      "user": "user1111",
+      "ideal": "Delete a specific dashboard."
+    },
+    {
+      "path": "/rest/api/3/dashboard/{id}",
+      "method": "GET",
+      "operationId": "getDashboard",
+      "summary": "",
+      "user": "user1212",
+      "ideal": "Retrieve details of a specific dashboard."
+    },
+    {
+      "path": "/rest/api/3/dashboard/{id}",
+      "method": "PUT",
+      "operationId": "updateDashboard",
+      "summary": "",
+      "user": "user1313",
+      "ideal": "Update the details of a specific dashboard."
+    },
+    {
+      "path": "/rest/api/3/dashboard/{id}/copy",
+      "method": "POST",
+      "operationId": "copyDashboard",
+      "summary": "",
+      "user": "user1414",
+      "ideal": "Create a copy of a specific dashboard."
+    }
+  ]
+}

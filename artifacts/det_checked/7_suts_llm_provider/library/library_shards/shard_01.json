@@ -1,0 +1,44 @@
+{
+  "openapi_meta": {
+    "title": "Library SUT (Ground-Truth)",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/users",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create a user",
+      "operationId": "createUser"
+    },
+    {
+      "path": "/books",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create a book",
+      "operationId": "createBook"
+    },
+    {
+      "path": "/books/{book_id}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete a book",
+      "operationId": "deleteBook"
+    },
+    {
+      "path": "/loans/{user_id}/{book_id}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete a loan by composite id",
+      "operationId": "deleteLoan"
+    },
+    {
+      "path": "/holds/{hold_id}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete a hold",
+      "operationId": "deleteHold"
+    }
+  ]
+}

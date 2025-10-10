@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issuetypescheme",
+      "method": "GET",
+      "operationId": "getAllIssueTypeSchemes",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all issue type schemes available in Jira so that I can understand the different configurations that can be applied to my projects.",
+      "ideal": "The API should return a list of all issue type schemes with their IDs, names, and descriptions."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme",
+      "method": "POST",
+      "operationId": "createIssueTypeScheme",
+      "summary": "",
+      "user": "As a Jira administrator, I want to create a new issue type scheme to better organize the issue types for my projects.",
+      "ideal": "The API should accept a JSON payload with the scheme details and return the newly created issue type scheme's ID and details."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/mapping",
+      "method": "GET",
+      "operationId": "getIssueTypeSchemesMapping",
+      "summary": "",
+      "user": "As a developer, I need to get the mapping of issue type schemes to projects to ensure that the correct issue types are available for each project.",
+      "ideal": "The API should return a mapping of project IDs to their corresponding issue type scheme IDs."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/project",
+      "method": "GET",
+      "operationId": "getIssueTypeSchemeForProjects",
+      "summary": "",
+      "user": "As a project lead, I want to find out which issue type scheme is assigned to my project to ensure that the right issue types are being used.",
+      "ideal": "The API should return the issue type scheme ID and details for the specified project."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/project",
+      "method": "PUT",
+      "operationId": "assignIssueTypeSchemeToProject",
+      "summary": "",
+      "user": "As a project administrator, I need to assign an issue type scheme to my project to customize the issue types available for my team.",
+      "ideal": "The API should accept a project ID and an issue type scheme ID, and confirm the assignment with a success message."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}",
+      "method": "DELETE",
+      "operationId": "deleteIssueTypeScheme",
+      "summary": "",
+      "user": "As a Jira administrator, I want to delete an unused issue type scheme to keep the system organized and reduce clutter.",
+      "ideal": "The API should delete the specified issue type scheme and return a confirmation message."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}",
+      "method": "PUT",
+      "operationId": "updateIssueTypeScheme",
+      "summary": "",
+      "user": "As a project manager, I need to update the details of an existing issue type scheme to reflect changes in our project requirements.",
+      "ideal": "The API should accept updated details for the issue type scheme and return the updated scheme's information."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype",
+      "method": "PUT",
+      "operationId": "addIssueTypesToIssueTypeScheme",
+      "summary": "",
+      "user": "As a project administrator, I want to add new issue types to an existing issue type scheme to expand the options available for my team.",
+      "ideal": "The API should accept a list of issue type IDs to be added and return the updated issue type scheme details."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype/move",
+      "method": "PUT",
+      "operationId": "reorderIssueTypesInIssueTypeScheme",
+      "summary": "",
+      "user": "As a project manager, I need to reorder the issue types in an issue type scheme to prioritize certain types for my team.",
+      "ideal": "The API should accept a new order for the issue types and return the updated order confirmation."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype/{issueTypeId}",
+      "method": "DELETE",
+      "operationId": "removeIssueTypeFromIssueTypeScheme",
+      "summary": "",
+      "user": "As a Jira administrator, I want to remove an issue type from an issue type scheme that is no longer needed to streamline our processes.",
+      "ideal": "The API should delete the specified issue type from the scheme and return a confirmation message."
+    }
+  ]
+}

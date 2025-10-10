@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/instance/license",
+      "method": "GET",
+      "operationId": "getLicense",
+      "summary": "",
+      "user": "As a Jira administrator, I want to retrieve the license details of my Jira instance to ensure compliance and manage user access effectively.",
+      "ideal": "The response should include the license type, the number of users allowed, and the expiration date of the license."
+    },
+    {
+      "path": "/rest/api/3/license/approximateLicenseCount",
+      "method": "GET",
+      "operationId": "getApproximateLicenseCount",
+      "summary": "",
+      "user": "As a project manager, I need to know the approximate number of licenses in use to plan for future user additions and budget accordingly.",
+      "ideal": "The response should provide an approximate count of active licenses currently in use across the Jira instance."
+    },
+    {
+      "path": "/rest/api/3/license/approximateLicenseCount/product/{applicationKey}",
+      "method": "GET",
+      "operationId": "getApproximateApplicationLicenseCount",
+      "summary": "",
+      "user": "As a product owner, I want to check the approximate license count for a specific application key to evaluate its usage and determine if we need to purchase more licenses.",
+      "ideal": "The response should return the approximate number of licenses in use for the specified application key, helping in resource allocation."
+    }
+  ]
+}

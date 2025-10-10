@@ -1,0 +1,18 @@
+{
+  "openapi_meta": {
+    "title": "Trello",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/batch",
+      "method": "GET",
+      "tags": [
+        "batch"
+      ],
+      "summary": "getBatch()",
+      "operationId": "getBatch"
+    }
+  ]
+}

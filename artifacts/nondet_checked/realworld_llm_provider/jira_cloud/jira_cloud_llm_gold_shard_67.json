@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/ABC/properties",
+      "method": "GET",
+      "operationId": "getProjectPropertyKeys",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all property keys associated with the project ABC to understand the custom configurations applied.",
+      "ideal": "The response should return a list of property keys for project ABC."
+    },
+    {
+      "path": "/rest/api/3/project/ABC/properties/customProperty",
+      "method": "DELETE",
+      "operationId": "deleteProjectProperty",
+      "summary": "",
+      "user": "As a developer, I need to delete the custom property 'customProperty' from project ABC to clean up unused configurations.",
+      "ideal": "The response should confirm the deletion of 'customProperty' from project ABC."
+    },
+    {
+      "path": "/rest/api/3/project/ABC/properties/customProperty",
+      "method": "GET",
+      "operationId": "getProjectProperty",
+      "summary": "",
+      "user": "As a team lead, I want to check the value of the property 'customProperty' in project ABC to ensure it is set correctly.",
+      "ideal": "The response should return the value of 'customProperty' for project ABC."
+    },
+    {
+      "path": "/rest/api/3/project/ABC/properties/customProperty",
+      "method": "PUT",
+      "operationId": "setProjectProperty",
+      "summary": "",
+      "user": "As a project administrator, I want to set the value of 'customProperty' for project ABC to 'newValue' to update the project settings.",
+      "ideal": "The response should confirm that 'customProperty' has been updated to 'newValue' for project ABC."
+    }
+  ]
+}

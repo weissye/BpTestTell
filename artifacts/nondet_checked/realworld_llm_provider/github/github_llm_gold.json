@@ -1,0 +1,3772 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/my-org/actions/cache/usage",
+      "method": "GET",
+      "operationId": "actions/get-actions-cache-usage-for-org",
+      "summary": "",
+      "user": "Retrieve the cache usage statistics for the organization 'my-org'.",
+      "ideal": "The API should return the total cache size used by the organization."
+    },
+    {
+      "path": "/repos/my-user/my-repo/actions/artifacts",
+      "method": "GET",
+      "operationId": "actions/list-artifacts-for-repo",
+      "summary": "",
+      "user": "List all artifacts for the repository 'my-repo' owned by 'my-user'.",
+      "ideal": "The API should return a list of artifacts with their details."
+    },
+    {
+      "path": "/orgs/my-org/actions/permissions",
+      "method": "GET",
+      "operationId": "actions/get-github-actions-permissions-organization",
+      "summary": "",
+      "user": "Get the GitHub Actions permissions for the organization 'my-org'.",
+      "ideal": "The API should return the current permissions settings for GitHub Actions."
+    },
+    {
+      "path": "/repos/my-user/my-repo/actions/runs",
+      "method": "GET",
+      "operationId": "actions/list-workflow-runs-for-repo",
+      "summary": "",
+      "user": "Fetch all workflow runs for the repository 'my-repo' owned by 'my-user'.",
+      "ideal": "The API should return a list of workflow runs with their statuses."
+    },
+    {
+      "path": "/orgs/my-org/actions/secrets",
+      "method": "GET",
+      "operationId": "actions/list-org-secrets",
+      "summary": "",
+      "user": "Retrieve all organization secrets for 'my-org'.",
+      "ideal": "The API should return a list of secrets with their names and visibility."
+    },
+    {
+      "path": "/repos/my-user/my-repo/actions/secrets/my-secret",
+      "method": "GET",
+      "operationId": "actions/get-repo-secret",
+      "summary": "",
+      "user": "Get the secret named 'my-secret' for the repository 'my-repo'.",
+      "ideal": "The API should return the value of the secret if it exists."
+    },
+    {
+      "path": "/orgs/my-org/actions/runner-groups",
+      "method": "GET",
+      "operationId": "actions/list-self-hosted-runner-groups-for-org",
+      "summary": "",
+      "user": "List all self-hosted runner groups for the organization 'my-org'.",
+      "ideal": "The API should return a list of runner groups with their details."
+    },
+    {
+      "path": "/repos/my-user/my-repo/actions/workflows",
+      "method": "GET",
+      "operationId": "actions/list-repo-workflows",
+      "summary": "",
+      "user": "Fetch all workflows for the repository 'my-repo'.",
+      "ideal": "The API should return a list of workflows with their IDs and names."
+    },
+    {
+      "path": "/orgs/my-org/actions/permissions/self-hosted-runners",
+      "method": "GET",
+      "operationId": "actions/get-self-hosted-runners-permissions-organization",
+      "summary": "",
+      "user": "Get the permissions for self-hosted runners in the organization 'my-org'.",
+      "ideal": "The API should return the current permissions settings for self-hosted runners."
+    },
+    {
+      "path": "/repos/my-user/my-repo/actions/permissions",
+      "method": "PUT",
+      "operationId": "actions/set-github-actions-permissions-repository",
+      "summary": "",
+      "user": "Update the GitHub Actions permissions for the repository 'my-repo'.",
+      "ideal": "The API should successfully update the permissions and return a confirmation."
+    },
+    {
+      "path": "/orgs/my-org/actions/variables",
+      "method": "POST",
+      "operationId": "actions/create-org-variable",
+      "summary": "",
+      "user": "Create a new organization variable for 'my-org'.",
+      "ideal": "The API should create the variable and return its details."
+    },
+    {
+      "path": "/events",
+      "method": "GET",
+      "operationId": "activity/list-public-events",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of public events from GitHub."
+    },
+    {
+      "path": "/feeds",
+      "method": "GET",
+      "operationId": "activity/get-feeds",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Get the feeds for the authenticated user."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/events",
+      "method": "GET",
+      "operationId": "activity/list-repo-events",
+      "summary": "",
+      "user": "user789",
+      "ideal": "List events for the specified repository."
+    },
+    {
+      "path": "/notifications",
+      "method": "GET",
+      "operationId": "activity/list-notifications-for-authenticated-user",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Fetch notifications for the authenticated user."
+    },
+    {
+      "path": "/notifications/threads/12345",
+      "method": "GET",
+      "operationId": "activity/get-thread",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Retrieve a specific notification thread."
+    },
+    {
+      "path": "/user/starred",
+      "method": "GET",
+      "operationId": "activity/list-repos-starred-by-authenticated-user",
+      "summary": "",
+      "user": "user303",
+      "ideal": "List repositories starred by the authenticated user."
+    },
+    {
+      "path": "/users/octocat/starred",
+      "method": "GET",
+      "operationId": "activity/list-repos-starred-by-user",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Get a list of repositories starred by the user 'octocat'."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/subscription",
+      "method": "GET",
+      "operationId": "activity/get-repo-subscription",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Check the subscription status for the repository."
+    },
+    {
+      "path": "/orgs/github/events",
+      "method": "GET",
+      "operationId": "activity/list-public-org-events",
+      "summary": "",
+      "user": "user606",
+      "ideal": "List public events for the GitHub organization."
+    },
+    {
+      "path": "/users/octocat/events/public",
+      "method": "GET",
+      "operationId": "activity/list-public-events-for-user",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Retrieve public events for the user 'octocat'."
+    },
+    {
+      "path": "/app",
+      "method": "GET",
+      "operationId": "apps/get-authenticated",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the authenticated app's details."
+    },
+    {
+      "path": "/app-manifests/abc123/conversions",
+      "method": "POST",
+      "operationId": "apps/create-from-manifest",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Create an app from the provided manifest code."
+    },
+    {
+      "path": "/app/hook/config",
+      "method": "GET",
+      "operationId": "apps/get-webhook-config-for-app",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Fetch the current webhook configuration for the app."
+    },
+    {
+      "path": "/app/hook/config",
+      "method": "PATCH",
+      "operationId": "apps/update-webhook-config-for-app",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Update the webhook configuration for the app."
+    },
+    {
+      "path": "/app/hook/deliveries",
+      "method": "GET",
+      "operationId": "apps/list-webhook-deliveries",
+      "summary": "",
+      "user": "user202",
+      "ideal": "List all webhook deliveries for the app."
+    },
+    {
+      "path": "/app/hook/deliveries/12345",
+      "method": "GET",
+      "operationId": "apps/get-webhook-delivery",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Get details of a specific webhook delivery."
+    },
+    {
+      "path": "/app/hook/deliveries/12345/attempts",
+      "method": "POST",
+      "operationId": "apps/redeliver-webhook-delivery",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Attempt to redeliver a specific webhook delivery."
+    },
+    {
+      "path": "/app/installation-requests",
+      "method": "GET",
+      "operationId": "apps/list-installation-requests-for-authenticated-app",
+      "summary": "",
+      "user": "user505",
+      "ideal": "List installation requests for the authenticated app."
+    },
+    {
+      "path": "/app/installations",
+      "method": "GET",
+      "operationId": "apps/list-installations",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Retrieve a list of installations for the app."
+    },
+    {
+      "path": "/app/installations/789",
+      "method": "GET",
+      "operationId": "apps/get-installation",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Get details of a specific installation."
+    },
+    {
+      "path": "/app/installations/789",
+      "method": "DELETE",
+      "operationId": "apps/delete-installation",
+      "summary": "",
+      "user": "user808",
+      "ideal": "Delete a specific installation."
+    },
+    {
+      "path": "/app/installations/789/access_tokens",
+      "method": "POST",
+      "operationId": "apps/create-installation-access-token",
+      "summary": "",
+      "user": "user909",
+      "ideal": "Create an access token for the specified installation."
+    },
+    {
+      "path": "/app/installations/789/suspended",
+      "method": "PUT",
+      "operationId": "apps/suspend-installation",
+      "summary": "",
+      "user": "user010",
+      "ideal": "Suspend the specified installation."
+    },
+    {
+      "path": "/app/installations/789/suspended",
+      "method": "DELETE",
+      "operationId": "apps/unsuspend-installation",
+      "summary": "",
+      "user": "user111",
+      "ideal": "Unsuspend the specified installation."
+    },
+    {
+      "path": "/applications/client_id/grant",
+      "method": "DELETE",
+      "operationId": "apps/delete-authorization",
+      "summary": "",
+      "user": "user222",
+      "ideal": "Delete authorization for the specified client ID."
+    },
+    {
+      "path": "/applications/client_id/token",
+      "method": "POST",
+      "operationId": "apps/check-token",
+      "summary": "",
+      "user": "user333",
+      "ideal": "Check the validity of the token for the specified client ID."
+    },
+    {
+      "path": "/applications/client_id/token",
+      "method": "PATCH",
+      "operationId": "apps/reset-token",
+      "summary": "",
+      "user": "user444",
+      "ideal": "Reset the token for the specified client ID."
+    },
+    {
+      "path": "/applications/client_id/token",
+      "method": "DELETE",
+      "operationId": "apps/delete-token",
+      "summary": "",
+      "user": "user555",
+      "ideal": "Delete the token for the specified client ID."
+    },
+    {
+      "path": "/applications/client_id/token/scoped",
+      "method": "POST",
+      "operationId": "apps/scope-token",
+      "summary": "",
+      "user": "user666",
+      "ideal": "Scope the token for the specified client ID."
+    },
+    {
+      "path": "/apps/my-app",
+      "method": "GET",
+      "operationId": "apps/get-by-slug",
+      "summary": "",
+      "user": "user777",
+      "ideal": "Retrieve details of the app by its slug."
+    },
+    {
+      "path": "/installation/repositories",
+      "method": "GET",
+      "operationId": "apps/list-repos-accessible-to-installation",
+      "summary": "",
+      "user": "user888",
+      "ideal": "List repositories accessible to the installation."
+    },
+    {
+      "path": "/installation/token",
+      "method": "DELETE",
+      "operationId": "apps/revoke-installation-access-token",
+      "summary": "",
+      "user": "user999",
+      "ideal": "Revoke the access token for the installation."
+    },
+    {
+      "path": "/marketplace_listing/accounts/12345",
+      "method": "GET",
+      "operationId": "apps/get-subscription-plan-for-account",
+      "summary": "",
+      "user": "user000",
+      "ideal": "Get the subscription plan for the specified account."
+    },
+    {
+      "path": "/marketplace_listing/plans",
+      "method": "GET",
+      "operationId": "apps/list-plans",
+      "summary": "",
+      "user": "user111",
+      "ideal": "List all available subscription plans."
+    },
+    {
+      "path": "/marketplace_listing/plans/plan_id/accounts",
+      "method": "GET",
+      "operationId": "apps/list-accounts-for-plan",
+      "summary": "",
+      "user": "user222",
+      "ideal": "List accounts subscribed to the specified plan."
+    },
+    {
+      "path": "/marketplace_listing/stubbed/accounts/12345",
+      "method": "GET",
+      "operationId": "apps/get-subscription-plan-for-account-stubbed",
+      "summary": "",
+      "user": "user333",
+      "ideal": "Get the stubbed subscription plan for the specified account."
+    },
+    {
+      "path": "/marketplace_listing/stubbed/plans",
+      "method": "GET",
+      "operationId": "apps/list-plans-stubbed",
+      "summary": "",
+      "user": "user444",
+      "ideal": "List all available stubbed subscription plans."
+    },
+    {
+      "path": "/marketplace_listing/stubbed/plans/plan_id/accounts",
+      "method": "GET",
+      "operationId": "apps/list-accounts-for-plan-stubbed",
+      "summary": "",
+      "user": "user555",
+      "ideal": "List stubbed accounts subscribed to the specified plan."
+    },
+    {
+      "path": "/orgs/my-org/installation",
+      "method": "GET",
+      "operationId": "apps/get-org-installation",
+      "summary": "",
+      "user": "user666",
+      "ideal": "Get the installation details for the specified organization."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/installation",
+      "method": "GET",
+      "operationId": "apps/get-repo-installation",
+      "summary": "",
+      "user": "user777",
+      "ideal": "Get the installation details for the specified repository."
+    },
+    {
+      "path": "/user/installations",
+      "method": "GET",
+      "operationId": "apps/list-installations-for-authenticated-user",
+      "summary": "",
+      "user": "user888",
+      "ideal": "List installations for the authenticated user."
+    },
+    {
+      "path": "/user/installations/789/repositories",
+      "method": "GET",
+      "operationId": "apps/list-installation-repos-for-authenticated-user",
+      "summary": "",
+      "user": "user999",
+      "ideal": "List repositories for the specified installation of the authenticated user."
+    },
+    {
+      "path": "/user/installations/789/repositories/456",
+      "method": "PUT",
+      "operationId": "apps/add-repo-to-installation-for-authenticated-user",
+      "summary": "",
+      "user": "user000",
+      "ideal": "Add a repository to the specified installation for the authenticated user."
+    },
+    {
+      "path": "/user/installations/789/repositories/456",
+      "method": "DELETE",
+      "operationId": "apps/remove-repo-from-installation-for-authenticated-user",
+      "summary": "",
+      "user": "user111",
+      "ideal": "Remove a repository from the specified installation for the authenticated user."
+    },
+    {
+      "path": "/user/marketplace_purchases",
+      "method": "GET",
+      "operationId": "apps/list-subscriptions-for-authenticated-user",
+      "summary": "",
+      "user": "user222",
+      "ideal": "List all subscriptions for the authenticated user."
+    },
+    {
+      "path": "/user/marketplace_purchases/stubbed",
+      "method": "GET",
+      "operationId": "apps/list-subscriptions-for-authenticated-user-stubbed",
+      "summary": "",
+      "user": "user333",
+      "ideal": "List stubbed subscriptions for the authenticated user."
+    },
+    {
+      "path": "/users/someuser/installation",
+      "method": "GET",
+      "operationId": "apps/get-user-installation",
+      "summary": "",
+      "user": "user444",
+      "ideal": "Get installation details for the specified user."
+    },
+    {
+      "path": "/organizations/my-org/settings/billing/premium_request/usage",
+      "method": "GET",
+      "operationId": "billing/get-github-billing-premium-request-usage-report-org",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve the premium request usage report for the organization 'my-org'."
+    },
+    {
+      "path": "/organizations/my-org/settings/billing/usage",
+      "method": "GET",
+      "operationId": "billing/get-github-billing-usage-report-org",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Fetch the billing usage report for the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/settings/billing/actions",
+      "method": "GET",
+      "operationId": "billing/get-github-actions-billing-org",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Get the billing details for GitHub Actions used by the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/settings/billing/packages",
+      "method": "GET",
+      "operationId": "billing/get-github-packages-billing-org",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve the billing information for GitHub Packages for the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/settings/billing/shared-storage",
+      "method": "GET",
+      "operationId": "billing/get-shared-storage-billing-org",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Access the shared storage billing details for the organization 'my-org'."
+    },
+    {
+      "path": "/users/john_doe/settings/billing/actions",
+      "method": "GET",
+      "operationId": "billing/get-github-actions-billing-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Get the billing details for GitHub Actions used by the user 'john_doe'."
+    },
+    {
+      "path": "/users/john_doe/settings/billing/packages",
+      "method": "GET",
+      "operationId": "billing/get-github-packages-billing-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Retrieve the billing information for GitHub Packages for the user 'john_doe'."
+    },
+    {
+      "path": "/users/john_doe/settings/billing/premium_request/usage",
+      "method": "GET",
+      "operationId": "billing/get-github-billing-premium-request-usage-report-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Fetch the premium request usage report for the user 'john_doe'."
+    },
+    {
+      "path": "/users/john_doe/settings/billing/shared-storage",
+      "method": "GET",
+      "operationId": "billing/get-shared-storage-billing-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Access the shared storage billing details for the user 'john_doe'."
+    },
+    {
+      "path": "/users/john_doe/settings/billing/usage",
+      "method": "GET",
+      "operationId": "billing/get-github-billing-usage-report-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Retrieve the billing usage report for the user 'john_doe'."
+    },
+    {
+      "path": "/orgs/example-org/campaigns",
+      "method": "GET",
+      "operationId": "campaigns/list-org-campaigns",
+      "summary": "",
+      "user": "User requests to list all campaigns for the organization 'example-org' to review ongoing marketing efforts.",
+      "ideal": "Returns a list of campaigns associated with 'example-org', including campaign IDs, titles, and statuses."
+    },
+    {
+      "path": "/orgs/example-org/campaigns",
+      "method": "POST",
+      "operationId": "campaigns/create-campaign",
+      "summary": "",
+      "user": "User wants to create a new campaign for 'example-org' to promote a new product launch.",
+      "ideal": "Creates a new campaign with the specified details and returns the campaign ID and status."
+    },
+    {
+      "path": "/orgs/example-org/campaigns/123",
+      "method": "GET",
+      "operationId": "campaigns/get-campaign-summary",
+      "summary": "",
+      "user": "User needs to get a summary of campaign number 123 to analyze its performance metrics.",
+      "ideal": "Returns detailed information about campaign 123, including its performance metrics and engagement statistics."
+    },
+    {
+      "path": "/orgs/example-org/campaigns/123",
+      "method": "PATCH",
+      "operationId": "campaigns/update-campaign",
+      "summary": "",
+      "user": "User wants to update the details of campaign number 123 to reflect new marketing strategies.",
+      "ideal": "Updates the specified campaign with new details and returns the updated campaign information."
+    },
+    {
+      "path": "/orgs/example-org/campaigns/123",
+      "method": "DELETE",
+      "operationId": "campaigns/delete-campaign",
+      "summary": "",
+      "user": "User decides to delete campaign number 123 due to changes in marketing direction.",
+      "ideal": "Successfully deletes campaign 123 and confirms the deletion with a success message."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs",
+      "method": "POST",
+      "operationId": "checks/create",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new check run for the specified repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/123456",
+      "method": "GET",
+      "operationId": "checks/get",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve the details of a specific check run."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/123456",
+      "method": "PATCH",
+      "operationId": "checks/update",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Update the specified check run with new information."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/123456/annotations",
+      "method": "GET",
+      "operationId": "checks/list-annotations",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all annotations for a specific check run."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/123456/rerequest",
+      "method": "POST",
+      "operationId": "checks/rerequest-run",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Rerequest a specific check run to be executed again."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites",
+      "method": "POST",
+      "operationId": "checks/create-suite",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new check suite for the specified repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/preferences",
+      "method": "PATCH",
+      "operationId": "checks/set-suites-preferences",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Set preferences for check suites in the repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/78910",
+      "method": "GET",
+      "operationId": "checks/get-suite",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve details of a specific check suite."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/78910/check-runs",
+      "method": "GET",
+      "operationId": "checks/list-for-suite",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all check runs associated with a specific check suite."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/78910/rerequest",
+      "method": "POST",
+      "operationId": "checks/rerequest-suite",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Rerequest all check runs in a specific check suite."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/commits/main/check-runs",
+      "method": "GET",
+      "operationId": "checks/list-for-ref",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all check runs for a specific commit reference."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/commits/main/check-suites",
+      "method": "GET",
+      "operationId": "checks/list-suites-for-ref",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all check suites for a specific commit reference."
+    },
+    {
+      "path": "/assignments/12345",
+      "method": "GET",
+      "operationId": "classroom/get-an-assignment",
+      "summary": "",
+      "user": "Teacher John wants to retrieve the details of assignment 12345 to review its content and ensure it aligns with the curriculum.",
+      "ideal": "The API should return the assignment details including title, description, due date, and any attached resources."
+    },
+    {
+      "path": "/assignments/12345/accepted_assignments",
+      "method": "GET",
+      "operationId": "classroom/list-accepted-assignments-for-an-assignment",
+      "summary": "",
+      "user": "Teacher John needs to see which students have accepted assignment 12345 to track participation.",
+      "ideal": "The API should return a list of students who have accepted the assignment along with their submission status."
+    },
+    {
+      "path": "/assignments/12345/grades",
+      "method": "GET",
+      "operationId": "classroom/get-assignment-grades",
+      "summary": "",
+      "user": "Teacher John wants to check the grades for assignment 12345 to provide feedback to students.",
+      "ideal": "The API should return a list of students along with their grades and any comments provided by the teacher."
+    },
+    {
+      "path": "/classrooms",
+      "method": "GET",
+      "operationId": "classroom/list-classrooms",
+      "summary": "",
+      "user": "Teacher John is looking to see all the classrooms he manages to plan his lessons accordingly.",
+      "ideal": "The API should return a list of classrooms including their names, IDs, and the subjects they cover."
+    },
+    {
+      "path": "/classrooms/67890",
+      "method": "GET",
+      "operationId": "classroom/get-a-classroom",
+      "summary": "",
+      "user": "Teacher John wants to get details about classroom 67890 to understand its structure and student demographics.",
+      "ideal": "The API should return the classroom details including name, subject, and list of enrolled students."
+    },
+    {
+      "path": "/classrooms/67890/assignments",
+      "method": "GET",
+      "operationId": "classroom/list-assignments-for-a-classroom",
+      "summary": "",
+      "user": "Teacher John needs to view all assignments for classroom 67890 to prepare for the upcoming week.",
+      "ideal": "The API should return a list of assignments for the classroom including titles, due dates, and submission statuses."
+    },
+    {
+      "path": "/orgs/my-org/code-scanning/alerts",
+      "method": "GET",
+      "operationId": "code-scanning/list-alerts-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all code scanning alerts for the organization 'my-org'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/alerts",
+      "method": "GET",
+      "operationId": "code-scanning/list-alerts-for-repo",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Get a list of all code scanning alerts for the repository 'my-repo' owned by 'my-user'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/alerts/1",
+      "method": "GET",
+      "operationId": "code-scanning/get-alert",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Fetch details of the code scanning alert with ID 1 for the repository 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/alerts/1",
+      "method": "PATCH",
+      "operationId": "code-scanning/update-alert",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Update the status of the code scanning alert with ID 1 for 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/alerts/1/autofix",
+      "method": "GET",
+      "operationId": "code-scanning/get-autofix",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Retrieve autofix suggestions for the code scanning alert with ID 1."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/alerts/1/autofix",
+      "method": "POST",
+      "operationId": "code-scanning/create-autofix",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Create an autofix for the code scanning alert with ID 1."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/alerts/1/autofix/commits",
+      "method": "POST",
+      "operationId": "code-scanning/commit-autofix",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Commit the autofix changes for the alert with ID 1."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/alerts/1/instances",
+      "method": "GET",
+      "operationId": "code-scanning/list-alert-instances",
+      "summary": "",
+      "user": "user505",
+      "ideal": "List all instances related to the code scanning alert with ID 1."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/analyses",
+      "method": "GET",
+      "operationId": "code-scanning/list-recent-analyses",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Get a list of recent code scanning analyses for 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/analyses/123",
+      "method": "GET",
+      "operationId": "code-scanning/get-analysis",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Retrieve details of the analysis with ID 123 for 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/analyses/123",
+      "method": "DELETE",
+      "operationId": "code-scanning/delete-analysis",
+      "summary": "",
+      "user": "user808",
+      "ideal": "Delete the analysis with ID 123 for 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/codeql/databases",
+      "method": "GET",
+      "operationId": "code-scanning/list-codeql-databases",
+      "summary": "",
+      "user": "user909",
+      "ideal": "List all CodeQL databases for the repository 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/codeql/databases/javascript",
+      "method": "GET",
+      "operationId": "code-scanning/get-codeql-database",
+      "summary": "",
+      "user": "user1010",
+      "ideal": "Get the CodeQL database for JavaScript in 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/codeql/databases/javascript",
+      "method": "DELETE",
+      "operationId": "code-scanning/delete-codeql-database",
+      "summary": "",
+      "user": "user1111",
+      "ideal": "Delete the JavaScript CodeQL database for 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/codeql/variant-analyses",
+      "method": "POST",
+      "operationId": "code-scanning/create-variant-analysis",
+      "summary": "",
+      "user": "user1212",
+      "ideal": "Create a new variant analysis for 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/codeql/variant-analyses/456",
+      "method": "GET",
+      "operationId": "code-scanning/get-variant-analysis",
+      "summary": "",
+      "user": "user1313",
+      "ideal": "Retrieve details of the variant analysis with ID 456 for 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/codeql/variant-analyses/456/repos/my-user/my-repo",
+      "method": "GET",
+      "operationId": "code-scanning/get-variant-analysis-repo-task",
+      "summary": "",
+      "user": "user1414",
+      "ideal": "Get the repository task for variant analysis ID 456 in 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/default-setup",
+      "method": "GET",
+      "operationId": "code-scanning/get-default-setup",
+      "summary": "",
+      "user": "user1515",
+      "ideal": "Fetch the default setup for code scanning in 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/default-setup",
+      "method": "PATCH",
+      "operationId": "code-scanning/update-default-setup",
+      "summary": "",
+      "user": "user1616",
+      "ideal": "Update the default setup for code scanning in 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/sarifs",
+      "method": "POST",
+      "operationId": "code-scanning/upload-sarif",
+      "summary": "",
+      "user": "user1717",
+      "ideal": "Upload a SARIF file for code scanning results to 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/sarifs/789",
+      "method": "GET",
+      "operationId": "code-scanning/get-sarif",
+      "summary": "",
+      "user": "user1818",
+      "ideal": "Retrieve the SARIF file with ID 789 for 'my-repo'."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations",
+      "method": "GET",
+      "operationId": "code-security/get-configurations-for-enterprise",
+      "summary": "",
+      "user": "User requests to retrieve all code security configurations for their enterprise to review current settings.",
+      "ideal": "Returns a list of configurations with details such as configuration ID, name, and status."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations",
+      "method": "POST",
+      "operationId": "code-security/create-configuration-for-enterprise",
+      "summary": "",
+      "user": "User wants to create a new code security configuration for their enterprise to enhance security measures.",
+      "ideal": "Successfully creates a new configuration and returns the configuration ID and details."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/defaults",
+      "method": "GET",
+      "operationId": "code-security/get-default-configurations-for-enterprise",
+      "summary": "",
+      "user": "User needs to check the default code security configurations set for their enterprise.",
+      "ideal": "Returns the default configurations with their respective settings and statuses."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345",
+      "method": "GET",
+      "operationId": "code-security/get-single-configuration-for-enterprise",
+      "summary": "",
+      "user": "User is looking for details on a specific code security configuration identified by ID.",
+      "ideal": "Returns the details of the specified configuration including its settings and status."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345",
+      "method": "PATCH",
+      "operationId": "code-security/update-enterprise-configuration",
+      "summary": "",
+      "user": "User wants to update the settings of an existing code security configuration to improve security.",
+      "ideal": "Successfully updates the configuration and returns the updated configuration details."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345",
+      "method": "DELETE",
+      "operationId": "code-security/delete-configuration-for-enterprise",
+      "summary": "",
+      "user": "User decides to delete a specific code security configuration that is no longer needed.",
+      "ideal": "Successfully deletes the configuration and confirms the deletion."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345/attach",
+      "method": "POST",
+      "operationId": "code-security/attach-enterprise-configuration",
+      "summary": "",
+      "user": "User wants to attach an existing configuration to a specific enterprise setup.",
+      "ideal": "Successfully attaches the configuration and returns a confirmation message."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345/defaults",
+      "method": "PUT",
+      "operationId": "code-security/set-configuration-as-default-for-enterprise",
+      "summary": "",
+      "user": "User wants to set a specific configuration as the default for their enterprise.",
+      "ideal": "Successfully sets the configuration as default and returns the updated status."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345/repositories",
+      "method": "GET",
+      "operationId": "code-security/get-repositories-for-enterprise-configuration",
+      "summary": "",
+      "user": "User needs to see which repositories are associated with a specific configuration.",
+      "ideal": "Returns a list of repositories linked to the specified configuration."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations",
+      "method": "GET",
+      "operationId": "code-security/get-configurations-for-org",
+      "summary": "",
+      "user": "User requests to retrieve all code security configurations for their organization.",
+      "ideal": "Returns a list of configurations with details such as configuration ID, name, and status."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations",
+      "method": "POST",
+      "operationId": "code-security/create-configuration",
+      "summary": "",
+      "user": "User wants to create a new code security configuration for their organization.",
+      "ideal": "Successfully creates a new configuration and returns the configuration ID and details."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/defaults",
+      "method": "GET",
+      "operationId": "code-security/get-default-configurations",
+      "summary": "",
+      "user": "User needs to check the default code security configurations set for their organization.",
+      "ideal": "Returns the default configurations with their respective settings and statuses."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345",
+      "method": "GET",
+      "operationId": "code-security/get-configuration",
+      "summary": "",
+      "user": "User is looking for details on a specific code security configuration identified by ID.",
+      "ideal": "Returns the details of the specified configuration including its settings and status."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345",
+      "method": "PATCH",
+      "operationId": "code-security/update-configuration",
+      "summary": "",
+      "user": "User wants to update the settings of an existing code security configuration.",
+      "ideal": "Successfully updates the configuration and returns the updated configuration details."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345",
+      "method": "DELETE",
+      "operationId": "code-security/delete-configuration",
+      "summary": "",
+      "user": "User decides to delete a specific code security configuration that is no longer needed.",
+      "ideal": "Successfully deletes the configuration and confirms the deletion."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345/attach",
+      "method": "POST",
+      "operationId": "code-security/attach-configuration",
+      "summary": "",
+      "user": "User wants to attach an existing configuration to a specific organization setup.",
+      "ideal": "Successfully attaches the configuration and returns a confirmation message."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345/defaults",
+      "method": "PUT",
+      "operationId": "code-security/set-configuration-as-default",
+      "summary": "",
+      "user": "User wants to set a specific configuration as the default for their organization.",
+      "ideal": "Successfully sets the configuration as default and returns the updated status."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345/repositories",
+      "method": "GET",
+      "operationId": "code-security/get-repositories-for-configuration",
+      "summary": "",
+      "user": "User needs to see which repositories are associated with a specific configuration.",
+      "ideal": "Returns a list of repositories linked to the specified configuration."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/code-security-configuration",
+      "method": "GET",
+      "operationId": "code-security/get-configuration-for-repository",
+      "summary": "",
+      "user": "User wants to retrieve the code security configuration for a specific repository.",
+      "ideal": "Returns the configuration details for the specified repository."
+    },
+    {
+      "path": "/codes_of_conduct",
+      "method": "GET",
+      "operationId": "codes-of-conduct/get-all-codes-of-conduct",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all available codes of conduct from the GitHub API."
+    },
+    {
+      "path": "/codes_of_conduct/{key}",
+      "method": "GET",
+      "operationId": "codes-of-conduct/get-conduct-code",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Fetch the specific code of conduct identified by the key provided in the URL."
+    },
+    {
+      "path": "/orgs/my-org/codespaces",
+      "method": "GET",
+      "operationId": "codespaces/list-in-organization",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all codespaces in the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/codespaces/access",
+      "method": "PUT",
+      "operationId": "codespaces/set-codespaces-access",
+      "summary": "",
+      "user": "admin456",
+      "ideal": "Update access settings for codespaces in the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/codespaces/secrets",
+      "method": "GET",
+      "operationId": "codespaces/list-org-secrets",
+      "summary": "",
+      "user": "user789",
+      "ideal": "List all organization secrets for 'my-org'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/codespaces",
+      "method": "POST",
+      "operationId": "codespaces/create-with-repo-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new codespace using the repository 'my-repo'."
+    },
+    {
+      "path": "/user/codespaces",
+      "method": "GET",
+      "operationId": "codespaces/list-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get a list of all codespaces for the authenticated user."
+    },
+    {
+      "path": "/user/codespaces/{codespace_name}",
+      "method": "DELETE",
+      "operationId": "codespaces/delete-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete the codespace named 'my-codespace' for the authenticated user."
+    },
+    {
+      "path": "/orgs/my-org/members/user456/codespaces",
+      "method": "GET",
+      "operationId": "codespaces/get-codespaces-for-user-in-org",
+      "summary": "",
+      "user": "admin456",
+      "ideal": "Retrieve all codespaces for user 'user456' in organization 'my-org'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/codespaces/secrets",
+      "method": "GET",
+      "operationId": "codespaces/list-repo-secrets",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all secrets for the repository 'my-repo'."
+    },
+    {
+      "path": "/user/codespaces/secrets/{secret_name}",
+      "method": "DELETE",
+      "operationId": "codespaces/delete-secret-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete the secret named 'my-secret' for the authenticated user."
+    },
+    {
+      "path": "/user/codespaces/{codespace_name}/start",
+      "method": "POST",
+      "operationId": "codespaces/start-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Start the codespace named 'my-codespace' for the authenticated user."
+    },
+    {
+      "path": "/orgs/my-org/copilot/billing",
+      "method": "GET",
+      "operationId": "copilot/get-copilot-organization-details",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the billing details for the organization 'my-org' regarding GitHub Copilot."
+    },
+    {
+      "path": "/orgs/my-org/copilot/billing/seats",
+      "method": "GET",
+      "operationId": "copilot/list-copilot-seats",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all the Copilot seats currently allocated to the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/copilot/billing/selected_teams",
+      "method": "POST",
+      "operationId": "copilot/add-copilot-seats-for-teams",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add Copilot seats for the specified teams in the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/copilot/billing/selected_teams",
+      "method": "DELETE",
+      "operationId": "copilot/cancel-copilot-seat-assignment-for-teams",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Cancel the Copilot seat assignments for the specified teams in 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/copilot/billing/selected_users",
+      "method": "POST",
+      "operationId": "copilot/add-copilot-seats-for-users",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add Copilot seats for the specified users in the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/copilot/billing/selected_users",
+      "method": "DELETE",
+      "operationId": "copilot/cancel-copilot-seat-assignment-for-users",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Cancel the Copilot seat assignments for the specified users in 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/copilot/metrics",
+      "method": "GET",
+      "operationId": "copilot/copilot-metrics-for-organization",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the Copilot usage metrics for the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/members/johndoe/copilot",
+      "method": "GET",
+      "operationId": "copilot/get-copilot-seat-details-for-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get the Copilot seat details for the user 'johndoe' in the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/team/my-team/copilot/metrics",
+      "method": "GET",
+      "operationId": "copilot/copilot-metrics-for-team",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the Copilot usage metrics for the team 'my-team' in the organization 'my-org'."
+    },
+    {
+      "path": "/credentials/revoke",
+      "method": "POST",
+      "operationId": "credentials/revoke",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Revokes the specified user's credentials, ensuring they can no longer access the API."
+    },
+    {
+      "path": "/enterprises/my-enterprise/dependabot/alerts",
+      "method": "GET",
+      "operationId": "dependabot/list-alerts-for-enterprise",
+      "summary": "",
+      "user": "User requests to list all Dependabot alerts for their enterprise to monitor security vulnerabilities.",
+      "ideal": "Returns a list of alerts with details including severity, package name, and status."
+    },
+    {
+      "path": "/organizations/my-org/dependabot/repository-access",
+      "method": "GET",
+      "operationId": "dependabot/repository-access-for-org",
+      "summary": "",
+      "user": "User wants to check which repositories in their organization have Dependabot access.",
+      "ideal": "Returns a list of repositories with their current Dependabot access status."
+    },
+    {
+      "path": "/organizations/my-org/dependabot/repository-access",
+      "method": "PATCH",
+      "operationId": "dependabot/update-repository-access-for-org",
+      "summary": "",
+      "user": "User updates the repository access settings for Dependabot in their organization.",
+      "ideal": "Successfully updates the access settings and returns a confirmation message."
+    },
+    {
+      "path": "/organizations/my-org/dependabot/repository-access/default-level",
+      "method": "PUT",
+      "operationId": "dependabot/set-repository-access-default-level",
+      "summary": "",
+      "user": "User sets the default repository access level for Dependabot in their organization.",
+      "ideal": "Returns a confirmation of the new default access level."
+    },
+    {
+      "path": "/orgs/my-org/dependabot/alerts",
+      "method": "GET",
+      "operationId": "dependabot/list-alerts-for-org",
+      "summary": "",
+      "user": "User requests to see all Dependabot alerts for their organization.",
+      "ideal": "Returns a comprehensive list of alerts with details for each repository in the organization."
+    },
+    {
+      "path": "/orgs/my-org/dependabot/secrets",
+      "method": "GET",
+      "operationId": "dependabot/list-org-secrets",
+      "summary": "",
+      "user": "User wants to view all secrets configured for Dependabot in their organization.",
+      "ideal": "Returns a list of secrets with their names and creation dates."
+    },
+    {
+      "path": "/orgs/my-org/dependabot/secrets/public-key",
+      "method": "GET",
+      "operationId": "dependabot/get-org-public-key",
+      "summary": "",
+      "user": "User retrieves the public key for their organization's Dependabot secrets.",
+      "ideal": "Returns the public key to be used for encrypting secrets."
+    },
+    {
+      "path": "/orgs/my-org/dependabot/secrets/my-secret",
+      "method": "GET",
+      "operationId": "dependabot/get-org-secret",
+      "summary": "",
+      "user": "User wants to retrieve a specific secret for Dependabot in their organization.",
+      "ideal": "Returns the secret value if the user has access."
+    },
+    {
+      "path": "/orgs/my-org/dependabot/secrets/my-secret",
+      "method": "PUT",
+      "operationId": "dependabot/create-or-update-org-secret",
+      "summary": "",
+      "user": "User creates or updates a secret for Dependabot in their organization.",
+      "ideal": "Returns a confirmation message indicating the secret was successfully created or updated."
+    },
+    {
+      "path": "/orgs/my-org/dependabot/secrets/my-secret",
+      "method": "DELETE",
+      "operationId": "dependabot/delete-org-secret",
+      "summary": "",
+      "user": "User deletes a specific secret for Dependabot in their organization.",
+      "ideal": "Returns a confirmation message indicating the secret was successfully deleted."
+    },
+    {
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories",
+      "method": "GET",
+      "operationId": "dependabot/list-selected-repos-for-org-secret",
+      "summary": "",
+      "user": "User checks which repositories are using a specific secret in their organization.",
+      "ideal": "Returns a list of repositories associated with the specified secret."
+    },
+    {
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories",
+      "method": "PUT",
+      "operationId": "dependabot/set-selected-repos-for-org-secret",
+      "summary": "",
+      "user": "User updates the repositories that can access a specific secret in their organization.",
+      "ideal": "Returns a confirmation message indicating the repositories were successfully updated."
+    },
+    {
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories/my-repo-id",
+      "method": "PUT",
+      "operationId": "dependabot/add-selected-repo-to-org-secret",
+      "summary": "",
+      "user": "User adds a specific repository to the list of repositories that can access a secret.",
+      "ideal": "Returns a confirmation message indicating the repository was successfully added."
+    },
+    {
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories/my-repo-id",
+      "method": "DELETE",
+      "operationId": "dependabot/remove-selected-repo-from-org-secret",
+      "summary": "",
+      "user": "User removes a specific repository from accessing a secret.",
+      "ideal": "Returns a confirmation message indicating the repository was successfully removed."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/dependabot/alerts",
+      "method": "GET",
+      "operationId": "dependabot/list-alerts-for-repo",
+      "summary": "",
+      "user": "User requests to view all Dependabot alerts for a specific repository.",
+      "ideal": "Returns a list of alerts with details for the specified repository."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/dependabot/alerts/1",
+      "method": "GET",
+      "operationId": "dependabot/get-alert",
+      "summary": "",
+      "user": "User wants to retrieve details about a specific Dependabot alert in their repository.",
+      "ideal": "Returns detailed information about the specified alert."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/dependabot/alerts/1",
+      "method": "PATCH",
+      "operationId": "dependabot/update-alert",
+      "summary": "",
+      "user": "User updates the status of a specific Dependabot alert in their repository.",
+      "ideal": "Returns a confirmation message indicating the alert was successfully updated."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/dependabot/secrets",
+      "method": "GET",
+      "operationId": "dependabot/list-repo-secrets",
+      "summary": "",
+      "user": "User wants to view all secrets configured for Dependabot in their repository.",
+      "ideal": "Returns a list of secrets with their names and creation dates."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/public-key",
+      "method": "GET",
+      "operationId": "dependabot/get-repo-public-key",
+      "summary": "",
+      "user": "User retrieves the public key for their repository's Dependabot secrets.",
+      "ideal": "Returns the public key to be used for encrypting secrets."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/my-secret",
+      "method": "GET",
+      "operationId": "dependabot/get-repo-secret",
+      "summary": "",
+      "user": "User wants to retrieve a specific secret for Dependabot in their repository.",
+      "ideal": "Returns the secret value if the user has access."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/my-secret",
+      "method": "PUT",
+      "operationId": "dependabot/create-or-update-repo-secret",
+      "summary": "",
+      "user": "User creates or updates a secret for Dependabot in their repository.",
+      "ideal": "Returns a confirmation message indicating the secret was successfully created or updated."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/my-secret",
+      "method": "DELETE",
+      "operationId": "dependabot/delete-repo-secret",
+      "summary": "",
+      "user": "User deletes a specific secret for Dependabot in their repository.",
+      "ideal": "Returns a confirmation message indicating the secret was successfully deleted."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/dependency-graph/compare/main...feature",
+      "method": "GET",
+      "operationId": "dependency-graph/diff-range",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve the differences in the dependency graph between the main branch and the feature branch."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/dependency-graph/sbom",
+      "method": "GET",
+      "operationId": "dependency-graph/export-sbom",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Export the Software Bill of Materials (SBOM) for the repository to understand its dependencies."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/dependency-graph/snapshots",
+      "method": "POST",
+      "operationId": "dependency-graph/create-repository-snapshot",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a snapshot of the current state of the dependency graph for the repository."
+    },
+    {
+      "path": "/emojis",
+      "method": "GET",
+      "operationId": "getEmojis",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Returns a list of all the emojis available on GitHub."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships",
+      "method": "GET",
+      "operationId": "enterprise-team-memberships/list",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve a list of all team memberships for the specified enterprise team."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/add",
+      "method": "POST",
+      "operationId": "enterprise-team-memberships/bulk-add",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Add multiple users to the specified enterprise team in bulk."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/remove",
+      "method": "POST",
+      "operationId": "enterprise-team-memberships/bulk-remove",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Remove multiple users from the specified enterprise team in bulk."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
+      "method": "GET",
+      "operationId": "enterprise-team-memberships/get",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Get the membership details of a specific user in the specified enterprise team."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
+      "method": "PUT",
+      "operationId": "enterprise-team-memberships/add",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Add a specific user to the specified enterprise team."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
+      "method": "DELETE",
+      "operationId": "enterprise-team-memberships/remove",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Remove a specific user from the specified enterprise team."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams",
+      "method": "GET",
+      "operationId": "enterprise-teams/list",
+      "summary": "",
+      "user": "As a team manager, I want to retrieve a list of all teams within my enterprise to manage their permissions and activities effectively.",
+      "ideal": "The response should include an array of team objects, each containing details such as team name, ID, and description."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams",
+      "method": "POST",
+      "operationId": "enterprise-teams/create",
+      "summary": "",
+      "user": "As an admin, I want to create a new team in my enterprise to facilitate collaboration among developers working on a specific project.",
+      "ideal": "The response should return the newly created team object with its ID, name, and other relevant details."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams/my-team",
+      "method": "GET",
+      "operationId": "enterprise-teams/get",
+      "summary": "",
+      "user": "As a team lead, I want to fetch the details of my specific team to review its members and their roles.",
+      "ideal": "The response should provide detailed information about the team, including its members, permissions, and description."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams/my-team",
+      "method": "PATCH",
+      "operationId": "enterprise-teams/update",
+      "summary": "",
+      "user": "As a team manager, I want to update the description of my team to reflect our current focus and objectives.",
+      "ideal": "The response should confirm the update and return the updated team object with the new description."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams/my-team",
+      "method": "DELETE",
+      "operationId": "enterprise-teams/delete",
+      "summary": "",
+      "user": "As an admin, I want to delete a team that is no longer active to keep our enterprise organized and free of clutter.",
+      "ideal": "The response should confirm the deletion of the team and return a success message."
+    },
+    {
+      "path": "/gists",
+      "method": "GET",
+      "operationId": "gists/list",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all gists for the authenticated user."
+    },
+    {
+      "path": "/gists",
+      "method": "POST",
+      "operationId": "gists/create",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new gist with the provided content and description."
+    },
+    {
+      "path": "/gists/public",
+      "method": "GET",
+      "operationId": "gists/list-public",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Fetch a list of all public gists."
+    },
+    {
+      "path": "/gists/starred",
+      "method": "GET",
+      "operationId": "gists/list-starred",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Get a list of all gists that the authenticated user has starred."
+    },
+    {
+      "path": "/gists/{gist_id}",
+      "method": "GET",
+      "operationId": "gists/get",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a specific gist by its ID."
+    },
+    {
+      "path": "/gists/{gist_id}",
+      "method": "PATCH",
+      "operationId": "gists/update",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the content of a specific gist."
+    },
+    {
+      "path": "/gists/{gist_id}",
+      "method": "DELETE",
+      "operationId": "gists/delete",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete a specific gist by its ID."
+    },
+    {
+      "path": "/gists/{gist_id}/comments",
+      "method": "GET",
+      "operationId": "gists/list-comments",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all comments for a specific gist."
+    },
+    {
+      "path": "/gists/{gist_id}/comments",
+      "method": "POST",
+      "operationId": "gists/create-comment",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a comment to a specific gist."
+    },
+    {
+      "path": "/gists/{gist_id}/comments/{comment_id}",
+      "method": "GET",
+      "operationId": "gists/get-comment",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a specific comment by its ID."
+    },
+    {
+      "path": "/gists/{gist_id}/comments/{comment_id}",
+      "method": "PATCH",
+      "operationId": "gists/update-comment",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update a specific comment on a gist."
+    },
+    {
+      "path": "/gists/{gist_id}/comments/{comment_id}",
+      "method": "DELETE",
+      "operationId": "gists/delete-comment",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete a specific comment from a gist."
+    },
+    {
+      "path": "/gists/{gist_id}/commits",
+      "method": "GET",
+      "operationId": "gists/list-commits",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all commits for a specific gist."
+    },
+    {
+      "path": "/gists/{gist_id}/forks",
+      "method": "GET",
+      "operationId": "gists/list-forks",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get a list of all forks of a specific gist."
+    },
+    {
+      "path": "/gists/{gist_id}/forks",
+      "method": "POST",
+      "operationId": "gists/fork",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a fork of a specific gist."
+    },
+    {
+      "path": "/gists/{gist_id}/star",
+      "method": "GET",
+      "operationId": "gists/check-is-starred",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Check if a specific gist is starred by the authenticated user."
+    },
+    {
+      "path": "/gists/{gist_id}/star",
+      "method": "PUT",
+      "operationId": "gists/star",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Star a specific gist."
+    },
+    {
+      "path": "/gists/{gist_id}/star",
+      "method": "DELETE",
+      "operationId": "gists/unstar",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Unstar a specific gist."
+    },
+    {
+      "path": "/gists/{gist_id}/{sha}",
+      "method": "GET",
+      "operationId": "gists/get-revision",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a specific revision of a gist."
+    },
+    {
+      "path": "/users/{username}/gists",
+      "method": "GET",
+      "operationId": "gists/list-for-user",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Fetch a list of all gists for a specific user."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/blobs",
+      "method": "POST",
+      "operationId": "git/create-blob",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new blob in the repository with the specified content."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/blobs/abc123",
+      "method": "GET",
+      "operationId": "git/get-blob",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve the blob with the specified SHA from the repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/commits",
+      "method": "POST",
+      "operationId": "git/create-commit",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new commit in the repository with the specified parameters."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/commits/def456",
+      "method": "GET",
+      "operationId": "git/get-commit",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve the commit with the specified SHA from the repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/matching-refs/heads",
+      "method": "GET",
+      "operationId": "git/list-matching-refs",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all references in the repository that match the specified pattern."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/ref/heads/main",
+      "method": "GET",
+      "operationId": "git/get-ref",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve the reference for the specified branch in the repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/refs",
+      "method": "POST",
+      "operationId": "git/create-ref",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new reference in the repository pointing to the specified commit."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/refs/heads/main",
+      "method": "PATCH",
+      "operationId": "git/update-ref",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Update the reference for the specified branch to point to a new commit."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/refs/heads/old-branch",
+      "method": "DELETE",
+      "operationId": "git/delete-ref",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Delete the specified reference from the repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/tags",
+      "method": "POST",
+      "operationId": "git/create-tag",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new tag in the repository pointing to the specified commit."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/tags/ghi789",
+      "method": "GET",
+      "operationId": "git/get-tag",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve the tag with the specified SHA from the repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/trees",
+      "method": "POST",
+      "operationId": "git/create-tree",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new tree in the repository with the specified structure."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/trees/jkl012",
+      "method": "GET",
+      "operationId": "git/get-tree",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve the tree with the specified SHA from the repository."
+    },
+    {
+      "path": "/gitignore/templates",
+      "method": "GET",
+      "operationId": "gitignore/get-all-templates",
+      "summary": "",
+      "user": "A developer looking to create a new project wants to see a list of available .gitignore templates for various programming languages and frameworks. They want to quickly find the right template to avoid committing unnecessary files to their repository.",
+      "ideal": "A JSON array containing the names of all available .gitignore templates, such as ['Python', 'Node', 'Java', 'Ruby', 'C++', 'Go', 'Rust', 'Swift', 'PHP', 'Django', 'Unity', 'VisualStudio', 'Android', 'iOS', 'Elixir', 'Haskell', 'Kotlin', 'Scala', 'Clojure', 'Shell', 'Docker', 'Vagrant', 'Gradle', 'Maven', 'NuGet', 'Composer', 'Bower', 'Yarn', 'Sass', 'Less', 'Webpack', 'Gulp', 'Grunt', 'Jest', 'Mocha', 'Jasmine', 'Cypress', 'Puppeteer', 'Selenium', 'Jupyter', 'R', 'MATLAB', 'LaTeX', 'Dart', 'Flutter', 'Crystal', 'Elm', 'Nim', 'F#', 'Pascal', 'COBOL', 'Fortran', 'Ada', 'Smalltalk', 'Scheme', 'Lisp', 'Prolog', 'OCaml', 'Racket', 'Tcl', 'ActionScript', 'VBScript', 'PowerShell', 'Batch', 'Makefile', 'CMake', 'Ant', 'SBT', 'Pipenv', 'Poetry', 'Cargo', 'Pip', 'NPM', 'Yarn', 'Brew', 'Chocolatey', 'Homebrew', 'Nix', 'Spack', 'Conda', 'Pipfile', 'Gemfile', 'Podfile', 'requirements.txt', 'setup.py', 'build.gradle', 'pom.xml', 'Dockerfile', 'docker-compose.yml', 'Makefile', 'CMakeLists.txt', 'build.sbt', 'build.xml', 'build.gradle.kts', 'settings.gradle', 'settings.gradle.kts', 'project.clj', 'deps.edn', 'project.json', 'project.lock.json', 'project.godot', 'project.godot3', 'project.godot4', 'project.godot5', 'project.godot6', 'project.godot7', 'project.godot8', 'project.godot9', 'project.godot10', 'project.godot11', 'project.godot12', 'project.godot13', 'project.godot14', 'project.godot15', 'project.godot16', 'project.godot17', 'project.godot18', 'project.godot19', 'project.godot20', 'project.godot21', 'project.godot22', 'project.godot23', 'project.godot24', 'project.godot25', 'project.godot26', 'project.godot27', 'project.godot28', 'project.godot29', 'project.godot30', 'project.godot31', 'project.godot32', 'project.godot33', 'project.godot34', 'project.godot35', 'project.godot36', 'project.godot37', 'project.godot38', 'project.godot39', 'project.godot40', 'project.godot41', 'project.godot42', 'project.godot43', 'project.godot44', 'project.godot45', 'project.godot46', 'project.godot47', 'project.godot48', 'project.godot49', 'project.godot50', 'project.godot51', 'project.godot52', 'project.godot53', 'project.godot54', 'project.godot55', 'project.godot56', 'project.godot57', 'project.godot58', 'project.godot59', 'project.godot60', 'project.godot61', 'project.godot62', 'project.godot63', 'project.godot64', 'project.godot65', 'project.godot66', 'project.godot67', 'project.godot68', 'project.godot69', 'project.godot70', 'project.godot71', 'project.godot72', 'project.godot73', 'project.godot74', 'project.godot75', 'project.godot76', 'project.godot77', 'project.godot78', 'project.godot79', 'project.godot80', 'project.godot81', 'project.godot82', 'project.godot83', 'project.godot84', 'project.godot85', 'project.godot86', 'project.godot87', 'project.godot88', 'project.godot89', 'project.godot90', 'project.godot91', 'project.godot92', 'project.godot93', 'project.godot94', 'project.godot95', 'project.godot96', 'project.godot97', 'project.godot98', 'project.godot99', 'project.godot100']"
+    },
+    {
+      "path": "/orgs/my-org/settings/network-configurations",
+      "method": "GET",
+      "operationId": "hosted-compute/list-network-configurations-for-org",
+      "summary": "",
+      "user": "User requests to list all network configurations for their organization to review current settings and ensure compliance with security policies.",
+      "ideal": "Returns a list of network configurations with details such as ID, name, and status."
+    },
+    {
+      "path": "/orgs/my-org/settings/network-configurations",
+      "method": "POST",
+      "operationId": "hosted-compute/create-network-configuration-for-org",
+      "summary": "",
+      "user": "User wants to create a new network configuration for their organization to enhance network security and performance.",
+      "ideal": "Creates a new network configuration and returns the configuration ID and status."
+    },
+    {
+      "path": "/orgs/my-org/settings/network-configurations/12345",
+      "method": "GET",
+      "operationId": "hosted-compute/get-network-configuration-for-org",
+      "summary": "",
+      "user": "User needs to retrieve details of a specific network configuration to troubleshoot connectivity issues.",
+      "ideal": "Returns the details of the specified network configuration including settings and status."
+    },
+    {
+      "path": "/orgs/my-org/settings/network-configurations/12345",
+      "method": "PATCH",
+      "operationId": "hosted-compute/update-network-configuration-for-org",
+      "summary": "",
+      "user": "User wants to update an existing network configuration to adjust bandwidth limits based on new requirements.",
+      "ideal": "Updates the network configuration and returns the updated configuration details."
+    },
+    {
+      "path": "/orgs/my-org/settings/network-configurations/12345",
+      "method": "DELETE",
+      "operationId": "hosted-compute/delete-network-configuration-from-org",
+      "summary": "",
+      "user": "User needs to delete an obsolete network configuration that is no longer in use to streamline their settings.",
+      "ideal": "Deletes the specified network configuration and confirms the deletion."
+    },
+    {
+      "path": "/orgs/my-org/settings/network-settings/67890",
+      "method": "GET",
+      "operationId": "hosted-compute/get-network-settings-for-org",
+      "summary": "",
+      "user": "User is looking to fetch the current network settings for their organization to ensure they align with best practices.",
+      "ideal": "Returns the current network settings including DNS, IP ranges, and firewall rules."
+    },
+    {
+      "path": "/orgs/example-org/interaction-limits",
+      "method": "GET",
+      "operationId": "interactions/get-restrictions-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the interaction limits set for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/interaction-limits",
+      "method": "PUT",
+      "operationId": "interactions/set-restrictions-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Set interaction limits for the organization 'example-org' to restrict certain actions."
+    },
+    {
+      "path": "/orgs/example-org/interaction-limits",
+      "method": "DELETE",
+      "operationId": "interactions/remove-restrictions-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Remove all interaction restrictions for the organization 'example-org'."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/interaction-limits",
+      "method": "GET",
+      "operationId": "interactions/get-restrictions-for-repo",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Get the interaction limits for the repository 'example-repo' owned by 'example-owner'."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/interaction-limits",
+      "method": "PUT",
+      "operationId": "interactions/set-restrictions-for-repo",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Set interaction limits for the repository 'example-repo' to control user actions."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/interaction-limits",
+      "method": "DELETE",
+      "operationId": "interactions/remove-restrictions-for-repo",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Delete all interaction restrictions for the repository 'example-repo'."
+    },
+    {
+      "path": "/user/interaction-limits",
+      "method": "GET",
+      "operationId": "interactions/get-restrictions-for-authenticated-user",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Fetch the interaction limits set for the authenticated user."
+    },
+    {
+      "path": "/user/interaction-limits",
+      "method": "PUT",
+      "operationId": "interactions/set-restrictions-for-authenticated-user",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Define interaction limits for the authenticated user to manage their interactions."
+    },
+    {
+      "path": "/user/interaction-limits",
+      "method": "DELETE",
+      "operationId": "interactions/remove-restrictions-for-authenticated-user",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Clear all interaction restrictions for the authenticated user."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues",
+      "method": "GET",
+      "operationId": "issues/list-for-repo",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of issues for the specified repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42/comments",
+      "method": "GET",
+      "operationId": "issues/list-comments",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Get comments for issue number 42 in the Hello-World repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42/assignees",
+      "method": "GET",
+      "operationId": "issues/list-assignees",
+      "summary": "",
+      "user": "user789",
+      "ideal": "List all assignees for issue number 42."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42",
+      "method": "GET",
+      "operationId": "issues/get",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Retrieve details of issue number 42."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues",
+      "method": "POST",
+      "operationId": "issues/create",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Create a new issue in the Hello-World repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42/labels",
+      "method": "POST",
+      "operationId": "issues/add-labels",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Add labels to issue number 42."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42/assignees/user456",
+      "method": "POST",
+      "operationId": "issues/add-assignees",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Assign user456 to issue number 42."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42/lock",
+      "method": "PUT",
+      "operationId": "issues/lock",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Lock issue number 42 to prevent further comments."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42/comments/1",
+      "method": "PATCH",
+      "operationId": "issues/update-comment",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Update comment with ID 1 on issue number 42."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42",
+      "method": "PATCH",
+      "operationId": "issues/update",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Update the details of issue number 42."
+    },
+    {
+      "path": "/licenses",
+      "method": "GET",
+      "operationId": "licenses/get-all-commonly-used",
+      "summary": "",
+      "user": "Alice is a software developer who frequently works on open-source projects. She wants to explore the commonly used licenses to choose the best one for her new project.",
+      "ideal": "Returns a list of commonly used licenses with their details."
+    },
+    {
+      "path": "/licenses/mit",
+      "method": "GET",
+      "operationId": "licenses/get",
+      "summary": "",
+      "user": "Bob is a project manager who needs to understand the MIT license for a new application his team is developing. He wants to read the full text and conditions of the license.",
+      "ideal": "Returns the details and full text of the MIT license."
+    },
+    {
+      "path": "/repos/alice/my-repo/license",
+      "method": "GET",
+      "operationId": "licenses/get-for-repo",
+      "summary": "",
+      "user": "Charlie is a contributor to Alice's GitHub repository. He wants to check the license type of the repository to ensure compliance with its terms before submitting his contributions.",
+      "ideal": "Returns the license information for Alice's repository, including the license type and its details."
+    },
+    {
+      "path": "/markdown",
+      "method": "POST",
+      "operationId": "markdown/render",
+      "summary": "",
+      "user": "User wants to convert Markdown text to HTML format for a README file.",
+      "ideal": "The API should return the HTML representation of the provided Markdown."
+    },
+    {
+      "path": "/markdown/raw",
+      "method": "POST",
+      "operationId": "markdown/render-raw",
+      "summary": "",
+      "user": "User needs to render raw Markdown content without any additional processing, suitable for direct display.",
+      "ideal": "The API should return the raw HTML output of the Markdown input."
+    },
+    {
+      "path": "/",
+      "method": "GET",
+      "operationId": "meta/root",
+      "summary": "",
+      "user": "developer123",
+      "ideal": "Retrieve the root endpoint of the GitHub API."
+    },
+    {
+      "path": "/meta",
+      "method": "GET",
+      "operationId": "meta/get",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Fetch metadata about the GitHub API."
+    },
+    {
+      "path": "/octocat",
+      "method": "GET",
+      "operationId": "meta/get-octocat",
+      "summary": "",
+      "user": "octocatFan",
+      "ideal": "Get the Octocat avatar and related information."
+    },
+    {
+      "path": "/versions",
+      "method": "GET",
+      "operationId": "meta/get-all-versions",
+      "summary": "",
+      "user": "versionChecker",
+      "ideal": "List all available versions of the GitHub API."
+    },
+    {
+      "path": "/zen",
+      "method": "GET",
+      "operationId": "meta/get-zen",
+      "summary": "",
+      "user": "philosopherDev",
+      "ideal": "Receive a random GitHub zen quote."
+    },
+    {
+      "path": "/orgs/my-org/migrations",
+      "method": "GET",
+      "operationId": "migrations/list-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of migrations for the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/migrations",
+      "method": "POST",
+      "operationId": "migrations/start-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Start a new migration for the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/migrations/12345",
+      "method": "GET",
+      "operationId": "migrations/get-status-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get the status of migration with ID '12345' for organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/migrations/12345/archive",
+      "method": "GET",
+      "operationId": "migrations/download-archive-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Download the archive of migration with ID '12345' for organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/migrations/12345/archive",
+      "method": "DELETE",
+      "operationId": "migrations/delete-archive-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete the archive of migration with ID '12345' for organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/migrations/12345/repos/my-repo/lock",
+      "method": "DELETE",
+      "operationId": "migrations/unlock-repo-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Unlock the repository 'my-repo' for migration ID '12345' in organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/migrations/12345/repositories",
+      "method": "GET",
+      "operationId": "migrations/list-repos-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all repositories involved in migration ID '12345' for organization 'my-org'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/import",
+      "method": "GET",
+      "operationId": "migrations/get-import-status",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get the import status for repository 'my-repo' owned by 'my-user'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/import",
+      "method": "PUT",
+      "operationId": "migrations/start-import",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Start the import process for repository 'my-repo' owned by 'my-user'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/import",
+      "method": "PATCH",
+      "operationId": "migrations/update-import",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the import settings for repository 'my-repo' owned by 'my-user'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/import",
+      "method": "DELETE",
+      "operationId": "migrations/cancel-import",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Cancel the import process for repository 'my-repo' owned by 'my-user'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/import/authors",
+      "method": "GET",
+      "operationId": "migrations/get-commit-authors",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the commit authors for the import of repository 'my-repo' owned by 'my-user'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/import/authors/author_id",
+      "method": "PATCH",
+      "operationId": "migrations/map-commit-author",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Map a commit author for the import of repository 'my-repo' owned by 'my-user'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/import/large_files",
+      "method": "GET",
+      "operationId": "migrations/get-large-files",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get a list of large files for the import of repository 'my-repo' owned by 'my-user'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/import/lfs",
+      "method": "PATCH",
+      "operationId": "migrations/set-lfs-preference",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Set the LFS preference for the import of repository 'my-repo' owned by 'my-user'."
+    },
+    {
+      "path": "/user/migrations",
+      "method": "GET",
+      "operationId": "migrations/list-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all migrations for the authenticated user."
+    },
+    {
+      "path": "/user/migrations",
+      "method": "POST",
+      "operationId": "migrations/start-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Start a new migration for the authenticated user."
+    },
+    {
+      "path": "/user/migrations/12345",
+      "method": "GET",
+      "operationId": "migrations/get-status-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get the status of migration with ID '12345' for the authenticated user."
+    },
+    {
+      "path": "/user/migrations/12345/archive",
+      "method": "GET",
+      "operationId": "migrations/get-archive-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get the archive of migration with ID '12345' for the authenticated user."
+    },
+    {
+      "path": "/user/migrations/12345/archive",
+      "method": "DELETE",
+      "operationId": "migrations/delete-archive-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete the archive of migration with ID '12345' for the authenticated user."
+    },
+    {
+      "path": "/user/migrations/12345/repos/my-repo/lock",
+      "method": "DELETE",
+      "operationId": "migrations/unlock-repo-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Unlock the repository 'my-repo' for migration ID '12345' for the authenticated user."
+    },
+    {
+      "path": "/user/migrations/12345/repositories",
+      "method": "GET",
+      "operationId": "migrations/list-repos-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all repositories involved in migration ID '12345' for the authenticated user."
+    },
+    {
+      "path": "/orgs/{org}/actions/oidc/customization/sub",
+      "method": "GET",
+      "operationId": "oidc/get-oidc-custom-sub-template-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the OIDC custom subject template for the specified organization."
+    },
+    {
+      "path": "/orgs/{org}/actions/oidc/customization/sub",
+      "method": "PUT",
+      "operationId": "oidc/update-oidc-custom-sub-template-for-org",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Update the OIDC custom subject template for the specified organization with new values."
+    },
+    {
+      "path": "/orgs/example-org/members",
+      "method": "GET",
+      "operationId": "orgs/list-members",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all members in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/hooks",
+      "method": "POST",
+      "operationId": "orgs/create-webhook",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Create a new webhook for the organization 'example-org' with specified configuration."
+    },
+    {
+      "path": "/orgs/example-org/invitations",
+      "method": "GET",
+      "operationId": "orgs/list-pending-invitations",
+      "summary": "",
+      "user": "user789",
+      "ideal": "List all pending invitations for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/blocks/johndoe",
+      "method": "PUT",
+      "operationId": "orgs/block-user",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Block the user 'johndoe' from the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/attestations",
+      "method": "GET",
+      "operationId": "orgs/list-attestations",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Retrieve a list of all attestations for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/settings/immutable-releases",
+      "method": "PUT",
+      "operationId": "orgs/set-immutable-releases-settings",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Update the immutable releases settings for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/personal-access-tokens",
+      "method": "GET",
+      "operationId": "orgs/list-pat-grants",
+      "summary": "",
+      "user": "user404",
+      "ideal": "List all personal access tokens granted for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/memberships/janedoe",
+      "method": "DELETE",
+      "operationId": "orgs/remove-membership-for-user",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Remove the membership of user 'janedoe' from the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/artifacts/metadata/storage-record",
+      "method": "POST",
+      "operationId": "orgs/create-artifact-storage-record",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Create a storage record for an artifact in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/security-managers",
+      "method": "GET",
+      "operationId": "orgs/list-security-manager-teams",
+      "summary": "",
+      "user": "user707",
+      "ideal": "List all security manager teams for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/my-org/packages",
+      "method": "GET",
+      "operationId": "packages/list-packages-for-organization",
+      "summary": "",
+      "user": "org_user_1",
+      "ideal": "Retrieve a list of all packages for the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/packages/npm/my-package",
+      "method": "GET",
+      "operationId": "packages/get-package-for-organization",
+      "summary": "",
+      "user": "org_user_2",
+      "ideal": "Get details of the package 'my-package' of type 'npm' for the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/packages/npm/my-package/versions",
+      "method": "GET",
+      "operationId": "packages/get-all-package-versions-for-package-owned-by-org",
+      "summary": "",
+      "user": "org_user_3",
+      "ideal": "List all versions of the package 'my-package' of type 'npm' for the organization 'my-org'."
+    },
+    {
+      "path": "/user/packages",
+      "method": "GET",
+      "operationId": "packages/list-packages-for-authenticated-user",
+      "summary": "",
+      "user": "auth_user_1",
+      "ideal": "Retrieve a list of all packages for the authenticated user."
+    },
+    {
+      "path": "/user/packages/docker/my-docker-package",
+      "method": "DELETE",
+      "operationId": "packages/delete-package-for-authenticated-user",
+      "summary": "",
+      "user": "auth_user_2",
+      "ideal": "Delete the Docker package 'my-docker-package' for the authenticated user."
+    },
+    {
+      "path": "/users/john_doe/packages",
+      "method": "GET",
+      "operationId": "packages/list-packages-for-user",
+      "summary": "",
+      "user": "user_1",
+      "ideal": "Get a list of all packages for the user 'john_doe'."
+    },
+    {
+      "path": "/users/john_doe/packages/npm/my-package/versions/1.0.0",
+      "method": "GET",
+      "operationId": "packages/get-package-version-for-user",
+      "summary": "",
+      "user": "user_2",
+      "ideal": "Retrieve details of version '1.0.0' of the package 'my-package' of type 'npm' for user 'john_doe'."
+    },
+    {
+      "path": "/orgs/my-org/packages/npm/my-package/versions/1.0.0/restore",
+      "method": "POST",
+      "operationId": "packages/restore-package-version-for-org",
+      "summary": "",
+      "user": "org_user_4",
+      "ideal": "Restore the deleted version '1.0.0' of the package 'my-package' for the organization 'my-org'."
+    },
+    {
+      "path": "/user/packages/docker/my-docker-package/versions/1.0.0",
+      "method": "DELETE",
+      "operationId": "packages/delete-package-version-for-authenticated-user",
+      "summary": "",
+      "user": "auth_user_3",
+      "ideal": "Delete version '1.0.0' of the Docker package 'my-docker-package' for the authenticated user."
+    },
+    {
+      "path": "/users/john_doe/packages/npm/my-package/restore",
+      "method": "POST",
+      "operationId": "packages/restore-package-for-user",
+      "summary": "",
+      "user": "user_3",
+      "ideal": "Restore the deleted package 'my-package' of type 'npm' for user 'john_doe'."
+    },
+    {
+      "path": "/orgs/my-org/private-registries",
+      "method": "GET",
+      "operationId": "private-registries/list-org-private-registries",
+      "summary": "",
+      "user": "As a developer, I want to retrieve a list of all private registries associated with my organization so that I can manage them effectively.",
+      "ideal": "The response should return a JSON array of private registries, including their names and configurations."
+    },
+    {
+      "path": "/orgs/my-org/private-registries",
+      "method": "POST",
+      "operationId": "private-registries/create-org-private-registry",
+      "summary": "",
+      "user": "As an admin, I want to create a new private registry for my organization to store sensitive packages securely.",
+      "ideal": "The response should confirm the creation of the private registry and return its details, including the registry name and access settings."
+    },
+    {
+      "path": "/orgs/my-org/private-registries/public-key",
+      "method": "GET",
+      "operationId": "private-registries/get-org-public-key",
+      "summary": "",
+      "user": "As a security officer, I need to obtain the public key for my organization's private registries to ensure secure communication.",
+      "ideal": "The response should return the public key in a format suitable for encryption purposes."
+    },
+    {
+      "path": "/orgs/my-org/private-registries/my-secret-registry",
+      "method": "GET",
+      "operationId": "private-registries/get-org-private-registry",
+      "summary": "",
+      "user": "As a developer, I want to retrieve the details of a specific private registry to understand its configuration and usage.",
+      "ideal": "The response should include all relevant details about the private registry, such as its name, settings, and associated packages."
+    },
+    {
+      "path": "/orgs/my-org/private-registries/my-secret-registry",
+      "method": "PATCH",
+      "operationId": "private-registries/update-org-private-registry",
+      "summary": "",
+      "user": "As an admin, I want to update the settings of an existing private registry to improve its security and performance.",
+      "ideal": "The response should confirm the update and return the updated details of the private registry."
+    },
+    {
+      "path": "/orgs/my-org/private-registries/my-secret-registry",
+      "method": "DELETE",
+      "operationId": "private-registries/delete-org-private-registry",
+      "summary": "",
+      "user": "As an admin, I want to delete a private registry that is no longer needed to maintain a clean and organized environment.",
+      "ideal": "The response should confirm the deletion of the private registry and indicate that it has been successfully removed."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2",
+      "method": "GET",
+      "operationId": "projects/list-for-org",
+      "summary": "",
+      "user": "Requesting a list of all projects for the organization 'my-org'.",
+      "ideal": "A successful response containing an array of project objects associated with 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1",
+      "method": "GET",
+      "operationId": "projects/get-for-org",
+      "summary": "",
+      "user": "Fetching details for project number 1 in 'my-org'.",
+      "ideal": "A successful response with detailed information about project number 1."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1/fields",
+      "method": "GET",
+      "operationId": "projects/list-fields-for-org",
+      "summary": "",
+      "user": "Retrieving all fields for project number 1 in 'my-org'.",
+      "ideal": "A successful response containing an array of field objects for project number 1."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1/fields/field-1",
+      "method": "GET",
+      "operationId": "projects/get-field-for-org",
+      "summary": "",
+      "user": "Getting details for field 'field-1' in project number 1 of 'my-org'.",
+      "ideal": "A successful response with detailed information about 'field-1'."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1/items",
+      "method": "GET",
+      "operationId": "projects/list-items-for-org",
+      "summary": "",
+      "user": "Listing all items for project number 1 in 'my-org'.",
+      "ideal": "A successful response containing an array of item objects for project number 1."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1/items",
+      "method": "POST",
+      "operationId": "projects/add-item-for-org",
+      "summary": "",
+      "user": "Adding a new item to project number 1 in 'my-org'.",
+      "ideal": "A successful response confirming the addition of the new item."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1/items/item-1",
+      "method": "GET",
+      "operationId": "projects/get-org-item",
+      "summary": "",
+      "user": "Retrieving details for item 'item-1' in project number 1 of 'my-org'.",
+      "ideal": "A successful response with detailed information about 'item-1'."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1/items/item-1",
+      "method": "PATCH",
+      "operationId": "projects/update-item-for-org",
+      "summary": "",
+      "user": "Updating item 'item-1' in project number 1 of 'my-org'.",
+      "ideal": "A successful response confirming the update of 'item-1'."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1/items/item-1",
+      "method": "DELETE",
+      "operationId": "projects/delete-item-for-org",
+      "summary": "",
+      "user": "Deleting item 'item-1' from project number 1 in 'my-org'.",
+      "ideal": "A successful response confirming the deletion of 'item-1'."
+    },
+    {
+      "path": "/users/johndoe/projectsV2",
+      "method": "GET",
+      "operationId": "projects/list-for-user",
+      "summary": "",
+      "user": "Requesting a list of all projects for user 'johndoe'.",
+      "ideal": "A successful response containing an array of project objects associated with 'johndoe'."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/2",
+      "method": "GET",
+      "operationId": "projects/get-for-user",
+      "summary": "",
+      "user": "Fetching details for project number 2 for user 'johndoe'.",
+      "ideal": "A successful response with detailed information about project number 2."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/2/fields",
+      "method": "GET",
+      "operationId": "projects/list-fields-for-user",
+      "summary": "",
+      "user": "Retrieving all fields for project number 2 of user 'johndoe'.",
+      "ideal": "A successful response containing an array of field objects for project number 2."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/2/fields/field-2",
+      "method": "GET",
+      "operationId": "projects/get-field-for-user",
+      "summary": "",
+      "user": "Getting details for field 'field-2' in project number 2 of user 'johndoe'.",
+      "ideal": "A successful response with detailed information about 'field-2'."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/2/items",
+      "method": "GET",
+      "operationId": "projects/list-items-for-user",
+      "summary": "",
+      "user": "Listing all items for project number 2 of user 'johndoe'.",
+      "ideal": "A successful response containing an array of item objects for project number 2."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/2/items",
+      "method": "POST",
+      "operationId": "projects/add-item-for-user",
+      "summary": "",
+      "user": "Adding a new item to project number 2 of user 'johndoe'.",
+      "ideal": "A successful response confirming the addition of the new item."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/2/items/item-2",
+      "method": "GET",
+      "operationId": "projects/get-user-item",
+      "summary": "",
+      "user": "Retrieving details for item 'item-2' in project number 2 of user 'johndoe'.",
+      "ideal": "A successful response with detailed information about 'item-2'."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/2/items/item-2",
+      "method": "PATCH",
+      "operationId": "projects/update-item-for-user",
+      "summary": "",
+      "user": "Updating item 'item-2' in project number 2 of user 'johndoe'.",
+      "ideal": "A successful response confirming the update of 'item-2'."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/2/items/item-2",
+      "method": "DELETE",
+      "operationId": "projects/delete-item-for-user",
+      "summary": "",
+      "user": "Deleting item 'item-2' from project number 2 of user 'johndoe'.",
+      "ideal": "A successful response confirming the deletion of 'item-2'."
+    },
+    {
+      "path": "/orgs/my-org/projects",
+      "method": "GET",
+      "operationId": "projects-classic/list-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of projects for the specified organization."
+    },
+    {
+      "path": "/orgs/my-org/projects",
+      "method": "POST",
+      "operationId": "projects-classic/create-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new project for the specified organization."
+    },
+    {
+      "path": "/projects/columns/12345",
+      "method": "GET",
+      "operationId": "projects-classic/get-column",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get details of a specific column in a project."
+    },
+    {
+      "path": "/projects/columns/12345",
+      "method": "PATCH",
+      "operationId": "projects-classic/update-column",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the details of a specific column in a project."
+    },
+    {
+      "path": "/projects/columns/12345",
+      "method": "DELETE",
+      "operationId": "projects-classic/delete-column",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete a specific column from a project."
+    },
+    {
+      "path": "/projects/columns/12345/moves",
+      "method": "POST",
+      "operationId": "projects-classic/move-column",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Move a column to a different position in the project."
+    },
+    {
+      "path": "/projects/67890",
+      "method": "GET",
+      "operationId": "projects-classic/get",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve details of a specific project."
+    },
+    {
+      "path": "/projects/67890",
+      "method": "PATCH",
+      "operationId": "projects-classic/update",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the details of a specific project."
+    },
+    {
+      "path": "/projects/67890",
+      "method": "DELETE",
+      "operationId": "projects-classic/delete",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete a specific project."
+    },
+    {
+      "path": "/projects/67890/collaborators",
+      "method": "GET",
+      "operationId": "projects-classic/list-collaborators",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all collaborators for a specific project."
+    },
+    {
+      "path": "/projects/67890/collaborators/user456",
+      "method": "PUT",
+      "operationId": "projects-classic/add-collaborator",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a collaborator to a specific project."
+    },
+    {
+      "path": "/projects/67890/collaborators/user456",
+      "method": "DELETE",
+      "operationId": "projects-classic/remove-collaborator",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Remove a collaborator from a specific project."
+    },
+    {
+      "path": "/projects/67890/collaborators/user456/permission",
+      "method": "GET",
+      "operationId": "projects-classic/get-permission-for-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get the permission level of a specific user on a project."
+    },
+    {
+      "path": "/projects/67890/columns",
+      "method": "GET",
+      "operationId": "projects-classic/list-columns",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all columns in a specific project."
+    },
+    {
+      "path": "/projects/67890/columns",
+      "method": "POST",
+      "operationId": "projects-classic/create-column",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new column in a specific project."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/projects",
+      "method": "GET",
+      "operationId": "projects-classic/list-for-repo",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of projects for a specific repository."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/projects",
+      "method": "POST",
+      "operationId": "projects-classic/create-for-repo",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new project for a specific repository."
+    },
+    {
+      "path": "/user/projects",
+      "method": "POST",
+      "operationId": "projects-classic/create-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new project for the authenticated user."
+    },
+    {
+      "path": "/users/user456/projects",
+      "method": "GET",
+      "operationId": "projects-classic/list-for-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of projects for a specific user."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls",
+      "method": "GET",
+      "operationId": "pulls/list",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve a list of pull requests for the specified repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls",
+      "method": "POST",
+      "operationId": "pulls/create",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new pull request for the specified repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/comments",
+      "method": "GET",
+      "operationId": "pulls/list-review-comments-for-repo",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all review comments for the specified repository's pull requests."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/comments/1",
+      "method": "GET",
+      "operationId": "pulls/get-review-comment",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Get a specific review comment by its ID."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/comments/1",
+      "method": "PATCH",
+      "operationId": "pulls/update-review-comment",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Update a specific review comment by its ID."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/comments/1",
+      "method": "DELETE",
+      "operationId": "pulls/delete-review-comment",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Delete a specific review comment by its ID."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42",
+      "method": "GET",
+      "operationId": "pulls/get",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve details of a specific pull request."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42",
+      "method": "PATCH",
+      "operationId": "pulls/update",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Update a specific pull request."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/comments",
+      "method": "GET",
+      "operationId": "pulls/list-review-comments",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all review comments for a specific pull request."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/comments",
+      "method": "POST",
+      "operationId": "pulls/create-review-comment",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new review comment for a specific pull request."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/comments/1/replies",
+      "method": "POST",
+      "operationId": "pulls/create-reply-for-review-comment",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a reply to a specific review comment."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/commits",
+      "method": "GET",
+      "operationId": "pulls/list-commits",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all commits associated with a specific pull request."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/files",
+      "method": "GET",
+      "operationId": "pulls/list-files",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all files changed in a specific pull request."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/merge",
+      "method": "GET",
+      "operationId": "pulls/check-if-merged",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Check if a specific pull request has been merged."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/merge",
+      "method": "PUT",
+      "operationId": "pulls/merge",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Merge a specific pull request."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/requested_reviewers",
+      "method": "GET",
+      "operationId": "pulls/list-requested-reviewers",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all requested reviewers for a specific pull request."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/requested_reviewers",
+      "method": "POST",
+      "operationId": "pulls/request-reviewers",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Request reviewers for a specific pull request."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/requested_reviewers",
+      "method": "DELETE",
+      "operationId": "pulls/remove-requested-reviewers",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Remove requested reviewers from a specific pull request."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/reviews",
+      "method": "GET",
+      "operationId": "pulls/list-reviews",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all reviews for a specific pull request."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/reviews",
+      "method": "POST",
+      "operationId": "pulls/create-review",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new review for a specific pull request."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1",
+      "method": "GET",
+      "operationId": "pulls/get-review",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Get details of a specific review by its ID."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1",
+      "method": "PUT",
+      "operationId": "pulls/update-review",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Update a specific review by its ID."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1",
+      "method": "DELETE",
+      "operationId": "pulls/delete-pending-review",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Delete a pending review by its ID."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1/comments",
+      "method": "GET",
+      "operationId": "pulls/list-comments-for-review",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all comments for a specific review."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1/dismissals",
+      "method": "PUT",
+      "operationId": "pulls/dismiss-review",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Dismiss a specific review."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1/events",
+      "method": "POST",
+      "operationId": "pulls/submit-review",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Submit a specific review."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/pulls/42/update-branch",
+      "method": "PUT",
+      "operationId": "pulls/update-branch",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Update the branch of a specific pull request."
+    },
+    {
+      "path": "/rate_limit",
+      "method": "GET",
+      "operationId": "rate-limit/get",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Returns the current rate limit status for the authenticated user, including the number of requests remaining and the time until the limit resets."
+    },
+    {
+      "path": "/orgs/my-org/teams/my-team/discussions/1/comments/2/reactions",
+      "method": "GET",
+      "operationId": "reactions/list-for-team-discussion-comment-in-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all reactions for a specific comment in a team discussion within an organization."
+    },
+    {
+      "path": "/orgs/my-org/teams/my-team/discussions/1/comments/2/reactions",
+      "method": "POST",
+      "operationId": "reactions/create-for-team-discussion-comment-in-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a reaction to a specific comment in a team discussion within an organization."
+    },
+    {
+      "path": "/orgs/my-org/teams/my-team/discussions/1/comments/2/reactions/12345",
+      "method": "DELETE",
+      "operationId": "reactions/delete-for-team-discussion-comment",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Remove a specific reaction from a comment in a team discussion."
+    },
+    {
+      "path": "/orgs/my-org/teams/my-team/discussions/1/reactions",
+      "method": "GET",
+      "operationId": "reactions/list-for-team-discussion-in-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all reactions for a specific team discussion within an organization."
+    },
+    {
+      "path": "/orgs/my-org/teams/my-team/discussions/1/reactions",
+      "method": "POST",
+      "operationId": "reactions/create-for-team-discussion-in-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a reaction to a specific team discussion within an organization."
+    },
+    {
+      "path": "/orgs/my-org/teams/my-team/discussions/1/reactions/12345",
+      "method": "DELETE",
+      "operationId": "reactions/delete-for-team-discussion",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Remove a specific reaction from a team discussion."
+    },
+    {
+      "path": "/repos/my-repo/commits/1/comments/2/reactions",
+      "method": "GET",
+      "operationId": "reactions/list-for-commit-comment",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all reactions for a specific commit comment."
+    },
+    {
+      "path": "/repos/my-repo/commits/1/comments/2/reactions",
+      "method": "POST",
+      "operationId": "reactions/create-for-commit-comment",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a reaction to a specific commit comment."
+    },
+    {
+      "path": "/repos/my-repo/commits/1/comments/2/reactions/12345",
+      "method": "DELETE",
+      "operationId": "reactions/delete-for-commit-comment",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Remove a specific reaction from a commit comment."
+    },
+    {
+      "path": "/repos/my-repo/issues/comments/2/reactions",
+      "method": "GET",
+      "operationId": "reactions/list-for-issue-comment",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all reactions for a specific issue comment."
+    },
+    {
+      "path": "/repos/my-repo/issues/comments/2/reactions",
+      "method": "POST",
+      "operationId": "reactions/create-for-issue-comment",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a reaction to a specific issue comment."
+    },
+    {
+      "path": "/repos/my-repo/issues/comments/2/reactions/12345",
+      "method": "DELETE",
+      "operationId": "reactions/delete-for-issue-comment",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Remove a specific reaction from an issue comment."
+    },
+    {
+      "path": "/repos/my-repo/issues/1/reactions",
+      "method": "GET",
+      "operationId": "reactions/list-for-issue",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all reactions for a specific issue."
+    },
+    {
+      "path": "/repos/my-repo/issues/1/reactions",
+      "method": "POST",
+      "operationId": "reactions/create-for-issue",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a reaction to a specific issue."
+    },
+    {
+      "path": "/repos/my-repo/issues/1/reactions/12345",
+      "method": "DELETE",
+      "operationId": "reactions/delete-for-issue",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Remove a specific reaction from an issue."
+    },
+    {
+      "path": "/repos/my-repo/pulls/comments/2/reactions",
+      "method": "GET",
+      "operationId": "reactions/list-for-pull-request-review-comment",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all reactions for a specific pull request review comment."
+    },
+    {
+      "path": "/repos/my-repo/pulls/comments/2/reactions",
+      "method": "POST",
+      "operationId": "reactions/create-for-pull-request-review-comment",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a reaction to a specific pull request review comment."
+    },
+    {
+      "path": "/repos/my-repo/pulls/comments/2/reactions/12345",
+      "method": "DELETE",
+      "operationId": "reactions/delete-for-pull-request-comment",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Remove a specific reaction from a pull request review comment."
+    },
+    {
+      "path": "/repos/my-repo/releases/1/reactions",
+      "method": "GET",
+      "operationId": "reactions/list-for-release",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all reactions for a specific release."
+    },
+    {
+      "path": "/repos/my-repo/releases/1/reactions",
+      "method": "POST",
+      "operationId": "reactions/create-for-release",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a reaction to a specific release."
+    },
+    {
+      "path": "/repos/my-repo/releases/1/reactions/12345",
+      "method": "DELETE",
+      "operationId": "reactions/delete-for-release",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Remove a specific reaction from a release."
+    },
+    {
+      "path": "/teams/my-team/discussions/1/comments/2/reactions",
+      "method": "GET",
+      "operationId": "reactions/list-for-team-discussion-comment-legacy",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all reactions for a specific comment in a legacy team discussion."
+    },
+    {
+      "path": "/teams/my-team/discussions/1/comments/2/reactions",
+      "method": "POST",
+      "operationId": "reactions/create-for-team-discussion-comment-legacy",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a reaction to a specific comment in a legacy team discussion."
+    },
+    {
+      "path": "/teams/my-team/discussions/1/reactions",
+      "method": "GET",
+      "operationId": "reactions/list-for-team-discussion-legacy",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all reactions for a specific legacy team discussion."
+    },
+    {
+      "path": "/teams/my-team/discussions/1/reactions",
+      "method": "POST",
+      "operationId": "reactions/create-for-team-discussion-legacy",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a reaction to a specific legacy team discussion."
+    },
+    {
+      "path": "/orgs/example-org/repos",
+      "method": "GET",
+      "operationId": "repos/list-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of repositories for the specified organization."
+    },
+    {
+      "path": "/repos/example-owner/example-repo",
+      "method": "GET",
+      "operationId": "repos/get",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Fetch details of a specific repository by owner and name."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/releases",
+      "method": "GET",
+      "operationId": "repos/list-releases",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Get a list of releases for the specified repository."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/branches/main/protection",
+      "method": "GET",
+      "operationId": "repos/get-branch-protection",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Retrieve branch protection settings for the main branch."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/commits",
+      "method": "GET",
+      "operationId": "repos/list-commits",
+      "summary": "",
+      "user": "user112",
+      "ideal": "List all commits in the specified repository."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/hooks",
+      "method": "GET",
+      "operationId": "repos/list-webhooks",
+      "summary": "",
+      "user": "user131",
+      "ideal": "Get a list of webhooks configured for the repository."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/pages",
+      "method": "GET",
+      "operationId": "repos/get-pages",
+      "summary": "",
+      "user": "user415",
+      "ideal": "Retrieve information about the GitHub Pages site for the repository."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/keys",
+      "method": "GET",
+      "operationId": "repos/list-deploy-keys",
+      "summary": "",
+      "user": "user161",
+      "ideal": "List all deploy keys associated with the repository."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/traffic/views",
+      "method": "GET",
+      "operationId": "repos/get-views",
+      "summary": "",
+      "user": "user718",
+      "ideal": "Get the number of views for the repository over time."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/teams",
+      "method": "GET",
+      "operationId": "repos/list-teams",
+      "summary": "",
+      "user": "user192",
+      "ideal": "List all teams that have access to the repository."
+    },
+    {
+      "path": "/search/code",
+      "method": "GET",
+      "operationId": "search/code",
+      "summary": "",
+      "user": "developer123",
+      "ideal": "Search for code snippets containing the term 'authentication' in public repositories."
+    },
+    {
+      "path": "/search/commits",
+      "method": "GET",
+      "operationId": "search/commits",
+      "summary": "",
+      "user": "dataAnalyst456",
+      "ideal": "Find commits related to 'data visualization' in the last month."
+    },
+    {
+      "path": "/search/issues",
+      "method": "GET",
+      "operationId": "search/issues-and-pull-requests",
+      "summary": "",
+      "user": "bugHunter789",
+      "ideal": "Retrieve open issues tagged with 'bug' in the repository 'example/repo'."
+    },
+    {
+      "path": "/search/labels",
+      "method": "GET",
+      "operationId": "search/labels",
+      "summary": "",
+      "user": "projectManager101",
+      "ideal": "List all labels in the repository 'example/repo'."
+    },
+    {
+      "path": "/search/repositories",
+      "method": "GET",
+      "operationId": "search/repos",
+      "summary": "",
+      "user": "repoExplorer202",
+      "ideal": "Search for repositories related to 'machine learning' that are public."
+    },
+    {
+      "path": "/search/topics",
+      "method": "GET",
+      "operationId": "search/topics",
+      "summary": "",
+      "user": "topicCurator303",
+      "ideal": "Get topics related to 'web development'."
+    },
+    {
+      "path": "/search/users",
+      "method": "GET",
+      "operationId": "search/users",
+      "summary": "",
+      "user": "networker404",
+      "ideal": "Find GitHub users with the username 'john_doe'."
+    },
+    {
+      "path": "/enterprises/{enterprise}/secret-scanning/alerts",
+      "method": "GET",
+      "operationId": "secret-scanning/list-alerts-for-enterprise",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve a list of secret scanning alerts for the specified enterprise."
+    },
+    {
+      "path": "/orgs/{org}/secret-scanning/alerts",
+      "method": "GET",
+      "operationId": "secret-scanning/list-alerts-for-org",
+      "summary": "",
+      "user": "org_member",
+      "ideal": "Fetch all secret scanning alerts associated with the organization."
+    },
+    {
+      "path": "/orgs/{org}/secret-scanning/pattern-configurations",
+      "method": "GET",
+      "operationId": "secret-scanning/list-org-pattern-configs",
+      "summary": "",
+      "user": "org_admin",
+      "ideal": "List all pattern configurations for secret scanning in the organization."
+    },
+    {
+      "path": "/orgs/{org}/secret-scanning/pattern-configurations",
+      "method": "PATCH",
+      "operationId": "secret-scanning/update-org-pattern-configs",
+      "summary": "",
+      "user": "org_admin",
+      "ideal": "Update the secret scanning pattern configurations for the organization."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/alerts",
+      "method": "GET",
+      "operationId": "secret-scanning/list-alerts-for-repo",
+      "summary": "",
+      "user": "repo_contributor",
+      "ideal": "Get a list of secret scanning alerts for the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}",
+      "method": "GET",
+      "operationId": "secret-scanning/get-alert",
+      "summary": "",
+      "user": "repo_contributor",
+      "ideal": "Retrieve details of a specific secret scanning alert by its number."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}",
+      "method": "PATCH",
+      "operationId": "secret-scanning/update-alert",
+      "summary": "",
+      "user": "repo_admin",
+      "ideal": "Update the status or details of a specific secret scanning alert."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}/locations",
+      "method": "GET",
+      "operationId": "secret-scanning/list-locations-for-alert",
+      "summary": "",
+      "user": "repo_contributor",
+      "ideal": "List all locations associated with a specific secret scanning alert."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/push-protection-bypasses",
+      "method": "POST",
+      "operationId": "secret-scanning/create-push-protection-bypass",
+      "summary": "",
+      "user": "repo_admin",
+      "ideal": "Create a bypass for push protection related to secret scanning."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/scan-history",
+      "method": "GET",
+      "operationId": "secret-scanning/get-scan-history",
+      "summary": "",
+      "user": "repo_contributor",
+      "ideal": "Retrieve the history of secret scanning scans for the repository."
+    },
+    {
+      "path": "/advisories",
+      "method": "GET",
+      "operationId": "security-advisories/list-global-advisories",
+      "summary": "",
+      "user": "As a security analyst, I want to retrieve a list of all global security advisories to stay informed about vulnerabilities affecting various software projects.",
+      "ideal": "The response should include a paginated list of advisories with details such as GHSA ID, summary, and severity."
+    },
+    {
+      "path": "/advisories/{ghsa_id}",
+      "method": "GET",
+      "operationId": "security-advisories/get-global-advisory",
+      "summary": "",
+      "user": "As a developer, I need to access detailed information about a specific security advisory using its GHSA ID to understand the impact on my project.",
+      "ideal": "The response should provide comprehensive details about the advisory, including affected versions and remediation steps."
+    },
+    {
+      "path": "/orgs/{org}/security-advisories",
+      "method": "GET",
+      "operationId": "security-advisories/list-org-repository-advisories",
+      "summary": "",
+      "user": "As an organization security officer, I want to list all security advisories related to my organization's repositories to assess our security posture.",
+      "ideal": "The response should return a list of advisories specific to the organization's repositories, including their statuses."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories",
+      "method": "GET",
+      "operationId": "security-advisories/list-repository-advisories",
+      "summary": "",
+      "user": "As a repository maintainer, I want to see all security advisories associated with my repository to ensure I address any vulnerabilities.",
+      "ideal": "The response should include all advisories linked to the repository, with details on their severity and status."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories",
+      "method": "POST",
+      "operationId": "security-advisories/create-repository-advisory",
+      "summary": "",
+      "user": "As a security engineer, I need to create a new security advisory for my repository to inform users about a recently discovered vulnerability.",
+      "ideal": "The response should confirm the creation of the advisory and return its details, including the new GHSA ID."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories/reports",
+      "method": "POST",
+      "operationId": "security-advisories/create-private-vulnerability-report",
+      "summary": "",
+      "user": "As a security researcher, I want to submit a private vulnerability report for a repository to notify the maintainers of a critical issue.",
+      "ideal": "The response should acknowledge receipt of the report and provide a reference ID for follow-up."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
+      "method": "GET",
+      "operationId": "security-advisories/get-repository-advisory",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve the details of a specific advisory affecting our repository to discuss it with the team.",
+      "ideal": "The response should include all relevant information about the advisory, including its status and recommended actions."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
+      "method": "PATCH",
+      "operationId": "security-advisories/update-repository-advisory",
+      "summary": "",
+      "user": "As a repository maintainer, I need to update an existing security advisory to reflect new findings or changes in the remediation process.",
+      "ideal": "The response should confirm the update and return the modified advisory details."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/cve",
+      "method": "POST",
+      "operationId": "security-advisories/create-repository-advisory-cve-request",
+      "summary": "",
+      "user": "As a security analyst, I want to request a CVE ID for a security advisory to ensure it is properly documented in the vulnerability databases.",
+      "ideal": "The response should confirm the request and provide the assigned CVE ID."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/forks",
+      "method": "POST",
+      "operationId": "security-advisories/create-fork",
+      "summary": "",
+      "user": "As a developer, I want to create a fork of a repository with an existing security advisory to work on a fix without affecting the main project.",
+      "ideal": "The response should confirm the creation of the fork and provide the URL to access it."
+    },
+    {
+      "path": "/orgs/example-org/teams",
+      "method": "GET",
+      "operationId": "teams/list",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all teams in the specified organization."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team",
+      "method": "GET",
+      "operationId": "teams/get-by-name",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Get details of the team named 'example-team' in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/members",
+      "method": "GET",
+      "operationId": "teams/list-members-in-org",
+      "summary": "",
+      "user": "user789",
+      "ideal": "List all members of the team 'example-team' in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/memberships/user123",
+      "method": "GET",
+      "operationId": "teams/get-membership-for-user-in-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Check the membership status of user 'user123' in the team 'example-team'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/projects",
+      "method": "GET",
+      "operationId": "teams/list-projects-in-org",
+      "summary": "",
+      "user": "user234",
+      "ideal": "Retrieve a list of projects associated with the team 'example-team' in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/repos/example-owner/example-repo",
+      "method": "GET",
+      "operationId": "teams/check-permissions-for-repo-in-org",
+      "summary": "",
+      "user": "user345",
+      "ideal": "Check the permissions of the team 'example-team' for the repository 'example-repo' owned by 'example-owner'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/discussions",
+      "method": "GET",
+      "operationId": "teams/list-discussions-in-org",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Get a list of discussions in the team 'example-team' within the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/memberships/user456",
+      "method": "DELETE",
+      "operationId": "teams/remove-membership-for-user-in-org",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Remove the membership of user 'user456' from the team 'example-team' in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/discussions/1/comments",
+      "method": "GET",
+      "operationId": "teams/list-discussion-comments-in-org",
+      "summary": "",
+      "user": "user567",
+      "ideal": "Retrieve comments for the discussion number 1 in the team 'example-team'."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/discussions/1/comments/1",
+      "method": "DELETE",
+      "operationId": "teams/delete-discussion-comment-in-org",
+      "summary": "",
+      "user": "user678",
+      "ideal": "Delete the comment number 1 from discussion number 1 in the team 'example-team'."
+    },
+    {
+      "path": "/user",
+      "method": "GET",
+      "operationId": "users/get-authenticated",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Retrieve the authenticated user's profile information."
+    },
+    {
+      "path": "/user",
+      "method": "PATCH",
+      "operationId": "users/update-authenticated",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Update the authenticated user's profile with new information."
+    },
+    {
+      "path": "/user/blocks",
+      "method": "GET",
+      "operationId": "users/list-blocked-by-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all users blocked by the authenticated user."
+    },
+    {
+      "path": "/user/blocks/{username}",
+      "method": "GET",
+      "operationId": "users/check-blocked",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Check if the user 'jane_smith' is blocked by the authenticated user."
+    },
+    {
+      "path": "/user/blocks/{username}",
+      "method": "PUT",
+      "operationId": "users/block",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Block the user 'jane_smith'."
+    },
+    {
+      "path": "/user/blocks/{username}",
+      "method": "DELETE",
+      "operationId": "users/unblock",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Unblock the user 'jane_smith'."
+    },
+    {
+      "path": "/user/emails",
+      "method": "GET",
+      "operationId": "users/list-emails-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all email addresses associated with the authenticated user."
+    },
+    {
+      "path": "/user/emails",
+      "method": "POST",
+      "operationId": "users/add-email-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Add a new email address to the authenticated user's account."
+    },
+    {
+      "path": "/user/emails",
+      "method": "DELETE",
+      "operationId": "users/delete-email-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Delete an email address from the authenticated user's account."
+    },
+    {
+      "path": "/user/followers",
+      "method": "GET",
+      "operationId": "users/list-followers-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all followers of the authenticated user."
+    },
+    {
+      "path": "/user/following",
+      "method": "GET",
+      "operationId": "users/list-followed-by-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all users followed by the authenticated user."
+    },
+    {
+      "path": "/user/following/{username}",
+      "method": "GET",
+      "operationId": "users/check-person-is-followed-by-authenticated",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Check if the authenticated user is following 'jane_smith'."
+    },
+    {
+      "path": "/user/following/{username}",
+      "method": "PUT",
+      "operationId": "users/follow",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Follow the user 'jane_smith'."
+    },
+    {
+      "path": "/user/following/{username}",
+      "method": "DELETE",
+      "operationId": "users/unfollow",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Unfollow the user 'jane_smith'."
+    },
+    {
+      "path": "/user/gpg_keys",
+      "method": "GET",
+      "operationId": "users/list-gpg-keys-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all GPG keys associated with the authenticated user."
+    },
+    {
+      "path": "/user/gpg_keys",
+      "method": "POST",
+      "operationId": "users/create-gpg-key-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Create a new GPG key for the authenticated user."
+    },
+    {
+      "path": "/user/gpg_keys/{gpg_key_id}",
+      "method": "GET",
+      "operationId": "users/get-gpg-key-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Retrieve the GPG key with ID '12345' for the authenticated user."
+    },
+    {
+      "path": "/user/gpg_keys/{gpg_key_id}",
+      "method": "DELETE",
+      "operationId": "users/delete-gpg-key-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Delete the GPG key with ID '12345' for the authenticated user."
+    },
+    {
+      "path": "/user/keys",
+      "method": "GET",
+      "operationId": "users/list-public-ssh-keys-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all public SSH keys associated with the authenticated user."
+    },
+    {
+      "path": "/user/keys",
+      "method": "POST",
+      "operationId": "users/create-public-ssh-key-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Create a new public SSH key for the authenticated user."
+    },
+    {
+      "path": "/user/keys/{key_id}",
+      "method": "GET",
+      "operationId": "users/get-public-ssh-key-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Retrieve the public SSH key with ID '67890' for the authenticated user."
+    },
+    {
+      "path": "/user/keys/{key_id}",
+      "method": "DELETE",
+      "operationId": "users/delete-public-ssh-key-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Delete the public SSH key with ID '67890' for the authenticated user."
+    },
+    {
+      "path": "/user/social_accounts",
+      "method": "GET",
+      "operationId": "users/list-social-accounts-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all social accounts linked to the authenticated user's profile."
+    },
+    {
+      "path": "/user/social_accounts",
+      "method": "POST",
+      "operationId": "users/add-social-account-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Add a new social account to the authenticated user's profile."
+    },
+    {
+      "path": "/user/social_accounts",
+      "method": "DELETE",
+      "operationId": "users/delete-social-account-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Delete a social account from the authenticated user's profile."
+    }
+  ]
+}

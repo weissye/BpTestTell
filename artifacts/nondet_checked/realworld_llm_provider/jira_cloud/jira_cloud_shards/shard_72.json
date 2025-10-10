@@ -1,0 +1,144 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/version",
+      "method": "GET",
+      "tags": [
+        "Project versions"
+      ],
+      "summary": "Get project versions paginated",
+      "operationId": "getProjectVersionsPaginated"
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/versions",
+      "method": "GET",
+      "tags": [
+        "Project versions"
+      ],
+      "summary": "Get project versions",
+      "operationId": "getProjectVersions"
+    },
+    {
+      "path": "/rest/api/3/version",
+      "method": "POST",
+      "tags": [
+        "Project versions"
+      ],
+      "summary": "Create version",
+      "operationId": "createVersion"
+    },
+    {
+      "path": "/rest/api/3/version/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Project versions"
+      ],
+      "summary": "Delete version",
+      "operationId": "deleteVersion"
+    },
+    {
+      "path": "/rest/api/3/version/{id}",
+      "method": "GET",
+      "tags": [
+        "Project versions"
+      ],
+      "summary": "Get version",
+      "operationId": "getVersion"
+    },
+    {
+      "path": "/rest/api/3/version/{id}",
+      "method": "PUT",
+      "tags": [
+        "Project versions"
+      ],
+      "summary": "Update version",
+      "operationId": "updateVersion"
+    },
+    {
+      "path": "/rest/api/3/version/{id}/mergeto/{moveIssuesTo}",
+      "method": "PUT",
+      "tags": [
+        "Project versions"
+      ],
+      "summary": "Merge versions",
+      "operationId": "mergeVersions"
+    },
+    {
+      "path": "/rest/api/3/version/{id}/move",
+      "method": "POST",
+      "tags": [
+        "Project versions"
+      ],
+      "summary": "Move version",
+      "operationId": "moveVersion"
+    },
+    {
+      "path": "/rest/api/3/version/{id}/relatedIssueCounts",
+      "method": "GET",
+      "tags": [
+        "Project versions"
+      ],
+      "summary": "Get version's related issues count",
+      "operationId": "getVersionRelatedIssues"
+    },
+    {
+      "path": "/rest/api/3/version/{id}/relatedwork",
+      "method": "GET",
+      "tags": [
+        "Project versions"
+      ],
+      "summary": "Get related work",
+      "operationId": "getRelatedWork"
+    },
+    {
+      "path": "/rest/api/3/version/{id}/relatedwork",
+      "method": "POST",
+      "tags": [
+        "Project versions"
+      ],
+      "summary": "Create related work",
+      "operationId": "createRelatedWork"
+    },
+    {
+      "path": "/rest/api/3/version/{id}/relatedwork",
+      "method": "PUT",
+      "tags": [
+        "Project versions"
+      ],
+      "summary": "Update related work",
+      "operationId": "updateRelatedWork"
+    },
+    {
+      "path": "/rest/api/3/version/{id}/removeAndSwap",
+      "method": "POST",
+      "tags": [
+        "Project versions"
+      ],
+      "summary": "Delete and replace version",
+      "operationId": "deleteAndReplaceVersion"
+    },
+    {
+      "path": "/rest/api/3/version/{id}/unresolvedIssueCount",
+      "method": "GET",
+      "tags": [
+        "Project versions"
+      ],
+      "summary": "Get version's unresolved issues count",
+      "operationId": "getVersionUnresolvedIssues"
+    },
+    {
+      "path": "/rest/api/3/version/{versionId}/relatedwork/{relatedWorkId}",
+      "method": "DELETE",
+      "tags": [
+        "Project versions"
+      ],
+      "summary": "Delete related work",
+      "operationId": "deleteRelatedWork"
+    }
+  ]
+}

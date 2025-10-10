@@ -1,0 +1,225 @@
+{
+  "openapi_meta": {
+    "title": "Meilisearch Core API",
+    "version": "1.7.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/health",
+      "method": "GET",
+      "tags": [
+        "Health"
+      ],
+      "summary": "Get health",
+      "operationId": "health.check"
+    },
+    {
+      "path": "/indexes/{indexUid}",
+      "method": "GET",
+      "tags": [
+        "Indexes"
+      ],
+      "summary": "Get Index",
+      "operationId": "indexes.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents",
+      "method": "GET",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Get Documents",
+      "operationId": "indexes.documents.list"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents",
+      "method": "DELETE",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Delete all documents",
+      "operationId": "indexes.documents.removeAll"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents/delete",
+      "method": "POST",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Delete documents",
+      "operationId": "indexes.documents.remove"
+    },
+    {
+      "path": "/indexes/{indexUid}/search",
+      "method": "GET",
+      "tags": [
+        "Search"
+      ],
+      "summary": "Search",
+      "operationId": "indexes.documents.searchGet"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get settings",
+      "operationId": "indexes.settings.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get synonyms",
+      "operationId": "indexes.settings.synonyms.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get sortable attributes",
+      "operationId": "indexes.settings.sortable-attributes.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get stop-words",
+      "operationId": "indexes.settings.stopWords.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get ranking rules",
+      "operationId": "indexes.settings.rankingRules.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get typo tolerance configuration",
+      "operationId": "indexes.settings.typoTolerance.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get pagination configuration",
+      "operationId": "indexes.settings.pagination.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get faceting configuration",
+      "operationId": "indexes.settings.faceting.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get Filterable Attributes",
+      "operationId": "indexes.settings.filterableAttributes.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get distinct attribute",
+      "operationId": "indexes.settings.distinctAttribute.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get searchable attributes",
+      "operationId": "indexes.settings.searchableAttributes.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get displayed attributes",
+      "operationId": "indexes.settings.displayedAttributes.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/stats",
+      "method": "GET",
+      "tags": [
+        "Stats"
+      ],
+      "summary": "Get stat of an index",
+      "operationId": "indexes.stats.get"
+    },
+    {
+      "path": "/keys",
+      "method": "POST",
+      "tags": [
+        "Keys"
+      ],
+      "summary": "Create an API Key",
+      "operationId": "keys.create"
+    },
+    {
+      "path": "/keys/{uid_or_key}",
+      "method": "PATCH",
+      "tags": [
+        "Keys"
+      ],
+      "summary": "Update an API key specified by its uid or key field.",
+      "operationId": "keys.update"
+    },
+    {
+      "path": "/tasks",
+      "method": "GET",
+      "tags": [
+        "Tasks"
+      ],
+      "summary": "Get all tasks",
+      "operationId": "tasks.list"
+    },
+    {
+      "path": "/tasks/cancel",
+      "method": "POST",
+      "tags": [
+        "Tasks"
+      ],
+      "summary": "Cancel tasks",
+      "operationId": "tasks.cancel"
+    },
+    {
+      "path": "/experimental-features",
+      "method": "PATCH",
+      "tags": [
+        "Experimental"
+      ],
+      "summary": "(EXPERIMENTAL) Set the status of runtime experimental features",
+      "operationId": "experimental.update"
+    }
+  ]
+}

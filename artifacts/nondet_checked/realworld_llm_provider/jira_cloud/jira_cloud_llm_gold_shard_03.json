@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/atlassian-connect/1/migration/field",
+      "method": "PUT",
+      "operationId": "AppIssueFieldValueUpdateResource.updateIssueFields_put",
+      "summary": "",
+      "user": "User A is an admin who wants to update the custom fields for a specific issue in Jira. They have identified the issue key and the new values for the fields that need to be updated. They prepare the request to ensure that the field IDs and values are correctly formatted.",
+      "ideal": "The request successfully updates the specified issue fields, returning a 200 OK response with the updated issue details."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/migration/properties/{entityType}",
+      "method": "PUT",
+      "operationId": "MigrationResource.updateEntityPropertiesValue_put",
+      "summary": "",
+      "user": "User B is a project manager who needs to update the properties of a specific entity type in the migration process. They gather the necessary entity type and the new properties to be set, ensuring that the data adheres to the expected schema.",
+      "ideal": "The request updates the properties for the specified entity type, returning a 204 No Content response indicating success."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/migration/workflow/rule/search",
+      "method": "POST",
+      "operationId": "MigrationResource.workflowRuleSearch_post",
+      "summary": "",
+      "user": "User C is a developer tasked with searching for specific workflow rules that need to be migrated. They compile the search criteria based on the existing rules and prepare the request body with the necessary filters.",
+      "ideal": "The request successfully retrieves the relevant workflow rules, returning a 200 OK response with a list of matching rules."
+    }
+  ]
+}

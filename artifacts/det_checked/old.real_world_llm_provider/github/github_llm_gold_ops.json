@@ -1,0 +1,620 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/meta",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/octocat",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/versions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/zen",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/assignments/{assignment_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/assignments/{assignment_id}/accepted_assignments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/assignments/{assignment_id}/grades",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/classrooms",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/classrooms/{classroom_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/classrooms/{classroom_id}/assignments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/emojis",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/advisories",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/advisories/{ghsa_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/security-advisories",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/security-advisories",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/security-advisories",
+      "body": {
+        "summary": "Example advisory summary",
+        "description": "Detailed description of the advisory."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/security-advisories/reports",
+      "body": {
+        "vulnerability": "Example vulnerability details"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
+      "body": {
+        "summary": "Updated advisory summary"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/cve",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/forks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/app-manifests/abc123/conversions",
+      "body": {
+        "manifest": "base64-encoded-manifest-content"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/app/hook/config",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/app/hook/config",
+      "body": {
+        "url": "https://new-example.com/webhook",
+        "content_type": "application/json",
+        "secret": "new_webhook_secret_value"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/app/hook/deliveries",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/hook/deliveries/1",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/app/hook/deliveries/1/attempts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/installation-requests",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/installations",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/installations/1",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/app/installations/1",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/app/installations/1/access_tokens",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/app/installations/1/suspended",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/app/installations/1/suspended",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/applications/123/grant",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/applications/123/token",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/applications/123/token",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/applications/123/token",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/applications/123/token/scoped",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/apps/my-github-app",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/installation/repositories",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/installation/token",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/marketplace_listing/accounts/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/marketplace_listing/plans",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/marketplace_listing/plans/1/accounts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/marketplace_listing/stubbed/accounts/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/marketplace_listing/stubbed/plans",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/marketplace_listing/stubbed/plans/1/accounts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/my-org/installation",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/my-org/my-repo/installation",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/installations",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/installations/1/repositories",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/user/installations/1/repositories/1",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/user/installations/1/repositories/1",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/marketplace_purchases",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/marketplace_purchases/stubbed",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/user1/installation",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/meta",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/octocat",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/versions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/zen",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/assignments/{assignment_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/assignments/{assignment_id}/accepted_assignments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/assignments/{assignment_id}/grades",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/classrooms",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/classrooms/{classroom_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/classrooms/{classroom_id}/assignments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/emojis",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/advisories",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/advisories/{ghsa_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/security-advisories",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/security-advisories",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/security-advisories",
+      "body": {
+        "summary": "Example advisory summary",
+        "description": "Detailed description of the advisory."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/security-advisories/reports",
+      "body": {
+        "vulnerability": "Example vulnerability details"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
+      "body": {
+        "summary": "Updated advisory summary"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/cve",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/forks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/app-manifests/abc123/conversions",
+      "body": {
+        "manifest": "base64-encoded-manifest-content"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/app/hook/config",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/app/hook/config",
+      "body": {
+        "url": "https://new-example.com/webhook",
+        "content_type": "application/json",
+        "secret": "new_webhook_secret_value"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/app/hook/deliveries",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/hook/deliveries/1",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/app/hook/deliveries/1/attempts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/installation-requests",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/installations",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/installations/1",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/app/installations/1",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/app/installations/1/access_tokens",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/app/installations/1/suspended",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/app/installations/1/suspended",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/applications/123/grant",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/applications/123/token",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/applications/123/token",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/applications/123/token",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/applications/123/token/scoped",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/apps/my-github-app",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/installation/repositories",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/installation/token",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/marketplace_listing/accounts/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/marketplace_listing/plans",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/marketplace_listing/plans/1/accounts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/marketplace_listing/stubbed/accounts/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/marketplace_listing/stubbed/plans",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/marketplace_listing/stubbed/plans/1/accounts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/my-org/installation",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/my-org/my-repo/installation",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/installations",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/installations/1/repositories",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/user/installations/1/repositories/1",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/user/installations/1/repositories/1",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/marketplace_purchases",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/marketplace_purchases/stubbed",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/user1/installation",
+      "body": null
+    }
+  ]
+}

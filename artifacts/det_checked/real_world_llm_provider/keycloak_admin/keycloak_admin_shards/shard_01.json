@@ -1,0 +1,954 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "get"
+    },
+    {
+      "path": "/{realm}",
+      "method": "PUT",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "putByRealm"
+    },
+    {
+      "path": "/{realm}/admin-events",
+      "method": "DELETE",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "deleteAdminEvents"
+    },
+    {
+      "path": "/{realm}/attack-detection/brute-force/users/{userId}",
+      "method": "DELETE",
+      "tags": [
+        "Attack Detection"
+      ],
+      "summary": "",
+      "operationId": "deleteBruteForceUser"
+    },
+    {
+      "path": "/{realm}/authentication/config",
+      "method": "POST",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "postAuthenticationConfig"
+    },
+    {
+      "path": "/{realm}/authentication/config/{id}",
+      "method": "PUT",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "putAuthenticationConfig"
+    },
+    {
+      "path": "/{realm}/authentication/executions/{executionId}",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getExecution"
+    },
+    {
+      "path": "/{realm}/authentication/executions/{executionId}/config/{id}",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getExecutionConfig"
+    },
+    {
+      "path": "/{realm}/authentication/flows",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getFlows"
+    },
+    {
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getExecutions"
+    },
+    {
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions/flow",
+      "method": "POST",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "postFlow"
+    },
+    {
+      "path": "/{realm}/authentication/flows/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "deleteFlow"
+    },
+    {
+      "path": "/{realm}/authentication/per-client-config-description",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getPerClientConfigDescription"
+    },
+    {
+      "path": "/{realm}/authentication/required-actions/{alias}",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getRequiredAction"
+    },
+    {
+      "path": "/{realm}/authentication/required-actions/{alias}/lower-priority",
+      "method": "POST",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "postRequiredActionLowerPriority"
+    },
+    {
+      "path": "/{realm}/client-description-converter",
+      "method": "POST",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "postClientDescriptionConverter"
+    },
+    {
+      "path": "/{realm}/client-policies/profiles",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getProfiles"
+    },
+    {
+      "path": "/{realm}/client-scopes",
+      "method": "GET",
+      "tags": [
+        "Client Scopes"
+      ],
+      "summary": "",
+      "operationId": "getClientScopes"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id1}/protocol-mappers/models/{id2}",
+      "method": "PUT",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "putClientScopeProtocolMappersModel"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}",
+      "method": "PUT",
+      "tags": [
+        "Client Scopes"
+      ],
+      "summary": "",
+      "operationId": "putClientScope"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/protocol-mappers/models",
+      "method": "GET",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeProtocolMappersModels"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/scope-mappings",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeScopeMappings"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}",
+      "method": "DELETE",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "deleteClientScopeScopeMappingsClient"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/realm",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeScopeMappingsRealm"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/realm/available",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeScopeMappingsRealmAvailable"
+    },
+    {
+      "path": "/{realm}/client-templates",
+      "method": "GET",
+      "tags": [
+        "Client Scopes"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplates"
+    },
+    {
+      "path": "/{realm}/client-templates/{id1}/protocol-mappers/models/{id2}",
+      "method": "PUT",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "putClientTemplateProtocolMappersModel"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}",
+      "method": "PUT",
+      "tags": [
+        "Client Scopes"
+      ],
+      "summary": "",
+      "operationId": "putClientTemplate"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/protocol-mappers/models",
+      "method": "GET",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplateProtocolMappersModels"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/scope-mappings",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplateScopeMappings"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}",
+      "method": "DELETE",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "deleteClientTemplateScopeMappingsClient"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/scope-mappings/realm",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplateScopeMappingsRealm"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/scope-mappings/realm/available",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplateScopeMappingsRealmAvailable"
+    },
+    {
+      "path": "/{realm}/clients",
+      "method": "POST",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "postClients"
+    },
+    {
+      "path": "/{realm}/clients-initial-access/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Client Initial Access"
+      ],
+      "summary": "",
+      "operationId": "deleteClientsInitialAcces"
+    },
+    {
+      "path": "/{realm}/clients/{id1}/protocol-mappers/models/{id2}",
+      "method": "DELETE",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "deleteClientProtocolMappersModel"
+    },
+    {
+      "path": "/{realm}/clients/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "deleteClientByRealmById"
+    },
+    {
+      "path": "/{realm}/clients/{id}/certificates/{attr}/generate",
+      "method": "POST",
+      "tags": [
+        "Client Attribute Certificate"
+      ],
+      "summary": "",
+      "operationId": "postGenerate"
+    },
+    {
+      "path": "/{realm}/clients/{id}/certificates/{attr}/upload-certificate",
+      "method": "POST",
+      "tags": [
+        "Client Attribute Certificate"
+      ],
+      "summary": "",
+      "operationId": "postUploadCertificate"
+    },
+    {
+      "path": "/{realm}/clients/{id}/client-secret/rotated",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getRotated"
+    },
+    {
+      "path": "/{realm}/clients/{id}/default-client-scopes/{clientScopeId}",
+      "method": "PUT",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "putDefaultClientScope"
+    },
+    {
+      "path": "/{realm}/clients/{id}/evaluate-scopes/generate-example-id-token",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getGenerateExampleIdToken"
+    },
+    {
+      "path": "/{realm}/clients/{id}/evaluate-scopes/scope-mappings/{roleContainerId}/granted",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getGranted"
+    },
+    {
+      "path": "/{realm}/clients/{id}/management/permissions",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getClientManagementPermissions"
+    },
+    {
+      "path": "/{realm}/clients/{id}/nodes/{node}",
+      "method": "DELETE",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "deleteNode"
+    },
+    {
+      "path": "/{realm}/clients/{id}/optional-client-scopes",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getOptionalClientScopes"
+    },
+    {
+      "path": "/{realm}/clients/{id}/protocol-mappers/add-models",
+      "method": "POST",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "postClientProtocolMappersAddModels"
+    },
+    {
+      "path": "/{realm}/clients/{id}/protocol-mappers/protocol/{protocol}",
+      "method": "GET",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "getClientProtocolMappersProtocol"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getClientRoles"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}",
+      "method": "PUT",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "putClientRole"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}/composites",
+      "method": "POST",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "postClientRoleComposites"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}/composites/realm",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getClientRoleCompositesRealm"
+    },
+    {
+      "path": "/{realm}/clients/{id}/roles/{role-name}/management/permissions",
+      "method": "PUT",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "putClientRoleManagementPermissions"
+    },
+    {
+      "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeMappingsClient"
+    },
+    {
+      "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}/available",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeMappingsClientAvailable"
+    },
+    {
+      "path": "/{realm}/clients/{id}/scope-mappings/realm",
+      "method": "POST",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "postClientScopeMappingsRealm"
+    },
+    {
+      "path": "/{realm}/clients/{id}/scope-mappings/realm/composite",
+      "method": "GET",
+      "tags": [
+        "Scope Mappings"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeMappingsRealmComposite"
+    },
+    {
+      "path": "/{realm}/clients/{id}/test-nodes-available",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getTestNodesAvailable"
+    },
+    {
+      "path": "/{realm}/components",
+      "method": "POST",
+      "tags": [
+        "Component"
+      ],
+      "summary": "",
+      "operationId": "postComponents"
+    },
+    {
+      "path": "/{realm}/components/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Component"
+      ],
+      "summary": "",
+      "operationId": "deleteComponent"
+    },
+    {
+      "path": "/{realm}/default-default-client-scopes",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getDefaultDefaultClientScopes"
+    },
+    {
+      "path": "/{realm}/default-groups",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getDefaultGroups"
+    },
+    {
+      "path": "/{realm}/default-optional-client-scopes",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getDefaultOptionalClientScopes"
+    },
+    {
+      "path": "/{realm}/events",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getEvents"
+    },
+    {
+      "path": "/{realm}/events/config",
+      "method": "PUT",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "putEventsConfig"
+    },
+    {
+      "path": "/{realm}/groups",
+      "method": "POST",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "",
+      "operationId": "postGroups"
+    },
+    {
+      "path": "/{realm}/groups/{id}",
+      "method": "PUT",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "",
+      "operationId": "putGroupByRealmById"
+    },
+    {
+      "path": "/{realm}/groups/{id}/management/permissions",
+      "method": "GET",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "",
+      "operationId": "getGroupManagementPermissions"
+    },
+    {
+      "path": "/{realm}/groups/{id}/role-mappings",
+      "method": "GET",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "getGroupRoleMappings"
+    },
+    {
+      "path": "/{realm}/groups/{id}/role-mappings/clients/{client}",
+      "method": "DELETE",
+      "tags": [
+        "Client Role Mappings"
+      ],
+      "summary": "",
+      "operationId": "deleteGroupRoleMappingsClient"
+    },
+    {
+      "path": "/{realm}/groups/{id}/role-mappings/realm",
+      "method": "GET",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "getGroupRoleMappingsRealm"
+    },
+    {
+      "path": "/{realm}/groups/{id}/role-mappings/realm/available",
+      "method": "GET",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "getGroupRoleMappingsRealmAvailable"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances",
+      "method": "GET",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "getInstances"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}",
+      "method": "PUT",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "putInstance"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/management/permissions",
+      "method": "GET",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "getInstanceManagementPermissions"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/mappers",
+      "method": "GET",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "getMappers"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}",
+      "method": "PUT",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "putMapper"
+    },
+    {
+      "path": "/{realm}/keys",
+      "method": "GET",
+      "tags": [
+        "Key"
+      ],
+      "summary": "",
+      "operationId": "getKeys"
+    },
+    {
+      "path": "/{realm}/localization/{locale}",
+      "method": "POST",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "postLocalization"
+    },
+    {
+      "path": "/{realm}/localization/{locale}/{key}",
+      "method": "PUT",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "putLocalization"
+    },
+    {
+      "path": "/{realm}/partial-export",
+      "method": "POST",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "postPartialExport"
+    },
+    {
+      "path": "/{realm}/roles",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getRolesByRealm"
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}",
+      "method": "PUT",
+      "tags": [
+        "Roles (by ID)"
+      ],
+      "summary": "",
+      "operationId": "putRolesById"
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "method": "POST",
+      "tags": [
+        "Roles (by ID)"
+      ],
+      "summary": "",
+      "operationId": "postRolesByIdComposites"
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/composites/realm",
+      "method": "GET",
+      "tags": [
+        "Roles (by ID)"
+      ],
+      "summary": "",
+      "operationId": "getRolesByIdCompositesRealm"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getRoleByRealmByRoleName"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}/composites",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getRoleCompositesByRealmByRoleName"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}/composites/clients/{clientUuid}",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getRoleCompositesClientByRealmByRoleNameByClientUuid"
+    },
+    {
+      "path": "/{realm}/roles/{role-name}/management/permissions",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "",
+      "operationId": "getRoleManagementPermissionsByRealmByRoleName"
+    },
+    {
+      "path": "/{realm}/sessions/{session}",
+      "method": "DELETE",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "deleteSession"
+    },
+    {
+      "path": "/{realm}/users",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "postUsers"
+    },
+    {
+      "path": "/{realm}/users/count",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getUsersCount"
+    },
+    {
+      "path": "/{realm}/users/{id}",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getUserByRealmById"
+    },
+    {
+      "path": "/{realm}/users/{id}/configured-user-storage-credential-types",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getConfiguredUserStorageCredentialTypes"
+    },
+    {
+      "path": "/{realm}/users/{id}/credentials",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "getCredentials"
+    },
+    {
+      "path": "/{realm}/users/{id}/credentials/{credentialId}/moveToFirst",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "postMoveToFirst"
+    },
+    {
+      "path": "/{realm}/users/{id}/execute-actions-email",
+      "method": "PUT",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "putExecuteActionsEmail"
+    },
+    {
+      "path": "/{realm}/users/{id}/federated-identity/{provider}",
+      "method": "DELETE",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "deleteFederatedIdentity"
+    },
+    {
+      "path": "/{realm}/users/{id}/groups/{groupId}",
+      "method": "PUT",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "putUserGroup"
+    },
+    {
+      "path": "/{realm}/users/{id}/logout",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "postLogout"
+    },
+    {
+      "path": "/{realm}/users/{id}/reset-password-email",
+      "method": "PUT",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "putResetPasswordEmail"
+    },
+    {
+      "path": "/{realm}/users/{id}/role-mappings/clients/{client}",
+      "method": "POST",
+      "tags": [
+        "Client Role Mappings"
+      ],
+      "summary": "",
+      "operationId": "postUserRoleMappingsClient"
+    },
+    {
+      "path": "/{realm}/users/{id}/role-mappings/clients/{client}/composite",
+      "method": "GET",
+      "tags": [
+        "Client Role Mappings"
+      ],
+      "summary": "",
+      "operationId": "getUserRoleMappingsClientComposite"
+    },
+    {
+      "path": "/{realm}/users/{id}/role-mappings/realm",
+      "method": "DELETE",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "deleteUserRoleMappingsRealm"
+    },
+    {
+      "path": "/{realm}/users/{id}/send-verify-email",
+      "method": "PUT",
+      "tags": [
+        "Users"
+      ],
+      "summary": "",
+      "operationId": "putSendVerifyEmail"
+    }
+  ]
+}

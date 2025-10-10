@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/attack-detection/brute-force/users",
+      "method": "DELETE",
+      "operationId": "deleteUsers",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Successfully deleted all brute force users in the realm."
+    },
+    {
+      "path": "/myrealm/attack-detection/brute-force/users/12345",
+      "method": "GET",
+      "operationId": "getBruteForceUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieved details for the brute force user with ID 12345."
+    },
+    {
+      "path": "/myrealm/attack-detection/brute-force/users/12345",
+      "method": "DELETE",
+      "operationId": "deleteBruteForceUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Successfully deleted the brute force user with ID 12345."
+    }
+  ]
+}

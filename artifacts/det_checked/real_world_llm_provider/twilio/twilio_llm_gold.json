@@ -1,0 +1,268 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts.json",
+      "method": "POST",
+      "operationId": "CreateAccount",
+      "summary": "",
+      "user": "{\"FriendlyName\": \"My New Account\", \"Email\": \"user@example.com\"}",
+      "ideal": "{\"sid\": \"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"friendly_name\": \"My New Account\", \"email\": \"user@example.com\"}"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateAccount",
+      "summary": "",
+      "user": "{\"FriendlyName\": \"Updated Account Name\"}",
+      "ideal": "{\"sid\": \"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"friendly_name\": \"Updated Account Name\"}"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "method": "GET",
+      "operationId": "ListCall",
+      "summary": "",
+      "user": "{\"Status\": \"completed\"}",
+      "ideal": "[{\"sid\": \"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"status\": \"completed\", \"to\": \"+1234567890\", \"from\": \"+0987654321\"}]"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumber",
+      "summary": "",
+      "user": "{}",
+      "ideal": "[{\"sid\": \"PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"phone_number\": \"+1234567890\", \"friendly_name\": \"My Phone Number\"}]"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteMessage",
+      "summary": "",
+      "user": "{}",
+      "ideal": "{\"sid\": \"SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"status\": \"deleted\"}"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateCallRecording",
+      "summary": "",
+      "user": "{\"Status\": \"paused\"}",
+      "ideal": "{\"sid\": \"REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"status\": \"paused\"}"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+      "method": "GET",
+      "operationId": "ListSipDomain",
+      "summary": "",
+      "user": "{}",
+      "ideal": "[{\"sid\": \"SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"domain_name\": \"example.sip.twilio.com\"}]"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json",
+      "method": "GET",
+      "operationId": "ListUsageRecord",
+      "summary": "",
+      "user": "{\"Category\": \"calls\"}",
+      "ideal": "[{\"sid\": \"URXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"category\": \"calls\", \"count\": 100}]"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "method": "POST",
+      "operationId": "CreateQueue",
+      "summary": "",
+      "user": "{\"FriendlyName\": \"Support Queue\"}",
+      "ideal": "{\"sid\": \"QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"friendly_name\": \"Support Queue\"}"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "method": "GET",
+      "operationId": "ListSipCredentialList",
+      "summary": "",
+      "user": "{}",
+      "ideal": "[{\"sid\": \"CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"friendly_name\": \"My Credential List\"}]"
+    },
+    {
+      "path": "/2010-04-01/Accounts.json",
+      "method": "GET",
+      "operationId": "ListAccount",
+      "summary": "",
+      "user": "Requesting a list of all accounts associated with my Twilio account.",
+      "ideal": "A JSON response containing an array of account objects with details such as AccountSid, friendly name, and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "method": "POST",
+      "operationId": "CreateAddress",
+      "summary": "",
+      "user": "I want to create a new address for my Twilio account to manage shipping.",
+      "ideal": "A JSON response confirming the creation of the address with details like Sid, friendly name, and address information."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "method": "POST",
+      "operationId": "CreateCallRecording",
+      "summary": "",
+      "user": "I need to record a call for compliance purposes.",
+      "ideal": "A JSON response indicating the successful creation of the recording with its Sid and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "method": "POST",
+      "operationId": "CreateIncomingPhoneNumber",
+      "summary": "",
+      "user": "I want to purchase a new phone number for my business.",
+      "ideal": "A JSON response with the details of the newly created incoming phone number including Sid and phone number."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "method": "POST",
+      "operationId": "CreateMessage",
+      "summary": "",
+      "user": "I need to send a message to a customer to confirm their order.",
+      "ideal": "A JSON response with the message Sid and status indicating the message was sent successfully."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Balance.json",
+      "method": "GET",
+      "operationId": "FetchBalance",
+      "summary": "",
+      "user": "I want to check the current balance of my Twilio account.",
+      "ideal": "A JSON response showing the current balance amount and currency."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json",
+      "method": "GET",
+      "operationId": "ListCallEvent",
+      "summary": "",
+      "user": "I need to retrieve the events related to a specific call for analysis.",
+      "ideal": "A JSON response containing an array of event objects with details such as event type and timestamp."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchIncomingPhoneNumber",
+      "summary": "",
+      "user": "I want to get the details of a specific incoming phone number.",
+      "ideal": "A JSON response with the details of the incoming phone number including its status and capabilities."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "method": "GET",
+      "operationId": "FetchMember",
+      "summary": "",
+      "user": "I need to check the status of a specific member in a queue.",
+      "ideal": "A JSON response with the member's details including position in the queue and call status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordMonthly",
+      "summary": "",
+      "user": "I want to review my usage records for the past month.",
+      "ideal": "A JSON response containing an array of usage records with details like category and usage amount."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchAccount",
+      "summary": "",
+      "user": "Requesting account details for verification.",
+      "ideal": "Successfully fetch account details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "method": "GET",
+      "operationId": "ListAddress",
+      "summary": "",
+      "user": "I need to list all addresses associated with my account.",
+      "ideal": "Returns a list of addresses."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateAddress",
+      "summary": "",
+      "user": "Updating the address for my account.",
+      "ideal": "Address updated successfully."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteApplication",
+      "summary": "",
+      "user": "I want to delete an application that is no longer needed.",
+      "ideal": "Application deleted successfully."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json",
+      "method": "GET",
+      "operationId": "FetchAuthorizedConnectApp",
+      "summary": "",
+      "user": "Fetching details of an authorized connect app.",
+      "ideal": "Successfully fetch connect app details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json",
+      "method": "GET",
+      "operationId": "FetchAvailablePhoneNumberCountry",
+      "summary": "",
+      "user": "I need to check available phone numbers in my country.",
+      "ideal": "Returns a list of available phone numbers."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "method": "POST",
+      "operationId": "CreateCall",
+      "summary": "",
+      "user": "Initiating a new call to a customer.",
+      "ideal": "Call created successfully."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchCall",
+      "summary": "",
+      "user": "I want to fetch details of a specific call.",
+      "ideal": "Successfully fetch call details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "method": "GET",
+      "operationId": "ListMessage",
+      "summary": "",
+      "user": "Listing all messages sent from my account.",
+      "ideal": "Returns a list of messages."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateMessage",
+      "summary": "",
+      "user": "Updating the status of a specific message.",
+      "ideal": "Message updated successfully."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "method": "GET",
+      "operationId": "ListQueue",
+      "summary": "",
+      "user": "I need to see all the queues I have set up.",
+      "ideal": "Returns a list of queues."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json",
+      "method": "GET",
+      "operationId": "ListTranscription",
+      "summary": "",
+      "user": "Fetching all transcriptions for my account.",
+      "ideal": "Returns a list of transcriptions."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordThisMonth",
+      "summary": "",
+      "user": "I want to check my usage records for this month.",
+      "ideal": "Returns usage records for the current month."
+    }
+  ]
+}

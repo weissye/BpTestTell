@@ -1,0 +1,99 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/enterprises/{enterprise}/secret-scanning/alerts",
+      "method": "GET",
+      "tags": [
+        "secret-scanning"
+      ],
+      "summary": "List secret scanning alerts for an enterprise",
+      "operationId": "secret-scanning/list-alerts-for-enterprise"
+    },
+    {
+      "path": "/orgs/{org}/secret-scanning/alerts",
+      "method": "GET",
+      "tags": [
+        "secret-scanning"
+      ],
+      "summary": "List secret scanning alerts for an organization",
+      "operationId": "secret-scanning/list-alerts-for-org"
+    },
+    {
+      "path": "/orgs/{org}/secret-scanning/pattern-configurations",
+      "method": "GET",
+      "tags": [
+        "secret-scanning"
+      ],
+      "summary": "List organization pattern configurations",
+      "operationId": "secret-scanning/list-org-pattern-configs"
+    },
+    {
+      "path": "/orgs/{org}/secret-scanning/pattern-configurations",
+      "method": "PATCH",
+      "tags": [
+        "secret-scanning"
+      ],
+      "summary": "Update organization pattern configurations",
+      "operationId": "secret-scanning/update-org-pattern-configs"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/alerts",
+      "method": "GET",
+      "tags": [
+        "secret-scanning"
+      ],
+      "summary": "List secret scanning alerts for a repository",
+      "operationId": "secret-scanning/list-alerts-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}",
+      "method": "GET",
+      "tags": [
+        "secret-scanning"
+      ],
+      "summary": "Get a secret scanning alert",
+      "operationId": "secret-scanning/get-alert"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}",
+      "method": "PATCH",
+      "tags": [
+        "secret-scanning"
+      ],
+      "summary": "Update a secret scanning alert",
+      "operationId": "secret-scanning/update-alert"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}/locations",
+      "method": "GET",
+      "tags": [
+        "secret-scanning"
+      ],
+      "summary": "List locations for a secret scanning alert",
+      "operationId": "secret-scanning/list-locations-for-alert"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/push-protection-bypasses",
+      "method": "POST",
+      "tags": [
+        "secret-scanning"
+      ],
+      "summary": "Create a push protection bypass",
+      "operationId": "secret-scanning/create-push-protection-bypass"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/secret-scanning/scan-history",
+      "method": "GET",
+      "tags": [
+        "secret-scanning"
+      ],
+      "summary": "Get secret scanning scan history for a repository",
+      "operationId": "secret-scanning/get-scan-history"
+    }
+  ]
+}

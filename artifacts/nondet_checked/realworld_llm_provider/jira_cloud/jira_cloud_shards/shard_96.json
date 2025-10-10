@@ -1,0 +1,153 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/workflow",
+      "method": "GET",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Get all workflows",
+      "operationId": "getAllWorkflows"
+    },
+    {
+      "path": "/rest/api/3/workflow",
+      "method": "POST",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Create workflow",
+      "operationId": "createWorkflow"
+    },
+    {
+      "path": "/rest/api/3/workflow/search",
+      "method": "GET",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Get workflows paginated",
+      "operationId": "getWorkflowsPaginated"
+    },
+    {
+      "path": "/rest/api/3/workflow/{entityId}",
+      "method": "DELETE",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Delete inactive workflow",
+      "operationId": "deleteInactiveWorkflow"
+    },
+    {
+      "path": "/rest/api/3/workflow/{workflowId}/project/{projectId}/issueTypeUsages",
+      "method": "GET",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Get issue types in a project that are using a given workflow",
+      "operationId": "getWorkflowProjectIssueTypeUsages"
+    },
+    {
+      "path": "/rest/api/3/workflow/{workflowId}/projectUsages",
+      "method": "GET",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Get projects using a given workflow",
+      "operationId": "getProjectUsagesForWorkflow"
+    },
+    {
+      "path": "/rest/api/3/workflow/{workflowId}/workflowSchemes",
+      "method": "GET",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Get workflow schemes which are using a given workflow",
+      "operationId": "getWorkflowSchemeUsagesForWorkflow"
+    },
+    {
+      "path": "/rest/api/3/workflows",
+      "method": "POST",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Bulk get workflows",
+      "operationId": "readWorkflows"
+    },
+    {
+      "path": "/rest/api/3/workflows/capabilities",
+      "method": "GET",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Get available workflow capabilities",
+      "operationId": "workflowCapabilities"
+    },
+    {
+      "path": "/rest/api/3/workflows/create",
+      "method": "POST",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Bulk create workflows",
+      "operationId": "createWorkflows"
+    },
+    {
+      "path": "/rest/api/3/workflows/create/validation",
+      "method": "POST",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Validate create workflows",
+      "operationId": "validateCreateWorkflows"
+    },
+    {
+      "path": "/rest/api/3/workflows/defaultEditor",
+      "method": "GET",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Get the user's default workflow editor",
+      "operationId": "getDefaultEditor"
+    },
+    {
+      "path": "/rest/api/3/workflows/preview",
+      "method": "POST",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Preview workflow",
+      "operationId": "readWorkflowPreviews"
+    },
+    {
+      "path": "/rest/api/3/workflows/search",
+      "method": "GET",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Search workflows",
+      "operationId": "searchWorkflows"
+    },
+    {
+      "path": "/rest/api/3/workflows/update",
+      "method": "POST",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Bulk update workflows",
+      "operationId": "updateWorkflows"
+    },
+    {
+      "path": "/rest/api/3/workflows/update/validation",
+      "method": "POST",
+      "tags": [
+        "Workflows"
+      ],
+      "summary": "Validate update workflows",
+      "operationId": "validateUpdateWorkflows"
+    }
+  ]
+}

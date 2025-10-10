@@ -1,0 +1,90 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/statuses",
+      "method": "DELETE",
+      "tags": [
+        "Status"
+      ],
+      "summary": "Bulk delete Statuses",
+      "operationId": "deleteStatusesById"
+    },
+    {
+      "path": "/rest/api/3/statuses",
+      "method": "GET",
+      "tags": [
+        "Status"
+      ],
+      "summary": "Bulk get statuses",
+      "operationId": "getStatusesById"
+    },
+    {
+      "path": "/rest/api/3/statuses",
+      "method": "POST",
+      "tags": [
+        "Status"
+      ],
+      "summary": "Bulk create statuses",
+      "operationId": "createStatuses"
+    },
+    {
+      "path": "/rest/api/3/statuses",
+      "method": "PUT",
+      "tags": [
+        "Status"
+      ],
+      "summary": "Bulk update statuses",
+      "operationId": "updateStatuses"
+    },
+    {
+      "path": "/rest/api/3/statuses/byNames",
+      "method": "GET",
+      "tags": [
+        "Status"
+      ],
+      "summary": "Bulk get statuses by name",
+      "operationId": "getStatusesByName"
+    },
+    {
+      "path": "/rest/api/3/statuses/search",
+      "method": "GET",
+      "tags": [
+        "Status"
+      ],
+      "summary": "Search statuses paginated",
+      "operationId": "search"
+    },
+    {
+      "path": "/rest/api/3/statuses/{statusId}/project/{projectId}/issueTypeUsages",
+      "method": "GET",
+      "tags": [
+        "Status"
+      ],
+      "summary": "Get issue type usages by status and project",
+      "operationId": "getProjectIssueTypeUsagesForStatus"
+    },
+    {
+      "path": "/rest/api/3/statuses/{statusId}/projectUsages",
+      "method": "GET",
+      "tags": [
+        "Status"
+      ],
+      "summary": "Get project usages by status",
+      "operationId": "getProjectUsagesForStatus"
+    },
+    {
+      "path": "/rest/api/3/statuses/{statusId}/workflowUsages",
+      "method": "GET",
+      "tags": [
+        "Status"
+      ],
+      "summary": "Get workflow usages by status",
+      "operationId": "getWorkflowUsagesForStatus"
+    }
+  ]
+}

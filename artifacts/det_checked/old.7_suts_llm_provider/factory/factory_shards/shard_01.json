@@ -1,0 +1,99 @@
+{
+  "api_name": "factory",
+  "spec_file": "openapi.json",
+  "shard_index": 1,
+  "total_shards": 3,
+  "instructions": "Generate non-deterministic GOLD examples for the operations listed in 'operations'. Return strict JSON with a top-level key 'gold' (array).",
+  "operations": [
+    {
+      "operationId": "POST /reset",
+      "method": "POST",
+      "path": "/reset",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    },
+    {
+      "operationId": "GET /machines",
+      "method": "GET",
+      "path": "/machines",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    },
+    {
+      "operationId": "POST /machines",
+      "method": "POST",
+      "path": "/machines",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    },
+    {
+      "operationId": "GET /workorders",
+      "method": "GET",
+      "path": "/workorders",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    },
+    {
+      "operationId": "POST /workorders",
+      "method": "POST",
+      "path": "/workorders",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    },
+    {
+      "operationId": "GET /maintenance-tickets",
+      "method": "GET",
+      "path": "/maintenance-tickets",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    },
+    {
+      "operationId": "POST /maintenance-tickets",
+      "method": "POST",
+      "path": "/maintenance-tickets",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    },
+    {
+      "operationId": "GET /sensor-readings",
+      "method": "GET",
+      "path": "/sensor-readings",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    },
+    {
+      "operationId": "POST /sensor-readings",
+      "method": "POST",
+      "path": "/sensor-readings",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "",
+      "description": ""
+    }
+  ]
+}

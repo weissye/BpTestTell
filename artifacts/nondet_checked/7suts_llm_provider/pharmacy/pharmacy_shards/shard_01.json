@@ -1,0 +1,65 @@
+{
+  "openapi_meta": {
+    "title": "pharmacy SUT",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /reset"
+    },
+    {
+      "path": "/patients",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /patients"
+    },
+    {
+      "path": "/drugs",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /drugs"
+    },
+    {
+      "path": "/drugs",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /drugs"
+    },
+    {
+      "path": "/prescriptions",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /prescriptions"
+    },
+    {
+      "path": "/orders",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /orders"
+    },
+    {
+      "path": "/orders",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /orders"
+    },
+    {
+      "path": "/inventory/{ndc}",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /inventory/{ndc}"
+    }
+  ]
+}

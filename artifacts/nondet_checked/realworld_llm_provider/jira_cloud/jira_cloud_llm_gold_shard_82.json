@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/plans/plan/123/team",
+      "method": "GET",
+      "operationId": "getTeams",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Retrieve all teams associated with the specified plan."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/123/team/atlassian",
+      "method": "POST",
+      "operationId": "addAtlassianTeam",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Add a new Atlassian team to the specified plan."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/123/team/atlassian/789",
+      "method": "DELETE",
+      "operationId": "removeAtlassianTeam",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Remove the specified Atlassian team from the plan."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/123/team/atlassian/789",
+      "method": "GET",
+      "operationId": "getAtlassianTeam",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Retrieve details of the specified Atlassian team."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/123/team/atlassian/789",
+      "method": "PUT",
+      "operationId": "updateAtlassianTeam",
+      "summary": "",
+      "user": "User202",
+      "ideal": "Update the details of the specified Atlassian team."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/123/team/planonly",
+      "method": "POST",
+      "operationId": "createPlanOnlyTeam",
+      "summary": "",
+      "user": "User303",
+      "ideal": "Create a new plan-only team for the specified plan."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/123/team/planonly/456",
+      "method": "DELETE",
+      "operationId": "deletePlanOnlyTeam",
+      "summary": "",
+      "user": "User404",
+      "ideal": "Delete the specified plan-only team from the plan."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/123/team/planonly/456",
+      "method": "GET",
+      "operationId": "getPlanOnlyTeam",
+      "summary": "",
+      "user": "User505",
+      "ideal": "Retrieve details of the specified plan-only team."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/123/team/planonly/456",
+      "method": "PUT",
+      "operationId": "updatePlanOnlyTeam",
+      "summary": "",
+      "user": "User606",
+      "ideal": "Update the details of the specified plan-only team."
+    }
+  ]
+}

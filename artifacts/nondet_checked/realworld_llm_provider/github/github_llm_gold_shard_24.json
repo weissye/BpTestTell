@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/repos/octocat/Hello-World/issues",
+      "method": "GET",
+      "operationId": "issues/list-for-repo",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of issues for the specified repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42/comments",
+      "method": "GET",
+      "operationId": "issues/list-comments",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Get comments for issue number 42 in the Hello-World repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42/assignees",
+      "method": "GET",
+      "operationId": "issues/list-assignees",
+      "summary": "",
+      "user": "user789",
+      "ideal": "List all assignees for issue number 42."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42",
+      "method": "GET",
+      "operationId": "issues/get",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Retrieve details of issue number 42."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues",
+      "method": "POST",
+      "operationId": "issues/create",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Create a new issue in the Hello-World repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42/labels",
+      "method": "POST",
+      "operationId": "issues/add-labels",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Add labels to issue number 42."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42/assignees/user456",
+      "method": "POST",
+      "operationId": "issues/add-assignees",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Assign user456 to issue number 42."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42/lock",
+      "method": "PUT",
+      "operationId": "issues/lock",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Lock issue number 42 to prevent further comments."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42/comments/1",
+      "method": "PATCH",
+      "operationId": "issues/update-comment",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Update comment with ID 1 on issue number 42."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/42",
+      "method": "PATCH",
+      "operationId": "issues/update",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Update the details of issue number 42."
+    }
+  ]
+}

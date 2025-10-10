@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/application-properties",
+      "method": "GET",
+      "operationId": "getApplicationProperty",
+      "summary": "",
+      "user": "User requests the current application properties to understand the configuration settings of the Jira instance.",
+      "ideal": "Returns a list of application properties with their current values."
+    },
+    {
+      "path": "/rest/api/3/application-properties/advanced-settings",
+      "method": "GET",
+      "operationId": "getAdvancedSettings",
+      "summary": "",
+      "user": "User wants to retrieve advanced settings for the application to fine-tune performance and features.",
+      "ideal": "Returns the advanced settings configuration for the application."
+    },
+    {
+      "path": "/rest/api/3/application-properties/{id}",
+      "method": "PUT",
+      "operationId": "setApplicationProperty",
+      "summary": "",
+      "user": "User updates a specific application property to enable a new feature in Jira.",
+      "ideal": "Successfully updates the specified application property and returns the updated value."
+    },
+    {
+      "path": "/rest/api/3/configuration",
+      "method": "GET",
+      "operationId": "getConfiguration",
+      "summary": "",
+      "user": "User checks the current configuration of the Jira instance to ensure it meets the project requirements.",
+      "ideal": "Returns the current configuration settings of the Jira instance."
+    }
+  ]
+}

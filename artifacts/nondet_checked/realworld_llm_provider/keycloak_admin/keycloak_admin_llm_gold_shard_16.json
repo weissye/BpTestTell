@@ -1,0 +1,132 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/clients/123/roles",
+      "method": "GET",
+      "operationId": "getClientRoles",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve all roles associated with the client having ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/clients/123/roles",
+      "method": "POST",
+      "operationId": "postClientRoles",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new role for the client with ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/clients/123/roles/myrole",
+      "method": "GET",
+      "operationId": "getClientRole",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch details of the role 'myrole' for the client with ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/clients/123/roles/myrole",
+      "method": "PUT",
+      "operationId": "putClientRole",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the role 'myrole' for the client with ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/clients/123/roles/myrole",
+      "method": "DELETE",
+      "operationId": "deleteClientRole",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the role 'myrole' for the client with ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/clients/123/roles/myrole/composites",
+      "method": "GET",
+      "operationId": "getClientRoleComposites",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve composite roles for the role 'myrole' of the client with ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/clients/123/roles/myrole/composites",
+      "method": "POST",
+      "operationId": "postClientRoleComposites",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add composite roles to the role 'myrole' for the client with ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/clients/123/roles/myrole/composites",
+      "method": "DELETE",
+      "operationId": "deleteClientRoleComposites",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove composite roles from the role 'myrole' for the client with ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles",
+      "method": "GET",
+      "operationId": "getRolesByRealm",
+      "summary": "",
+      "user": "admin",
+      "ideal": "List all roles available in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles",
+      "method": "POST",
+      "operationId": "postRolesByRealm",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new role in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles/myrole",
+      "method": "GET",
+      "operationId": "getRoleByRealmByRoleName",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of the role 'myrole' in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles/myrole",
+      "method": "PUT",
+      "operationId": "putRoleByRealmByRoleName",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the role 'myrole' in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles/myrole",
+      "method": "DELETE",
+      "operationId": "deleteRoleByRealmByRoleName",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the role 'myrole' in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles/myrole/composites",
+      "method": "GET",
+      "operationId": "getRoleCompositesByRealmByRoleName",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get composite roles for 'myrole' in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles/myrole/composites",
+      "method": "POST",
+      "operationId": "postRoleCompositesByRealmByRoleName",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add composite roles to 'myrole' in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles/myrole/composites",
+      "method": "DELETE",
+      "operationId": "deleteRoleCompositesByRealmByRoleName",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove composite roles from 'myrole' in the realm 'myrealm'."
+    }
+  ]
+}

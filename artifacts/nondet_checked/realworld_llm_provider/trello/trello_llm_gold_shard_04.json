@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/v1/cards/12345",
+      "method": "GET",
+      "operationId": "getCardsByIdCard",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the card with ID 12345, including its details such as name, description, and labels."
+    },
+    {
+      "path": "/v1/cards/12345",
+      "method": "PUT",
+      "operationId": "updateCardsByIdCard",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Update the card with ID 12345 to change its name to 'Updated Card Name'."
+    },
+    {
+      "path": "/v1/cards/12345/actions/comments",
+      "method": "POST",
+      "operationId": "addCardsActionsCommentsByIdCard",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Add a comment to the card with ID 12345 stating 'This is a new comment'."
+    },
+    {
+      "path": "/v1/cards/12345/checklists",
+      "method": "POST",
+      "operationId": "addCardsChecklistsByIdCard",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Create a new checklist on the card with ID 12345 named 'New Checklist'."
+    },
+    {
+      "path": "/v1/cards/12345/attachments",
+      "method": "POST",
+      "operationId": "addCardsAttachmentsByIdCard",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Attach a file to the card with ID 12345 from the URL 'http://example.com/file.pdf'."
+    },
+    {
+      "path": "/v1/cards/12345/members",
+      "method": "GET",
+      "operationId": "getCardsMembersByIdCard",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Retrieve the list of members assigned to the card with ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345/labels",
+      "method": "PUT",
+      "operationId": "updateCardsLabelsByIdCard",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Update the labels on the card with ID 12345 to include 'urgent' and 'design'."
+    },
+    {
+      "path": "/v1/cards/12345/checklist/67890/checkItem/11111",
+      "method": "DELETE",
+      "operationId": "deleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Delete the checklist item with ID 11111 from the checklist with ID 67890 on card 12345."
+    },
+    {
+      "path": "/v1/cards/12345/stickers",
+      "method": "POST",
+      "operationId": "addCardsStickersByIdCard",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Add a sticker to the card with ID 12345 with the image URL 'http://example.com/sticker.png'."
+    },
+    {
+      "path": "/v1/cards/12345/closed",
+      "method": "PUT",
+      "operationId": "updateCardsClosedByIdCard",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Mark the card with ID 12345 as closed."
+    }
+  ]
+}

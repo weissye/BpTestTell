@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/uiModifications",
+      "method": "GET",
+      "operationId": "getUiModifications",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve the current UI modifications applied to my Jira project so that I can review the changes made.",
+      "ideal": "The API should return a list of UI modifications, including their IDs, types, and descriptions, allowing me to understand the current state of the UI."
+    },
+    {
+      "path": "/rest/api/3/uiModifications",
+      "method": "POST",
+      "operationId": "createUiModification",
+      "summary": "",
+      "user": "As a developer, I want to create a new UI modification for my project to enhance user experience by adding a custom button.",
+      "ideal": "The API should accept the modification details and return the created modification's ID and confirmation of the successful creation."
+    },
+    {
+      "path": "/rest/api/3/uiModifications/{uiModificationId}",
+      "method": "DELETE",
+      "operationId": "deleteUiModification",
+      "summary": "",
+      "user": "As an admin, I want to delete an outdated UI modification that is no longer relevant to ensure the interface remains clean and user-friendly.",
+      "ideal": "The API should confirm the deletion of the specified UI modification and return a success message."
+    },
+    {
+      "path": "/rest/api/3/uiModifications/{uiModificationId}",
+      "method": "PUT",
+      "operationId": "updateUiModification",
+      "summary": "",
+      "user": "As a UX designer, I want to update an existing UI modification to improve its functionality based on user feedback.",
+      "ideal": "The API should accept the updated details and return the modified UI modification's ID along with a confirmation of the update."
+    }
+  ]
+}

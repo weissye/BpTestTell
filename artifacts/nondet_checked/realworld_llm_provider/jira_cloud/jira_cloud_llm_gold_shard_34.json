@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue/ABC-123/remotelink",
+      "method": "GET",
+      "operationId": "getRemoteIssueLinks",
+      "summary": "",
+      "user": "User requests to retrieve all remote links associated with issue ABC-123.",
+      "ideal": "Returns a list of remote issue links for the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/remotelink",
+      "method": "POST",
+      "operationId": "createOrUpdateRemoteIssueLink",
+      "summary": "",
+      "user": "User wants to create a new remote link for issue ABC-123 with a URL to an external system.",
+      "ideal": "Creates a new remote issue link and returns the created link details."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/remotelink/456",
+      "method": "DELETE",
+      "operationId": "deleteRemoteIssueLinkById",
+      "summary": "",
+      "user": "User intends to delete the remote link with ID 456 from issue ABC-123.",
+      "ideal": "Successfully deletes the specified remote issue link."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/remotelink/456",
+      "method": "GET",
+      "operationId": "getRemoteIssueLinkById",
+      "summary": "",
+      "user": "User wants to retrieve details of the remote link with ID 456 for issue ABC-123.",
+      "ideal": "Returns the details of the specified remote issue link."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/remotelink/456",
+      "method": "PUT",
+      "operationId": "updateRemoteIssueLink",
+      "summary": "",
+      "user": "User needs to update the remote link with ID 456 for issue ABC-123 to point to a new URL.",
+      "ideal": "Updates the specified remote issue link and returns the updated link details."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/remotelink/{globalId}",
+      "method": "DELETE",
+      "operationId": "deleteRemoteIssueLinkByGlobalId",
+      "summary": "",
+      "user": "User wants to delete a remote link associated with issue ABC-123 using its global ID.",
+      "ideal": "Successfully deletes the remote issue link identified by the global ID."
+    }
+  ]
+}

@@ -1,0 +1,432 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/activity/{id}",
+      "method": "GET",
+      "tags": [
+        "Activity"
+      ],
+      "summary": "Retrieve an Activity Action",
+      "operationId": "getActivity"
+    },
+    {
+      "path": "/auth/refresh",
+      "method": "POST",
+      "tags": [
+        "Authentication"
+      ],
+      "summary": "Refresh Token",
+      "operationId": "refresh"
+    },
+    {
+      "path": "/auth/password/reset",
+      "method": "POST",
+      "tags": [
+        "Authentication"
+      ],
+      "summary": "Reset a Password",
+      "operationId": "passwordReset"
+    },
+    {
+      "path": "/items/{collection}",
+      "method": "GET",
+      "tags": [
+        "Items"
+      ],
+      "summary": "List Items",
+      "operationId": "getItems"
+    },
+    {
+      "path": "/items/{collection}",
+      "method": "DELETE",
+      "tags": [
+        "Items"
+      ],
+      "summary": "Delete Multiple Items",
+      "operationId": "deleteItems"
+    },
+    {
+      "path": "/items/{collection}/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Items"
+      ],
+      "summary": "Delete an Item",
+      "operationId": "deleteItem"
+    },
+    {
+      "path": "/presets",
+      "method": "PATCH",
+      "tags": [
+        "Presets"
+      ],
+      "summary": "Update Multiple Presets",
+      "operationId": "updatePresets"
+    },
+    {
+      "path": "/presets/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Presets"
+      ],
+      "summary": "Update a Preset",
+      "operationId": "updatePreset"
+    },
+    {
+      "path": "/collections",
+      "method": "POST",
+      "tags": [
+        "Collections"
+      ],
+      "summary": "Create a Collection",
+      "operationId": "createCollection"
+    },
+    {
+      "path": "/collections/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Collections"
+      ],
+      "summary": "Delete a Collection",
+      "operationId": "deleteCollection"
+    },
+    {
+      "path": "/comments",
+      "method": "PATCH",
+      "tags": [
+        "Comments"
+      ],
+      "summary": "Update Multiple Comments",
+      "operationId": "updateComments"
+    },
+    {
+      "path": "/comments/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Comments"
+      ],
+      "summary": "Update a Comment",
+      "operationId": "updateComment"
+    },
+    {
+      "path": "/extensions/{name}",
+      "method": "PATCH",
+      "tags": [
+        "Extensions"
+      ],
+      "summary": "Update an Extension",
+      "operationId": "updateExtensions"
+    },
+    {
+      "path": "/fields/{collection}",
+      "method": "GET",
+      "tags": [
+        "Fields"
+      ],
+      "summary": "List Fields in Collection",
+      "operationId": "getCollectionFields"
+    },
+    {
+      "path": "/fields/{collection}/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Fields"
+      ],
+      "summary": "Update a Field",
+      "operationId": "updateField"
+    },
+    {
+      "path": "/files",
+      "method": "POST",
+      "tags": [
+        "Files"
+      ],
+      "summary": "Create a File",
+      "operationId": "createFile"
+    },
+    {
+      "path": "/files/{id}",
+      "method": "GET",
+      "tags": [
+        "Files"
+      ],
+      "summary": "Retrieve a Files",
+      "operationId": "getFile"
+    },
+    {
+      "path": "/flows",
+      "method": "GET",
+      "tags": [
+        "Flows"
+      ],
+      "summary": "List Flows",
+      "operationId": "getFlows"
+    },
+    {
+      "path": "/flows",
+      "method": "DELETE",
+      "tags": [
+        "Flows"
+      ],
+      "summary": "Delete Multiple Flows",
+      "operationId": "deleteFlows"
+    },
+    {
+      "path": "/flows/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Flows"
+      ],
+      "summary": "Delete a Flow",
+      "operationId": "deleteFlow"
+    },
+    {
+      "path": "/folders",
+      "method": "PATCH",
+      "tags": [
+        "Folders"
+      ],
+      "summary": "Update Multiple Folders",
+      "operationId": "updateFolders"
+    },
+    {
+      "path": "/folders/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Folders"
+      ],
+      "summary": "Update a Folder",
+      "operationId": "updateFolder"
+    },
+    {
+      "path": "/operations",
+      "method": "POST",
+      "tags": [
+        "Operations"
+      ],
+      "summary": "Create an Operation",
+      "operationId": "createOperation"
+    },
+    {
+      "path": "/operations/{id}",
+      "method": "GET",
+      "tags": [
+        "Operations"
+      ],
+      "summary": "Retrieve an Operation",
+      "operationId": "getOperation"
+    },
+    {
+      "path": "/permissions",
+      "method": "GET",
+      "tags": [
+        "Permissions"
+      ],
+      "summary": "List Permissions",
+      "operationId": "getPermissions"
+    },
+    {
+      "path": "/permissions",
+      "method": "DELETE",
+      "tags": [
+        "Permissions"
+      ],
+      "summary": "Delete Multiple Permissions",
+      "operationId": "deletePermissions"
+    },
+    {
+      "path": "/permissions/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Permissions"
+      ],
+      "summary": "Update a Permission",
+      "operationId": "updatePermission"
+    },
+    {
+      "path": "/relations",
+      "method": "POST",
+      "tags": [
+        "Relations"
+      ],
+      "summary": "Create a Relation",
+      "operationId": "createRelation"
+    },
+    {
+      "path": "/relations/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Relations"
+      ],
+      "summary": "Delete a Relation",
+      "operationId": "deleteRelation"
+    },
+    {
+      "path": "/roles",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "List Roles",
+      "operationId": "getRoles"
+    },
+    {
+      "path": "/roles",
+      "method": "DELETE",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "Delete Multiple Roles",
+      "operationId": "deleteRoles"
+    },
+    {
+      "path": "/roles/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "Delete a Role",
+      "operationId": "deleteRole"
+    },
+    {
+      "path": "/schema/diff",
+      "method": "POST",
+      "tags": [
+        "Schema"
+      ],
+      "summary": "Retrieve Schema Difference",
+      "operationId": "schemaDiff"
+    },
+    {
+      "path": "/settings",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Retrieve Settings",
+      "operationId": "getSettings"
+    },
+    {
+      "path": "/users",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Create a User",
+      "operationId": "createUser"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Retrieve a User",
+      "operationId": "getUser"
+    },
+    {
+      "path": "/users/invite",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Invite User(s)",
+      "operationId": "invite"
+    },
+    {
+      "path": "/users/me",
+      "method": "PATCH",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Update Current User",
+      "operationId": "updateMe"
+    },
+    {
+      "path": "/users/me/tfa/disable",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Disable 2FA",
+      "operationId": "meTfaDisable"
+    },
+    {
+      "path": "/utils/sort/{collection}",
+      "method": "POST",
+      "tags": [
+        "Utilities"
+      ],
+      "summary": "Sort Items",
+      "operationId": "sort"
+    },
+    {
+      "path": "/utils/cache/clear",
+      "method": "POST",
+      "tags": [
+        "Utilities"
+      ],
+      "summary": "Clear Cache",
+      "operationId": "clear-cache"
+    },
+    {
+      "path": "/versions",
+      "method": "POST",
+      "tags": [
+        "Versions"
+      ],
+      "summary": "Create Multiple Content Versions",
+      "operationId": "createContentVersion"
+    },
+    {
+      "path": "/versions/{id}",
+      "method": "GET",
+      "tags": [
+        "Versions"
+      ],
+      "summary": "Retrieve a Content Version",
+      "operationId": "getContentVersion"
+    },
+    {
+      "path": "/versions/{id}/save",
+      "method": "POST",
+      "tags": [
+        "Versions"
+      ],
+      "summary": "Save to a Content Version",
+      "operationId": "saveContentVersion"
+    },
+    {
+      "path": "/webhooks",
+      "method": "GET",
+      "tags": [
+        "Webhooks"
+      ],
+      "summary": "List Webhooks",
+      "operationId": "getWebhooks"
+    },
+    {
+      "path": "/webhooks",
+      "method": "DELETE",
+      "tags": [
+        "Webhooks"
+      ],
+      "summary": "Delete Multiple Webhooks",
+      "operationId": "deleteWebhooks"
+    },
+    {
+      "path": "/webhooks/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Webhooks"
+      ],
+      "summary": "Delete a Webhook",
+      "operationId": "deleteWebhook"
+    }
+  ]
+}

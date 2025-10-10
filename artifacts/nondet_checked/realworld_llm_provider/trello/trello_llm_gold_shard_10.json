@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/organizations/12345",
+      "method": "GET",
+      "operationId": "getOrganizationsByIdOrg",
+      "summary": "",
+      "user": "User requests to retrieve details of the organization with ID 12345.",
+      "ideal": "Successful retrieval of organization details."
+    },
+    {
+      "path": "/organizations/12345/boards",
+      "method": "GET",
+      "operationId": "getOrganizationsBoardsByIdOrg",
+      "summary": "",
+      "user": "User wants to see all boards associated with organization ID 12345.",
+      "ideal": "List of boards belonging to the organization is returned."
+    },
+    {
+      "path": "/organizations/12345/members",
+      "method": "GET",
+      "operationId": "getOrganizationsMembersByIdOrg",
+      "summary": "",
+      "user": "User is checking the members of organization ID 12345.",
+      "ideal": "A list of members in the organization is provided."
+    },
+    {
+      "path": "/organizations/12345/members/67890",
+      "method": "DELETE",
+      "operationId": "deleteOrganizationsMembersByIdOrgByIdMember",
+      "summary": "",
+      "user": "User wants to remove member with ID 67890 from organization ID 12345.",
+      "ideal": "Member is successfully removed from the organization."
+    },
+    {
+      "path": "/organizations/12345/name",
+      "method": "PUT",
+      "operationId": "updateOrganizationsNameByIdOrg",
+      "summary": "",
+      "user": "User is updating the name of organization ID 12345 to 'New Organization Name'.",
+      "ideal": "Organization name is updated successfully."
+    },
+    {
+      "path": "/organizations/12345/prefs/associatedDomain",
+      "method": "DELETE",
+      "operationId": "deleteOrganizationsPrefsAssociatedDomainByIdOrg",
+      "summary": "",
+      "user": "User wants to delete the associated domain preference for organization ID 12345.",
+      "ideal": "Associated domain preference is deleted successfully."
+    },
+    {
+      "path": "/organizations/12345/membersInvited",
+      "method": "GET",
+      "operationId": "getOrganizationsMembersInvitedByIdOrg",
+      "summary": "",
+      "user": "User is checking the list of invited members for organization ID 12345.",
+      "ideal": "List of invited members is returned."
+    },
+    {
+      "path": "/organizations/12345/prefs/permissionLevel",
+      "method": "PUT",
+      "operationId": "updateOrganizationsPrefsPermissionLevelByIdOrg",
+      "summary": "",
+      "user": "User is updating the permission level for organization ID 12345 to 'Admin'.",
+      "ideal": "Permission level is updated successfully."
+    },
+    {
+      "path": "/organizations/12345/logo",
+      "method": "POST",
+      "operationId": "addOrganizationsLogoByIdOrg",
+      "summary": "",
+      "user": "User wants to upload a new logo for organization ID 12345.",
+      "ideal": "Logo is uploaded successfully."
+    },
+    {
+      "path": "/organizations/12345/boards/active",
+      "method": "GET",
+      "operationId": "getOrganizationsBoardsByIdOrgByFilter",
+      "summary": "",
+      "user": "User wants to filter and see only active boards for organization ID 12345.",
+      "ideal": "List of active boards is returned."
+    }
+  ]
+}

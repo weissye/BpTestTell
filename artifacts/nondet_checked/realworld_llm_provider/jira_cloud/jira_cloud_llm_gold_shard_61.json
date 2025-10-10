@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
+      "method": "GET",
+      "operationId": "getDefaultProjectClassification",
+      "summary": "",
+      "user": "User123 is a project manager who wants to retrieve the default classification level for a specific project to ensure it aligns with the company's standards.",
+      "ideal": "The API should return the current default classification level for the specified project, including any relevant metadata."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
+      "method": "PUT",
+      "operationId": "updateDefaultProjectClassification",
+      "summary": "",
+      "user": "User456 is a team lead who needs to update the default classification level for their project to reflect new compliance requirements.",
+      "ideal": "The API should successfully update the default classification level and return a confirmation message along with the updated classification details."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
+      "method": "DELETE",
+      "operationId": "removeDefaultProjectClassification",
+      "summary": "",
+      "user": "User789 is an administrator who wants to remove the default classification level for a project that is no longer active.",
+      "ideal": "The API should delete the default classification level and return a success message indicating that the operation was completed."
+    }
+  ]
+}

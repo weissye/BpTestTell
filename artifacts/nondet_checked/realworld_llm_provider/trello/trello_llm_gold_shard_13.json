@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/v1/tokens/abc123",
+      "method": "DELETE",
+      "operationId": "deleteTokensByToken",
+      "summary": "",
+      "user": "User requested to delete their token for security reasons.",
+      "ideal": "Token abc123 successfully deleted."
+    },
+    {
+      "path": "/v1/tokens/abc123",
+      "method": "GET",
+      "operationId": "getTokensByToken",
+      "summary": "",
+      "user": "User wants to retrieve details of their token.",
+      "ideal": "Token details retrieved: {\"id\": \"abc123\", \"permissions\": [\"read\", \"write\"]}."
+    },
+    {
+      "path": "/v1/tokens/abc123/member",
+      "method": "GET",
+      "operationId": "getTokensMemberByToken",
+      "summary": "",
+      "user": "User is checking which member is associated with their token.",
+      "ideal": "Member associated with token: {\"id\": \"user456\", \"username\": \"john_doe\"}."
+    },
+    {
+      "path": "/v1/tokens/abc123/member/username",
+      "method": "GET",
+      "operationId": "getTokensMemberByTokenByField",
+      "summary": "",
+      "user": "User wants to get the username of the member associated with their token.",
+      "ideal": "Username retrieved: \"john_doe\"."
+    },
+    {
+      "path": "/v1/tokens/abc123/webhooks",
+      "method": "GET",
+      "operationId": "getTokensWebhooksByToken",
+      "summary": "",
+      "user": "User is retrieving all webhooks associated with their token.",
+      "ideal": "Webhooks retrieved: [{\"id\": \"hook1\", \"url\": \"https://example.com/hook1\"}, {\"id\": \"hook2\", \"url\": \"https://example.com/hook2\"}]."
+    },
+    {
+      "path": "/v1/tokens/abc123/webhooks",
+      "method": "POST",
+      "operationId": "addTokensWebhooksByToken",
+      "summary": "",
+      "user": "User wants to add a new webhook for their token.",
+      "ideal": "Webhook added successfully: {\"id\": \"hook3\", \"url\": \"https://example.com/hook3\"}."
+    },
+    {
+      "path": "/v1/tokens/abc123/webhooks",
+      "method": "PUT",
+      "operationId": "updateTokensWebhooksByToken",
+      "summary": "",
+      "user": "User is updating an existing webhook for their token.",
+      "ideal": "Webhook updated successfully: {\"id\": \"hook1\", \"url\": \"https://example.com/updated_hook1\"}."
+    },
+    {
+      "path": "/v1/tokens/abc123/webhooks/hook1",
+      "method": "DELETE",
+      "operationId": "deleteTokensWebhooksByTokenByIdWebhook",
+      "summary": "",
+      "user": "User wants to delete a specific webhook associated with their token.",
+      "ideal": "Webhook hook1 successfully deleted."
+    },
+    {
+      "path": "/v1/tokens/abc123/webhooks/hook1",
+      "method": "GET",
+      "operationId": "getTokensWebhooksByTokenByIdWebhook",
+      "summary": "",
+      "user": "User is retrieving details of a specific webhook.",
+      "ideal": "Webhook details retrieved: {\"id\": \"hook1\", \"url\": \"https://example.com/hook1\"}."
+    },
+    {
+      "path": "/v1/tokens/abc123/permissions",
+      "method": "GET",
+      "operationId": "getTokensByTokenByField",
+      "summary": "",
+      "user": "User wants to check the permissions associated with their token.",
+      "ideal": "Permissions retrieved: [\"read\", \"write\", \"admin\"]."
+    }
+  ]
+}

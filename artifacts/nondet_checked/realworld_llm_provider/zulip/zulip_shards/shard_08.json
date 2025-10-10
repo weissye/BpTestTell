@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Zulip REST API",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/events",
+      "method": "GET",
+      "tags": [
+        "real_time_events"
+      ],
+      "summary": "Get events from an event queue",
+      "operationId": "get-events"
+    },
+    {
+      "path": "/events",
+      "method": "DELETE",
+      "tags": [
+        "real_time_events"
+      ],
+      "summary": "Delete an event queue",
+      "operationId": "delete-queue"
+    },
+    {
+      "path": "/register",
+      "method": "POST",
+      "tags": [
+        "real_time_events"
+      ],
+      "summary": "Register an event queue",
+      "operationId": "register-queue"
+    },
+    {
+      "path": "/real-time",
+      "method": "POST",
+      "tags": [
+        "real_time_events"
+      ],
+      "summary": "",
+      "operationId": "POST /real-time"
+    },
+    {
+      "path": "/rest-error-handling",
+      "method": "POST",
+      "tags": [
+        "real_time_events"
+      ],
+      "summary": "Error handling",
+      "operationId": "rest-error-handling"
+    }
+  ]
+}

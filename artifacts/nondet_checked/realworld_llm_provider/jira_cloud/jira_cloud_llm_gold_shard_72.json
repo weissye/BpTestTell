@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/TEST/versions",
+      "method": "GET",
+      "operationId": "getProjectVersions",
+      "summary": "",
+      "user": "A project manager wants to retrieve all versions associated with the project identified by the key 'TEST' to review the release schedule.",
+      "ideal": "Returns a list of versions for the specified project."
+    },
+    {
+      "path": "/rest/api/3/version/10000",
+      "method": "GET",
+      "operationId": "getVersion",
+      "summary": "",
+      "user": "A developer needs to check the details of a specific version with ID '10000' to understand its features and fixes before the release.",
+      "ideal": "Returns the details of the version with ID '10000'."
+    },
+    {
+      "path": "/rest/api/3/version",
+      "method": "POST",
+      "operationId": "createVersion",
+      "summary": "",
+      "user": "A product owner wants to create a new version '1.0.0' for the project to track new features and improvements.",
+      "ideal": "Creates a new version and returns the created version details."
+    },
+    {
+      "path": "/rest/api/3/version/10000",
+      "method": "PUT",
+      "operationId": "updateVersion",
+      "summary": "",
+      "user": "A project manager needs to update the release date of version '10000' to reflect the new timeline.",
+      "ideal": "Updates the version details and returns the updated version."
+    },
+    {
+      "path": "/rest/api/3/version/10000/relatedIssueCounts",
+      "method": "GET",
+      "operationId": "getVersionRelatedIssues",
+      "summary": "",
+      "user": "A QA engineer wants to see how many issues are related to version '10000' to prioritize testing efforts.",
+      "ideal": "Returns the count of issues related to the specified version."
+    },
+    {
+      "path": "/rest/api/3/version/10000/relatedwork",
+      "method": "GET",
+      "operationId": "getRelatedWork",
+      "summary": "",
+      "user": "A team lead is looking for related work items for version '10000' to ensure all tasks are aligned with the release.",
+      "ideal": "Returns a list of related work items for the specified version."
+    },
+    {
+      "path": "/rest/api/3/version/10000/relatedwork",
+      "method": "POST",
+      "operationId": "createRelatedWork",
+      "summary": "",
+      "user": "A developer wants to link a new task to version '10000' to track its progress alongside the version.",
+      "ideal": "Creates a new related work item for the specified version."
+    },
+    {
+      "path": "/rest/api/3/version/10000/relatedwork",
+      "method": "PUT",
+      "operationId": "updateRelatedWork",
+      "summary": "",
+      "user": "A project manager needs to update the details of a related work item for version '10000' to reflect changes in scope.",
+      "ideal": "Updates the related work item and returns the updated details."
+    },
+    {
+      "path": "/rest/api/3/version/10000/relatedwork/20000",
+      "method": "DELETE",
+      "operationId": "deleteRelatedWork",
+      "summary": "",
+      "user": "A developer wants to remove a related work item with ID '20000' from version '10000' as it is no longer relevant.",
+      "ideal": "Deletes the specified related work item."
+    },
+    {
+      "path": "/rest/api/3/version/10000/unresolvedIssueCount",
+      "method": "GET",
+      "operationId": "getVersionUnresolvedIssues",
+      "summary": "",
+      "user": "A QA lead wants to know how many unresolved issues are associated with version '10000' to assess release readiness.",
+      "ideal": "Returns the count of unresolved issues for the specified version."
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "resetFactory",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Resets the factory state, clearing all work orders and maintenance tickets."
+    },
+    {
+      "path": "/workorders",
+      "method": "GET",
+      "operationId": "getWorkOrders",
+      "summary": "",
+      "user": "operator",
+      "ideal": "Retrieves a list of all current work orders in the system."
+    },
+    {
+      "path": "/maintenance-tickets",
+      "method": "POST",
+      "operationId": "createMaintenanceTicket",
+      "summary": "",
+      "user": "technician",
+      "ideal": "Creates a new maintenance ticket for equipment that requires servicing."
+    },
+    {
+      "path": "/machines",
+      "method": "GET",
+      "operationId": "getMachines",
+      "summary": "",
+      "user": "factoryAdmin",
+      "ideal": "Retrieve a list of all machines in the factory, including their status and operational details."
+    },
+    {
+      "path": "/workorders",
+      "method": "POST",
+      "operationId": "createWorkOrder",
+      "summary": "",
+      "user": "productionManager",
+      "ideal": "Create a new work order for the specified machine, including details like task description, priority, and due date."
+    },
+    {
+      "path": "/sensor-readings",
+      "method": "GET",
+      "operationId": "getSensorReadings",
+      "summary": "",
+      "user": "maintenanceTechnician",
+      "ideal": "Fetch the latest sensor readings from all machines to monitor performance and detect any anomalies."
+    },
+    {
+      "path": "/machines",
+      "method": "POST",
+      "operationId": "createMachine",
+      "summary": "",
+      "user": "A factory manager wants to add a new machine to the system. They provide the machine's specifications, including type, model, and operational capacity.",
+      "ideal": "The API should successfully create a new machine entry in the database and return a confirmation message along with the machine ID."
+    },
+    {
+      "path": "/maintenance-tickets",
+      "method": "GET",
+      "operationId": "getMaintenanceTickets",
+      "summary": "",
+      "user": "A maintenance supervisor needs to review all open maintenance tickets to prioritize repairs. They want to fetch the latest tickets for review.",
+      "ideal": "The API should return a list of all open maintenance tickets, including ticket IDs, descriptions, and statuses, in a structured format."
+    },
+    {
+      "path": "/sensor-readings",
+      "method": "POST",
+      "operationId": "submitSensorReading",
+      "summary": "",
+      "user": "A data analyst is collecting real-time sensor data from various machines. They send a batch of sensor readings for processing and analysis.",
+      "ideal": "The API should accept the sensor readings and return a success message with a summary of the data processed."
+    }
+  ]
+}

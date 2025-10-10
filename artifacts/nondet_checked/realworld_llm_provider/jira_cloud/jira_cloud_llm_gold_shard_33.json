@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/redact",
+      "method": "POST",
+      "operationId": "redact",
+      "summary": "",
+      "user": "User123",
+      "ideal": "This endpoint allows the user to submit a redaction request for sensitive information in Jira issues. The user should provide the necessary details in the request body, including the issue ID and the specific fields to redact."
+    },
+    {
+      "path": "/rest/api/3/redact/status/{jobId}",
+      "method": "GET",
+      "operationId": "getRedactionStatus",
+      "summary": "",
+      "user": "User456",
+      "ideal": "This endpoint retrieves the status of a previously submitted redaction job using the job ID. The user can check if the redaction is still in progress, completed, or failed, providing transparency in the redaction process."
+    }
+  ]
+}

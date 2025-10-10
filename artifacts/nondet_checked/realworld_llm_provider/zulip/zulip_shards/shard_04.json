@@ -1,0 +1,63 @@
+{
+  "openapi_meta": {
+    "title": "Zulip REST API",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/invites",
+      "method": "GET",
+      "tags": [
+        "invites"
+      ],
+      "summary": "Get all invitations",
+      "operationId": "get-invites"
+    },
+    {
+      "path": "/invites",
+      "method": "POST",
+      "tags": [
+        "invites"
+      ],
+      "summary": "Send invitations",
+      "operationId": "send-invites"
+    },
+    {
+      "path": "/invites/multiuse",
+      "method": "POST",
+      "tags": [
+        "invites"
+      ],
+      "summary": "Create a reusable invitation link",
+      "operationId": "create-invite-link"
+    },
+    {
+      "path": "/invites/{invite_id}",
+      "method": "DELETE",
+      "tags": [
+        "invites"
+      ],
+      "summary": "Revoke an email invitation",
+      "operationId": "revoke-email-invite"
+    },
+    {
+      "path": "/invites/multiuse/{invite_id}",
+      "method": "DELETE",
+      "tags": [
+        "invites"
+      ],
+      "summary": "Revoke a reusable invitation link",
+      "operationId": "revoke-invite-link"
+    },
+    {
+      "path": "/invites/{invite_id}/resend",
+      "method": "POST",
+      "tags": [
+        "invites"
+      ],
+      "summary": "Resend an email invitation",
+      "operationId": "resend-email-invite"
+    }
+  ]
+}

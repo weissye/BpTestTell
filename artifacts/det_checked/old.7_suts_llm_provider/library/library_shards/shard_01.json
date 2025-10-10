@@ -1,0 +1,139 @@
+{
+  "api_name": "library",
+  "spec_file": "openapi.json",
+  "shard_index": 1,
+  "total_shards": 3,
+  "instructions": "Generate non-deterministic GOLD examples for the operations listed in 'operations'. Return strict JSON with a top-level key 'gold' (array).",
+  "operations": [
+    {
+      "operationId": "createUser",
+      "method": "POST",
+      "path": "/users",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "Create a user",
+      "description": ""
+    },
+    {
+      "operationId": "listUsers",
+      "method": "GET",
+      "path": "/users",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "List/search users",
+      "description": ""
+    },
+    {
+      "operationId": "deleteUser",
+      "method": "DELETE",
+      "path": "/users/{user_id}",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "Delete a user",
+      "description": ""
+    },
+    {
+      "operationId": "createBook",
+      "method": "POST",
+      "path": "/books",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "Create a book",
+      "description": ""
+    },
+    {
+      "operationId": "listBooks",
+      "method": "GET",
+      "path": "/books",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "List/search books",
+      "description": ""
+    },
+    {
+      "operationId": "getBook",
+      "method": "GET",
+      "path": "/books/{book_id}",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "Get book by id",
+      "description": ""
+    },
+    {
+      "operationId": "deleteBook",
+      "method": "DELETE",
+      "path": "/books/{book_id}",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "Delete a book",
+      "description": ""
+    },
+    {
+      "operationId": "createLoan",
+      "method": "POST",
+      "path": "/loans",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "Create a loan",
+      "description": ""
+    },
+    {
+      "operationId": "listLoans",
+      "method": "GET",
+      "path": "/loans",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "List/search loans",
+      "description": ""
+    },
+    {
+      "operationId": "deleteLoan",
+      "method": "DELETE",
+      "path": "/loans/{user_id}/{book_id}",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "Delete a loan by composite id",
+      "description": ""
+    },
+    {
+      "operationId": "createHold",
+      "method": "POST",
+      "path": "/holds",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "Create a hold",
+      "description": ""
+    },
+    {
+      "operationId": "listHolds",
+      "method": "GET",
+      "path": "/holds",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "List holds",
+      "description": ""
+    },
+    {
+      "operationId": "deleteHold",
+      "method": "DELETE",
+      "path": "/holds/{hold_id}",
+      "tags": [
+        "untagged"
+      ],
+      "summary": "Delete a hold",
+      "description": ""
+    }
+  ]
+}

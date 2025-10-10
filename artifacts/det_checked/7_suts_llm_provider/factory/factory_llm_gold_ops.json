@@ -1,0 +1,94 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/workorders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/maintenance-tickets",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/machines",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/workorders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/sensor-readings",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/machines",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/maintenance-tickets",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/sensor-readings",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/workorders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/maintenance-tickets",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/machines",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/workorders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/sensor-readings",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/machines",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/maintenance-tickets",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/sensor-readings",
+      "body": null
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/attack-detection/brute-force/users",
+      "method": "DELETE",
+      "tags": [
+        "Attack Detection"
+      ],
+      "summary": "",
+      "operationId": "deleteUsers"
+    },
+    {
+      "path": "/{realm}/attack-detection/brute-force/users/{userId}",
+      "method": "GET",
+      "tags": [
+        "Attack Detection"
+      ],
+      "summary": "",
+      "operationId": "getBruteForceUser"
+    },
+    {
+      "path": "/{realm}/attack-detection/brute-force/users/{userId}",
+      "method": "DELETE",
+      "tags": [
+        "Attack Detection"
+      ],
+      "summary": "",
+      "operationId": "deleteBruteForceUser"
+    }
+  ]
+}

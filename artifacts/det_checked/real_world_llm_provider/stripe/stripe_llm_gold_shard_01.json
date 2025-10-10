@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/v1/account",
+      "method": "GET",
+      "operationId": "GetAccount",
+      "summary": "",
+      "user": "User requests to retrieve their account details to check the current status and settings.",
+      "ideal": "The response should include account information such as account ID, email, and account type."
+    },
+    {
+      "path": "/v1/accounts/{account}",
+      "method": "GET",
+      "operationId": "GetAccountsAccount",
+      "summary": "",
+      "user": "Admin wants to view details of a specific account to manage its settings.",
+      "ideal": "The response should provide detailed information about the specified account, including its capabilities and external accounts."
+    },
+    {
+      "path": "/v1/accounts/{account}/capabilities",
+      "method": "GET",
+      "operationId": "GetAccountsAccountCapabilities",
+      "summary": "",
+      "user": "User needs to check the capabilities of their account to understand what features are available.",
+      "ideal": "The response should list all capabilities of the account, indicating which are enabled or disabled."
+    },
+    {
+      "path": "/v1/customers/{customer}/subscriptions",
+      "method": "GET",
+      "operationId": "GetCustomersCustomerSubscriptions",
+      "summary": "",
+      "user": "User wants to see all subscriptions associated with their customer account for billing purposes.",
+      "ideal": "The response should return a list of subscriptions, including status, plan details, and billing cycles."
+    },
+    {
+      "path": "/v1/charges",
+      "method": "POST",
+      "operationId": "PostCharges",
+      "summary": "",
+      "user": "User initiates a charge to process a payment for a recent transaction.",
+      "ideal": "The response should confirm the charge creation with details like charge ID, amount, and status."
+    },
+    {
+      "path": "/v1/invoices/{invoice}/pay",
+      "method": "POST",
+      "operationId": "PostInvoicesInvoicePay",
+      "summary": "",
+      "user": "User wants to pay a specific invoice that is due.",
+      "ideal": "The response should indicate the payment status and any transaction details related to the invoice."
+    },
+    {
+      "path": "/v1/products",
+      "method": "POST",
+      "operationId": "PostProducts",
+      "summary": "",
+      "user": "Admin is adding a new product to the inventory for sale.",
+      "ideal": "The response should confirm the product creation with its ID and details such as name, price, and description."
+    },
+    {
+      "path": "/v1/payment_intents/{intent}/cancel",
+      "method": "POST",
+      "operationId": "PostPaymentIntentsIntentCancel",
+      "summary": "",
+      "user": "User decides to cancel a pending payment intent due to a change in order.",
+      "ideal": "The response should confirm the cancellation of the payment intent and provide its previous status."
+    },
+    {
+      "path": "/v1/credit_notes",
+      "method": "GET",
+      "operationId": "GetCreditNotes",
+      "summary": "",
+      "user": "User wants to review all credit notes issued to their account for record-keeping.",
+      "ideal": "The response should return a list of credit notes with details such as amounts, reasons, and associated invoices."
+    },
+    {
+      "path": "/v1/tax/rates",
+      "method": "GET",
+      "operationId": "GetTaxRates",
+      "summary": "",
+      "user": "User needs to check the current tax rates applicable to their transactions.",
+      "ideal": "The response should provide a list of tax rates, including jurisdiction and percentage."
+    }
+  ]
+}

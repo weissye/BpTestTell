@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/attachment/content/12345",
+      "method": "GET",
+      "operationId": "getAttachmentContent",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the content of the attachment with ID 12345."
+    },
+    {
+      "path": "/rest/api/3/attachment/meta",
+      "method": "GET",
+      "operationId": "getAttachmentMeta",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Fetch metadata for all attachments in the system."
+    },
+    {
+      "path": "/rest/api/3/attachment/thumbnail/12345",
+      "method": "GET",
+      "operationId": "getAttachmentThumbnail",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Get the thumbnail image for the attachment with ID 12345."
+    },
+    {
+      "path": "/rest/api/3/attachment/12345",
+      "method": "DELETE",
+      "operationId": "removeAttachment",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Delete the attachment with ID 12345 from the issue."
+    },
+    {
+      "path": "/rest/api/3/attachment/12345",
+      "method": "GET",
+      "operationId": "getAttachment",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Retrieve details of the attachment with ID 12345."
+    },
+    {
+      "path": "/rest/api/3/attachment/12345/expand/human",
+      "method": "GET",
+      "operationId": "expandAttachmentForHumans",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Expand the attachment with ID 12345 for human-readable format."
+    },
+    {
+      "path": "/rest/api/3/attachment/12345/expand/raw",
+      "method": "GET",
+      "operationId": "expandAttachmentForMachines",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Expand the attachment with ID 12345 for machine-readable format."
+    },
+    {
+      "path": "/rest/api/3/issue/ISSUE-123/attachments",
+      "method": "POST",
+      "operationId": "addAttachment",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Add a new attachment to the issue with key ISSUE-123."
+    }
+  ]
+}

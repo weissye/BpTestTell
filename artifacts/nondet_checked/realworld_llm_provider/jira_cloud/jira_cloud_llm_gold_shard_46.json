@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue/ABC-123/worklog",
+      "method": "GET",
+      "operationId": "getIssueWorklog",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all worklogs associated with issue ABC-123."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/worklog",
+      "method": "POST",
+      "operationId": "addWorklog",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Add a new worklog entry for issue ABC-123 with time spent and comment."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/worklog/789",
+      "method": "PUT",
+      "operationId": "updateWorklog",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Update the worklog with ID 789 for issue ABC-123 to reflect new time spent."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/worklog/789",
+      "method": "DELETE",
+      "operationId": "deleteWorklog",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Delete the worklog entry with ID 789 for issue ABC-123."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/worklog/move",
+      "method": "POST",
+      "operationId": "bulkMoveWorklogs",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Move multiple worklogs from issue ABC-123 to issue DEF-456."
+    },
+    {
+      "path": "/rest/api/3/worklog/deleted",
+      "method": "GET",
+      "operationId": "getIdsOfWorklogsDeletedSince",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Fetch IDs of worklogs that have been deleted since a specific timestamp."
+    },
+    {
+      "path": "/rest/api/3/worklog/list",
+      "method": "POST",
+      "operationId": "getWorklogsForIds",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Retrieve worklogs for a list of specified IDs."
+    },
+    {
+      "path": "/rest/api/3/worklog/updated",
+      "method": "GET",
+      "operationId": "getIdsOfWorklogsModifiedSince",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Get IDs of worklogs that have been modified since a certain date."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/worklog",
+      "method": "DELETE",
+      "operationId": "bulkDeleteWorklogs",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Delete multiple worklogs for issue ABC-123 in a single request."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/worklog/789",
+      "method": "GET",
+      "operationId": "getWorklog",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Retrieve detailed information about the worklog entry with ID 789 for issue ABC-123."
+    }
+  ]
+}

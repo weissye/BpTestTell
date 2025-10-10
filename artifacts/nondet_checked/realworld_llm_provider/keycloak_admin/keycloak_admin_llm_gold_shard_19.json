@@ -1,0 +1,260 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/users",
+      "method": "GET",
+      "operationId": "getUsersByRealm",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of users in the specified realm."
+    },
+    {
+      "path": "/myrealm/users",
+      "method": "POST",
+      "operationId": "postUsers",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new user in the specified realm."
+    },
+    {
+      "path": "/myrealm/users/count",
+      "method": "GET",
+      "operationId": "getUsersCount",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get the total count of users in the specified realm."
+    },
+    {
+      "path": "/myrealm/users/profile",
+      "method": "GET",
+      "operationId": "getProfile",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the profile information for the realm."
+    },
+    {
+      "path": "/myrealm/users/profile",
+      "method": "PUT",
+      "operationId": "putProfile",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the profile information for the realm."
+    },
+    {
+      "path": "/myrealm/users/12345",
+      "method": "GET",
+      "operationId": "getUserByRealmById",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve user details by user ID."
+    },
+    {
+      "path": "/myrealm/users/12345",
+      "method": "PUT",
+      "operationId": "putUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update user details by user ID."
+    },
+    {
+      "path": "/myrealm/users/12345",
+      "method": "DELETE",
+      "operationId": "deleteUserByRealmById",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a user by user ID."
+    },
+    {
+      "path": "/myrealm/users/12345/configured-user-storage-credential-types",
+      "method": "GET",
+      "operationId": "getConfiguredUserStorageCredentialTypes",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve configured credential types for a user."
+    },
+    {
+      "path": "/myrealm/users/12345/consents",
+      "method": "GET",
+      "operationId": "getConsents",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get the consents granted by the user."
+    },
+    {
+      "path": "/myrealm/users/12345/consents/myclient",
+      "method": "DELETE",
+      "operationId": "deleteConsent",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Revoke consent for a specific client."
+    },
+    {
+      "path": "/myrealm/users/12345/credentials",
+      "method": "GET",
+      "operationId": "getCredentials",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the credentials for a user."
+    },
+    {
+      "path": "/myrealm/users/12345/credentials/cred1",
+      "method": "DELETE",
+      "operationId": "deleteCredential",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific credential for a user."
+    },
+    {
+      "path": "/myrealm/users/12345/credentials/cred1/moveAfter/cred2",
+      "method": "POST",
+      "operationId": "postMoveAfter",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Move a credential after another credential."
+    },
+    {
+      "path": "/myrealm/users/12345/credentials/cred1/moveToFirst",
+      "method": "POST",
+      "operationId": "postMoveToFirst",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Move a credential to the first position."
+    },
+    {
+      "path": "/myrealm/users/12345/credentials/cred1/userLabel",
+      "method": "PUT",
+      "operationId": "putUserLabel",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the label for a specific credential."
+    },
+    {
+      "path": "/myrealm/users/12345/disable-credential-types",
+      "method": "PUT",
+      "operationId": "putDisableCredentialTypes",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Disable specific credential types for a user."
+    },
+    {
+      "path": "/myrealm/users/12345/execute-actions-email",
+      "method": "PUT",
+      "operationId": "putExecuteActionsEmail",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Trigger email actions for a user."
+    },
+    {
+      "path": "/myrealm/users/12345/federated-identity",
+      "method": "GET",
+      "operationId": "getFederatedIdentity",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve federated identity information for a user."
+    },
+    {
+      "path": "/myrealm/users/12345/federated-identity/myprovider",
+      "method": "POST",
+      "operationId": "postFederatedIdentity",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Link a federated identity to a user."
+    },
+    {
+      "path": "/myrealm/users/12345/federated-identity/myprovider",
+      "method": "DELETE",
+      "operationId": "deleteFederatedIdentity",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Unlink a federated identity from a user."
+    },
+    {
+      "path": "/myrealm/users/12345/groups",
+      "method": "GET",
+      "operationId": "getUserGroups",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve groups associated with a user."
+    },
+    {
+      "path": "/myrealm/users/12345/groups/count",
+      "method": "GET",
+      "operationId": "getUserGroupsCount",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get the count of groups associated with a user."
+    },
+    {
+      "path": "/myrealm/users/12345/groups/mygroup",
+      "method": "PUT",
+      "operationId": "putUserGroup",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add a user to a specific group."
+    },
+    {
+      "path": "/myrealm/users/12345/groups/mygroup",
+      "method": "DELETE",
+      "operationId": "deleteUserGroup",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove a user from a specific group."
+    },
+    {
+      "path": "/myrealm/users/12345/impersonation",
+      "method": "POST",
+      "operationId": "postImpersonation",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Impersonate a user."
+    },
+    {
+      "path": "/myrealm/users/12345/logout",
+      "method": "POST",
+      "operationId": "postLogout",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Log out a user."
+    },
+    {
+      "path": "/myrealm/users/12345/offline-sessions/myclientuuid",
+      "method": "GET",
+      "operationId": "getOfflineSession",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve offline session details for a user."
+    },
+    {
+      "path": "/myrealm/users/12345/reset-password",
+      "method": "PUT",
+      "operationId": "putResetPassword",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Reset the password for a user."
+    },
+    {
+      "path": "/myrealm/users/12345/reset-password-email",
+      "method": "PUT",
+      "operationId": "putResetPasswordEmail",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Send a password reset email to a user."
+    },
+    {
+      "path": "/myrealm/users/12345/send-verify-email",
+      "method": "PUT",
+      "operationId": "putSendVerifyEmail",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Send a verification email to a user."
+    },
+    {
+      "path": "/myrealm/users/12345/sessions",
+      "method": "GET",
+      "operationId": "getSessions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve active sessions for a user."
+    }
+  ]
+}

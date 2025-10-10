@@ -1,0 +1,118 @@
+{
+  "gold": [
+    {
+      "operationId": "POST /reset",
+      "request": {},
+      "response": {}
+    },
+    {
+      "operationId": "POST /patients",
+      "request": {
+        "name": "John Doe",
+        "age": 30,
+        "gender": "male"
+      },
+      "response": {
+        "id": "12345",
+        "name": "John Doe",
+        "age": 30,
+        "gender": "male"
+      }
+    },
+    {
+      "operationId": "GET /drugs",
+      "request": {},
+      "response": [
+        {
+          "id": "drug1",
+          "name": "Aspirin",
+          "form": "tablet"
+        },
+        {
+          "id": "drug2",
+          "name": "Ibuprofen",
+          "form": "tablet"
+        }
+      ]
+    },
+    {
+      "operationId": "POST /drugs",
+      "request": {
+        "name": "Paracetamol",
+        "form": "syrup"
+      },
+      "response": {
+        "id": "drug3",
+        "name": "Paracetamol",
+        "form": "syrup"
+      }
+    },
+    {
+      "operationId": "POST /prescriptions",
+      "request": {
+        "patientId": "12345",
+        "drugId": "drug1",
+        "dosage": "500mg",
+        "duration": "7 days"
+      },
+      "response": {
+        "id": "prescription1",
+        "patientId": "12345",
+        "drugId": "drug1",
+        "dosage": "500mg",
+        "duration": "7 days"
+      }
+    },
+    {
+      "operationId": "GET /orders",
+      "request": {},
+      "response": [
+        {
+          "id": "order1",
+          "status": "shipped",
+          "total": 29.99
+        },
+        {
+          "id": "order2",
+          "status": "pending",
+          "total": 19.99
+        }
+      ]
+    },
+    {
+      "operationId": "POST /orders",
+      "request": {
+        "patientId": "12345",
+        "items": [
+          {
+            "drugId": "drug1",
+            "quantity": 2
+          }
+        ]
+      },
+      "response": {
+        "id": "order3",
+        "patientId": "12345",
+        "items": [
+          {
+            "drugId": "drug1",
+            "quantity": 2
+          }
+        ],
+        "status": "pending",
+        "total": 59.98
+      }
+    },
+    {
+      "operationId": "GET /inventory/{ndc}",
+      "request": {
+        "ndc": "123456789"
+      },
+      "response": {
+        "ndc": "123456789",
+        "stock": 100,
+        "location": "Warehouse A"
+      }
+    }
+  ]
+}

@@ -1,0 +1,423 @@
+{
+  "openapi_meta": {
+    "title": "Zulip REST API",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/dev_fetch_api_key",
+      "method": "POST",
+      "tags": [
+        "authentication"
+      ],
+      "summary": "Fetch an API key (development only)",
+      "operationId": "dev-fetch-api-key"
+    },
+    {
+      "path": "/get_stream_id",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Get channel ID",
+      "operationId": "get-stream-id"
+    },
+    {
+      "path": "/mark_topic_as_read",
+      "method": "POST",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Mark messages in a topic as read",
+      "operationId": "mark-topic-as-read"
+    },
+    {
+      "path": "/drafts",
+      "method": "GET",
+      "tags": [
+        "drafts"
+      ],
+      "summary": "Get drafts",
+      "operationId": "get-drafts"
+    },
+    {
+      "path": "/drafts/{draft_id}",
+      "method": "DELETE",
+      "tags": [
+        "drafts"
+      ],
+      "summary": "Delete a draft",
+      "operationId": "delete-draft"
+    },
+    {
+      "path": "/navigation_views/{fragment}",
+      "method": "PATCH",
+      "tags": [
+        "navigation_views"
+      ],
+      "summary": "Update the navigation view",
+      "operationId": "edit-navigation-view"
+    },
+    {
+      "path": "/saved_snippets",
+      "method": "POST",
+      "tags": [
+        "drafts"
+      ],
+      "summary": "Create a saved snippet",
+      "operationId": "create-saved-snippet"
+    },
+    {
+      "path": "/reminders",
+      "method": "GET",
+      "tags": [
+        "reminders"
+      ],
+      "summary": "Get reminders",
+      "operationId": "get-reminders"
+    },
+    {
+      "path": "/scheduled_messages",
+      "method": "GET",
+      "tags": [
+        "scheduled_messages"
+      ],
+      "summary": "Get scheduled messages",
+      "operationId": "get-scheduled-messages"
+    },
+    {
+      "path": "/scheduled_messages/{scheduled_message_id}",
+      "method": "DELETE",
+      "tags": [
+        "scheduled_messages"
+      ],
+      "summary": "Delete a scheduled message",
+      "operationId": "delete-scheduled-message"
+    },
+    {
+      "path": "/messages",
+      "method": "GET",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Get messages",
+      "operationId": "get-messages"
+    },
+    {
+      "path": "/messages/flags",
+      "method": "POST",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Update personal message flags",
+      "operationId": "update-message-flags"
+    },
+    {
+      "path": "/messages/{message_id}/reactions",
+      "method": "POST",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Add an emoji reaction",
+      "operationId": "add-reaction"
+    },
+    {
+      "path": "/messages/matches_narrow",
+      "method": "GET",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Check if messages match a narrow",
+      "operationId": "check-messages-match-narrow"
+    },
+    {
+      "path": "/messages/{message_id}",
+      "method": "DELETE",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Delete a message",
+      "operationId": "delete-message"
+    },
+    {
+      "path": "/user_uploads/{realm_id_str}/{filename}",
+      "method": "GET",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Get public temporary URL for an uploaded file",
+      "operationId": "get-file-temporary-url"
+    },
+    {
+      "path": "/users/{user_id}/reactivate",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Reactivate a user",
+      "operationId": "reactivate-user"
+    },
+    {
+      "path": "/users/{user_id_or_email}/presence",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get a user's presence",
+      "operationId": "get-user-presence"
+    },
+    {
+      "path": "/users/me/alert_words",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get all alert words",
+      "operationId": "get-alert-words"
+    },
+    {
+      "path": "/users/me/presence",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Update your presence",
+      "operationId": "update-presence"
+    },
+    {
+      "path": "/users/me/subscriptions",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Get subscribed channels",
+      "operationId": "get-subscriptions"
+    },
+    {
+      "path": "/users/me/subscriptions",
+      "method": "DELETE",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Unsubscribe from a channel",
+      "operationId": "unsubscribe"
+    },
+    {
+      "path": "/mobile_push/e2ee/test_notification",
+      "method": "POST",
+      "tags": [
+        "mobile"
+      ],
+      "summary": "Send an E2EE test notification to mobile device(s)",
+      "operationId": "e2ee-test-notify"
+    },
+    {
+      "path": "/user_topics",
+      "method": "POST",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Update personal preferences for a topic",
+      "operationId": "update-user-topic"
+    },
+    {
+      "path": "/users/me/apns_device_token",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Add an APNs device token",
+      "operationId": "add-apns-token"
+    },
+    {
+      "path": "/users/me/android_gcm_reg_id",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Remove an FCM registration token",
+      "operationId": "remove-fcm-token"
+    },
+    {
+      "path": "/realm/emoji/{emoji_name}",
+      "method": "DELETE",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Deactivate custom emoji",
+      "operationId": "deactivate-custom-emoji"
+    },
+    {
+      "path": "/realm/profile_fields",
+      "method": "GET",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Get all custom profile fields",
+      "operationId": "get-custom-profile-fields"
+    },
+    {
+      "path": "/realm/user_settings_defaults",
+      "method": "PATCH",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Update realm-level defaults of user settings",
+      "operationId": "update-realm-user-settings-defaults"
+    },
+    {
+      "path": "/users/{email}",
+      "method": "PATCH",
+      "tags": [
+        "users"
+      ],
+      "summary": "Update a user by email",
+      "operationId": "update-user-by-email"
+    },
+    {
+      "path": "/users/{user_id}",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Deactivate a user",
+      "operationId": "deactivate-user"
+    },
+    {
+      "path": "/realm/filters",
+      "method": "POST",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Add a linkifier",
+      "operationId": "add-linkifier"
+    },
+    {
+      "path": "/realm/playgrounds",
+      "method": "POST",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Add a code playground",
+      "operationId": "add-code-playground"
+    },
+    {
+      "path": "/export/realm",
+      "method": "POST",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Create a data export",
+      "operationId": "export-realm"
+    },
+    {
+      "path": "/invites",
+      "method": "POST",
+      "tags": [
+        "invites"
+      ],
+      "summary": "Send invitations",
+      "operationId": "send-invites"
+    },
+    {
+      "path": "/invites/multiuse/{invite_id}",
+      "method": "DELETE",
+      "tags": [
+        "invites"
+      ],
+      "summary": "Revoke a reusable invitation link",
+      "operationId": "revoke-invite-link"
+    },
+    {
+      "path": "/register",
+      "method": "POST",
+      "tags": [
+        "real_time_events"
+      ],
+      "summary": "Register an event queue",
+      "operationId": "register-queue"
+    },
+    {
+      "path": "/streams/{stream_id}/members",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Get channel subscribers",
+      "operationId": "get-subscribers"
+    },
+    {
+      "path": "/streams/{stream_id}",
+      "method": "DELETE",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Archive a channel",
+      "operationId": "archive-stream"
+    },
+    {
+      "path": "/streams/{stream_id}/delete_topic",
+      "method": "POST",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Delete a topic",
+      "operationId": "delete-topic"
+    },
+    {
+      "path": "/channels/create",
+      "method": "POST",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Create a channel",
+      "operationId": "create-channel"
+    },
+    {
+      "path": "/user_groups/{user_group_id}/members",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get user group members",
+      "operationId": "get-user-group-members"
+    },
+    {
+      "path": "/user_groups/{user_group_id}/subgroups",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Update subgroups of a user group",
+      "operationId": "update-user-group-subgroups"
+    },
+    {
+      "path": "/user_groups/{user_group_id}/deactivate",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Deactivate a user group",
+      "operationId": "deactivate-user-group"
+    },
+    {
+      "path": "/channel_folders",
+      "method": "PATCH",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Reorder channel folders",
+      "operationId": "patch-channel-folders"
+    },
+    {
+      "path": "/rest-error-handling",
+      "method": "POST",
+      "tags": [
+        "real_time_events"
+      ],
+      "summary": "Error handling",
+      "operationId": "rest-error-handling"
+    }
+  ]
+}

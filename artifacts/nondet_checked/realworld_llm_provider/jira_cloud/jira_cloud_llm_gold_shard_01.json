@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/announcementBanner",
+      "method": "GET",
+      "operationId": "getBanner",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the current announcement banner settings for the Jira Cloud instance."
+    },
+    {
+      "path": "/rest/api/3/announcementBanner",
+      "method": "PUT",
+      "operationId": "setBanner",
+      "summary": "",
+      "user": "admin456",
+      "ideal": "Update the announcement banner settings with new content and visibility options."
+    }
+  ]
+}

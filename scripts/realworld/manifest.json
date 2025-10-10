@@ -1,0 +1,54 @@
+{
+  "systems": [
+    {
+      "name": "stripe",
+      "url": "https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.yaml",
+      "format": "yaml"
+    },
+    {
+      "name": "github",
+      "url": "https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.json",
+      "format": "json"
+    },
+    {
+      "name": "trello",
+      "url": "https://api.apis.guru/v2/specs/trello.com/1.0/openapi.yaml",
+      "format": "yaml"
+    },
+    {
+      "name": "twilio",
+      "url": "https://raw.githubusercontent.com/twilio/twilio-oai/main/spec/yaml/twilio_api_v2010.yaml",
+      "format": "yaml"
+    },
+	{
+	  "name": "directus",
+	  "url": "https://unpkg.com/@directus/specs@latest/dist/openapi.json",
+	  "format": "yaml"
+	},
+    {
+      "name": "jira_cloud",
+      "url": "https://developer.atlassian.com/cloud/jira/platform/swagger-v3.v3.json",
+      "format": "json"
+    },
+    {
+      "name": "gitea",
+      "url": "https://try.gitea.io/swagger.v1.json",
+      "format": "json"
+    },
+    {
+      "name": "meilisearch",
+      "url": "https://raw.githubusercontent.com/meilisearch/specifications/main/open-api.yaml",
+      "format": "yaml"
+    },
+    {
+      "name": "keycloak_admin",
+      "url": "https://raw.githubusercontent.com/ccouzens/keycloak-openapi/main/keycloak/22.0.0.json",
+      "format": "json"
+    },
+    {
+      "name": "zulip",
+      "url": "https://raw.githubusercontent.com/zulip/zulip/main/zerver/openapi/zulip.yaml",
+      "format": "yaml"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "Trello",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/sessions",
+      "method": "POST",
+      "tags": [
+        "session"
+      ],
+      "summary": "addSessions()",
+      "operationId": "addSessions"
+    },
+    {
+      "path": "/sessions/socket",
+      "method": "GET",
+      "tags": [
+        "session"
+      ],
+      "summary": "getSessionsSocket()",
+      "operationId": "getSessionsSocket"
+    },
+    {
+      "path": "/sessions/{idSession}",
+      "method": "PUT",
+      "tags": [
+        "session"
+      ],
+      "summary": "updateSessionsByIdSession()",
+      "operationId": "updateSessionsByIdSession"
+    },
+    {
+      "path": "/sessions/{idSession}/status",
+      "method": "PUT",
+      "tags": [
+        "session"
+      ],
+      "summary": "updateSessionsStatusByIdSession()",
+      "operationId": "updateSessionsStatusByIdSession"
+    }
+  ]
+}

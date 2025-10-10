@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/actions/12345",
+      "method": "GET",
+      "operationId": "getActionsByIdAction",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Retrieve the action details for the action with ID 12345."
+    },
+    {
+      "path": "/actions/12345/board",
+      "method": "GET",
+      "operationId": "getActionsBoardByIdAction",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Get the board associated with the action ID 12345."
+    },
+    {
+      "path": "/actions/12345/card",
+      "method": "GET",
+      "operationId": "getActionsCardByIdAction",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Fetch the card linked to the action with ID 12345."
+    },
+    {
+      "path": "/actions/12345/member",
+      "method": "GET",
+      "operationId": "getActionsMemberByIdAction",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Retrieve the member associated with the action ID 12345."
+    },
+    {
+      "path": "/actions/12345/organization",
+      "method": "GET",
+      "operationId": "getActionsOrganizationByIdAction",
+      "summary": "",
+      "user": "User202",
+      "ideal": "Get the organization linked to the action with ID 12345."
+    },
+    {
+      "path": "/actions/12345/text",
+      "method": "PUT",
+      "operationId": "updateActionsTextByIdAction",
+      "summary": "",
+      "user": "User303",
+      "ideal": "Update the text of the action with ID 12345."
+    },
+    {
+      "path": "/actions/12345/card/title",
+      "method": "GET",
+      "operationId": "getActionsCardByIdActionByField",
+      "summary": "",
+      "user": "User404",
+      "ideal": "Retrieve the title of the card linked to action ID 12345."
+    },
+    {
+      "path": "/actions/12345/memberCreator",
+      "method": "GET",
+      "operationId": "getActionsMemberCreatorByIdAction",
+      "summary": "",
+      "user": "User505",
+      "ideal": "Fetch the creator of the action with ID 12345."
+    },
+    {
+      "path": "/actions/12345/list",
+      "method": "GET",
+      "operationId": "getActionsListByIdAction",
+      "summary": "",
+      "user": "User606",
+      "ideal": "Get the list associated with the action ID 12345."
+    },
+    {
+      "path": "/actions/12345",
+      "method": "DELETE",
+      "operationId": "deleteActionsByIdAction",
+      "summary": "",
+      "user": "User707",
+      "ideal": "Delete the action with ID 12345."
+    }
+  ]
+}

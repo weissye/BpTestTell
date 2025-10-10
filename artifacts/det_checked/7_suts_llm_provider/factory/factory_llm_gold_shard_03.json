@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/machines",
+      "method": "POST",
+      "operationId": "createMachine",
+      "summary": "",
+      "user": "A factory manager wants to add a new machine to the system. They provide the machine's specifications, including type, model, and operational capacity.",
+      "ideal": "The API should successfully create a new machine entry in the database and return a confirmation message along with the machine ID."
+    },
+    {
+      "path": "/maintenance-tickets",
+      "method": "GET",
+      "operationId": "getMaintenanceTickets",
+      "summary": "",
+      "user": "A maintenance supervisor needs to review all open maintenance tickets to prioritize repairs. They want to fetch the latest tickets for review.",
+      "ideal": "The API should return a list of all open maintenance tickets, including ticket IDs, descriptions, and statuses, in a structured format."
+    },
+    {
+      "path": "/sensor-readings",
+      "method": "POST",
+      "operationId": "submitSensorReading",
+      "summary": "",
+      "user": "A data analyst is collecting real-time sensor data from various machines. They send a batch of sensor readings for processing and analysis.",
+      "ideal": "The API should accept the sensor readings and return a success message with a summary of the data processed."
+    }
+  ]
+}

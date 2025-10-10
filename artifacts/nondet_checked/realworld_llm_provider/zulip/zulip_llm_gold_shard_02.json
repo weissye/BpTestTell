@@ -1,0 +1,204 @@
+{
+  "gold": [
+    {
+      "path": "/get_stream_id",
+      "method": "GET",
+      "operationId": "get-stream-id",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the ID of a specific stream."
+    },
+    {
+      "path": "/default_streams",
+      "method": "POST",
+      "operationId": "add-default-stream",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Add a stream to the user's default streams."
+    },
+    {
+      "path": "/default_streams",
+      "method": "DELETE",
+      "operationId": "remove-default-stream",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Remove a stream from the user's default streams."
+    },
+    {
+      "path": "/users/me/{stream_id}/topics",
+      "method": "GET",
+      "operationId": "get-stream-topics",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Get the topics in a specific stream."
+    },
+    {
+      "path": "/users/me/subscriptions",
+      "method": "GET",
+      "operationId": "get-subscriptions",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Retrieve the list of subscriptions for the user."
+    },
+    {
+      "path": "/users/me/subscriptions",
+      "method": "POST",
+      "operationId": "subscribe",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Subscribe the user to a new stream."
+    },
+    {
+      "path": "/users/me/subscriptions",
+      "method": "PATCH",
+      "operationId": "update-subscriptions",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Update the user's existing subscriptions."
+    },
+    {
+      "path": "/users/me/subscriptions",
+      "method": "DELETE",
+      "operationId": "unsubscribe",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Unsubscribe the user from a stream."
+    },
+    {
+      "path": "/users/me/subscriptions/muted_topics",
+      "method": "PATCH",
+      "operationId": "mute-topic",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Mute a specific topic in a subscription."
+    },
+    {
+      "path": "/user_topics",
+      "method": "POST",
+      "operationId": "update-user-topic",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Update the user's topic settings."
+    },
+    {
+      "path": "/users/{user_id}/subscriptions/{stream_id}",
+      "method": "GET",
+      "operationId": "get-subscription-status",
+      "summary": "",
+      "user": "user808",
+      "ideal": "Check the subscription status of a user for a specific stream."
+    },
+    {
+      "path": "/users/me/subscriptions/properties",
+      "method": "POST",
+      "operationId": "update-subscription-settings",
+      "summary": "",
+      "user": "user909",
+      "ideal": "Update settings for the user's subscriptions."
+    },
+    {
+      "path": "/streams/{stream_id}/members",
+      "method": "GET",
+      "operationId": "get-subscribers",
+      "summary": "",
+      "user": "user111",
+      "ideal": "Get the list of subscribers for a specific stream."
+    },
+    {
+      "path": "/streams",
+      "method": "GET",
+      "operationId": "get-streams",
+      "summary": "",
+      "user": "user222",
+      "ideal": "Retrieve all available streams."
+    },
+    {
+      "path": "/streams/{stream_id}",
+      "method": "GET",
+      "operationId": "get-stream-by-id",
+      "summary": "",
+      "user": "user333",
+      "ideal": "Get details of a specific stream by its ID."
+    },
+    {
+      "path": "/streams/{stream_id}",
+      "method": "DELETE",
+      "operationId": "archive-stream",
+      "summary": "",
+      "user": "user444",
+      "ideal": "Archive a specific stream."
+    },
+    {
+      "path": "/streams/{stream_id}",
+      "method": "PATCH",
+      "operationId": "update-stream",
+      "summary": "",
+      "user": "user555",
+      "ideal": "Update the details of a specific stream."
+    },
+    {
+      "path": "/streams/{stream_id}/email_address",
+      "method": "GET",
+      "operationId": "get-stream-email-address",
+      "summary": "",
+      "user": "user666",
+      "ideal": "Retrieve the email address associated with a stream."
+    },
+    {
+      "path": "/streams/{stream_id}/delete_topic",
+      "method": "POST",
+      "operationId": "delete-topic",
+      "summary": "",
+      "user": "user777",
+      "ideal": "Delete a specific topic from a stream."
+    },
+    {
+      "path": "/channels/create",
+      "method": "POST",
+      "operationId": "create-channel",
+      "summary": "",
+      "user": "user888",
+      "ideal": "Create a new channel."
+    },
+    {
+      "path": "/channel_folders/create",
+      "method": "POST",
+      "operationId": "create-channel-folder",
+      "summary": "",
+      "user": "user999",
+      "ideal": "Create a new folder for channels."
+    },
+    {
+      "path": "/channel_folders",
+      "method": "GET",
+      "operationId": "get-channel-folders",
+      "summary": "",
+      "user": "user000",
+      "ideal": "Retrieve all channel folders."
+    },
+    {
+      "path": "/channel_folders",
+      "method": "PATCH",
+      "operationId": "patch-channel-folders",
+      "summary": "",
+      "user": "user1234",
+      "ideal": "Update multiple channel folders."
+    },
+    {
+      "path": "/channel_folders/{channel_folder_id}",
+      "method": "PATCH",
+      "operationId": "update-channel-folder",
+      "summary": "",
+      "user": "user5678",
+      "ideal": "Update a specific channel folder."
+    },
+    {
+      "path": "/calls/bigbluebutton/create",
+      "method": "GET",
+      "operationId": "create-big-blue-button-video-call",
+      "summary": "",
+      "user": "user91011",
+      "ideal": "Create a Big Blue Button video call."
+    }
+  ]
+}

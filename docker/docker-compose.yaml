@@ -1,0 +1,12 @@
+services:
+  llm26:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_FT_MODEL=${OPENAI_FT_MODEL}
+    volumes:
+      - ..:/app
+    working_dir: /app
+    command: ["bash", "-lc", "python --version && ls -la"]

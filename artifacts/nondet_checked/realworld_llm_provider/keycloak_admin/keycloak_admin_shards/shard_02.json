@@ -1,0 +1,324 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/authentication/authenticator-providers",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getAuthenticatorProviders"
+    },
+    {
+      "path": "/{realm}/authentication/client-authenticator-providers",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getClientAuthenticatorProviders"
+    },
+    {
+      "path": "/{realm}/authentication/config",
+      "method": "POST",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "postAuthenticationConfig"
+    },
+    {
+      "path": "/{realm}/authentication/config-description/{providerId}",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getConfigDescription"
+    },
+    {
+      "path": "/{realm}/authentication/config/{id}",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getAuthenticationConfig"
+    },
+    {
+      "path": "/{realm}/authentication/config/{id}",
+      "method": "PUT",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "putAuthenticationConfig"
+    },
+    {
+      "path": "/{realm}/authentication/config/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "deleteConfig"
+    },
+    {
+      "path": "/{realm}/authentication/executions",
+      "method": "POST",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "postExecutions"
+    },
+    {
+      "path": "/{realm}/authentication/executions/{executionId}",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getExecution"
+    },
+    {
+      "path": "/{realm}/authentication/executions/{executionId}",
+      "method": "DELETE",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "deleteExecution"
+    },
+    {
+      "path": "/{realm}/authentication/executions/{executionId}/config",
+      "method": "POST",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "postExecutionConfig"
+    },
+    {
+      "path": "/{realm}/authentication/executions/{executionId}/config/{id}",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getExecutionConfig"
+    },
+    {
+      "path": "/{realm}/authentication/executions/{executionId}/lower-priority",
+      "method": "POST",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "postExecutionLowerPriority"
+    },
+    {
+      "path": "/{realm}/authentication/executions/{executionId}/raise-priority",
+      "method": "POST",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "postExecutionRaisePriority"
+    },
+    {
+      "path": "/{realm}/authentication/flows",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getFlows"
+    },
+    {
+      "path": "/{realm}/authentication/flows",
+      "method": "POST",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "postFlows"
+    },
+    {
+      "path": "/{realm}/authentication/flows/{flowAlias}/copy",
+      "method": "POST",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "postCopy"
+    },
+    {
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getExecutions"
+    },
+    {
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions",
+      "method": "PUT",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "putExecutions"
+    },
+    {
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions/execution",
+      "method": "POST",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "postExecution"
+    },
+    {
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions/flow",
+      "method": "POST",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "postFlow"
+    },
+    {
+      "path": "/{realm}/authentication/flows/{id}",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getFlow"
+    },
+    {
+      "path": "/{realm}/authentication/flows/{id}",
+      "method": "PUT",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "putFlow"
+    },
+    {
+      "path": "/{realm}/authentication/flows/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "deleteFlow"
+    },
+    {
+      "path": "/{realm}/authentication/form-action-providers",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getFormActionProviders"
+    },
+    {
+      "path": "/{realm}/authentication/form-providers",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getFormProviders"
+    },
+    {
+      "path": "/{realm}/authentication/per-client-config-description",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getPerClientConfigDescription"
+    },
+    {
+      "path": "/{realm}/authentication/register-required-action",
+      "method": "POST",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "postRegisterRequiredAction"
+    },
+    {
+      "path": "/{realm}/authentication/required-actions",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getRequiredActions"
+    },
+    {
+      "path": "/{realm}/authentication/required-actions/{alias}",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getRequiredAction"
+    },
+    {
+      "path": "/{realm}/authentication/required-actions/{alias}",
+      "method": "PUT",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "putRequiredAction"
+    },
+    {
+      "path": "/{realm}/authentication/required-actions/{alias}",
+      "method": "DELETE",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "deleteRequiredAction"
+    },
+    {
+      "path": "/{realm}/authentication/required-actions/{alias}/lower-priority",
+      "method": "POST",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "postRequiredActionLowerPriority"
+    },
+    {
+      "path": "/{realm}/authentication/required-actions/{alias}/raise-priority",
+      "method": "POST",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "postRequiredActionRaisePriority"
+    },
+    {
+      "path": "/{realm}/authentication/unregistered-required-actions",
+      "method": "GET",
+      "tags": [
+        "Authentication Management"
+      ],
+      "summary": "",
+      "operationId": "getUnregisteredRequiredActions"
+    }
+  ]
+}

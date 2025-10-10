@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "resetSystem",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Resets the configuration control system to its default state."
+    },
+    {
+      "path": "/envs",
+      "method": "POST",
+      "operationId": "createEnvironment",
+      "summary": "",
+      "user": "dev_team",
+      "ideal": "Creates a new environment for testing configurations."
+    },
+    {
+      "path": "/configs",
+      "method": "GET",
+      "operationId": "getAllConfigs",
+      "summary": "",
+      "user": "qa_engineer",
+      "ideal": "Retrieves a list of all current configurations in the system."
+    },
+    {
+      "path": "/policies",
+      "method": "POST",
+      "operationId": "createPolicy",
+      "summary": "",
+      "user": "compliance_officer",
+      "ideal": "Creates a new policy for configuration management."
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "openapi_meta": {
+    "title": "Garage Chain SUT API (Demo)",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/chains",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create chain",
+      "operationId": "POST /chains"
+    },
+    {
+      "path": "/chains/{chainId}",
+      "method": "PUT",
+      "tags": [],
+      "summary": "Update chain",
+      "operationId": "PUT /chains/{chainId}"
+    },
+    {
+      "path": "/garages",
+      "method": "GET",
+      "tags": [],
+      "summary": "List garages",
+      "operationId": "GET /garages"
+    },
+    {
+      "path": "/garages/{garageId}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete garage",
+      "operationId": "DELETE /garages/{garageId}"
+    },
+    {
+      "path": "/customers/{customerId}",
+      "method": "GET",
+      "tags": [],
+      "summary": "Read customer",
+      "operationId": "GET /customers/{customerId}"
+    },
+    {
+      "path": "/cars",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create car",
+      "operationId": "POST /cars"
+    },
+    {
+      "path": "/cars/{vin}",
+      "method": "PUT",
+      "tags": [],
+      "summary": "Update car",
+      "operationId": "PUT /cars/{vin}"
+    },
+    {
+      "path": "/periodic-maintenance",
+      "method": "GET",
+      "tags": [],
+      "summary": "List PM plans",
+      "operationId": "GET /periodic-maintenance"
+    },
+    {
+      "path": "/periodic-maintenance/{pmId}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete PM plan",
+      "operationId": "DELETE /periodic-maintenance/{pmId}"
+    },
+    {
+      "path": "/repair-orders/{roId}",
+      "method": "GET",
+      "tags": [],
+      "summary": "Read repair order",
+      "operationId": "GET /repair-orders/{roId}"
+    },
+    {
+      "path": "/repair-orders/{roId}/approve",
+      "method": "POST",
+      "tags": [],
+      "summary": "Approve RO (move to in-progress if allowed)",
+      "operationId": "POST /repair-orders/{roId}/approve"
+    }
+  ]
+}

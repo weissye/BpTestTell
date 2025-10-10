@@ -1,0 +1,172 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/my-org/code-scanning/alerts",
+      "method": "GET",
+      "operationId": "code-scanning/list-alerts-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all code scanning alerts for the organization 'my-org'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/alerts",
+      "method": "GET",
+      "operationId": "code-scanning/list-alerts-for-repo",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Get a list of all code scanning alerts for the repository 'my-repo' owned by 'my-user'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/alerts/1",
+      "method": "GET",
+      "operationId": "code-scanning/get-alert",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Fetch details of the code scanning alert with ID 1 for the repository 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/alerts/1",
+      "method": "PATCH",
+      "operationId": "code-scanning/update-alert",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Update the status of the code scanning alert with ID 1 for 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/alerts/1/autofix",
+      "method": "GET",
+      "operationId": "code-scanning/get-autofix",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Retrieve autofix suggestions for the code scanning alert with ID 1."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/alerts/1/autofix",
+      "method": "POST",
+      "operationId": "code-scanning/create-autofix",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Create an autofix for the code scanning alert with ID 1."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/alerts/1/autofix/commits",
+      "method": "POST",
+      "operationId": "code-scanning/commit-autofix",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Commit the autofix changes for the alert with ID 1."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/alerts/1/instances",
+      "method": "GET",
+      "operationId": "code-scanning/list-alert-instances",
+      "summary": "",
+      "user": "user505",
+      "ideal": "List all instances related to the code scanning alert with ID 1."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/analyses",
+      "method": "GET",
+      "operationId": "code-scanning/list-recent-analyses",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Get a list of recent code scanning analyses for 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/analyses/123",
+      "method": "GET",
+      "operationId": "code-scanning/get-analysis",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Retrieve details of the analysis with ID 123 for 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/analyses/123",
+      "method": "DELETE",
+      "operationId": "code-scanning/delete-analysis",
+      "summary": "",
+      "user": "user808",
+      "ideal": "Delete the analysis with ID 123 for 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/codeql/databases",
+      "method": "GET",
+      "operationId": "code-scanning/list-codeql-databases",
+      "summary": "",
+      "user": "user909",
+      "ideal": "List all CodeQL databases for the repository 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/codeql/databases/javascript",
+      "method": "GET",
+      "operationId": "code-scanning/get-codeql-database",
+      "summary": "",
+      "user": "user1010",
+      "ideal": "Get the CodeQL database for JavaScript in 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/codeql/databases/javascript",
+      "method": "DELETE",
+      "operationId": "code-scanning/delete-codeql-database",
+      "summary": "",
+      "user": "user1111",
+      "ideal": "Delete the JavaScript CodeQL database for 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/codeql/variant-analyses",
+      "method": "POST",
+      "operationId": "code-scanning/create-variant-analysis",
+      "summary": "",
+      "user": "user1212",
+      "ideal": "Create a new variant analysis for 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/codeql/variant-analyses/456",
+      "method": "GET",
+      "operationId": "code-scanning/get-variant-analysis",
+      "summary": "",
+      "user": "user1313",
+      "ideal": "Retrieve details of the variant analysis with ID 456 for 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/codeql/variant-analyses/456/repos/my-user/my-repo",
+      "method": "GET",
+      "operationId": "code-scanning/get-variant-analysis-repo-task",
+      "summary": "",
+      "user": "user1414",
+      "ideal": "Get the repository task for variant analysis ID 456 in 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/default-setup",
+      "method": "GET",
+      "operationId": "code-scanning/get-default-setup",
+      "summary": "",
+      "user": "user1515",
+      "ideal": "Fetch the default setup for code scanning in 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/default-setup",
+      "method": "PATCH",
+      "operationId": "code-scanning/update-default-setup",
+      "summary": "",
+      "user": "user1616",
+      "ideal": "Update the default setup for code scanning in 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/sarifs",
+      "method": "POST",
+      "operationId": "code-scanning/upload-sarif",
+      "summary": "",
+      "user": "user1717",
+      "ideal": "Upload a SARIF file for code scanning results to 'my-repo'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/code-scanning/sarifs/789",
+      "method": "GET",
+      "operationId": "code-scanning/get-sarif",
+      "summary": "",
+      "user": "user1818",
+      "ideal": "Retrieve the SARIF file with ID 789 for 'my-repo'."
+    }
+  ]
+}

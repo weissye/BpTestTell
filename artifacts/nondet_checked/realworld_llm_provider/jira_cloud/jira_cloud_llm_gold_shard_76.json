@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/screens/tabs",
+      "method": "GET",
+      "operationId": "getBulkScreenTabs",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all available screen tabs to understand the layout of my project's screens.",
+      "ideal": "The API should return a list of all screen tabs with their respective details, including tab IDs and names."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/tabs",
+      "method": "GET",
+      "operationId": "getAllScreenTabs",
+      "summary": "",
+      "user": "As a developer, I need to fetch all tabs for a specific screen to ensure I am working with the correct configuration.",
+      "ideal": "The API should return a list of tabs associated with the specified screen ID, including their names and positions."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/tabs",
+      "method": "POST",
+      "operationId": "addScreenTab",
+      "summary": "",
+      "user": "As a product owner, I want to add a new tab to a screen to include additional fields for user input.",
+      "ideal": "The API should successfully create a new tab for the specified screen and return the details of the newly created tab."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}",
+      "method": "DELETE",
+      "operationId": "deleteScreenTab",
+      "summary": "",
+      "user": "As a system administrator, I need to remove an unnecessary tab from a screen to streamline the user interface.",
+      "ideal": "The API should delete the specified tab and confirm the deletion with a success message."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}",
+      "method": "PUT",
+      "operationId": "renameScreenTab",
+      "summary": "",
+      "user": "As a team lead, I want to rename a tab to better reflect its purpose and improve team clarity.",
+      "ideal": "The API should update the tab's name and return the updated tab details."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}/move/{pos}",
+      "method": "POST",
+      "operationId": "moveScreenTab",
+      "summary": "",
+      "user": "As a UI designer, I need to rearrange the order of tabs on a screen to enhance user experience.",
+      "ideal": "The API should successfully move the specified tab to the new position and return the updated order of tabs."
+    }
+  ]
+}

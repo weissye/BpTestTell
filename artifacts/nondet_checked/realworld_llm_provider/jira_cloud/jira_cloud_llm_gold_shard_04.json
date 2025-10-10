@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties",
+      "method": "GET",
+      "operationId": "AddonPropertiesResource.getAddonProperties_get",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Retrieve all properties for the specified addon."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "method": "DELETE",
+      "operationId": "AddonPropertiesResource.deleteAddonProperty_delete",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Delete a specific property from the addon."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "method": "GET",
+      "operationId": "AddonPropertiesResource.getAddonProperty_get",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Fetch a specific property for the addon."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "method": "PUT",
+      "operationId": "AddonPropertiesResource.putAddonProperty_put",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Update or create a specific property for the addon."
+    },
+    {
+      "path": "/rest/forge/1/app/properties",
+      "method": "GET",
+      "operationId": "getForgeAppPropertyKeys",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Retrieve all property keys for the Forge app."
+    },
+    {
+      "path": "/rest/forge/1/app/properties/my-property",
+      "method": "DELETE",
+      "operationId": "deleteForgeAppProperty",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Delete a specific property from the Forge app."
+    },
+    {
+      "path": "/rest/forge/1/app/properties/my-property",
+      "method": "GET",
+      "operationId": "getForgeAppProperty",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Fetch a specific property for the Forge app."
+    },
+    {
+      "path": "/rest/forge/1/app/properties/my-property",
+      "method": "PUT",
+      "operationId": "putForgeAppProperty",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Update or create a specific property for the Forge app."
+    }
+  ]
+}

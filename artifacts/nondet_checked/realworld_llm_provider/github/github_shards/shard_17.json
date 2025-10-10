@@ -1,0 +1,63 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/enterprises/{enterprise}/teams/{enterprise-team}/memberships",
+      "method": "GET",
+      "tags": [
+        "enterprise-team-memberships"
+      ],
+      "summary": "List members in an enterprise team",
+      "operationId": "enterprise-team-memberships/list"
+    },
+    {
+      "path": "/enterprises/{enterprise}/teams/{enterprise-team}/memberships/add",
+      "method": "POST",
+      "tags": [
+        "enterprise-team-memberships"
+      ],
+      "summary": "Bulk add team members",
+      "operationId": "enterprise-team-memberships/bulk-add"
+    },
+    {
+      "path": "/enterprises/{enterprise}/teams/{enterprise-team}/memberships/remove",
+      "method": "POST",
+      "tags": [
+        "enterprise-team-memberships"
+      ],
+      "summary": "Bulk remove team members",
+      "operationId": "enterprise-team-memberships/bulk-remove"
+    },
+    {
+      "path": "/enterprises/{enterprise}/teams/{enterprise-team}/memberships/{username}",
+      "method": "GET",
+      "tags": [
+        "enterprise-team-memberships"
+      ],
+      "summary": "Get enterprise team membership",
+      "operationId": "enterprise-team-memberships/get"
+    },
+    {
+      "path": "/enterprises/{enterprise}/teams/{enterprise-team}/memberships/{username}",
+      "method": "PUT",
+      "tags": [
+        "enterprise-team-memberships"
+      ],
+      "summary": "Add team member",
+      "operationId": "enterprise-team-memberships/add"
+    },
+    {
+      "path": "/enterprises/{enterprise}/teams/{enterprise-team}/memberships/{username}",
+      "method": "DELETE",
+      "tags": [
+        "enterprise-team-memberships"
+      ],
+      "summary": "Remove team membership",
+      "operationId": "enterprise-team-memberships/remove"
+    }
+  ]
+}

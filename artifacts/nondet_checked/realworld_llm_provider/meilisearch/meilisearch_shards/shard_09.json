@@ -1,0 +1,333 @@
+{
+  "openapi_meta": {
+    "title": "Meilisearch Core API",
+    "version": "1.7.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/indexes/{indexUid}/settings",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get settings",
+      "operationId": "indexes.settings.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings",
+      "method": "PATCH",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update settings",
+      "operationId": "indexes.settings.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings",
+      "method": "DELETE",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Reset settings",
+      "operationId": "indexes.settings.reset"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get synonyms",
+      "operationId": "indexes.settings.synonyms.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update synonyms",
+      "operationId": "indexes.settings.synonyms.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "method": "DELETE",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Reset synonyms",
+      "operationId": "indexes.settings.synonyms.reset"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get sortable attributes",
+      "operationId": "indexes.settings.sortable-attributes.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update sortable attributes",
+      "operationId": "indexes.settings.sortable-attributes.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "method": "DELETE",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Reset sortable attributes",
+      "operationId": "indexes.settings.sortable-attributes.reset"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get stop-words",
+      "operationId": "indexes.settings.stopWords.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update stop-words",
+      "operationId": "indexes.settings.stopWords.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "method": "DELETE",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Reset stop-words",
+      "operationId": "indexes.settings.stopWords.reset"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get ranking rules",
+      "operationId": "indexes.settings.rankingRules.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update ranking rules",
+      "operationId": "indexes.settings.rankingRules.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "method": "DELETE",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Reset ranking rules",
+      "operationId": "indexes.settings.rankingRules.reset"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get typo tolerance configuration",
+      "operationId": "indexes.settings.typoTolerance.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "method": "PATCH",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update typo tolerance settings",
+      "operationId": "indexes.settings.typoTolerance.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "method": "DELETE",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Reset typo tolerance settings to the default configuration",
+      "operationId": "indexes.settings.typoTolerance.reset"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get pagination configuration",
+      "operationId": "indexes.settings.pagination.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "method": "PATCH",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update pagination settings",
+      "operationId": "indexes.settings.pagination.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "method": "DELETE",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Reset pagination settings to the default configuration",
+      "operationId": "indexes.settings.pagination.reset"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get faceting configuration",
+      "operationId": "indexes.settings.faceting.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "method": "PATCH",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update faceting settings",
+      "operationId": "indexes.settings.faceting.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "method": "DELETE",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Reset faceting settings to the default configuration",
+      "operationId": "indexes.settings.faceting.reset"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get Filterable Attributes",
+      "operationId": "indexes.settings.filterableAttributes.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update Filterable Attributes",
+      "operationId": "indexes.settings.filterableAttributes.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "method": "DELETE",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Reset Filterable Attributes",
+      "operationId": "indexes.settings.filterableAttributes.reset"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get distinct attribute",
+      "operationId": "indexes.settings.distinctAttribute.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update distinct attribute",
+      "operationId": "indexes.settings.distinctAttribute.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "method": "DELETE",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Reset distinct attribute",
+      "operationId": "indexes.settings.distinctAttribute.reset"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get searchable attributes",
+      "operationId": "indexes.settings.searchableAttributes.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update searchable attributes",
+      "operationId": "indexes.settings.searchableAttributes.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "method": "DELETE",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Reset searchable attributes",
+      "operationId": "indexes.settings.searchableAttributes.reset"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Get displayed attributes",
+      "operationId": "indexes.settings.displayedAttributes.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "method": "PUT",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update displayed attributes",
+      "operationId": "indexes.settings.displayedAttributes.update"
+    },
+    {
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "method": "DELETE",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Reset displayed attributes",
+      "operationId": "indexes.settings.displayedAttributes.reset"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Meilisearch Core API",
+    "version": "1.7.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/keys",
+      "method": "GET",
+      "tags": [
+        "Keys"
+      ],
+      "summary": "Get API Keys",
+      "operationId": "keys.list"
+    },
+    {
+      "path": "/keys",
+      "method": "POST",
+      "tags": [
+        "Keys"
+      ],
+      "summary": "Create an API Key",
+      "operationId": "keys.create"
+    },
+    {
+      "path": "/keys/{uid_or_key}",
+      "method": "GET",
+      "tags": [
+        "Keys"
+      ],
+      "summary": "Get an API key from its uid or key field.",
+      "operationId": "keys.get"
+    },
+    {
+      "path": "/keys/{uid_or_key}",
+      "method": "DELETE",
+      "tags": [
+        "Keys"
+      ],
+      "summary": "Delete an API key specified by its uid or key field.",
+      "operationId": "keys.delete"
+    },
+    {
+      "path": "/keys/{uid_or_key}",
+      "method": "PATCH",
+      "tags": [
+        "Keys"
+      ],
+      "summary": "Update an API key specified by its uid or key field.",
+      "operationId": "keys.update"
+    }
+  ]
+}

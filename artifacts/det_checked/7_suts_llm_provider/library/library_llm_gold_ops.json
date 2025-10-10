@@ -1,0 +1,134 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/books",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/books/54321",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/loans/12345/54321",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/holds/67890",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/books",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/loans",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/holds",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/books/67890",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/loans",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/holds",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/books",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/books/54321",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/loans/12345/54321",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/holds/67890",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/books",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/loans",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/holds",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/books/67890",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/loans",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/holds",
+      "body": null
+    }
+  ]
+}

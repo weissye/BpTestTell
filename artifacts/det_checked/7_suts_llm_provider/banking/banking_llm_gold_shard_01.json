@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "resetSystem",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Resets the banking system to its initial state, clearing all accounts and transactions."
+    },
+    {
+      "path": "/accounts",
+      "method": "GET",
+      "operationId": "getAccounts",
+      "summary": "",
+      "user": "customer",
+      "ideal": "Retrieves a list of all bank accounts associated with the user, including account numbers and balances."
+    },
+    {
+      "path": "/cards",
+      "method": "POST",
+      "operationId": "createCard",
+      "summary": "",
+      "user": "customer",
+      "ideal": "Creates a new debit or credit card linked to the user's bank account, providing card details and activation status."
+    }
+  ]
+}

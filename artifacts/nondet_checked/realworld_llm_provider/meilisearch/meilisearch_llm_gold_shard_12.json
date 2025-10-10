@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/tasks",
+      "method": "GET",
+      "operationId": "tasks.list",
+      "summary": "",
+      "user": "As a developer, I want to retrieve a list of all tasks in the Meilisearch instance so that I can monitor their statuses and progress.",
+      "ideal": "The response should include an array of task objects, each containing details such as taskUid, status, and type."
+    },
+    {
+      "path": "/tasks/:taskUid",
+      "method": "GET",
+      "operationId": "tasks.get",
+      "summary": "",
+      "user": "As a user, I want to fetch the details of a specific task using its unique identifier so that I can check its status and results.",
+      "ideal": "The response should return a task object with the specified taskUid, including its current status and any relevant metadata."
+    },
+    {
+      "path": "/tasks",
+      "method": "DELETE",
+      "operationId": "tasks.delete",
+      "summary": "",
+      "user": "As an administrator, I want to delete a task by its unique identifier to clean up completed or unnecessary tasks from the system.",
+      "ideal": "The response should confirm the deletion of the task and return a success message."
+    },
+    {
+      "path": "/tasks/cancel",
+      "method": "POST",
+      "operationId": "tasks.cancel",
+      "summary": "",
+      "user": "As a user, I want to cancel a running task by providing its unique identifier so that I can stop any ongoing operations that are no longer needed.",
+      "ideal": "The response should indicate whether the cancellation was successful and provide the updated status of the task."
+    }
+  ]
+}

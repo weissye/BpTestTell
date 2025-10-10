@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/sessions",
+      "method": "POST",
+      "operationId": "addSessions",
+      "summary": "",
+      "user": "User wants to create a new session for a project in Trello. They provide the necessary details such as session name, description, and start date.",
+      "ideal": "User successfully creates a new session and receives a confirmation response with the session ID and details."
+    },
+    {
+      "path": "/sessions/socket",
+      "method": "GET",
+      "operationId": "getSessionsSocket",
+      "summary": "",
+      "user": "User is looking to connect to a WebSocket to receive real-time updates about their sessions. They want to be notified of any changes made to the sessions they are part of.",
+      "ideal": "User establishes a WebSocket connection and starts receiving real-time updates about session changes."
+    },
+    {
+      "path": "/sessions/{idSession}",
+      "method": "PUT",
+      "operationId": "updateSessionsByIdSession",
+      "summary": "",
+      "user": "User wants to update the details of an existing session. They provide the session ID and new details such as updated name and description.",
+      "ideal": "User successfully updates the session and receives a response confirming the changes made."
+    },
+    {
+      "path": "/sessions/{idSession}/status",
+      "method": "PUT",
+      "operationId": "updateSessionsStatusByIdSession",
+      "summary": "",
+      "user": "User needs to change the status of a specific session to 'completed'. They provide the session ID and the new status.",
+      "ideal": "User successfully updates the session status and receives a confirmation response indicating the new status."
+    }
+  ]
+}
