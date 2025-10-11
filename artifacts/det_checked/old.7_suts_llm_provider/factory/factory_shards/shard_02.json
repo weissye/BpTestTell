@@ -1,8 +1,0 @@
-{
-  "api_name": "factory",
-  "spec_file": "openapi.json",
-  "shard_index": 2,
-  "total_shards": 3,
-  "instructions": "Generate non-deterministic GOLD examples for the operations listed in 'operations'. Return strict JSON with a top-level key 'gold' (array).",
-  "operations": []
-}
