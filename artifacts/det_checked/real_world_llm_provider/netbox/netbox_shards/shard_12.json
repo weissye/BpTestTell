@@ -1,0 +1,252 @@
+{
+  "openapi_meta": {
+    "title": "NetBox REST API",
+    "version": "4.4.2 (4.4)"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/api/wireless/wireless-lan-groups/",
+      "method": "GET",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lan_groups_list"
+    },
+    {
+      "path": "/api/wireless/wireless-lan-groups/",
+      "method": "POST",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lan_groups_create"
+    },
+    {
+      "path": "/api/wireless/wireless-lan-groups/",
+      "method": "PUT",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lan_groups_bulk_update"
+    },
+    {
+      "path": "/api/wireless/wireless-lan-groups/",
+      "method": "PATCH",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lan_groups_bulk_partial_update"
+    },
+    {
+      "path": "/api/wireless/wireless-lan-groups/",
+      "method": "DELETE",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lan_groups_bulk_destroy"
+    },
+    {
+      "path": "/api/wireless/wireless-lan-groups/{id}/",
+      "method": "GET",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lan_groups_retrieve"
+    },
+    {
+      "path": "/api/wireless/wireless-lan-groups/{id}/",
+      "method": "PUT",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lan_groups_update"
+    },
+    {
+      "path": "/api/wireless/wireless-lan-groups/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lan_groups_partial_update"
+    },
+    {
+      "path": "/api/wireless/wireless-lan-groups/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lan_groups_destroy"
+    },
+    {
+      "path": "/api/wireless/wireless-lans/",
+      "method": "GET",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lans_list"
+    },
+    {
+      "path": "/api/wireless/wireless-lans/",
+      "method": "POST",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lans_create"
+    },
+    {
+      "path": "/api/wireless/wireless-lans/",
+      "method": "PUT",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lans_bulk_update"
+    },
+    {
+      "path": "/api/wireless/wireless-lans/",
+      "method": "PATCH",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lans_bulk_partial_update"
+    },
+    {
+      "path": "/api/wireless/wireless-lans/",
+      "method": "DELETE",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lans_bulk_destroy"
+    },
+    {
+      "path": "/api/wireless/wireless-lans/{id}/",
+      "method": "GET",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lans_retrieve"
+    },
+    {
+      "path": "/api/wireless/wireless-lans/{id}/",
+      "method": "PUT",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lans_update"
+    },
+    {
+      "path": "/api/wireless/wireless-lans/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lans_partial_update"
+    },
+    {
+      "path": "/api/wireless/wireless-lans/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_lans_destroy"
+    },
+    {
+      "path": "/api/wireless/wireless-links/",
+      "method": "GET",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_links_list"
+    },
+    {
+      "path": "/api/wireless/wireless-links/",
+      "method": "POST",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_links_create"
+    },
+    {
+      "path": "/api/wireless/wireless-links/",
+      "method": "PUT",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_links_bulk_update"
+    },
+    {
+      "path": "/api/wireless/wireless-links/",
+      "method": "PATCH",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_links_bulk_partial_update"
+    },
+    {
+      "path": "/api/wireless/wireless-links/",
+      "method": "DELETE",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_links_bulk_destroy"
+    },
+    {
+      "path": "/api/wireless/wireless-links/{id}/",
+      "method": "GET",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_links_retrieve"
+    },
+    {
+      "path": "/api/wireless/wireless-links/{id}/",
+      "method": "PUT",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_links_update"
+    },
+    {
+      "path": "/api/wireless/wireless-links/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_links_partial_update"
+    },
+    {
+      "path": "/api/wireless/wireless-links/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "wireless"
+      ],
+      "summary": "",
+      "operationId": "wireless_wireless_links_destroy"
+    }
+  ]
+}

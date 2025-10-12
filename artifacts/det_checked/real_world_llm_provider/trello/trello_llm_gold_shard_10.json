@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/organizations/12345",
+      "method": "GET",
+      "operationId": "getOrganizationsByIdOrg",
+      "summary": "",
+      "user": "User requested details for organization with ID 12345 to check its current status and members.",
+      "ideal": "Returns the organization details including name, description, and members."
+    },
+    {
+      "path": "/organizations/12345/boards",
+      "method": "GET",
+      "operationId": "getOrganizationsBoardsByIdOrg",
+      "summary": "",
+      "user": "User wants to retrieve all boards associated with organization ID 12345 for project management.",
+      "ideal": "Returns a list of boards belonging to the specified organization."
+    },
+    {
+      "path": "/organizations/12345/members",
+      "method": "GET",
+      "operationId": "getOrganizationsMembersByIdOrg",
+      "summary": "",
+      "user": "User is checking the members of organization ID 12345 to see who has access.",
+      "ideal": "Returns a list of members in the specified organization."
+    },
+    {
+      "path": "/organizations/12345/members/67890",
+      "method": "DELETE",
+      "operationId": "deleteOrganizationsMembersByIdOrgByIdMember",
+      "summary": "",
+      "user": "User wants to remove member with ID 67890 from organization ID 12345 due to inactivity.",
+      "ideal": "Successfully removes the specified member from the organization."
+    },
+    {
+      "path": "/organizations/12345/name",
+      "method": "PUT",
+      "operationId": "updateOrganizationsNameByIdOrg",
+      "summary": "",
+      "user": "User is updating the name of organization ID 12345 to reflect recent changes.",
+      "ideal": "Updates the organization's name to the new specified value."
+    },
+    {
+      "path": "/organizations/12345/prefs/associatedDomain",
+      "method": "DELETE",
+      "operationId": "deleteOrganizationsPrefsAssociatedDomainByIdOrg",
+      "summary": "",
+      "user": "User wants to remove the associated domain for organization ID 12345 as it is no longer valid.",
+      "ideal": "Successfully deletes the associated domain preference for the organization."
+    },
+    {
+      "path": "/organizations/12345/membersInvited",
+      "method": "GET",
+      "operationId": "getOrganizationsMembersInvitedByIdOrg",
+      "summary": "",
+      "user": "User is checking the list of invited members to organization ID 12345 to follow up.",
+      "ideal": "Returns a list of members who have been invited to join the organization."
+    },
+    {
+      "path": "/organizations/12345/logo",
+      "method": "POST",
+      "operationId": "addOrganizationsLogoByIdOrg",
+      "summary": "",
+      "user": "User wants to upload a new logo for organization ID 12345 to enhance branding.",
+      "ideal": "Successfully uploads and sets the new logo for the organization."
+    },
+    {
+      "path": "/organizations/12345/desc",
+      "method": "PUT",
+      "operationId": "updateOrganizationsDescByIdOrg",
+      "summary": "",
+      "user": "User is updating the description of organization ID 12345 to better reflect its mission.",
+      "ideal": "Updates the organization's description with the new provided text."
+    },
+    {
+      "path": "/organizations/12345/members/67890/cards",
+      "method": "GET",
+      "operationId": "getOrganizationsMembersCardsByIdOrgByIdMember",
+      "summary": "",
+      "user": "User wants to view the cards assigned to member ID 67890 in organization ID 12345.",
+      "ideal": "Returns a list of cards assigned to the specified member within the organization."
+    }
+  ]
+}

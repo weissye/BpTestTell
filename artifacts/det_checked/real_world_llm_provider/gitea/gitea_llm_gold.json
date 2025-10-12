@@ -1,0 +1,900 @@
+{
+  "gold": [
+    {
+      "path": "/activitypub/user-id/12345",
+      "method": "GET",
+      "operationId": "activitypubPerson",
+      "summary": "",
+      "user": "{\"id\":\"12345\",\"name\":\"John Doe\",\"url\":\"https://gitea.example.com/users/johndoe\"}",
+      "ideal": "{\"@context\":\"https://www.w3.org/ns/activitystreams\",\"id\":\"https://gitea.example.com/users/johndoe\",\"type\":\"Person\",\"name\":\"John Doe\",\"preferredUsername\":\"johndoe\",\"inbox\":\"https://gitea.example.com/users/johndoe/inbox\",\"outbox\":\"https://gitea.example.com/users/johndoe/outbox\",\"followers\":\"https://gitea.example.com/users/johndoe/followers\",\"following\":\"https://gitea.example.com/users/johndoe/following\"}"
+    },
+    {
+      "path": "/activitypub/user-id/12345/inbox",
+      "method": "POST",
+      "operationId": "activitypubPersonInbox",
+      "summary": "",
+      "user": "{\"type\":\"Create\",\"actor\":\"https://gitea.example.com/users/johndoe\",\"object\":{\"type\":\"Note\",\"content\":\"Hello, world!\"}}",
+      "ideal": "{\"type\":\"Accept\",\"actor\":\"https://gitea.example.com/users/johndoe\",\"object\":{\"type\":\"Note\",\"content\":\"Hello, world!\"},\"to\":[\"https://gitea.example.com/users/johndoe\"]}"
+    },
+    {
+      "path": "/admin/cron",
+      "method": "GET",
+      "operationId": "adminCronList",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve a list of all scheduled cron jobs."
+    },
+    {
+      "path": "/admin/cron/my-task",
+      "method": "POST",
+      "operationId": "adminCronRun",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Execute the specified cron job immediately."
+    },
+    {
+      "path": "/admin/emails",
+      "method": "GET",
+      "operationId": "adminGetAllEmails",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Fetch all email addresses associated with the admin account."
+    },
+    {
+      "path": "/admin/emails/search",
+      "method": "GET",
+      "operationId": "adminSearchEmails",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Search for specific email addresses in the admin account."
+    },
+    {
+      "path": "/admin/hooks",
+      "method": "GET",
+      "operationId": "adminListHooks",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "List all webhooks configured in the system."
+    },
+    {
+      "path": "/admin/hooks",
+      "method": "POST",
+      "operationId": "adminCreateHook",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new webhook with the specified configuration."
+    },
+    {
+      "path": "/admin/hooks/1",
+      "method": "GET",
+      "operationId": "adminGetHook",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve details of a specific webhook by ID."
+    },
+    {
+      "path": "/admin/hooks/1",
+      "method": "DELETE",
+      "operationId": "adminDeleteHook",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete a specific webhook by ID."
+    },
+    {
+      "path": "/admin/hooks/1",
+      "method": "PATCH",
+      "operationId": "adminEditHook",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Update the configuration of a specific webhook."
+    },
+    {
+      "path": "/admin/orgs",
+      "method": "GET",
+      "operationId": "adminGetAllOrgs",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve a list of all organizations managed by the admin."
+    },
+    {
+      "path": "/admin/runners/registration-token",
+      "method": "GET",
+      "operationId": "adminGetRunnerRegistrationToken",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Get a registration token for adding new runners."
+    },
+    {
+      "path": "/admin/unadopted",
+      "method": "GET",
+      "operationId": "adminUnadoptedList",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "List all unadopted repositories."
+    },
+    {
+      "path": "/admin/unadopted/my-org/my-repo",
+      "method": "POST",
+      "operationId": "adminAdoptRepository",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Adopt an unadopted repository."
+    },
+    {
+      "path": "/admin/unadopted/my-org/my-repo",
+      "method": "DELETE",
+      "operationId": "adminDeleteUnadoptedRepository",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete an unadopted repository."
+    },
+    {
+      "path": "/admin/users",
+      "method": "GET",
+      "operationId": "adminSearchUsers",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Search for users in the system."
+    },
+    {
+      "path": "/admin/users",
+      "method": "POST",
+      "operationId": "adminCreateUser",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new user in the system."
+    },
+    {
+      "path": "/admin/users/john_doe",
+      "method": "DELETE",
+      "operationId": "adminDeleteUser",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete a user by username."
+    },
+    {
+      "path": "/admin/users/john_doe",
+      "method": "PATCH",
+      "operationId": "adminEditUser",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Update user details for a specific user."
+    },
+    {
+      "path": "/admin/users/john_doe/badges",
+      "method": "GET",
+      "operationId": "adminListUserBadges",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "List all badges for a specific user."
+    },
+    {
+      "path": "/admin/users/john_doe/badges",
+      "method": "POST",
+      "operationId": "adminAddUserBadges",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Add badges to a specific user."
+    },
+    {
+      "path": "/admin/users/john_doe/badges",
+      "method": "DELETE",
+      "operationId": "adminDeleteUserBadges",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Remove badges from a specific user."
+    },
+    {
+      "path": "/admin/users/john_doe/keys",
+      "method": "POST",
+      "operationId": "adminCreatePublicKey",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Add a new public key for a specific user."
+    },
+    {
+      "path": "/admin/users/john_doe/keys/1",
+      "method": "DELETE",
+      "operationId": "adminDeleteUserPublicKey",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete a specific public key for a user."
+    },
+    {
+      "path": "/admin/users/john_doe/orgs",
+      "method": "POST",
+      "operationId": "adminCreateOrg",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new organization for the user."
+    },
+    {
+      "path": "/admin/users/john_doe/rename",
+      "method": "POST",
+      "operationId": "adminRenameUser",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Rename a specific user."
+    },
+    {
+      "path": "/admin/users/john_doe/repos",
+      "method": "POST",
+      "operationId": "adminCreateRepo",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new repository for the user."
+    },
+    {
+      "path": "/repos/issues/search",
+      "method": "GET",
+      "operationId": "issueSearchIssues",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Search for issues in the repository using specific keywords."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues",
+      "method": "GET",
+      "operationId": "issueListIssues",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Retrieve a list of all issues in the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues",
+      "method": "POST",
+      "operationId": "issueCreateIssue",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Create a new issue in the specified repository with a title and body."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/comments",
+      "method": "GET",
+      "operationId": "issueGetRepoComments",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Fetch all comments for issues in the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+      "method": "GET",
+      "operationId": "issueGetComment",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Retrieve a specific comment by its ID."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+      "method": "DELETE",
+      "operationId": "issueDeleteComment",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Delete a specific comment from an issue."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+      "method": "PATCH",
+      "operationId": "issueEditComment",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Edit an existing comment on an issue."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{index}/comments",
+      "method": "POST",
+      "operationId": "issueCreateComment",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Add a new comment to a specific issue."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{index}/labels",
+      "method": "POST",
+      "operationId": "issueAddLabel",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Add a label to a specific issue."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{index}/labels/{id}",
+      "method": "DELETE",
+      "operationId": "issueRemoveLabel",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Remove a specific label from an issue."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{index}/reactions",
+      "method": "POST",
+      "operationId": "issuePostIssueReaction",
+      "summary": "",
+      "user": "user808",
+      "ideal": "React to a specific issue with a reaction emoji."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/start",
+      "method": "POST",
+      "operationId": "issueStartStopWatch",
+      "summary": "",
+      "user": "user909",
+      "ideal": "Start tracking time for a specific issue."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/stop",
+      "method": "POST",
+      "operationId": "issueStopStopWatch",
+      "summary": "",
+      "user": "user010",
+      "ideal": "Stop tracking time for a specific issue."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/milestones",
+      "method": "POST",
+      "operationId": "issueCreateMilestone",
+      "summary": "",
+      "user": "user111",
+      "ideal": "Create a new milestone for the repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/milestones/{id}",
+      "method": "DELETE",
+      "operationId": "issueDeleteMilestone",
+      "summary": "",
+      "user": "user222",
+      "ideal": "Delete a specific milestone from the repository."
+    },
+    {
+      "path": "/gitignore/templates",
+      "method": "GET",
+      "operationId": "listGitignoresTemplates",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of available gitignore templates."
+    },
+    {
+      "path": "/gitignore/templates/Python",
+      "method": "GET",
+      "operationId": "getGitignoreTemplateInfo",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Get detailed information about the Python gitignore template."
+    },
+    {
+      "path": "/label/templates",
+      "method": "GET",
+      "operationId": "listLabelTemplates",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Fetch a list of available label templates."
+    },
+    {
+      "path": "/label/templates/bug",
+      "method": "GET",
+      "operationId": "getLabelTemplateInfo",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Retrieve information about the 'bug' label template."
+    },
+    {
+      "path": "/licenses",
+      "method": "GET",
+      "operationId": "listLicenseTemplates",
+      "summary": "",
+      "user": "user112",
+      "ideal": "List all available license templates."
+    },
+    {
+      "path": "/licenses/MIT",
+      "method": "GET",
+      "operationId": "getLicenseTemplateInfo",
+      "summary": "",
+      "user": "user131",
+      "ideal": "Get details about the MIT license template."
+    },
+    {
+      "path": "/markdown",
+      "method": "POST",
+      "operationId": "renderMarkdown",
+      "summary": "",
+      "user": "user415",
+      "ideal": "Render markdown content into HTML."
+    },
+    {
+      "path": "/markdown/raw",
+      "method": "POST",
+      "operationId": "renderMarkdownRaw",
+      "summary": "",
+      "user": "user161",
+      "ideal": "Render raw markdown content into HTML without additional processing."
+    },
+    {
+      "path": "/markup",
+      "method": "POST",
+      "operationId": "renderMarkup",
+      "summary": "",
+      "user": "user718",
+      "ideal": "Convert markup content into a structured format."
+    },
+    {
+      "path": "/nodeinfo",
+      "method": "GET",
+      "operationId": "getNodeInfo",
+      "summary": "",
+      "user": "user192",
+      "ideal": "Retrieve information about the Gitea instance."
+    },
+    {
+      "path": "/signing-key.gpg",
+      "method": "GET",
+      "operationId": "getSigningKey",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Fetch the GPG signing key for verifying commits."
+    },
+    {
+      "path": "/version",
+      "method": "GET",
+      "operationId": "getVersion",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Get the current version of the Gitea API."
+    },
+    {
+      "path": "/notifications",
+      "method": "GET",
+      "operationId": "notifyGetList",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of notifications for the authenticated user."
+    },
+    {
+      "path": "/notifications",
+      "method": "PUT",
+      "operationId": "notifyReadList",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Mark all notifications as read for the authenticated user."
+    },
+    {
+      "path": "/notifications/new",
+      "method": "GET",
+      "operationId": "notifyNewAvailable",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Check if there are any new notifications for the authenticated user."
+    },
+    {
+      "path": "/notifications/threads/{id}",
+      "method": "GET",
+      "operationId": "notifyGetThread",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a specific notification thread by its ID."
+    },
+    {
+      "path": "/notifications/threads/{id}",
+      "method": "PATCH",
+      "operationId": "notifyReadThread",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Mark a specific notification thread as read by its ID."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/notifications",
+      "method": "GET",
+      "operationId": "notifyGetRepoList",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of notifications for a specific repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/notifications",
+      "method": "PUT",
+      "operationId": "notifyReadRepoList",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Mark all notifications for a specific repository as read."
+    },
+    {
+      "path": "/orgs",
+      "method": "GET",
+      "operationId": "orgGetAll",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve a list of all organizations."
+    },
+    {
+      "path": "/orgs/{org}",
+      "method": "GET",
+      "operationId": "orgGet",
+      "summary": "",
+      "user": "org_member",
+      "ideal": "Get details of a specific organization."
+    },
+    {
+      "path": "/orgs/{org}/repos",
+      "method": "GET",
+      "operationId": "orgListRepos",
+      "summary": "",
+      "user": "repo_viewer",
+      "ideal": "List all repositories for the specified organization."
+    },
+    {
+      "path": "/orgs/{org}/teams",
+      "method": "GET",
+      "operationId": "orgListTeams",
+      "summary": "",
+      "user": "team_manager",
+      "ideal": "Retrieve a list of all teams in the organization."
+    },
+    {
+      "path": "/orgs/{org}/members",
+      "method": "GET",
+      "operationId": "orgListMembers",
+      "summary": "",
+      "user": "org_admin",
+      "ideal": "Get a list of all members in the organization."
+    },
+    {
+      "path": "/orgs/{org}/hooks",
+      "method": "GET",
+      "operationId": "orgListHooks",
+      "summary": "",
+      "user": "hook_manager",
+      "ideal": "List all webhooks configured for the organization."
+    },
+    {
+      "path": "/orgs/{org}/actions/secrets",
+      "method": "GET",
+      "operationId": "orgListActionsSecrets",
+      "summary": "",
+      "user": "secret_manager",
+      "ideal": "Retrieve a list of all secrets for the organization."
+    },
+    {
+      "path": "/orgs/{org}/actions/variables",
+      "method": "GET",
+      "operationId": "getOrgVariablesList",
+      "summary": "",
+      "user": "variable_manager",
+      "ideal": "List all action variables for the organization."
+    },
+    {
+      "path": "/orgs/{org}/avatar",
+      "method": "POST",
+      "operationId": "orgUpdateAvatar",
+      "summary": "",
+      "user": "avatar_editor",
+      "ideal": "Update the avatar for the organization."
+    },
+    {
+      "path": "/orgs/{org}/blocks/{username}",
+      "method": "PUT",
+      "operationId": "organizationBlockUser",
+      "summary": "",
+      "user": "org_admin",
+      "ideal": "Block a user from the organization."
+    },
+    {
+      "path": "/packages/johndoe",
+      "method": "GET",
+      "operationId": "listPackages",
+      "summary": "",
+      "user": "johndoe",
+      "ideal": "Retrieve a list of all packages owned by johndoe."
+    },
+    {
+      "path": "/packages/johndoe/npm/my-package/1.0.0",
+      "method": "GET",
+      "operationId": "getPackage",
+      "summary": "",
+      "user": "johndoe",
+      "ideal": "Get details of the package 'my-package' version '1.0.0' owned by johndoe."
+    },
+    {
+      "path": "/packages/johndoe/npm/my-package/1.0.0",
+      "method": "DELETE",
+      "operationId": "deletePackage",
+      "summary": "",
+      "user": "johndoe",
+      "ideal": "Delete the package 'my-package' version '1.0.0' owned by johndoe."
+    },
+    {
+      "path": "/packages/johndoe/npm/my-package/1.0.0/files",
+      "method": "GET",
+      "operationId": "listPackageFiles",
+      "summary": "",
+      "user": "johndoe",
+      "ideal": "List all files associated with the package 'my-package' version '1.0.0' owned by johndoe."
+    },
+    {
+      "path": "/repos/migrate",
+      "method": "POST",
+      "operationId": "repoMigrate",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Migrate a repository from another service to Gitea."
+    },
+    {
+      "path": "/repos/search",
+      "method": "GET",
+      "operationId": "repoSearch",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Search for repositories based on specified criteria."
+    },
+    {
+      "path": "/repos/{owner}/{repo}",
+      "method": "GET",
+      "operationId": "repoGet",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Retrieve details of a specific repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}",
+      "method": "DELETE",
+      "operationId": "repoDelete",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Delete a specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}",
+      "method": "PATCH",
+      "operationId": "repoEdit",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Edit details of a specific repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/secrets",
+      "method": "GET",
+      "operationId": "repoListActionsSecrets",
+      "summary": "",
+      "user": "user303",
+      "ideal": "List all action secrets for the repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/secrets/{secretname}",
+      "method": "PUT",
+      "operationId": "updateRepoSecret",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Update a specific action secret for the repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/secrets/{secretname}",
+      "method": "DELETE",
+      "operationId": "deleteRepoSecret",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Delete a specific action secret from the repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches",
+      "method": "GET",
+      "operationId": "repoListBranches",
+      "summary": "",
+      "user": "user606",
+      "ideal": "List all branches in the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}",
+      "method": "DELETE",
+      "operationId": "repoDeleteBranch",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Delete a specific branch from the repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls",
+      "method": "GET",
+      "operationId": "repoListPullRequests",
+      "summary": "",
+      "user": "user808",
+      "ideal": "List all pull requests for the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls",
+      "method": "POST",
+      "operationId": "repoCreatePullRequest",
+      "summary": "",
+      "user": "user909",
+      "ideal": "Create a new pull request in the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases",
+      "method": "GET",
+      "operationId": "repoListReleases",
+      "summary": "",
+      "user": "user1010",
+      "ideal": "List all releases for the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases",
+      "method": "POST",
+      "operationId": "repoCreateRelease",
+      "summary": "",
+      "user": "user1111",
+      "ideal": "Create a new release for the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/topics",
+      "method": "PUT",
+      "operationId": "repoUpdateTopics",
+      "summary": "",
+      "user": "user1212",
+      "ideal": "Update topics for the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/wiki/pages",
+      "method": "GET",
+      "operationId": "repoGetWikiPages",
+      "summary": "",
+      "user": "user1313",
+      "ideal": "Retrieve a list of all wiki pages for the repository."
+    },
+    {
+      "path": "/settings/api",
+      "method": "GET",
+      "operationId": "getGeneralAPISettings",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the general API settings for the Gitea instance."
+    },
+    {
+      "path": "/settings/attachment",
+      "method": "GET",
+      "operationId": "getGeneralAttachmentSettings",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch the general settings related to attachments in the Gitea instance."
+    },
+    {
+      "path": "/settings/repository",
+      "method": "GET",
+      "operationId": "getGeneralRepositorySettings",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Obtain the general repository settings for the Gitea instance."
+    },
+    {
+      "path": "/settings/ui",
+      "method": "GET",
+      "operationId": "getGeneralUISettings",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get the general user interface settings for the Gitea instance."
+    },
+    {
+      "path": "/user",
+      "method": "GET",
+      "operationId": "userGetCurrent",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Retrieve the current authenticated user's information."
+    },
+    {
+      "path": "/user/actions/runners/registration-token",
+      "method": "GET",
+      "operationId": "userGetRunnerRegistrationToken",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Get a registration token for GitHub Actions runners."
+    },
+    {
+      "path": "/user/actions/secrets/my_secret",
+      "method": "PUT",
+      "operationId": "updateUserSecret",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Update the secret named 'my_secret' for the user."
+    },
+    {
+      "path": "/user/actions/secrets/my_secret",
+      "method": "DELETE",
+      "operationId": "deleteUserSecret",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Delete the secret named 'my_secret' for the user."
+    },
+    {
+      "path": "/user/actions/variables",
+      "method": "GET",
+      "operationId": "getUserVariablesList",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all action variables for the user."
+    },
+    {
+      "path": "/user/applications/oauth2",
+      "method": "POST",
+      "operationId": "userCreateOAuth2Application",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Create a new OAuth2 application for the user."
+    },
+    {
+      "path": "/user/applications/oauth2/123",
+      "method": "DELETE",
+      "operationId": "userDeleteOAuth2Application",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Delete the OAuth2 application with ID 123."
+    },
+    {
+      "path": "/user/emails",
+      "method": "GET",
+      "operationId": "userListEmails",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Retrieve a list of email addresses associated with the user."
+    },
+    {
+      "path": "/user/following/jane_doe",
+      "method": "PUT",
+      "operationId": "userCurrentPutFollow",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Follow the user 'jane_doe'."
+    },
+    {
+      "path": "/user/gpg_keys",
+      "method": "POST",
+      "operationId": "userCurrentPostGPGKey",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Add a new GPG key for the user."
+    },
+    {
+      "path": "/user/hooks",
+      "method": "POST",
+      "operationId": "userCreateHook",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Create a new webhook for the user."
+    },
+    {
+      "path": "/user/repos",
+      "method": "POST",
+      "operationId": "createCurrentUserRepo",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Create a new repository for the current user."
+    },
+    {
+      "path": "/user/settings",
+      "method": "PATCH",
+      "operationId": "updateUserSettings",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Update the settings for the current user."
+    },
+    {
+      "path": "/user/starred",
+      "method": "GET",
+      "operationId": "userCurrentListStarred",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all repositories starred by the user."
+    },
+    {
+      "path": "/users/jane_doe",
+      "method": "GET",
+      "operationId": "userGet",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Retrieve information about the user 'jane_doe'."
+    },
+    {
+      "path": "/users/jane_doe/repos",
+      "method": "GET",
+      "operationId": "userListRepos",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all repositories owned by 'jane_doe'."
+    }
+  ]
+}

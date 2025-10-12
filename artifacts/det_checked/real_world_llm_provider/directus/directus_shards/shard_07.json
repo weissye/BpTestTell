@@ -1,0 +1,63 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/fields",
+      "method": "GET",
+      "tags": [
+        "Fields"
+      ],
+      "summary": "List All Fields",
+      "operationId": "getFields"
+    },
+    {
+      "path": "/fields/{collection}",
+      "method": "GET",
+      "tags": [
+        "Fields"
+      ],
+      "summary": "List Fields in Collection",
+      "operationId": "getCollectionFields"
+    },
+    {
+      "path": "/fields/{collection}",
+      "method": "POST",
+      "tags": [
+        "Fields"
+      ],
+      "summary": "Create Field in Collection",
+      "operationId": "createField"
+    },
+    {
+      "path": "/fields/{collection}/{id}",
+      "method": "GET",
+      "tags": [
+        "Fields"
+      ],
+      "summary": "Retrieve a Field",
+      "operationId": "getCollectionField"
+    },
+    {
+      "path": "/fields/{collection}/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Fields"
+      ],
+      "summary": "Update a Field",
+      "operationId": "updateField"
+    },
+    {
+      "path": "/fields/{collection}/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Fields"
+      ],
+      "summary": "Delete a Field",
+      "operationId": "deleteField"
+    }
+  ]
+}

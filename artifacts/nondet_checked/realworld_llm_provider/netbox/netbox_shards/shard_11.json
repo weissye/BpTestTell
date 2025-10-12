@@ -1,0 +1,819 @@
+{
+  "openapi_meta": {
+    "title": "NetBox REST API",
+    "version": "4.4.2 (4.4)"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/api/vpn/ike-policies/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_policies_list"
+    },
+    {
+      "path": "/api/vpn/ike-policies/",
+      "method": "POST",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_policies_create"
+    },
+    {
+      "path": "/api/vpn/ike-policies/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_policies_bulk_update"
+    },
+    {
+      "path": "/api/vpn/ike-policies/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_policies_bulk_partial_update"
+    },
+    {
+      "path": "/api/vpn/ike-policies/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_policies_bulk_destroy"
+    },
+    {
+      "path": "/api/vpn/ike-policies/{id}/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_policies_retrieve"
+    },
+    {
+      "path": "/api/vpn/ike-policies/{id}/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_policies_update"
+    },
+    {
+      "path": "/api/vpn/ike-policies/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_policies_partial_update"
+    },
+    {
+      "path": "/api/vpn/ike-policies/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_policies_destroy"
+    },
+    {
+      "path": "/api/vpn/ike-proposals/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_proposals_list"
+    },
+    {
+      "path": "/api/vpn/ike-proposals/",
+      "method": "POST",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_proposals_create"
+    },
+    {
+      "path": "/api/vpn/ike-proposals/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_proposals_bulk_update"
+    },
+    {
+      "path": "/api/vpn/ike-proposals/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_proposals_bulk_partial_update"
+    },
+    {
+      "path": "/api/vpn/ike-proposals/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_proposals_bulk_destroy"
+    },
+    {
+      "path": "/api/vpn/ike-proposals/{id}/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_proposals_retrieve"
+    },
+    {
+      "path": "/api/vpn/ike-proposals/{id}/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_proposals_update"
+    },
+    {
+      "path": "/api/vpn/ike-proposals/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_proposals_partial_update"
+    },
+    {
+      "path": "/api/vpn/ike-proposals/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ike_proposals_destroy"
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_policies_list"
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/",
+      "method": "POST",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_policies_create"
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_policies_bulk_update"
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_policies_bulk_partial_update"
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_policies_bulk_destroy"
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/{id}/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_policies_retrieve"
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/{id}/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_policies_update"
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_policies_partial_update"
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_policies_destroy"
+    },
+    {
+      "path": "/api/vpn/ipsec-profiles/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_profiles_list"
+    },
+    {
+      "path": "/api/vpn/ipsec-profiles/",
+      "method": "POST",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_profiles_create"
+    },
+    {
+      "path": "/api/vpn/ipsec-profiles/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_profiles_bulk_update"
+    },
+    {
+      "path": "/api/vpn/ipsec-profiles/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_profiles_bulk_partial_update"
+    },
+    {
+      "path": "/api/vpn/ipsec-profiles/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_profiles_bulk_destroy"
+    },
+    {
+      "path": "/api/vpn/ipsec-profiles/{id}/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_profiles_retrieve"
+    },
+    {
+      "path": "/api/vpn/ipsec-profiles/{id}/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_profiles_update"
+    },
+    {
+      "path": "/api/vpn/ipsec-profiles/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_profiles_partial_update"
+    },
+    {
+      "path": "/api/vpn/ipsec-profiles/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_profiles_destroy"
+    },
+    {
+      "path": "/api/vpn/ipsec-proposals/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_proposals_list"
+    },
+    {
+      "path": "/api/vpn/ipsec-proposals/",
+      "method": "POST",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_proposals_create"
+    },
+    {
+      "path": "/api/vpn/ipsec-proposals/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_proposals_bulk_update"
+    },
+    {
+      "path": "/api/vpn/ipsec-proposals/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_proposals_bulk_partial_update"
+    },
+    {
+      "path": "/api/vpn/ipsec-proposals/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_proposals_bulk_destroy"
+    },
+    {
+      "path": "/api/vpn/ipsec-proposals/{id}/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_proposals_retrieve"
+    },
+    {
+      "path": "/api/vpn/ipsec-proposals/{id}/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_proposals_update"
+    },
+    {
+      "path": "/api/vpn/ipsec-proposals/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_proposals_partial_update"
+    },
+    {
+      "path": "/api/vpn/ipsec-proposals/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_ipsec_proposals_destroy"
+    },
+    {
+      "path": "/api/vpn/l2vpn-terminations/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpn_terminations_list"
+    },
+    {
+      "path": "/api/vpn/l2vpn-terminations/",
+      "method": "POST",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpn_terminations_create"
+    },
+    {
+      "path": "/api/vpn/l2vpn-terminations/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpn_terminations_bulk_update"
+    },
+    {
+      "path": "/api/vpn/l2vpn-terminations/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpn_terminations_bulk_partial_update"
+    },
+    {
+      "path": "/api/vpn/l2vpn-terminations/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpn_terminations_bulk_destroy"
+    },
+    {
+      "path": "/api/vpn/l2vpn-terminations/{id}/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpn_terminations_retrieve"
+    },
+    {
+      "path": "/api/vpn/l2vpn-terminations/{id}/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpn_terminations_update"
+    },
+    {
+      "path": "/api/vpn/l2vpn-terminations/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpn_terminations_partial_update"
+    },
+    {
+      "path": "/api/vpn/l2vpn-terminations/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpn_terminations_destroy"
+    },
+    {
+      "path": "/api/vpn/l2vpns/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpns_list"
+    },
+    {
+      "path": "/api/vpn/l2vpns/",
+      "method": "POST",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpns_create"
+    },
+    {
+      "path": "/api/vpn/l2vpns/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpns_bulk_update"
+    },
+    {
+      "path": "/api/vpn/l2vpns/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpns_bulk_partial_update"
+    },
+    {
+      "path": "/api/vpn/l2vpns/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpns_bulk_destroy"
+    },
+    {
+      "path": "/api/vpn/l2vpns/{id}/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpns_retrieve"
+    },
+    {
+      "path": "/api/vpn/l2vpns/{id}/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpns_update"
+    },
+    {
+      "path": "/api/vpn/l2vpns/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpns_partial_update"
+    },
+    {
+      "path": "/api/vpn/l2vpns/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_l2vpns_destroy"
+    },
+    {
+      "path": "/api/vpn/tunnel-groups/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_groups_list"
+    },
+    {
+      "path": "/api/vpn/tunnel-groups/",
+      "method": "POST",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_groups_create"
+    },
+    {
+      "path": "/api/vpn/tunnel-groups/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_groups_bulk_update"
+    },
+    {
+      "path": "/api/vpn/tunnel-groups/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_groups_bulk_partial_update"
+    },
+    {
+      "path": "/api/vpn/tunnel-groups/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_groups_bulk_destroy"
+    },
+    {
+      "path": "/api/vpn/tunnel-groups/{id}/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_groups_retrieve"
+    },
+    {
+      "path": "/api/vpn/tunnel-groups/{id}/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_groups_update"
+    },
+    {
+      "path": "/api/vpn/tunnel-groups/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_groups_partial_update"
+    },
+    {
+      "path": "/api/vpn/tunnel-groups/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_groups_destroy"
+    },
+    {
+      "path": "/api/vpn/tunnel-terminations/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_terminations_list"
+    },
+    {
+      "path": "/api/vpn/tunnel-terminations/",
+      "method": "POST",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_terminations_create"
+    },
+    {
+      "path": "/api/vpn/tunnel-terminations/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_terminations_bulk_update"
+    },
+    {
+      "path": "/api/vpn/tunnel-terminations/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_terminations_bulk_partial_update"
+    },
+    {
+      "path": "/api/vpn/tunnel-terminations/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_terminations_bulk_destroy"
+    },
+    {
+      "path": "/api/vpn/tunnel-terminations/{id}/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_terminations_retrieve"
+    },
+    {
+      "path": "/api/vpn/tunnel-terminations/{id}/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_terminations_update"
+    },
+    {
+      "path": "/api/vpn/tunnel-terminations/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_terminations_partial_update"
+    },
+    {
+      "path": "/api/vpn/tunnel-terminations/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnel_terminations_destroy"
+    },
+    {
+      "path": "/api/vpn/tunnels/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnels_list"
+    },
+    {
+      "path": "/api/vpn/tunnels/",
+      "method": "POST",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnels_create"
+    },
+    {
+      "path": "/api/vpn/tunnels/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnels_bulk_update"
+    },
+    {
+      "path": "/api/vpn/tunnels/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnels_bulk_partial_update"
+    },
+    {
+      "path": "/api/vpn/tunnels/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnels_bulk_destroy"
+    },
+    {
+      "path": "/api/vpn/tunnels/{id}/",
+      "method": "GET",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnels_retrieve"
+    },
+    {
+      "path": "/api/vpn/tunnels/{id}/",
+      "method": "PUT",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnels_update"
+    },
+    {
+      "path": "/api/vpn/tunnels/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnels_partial_update"
+    },
+    {
+      "path": "/api/vpn/tunnels/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "vpn"
+      ],
+      "summary": "",
+      "operationId": "vpn_tunnels_destroy"
+    }
+  ]
+}

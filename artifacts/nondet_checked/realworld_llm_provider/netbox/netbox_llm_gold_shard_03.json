@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/api/dcim/cable-terminations/",
+      "method": "GET",
+      "operationId": "dcim_cable_terminations_list",
+      "summary": "",
+      "user": "Retrieve a list of all cable terminations in the system.",
+      "ideal": "A successful response with a list of cable terminations."
+    },
+    {
+      "path": "/api/dcim/cable-terminations/",
+      "method": "POST",
+      "operationId": "dcim_cable_terminations_create",
+      "summary": "",
+      "user": "Create a new cable termination with specified attributes.",
+      "ideal": "A successful response with the created cable termination details."
+    },
+    {
+      "path": "/api/dcim/cable-terminations/{id}/",
+      "method": "GET",
+      "operationId": "dcim_cable_terminations_retrieve",
+      "summary": "",
+      "user": "Retrieve details of a specific cable termination by ID.",
+      "ideal": "A successful response with the details of the specified cable termination."
+    },
+    {
+      "path": "/api/dcim/cables/",
+      "method": "GET",
+      "operationId": "dcim_cables_list",
+      "summary": "",
+      "user": "Get a list of all cables in the system.",
+      "ideal": "A successful response with a list of cables."
+    },
+    {
+      "path": "/api/dcim/cables/{id}/",
+      "method": "DELETE",
+      "operationId": "dcim_cables_destroy",
+      "summary": "",
+      "user": "Delete a specific cable by its ID.",
+      "ideal": "A successful response confirming the cable has been deleted."
+    },
+    {
+      "path": "/api/dcim/devices/",
+      "method": "POST",
+      "operationId": "dcim_devices_create",
+      "summary": "",
+      "user": "Create a new device with the provided specifications.",
+      "ideal": "A successful response with the created device's details."
+    },
+    {
+      "path": "/api/dcim/devices/{id}/",
+      "method": "PATCH",
+      "operationId": "dcim_devices_partial_update",
+      "summary": "",
+      "user": "Update specific fields of a device by its ID.",
+      "ideal": "A successful response with the updated device details."
+    },
+    {
+      "path": "/api/dcim/locations/",
+      "method": "GET",
+      "operationId": "dcim_locations_list",
+      "summary": "",
+      "user": "Retrieve a list of all locations in the system.",
+      "ideal": "A successful response with a list of locations."
+    },
+    {
+      "path": "/api/dcim/locations/{id}/",
+      "method": "DELETE",
+      "operationId": "dcim_locations_destroy",
+      "summary": "",
+      "user": "Delete a specific location by its ID.",
+      "ideal": "A successful response confirming the location has been deleted."
+    },
+    {
+      "path": "/api/dcim/power-feeds/",
+      "method": "POST",
+      "operationId": "dcim_power_feeds_create",
+      "summary": "",
+      "user": "Create a new power feed with specified attributes.",
+      "ideal": "A successful response with the created power feed details."
+    },
+    {
+      "path": "/api/dcim/power-feeds/{id}/",
+      "method": "GET",
+      "operationId": "dcim_power_feeds_retrieve",
+      "summary": "",
+      "user": "Retrieve details of a specific power feed by ID.",
+      "ideal": "A successful response with the details of the specified power feed."
+    }
+  ]
+}

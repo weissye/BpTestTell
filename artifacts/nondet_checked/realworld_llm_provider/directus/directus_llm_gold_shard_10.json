@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/folders",
+      "method": "GET",
+      "operationId": "getFolders",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all folders."
+    },
+    {
+      "path": "/folders",
+      "method": "POST",
+      "operationId": "createFolder",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Create a new folder with the specified details."
+    },
+    {
+      "path": "/folders",
+      "method": "PATCH",
+      "operationId": "updateFolders",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update multiple folders with the provided data."
+    },
+    {
+      "path": "/folders",
+      "method": "DELETE",
+      "operationId": "deleteFolders",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete multiple folders by their IDs."
+    },
+    {
+      "path": "/folders/{id}",
+      "method": "GET",
+      "operationId": "getFolder",
+      "summary": "",
+      "user": "viewer",
+      "ideal": "Retrieve details of a specific folder by its ID."
+    },
+    {
+      "path": "/folders/{id}",
+      "method": "PATCH",
+      "operationId": "updateFolder",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update the details of a specific folder by its ID."
+    },
+    {
+      "path": "/folders/{id}",
+      "method": "DELETE",
+      "operationId": "deleteFolder",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific folder by its ID."
+    }
+  ]
+}

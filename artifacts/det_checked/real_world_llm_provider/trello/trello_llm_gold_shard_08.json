@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/members/12345",
+      "method": "GET",
+      "operationId": "getMembersByIdMember",
+      "summary": "",
+      "user": "User requests member details for member ID 12345.",
+      "ideal": "Returns member information including name, email, and avatar."
+    },
+    {
+      "path": "/members/12345",
+      "method": "PUT",
+      "operationId": "updateMembersByIdMember",
+      "summary": "",
+      "user": "User updates member details for member ID 12345 with new email and name.",
+      "ideal": "Successfully updates member information and returns updated details."
+    },
+    {
+      "path": "/members/12345/actions",
+      "method": "GET",
+      "operationId": "getMembersActionsByIdMember",
+      "summary": "",
+      "user": "User retrieves actions performed by member ID 12345.",
+      "ideal": "Returns a list of actions with timestamps and descriptions."
+    },
+    {
+      "path": "/members/12345/avatar",
+      "method": "POST",
+      "operationId": "addMembersAvatarByIdMember",
+      "summary": "",
+      "user": "User uploads a new avatar for member ID 12345.",
+      "ideal": "Successfully uploads the avatar and returns the new avatar URL."
+    },
+    {
+      "path": "/members/12345/bio",
+      "method": "PUT",
+      "operationId": "updateMembersBioByIdMember",
+      "summary": "",
+      "user": "User updates the bio for member ID 12345.",
+      "ideal": "Successfully updates the bio and returns the updated bio text."
+    },
+    {
+      "path": "/members/12345/boardBackgrounds",
+      "method": "GET",
+      "operationId": "getMembersBoardBackgroundsByIdMember",
+      "summary": "",
+      "user": "User retrieves board backgrounds for member ID 12345.",
+      "ideal": "Returns a list of board backgrounds associated with the member."
+    },
+    {
+      "path": "/members/12345/boardBackgrounds",
+      "method": "POST",
+      "operationId": "addMembersBoardBackgroundsByIdMember",
+      "summary": "",
+      "user": "User adds a new board background for member ID 12345.",
+      "ideal": "Successfully adds the background and returns the new background details."
+    },
+    {
+      "path": "/members/12345/boardStars",
+      "method": "GET",
+      "operationId": "getMembersBoardStarsByIdMember",
+      "summary": "",
+      "user": "User retrieves board stars for member ID 12345.",
+      "ideal": "Returns a list of starred boards for the member."
+    },
+    {
+      "path": "/members/12345/cards",
+      "method": "GET",
+      "operationId": "getMembersCardsByIdMember",
+      "summary": "",
+      "user": "User retrieves cards associated with member ID 12345.",
+      "ideal": "Returns a list of cards with details such as title and status."
+    },
+    {
+      "path": "/members/12345/notifications",
+      "method": "GET",
+      "operationId": "getMembersNotificationsByIdMember",
+      "summary": "",
+      "user": "User checks notifications for member ID 12345.",
+      "ideal": "Returns a list of notifications with types and timestamps."
+    }
+  ]
+}

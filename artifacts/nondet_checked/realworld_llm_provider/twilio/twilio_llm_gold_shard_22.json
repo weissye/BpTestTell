@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json",
+      "method": "GET",
+      "operationId": "ListSipCredentialList",
+      "summary": "",
+      "user": "User wants to retrieve a list of all SIP Credential Lists associated with their Twilio account to manage access for SIP endpoints.",
+      "ideal": "A JSON response containing an array of SIP Credential Lists with details such as SID, friendly name, and date created."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json",
+      "method": "POST",
+      "operationId": "CreateSipCredentialList",
+      "summary": "",
+      "user": "User needs to create a new SIP Credential List to manage a group of SIP credentials for their application.",
+      "ideal": "A JSON response confirming the creation of the SIP Credential List, including its SID and other relevant details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchSipCredentialList",
+      "summary": "",
+      "user": "User wants to fetch details of a specific SIP Credential List to review its configuration and credentials.",
+      "ideal": "A JSON response containing the details of the specified SIP Credential List, including its SID, friendly name, and associated credentials."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateSipCredentialList",
+      "summary": "",
+      "user": "User needs to update an existing SIP Credential List to add or modify credentials for better access control.",
+      "ideal": "A JSON response confirming the update of the SIP Credential List, including the updated details and SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipCredentialList",
+      "summary": "",
+      "user": "User wants to delete a specific SIP Credential List that is no longer needed to clean up their account.",
+      "ideal": "A JSON response confirming the deletion of the SIP Credential List, indicating that it has been successfully removed."
+    }
+  ]
+}

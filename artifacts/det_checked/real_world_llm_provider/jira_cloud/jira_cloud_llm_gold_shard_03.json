@@ -1,84 +1,28 @@
 {
   "gold": [
     {
-      "path": "/rest/api/3/issue/{issueIdOrKey}/comment",
-      "method": "GET",
-      "operationId": "getComments",
+      "path": "/rest/atlassian-connect/1/migration/field",
+      "method": "PUT",
+      "operationId": "AppIssueFieldValueUpdateResource.updateIssueFields_put",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve all comments for the specified issue."
+      "user": "As a project manager, I want to update the issue fields in Jira to reflect the latest changes in our project requirements.",
+      "ideal": "The issue fields are successfully updated with the new values, and a confirmation message is returned."
     },
     {
-      "path": "/rest/api/3/project/{projectIdOrKey}/components",
-      "method": "GET",
-      "operationId": "getProjectComponents",
+      "path": "/rest/atlassian-connect/1/migration/properties/{entityType}",
+      "method": "PUT",
+      "operationId": "MigrationResource.updateEntityPropertiesValue_put",
       "summary": "",
-      "user": "projectManager456",
-      "ideal": "Fetch all components associated with the specified project."
+      "user": "As a system administrator, I need to update the properties of a specific entity type to ensure that our migration settings are correctly configured.",
+      "ideal": "The properties for the specified entity type are updated successfully, and the API returns the updated properties."
     },
     {
-      "path": "/rest/api/3/issue/{issueIdOrKey}/attachments",
+      "path": "/rest/atlassian-connect/1/migration/workflow/rule/search",
       "method": "POST",
-      "operationId": "addAttachment",
+      "operationId": "MigrationResource.workflowRuleSearch_post",
       "summary": "",
-      "user": "dev789",
-      "ideal": "Add an attachment to the specified issue."
-    },
-    {
-      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
-      "method": "POST",
-      "operationId": "doTransition",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Transition the specified issue to a new status."
-    },
-    {
-      "path": "/rest/api/3/dashboard",
-      "method": "GET",
-      "operationId": "getAllDashboards",
-      "summary": "",
-      "user": "adminUser",
-      "ideal": "Retrieve a list of all dashboards available to the user."
-    },
-    {
-      "path": "/rest/api/3/field/{fieldId}/context",
-      "method": "GET",
-      "operationId": "getContextsForField",
-      "summary": "",
-      "user": "fieldAdmin",
-      "ideal": "Get context information for the specified custom field."
-    },
-    {
-      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
-      "method": "POST",
-      "operationId": "addWorklog",
-      "summary": "",
-      "user": "dev789",
-      "ideal": "Add a worklog entry for the specified issue."
-    },
-    {
-      "path": "/rest/api/3/user/search/query",
-      "method": "GET",
-      "operationId": "findUsersByQuery",
-      "summary": "",
-      "user": "teamLead",
-      "ideal": "Search for users based on a query string."
-    },
-    {
-      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
-      "method": "GET",
-      "operationId": "getIssueProperty",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve a specific property for the specified issue."
-    },
-    {
-      "path": "/rest/api/3/issueLinkType",
-      "method": "GET",
-      "operationId": "getIssueLinkTypes",
-      "summary": "",
-      "user": "adminUser",
-      "ideal": "Get all available issue link types."
+      "user": "As a developer, I want to search for specific workflow rules that need to be migrated to the new system so that I can prepare for the migration process.",
+      "ideal": "The search returns a list of relevant workflow rules that match the search criteria, allowing me to review them before migration."
     }
   ]
 }

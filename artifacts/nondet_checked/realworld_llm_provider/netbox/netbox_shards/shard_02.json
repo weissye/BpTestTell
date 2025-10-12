@@ -1,0 +1,261 @@
+{
+  "openapi_meta": {
+    "title": "NetBox REST API",
+    "version": "4.4.2 (4.4)"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/api/core/background-queues/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_background_queues_retrieve"
+    },
+    {
+      "path": "/api/core/background-queues/{name}/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_background_queues_retrieve_by_name"
+    },
+    {
+      "path": "/api/core/background-tasks/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_background_tasks_retrieve"
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_background_tasks_retrieve_by_id"
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/delete/",
+      "method": "POST",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_background_tasks_delete_create"
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/enqueue/",
+      "method": "POST",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_background_tasks_enqueue_create"
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/requeue/",
+      "method": "POST",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_background_tasks_requeue_create"
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/stop/",
+      "method": "POST",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_background_tasks_stop_create"
+    },
+    {
+      "path": "/api/core/background-workers/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_background_workers_retrieve"
+    },
+    {
+      "path": "/api/core/background-workers/{name}/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_background_workers_retrieve_by_name"
+    },
+    {
+      "path": "/api/core/data-files/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_data_files_list"
+    },
+    {
+      "path": "/api/core/data-files/{id}/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_data_files_retrieve"
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_data_sources_list"
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "POST",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_data_sources_create"
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "PUT",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_data_sources_bulk_update"
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "PATCH",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_data_sources_bulk_partial_update"
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "DELETE",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_data_sources_bulk_destroy"
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_data_sources_retrieve"
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "PUT",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_data_sources_update"
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_data_sources_partial_update"
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_data_sources_destroy"
+    },
+    {
+      "path": "/api/core/data-sources/{id}/sync/",
+      "method": "POST",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_data_sources_sync_create"
+    },
+    {
+      "path": "/api/core/jobs/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_jobs_list"
+    },
+    {
+      "path": "/api/core/jobs/{id}/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_jobs_retrieve"
+    },
+    {
+      "path": "/api/core/object-changes/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_object_changes_list"
+    },
+    {
+      "path": "/api/core/object-changes/{id}/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_object_changes_retrieve"
+    },
+    {
+      "path": "/api/core/object-types/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_object_types_list"
+    },
+    {
+      "path": "/api/core/object-types/{id}/",
+      "method": "GET",
+      "tags": [
+        "core"
+      ],
+      "summary": "",
+      "operationId": "core_object_types_retrieve"
+    }
+  ]
+}

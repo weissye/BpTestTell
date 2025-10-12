@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/utils/hash/generate",
+      "method": "POST",
+      "operationId": "hash-generate",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Generate a secure hash for the given input."
+    },
+    {
+      "path": "/utils/hash/verify",
+      "method": "POST",
+      "operationId": "hash-verify",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Verify if the provided input matches the stored hash."
+    },
+    {
+      "path": "/utils/sort/users",
+      "method": "POST",
+      "operationId": "sort",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Sort the users collection based on specified criteria."
+    },
+    {
+      "path": "/utils/import/products",
+      "method": "POST",
+      "operationId": "import",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Import a list of products into the products collection."
+    },
+    {
+      "path": "/utils/export/orders",
+      "method": "POST",
+      "operationId": "export",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Export the orders collection to a CSV file."
+    },
+    {
+      "path": "/utils/cache/clear",
+      "method": "POST",
+      "operationId": "clear-cache",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Clear the application cache to free up resources."
+    },
+    {
+      "path": "/utils/random/string",
+      "method": "GET",
+      "operationId": "random",
+      "summary": "",
+      "user": "guest",
+      "ideal": "Generate a random string for use in testing."
+    }
+  ]
+}

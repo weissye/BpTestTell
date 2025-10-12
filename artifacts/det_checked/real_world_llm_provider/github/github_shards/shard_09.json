@@ -1,0 +1,189 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/enterprises/{enterprise}/code-security/configurations",
+      "method": "GET",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get code security configurations for an enterprise",
+      "operationId": "code-security/get-configurations-for-enterprise"
+    },
+    {
+      "path": "/enterprises/{enterprise}/code-security/configurations",
+      "method": "POST",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Create a code security configuration for an enterprise",
+      "operationId": "code-security/create-configuration-for-enterprise"
+    },
+    {
+      "path": "/enterprises/{enterprise}/code-security/configurations/defaults",
+      "method": "GET",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get default code security configurations for an enterprise",
+      "operationId": "code-security/get-default-configurations-for-enterprise"
+    },
+    {
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}",
+      "method": "GET",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Retrieve a code security configuration of an enterprise",
+      "operationId": "code-security/get-single-configuration-for-enterprise"
+    },
+    {
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}",
+      "method": "PATCH",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Update a custom code security configuration for an enterprise",
+      "operationId": "code-security/update-enterprise-configuration"
+    },
+    {
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}",
+      "method": "DELETE",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Delete a code security configuration for an enterprise",
+      "operationId": "code-security/delete-configuration-for-enterprise"
+    },
+    {
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}/attach",
+      "method": "POST",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Attach an enterprise configuration to repositories",
+      "operationId": "code-security/attach-enterprise-configuration"
+    },
+    {
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}/defaults",
+      "method": "PUT",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Set a code security configuration as a default for an enterprise",
+      "operationId": "code-security/set-configuration-as-default-for-enterprise"
+    },
+    {
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}/repositories",
+      "method": "GET",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get repositories associated with an enterprise code security configuration",
+      "operationId": "code-security/get-repositories-for-enterprise-configuration"
+    },
+    {
+      "path": "/orgs/{org}/code-security/configurations",
+      "method": "GET",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get code security configurations for an organization",
+      "operationId": "code-security/get-configurations-for-org"
+    },
+    {
+      "path": "/orgs/{org}/code-security/configurations",
+      "method": "POST",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Create a code security configuration",
+      "operationId": "code-security/create-configuration"
+    },
+    {
+      "path": "/orgs/{org}/code-security/configurations/defaults",
+      "method": "GET",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get default code security configurations",
+      "operationId": "code-security/get-default-configurations"
+    },
+    {
+      "path": "/orgs/{org}/code-security/configurations/detach",
+      "method": "DELETE",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Detach configurations from repositories",
+      "operationId": "code-security/detach-configuration"
+    },
+    {
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}",
+      "method": "GET",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get a code security configuration",
+      "operationId": "code-security/get-configuration"
+    },
+    {
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}",
+      "method": "PATCH",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Update a code security configuration",
+      "operationId": "code-security/update-configuration"
+    },
+    {
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}",
+      "method": "DELETE",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Delete a code security configuration",
+      "operationId": "code-security/delete-configuration"
+    },
+    {
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}/attach",
+      "method": "POST",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Attach a configuration to repositories",
+      "operationId": "code-security/attach-configuration"
+    },
+    {
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}/defaults",
+      "method": "PUT",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Set a code security configuration as a default for an organization",
+      "operationId": "code-security/set-configuration-as-default"
+    },
+    {
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}/repositories",
+      "method": "GET",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get repositories associated with a code security configuration",
+      "operationId": "code-security/get-repositories-for-configuration"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-security-configuration",
+      "method": "GET",
+      "tags": [
+        "code-security"
+      ],
+      "summary": "Get the code security configuration associated with a repository",
+      "operationId": "code-security/get-configuration-for-repository"
+    }
+  ]
+}

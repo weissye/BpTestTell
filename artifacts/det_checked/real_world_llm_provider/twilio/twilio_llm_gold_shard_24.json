@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/Daily.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordDaily",
+      "summary": "",
+      "user": "User with Account SID ACXXXXXXXXXXXXXXXXX requests daily usage records for their Twilio account to analyze SMS and voice usage trends over the past month.",
+      "ideal": "Returns a JSON array of daily usage records including details such as date, SMS count, voice minutes, and total cost."
+    }
+  ]
+}

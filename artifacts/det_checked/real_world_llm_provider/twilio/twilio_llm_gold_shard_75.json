@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/Yesterday.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordYesterday",
+      "summary": "",
+      "user": "User requested yesterday's usage records for their Twilio account to analyze SMS and call usage for billing purposes.",
+      "ideal": "Returns a JSON object containing usage records for the previous day, including details such as the number of messages sent, call durations, and any other relevant usage metrics."
+    }
+  ]
+}

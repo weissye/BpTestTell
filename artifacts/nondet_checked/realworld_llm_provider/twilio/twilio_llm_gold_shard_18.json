@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchConference",
+      "summary": "",
+      "user": "User requests details of a specific conference using the conference SID to retrieve information such as the status, participants, and timestamps.",
+      "ideal": "Returns the details of the specified conference in JSON format."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateConference",
+      "summary": "",
+      "user": "User updates the details of a specific conference, such as changing the status to 'completed' or adding a new participant.",
+      "ideal": "Successfully updates the conference and returns the updated conference details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences.json",
+      "method": "GET",
+      "operationId": "ListConference",
+      "summary": "",
+      "user": "User wants to list all conferences associated with their account to monitor ongoing and past conferences.",
+      "ideal": "Returns a list of all conferences in JSON format, including their statuses and participant counts."
+    }
+  ]
+}

@@ -1,132 +1,124 @@
 {
   "gold": [
     {
-      "path": "/{realm}/identity-provider/import-config",
-      "method": "POST",
-      "operationId": "postImportConfig",
-      "summary": "",
-      "user": "Admin user imports identity provider configuration for realm 'myrealm'.",
-      "ideal": "Successfully imports the identity provider configuration."
-    },
-    {
-      "path": "/{realm}/identity-provider/instances",
+      "path": "/myrealm/identity-provider/instances",
       "method": "GET",
       "operationId": "getInstances",
       "summary": "",
-      "user": "Admin user retrieves all identity provider instances for realm 'myrealm'.",
-      "ideal": "Returns a list of identity provider instances."
+      "user": "admin_user",
+      "ideal": "Retrieve a list of identity provider instances for the specified realm."
     },
     {
-      "path": "/{realm}/identity-provider/instances",
+      "path": "/myrealm/identity-provider/instances",
       "method": "POST",
       "operationId": "postInstances",
       "summary": "",
-      "user": "Admin user creates a new identity provider instance for realm 'myrealm'.",
-      "ideal": "Successfully creates a new identity provider instance."
+      "user": "admin_user",
+      "ideal": "Create a new identity provider instance in the specified realm."
     },
     {
-      "path": "/{realm}/identity-provider/instances/{alias}",
+      "path": "/myrealm/identity-provider/instances/myprovider",
       "method": "GET",
       "operationId": "getInstance",
       "summary": "",
-      "user": "Admin user retrieves details of the identity provider instance with alias 'google'.",
-      "ideal": "Returns the details of the specified identity provider instance."
+      "user": "admin_user",
+      "ideal": "Fetch details of the identity provider instance with alias 'myprovider'."
     },
     {
-      "path": "/{realm}/identity-provider/instances/{alias}",
+      "path": "/myrealm/identity-provider/instances/myprovider",
       "method": "PUT",
       "operationId": "putInstance",
       "summary": "",
-      "user": "Admin user updates the identity provider instance with alias 'google'.",
-      "ideal": "Successfully updates the identity provider instance."
+      "user": "admin_user",
+      "ideal": "Update the configuration of the identity provider instance with alias 'myprovider'."
     },
     {
-      "path": "/{realm}/identity-provider/instances/{alias}",
+      "path": "/myrealm/identity-provider/instances/myprovider",
       "method": "DELETE",
       "operationId": "deleteInstance",
       "summary": "",
-      "user": "Admin user deletes the identity provider instance with alias 'google'.",
-      "ideal": "Successfully deletes the identity provider instance."
+      "user": "admin_user",
+      "ideal": "Delete the identity provider instance with alias 'myprovider'."
     },
     {
-      "path": "/{realm}/identity-provider/instances/{alias}/export",
+      "path": "/myrealm/identity-provider/instances/myprovider/export",
       "method": "GET",
       "operationId": "getExport",
       "summary": "",
-      "user": "Admin user exports the configuration of the identity provider instance with alias 'google'.",
-      "ideal": "Returns the exported configuration of the identity provider instance."
+      "user": "admin_user",
+      "ideal": "Export the configuration of the identity provider instance with alias 'myprovider'."
     },
     {
-      "path": "/{realm}/identity-provider/instances/{alias}/management/permissions",
+      "path": "/myrealm/identity-provider/instances/myprovider/management/permissions",
       "method": "GET",
       "operationId": "getInstanceManagementPermissions",
       "summary": "",
-      "user": "Admin user retrieves management permissions for the identity provider instance with alias 'google'.",
-      "ideal": "Returns the management permissions for the specified identity provider instance."
+      "user": "admin_user",
+      "ideal": "Retrieve management permissions for the identity provider instance with alias 'myprovider'."
     },
     {
-      "path": "/{realm}/identity-provider/instances/{alias}/management/permissions",
+      "path": "/myrealm/identity-provider/instances/myprovider/management/permissions",
       "method": "PUT",
       "operationId": "putInstanceManagementPermissions",
       "summary": "",
-      "user": "Admin user updates management permissions for the identity provider instance with alias 'google'.",
-      "ideal": "Successfully updates the management permissions."
+      "user": "admin_user",
+      "ideal": "Update management permissions for the identity provider instance with alias 'myprovider'."
     },
     {
-      "path": "/{realm}/identity-provider/instances/{alias}/mapper-types",
+      "path": "/myrealm/identity-provider/instances/myprovider/mapper-types",
       "method": "GET",
       "operationId": "getMapperTypes",
       "summary": "",
-      "user": "Admin user retrieves available mapper types for the identity provider instance with alias 'google'.",
-      "ideal": "Returns a list of available mapper types."
+      "user": "admin_user",
+      "ideal": "Retrieve available mapper types for the identity provider instance with alias 'myprovider'."
     },
     {
-      "path": "/{realm}/identity-provider/instances/{alias}/mappers",
+      "path": "/myrealm/identity-provider/instances/myprovider/mappers",
       "method": "GET",
       "operationId": "getMappers",
       "summary": "",
-      "user": "Admin user retrieves all mappers for the identity provider instance with alias 'google'.",
-      "ideal": "Returns a list of mappers for the specified identity provider instance."
+      "user": "admin_user",
+      "ideal": "Get a list of mappers for the identity provider instance with alias 'myprovider'."
     },
     {
-      "path": "/{realm}/identity-provider/instances/{alias}/mappers",
+      "path": "/myrealm/identity-provider/instances/myprovider/mappers",
       "method": "POST",
       "operationId": "postMappers",
       "summary": "",
-      "user": "Admin user creates a new mapper for the identity provider instance with alias 'google'.",
-      "ideal": "Successfully creates a new mapper."
+      "user": "admin_user",
+      "ideal": "Create a new mapper for the identity provider instance with alias 'myprovider'."
     },
     {
-      "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}",
+      "path": "/myrealm/identity-provider/instances/myprovider/mappers/mapper1",
       "method": "GET",
       "operationId": "getMapper",
       "summary": "",
-      "user": "Admin user retrieves details of the mapper with ID 'mapper1' for the identity provider instance with alias 'google'.",
-      "ideal": "Returns the details of the specified mapper."
+      "user": "admin_user",
+      "ideal": "Retrieve details of the mapper with ID 'mapper1' for the identity provider instance with alias 'myprovider'."
     },
     {
-      "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}",
+      "path": "/myrealm/identity-provider/instances/myprovider/mappers/mapper1",
       "method": "PUT",
       "operationId": "putMapper",
       "summary": "",
-      "user": "Admin user updates the mapper with ID 'mapper1' for the identity provider instance with alias 'google'.",
-      "ideal": "Successfully updates the specified mapper."
+      "user": "admin_user",
+      "ideal": "Update the mapper with ID 'mapper1' for the identity provider instance with alias 'myprovider'."
     },
     {
-      "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}",
+      "path": "/myrealm/identity-provider/instances/myprovider/mappers/mapper1",
       "method": "DELETE",
       "operationId": "deleteMapper",
       "summary": "",
-      "user": "Admin user deletes the mapper with ID 'mapper1' for the identity provider instance with alias 'google'.",
-      "ideal": "Successfully deletes the specified mapper."
+      "user": "admin_user",
+      "ideal": "Delete the mapper with ID 'mapper1' for the identity provider instance with alias 'myprovider'."
     },
     {
-      "path": "/{realm}/identity-provider/providers/{provider_id}",
+      "path": "/myrealm/identity-provider/providers/some_provider",
       "method": "GET",
       "operationId": "getIdentityProviderProvider",
       "summary": "",
-      "user": "Admin user retrieves details of the identity provider with ID 'google'.",
-      "ideal": "Returns the details of the specified identity provider."
+      "user": "admin_user",
+      "ideal": "Retrieve details of the identity provider with ID 'some_provider'."
     }
   ]
 }

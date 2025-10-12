@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "hosted-compute/list-network-configurations-for-org",
       "summary": "",
-      "user": "User requests to list all network configurations for their organization to review current settings and ensure compliance with security policies.",
+      "user": "User wants to retrieve all network configurations for their organization to review current settings and ensure compliance with security policies.",
       "ideal": "Returns a list of network configurations with details such as ID, name, and status."
     },
     {
@@ -13,15 +13,15 @@
       "method": "POST",
       "operationId": "hosted-compute/create-network-configuration-for-org",
       "summary": "",
-      "user": "User wants to create a new network configuration for their organization to enhance network security and performance.",
-      "ideal": "Creates a new network configuration and returns the configuration ID and status."
+      "user": "User needs to create a new network configuration for their organization to support a new project that requires specific network settings.",
+      "ideal": "Successfully creates a new network configuration and returns the created configuration's details including ID and status."
     },
     {
       "path": "/orgs/my-org/settings/network-configurations/12345",
       "method": "GET",
       "operationId": "hosted-compute/get-network-configuration-for-org",
       "summary": "",
-      "user": "User needs to retrieve details of a specific network configuration to troubleshoot connectivity issues.",
+      "user": "User wants to get details of a specific network configuration to troubleshoot an issue related to network connectivity.",
       "ideal": "Returns the details of the specified network configuration including settings and status."
     },
     {
@@ -29,24 +29,24 @@
       "method": "PATCH",
       "operationId": "hosted-compute/update-network-configuration-for-org",
       "summary": "",
-      "user": "User wants to update an existing network configuration to adjust bandwidth limits based on new requirements.",
-      "ideal": "Updates the network configuration and returns the updated configuration details."
+      "user": "User needs to update an existing network configuration to change the IP range to accommodate new devices in the network.",
+      "ideal": "Successfully updates the network configuration and returns the updated configuration details."
     },
     {
       "path": "/orgs/my-org/settings/network-configurations/12345",
       "method": "DELETE",
       "operationId": "hosted-compute/delete-network-configuration-from-org",
       "summary": "",
-      "user": "User needs to delete an obsolete network configuration that is no longer in use to streamline their settings.",
-      "ideal": "Deletes the specified network configuration and confirms the deletion."
+      "user": "User wants to delete an obsolete network configuration that is no longer in use to clean up the organization's settings.",
+      "ideal": "Successfully deletes the specified network configuration and confirms the deletion."
     },
     {
       "path": "/orgs/my-org/settings/network-settings/67890",
       "method": "GET",
       "operationId": "hosted-compute/get-network-settings-for-org",
       "summary": "",
-      "user": "User is looking to fetch the current network settings for their organization to ensure they align with best practices.",
-      "ideal": "Returns the current network settings including DNS, IP ranges, and firewall rules."
+      "user": "User is looking to retrieve the network settings for their organization to ensure they align with the latest compliance requirements.",
+      "ideal": "Returns the current network settings including DNS, gateway, and other relevant configurations."
     }
   ]
 }

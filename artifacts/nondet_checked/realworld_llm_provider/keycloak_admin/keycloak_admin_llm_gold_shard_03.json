@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "getCertificate",
       "summary": "",
-      "user": "Admin user requesting the public certificate for client ID 123 in the realm 'myrealm'.",
+      "user": "Admin user requesting the public certificate for client 123 in realm 'myrealm'.",
       "ideal": "Returns the public certificate for the specified client."
     },
     {
@@ -13,15 +13,15 @@
       "method": "POST",
       "operationId": "postDownload",
       "summary": "",
-      "user": "Admin user attempting to download the private certificate for client ID 123 in the realm 'myrealm'.",
-      "ideal": "Successfully downloads the private certificate for the specified client."
+      "user": "Admin user initiating a download of the private certificate for client 123.",
+      "ideal": "Successfully downloads the private certificate for client 123."
     },
     {
       "path": "/myrealm/clients/123/certificates/private/generate",
       "method": "POST",
       "operationId": "postGenerate",
       "summary": "",
-      "user": "Admin user generating a new private certificate for client ID 123 in the realm 'myrealm'.",
+      "user": "Admin user generating a new private certificate for client 123.",
       "ideal": "Generates a new private certificate for the specified client."
     },
     {
@@ -29,24 +29,24 @@
       "method": "POST",
       "operationId": "postGenerateAndDownload",
       "summary": "",
-      "user": "Admin user generating and downloading a new private certificate for client ID 123 in the realm 'myrealm'.",
-      "ideal": "Generates and immediately downloads the new private certificate for the specified client."
+      "user": "Admin user generating and downloading a new private certificate for client 123.",
+      "ideal": "Generates and immediately downloads the new private certificate."
     },
     {
       "path": "/myrealm/clients/123/certificates/private/upload",
       "method": "POST",
       "operationId": "postUpload",
       "summary": "",
-      "user": "Admin user uploading a new private certificate for client ID 123 in the realm 'myrealm'.",
-      "ideal": "Successfully uploads the new private certificate for the specified client."
+      "user": "Admin user uploading a new private certificate for client 123.",
+      "ideal": "Successfully uploads the new private certificate for client 123."
     },
     {
-      "path": "/myrealm/clients/123/certificates/private/upload-certificate",
+      "path": "/myrealm/clients/123/certificates/public/upload-certificate",
       "method": "POST",
       "operationId": "postUploadCertificate",
       "summary": "",
-      "user": "Admin user uploading a specific certificate for client ID 123 in the realm 'myrealm'.",
-      "ideal": "Successfully uploads the specified certificate for the client."
+      "user": "Admin user uploading a new public certificate for client 123.",
+      "ideal": "Successfully uploads the new public certificate for client 123."
     }
   ]
 }

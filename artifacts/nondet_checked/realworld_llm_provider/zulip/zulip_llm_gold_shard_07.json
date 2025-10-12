@@ -5,31 +5,31 @@
       "method": "GET",
       "operationId": "get-navigation-views",
       "summary": "",
-      "user": "As a user, I want to retrieve a list of all navigation views available in the Zulip application so that I can understand the structure and organization of the navigation.",
-      "ideal": "The response should include an array of navigation views with their respective properties such as id, name, and order."
+      "user": "As a user, I want to retrieve the list of navigation views available in my Zulip organization so that I can understand how to navigate through the application.",
+      "ideal": "The response should return a JSON array containing all the navigation views, including their names and associated fragments."
     },
     {
       "path": "/navigation_views",
       "method": "POST",
       "operationId": "add-navigation-view",
       "summary": "",
-      "user": "As a user, I want to add a new navigation view to the Zulip application so that I can customize my navigation experience according to my preferences.",
-      "ideal": "The response should confirm the successful creation of the navigation view and return the details of the newly created view."
+      "user": "As a user, I want to add a new navigation view to my Zulip organization so that I can customize my navigation experience.",
+      "ideal": "The response should confirm the successful creation of the navigation view and return the details of the newly added view."
     },
     {
       "path": "/navigation_views/{fragment}",
       "method": "PATCH",
       "operationId": "edit-navigation-view",
       "summary": "",
-      "user": "As a user, I want to edit an existing navigation view in the Zulip application so that I can update its properties like name or order to better fit my workflow.",
-      "ideal": "The response should indicate the successful update of the navigation view and return the updated details."
+      "user": "As a user, I want to edit an existing navigation view in my Zulip organization so that I can update its name or properties.",
+      "ideal": "The response should confirm the successful update of the navigation view and return the updated details."
     },
     {
       "path": "/navigation_views/{fragment}",
       "method": "DELETE",
       "operationId": "remove-navigation-view",
       "summary": "",
-      "user": "As a user, I want to remove a navigation view from the Zulip application that I no longer need, to keep my navigation clean and relevant.",
+      "user": "As a user, I want to remove a navigation view from my Zulip organization so that I can declutter my navigation options.",
       "ideal": "The response should confirm the successful deletion of the navigation view and indicate that it is no longer available."
     }
   ]

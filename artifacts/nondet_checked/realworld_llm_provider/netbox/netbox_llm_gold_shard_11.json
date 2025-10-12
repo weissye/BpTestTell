@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/api/vpn/ike-policies/",
+      "method": "GET",
+      "operationId": "vpn_ike_policies_list",
+      "summary": "",
+      "user": "Admin user requesting a list of all IKE policies for VPN configuration.",
+      "ideal": "Returns a list of IKE policies with their details."
+    },
+    {
+      "path": "/api/vpn/ike-policies/",
+      "method": "POST",
+      "operationId": "vpn_ike_policies_create",
+      "summary": "",
+      "user": "Network engineer creating a new IKE policy for site-to-site VPN.",
+      "ideal": "Creates a new IKE policy and returns the created policy details."
+    },
+    {
+      "path": "/api/vpn/ike-policies/1/",
+      "method": "PUT",
+      "operationId": "vpn_ike_policies_update",
+      "summary": "",
+      "user": "Admin updating the existing IKE policy with ID 1.",
+      "ideal": "Updates the IKE policy and returns the updated policy details."
+    },
+    {
+      "path": "/api/vpn/ike-policies/1/",
+      "method": "DELETE",
+      "operationId": "vpn_ike_policies_destroy",
+      "summary": "",
+      "user": "Network administrator deleting an obsolete IKE policy.",
+      "ideal": "Successfully deletes the IKE policy and returns a confirmation message."
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/",
+      "method": "GET",
+      "operationId": "vpn_ipsec_policies_list",
+      "summary": "",
+      "user": "Security analyst retrieving all IPsec policies for review.",
+      "ideal": "Returns a list of all IPsec policies with their configurations."
+    },
+    {
+      "path": "/api/vpn/ipsec-proposals/",
+      "method": "POST",
+      "operationId": "vpn_ipsec_proposals_create",
+      "summary": "",
+      "user": "Network engineer creating a new IPsec proposal for a VPN.",
+      "ideal": "Creates a new IPsec proposal and returns the details of the created proposal."
+    },
+    {
+      "path": "/api/vpn/ipsec-proposals/2/",
+      "method": "PATCH",
+      "operationId": "vpn_ipsec_proposals_partial_update",
+      "summary": "",
+      "user": "Admin updating specific fields of IPsec proposal with ID 2.",
+      "ideal": "Updates specified fields of the IPsec proposal and returns the updated details."
+    },
+    {
+      "path": "/api/vpn/l2vpns/",
+      "method": "GET",
+      "operationId": "vpn_l2vpns_list",
+      "summary": "",
+      "user": "Network administrator checking the list of all L2VPNs configured.",
+      "ideal": "Returns a list of all L2VPNs with their configurations."
+    },
+    {
+      "path": "/api/vpn/tunnel-groups/",
+      "method": "POST",
+      "operationId": "vpn_tunnel_groups_create",
+      "summary": "",
+      "user": "Network engineer creating a new tunnel group for VPN connections.",
+      "ideal": "Creates a new tunnel group and returns the details of the created group."
+    },
+    {
+      "path": "/api/vpn/tunnels/3/",
+      "method": "DELETE",
+      "operationId": "vpn_tunnels_destroy",
+      "summary": "",
+      "user": "Admin removing an unused tunnel with ID 3.",
+      "ideal": "Successfully deletes the tunnel and returns a confirmation message."
+    },
+    {
+      "path": "/api/vpn/tunnel-terminations/",
+      "method": "GET",
+      "operationId": "vpn_tunnel_terminations_list",
+      "summary": "",
+      "user": "Security analyst reviewing all tunnel terminations for compliance.",
+      "ideal": "Returns a list of all tunnel terminations with their details."
+    }
+  ]
+}

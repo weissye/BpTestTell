@@ -14,15 +14,15 @@
       "operationId": "createApp",
       "summary": "",
       "user": "developer",
-      "ideal": "Creates a new application in the system."
+      "ideal": "Creates a new application with the specified parameters."
     },
     {
       "path": "/apps",
       "method": "GET",
       "operationId": "listApps",
       "summary": "",
-      "user": "user",
-      "ideal": "Retrieves a list of all applications available in the system."
+      "user": "admin",
+      "ideal": "Retrieves a list of all applications in the system."
     },
     {
       "path": "/envs",
@@ -37,23 +37,23 @@
       "method": "GET",
       "operationId": "listEnvs",
       "summary": "",
-      "user": "user",
-      "ideal": "Retrieves a list of all environments available in the system."
+      "user": "admin",
+      "ideal": "Retrieves a list of all environments configured in the system."
     },
     {
       "path": "/configs",
       "method": "POST",
       "operationId": "createConfig",
       "summary": "",
-      "user": "admin",
-      "ideal": "Creates a new configuration for the application."
+      "user": "developer",
+      "ideal": "Creates a new configuration for the specified application."
     },
     {
       "path": "/configs",
       "method": "GET",
       "operationId": "listConfigs",
       "summary": "",
-      "user": "user",
+      "user": "admin",
       "ideal": "Retrieves a list of all configurations available in the system."
     },
     {
@@ -61,16 +61,16 @@
       "method": "POST",
       "operationId": "createRelease",
       "summary": "",
-      "user": "developer",
-      "ideal": "Creates a new release for the application."
+      "user": "releaseManager",
+      "ideal": "Creates a new release for the specified application version."
     },
     {
       "path": "/releases",
       "method": "GET",
       "operationId": "listReleases",
       "summary": "",
-      "user": "user",
-      "ideal": "Retrieves a list of all releases available in the system."
+      "user": "admin",
+      "ideal": "Retrieves a list of all releases made for applications."
     },
     {
       "path": "/policies",
@@ -78,15 +78,15 @@
       "operationId": "createPolicy",
       "summary": "",
       "user": "admin",
-      "ideal": "Creates a new policy for the application."
+      "ideal": "Creates a new policy for application deployment."
     },
     {
       "path": "/policies",
       "method": "GET",
       "operationId": "listPolicies",
       "summary": "",
-      "user": "user",
-      "ideal": "Retrieves a list of all policies available in the system."
+      "user": "admin",
+      "ideal": "Retrieves a list of all policies defined in the system."
     }
   ]
 }

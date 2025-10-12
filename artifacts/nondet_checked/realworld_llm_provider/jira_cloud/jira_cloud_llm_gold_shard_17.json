@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "getCommentPropertyKeys",
       "summary": "",
-      "user": "User wants to retrieve all property keys associated with a specific comment to understand its metadata and custom attributes.",
-      "ideal": "Returns a list of property keys for the specified comment."
+      "user": "As a project manager, I want to retrieve all properties associated with a specific comment to understand its context and any additional metadata.",
+      "ideal": "The API should return a list of property keys associated with the specified comment, allowing me to see all custom data linked to it."
     },
     {
       "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
       "method": "GET",
       "operationId": "getCommentProperty",
       "summary": "",
-      "user": "User needs to fetch a specific property value for a comment to check its custom settings or configurations.",
-      "ideal": "Returns the value of the specified property key for the given comment."
-    },
-    {
-      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
-      "method": "DELETE",
-      "operationId": "deleteCommentProperty",
-      "summary": "",
-      "user": "User wants to remove a specific property from a comment to clean up unnecessary metadata.",
-      "ideal": "Successfully deletes the specified property from the comment."
+      "user": "As a developer, I need to fetch a specific property value from a comment to utilize it in my application logic.",
+      "ideal": "The API should return the value of the specified property key for the given comment, enabling me to access the required information efficiently."
     },
     {
       "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
       "method": "PUT",
       "operationId": "setCommentProperty",
       "summary": "",
-      "user": "User intends to update or add a property to a comment to enhance its information or context.",
-      "ideal": "Successfully sets or updates the specified property for the comment."
+      "user": "As a team lead, I want to update a property of a comment to reflect the latest status of the task it relates to.",
+      "ideal": "The API should successfully update the specified property key with the new value, confirming the change has been made."
+    },
+    {
+      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
+      "method": "DELETE",
+      "operationId": "deleteCommentProperty",
+      "summary": "",
+      "user": "As a product owner, I need to remove outdated properties from comments to keep the project documentation clean and relevant.",
+      "ideal": "The API should delete the specified property key from the comment, ensuring that it no longer exists in the comment's metadata."
     }
   ]
 }

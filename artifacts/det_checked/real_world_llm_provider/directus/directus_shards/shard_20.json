@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/settings",
+      "method": "GET",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Retrieve Settings",
+      "operationId": "getSettings"
+    },
+    {
+      "path": "/settings",
+      "method": "PATCH",
+      "tags": [
+        "Settings"
+      ],
+      "summary": "Update Settings",
+      "operationId": "updateSetting"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Transcriptions.json",
+      "method": "POST",
+      "operationId": "CreateRealtimeTranscription",
+      "summary": "",
+      "user": "User wants to create a new transcription for a specific call using the Twilio API. They have the Account SID and Call SID ready and are looking to send a request to initiate the transcription process.",
+      "ideal": "The API should return a success response with the details of the created transcription, including the SID of the transcription."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Transcriptions/TRXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateRealtimeTranscription",
+      "summary": "",
+      "user": "User needs to update an existing transcription for a call. They have the Account SID, Call SID, and the SID of the transcription they want to update. They want to modify the transcription's status or other properties.",
+      "ideal": "The API should return a success response confirming the update and provide the updated details of the transcription."
+    }
+  ]
+}

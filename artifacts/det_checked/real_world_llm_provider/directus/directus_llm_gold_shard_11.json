@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/items/posts",
+      "method": "GET",
+      "operationId": "getItems",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve all posts from the posts collection."
+    },
+    {
+      "path": "/items/posts",
+      "method": "POST",
+      "operationId": "createItem",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Create a new post in the posts collection with the title and content provided."
+    },
+    {
+      "path": "/items/posts",
+      "method": "PATCH",
+      "operationId": "updateItems",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update multiple posts in the posts collection based on the provided criteria."
+    },
+    {
+      "path": "/items/posts",
+      "method": "DELETE",
+      "operationId": "deleteItems",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete all posts from the posts collection that match the specified criteria."
+    },
+    {
+      "path": "/items/posts/123",
+      "method": "GET",
+      "operationId": "getItem",
+      "summary": "",
+      "user": "viewer",
+      "ideal": "Retrieve the post with ID 123 from the posts collection."
+    },
+    {
+      "path": "/items/posts/123",
+      "method": "PATCH",
+      "operationId": "updateItem",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update the post with ID 123 in the posts collection with new title and content."
+    },
+    {
+      "path": "/items/posts/123",
+      "method": "DELETE",
+      "operationId": "deleteItem",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the post with ID 123 from the posts collection."
+    }
+  ]
+}

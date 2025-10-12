@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json",
+      "method": "POST",
+      "operationId": "CreateSipCredentialListMapping",
+      "summary": "",
+      "user": "A user wants to create a new SIP credential list mapping for their Twilio account. They provide the AccountSid and DomainSid, along with the necessary credential list details in the request body.",
+      "ideal": "The API should return a success response with the details of the created credential list mapping, including its Sid and the associated AccountSid and DomainSid."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json",
+      "method": "GET",
+      "operationId": "ListSipCredentialListMapping",
+      "summary": "",
+      "user": "A user wants to retrieve all SIP credential list mappings associated with a specific domain in their Twilio account. They provide the AccountSid and DomainSid in the request.",
+      "ideal": "The API should return a list of all credential list mappings for the specified domain, including their Sids and associated details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchSipCredentialListMapping",
+      "summary": "",
+      "user": "A user needs to fetch the details of a specific SIP credential list mapping using its Sid. They provide the AccountSid, DomainSid, and the Sid of the mapping they want to retrieve.",
+      "ideal": "The API should return the details of the specified credential list mapping, including its Sid, AccountSid, DomainSid, and any associated credential list information."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipCredentialListMapping",
+      "summary": "",
+      "user": "A user wants to delete a specific SIP credential list mapping from their Twilio account. They provide the AccountSid, DomainSid, and the Sid of the mapping they wish to delete.",
+      "ideal": "The API should return a success response indicating that the specified credential list mapping has been deleted."
+    }
+  ]
+}

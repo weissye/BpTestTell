@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/screens/tabs",
+      "method": "GET",
+      "operationId": "getBulkScreenTabs",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all screen tabs available in the Jira Cloud platform to understand the layout of my project's screens.",
+      "ideal": "The API should return a list of all screen tabs with their respective details, such as tab IDs and names."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/tabs",
+      "method": "GET",
+      "operationId": "getAllScreenTabs",
+      "summary": "",
+      "user": "As a developer, I need to get all tabs for a specific screen to ensure I am aware of all the fields available for that screen.",
+      "ideal": "The API should return a list of tabs associated with the specified screen ID, including their names and positions."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/tabs",
+      "method": "POST",
+      "operationId": "addScreenTab",
+      "summary": "",
+      "user": "As a product owner, I want to add a new tab to a specific screen to organize my fields better.",
+      "ideal": "The API should successfully create a new tab and return the details of the newly created tab, including its ID and name."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}",
+      "method": "DELETE",
+      "operationId": "deleteScreenTab",
+      "summary": "",
+      "user": "As a team lead, I need to remove an unnecessary tab from a screen to streamline the user interface.",
+      "ideal": "The API should confirm the deletion of the specified tab and return a success message."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}",
+      "method": "PUT",
+      "operationId": "renameScreenTab",
+      "summary": "",
+      "user": "As a UX designer, I want to rename a tab to better reflect its purpose for the users.",
+      "ideal": "The API should update the tab's name and return the updated tab details, confirming the change."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}/move/{pos}",
+      "method": "POST",
+      "operationId": "moveScreenTab",
+      "summary": "",
+      "user": "As a scrum master, I want to rearrange the order of tabs on a screen to improve the workflow for my team.",
+      "ideal": "The API should successfully move the specified tab to the new position and return the updated order of tabs."
+    }
+  ]
+}

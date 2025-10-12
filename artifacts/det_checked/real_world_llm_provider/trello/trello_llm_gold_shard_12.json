@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/sessions",
+      "method": "POST",
+      "operationId": "addSessions",
+      "summary": "",
+      "user": "{\"username\":\"john_doe\",\"email\":\"john@example.com\",\"password\":\"securepassword123\"}",
+      "ideal": "{\"success\":true,\"sessionId\":\"abc123\"}"
+    },
+    {
+      "path": "/sessions/socket",
+      "method": "GET",
+      "operationId": "getSessionsSocket",
+      "summary": "",
+      "user": "{\"sessionId\":\"abc123\"}",
+      "ideal": "{\"status\":\"connected\",\"data\":{\"sessionId\":\"abc123\",\"user\":\"john_doe\"}}"
+    },
+    {
+      "path": "/sessions/abc123",
+      "method": "PUT",
+      "operationId": "updateSessionsByIdSession",
+      "summary": "",
+      "user": "{\"sessionId\":\"abc123\",\"newData\":{\"title\":\"Updated Session Title\",\"description\":\"This is an updated description.\"}}",
+      "ideal": "{\"success\":true,\"sessionId\":\"abc123\",\"message\":\"Session updated successfully.\"}"
+    },
+    {
+      "path": "/sessions/abc123/status",
+      "method": "PUT",
+      "operationId": "updateSessionsStatusByIdSession",
+      "summary": "",
+      "user": "{\"sessionId\":\"abc123\",\"status\":\"completed\"}",
+      "ideal": "{\"success\":true,\"sessionId\":\"abc123\",\"status\":\"completed\",\"message\":\"Session status updated successfully.\"}"
+    }
+  ]
+}

@@ -5,80 +5,96 @@
       "method": "GET",
       "operationId": "indexes.settings.get",
       "summary": "",
-      "user": "User requests the current settings for the index 'myIndex' to review its configuration.",
-      "ideal": "Returns the settings of the index including attributes like ranking rules, searchable attributes, etc."
+      "user": "admin",
+      "ideal": "Retrieve the current settings for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings",
+      "method": "PATCH",
+      "operationId": "indexes.settings.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the settings for the index 'myIndex' to improve search relevance."
+    },
+    {
+      "path": "/indexes/myIndex/settings",
+      "method": "DELETE",
+      "operationId": "indexes.settings.reset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Reset the settings for the index 'myIndex' to default values."
     },
     {
       "path": "/indexes/myIndex/settings/synonyms",
       "method": "GET",
       "operationId": "indexes.settings.synonyms.get",
       "summary": "",
-      "user": "User wants to fetch the synonyms configured for the index 'myIndex' to understand its search behavior.",
-      "ideal": "Returns a list of synonyms currently set for the index."
+      "user": "editor",
+      "ideal": "Get the list of synonyms configured for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/synonyms",
+      "method": "PUT",
+      "operationId": "indexes.settings.synonyms.update",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Add new synonyms to the index 'myIndex' to enhance search results."
+    },
+    {
+      "path": "/indexes/myIndex/settings/synonyms",
+      "method": "DELETE",
+      "operationId": "indexes.settings.synonyms.reset",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Remove all synonyms from the index 'myIndex'."
     },
     {
       "path": "/indexes/myIndex/settings/sortable-attributes",
       "method": "GET",
       "operationId": "indexes.settings.sortable-attributes.get",
       "summary": "",
-      "user": "User checks which attributes are sortable in the index 'myIndex' for better search results.",
-      "ideal": "Returns the attributes that can be used for sorting in search queries."
+      "user": "admin",
+      "ideal": "Fetch the sortable attributes for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/sortable-attributes",
+      "method": "PUT",
+      "operationId": "indexes.settings.sortable-attributes.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the sortable attributes for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/sortable-attributes",
+      "method": "DELETE",
+      "operationId": "indexes.settings.sortable-attributes.reset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Reset the sortable attributes for the index 'myIndex' to defaults."
     },
     {
       "path": "/indexes/myIndex/settings/ranking-rules",
       "method": "GET",
       "operationId": "indexes.settings.rankingRules.get",
       "summary": "",
-      "user": "User wants to review the ranking rules applied to the index 'myIndex' to optimize search results.",
-      "ideal": "Returns the current ranking rules for the index."
+      "user": "admin",
+      "ideal": "Retrieve the ranking rules for the index 'myIndex'."
     },
     {
-      "path": "/indexes/myIndex/settings/typo-tolerance",
-      "method": "GET",
-      "operationId": "indexes.settings.typoTolerance.get",
+      "path": "/indexes/myIndex/settings/ranking-rules",
+      "method": "PUT",
+      "operationId": "indexes.settings.rankingRules.update",
       "summary": "",
-      "user": "User is interested in understanding the typo tolerance settings for the index 'myIndex'.",
-      "ideal": "Returns the typo tolerance settings that are currently applied."
+      "user": "admin",
+      "ideal": "Update the ranking rules for the index 'myIndex' to improve search results."
     },
     {
-      "path": "/indexes/myIndex/settings/pagination",
-      "method": "GET",
-      "operationId": "indexes.settings.pagination.get",
+      "path": "/indexes/myIndex/settings/ranking-rules",
+      "method": "DELETE",
+      "operationId": "indexes.settings.rankingRules.reset",
       "summary": "",
-      "user": "User wants to check the pagination settings for the index 'myIndex' to manage search results display.",
-      "ideal": "Returns the pagination settings for the index."
-    },
-    {
-      "path": "/indexes/myIndex/settings/faceting",
-      "method": "GET",
-      "operationId": "indexes.settings.faceting.get",
-      "summary": "",
-      "user": "User is looking to see if faceting is enabled for the index 'myIndex' to enhance filtering options.",
-      "ideal": "Returns the current faceting settings for the index."
-    },
-    {
-      "path": "/indexes/myIndex/settings/filterable-attributes",
-      "method": "GET",
-      "operationId": "indexes.settings.filterableAttributes.get",
-      "summary": "",
-      "user": "User wants to know which attributes can be used for filtering in the index 'myIndex'.",
-      "ideal": "Returns the list of filterable attributes for the index."
-    },
-    {
-      "path": "/indexes/myIndex/settings/distinct-attribute",
-      "method": "GET",
-      "operationId": "indexes.settings.distinctAttribute.get",
-      "summary": "",
-      "user": "User checks the distinct attribute setting for the index 'myIndex' to avoid duplicate results.",
-      "ideal": "Returns the distinct attribute currently set for the index."
-    },
-    {
-      "path": "/indexes/myIndex/settings/searchable-attributes",
-      "method": "GET",
-      "operationId": "indexes.settings.searchableAttributes.get",
-      "summary": "",
-      "user": "User wants to review the searchable attributes of the index 'myIndex' to optimize search queries.",
-      "ideal": "Returns the attributes that are searchable in the index."
+      "user": "admin",
+      "ideal": "Reset the ranking rules for the index 'myIndex' to default settings."
     }
   ]
 }

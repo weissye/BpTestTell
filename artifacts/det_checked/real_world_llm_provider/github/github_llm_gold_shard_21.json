@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/gitignore/templates",
+      "method": "GET",
+      "operationId": "gitignore/get-all-templates",
+      "summary": "",
+      "user": "developer123",
+      "ideal": "Retrieve a list of all available .gitignore templates."
+    },
+    {
+      "path": "/gitignore/templates/Python",
+      "method": "GET",
+      "operationId": "gitignore/get-template",
+      "summary": "",
+      "user": "pythonDev",
+      "ideal": "Fetch the .gitignore template specifically for Python projects."
+    }
+  ]
+}

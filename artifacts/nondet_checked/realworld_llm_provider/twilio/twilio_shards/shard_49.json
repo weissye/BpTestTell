@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Notification"
+      ],
+      "summary": "Fetch a notification belonging to the account used to make the request",
+      "operationId": "FetchNotification"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Notifications.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Notification"
+      ],
+      "summary": "Retrieve a list of notifications belonging to the account used to make the request",
+      "operationId": "ListNotification"
+    }
+  ]
+}

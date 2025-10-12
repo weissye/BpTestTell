@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue/PROJ-123/worklog",
+      "method": "GET",
+      "operationId": "getIssueWorklog",
+      "summary": "",
+      "user": "User requests to retrieve all worklogs associated with issue PROJ-123 to review the time spent on the project.",
+      "ideal": "Returns a list of worklogs for the specified issue, including details such as time spent and author."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJ-123/worklog",
+      "method": "POST",
+      "operationId": "addWorklog",
+      "summary": "",
+      "user": "User wants to log 3 hours of work on issue PROJ-123 for the task completed yesterday.",
+      "ideal": "Successfully adds a worklog entry for the specified issue with the provided time and date."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456",
+      "method": "PUT",
+      "operationId": "updateWorklog",
+      "summary": "",
+      "user": "User needs to update the worklog with ID 456 for issue PROJ-123 to reflect 4 hours instead of 3.",
+      "ideal": "Updates the specified worklog entry with the new time and details."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456",
+      "method": "DELETE",
+      "operationId": "deleteWorklog",
+      "summary": "",
+      "user": "User mistakenly logged a worklog for issue PROJ-123 and wants to delete the entry with ID 456.",
+      "ideal": "Successfully deletes the specified worklog entry from the issue."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJ-123/worklog/move",
+      "method": "POST",
+      "operationId": "bulkMoveWorklogs",
+      "summary": "",
+      "user": "User needs to move multiple worklogs from issue PROJ-123 to issue PROJ-456 due to a project reorganization.",
+      "ideal": "Successfully moves the specified worklogs to the new issue."
+    },
+    {
+      "path": "/rest/api/3/worklog/deleted",
+      "method": "GET",
+      "operationId": "getIdsOfWorklogsDeletedSince",
+      "summary": "",
+      "user": "User wants to check which worklogs have been deleted since a specific date to maintain accurate records.",
+      "ideal": "Returns a list of IDs of worklogs that have been deleted since the specified date."
+    },
+    {
+      "path": "/rest/api/3/worklog/updated",
+      "method": "GET",
+      "operationId": "getIdsOfWorklogsModifiedSince",
+      "summary": "",
+      "user": "User is interested in knowing which worklogs have been modified since last week to ensure updates are tracked.",
+      "ideal": "Returns a list of IDs of worklogs that have been modified since the specified date."
+    },
+    {
+      "path": "/rest/api/3/worklog/list",
+      "method": "POST",
+      "operationId": "getWorklogsForIds",
+      "summary": "",
+      "user": "User has a list of worklog IDs and wants to retrieve their details for reporting purposes.",
+      "ideal": "Returns detailed information for the specified worklog IDs."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJ-123/worklog/789",
+      "method": "GET",
+      "operationId": "getWorklog",
+      "summary": "",
+      "user": "User wants to view the details of a specific worklog with ID 789 for issue PROJ-123.",
+      "ideal": "Returns the details of the specified worklog entry."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJ-123/worklog/bulkDelete",
+      "method": "DELETE",
+      "operationId": "bulkDeleteWorklogs",
+      "summary": "",
+      "user": "User needs to delete multiple worklogs for issue PROJ-123 due to a project update.",
+      "ideal": "Successfully deletes all specified worklogs for the issue."
+    }
+  ]
+}

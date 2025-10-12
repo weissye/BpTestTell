@@ -5,16 +5,16 @@
       "method": "POST",
       "operationId": "updateMultipleCustomFieldValues",
       "summary": "",
-      "user": "user123",
-      "ideal": "Update multiple custom field values for a specific issue in Jira."
+      "user": "User A is a project manager who needs to update multiple custom fields for a set of issues in Jira to reflect the latest project status. They gather the necessary field IDs and values from their team and prepare a request to update these fields in bulk.",
+      "ideal": "The request successfully updates the specified custom fields for the given issues, returning a confirmation of the updates made."
     },
     {
       "path": "/rest/api/3/app/field/{fieldIdOrKey}/value",
       "method": "PUT",
       "operationId": "updateCustomFieldValue",
       "summary": "",
-      "user": "user456",
-      "ideal": "Update a specific custom field value for an issue using its field ID or key."
+      "user": "User B is a software developer who wants to update a specific custom field value for a single issue in Jira. They identify the field ID and the issue key, and prepare a request to set the new value that reflects the current development progress.",
+      "ideal": "The request successfully updates the specified custom field for the issue, returning the updated field value in the response."
     }
   ]
 }

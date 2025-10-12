@@ -1,0 +1,18 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Yearly"
+      ],
+      "summary": "",
+      "operationId": "ListUsageRecordYearly"
+    }
+  ]
+}

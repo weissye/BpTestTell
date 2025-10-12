@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401OutgoingCallerId"
+      ],
+      "summary": "Fetch an outgoing-caller-id belonging to the account used to make the request",
+      "operationId": "FetchOutgoingCallerId"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401OutgoingCallerId"
+      ],
+      "summary": "Updates the caller-id",
+      "operationId": "UpdateOutgoingCallerId"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401OutgoingCallerId"
+      ],
+      "summary": "Delete the caller-id specified from the account",
+      "operationId": "DeleteOutgoingCallerId"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401OutgoingCallerId"
+      ],
+      "summary": "Retrieve a list of outgoing-caller-ids belonging to the account used to make the request",
+      "operationId": "ListOutgoingCallerId"
+    }
+  ]
+}

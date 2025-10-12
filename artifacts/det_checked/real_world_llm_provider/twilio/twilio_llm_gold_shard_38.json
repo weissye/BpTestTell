@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberLocal",
+      "summary": "",
+      "user": "A small business owner looking to expand their services in a new region. They want to find local phone numbers in California to establish a local presence for their customer support line.",
+      "ideal": "Retrieve a list of available local phone numbers in California for the specified account."
+    }
+  ]
+}

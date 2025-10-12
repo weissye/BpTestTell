@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordLastMonth",
+      "summary": "",
+      "user": "user_12345",
+      "ideal": "Retrieve the usage records for the last month for the specified account."
+    }
+  ]
+}

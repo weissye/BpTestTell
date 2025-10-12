@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/api/dcim/cable-terminations/",
+      "method": "GET",
+      "operationId": "dcim_cable_terminations_list",
+      "summary": "",
+      "user": "User requests a list of all cable terminations in the system.",
+      "ideal": "Returns a JSON array of cable termination objects."
+    },
+    {
+      "path": "/api/dcim/cables/",
+      "method": "POST",
+      "operationId": "dcim_cables_create",
+      "summary": "",
+      "user": "User submits a new cable with specifications.",
+      "ideal": "Returns the created cable object with its details."
+    },
+    {
+      "path": "/api/dcim/devices/{id}/",
+      "method": "GET",
+      "operationId": "dcim_devices_retrieve",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific device by ID.",
+      "ideal": "Returns the device object with all its attributes."
+    },
+    {
+      "path": "/api/dcim/locations/",
+      "method": "PUT",
+      "operationId": "dcim_locations_bulk_update",
+      "summary": "",
+      "user": "User updates multiple locations with new data.",
+      "ideal": "Returns a success message and updated location objects."
+    },
+    {
+      "path": "/api/dcim/interfaces/{id}/",
+      "method": "DELETE",
+      "operationId": "dcim_interfaces_destroy",
+      "summary": "",
+      "user": "User wants to delete a specific interface by ID.",
+      "ideal": "Returns a confirmation message indicating the interface was deleted."
+    },
+    {
+      "path": "/api/dcim/power-feeds/",
+      "method": "GET",
+      "operationId": "dcim_power_feeds_list",
+      "summary": "",
+      "user": "User requests a list of all power feeds in the system.",
+      "ideal": "Returns a JSON array of power feed objects."
+    },
+    {
+      "path": "/api/dcim/manufacturers/{id}/",
+      "method": "PATCH",
+      "operationId": "dcim_manufacturers_partial_update",
+      "summary": "",
+      "user": "User updates specific fields of a manufacturer by ID.",
+      "ideal": "Returns the updated manufacturer object."
+    },
+    {
+      "path": "/api/dcim/modules/",
+      "method": "POST",
+      "operationId": "dcim_modules_create",
+      "summary": "",
+      "user": "User creates a new module with specified attributes.",
+      "ideal": "Returns the created module object with its details."
+    },
+    {
+      "path": "/api/dcim/device-types/{id}/",
+      "method": "PUT",
+      "operationId": "dcim_device_types_update",
+      "summary": "",
+      "user": "User updates the details of a specific device type.",
+      "ideal": "Returns the updated device type object."
+    },
+    {
+      "path": "/api/dcim/inventory-items/{id}/",
+      "method": "GET",
+      "operationId": "dcim_inventory_items_retrieve",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific inventory item by ID.",
+      "ideal": "Returns the inventory item object with all its attributes."
+    },
+    {
+      "path": "/api/dcim/console-ports/{id}/trace/",
+      "method": "GET",
+      "operationId": "dcim_console_ports_trace_retrieve",
+      "summary": "",
+      "user": "User requests the trace information for a specific console port.",
+      "ideal": "Returns the trace data for the specified console port."
+    }
+  ]
+}

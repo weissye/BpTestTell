@@ -1,84 +1,28 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
       "method": "GET",
-      "operationId": "ListAccount",
+      "operationId": "FetchRecordingAddOnResult",
       "summary": "",
-      "user": "Requesting a list of all accounts associated with my Twilio account.",
-      "ideal": "A JSON response containing an array of account objects with details such as AccountSid, friendly name, and status."
+      "user": "User wants to retrieve the add-on results for a specific recording identified by its ReferenceSid and Sid.",
+      "ideal": "The API should return the details of the add-on results for the specified recording."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
-      "method": "POST",
-      "operationId": "CreateAddress",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteRecordingAddOnResult",
       "summary": "",
-      "user": "I want to create a new address for my Twilio account to manage shipping.",
-      "ideal": "A JSON response confirming the creation of the address with details like Sid, friendly name, and address information."
+      "user": "User intends to delete a specific add-on result associated with a recording using its Sid.",
+      "ideal": "The API should confirm the deletion of the specified add-on result."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
-      "method": "POST",
-      "operationId": "CreateCallRecording",
-      "summary": "",
-      "user": "I need to record a call for compliance purposes.",
-      "ideal": "A JSON response indicating the successful creation of the recording with its Sid and status."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
-      "method": "POST",
-      "operationId": "CreateIncomingPhoneNumber",
-      "summary": "",
-      "user": "I want to purchase a new phone number for my business.",
-      "ideal": "A JSON response with the details of the newly created incoming phone number including Sid and phone number."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
-      "method": "POST",
-      "operationId": "CreateMessage",
-      "summary": "",
-      "user": "I need to send a message to a customer to confirm their order.",
-      "ideal": "A JSON response with the message Sid and status indicating the message was sent successfully."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Balance.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json",
       "method": "GET",
-      "operationId": "FetchBalance",
+      "operationId": "ListRecordingAddOnResult",
       "summary": "",
-      "user": "I want to check the current balance of my Twilio account.",
-      "ideal": "A JSON response showing the current balance amount and currency."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json",
-      "method": "GET",
-      "operationId": "ListCallEvent",
-      "summary": "",
-      "user": "I need to retrieve the events related to a specific call for analysis.",
-      "ideal": "A JSON response containing an array of event objects with details such as event type and timestamp."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
-      "method": "GET",
-      "operationId": "FetchIncomingPhoneNumber",
-      "summary": "",
-      "user": "I want to get the details of a specific incoming phone number.",
-      "ideal": "A JSON response with the details of the incoming phone number including its status and capabilities."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
-      "method": "GET",
-      "operationId": "FetchMember",
-      "summary": "",
-      "user": "I need to check the status of a specific member in a queue.",
-      "ideal": "A JSON response with the member's details including position in the queue and call status."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json",
-      "method": "GET",
-      "operationId": "ListUsageRecordMonthly",
-      "summary": "",
-      "user": "I want to review my usage records for the past month.",
-      "ideal": "A JSON response containing an array of usage records with details like category and usage amount."
+      "user": "User wants to list all add-on results for a specific recording identified by its ReferenceSid.",
+      "ideal": "The API should return a list of all add-on results related to the specified recording."
     }
   ]
 }

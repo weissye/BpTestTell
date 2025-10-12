@@ -5,24 +5,24 @@
       "method": "POST",
       "operationId": "getCustomFieldsConfigurations",
       "summary": "",
-      "user": "As a project manager, I want to retrieve a list of custom field configurations for my Jira project so that I can ensure all necessary fields are properly set up.",
-      "ideal": "The API should return a JSON array of custom field configurations, including field IDs, names, and associated contexts."
+      "user": "As a project manager, I want to retrieve a list of custom field configurations for my project so that I can ensure all necessary fields are set up correctly.",
+      "ideal": "The API should return a list of custom field configurations, including field IDs, names, and their respective contexts."
     },
     {
       "path": "/rest/api/3/app/field/{fieldIdOrKey}/context/configuration",
       "method": "GET",
       "operationId": "getCustomFieldConfiguration",
       "summary": "",
-      "user": "As a developer, I need to access the configuration details of a specific custom field using its ID or key to understand its settings and usage.",
-      "ideal": "The API should return a JSON object containing the configuration details of the specified custom field, including its context and configuration settings."
+      "user": "As a developer, I need to get the configuration details of a specific custom field by its ID or key to understand how it is set up in the project.",
+      "ideal": "The API should return the configuration details of the specified custom field, including its context, options, and any associated metadata."
     },
     {
       "path": "/rest/api/3/app/field/{fieldIdOrKey}/context/configuration",
       "method": "PUT",
       "operationId": "updateCustomFieldConfiguration",
       "summary": "",
-      "user": "As a system administrator, I want to update the configuration of a custom field to reflect new requirements for our project workflows.",
-      "ideal": "The API should accept a JSON object with the updated configuration details and return a success message upon successful update."
+      "user": "As a system administrator, I want to update the configuration of a custom field to reflect new requirements for data collection in our projects.",
+      "ideal": "The API should successfully update the custom field configuration and return a confirmation message along with the updated configuration details."
     }
   ]
 }

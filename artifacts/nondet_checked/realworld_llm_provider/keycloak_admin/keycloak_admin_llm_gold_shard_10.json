@@ -1,23 +1,23 @@
 {
   "gold": [
     {
-      "path": "/myrealm/groups",
+      "path": "/v1/{realm}/groups",
       "method": "GET",
       "operationId": "getGroupsByRealm",
       "summary": "",
-      "user": "Admin user requesting all groups in the realm to manage user roles and permissions.",
-      "ideal": "Returns a list of groups in the specified realm."
+      "user": "Admin user requesting all groups in the specified realm to manage user roles and permissions.",
+      "ideal": "Returns a list of groups within the specified realm."
     },
     {
-      "path": "/myrealm/groups",
+      "path": "/v1/{realm}/groups",
       "method": "POST",
       "operationId": "postGroups",
       "summary": "",
-      "user": "Admin user creating a new group for organizing users based on their roles.",
+      "user": "Admin user creating a new group in the realm to organize users based on their roles.",
       "ideal": "Creates a new group in the specified realm and returns the created group's details."
     },
     {
-      "path": "/myrealm/groups/count",
+      "path": "/v1/{realm}/groups/count",
       "method": "GET",
       "operationId": "getGroupsCountByRealm",
       "summary": "",
@@ -25,39 +25,39 @@
       "ideal": "Returns the count of groups in the specified realm."
     },
     {
-      "path": "/myrealm/groups/12345",
+      "path": "/v1/{realm}/groups/{id}",
       "method": "GET",
       "operationId": "getGroup",
       "summary": "",
-      "user": "Admin user retrieving details of a specific group to review its members and permissions.",
-      "ideal": "Returns the details of the group with the specified ID."
+      "user": "Admin user retrieving details of a specific group to review its configuration and members.",
+      "ideal": "Returns the details of the specified group."
     },
     {
-      "path": "/myrealm/groups/12345",
+      "path": "/v1/{realm}/groups/{id}",
       "method": "PUT",
       "operationId": "putGroupByRealmById",
       "summary": "",
-      "user": "Admin user updating the group's name and description to reflect its current purpose.",
+      "user": "Admin user updating the group's information to reflect changes in the organization.",
       "ideal": "Updates the specified group's details and returns the updated group."
     },
     {
-      "path": "/myrealm/groups/12345",
+      "path": "/v1/{realm}/groups/{id}",
       "method": "DELETE",
       "operationId": "deleteGroupByRealmById",
       "summary": "",
-      "user": "Admin user deleting an obsolete group that is no longer needed.",
-      "ideal": "Deletes the specified group and confirms the deletion."
+      "user": "Admin user deleting a group that is no longer needed to maintain a clean structure.",
+      "ideal": "Deletes the specified group and returns a confirmation of the deletion."
     },
     {
-      "path": "/myrealm/groups/12345/children",
+      "path": "/v1/{realm}/groups/{id}/children",
       "method": "POST",
       "operationId": "postChildren",
       "summary": "",
-      "user": "Admin user adding a subgroup to an existing group for better organization.",
+      "user": "Admin user adding a child group to an existing group to create a hierarchy.",
       "ideal": "Adds a child group to the specified group and returns the updated group structure."
     },
     {
-      "path": "/myrealm/groups/12345/management/permissions",
+      "path": "/v1/{realm}/groups/{id}/management/permissions",
       "method": "GET",
       "operationId": "getGroupManagementPermissions",
       "summary": "",
@@ -65,15 +65,15 @@
       "ideal": "Returns the management permissions associated with the specified group."
     },
     {
-      "path": "/myrealm/groups/12345/management/permissions",
+      "path": "/v1/{realm}/groups/{id}/management/permissions",
       "method": "PUT",
       "operationId": "putGroupManagementPermissions",
       "summary": "",
-      "user": "Admin user updating the management permissions of a group to enhance security.",
+      "user": "Admin user updating the management permissions of a group to adjust access levels.",
       "ideal": "Updates the management permissions for the specified group and returns the updated permissions."
     },
     {
-      "path": "/myrealm/groups/12345/members",
+      "path": "/v1/{realm}/groups/{id}/members",
       "method": "GET",
       "operationId": "getMembers",
       "summary": "",

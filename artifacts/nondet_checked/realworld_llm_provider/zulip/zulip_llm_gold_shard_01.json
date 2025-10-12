@@ -5,16 +5,16 @@
       "method": "POST",
       "operationId": "fetch-api-key",
       "summary": "",
-      "user": "user@example.com",
-      "ideal": "Returns a new API key for the user based on their credentials."
+      "user": "{\"email\":\"user@example.com\",\"password\":\"securepassword123\"}",
+      "ideal": "{\"api_key\":\"abc123xyz456\"}"
     },
     {
       "path": "/dev_fetch_api_key",
       "method": "POST",
       "operationId": "dev-fetch-api-key",
       "summary": "",
-      "user": "dev_user@example.com",
-      "ideal": "Returns a development API key for testing purposes."
+      "user": "{\"email\":\"dev@example.com\",\"password\":\"devpassword456\"}",
+      "ideal": "{\"api_key\":\"devkey789xyz\"}"
     }
   ]
 }

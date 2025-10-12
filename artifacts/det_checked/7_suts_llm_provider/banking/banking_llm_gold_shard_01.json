@@ -5,24 +5,72 @@
       "method": "POST",
       "operationId": "resetSystem",
       "summary": "",
-      "user": "admin",
-      "ideal": "Resets the banking system to its initial state, clearing all accounts and transactions."
+      "user": "Admin user resets the banking system to clear all data for testing purposes.",
+      "ideal": "System reset successfully."
+    },
+    {
+      "path": "/customers",
+      "method": "POST",
+      "operationId": "createCustomer",
+      "summary": "",
+      "user": "New customer registration with basic details like name, email, and phone number.",
+      "ideal": "Customer created successfully with ID: 12345."
+    },
+    {
+      "path": "/accounts",
+      "method": "POST",
+      "operationId": "createAccount",
+      "summary": "",
+      "user": "Customer creates a new savings account with an initial deposit.",
+      "ideal": "Account created successfully with account number: 67890."
     },
     {
       "path": "/accounts",
       "method": "GET",
       "operationId": "getAccounts",
       "summary": "",
-      "user": "customer",
-      "ideal": "Retrieves a list of all bank accounts associated with the user, including account numbers and balances."
+      "user": "Customer retrieves a list of all their bank accounts.",
+      "ideal": "Accounts retrieved successfully: [{accountId: 67890, type: 'savings'}, {accountId: 54321, type: 'checking'}]."
+    },
+    {
+      "path": "/accounts/{accountId}/transactions",
+      "method": "GET",
+      "operationId": "getAccountTransactions",
+      "summary": "",
+      "user": "Customer views transaction history for a specific account.",
+      "ideal": "Transactions retrieved successfully for account 67890: [{transactionId: 1, amount: -50, type: 'debit'}, {transactionId: 2, amount: 100, type: 'credit'}]."
+    },
+    {
+      "path": "/transfers",
+      "method": "POST",
+      "operationId": "createTransfer",
+      "summary": "",
+      "user": "Customer initiates a transfer of funds from one account to another.",
+      "ideal": "Transfer completed successfully. Transaction ID: 98765."
     },
     {
       "path": "/cards",
       "method": "POST",
       "operationId": "createCard",
       "summary": "",
-      "user": "customer",
-      "ideal": "Creates a new debit or credit card linked to the user's bank account, providing card details and activation status."
+      "user": "Customer applies for a new debit card linked to their checking account.",
+      "ideal": "Card created successfully with card number: 1234-5678-9012-3456."
+    },
+    {
+      "path": "/loans",
+      "method": "POST",
+      "operationId": "applyForLoan",
+      "summary": "",
+      "user": "Customer applies for a personal loan with specified amount and term.",
+      "ideal": "Loan application submitted successfully. Application ID: 54321."
+    },
+    {
+      "path": "/loans",
+      "method": "GET",
+      "operationId": "getLoans",
+      "summary": "",
+      "user": "Customer retrieves a list of all their active loans.",
+      "ideal": "Loans retrieved successfully: [{loanId: 54321, amount: 5000, status: 'active'}, {loanId: 67890, amount: 10000, status: 'paid'}]."
     }
   ]
 }

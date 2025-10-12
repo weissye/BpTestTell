@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/server/info",
+      "method": "GET",
+      "operationId": "serverInfo",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the current server information including version, environment, and other relevant details."
+    },
+    {
+      "path": "/server/ping",
+      "method": "GET",
+      "operationId": "ping",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Check the server's availability and responsiveness."
+    }
+  ]
+}

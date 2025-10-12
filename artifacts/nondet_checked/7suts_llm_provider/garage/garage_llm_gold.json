@@ -5,55 +5,23 @@
       "method": "POST",
       "operationId": "createChain",
       "summary": "",
-      "user": "Admin user creating a new chain with name 'Downtown Garage'.",
+      "user": "Admin user creating a new chain for managing garages.",
       "ideal": "Successfully creates a new chain and returns the chain details."
-    },
-    {
-      "path": "/v1/chains",
-      "method": "GET",
-      "operationId": "getChains",
-      "summary": "",
-      "user": "User fetching all chains to display on the dashboard.",
-      "ideal": "Returns a list of all chains with their details."
     },
     {
       "path": "/v1/chains/{chainId}",
       "method": "GET",
       "operationId": "getChainById",
       "summary": "",
-      "user": "User retrieving details for chain with ID '123'.",
+      "user": "Admin user retrieving details of a specific chain.",
       "ideal": "Returns the details of the specified chain."
-    },
-    {
-      "path": "/v1/chains/{chainId}",
-      "method": "PUT",
-      "operationId": "updateChain",
-      "summary": "",
-      "user": "Admin updating the name of chain '123' to 'Uptown Garage'.",
-      "ideal": "Successfully updates the chain and returns the updated details."
-    },
-    {
-      "path": "/v1/chains/{chainId}",
-      "method": "DELETE",
-      "operationId": "deleteChain",
-      "summary": "",
-      "user": "Admin deleting chain with ID '123'.",
-      "ideal": "Successfully deletes the chain and returns a confirmation message."
-    },
-    {
-      "path": "/v1/garages",
-      "method": "POST",
-      "operationId": "createGarage",
-      "summary": "",
-      "user": "Admin creating a new garage named 'Main Street Garage'.",
-      "ideal": "Successfully creates a new garage and returns the garage details."
     },
     {
       "path": "/v1/garages",
       "method": "GET",
-      "operationId": "getGarages",
+      "operationId": "listGarages",
       "summary": "",
-      "user": "User fetching all garages to display on the website.",
+      "user": "Customer looking to view all available garages.",
       "ideal": "Returns a list of all garages with their details."
     },
     {
@@ -61,200 +29,56 @@
       "method": "GET",
       "operationId": "getGarageById",
       "summary": "",
-      "user": "User retrieving details for garage with ID '456'.",
+      "user": "Customer checking details of a specific garage.",
       "ideal": "Returns the details of the specified garage."
-    },
-    {
-      "path": "/v1/garages/{garageId}",
-      "method": "PUT",
-      "operationId": "updateGarage",
-      "summary": "",
-      "user": "Admin updating the address of garage '456'.",
-      "ideal": "Successfully updates the garage and returns the updated details."
-    },
-    {
-      "path": "/v1/garages/{garageId}",
-      "method": "DELETE",
-      "operationId": "deleteGarage",
-      "summary": "",
-      "user": "Admin deleting garage with ID '456'.",
-      "ideal": "Successfully deletes the garage and returns a confirmation message."
     },
     {
       "path": "/v1/customers",
       "method": "POST",
       "operationId": "createCustomer",
       "summary": "",
-      "user": "Admin adding a new customer named 'John Doe'.",
-      "ideal": "Successfully creates a new customer and returns the customer details."
-    },
-    {
-      "path": "/v1/customers",
-      "method": "GET",
-      "operationId": "getCustomers",
-      "summary": "",
-      "user": "User fetching all customers for the report.",
-      "ideal": "Returns a list of all customers with their details."
-    },
-    {
-      "path": "/v1/customers/{customerId}",
-      "method": "GET",
-      "operationId": "getCustomerById",
-      "summary": "",
-      "user": "User retrieving details for customer with ID '789'.",
-      "ideal": "Returns the details of the specified customer."
+      "user": "Admin user adding a new customer to the system.",
+      "ideal": "Successfully creates a new customer and returns customer details."
     },
     {
       "path": "/v1/customers/{customerId}",
       "method": "PUT",
       "operationId": "updateCustomer",
       "summary": "",
-      "user": "Admin updating the contact information for customer '789'.",
-      "ideal": "Successfully updates the customer and returns the updated details."
-    },
-    {
-      "path": "/v1/customers/{customerId}",
-      "method": "DELETE",
-      "operationId": "deleteCustomer",
-      "summary": "",
-      "user": "Admin deleting customer with ID '789'.",
-      "ideal": "Successfully deletes the customer and returns a confirmation message."
+      "user": "Admin user updating customer information.",
+      "ideal": "Successfully updates the customer details and returns updated information."
     },
     {
       "path": "/v1/cars",
       "method": "POST",
-      "operationId": "createCar",
+      "operationId": "addCar",
       "summary": "",
-      "user": "Admin adding a new car with VIN '1HGCM82633A123456'.",
-      "ideal": "Successfully creates a new car and returns the car details."
-    },
-    {
-      "path": "/v1/cars",
-      "method": "GET",
-      "operationId": "getCars",
-      "summary": "",
-      "user": "User fetching all cars for inventory check.",
-      "ideal": "Returns a list of all cars with their details."
+      "user": "Customer adding a new car to their profile.",
+      "ideal": "Successfully adds a new car and returns car details."
     },
     {
       "path": "/v1/cars/{vin}",
       "method": "GET",
       "operationId": "getCarByVin",
       "summary": "",
-      "user": "User retrieving details for car with VIN '1HGCM82633A123456'.",
+      "user": "Customer retrieving details of their car using VIN.",
       "ideal": "Returns the details of the specified car."
     },
     {
-      "path": "/v1/cars/{vin}",
-      "method": "PUT",
-      "operationId": "updateCar",
-      "summary": "",
-      "user": "Admin updating the details of car with VIN '1HGCM82633A123456'.",
-      "ideal": "Successfully updates the car and returns the updated details."
-    },
-    {
-      "path": "/v1/cars/{vin}",
-      "method": "DELETE",
-      "operationId": "deleteCar",
-      "summary": "",
-      "user": "Admin deleting car with VIN '1HGCM82633A123456'.",
-      "ideal": "Successfully deletes the car and returns a confirmation message."
-    },
-    {
-      "path": "/v1/periodic-maintenance",
-      "method": "POST",
-      "operationId": "createMaintenance",
-      "summary": "",
-      "user": "Admin scheduling a new periodic maintenance for car '1HGCM82633A123456'.",
-      "ideal": "Successfully creates a new maintenance record and returns the details."
-    },
-    {
       "path": "/v1/periodic-maintenance",
       "method": "GET",
-      "operationId": "getMaintenanceRecords",
+      "operationId": "listPeriodicMaintenance",
       "summary": "",
-      "user": "User fetching all periodic maintenance records.",
-      "ideal": "Returns a list of all maintenance records with their details."
-    },
-    {
-      "path": "/v1/periodic-maintenance/{pmId}",
-      "method": "GET",
-      "operationId": "getMaintenanceById",
-      "summary": "",
-      "user": "User retrieving details for maintenance record with ID '321'.",
-      "ideal": "Returns the details of the specified maintenance record."
-    },
-    {
-      "path": "/v1/periodic-maintenance/{pmId}",
-      "method": "PUT",
-      "operationId": "updateMaintenance",
-      "summary": "",
-      "user": "Admin updating the details of maintenance record '321'.",
-      "ideal": "Successfully updates the maintenance record and returns the updated details."
-    },
-    {
-      "path": "/v1/periodic-maintenance/{pmId}",
-      "method": "DELETE",
-      "operationId": "deleteMaintenance",
-      "summary": "",
-      "user": "Admin deleting maintenance record with ID '321'.",
-      "ideal": "Successfully deletes the maintenance record and returns a confirmation message."
-    },
-    {
-      "path": "/v1/repair-orders",
-      "method": "POST",
-      "operationId": "createRepairOrder",
-      "summary": "",
-      "user": "Admin creating a new repair order for car '1HGCM82633A123456'.",
-      "ideal": "Successfully creates a new repair order and returns the order details."
-    },
-    {
-      "path": "/v1/repair-orders",
-      "method": "GET",
-      "operationId": "getRepairOrders",
-      "summary": "",
-      "user": "User fetching all repair orders for review.",
-      "ideal": "Returns a list of all repair orders with their details."
-    },
-    {
-      "path": "/v1/repair-orders/{roId}",
-      "method": "GET",
-      "operationId": "getRepairOrderById",
-      "summary": "",
-      "user": "User retrieving details for repair order with ID '654'.",
-      "ideal": "Returns the details of the specified repair order."
-    },
-    {
-      "path": "/v1/repair-orders/{roId}",
-      "method": "PUT",
-      "operationId": "updateRepairOrder",
-      "summary": "",
-      "user": "Admin updating the status of repair order '654'.",
-      "ideal": "Successfully updates the repair order and returns the updated details."
-    },
-    {
-      "path": "/v1/repair-orders/{roId}",
-      "method": "DELETE",
-      "operationId": "deleteRepairOrder",
-      "summary": "",
-      "user": "Admin deleting repair order with ID '654'.",
-      "ideal": "Successfully deletes the repair order and returns a confirmation message."
+      "user": "Admin user checking all scheduled periodic maintenance.",
+      "ideal": "Returns a list of all periodic maintenance records."
     },
     {
       "path": "/v1/repair-orders/{roId}/approve",
       "method": "POST",
       "operationId": "approveRepairOrder",
       "summary": "",
-      "user": "Admin approving repair order '654'.",
-      "ideal": "Successfully approves the repair order and returns the updated status."
-    },
-    {
-      "path": "/v1/repair-orders/{roId}/close",
-      "method": "POST",
-      "operationId": "closeRepairOrder",
-      "summary": "",
-      "user": "Admin closing repair order '654' after completion.",
-      "ideal": "Successfully closes the repair order and returns a confirmation message."
+      "user": "Admin user approving a repair order.",
+      "ideal": "Successfully approves the repair order and returns confirmation."
     }
   ]
 }

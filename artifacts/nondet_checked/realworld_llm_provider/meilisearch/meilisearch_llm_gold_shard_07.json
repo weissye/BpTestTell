@@ -22,7 +22,7 @@
       "operationId": "keys.get",
       "summary": "",
       "user": "admin",
-      "ideal": "Get details of a specific API key using its UID or key."
+      "ideal": "Fetch details of a specific API key using its UID or key."
     },
     {
       "path": "/keys/{uid_or_key}",
@@ -38,7 +38,7 @@
       "operationId": "keys.update",
       "summary": "",
       "user": "admin",
-      "ideal": "Update permissions or details of a specific API key."
+      "ideal": "Update the permissions or details of a specific API key."
     }
   ]
 }

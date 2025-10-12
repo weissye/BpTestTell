@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/types/{id}",
+      "method": "GET",
+      "operationId": "getTypesById",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the type details for the specified ID."
+    }
+  ]
+}

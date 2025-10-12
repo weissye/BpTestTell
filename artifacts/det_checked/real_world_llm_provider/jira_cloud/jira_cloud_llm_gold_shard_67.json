@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/PROJ-123/properties",
+      "method": "GET",
+      "operationId": "getProjectPropertyKeys",
+      "summary": "",
+      "user": "User requests to retrieve all property keys associated with the project identified by 'PROJ-123'.",
+      "ideal": "Returns a list of property keys for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/PROJ-123/properties/customProperty",
+      "method": "DELETE",
+      "operationId": "deleteProjectProperty",
+      "summary": "",
+      "user": "User wants to delete the property 'customProperty' from project 'PROJ-123'.",
+      "ideal": "Confirms that the property 'customProperty' has been successfully deleted from the project."
+    },
+    {
+      "path": "/rest/api/3/project/PROJ-123/properties/customProperty",
+      "method": "GET",
+      "operationId": "getProjectProperty",
+      "summary": "",
+      "user": "User queries the value of the property 'customProperty' for project 'PROJ-123'.",
+      "ideal": "Returns the value of 'customProperty' for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/PROJ-123/properties/customProperty",
+      "method": "PUT",
+      "operationId": "setProjectProperty",
+      "summary": "",
+      "user": "User wants to set the value of 'customProperty' to 'newValue' for project 'PROJ-123'.",
+      "ideal": "Confirms that 'customProperty' has been updated to 'newValue' for the project."
+    }
+  ]
+}

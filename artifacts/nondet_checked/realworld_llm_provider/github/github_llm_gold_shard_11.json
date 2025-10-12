@@ -13,7 +13,7 @@
       "method": "PUT",
       "operationId": "codespaces/set-codespaces-access",
       "summary": "",
-      "user": "admin456",
+      "user": "user123",
       "ideal": "Update access settings for codespaces in the organization 'my-org'."
     },
     {
@@ -21,7 +21,7 @@
       "method": "GET",
       "operationId": "codespaces/list-org-secrets",
       "summary": "",
-      "user": "user789",
+      "user": "user123",
       "ideal": "List all organization secrets for 'my-org'."
     },
     {
@@ -30,7 +30,7 @@
       "operationId": "codespaces/create-with-repo-for-authenticated-user",
       "summary": "",
       "user": "user123",
-      "ideal": "Create a new codespace using the repository 'my-repo'."
+      "ideal": "Create a new codespace for the repository 'my-repo'."
     },
     {
       "path": "/user/codespaces",
@@ -49,12 +49,20 @@
       "ideal": "Delete the codespace named 'my-codespace' for the authenticated user."
     },
     {
+      "path": "/user/codespaces/{codespace_name}/start",
+      "method": "POST",
+      "operationId": "codespaces/start-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Start the codespace named 'my-codespace' for the authenticated user."
+    },
+    {
       "path": "/orgs/my-org/members/user456/codespaces",
       "method": "GET",
       "operationId": "codespaces/get-codespaces-for-user-in-org",
       "summary": "",
-      "user": "admin456",
-      "ideal": "Retrieve all codespaces for user 'user456' in organization 'my-org'."
+      "user": "user123",
+      "ideal": "Retrieve codespaces for the user 'user456' in the organization 'my-org'."
     },
     {
       "path": "/repos/my-user/my-repo/codespaces/secrets",
@@ -66,19 +74,11 @@
     },
     {
       "path": "/user/codespaces/secrets/{secret_name}",
-      "method": "DELETE",
-      "operationId": "codespaces/delete-secret-for-authenticated-user",
+      "method": "GET",
+      "operationId": "codespaces/get-secret-for-authenticated-user",
       "summary": "",
       "user": "user123",
-      "ideal": "Delete the secret named 'my-secret' for the authenticated user."
-    },
-    {
-      "path": "/user/codespaces/{codespace_name}/start",
-      "method": "POST",
-      "operationId": "codespaces/start-for-authenticated-user",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Start the codespace named 'my-codespace' for the authenticated user."
+      "ideal": "Retrieve the secret named 'my-secret' for the authenticated user."
     }
   ]
 }

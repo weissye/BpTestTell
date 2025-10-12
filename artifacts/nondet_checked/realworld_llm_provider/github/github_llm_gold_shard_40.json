@@ -6,7 +6,7 @@
       "operationId": "secret-scanning/list-alerts-for-enterprise",
       "summary": "",
       "user": "admin_user",
-      "ideal": "Retrieve a list of secret scanning alerts for the specified enterprise."
+      "ideal": "Retrieve all secret scanning alerts for the specified enterprise."
     },
     {
       "path": "/orgs/{org}/secret-scanning/alerts",
@@ -14,7 +14,7 @@
       "operationId": "secret-scanning/list-alerts-for-org",
       "summary": "",
       "user": "org_member",
-      "ideal": "Fetch all secret scanning alerts associated with the organization."
+      "ideal": "Fetch secret scanning alerts for the specified organization."
     },
     {
       "path": "/orgs/{org}/secret-scanning/pattern-configurations",
@@ -30,7 +30,7 @@
       "operationId": "secret-scanning/update-org-pattern-configs",
       "summary": "",
       "user": "org_admin",
-      "ideal": "Update the secret scanning pattern configurations for the organization."
+      "ideal": "Update the pattern configurations for secret scanning in the organization."
     },
     {
       "path": "/repos/{owner}/{repo}/secret-scanning/alerts",
@@ -46,7 +46,7 @@
       "operationId": "secret-scanning/get-alert",
       "summary": "",
       "user": "repo_contributor",
-      "ideal": "Retrieve details of a specific secret scanning alert by its number."
+      "ideal": "Retrieve details of a specific secret scanning alert by alert number."
     },
     {
       "path": "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}",
@@ -78,7 +78,7 @@
       "operationId": "secret-scanning/get-scan-history",
       "summary": "",
       "user": "repo_contributor",
-      "ideal": "Retrieve the history of secret scanning scans for the repository."
+      "ideal": "Retrieve the scan history for secret scanning in the specified repository."
     }
   ]
 }

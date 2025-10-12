@@ -1,0 +1,148 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/example-org/projectsV2",
+      "method": "GET",
+      "operationId": "projects/list-for-org",
+      "summary": "",
+      "user": "User requested a list of all projects for the organization 'example-org'.",
+      "ideal": "Returns a list of projects associated with the specified organization."
+    },
+    {
+      "path": "/orgs/example-org/projectsV2/1",
+      "method": "GET",
+      "operationId": "projects/get-for-org",
+      "summary": "",
+      "user": "User wants to retrieve details for project number 1 in 'example-org'.",
+      "ideal": "Returns detailed information about the specified project."
+    },
+    {
+      "path": "/orgs/example-org/projectsV2/1/fields",
+      "method": "GET",
+      "operationId": "projects/list-fields-for-org",
+      "summary": "",
+      "user": "User is looking for the fields associated with project number 1 in 'example-org'.",
+      "ideal": "Returns a list of fields for the specified project."
+    },
+    {
+      "path": "/orgs/example-org/projectsV2/1/fields/field-1",
+      "method": "GET",
+      "operationId": "projects/get-field-for-org",
+      "summary": "",
+      "user": "User wants to get details of field 'field-1' in project number 1 of 'example-org'.",
+      "ideal": "Returns detailed information about the specified field."
+    },
+    {
+      "path": "/orgs/example-org/projectsV2/1/items",
+      "method": "GET",
+      "operationId": "projects/list-items-for-org",
+      "summary": "",
+      "user": "User requests a list of items for project number 1 in 'example-org'.",
+      "ideal": "Returns a list of items associated with the specified project."
+    },
+    {
+      "path": "/orgs/example-org/projectsV2/1/items",
+      "method": "POST",
+      "operationId": "projects/add-item-for-org",
+      "summary": "",
+      "user": "User wants to add a new item to project number 1 in 'example-org'.",
+      "ideal": "Adds a new item to the specified project and returns the created item."
+    },
+    {
+      "path": "/orgs/example-org/projectsV2/1/items/item-1",
+      "method": "GET",
+      "operationId": "projects/get-org-item",
+      "summary": "",
+      "user": "User is looking for details of item 'item-1' in project number 1 of 'example-org'.",
+      "ideal": "Returns detailed information about the specified item."
+    },
+    {
+      "path": "/orgs/example-org/projectsV2/1/items/item-1",
+      "method": "PATCH",
+      "operationId": "projects/update-item-for-org",
+      "summary": "",
+      "user": "User wants to update item 'item-1' in project number 1 of 'example-org'.",
+      "ideal": "Updates the specified item and returns the updated item."
+    },
+    {
+      "path": "/orgs/example-org/projectsV2/1/items/item-1",
+      "method": "DELETE",
+      "operationId": "projects/delete-item-for-org",
+      "summary": "",
+      "user": "User requests to delete item 'item-1' from project number 1 in 'example-org'.",
+      "ideal": "Deletes the specified item and confirms deletion."
+    },
+    {
+      "path": "/users/example-user/projectsV2",
+      "method": "GET",
+      "operationId": "projects/list-for-user",
+      "summary": "",
+      "user": "User wants to see all projects associated with 'example-user'.",
+      "ideal": "Returns a list of projects associated with the specified user."
+    },
+    {
+      "path": "/users/example-user/projectsV2/1",
+      "method": "GET",
+      "operationId": "projects/get-for-user",
+      "summary": "",
+      "user": "User is looking for details of project number 1 for 'example-user'.",
+      "ideal": "Returns detailed information about the specified user's project."
+    },
+    {
+      "path": "/users/example-user/projectsV2/1/fields",
+      "method": "GET",
+      "operationId": "projects/list-fields-for-user",
+      "summary": "",
+      "user": "User wants to retrieve fields for project number 1 of 'example-user'.",
+      "ideal": "Returns a list of fields for the specified user's project."
+    },
+    {
+      "path": "/users/example-user/projectsV2/1/fields/field-1",
+      "method": "GET",
+      "operationId": "projects/get-field-for-user",
+      "summary": "",
+      "user": "User is looking for details of field 'field-1' in project number 1 of 'example-user'.",
+      "ideal": "Returns detailed information about the specified field."
+    },
+    {
+      "path": "/users/example-user/projectsV2/1/items",
+      "method": "GET",
+      "operationId": "projects/list-items-for-user",
+      "summary": "",
+      "user": "User requests a list of items for project number 1 of 'example-user'.",
+      "ideal": "Returns a list of items associated with the specified user's project."
+    },
+    {
+      "path": "/users/example-user/projectsV2/1/items",
+      "method": "POST",
+      "operationId": "projects/add-item-for-user",
+      "summary": "",
+      "user": "User wants to add a new item to project number 1 of 'example-user'.",
+      "ideal": "Adds a new item to the specified user's project and returns the created item."
+    },
+    {
+      "path": "/users/example-user/projectsV2/1/items/item-1",
+      "method": "GET",
+      "operationId": "projects/get-user-item",
+      "summary": "",
+      "user": "User is looking for details of item 'item-1' in project number 1 of 'example-user'.",
+      "ideal": "Returns detailed information about the specified item."
+    },
+    {
+      "path": "/users/example-user/projectsV2/1/items/item-1",
+      "method": "PATCH",
+      "operationId": "projects/update-item-for-user",
+      "summary": "",
+      "user": "User wants to update item 'item-1' in project number 1 of 'example-user'.",
+      "ideal": "Updates the specified item and returns the updated item."
+    },
+    {
+      "path": "/users/example-user/projectsV2/1/items/item-1",
+      "method": "DELETE",
+      "operationId": "projects/delete-item-for-user",
+      "summary": "",
+      "user": "User requests to delete item 'item-1' from project number 1 of 'example-user'.",
+      "ideal": "Deletes the specified item and confirms deletion."
+    }
+  ]
+}

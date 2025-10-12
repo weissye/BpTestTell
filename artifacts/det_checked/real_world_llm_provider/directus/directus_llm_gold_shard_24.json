@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/webhooks",
+      "method": "GET",
+      "operationId": "getWebhooks",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all webhooks configured in the system."
+    },
+    {
+      "path": "/webhooks",
+      "method": "POST",
+      "operationId": "createWebhook",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new webhook with the specified configuration."
+    },
+    {
+      "path": "/webhooks",
+      "method": "PATCH",
+      "operationId": "updateWebhooks",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the configuration of existing webhooks."
+    },
+    {
+      "path": "/webhooks",
+      "method": "DELETE",
+      "operationId": "deleteWebhooks",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete all webhooks from the system."
+    },
+    {
+      "path": "/webhooks/{id}",
+      "method": "GET",
+      "operationId": "getWebhook",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific webhook by its ID."
+    },
+    {
+      "path": "/webhooks/{id}",
+      "method": "PATCH",
+      "operationId": "updateWebhook",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the configuration of a specific webhook identified by its ID."
+    },
+    {
+      "path": "/webhooks/{id}",
+      "method": "DELETE",
+      "operationId": "deleteWebhook",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific webhook identified by its ID."
+    }
+  ]
+}

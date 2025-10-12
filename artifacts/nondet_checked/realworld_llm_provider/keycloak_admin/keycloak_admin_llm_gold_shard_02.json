@@ -1,268 +1,284 @@
 {
   "gold": [
     {
-      "path": "/myrealm/authentication/authenticator-providers",
+      "path": "/{realm}/authentication/authenticator-providers",
       "method": "GET",
       "operationId": "getAuthenticatorProviders",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve a list of all authenticator providers available in the specified realm."
+      "user": "Admin user requesting a list of available authenticator providers for the specified realm.",
+      "ideal": "Returns a list of authenticator providers available in the specified realm."
     },
     {
-      "path": "/myrealm/authentication/client-authenticator-providers",
+      "path": "/{realm}/authentication/client-authenticator-providers",
       "method": "GET",
       "operationId": "getClientAuthenticatorProviders",
       "summary": "",
-      "user": "admin",
-      "ideal": "Fetch all client authenticator providers for the realm."
+      "user": "Security officer checking client authenticator providers for a realm.",
+      "ideal": "Provides a list of client authenticator providers configured for the realm."
     },
     {
-      "path": "/myrealm/authentication/config",
+      "path": "/{realm}/authentication/config",
       "method": "POST",
       "operationId": "postAuthenticationConfig",
       "summary": "",
-      "user": "admin",
-      "ideal": "Create a new authentication configuration for the realm."
+      "user": "Admin user creating a new authentication configuration for the realm.",
+      "ideal": "Creates a new authentication configuration and returns the created configuration details."
     },
     {
-      "path": "/myrealm/authentication/config-description/myProvider",
+      "path": "/{realm}/authentication/config-description/{providerId}",
       "method": "GET",
       "operationId": "getConfigDescription",
       "summary": "",
-      "user": "admin",
-      "ideal": "Get the configuration description for a specific authentication provider."
+      "user": "Developer seeking details about a specific authentication provider's configuration.",
+      "ideal": "Returns the configuration description for the specified authentication provider."
     },
     {
-      "path": "/myrealm/authentication/config/myConfigId",
+      "path": "/{realm}/authentication/config/{id}",
       "method": "GET",
       "operationId": "getAuthenticationConfig",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve the authentication configuration by its ID."
+      "user": "Admin user retrieving a specific authentication configuration by ID.",
+      "ideal": "Returns the details of the specified authentication configuration."
     },
     {
-      "path": "/myrealm/authentication/config/myConfigId",
+      "path": "/{realm}/authentication/config/{id}",
       "method": "PUT",
       "operationId": "putAuthenticationConfig",
       "summary": "",
-      "user": "admin",
-      "ideal": "Update an existing authentication configuration by its ID."
+      "user": "Admin user updating an existing authentication configuration.",
+      "ideal": "Updates the specified authentication configuration and returns the updated details."
     },
     {
-      "path": "/myrealm/authentication/config/myConfigId",
+      "path": "/{realm}/authentication/config/{id}",
       "method": "DELETE",
       "operationId": "deleteConfig",
       "summary": "",
-      "user": "admin",
-      "ideal": "Delete the specified authentication configuration."
+      "user": "Admin user deleting an authentication configuration by ID.",
+      "ideal": "Deletes the specified authentication configuration and confirms deletion."
     },
     {
-      "path": "/myrealm/authentication/executions",
+      "path": "/{realm}/authentication/executions",
       "method": "POST",
       "operationId": "postExecutions",
       "summary": "",
-      "user": "admin",
-      "ideal": "Add a new execution to the authentication flow."
+      "user": "Admin user adding a new execution to the authentication flow.",
+      "ideal": "Creates a new execution in the authentication flow and returns its details."
     },
     {
-      "path": "/myrealm/authentication/executions/myExecutionId",
+      "path": "/{realm}/authentication/executions/{executionId}",
       "method": "GET",
       "operationId": "getExecution",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve details of a specific execution by its ID."
+      "user": "Admin user retrieving details of a specific execution by ID.",
+      "ideal": "Returns the details of the specified execution."
     },
     {
-      "path": "/myrealm/authentication/executions/myExecutionId",
+      "path": "/{realm}/authentication/executions/{executionId}",
       "method": "DELETE",
       "operationId": "deleteExecution",
       "summary": "",
-      "user": "admin",
-      "ideal": "Remove a specific execution from the authentication flow."
+      "user": "Admin user removing an execution from the authentication flow.",
+      "ideal": "Deletes the specified execution and confirms deletion."
     },
     {
-      "path": "/myrealm/authentication/executions/myExecutionId/config",
+      "path": "/{realm}/authentication/executions/{executionId}/config",
       "method": "POST",
       "operationId": "postExecutionConfig",
       "summary": "",
-      "user": "admin",
-      "ideal": "Configure settings for a specific execution."
+      "user": "Admin user configuring a specific execution in the authentication flow.",
+      "ideal": "Creates or updates the configuration for the specified execution."
     },
     {
-      "path": "/myrealm/authentication/executions/myExecutionId/config/myConfigId",
+      "path": "/{realm}/authentication/executions/{executionId}/config/{id}",
       "method": "GET",
       "operationId": "getExecutionConfig",
       "summary": "",
-      "user": "admin",
-      "ideal": "Fetch the configuration for a specific execution."
+      "user": "Admin user retrieving configuration details for a specific execution.",
+      "ideal": "Returns the configuration details for the specified execution."
     },
     {
-      "path": "/myrealm/authentication/flows",
+      "path": "/{realm}/authentication/executions/{executionId}/lower-priority",
+      "method": "POST",
+      "operationId": "postExecutionLowerPriority",
+      "summary": "",
+      "user": "Admin user lowering the priority of a specific execution.",
+      "ideal": "Updates the priority of the specified execution to a lower value."
+    },
+    {
+      "path": "/{realm}/authentication/executions/{executionId}/raise-priority",
+      "method": "POST",
+      "operationId": "postExecutionRaisePriority",
+      "summary": "",
+      "user": "Admin user raising the priority of a specific execution.",
+      "ideal": "Updates the priority of the specified execution to a higher value."
+    },
+    {
+      "path": "/{realm}/authentication/flows",
       "method": "GET",
       "operationId": "getFlows",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve all authentication flows in the realm."
+      "user": "Admin user listing all authentication flows in the realm.",
+      "ideal": "Returns a list of all authentication flows configured in the realm."
     },
     {
-      "path": "/myrealm/authentication/flows",
+      "path": "/{realm}/authentication/flows",
       "method": "POST",
       "operationId": "postFlows",
       "summary": "",
-      "user": "admin",
-      "ideal": "Create a new authentication flow in the realm."
+      "user": "Admin user creating a new authentication flow.",
+      "ideal": "Creates a new authentication flow and returns its details."
     },
     {
-      "path": "/myrealm/authentication/flows/myFlowAlias/copy",
+      "path": "/{realm}/authentication/flows/{flowAlias}/copy",
       "method": "POST",
       "operationId": "postCopy",
       "summary": "",
-      "user": "admin",
-      "ideal": "Copy an existing authentication flow to create a new one."
+      "user": "Admin user copying an existing authentication flow.",
+      "ideal": "Creates a copy of the specified authentication flow and returns its details."
     },
     {
-      "path": "/myrealm/authentication/flows/myFlowAlias/executions",
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions",
       "method": "GET",
       "operationId": "getExecutions",
       "summary": "",
-      "user": "admin",
-      "ideal": "Get all executions associated with a specific authentication flow."
+      "user": "Admin user retrieving executions for a specific authentication flow.",
+      "ideal": "Returns a list of executions associated with the specified authentication flow."
     },
     {
-      "path": "/myrealm/authentication/flows/myFlowAlias/executions",
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions",
       "method": "PUT",
       "operationId": "putExecutions",
       "summary": "",
-      "user": "admin",
-      "ideal": "Update the executions of a specific authentication flow."
+      "user": "Admin user updating executions for a specific authentication flow.",
+      "ideal": "Updates the executions associated with the specified authentication flow."
     },
     {
-      "path": "/myrealm/authentication/flows/myFlowAlias/executions/execution",
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions/execution",
       "method": "POST",
       "operationId": "postExecution",
       "summary": "",
-      "user": "admin",
-      "ideal": "Add a new execution to the specified authentication flow."
+      "user": "Admin user adding a new execution to a specific authentication flow.",
+      "ideal": "Creates a new execution in the specified authentication flow."
     },
     {
-      "path": "/myrealm/authentication/flows/myFlowAlias/executions/flow",
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions/flow",
       "method": "POST",
       "operationId": "postFlow",
       "summary": "",
-      "user": "admin",
-      "ideal": "Add a new flow to the specified authentication flow."
+      "user": "Admin user adding a new flow to a specific authentication flow.",
+      "ideal": "Creates a new flow in the specified authentication flow."
     },
     {
-      "path": "/myrealm/authentication/flows/myFlowId",
+      "path": "/{realm}/authentication/flows/{id}",
       "method": "GET",
       "operationId": "getFlow",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve details of a specific authentication flow by its ID."
+      "user": "Admin user retrieving details of a specific authentication flow by ID.",
+      "ideal": "Returns the details of the specified authentication flow."
     },
     {
-      "path": "/myrealm/authentication/flows/myFlowId",
+      "path": "/{realm}/authentication/flows/{id}",
       "method": "PUT",
       "operationId": "putFlow",
       "summary": "",
-      "user": "admin",
-      "ideal": "Update an existing authentication flow by its ID."
+      "user": "Admin user updating an existing authentication flow.",
+      "ideal": "Updates the specified authentication flow and returns the updated details."
     },
     {
-      "path": "/myrealm/authentication/flows/myFlowId",
+      "path": "/{realm}/authentication/flows/{id}",
       "method": "DELETE",
       "operationId": "deleteFlow",
       "summary": "",
-      "user": "admin",
-      "ideal": "Delete a specific authentication flow from the realm."
+      "user": "Admin user deleting a specific authentication flow by ID.",
+      "ideal": "Deletes the specified authentication flow and confirms deletion."
     },
     {
-      "path": "/myrealm/authentication/form-action-providers",
+      "path": "/{realm}/authentication/form-action-providers",
       "method": "GET",
       "operationId": "getFormActionProviders",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve all form action providers available in the realm."
+      "user": "Admin user listing all form action providers for the realm.",
+      "ideal": "Returns a list of form action providers available in the specified realm."
     },
     {
-      "path": "/myrealm/authentication/form-providers",
+      "path": "/{realm}/authentication/form-providers",
       "method": "GET",
       "operationId": "getFormProviders",
       "summary": "",
-      "user": "admin",
-      "ideal": "Fetch all form providers for the realm."
+      "user": "Admin user retrieving all form providers for the realm.",
+      "ideal": "Returns a list of form providers configured in the specified realm."
     },
     {
-      "path": "/myrealm/authentication/per-client-config-description",
+      "path": "/{realm}/authentication/per-client-config-description",
       "method": "GET",
       "operationId": "getPerClientConfigDescription",
       "summary": "",
-      "user": "admin",
-      "ideal": "Get the per-client configuration description for the realm."
+      "user": "Admin user seeking per-client configuration descriptions.",
+      "ideal": "Returns descriptions of per-client authentication configurations."
     },
     {
-      "path": "/myrealm/authentication/register-required-action",
+      "path": "/{realm}/authentication/register-required-action",
       "method": "POST",
       "operationId": "postRegisterRequiredAction",
       "summary": "",
-      "user": "admin",
-      "ideal": "Register a new required action for the realm."
+      "user": "Admin user registering a new required action for authentication.",
+      "ideal": "Creates a new required action and returns its details."
     },
     {
-      "path": "/myrealm/authentication/required-actions",
+      "path": "/{realm}/authentication/required-actions",
       "method": "GET",
       "operationId": "getRequiredActions",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve all required actions configured in the realm."
+      "user": "Admin user listing all required actions for the realm.",
+      "ideal": "Returns a list of all required actions configured in the realm."
     },
     {
-      "path": "/myrealm/authentication/required-actions/myAlias",
+      "path": "/{realm}/authentication/required-actions/{alias}",
       "method": "GET",
       "operationId": "getRequiredAction",
       "summary": "",
-      "user": "admin",
-      "ideal": "Get details of a specific required action by its alias."
+      "user": "Admin user retrieving details of a specific required action by alias.",
+      "ideal": "Returns the details of the specified required action."
     },
     {
-      "path": "/myrealm/authentication/required-actions/myAlias",
+      "path": "/{realm}/authentication/required-actions/{alias}",
       "method": "PUT",
       "operationId": "putRequiredAction",
       "summary": "",
-      "user": "admin",
-      "ideal": "Update a specific required action by its alias."
+      "user": "Admin user updating a specific required action.",
+      "ideal": "Updates the specified required action and returns the updated details."
     },
     {
-      "path": "/myrealm/authentication/required-actions/myAlias",
+      "path": "/{realm}/authentication/required-actions/{alias}",
       "method": "DELETE",
       "operationId": "deleteRequiredAction",
       "summary": "",
-      "user": "admin",
-      "ideal": "Remove a specific required action from the realm."
+      "user": "Admin user deleting a specific required action by alias.",
+      "ideal": "Deletes the specified required action and confirms deletion."
     },
     {
-      "path": "/myrealm/authentication/required-actions/myAlias/lower-priority",
+      "path": "/{realm}/authentication/required-actions/{alias}/lower-priority",
       "method": "POST",
       "operationId": "postRequiredActionLowerPriority",
       "summary": "",
-      "user": "admin",
-      "ideal": "Lower the priority of a specific required action."
+      "user": "Admin user lowering the priority of a specific required action.",
+      "ideal": "Updates the priority of the specified required action to a lower value."
     },
     {
-      "path": "/myrealm/authentication/required-actions/myAlias/raise-priority",
+      "path": "/{realm}/authentication/required-actions/{alias}/raise-priority",
       "method": "POST",
       "operationId": "postRequiredActionRaisePriority",
       "summary": "",
-      "user": "admin",
-      "ideal": "Raise the priority of a specific required action."
+      "user": "Admin user raising the priority of a specific required action.",
+      "ideal": "Updates the priority of the specified required action to a higher value."
     },
     {
-      "path": "/myrealm/authentication/unregistered-required-actions",
+      "path": "/{realm}/authentication/unregistered-required-actions",
       "method": "GET",
       "operationId": "getUnregisteredRequiredActions",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve a list of all unregistered required actions in the realm."
+      "user": "Admin user checking for unregistered required actions in the realm.",
+      "ideal": "Returns a list of unregistered required actions available for registration."
     }
   ]
 }

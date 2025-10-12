@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/versions",
+      "method": "GET",
+      "operationId": "getContentVersions",
+      "summary": "",
+      "user": "Admin user requesting all content versions for review.",
+      "ideal": "Returns a list of all content versions available in the system."
+    },
+    {
+      "path": "/versions",
+      "method": "POST",
+      "operationId": "createContentVersion",
+      "summary": "",
+      "user": "Content creator submitting a new version of an article.",
+      "ideal": "Creates a new content version and returns the created version details."
+    },
+    {
+      "path": "/versions",
+      "method": "PATCH",
+      "operationId": "updateContentVersions",
+      "summary": "",
+      "user": "Editor updating multiple content versions for consistency.",
+      "ideal": "Updates specified content versions and returns the updated versions."
+    },
+    {
+      "path": "/versions",
+      "method": "DELETE",
+      "operationId": "deleteContentVersions",
+      "summary": "",
+      "user": "Admin user deleting outdated content versions.",
+      "ideal": "Deletes specified content versions and confirms deletion."
+    },
+    {
+      "path": "/versions/{id}",
+      "method": "GET",
+      "operationId": "getContentVersion",
+      "summary": "",
+      "user": "User retrieving a specific content version by ID.",
+      "ideal": "Returns the details of the specified content version."
+    },
+    {
+      "path": "/versions/{id}",
+      "method": "PATCH",
+      "operationId": "updateContentVersion",
+      "summary": "",
+      "user": "Content manager updating a specific content version.",
+      "ideal": "Updates the specified content version and returns the updated version."
+    },
+    {
+      "path": "/versions/{id}",
+      "method": "DELETE",
+      "operationId": "deleteContentVersion",
+      "summary": "",
+      "user": "Admin user removing a specific content version.",
+      "ideal": "Deletes the specified content version and confirms deletion."
+    },
+    {
+      "path": "/versions/{id}/save",
+      "method": "POST",
+      "operationId": "saveContentVersion",
+      "summary": "",
+      "user": "User saving changes to a specific content version.",
+      "ideal": "Saves the current state of the specified content version."
+    },
+    {
+      "path": "/versions/{id}/compare",
+      "method": "GET",
+      "operationId": "compareContentVersion",
+      "summary": "",
+      "user": "User comparing two versions of a document.",
+      "ideal": "Returns the differences between the specified content version and its previous version."
+    },
+    {
+      "path": "/versions/{id}/promote",
+      "method": "POST",
+      "operationId": "promoteContentVersion",
+      "summary": "",
+      "user": "Admin promoting a content version to the live site.",
+      "ideal": "Promotes the specified content version to be the current live version."
+    }
+  ]
+}

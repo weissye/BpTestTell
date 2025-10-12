@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Message"
+      ],
+      "summary": "Send a message",
+      "operationId": "CreateMessage"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Message"
+      ],
+      "summary": "Retrieve a list of Message resources associated with a Twilio Account",
+      "operationId": "ListMessage"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Message"
+      ],
+      "summary": "Deletes a Message resource from your account",
+      "operationId": "DeleteMessage"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Message"
+      ],
+      "summary": "Fetch a specific Message",
+      "operationId": "FetchMessage"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Message"
+      ],
+      "summary": "Update a Message resource (used to redact Message `body` text and to cancel not-yet-sent messages)",
+      "operationId": "UpdateMessage"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/licenses",
+      "method": "GET",
+      "operationId": "licenses/get-all-commonly-used",
+      "summary": "",
+      "user": "developer123",
+      "ideal": "Retrieve a list of all commonly used licenses available on GitHub."
+    },
+    {
+      "path": "/licenses/mit",
+      "method": "GET",
+      "operationId": "licenses/get",
+      "summary": "",
+      "user": "openSourceAdvocate",
+      "ideal": "Fetch the details of the MIT license, including its permissions and limitations."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/license",
+      "method": "GET",
+      "operationId": "licenses/get-for-repo",
+      "summary": "",
+      "user": "repoManager",
+      "ideal": "Get the license information for the 'Hello-World' repository owned by 'octocat'."
+    }
+  ]
+}

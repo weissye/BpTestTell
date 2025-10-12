@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchKey",
+      "summary": "",
+      "user": "User123 is trying to retrieve the details of a specific key associated with their Twilio account using the Account SID and the key SID.",
+      "ideal": "Successfully fetches the key details, including its SID, friendly name, and date created."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateKey",
+      "summary": "",
+      "user": "User456 wants to update the friendly name of an existing key for better identification in their Twilio account.",
+      "ideal": "Updates the key successfully and returns the updated key details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteKey",
+      "summary": "",
+      "user": "User789 needs to delete an unused key from their Twilio account to maintain security and organization.",
+      "ideal": "Successfully deletes the key and confirms the deletion with a success message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys.json",
+      "method": "GET",
+      "operationId": "ListKey",
+      "summary": "",
+      "user": "User321 is looking to list all keys associated with their Twilio account to review and manage them effectively.",
+      "ideal": "Returns a list of all keys with their respective details, allowing the user to see all available keys."
+    }
+  ]
+}

@@ -30,7 +30,7 @@
       "operationId": "getPermittedProjects",
       "summary": "",
       "user": "projectManager321",
-      "ideal": "Get a list of projects the user has permissions to access."
+      "ideal": "Get a list of projects the user has permissions for."
     }
   ]
 }

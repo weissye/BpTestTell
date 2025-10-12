@@ -1,0 +1,90 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/field",
+      "method": "GET",
+      "tags": [
+        "Issue fields"
+      ],
+      "summary": "Get fields",
+      "operationId": "getFields"
+    },
+    {
+      "path": "/rest/api/3/field",
+      "method": "POST",
+      "tags": [
+        "Issue fields"
+      ],
+      "summary": "Create custom field",
+      "operationId": "createCustomField"
+    },
+    {
+      "path": "/rest/api/3/field/search",
+      "method": "GET",
+      "tags": [
+        "Issue fields"
+      ],
+      "summary": "Get fields paginated",
+      "operationId": "getFieldsPaginated"
+    },
+    {
+      "path": "/rest/api/3/field/search/trashed",
+      "method": "GET",
+      "tags": [
+        "Issue fields"
+      ],
+      "summary": "Get fields in trash paginated",
+      "operationId": "getTrashedFieldsPaginated"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}",
+      "method": "PUT",
+      "tags": [
+        "Issue fields"
+      ],
+      "summary": "Update custom field",
+      "operationId": "updateCustomField"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/contexts",
+      "method": "GET",
+      "tags": [
+        "Issue fields"
+      ],
+      "summary": "Get contexts for a field",
+      "operationId": "getContextsForFieldDeprecated"
+    },
+    {
+      "path": "/rest/api/3/field/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Issue fields"
+      ],
+      "summary": "Delete custom field",
+      "operationId": "deleteCustomField"
+    },
+    {
+      "path": "/rest/api/3/field/{id}/restore",
+      "method": "POST",
+      "tags": [
+        "Issue fields"
+      ],
+      "summary": "Restore custom field from trash",
+      "operationId": "restoreCustomField"
+    },
+    {
+      "path": "/rest/api/3/field/{id}/trash",
+      "method": "POST",
+      "tags": [
+        "Issue fields"
+      ],
+      "summary": "Move custom field to trash",
+      "operationId": "trashCustomField"
+    }
+  ]
+}

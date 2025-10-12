@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/example-org/settings/network-configurations",
+      "method": "GET",
+      "operationId": "hosted-compute/list-network-configurations-for-org",
+      "summary": "",
+      "user": "A user wants to retrieve all network configurations for the organization 'example-org' to review the current settings and ensure compliance with internal policies.",
+      "ideal": "The API should return a list of network configurations associated with 'example-org', including details such as configuration IDs, names, and statuses."
+    },
+    {
+      "path": "/orgs/example-org/settings/network-configurations",
+      "method": "POST",
+      "operationId": "hosted-compute/create-network-configuration-for-org",
+      "summary": "",
+      "user": "A network administrator is creating a new network configuration for 'example-org' to improve security and performance. They provide necessary parameters like name and settings.",
+      "ideal": "The API should successfully create a new network configuration for 'example-org' and return the configuration ID and a success message."
+    },
+    {
+      "path": "/orgs/example-org/settings/network-configurations/12345",
+      "method": "GET",
+      "operationId": "hosted-compute/get-network-configuration-for-org",
+      "summary": "",
+      "user": "A user needs to check the details of a specific network configuration with ID '12345' to troubleshoot an issue related to network performance.",
+      "ideal": "The API should return the details of the network configuration with ID '12345', including its settings, status, and any associated metadata."
+    },
+    {
+      "path": "/orgs/example-org/settings/network-configurations/12345",
+      "method": "PATCH",
+      "operationId": "hosted-compute/update-network-configuration-for-org",
+      "summary": "",
+      "user": "A network engineer is updating the network configuration with ID '12345' to modify its settings based on new requirements from the security team.",
+      "ideal": "The API should update the specified network configuration and return the updated configuration details along with a success message."
+    },
+    {
+      "path": "/orgs/example-org/settings/network-configurations/12345",
+      "method": "DELETE",
+      "operationId": "hosted-compute/delete-network-configuration-from-org",
+      "summary": "",
+      "user": "A system administrator is removing an outdated network configuration with ID '12345' from 'example-org' to streamline the network management.",
+      "ideal": "The API should successfully delete the network configuration with ID '12345' and return a confirmation message indicating the deletion was successful."
+    },
+    {
+      "path": "/orgs/example-org/settings/network-settings/67890",
+      "method": "GET",
+      "operationId": "hosted-compute/get-network-settings-for-org",
+      "summary": "",
+      "user": "A compliance officer is reviewing the network settings with ID '67890' for 'example-org' to ensure they meet regulatory standards.",
+      "ideal": "The API should return the details of the network settings with ID '67890', including configuration parameters and compliance status."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/api/status/",
+      "method": "GET",
+      "operationId": "status_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the current status of the NetBox API, including information about the database connection and any background tasks."
+    }
+  ]
+}

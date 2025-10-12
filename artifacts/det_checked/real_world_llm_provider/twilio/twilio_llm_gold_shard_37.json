@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/LastMonth.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordLastMonth",
+      "summary": "",
+      "user": "User with Account SID ACXXXXXXXXXXXXXXXXX wants to retrieve the usage records for the last month to analyze their Twilio service consumption and costs.",
+      "ideal": "Returns a JSON object containing the usage records for the last month, including details such as the total number of messages sent, calls made, and any other relevant usage metrics."
+    }
+  ]
+}

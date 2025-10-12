@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/ThisMonth.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordThisMonth",
+      "summary": "",
+      "user": "User with Account SID ACXXXXXXXXXXXXXXXXX requests usage records for the current month to analyze SMS and voice call usage for budgeting purposes.",
+      "ideal": "Returns a JSON object containing usage records for the current month, including details such as the total number of messages sent, total call minutes used, and any other relevant usage metrics."
+    }
+  ]
+}

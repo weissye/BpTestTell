@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/events",
+      "method": "GET",
+      "operationId": "get-events",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of events from the Zulip server."
+    },
+    {
+      "path": "/events",
+      "method": "DELETE",
+      "operationId": "delete-queue",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Delete the event queue for the user."
+    },
+    {
+      "path": "/register",
+      "method": "POST",
+      "operationId": "register-queue",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Register a new user for the Zulip service."
+    },
+    {
+      "path": "/real-time",
+      "method": "POST",
+      "operationId": "real-time",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Establish a real-time connection to receive events."
+    },
+    {
+      "path": "/rest-error-handling",
+      "method": "POST",
+      "operationId": "rest-error-handling",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Handle REST API errors gracefully."
+    }
+  ]
+}

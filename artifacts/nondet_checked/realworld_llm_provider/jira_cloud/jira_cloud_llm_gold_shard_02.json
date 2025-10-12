@@ -6,7 +6,7 @@
       "operationId": "getPolicy",
       "summary": "",
       "user": "As a project manager, I want to retrieve the data policy for my project to ensure compliance with data protection regulations.",
-      "ideal": "The response should include the current data policy details, including the policy ID, description, and any relevant compliance information."
+      "ideal": "The API should return the current data policy details, including the policy ID, description, and any relevant compliance information."
     },
     {
       "path": "/rest/api/3/data-policy/project",
@@ -14,7 +14,7 @@
       "operationId": "getPolicies",
       "summary": "",
       "user": "As a compliance officer, I need to access all data policies associated with various projects to audit and verify adherence to legal standards.",
-      "ideal": "The response should return a list of all data policies linked to projects, including project IDs, policy descriptions, and any active status indicators."
+      "ideal": "The API should return a list of all data policies linked to projects, including project IDs, policy descriptions, and their statuses."
     }
   ]
 }

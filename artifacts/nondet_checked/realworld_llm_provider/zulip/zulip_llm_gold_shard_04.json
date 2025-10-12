@@ -5,48 +5,48 @@
       "method": "GET",
       "operationId": "get-invites",
       "summary": "",
-      "user": "Alice wants to check the current invites sent to users in her Zulip organization to manage them effectively.",
-      "ideal": "Returns a list of all invites currently sent, including their status and recipient details."
+      "user": "admin",
+      "ideal": "Retrieve a list of all pending invites for the organization."
     },
     {
       "path": "/invites",
       "method": "POST",
       "operationId": "send-invites",
       "summary": "",
-      "user": "Bob needs to invite new team members to his Zulip organization, so he prepares a list of email addresses to send invites.",
-      "ideal": "Successfully sends invites to the specified email addresses and returns a confirmation message."
+      "user": "admin",
+      "ideal": "Send an email invite to a new user with the specified email address."
     },
     {
       "path": "/invites/multiuse",
       "method": "POST",
       "operationId": "create-invite-link",
       "summary": "",
-      "user": "Charlie wants to create a multi-use invite link for a workshop, allowing multiple participants to join easily.",
-      "ideal": "Generates a multi-use invite link and returns the link along with its expiration details."
+      "user": "admin",
+      "ideal": "Create a multi-use invite link that can be shared with multiple users."
     },
     {
       "path": "/invites/{invite_id}",
       "method": "DELETE",
       "operationId": "revoke-email-invite",
       "summary": "",
-      "user": "Diana realizes that she sent an invite to the wrong email address and wants to revoke it.",
-      "ideal": "Successfully revokes the specified email invite and returns a confirmation of the action."
+      "user": "admin",
+      "ideal": "Revoke a specific email invite using its unique invite ID."
     },
     {
       "path": "/invites/multiuse/{invite_id}",
       "method": "DELETE",
       "operationId": "revoke-invite-link",
       "summary": "",
-      "user": "Ethan needs to disable a multi-use invite link that he created earlier to prevent further access.",
-      "ideal": "Successfully revokes the specified multi-use invite link and confirms the revocation."
+      "user": "admin",
+      "ideal": "Revoke a specific multi-use invite link using its unique invite ID."
     },
     {
       "path": "/invites/{invite_id}/resend",
       "method": "POST",
       "operationId": "resend-email-invite",
       "summary": "",
-      "user": "Fiona wants to resend an invite to a colleague who didn't receive the original email.",
-      "ideal": "Successfully resends the email invite to the specified address and returns a confirmation message."
+      "user": "admin",
+      "ideal": "Resend the email invite for a user using their unique invite ID."
     }
   ]
 }

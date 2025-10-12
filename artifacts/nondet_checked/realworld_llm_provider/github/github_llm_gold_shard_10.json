@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "codes-of-conduct/get-all-codes-of-conduct",
       "summary": "",
-      "user": "user123",
+      "user": "john_doe",
       "ideal": "Retrieve a list of all available codes of conduct from the GitHub API."
     },
     {
@@ -13,8 +13,8 @@
       "method": "GET",
       "operationId": "codes-of-conduct/get-conduct-code",
       "summary": "",
-      "user": "user456",
-      "ideal": "Fetch the specific code of conduct identified by the key provided in the URL."
+      "user": "jane_smith",
+      "ideal": "Fetch the specific code of conduct associated with the provided key."
     }
   ]
 }

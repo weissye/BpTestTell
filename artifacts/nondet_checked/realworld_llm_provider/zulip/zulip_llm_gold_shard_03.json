@@ -22,7 +22,7 @@
       "operationId": "edit-draft",
       "summary": "",
       "user": "user789",
-      "ideal": "Edit the draft with ID 1 to update its content."
+      "ideal": "Update the content of the draft with ID 1."
     },
     {
       "path": "/drafts/2",
@@ -38,7 +38,7 @@
       "operationId": "get-saved-snippets",
       "summary": "",
       "user": "user202",
-      "ideal": "Retrieve a list of all saved snippets for the user."
+      "ideal": "Fetch all saved snippets for the user."
     },
     {
       "path": "/saved_snippets",
@@ -46,7 +46,7 @@
       "operationId": "create-saved-snippet",
       "summary": "",
       "user": "user303",
-      "ideal": "Create a new saved snippet with the provided content."
+      "ideal": "Save a new snippet with the specified content."
     },
     {
       "path": "/saved_snippets/1",
@@ -54,7 +54,7 @@
       "operationId": "edit-saved-snippet",
       "summary": "",
       "user": "user404",
-      "ideal": "Edit the saved snippet with ID 1 to update its content."
+      "ideal": "Modify the saved snippet with ID 1."
     },
     {
       "path": "/saved_snippets/2",
@@ -62,7 +62,7 @@
       "operationId": "delete-saved-snippet",
       "summary": "",
       "user": "user505",
-      "ideal": "Delete the saved snippet with ID 2 from the user's saved snippets."
+      "ideal": "Remove the saved snippet with ID 2 from the user's collection."
     }
   ]
 }

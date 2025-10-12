@@ -1,0 +1,99 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/groups/{id}/role-mappings/clients/{client}",
+      "method": "GET",
+      "tags": [
+        "Client Role Mappings"
+      ],
+      "summary": "",
+      "operationId": "getGroupRoleMappingsClient"
+    },
+    {
+      "path": "/{realm}/groups/{id}/role-mappings/clients/{client}",
+      "method": "POST",
+      "tags": [
+        "Client Role Mappings"
+      ],
+      "summary": "",
+      "operationId": "postGroupRoleMappingsClient"
+    },
+    {
+      "path": "/{realm}/groups/{id}/role-mappings/clients/{client}",
+      "method": "DELETE",
+      "tags": [
+        "Client Role Mappings"
+      ],
+      "summary": "",
+      "operationId": "deleteGroupRoleMappingsClient"
+    },
+    {
+      "path": "/{realm}/groups/{id}/role-mappings/clients/{client}/available",
+      "method": "GET",
+      "tags": [
+        "Client Role Mappings"
+      ],
+      "summary": "",
+      "operationId": "getGroupRoleMappingsClientAvailable"
+    },
+    {
+      "path": "/{realm}/groups/{id}/role-mappings/clients/{client}/composite",
+      "method": "GET",
+      "tags": [
+        "Client Role Mappings"
+      ],
+      "summary": "",
+      "operationId": "getGroupRoleMappingsClientComposite"
+    },
+    {
+      "path": "/{realm}/users/{id}/role-mappings/clients/{client}",
+      "method": "GET",
+      "tags": [
+        "Client Role Mappings"
+      ],
+      "summary": "",
+      "operationId": "getUserRoleMappingsClient"
+    },
+    {
+      "path": "/{realm}/users/{id}/role-mappings/clients/{client}",
+      "method": "POST",
+      "tags": [
+        "Client Role Mappings"
+      ],
+      "summary": "",
+      "operationId": "postUserRoleMappingsClient"
+    },
+    {
+      "path": "/{realm}/users/{id}/role-mappings/clients/{client}",
+      "method": "DELETE",
+      "tags": [
+        "Client Role Mappings"
+      ],
+      "summary": "",
+      "operationId": "deleteUserRoleMappingsClient"
+    },
+    {
+      "path": "/{realm}/users/{id}/role-mappings/clients/{client}/available",
+      "method": "GET",
+      "tags": [
+        "Client Role Mappings"
+      ],
+      "summary": "",
+      "operationId": "getUserRoleMappingsClientAvailable"
+    },
+    {
+      "path": "/{realm}/users/{id}/role-mappings/clients/{client}/composite",
+      "method": "GET",
+      "tags": [
+        "Client Role Mappings"
+      ],
+      "summary": "",
+      "operationId": "getUserRoleMappingsClientComposite"
+    }
+  ]
+}

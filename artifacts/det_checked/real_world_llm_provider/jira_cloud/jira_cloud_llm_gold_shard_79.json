@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/rest/atlassian-connect/1/service-registry",
+      "method": "GET",
+      "operationId": "ServiceRegistryResource.services_get",
+      "summary": "",
+      "user": "As a Jira administrator, I want to retrieve the list of services registered with the Atlassian Connect framework so that I can manage integrations effectively.",
+      "ideal": "The API should return a JSON array of services, including their IDs, names, and statuses, allowing me to see which services are currently active and available for use."
+    }
+  ]
+}

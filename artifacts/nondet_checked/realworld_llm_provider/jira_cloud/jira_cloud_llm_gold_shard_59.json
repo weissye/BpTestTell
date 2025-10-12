@@ -1,36 +1,36 @@
 {
   "gold": [
     {
-      "path": "/rest/api/3/project/PROJ-123/avatar",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar",
       "method": "PUT",
       "operationId": "updateProjectAvatar",
       "summary": "",
       "user": "user123",
-      "ideal": "Successfully updated the avatar for project PROJ-123."
+      "ideal": "Update the avatar for the project with ID or key 'PROJECT-1' using a valid image file."
     },
     {
-      "path": "/rest/api/3/project/PROJ-123/avatar/456",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar/{id}",
       "method": "DELETE",
       "operationId": "deleteProjectAvatar",
       "summary": "",
       "user": "user456",
-      "ideal": "Successfully deleted the avatar with ID 456 for project PROJ-123."
+      "ideal": "Delete the avatar with ID '123' for the project identified by 'PROJECT-2'."
     },
     {
-      "path": "/rest/api/3/project/PROJ-123/avatar2",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar2",
       "method": "POST",
       "operationId": "createProjectAvatar",
       "summary": "",
       "user": "user789",
-      "ideal": "Successfully created a new avatar for project PROJ-123."
+      "ideal": "Create a new avatar for the project 'PROJECT-3' by uploading a new image."
     },
     {
-      "path": "/rest/api/3/project/PROJ-123/avatars",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatars",
       "method": "GET",
       "operationId": "getAllProjectAvatars",
       "summary": "",
       "user": "user101",
-      "ideal": "Retrieved all avatars for project PROJ-123 successfully."
+      "ideal": "Retrieve all avatars associated with the project 'PROJECT-4' to display in the UI."
     }
   ]
 }

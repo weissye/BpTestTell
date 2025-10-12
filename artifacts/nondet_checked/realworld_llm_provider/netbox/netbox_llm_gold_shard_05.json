@@ -1,0 +1,116 @@
+{
+  "gold": [
+    {
+      "path": "/api/ipam/aggregates/",
+      "method": "GET",
+      "operationId": "ipam_aggregates_list",
+      "summary": "",
+      "user": "Admin user requesting a list of all IP address aggregates.",
+      "ideal": "A JSON array containing all aggregates with their details."
+    },
+    {
+      "path": "/api/ipam/aggregates/",
+      "method": "POST",
+      "operationId": "ipam_aggregates_create",
+      "summary": "",
+      "user": "Network engineer creating a new IP address aggregate.",
+      "ideal": "A JSON object confirming the creation of the aggregate with its ID."
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "GET",
+      "operationId": "ipam_aggregates_retrieve",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific aggregate by ID.",
+      "ideal": "A JSON object containing the details of the specified aggregate."
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "PUT",
+      "operationId": "ipam_aggregates_update",
+      "summary": "",
+      "user": "Network engineer updating an existing IP address aggregate.",
+      "ideal": "A JSON object confirming the update of the aggregate."
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "DELETE",
+      "operationId": "ipam_aggregates_destroy",
+      "summary": "",
+      "user": "Admin user deleting an IP address aggregate.",
+      "ideal": "A JSON object confirming the deletion of the aggregate."
+    },
+    {
+      "path": "/api/ipam/asn-ranges/",
+      "method": "GET",
+      "operationId": "ipam_asn_ranges_list",
+      "summary": "",
+      "user": "Network administrator listing all ASN ranges.",
+      "ideal": "A JSON array containing all ASN ranges with their details."
+    },
+    {
+      "path": "/api/ipam/asn-ranges/{id}/available-asns/",
+      "method": "GET",
+      "operationId": "ipam_asn_ranges_available_asns_list",
+      "summary": "",
+      "user": "Network engineer checking available ASNs for a specific range.",
+      "ideal": "A JSON array of available ASNs for the specified range."
+    },
+    {
+      "path": "/api/ipam/ip-addresses/",
+      "method": "POST",
+      "operationId": "ipam_ip_addresses_create",
+      "summary": "",
+      "user": "Network engineer creating a new IP address entry.",
+      "ideal": "A JSON object confirming the creation of the IP address with its ID."
+    },
+    {
+      "path": "/api/ipam/ip-addresses/{id}/",
+      "method": "PATCH",
+      "operationId": "ipam_ip_addresses_partial_update",
+      "summary": "",
+      "user": "Admin user partially updating an IP address entry.",
+      "ideal": "A JSON object confirming the partial update of the IP address."
+    },
+    {
+      "path": "/api/ipam/ip-addresses/{id}/",
+      "method": "DELETE",
+      "operationId": "ipam_ip_addresses_destroy",
+      "summary": "",
+      "user": "Network administrator deleting an IP address entry.",
+      "ideal": "A JSON object confirming the deletion of the IP address."
+    },
+    {
+      "path": "/api/ipam/vlans/",
+      "method": "GET",
+      "operationId": "ipam_vlans_list",
+      "summary": "",
+      "user": "Network engineer retrieving a list of all VLANs.",
+      "ideal": "A JSON array containing all VLANs with their details."
+    },
+    {
+      "path": "/api/ipam/vlans/{id}/",
+      "method": "PUT",
+      "operationId": "ipam_vlans_update",
+      "summary": "",
+      "user": "Admin user updating a specific VLAN's details.",
+      "ideal": "A JSON object confirming the update of the VLAN."
+    },
+    {
+      "path": "/api/ipam/vrfs/",
+      "method": "POST",
+      "operationId": "ipam_vrfs_create",
+      "summary": "",
+      "user": "Network engineer creating a new VRF.",
+      "ideal": "A JSON object confirming the creation of the VRF with its ID."
+    },
+    {
+      "path": "/api/ipam/vrfs/{id}/",
+      "method": "DELETE",
+      "operationId": "ipam_vrfs_destroy",
+      "summary": "",
+      "user": "Admin user deleting a VRF.",
+      "ideal": "A JSON object confirming the deletion of the VRF."
+    }
+  ]
+}

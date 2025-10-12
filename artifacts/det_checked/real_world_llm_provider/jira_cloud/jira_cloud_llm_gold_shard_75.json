@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/screens/1001/tabs/2001/fields",
+      "method": "GET",
+      "operationId": "getAllScreenTabFields",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Retrieve all fields associated with the specified screen tab."
+    },
+    {
+      "path": "/rest/api/3/screens/1001/tabs/2001/fields",
+      "method": "POST",
+      "operationId": "addScreenTabField",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Add a new field to the specified screen tab."
+    },
+    {
+      "path": "/rest/api/3/screens/1001/tabs/2001/fields/3001",
+      "method": "DELETE",
+      "operationId": "removeScreenTabField",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Remove the specified field from the screen tab."
+    },
+    {
+      "path": "/rest/api/3/screens/1001/tabs/2001/fields/3001/move",
+      "method": "POST",
+      "operationId": "moveScreenTabField",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Move the specified field to a new position within the screen tab."
+    }
+  ]
+}

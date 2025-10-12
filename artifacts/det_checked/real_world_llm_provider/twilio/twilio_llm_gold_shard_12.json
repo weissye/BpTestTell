@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberCountry",
+      "summary": "",
+      "user": "A developer looking to find available phone numbers for their Twilio account in various countries. They want to ensure they can expand their communication capabilities by obtaining local numbers.",
+      "ideal": "Returns a list of available phone numbers across different countries for the specified account."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json",
+      "method": "GET",
+      "operationId": "FetchAvailablePhoneNumberCountry",
+      "summary": "",
+      "user": "A business owner interested in acquiring a local phone number in the US for their customer support line. They need to check the availability of numbers in a specific area code.",
+      "ideal": "Returns a list of available phone numbers for the specified country code, allowing the user to select a number that fits their needs."
+    }
+  ]
+}

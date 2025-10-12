@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
+      "method": "POST",
+      "operationId": "CreateValidationRequest",
+      "summary": "",
+      "user": "User wants to validate a new outgoing caller ID for their Twilio account to ensure it is properly set up for use in their applications.",
+      "ideal": "The API should return a success message with the validation status of the new caller ID."
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "gold": [
+    {
+      "path": "/api/wireless/wireless-lan-groups/",
+      "method": "GET",
+      "operationId": "wireless_wireless_lan_groups_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all wireless LAN groups."
+    },
+    {
+      "path": "/api/wireless/wireless-lan-groups/",
+      "method": "POST",
+      "operationId": "wireless_wireless_lan_groups_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new wireless LAN group with specified parameters."
+    },
+    {
+      "path": "/api/wireless/wireless-lan-groups/1/",
+      "method": "PUT",
+      "operationId": "wireless_wireless_lan_groups_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the wireless LAN group with ID 1."
+    },
+    {
+      "path": "/api/wireless/wireless-lan-groups/1/",
+      "method": "DELETE",
+      "operationId": "wireless_wireless_lan_groups_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the wireless LAN group with ID 1."
+    },
+    {
+      "path": "/api/wireless/wireless-lans/",
+      "method": "GET",
+      "operationId": "wireless_wireless_lans_list",
+      "summary": "",
+      "user": "user1",
+      "ideal": "Retrieve a list of all wireless LANs."
+    },
+    {
+      "path": "/api/wireless/wireless-lans/",
+      "method": "POST",
+      "operationId": "wireless_wireless_lans_create",
+      "summary": "",
+      "user": "user1",
+      "ideal": "Create a new wireless LAN with specified parameters."
+    },
+    {
+      "path": "/api/wireless/wireless-lans/1/",
+      "method": "PATCH",
+      "operationId": "wireless_wireless_lans_partial_update",
+      "summary": "",
+      "user": "user1",
+      "ideal": "Partially update the wireless LAN with ID 1."
+    },
+    {
+      "path": "/api/wireless/wireless-lans/1/",
+      "method": "DELETE",
+      "operationId": "wireless_wireless_lans_destroy",
+      "summary": "",
+      "user": "user1",
+      "ideal": "Delete the wireless LAN with ID 1."
+    },
+    {
+      "path": "/api/wireless/wireless-links/",
+      "method": "GET",
+      "operationId": "wireless_wireless_links_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all wireless links."
+    },
+    {
+      "path": "/api/wireless/wireless-links/",
+      "method": "POST",
+      "operationId": "wireless_wireless_links_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new wireless link with specified parameters."
+    },
+    {
+      "path": "/api/wireless/wireless-links/1/",
+      "method": "PUT",
+      "operationId": "wireless_wireless_links_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the wireless link with ID 1."
+    },
+    {
+      "path": "/api/wireless/wireless-links/1/",
+      "method": "DELETE",
+      "operationId": "wireless_wireless_links_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the wireless link with ID 1."
+    }
+  ]
+}

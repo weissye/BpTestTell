@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/comment/{commentId}/properties",
+      "method": "GET",
+      "operationId": "getCommentPropertyKeys",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all property keys associated with a specific comment to understand its metadata and context.",
+      "ideal": "The API should return a list of property keys for the specified comment, allowing me to see all custom data associated with it."
+    },
+    {
+      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
+      "method": "GET",
+      "operationId": "getCommentProperty",
+      "summary": "",
+      "user": "As a developer, I need to fetch a specific property value for a comment to utilize it in my application logic.",
+      "ideal": "The API should return the value of the specified property key for the comment, enabling me to access the necessary data."
+    },
+    {
+      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
+      "method": "PUT",
+      "operationId": "setCommentProperty",
+      "summary": "",
+      "user": "As a team lead, I want to set a custom property for a comment to track additional information relevant to our workflow.",
+      "ideal": "The API should successfully update or create the specified property for the comment, confirming the action with a success message."
+    },
+    {
+      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
+      "method": "DELETE",
+      "operationId": "deleteCommentProperty",
+      "summary": "",
+      "user": "As a product owner, I need to remove unnecessary properties from comments to keep our data clean and relevant.",
+      "ideal": "The API should delete the specified property from the comment and return a confirmation that the property has been removed."
+    }
+  ]
+}

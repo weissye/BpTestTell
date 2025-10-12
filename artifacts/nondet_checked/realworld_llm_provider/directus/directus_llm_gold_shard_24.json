@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/webhooks",
+      "method": "GET",
+      "operationId": "getWebhooks",
+      "summary": "",
+      "user": "Admin user requesting a list of all webhooks to monitor their current status and configurations.",
+      "ideal": "Returns a list of all configured webhooks with their details."
+    },
+    {
+      "path": "/webhooks",
+      "method": "POST",
+      "operationId": "createWebhook",
+      "summary": "",
+      "user": "Developer creating a new webhook to trigger on specific events in the application.",
+      "ideal": "Creates a new webhook and returns the details of the created webhook."
+    },
+    {
+      "path": "/webhooks",
+      "method": "PATCH",
+      "operationId": "updateWebhooks",
+      "summary": "",
+      "user": "Admin user updating multiple webhooks to change their configurations for better performance.",
+      "ideal": "Updates the specified webhooks and returns the updated details."
+    },
+    {
+      "path": "/webhooks",
+      "method": "DELETE",
+      "operationId": "deleteWebhooks",
+      "summary": "",
+      "user": "Admin user deleting obsolete webhooks that are no longer needed.",
+      "ideal": "Deletes the specified webhooks and confirms the deletion."
+    },
+    {
+      "path": "/webhooks/{id}",
+      "method": "GET",
+      "operationId": "getWebhook",
+      "summary": "",
+      "user": "User checking the details of a specific webhook to ensure it is set up correctly.",
+      "ideal": "Returns the details of the specified webhook."
+    },
+    {
+      "path": "/webhooks/{id}",
+      "method": "PATCH",
+      "operationId": "updateWebhook",
+      "summary": "",
+      "user": "Developer modifying an existing webhook to adjust its trigger conditions.",
+      "ideal": "Updates the specified webhook and returns the updated details."
+    },
+    {
+      "path": "/webhooks/{id}",
+      "method": "DELETE",
+      "operationId": "deleteWebhook",
+      "summary": "",
+      "user": "Admin user removing a specific webhook that is no longer relevant to the current application workflow.",
+      "ideal": "Deletes the specified webhook and confirms the deletion."
+    }
+  ]
+}

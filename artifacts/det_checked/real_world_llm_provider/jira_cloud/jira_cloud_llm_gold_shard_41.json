@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issuetypescreenscheme",
+      "method": "GET",
+      "operationId": "getIssueTypeScreenSchemes",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all issue type screen schemes to understand how issues are displayed in different contexts.",
+      "ideal": "A successful response with a list of issue type screen schemes, including their IDs and names."
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme",
+      "method": "POST",
+      "operationId": "createIssueTypeScreenScheme",
+      "summary": "",
+      "user": "As a Jira administrator, I want to create a new issue type screen scheme to customize the issue creation process for my team.",
+      "ideal": "A successful response indicating the creation of the issue type screen scheme with its ID and details."
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/mapping",
+      "method": "GET",
+      "operationId": "getIssueTypeScreenSchemeMappings",
+      "summary": "",
+      "user": "As a developer, I need to check the mappings of issue type screen schemes to ensure that the correct screens are associated with each issue type.",
+      "ideal": "A successful response with a list of mappings between issue types and their corresponding screen schemes."
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/project",
+      "method": "GET",
+      "operationId": "getIssueTypeScreenSchemeProjectAssociations",
+      "summary": "",
+      "user": "As a project lead, I want to see which projects are associated with specific issue type screen schemes to manage project configurations effectively.",
+      "ideal": "A successful response listing projects associated with the specified issue type screen schemes."
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/project",
+      "method": "PUT",
+      "operationId": "assignIssueTypeScreenSchemeToProject",
+      "summary": "",
+      "user": "As a Jira administrator, I want to assign an issue type screen scheme to a project to ensure that the project uses the correct screens for issues.",
+      "ideal": "A successful response confirming the assignment of the issue type screen scheme to the specified project."
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}",
+      "method": "DELETE",
+      "operationId": "deleteIssueTypeScreenScheme",
+      "summary": "",
+      "user": "As a Jira administrator, I want to delete an obsolete issue type screen scheme to keep the system clean and organized.",
+      "ideal": "A successful response confirming the deletion of the specified issue type screen scheme."
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}",
+      "method": "PUT",
+      "operationId": "updateIssueTypeScreenScheme",
+      "summary": "",
+      "user": "As a project manager, I want to update an existing issue type screen scheme to reflect changes in our issue handling process.",
+      "ideal": "A successful response indicating that the issue type screen scheme has been updated with the new details."
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping",
+      "method": "PUT",
+      "operationId": "appendMappingsForIssueTypeScreenScheme",
+      "summary": "",
+      "user": "As a developer, I want to append new mappings to an existing issue type screen scheme to include additional issue types.",
+      "ideal": "A successful response confirming that the new mappings have been added to the specified issue type screen scheme."
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping/default",
+      "method": "PUT",
+      "operationId": "updateDefaultScreenScheme",
+      "summary": "",
+      "user": "As a Jira administrator, I want to update the default screen scheme for an issue type screen scheme to ensure consistency across projects.",
+      "ideal": "A successful response confirming that the default screen scheme has been updated."
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping/remove",
+      "method": "POST",
+      "operationId": "removeMappingsFromIssueTypeScreenScheme",
+      "summary": "",
+      "user": "As a project lead, I want to remove specific mappings from an issue type screen scheme to streamline the issue creation process.",
+      "ideal": "A successful response confirming that the specified mappings have been removed from the issue type screen scheme."
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/project",
+      "method": "GET",
+      "operationId": "getProjectsForIssueTypeScreenScheme",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all projects associated with a specific issue type screen scheme to analyze its usage.",
+      "ideal": "A successful response listing all projects linked to the specified issue type screen scheme."
+    }
+  ]
+}

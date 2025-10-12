@@ -6,31 +6,13 @@
   "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
   "operations": [
     {
-      "path": "/dumps",
-      "method": "POST",
-      "tags": [
-        "Dumps"
-      ],
-      "summary": "Create a Dump",
-      "operationId": "dumps.create"
-    },
-    {
-      "path": "/indexes",
+      "path": "/indexes/{indexUid}/documents",
       "method": "GET",
       "tags": [
-        "Indexes"
+        "Documents"
       ],
-      "summary": "List Indexes",
-      "operationId": "indexes.list"
-    },
-    {
-      "path": "/indexes/{indexUid}",
-      "method": "PATCH",
-      "tags": [
-        "Indexes"
-      ],
-      "summary": "Update Index",
-      "operationId": "indexes.update"
+      "summary": "Get Documents",
+      "operationId": "indexes.documents.list"
     },
     {
       "path": "/indexes/{indexUid}/documents",
@@ -42,6 +24,24 @@
       "operationId": "indexes.documents.create"
     },
     {
+      "path": "/indexes/{indexUid}/documents",
+      "method": "PUT",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Add or update documents",
+      "operationId": "indexes.documents.upsert"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents",
+      "method": "DELETE",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Delete all documents",
+      "operationId": "indexes.documents.removeAll"
+    },
+    {
       "path": "/indexes/{indexUid}/documents/fetch",
       "method": "POST",
       "tags": [
@@ -49,6 +49,24 @@
       ],
       "summary": "Get Documents",
       "operationId": "indexes.documents.fetch"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents/delete-batch",
+      "method": "POST",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Delete documents",
+      "operationId": "indexes.documents.removeBatch"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents/delete",
+      "method": "POST",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Delete documents",
+      "operationId": "indexes.documents.remove"
     },
     {
       "path": "/indexes/{indexUid}/documents/{documentId}",
@@ -60,176 +78,13 @@
       "operationId": "indexes.documents.get"
     },
     {
-      "path": "/indexes/{indexUid}/search",
-      "method": "POST",
-      "tags": [
-        "Search"
-      ],
-      "summary": "Search",
-      "operationId": "indexes.documents.search"
-    },
-    {
-      "path": "/indexes/{indexUid}/settings",
-      "method": "PATCH",
-      "tags": [
-        "Settings"
-      ],
-      "summary": "Update settings",
-      "operationId": "indexes.settings.update"
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/synonyms",
-      "method": "PUT",
-      "tags": [
-        "Settings"
-      ],
-      "summary": "Update synonyms",
-      "operationId": "indexes.settings.synonyms.update"
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/sortable-attributes",
-      "method": "PUT",
-      "tags": [
-        "Settings"
-      ],
-      "summary": "Update sortable attributes",
-      "operationId": "indexes.settings.sortable-attributes.update"
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/stop-words",
-      "method": "PUT",
-      "tags": [
-        "Settings"
-      ],
-      "summary": "Update stop-words",
-      "operationId": "indexes.settings.stopWords.update"
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/ranking-rules",
-      "method": "PUT",
-      "tags": [
-        "Settings"
-      ],
-      "summary": "Update ranking rules",
-      "operationId": "indexes.settings.rankingRules.update"
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/typo-tolerance",
-      "method": "PATCH",
-      "tags": [
-        "Settings"
-      ],
-      "summary": "Update typo tolerance settings",
-      "operationId": "indexes.settings.typoTolerance.update"
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/pagination",
-      "method": "PATCH",
-      "tags": [
-        "Settings"
-      ],
-      "summary": "Update pagination settings",
-      "operationId": "indexes.settings.pagination.update"
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/faceting",
-      "method": "PATCH",
-      "tags": [
-        "Settings"
-      ],
-      "summary": "Update faceting settings",
-      "operationId": "indexes.settings.faceting.update"
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/filterable-attributes",
-      "method": "PUT",
-      "tags": [
-        "Settings"
-      ],
-      "summary": "Update Filterable Attributes",
-      "operationId": "indexes.settings.filterableAttributes.update"
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/distinct-attribute",
-      "method": "PUT",
-      "tags": [
-        "Settings"
-      ],
-      "summary": "Update distinct attribute",
-      "operationId": "indexes.settings.distinctAttribute.update"
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/searchable-attributes",
-      "method": "PUT",
-      "tags": [
-        "Settings"
-      ],
-      "summary": "Update searchable attributes",
-      "operationId": "indexes.settings.searchableAttributes.update"
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/displayed-attributes",
-      "method": "PUT",
-      "tags": [
-        "Settings"
-      ],
-      "summary": "Update displayed attributes",
-      "operationId": "indexes.settings.displayedAttributes.update"
-    },
-    {
-      "path": "/multi-search",
-      "method": "POST",
-      "tags": [
-        "Search"
-      ],
-      "summary": "Multi Search",
-      "operationId": "multi_search"
-    },
-    {
-      "path": "/keys/{uid_or_key}",
-      "method": "GET",
-      "tags": [
-        "Keys"
-      ],
-      "summary": "Get an API key from its uid or key field.",
-      "operationId": "keys.get"
-    },
-    {
-      "path": "/stats",
-      "method": "GET",
-      "tags": [
-        "Stats"
-      ],
-      "summary": "Get stats of all indexes",
-      "operationId": "stats.list"
-    },
-    {
-      "path": "/tasks",
+      "path": "/indexes/{indexUid}/documents/{documentId}",
       "method": "DELETE",
       "tags": [
-        "Tasks"
+        "Documents"
       ],
-      "summary": "Delete tasks",
-      "operationId": "tasks.delete"
-    },
-    {
-      "path": "/swap-indexes",
-      "method": "POST",
-      "tags": [
-        "Indexes"
-      ],
-      "summary": "Swap Indexes",
-      "operationId": "indexes.swap"
-    },
-    {
-      "path": "/metrics",
-      "method": "GET",
-      "tags": [
-        "Stats",
-        "Experimental"
-      ],
-      "summary": "(EXPERIMENTAL) Get prometheus format metrics for observability and monitoring",
-      "operationId": "metrics.get"
+      "summary": "Delete one document",
+      "operationId": "indexes.documents.removeOne"
     }
   ]
 }

@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/search/code",
+      "method": "GET",
+      "tags": [
+        "search"
+      ],
+      "summary": "Search code",
+      "operationId": "search/code"
+    },
+    {
+      "path": "/search/commits",
+      "method": "GET",
+      "tags": [
+        "search"
+      ],
+      "summary": "Search commits",
+      "operationId": "search/commits"
+    },
+    {
+      "path": "/search/issues",
+      "method": "GET",
+      "tags": [
+        "search"
+      ],
+      "summary": "Search issues and pull requests",
+      "operationId": "search/issues-and-pull-requests"
+    },
+    {
+      "path": "/search/labels",
+      "method": "GET",
+      "tags": [
+        "search"
+      ],
+      "summary": "Search labels",
+      "operationId": "search/labels"
+    },
+    {
+      "path": "/search/repositories",
+      "method": "GET",
+      "tags": [
+        "search"
+      ],
+      "summary": "Search repositories",
+      "operationId": "search/repos"
+    },
+    {
+      "path": "/search/topics",
+      "method": "GET",
+      "tags": [
+        "search"
+      ],
+      "summary": "Search topics",
+      "operationId": "search/topics"
+    },
+    {
+      "path": "/search/users",
+      "method": "GET",
+      "tags": [
+        "search"
+      ],
+      "summary": "Search users",
+      "operationId": "search/users"
+    }
+  ]
+}

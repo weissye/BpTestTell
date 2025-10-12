@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/assets/123",
+      "method": "GET",
+      "operationId": "getAsset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the asset with ID 123, including its metadata such as title, description, and file URL."
+    },
+    {
+      "path": "/assets/456",
+      "method": "GET",
+      "operationId": "getAsset",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Fetch the asset with ID 456 to display in the content management system, ensuring that the asset's details are accurate and up-to-date."
+    },
+    {
+      "path": "/assets/789",
+      "method": "GET",
+      "operationId": "getAsset",
+      "summary": "",
+      "user": "viewer",
+      "ideal": "Access the asset with ID 789 to view its information, including the file type and size, without making any modifications."
+    }
+  ]
+}

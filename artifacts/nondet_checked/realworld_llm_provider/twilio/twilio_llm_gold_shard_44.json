@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberMobile",
+      "summary": "",
+      "user": "A small business owner looking to expand their communication options by acquiring mobile phone numbers for their new office in Canada. They want to ensure that the numbers are local to the area they are targeting for their services.",
+      "ideal": "Returns a list of available mobile phone numbers in Canada, including details such as the phone number, friendly name, and pricing information."
+    }
+  ]
+}

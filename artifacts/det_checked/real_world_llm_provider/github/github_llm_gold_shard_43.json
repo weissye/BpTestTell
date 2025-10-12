@@ -1,0 +1,204 @@
+{
+  "gold": [
+    {
+      "path": "/user",
+      "method": "GET",
+      "operationId": "users/get-authenticated",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Retrieve the authenticated user's profile information."
+    },
+    {
+      "path": "/user",
+      "method": "PATCH",
+      "operationId": "users/update-authenticated",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Update the authenticated user's profile information."
+    },
+    {
+      "path": "/user/blocks",
+      "method": "GET",
+      "operationId": "users/list-blocked-by-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all users blocked by the authenticated user."
+    },
+    {
+      "path": "/user/blocks/{username}",
+      "method": "GET",
+      "operationId": "users/check-blocked",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Check if the specified user is blocked by the authenticated user."
+    },
+    {
+      "path": "/user/blocks/{username}",
+      "method": "PUT",
+      "operationId": "users/block",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Block the specified user."
+    },
+    {
+      "path": "/user/blocks/{username}",
+      "method": "DELETE",
+      "operationId": "users/unblock",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Unblock the specified user."
+    },
+    {
+      "path": "/user/emails",
+      "method": "GET",
+      "operationId": "users/list-emails-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all email addresses associated with the authenticated user."
+    },
+    {
+      "path": "/user/emails",
+      "method": "POST",
+      "operationId": "users/add-email-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Add a new email address for the authenticated user."
+    },
+    {
+      "path": "/user/emails",
+      "method": "DELETE",
+      "operationId": "users/delete-email-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Delete an email address from the authenticated user's account."
+    },
+    {
+      "path": "/user/followers",
+      "method": "GET",
+      "operationId": "users/list-followers-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all followers of the authenticated user."
+    },
+    {
+      "path": "/user/following",
+      "method": "GET",
+      "operationId": "users/list-followed-by-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all users followed by the authenticated user."
+    },
+    {
+      "path": "/user/following/{username}",
+      "method": "GET",
+      "operationId": "users/check-person-is-followed-by-authenticated",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Check if the authenticated user follows the specified user."
+    },
+    {
+      "path": "/user/following/{username}",
+      "method": "PUT",
+      "operationId": "users/follow",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Follow the specified user."
+    },
+    {
+      "path": "/user/following/{username}",
+      "method": "DELETE",
+      "operationId": "users/unfollow",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Unfollow the specified user."
+    },
+    {
+      "path": "/user/gpg_keys",
+      "method": "GET",
+      "operationId": "users/list-gpg-keys-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all GPG keys associated with the authenticated user."
+    },
+    {
+      "path": "/user/gpg_keys",
+      "method": "POST",
+      "operationId": "users/create-gpg-key-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Create a new GPG key for the authenticated user."
+    },
+    {
+      "path": "/user/gpg_keys/{gpg_key_id}",
+      "method": "GET",
+      "operationId": "users/get-gpg-key-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Retrieve the specified GPG key for the authenticated user."
+    },
+    {
+      "path": "/user/gpg_keys/{gpg_key_id}",
+      "method": "DELETE",
+      "operationId": "users/delete-gpg-key-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Delete the specified GPG key for the authenticated user."
+    },
+    {
+      "path": "/user/keys",
+      "method": "GET",
+      "operationId": "users/list-public-ssh-keys-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all public SSH keys associated with the authenticated user."
+    },
+    {
+      "path": "/user/keys",
+      "method": "POST",
+      "operationId": "users/create-public-ssh-key-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Create a new public SSH key for the authenticated user."
+    },
+    {
+      "path": "/user/keys/{key_id}",
+      "method": "GET",
+      "operationId": "users/get-public-ssh-key-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Retrieve the specified public SSH key for the authenticated user."
+    },
+    {
+      "path": "/user/keys/{key_id}",
+      "method": "DELETE",
+      "operationId": "users/delete-public-ssh-key-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Delete the specified public SSH key for the authenticated user."
+    },
+    {
+      "path": "/user/social_accounts",
+      "method": "GET",
+      "operationId": "users/list-social-accounts-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all social accounts linked to the authenticated user."
+    },
+    {
+      "path": "/user/social_accounts",
+      "method": "POST",
+      "operationId": "users/add-social-account-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Add a new social account for the authenticated user."
+    },
+    {
+      "path": "/user/social_accounts",
+      "method": "DELETE",
+      "operationId": "users/delete-social-account-for-authenticated-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Delete a social account linked to the authenticated user."
+    }
+  ]
+}

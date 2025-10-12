@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "health.check",
       "summary": "",
-      "user": "As a developer, I want to ensure that the Meilisearch service is running properly, so I will call the health check endpoint to verify its status.",
-      "ideal": "The response should indicate whether the service is healthy, typically returning a JSON object with a status key set to 'available'."
+      "user": "A developer checking the health status of the Meilisearch server to ensure it is running properly before proceeding with further API calls.",
+      "ideal": "The server should return a 200 OK status with a JSON response indicating that the service is healthy."
     }
   ]
 }

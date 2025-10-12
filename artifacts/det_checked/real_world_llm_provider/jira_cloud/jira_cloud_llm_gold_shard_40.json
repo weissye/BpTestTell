@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issuetypescheme",
+      "method": "GET",
+      "operationId": "getAllIssueTypeSchemes",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all issue type schemes to understand the available configurations for my projects.",
+      "ideal": "The response should return a list of all issue type schemes with their respective IDs and names."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme",
+      "method": "POST",
+      "operationId": "createIssueTypeScheme",
+      "summary": "",
+      "user": "As a project administrator, I want to create a new issue type scheme so that I can customize issue types for my projects.",
+      "ideal": "The response should confirm the creation of the issue type scheme and return its ID and details."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/mapping",
+      "method": "GET",
+      "operationId": "getIssueTypeSchemesMapping",
+      "summary": "",
+      "user": "As a developer, I need to get the mapping of issue type schemes to projects to ensure proper issue categorization.",
+      "ideal": "The response should provide a mapping of issue type schemes to their associated projects."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/project",
+      "method": "GET",
+      "operationId": "getIssueTypeSchemeForProjects",
+      "summary": "",
+      "user": "As a project lead, I want to find out which issue type scheme is assigned to my project to manage issues effectively.",
+      "ideal": "The response should return the issue type scheme assigned to the specified project."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/project",
+      "method": "PUT",
+      "operationId": "assignIssueTypeSchemeToProject",
+      "summary": "",
+      "user": "As a project manager, I want to assign a specific issue type scheme to my project to standardize issue handling.",
+      "ideal": "The response should confirm the assignment of the issue type scheme to the project."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}",
+      "method": "DELETE",
+      "operationId": "deleteIssueTypeScheme",
+      "summary": "",
+      "user": "As an administrator, I want to delete an issue type scheme that is no longer needed to keep the system organized.",
+      "ideal": "The response should confirm the deletion of the specified issue type scheme."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}",
+      "method": "PUT",
+      "operationId": "updateIssueTypeScheme",
+      "summary": "",
+      "user": "As a project administrator, I want to update an existing issue type scheme to reflect changes in project requirements.",
+      "ideal": "The response should confirm the update and return the updated details of the issue type scheme."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype",
+      "method": "PUT",
+      "operationId": "addIssueTypesToIssueTypeScheme",
+      "summary": "",
+      "user": "As a project manager, I want to add new issue types to an existing issue type scheme to enhance project flexibility.",
+      "ideal": "The response should confirm the addition of the new issue types to the specified issue type scheme."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype/move",
+      "method": "PUT",
+      "operationId": "reorderIssueTypesInIssueTypeScheme",
+      "summary": "",
+      "user": "As a project lead, I want to reorder issue types within an issue type scheme to prioritize certain issues.",
+      "ideal": "The response should confirm the new order of issue types in the specified issue type scheme."
+    },
+    {
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype/{issueTypeId}",
+      "method": "DELETE",
+      "operationId": "removeIssueTypeFromIssueTypeScheme",
+      "summary": "",
+      "user": "As an administrator, I want to remove an issue type from an issue type scheme to streamline the issue management process.",
+      "ideal": "The response should confirm the removal of the specified issue type from the issue type scheme."
+    }
+  ]
+}

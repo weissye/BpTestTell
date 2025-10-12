@@ -1,0 +1,2434 @@
+{
+  "ops": [
+    {
+      "method": "DELETE",
+      "path": "/v1/{realm}/attack-detection/brute-force/users",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/{realm}/attack-detection/brute-force/users/{userId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/{realm}/attack-detection/brute-force/users/{userId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/authenticator-providers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/client-authenticator-providers",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/config",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/config-description/{providerId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/config/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/authentication/config/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/authentication/config/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/executions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/executions/{executionId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/authentication/executions/{executionId}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/executions/{executionId}/config",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/executions/{executionId}/config/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/executions/{executionId}/lower-priority",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/executions/{executionId}/raise-priority",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/flows",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/flows",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/flows/{flowAlias}/copy",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions/execution",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions/flow",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/flows/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/authentication/flows/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/authentication/flows/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/form-action-providers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/form-providers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/per-client-config-description",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/register-required-action",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/required-actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/required-actions/{alias}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/authentication/required-actions/{alias}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/authentication/required-actions/{alias}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/required-actions/{alias}/lower-priority",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/required-actions/{alias}/raise-priority",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/unregistered-required-actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/123/certificates/public",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/123/certificates/private/download",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/123/certificates/private/generate",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/123/certificates/private/generate-and-download",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/123/certificates/private/upload",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/123/certificates/private/upload-certificate",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients-initial-access",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients-initial-access",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients-initial-access/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-registration-policy/providers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/123/role-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/groups/123/role-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/groups/123/role-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/123/role-mappings/clients/myclient/available",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/123/role-mappings/clients/myclient/composite",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/456/role-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users/456/role-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/users/456/role-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/456/role-mappings/clients/myclient/available",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/456/role-mappings/clients/myclient/composite",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-scopes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/client-scopes/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/client-scopes/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-templates",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-templates",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-templates/67890",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/client-templates/67890",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/client-templates/67890",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/clients/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/client-secret",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/12345/client-secret",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/client-secret/rotated",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/12345/client-secret/rotated",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/default-client-scopes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/clients/12345/default-client-scopes/scope1",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/12345/default-client-scopes/scope1",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/evaluate-scopes/generate-example-access-token",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/evaluate-scopes/generate-example-id-token",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/evaluate-scopes/generate-example-userinfo",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/evaluate-scopes/protocol-mappers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/evaluate-scopes/scope-mappings/roleContainer1/granted",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/evaluate-scopes/scope-mappings/roleContainer1/not-granted",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/installation/providers/someProvider",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/management/permissions",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/clients/12345/management/permissions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/12345/nodes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/12345/nodes/someNode",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/offline-session-count",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/offline-sessions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/optional-client-scopes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/clients/12345/optional-client-scopes/scope1",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/12345/optional-client-scopes/scope1",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/12345/push-revocation",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/12345/registration-access-token",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/service-account-user",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/session-count",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/test-nodes-available",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/user-sessions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/components",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/components",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/components/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/components/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/components/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/components/12345/sub-component-types",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/groups",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/count",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/groups/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/groups/12345",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/groups/12345/children",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/12345/management/permissions",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/groups/12345/management/permissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/12345/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/instances",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/identity-provider/instances",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/instances/my-provider",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/identity-provider/instances/my-provider",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/identity-provider/instances/my-provider",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/instances/my-provider/export",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/instances/my-provider/management/permissions",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/identity-provider/instances/my-provider/management/permissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/instances/my-provider/mapper-types",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/instances/my-provider/mappers",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/identity-provider/instances/my-provider/mappers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/instances/my-provider/mappers/mapper-id",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/identity-provider/instances/my-provider/mappers/mapper-id",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/identity-provider/instances/my-provider/mappers/mapper-id",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/providers/some-provider-id",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/keys",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models/456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models/456",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models/456",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-scopes/123/protocol-mappers/add-models",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/protocol-mappers/protocol/some-protocol",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-templates/abc/protocol-mappers/models/def",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/client-templates/abc/protocol-mappers/models/def",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/client-templates/abc/protocol-mappers/models/def",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-templates/abc/protocol-mappers/add-models",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-templates/abc/protocol-mappers/models",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-templates/abc/protocol-mappers/models",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-templates/abc/protocol-mappers/protocol/some-protocol",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/xyz/protocol-mappers/models/123",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/clients/xyz/protocol-mappers/models/123",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/xyz/protocol-mappers/models/123",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/xyz/protocol-mappers/add-models",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/xyz/protocol-mappers/models",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/xyz/protocol-mappers/models",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/xyz/protocol-mappers/protocol/some-protocol",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/{realm}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/{realm}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/{realm}/admin-events",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/{realm}/client-policies/policies",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/{realm}/default-groups",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/{realm}/localization/en",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/{realm}/localization/en/welcome",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/{realm}/logout-all",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/{realm}/partial-export",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/{realm}/sessions/{session}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/123/role-mappings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/123/role-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/groups/123/role-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/groups/123/role-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/123/role-mappings/realm/available",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/123/role-mappings/realm/composite",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/456/role-mappings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/456/role-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users/456/role-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/users/456/role-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/456/role-mappings/realm/available",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/456/role-mappings/realm/composite",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/123/roles",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/123/roles",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/123/roles/myrole",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/clients/123/roles/myrole",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/123/roles/myrole",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/123/roles/myrole/composites",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/123/roles/myrole/composites",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/123/roles/myrole/composites",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/roles",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/roles",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/roles/myrole",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/roles/myrole",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/roles/myrole",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/roles-by-id/{role-id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/roles-by-id/{role-id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/roles-by-id/{role-id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/roles-by-id/{role-id}/composites/clients/{clientUuid}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/roles-by-id/{role-id}/composites/realm",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/roles-by-id/{role-id}/management/permissions",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/roles-by-id/{role-id}/management/permissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/scope-mappings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient/available",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient/composite",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm/available",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm/composite",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/count",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/profile",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/profile",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/users/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/configured-user-storage-credential-types",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/consents",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/users/12345/consents/myclient",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/credentials",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/users/12345/credentials/cred1",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users/12345/credentials/cred1/moveAfter/cred2",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users/12345/credentials/cred1/moveToFirst",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345/credentials/cred1/userLabel",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345/disable-credential-types",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345/execute-actions-email",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/federated-identity",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users/12345/federated-identity/myprovider",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/users/12345/federated-identity/myprovider",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/groups",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/groups/count",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345/groups/mygroup",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/users/12345/groups/mygroup",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users/12345/impersonation",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users/12345/logout",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/offline-sessions/myclientuuid",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345/reset-password",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345/reset-password-email",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345/send-verify-email",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/sessions",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/{realm}/attack-detection/brute-force/users",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/{realm}/attack-detection/brute-force/users/{userId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/{realm}/attack-detection/brute-force/users/{userId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/authenticator-providers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/client-authenticator-providers",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/config",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/config-description/{providerId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/config/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/authentication/config/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/authentication/config/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/executions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/executions/{executionId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/authentication/executions/{executionId}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/executions/{executionId}/config",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/executions/{executionId}/config/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/executions/{executionId}/lower-priority",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/executions/{executionId}/raise-priority",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/flows",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/flows",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/flows/{flowAlias}/copy",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions/execution",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions/flow",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/flows/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/authentication/flows/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/authentication/flows/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/form-action-providers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/form-providers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/per-client-config-description",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/register-required-action",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/required-actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/required-actions/{alias}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/authentication/required-actions/{alias}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/authentication/required-actions/{alias}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/required-actions/{alias}/lower-priority",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/required-actions/{alias}/raise-priority",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/unregistered-required-actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/123/certificates/public",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/123/certificates/private/download",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/123/certificates/private/generate",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/123/certificates/private/generate-and-download",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/123/certificates/private/upload",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/123/certificates/private/upload-certificate",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients-initial-access",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients-initial-access",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients-initial-access/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-registration-policy/providers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/123/role-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/groups/123/role-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/groups/123/role-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/123/role-mappings/clients/myclient/available",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/123/role-mappings/clients/myclient/composite",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/456/role-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users/456/role-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/users/456/role-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/456/role-mappings/clients/myclient/available",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/456/role-mappings/clients/myclient/composite",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-scopes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/client-scopes/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/client-scopes/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-templates",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-templates",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-templates/67890",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/client-templates/67890",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/client-templates/67890",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/clients/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/client-secret",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/12345/client-secret",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/client-secret/rotated",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/12345/client-secret/rotated",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/default-client-scopes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/clients/12345/default-client-scopes/scope1",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/12345/default-client-scopes/scope1",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/evaluate-scopes/generate-example-access-token",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/evaluate-scopes/generate-example-id-token",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/evaluate-scopes/generate-example-userinfo",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/evaluate-scopes/protocol-mappers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/evaluate-scopes/scope-mappings/roleContainer1/granted",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/evaluate-scopes/scope-mappings/roleContainer1/not-granted",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/installation/providers/someProvider",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/management/permissions",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/clients/12345/management/permissions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/12345/nodes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/12345/nodes/someNode",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/offline-session-count",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/offline-sessions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/optional-client-scopes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/clients/12345/optional-client-scopes/scope1",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/12345/optional-client-scopes/scope1",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/12345/push-revocation",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/12345/registration-access-token",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/service-account-user",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/session-count",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/test-nodes-available",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/12345/user-sessions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/components",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/components",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/components/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/components/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/components/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/components/12345/sub-component-types",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/groups",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/count",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/groups/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/groups/12345",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/groups/12345/children",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/12345/management/permissions",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/groups/12345/management/permissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/12345/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/instances",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/identity-provider/instances",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/instances/my-provider",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/identity-provider/instances/my-provider",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/identity-provider/instances/my-provider",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/instances/my-provider/export",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/instances/my-provider/management/permissions",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/identity-provider/instances/my-provider/management/permissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/instances/my-provider/mapper-types",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/instances/my-provider/mappers",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/identity-provider/instances/my-provider/mappers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/instances/my-provider/mappers/mapper-id",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/identity-provider/instances/my-provider/mappers/mapper-id",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/identity-provider/instances/my-provider/mappers/mapper-id",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/identity-provider/providers/some-provider-id",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/keys",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models/456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models/456",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models/456",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-scopes/123/protocol-mappers/add-models",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/protocol-mappers/protocol/some-protocol",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-templates/abc/protocol-mappers/models/def",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/client-templates/abc/protocol-mappers/models/def",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/client-templates/abc/protocol-mappers/models/def",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-templates/abc/protocol-mappers/add-models",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-templates/abc/protocol-mappers/models",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-templates/abc/protocol-mappers/models",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-templates/abc/protocol-mappers/protocol/some-protocol",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/xyz/protocol-mappers/models/123",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/clients/xyz/protocol-mappers/models/123",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/xyz/protocol-mappers/models/123",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/xyz/protocol-mappers/add-models",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/xyz/protocol-mappers/models",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/xyz/protocol-mappers/models",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/xyz/protocol-mappers/protocol/some-protocol",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/{realm}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/{realm}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/{realm}/admin-events",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/{realm}/client-policies/policies",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/{realm}/default-groups",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/{realm}/localization/en",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/{realm}/localization/en/welcome",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/{realm}/logout-all",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/{realm}/partial-export",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/{realm}/sessions/{session}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/123/role-mappings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/123/role-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/groups/123/role-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/groups/123/role-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/123/role-mappings/realm/available",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/groups/123/role-mappings/realm/composite",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/456/role-mappings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/456/role-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users/456/role-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/users/456/role-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/456/role-mappings/realm/available",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/456/role-mappings/realm/composite",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/123/roles",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/123/roles",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/123/roles/myrole",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/clients/123/roles/myrole",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/123/roles/myrole",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/clients/123/roles/myrole/composites",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/clients/123/roles/myrole/composites",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/clients/123/roles/myrole/composites",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/roles",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/roles",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/roles/myrole",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/roles/myrole",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/roles/myrole",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/roles-by-id/{role-id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/roles-by-id/{role-id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/roles-by-id/{role-id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/roles-by-id/{role-id}/composites/clients/{clientUuid}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/roles-by-id/{role-id}/composites/realm",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/roles-by-id/{role-id}/management/permissions",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/roles-by-id/{role-id}/management/permissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/scope-mappings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient/available",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient/composite",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm/available",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm/composite",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/count",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/profile",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/profile",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/users/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/configured-user-storage-credential-types",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/consents",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/users/12345/consents/myclient",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/credentials",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/users/12345/credentials/cred1",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users/12345/credentials/cred1/moveAfter/cred2",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users/12345/credentials/cred1/moveToFirst",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345/credentials/cred1/userLabel",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345/disable-credential-types",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345/execute-actions-email",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/federated-identity",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users/12345/federated-identity/myprovider",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/users/12345/federated-identity/myprovider",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/groups",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/groups/count",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345/groups/mygroup",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/myrealm/users/12345/groups/mygroup",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users/12345/impersonation",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/myrealm/users/12345/logout",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/offline-sessions/myclientuuid",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345/reset-password",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345/reset-password-email",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/myrealm/users/12345/send-verify-email",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/myrealm/users/12345/sessions",
+      "body": null
+    }
+  ]
+}

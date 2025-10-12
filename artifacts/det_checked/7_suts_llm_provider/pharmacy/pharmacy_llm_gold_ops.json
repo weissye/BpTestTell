@@ -7,17 +7,17 @@
     },
     {
       "method": "POST",
+      "path": "/patients",
+      "body": null
+    },
+    {
+      "method": "GET",
       "path": "/drugs",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orders",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/patients",
+      "path": "/drugs",
       "body": null
     },
     {
@@ -27,17 +27,17 @@
     },
     {
       "method": "GET",
-      "path": "/inventory/{ndc}",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/drugs",
-      "body": null
-    },
-    {
-      "method": "GET",
       "path": "/orders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/inventory/{ndc}",
       "body": null
     },
     {
@@ -47,17 +47,17 @@
     },
     {
       "method": "POST",
+      "path": "/patients",
+      "body": null
+    },
+    {
+      "method": "GET",
       "path": "/drugs",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orders",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/patients",
+      "path": "/drugs",
       "body": null
     },
     {
@@ -67,17 +67,17 @@
     },
     {
       "method": "GET",
-      "path": "/inventory/{ndc}",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/drugs",
-      "body": null
-    },
-    {
-      "method": "GET",
       "path": "/orders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/inventory/{ndc}",
       "body": null
     }
   ]

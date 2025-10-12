@@ -3,50 +3,18 @@
     {
       "path": "/reset",
       "method": "POST",
-      "operationId": "resetPharmacy",
+      "operationId": "resetSystem",
       "summary": "",
-      "user": "admin_user_01",
-      "ideal": "Resets the pharmacy system to its initial state, clearing all data."
-    },
-    {
-      "path": "/drugs",
-      "method": "POST",
-      "operationId": "addDrug",
-      "summary": "",
-      "user": "pharmacist_02",
-      "ideal": "Adds a new drug to the pharmacy inventory with all required details."
-    },
-    {
-      "path": "/orders",
-      "method": "POST",
-      "operationId": "createOrder",
-      "summary": "",
-      "user": "customer_03",
-      "ideal": "Creates a new order for the specified drugs, including customer details and payment information."
+      "user": "admin",
+      "ideal": "Resets the pharmacy system to its initial state."
     },
     {
       "path": "/patients",
       "method": "POST",
       "operationId": "createPatient",
       "summary": "",
-      "user": "{\"name\": \"John Doe\", \"dob\": \"1985-06-15\", \"gender\": \"male\", \"address\": \"123 Main St, Anytown, USA\", \"phone\": \"555-1234\"}",
-      "ideal": "{\"status\": \"success\", \"message\": \"Patient created successfully\", \"patientId\": \"12345\"}"
-    },
-    {
-      "path": "/prescriptions",
-      "method": "POST",
-      "operationId": "createPrescription",
-      "summary": "",
-      "user": "{\"patientId\": \"12345\", \"medication\": \"Lisinopril\", \"dosage\": \"10mg\", \"quantity\": \"30\", \"refills\": \"2\"}",
-      "ideal": "{\"status\": \"success\", \"message\": \"Prescription created successfully\", \"prescriptionId\": \"67890\"}"
-    },
-    {
-      "path": "/inventory/{ndc}",
-      "method": "GET",
-      "operationId": "getInventoryItem",
-      "summary": "",
-      "user": "{\"ndc\": \"1234567890\"}",
-      "ideal": "{\"status\": \"success\", \"item\": {\"ndc\": \"1234567890\", \"name\": \"Lisinopril\", \"quantityAvailable\": \"100\", \"price\": \"0.50\"}}"
+      "user": "nurse",
+      "ideal": "Creates a new patient record in the system."
     },
     {
       "path": "/drugs",
@@ -54,15 +22,47 @@
       "operationId": "getDrugs",
       "summary": "",
       "user": "pharmacist",
-      "ideal": "Retrieve a list of all available drugs in the pharmacy inventory."
+      "ideal": "Retrieves a list of all available drugs in the pharmacy."
+    },
+    {
+      "path": "/drugs",
+      "method": "POST",
+      "operationId": "addDrug",
+      "summary": "",
+      "user": "pharmacist",
+      "ideal": "Adds a new drug to the pharmacy inventory."
+    },
+    {
+      "path": "/prescriptions",
+      "method": "POST",
+      "operationId": "createPrescription",
+      "summary": "",
+      "user": "doctor",
+      "ideal": "Creates a new prescription for a patient."
     },
     {
       "path": "/orders",
       "method": "GET",
       "operationId": "getOrders",
       "summary": "",
-      "user": "pharmacyManager",
-      "ideal": "Fetch all current orders placed by customers for prescription and over-the-counter medications."
+      "user": "pharmacist",
+      "ideal": "Retrieves a list of all orders placed in the pharmacy."
+    },
+    {
+      "path": "/orders",
+      "method": "POST",
+      "operationId": "createOrder",
+      "summary": "",
+      "user": "pharmacist",
+      "ideal": "Places a new order for drugs in the pharmacy."
+    },
+    {
+      "path": "/inventory/{ndc}",
+      "method": "GET",
+      "operationId": "getInventoryItem",
+      "summary": "",
+      "user": "pharmacist",
+      "ideal": "Retrieves detailed information about a specific drug in inventory using its NDC."
     }
   ]
 }

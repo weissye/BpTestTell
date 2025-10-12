@@ -1,204 +1,76 @@
 {
   "gold": [
     {
-      "path": "/dumps",
-      "method": "POST",
-      "operationId": "dumps.create",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Create a new dump of the current indexes."
-    },
-    {
-      "path": "/indexes",
+      "path": "/indexes/myIndex/documents",
       "method": "GET",
-      "operationId": "indexes.list",
+      "operationId": "indexes.documents.list",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve a list of all indexes."
+      "user": "User wants to retrieve all documents from the 'myIndex' index to display them on the dashboard.",
+      "ideal": "The API should return a list of documents in JSON format, including their IDs and content."
     },
     {
-      "path": "/indexes/{indexUid}",
-      "method": "PATCH",
-      "operationId": "indexes.update",
-      "summary": "",
-      "user": "editor",
-      "ideal": "Update the settings of a specific index identified by indexUid."
-    },
-    {
-      "path": "/indexes/{indexUid}/documents",
+      "path": "/indexes/myIndex/documents",
       "method": "POST",
       "operationId": "indexes.documents.create",
       "summary": "",
-      "user": "editor",
-      "ideal": "Add new documents to the specified index."
+      "user": "User needs to add a new document to 'myIndex' with specific fields such as title and description.",
+      "ideal": "The API should accept a JSON object representing the new document and return the created document with its ID."
     },
     {
-      "path": "/indexes/{indexUid}/documents/fetch",
+      "path": "/indexes/myIndex/documents",
+      "method": "PUT",
+      "operationId": "indexes.documents.upsert",
+      "summary": "",
+      "user": "User wants to update an existing document or create it if it doesn't exist in 'myIndex'.",
+      "ideal": "The API should accept a JSON object and return the updated or created document with its ID."
+    },
+    {
+      "path": "/indexes/myIndex/documents",
+      "method": "DELETE",
+      "operationId": "indexes.documents.removeAll",
+      "summary": "",
+      "user": "User intends to remove all documents from 'myIndex' to reset the index for new data.",
+      "ideal": "The API should confirm the deletion of all documents and return a success message."
+    },
+    {
+      "path": "/indexes/myIndex/documents/fetch",
       "method": "POST",
       "operationId": "indexes.documents.fetch",
       "summary": "",
-      "user": "editor",
-      "ideal": "Fetch documents from an external source to add to the index."
+      "user": "User wants to fetch documents from an external source and add them to 'myIndex'.",
+      "ideal": "The API should accept a source URL and return the fetched documents in JSON format."
     },
     {
-      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "path": "/indexes/myIndex/documents/delete-batch",
+      "method": "POST",
+      "operationId": "indexes.documents.removeBatch",
+      "summary": "",
+      "user": "User needs to delete multiple documents from 'myIndex' using their IDs.",
+      "ideal": "The API should accept an array of document IDs and return a confirmation of the deleted documents."
+    },
+    {
+      "path": "/indexes/myIndex/documents/delete",
+      "method": "POST",
+      "operationId": "indexes.documents.remove",
+      "summary": "",
+      "user": "User wants to delete a specific document from 'myIndex' by providing its ID.",
+      "ideal": "The API should confirm the deletion of the document and return a success message."
+    },
+    {
+      "path": "/indexes/myIndex/documents/123",
       "method": "GET",
       "operationId": "indexes.documents.get",
       "summary": "",
-      "user": "viewer",
-      "ideal": "Retrieve a specific document by its ID from the index."
+      "user": "User needs to retrieve a specific document with ID '123' from 'myIndex' for review.",
+      "ideal": "The API should return the document with ID '123' in JSON format, including all its fields."
     },
     {
-      "path": "/indexes/{indexUid}/search",
-      "method": "POST",
-      "operationId": "indexes.documents.search",
-      "summary": "",
-      "user": "viewer",
-      "ideal": "Search for documents in the specified index based on query parameters."
-    },
-    {
-      "path": "/indexes/{indexUid}/settings",
-      "method": "PATCH",
-      "operationId": "indexes.settings.update",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Update the settings of the specified index."
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/synonyms",
-      "method": "PUT",
-      "operationId": "indexes.settings.synonyms.update",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Update the synonyms settings for the specified index."
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/sortable-attributes",
-      "method": "PUT",
-      "operationId": "indexes.settings.sortable-attributes.update",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Set the sortable attributes for the specified index."
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/stop-words",
-      "method": "PUT",
-      "operationId": "indexes.settings.stopWords.update",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Update the stop words for the specified index."
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/ranking-rules",
-      "method": "PUT",
-      "operationId": "indexes.settings.rankingRules.update",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Define the ranking rules for the specified index."
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/typo-tolerance",
-      "method": "PATCH",
-      "operationId": "indexes.settings.typoTolerance.update",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Adjust the typo tolerance settings for the specified index."
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/pagination",
-      "method": "PATCH",
-      "operationId": "indexes.settings.pagination.update",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Update pagination settings for the specified index."
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/faceting",
-      "method": "PATCH",
-      "operationId": "indexes.settings.faceting.update",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Modify faceting settings for the specified index."
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/filterable-attributes",
-      "method": "PUT",
-      "operationId": "indexes.settings.filterableAttributes.update",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Set the filterable attributes for the specified index."
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/distinct-attribute",
-      "method": "PUT",
-      "operationId": "indexes.settings.distinctAttribute.update",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Define the distinct attribute for the specified index."
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/searchable-attributes",
-      "method": "PUT",
-      "operationId": "indexes.settings.searchableAttributes.update",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Set the searchable attributes for the specified index."
-    },
-    {
-      "path": "/indexes/{indexUid}/settings/displayed-attributes",
-      "method": "PUT",
-      "operationId": "indexes.settings.displayedAttributes.update",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Update the displayed attributes for the specified index."
-    },
-    {
-      "path": "/multi-search",
-      "method": "POST",
-      "operationId": "multi_search",
-      "summary": "",
-      "user": "viewer",
-      "ideal": "Perform a multi-search across multiple indexes."
-    },
-    {
-      "path": "/keys/{uid_or_key}",
-      "method": "GET",
-      "operationId": "keys.get",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve the API key details using its UID or key."
-    },
-    {
-      "path": "/stats",
-      "method": "GET",
-      "operationId": "stats.list",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Get statistics about the indexes and documents."
-    },
-    {
-      "path": "/tasks",
+      "path": "/indexes/myIndex/documents/123",
       "method": "DELETE",
-      "operationId": "tasks.delete",
+      "operationId": "indexes.documents.removeOne",
       "summary": "",
-      "user": "admin",
-      "ideal": "Delete specific tasks from the task queue."
-    },
-    {
-      "path": "/swap-indexes",
-      "method": "POST",
-      "operationId": "indexes.swap",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Swap two indexes in the Meilisearch instance."
-    },
-    {
-      "path": "/metrics",
-      "method": "GET",
-      "operationId": "metrics.get",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve performance metrics for the Meilisearch instance."
+      "user": "User wants to delete the document with ID '123' from 'myIndex' as it is no longer needed.",
+      "ideal": "The API should confirm the deletion of the document with ID '123' and return a success message."
     }
   ]
 }

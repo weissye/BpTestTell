@@ -5,48 +5,48 @@
       "method": "GET",
       "operationId": "classroom/get-an-assignment",
       "summary": "",
-      "user": "Teacher John wants to retrieve the details of assignment 12345 to review its content and ensure it aligns with the curriculum.",
-      "ideal": "The API should return the assignment details including title, description, due date, and any attached resources."
+      "user": "teacher123",
+      "ideal": "Retrieve the details of the assignment with ID 12345."
     },
     {
       "path": "/assignments/12345/accepted_assignments",
       "method": "GET",
       "operationId": "classroom/list-accepted-assignments-for-an-assignment",
       "summary": "",
-      "user": "Teacher John needs to see which students have accepted assignment 12345 to track participation.",
-      "ideal": "The API should return a list of students who have accepted the assignment along with their submission status."
+      "user": "teacher123",
+      "ideal": "List all accepted assignments for the assignment with ID 12345."
     },
     {
       "path": "/assignments/12345/grades",
       "method": "GET",
       "operationId": "classroom/get-assignment-grades",
       "summary": "",
-      "user": "Teacher John wants to check the grades for assignment 12345 to provide feedback to students.",
-      "ideal": "The API should return a list of students along with their grades and any comments provided by the teacher."
+      "user": "teacher123",
+      "ideal": "Get the grades for the assignment with ID 12345."
     },
     {
       "path": "/classrooms",
       "method": "GET",
       "operationId": "classroom/list-classrooms",
       "summary": "",
-      "user": "Teacher John is looking to see all the classrooms he manages to plan his lessons accordingly.",
-      "ideal": "The API should return a list of classrooms including their names, IDs, and the subjects they cover."
+      "user": "admin456",
+      "ideal": "Retrieve a list of all classrooms."
     },
     {
       "path": "/classrooms/67890",
       "method": "GET",
       "operationId": "classroom/get-a-classroom",
       "summary": "",
-      "user": "Teacher John wants to get details about classroom 67890 to understand its structure and student demographics.",
-      "ideal": "The API should return the classroom details including name, subject, and list of enrolled students."
+      "user": "admin456",
+      "ideal": "Get details of the classroom with ID 67890."
     },
     {
       "path": "/classrooms/67890/assignments",
       "method": "GET",
       "operationId": "classroom/list-assignments-for-a-classroom",
       "summary": "",
-      "user": "Teacher John needs to view all assignments for classroom 67890 to prepare for the upcoming week.",
-      "ideal": "The API should return a list of assignments for the classroom including titles, due dates, and submission statuses."
+      "user": "admin456",
+      "ideal": "List all assignments for the classroom with ID 67890."
     }
   ]
 }

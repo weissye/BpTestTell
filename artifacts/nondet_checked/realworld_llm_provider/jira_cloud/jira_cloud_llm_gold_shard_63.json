@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "getProjectEmail",
       "summary": "",
-      "user": "As a project manager, I want to retrieve the email associated with a specific project so that I can ensure all communications are directed to the correct address.",
-      "ideal": "The response should return a JSON object containing the email address linked to the specified project ID."
+      "user": "As a project manager, I want to retrieve the email address associated with a specific project so that I can communicate effectively with stakeholders.",
+      "ideal": "The response should return a JSON object containing the email address linked to the project identified by the projectId."
     },
     {
       "path": "/rest/api/3/project/{projectId}/email",
       "method": "PUT",
       "operationId": "updateProjectEmail",
       "summary": "",
-      "user": "As a project administrator, I need to update the email address for a project to reflect changes in team communication protocols.",
-      "ideal": "The response should confirm the successful update of the email address and return the updated email in the response body."
+      "user": "As a project administrator, I need to update the email address for a project to ensure that notifications are sent to the correct contact.",
+      "ideal": "The request should accept a JSON object with the new email address, and the response should confirm the update with a success message."
     }
   ]
 }

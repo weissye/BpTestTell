@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issueLink",
+      "method": "POST",
+      "operationId": "linkIssues",
+      "summary": "",
+      "user": "As a project manager, I want to link related issues in Jira to maintain a clear relationship between tasks, ensuring that dependencies are tracked effectively.",
+      "ideal": "Successfully creates a link between two issues with the specified link type."
+    },
+    {
+      "path": "/rest/api/3/issueLink/{linkId}",
+      "method": "DELETE",
+      "operationId": "deleteIssueLink",
+      "summary": "",
+      "user": "As a developer, I need to remove a link between issues that are no longer relevant to avoid confusion in the project tracking.",
+      "ideal": "Successfully deletes the specified issue link, confirming the removal."
+    },
+    {
+      "path": "/rest/api/3/issueLink/{linkId}",
+      "method": "GET",
+      "operationId": "getIssueLink",
+      "summary": "",
+      "user": "As a team lead, I want to retrieve details about a specific issue link to understand the relationship between issues and their statuses.",
+      "ideal": "Returns the details of the specified issue link, including the linked issues and the link type."
+    }
+  ]
+}

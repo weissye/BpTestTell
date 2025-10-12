@@ -1,28 +1,28 @@
 {
   "gold": [
     {
-      "path": "/indexes/myIndex/stats",
+      "path": "/indexes/my_index/stats",
       "method": "GET",
       "operationId": "indexes.stats.get",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve statistics for the specified index, including document count, last update, and indexing speed."
+      "user": "Alice is a data engineer who wants to monitor the performance of the 'my_index' index in Meilisearch. She needs to check the number of documents, the number of searchable documents, and the last update timestamp to ensure everything is functioning correctly.",
+      "ideal": "Returns the statistics of the 'my_index' index, including the number of documents, number of searchable documents, and the last update timestamp."
     },
     {
       "path": "/stats",
       "method": "GET",
       "operationId": "stats.list",
       "summary": "",
-      "user": "admin",
-      "ideal": "Get overall statistics of the Meilisearch instance, including total number of indexes and total documents."
+      "user": "Bob is a system administrator responsible for overseeing the overall health of the Meilisearch instance. He needs to retrieve general statistics about the server's performance, including the number of indexes, total documents, and the average response time for queries.",
+      "ideal": "Returns a summary of the server's statistics, including the total number of indexes, total documents, and average response time for queries."
     },
     {
       "path": "/metrics",
       "method": "GET",
       "operationId": "metrics.get",
       "summary": "",
-      "user": "admin",
-      "ideal": "Fetch performance metrics of the Meilisearch instance, such as query response times and resource usage."
+      "user": "Charlie is a backend developer who is integrating Meilisearch into an application. He wants to gather metrics for performance monitoring, such as query latency and error rates, to optimize the search experience for users.",
+      "ideal": "Returns detailed metrics related to query performance, including latency, error rates, and other relevant performance indicators."
     }
   ]
 }

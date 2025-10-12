@@ -1,0 +1,36 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Member"
+      ],
+      "summary": "Fetch a specific member from the queue",
+      "operationId": "FetchMember"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Member"
+      ],
+      "summary": "Dequeue a member from a queue and have the member's call begin executing the TwiML document at that URL",
+      "operationId": "UpdateMember"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Member"
+      ],
+      "summary": "Retrieve the members of the queue",
+      "operationId": "ListMember"
+    }
+  ]
+}

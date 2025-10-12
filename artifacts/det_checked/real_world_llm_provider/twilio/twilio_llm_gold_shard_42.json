@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXX/Members/CAXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchMember",
+      "summary": "",
+      "user": "User wants to retrieve the details of a specific member in a queue using their CallSid.",
+      "ideal": "The response should include the member's status, position in the queue, and any other relevant details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXX/Members/CAXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateMember",
+      "summary": "",
+      "user": "User needs to update the status of a member in a queue, changing it from 'waiting' to 'completed'.",
+      "ideal": "The response should confirm the update and return the updated member details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXX/Members.json",
+      "method": "GET",
+      "operationId": "ListMember",
+      "summary": "",
+      "user": "User wants to list all members currently in a specific queue to monitor their statuses and positions.",
+      "ideal": "The response should include an array of members with their CallSids, statuses, and positions."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/invites",
+      "method": "GET",
+      "operationId": "get-invites",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all current invites."
+    },
+    {
+      "path": "/invites",
+      "method": "POST",
+      "operationId": "send-invites",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Send an invite to a specified email address."
+    },
+    {
+      "path": "/invites/multiuse",
+      "method": "POST",
+      "operationId": "create-invite-link",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Create a multi-use invite link for new users."
+    },
+    {
+      "path": "/invites/{invite_id}",
+      "method": "DELETE",
+      "operationId": "revoke-email-invite",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Revoke a specific email invite using its ID."
+    },
+    {
+      "path": "/invites/multiuse/{invite_id}",
+      "method": "DELETE",
+      "operationId": "revoke-invite-link",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Revoke a specific multi-use invite link."
+    },
+    {
+      "path": "/invites/{invite_id}/resend",
+      "method": "POST",
+      "operationId": "resend-email-invite",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Resend an email invite to the user associated with the invite ID."
+    }
+  ]
+}

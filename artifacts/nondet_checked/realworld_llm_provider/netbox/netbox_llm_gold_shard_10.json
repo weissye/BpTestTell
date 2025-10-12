@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/api/virtualization/cluster-groups/",
+      "method": "GET",
+      "operationId": "virtualization_cluster_groups_list",
+      "summary": "",
+      "user": "Admin user requesting a list of all cluster groups to manage virtualization resources.",
+      "ideal": "Returns a list of cluster groups with details such as name, description, and associated clusters."
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/",
+      "method": "POST",
+      "operationId": "virtualization_cluster_groups_create",
+      "summary": "",
+      "user": "Network engineer creating a new cluster group for organizing virtual clusters.",
+      "ideal": "Creates a new cluster group and returns the details of the created group including its ID."
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/{id}/",
+      "method": "PUT",
+      "operationId": "virtualization_cluster_groups_update",
+      "summary": "",
+      "user": "System administrator updating the configuration of an existing cluster group.",
+      "ideal": "Updates the specified cluster group and returns the updated details."
+    },
+    {
+      "path": "/api/virtualization/clusters/",
+      "method": "GET",
+      "operationId": "virtualization_clusters_list",
+      "summary": "",
+      "user": "IT manager retrieving a list of all virtual clusters for reporting.",
+      "ideal": "Returns a list of virtual clusters with their statuses, resources, and configurations."
+    },
+    {
+      "path": "/api/virtualization/clusters/{id}/",
+      "method": "DELETE",
+      "operationId": "virtualization_clusters_destroy",
+      "summary": "",
+      "user": "DevOps engineer deleting an obsolete virtual cluster from the system.",
+      "ideal": "Successfully deletes the specified cluster and returns a confirmation message."
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/",
+      "method": "POST",
+      "operationId": "virtualization_virtual_machines_create",
+      "summary": "",
+      "user": "Cloud architect provisioning a new virtual machine for a development environment.",
+      "ideal": "Creates a new virtual machine and returns its configuration details including ID and status."
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/{id}/",
+      "method": "PATCH",
+      "operationId": "virtualization_virtual_machines_partial_update",
+      "summary": "",
+      "user": "System administrator updating the memory allocation for a specific virtual machine.",
+      "ideal": "Partially updates the specified virtual machine and returns the updated configuration."
+    },
+    {
+      "path": "/api/virtualization/virtual-disks/",
+      "method": "GET",
+      "operationId": "virtualization_virtual_disks_list",
+      "summary": "",
+      "user": "Storage administrator reviewing all virtual disks to optimize storage usage.",
+      "ideal": "Returns a list of virtual disks with details such as size, type, and associated virtual machines."
+    },
+    {
+      "path": "/api/virtualization/interfaces/",
+      "method": "DELETE",
+      "operationId": "virtualization_interfaces_bulk_destroy",
+      "summary": "",
+      "user": "Network administrator removing multiple unused virtual interfaces from the system.",
+      "ideal": "Successfully deletes the specified interfaces and returns a confirmation of the operation."
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/{id}/render-config/",
+      "method": "POST",
+      "operationId": "virtualization_virtual_machines_render_config_create",
+      "summary": "",
+      "user": "Developer generating a render configuration for a virtual machine for deployment.",
+      "ideal": "Creates a render configuration for the specified virtual machine and returns the configuration details."
+    }
+  ]
+}

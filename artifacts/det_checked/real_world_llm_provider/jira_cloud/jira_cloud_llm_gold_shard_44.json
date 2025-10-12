@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue/watching",
+      "method": "POST",
+      "operationId": "getIsWatchingIssueBulk",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Check if the user is watching multiple issues at once."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
+      "method": "GET",
+      "operationId": "getIssueWatchers",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Retrieve a list of users watching a specific issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
+      "method": "POST",
+      "operationId": "addWatcher",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Add the user to the watchers of a specific issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
+      "method": "DELETE",
+      "operationId": "removeWatcher",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Remove the user from the watchers of a specific issue."
+    }
+  ]
+}

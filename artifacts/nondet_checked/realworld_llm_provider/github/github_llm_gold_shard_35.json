@@ -22,7 +22,7 @@
       "operationId": "pulls/list-review-comments-for-repo",
       "summary": "",
       "user": "octocat",
-      "ideal": "List all review comments for the specified repository's pull requests."
+      "ideal": "List all review comments for the specified repository."
     },
     {
       "path": "/repos/octocat/Hello-World/pulls/comments/1",
@@ -30,7 +30,7 @@
       "operationId": "pulls/get-review-comment",
       "summary": "",
       "user": "octocat",
-      "ideal": "Get a specific review comment by its ID."
+      "ideal": "Retrieve a specific review comment by its ID."
     },
     {
       "path": "/repos/octocat/Hello-World/pulls/comments/1",
@@ -54,7 +54,7 @@
       "operationId": "pulls/get",
       "summary": "",
       "user": "octocat",
-      "ideal": "Retrieve details of a specific pull request."
+      "ideal": "Retrieve details about a specific pull request."
     },
     {
       "path": "/repos/octocat/Hello-World/pulls/42",
@@ -126,7 +126,7 @@
       "operationId": "pulls/list-requested-reviewers",
       "summary": "",
       "user": "octocat",
-      "ideal": "List all requested reviewers for a specific pull request."
+      "ideal": "List all reviewers requested for a specific pull request."
     },
     {
       "path": "/repos/octocat/Hello-World/pulls/42/requested_reviewers",
@@ -166,7 +166,7 @@
       "operationId": "pulls/get-review",
       "summary": "",
       "user": "octocat",
-      "ideal": "Get details of a specific review by its ID."
+      "ideal": "Retrieve a specific review by its ID."
     },
     {
       "path": "/repos/octocat/Hello-World/pulls/42/reviews/1",
@@ -214,7 +214,7 @@
       "operationId": "pulls/update-branch",
       "summary": "",
       "user": "octocat",
-      "ideal": "Update the branch of a specific pull request."
+      "ideal": "Update the branch for a specific pull request."
     }
   ]
 }

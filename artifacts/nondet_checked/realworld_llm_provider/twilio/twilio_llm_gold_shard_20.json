@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps/CAXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchConnectApp",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific Connect App using its SID.",
+      "ideal": "Returns the details of the Connect App with SID CAXXXXXXXXXXXXXXXXX."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps/CAXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateConnectApp",
+      "summary": "",
+      "user": "User needs to update the configuration of an existing Connect App.",
+      "ideal": "Successfully updates the Connect App with new parameters and returns the updated details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps/CAXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteConnectApp",
+      "summary": "",
+      "user": "User wants to delete a specific Connect App that is no longer needed.",
+      "ideal": "Confirms the deletion of the Connect App with SID CAXXXXXXXXXXXXXXXXX."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps.json",
+      "method": "GET",
+      "operationId": "ListConnectApp",
+      "summary": "",
+      "user": "User wants to list all Connect Apps associated with their account.",
+      "ideal": "Returns a list of all Connect Apps under the account with their details."
+    }
+  ]
+}

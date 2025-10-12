@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/workflowscheme/project",
+      "method": "GET",
+      "operationId": "getWorkflowSchemeProjectAssociations",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve the workflow scheme associations for a specific project to ensure that the correct workflows are applied to my project tasks.",
+      "ideal": "The API should return a list of workflow schemes associated with the specified project, including details such as the workflow scheme ID, name, and the associated project key."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/project",
+      "method": "PUT",
+      "operationId": "assignSchemeToProject",
+      "summary": "",
+      "user": "As a Jira administrator, I need to assign a specific workflow scheme to a project to ensure that the project follows the correct processes and workflows defined for it.",
+      "ideal": "The API should successfully update the project to use the specified workflow scheme and return a confirmation message along with the updated project details."
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/field/{fieldId}/screens",
+      "method": "GET",
+      "operationId": "getScreensForField",
+      "summary": "",
+      "user": "User requests to see which screens a specific field is associated with.",
+      "ideal": "Returns a list of screens that include the specified field."
+    },
+    {
+      "path": "/rest/api/3/screens",
+      "method": "GET",
+      "operationId": "getScreens",
+      "summary": "",
+      "user": "User wants to retrieve all available screens in the Jira instance.",
+      "ideal": "Returns a list of all screens with their details."
+    },
+    {
+      "path": "/rest/api/3/screens",
+      "method": "POST",
+      "operationId": "createScreen",
+      "summary": "",
+      "user": "User needs to create a new screen for issue types.",
+      "ideal": "Returns the newly created screen's details including its ID."
+    },
+    {
+      "path": "/rest/api/3/screens/addToDefault/{fieldId}",
+      "method": "POST",
+      "operationId": "addFieldToDefaultScreen",
+      "summary": "",
+      "user": "User wants to add a field to the default screen.",
+      "ideal": "Confirms that the field has been successfully added to the default screen."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}",
+      "method": "DELETE",
+      "operationId": "deleteScreen",
+      "summary": "",
+      "user": "User intends to delete a specific screen that is no longer needed.",
+      "ideal": "Confirms that the screen has been successfully deleted."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}",
+      "method": "PUT",
+      "operationId": "updateScreen",
+      "summary": "",
+      "user": "User wants to update the name and description of an existing screen.",
+      "ideal": "Returns the updated screen's details."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/availableFields",
+      "method": "GET",
+      "operationId": "getAvailableScreenFields",
+      "summary": "",
+      "user": "User is looking for fields that can be added to a specific screen.",
+      "ideal": "Returns a list of fields that are available for the specified screen."
+    }
+  ]
+}

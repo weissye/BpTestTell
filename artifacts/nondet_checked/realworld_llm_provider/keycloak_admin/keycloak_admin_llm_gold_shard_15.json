@@ -5,96 +5,96 @@
       "method": "GET",
       "operationId": "getGroupRoleMappings",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve the role mappings for the group with ID 123 in the realm 'myrealm'."
+      "user": "Admin user requesting role mappings for group 123.",
+      "ideal": "Returns the role mappings associated with the specified group."
     },
     {
       "path": "/myrealm/groups/123/role-mappings/realm",
       "method": "GET",
       "operationId": "getGroupRoleMappingsRealm",
       "summary": "",
-      "user": "admin",
-      "ideal": "Fetch the realm-specific role mappings for group ID 123 in 'myrealm'."
+      "user": "Admin user checking realm-specific role mappings for group 123.",
+      "ideal": "Returns the realm-specific role mappings for the group."
     },
     {
       "path": "/myrealm/groups/123/role-mappings/realm",
       "method": "POST",
       "operationId": "postGroupRoleMappingsRealm",
       "summary": "",
-      "user": "admin",
-      "ideal": "Assign new realm-specific role mappings to group ID 123 in 'myrealm'."
+      "user": "Admin user adding role mappings to group 123.",
+      "ideal": "Successfully adds the specified role mappings to the group."
     },
     {
       "path": "/myrealm/groups/123/role-mappings/realm",
       "method": "DELETE",
       "operationId": "deleteGroupRoleMappingsRealm",
       "summary": "",
-      "user": "admin",
-      "ideal": "Remove realm-specific role mappings from group ID 123 in 'myrealm'."
+      "user": "Admin user removing role mappings from group 123.",
+      "ideal": "Successfully removes the specified role mappings from the group."
     },
     {
       "path": "/myrealm/groups/123/role-mappings/realm/available",
       "method": "GET",
       "operationId": "getGroupRoleMappingsRealmAvailable",
       "summary": "",
-      "user": "admin",
-      "ideal": "List available realm-specific role mappings for group ID 123 in 'myrealm'."
+      "user": "Admin user checking available role mappings for group 123.",
+      "ideal": "Returns a list of available role mappings for the group."
     },
     {
       "path": "/myrealm/groups/123/role-mappings/realm/composite",
       "method": "GET",
       "operationId": "getGroupRoleMappingsRealmComposite",
       "summary": "",
-      "user": "admin",
-      "ideal": "Get composite realm-specific role mappings for group ID 123 in 'myrealm'."
+      "user": "Admin user retrieving composite role mappings for group 123.",
+      "ideal": "Returns the composite role mappings for the group."
     },
     {
       "path": "/myrealm/users/456/role-mappings",
       "method": "GET",
       "operationId": "getUserRoleMappings",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve the role mappings for the user with ID 456 in the realm 'myrealm'."
+      "user": "Admin user requesting role mappings for user 456.",
+      "ideal": "Returns the role mappings associated with the specified user."
     },
     {
       "path": "/myrealm/users/456/role-mappings/realm",
       "method": "GET",
       "operationId": "getUserRoleMappingsRealm",
       "summary": "",
-      "user": "admin",
-      "ideal": "Fetch the realm-specific role mappings for user ID 456 in 'myrealm'."
+      "user": "Admin user checking realm-specific role mappings for user 456.",
+      "ideal": "Returns the realm-specific role mappings for the user."
     },
     {
       "path": "/myrealm/users/456/role-mappings/realm",
       "method": "POST",
       "operationId": "postUserRoleMappingsRealm",
       "summary": "",
-      "user": "admin",
-      "ideal": "Assign new realm-specific role mappings to user ID 456 in 'myrealm'."
+      "user": "Admin user adding role mappings to user 456.",
+      "ideal": "Successfully adds the specified role mappings to the user."
     },
     {
       "path": "/myrealm/users/456/role-mappings/realm",
       "method": "DELETE",
       "operationId": "deleteUserRoleMappingsRealm",
       "summary": "",
-      "user": "admin",
-      "ideal": "Remove realm-specific role mappings from user ID 456 in 'myrealm'."
+      "user": "Admin user removing role mappings from user 456.",
+      "ideal": "Successfully removes the specified role mappings from the user."
     },
     {
       "path": "/myrealm/users/456/role-mappings/realm/available",
       "method": "GET",
       "operationId": "getUserRoleMappingsRealmAvailable",
       "summary": "",
-      "user": "admin",
-      "ideal": "List available realm-specific role mappings for user ID 456 in 'myrealm'."
+      "user": "Admin user checking available role mappings for user 456.",
+      "ideal": "Returns a list of available role mappings for the user."
     },
     {
       "path": "/myrealm/users/456/role-mappings/realm/composite",
       "method": "GET",
       "operationId": "getUserRoleMappingsRealmComposite",
       "summary": "",
-      "user": "admin",
-      "ideal": "Get composite realm-specific role mappings for user ID 456 in 'myrealm'."
+      "user": "Admin user retrieving composite role mappings for user 456.",
+      "ideal": "Returns the composite role mappings for the user."
     }
   ]
 }

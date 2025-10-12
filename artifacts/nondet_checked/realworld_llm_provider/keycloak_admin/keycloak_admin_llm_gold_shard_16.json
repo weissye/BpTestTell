@@ -6,7 +6,7 @@
       "operationId": "getClientRoles",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve all roles associated with the client having ID 123 in the realm 'myrealm'."
+      "ideal": "Retrieve all roles associated with the client ID 123 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/clients/123/roles",
@@ -14,7 +14,7 @@
       "operationId": "postClientRoles",
       "summary": "",
       "user": "admin",
-      "ideal": "Create a new role for the client with ID 123 in the realm 'myrealm'."
+      "ideal": "Create a new role for the client ID 123 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/clients/123/roles/myrole",
@@ -22,7 +22,7 @@
       "operationId": "getClientRole",
       "summary": "",
       "user": "admin",
-      "ideal": "Fetch details of the role 'myrole' for the client with ID 123 in the realm 'myrealm'."
+      "ideal": "Fetch details of the role 'myrole' for the client ID 123 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/clients/123/roles/myrole",
@@ -30,7 +30,7 @@
       "operationId": "putClientRole",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the role 'myrole' for the client with ID 123 in the realm 'myrealm'."
+      "ideal": "Update the role 'myrole' for the client ID 123 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/clients/123/roles/myrole",
@@ -38,7 +38,7 @@
       "operationId": "deleteClientRole",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete the role 'myrole' for the client with ID 123 in the realm 'myrealm'."
+      "ideal": "Delete the role 'myrole' for the client ID 123 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/clients/123/roles/myrole/composites",
@@ -46,7 +46,7 @@
       "operationId": "getClientRoleComposites",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve composite roles for the role 'myrole' of the client with ID 123 in the realm 'myrealm'."
+      "ideal": "Retrieve composite roles for the role 'myrole' of client ID 123 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/clients/123/roles/myrole/composites",
@@ -54,7 +54,7 @@
       "operationId": "postClientRoleComposites",
       "summary": "",
       "user": "admin",
-      "ideal": "Add composite roles to the role 'myrole' for the client with ID 123 in the realm 'myrealm'."
+      "ideal": "Add composite roles to the role 'myrole' for client ID 123 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/clients/123/roles/myrole/composites",
@@ -62,7 +62,15 @@
       "operationId": "deleteClientRoleComposites",
       "summary": "",
       "user": "admin",
-      "ideal": "Remove composite roles from the role 'myrole' for the client with ID 123 in the realm 'myrealm'."
+      "ideal": "Remove composite roles from the role 'myrole' for client ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/clients/123/roles/myrole/composites/clients/456",
+      "method": "GET",
+      "operationId": "getClientRoleCompositesClient",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get composite roles for 'myrole' of client ID 123 specific to client UUID 456 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/roles",
@@ -102,7 +110,7 @@
       "operationId": "deleteRoleByRealmByRoleName",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete the role 'myrole' in the realm 'myrealm'."
+      "ideal": "Delete the role 'myrole' from the realm 'myrealm'."
     },
     {
       "path": "/myrealm/roles/myrole/composites",
@@ -110,7 +118,7 @@
       "operationId": "getRoleCompositesByRealmByRoleName",
       "summary": "",
       "user": "admin",
-      "ideal": "Get composite roles for 'myrole' in the realm 'myrealm'."
+      "ideal": "Fetch composite roles for 'myrole' in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/roles/myrole/composites",
@@ -127,6 +135,30 @@
       "summary": "",
       "user": "admin",
       "ideal": "Remove composite roles from 'myrole' in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles/myrole/composites/clients/456",
+      "method": "GET",
+      "operationId": "getRoleCompositesClientByRealmByRoleNameByClientUuid",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get composite roles for 'myrole' specific to client UUID 456 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles/myrole/groups",
+      "method": "GET",
+      "operationId": "getRoleGroupsByRealmByRoleName",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve groups associated with the role 'myrole' in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles/myrole/users",
+      "method": "GET",
+      "operationId": "getRoleUsersByRealmByRoleName",
+      "summary": "",
+      "user": "admin",
+      "ideal": "List users assigned to the role 'myrole' in the realm 'myrealm'."
     }
   ]
 }

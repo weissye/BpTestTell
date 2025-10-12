@@ -1,0 +1,117 @@
+{
+  "openapi_meta": {
+    "title": "Gitea API",
+    "version": "{{AppVer | JSEscape}}"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/gitignore/templates",
+      "method": "GET",
+      "tags": [
+        "miscellaneous"
+      ],
+      "summary": "Returns a list of all gitignore templates",
+      "operationId": "listGitignoresTemplates"
+    },
+    {
+      "path": "/gitignore/templates/{name}",
+      "method": "GET",
+      "tags": [
+        "miscellaneous"
+      ],
+      "summary": "Returns information about a gitignore template",
+      "operationId": "getGitignoreTemplateInfo"
+    },
+    {
+      "path": "/label/templates",
+      "method": "GET",
+      "tags": [
+        "miscellaneous"
+      ],
+      "summary": "Returns a list of all label templates",
+      "operationId": "listLabelTemplates"
+    },
+    {
+      "path": "/label/templates/{name}",
+      "method": "GET",
+      "tags": [
+        "miscellaneous"
+      ],
+      "summary": "Returns all labels in a template",
+      "operationId": "getLabelTemplateInfo"
+    },
+    {
+      "path": "/licenses",
+      "method": "GET",
+      "tags": [
+        "miscellaneous"
+      ],
+      "summary": "Returns a list of all license templates",
+      "operationId": "listLicenseTemplates"
+    },
+    {
+      "path": "/licenses/{name}",
+      "method": "GET",
+      "tags": [
+        "miscellaneous"
+      ],
+      "summary": "Returns information about a license template",
+      "operationId": "getLicenseTemplateInfo"
+    },
+    {
+      "path": "/markdown",
+      "method": "POST",
+      "tags": [
+        "miscellaneous"
+      ],
+      "summary": "Render a markdown document as HTML",
+      "operationId": "renderMarkdown"
+    },
+    {
+      "path": "/markdown/raw",
+      "method": "POST",
+      "tags": [
+        "miscellaneous"
+      ],
+      "summary": "Render raw markdown as HTML",
+      "operationId": "renderMarkdownRaw"
+    },
+    {
+      "path": "/markup",
+      "method": "POST",
+      "tags": [
+        "miscellaneous"
+      ],
+      "summary": "Render a markup document as HTML",
+      "operationId": "renderMarkup"
+    },
+    {
+      "path": "/nodeinfo",
+      "method": "GET",
+      "tags": [
+        "miscellaneous"
+      ],
+      "summary": "Returns the nodeinfo of the Gitea application",
+      "operationId": "getNodeInfo"
+    },
+    {
+      "path": "/signing-key.gpg",
+      "method": "GET",
+      "tags": [
+        "miscellaneous"
+      ],
+      "summary": "Get default signing-key.gpg",
+      "operationId": "getSigningKey"
+    },
+    {
+      "path": "/version",
+      "method": "GET",
+      "tags": [
+        "miscellaneous"
+      ],
+      "summary": "Returns the version of the Gitea application",
+      "operationId": "getVersion"
+    }
+  ]
+}

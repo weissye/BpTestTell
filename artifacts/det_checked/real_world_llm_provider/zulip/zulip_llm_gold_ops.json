@@ -1,0 +1,1114 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/fetch_api_key",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/dev_fetch_api_key",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/get_stream_id",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/default_streams",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/default_streams",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/{stream_id}/topics",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/subscriptions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/subscriptions",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/me/subscriptions",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/subscriptions",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/me/subscriptions/muted_topics",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/user_topics",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/{user_id}/subscriptions/{stream_id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/subscriptions/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/streams/{stream_id}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/streams",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/streams/{stream_id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/streams/{stream_id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/streams/{stream_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/streams/{stream_id}/email_address",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/streams/{stream_id}/delete_topic",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/channels/create",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/channel_folders/create",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/channel_folders",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/channel_folders",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/channel_folders/{channel_folder_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/calls/bigbluebutton/create",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/drafts",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/drafts",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/drafts/1",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/drafts/2",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/saved_snippets",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/saved_snippets",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/saved_snippets/3",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/saved_snippets/4",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/invites",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/invites",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/invites/multiuse",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/invites/{invite_id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/invites/multiuse/{invite_id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/invites/{invite_id}/resend",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/mark_all_as_read",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/mark_stream_as_read",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/mark_topic_as_read",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/messages",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/messages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/messages/{message_id}/history",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/messages/flags",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/messages/flags/narrow",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/messages/render",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/messages/{message_id}/reactions",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/messages/{message_id}/reactions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/messages/{message_id}/read_receipts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/messages/matches_narrow",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/messages/{message_id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/messages/{message_id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/messages/{message_id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/messages/{message_id}/report",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/user_uploads",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user_uploads/{realm_id_str}/{filename}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/mobile_push/test_notification",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/mobile_push/e2ee/test_notification",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/mobile_push/register",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/remotes/push/e2ee/register",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/navigation_views",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/navigation_views",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/navigation_views/{fragment}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/navigation_views/{fragment}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/events",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/events",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/register",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/real-time",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest-error-handling",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/reminders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reminders",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/reminders/{reminder_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/scheduled_messages",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/scheduled_messages",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/scheduled_messages/{scheduled_message_id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/scheduled_messages/{scheduled_message_id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/realm/emoji/custom_emoji",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/realm/emoji/custom_emoji",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/realm/emoji",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/realm/presence",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/realm/profile_fields",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/profile_fields",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/realm/profile_fields",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/user_settings_defaults",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/realm/linkifiers",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/linkifiers",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/realm/filters",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/realm/filters/1",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/filters/1",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/realm/playgrounds",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/realm/playgrounds/1",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/export/realm",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/export/realm",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/export/realm/consents",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/realm/test_welcome_bot_custom_message",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/server_settings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/{user_id}/status",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/me",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/alert_words",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/presence",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/{user_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user_groups",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user_groups/{user_group_id}/members",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/user_groups/{user_group_id}/members",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/zulip-outgoing-webhook",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/fetch_api_key",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/dev_fetch_api_key",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/get_stream_id",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/default_streams",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/default_streams",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/{stream_id}/topics",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/subscriptions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/subscriptions",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/me/subscriptions",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/subscriptions",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/me/subscriptions/muted_topics",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/user_topics",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/{user_id}/subscriptions/{stream_id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/subscriptions/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/streams/{stream_id}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/streams",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/streams/{stream_id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/streams/{stream_id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/streams/{stream_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/streams/{stream_id}/email_address",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/streams/{stream_id}/delete_topic",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/channels/create",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/channel_folders/create",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/channel_folders",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/channel_folders",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/channel_folders/{channel_folder_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/calls/bigbluebutton/create",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/drafts",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/drafts",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/drafts/1",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/drafts/2",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/saved_snippets",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/saved_snippets",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/saved_snippets/3",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/saved_snippets/4",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/invites",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/invites",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/invites/multiuse",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/invites/{invite_id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/invites/multiuse/{invite_id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/invites/{invite_id}/resend",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/mark_all_as_read",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/mark_stream_as_read",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/mark_topic_as_read",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/messages",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/messages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/messages/{message_id}/history",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/messages/flags",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/messages/flags/narrow",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/messages/render",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/messages/{message_id}/reactions",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/messages/{message_id}/reactions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/messages/{message_id}/read_receipts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/messages/matches_narrow",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/messages/{message_id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/messages/{message_id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/messages/{message_id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/messages/{message_id}/report",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/user_uploads",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user_uploads/{realm_id_str}/{filename}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/mobile_push/test_notification",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/mobile_push/e2ee/test_notification",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/mobile_push/register",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/remotes/push/e2ee/register",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/navigation_views",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/navigation_views",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/navigation_views/{fragment}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/navigation_views/{fragment}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/events",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/events",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/register",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/real-time",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest-error-handling",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/reminders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reminders",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/reminders/{reminder_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/scheduled_messages",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/scheduled_messages",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/scheduled_messages/{scheduled_message_id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/scheduled_messages/{scheduled_message_id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/realm/emoji/custom_emoji",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/realm/emoji/custom_emoji",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/realm/emoji",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/realm/presence",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/realm/profile_fields",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/profile_fields",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/realm/profile_fields",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/user_settings_defaults",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/realm/linkifiers",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/linkifiers",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/realm/filters",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/realm/filters/1",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/filters/1",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/realm/playgrounds",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/realm/playgrounds/1",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/export/realm",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/export/realm",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/export/realm/consents",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/realm/test_welcome_bot_custom_message",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/server_settings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/{user_id}/status",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/me",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/alert_words",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/presence",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/{user_id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user_groups",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user_groups/{user_group_id}/members",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/user_groups/{user_group_id}/members",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/zulip-outgoing-webhook",
+      "body": null
+    }
+  ]
+}

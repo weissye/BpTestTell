@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "getAllScreenTabFields",
       "summary": "",
-      "user": "User requests to retrieve all fields associated with a specific tab in a screen to understand the current configuration.",
-      "ideal": "Returns a list of fields currently present in the specified screen tab."
+      "user": "User requests to retrieve all fields associated with a specific tab in a screen to understand the layout and available options for a project.",
+      "ideal": "Successful retrieval of all fields in the specified screen tab."
     },
     {
       "path": "/rest/api/3/screens/1001/tabs/2001/fields",
       "method": "POST",
       "operationId": "addScreenTabField",
       "summary": "",
-      "user": "User wants to add a new field to a specific tab in a screen to enhance the data collection process.",
-      "ideal": "Successfully adds the specified field to the tab and returns the updated list of fields."
+      "user": "User wants to add a new field to a specific tab in a screen to enhance the data capture for issues in the project.",
+      "ideal": "Field is successfully added to the specified screen tab."
     },
     {
       "path": "/rest/api/3/screens/1001/tabs/2001/fields/3001",
       "method": "DELETE",
       "operationId": "removeScreenTabField",
       "summary": "",
-      "user": "User intends to remove an existing field from a tab in a screen to streamline the user interface.",
-      "ideal": "Confirms the removal of the specified field and returns the updated list of fields."
+      "user": "User decides to remove an existing field from a tab in a screen to declutter the interface and improve user experience.",
+      "ideal": "Field is successfully removed from the specified screen tab."
     },
     {
       "path": "/rest/api/3/screens/1001/tabs/2001/fields/3001/move",
       "method": "POST",
       "operationId": "moveScreenTabField",
       "summary": "",
-      "user": "User needs to change the order of fields in a tab to prioritize certain information for better visibility.",
-      "ideal": "Successfully updates the order of fields in the tab and returns the new arrangement."
+      "user": "User needs to rearrange the order of fields within a tab to prioritize certain information for better visibility.",
+      "ideal": "Field is successfully moved to the desired position within the specified screen tab."
     }
   ]
 }

@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/organizations/my-org/settings/billing/premium_request/usage",
+      "method": "GET",
+      "operationId": "billing/get-github-billing-premium-request-usage-report-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the premium request usage report for the organization 'my-org'."
+    },
+    {
+      "path": "/organizations/my-org/settings/billing/usage",
+      "method": "GET",
+      "operationId": "billing/get-github-billing-usage-report-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Fetch the billing usage report for the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/settings/billing/actions",
+      "method": "GET",
+      "operationId": "billing/get-github-actions-billing-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get the GitHub Actions billing details for the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/settings/billing/packages",
+      "method": "GET",
+      "operationId": "billing/get-github-packages-billing-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the billing information for GitHub Packages for the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/settings/billing/shared-storage",
+      "method": "GET",
+      "operationId": "billing/get-shared-storage-billing-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Access the shared storage billing details for the organization 'my-org'."
+    },
+    {
+      "path": "/users/johndoe/settings/billing/actions",
+      "method": "GET",
+      "operationId": "billing/get-github-actions-billing-user",
+      "summary": "",
+      "user": "johndoe",
+      "ideal": "Get the GitHub Actions billing information for user 'johndoe'."
+    },
+    {
+      "path": "/users/johndoe/settings/billing/packages",
+      "method": "GET",
+      "operationId": "billing/get-github-packages-billing-user",
+      "summary": "",
+      "user": "johndoe",
+      "ideal": "Retrieve the billing details for GitHub Packages for user 'johndoe'."
+    },
+    {
+      "path": "/users/johndoe/settings/billing/premium_request/usage",
+      "method": "GET",
+      "operationId": "billing/get-github-billing-premium-request-usage-report-user",
+      "summary": "",
+      "user": "johndoe",
+      "ideal": "Fetch the premium request usage report for user 'johndoe'."
+    },
+    {
+      "path": "/users/johndoe/settings/billing/shared-storage",
+      "method": "GET",
+      "operationId": "billing/get-shared-storage-billing-user",
+      "summary": "",
+      "user": "johndoe",
+      "ideal": "Access the shared storage billing details for user 'johndoe'."
+    },
+    {
+      "path": "/users/johndoe/settings/billing/usage",
+      "method": "GET",
+      "operationId": "billing/get-github-billing-usage-report-user",
+      "summary": "",
+      "user": "johndoe",
+      "ideal": "Retrieve the billing usage report for user 'johndoe'."
+    }
+  ]
+}

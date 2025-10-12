@@ -1,0 +1,124 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/identity-provider/instances",
+      "method": "GET",
+      "operationId": "getInstances",
+      "summary": "",
+      "user": "Admin user requesting a list of identity provider instances in the realm.",
+      "ideal": "Returns a list of all identity provider instances configured in the specified realm."
+    },
+    {
+      "path": "/myrealm/identity-provider/instances",
+      "method": "POST",
+      "operationId": "postInstances",
+      "summary": "",
+      "user": "Admin user creating a new identity provider instance with specific configurations.",
+      "ideal": "Creates a new identity provider instance and returns the details of the created instance."
+    },
+    {
+      "path": "/myrealm/identity-provider/instances/my-provider",
+      "method": "GET",
+      "operationId": "getInstance",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific identity provider instance.",
+      "ideal": "Returns the details of the identity provider instance identified by the alias."
+    },
+    {
+      "path": "/myrealm/identity-provider/instances/my-provider",
+      "method": "PUT",
+      "operationId": "putInstance",
+      "summary": "",
+      "user": "Admin user updating the configuration of an existing identity provider instance.",
+      "ideal": "Updates the specified identity provider instance and returns the updated details."
+    },
+    {
+      "path": "/myrealm/identity-provider/instances/my-provider",
+      "method": "DELETE",
+      "operationId": "deleteInstance",
+      "summary": "",
+      "user": "Admin user deleting an identity provider instance that is no longer needed.",
+      "ideal": "Deletes the specified identity provider instance and confirms the deletion."
+    },
+    {
+      "path": "/myrealm/identity-provider/instances/my-provider/export",
+      "method": "GET",
+      "operationId": "getExport",
+      "summary": "",
+      "user": "Admin user exporting the configuration of an identity provider instance for backup.",
+      "ideal": "Returns the exported configuration of the specified identity provider instance."
+    },
+    {
+      "path": "/myrealm/identity-provider/instances/my-provider/management/permissions",
+      "method": "GET",
+      "operationId": "getInstanceManagementPermissions",
+      "summary": "",
+      "user": "Admin user checking the management permissions for a specific identity provider instance.",
+      "ideal": "Returns the management permissions associated with the specified identity provider instance."
+    },
+    {
+      "path": "/myrealm/identity-provider/instances/my-provider/management/permissions",
+      "method": "PUT",
+      "operationId": "putInstanceManagementPermissions",
+      "summary": "",
+      "user": "Admin user updating the management permissions for an identity provider instance.",
+      "ideal": "Updates the management permissions for the specified identity provider instance."
+    },
+    {
+      "path": "/myrealm/identity-provider/instances/my-provider/mapper-types",
+      "method": "GET",
+      "operationId": "getMapperTypes",
+      "summary": "",
+      "user": "Admin user retrieving available mapper types for an identity provider instance.",
+      "ideal": "Returns a list of available mapper types for the specified identity provider instance."
+    },
+    {
+      "path": "/myrealm/identity-provider/instances/my-provider/mappers",
+      "method": "GET",
+      "operationId": "getMappers",
+      "summary": "",
+      "user": "Admin user listing all mappers associated with a specific identity provider instance.",
+      "ideal": "Returns a list of mappers configured for the specified identity provider instance."
+    },
+    {
+      "path": "/myrealm/identity-provider/instances/my-provider/mappers",
+      "method": "POST",
+      "operationId": "postMappers",
+      "summary": "",
+      "user": "Admin user creating a new mapper for an identity provider instance.",
+      "ideal": "Creates a new mapper for the specified identity provider instance and returns its details."
+    },
+    {
+      "path": "/myrealm/identity-provider/instances/my-provider/mappers/mapper-id",
+      "method": "GET",
+      "operationId": "getMapper",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific mapper for an identity provider instance.",
+      "ideal": "Returns the details of the specified mapper associated with the identity provider instance."
+    },
+    {
+      "path": "/myrealm/identity-provider/instances/my-provider/mappers/mapper-id",
+      "method": "PUT",
+      "operationId": "putMapper",
+      "summary": "",
+      "user": "Admin user updating the configuration of a specific mapper for an identity provider instance.",
+      "ideal": "Updates the specified mapper and returns the updated details."
+    },
+    {
+      "path": "/myrealm/identity-provider/instances/my-provider/mappers/mapper-id",
+      "method": "DELETE",
+      "operationId": "deleteMapper",
+      "summary": "",
+      "user": "Admin user deleting a specific mapper that is no longer needed.",
+      "ideal": "Deletes the specified mapper and confirms the deletion."
+    },
+    {
+      "path": "/myrealm/identity-provider/providers/some-provider-id",
+      "method": "GET",
+      "operationId": "getIdentityProviderProvider",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific identity provider by its ID.",
+      "ideal": "Returns the details of the identity provider identified by the provider ID."
+    }
+  ]
+}

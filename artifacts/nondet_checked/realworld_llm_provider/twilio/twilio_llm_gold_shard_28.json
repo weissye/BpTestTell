@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json",
+      "method": "GET",
+      "operationId": "ListCallEvent",
+      "summary": "",
+      "user": "user_12345",
+      "ideal": "Retrieve a list of events related to a specific call identified by CallSid for the account identified by AccountSid."
+    }
+  ]
+}

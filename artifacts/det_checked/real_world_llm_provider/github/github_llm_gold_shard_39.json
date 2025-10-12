@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/search/code",
+      "method": "GET",
+      "operationId": "search/code",
+      "summary": "",
+      "user": "Alice is a software developer looking for code snippets related to machine learning in Python.",
+      "ideal": "Returns a list of code files that match the search query for 'machine learning Python'."
+    },
+    {
+      "path": "/search/commits",
+      "method": "GET",
+      "operationId": "search/commits",
+      "summary": "",
+      "user": "Bob is a project manager who wants to review recent commits related to a specific feature branch.",
+      "ideal": "Returns a list of commits that include changes related to the feature branch 'feature/login'."
+    },
+    {
+      "path": "/search/issues",
+      "method": "GET",
+      "operationId": "search/issues-and-pull-requests",
+      "summary": "",
+      "user": "Charlie is a QA engineer looking for open issues in the repository to test.",
+      "ideal": "Returns a list of open issues in the repository with labels 'bug' and 'high priority'."
+    },
+    {
+      "path": "/search/labels",
+      "method": "GET",
+      "operationId": "search/labels",
+      "summary": "",
+      "user": "Dana is a product owner who wants to find all labels used in the repository for better organization.",
+      "ideal": "Returns a list of all labels created in the repository."
+    },
+    {
+      "path": "/search/repositories",
+      "method": "GET",
+      "operationId": "search/repos",
+      "summary": "",
+      "user": "Eve is a developer looking for repositories that focus on web development using React.",
+      "ideal": "Returns a list of repositories that match the search query for 'React web development'."
+    },
+    {
+      "path": "/search/topics",
+      "method": "GET",
+      "operationId": "search/topics",
+      "summary": "",
+      "user": "Frank is a researcher interested in finding topics related to artificial intelligence.",
+      "ideal": "Returns a list of topics associated with repositories that focus on artificial intelligence."
+    },
+    {
+      "path": "/search/users",
+      "method": "GET",
+      "operationId": "search/users",
+      "summary": "",
+      "user": "Grace is a community manager looking to find users who contribute to open source projects.",
+      "ideal": "Returns a list of users who have made contributions to repositories in the last month."
+    }
+  ]
+}

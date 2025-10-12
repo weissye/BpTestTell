@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/activity",
+      "method": "GET",
+      "operationId": "getActivities",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all activities in the system."
+    },
+    {
+      "path": "/activity/{id}",
+      "method": "GET",
+      "operationId": "getActivity",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Fetch details of a specific activity by its ID."
+    }
+  ]
+}

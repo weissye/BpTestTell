@@ -6,79 +6,79 @@
       "operationId": "repos/list-for-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve a list of repositories for the specified organization."
+      "ideal": "Retrieve a list of repositories for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/repos",
+      "method": "POST",
+      "operationId": "repos/create-in-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new repository in the organization 'example-org' with specified parameters."
     },
     {
       "path": "/repos/example-owner/example-repo",
       "method": "GET",
       "operationId": "repos/get",
       "summary": "",
-      "user": "user456",
-      "ideal": "Fetch details of a specific repository by owner and name."
+      "user": "user123",
+      "ideal": "Fetch details of the repository 'example-repo' owned by 'example-owner'."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/branches",
+      "method": "GET",
+      "operationId": "repos/list-branches",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all branches in the repository 'example-repo'."
     },
     {
       "path": "/repos/example-owner/example-repo/releases",
       "method": "GET",
       "operationId": "repos/list-releases",
       "summary": "",
-      "user": "user789",
-      "ideal": "Get a list of releases for the specified repository."
-    },
-    {
-      "path": "/repos/example-owner/example-repo/branches/main/protection",
-      "method": "GET",
-      "operationId": "repos/get-branch-protection",
-      "summary": "",
-      "user": "user101",
-      "ideal": "Retrieve branch protection settings for the main branch."
+      "user": "user123",
+      "ideal": "Get a list of all releases for the repository 'example-repo'."
     },
     {
       "path": "/repos/example-owner/example-repo/commits",
       "method": "GET",
       "operationId": "repos/list-commits",
       "summary": "",
-      "user": "user112",
-      "ideal": "List all commits in the specified repository."
+      "user": "user123",
+      "ideal": "Retrieve a list of commits for the repository 'example-repo'."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/branches/main/protection",
+      "method": "GET",
+      "operationId": "repos/get-branch-protection",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get the branch protection settings for the 'main' branch of 'example-repo'."
     },
     {
       "path": "/repos/example-owner/example-repo/hooks",
-      "method": "GET",
-      "operationId": "repos/list-webhooks",
+      "method": "POST",
+      "operationId": "repos/create-webhook",
       "summary": "",
-      "user": "user131",
-      "ideal": "Get a list of webhooks configured for the repository."
+      "user": "user123",
+      "ideal": "Create a new webhook for the repository 'example-repo'."
     },
     {
       "path": "/repos/example-owner/example-repo/pages",
       "method": "GET",
       "operationId": "repos/get-pages",
       "summary": "",
-      "user": "user415",
-      "ideal": "Retrieve information about the GitHub Pages site for the repository."
+      "user": "user123",
+      "ideal": "Retrieve information about the GitHub Pages site for 'example-repo'."
     },
     {
       "path": "/repos/example-owner/example-repo/keys",
-      "method": "GET",
-      "operationId": "repos/list-deploy-keys",
+      "method": "POST",
+      "operationId": "repos/create-deploy-key",
       "summary": "",
-      "user": "user161",
-      "ideal": "List all deploy keys associated with the repository."
-    },
-    {
-      "path": "/repos/example-owner/example-repo/traffic/views",
-      "method": "GET",
-      "operationId": "repos/get-views",
-      "summary": "",
-      "user": "user718",
-      "ideal": "Get the number of views for the repository over time."
-    },
-    {
-      "path": "/repos/example-owner/example-repo/teams",
-      "method": "GET",
-      "operationId": "repos/list-teams",
-      "summary": "",
-      "user": "user192",
-      "ideal": "List all teams that have access to the repository."
+      "user": "user123",
+      "ideal": "Add a new deploy key to the repository 'example-repo'."
     }
   ]
 }

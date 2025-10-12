@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json",
+      "method": "POST",
+      "operationId": "CreatePayments",
+      "summary": "",
+      "user": "User wants to create a payment for a specific call associated with their Twilio account. They provide the AccountSid, CallSid, and payment details such as amount and payment method.",
+      "ideal": "Create a payment for the call with the specified details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdatePayments",
+      "summary": "",
+      "user": "User needs to update an existing payment for a call. They have the Sid of the payment they want to modify and provide new details like updated amount or payment status.",
+      "ideal": "Update the existing payment with the new details provided."
+    }
+  ]
+}

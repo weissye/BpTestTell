@@ -1,0 +1,81 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/notificationscheme",
+      "method": "GET",
+      "tags": [
+        "Issue notification schemes"
+      ],
+      "summary": "Get notification schemes paginated",
+      "operationId": "getNotificationSchemes"
+    },
+    {
+      "path": "/rest/api/3/notificationscheme",
+      "method": "POST",
+      "tags": [
+        "Issue notification schemes"
+      ],
+      "summary": "Create notification scheme",
+      "operationId": "createNotificationScheme"
+    },
+    {
+      "path": "/rest/api/3/notificationscheme/project",
+      "method": "GET",
+      "tags": [
+        "Issue notification schemes"
+      ],
+      "summary": "Get projects using notification schemes paginated",
+      "operationId": "getNotificationSchemeToProjectMappings"
+    },
+    {
+      "path": "/rest/api/3/notificationscheme/{id}",
+      "method": "GET",
+      "tags": [
+        "Issue notification schemes"
+      ],
+      "summary": "Get notification scheme",
+      "operationId": "getNotificationScheme"
+    },
+    {
+      "path": "/rest/api/3/notificationscheme/{id}",
+      "method": "PUT",
+      "tags": [
+        "Issue notification schemes"
+      ],
+      "summary": "Update notification scheme",
+      "operationId": "updateNotificationScheme"
+    },
+    {
+      "path": "/rest/api/3/notificationscheme/{id}/notification",
+      "method": "PUT",
+      "tags": [
+        "Issue notification schemes"
+      ],
+      "summary": "Add notifications to notification scheme",
+      "operationId": "addNotifications"
+    },
+    {
+      "path": "/rest/api/3/notificationscheme/{notificationSchemeId}",
+      "method": "DELETE",
+      "tags": [
+        "Issue notification schemes"
+      ],
+      "summary": "Delete notification scheme",
+      "operationId": "deleteNotificationScheme"
+    },
+    {
+      "path": "/rest/api/3/notificationscheme/{notificationSchemeId}/notification/{notificationId}",
+      "method": "DELETE",
+      "tags": [
+        "Issue notification schemes"
+      ],
+      "summary": "Remove notification from notification scheme",
+      "operationId": "removeNotificationFromNotificationScheme"
+    }
+  ]
+}

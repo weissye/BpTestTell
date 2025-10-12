@@ -1,0 +1,36 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Transcription"
+      ],
+      "summary": "Fetch an instance of a Transcription",
+      "operationId": "FetchTranscription"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Transcription"
+      ],
+      "summary": "Delete a transcription from the account used to make the request",
+      "operationId": "DeleteTranscription"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Transcription"
+      ],
+      "summary": "Retrieve a list of transcriptions belonging to the account used to make the request",
+      "operationId": "ListTranscription"
+    }
+  ]
+}

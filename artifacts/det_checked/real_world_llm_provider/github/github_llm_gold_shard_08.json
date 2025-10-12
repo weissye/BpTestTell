@@ -1,0 +1,172 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/{org}/code-scanning/alerts",
+      "method": "GET",
+      "operationId": "code-scanning/list-alerts-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all code scanning alerts for the specified organization."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts",
+      "method": "GET",
+      "operationId": "code-scanning/list-alerts-for-repo",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Get a list of code scanning alerts for a specific repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}",
+      "method": "GET",
+      "operationId": "code-scanning/get-alert",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Fetch details of a specific code scanning alert by its number."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}",
+      "method": "PATCH",
+      "operationId": "code-scanning/update-alert",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Update the status or details of a specific code scanning alert."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/autofix",
+      "method": "GET",
+      "operationId": "code-scanning/get-autofix",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Retrieve autofix suggestions for a specific code scanning alert."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/autofix",
+      "method": "POST",
+      "operationId": "code-scanning/create-autofix",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Create an autofix for a specific code scanning alert."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/autofix/commits",
+      "method": "POST",
+      "operationId": "code-scanning/commit-autofix",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Commit the changes made by the autofix for a specific alert."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances",
+      "method": "GET",
+      "operationId": "code-scanning/list-alert-instances",
+      "summary": "",
+      "user": "user505",
+      "ideal": "List all instances related to a specific code scanning alert."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/analyses",
+      "method": "GET",
+      "operationId": "code-scanning/list-recent-analyses",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Get a list of recent code scanning analyses for a repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}",
+      "method": "GET",
+      "operationId": "code-scanning/get-analysis",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Retrieve details of a specific code scanning analysis by its ID."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}",
+      "method": "DELETE",
+      "operationId": "code-scanning/delete-analysis",
+      "summary": "",
+      "user": "user808",
+      "ideal": "Delete a specific code scanning analysis by its ID."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/codeql/databases",
+      "method": "GET",
+      "operationId": "code-scanning/list-codeql-databases",
+      "summary": "",
+      "user": "user909",
+      "ideal": "List all CodeQL databases available for a repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/codeql/databases/{language}",
+      "method": "GET",
+      "operationId": "code-scanning/get-codeql-database",
+      "summary": "",
+      "user": "user1010",
+      "ideal": "Retrieve a specific CodeQL database for a given programming language."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/codeql/databases/{language}",
+      "method": "DELETE",
+      "operationId": "code-scanning/delete-codeql-database",
+      "summary": "",
+      "user": "user1111",
+      "ideal": "Delete a specific CodeQL database for a given programming language."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses",
+      "method": "POST",
+      "operationId": "code-scanning/create-variant-analysis",
+      "summary": "",
+      "user": "user1212",
+      "ideal": "Create a new variant analysis for the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses/{codeql_variant_analysis_id}",
+      "method": "GET",
+      "operationId": "code-scanning/get-variant-analysis",
+      "summary": "",
+      "user": "user1313",
+      "ideal": "Fetch details of a specific variant analysis by its ID."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses/{codeql_variant_analysis_id}/repos/{repo_owner}/{repo_name}",
+      "method": "GET",
+      "operationId": "code-scanning/get-variant-analysis-repo-task",
+      "summary": "",
+      "user": "user1414",
+      "ideal": "Get the repository task associated with a specific variant analysis."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/default-setup",
+      "method": "GET",
+      "operationId": "code-scanning/get-default-setup",
+      "summary": "",
+      "user": "user1515",
+      "ideal": "Retrieve the default setup for code scanning in a repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/default-setup",
+      "method": "PATCH",
+      "operationId": "code-scanning/update-default-setup",
+      "summary": "",
+      "user": "user1616",
+      "ideal": "Update the default setup configuration for code scanning."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/sarifs",
+      "method": "POST",
+      "operationId": "code-scanning/upload-sarif",
+      "summary": "",
+      "user": "user1717",
+      "ideal": "Upload a SARIF file for code scanning results."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}",
+      "method": "GET",
+      "operationId": "code-scanning/get-sarif",
+      "summary": "",
+      "user": "user1818",
+      "ideal": "Retrieve details of a specific SARIF file by its ID."
+    }
+  ]
+}

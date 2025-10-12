@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/permissionscheme",
+      "method": "GET",
+      "operationId": "getAllPermissionSchemes",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all permission schemes available in the Jira instance."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme",
+      "method": "POST",
+      "operationId": "createPermissionScheme",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new permission scheme with specified parameters."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme/{schemeId}",
+      "method": "DELETE",
+      "operationId": "deletePermissionScheme",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the specified permission scheme by its ID."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme/{schemeId}",
+      "method": "GET",
+      "operationId": "getPermissionScheme",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific permission scheme by its ID."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme/{schemeId}",
+      "method": "PUT",
+      "operationId": "updatePermissionScheme",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the specified permission scheme with new details."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission",
+      "method": "GET",
+      "operationId": "getPermissionSchemeGrants",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get all permission grants associated with a specific permission scheme."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission",
+      "method": "POST",
+      "operationId": "createPermissionGrant",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add a new permission grant to the specified permission scheme."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission/{permissionId}",
+      "method": "DELETE",
+      "operationId": "deletePermissionSchemeEntity",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove a specific permission grant from the permission scheme."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission/{permissionId}",
+      "method": "GET",
+      "operationId": "getPermissionSchemeGrant",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific permission grant by its ID within a permission scheme."
+    }
+  ]
+}

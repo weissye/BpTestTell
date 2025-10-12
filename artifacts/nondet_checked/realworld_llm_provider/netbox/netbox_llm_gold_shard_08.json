@@ -1,0 +1,148 @@
+{
+  "gold": [
+    {
+      "path": "/api/tenancy/contact-assignments/",
+      "method": "GET",
+      "operationId": "tenancy_contact_assignments_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all contact assignments."
+    },
+    {
+      "path": "/api/tenancy/contact-assignments/",
+      "method": "POST",
+      "operationId": "tenancy_contact_assignments_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new contact assignment with specified details."
+    },
+    {
+      "path": "/api/tenancy/contact-assignments/{id}/",
+      "method": "GET",
+      "operationId": "tenancy_contact_assignments_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific contact assignment by ID."
+    },
+    {
+      "path": "/api/tenancy/contact-groups/",
+      "method": "GET",
+      "operationId": "tenancy_contact_groups_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all contact groups."
+    },
+    {
+      "path": "/api/tenancy/contact-groups/",
+      "method": "POST",
+      "operationId": "tenancy_contact_groups_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new contact group with specified details."
+    },
+    {
+      "path": "/api/tenancy/contact-groups/{id}/",
+      "method": "GET",
+      "operationId": "tenancy_contact_groups_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific contact group by ID."
+    },
+    {
+      "path": "/api/tenancy/contact-roles/",
+      "method": "GET",
+      "operationId": "tenancy_contact_roles_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all contact roles."
+    },
+    {
+      "path": "/api/tenancy/contact-roles/",
+      "method": "POST",
+      "operationId": "tenancy_contact_roles_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new contact role with specified details."
+    },
+    {
+      "path": "/api/tenancy/contact-roles/{id}/",
+      "method": "GET",
+      "operationId": "tenancy_contact_roles_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific contact role by ID."
+    },
+    {
+      "path": "/api/tenancy/contacts/",
+      "method": "GET",
+      "operationId": "tenancy_contacts_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all contacts."
+    },
+    {
+      "path": "/api/tenancy/contacts/",
+      "method": "POST",
+      "operationId": "tenancy_contacts_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new contact with specified details."
+    },
+    {
+      "path": "/api/tenancy/contacts/{id}/",
+      "method": "GET",
+      "operationId": "tenancy_contacts_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific contact by ID."
+    },
+    {
+      "path": "/api/tenancy/tenant-groups/",
+      "method": "GET",
+      "operationId": "tenancy_tenant_groups_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all tenant groups."
+    },
+    {
+      "path": "/api/tenancy/tenant-groups/",
+      "method": "POST",
+      "operationId": "tenancy_tenant_groups_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new tenant group with specified details."
+    },
+    {
+      "path": "/api/tenancy/tenant-groups/{id}/",
+      "method": "GET",
+      "operationId": "tenancy_tenant_groups_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific tenant group by ID."
+    },
+    {
+      "path": "/api/tenancy/tenants/",
+      "method": "GET",
+      "operationId": "tenancy_tenants_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all tenants."
+    },
+    {
+      "path": "/api/tenancy/tenants/",
+      "method": "POST",
+      "operationId": "tenancy_tenants_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new tenant with specified details."
+    },
+    {
+      "path": "/api/tenancy/tenants/{id}/",
+      "method": "GET",
+      "operationId": "tenancy_tenants_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific tenant by ID."
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/notifications",
+      "method": "GET",
+      "operationId": "notifyGetList",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of notifications for the authenticated user."
+    },
+    {
+      "path": "/notifications",
+      "method": "PUT",
+      "operationId": "notifyReadList",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Mark all notifications as read for the authenticated user."
+    },
+    {
+      "path": "/notifications/new",
+      "method": "GET",
+      "operationId": "notifyNewAvailable",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Check if there are any new notifications for the authenticated user."
+    },
+    {
+      "path": "/notifications/threads/{id}",
+      "method": "GET",
+      "operationId": "notifyGetThread",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a specific notification thread by its ID."
+    },
+    {
+      "path": "/notifications/threads/{id}",
+      "method": "PATCH",
+      "operationId": "notifyReadThread",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Mark a specific notification thread as read by its ID."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/notifications",
+      "method": "GET",
+      "operationId": "notifyGetRepoList",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of notifications for a specific repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/notifications",
+      "method": "PUT",
+      "operationId": "notifyReadRepoList",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Mark all notifications for a specific repository as read."
+    }
+  ]
+}

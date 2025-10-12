@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "billing/get-github-billing-premium-request-usage-report-org",
       "summary": "",
-      "user": "admin_user",
+      "user": "user123",
       "ideal": "Retrieve the premium request usage report for the organization 'my-org'."
     },
     {
@@ -13,7 +13,7 @@
       "method": "GET",
       "operationId": "billing/get-github-billing-usage-report-org",
       "summary": "",
-      "user": "admin_user",
+      "user": "user123",
       "ideal": "Fetch the billing usage report for the organization 'my-org'."
     },
     {
@@ -21,64 +21,64 @@
       "method": "GET",
       "operationId": "billing/get-github-actions-billing-org",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Get the billing details for GitHub Actions used by the organization 'my-org'."
+      "user": "user123",
+      "ideal": "Get the billing information for GitHub Actions used by the organization 'my-org'."
     },
     {
       "path": "/orgs/my-org/settings/billing/packages",
       "method": "GET",
       "operationId": "billing/get-github-packages-billing-org",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Retrieve the billing information for GitHub Packages for the organization 'my-org'."
+      "user": "user123",
+      "ideal": "Retrieve the billing details for packages used by the organization 'my-org'."
     },
     {
       "path": "/orgs/my-org/settings/billing/shared-storage",
       "method": "GET",
       "operationId": "billing/get-shared-storage-billing-org",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Access the shared storage billing details for the organization 'my-org'."
+      "user": "user123",
+      "ideal": "Access the shared storage billing information for the organization 'my-org'."
     },
     {
-      "path": "/users/john_doe/settings/billing/actions",
+      "path": "/users/johndoe/settings/billing/actions",
       "method": "GET",
       "operationId": "billing/get-github-actions-billing-user",
       "summary": "",
-      "user": "john_doe",
-      "ideal": "Get the billing details for GitHub Actions used by the user 'john_doe'."
+      "user": "johndoe",
+      "ideal": "Get the billing details for GitHub Actions used by the user 'johndoe'."
     },
     {
-      "path": "/users/john_doe/settings/billing/packages",
+      "path": "/users/johndoe/settings/billing/packages",
       "method": "GET",
       "operationId": "billing/get-github-packages-billing-user",
       "summary": "",
-      "user": "john_doe",
-      "ideal": "Retrieve the billing information for GitHub Packages for the user 'john_doe'."
+      "user": "johndoe",
+      "ideal": "Retrieve the billing information for packages used by the user 'johndoe'."
     },
     {
-      "path": "/users/john_doe/settings/billing/premium_request/usage",
+      "path": "/users/johndoe/settings/billing/premium_request/usage",
       "method": "GET",
       "operationId": "billing/get-github-billing-premium-request-usage-report-user",
       "summary": "",
-      "user": "john_doe",
-      "ideal": "Fetch the premium request usage report for the user 'john_doe'."
+      "user": "johndoe",
+      "ideal": "Fetch the premium request usage report for the user 'johndoe'."
     },
     {
-      "path": "/users/john_doe/settings/billing/shared-storage",
+      "path": "/users/johndoe/settings/billing/shared-storage",
       "method": "GET",
       "operationId": "billing/get-shared-storage-billing-user",
       "summary": "",
-      "user": "john_doe",
-      "ideal": "Access the shared storage billing details for the user 'john_doe'."
+      "user": "johndoe",
+      "ideal": "Access the shared storage billing information for the user 'johndoe'."
     },
     {
-      "path": "/users/john_doe/settings/billing/usage",
+      "path": "/users/johndoe/settings/billing/usage",
       "method": "GET",
       "operationId": "billing/get-github-billing-usage-report-user",
       "summary": "",
-      "user": "john_doe",
-      "ideal": "Retrieve the billing usage report for the user 'john_doe'."
+      "user": "johndoe",
+      "ideal": "Retrieve the billing usage report for the user 'johndoe'."
     }
   ]
 }

@@ -1,0 +1,116 @@
+{
+  "gold": [
+    {
+      "path": "/users",
+      "method": "GET",
+      "operationId": "getUsers",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all users in the system."
+    },
+    {
+      "path": "/users",
+      "method": "POST",
+      "operationId": "createUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new user with the provided details."
+    },
+    {
+      "path": "/users",
+      "method": "PATCH",
+      "operationId": "updateUsers",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update multiple users' information based on the provided data."
+    },
+    {
+      "path": "/users",
+      "method": "DELETE",
+      "operationId": "deleteUsers",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete specified users from the system."
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET",
+      "operationId": "getUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve detailed information about a specific user by ID."
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PATCH",
+      "operationId": "updateUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the information of a specific user by ID."
+    },
+    {
+      "path": "/users/{id}",
+      "method": "DELETE",
+      "operationId": "deleteUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific user from the system by ID."
+    },
+    {
+      "path": "/users/invite",
+      "method": "POST",
+      "operationId": "invite",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Send an invitation to a new user to join the platform."
+    },
+    {
+      "path": "/users/invite/accept",
+      "method": "POST",
+      "operationId": "acceptInvite",
+      "summary": "",
+      "user": "new_user",
+      "ideal": "Accept an invitation to join the platform."
+    },
+    {
+      "path": "/users/me",
+      "method": "GET",
+      "operationId": "getMe",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the current user's profile information."
+    },
+    {
+      "path": "/users/me",
+      "method": "PATCH",
+      "operationId": "updateMe",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the current user's profile information."
+    },
+    {
+      "path": "/users/me/track/page",
+      "method": "PATCH",
+      "operationId": "updateLastUsedPageMe",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the last used page for the current user."
+    },
+    {
+      "path": "/users/me/tfa/enable",
+      "method": "POST",
+      "operationId": "meTfaEnable",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Enable two-factor authentication for the current user."
+    },
+    {
+      "path": "/users/me/tfa/disable",
+      "method": "POST",
+      "operationId": "meTfaDisable",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Disable two-factor authentication for the current user."
+    }
+  ]
+}

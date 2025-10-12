@@ -5,72 +5,72 @@
       "method": "POST",
       "operationId": "resetSystem",
       "summary": "",
-      "user": "admin",
-      "ideal": "Resets the banking system to its initial state, clearing all accounts and transactions."
-    },
-    {
-      "path": "/accounts",
-      "method": "GET",
-      "operationId": "getAccounts",
-      "summary": "",
-      "user": "customer",
-      "ideal": "Retrieves a list of all bank accounts associated with the user, including account numbers and balances."
-    },
-    {
-      "path": "/cards",
-      "method": "POST",
-      "operationId": "createCard",
-      "summary": "",
-      "user": "customer",
-      "ideal": "Creates a new debit or credit card linked to the user's bank account, providing card details and activation status."
+      "user": "Admin user resets the banking system to clear all data for testing purposes.",
+      "ideal": "System reset successfully."
     },
     {
       "path": "/customers",
       "method": "POST",
       "operationId": "createCustomer",
       "summary": "",
-      "user": "John Doe, a new customer looking to open a bank account, provides his personal information including name, address, and social security number to create a new customer profile in the banking system.",
-      "ideal": "A successful response with a 201 status code and a JSON object containing the newly created customer ID."
-    },
-    {
-      "path": "/accounts/{accountId}/transactions",
-      "method": "GET",
-      "operationId": "getAccountTransactions",
-      "summary": "",
-      "user": "Jane Smith, an account holder, wants to review her recent transactions for her checking account to track her spending and ensure there are no unauthorized charges.",
-      "ideal": "A successful response with a 200 status code and a JSON array of transaction objects, each containing details like date, amount, and description."
-    },
-    {
-      "path": "/loans",
-      "method": "POST",
-      "operationId": "applyForLoan",
-      "summary": "",
-      "user": "Michael Johnson, a customer interested in applying for a personal loan, submits his application details including loan amount, purpose, and income information for assessment by the bank.",
-      "ideal": "A successful response with a 201 status code and a JSON object containing the loan application ID and status."
+      "user": "New customer registration with basic details like name, email, and phone number.",
+      "ideal": "Customer created successfully with ID: 12345."
     },
     {
       "path": "/accounts",
       "method": "POST",
       "operationId": "createAccount",
       "summary": "",
-      "user": "John Doe, a 30-year-old software engineer, wants to open a new savings account to manage his finances better. He provides his personal details and initial deposit amount.",
-      "ideal": "The account is created successfully, and a confirmation message with the account details is returned."
+      "user": "Customer creates a new savings account with an initial deposit.",
+      "ideal": "Account created successfully with account number: 67890."
+    },
+    {
+      "path": "/accounts",
+      "method": "GET",
+      "operationId": "getAccounts",
+      "summary": "",
+      "user": "Customer retrieves a list of all their bank accounts.",
+      "ideal": "Accounts retrieved successfully: [{accountId: 67890, type: 'savings'}, {accountId: 54321, type: 'checking'}]."
+    },
+    {
+      "path": "/accounts/{accountId}/transactions",
+      "method": "GET",
+      "operationId": "getAccountTransactions",
+      "summary": "",
+      "user": "Customer views transaction history for a specific account.",
+      "ideal": "Transactions retrieved successfully for account 67890: [{transactionId: 1, amount: -50, type: 'debit'}, {transactionId: 2, amount: 100, type: 'credit'}]."
     },
     {
       "path": "/transfers",
       "method": "POST",
-      "operationId": "initiateTransfer",
+      "operationId": "createTransfer",
       "summary": "",
-      "user": "Jane Smith, a 28-year-old graphic designer, needs to transfer money to her friend for a shared expense. She enters the recipient's account details and the amount to transfer.",
-      "ideal": "The transfer is processed successfully, and a transaction ID is returned along with a confirmation message."
+      "user": "Customer initiates a transfer of funds from one account to another.",
+      "ideal": "Transfer completed successfully. Transaction ID: 98765."
+    },
+    {
+      "path": "/cards",
+      "method": "POST",
+      "operationId": "createCard",
+      "summary": "",
+      "user": "Customer applies for a new debit card linked to their checking account.",
+      "ideal": "Card created successfully with card number: 1234-5678-9012-3456."
+    },
+    {
+      "path": "/loans",
+      "method": "POST",
+      "operationId": "applyForLoan",
+      "summary": "",
+      "user": "Customer applies for a personal loan with specified amount and term.",
+      "ideal": "Loan application submitted successfully. Application ID: 54321."
     },
     {
       "path": "/loans",
       "method": "GET",
       "operationId": "getLoans",
       "summary": "",
-      "user": "Michael Brown, a 35-year-old small business owner, is interested in exploring loan options for expanding his business. He wants to see available loan products and their terms.",
-      "ideal": "A list of available loans is returned, including interest rates, terms, and eligibility criteria."
+      "user": "Customer retrieves a list of all their active loans.",
+      "ideal": "Loans retrieved successfully: [{loanId: 54321, amount: 5000, status: 'active'}, {loanId: 67890, amount: 10000, status: 'paid'}]."
     }
   ]
 }

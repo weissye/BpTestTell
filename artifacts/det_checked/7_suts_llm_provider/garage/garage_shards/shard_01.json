@@ -13,11 +13,39 @@
       "operationId": "POST /reset"
     },
     {
+      "path": "/chains",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create chain",
+      "operationId": "POST /chains"
+    },
+    {
+      "path": "/chains",
+      "method": "GET",
+      "tags": [],
+      "summary": "List chains",
+      "operationId": "GET /chains"
+    },
+    {
       "path": "/chains/{chainId}",
       "method": "GET",
       "tags": [],
       "summary": "Read chain",
       "operationId": "GET /chains/{chainId}"
+    },
+    {
+      "path": "/chains/{chainId}",
+      "method": "PUT",
+      "tags": [],
+      "summary": "Update chain",
+      "operationId": "PUT /chains/{chainId}"
+    },
+    {
+      "path": "/chains/{chainId}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete chain",
+      "operationId": "DELETE /chains/{chainId}"
     },
     {
       "path": "/garages",
@@ -27,11 +55,39 @@
       "operationId": "POST /garages"
     },
     {
+      "path": "/garages",
+      "method": "GET",
+      "tags": [],
+      "summary": "List garages",
+      "operationId": "GET /garages"
+    },
+    {
+      "path": "/garages/{garageId}",
+      "method": "GET",
+      "tags": [],
+      "summary": "Read garage",
+      "operationId": "GET /garages/{garageId}"
+    },
+    {
       "path": "/garages/{garageId}",
       "method": "PUT",
       "tags": [],
       "summary": "Update garage",
       "operationId": "PUT /garages/{garageId}"
+    },
+    {
+      "path": "/garages/{garageId}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete garage",
+      "operationId": "DELETE /garages/{garageId}"
+    },
+    {
+      "path": "/customers",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create customer",
+      "operationId": "POST /customers"
     },
     {
       "path": "/customers",
@@ -42,10 +98,38 @@
     },
     {
       "path": "/customers/{customerId}",
+      "method": "GET",
+      "tags": [],
+      "summary": "Read customer",
+      "operationId": "GET /customers/{customerId}"
+    },
+    {
+      "path": "/customers/{customerId}",
+      "method": "PUT",
+      "tags": [],
+      "summary": "Update customer",
+      "operationId": "PUT /customers/{customerId}"
+    },
+    {
+      "path": "/customers/{customerId}",
       "method": "DELETE",
       "tags": [],
       "summary": "Delete customer",
       "operationId": "DELETE /customers/{customerId}"
+    },
+    {
+      "path": "/cars",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create car",
+      "operationId": "POST /cars"
+    },
+    {
+      "path": "/cars",
+      "method": "GET",
+      "tags": [],
+      "summary": "List cars",
+      "operationId": "GET /cars"
     },
     {
       "path": "/cars/{vin}",
@@ -55,6 +139,20 @@
       "operationId": "GET /cars/{vin}"
     },
     {
+      "path": "/cars/{vin}",
+      "method": "PUT",
+      "tags": [],
+      "summary": "Update car",
+      "operationId": "PUT /cars/{vin}"
+    },
+    {
+      "path": "/cars/{vin}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete car",
+      "operationId": "DELETE /cars/{vin}"
+    },
+    {
       "path": "/periodic-maintenance",
       "method": "POST",
       "tags": [],
@@ -62,11 +160,39 @@
       "operationId": "POST /periodic-maintenance"
     },
     {
+      "path": "/periodic-maintenance",
+      "method": "GET",
+      "tags": [],
+      "summary": "List PM plans",
+      "operationId": "GET /periodic-maintenance"
+    },
+    {
+      "path": "/periodic-maintenance/{pmId}",
+      "method": "GET",
+      "tags": [],
+      "summary": "Read PM plan",
+      "operationId": "GET /periodic-maintenance/{pmId}"
+    },
+    {
       "path": "/periodic-maintenance/{pmId}",
       "method": "PUT",
       "tags": [],
       "summary": "Update PM plan",
       "operationId": "PUT /periodic-maintenance/{pmId}"
+    },
+    {
+      "path": "/periodic-maintenance/{pmId}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete PM plan",
+      "operationId": "DELETE /periodic-maintenance/{pmId}"
+    },
+    {
+      "path": "/repair-orders",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create repair order",
+      "operationId": "POST /repair-orders"
     },
     {
       "path": "/repair-orders",
@@ -77,10 +203,38 @@
     },
     {
       "path": "/repair-orders/{roId}",
+      "method": "GET",
+      "tags": [],
+      "summary": "Read repair order",
+      "operationId": "GET /repair-orders/{roId}"
+    },
+    {
+      "path": "/repair-orders/{roId}",
+      "method": "PUT",
+      "tags": [],
+      "summary": "Update repair order",
+      "operationId": "PUT /repair-orders/{roId}"
+    },
+    {
+      "path": "/repair-orders/{roId}",
       "method": "DELETE",
       "tags": [],
       "summary": "Delete repair order",
       "operationId": "DELETE /repair-orders/{roId}"
+    },
+    {
+      "path": "/repair-orders/{roId}/approve",
+      "method": "POST",
+      "tags": [],
+      "summary": "Approve RO (move to in-progress if allowed)",
+      "operationId": "POST /repair-orders/{roId}/approve"
+    },
+    {
+      "path": "/repair-orders/{roId}/close",
+      "method": "POST",
+      "tags": [],
+      "summary": "Close RO (sets status=closed)",
+      "operationId": "POST /repair-orders/{roId}/close"
     }
   ]
 }

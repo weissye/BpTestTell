@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessages.json",
+      "method": "POST",
+      "operationId": "CreateUserDefinedMessage",
+      "summary": "",
+      "user": "As a developer, I want to send a user-defined message to a specific call in my Twilio account, so that I can provide additional context or information to the call participants.",
+      "ideal": "The API should accept a JSON payload with the message content and return a success response with the details of the created user-defined message."
+    }
+  ]
+}

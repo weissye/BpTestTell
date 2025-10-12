@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "User wants to retrieve the specific IP Access Control List mapping for a given DomainSid and Sid to check its configuration.",
+      "ideal": "The API should return the details of the specified IP Access Control List mapping, including the associated IP address and any relevant metadata."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "User intends to remove a specific IP Access Control List mapping from a SIP domain to manage access control more effectively.",
+      "ideal": "The API should confirm the deletion of the specified IP Access Control List mapping and return a success message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+      "method": "POST",
+      "operationId": "CreateSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "User wants to create a new IP Access Control List mapping for a SIP domain to allow specific IP addresses access.",
+      "ideal": "The API should create the new mapping and return the details of the created mapping, including its Sid and associated IP address."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+      "method": "GET",
+      "operationId": "ListSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "User needs to list all IP Access Control List mappings for a specific SIP domain to review current access settings.",
+      "ideal": "The API should return a list of all IP Access Control List mappings associated with the specified SIP domain, including their Sids and IP addresses."
+    }
+  ]
+}

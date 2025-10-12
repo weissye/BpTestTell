@@ -23,11 +23,18 @@ Thumbs.db
 *.crt
 secrets*/
 .env.*
-
+myRetupEnv.bat
 
 # Old snapshots
 .old/
 */.old/
+**/.old/
+old.*/
+*/old.*/
+**/old.*/
 
 # Keys
 OpenAiKey.txt
+
+#Keep anything in 'readable' subfolders
+!artifacts/**/readable/**

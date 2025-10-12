@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "getPrecomputations",
       "summary": "",
-      "user": "As a project manager, I want to retrieve all precomputations available in the Jira system to analyze their performance and ensure they meet our reporting needs.",
-      "ideal": "The API should return a list of all precomputations with their details, including IDs, names, and statuses."
+      "user": "As a project manager, I want to retrieve all precomputed JQL functions to analyze project metrics and make informed decisions.",
+      "ideal": "The API should return a list of all precomputed JQL functions available in the Jira instance, including their IDs and relevant metadata."
     },
     {
       "path": "/rest/api/3/jql/function/computation",
       "method": "POST",
       "operationId": "updatePrecomputations",
       "summary": "",
-      "user": "As a data analyst, I need to update existing precomputations with new parameters to improve the accuracy of our data analysis reports.",
-      "ideal": "The API should accept the updated parameters and return a success message along with the updated precomputation details."
+      "user": "As a data analyst, I need to update existing precomputations with new parameters to ensure that the data reflects the latest project changes.",
+      "ideal": "The API should accept a payload with updated parameters for the specified precomputation and return a success message along with the updated precomputation details."
     },
     {
       "path": "/rest/api/3/jql/function/computation/search",
       "method": "POST",
       "operationId": "getPrecomputationsByID",
       "summary": "",
-      "user": "As a developer, I want to search for specific precomputations by their IDs to integrate them into our application and streamline our workflow.",
-      "ideal": "The API should return the details of the requested precomputations based on the provided IDs, including their current status and relevant metadata."
+      "user": "As a developer, I want to search for specific precomputations by their IDs to integrate them into our reporting tools.",
+      "ideal": "The API should accept a list of precomputation IDs and return the corresponding precomputation details, including their status and associated data."
     }
   ]
 }

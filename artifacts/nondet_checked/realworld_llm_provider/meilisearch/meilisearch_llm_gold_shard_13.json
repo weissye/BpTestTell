@@ -6,7 +6,7 @@
       "operationId": "version.get",
       "summary": "",
       "user": "A developer wants to check the current version of the Meilisearch server to ensure compatibility with their application. They send a GET request to the /version endpoint to retrieve the version information.",
-      "ideal": "{\"version\":\"1.7.0\"}"
+      "ideal": "The response should return a JSON object containing the version number of the Meilisearch server, for example: {\"version\":\"1.7.0\"}."
     }
   ]
 }

@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/customFieldOption/12345",
+      "method": "GET",
+      "operationId": "getCustomFieldOption",
+      "summary": "",
+      "user": "User requests details of a specific custom field option using its ID.",
+      "ideal": "Returns the details of the custom field option with ID 12345."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/20000/option",
+      "method": "GET",
+      "operationId": "getOptionsForContext",
+      "summary": "",
+      "user": "User wants to retrieve all options for a specific field context.",
+      "ideal": "Returns a list of options available for the field with ID 10000 in context 20000."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/20000/option",
+      "method": "POST",
+      "operationId": "createCustomFieldOption",
+      "summary": "",
+      "user": "User is creating a new custom field option for a specific field context.",
+      "ideal": "Creates a new custom field option in the context of field 10000 and context 20000."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/20000/option",
+      "method": "PUT",
+      "operationId": "updateCustomFieldOption",
+      "summary": "",
+      "user": "User wants to update an existing custom field option in a specific context.",
+      "ideal": "Updates the custom field option in the context of field 10000 and context 20000."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/20000/option/move",
+      "method": "PUT",
+      "operationId": "reorderCustomFieldOptions",
+      "summary": "",
+      "user": "User is reordering custom field options for a specific field context.",
+      "ideal": "Reorders the custom field options for field 10000 in context 20000."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/20000/option/12345",
+      "method": "DELETE",
+      "operationId": "deleteCustomFieldOption",
+      "summary": "",
+      "user": "User wants to delete a specific custom field option.",
+      "ideal": "Deletes the custom field option with ID 12345 from field 10000 in context 20000."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/20000/option/12345/issue",
+      "method": "DELETE",
+      "operationId": "replaceCustomFieldOption",
+      "summary": "",
+      "user": "User is replacing a custom field option for issues in a specific context.",
+      "ideal": "Replaces the custom field option with ID 12345 for issues in field 10000 and context 20000."
+    }
+  ]
+}

@@ -3,50 +3,18 @@
     {
       "path": "/reset",
       "method": "POST",
-      "operationId": "resetPharmacy",
+      "operationId": "resetSystem",
       "summary": "",
       "user": "admin",
-      "ideal": "Resets the pharmacy system to its initial state, clearing all data."
-    },
-    {
-      "path": "/drugs",
-      "method": "POST",
-      "operationId": "addDrug",
-      "summary": "",
-      "user": "pharmacist",
-      "ideal": "Adds a new drug to the pharmacy inventory with details such as name, dosage, and price."
-    },
-    {
-      "path": "/orders",
-      "method": "POST",
-      "operationId": "createOrder",
-      "summary": "",
-      "user": "customer",
-      "ideal": "Creates a new order for a specified drug, including customer details and quantity."
+      "ideal": "Resets the pharmacy system to its initial state."
     },
     {
       "path": "/patients",
       "method": "POST",
       "operationId": "createPatient",
       "summary": "",
-      "user": "A healthcare provider submits a new patient record to the pharmacy system, including details such as name, date of birth, and insurance information.",
-      "ideal": "The patient record is successfully created, and a unique patient ID is returned in the response."
-    },
-    {
-      "path": "/prescriptions",
-      "method": "POST",
-      "operationId": "createPrescription",
-      "summary": "",
-      "user": "A pharmacist enters a new prescription into the system for a patient, specifying the medication, dosage, and instructions for use.",
-      "ideal": "The prescription is successfully created, and a confirmation with the prescription ID is returned."
-    },
-    {
-      "path": "/inventory/{ndc}",
-      "method": "GET",
-      "operationId": "getInventoryItem",
-      "summary": "",
-      "user": "A pharmacy technician queries the inventory system to check the availability of a specific medication using its National Drug Code (NDC).",
-      "ideal": "The system returns the current stock level, expiration date, and other relevant details for the requested medication."
+      "user": "nurse",
+      "ideal": "Adds a new patient to the pharmacy system with necessary details."
     },
     {
       "path": "/drugs",
@@ -54,15 +22,47 @@
       "operationId": "getDrugs",
       "summary": "",
       "user": "pharmacist",
-      "ideal": "Retrieve a list of all available drugs in the pharmacy inventory."
+      "ideal": "Retrieves a list of all available drugs in the pharmacy."
+    },
+    {
+      "path": "/drugs",
+      "method": "POST",
+      "operationId": "addDrug",
+      "summary": "",
+      "user": "pharmacist",
+      "ideal": "Adds a new drug to the pharmacy inventory with details."
+    },
+    {
+      "path": "/prescriptions",
+      "method": "POST",
+      "operationId": "createPrescription",
+      "summary": "",
+      "user": "doctor",
+      "ideal": "Creates a new prescription for a patient."
     },
     {
       "path": "/orders",
       "method": "GET",
       "operationId": "getOrders",
       "summary": "",
-      "user": "pharmacyManager",
-      "ideal": "Fetch the current list of all orders placed by customers."
+      "user": "pharmacist",
+      "ideal": "Retrieves a list of all orders placed in the pharmacy."
+    },
+    {
+      "path": "/orders",
+      "method": "POST",
+      "operationId": "createOrder",
+      "summary": "",
+      "user": "pharmacist",
+      "ideal": "Places a new order for drugs in the pharmacy."
+    },
+    {
+      "path": "/inventory/{ndc}",
+      "method": "GET",
+      "operationId": "getInventoryItem",
+      "summary": "",
+      "user": "pharmacist",
+      "ideal": "Retrieves inventory details for a specific drug using its NDC."
     }
   ]
 }

@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/fields",
+      "method": "GET",
+      "operationId": "getFields",
+      "summary": "",
+      "user": "Admin user requesting a list of all fields in the system to review the current schema.",
+      "ideal": "Returns a list of all fields with their metadata."
+    },
+    {
+      "path": "/fields/users",
+      "method": "GET",
+      "operationId": "getCollectionFields",
+      "summary": "",
+      "user": "Database manager wanting to see the fields defined for the 'users' collection to ensure they meet the requirements.",
+      "ideal": "Returns a list of fields specific to the 'users' collection."
+    },
+    {
+      "path": "/fields/users",
+      "method": "POST",
+      "operationId": "createField",
+      "summary": "",
+      "user": "Developer adding a new field 'age' to the 'users' collection to store user ages.",
+      "ideal": "Creates a new field in the 'users' collection and returns the created field's details."
+    },
+    {
+      "path": "/fields/users/age",
+      "method": "GET",
+      "operationId": "getCollectionField",
+      "summary": "",
+      "user": "Data analyst checking the details of the 'age' field in the 'users' collection for data analysis.",
+      "ideal": "Returns the details of the 'age' field in the 'users' collection."
+    },
+    {
+      "path": "/fields/users/age",
+      "method": "PATCH",
+      "operationId": "updateField",
+      "summary": "",
+      "user": "Admin updating the 'age' field to change its type from integer to float for more precise data.",
+      "ideal": "Updates the 'age' field in the 'users' collection and returns the updated field's details."
+    },
+    {
+      "path": "/fields/users/age",
+      "method": "DELETE",
+      "operationId": "deleteField",
+      "summary": "",
+      "user": "Admin removing the 'age' field from the 'users' collection as it is no longer needed.",
+      "ideal": "Deletes the 'age' field from the 'users' collection and confirms the deletion."
+    }
+  ]
+}

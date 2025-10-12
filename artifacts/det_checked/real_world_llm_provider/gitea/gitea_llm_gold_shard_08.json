@@ -1,0 +1,132 @@
+{
+  "gold": [
+    {
+      "path": "/repos/migrate",
+      "method": "POST",
+      "operationId": "repoMigrate",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Migrate a repository from another service to Gitea."
+    },
+    {
+      "path": "/repos/search",
+      "method": "GET",
+      "operationId": "repoSearch",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Search for repositories based on specified criteria."
+    },
+    {
+      "path": "/repos/{owner}/{repo}",
+      "method": "GET",
+      "operationId": "repoGet",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Retrieve details of a specific repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}",
+      "method": "DELETE",
+      "operationId": "repoDelete",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Delete a specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}",
+      "method": "PATCH",
+      "operationId": "repoEdit",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Edit details of a specific repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/secrets",
+      "method": "GET",
+      "operationId": "repoListActionsSecrets",
+      "summary": "",
+      "user": "user303",
+      "ideal": "List all action secrets for the repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/secrets/{secretname}",
+      "method": "PUT",
+      "operationId": "updateRepoSecret",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Update a specific action secret for the repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/secrets/{secretname}",
+      "method": "DELETE",
+      "operationId": "deleteRepoSecret",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Delete a specific action secret from the repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches",
+      "method": "GET",
+      "operationId": "repoListBranches",
+      "summary": "",
+      "user": "user606",
+      "ideal": "List all branches in the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}",
+      "method": "DELETE",
+      "operationId": "repoDeleteBranch",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Delete a specific branch from the repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls",
+      "method": "GET",
+      "operationId": "repoListPullRequests",
+      "summary": "",
+      "user": "user808",
+      "ideal": "List all pull requests for the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls",
+      "method": "POST",
+      "operationId": "repoCreatePullRequest",
+      "summary": "",
+      "user": "user909",
+      "ideal": "Create a new pull request in the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases",
+      "method": "GET",
+      "operationId": "repoListReleases",
+      "summary": "",
+      "user": "user1010",
+      "ideal": "List all releases for the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases",
+      "method": "POST",
+      "operationId": "repoCreateRelease",
+      "summary": "",
+      "user": "user1111",
+      "ideal": "Create a new release for the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/topics",
+      "method": "PUT",
+      "operationId": "repoUpdateTopics",
+      "summary": "",
+      "user": "user1212",
+      "ideal": "Update topics for the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/wiki/pages",
+      "method": "GET",
+      "operationId": "repoGetWikiPages",
+      "summary": "",
+      "user": "user1313",
+      "ideal": "Retrieve a list of all wiki pages for the repository."
+    }
+  ]
+}

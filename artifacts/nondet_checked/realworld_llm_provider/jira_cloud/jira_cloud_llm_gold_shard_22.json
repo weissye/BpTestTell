@@ -5,56 +5,56 @@
       "method": "GET",
       "operationId": "getCustomFieldOption",
       "summary": "",
-      "user": "User requests details for a specific custom field option by its ID.",
+      "user": "User requests details for a specific custom field option to understand its configuration and usage.",
       "ideal": "Returns the details of the custom field option with ID 12345."
     },
     {
-      "path": "/rest/api/3/field/10000/context/20000/option",
+      "path": "/rest/api/3/field/67890/context/54321/option",
       "method": "GET",
       "operationId": "getOptionsForContext",
       "summary": "",
-      "user": "User wants to retrieve all options for a specific field context.",
-      "ideal": "Returns a list of options available for the field with ID 10000 in context 20000."
+      "user": "User wants to retrieve all options available for a specific field context to ensure correct data entry.",
+      "ideal": "Returns a list of options for the field with ID 67890 in the context with ID 54321."
     },
     {
-      "path": "/rest/api/3/field/10000/context/20000/option",
+      "path": "/rest/api/3/field/67890/context/54321/option",
       "method": "POST",
       "operationId": "createCustomFieldOption",
       "summary": "",
-      "user": "User submits a new option for a custom field in a specific context.",
-      "ideal": "Creates a new custom field option in context 20000 for field 10000."
+      "user": "User is creating a new custom field option for a specific field context to enhance data categorization.",
+      "ideal": "Creates a new custom field option in the specified context and returns the created option details."
     },
     {
-      "path": "/rest/api/3/field/10000/context/20000/option",
+      "path": "/rest/api/3/field/67890/context/54321/option",
       "method": "PUT",
       "operationId": "updateCustomFieldOption",
       "summary": "",
-      "user": "User updates an existing custom field option in a specific context.",
-      "ideal": "Updates the custom field option in context 20000 for field 10000."
+      "user": "User needs to update an existing custom field option to reflect changes in project requirements.",
+      "ideal": "Updates the specified custom field option and returns the updated option details."
     },
     {
-      "path": "/rest/api/3/field/10000/context/20000/option/move",
+      "path": "/rest/api/3/field/67890/context/54321/option/move",
       "method": "PUT",
       "operationId": "reorderCustomFieldOptions",
       "summary": "",
-      "user": "User wants to reorder custom field options in a specific context.",
-      "ideal": "Reorders the custom field options for field 10000 in context 20000."
+      "user": "User is reordering custom field options to prioritize certain choices for users.",
+      "ideal": "Reorders the custom field options as specified and returns the new order."
     },
     {
-      "path": "/rest/api/3/field/10000/context/20000/option/12345",
+      "path": "/rest/api/3/field/67890/context/54321/option/98765",
       "method": "DELETE",
       "operationId": "deleteCustomFieldOption",
       "summary": "",
-      "user": "User requests to delete a specific custom field option.",
-      "ideal": "Deletes the custom field option with ID 12345 from context 20000 for field 10000."
+      "user": "User wants to delete an obsolete custom field option that is no longer relevant.",
+      "ideal": "Deletes the specified custom field option and confirms the deletion."
     },
     {
-      "path": "/rest/api/3/field/10000/context/20000/option/12345/issue",
+      "path": "/rest/api/3/field/67890/context/54321/option/98765/issue",
       "method": "DELETE",
       "operationId": "replaceCustomFieldOption",
       "summary": "",
-      "user": "User wants to replace a custom field option associated with issues.",
-      "ideal": "Replaces the custom field option with ID 12345 in context 20000 for field 10000."
+      "user": "User is replacing a custom field option in issues to ensure data consistency across the project.",
+      "ideal": "Replaces the specified custom field option in issues and returns a confirmation of the replacement."
     }
   ]
 }

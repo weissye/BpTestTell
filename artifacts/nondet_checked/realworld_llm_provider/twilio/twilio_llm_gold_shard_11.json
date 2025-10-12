@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json",
+      "method": "GET",
+      "operationId": "FetchAuthorizedConnectApp",
+      "summary": "",
+      "user": "User wants to retrieve details about a specific authorized connect app associated with their Twilio account using the Account SID and Connect App SID.",
+      "ideal": "Fetch the details of the authorized connect app including its name, description, and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json",
+      "method": "GET",
+      "operationId": "ListAuthorizedConnectApp",
+      "summary": "",
+      "user": "User needs to list all authorized connect apps for their Twilio account to manage integrations and permissions.",
+      "ideal": "Return a list of all authorized connect apps with their respective details such as SID, name, and status."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/components",
+      "method": "GET",
+      "operationId": "getComponents",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all components in the specified realm."
+    },
+    {
+      "path": "/myrealm/components",
+      "method": "POST",
+      "operationId": "postComponents",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new component in the specified realm with the provided configuration."
+    },
+    {
+      "path": "/myrealm/components/12345",
+      "method": "GET",
+      "operationId": "getComponent",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch details of the component with ID 12345 in the specified realm."
+    },
+    {
+      "path": "/myrealm/components/12345",
+      "method": "PUT",
+      "operationId": "putComponent",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the configuration of the component with ID 12345 in the specified realm."
+    },
+    {
+      "path": "/myrealm/components/12345",
+      "method": "DELETE",
+      "operationId": "deleteComponent",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove the component with ID 12345 from the specified realm."
+    },
+    {
+      "path": "/myrealm/components/12345/sub-component-types",
+      "method": "GET",
+      "operationId": "getSubComponentTypes",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of sub-component types for the component with ID 12345 in the specified realm."
+    }
+  ]
+}

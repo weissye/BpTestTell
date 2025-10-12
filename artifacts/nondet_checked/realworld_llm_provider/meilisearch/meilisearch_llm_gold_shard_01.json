@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "indexes.documents.list",
       "summary": "",
-      "user": "User wants to retrieve all documents from the 'myIndex' index to display them on the frontend.",
+      "user": "User wants to retrieve all documents from the 'myIndex' index to display them on the frontend of their application.",
       "ideal": "Returns a list of documents in the 'myIndex' index."
     },
     {
@@ -13,7 +13,7 @@
       "method": "POST",
       "operationId": "indexes.documents.create",
       "summary": "",
-      "user": "User is adding a new document to 'myIndex' with title and content fields.",
+      "user": "User needs to add a new document to the 'myIndex' index containing product details for an e-commerce application.",
       "ideal": "Successfully creates a new document in the 'myIndex' index."
     },
     {
@@ -21,15 +21,15 @@
       "method": "PUT",
       "operationId": "indexes.documents.upsert",
       "summary": "",
-      "user": "User wants to update an existing document or create it if it doesn't exist in 'myIndex'.",
-      "ideal": "Updates the document if it exists, otherwise creates a new one in 'myIndex'."
+      "user": "User wants to update an existing document or create it if it doesn't exist in 'myIndex' to ensure the latest product information is available.",
+      "ideal": "Updates the existing document or creates a new one in the 'myIndex' index."
     },
     {
       "path": "/indexes/myIndex/documents",
       "method": "DELETE",
       "operationId": "indexes.documents.removeAll",
       "summary": "",
-      "user": "User wants to remove all documents from 'myIndex' for a fresh start.",
+      "user": "User intends to clear all documents from the 'myIndex' index to reset the data for a new import.",
       "ideal": "Successfully removes all documents from the 'myIndex' index."
     },
     {
@@ -37,40 +37,40 @@
       "method": "POST",
       "operationId": "indexes.documents.fetch",
       "summary": "",
-      "user": "User is fetching documents from an external source to add to 'myIndex'.",
-      "ideal": "Successfully fetches and adds documents to the 'myIndex' index."
+      "user": "User wants to fetch documents from an external source and import them into the 'myIndex' index for better search capabilities.",
+      "ideal": "Successfully fetches and imports documents into the 'myIndex' index."
     },
     {
       "path": "/indexes/myIndex/documents/delete-batch",
       "method": "POST",
       "operationId": "indexes.documents.removeBatch",
       "summary": "",
-      "user": "User wants to delete a batch of documents from 'myIndex' based on their IDs.",
-      "ideal": "Successfully removes the specified batch of documents from 'myIndex'."
+      "user": "User needs to delete multiple documents from the 'myIndex' index based on a list of document IDs to clean up outdated entries.",
+      "ideal": "Successfully removes the specified batch of documents from the 'myIndex' index."
     },
     {
       "path": "/indexes/myIndex/documents/delete",
       "method": "POST",
       "operationId": "indexes.documents.remove",
       "summary": "",
-      "user": "User is removing a specific document from 'myIndex' using its ID.",
-      "ideal": "Successfully removes the specified document from 'myIndex'."
+      "user": "User wants to delete a specific document from the 'myIndex' index using its unique identifier to remove outdated information.",
+      "ideal": "Successfully removes the specified document from the 'myIndex' index."
     },
     {
-      "path": "/indexes/myIndex/documents/123",
+      "path": "/indexes/myIndex/documents/12345",
       "method": "GET",
       "operationId": "indexes.documents.get",
       "summary": "",
-      "user": "User wants to retrieve a specific document with ID '123' from 'myIndex'.",
-      "ideal": "Returns the document with ID '123' from the 'myIndex' index."
+      "user": "User needs to retrieve a specific document with ID '12345' from the 'myIndex' index to display detailed information on the product page.",
+      "ideal": "Returns the document with ID '12345' from the 'myIndex' index."
     },
     {
-      "path": "/indexes/myIndex/documents/123",
+      "path": "/indexes/myIndex/documents/12345",
       "method": "DELETE",
       "operationId": "indexes.documents.removeOne",
       "summary": "",
-      "user": "User is deleting a specific document with ID '123' from 'myIndex'.",
-      "ideal": "Successfully removes the document with ID '123' from 'myIndex'."
+      "user": "User wants to delete the document with ID '12345' from the 'myIndex' index as it is no longer relevant.",
+      "ideal": "Successfully removes the document with ID '12345' from the 'myIndex' index."
     }
   ]
 }

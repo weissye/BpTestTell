@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records.json",
+      "method": "GET",
+      "operationId": "ListUsageRecord",
+      "summary": "",
+      "user": "User wants to retrieve the usage records for their Twilio account to analyze SMS and voice call usage over the past month.",
+      "ideal": "A JSON response containing an array of usage records with details such as the type of usage, count, and date."
+    }
+  ]
+}

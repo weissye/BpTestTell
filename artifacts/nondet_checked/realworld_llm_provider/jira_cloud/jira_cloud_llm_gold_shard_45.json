@@ -1,7 +1,7 @@
 {
   "gold": [
     {
-      "path": "/rest/api/3/issue/PROJECT-123/worklog/456/properties",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties",
       "method": "GET",
       "operationId": "getWorklogPropertyKeys",
       "summary": "",
@@ -9,28 +9,28 @@
       "ideal": "Retrieve all property keys associated with the specified worklog."
     },
     {
-      "path": "/rest/api/3/issue/PROJECT-123/worklog/456/properties/customProperty",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties/customProperty",
       "method": "DELETE",
       "operationId": "deleteWorklogProperty",
       "summary": "",
       "user": "User456",
-      "ideal": "Delete the custom property from the specified worklog."
+      "ideal": "Delete the custom property 'customProperty' from the specified worklog."
     },
     {
-      "path": "/rest/api/3/issue/PROJECT-123/worklog/456/properties/customProperty",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties/customProperty",
       "method": "GET",
       "operationId": "getWorklogProperty",
       "summary": "",
       "user": "User789",
-      "ideal": "Fetch the value of the specified custom property from the worklog."
+      "ideal": "Retrieve the value of the custom property 'customProperty' for the specified worklog."
     },
     {
-      "path": "/rest/api/3/issue/PROJECT-123/worklog/456/properties/customProperty",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties/customProperty",
       "method": "PUT",
       "operationId": "setWorklogProperty",
       "summary": "",
       "user": "User101",
-      "ideal": "Set a new value for the specified custom property in the worklog."
+      "ideal": "Set the value of the custom property 'customProperty' for the specified worklog."
     }
   ]
 }

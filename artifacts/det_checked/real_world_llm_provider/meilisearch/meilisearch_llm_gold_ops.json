@@ -1,0 +1,494 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/documents",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/myIndex/documents",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/myIndex/documents",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/myIndex/documents",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/myIndex/documents/fetch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/myIndex/documents/delete-batch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/myIndex/documents/delete",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/documents/123",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/myIndex/documents/123",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/dumps",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/experimental-features",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/experimental-features",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/metrics",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/myIndex/facet-search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/swap-indexes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/keys",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/keys",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/keys/{uid_or_key}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/keys/{uid_or_key}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/keys/{uid_or_key}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/myIndex/search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/myIndex/facet-search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/multi-search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/synonyms",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/sortable-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/ranking-rules",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/typo-tolerance",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/pagination",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/faceting",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/filterable-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/distinct-attribute",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/searchable-attributes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/snapshots",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/stats",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/stats",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/metrics",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tasks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tasks/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/tasks",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/tasks/cancel",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/version",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/documents",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/myIndex/documents",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/myIndex/documents",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/myIndex/documents",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/myIndex/documents/fetch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/myIndex/documents/delete-batch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/myIndex/documents/delete",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/documents/123",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/myIndex/documents/123",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/dumps",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/experimental-features",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/experimental-features",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/metrics",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/myIndex/facet-search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/swap-indexes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/keys",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/keys",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/keys/{uid_or_key}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/keys/{uid_or_key}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/keys/{uid_or_key}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/myIndex/search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/myIndex/facet-search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/multi-search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/synonyms",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/sortable-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/ranking-rules",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/typo-tolerance",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/pagination",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/faceting",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/filterable-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/distinct-attribute",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/searchable-attributes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/snapshots",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/stats",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/stats",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/metrics",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tasks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tasks/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/tasks",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/tasks/cancel",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/version",
+      "body": null
+    }
+  ]
+}

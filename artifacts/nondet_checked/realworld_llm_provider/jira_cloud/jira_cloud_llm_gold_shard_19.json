@@ -5,16 +5,16 @@
       "method": "DELETE",
       "operationId": "removeAssociations",
       "summary": "",
-      "user": "User with admin privileges who wants to remove associations between custom fields and issue types in Jira to streamline the issue creation process.",
-      "ideal": "Successfully removes the specified associations between the custom field and the issue types."
+      "user": "Project Manager removing unnecessary field associations to streamline the issue creation process.",
+      "ideal": "Successfully removed field associations."
     },
     {
       "path": "/rest/api/3/field/association",
       "method": "PUT",
       "operationId": "createAssociations",
       "summary": "",
-      "user": "Project manager looking to associate a new custom field with specific issue types in Jira to ensure that relevant data is captured during issue creation.",
-      "ideal": "Successfully creates associations between the custom field and the specified issue types."
+      "user": "Developer adding new field associations to enhance the data collection for specific issue types.",
+      "ideal": "Successfully created field associations."
     }
   ]
 }

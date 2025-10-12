@@ -1,36 +1,36 @@
 {
   "gold": [
     {
-      "path": "/indexes/myIndex/search",
+      "path": "/indexes/my_index/search",
       "method": "GET",
       "operationId": "indexes.documents.searchGet",
       "summary": "",
-      "user": "A user wants to retrieve documents from the 'myIndex' index based on a specific query. They are looking for documents that contain the keyword 'AI' and want to see the top 10 results.",
-      "ideal": "The API should return a JSON response containing the top 10 documents that match the query 'AI' from the 'myIndex' index."
+      "user": "A user wants to retrieve documents from the 'my_index' index based on a specific query. They are looking for documents that contain the keyword 'AI' and want to see the top 10 results.",
+      "ideal": "The API should return a JSON response containing the top 10 documents that match the query 'AI', along with their metadata such as title, description, and relevance score."
     },
     {
-      "path": "/indexes/myIndex/search",
+      "path": "/indexes/my_index/search",
       "method": "POST",
       "operationId": "indexes.documents.search",
       "summary": "",
-      "user": "A user is searching for articles related to 'machine learning' in the 'myIndex' index. They want to include filters for the publication date and sort the results by relevance.",
-      "ideal": "The API should accept the search query and filters, returning a JSON response with the relevant articles sorted by relevance."
+      "user": "A developer is implementing a search feature in their application. They need to send a POST request to search for documents in 'my_index' with the query 'machine learning' and want to filter results by a specific field.",
+      "ideal": "The API should process the request and return a JSON response with the search results, including the filtered documents and any relevant metadata."
     },
     {
-      "path": "/indexes/myIndex/facet-search",
+      "path": "/indexes/my_index/facet-search",
       "method": "POST",
       "operationId": "indexes.documents.facet.search",
       "summary": "",
-      "user": "A user wants to perform a facet search on the 'myIndex' index to find products filtered by category and price range. They are interested in electronics within a specific price range.",
-      "ideal": "The API should return a JSON response with the products that match the category 'electronics' and fall within the specified price range, along with the facet counts."
+      "user": "An analyst is interested in performing a facet search on 'my_index' to find documents categorized under 'technology' and wants to see the distribution of results across different subcategories.",
+      "ideal": "The API should return a JSON response that includes the facet counts for each subcategory under 'technology', along with the documents that match the search criteria."
     },
     {
       "path": "/multi-search",
       "method": "POST",
       "operationId": "multi_search",
       "summary": "",
-      "user": "A user needs to perform multiple searches across different indexes simultaneously. They want to search for 'data science' in 'index1' and 'AI trends' in 'index2'.",
-      "ideal": "The API should process the multi-search request and return a JSON response containing the results for both searches, organized by index."
+      "user": "A product manager wants to perform multiple searches across different indexes in one request. They need to search for 'data science' in 'index1' and 'cloud computing' in 'index2' simultaneously.",
+      "ideal": "The API should return a consolidated JSON response containing the results for both searches, clearly separated by index, along with relevant metadata for each result."
     }
   ]
 }

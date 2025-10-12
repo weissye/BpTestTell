@@ -6,7 +6,7 @@
       "operationId": "zulip-outgoing-webhooks",
       "summary": "",
       "user": "user@example.com",
-      "ideal": "This endpoint allows you to send outgoing webhooks from Zulip to your specified URL. You need to provide the necessary payload in the request body."
+      "ideal": "This endpoint allows you to send outgoing webhooks from Zulip to an external service. The request should include the necessary payload, such as the content of the message and the stream it originated from."
     }
   ]
 }

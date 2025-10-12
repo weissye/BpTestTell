@@ -5,80 +5,32 @@
       "method": "POST",
       "operationId": "CreateAccount",
       "summary": "",
-      "user": "{\"FriendlyName\": \"My New Account\", \"Email\": \"user@example.com\"}",
-      "ideal": "{\"sid\": \"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"friendly_name\": \"My New Account\", \"email\": \"user@example.com\"}"
+      "user": "A user wants to create a new Twilio account to start sending SMS messages. They provide their email, password, and account type.",
+      "ideal": "The API should return a success response with the account SID and a confirmation message."
+    },
+    {
+      "path": "/2010-04-01/Accounts.json",
+      "method": "GET",
+      "operationId": "ListAccount",
+      "summary": "",
+      "user": "An admin user needs to retrieve a list of all Twilio accounts associated with their organization to manage billing and usage.",
+      "ideal": "The API should return a list of accounts with their SIDs, names, and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchAccount",
+      "summary": "",
+      "user": "A user wants to fetch details of their specific Twilio account using the account SID to check its status and settings.",
+      "ideal": "The API should return the account details including the SID, friendly name, and balance."
     },
     {
       "path": "/2010-04-01/Accounts/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateAccount",
       "summary": "",
-      "user": "{\"FriendlyName\": \"Updated Account Name\"}",
-      "ideal": "{\"sid\": \"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"friendly_name\": \"Updated Account Name\"}"
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
-      "method": "GET",
-      "operationId": "ListCall",
-      "summary": "",
-      "user": "{\"Status\": \"completed\"}",
-      "ideal": "[{\"sid\": \"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"status\": \"completed\", \"to\": \"+1234567890\", \"from\": \"+0987654321\"}]"
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
-      "method": "GET",
-      "operationId": "ListIncomingPhoneNumber",
-      "summary": "",
-      "user": "{}",
-      "ideal": "[{\"sid\": \"PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"phone_number\": \"+1234567890\", \"friendly_name\": \"My Phone Number\"}]"
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
-      "method": "DELETE",
-      "operationId": "DeleteMessage",
-      "summary": "",
-      "user": "{}",
-      "ideal": "{\"sid\": \"SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"status\": \"deleted\"}"
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
-      "method": "POST",
-      "operationId": "UpdateCallRecording",
-      "summary": "",
-      "user": "{\"Status\": \"paused\"}",
-      "ideal": "{\"sid\": \"REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"status\": \"paused\"}"
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
-      "method": "GET",
-      "operationId": "ListSipDomain",
-      "summary": "",
-      "user": "{}",
-      "ideal": "[{\"sid\": \"SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"domain_name\": \"example.sip.twilio.com\"}]"
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json",
-      "method": "GET",
-      "operationId": "ListUsageRecord",
-      "summary": "",
-      "user": "{\"Category\": \"calls\"}",
-      "ideal": "[{\"sid\": \"URXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"category\": \"calls\", \"count\": 100}]"
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
-      "method": "POST",
-      "operationId": "CreateQueue",
-      "summary": "",
-      "user": "{\"FriendlyName\": \"Support Queue\"}",
-      "ideal": "{\"sid\": \"QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"friendly_name\": \"Support Queue\"}"
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
-      "method": "GET",
-      "operationId": "ListSipCredentialList",
-      "summary": "",
-      "user": "{}",
-      "ideal": "[{\"sid\": \"CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\", \"friendly_name\": \"My Credential List\"}]"
+      "user": "A user needs to update their Twilio account's friendly name and email address for better identification and communication.",
+      "ideal": "The API should return a success message confirming the updates along with the updated account details."
     }
   ]
 }

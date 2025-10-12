@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/orgs",
+      "method": "GET",
+      "operationId": "orgGetAll",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve a list of all organizations."
+    },
+    {
+      "path": "/orgs/{org}",
+      "method": "GET",
+      "operationId": "orgGet",
+      "summary": "",
+      "user": "org_member",
+      "ideal": "Get details of a specific organization."
+    },
+    {
+      "path": "/orgs/{org}/repos",
+      "method": "GET",
+      "operationId": "orgListRepos",
+      "summary": "",
+      "user": "repo_viewer",
+      "ideal": "List all repositories for the specified organization."
+    },
+    {
+      "path": "/orgs/{org}/teams",
+      "method": "GET",
+      "operationId": "orgListTeams",
+      "summary": "",
+      "user": "team_manager",
+      "ideal": "Retrieve a list of all teams in the organization."
+    },
+    {
+      "path": "/orgs/{org}/members",
+      "method": "GET",
+      "operationId": "orgListMembers",
+      "summary": "",
+      "user": "org_admin",
+      "ideal": "Get a list of all members in the organization."
+    },
+    {
+      "path": "/orgs/{org}/hooks",
+      "method": "GET",
+      "operationId": "orgListHooks",
+      "summary": "",
+      "user": "hook_manager",
+      "ideal": "List all webhooks configured for the organization."
+    },
+    {
+      "path": "/orgs/{org}/actions/secrets",
+      "method": "GET",
+      "operationId": "orgListActionsSecrets",
+      "summary": "",
+      "user": "secret_manager",
+      "ideal": "Retrieve a list of all secrets for the organization."
+    },
+    {
+      "path": "/orgs/{org}/actions/variables",
+      "method": "GET",
+      "operationId": "getOrgVariablesList",
+      "summary": "",
+      "user": "variable_manager",
+      "ideal": "List all action variables for the organization."
+    },
+    {
+      "path": "/orgs/{org}/avatar",
+      "method": "POST",
+      "operationId": "orgUpdateAvatar",
+      "summary": "",
+      "user": "avatar_editor",
+      "ideal": "Update the avatar for the organization."
+    },
+    {
+      "path": "/orgs/{org}/blocks/{username}",
+      "method": "PUT",
+      "operationId": "organizationBlockUser",
+      "summary": "",
+      "user": "org_admin",
+      "ideal": "Block a user from the organization."
+    }
+  ]
+}

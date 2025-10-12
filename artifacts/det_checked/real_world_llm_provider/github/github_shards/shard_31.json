@@ -1,0 +1,252 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/orgs/{org}/docker/conflicts",
+      "method": "GET",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Get list of conflicting packages during Docker migration for organization",
+      "operationId": "packages/list-docker-migration-conflicting-packages-for-organization"
+    },
+    {
+      "path": "/orgs/{org}/packages",
+      "method": "GET",
+      "tags": [
+        "packages"
+      ],
+      "summary": "List packages for an organization",
+      "operationId": "packages/list-packages-for-organization"
+    },
+    {
+      "path": "/orgs/{org}/packages/{package_type}/{package_name}",
+      "method": "GET",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Get a package for an organization",
+      "operationId": "packages/get-package-for-organization"
+    },
+    {
+      "path": "/orgs/{org}/packages/{package_type}/{package_name}",
+      "method": "DELETE",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Delete a package for an organization",
+      "operationId": "packages/delete-package-for-org"
+    },
+    {
+      "path": "/orgs/{org}/packages/{package_type}/{package_name}/restore",
+      "method": "POST",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Restore a package for an organization",
+      "operationId": "packages/restore-package-for-org"
+    },
+    {
+      "path": "/orgs/{org}/packages/{package_type}/{package_name}/versions",
+      "method": "GET",
+      "tags": [
+        "packages"
+      ],
+      "summary": "List package versions for a package owned by an organization",
+      "operationId": "packages/get-all-package-versions-for-package-owned-by-org"
+    },
+    {
+      "path": "/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}",
+      "method": "GET",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Get a package version for an organization",
+      "operationId": "packages/get-package-version-for-organization"
+    },
+    {
+      "path": "/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}",
+      "method": "DELETE",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Delete package version for an organization",
+      "operationId": "packages/delete-package-version-for-org"
+    },
+    {
+      "path": "/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore",
+      "method": "POST",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Restore package version for an organization",
+      "operationId": "packages/restore-package-version-for-org"
+    },
+    {
+      "path": "/user/docker/conflicts",
+      "method": "GET",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Get list of conflicting packages during Docker migration for authenticated-user",
+      "operationId": "packages/list-docker-migration-conflicting-packages-for-authenticated-user"
+    },
+    {
+      "path": "/user/packages",
+      "method": "GET",
+      "tags": [
+        "packages"
+      ],
+      "summary": "List packages for the authenticated user's namespace",
+      "operationId": "packages/list-packages-for-authenticated-user"
+    },
+    {
+      "path": "/user/packages/{package_type}/{package_name}",
+      "method": "GET",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Get a package for the authenticated user",
+      "operationId": "packages/get-package-for-authenticated-user"
+    },
+    {
+      "path": "/user/packages/{package_type}/{package_name}",
+      "method": "DELETE",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Delete a package for the authenticated user",
+      "operationId": "packages/delete-package-for-authenticated-user"
+    },
+    {
+      "path": "/user/packages/{package_type}/{package_name}/restore",
+      "method": "POST",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Restore a package for the authenticated user",
+      "operationId": "packages/restore-package-for-authenticated-user"
+    },
+    {
+      "path": "/user/packages/{package_type}/{package_name}/versions",
+      "method": "GET",
+      "tags": [
+        "packages"
+      ],
+      "summary": "List package versions for a package owned by the authenticated user",
+      "operationId": "packages/get-all-package-versions-for-package-owned-by-authenticated-user"
+    },
+    {
+      "path": "/user/packages/{package_type}/{package_name}/versions/{package_version_id}",
+      "method": "GET",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Get a package version for the authenticated user",
+      "operationId": "packages/get-package-version-for-authenticated-user"
+    },
+    {
+      "path": "/user/packages/{package_type}/{package_name}/versions/{package_version_id}",
+      "method": "DELETE",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Delete a package version for the authenticated user",
+      "operationId": "packages/delete-package-version-for-authenticated-user"
+    },
+    {
+      "path": "/user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore",
+      "method": "POST",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Restore a package version for the authenticated user",
+      "operationId": "packages/restore-package-version-for-authenticated-user"
+    },
+    {
+      "path": "/users/{username}/docker/conflicts",
+      "method": "GET",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Get list of conflicting packages during Docker migration for user",
+      "operationId": "packages/list-docker-migration-conflicting-packages-for-user"
+    },
+    {
+      "path": "/users/{username}/packages",
+      "method": "GET",
+      "tags": [
+        "packages"
+      ],
+      "summary": "List packages for a user",
+      "operationId": "packages/list-packages-for-user"
+    },
+    {
+      "path": "/users/{username}/packages/{package_type}/{package_name}",
+      "method": "GET",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Get a package for a user",
+      "operationId": "packages/get-package-for-user"
+    },
+    {
+      "path": "/users/{username}/packages/{package_type}/{package_name}",
+      "method": "DELETE",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Delete a package for a user",
+      "operationId": "packages/delete-package-for-user"
+    },
+    {
+      "path": "/users/{username}/packages/{package_type}/{package_name}/restore",
+      "method": "POST",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Restore a package for a user",
+      "operationId": "packages/restore-package-for-user"
+    },
+    {
+      "path": "/users/{username}/packages/{package_type}/{package_name}/versions",
+      "method": "GET",
+      "tags": [
+        "packages"
+      ],
+      "summary": "List package versions for a package owned by a user",
+      "operationId": "packages/get-all-package-versions-for-package-owned-by-user"
+    },
+    {
+      "path": "/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}",
+      "method": "GET",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Get a package version for a user",
+      "operationId": "packages/get-package-version-for-user"
+    },
+    {
+      "path": "/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}",
+      "method": "DELETE",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Delete package version for a user",
+      "operationId": "packages/delete-package-version-for-user"
+    },
+    {
+      "path": "/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore",
+      "method": "POST",
+      "tags": [
+        "packages"
+      ],
+      "summary": "Restore package version for a user",
+      "operationId": "packages/restore-package-version-for-user"
+    }
+  ]
+}

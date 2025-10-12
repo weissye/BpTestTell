@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/task/12345",
+      "method": "GET",
+      "operationId": "getTask",
+      "summary": "",
+      "user": "Alice is a project manager who needs to check the details of a specific task in Jira to ensure it is on track for completion. She uses the task ID 12345 to retrieve the task information.",
+      "ideal": "The API should return the task details including its status, assignee, due date, and any comments associated with it."
+    },
+    {
+      "path": "/rest/api/3/task/12345/cancel",
+      "method": "POST",
+      "operationId": "cancelTask",
+      "summary": "",
+      "user": "Bob is a team member who realizes that the task with ID 12345 is no longer relevant due to a change in project scope. He wants to cancel the task to avoid confusion.",
+      "ideal": "The API should successfully cancel the task and return a confirmation message indicating that the task has been canceled."
+    }
+  ]
+}

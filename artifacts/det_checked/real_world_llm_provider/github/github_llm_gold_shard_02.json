@@ -1,84 +1,84 @@
 {
   "gold": [
     {
-      "path": "/advisories",
+      "path": "/events",
       "method": "GET",
-      "operationId": "security-advisories/list-global-advisories",
+      "operationId": "activity/list-public-events",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve a list of all global security advisories."
+      "ideal": "Retrieve a list of public events from GitHub."
     },
     {
-      "path": "/app-manifests/{code}/conversions",
-      "method": "POST",
-      "operationId": "apps/create-from-manifest",
+      "path": "/feeds",
+      "method": "GET",
+      "operationId": "activity/get-feeds",
       "summary": "",
       "user": "user456",
-      "ideal": "Create an app from the provided manifest code."
+      "ideal": "Get the feeds for the authenticated user."
     },
     {
-      "path": "/app/hook/deliveries",
+      "path": "/repos/octocat/Hello-World/events",
       "method": "GET",
-      "operationId": "apps/list-webhook-deliveries",
+      "operationId": "activity/list-repo-events",
       "summary": "",
       "user": "user789",
-      "ideal": "List all webhook deliveries for the authenticated app."
+      "ideal": "Fetch events for the specified repository."
     },
     {
-      "path": "/classrooms/{classroom_id}/assignments",
+      "path": "/notifications",
       "method": "GET",
-      "operationId": "classroom/list-assignments-for-a-classroom",
+      "operationId": "activity/list-notifications-for-authenticated-user",
       "summary": "",
-      "user": "teacher001",
-      "ideal": "Get all assignments for the specified classroom."
+      "user": "user101",
+      "ideal": "List notifications for the authenticated user."
     },
     {
-      "path": "/repos/{owner}/{repo}/actions/runs",
+      "path": "/repos/octocat/Hello-World/notifications",
       "method": "GET",
-      "operationId": "actions/list-workflow-runs-for-repo",
+      "operationId": "activity/list-repo-notifications-for-authenticated-user",
       "summary": "",
-      "user": "dev001",
-      "ideal": "List all workflow runs for the specified repository."
+      "user": "user202",
+      "ideal": "Get notifications for a specific repository."
     },
     {
-      "path": "/orgs/{org}/teams/{team_slug}/members",
+      "path": "/user/starred",
       "method": "GET",
-      "operationId": "teams/list-members-in-org",
+      "operationId": "activity/list-repos-starred-by-authenticated-user",
       "summary": "",
-      "user": "orgAdmin",
-      "ideal": "Retrieve a list of all members in the specified team."
+      "user": "user303",
+      "ideal": "Retrieve a list of repositories starred by the authenticated user."
     },
     {
-      "path": "/gists/{gist_id}/comments",
+      "path": "/users/octocat/starred",
       "method": "GET",
-      "operationId": "gists/list-comments",
+      "operationId": "activity/list-repos-starred-by-user",
       "summary": "",
-      "user": "userCommenter",
-      "ideal": "Fetch all comments for the specified gist."
+      "user": "user404",
+      "ideal": "Get a list of repositories starred by the specified user."
     },
     {
-      "path": "/orgs/{org}/dependabot/alerts",
+      "path": "/users/octocat/events/public",
       "method": "GET",
-      "operationId": "dependabot/list-alerts-for-org",
+      "operationId": "activity/list-public-events-for-user",
       "summary": "",
-      "user": "securityLead",
-      "ideal": "Get a list of all Dependabot alerts for the organization."
+      "user": "user505",
+      "ideal": "List public events for the specified user."
     },
     {
-      "path": "/repos/{owner}/{repo}/branches/{branch}/protection",
+      "path": "/notifications/threads/12345",
       "method": "GET",
-      "operationId": "repos/get-branch-protection",
+      "operationId": "activity/get-thread",
       "summary": "",
-      "user": "repoAdmin",
-      "ideal": "Retrieve branch protection settings for the specified branch."
+      "user": "user606",
+      "ideal": "Retrieve a specific notification thread."
     },
     {
-      "path": "/orgs/{org}/projects",
+      "path": "/repos/octocat/Hello-World/subscription",
       "method": "GET",
-      "operationId": "projects-classic/list-for-org",
+      "operationId": "activity/get-repo-subscription",
       "summary": "",
-      "user": "projectManager",
-      "ideal": "List all projects associated with the organization."
+      "user": "user707",
+      "ideal": "Get the subscription status for the specified repository."
     }
   ]
 }

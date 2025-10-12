@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchRecording",
+      "summary": "",
+      "user": "User requests to fetch a specific recording using the Account SID and Recording SID to retrieve details about a particular call recording.",
+      "ideal": "Retrieve the recording details including duration, date created, and URL."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteRecording",
+      "summary": "",
+      "user": "User wants to delete a specific recording identified by its SID to free up storage space and manage recordings effectively.",
+      "ideal": "Successfully delete the specified recording and return a confirmation message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings.json",
+      "method": "GET",
+      "operationId": "ListRecording",
+      "summary": "",
+      "user": "User needs to list all recordings associated with their account to review and manage them for compliance and record-keeping purposes.",
+      "ideal": "Return a list of all recordings with details such as SID, duration, and date created."
+    }
+  ]
+}

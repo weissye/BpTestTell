@@ -1,0 +1,308 @@
+{
+  "gold": [
+    {
+      "path": "/api/users/config/",
+      "method": "GET",
+      "operationId": "users_config_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the current configuration settings for users."
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "GET",
+      "operationId": "users_groups_list",
+      "summary": "",
+      "user": "manager",
+      "ideal": "List all user groups in the system."
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "POST",
+      "operationId": "users_groups_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new user group with specified attributes."
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "PUT",
+      "operationId": "users_groups_bulk_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Bulk update multiple user groups with new data."
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "PATCH",
+      "operationId": "users_groups_bulk_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update multiple user groups."
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "DELETE",
+      "operationId": "users_groups_bulk_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete multiple user groups from the system."
+    },
+    {
+      "path": "/api/users/groups/{id}/",
+      "method": "GET",
+      "operationId": "users_groups_retrieve",
+      "summary": "",
+      "user": "manager",
+      "ideal": "Retrieve details of a specific user group by ID."
+    },
+    {
+      "path": "/api/users/groups/{id}/",
+      "method": "PUT",
+      "operationId": "users_groups_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update a specific user group with new data."
+    },
+    {
+      "path": "/api/users/groups/{id}/",
+      "method": "PATCH",
+      "operationId": "users_groups_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update a specific user group."
+    },
+    {
+      "path": "/api/users/groups/{id}/",
+      "method": "DELETE",
+      "operationId": "users_groups_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific user group by ID."
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "GET",
+      "operationId": "users_permissions_list",
+      "summary": "",
+      "user": "manager",
+      "ideal": "List all permissions available for users."
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "POST",
+      "operationId": "users_permissions_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new permission for user roles."
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "PUT",
+      "operationId": "users_permissions_bulk_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Bulk update multiple permissions."
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "PATCH",
+      "operationId": "users_permissions_bulk_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update multiple permissions."
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "DELETE",
+      "operationId": "users_permissions_bulk_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete multiple permissions from the system."
+    },
+    {
+      "path": "/api/users/permissions/{id}/",
+      "method": "GET",
+      "operationId": "users_permissions_retrieve",
+      "summary": "",
+      "user": "manager",
+      "ideal": "Retrieve details of a specific permission by ID."
+    },
+    {
+      "path": "/api/users/permissions/{id}/",
+      "method": "PUT",
+      "operationId": "users_permissions_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update a specific permission with new data."
+    },
+    {
+      "path": "/api/users/permissions/{id}/",
+      "method": "PATCH",
+      "operationId": "users_permissions_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update a specific permission."
+    },
+    {
+      "path": "/api/users/permissions/{id}/",
+      "method": "DELETE",
+      "operationId": "users_permissions_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific permission by ID."
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "GET",
+      "operationId": "users_tokens_list",
+      "summary": "",
+      "user": "manager",
+      "ideal": "List all user tokens in the system."
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "POST",
+      "operationId": "users_tokens_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new token for a user."
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "PUT",
+      "operationId": "users_tokens_bulk_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Bulk update multiple user tokens."
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "PATCH",
+      "operationId": "users_tokens_bulk_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update multiple user tokens."
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "DELETE",
+      "operationId": "users_tokens_bulk_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete multiple user tokens from the system."
+    },
+    {
+      "path": "/api/users/tokens/{id}/",
+      "method": "GET",
+      "operationId": "users_tokens_retrieve",
+      "summary": "",
+      "user": "manager",
+      "ideal": "Retrieve details of a specific token by ID."
+    },
+    {
+      "path": "/api/users/tokens/{id}/",
+      "method": "PUT",
+      "operationId": "users_tokens_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update a specific token with new data."
+    },
+    {
+      "path": "/api/users/tokens/{id}/",
+      "method": "PATCH",
+      "operationId": "users_tokens_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update a specific token."
+    },
+    {
+      "path": "/api/users/tokens/{id}/",
+      "method": "DELETE",
+      "operationId": "users_tokens_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific token by ID."
+    },
+    {
+      "path": "/api/users/tokens/provision/",
+      "method": "POST",
+      "operationId": "users_tokens_provision_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Provision a new token for a user."
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "GET",
+      "operationId": "users_users_list",
+      "summary": "",
+      "user": "manager",
+      "ideal": "List all users in the system."
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "POST",
+      "operationId": "users_users_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new user with specified attributes."
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "PUT",
+      "operationId": "users_users_bulk_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Bulk update multiple users with new data."
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "PATCH",
+      "operationId": "users_users_bulk_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update multiple users."
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "DELETE",
+      "operationId": "users_users_bulk_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete multiple users from the system."
+    },
+    {
+      "path": "/api/users/users/{id}/",
+      "method": "GET",
+      "operationId": "users_users_retrieve",
+      "summary": "",
+      "user": "manager",
+      "ideal": "Retrieve details of a specific user by ID."
+    },
+    {
+      "path": "/api/users/users/{id}/",
+      "method": "PUT",
+      "operationId": "users_users_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update a specific user with new data."
+    },
+    {
+      "path": "/api/users/users/{id}/",
+      "method": "PATCH",
+      "operationId": "users_users_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update a specific user."
+    },
+    {
+      "path": "/api/users/users/{id}/",
+      "method": "DELETE",
+      "operationId": "users_users_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific user by ID."
+    }
+  ]
+}

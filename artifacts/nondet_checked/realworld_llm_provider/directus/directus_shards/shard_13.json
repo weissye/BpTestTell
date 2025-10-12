@@ -1,0 +1,81 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/permissions",
+      "method": "GET",
+      "tags": [
+        "Permissions"
+      ],
+      "summary": "List Permissions",
+      "operationId": "getPermissions"
+    },
+    {
+      "path": "/permissions",
+      "method": "POST",
+      "tags": [
+        "Permissions"
+      ],
+      "summary": "Create a Permission",
+      "operationId": "createPermission"
+    },
+    {
+      "path": "/permissions",
+      "method": "PATCH",
+      "tags": [
+        "Permissions"
+      ],
+      "summary": "Update Multiple Permissions",
+      "operationId": "updatePermissions"
+    },
+    {
+      "path": "/permissions",
+      "method": "DELETE",
+      "tags": [
+        "Permissions"
+      ],
+      "summary": "Delete Multiple Permissions",
+      "operationId": "deletePermissions"
+    },
+    {
+      "path": "/permissions/me",
+      "method": "GET",
+      "tags": [
+        "Permissions"
+      ],
+      "summary": "List My Permissions",
+      "operationId": "getMyPermissions"
+    },
+    {
+      "path": "/permissions/{id}",
+      "method": "GET",
+      "tags": [
+        "Permissions"
+      ],
+      "summary": "Retrieve a Permission",
+      "operationId": "getPermission"
+    },
+    {
+      "path": "/permissions/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Permissions"
+      ],
+      "summary": "Update a Permission",
+      "operationId": "updatePermission"
+    },
+    {
+      "path": "/permissions/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Permissions"
+      ],
+      "summary": "Delete a Permission",
+      "operationId": "deletePermission"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 @echo off
-setlocal EnableExtensions EnableDelayedExecution
+setlocal EnableExtensions EnableDelayedExpansion
 
 REM === Resolve repo root (two levels up) ===
 set "THIS=%~dp0"

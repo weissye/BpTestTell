@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/",
+      "method": "GET",
+      "tags": [
+        "meta"
+      ],
+      "summary": "GitHub API Root",
+      "operationId": "meta/root"
+    },
+    {
+      "path": "/meta",
+      "method": "GET",
+      "tags": [
+        "meta"
+      ],
+      "summary": "Get GitHub meta information",
+      "operationId": "meta/get"
+    },
+    {
+      "path": "/octocat",
+      "method": "GET",
+      "tags": [
+        "meta"
+      ],
+      "summary": "Get Octocat",
+      "operationId": "meta/get-octocat"
+    },
+    {
+      "path": "/versions",
+      "method": "GET",
+      "tags": [
+        "meta"
+      ],
+      "summary": "Get all API versions",
+      "operationId": "meta/get-all-versions"
+    },
+    {
+      "path": "/zen",
+      "method": "GET",
+      "tags": [
+        "meta"
+      ],
+      "summary": "Get the Zen of GitHub",
+      "operationId": "meta/get-zen"
+    }
+  ]
+}

@@ -1,11 +1,11 @@
 {
   "gold": [
     {
-      "path": "/rest/api/3/field/{fieldId}/screens",
+      "path": "/rest/api/3/field/10000/screens",
       "method": "GET",
       "operationId": "getScreensForField",
       "summary": "",
-      "user": "User wants to retrieve all screens associated with a specific field to understand where the field is used.",
+      "user": "User A wants to see all screens associated with a specific field to understand where it is used in the Jira interface.",
       "ideal": "Returns a list of screens that include the specified field."
     },
     {
@@ -13,47 +13,47 @@
       "method": "GET",
       "operationId": "getScreens",
       "summary": "",
-      "user": "User needs to list all screens in the Jira instance to manage their visibility and organization.",
-      "ideal": "Returns a list of all screens available in the system."
+      "user": "User B needs to retrieve all available screens in the Jira project to manage their configurations effectively.",
+      "ideal": "Returns a list of all screens in the system."
     },
     {
       "path": "/rest/api/3/screens",
       "method": "POST",
       "operationId": "createScreen",
       "summary": "",
-      "user": "User wants to create a new screen for a project to customize the issue view.",
+      "user": "User C wants to create a new screen for a custom issue type to enhance the user experience.",
       "ideal": "Creates a new screen and returns the details of the created screen."
     },
     {
-      "path": "/rest/api/3/screens/addToDefault/{fieldId}",
+      "path": "/rest/api/3/screens/addToDefault/10000",
       "method": "POST",
       "operationId": "addFieldToDefaultScreen",
       "summary": "",
-      "user": "User needs to add a specific field to the default screen to ensure it is visible during issue creation.",
+      "user": "User D needs to add a custom field to the default screen to ensure it is visible during issue creation.",
       "ideal": "Adds the specified field to the default screen and confirms the addition."
     },
     {
-      "path": "/rest/api/3/screens/{screenId}",
+      "path": "/rest/api/3/screens/20000",
       "method": "DELETE",
       "operationId": "deleteScreen",
       "summary": "",
-      "user": "User wants to delete an outdated screen that is no longer needed in the project.",
+      "user": "User E wants to remove an outdated screen that is no longer needed in the project.",
       "ideal": "Deletes the specified screen and returns a success message."
     },
     {
-      "path": "/rest/api/3/screens/{screenId}",
+      "path": "/rest/api/3/screens/20000",
       "method": "PUT",
       "operationId": "updateScreen",
       "summary": "",
-      "user": "User needs to update the name of an existing screen to better reflect its purpose.",
-      "ideal": "Updates the specified screen and returns the updated screen details."
+      "user": "User F needs to update the name of an existing screen to better reflect its purpose.",
+      "ideal": "Updates the screen details and returns the updated screen information."
     },
     {
-      "path": "/rest/api/3/screens/{screenId}/availableFields",
+      "path": "/rest/api/3/screens/20000/availableFields",
       "method": "GET",
       "operationId": "getAvailableScreenFields",
       "summary": "",
-      "user": "User wants to see which fields can be added to a specific screen to enhance its functionality.",
+      "user": "User G wants to check which fields are available to be added to a specific screen for better issue tracking.",
       "ideal": "Returns a list of fields that can be added to the specified screen."
     }
   ]

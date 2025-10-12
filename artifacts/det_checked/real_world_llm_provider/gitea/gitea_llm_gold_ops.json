@@ -1,0 +1,1124 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/activitypub/user-id/12345",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/activitypub/user-id/12345/inbox",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/cron",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/cron/my-task",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/emails",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/emails/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/hooks",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/hooks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/hooks/1",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/hooks/1",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/admin/hooks/1",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orgs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/runners/registration-token",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/unadopted",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/unadopted/my-org/my-repo",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/unadopted/my-org/my-repo",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/users/john_doe",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/admin/users/john_doe",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/users/john_doe/badges",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users/john_doe/badges",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/users/john_doe/badges",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users/john_doe/keys",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/users/john_doe/keys/1",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users/john_doe/orgs",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users/john_doe/rename",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users/john_doe/repos",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/issues/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/comments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{index}/comments",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{index}/labels",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{index}/labels/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{index}/reactions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/start",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/stop",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/milestones",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/milestones/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/gitignore/templates",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/gitignore/templates/Python",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/label/templates",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/label/templates/bug",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/licenses",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/licenses/MIT",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/markdown",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/markdown/raw",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/markup",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/nodeinfo",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/signing-key.gpg",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/version",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/notifications",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/new",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/threads/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/notifications/threads/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/notifications",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/notifications",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/repos",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/teams",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/hooks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/secrets",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/variables",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/avatar",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/blocks/{username}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/packages/johndoe",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/packages/johndoe/npm/my-package/1.0.0",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/packages/johndoe/npm/my-package/1.0.0",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/packages/johndoe/npm/my-package/1.0.0/files",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/migrate",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/secrets",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/actions/secrets/{secretname}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/actions/secrets/{secretname}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/releases",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/topics",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/wiki/pages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/settings/api",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/settings/attachment",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/settings/repository",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/settings/ui",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/actions/runners/registration-token",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/user/actions/secrets/my_secret",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/user/actions/secrets/my_secret",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/actions/variables",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/user/applications/oauth2",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/user/applications/oauth2/123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/emails",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/user/following/jane_doe",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/user/gpg_keys",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/user/hooks",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/user/repos",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/user/settings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/starred",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/jane_doe",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/jane_doe/repos",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/activitypub/user-id/12345",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/activitypub/user-id/12345/inbox",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/cron",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/cron/my-task",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/emails",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/emails/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/hooks",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/hooks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/hooks/1",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/hooks/1",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/admin/hooks/1",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orgs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/runners/registration-token",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/unadopted",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/unadopted/my-org/my-repo",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/unadopted/my-org/my-repo",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/users/john_doe",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/admin/users/john_doe",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/users/john_doe/badges",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users/john_doe/badges",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/users/john_doe/badges",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users/john_doe/keys",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/users/john_doe/keys/1",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users/john_doe/orgs",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users/john_doe/rename",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users/john_doe/repos",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/issues/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/comments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{index}/comments",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{index}/labels",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{index}/labels/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{index}/reactions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/start",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/stop",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/milestones",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/milestones/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/gitignore/templates",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/gitignore/templates/Python",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/label/templates",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/label/templates/bug",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/licenses",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/licenses/MIT",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/markdown",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/markdown/raw",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/markup",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/nodeinfo",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/signing-key.gpg",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/version",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/notifications",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/new",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/threads/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/notifications/threads/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/notifications",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/notifications",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/repos",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/teams",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/hooks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/secrets",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/variables",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/avatar",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/blocks/{username}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/packages/johndoe",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/packages/johndoe/npm/my-package/1.0.0",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/packages/johndoe/npm/my-package/1.0.0",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/packages/johndoe/npm/my-package/1.0.0/files",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/migrate",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/secrets",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/actions/secrets/{secretname}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/actions/secrets/{secretname}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/releases",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/topics",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/wiki/pages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/settings/api",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/settings/attachment",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/settings/repository",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/settings/ui",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/actions/runners/registration-token",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/user/actions/secrets/my_secret",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/user/actions/secrets/my_secret",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/actions/variables",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/user/applications/oauth2",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/user/applications/oauth2/123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/emails",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/user/following/jane_doe",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/user/gpg_keys",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/user/hooks",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/user/repos",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/user/settings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/starred",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/jane_doe",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/jane_doe/repos",
+      "body": null
+    }
+  ]
+}

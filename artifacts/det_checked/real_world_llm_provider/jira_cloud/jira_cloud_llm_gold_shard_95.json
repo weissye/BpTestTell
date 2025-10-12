@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/workflow/rule/config",
+      "method": "GET",
+      "operationId": "getWorkflowTransitionRuleConfigurations",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve the current workflow transition rule configurations for my project to ensure they align with our process requirements.",
+      "ideal": "The API should return a list of all workflow transition rule configurations currently set for the project, including details such as rule IDs, conditions, and actions."
+    },
+    {
+      "path": "/rest/api/3/workflow/rule/config",
+      "method": "PUT",
+      "operationId": "updateWorkflowTransitionRuleConfigurations",
+      "summary": "",
+      "user": "As a workflow administrator, I need to update the existing workflow transition rule configurations to reflect the new business logic we have defined.",
+      "ideal": "The API should accept the updated configurations and return a success message along with the updated rule details, confirming the changes have been applied."
+    },
+    {
+      "path": "/rest/api/3/workflow/rule/config/delete",
+      "method": "PUT",
+      "operationId": "deleteWorkflowTransitionRuleConfigurations",
+      "summary": "",
+      "user": "As a system administrator, I want to delete obsolete workflow transition rule configurations that are no longer needed to maintain a clean and efficient workflow setup.",
+      "ideal": "The API should successfully remove the specified rule configurations and return a confirmation message indicating which rules were deleted."
+    }
+  ]
+}

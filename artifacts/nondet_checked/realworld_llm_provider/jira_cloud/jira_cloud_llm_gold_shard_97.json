@@ -1,20 +1,20 @@
 {
   "gold": [
     {
-      "path": "/rest/api/3/user/nav4-opt-property/themeColor",
+      "path": "/rest/api/3/user/nav4-opt-property/theme",
       "method": "GET",
       "operationId": "getUserNavProperty",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve the current theme color property for the user."
+      "ideal": "Retrieve the current theme setting for the user."
     },
     {
-      "path": "/rest/api/3/user/nav4-opt-property/themeColor",
+      "path": "/rest/api/3/user/nav4-opt-property/theme",
       "method": "PUT",
       "operationId": "setUserNavProperty",
       "summary": "",
       "user": "user123",
-      "ideal": "Update the theme color property for the user to '#FF5733'."
+      "ideal": "Update the theme setting for the user to 'dark'."
     }
   ]
 }

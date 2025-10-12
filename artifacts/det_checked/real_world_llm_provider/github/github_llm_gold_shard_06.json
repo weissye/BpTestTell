@@ -1,0 +1,100 @@
+{
+  "gold": [
+    {
+      "path": "/repos/octocat/Hello-World/check-runs",
+      "method": "POST",
+      "operationId": "checks/create",
+      "summary": "",
+      "user": "User wants to create a new check run for the repository 'Hello-World' owned by 'octocat'.",
+      "ideal": "The API should successfully create a check run and return the details of the created check."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/12345",
+      "method": "GET",
+      "operationId": "checks/get",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific check run with ID 12345 in the 'Hello-World' repository.",
+      "ideal": "The API should return the details of the check run including its status and conclusion."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/12345",
+      "method": "PATCH",
+      "operationId": "checks/update",
+      "summary": "",
+      "user": "User wants to update the check run with ID 12345 to change its status to 'completed'.",
+      "ideal": "The API should successfully update the check run and return the updated details."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/12345/annotations",
+      "method": "GET",
+      "operationId": "checks/list-annotations",
+      "summary": "",
+      "user": "User wants to list all annotations for the check run with ID 12345 in the 'Hello-World' repository.",
+      "ideal": "The API should return a list of annotations associated with the specified check run."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/12345/rerequest",
+      "method": "POST",
+      "operationId": "checks/rerequest-run",
+      "summary": "",
+      "user": "User wants to rerequest the check run with ID 12345 to run it again.",
+      "ideal": "The API should successfully rerequest the check run and return the details of the new check run."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites",
+      "method": "POST",
+      "operationId": "checks/create-suite",
+      "summary": "",
+      "user": "User wants to create a new check suite for the 'Hello-World' repository.",
+      "ideal": "The API should successfully create a check suite and return its details."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/preferences",
+      "method": "PATCH",
+      "operationId": "checks/set-suites-preferences",
+      "summary": "",
+      "user": "User wants to update the preferences for check suites in the 'Hello-World' repository.",
+      "ideal": "The API should successfully update the preferences and return the updated preferences."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/67890",
+      "method": "GET",
+      "operationId": "checks/get-suite",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific check suite with ID 67890 in the 'Hello-World' repository.",
+      "ideal": "The API should return the details of the specified check suite."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/67890/check-runs",
+      "method": "GET",
+      "operationId": "checks/list-for-suite",
+      "summary": "",
+      "user": "User wants to list all check runs associated with the check suite ID 67890 in the 'Hello-World' repository.",
+      "ideal": "The API should return a list of check runs associated with the specified check suite."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/67890/rerequest",
+      "method": "POST",
+      "operationId": "checks/rerequest-suite",
+      "summary": "",
+      "user": "User wants to rerequest the check suite with ID 67890 to run it again.",
+      "ideal": "The API should successfully rerequest the check suite and return the details of the new check suite."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/commits/main/check-runs",
+      "method": "GET",
+      "operationId": "checks/list-for-ref",
+      "summary": "",
+      "user": "User wants to list all check runs for the commit at the 'main' branch in the 'Hello-World' repository.",
+      "ideal": "The API should return a list of check runs associated with the specified commit reference."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/commits/main/check-suites",
+      "method": "GET",
+      "operationId": "checks/list-suites-for-ref",
+      "summary": "",
+      "user": "User wants to list all check suites for the commit at the 'main' branch in the 'Hello-World' repository.",
+      "ideal": "The API should return a list of check suites associated with the specified commit reference."
+    }
+  ]
+}

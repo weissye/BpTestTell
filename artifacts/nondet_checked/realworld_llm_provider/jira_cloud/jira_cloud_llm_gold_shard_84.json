@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "getUiModifications",
       "summary": "",
-      "user": "As a project manager, I want to retrieve the current UI modifications applied to my Jira project so that I can review the changes made.",
-      "ideal": "The API should return a list of UI modifications, including their IDs, types, and descriptions, allowing me to understand the current state of the UI."
+      "user": "As a project manager, I want to retrieve the current UI modifications applied to my Jira instance so that I can review any changes made to the user interface.",
+      "ideal": "The response should include a list of all UI modifications, detailing their IDs, types, and statuses."
     },
     {
       "path": "/rest/api/3/uiModifications",
       "method": "POST",
       "operationId": "createUiModification",
       "summary": "",
-      "user": "As a developer, I want to create a new UI modification for my project to enhance user experience by adding a custom button.",
-      "ideal": "The API should accept the modification details and return the created modification's ID and confirmation of the successful creation."
+      "user": "As a developer, I want to create a new UI modification to enhance the user experience for our team, so that we can streamline our workflow.",
+      "ideal": "The response should confirm the successful creation of the UI modification and return the new modification's ID and details."
     },
     {
       "path": "/rest/api/3/uiModifications/{uiModificationId}",
       "method": "DELETE",
       "operationId": "deleteUiModification",
       "summary": "",
-      "user": "As an admin, I want to delete an outdated UI modification that is no longer relevant to ensure the interface remains clean and user-friendly.",
-      "ideal": "The API should confirm the deletion of the specified UI modification and return a success message."
+      "user": "As an admin, I want to delete an outdated UI modification that is no longer relevant, to keep the interface clean and user-friendly.",
+      "ideal": "The response should confirm the deletion of the specified UI modification and return a success message."
     },
     {
       "path": "/rest/api/3/uiModifications/{uiModificationId}",
       "method": "PUT",
       "operationId": "updateUiModification",
       "summary": "",
-      "user": "As a UX designer, I want to update an existing UI modification to improve its functionality based on user feedback.",
-      "ideal": "The API should accept the updated details and return the modified UI modification's ID along with a confirmation of the update."
+      "user": "As a UX designer, I want to update an existing UI modification to improve its functionality based on user feedback, ensuring that our interface meets user needs.",
+      "ideal": "The response should confirm the successful update of the UI modification and return the updated details."
     }
   ]
 }

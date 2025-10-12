@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "User requests to fetch the specific IP Access Control List mapping for a given DomainSid and Sid to verify the current settings and permissions.",
+      "ideal": "The response should include details of the IP Access Control List mapping, such as the IP address, friendly name, and associated permissions."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "User wants to remove an existing IP Access Control List mapping that is no longer needed for security reasons.",
+      "ideal": "The response should confirm the successful deletion of the IP Access Control List mapping and return a status message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+      "method": "POST",
+      "operationId": "CreateSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "User is adding a new IP Access Control List mapping to allow a specific IP address access to the SIP domain.",
+      "ideal": "The response should include the details of the newly created IP Access Control List mapping, including the Sid and any relevant metadata."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+      "method": "GET",
+      "operationId": "ListSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "User needs to retrieve a list of all IP Access Control List mappings associated with a specific SIP domain to review current access permissions.",
+      "ideal": "The response should provide a list of all mappings, including their Sids, IP addresses, and friendly names."
+    }
+  ]
+}

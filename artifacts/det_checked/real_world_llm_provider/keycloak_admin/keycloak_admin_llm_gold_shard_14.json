@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/v1/{realm}",
+      "method": "GET",
+      "operationId": "get",
+      "summary": "",
+      "user": "Admin user requesting realm information.",
+      "ideal": "Returns the details of the specified realm."
+    },
+    {
+      "path": "/v1/{realm}",
+      "method": "POST",
+      "operationId": "post",
+      "summary": "",
+      "user": "Admin user creating a new realm.",
+      "ideal": "Creates a new realm with the provided configuration."
+    },
+    {
+      "path": "/v1/{realm}/admin-events",
+      "method": "GET",
+      "operationId": "getAdminEvents",
+      "summary": "",
+      "user": "Admin user retrieving admin events for auditing.",
+      "ideal": "Returns a list of admin events for the specified realm."
+    },
+    {
+      "path": "/v1/{realm}/client-policies/policies",
+      "method": "GET",
+      "operationId": "getPolicies",
+      "summary": "",
+      "user": "Admin user checking client policies.",
+      "ideal": "Retrieves the client policies defined in the realm."
+    },
+    {
+      "path": "/v1/{realm}/default-groups",
+      "method": "GET",
+      "operationId": "getDefaultGroups",
+      "summary": "",
+      "user": "Admin user listing default groups in the realm.",
+      "ideal": "Returns the default groups configured for the realm."
+    },
+    {
+      "path": "/v1/{realm}/localization/en",
+      "method": "GET",
+      "operationId": "getLocalizationByRealmByLocale",
+      "summary": "",
+      "user": "Admin user fetching localization for English locale.",
+      "ideal": "Retrieves localization strings for the specified locale."
+    },
+    {
+      "path": "/v1/{realm}/localization/en/welcome",
+      "method": "GET",
+      "operationId": "getLocalizationByRealmByLocaleByKey",
+      "summary": "",
+      "user": "Admin user getting specific localization key.",
+      "ideal": "Returns the localization string for the key 'welcome'."
+    },
+    {
+      "path": "/v1/{realm}/logout-all",
+      "method": "POST",
+      "operationId": "postLogoutAll",
+      "summary": "",
+      "user": "Admin user logging out all users from the realm.",
+      "ideal": "Logs out all active sessions in the specified realm."
+    },
+    {
+      "path": "/v1/{realm}/partial-export",
+      "method": "POST",
+      "operationId": "postPartialExport",
+      "summary": "",
+      "user": "Admin user exporting specific realm data.",
+      "ideal": "Exports selected data from the realm for backup."
+    },
+    {
+      "path": "/v1/{realm}/sessions/{session}",
+      "method": "DELETE",
+      "operationId": "deleteSession",
+      "summary": "",
+      "user": "Admin user terminating a specific user session.",
+      "ideal": "Deletes the specified user session from the realm."
+    }
+  ]
+}

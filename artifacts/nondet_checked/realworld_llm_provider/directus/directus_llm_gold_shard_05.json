@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/comments",
+      "method": "GET",
+      "operationId": "getComments",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Retrieve a list of all comments."
+    },
+    {
+      "path": "/comments",
+      "method": "POST",
+      "operationId": "createComment",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Create a new comment with the provided content."
+    },
+    {
+      "path": "/comments",
+      "method": "PATCH",
+      "operationId": "updateComments",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Update multiple comments with the specified changes."
+    },
+    {
+      "path": "/comments",
+      "method": "DELETE",
+      "operationId": "deleteComments",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Delete all comments that match the criteria."
+    },
+    {
+      "path": "/comments/{id}",
+      "method": "GET",
+      "operationId": "getComment",
+      "summary": "",
+      "user": "User112",
+      "ideal": "Retrieve a specific comment by its ID."
+    },
+    {
+      "path": "/comments/{id}",
+      "method": "PATCH",
+      "operationId": "updateComment",
+      "summary": "",
+      "user": "User131",
+      "ideal": "Update a specific comment identified by its ID."
+    },
+    {
+      "path": "/comments/{id}",
+      "method": "DELETE",
+      "operationId": "deleteComment",
+      "summary": "",
+      "user": "User415",
+      "ideal": "Delete a specific comment by its ID."
+    }
+  ]
+}

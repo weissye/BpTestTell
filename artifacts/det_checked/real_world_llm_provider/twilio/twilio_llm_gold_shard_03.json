@@ -1,108 +1,44 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/{Sid}.json",
-      "method": "GET",
-      "operationId": "FetchAccount",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "method": "POST",
+      "operationId": "CreateAddress",
       "summary": "",
-      "user": "Requesting account details for verification.",
-      "ideal": "Successfully fetch account details."
+      "user": "User wants to create a new address for their Twilio account, providing necessary details like street, city, state, and postal code.",
+      "ideal": "Successfully creates a new address and returns the address details with a unique Sid."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
       "method": "GET",
       "operationId": "ListAddress",
       "summary": "",
-      "user": "I need to list all addresses associated with my account.",
-      "ideal": "Returns a list of addresses."
+      "user": "User wants to retrieve a list of all addresses associated with their Twilio account to manage them effectively.",
+      "ideal": "Returns a list of addresses with details such as Sid, street, city, state, and postal code."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteAddress",
+      "summary": "",
+      "user": "User wants to delete a specific address from their Twilio account using the address Sid.",
+      "ideal": "Successfully deletes the address and returns a confirmation message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchAddress",
+      "summary": "",
+      "user": "User wants to fetch details of a specific address using its Sid to verify the information.",
+      "ideal": "Returns the details of the specified address including street, city, state, and postal code."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateAddress",
       "summary": "",
-      "user": "Updating the address for my account.",
-      "ideal": "Address updated successfully."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
-      "method": "DELETE",
-      "operationId": "DeleteApplication",
-      "summary": "",
-      "user": "I want to delete an application that is no longer needed.",
-      "ideal": "Application deleted successfully."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json",
-      "method": "GET",
-      "operationId": "FetchAuthorizedConnectApp",
-      "summary": "",
-      "user": "Fetching details of an authorized connect app.",
-      "ideal": "Successfully fetch connect app details."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json",
-      "method": "GET",
-      "operationId": "FetchAvailablePhoneNumberCountry",
-      "summary": "",
-      "user": "I need to check available phone numbers in my country.",
-      "ideal": "Returns a list of available phone numbers."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
-      "method": "POST",
-      "operationId": "CreateCall",
-      "summary": "",
-      "user": "Initiating a new call to a customer.",
-      "ideal": "Call created successfully."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
-      "method": "GET",
-      "operationId": "FetchCall",
-      "summary": "",
-      "user": "I want to fetch details of a specific call.",
-      "ideal": "Successfully fetch call details."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
-      "method": "GET",
-      "operationId": "ListMessage",
-      "summary": "",
-      "user": "Listing all messages sent from my account.",
-      "ideal": "Returns a list of messages."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
-      "method": "POST",
-      "operationId": "UpdateMessage",
-      "summary": "",
-      "user": "Updating the status of a specific message.",
-      "ideal": "Message updated successfully."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
-      "method": "GET",
-      "operationId": "ListQueue",
-      "summary": "",
-      "user": "I need to see all the queues I have set up.",
-      "ideal": "Returns a list of queues."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json",
-      "method": "GET",
-      "operationId": "ListTranscription",
-      "summary": "",
-      "user": "Fetching all transcriptions for my account.",
-      "ideal": "Returns a list of transcriptions."
-    },
-    {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json",
-      "method": "GET",
-      "operationId": "ListUsageRecordThisMonth",
-      "summary": "",
-      "user": "I want to check my usage records for this month.",
-      "ideal": "Returns usage records for the current month."
+      "user": "User wants to update the details of an existing address, providing new information for fields like street and city.",
+      "ideal": "Successfully updates the address and returns the updated address details."
     }
   ]
 }

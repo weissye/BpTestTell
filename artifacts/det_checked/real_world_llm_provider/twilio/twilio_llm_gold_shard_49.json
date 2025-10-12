@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Notifications/NXXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchNotification",
+      "summary": "",
+      "user": "User wants to retrieve details about a specific notification sent to their Twilio account. They have the Account SID and the Notification SID and are looking for information such as the message body, status, and date sent.",
+      "ideal": "The API should return a JSON object containing the details of the specified notification, including fields like 'sid', 'date_created', 'date_updated', 'message_text', and 'status'."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Notifications.json",
+      "method": "GET",
+      "operationId": "ListNotification",
+      "summary": "",
+      "user": "User needs to list all notifications for their Twilio account to monitor the messages sent and their statuses. They want to see a summary of notifications including their SIDs and statuses.",
+      "ideal": "The API should return a JSON array of notification objects, each containing fields like 'sid', 'date_created', 'message_text', and 'status', allowing the user to review all notifications at once."
+    }
+  ]
+}

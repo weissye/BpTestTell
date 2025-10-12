@@ -30,11 +30,11 @@
       "url": "https://developer.atlassian.com/cloud/jira/platform/swagger-v3.v3.json",
       "format": "json"
     },
-    {
-      "name": "gitea",
-      "url": "https://try.gitea.io/swagger.v1.json",
-      "format": "json"
-    },
+	{
+	  "name": "gitea",
+	  "url": "https://docs.gitea.com/redocusaurus/plugin-redoc-2.yaml",
+	  "format": "yaml"
+	},
     {
       "name": "meilisearch",
       "url": "https://raw.githubusercontent.com/meilisearch/specifications/main/open-api.yaml",

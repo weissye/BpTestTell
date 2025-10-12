@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/advisories",
+      "method": "GET",
+      "operationId": "security-advisories/list-global-advisories",
+      "summary": "",
+      "user": "A security researcher looking to gather information on all global security advisories published on GitHub to assess potential vulnerabilities in open-source projects.",
+      "ideal": "Returns a list of all global security advisories with details such as advisory ID, summary, and severity."
+    },
+    {
+      "path": "/advisories/{ghsa_id}",
+      "method": "GET",
+      "operationId": "security-advisories/get-global-advisory",
+      "summary": "",
+      "user": "A developer wanting to get detailed information about a specific global security advisory using its GHSA ID to understand its impact on their project.",
+      "ideal": "Returns detailed information about the specified global security advisory, including affected versions and recommendations."
+    },
+    {
+      "path": "/orgs/{org}/security-advisories",
+      "method": "GET",
+      "operationId": "security-advisories/list-org-repository-advisories",
+      "summary": "",
+      "user": "An organization security officer who needs to review all security advisories related to their organization's repositories to ensure compliance and security.",
+      "ideal": "Returns a list of security advisories for all repositories within the specified organization."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories",
+      "method": "GET",
+      "operationId": "security-advisories/list-repository-advisories",
+      "summary": "",
+      "user": "A repository maintainer looking to check for any security advisories related to their specific repository to address potential vulnerabilities.",
+      "ideal": "Returns a list of security advisories associated with the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories",
+      "method": "POST",
+      "operationId": "security-advisories/create-repository-advisory",
+      "summary": "",
+      "user": "A repository maintainer who has discovered a vulnerability in their code and wants to create a security advisory to inform users and contributors.",
+      "ideal": "Creates a new security advisory for the specified repository and returns the advisory details."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories/reports",
+      "method": "POST",
+      "operationId": "security-advisories/create-private-vulnerability-report",
+      "summary": "",
+      "user": "A security researcher who has found a vulnerability in a repository and wants to report it privately to the maintainers to prevent exploitation.",
+      "ideal": "Submits a private vulnerability report for the specified repository and returns confirmation of the report submission."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
+      "method": "GET",
+      "operationId": "security-advisories/get-repository-advisory",
+      "summary": "",
+      "user": "A developer needing to retrieve information about a specific repository advisory to understand its implications for their project.",
+      "ideal": "Returns detailed information about the specified repository advisory, including its status and recommendations."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
+      "method": "PATCH",
+      "operationId": "security-advisories/update-repository-advisory",
+      "summary": "",
+      "user": "A repository maintainer who needs to update an existing security advisory to reflect new findings or changes in the vulnerability status.",
+      "ideal": "Updates the specified repository advisory and returns the updated advisory details."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/cve",
+      "method": "POST",
+      "operationId": "security-advisories/create-repository-advisory-cve-request",
+      "summary": "",
+      "user": "A security analyst who wants to request a CVE ID for a newly discovered vulnerability in their repository to ensure it is tracked properly.",
+      "ideal": "Creates a request for a CVE ID associated with the specified repository advisory and returns the request status."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/forks",
+      "method": "POST",
+      "operationId": "security-advisories/create-fork",
+      "summary": "",
+      "user": "A developer who wants to create a fork of a repository to work on a fix for a security advisory without affecting the original repository.",
+      "ideal": "Creates a fork of the specified repository and returns the details of the newly created fork."
+    }
+  ]
+}

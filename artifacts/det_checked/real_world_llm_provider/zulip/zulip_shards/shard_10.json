@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "Zulip REST API",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/scheduled_messages",
+      "method": "GET",
+      "tags": [
+        "scheduled_messages"
+      ],
+      "summary": "Get scheduled messages",
+      "operationId": "get-scheduled-messages"
+    },
+    {
+      "path": "/scheduled_messages",
+      "method": "POST",
+      "tags": [
+        "scheduled_messages"
+      ],
+      "summary": "Create a scheduled message",
+      "operationId": "create-scheduled-message"
+    },
+    {
+      "path": "/scheduled_messages/{scheduled_message_id}",
+      "method": "PATCH",
+      "tags": [
+        "scheduled_messages"
+      ],
+      "summary": "Edit a scheduled message",
+      "operationId": "update-scheduled-message"
+    },
+    {
+      "path": "/scheduled_messages/{scheduled_message_id}",
+      "method": "DELETE",
+      "tags": [
+        "scheduled_messages"
+      ],
+      "summary": "Delete a scheduled message",
+      "operationId": "delete-scheduled-message"
+    }
+  ]
+}

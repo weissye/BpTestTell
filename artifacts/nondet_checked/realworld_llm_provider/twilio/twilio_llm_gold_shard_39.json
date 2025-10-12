@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/MachineToMachine.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberMachineToMachine",
+      "summary": "",
+      "user": "User wants to find available phone numbers in the US for machine-to-machine communication.",
+      "ideal": "Returns a list of available phone numbers suitable for machine-to-machine communication in the specified country."
+    }
+  ]
+}

@@ -1,0 +1,351 @@
+{
+  "openapi_meta": {
+    "title": "Zulip REST API",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/attachments",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get attachments",
+      "operationId": "get-attachments"
+    },
+    {
+      "path": "/attachments/{attachment_id}",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Delete an attachment",
+      "operationId": "remove-attachment"
+    },
+    {
+      "path": "/users",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get users",
+      "operationId": "get-users"
+    },
+    {
+      "path": "/users",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Create a user",
+      "operationId": "create-user"
+    },
+    {
+      "path": "/users/{user_id}/reactivate",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Reactivate a user",
+      "operationId": "reactivate-user"
+    },
+    {
+      "path": "/users/{user_id}/status",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Update user status",
+      "operationId": "update-status-for-user"
+    },
+    {
+      "path": "/users/{user_id}/status",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get a user's status",
+      "operationId": "get-user-status"
+    },
+    {
+      "path": "/users/{user_id_or_email}/presence",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get a user's presence",
+      "operationId": "get-user-presence"
+    },
+    {
+      "path": "/users/me",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get own user",
+      "operationId": "get-own-user"
+    },
+    {
+      "path": "/users/me",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Deactivate own user",
+      "operationId": "deactivate-own-user"
+    },
+    {
+      "path": "/users/me/alert_words",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get all alert words",
+      "operationId": "get-alert-words"
+    },
+    {
+      "path": "/users/me/alert_words",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Add alert words",
+      "operationId": "add-alert-words"
+    },
+    {
+      "path": "/users/me/alert_words",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Remove alert words",
+      "operationId": "remove-alert-words"
+    },
+    {
+      "path": "/users/me/presence",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Update your presence",
+      "operationId": "update-presence"
+    },
+    {
+      "path": "/users/me/status",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Update your status",
+      "operationId": "update-status"
+    },
+    {
+      "path": "/users/me/muted_users/{muted_user_id}",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Mute a user",
+      "operationId": "mute-user"
+    },
+    {
+      "path": "/users/me/muted_users/{muted_user_id}",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Unmute a user",
+      "operationId": "unmute-user"
+    },
+    {
+      "path": "/users/me/apns_device_token",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Add an APNs device token",
+      "operationId": "add-apns-token"
+    },
+    {
+      "path": "/users/me/apns_device_token",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Remove an APNs device token",
+      "operationId": "remove-apns-token"
+    },
+    {
+      "path": "/users/me/android_gcm_reg_id",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Add an FCM registration token",
+      "operationId": "add-fcm-token"
+    },
+    {
+      "path": "/users/me/android_gcm_reg_id",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Remove an FCM registration token",
+      "operationId": "remove-fcm-token"
+    },
+    {
+      "path": "/users/{email}",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get a user by email",
+      "operationId": "get-user-by-email"
+    },
+    {
+      "path": "/users/{email}",
+      "method": "PATCH",
+      "tags": [
+        "users"
+      ],
+      "summary": "Update a user by email",
+      "operationId": "update-user-by-email"
+    },
+    {
+      "path": "/users/{user_id}",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get a user",
+      "operationId": "get-user"
+    },
+    {
+      "path": "/users/{user_id}",
+      "method": "PATCH",
+      "tags": [
+        "users"
+      ],
+      "summary": "Update a user",
+      "operationId": "update-user"
+    },
+    {
+      "path": "/users/{user_id}",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "Deactivate a user",
+      "operationId": "deactivate-user"
+    },
+    {
+      "path": "/settings",
+      "method": "PATCH",
+      "tags": [
+        "users"
+      ],
+      "summary": "Update settings",
+      "operationId": "update-settings"
+    },
+    {
+      "path": "/typing",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Set \"typing\" status",
+      "operationId": "set-typing-status"
+    },
+    {
+      "path": "/messages/{message_id}/typing",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Set \"typing\" status for message editing",
+      "operationId": "set-typing-status-for-message-edit"
+    },
+    {
+      "path": "/user_groups/create",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Create a user group",
+      "operationId": "create-user-group"
+    },
+    {
+      "path": "/user_groups/{user_group_id}/members",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Update user group members",
+      "operationId": "update-user-group-members"
+    },
+    {
+      "path": "/user_groups/{user_group_id}/members",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get user group members",
+      "operationId": "get-user-group-members"
+    },
+    {
+      "path": "/user_groups/{user_group_id}",
+      "method": "PATCH",
+      "tags": [
+        "users"
+      ],
+      "summary": "Update a user group",
+      "operationId": "update-user-group"
+    },
+    {
+      "path": "/user_groups",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get user groups",
+      "operationId": "get-user-groups"
+    },
+    {
+      "path": "/user_groups/{user_group_id}/subgroups",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Update subgroups of a user group",
+      "operationId": "update-user-group-subgroups"
+    },
+    {
+      "path": "/user_groups/{user_group_id}/subgroups",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get subgroups of a user group",
+      "operationId": "get-user-group-subgroups"
+    },
+    {
+      "path": "/user_groups/{user_group_id}/members/{user_id}",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "Get user group membership status",
+      "operationId": "get-is-user-group-member"
+    },
+    {
+      "path": "/user_groups/{user_group_id}/deactivate",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "Deactivate a user group",
+      "operationId": "deactivate-user-group"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/user/properties",
+      "method": "GET",
+      "operationId": "getUserPropertyKeys",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve all property keys associated with the user."
+    },
+    {
+      "path": "/rest/api/3/user/properties/notifications",
+      "method": "DELETE",
+      "operationId": "deleteUserProperty",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete the user property 'notifications' for user123."
+    },
+    {
+      "path": "/rest/api/3/user/properties/theme",
+      "method": "GET",
+      "operationId": "getUserProperty",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Fetch the value of the user property 'theme' for user123."
+    },
+    {
+      "path": "/rest/api/3/user/properties/language",
+      "method": "PUT",
+      "operationId": "setUserProperty",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Set the user property 'language' to 'en-US' for user123."
+    }
+  ]
+}

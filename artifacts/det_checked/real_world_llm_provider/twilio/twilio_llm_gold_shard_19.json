@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json",
+      "method": "GET",
+      "operationId": "ListConferenceRecording",
+      "summary": "",
+      "user": "As a conference organizer, I want to retrieve a list of all recordings for a specific conference so that I can review the discussions and share them with participants.",
+      "ideal": "The API should return a JSON array of recordings, including details such as SID, date created, duration, and URL for each recording."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateConferenceRecording",
+      "summary": "",
+      "user": "As a conference administrator, I want to update the metadata of a specific recording to correct the title and add notes for future reference.",
+      "ideal": "The API should accept a JSON payload with updated fields and return the updated recording details, confirming the changes were successful."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchConferenceRecording",
+      "summary": "",
+      "user": "As a participant, I want to fetch a specific recording of the conference to listen to my contributions and understand the context of the discussions.",
+      "ideal": "The API should return the details of the specific recording, including the SID, duration, and a direct link to access the audio file."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteConferenceRecording",
+      "summary": "",
+      "user": "As a privacy-conscious user, I want to delete a specific recording of a conference that contains sensitive information to ensure it is no longer accessible.",
+      "ideal": "The API should confirm the deletion of the recording and return a success message, ensuring that the recording is permanently removed from the system."
+    }
+  ]
+}

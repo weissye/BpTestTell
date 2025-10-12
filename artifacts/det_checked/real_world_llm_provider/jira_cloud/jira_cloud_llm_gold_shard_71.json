@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/type",
+      "method": "GET",
+      "operationId": "getAllProjectTypes",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all available project types in Jira so that I can choose the appropriate type for my new project.",
+      "ideal": "The API should return a list of all project types, including their keys and names, allowing me to understand the options available."
+    },
+    {
+      "path": "/rest/api/3/project/type/accessible",
+      "method": "GET",
+      "operationId": "getAllAccessibleProjectTypes",
+      "summary": "",
+      "user": "As a team member, I need to see all project types that I have access to, so I can create or manage projects relevant to my role.",
+      "ideal": "The API should return a list of project types that are accessible to the user, including necessary details to identify them."
+    },
+    {
+      "path": "/rest/api/3/project/type/{projectTypeKey}",
+      "method": "GET",
+      "operationId": "getProjectTypeByKey",
+      "summary": "",
+      "user": "As a developer, I want to get detailed information about a specific project type using its key, so I can understand its configuration and capabilities.",
+      "ideal": "The API should return detailed information about the specified project type, including its name, description, and any associated settings."
+    },
+    {
+      "path": "/rest/api/3/project/type/{projectTypeKey}/accessible",
+      "method": "GET",
+      "operationId": "getAccessibleProjectTypeByKey",
+      "summary": "",
+      "user": "As a project administrator, I need to check if a specific project type is accessible to my team, so I can ensure they can create projects.",
+      "ideal": "The API should return a confirmation of accessibility for the specified project type, along with any relevant permissions or restrictions."
+    }
+  ]
+}

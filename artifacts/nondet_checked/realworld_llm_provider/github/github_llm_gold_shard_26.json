@@ -5,16 +5,16 @@
       "method": "POST",
       "operationId": "markdown/render",
       "summary": "",
-      "user": "User wants to convert Markdown text to HTML format for a README file.",
-      "ideal": "The API should return the HTML representation of the provided Markdown."
+      "user": "User wants to convert Markdown text into HTML format for a README file on their GitHub repository. They provide a simple Markdown string that includes headers, lists, and links.",
+      "ideal": "{\"text\":\"# Hello World\\nThis is a list:\\n- Item 1\\n- Item 2\\n[GitHub](https://github.com)\"}"
     },
     {
       "path": "/markdown/raw",
       "method": "POST",
       "operationId": "markdown/render-raw",
       "summary": "",
-      "user": "User needs to render raw Markdown content without any additional processing, suitable for direct display.",
-      "ideal": "The API should return the raw HTML output of the Markdown input."
+      "user": "User needs to render raw Markdown content directly without any additional processing. They are sending a Markdown string that includes code blocks and inline code for documentation purposes.",
+      "ideal": "{\"text\":\"# Sample Code\\nHere is some inline code: `print('Hello, World!')`\\n\\nAnd a code block:\\n\\n```python\\ndef hello():\\n    print('Hello, World!')\\n```\"}"
     }
   ]
 }

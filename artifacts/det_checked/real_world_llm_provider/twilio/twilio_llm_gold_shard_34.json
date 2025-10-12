@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
+      "method": "GET",
+      "operationId": "ListSipIpAccessControlList",
+      "summary": "",
+      "user": "User wants to retrieve a list of all SIP IP Access Control Lists associated with their Twilio account.",
+      "ideal": "Returns a JSON array of SIP IP Access Control Lists with details such as SID, friendly name, and date created."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
+      "method": "POST",
+      "operationId": "CreateSipIpAccessControlList",
+      "summary": "",
+      "user": "User needs to create a new SIP IP Access Control List to manage access for specific IP addresses.",
+      "ideal": "Returns the SID of the newly created SIP IP Access Control List along with its details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchSipIpAccessControlList",
+      "summary": "",
+      "user": "User wants to fetch details of a specific SIP IP Access Control List using its SID.",
+      "ideal": "Returns the details of the specified SIP IP Access Control List, including its friendly name and IP addresses."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateSipIpAccessControlList",
+      "summary": "",
+      "user": "User wants to update the friendly name of an existing SIP IP Access Control List.",
+      "ideal": "Returns the updated details of the SIP IP Access Control List, confirming the changes made."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipIpAccessControlList",
+      "summary": "",
+      "user": "User needs to delete a specific SIP IP Access Control List that is no longer needed.",
+      "ideal": "Returns a success message confirming the deletion of the SIP IP Access Control List."
+    }
+  ]
+}

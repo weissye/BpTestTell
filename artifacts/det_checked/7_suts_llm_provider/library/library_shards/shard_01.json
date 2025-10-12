@@ -13,11 +13,39 @@
       "operationId": "createUser"
     },
     {
+      "path": "/users",
+      "method": "GET",
+      "tags": [],
+      "summary": "List/search users",
+      "operationId": "listUsers"
+    },
+    {
+      "path": "/users/{user_id}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete a user",
+      "operationId": "deleteUser"
+    },
+    {
       "path": "/books",
       "method": "POST",
       "tags": [],
       "summary": "Create a book",
       "operationId": "createBook"
+    },
+    {
+      "path": "/books",
+      "method": "GET",
+      "tags": [],
+      "summary": "List/search books",
+      "operationId": "listBooks"
+    },
+    {
+      "path": "/books/{book_id}",
+      "method": "GET",
+      "tags": [],
+      "summary": "Get book by id",
+      "operationId": "getBook"
     },
     {
       "path": "/books/{book_id}",
@@ -27,11 +55,39 @@
       "operationId": "deleteBook"
     },
     {
+      "path": "/loans",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create a loan",
+      "operationId": "createLoan"
+    },
+    {
+      "path": "/loans",
+      "method": "GET",
+      "tags": [],
+      "summary": "List/search loans",
+      "operationId": "listLoans"
+    },
+    {
       "path": "/loans/{user_id}/{book_id}",
       "method": "DELETE",
       "tags": [],
       "summary": "Delete a loan by composite id",
       "operationId": "deleteLoan"
+    },
+    {
+      "path": "/holds",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create a hold",
+      "operationId": "createHold"
+    },
+    {
+      "path": "/holds",
+      "method": "GET",
+      "tags": [],
+      "summary": "List holds",
+      "operationId": "listHolds"
     },
     {
       "path": "/holds/{hold_id}",

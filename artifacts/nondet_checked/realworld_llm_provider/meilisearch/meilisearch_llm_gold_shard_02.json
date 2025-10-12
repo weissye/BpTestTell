@@ -5,7 +5,7 @@
       "method": "POST",
       "operationId": "dumps.create",
       "summary": "",
-      "user": "admin",
+      "user": "user123",
       "ideal": "Create a new dump of the Meilisearch database."
     }
   ]

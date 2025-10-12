@@ -1,0 +1,140 @@
+{
+  "gold": [
+    {
+      "path": "/lists",
+      "method": "POST",
+      "operationId": "addLists",
+      "summary": "",
+      "user": "User wants to create a new list in Trello for organizing tasks related to a project.",
+      "ideal": "Successfully adds a new list with the specified name and returns the list details."
+    },
+    {
+      "path": "/lists/{idList}",
+      "method": "GET",
+      "operationId": "getListsByIdList",
+      "summary": "",
+      "user": "User needs to retrieve details of a specific list by its ID to check its contents.",
+      "ideal": "Returns the details of the list including its name, cards, and other attributes."
+    },
+    {
+      "path": "/lists/{idList}",
+      "method": "PUT",
+      "operationId": "updateListsByIdList",
+      "summary": "",
+      "user": "User wants to update the name of an existing list to better reflect its purpose.",
+      "ideal": "Successfully updates the list name and returns the updated list details."
+    },
+    {
+      "path": "/lists/{idList}/actions",
+      "method": "GET",
+      "operationId": "getListsActionsByIdList",
+      "summary": "",
+      "user": "User is looking to see the activity history of a specific list to track changes.",
+      "ideal": "Returns a list of actions performed on the specified list, including timestamps and action types."
+    },
+    {
+      "path": "/lists/{idList}/archiveAllCards",
+      "method": "POST",
+      "operationId": "addListsArchiveAllCardsByIdList",
+      "summary": "",
+      "user": "User wants to archive all cards in a list to declutter their workspace.",
+      "ideal": "Successfully archives all cards in the list and confirms the action."
+    },
+    {
+      "path": "/lists/{idList}/board",
+      "method": "GET",
+      "operationId": "getListsBoardByIdList",
+      "summary": "",
+      "user": "User needs to find out which board a specific list belongs to for better organization.",
+      "ideal": "Returns the board details associated with the specified list."
+    },
+    {
+      "path": "/lists/{idList}/board/{field}",
+      "method": "GET",
+      "operationId": "getListsBoardByIdListByField",
+      "summary": "",
+      "user": "User wants to retrieve a specific field of the board associated with a list.",
+      "ideal": "Returns the requested field value of the board related to the specified list."
+    },
+    {
+      "path": "/lists/{idList}/cards",
+      "method": "GET",
+      "operationId": "getListsCardsByIdList",
+      "summary": "",
+      "user": "User wants to see all cards in a specific list to review tasks.",
+      "ideal": "Returns a list of all cards contained in the specified list."
+    },
+    {
+      "path": "/lists/{idList}/cards",
+      "method": "POST",
+      "operationId": "addListsCardsByIdList",
+      "summary": "",
+      "user": "User wants to add a new card to a specific list to track a new task.",
+      "ideal": "Successfully adds a new card to the list and returns the card details."
+    },
+    {
+      "path": "/lists/{idList}/cards/{filter}",
+      "method": "GET",
+      "operationId": "getListsCardsByIdListByFilter",
+      "summary": "",
+      "user": "User wants to filter cards in a list by a specific criterion to find relevant tasks.",
+      "ideal": "Returns a list of cards that match the specified filter criteria."
+    },
+    {
+      "path": "/lists/{idList}/closed",
+      "method": "PUT",
+      "operationId": "updateListsClosedByIdList",
+      "summary": "",
+      "user": "User wants to close a list to indicate that it is no longer active.",
+      "ideal": "Successfully closes the list and returns the updated status."
+    },
+    {
+      "path": "/lists/{idList}/idBoard",
+      "method": "PUT",
+      "operationId": "updateListsIdBoardByIdList",
+      "summary": "",
+      "user": "User wants to move a list to a different board for better organization.",
+      "ideal": "Successfully updates the board association of the list and returns the updated list details."
+    },
+    {
+      "path": "/lists/{idList}/moveAllCards",
+      "method": "POST",
+      "operationId": "addListsMoveAllCardsByIdList",
+      "summary": "",
+      "user": "User wants to move all cards from one list to another to reorganize tasks.",
+      "ideal": "Successfully moves all cards to the specified list and confirms the action."
+    },
+    {
+      "path": "/lists/{idList}/name",
+      "method": "PUT",
+      "operationId": "updateListsNameByIdList",
+      "summary": "",
+      "user": "User wants to rename a list to better reflect its current purpose.",
+      "ideal": "Successfully updates the list name and returns the updated list details."
+    },
+    {
+      "path": "/lists/{idList}/pos",
+      "method": "PUT",
+      "operationId": "updateListsPosByIdList",
+      "summary": "",
+      "user": "User wants to change the position of a list to reorder it among other lists.",
+      "ideal": "Successfully updates the position of the list and returns the updated list details."
+    },
+    {
+      "path": "/lists/{idList}/subscribed",
+      "method": "PUT",
+      "operationId": "updateListsSubscribedByIdList",
+      "summary": "",
+      "user": "User wants to subscribe to a list to receive notifications about changes.",
+      "ideal": "Successfully updates the subscription status of the list and returns the updated details."
+    },
+    {
+      "path": "/lists/{idList}/{field}",
+      "method": "GET",
+      "operationId": "getListsByIdListByField",
+      "summary": "",
+      "user": "User wants to retrieve a specific field of a list to check its details.",
+      "ideal": "Returns the requested field value of the specified list."
+    }
+  ]
+}

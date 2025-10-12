@@ -6,39 +6,39 @@
       "operationId": "getIssueLinkTypes",
       "summary": "",
       "user": "As a project manager, I want to retrieve all available issue link types in Jira to understand how issues can be related to each other.",
-      "ideal": "A successful response containing a list of issue link types with their IDs and names."
+      "ideal": "The API should return a list of issue link types with their respective IDs and names."
     },
     {
       "path": "/rest/api/3/issueLinkType",
       "method": "POST",
       "operationId": "createIssueLinkType",
       "summary": "",
-      "user": "As a Jira administrator, I want to create a new issue link type to represent a specific relationship between issues in our project.",
-      "ideal": "A successful response confirming the creation of the new issue link type with its details."
+      "user": "As a developer, I want to create a new issue link type to better categorize the relationships between issues in our project.",
+      "ideal": "The API should successfully create a new issue link type and return the created link type's details, including its ID."
     },
     {
       "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
       "method": "DELETE",
       "operationId": "deleteIssueLinkType",
       "summary": "",
-      "user": "As a project administrator, I want to delete an existing issue link type that is no longer needed to keep our project clean.",
-      "ideal": "A successful response indicating that the issue link type has been deleted."
+      "user": "As an admin, I want to delete an existing issue link type that is no longer needed to keep the issue link types organized.",
+      "ideal": "The API should confirm the deletion of the specified issue link type and return a success message."
     },
     {
       "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
       "method": "GET",
       "operationId": "getIssueLinkType",
       "summary": "",
-      "user": "As a developer, I want to retrieve details of a specific issue link type to understand its purpose and usage in our workflows.",
-      "ideal": "A successful response containing the details of the specified issue link type."
+      "user": "As a team member, I want to retrieve details of a specific issue link type to understand its purpose and usage.",
+      "ideal": "The API should return the details of the specified issue link type, including its name and description."
     },
     {
       "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
       "method": "PUT",
       "operationId": "updateIssueLinkType",
       "summary": "",
-      "user": "As a project manager, I want to update the name and description of an existing issue link type to better reflect its function.",
-      "ideal": "A successful response confirming the update of the issue link type with the new details."
+      "user": "As a project lead, I want to update an existing issue link type to reflect changes in our project requirements.",
+      "ideal": "The API should successfully update the issue link type and return the updated details."
     }
   ]
 }

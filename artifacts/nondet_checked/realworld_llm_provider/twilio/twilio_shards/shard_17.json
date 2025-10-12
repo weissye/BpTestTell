@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401CallTranscription"
+      ],
+      "summary": "Create a Transcription",
+      "operationId": "CreateRealtimeTranscription"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401CallTranscription"
+      ],
+      "summary": "Stop a Transcription using either the SID of the Transcription resource or the `name` used when creating the resource",
+      "operationId": "UpdateRealtimeTranscription"
+    }
+  ]
+}

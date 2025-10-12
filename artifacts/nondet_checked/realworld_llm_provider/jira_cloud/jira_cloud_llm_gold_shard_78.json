@@ -6,7 +6,7 @@
       "operationId": "getServerInfo",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve the server information including version, build number, and server time."
+      "ideal": "Retrieve the server information for the Jira Cloud platform, including version, build number, and other relevant details."
     }
   ]
 }

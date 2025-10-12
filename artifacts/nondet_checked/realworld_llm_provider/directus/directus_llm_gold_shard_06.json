@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/extensions",
+      "method": "GET",
+      "operationId": "listExtensions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all available extensions in the Directus application."
+    },
+    {
+      "path": "/extensions/my-extension",
+      "method": "PATCH",
+      "operationId": "updateExtensions",
+      "summary": "",
+      "user": "developer",
+      "ideal": "Update the settings of the specified extension 'my-extension' to enable new features."
+    },
+    {
+      "path": "/extensions/bundle1/my-extension",
+      "method": "PATCH",
+      "operationId": "updateExtensionBundle",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the extension 'my-extension' within 'bundle1' to fix a bug and improve performance."
+    }
+  ]
+}

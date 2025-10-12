@@ -1,0 +1,1414 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/activity",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/activity/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/assets/123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/assets/456",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/assets/789",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/auth/refresh",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/auth/logout",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/auth/password/request",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/auth/password/reset",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/auth/oauth/{provider}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/collections",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/collections",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/collections/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/collections/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/collections/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/comments",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/comments",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/comments",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/comments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/comments/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/comments/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/comments/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/extensions",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/extensions/my-extension",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/extensions/bundle1/my-extension",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/fields",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/fields/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/fields/users",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/fields/users/age",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/fields/users/age",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/fields/users/age",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/files",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/files",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/files",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/files/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/files/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/files/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/flows",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/flows",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/flows",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/flows",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/flows/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/flows/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/flows/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/folders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/folders",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/folders",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/folders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/folders/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/folders/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/folders/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/items/posts",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/items/posts",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/items/posts",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/items/posts/123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/items/posts/123",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/items/posts/123",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/items/posts/123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/operations",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/operations",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/operations",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/operations",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/operations/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/operations/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/operations/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/permissions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/permissions",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/permissions",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/permissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/permissions/me",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/permissions/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/permissions/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/permissions/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/presets",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/presets",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/presets",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/presets",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/presets/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/presets/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/presets/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/relations",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/relations",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/relations/123",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/relations/123",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/relations/123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/revisions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/revisions/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/roles",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/roles",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/roles",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/roles",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/roles/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/roles/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/roles/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/schema/snapshot",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/schema/apply",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/schema/diff",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/server/info",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/server/ping",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/settings",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/settings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/invite",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/invite/accept",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/me",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/me",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/me/track/page",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/tfa/enable",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/tfa/disable",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/utils/hash/generate",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/utils/hash/verify",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/utils/sort/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/utils/import/products",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/utils/export/orders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/utils/cache/clear",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/utils/random/string",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/versions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/versions",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/versions",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/versions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/versions/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/versions/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/versions/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/versions/{id}/save",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/versions/{id}/compare",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/versions/{id}/promote",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/webhooks",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/webhooks",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/webhooks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/webhooks/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/webhooks/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/activity",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/activity/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/assets/123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/assets/456",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/assets/789",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/auth/refresh",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/auth/logout",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/auth/password/request",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/auth/password/reset",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/auth/oauth/{provider}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/collections",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/collections",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/collections/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/collections/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/collections/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/comments",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/comments",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/comments",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/comments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/comments/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/comments/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/comments/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/extensions",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/extensions/my-extension",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/extensions/bundle1/my-extension",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/fields",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/fields/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/fields/users",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/fields/users/age",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/fields/users/age",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/fields/users/age",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/files",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/files",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/files",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/files/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/files/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/files/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/flows",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/flows",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/flows",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/flows",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/flows/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/flows/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/flows/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/folders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/folders",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/folders",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/folders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/folders/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/folders/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/folders/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/items/posts",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/items/posts",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/items/posts",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/items/posts/123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/items/posts/123",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/items/posts/123",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/items/posts/123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/operations",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/operations",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/operations",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/operations",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/operations/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/operations/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/operations/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/permissions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/permissions",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/permissions",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/permissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/permissions/me",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/permissions/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/permissions/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/permissions/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/presets",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/presets",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/presets",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/presets",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/presets/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/presets/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/presets/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/relations",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/relations",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/relations/123",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/relations/123",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/relations/123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/revisions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/revisions/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/roles",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/roles",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/roles",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/roles",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/roles/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/roles/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/roles/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/schema/snapshot",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/schema/apply",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/schema/diff",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/server/info",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/server/ping",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/settings",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/settings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/invite",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/invite/accept",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/me",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/me",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/me/track/page",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/tfa/enable",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/tfa/disable",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/utils/hash/generate",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/utils/hash/verify",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/utils/sort/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/utils/import/products",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/utils/export/orders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/utils/cache/clear",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/utils/random/string",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/versions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/versions",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/versions",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/versions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/versions/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/versions/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/versions/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/versions/{id}/save",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/versions/{id}/compare",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/versions/{id}/promote",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/webhooks",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/webhooks",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/webhooks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks/{id}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/webhooks/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/webhooks/{id}",
+      "body": null
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "gold": [
     {
-      "path": "/v1/{realm}/clients",
+      "path": "/{realm}/clients",
       "method": "GET",
       "operationId": "getClients",
       "summary": "",
@@ -9,47 +9,47 @@
       "ideal": "Returns a list of clients with their details."
     },
     {
-      "path": "/v1/{realm}/clients",
+      "path": "/{realm}/clients",
       "method": "POST",
       "operationId": "postClients",
       "summary": "",
-      "user": "Admin user creating a new client in the realm with specific configurations.",
+      "user": "Admin user creating a new client in the specified realm.",
       "ideal": "Successfully creates a new client and returns its details."
     },
     {
-      "path": "/v1/{realm}/clients/{id}",
+      "path": "/{realm}/clients/{id}",
       "method": "GET",
       "operationId": "getClientByRealmById",
       "summary": "",
-      "user": "Admin user retrieving details of a specific client by its ID.",
+      "user": "Admin user retrieving details of a specific client by ID.",
       "ideal": "Returns the details of the specified client."
     },
     {
-      "path": "/v1/{realm}/clients/{id}",
+      "path": "/{realm}/clients/{id}",
       "method": "PUT",
       "operationId": "putClient",
       "summary": "",
-      "user": "Admin user updating the configuration of an existing client.",
+      "user": "Admin user updating the details of a specific client.",
       "ideal": "Successfully updates the client and returns the updated details."
     },
     {
-      "path": "/v1/{realm}/clients/{id}",
+      "path": "/{realm}/clients/{id}",
       "method": "DELETE",
       "operationId": "deleteClientByRealmById",
       "summary": "",
-      "user": "Admin user deleting a client by its ID from the realm.",
+      "user": "Admin user deleting a specific client by ID.",
       "ideal": "Successfully deletes the client and returns a confirmation message."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/client-secret",
+      "path": "/{realm}/clients/{id}/client-secret",
       "method": "GET",
       "operationId": "getClientSecret",
       "summary": "",
-      "user": "Admin user requesting the client secret for a specific client.",
+      "user": "Admin user retrieving the client secret for a specific client.",
       "ideal": "Returns the client secret for the specified client."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/client-secret",
+      "path": "/{realm}/clients/{id}/client-secret",
       "method": "POST",
       "operationId": "postClientSecret",
       "summary": "",
@@ -57,71 +57,71 @@
       "ideal": "Successfully generates a new client secret and returns it."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/client-secret/rotated",
+      "path": "/{realm}/clients/{id}/client-secret/rotated",
       "method": "GET",
       "operationId": "getRotated",
       "summary": "",
-      "user": "Admin user checking if the client secret has been rotated for a specific client.",
-      "ideal": "Returns the rotation status of the client secret."
+      "user": "Admin user checking if the client secret has been rotated.",
+      "ideal": "Returns the status of the client secret rotation."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/client-secret/rotated",
+      "path": "/{realm}/clients/{id}/client-secret/rotated",
       "method": "DELETE",
       "operationId": "deleteRotated",
       "summary": "",
-      "user": "Admin user deleting the rotated client secret for a specific client.",
+      "user": "Admin user deleting the rotated client secret.",
       "ideal": "Successfully deletes the rotated client secret."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/default-client-scopes",
+      "path": "/{realm}/clients/{id}/default-client-scopes",
       "method": "GET",
       "operationId": "getDefaultClientScopes",
       "summary": "",
-      "user": "Admin user retrieving the default client scopes for a specific client.",
+      "user": "Admin user retrieving default client scopes for a specific client.",
       "ideal": "Returns a list of default client scopes."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/default-client-scopes/{clientScopeId}",
+      "path": "/{realm}/clients/{id}/default-client-scopes/{clientScopeId}",
       "method": "PUT",
       "operationId": "putDefaultClientScope",
       "summary": "",
-      "user": "Admin user updating the default client scope for a specific client.",
+      "user": "Admin user updating a default client scope for a specific client.",
       "ideal": "Successfully updates the default client scope."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/default-client-scopes/{clientScopeId}",
+      "path": "/{realm}/clients/{id}/default-client-scopes/{clientScopeId}",
       "method": "DELETE",
       "operationId": "deleteDefaultClientScope",
       "summary": "",
-      "user": "Admin user removing a default client scope from a specific client.",
+      "user": "Admin user deleting a default client scope for a specific client.",
       "ideal": "Successfully deletes the default client scope."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/evaluate-scopes/generate-example-access-token",
+      "path": "/{realm}/clients/{id}/evaluate-scopes/generate-example-access-token",
       "method": "GET",
       "operationId": "getGenerateExampleAccessToken",
       "summary": "",
-      "user": "Admin user generating an example access token for testing purposes.",
+      "user": "Admin user generating an example access token for testing.",
       "ideal": "Returns an example access token."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/evaluate-scopes/generate-example-id-token",
+      "path": "/{realm}/clients/{id}/evaluate-scopes/generate-example-id-token",
       "method": "GET",
       "operationId": "getGenerateExampleIdToken",
       "summary": "",
-      "user": "Admin user generating an example ID token for testing purposes.",
+      "user": "Admin user generating an example ID token for testing.",
       "ideal": "Returns an example ID token."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/evaluate-scopes/generate-example-userinfo",
+      "path": "/{realm}/clients/{id}/evaluate-scopes/generate-example-userinfo",
       "method": "GET",
       "operationId": "getGenerateExampleUserinfo",
       "summary": "",
-      "user": "Admin user generating example user info for testing purposes.",
+      "user": "Admin user generating example user info for testing.",
       "ideal": "Returns example user info."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/evaluate-scopes/protocol-mappers",
+      "path": "/{realm}/clients/{id}/evaluate-scopes/protocol-mappers",
       "method": "GET",
       "operationId": "getProtocolMappers",
       "summary": "",
@@ -129,7 +129,7 @@
       "ideal": "Returns a list of protocol mappers."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/evaluate-scopes/scope-mappings/{roleContainerId}/granted",
+      "path": "/{realm}/clients/{id}/evaluate-scopes/scope-mappings/{roleContainerId}/granted",
       "method": "GET",
       "operationId": "getGranted",
       "summary": "",
@@ -137,7 +137,7 @@
       "ideal": "Returns granted scope mappings."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/evaluate-scopes/scope-mappings/{roleContainerId}/not-granted",
+      "path": "/{realm}/clients/{id}/evaluate-scopes/scope-mappings/{roleContainerId}/not-granted",
       "method": "GET",
       "operationId": "getNotGranted",
       "summary": "",
@@ -145,23 +145,23 @@
       "ideal": "Returns not granted scope mappings."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/installation/providers/{providerId}",
+      "path": "/{realm}/clients/{id}/installation/providers/{providerId}",
       "method": "GET",
       "operationId": "getInstallationProvider",
       "summary": "",
-      "user": "Admin user retrieving installation details for a specific provider.",
-      "ideal": "Returns installation details for the specified provider."
+      "user": "Admin user retrieving installation provider details for a specific client.",
+      "ideal": "Returns installation provider details."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/management/permissions",
+      "path": "/{realm}/clients/{id}/management/permissions",
       "method": "GET",
       "operationId": "getClientManagementPermissions",
       "summary": "",
       "user": "Admin user retrieving management permissions for a specific client.",
-      "ideal": "Returns management permissions for the client."
+      "ideal": "Returns management permissions."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/management/permissions",
+      "path": "/{realm}/clients/{id}/management/permissions",
       "method": "PUT",
       "operationId": "putClientManagementPermissions",
       "summary": "",
@@ -169,31 +169,31 @@
       "ideal": "Successfully updates management permissions."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/nodes",
+      "path": "/{realm}/clients/{id}/nodes",
       "method": "POST",
       "operationId": "postNodes",
       "summary": "",
       "user": "Admin user adding nodes to a specific client.",
-      "ideal": "Successfully adds nodes and returns updated client details."
+      "ideal": "Successfully adds nodes and returns updated node list."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/nodes/{node}",
+      "path": "/{realm}/clients/{id}/nodes/{node}",
       "method": "DELETE",
       "operationId": "deleteNode",
       "summary": "",
-      "user": "Admin user removing a specific node from a client.",
+      "user": "Admin user deleting a specific node from a client.",
       "ideal": "Successfully deletes the node."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/offline-session-count",
+      "path": "/{realm}/clients/{id}/offline-session-count",
       "method": "GET",
       "operationId": "getOfflineSessionCount",
       "summary": "",
-      "user": "Admin user checking the offline session count for a specific client.",
+      "user": "Admin user retrieving the count of offline sessions for a specific client.",
       "ideal": "Returns the count of offline sessions."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/offline-sessions",
+      "path": "/{realm}/clients/{id}/offline-sessions",
       "method": "GET",
       "operationId": "getOfflineSessions",
       "summary": "",
@@ -201,7 +201,7 @@
       "ideal": "Returns a list of offline sessions."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/optional-client-scopes",
+      "path": "/{realm}/clients/{id}/optional-client-scopes",
       "method": "GET",
       "operationId": "getOptionalClientScopes",
       "summary": "",
@@ -209,7 +209,7 @@
       "ideal": "Returns a list of optional client scopes."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/optional-client-scopes/{clientScopeId}",
+      "path": "/{realm}/clients/{id}/optional-client-scopes/{clientScopeId}",
       "method": "PUT",
       "operationId": "putOptionalClientScope",
       "summary": "",
@@ -217,31 +217,31 @@
       "ideal": "Successfully updates the optional client scope."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/optional-client-scopes/{clientScopeId}",
+      "path": "/{realm}/clients/{id}/optional-client-scopes/{clientScopeId}",
       "method": "DELETE",
       "operationId": "deleteOptionalClientScope",
       "summary": "",
-      "user": "Admin user removing an optional client scope from a specific client.",
+      "user": "Admin user deleting an optional client scope for a specific client.",
       "ideal": "Successfully deletes the optional client scope."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/push-revocation",
+      "path": "/{realm}/clients/{id}/push-revocation",
       "method": "POST",
       "operationId": "postClientPushRevocation",
       "summary": "",
       "user": "Admin user pushing revocation for a specific client.",
-      "ideal": "Successfully pushes revocation and returns a confirmation."
+      "ideal": "Successfully pushes revocation."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/registration-access-token",
+      "path": "/{realm}/clients/{id}/registration-access-token",
       "method": "POST",
       "operationId": "postRegistrationAccessToken",
       "summary": "",
       "user": "Admin user generating a registration access token for a specific client.",
-      "ideal": "Returns the generated registration access token."
+      "ideal": "Successfully generates a registration access token."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/service-account-user",
+      "path": "/{realm}/clients/{id}/service-account-user",
       "method": "GET",
       "operationId": "getServiceAccountUser",
       "summary": "",
@@ -249,28 +249,28 @@
       "ideal": "Returns the service account user details."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/session-count",
+      "path": "/{realm}/clients/{id}/session-count",
       "method": "GET",
       "operationId": "getSessionCount",
       "summary": "",
-      "user": "Admin user checking the session count for a specific client.",
+      "user": "Admin user retrieving the session count for a specific client.",
       "ideal": "Returns the count of active sessions."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/test-nodes-available",
+      "path": "/{realm}/clients/{id}/test-nodes-available",
       "method": "GET",
       "operationId": "getTestNodesAvailable",
       "summary": "",
-      "user": "Admin user checking the availability of test nodes for a specific client.",
-      "ideal": "Returns the availability status of test nodes."
+      "user": "Admin user checking available nodes for a specific client.",
+      "ideal": "Returns a list of available nodes."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/user-sessions",
+      "path": "/{realm}/clients/{id}/user-sessions",
       "method": "GET",
       "operationId": "getClientUserSessions",
       "summary": "",
       "user": "Admin user retrieving user sessions for a specific client.",
-      "ideal": "Returns a list of user sessions associated with the client."
+      "ideal": "Returns a list of user sessions."
     }
   ]
 }

@@ -13,64 +13,64 @@
       "method": "POST",
       "operationId": "createCustomer",
       "summary": "",
-      "user": "A bank employee creates a new customer profile with necessary details.",
-      "ideal": "The system should return the created customer object with a unique ID and a success status."
+      "user": "A new customer wants to open an account and provides their personal details.",
+      "ideal": "The system should return the newly created customer ID and a success message."
     },
     {
       "path": "/accounts",
       "method": "POST",
       "operationId": "createAccount",
       "summary": "",
-      "user": "A customer service representative opens a new bank account for a customer.",
-      "ideal": "The response should include the new account details and a confirmation of account creation."
+      "user": "A customer wants to create a new savings account linked to their profile.",
+      "ideal": "The system should return the new account ID and a confirmation of account creation."
     },
     {
       "path": "/accounts",
       "method": "GET",
       "operationId": "getAllAccounts",
       "summary": "",
-      "user": "A bank manager retrieves a list of all accounts to review account statuses.",
-      "ideal": "The system should return a list of all accounts with their details and a success status."
+      "user": "A bank employee wants to view all accounts for auditing purposes.",
+      "ideal": "The system should return a list of all accounts with their details."
     },
     {
       "path": "/accounts/{accountId}/transactions",
       "method": "GET",
       "operationId": "getAccountTransactions",
       "summary": "",
-      "user": "A customer checks their account transactions for the last month.",
-      "ideal": "The response should include a list of transactions for the specified account with details."
+      "user": "A customer wants to review their transaction history for a specific account.",
+      "ideal": "The system should return a list of transactions for the specified account ID."
     },
     {
       "path": "/transfers",
       "method": "POST",
       "operationId": "createTransfer",
       "summary": "",
-      "user": "A customer initiates a transfer of funds between their accounts.",
-      "ideal": "The system should confirm the transfer with a success message and transaction details."
+      "user": "A customer wants to transfer funds from their account to another account.",
+      "ideal": "The system should process the transfer and return a confirmation with transaction details."
     },
     {
       "path": "/cards",
       "method": "POST",
-      "operationId": "issueCard",
+      "operationId": "createCard",
       "summary": "",
-      "user": "A bank employee issues a new debit card for a customer.",
-      "ideal": "The response should include the card details and a confirmation of card issuance."
+      "user": "A customer requests a new debit card linked to their checking account.",
+      "ideal": "The system should return the new card details and a confirmation of issuance."
     },
     {
       "path": "/loans",
       "method": "POST",
       "operationId": "applyForLoan",
       "summary": "",
-      "user": "A customer applies for a personal loan through the banking app.",
-      "ideal": "The system should return the loan application status and next steps for the customer."
+      "user": "A customer applies for a personal loan to finance a new car.",
+      "ideal": "The system should return the loan application ID and a status of the application."
     },
     {
       "path": "/loans",
       "method": "GET",
       "operationId": "getAllLoans",
       "summary": "",
-      "user": "A loan officer reviews all active loans for compliance checks.",
-      "ideal": "The response should include a list of all loans with their statuses and details."
+      "user": "A bank manager wants to review all active loans for risk assessment.",
+      "ideal": "The system should return a list of all active loans with their details."
     }
   ]
 }

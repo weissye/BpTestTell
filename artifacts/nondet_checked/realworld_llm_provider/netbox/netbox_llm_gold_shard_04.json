@@ -1,0 +1,164 @@
+{
+  "gold": [
+    {
+      "path": "/api/extras/bookmarks/",
+      "method": "GET",
+      "operationId": "extras_bookmarks_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all bookmarks."
+    },
+    {
+      "path": "/api/extras/bookmarks/",
+      "method": "POST",
+      "operationId": "extras_bookmarks_create",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new bookmark with the provided details."
+    },
+    {
+      "path": "/api/extras/bookmarks/1/",
+      "method": "GET",
+      "operationId": "extras_bookmarks_retrieve",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve details of the bookmark with ID 1."
+    },
+    {
+      "path": "/api/extras/bookmarks/1/",
+      "method": "PUT",
+      "operationId": "extras_bookmarks_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the bookmark with ID 1 with new details."
+    },
+    {
+      "path": "/api/extras/bookmarks/1/",
+      "method": "DELETE",
+      "operationId": "extras_bookmarks_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the bookmark with ID 1."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/",
+      "method": "GET",
+      "operationId": "extras_config_context_profiles_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all configuration context profiles."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/",
+      "method": "POST",
+      "operationId": "extras_config_context_profiles_create",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Create a new configuration context profile."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/1/",
+      "method": "GET",
+      "operationId": "extras_config_context_profiles_retrieve",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Retrieve details of the configuration context profile with ID 1."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/1/",
+      "method": "PUT",
+      "operationId": "extras_config_context_profiles_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the configuration context profile with ID 1."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/1/",
+      "method": "DELETE",
+      "operationId": "extras_config_context_profiles_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the configuration context profile with ID 1."
+    },
+    {
+      "path": "/api/extras/config-contexts/",
+      "method": "GET",
+      "operationId": "extras_config_contexts_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all configuration contexts."
+    },
+    {
+      "path": "/api/extras/config-contexts/",
+      "method": "POST",
+      "operationId": "extras_config_contexts_create",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Create a new configuration context."
+    },
+    {
+      "path": "/api/extras/config-contexts/1/",
+      "method": "GET",
+      "operationId": "extras_config_contexts_retrieve",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Retrieve details of the configuration context with ID 1."
+    },
+    {
+      "path": "/api/extras/config-contexts/1/",
+      "method": "PUT",
+      "operationId": "extras_config_contexts_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the configuration context with ID 1."
+    },
+    {
+      "path": "/api/extras/config-contexts/1/",
+      "method": "DELETE",
+      "operationId": "extras_config_contexts_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the configuration context with ID 1."
+    },
+    {
+      "path": "/api/extras/custom-fields/",
+      "method": "GET",
+      "operationId": "extras_custom_fields_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all custom fields."
+    },
+    {
+      "path": "/api/extras/custom-fields/",
+      "method": "POST",
+      "operationId": "extras_custom_fields_create",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new custom field."
+    },
+    {
+      "path": "/api/extras/custom-fields/1/",
+      "method": "GET",
+      "operationId": "extras_custom_fields_retrieve",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve details of the custom field with ID 1."
+    },
+    {
+      "path": "/api/extras/custom-fields/1/",
+      "method": "PUT",
+      "operationId": "extras_custom_fields_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the custom field with ID 1."
+    },
+    {
+      "path": "/api/extras/custom-fields/1/",
+      "method": "DELETE",
+      "operationId": "extras_custom_fields_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the custom field with ID 1."
+    }
+  ]
+}

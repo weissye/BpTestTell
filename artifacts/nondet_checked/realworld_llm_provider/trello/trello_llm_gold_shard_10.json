@@ -5,80 +5,80 @@
       "method": "GET",
       "operationId": "getOrganizationsByIdOrg",
       "summary": "",
-      "user": "User requests to retrieve details of the organization with ID 12345.",
-      "ideal": "Successful retrieval of organization details."
-    },
-    {
-      "path": "/organizations/12345/boards",
-      "method": "GET",
-      "operationId": "getOrganizationsBoardsByIdOrg",
-      "summary": "",
-      "user": "User wants to see all boards associated with organization ID 12345.",
-      "ideal": "List of boards belonging to the organization is returned."
+      "user": "User requests details of organization with ID 12345.",
+      "ideal": "Returns the organization details including name, description, and members."
     },
     {
       "path": "/organizations/12345/members",
       "method": "GET",
       "operationId": "getOrganizationsMembersByIdOrg",
       "summary": "",
-      "user": "User is checking the members of organization ID 12345.",
-      "ideal": "A list of members in the organization is provided."
+      "user": "User wants to see all members of the organization with ID 12345.",
+      "ideal": "Returns a list of members associated with the organization."
+    },
+    {
+      "path": "/organizations/12345/boards",
+      "method": "GET",
+      "operationId": "getOrganizationsBoardsByIdOrg",
+      "summary": "",
+      "user": "User is looking for all boards under organization ID 12345.",
+      "ideal": "Returns a list of boards belonging to the organization."
     },
     {
       "path": "/organizations/12345/members/67890",
       "method": "DELETE",
       "operationId": "deleteOrganizationsMembersByIdOrgByIdMember",
       "summary": "",
-      "user": "User wants to remove member with ID 67890 from organization ID 12345.",
-      "ideal": "Member is successfully removed from the organization."
+      "user": "User wants to remove member with ID 67890 from organization 12345.",
+      "ideal": "Successfully removes the specified member from the organization."
     },
     {
       "path": "/organizations/12345/name",
       "method": "PUT",
       "operationId": "updateOrganizationsNameByIdOrg",
       "summary": "",
-      "user": "User is updating the name of organization ID 12345 to 'New Organization Name'.",
-      "ideal": "Organization name is updated successfully."
+      "user": "User wishes to update the name of organization 12345 to 'New Organization Name'.",
+      "ideal": "Updates the organization's name to 'New Organization Name'."
     },
     {
-      "path": "/organizations/12345/prefs/associatedDomain",
-      "method": "DELETE",
-      "operationId": "deleteOrganizationsPrefsAssociatedDomainByIdOrg",
-      "summary": "",
-      "user": "User wants to delete the associated domain preference for organization ID 12345.",
-      "ideal": "Associated domain preference is deleted successfully."
-    },
-    {
-      "path": "/organizations/12345/membersInvited",
-      "method": "GET",
-      "operationId": "getOrganizationsMembersInvitedByIdOrg",
-      "summary": "",
-      "user": "User is checking the list of invited members for organization ID 12345.",
-      "ideal": "List of invited members is returned."
-    },
-    {
-      "path": "/organizations/12345/prefs/permissionLevel",
+      "path": "/organizations/12345/prefs/orgInviteRestrict",
       "method": "PUT",
-      "operationId": "updateOrganizationsPrefsPermissionLevelByIdOrg",
+      "operationId": "updateOrganizationsPrefsOrgInviteRestrictByIdOrg",
       "summary": "",
-      "user": "User is updating the permission level for organization ID 12345 to 'Admin'.",
-      "ideal": "Permission level is updated successfully."
+      "user": "User wants to set organization invite restrictions for organization 12345.",
+      "ideal": "Successfully updates the invite restrictions for the organization."
     },
     {
       "path": "/organizations/12345/logo",
       "method": "POST",
       "operationId": "addOrganizationsLogoByIdOrg",
       "summary": "",
-      "user": "User wants to upload a new logo for organization ID 12345.",
-      "ideal": "Logo is uploaded successfully."
+      "user": "User uploads a new logo for organization 12345.",
+      "ideal": "Successfully adds the new logo to the organization."
     },
     {
-      "path": "/organizations/12345/boards/active",
+      "path": "/organizations/12345/boards/filter=public",
       "method": "GET",
       "operationId": "getOrganizationsBoardsByIdOrgByFilter",
       "summary": "",
-      "user": "User wants to filter and see only active boards for organization ID 12345.",
-      "ideal": "List of active boards is returned."
+      "user": "User wants to retrieve all public boards for organization 12345.",
+      "ideal": "Returns a list of public boards for the specified organization."
+    },
+    {
+      "path": "/organizations/12345/membersInvited",
+      "method": "GET",
+      "operationId": "getOrganizationsMembersInvitedByIdOrg",
+      "summary": "",
+      "user": "User checks the list of invited members for organization 12345.",
+      "ideal": "Returns a list of members who have been invited to join the organization."
+    },
+    {
+      "path": "/organizations/12345/prefs/associatedDomain",
+      "method": "DELETE",
+      "operationId": "deleteOrganizationsPrefsAssociatedDomainByIdOrg",
+      "summary": "",
+      "user": "User wants to remove the associated domain for organization 12345.",
+      "ideal": "Successfully deletes the associated domain from the organization's preferences."
     }
   ]
 }

@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "getAllProjectTypes",
       "summary": "",
-      "user": "A project manager looking to understand the different types of projects available in Jira Cloud for better planning.",
-      "ideal": "Returns a list of all project types available in the Jira Cloud platform."
+      "user": "As a project manager, I want to retrieve all available project types in Jira so that I can choose the appropriate one for my new project.",
+      "ideal": "The response should include a list of all project types with their keys and names, allowing me to understand the options available."
     },
     {
       "path": "/rest/api/3/project/type/accessible",
       "method": "GET",
       "operationId": "getAllAccessibleProjectTypes",
       "summary": "",
-      "user": "A team lead who needs to know which project types are accessible to their team for new project creation.",
-      "ideal": "Returns a list of all project types that the user has access to in Jira Cloud."
+      "user": "As a team member, I need to see all project types that I have access to, so I can select one for my tasks.",
+      "ideal": "The response should return only the project types that I have permission to access, along with their details."
     },
     {
       "path": "/rest/api/3/project/type/{projectTypeKey}",
       "method": "GET",
       "operationId": "getProjectTypeByKey",
       "summary": "",
-      "user": "A developer who wants to retrieve detailed information about a specific project type using its key.",
-      "ideal": "Returns detailed information about the specified project type identified by the projectTypeKey."
+      "user": "As a developer, I want to get detailed information about a specific project type using its key to understand its configuration.",
+      "ideal": "The response should provide comprehensive details about the project type, including its name, description, and any associated settings."
     },
     {
       "path": "/rest/api/3/project/type/{projectTypeKey}/accessible",
       "method": "GET",
       "operationId": "getAccessibleProjectTypeByKey",
       "summary": "",
-      "user": "An administrator checking if a specific project type is accessible for a particular user or group.",
-      "ideal": "Returns accessibility information for the specified project type identified by the projectTypeKey."
+      "user": "As a project administrator, I need to check if a specific project type is accessible for my team members based on their permissions.",
+      "ideal": "The response should indicate whether the specified project type is accessible to the current user, along with relevant details."
     }
   ]
 }

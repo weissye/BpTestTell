@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/field",
+      "method": "GET",
+      "operationId": "getFields",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all available fields in Jira to understand what data can be captured for my projects.",
+      "ideal": "The API should return a list of all fields, including their IDs, names, and types, allowing me to see what options are available for my issue types."
+    },
+    {
+      "path": "/rest/api/3/field",
+      "method": "POST",
+      "operationId": "createCustomField",
+      "summary": "",
+      "user": "As a product owner, I need to create a custom field for capturing user feedback, so I can gather specific insights from our users.",
+      "ideal": "The API should successfully create a new custom field and return the field ID and details of the created field."
+    },
+    {
+      "path": "/rest/api/3/field/search",
+      "method": "GET",
+      "operationId": "getFieldsPaginated",
+      "summary": "",
+      "user": "As a developer, I want to fetch fields in a paginated manner to efficiently handle large sets of data without overwhelming the client.",
+      "ideal": "The API should return a paginated list of fields, including metadata about the total number of fields and the current page."
+    },
+    {
+      "path": "/rest/api/3/field/search/trashed",
+      "method": "GET",
+      "operationId": "getTrashedFieldsPaginated",
+      "summary": "",
+      "user": "As an admin, I want to view trashed fields to decide which ones can be permanently deleted or restored.",
+      "ideal": "The API should return a list of trashed fields with their details, allowing me to manage them effectively."
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}",
+      "method": "PUT",
+      "operationId": "updateCustomField",
+      "summary": "",
+      "user": "As a team lead, I need to update an existing custom field to change its name and description based on team feedback.",
+      "ideal": "The API should successfully update the custom field and return the updated field details."
+    },
+    {
+      "path": "/rest/api/3/field/{fieldId}/contexts",
+      "method": "GET",
+      "operationId": "getContextsForFieldDeprecated",
+      "summary": "",
+      "user": "As a configuration manager, I want to retrieve contexts for a specific field to understand where it is applicable.",
+      "ideal": "The API should return a list of contexts associated with the specified field, including their IDs and names."
+    },
+    {
+      "path": "/rest/api/3/field/{id}",
+      "method": "DELETE",
+      "operationId": "deleteCustomField",
+      "summary": "",
+      "user": "As a project administrator, I want to delete a custom field that is no longer needed to keep our field list clean.",
+      "ideal": "The API should successfully delete the specified custom field and return a confirmation message."
+    },
+    {
+      "path": "/rest/api/3/field/{id}/restore",
+      "method": "POST",
+      "operationId": "restoreCustomField",
+      "summary": "",
+      "user": "As an admin, I accidentally trashed a custom field and need to restore it to make it available again.",
+      "ideal": "The API should successfully restore the trashed custom field and return the restored field details."
+    },
+    {
+      "path": "/rest/api/3/field/{id}/trash",
+      "method": "POST",
+      "operationId": "trashCustomField",
+      "summary": "",
+      "user": "As a product manager, I want to trash a custom field that is no longer relevant to avoid clutter in our field options.",
+      "ideal": "The API should successfully move the specified custom field to the trash and return a confirmation message."
+    }
+  ]
+}

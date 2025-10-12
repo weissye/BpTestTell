@@ -7,17 +7,32 @@
     },
     {
       "method": "GET",
+      "path": "/v1/accounts",
+      "body": null
+    },
+    {
+      "method": "GET",
       "path": "/v1/accounts/{account}",
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/v1/accounts/{account}/capabilities",
+      "method": "POST",
+      "path": "/v1/accounts/{account}/bank_accounts",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/customers/{customer}/subscriptions",
+      "path": "/v1/accounts/{account}/external_accounts",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/customers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/customers/{customer}",
       "body": null
     },
     {
@@ -26,133 +41,18 @@
       "body": null
     },
     {
-      "method": "POST",
-      "path": "/v1/invoices/{invoice}/pay",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/products",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/payment_intents/{intent}/cancel",
+      "method": "GET",
+      "path": "/v1/invoices",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/credit_notes",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/tax/rates",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/accounts",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/customers/{customer}/sources",
+      "path": "/v1/invoices/{invoice}",
       "body": null
     },
     {
       "method": "POST",
       "path": "/v1/charges/{charge}/refunds",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/invoices/{invoice}/void",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/payment_intents",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/products",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/subscriptions",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/charges/search",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/tokens/{token}",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/identity/verification_sessions",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/terminal/locations",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/accounts/{account}/login_links",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/charges/{charge}/refund",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/invoices/{invoice}/send",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/products",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/payment_intents/{intent}/confirm",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/charges/{charge}/dispute",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/tax/registrations",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/financial_connections/accounts",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/v1/webhook_endpoints/{webhook_endpoint}",
       "body": null
     },
     {
@@ -162,17 +62,32 @@
     },
     {
       "method": "GET",
+      "path": "/v1/accounts",
+      "body": null
+    },
+    {
+      "method": "GET",
       "path": "/v1/accounts/{account}",
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/v1/accounts/{account}/capabilities",
+      "method": "POST",
+      "path": "/v1/accounts/{account}/bank_accounts",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/customers/{customer}/subscriptions",
+      "path": "/v1/accounts/{account}/external_accounts",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/customers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/customers/{customer}",
       "body": null
     },
     {
@@ -181,133 +96,18 @@
       "body": null
     },
     {
-      "method": "POST",
-      "path": "/v1/invoices/{invoice}/pay",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/products",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/payment_intents/{intent}/cancel",
+      "method": "GET",
+      "path": "/v1/invoices",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/credit_notes",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/tax/rates",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/accounts",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/customers/{customer}/sources",
+      "path": "/v1/invoices/{invoice}",
       "body": null
     },
     {
       "method": "POST",
       "path": "/v1/charges/{charge}/refunds",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/invoices/{invoice}/void",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/payment_intents",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/products",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/subscriptions",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/charges/search",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/tokens/{token}",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/identity/verification_sessions",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/terminal/locations",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/accounts/{account}/login_links",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/charges/{charge}/refund",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/invoices/{invoice}/send",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/products",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/payment_intents/{intent}/confirm",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/charges/{charge}/dispute",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/tax/registrations",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/v1/financial_connections/accounts",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/v1/webhook_endpoints/{webhook_endpoint}",
       "body": null
     }
   ]

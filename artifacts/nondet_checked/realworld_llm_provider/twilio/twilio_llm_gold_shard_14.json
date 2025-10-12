@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "method": "POST",
+      "operationId": "CreateCall",
+      "summary": "",
+      "user": "User wants to initiate a new call using Twilio's API, providing necessary parameters like 'to', 'from', and 'url'.",
+      "ideal": "Successfully creates a new call and returns the call SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "method": "GET",
+      "operationId": "ListCall",
+      "summary": "",
+      "user": "User needs to retrieve a list of all calls made from their Twilio account for monitoring purposes.",
+      "ideal": "Returns a list of call records with details such as SID, status, and duration."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteCall",
+      "summary": "",
+      "user": "User wants to delete a specific call record identified by its SID to clean up their account.",
+      "ideal": "Successfully deletes the call and returns a confirmation message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchCall",
+      "summary": "",
+      "user": "User needs to fetch details of a specific call using its SID to review its status and metadata.",
+      "ideal": "Returns detailed information about the call including status, duration, and timestamps."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateCall",
+      "summary": "",
+      "user": "User wants to update the status of a specific call, such as changing it to 'completed' or 'busy'.",
+      "ideal": "Successfully updates the call status and returns the updated call information."
+    }
+  ]
+}

@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "getAuditRecords",
       "summary": "",
-      "user": "user@example.com",
+      "user": "johndoe@example.com",
       "ideal": "Retrieve a list of audit records for the Jira Cloud platform, including details such as the action performed, the user who performed it, and the timestamp of the action."
     }
   ]

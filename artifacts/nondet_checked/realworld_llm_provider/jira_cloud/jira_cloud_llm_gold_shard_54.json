@@ -6,7 +6,7 @@
       "operationId": "removePreference",
       "summary": "",
       "user": "user123",
-      "ideal": "Successfully removed user preference."
+      "ideal": "Successfully removed user preferences."
     },
     {
       "path": "/rest/api/3/mypreferences",

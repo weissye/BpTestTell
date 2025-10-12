@@ -13,6 +13,20 @@
       "operationId": "POST /reset"
     },
     {
+      "path": "/patients",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /patients"
+    },
+    {
+      "path": "/drugs",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /drugs"
+    },
+    {
       "path": "/drugs",
       "method": "POST",
       "tags": [],
@@ -20,11 +34,32 @@
       "operationId": "POST /drugs"
     },
     {
+      "path": "/prescriptions",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /prescriptions"
+    },
+    {
+      "path": "/orders",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /orders"
+    },
+    {
       "path": "/orders",
       "method": "POST",
       "tags": [],
       "summary": "",
       "operationId": "POST /orders"
+    },
+    {
+      "path": "/inventory/{ndc}",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /inventory/{ndc}"
     }
   ]
 }

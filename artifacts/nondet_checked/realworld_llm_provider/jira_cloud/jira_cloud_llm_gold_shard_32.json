@@ -5,8 +5,8 @@
       "method": "POST",
       "operationId": "bulkSetIssuesPropertiesList",
       "summary": "",
-      "user": "As a project manager, I want to set multiple properties for a list of issues at once to streamline the process of updating issue metadata.",
-      "ideal": "The API should accept a list of issue IDs and their corresponding properties, and return a success response for each issue updated."
+      "user": "As a project manager, I want to set properties for multiple issues at once to streamline the process of updating issue metadata.",
+      "ideal": "The API should accept a list of issue IDs and their corresponding properties, and return a success response indicating that the properties have been set."
     },
     {
       "path": "/rest/api/3/issue/properties/multi",
@@ -21,48 +21,48 @@
       "method": "DELETE",
       "operationId": "bulkDeleteIssueProperty",
       "summary": "",
-      "user": "As a team lead, I want to remove a specific property from all issues to ensure consistency in our project management practices.",
-      "ideal": "The API should delete the specified property from all issues and return a success message indicating the number of issues updated."
+      "user": "As a team lead, I want to remove a specific property from all issues to ensure that outdated information is no longer associated with them.",
+      "ideal": "The API should delete the specified property from all issues and return a success message confirming the deletion."
     },
     {
       "path": "/rest/api/3/issue/properties/{propertyKey}",
       "method": "PUT",
       "operationId": "bulkSetIssueProperty",
       "summary": "",
-      "user": "As a product owner, I want to set a specific property for all issues in a project to reflect a new requirement.",
-      "ideal": "The API should update the specified property for all issues and return a summary of the changes made."
+      "user": "As a product owner, I need to update a specific property for all issues to reflect new requirements across the board.",
+      "ideal": "The API should accept the property key and new value, updating all relevant issues and returning a success response."
     },
     {
       "path": "/rest/api/3/issue/{issueIdOrKey}/properties",
       "method": "GET",
       "operationId": "getIssuePropertyKeys",
       "summary": "",
-      "user": "As a QA engineer, I want to retrieve all property keys for a specific issue to understand its metadata and ensure it meets our standards.",
-      "ideal": "The API should return a list of all property keys associated with the specified issue."
+      "user": "As a QA engineer, I want to retrieve all property keys for a specific issue to understand its current metadata.",
+      "ideal": "The API should return a list of all property keys associated with the specified issue, allowing me to review its metadata."
     },
     {
       "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
       "method": "DELETE",
       "operationId": "deleteIssueProperty",
       "summary": "",
-      "user": "As a scrum master, I need to delete a specific property from an issue to clean up unnecessary metadata.",
-      "ideal": "The API should successfully remove the specified property from the issue and confirm the deletion."
+      "user": "As a scrum master, I want to delete a specific property from an issue to clean up unnecessary data.",
+      "ideal": "The API should remove the specified property from the issue and return a confirmation of the deletion."
     },
     {
       "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
       "method": "GET",
       "operationId": "getIssueProperty",
       "summary": "",
-      "user": "As a business analyst, I want to fetch the value of a specific property for an issue to analyze its current state.",
-      "ideal": "The API should return the value of the specified property for the given issue."
+      "user": "As a developer, I need to fetch the value of a specific property for an issue to make informed decisions based on its current state.",
+      "ideal": "The API should return the value of the specified property for the issue, allowing me to access the necessary information."
     },
     {
       "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
       "method": "PUT",
       "operationId": "setIssueProperty",
       "summary": "",
-      "user": "As a developer, I want to set a specific property for an issue to reflect the latest changes in our development process.",
-      "ideal": "The API should update the property with the new value and return a confirmation of the update."
+      "user": "As a project coordinator, I want to set or update a specific property for an issue to ensure it reflects the latest project requirements.",
+      "ideal": "The API should accept the property key and value, updating the issue accordingly and returning a success response."
     }
   ]
 }

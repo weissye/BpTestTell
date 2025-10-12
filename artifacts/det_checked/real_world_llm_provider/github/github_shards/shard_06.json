@@ -1,0 +1,117 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/repos/{owner}/{repo}/check-runs",
+      "method": "POST",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Create a check run",
+      "operationId": "checks/create"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/check-runs/{check_run_id}",
+      "method": "GET",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Get a check run",
+      "operationId": "checks/get"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/check-runs/{check_run_id}",
+      "method": "PATCH",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Update a check run",
+      "operationId": "checks/update"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations",
+      "method": "GET",
+      "tags": [
+        "checks"
+      ],
+      "summary": "List check run annotations",
+      "operationId": "checks/list-annotations"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/check-runs/{check_run_id}/rerequest",
+      "method": "POST",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Rerequest a check run",
+      "operationId": "checks/rerequest-run"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/check-suites",
+      "method": "POST",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Create a check suite",
+      "operationId": "checks/create-suite"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/check-suites/preferences",
+      "method": "PATCH",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Update repository preferences for check suites",
+      "operationId": "checks/set-suites-preferences"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/check-suites/{check_suite_id}",
+      "method": "GET",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Get a check suite",
+      "operationId": "checks/get-suite"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs",
+      "method": "GET",
+      "tags": [
+        "checks"
+      ],
+      "summary": "List check runs in a check suite",
+      "operationId": "checks/list-for-suite"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest",
+      "method": "POST",
+      "tags": [
+        "checks"
+      ],
+      "summary": "Rerequest a check suite",
+      "operationId": "checks/rerequest-suite"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/commits/{ref}/check-runs",
+      "method": "GET",
+      "tags": [
+        "checks"
+      ],
+      "summary": "List check runs for a Git reference",
+      "operationId": "checks/list-for-ref"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/commits/{ref}/check-suites",
+      "method": "GET",
+      "tags": [
+        "checks"
+      ],
+      "summary": "List check suites for a Git reference",
+      "operationId": "checks/list-suites-for-ref"
+    }
+  ]
+}

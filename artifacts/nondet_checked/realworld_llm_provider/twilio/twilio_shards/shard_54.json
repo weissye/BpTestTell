@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Queue"
+      ],
+      "summary": "Fetch an instance of a queue identified by the QueueSid",
+      "operationId": "FetchQueue"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Queue"
+      ],
+      "summary": "Update the queue with the new parameters",
+      "operationId": "UpdateQueue"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Queue"
+      ],
+      "summary": "Remove an empty queue",
+      "operationId": "DeleteQueue"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Queue"
+      ],
+      "summary": "Retrieve a list of queues belonging to the account used to make the request",
+      "operationId": "ListQueue"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Queue"
+      ],
+      "summary": "Create a queue",
+      "operationId": "CreateQueue"
+    }
+  ]
+}

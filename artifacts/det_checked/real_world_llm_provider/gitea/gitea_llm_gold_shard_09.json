@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/settings/api",
+      "method": "GET",
+      "operationId": "getGeneralAPISettings",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the general API settings for the Gitea instance."
+    },
+    {
+      "path": "/settings/attachment",
+      "method": "GET",
+      "operationId": "getGeneralAttachmentSettings",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch the general settings related to attachments in the Gitea instance."
+    },
+    {
+      "path": "/settings/repository",
+      "method": "GET",
+      "operationId": "getGeneralRepositorySettings",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Obtain the general repository settings for the Gitea instance."
+    },
+    {
+      "path": "/settings/ui",
+      "method": "GET",
+      "operationId": "getGeneralUISettings",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get the general user interface settings for the Gitea instance."
+    }
+  ]
+}

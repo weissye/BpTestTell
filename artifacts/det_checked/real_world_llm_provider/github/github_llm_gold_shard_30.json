@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/octocat",
+      "method": "GET",
+      "operationId": "orgs/get",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve details about the organization 'octocat'."
+    },
+    {
+      "path": "/orgs/octocat/members",
+      "method": "GET",
+      "operationId": "orgs/list-members",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all members of the organization 'octocat'."
+    },
+    {
+      "path": "/orgs/octocat/hooks",
+      "method": "GET",
+      "operationId": "orgs/list-webhooks",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Get all webhooks configured for the organization 'octocat'."
+    },
+    {
+      "path": "/orgs/octocat/hooks",
+      "method": "POST",
+      "operationId": "orgs/create-webhook",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new webhook for the organization 'octocat'."
+    },
+    {
+      "path": "/orgs/octocat/memberships/johndoe",
+      "method": "PUT",
+      "operationId": "orgs/set-membership-for-user",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Set membership for user 'johndoe' in the organization 'octocat'."
+    },
+    {
+      "path": "/orgs/octocat/blocks/johndoe",
+      "method": "PUT",
+      "operationId": "orgs/block-user",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Block user 'johndoe' from the organization 'octocat'."
+    },
+    {
+      "path": "/orgs/octocat/invitations",
+      "method": "POST",
+      "operationId": "orgs/create-invitation",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Send an invitation to join the organization 'octocat'."
+    },
+    {
+      "path": "/orgs/octocat/invitations/123",
+      "method": "DELETE",
+      "operationId": "orgs/cancel-invitation",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Cancel the invitation with ID 123 for the organization 'octocat'."
+    },
+    {
+      "path": "/orgs/octocat/issue-types",
+      "method": "GET",
+      "operationId": "orgs/list-issue-types",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve all issue types for the organization 'octocat'."
+    },
+    {
+      "path": "/orgs/octocat/personal-access-tokens",
+      "method": "GET",
+      "operationId": "orgs/list-pat-grants",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all personal access tokens for the organization 'octocat'."
+    }
+  ]
+}

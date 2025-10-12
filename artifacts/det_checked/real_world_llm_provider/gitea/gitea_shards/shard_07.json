@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "Gitea API",
+    "version": "{{AppVer | JSEscape}}"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/packages/{owner}",
+      "method": "GET",
+      "tags": [
+        "package"
+      ],
+      "summary": "Gets all packages of an owner",
+      "operationId": "listPackages"
+    },
+    {
+      "path": "/packages/{owner}/{type}/{name}/{version}",
+      "method": "GET",
+      "tags": [
+        "package"
+      ],
+      "summary": "Gets a package",
+      "operationId": "getPackage"
+    },
+    {
+      "path": "/packages/{owner}/{type}/{name}/{version}",
+      "method": "DELETE",
+      "tags": [
+        "package"
+      ],
+      "summary": "Delete a package",
+      "operationId": "deletePackage"
+    },
+    {
+      "path": "/packages/{owner}/{type}/{name}/{version}/files",
+      "method": "GET",
+      "tags": [
+        "package"
+      ],
+      "summary": "Gets all files of a package",
+      "operationId": "listPackageFiles"
+    }
+  ]
+}

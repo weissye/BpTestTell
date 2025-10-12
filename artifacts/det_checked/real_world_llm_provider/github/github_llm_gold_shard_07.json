@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/assignments/12345",
+      "method": "GET",
+      "operationId": "classroom/get-an-assignment",
+      "summary": "",
+      "user": "teacher123",
+      "ideal": "Retrieve the details of the assignment with ID 12345."
+    },
+    {
+      "path": "/assignments/12345/accepted_assignments",
+      "method": "GET",
+      "operationId": "classroom/list-accepted-assignments-for-an-assignment",
+      "summary": "",
+      "user": "teacher123",
+      "ideal": "List all accepted assignments for the assignment with ID 12345."
+    },
+    {
+      "path": "/assignments/12345/grades",
+      "method": "GET",
+      "operationId": "classroom/get-assignment-grades",
+      "summary": "",
+      "user": "teacher123",
+      "ideal": "Get the grades for the assignment with ID 12345."
+    },
+    {
+      "path": "/classrooms",
+      "method": "GET",
+      "operationId": "classroom/list-classrooms",
+      "summary": "",
+      "user": "admin456",
+      "ideal": "Retrieve a list of all classrooms."
+    },
+    {
+      "path": "/classrooms/67890",
+      "method": "GET",
+      "operationId": "classroom/get-a-classroom",
+      "summary": "",
+      "user": "admin456",
+      "ideal": "Get the details of the classroom with ID 67890."
+    },
+    {
+      "path": "/classrooms/67890/assignments",
+      "method": "GET",
+      "operationId": "classroom/list-assignments-for-a-classroom",
+      "summary": "",
+      "user": "admin456",
+      "ideal": "List all assignments for the classroom with ID 67890."
+    }
+  ]
+}

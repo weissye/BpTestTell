@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401MediaInstance"
+      ],
+      "summary": "Delete the Media resource.",
+      "operationId": "DeleteMedia"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401MediaInstance"
+      ],
+      "summary": "Fetch a single Media resource associated with a specific Message resource",
+      "operationId": "FetchMedia"
+    }
+  ]
+}

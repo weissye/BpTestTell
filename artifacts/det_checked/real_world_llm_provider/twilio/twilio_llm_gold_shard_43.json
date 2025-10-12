@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "method": "POST",
+      "operationId": "CreateMessage",
+      "summary": "",
+      "user": "User wants to send a new SMS message to a recipient using Twilio's API. They provide the necessary parameters such as 'To', 'From', and 'Body' to create the message.",
+      "ideal": "The API should return a success response with the details of the created message, including its SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "method": "GET",
+      "operationId": "ListMessage",
+      "summary": "",
+      "user": "User wants to retrieve a list of all messages sent from their Twilio account. They may want to filter by date or status.",
+      "ideal": "The API should return a list of messages with their details, such as SID, status, and timestamps."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteMessage",
+      "summary": "",
+      "user": "User wants to delete a specific SMS message identified by its SID from their Twilio account.",
+      "ideal": "The API should confirm the deletion with a success message and status code."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchMessage",
+      "summary": "",
+      "user": "User wants to fetch the details of a specific SMS message using its SID to check its status and content.",
+      "ideal": "The API should return the details of the message, including its status, body, and timestamps."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateMessage",
+      "summary": "",
+      "user": "User wants to update the content of an existing SMS message identified by its SID. They provide the new 'Body' for the message.",
+      "ideal": "The API should return the updated message details, confirming the changes made."
+    }
+  ]
+}

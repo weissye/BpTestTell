@@ -6,23 +6,23 @@
       "operationId": "createUser",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Creates a new user with username 'john_doe'."
+      "ideal": "User 'john_doe' created successfully."
     },
     {
       "path": "/users",
       "method": "GET",
       "operationId": "listUsers",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Retrieves a list of all users in the system."
+      "user": "admin",
+      "ideal": "List of users retrieved successfully."
     },
     {
-      "path": "/users/12345",
+      "path": "/users/{user_id}",
       "method": "DELETE",
       "operationId": "deleteUser",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Deletes the user with ID '12345'."
+      "user": "admin",
+      "ideal": "User with ID '123' deleted successfully."
     },
     {
       "path": "/books",
@@ -30,31 +30,31 @@
       "operationId": "createBook",
       "summary": "",
       "user": "librarian",
-      "ideal": "Adds a new book to the library collection."
+      "ideal": "Book 'Effective Java' created successfully."
     },
     {
       "path": "/books",
       "method": "GET",
       "operationId": "listBooks",
       "summary": "",
-      "user": "guest_user",
-      "ideal": "Retrieves a list of all books available in the library."
+      "user": "guest",
+      "ideal": "List of books retrieved successfully."
     },
     {
-      "path": "/books/67890",
+      "path": "/books/{book_id}",
       "method": "GET",
       "operationId": "getBook",
       "summary": "",
-      "user": "guest_user",
-      "ideal": "Retrieves details of the book with ID '67890'."
+      "user": "guest",
+      "ideal": "Details of book with ID '456' retrieved successfully."
     },
     {
-      "path": "/books/67890",
+      "path": "/books/{book_id}",
       "method": "DELETE",
       "operationId": "deleteBook",
       "summary": "",
       "user": "librarian",
-      "ideal": "Deletes the book with ID '67890' from the library."
+      "ideal": "Book with ID '456' deleted successfully."
     },
     {
       "path": "/loans",
@@ -62,7 +62,7 @@
       "operationId": "createLoan",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Creates a loan for the book with ID '67890' for user 'john_doe'."
+      "ideal": "Loan for book 'Effective Java' created successfully."
     },
     {
       "path": "/loans",
@@ -70,15 +70,15 @@
       "operationId": "listLoans",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Retrieves a list of all loans associated with user 'john_doe'."
+      "ideal": "List of loans retrieved successfully."
     },
     {
-      "path": "/loans/12345/67890",
+      "path": "/loans/{user_id}/{book_id}",
       "method": "DELETE",
       "operationId": "deleteLoan",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Deletes the loan for book ID '67890' associated with user ID '12345'."
+      "ideal": "Loan for book with ID '456' deleted successfully."
     },
     {
       "path": "/holds",
@@ -86,7 +86,7 @@
       "operationId": "createHold",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Places a hold on the book with ID '67890' for user 'john_doe'."
+      "ideal": "Hold for book 'Effective Java' created successfully."
     },
     {
       "path": "/holds",
@@ -94,15 +94,15 @@
       "operationId": "listHolds",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Retrieves a list of all holds placed by user 'john_doe'."
+      "ideal": "List of holds retrieved successfully."
     },
     {
-      "path": "/holds/54321",
+      "path": "/holds/{hold_id}",
       "method": "DELETE",
       "operationId": "deleteHold",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Deletes the hold with ID '54321' placed by user 'john_doe'."
+      "ideal": "Hold with ID '789' deleted successfully."
     }
   ]
 }

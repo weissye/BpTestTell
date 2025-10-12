@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchQueue",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific queue identified by its Sid to check its current status and attributes.",
+      "ideal": "Response should include the queue's name, current size, and any other relevant details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateQueue",
+      "summary": "",
+      "user": "User needs to update the properties of an existing queue, such as changing its name or max size.",
+      "ideal": "Response should confirm the update and return the updated queue details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteQueue",
+      "summary": "",
+      "user": "User wants to delete a specific queue that is no longer needed to free up resources.",
+      "ideal": "Response should confirm successful deletion of the queue."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "method": "GET",
+      "operationId": "ListQueue",
+      "summary": "",
+      "user": "User wants to list all queues associated with their account to manage them effectively.",
+      "ideal": "Response should include an array of queues with their respective details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "method": "POST",
+      "operationId": "CreateQueue",
+      "summary": "",
+      "user": "User needs to create a new queue for managing incoming calls more efficiently.",
+      "ideal": "Response should return the details of the newly created queue, including its Sid."
+    }
+  ]
+}

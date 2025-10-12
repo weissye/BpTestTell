@@ -5,56 +5,56 @@
       "method": "GET",
       "operationId": "getAllSystemAvatars",
       "summary": "",
-      "user": "As a user, I want to retrieve all available system avatars so that I can choose one for my profile.",
-      "ideal": "The response should return a list of all system avatars with their respective IDs and URLs."
+      "user": "As a project manager, I want to retrieve all available system avatars to choose an appropriate one for my team's profile.",
+      "ideal": "A list of all system avatars with their respective IDs and image URLs."
     },
     {
       "path": "/rest/api/3/universal_avatar/type/user/owner/12345",
       "method": "GET",
       "operationId": "getAvatars",
       "summary": "",
-      "user": "As a user, I want to fetch all avatars associated with my user ID so that I can manage them.",
-      "ideal": "The response should include all avatars linked to the specified user ID, along with their types and URLs."
+      "user": "As a user, I want to fetch my avatars so I can select one for my profile.",
+      "ideal": "A list of avatars associated with the user ID 12345."
     },
     {
       "path": "/rest/api/3/universal_avatar/type/user/owner/12345",
       "method": "POST",
       "operationId": "storeAvatar",
       "summary": "",
-      "user": "As a user, I want to upload a new avatar for my profile so that I can personalize my account.",
-      "ideal": "The response should confirm the successful upload of the avatar and return the new avatar ID."
+      "user": "As a user, I want to upload a new avatar image for my profile.",
+      "ideal": "A confirmation that the avatar has been successfully uploaded and is now associated with my profile."
     },
     {
       "path": "/rest/api/3/universal_avatar/type/user/owner/12345/avatar/67890",
       "method": "DELETE",
       "operationId": "deleteAvatar",
       "summary": "",
-      "user": "As a user, I want to delete an existing avatar from my profile to remove unwanted images.",
-      "ideal": "The response should confirm the successful deletion of the avatar."
+      "user": "As a user, I want to delete an avatar that I no longer wish to use.",
+      "ideal": "A confirmation that the avatar with ID 67890 has been successfully deleted from my profile."
     },
     {
       "path": "/rest/api/3/universal_avatar/view/type/user",
       "method": "GET",
       "operationId": "getAvatarImageByType",
       "summary": "",
-      "user": "As a user, I want to view all available user avatars so that I can select one for my profile.",
-      "ideal": "The response should return a list of user avatars with their images and IDs."
+      "user": "As a user, I want to view all available user avatars to select one for my profile.",
+      "ideal": "A list of user avatars with their image URLs."
     },
     {
       "path": "/rest/api/3/universal_avatar/view/type/user/avatar/67890",
       "method": "GET",
       "operationId": "getAvatarImageByID",
       "summary": "",
-      "user": "As a user, I want to view a specific avatar image by its ID to ensure it is the one I want to use.",
-      "ideal": "The response should return the image of the avatar corresponding to the provided ID."
+      "user": "As a user, I want to view a specific avatar image by its ID.",
+      "ideal": "The image of the avatar with ID 67890."
     },
     {
       "path": "/rest/api/3/universal_avatar/view/type/user/owner/12345",
       "method": "GET",
       "operationId": "getAvatarImageByOwner",
       "summary": "",
-      "user": "As a user, I want to view my current avatar image to confirm it is set correctly.",
-      "ideal": "The response should return the avatar image currently associated with my user ID."
+      "user": "As a user, I want to see the avatar image currently associated with my profile.",
+      "ideal": "The image of the avatar currently set for the user ID 12345."
     }
   ]
 }

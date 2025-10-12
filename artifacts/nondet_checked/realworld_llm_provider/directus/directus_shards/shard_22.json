@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/utils/hash/generate",
+      "method": "POST",
+      "tags": [
+        "Utilities"
+      ],
+      "summary": "Hash a string",
+      "operationId": "hash-generate"
+    },
+    {
+      "path": "/utils/hash/verify",
+      "method": "POST",
+      "tags": [
+        "Utilities"
+      ],
+      "summary": "Hash a string",
+      "operationId": "hash-verify"
+    },
+    {
+      "path": "/utils/sort/{collection}",
+      "method": "POST",
+      "tags": [
+        "Utilities"
+      ],
+      "summary": "Sort Items",
+      "operationId": "sort"
+    },
+    {
+      "path": "/utils/import/{collection}",
+      "method": "POST",
+      "tags": [
+        "Utilities"
+      ],
+      "summary": "Import Items",
+      "operationId": "import"
+    },
+    {
+      "path": "/utils/export/{collection}",
+      "method": "POST",
+      "tags": [
+        "Utilities"
+      ],
+      "summary": "Export Items",
+      "operationId": "export"
+    },
+    {
+      "path": "/utils/cache/clear",
+      "method": "POST",
+      "tags": [
+        "Utilities"
+      ],
+      "summary": "Clear Cache",
+      "operationId": "clear-cache"
+    },
+    {
+      "path": "/utils/random/string",
+      "method": "GET",
+      "tags": [
+        "Utilities"
+      ],
+      "summary": "Get a Random String",
+      "operationId": "random"
+    }
+  ]
+}

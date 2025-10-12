@@ -6,7 +6,7 @@
       "operationId": "getProviders",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve a list of client registration policy providers for the specified realm."
+      "ideal": "Retrieve a list of all client registration policy providers available in the specified realm."
     }
   ]
 }

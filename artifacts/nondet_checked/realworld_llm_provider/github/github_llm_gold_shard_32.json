@@ -6,7 +6,7 @@
       "operationId": "private-registries/list-org-private-registries",
       "summary": "",
       "user": "As a developer, I want to retrieve a list of all private registries associated with my organization so that I can manage them effectively.",
-      "ideal": "The response should return a JSON array of private registries, including their names and configurations."
+      "ideal": "The response should include an array of private registries with their names and details."
     },
     {
       "path": "/orgs/my-org/private-registries",
@@ -14,39 +14,39 @@
       "operationId": "private-registries/create-org-private-registry",
       "summary": "",
       "user": "As an admin, I want to create a new private registry for my organization to store sensitive packages securely.",
-      "ideal": "The response should confirm the creation of the private registry and return its details, including the registry name and access settings."
+      "ideal": "The response should confirm the creation of the private registry and return its details."
     },
     {
       "path": "/orgs/my-org/private-registries/public-key",
       "method": "GET",
       "operationId": "private-registries/get-org-public-key",
       "summary": "",
-      "user": "As a security officer, I need to obtain the public key for my organization's private registries to ensure secure communication.",
-      "ideal": "The response should return the public key in a format suitable for encryption purposes."
+      "user": "As a security officer, I need to retrieve the public key for my organization's private registries to ensure secure access.",
+      "ideal": "The response should return the public key in a format that can be used for encryption."
     },
     {
-      "path": "/orgs/my-org/private-registries/my-secret-registry",
+      "path": "/orgs/my-org/private-registries/my-secret",
       "method": "GET",
       "operationId": "private-registries/get-org-private-registry",
       "summary": "",
-      "user": "As a developer, I want to retrieve the details of a specific private registry to understand its configuration and usage.",
-      "ideal": "The response should include all relevant details about the private registry, such as its name, settings, and associated packages."
+      "user": "As a developer, I want to access the details of a specific private registry to understand its configuration.",
+      "ideal": "The response should provide detailed information about the specified private registry."
     },
     {
-      "path": "/orgs/my-org/private-registries/my-secret-registry",
+      "path": "/orgs/my-org/private-registries/my-secret",
       "method": "PATCH",
       "operationId": "private-registries/update-org-private-registry",
       "summary": "",
-      "user": "As an admin, I want to update the settings of an existing private registry to improve its security and performance.",
+      "user": "As an admin, I want to update the configuration of an existing private registry to improve its settings.",
       "ideal": "The response should confirm the update and return the updated details of the private registry."
     },
     {
-      "path": "/orgs/my-org/private-registries/my-secret-registry",
+      "path": "/orgs/my-org/private-registries/my-secret",
       "method": "DELETE",
       "operationId": "private-registries/delete-org-private-registry",
       "summary": "",
-      "user": "As an admin, I want to delete a private registry that is no longer needed to maintain a clean and organized environment.",
-      "ideal": "The response should confirm the deletion of the private registry and indicate that it has been successfully removed."
+      "user": "As an admin, I want to delete a private registry that is no longer needed to keep our organization clean and organized.",
+      "ideal": "The response should confirm the deletion of the private registry."
     }
   ]
 }

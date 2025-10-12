@@ -14,7 +14,7 @@
       "operationId": "createPatient",
       "summary": "",
       "user": "nurse",
-      "ideal": "Adds a new patient to the pharmacy system."
+      "ideal": "Creates a new patient record in the system."
     },
     {
       "path": "/drugs",
@@ -22,15 +22,15 @@
       "operationId": "getDrugs",
       "summary": "",
       "user": "pharmacist",
-      "ideal": "Retrieves a list of all available drugs in the pharmacy."
+      "ideal": "Retrieves a list of all available drugs."
     },
     {
       "path": "/drugs",
       "method": "POST",
       "operationId": "addDrug",
       "summary": "",
-      "user": "admin",
-      "ideal": "Adds a new drug to the pharmacy inventory."
+      "user": "pharmacist",
+      "ideal": "Adds a new drug to the inventory."
     },
     {
       "path": "/prescriptions",
@@ -46,7 +46,7 @@
       "operationId": "getOrders",
       "summary": "",
       "user": "pharmacist",
-      "ideal": "Fetches all orders placed in the pharmacy."
+      "ideal": "Retrieves a list of all current orders."
     },
     {
       "path": "/orders",
@@ -54,7 +54,7 @@
       "operationId": "createOrder",
       "summary": "",
       "user": "pharmacist",
-      "ideal": "Places a new order for drugs in the pharmacy."
+      "ideal": "Creates a new order for drugs."
     },
     {
       "path": "/inventory/{ndc}",
@@ -62,7 +62,7 @@
       "operationId": "getInventoryByNDC",
       "summary": "",
       "user": "pharmacist",
-      "ideal": "Retrieves inventory details for a specific drug using its NDC."
+      "ideal": "Retrieves inventory details for a specific drug by NDC."
     }
   ]
 }

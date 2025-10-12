@@ -5,248 +5,88 @@
       "method": "GET",
       "operationId": "GetAccount",
       "summary": "",
-      "user": "User requests to retrieve their account details to check the current status and settings.",
-      "ideal": "The response should include account information such as account ID, email, and account type."
+      "user": "User requests account details to verify their account status and settings.",
+      "ideal": "Returns the account information including type, capabilities, and settings."
+    },
+    {
+      "path": "/v1/accounts",
+      "method": "GET",
+      "operationId": "GetAccounts",
+      "summary": "",
+      "user": "User wants to retrieve a list of all accounts associated with their organization.",
+      "ideal": "Returns a paginated list of accounts with their respective details."
     },
     {
       "path": "/v1/accounts/{account}",
       "method": "GET",
       "operationId": "GetAccountsAccount",
       "summary": "",
-      "user": "Admin wants to view details of a specific account to manage its settings.",
-      "ideal": "The response should provide detailed information about the specified account, including its capabilities and external accounts."
+      "user": "User wants to get detailed information about a specific account.",
+      "ideal": "Returns detailed information about the specified account including its status and capabilities."
     },
     {
-      "path": "/v1/accounts/{account}/capabilities",
-      "method": "GET",
-      "operationId": "GetAccountsAccountCapabilities",
+      "path": "/v1/accounts/{account}/bank_accounts",
+      "method": "POST",
+      "operationId": "PostAccountsAccountBankAccounts",
       "summary": "",
-      "user": "User needs to check the capabilities of their account to understand what features are available.",
-      "ideal": "The response should list all capabilities of the account, indicating which are enabled or disabled."
+      "user": "User needs to add a new bank account to their existing account for transactions.",
+      "ideal": "Successfully adds the bank account and returns the updated account information."
     },
     {
-      "path": "/v1/customers/{customer}/subscriptions",
+      "path": "/v1/accounts/{account}/external_accounts",
       "method": "GET",
-      "operationId": "GetCustomersCustomerSubscriptions",
+      "operationId": "GetAccountsAccountExternalAccounts",
       "summary": "",
-      "user": "User wants to see all subscriptions associated with their customer account for billing purposes.",
-      "ideal": "The response should return a list of subscriptions, including status, plan details, and billing cycles."
+      "user": "User wants to view all external accounts linked to their account.",
+      "ideal": "Returns a list of all external accounts associated with the specified account."
+    },
+    {
+      "path": "/v1/customers",
+      "method": "POST",
+      "operationId": "PostCustomers",
+      "summary": "",
+      "user": "User wants to create a new customer profile in the system.",
+      "ideal": "Creates a new customer and returns the customer details including ID and status."
+    },
+    {
+      "path": "/v1/customers/{customer}",
+      "method": "GET",
+      "operationId": "GetCustomersCustomer",
+      "summary": "",
+      "user": "User needs to retrieve details of a specific customer.",
+      "ideal": "Returns detailed information about the specified customer including their payment methods and subscriptions."
     },
     {
       "path": "/v1/charges",
       "method": "POST",
       "operationId": "PostCharges",
       "summary": "",
-      "user": "User initiates a charge to process a payment for a recent transaction.",
-      "ideal": "The response should confirm the charge creation with details like charge ID, amount, and status."
+      "user": "User wants to create a new charge for a customer.",
+      "ideal": "Successfully creates a charge and returns the charge details including status and amount."
     },
     {
-      "path": "/v1/invoices/{invoice}/pay",
-      "method": "POST",
-      "operationId": "PostInvoicesInvoicePay",
-      "summary": "",
-      "user": "User wants to pay a specific invoice that is due.",
-      "ideal": "The response should indicate the payment status and any transaction details related to the invoice."
-    },
-    {
-      "path": "/v1/products",
-      "method": "POST",
-      "operationId": "PostProducts",
-      "summary": "",
-      "user": "Admin is adding a new product to the inventory for sale.",
-      "ideal": "The response should confirm the product creation with its ID and details such as name, price, and description."
-    },
-    {
-      "path": "/v1/payment_intents/{intent}/cancel",
-      "method": "POST",
-      "operationId": "PostPaymentIntentsIntentCancel",
-      "summary": "",
-      "user": "User decides to cancel a pending payment intent due to a change in order.",
-      "ideal": "The response should confirm the cancellation of the payment intent and provide its previous status."
-    },
-    {
-      "path": "/v1/credit_notes",
+      "path": "/v1/invoices",
       "method": "GET",
-      "operationId": "GetCreditNotes",
+      "operationId": "GetInvoices",
       "summary": "",
-      "user": "User wants to review all credit notes issued to their account for record-keeping.",
-      "ideal": "The response should return a list of credit notes with details such as amounts, reasons, and associated invoices."
+      "user": "User wants to retrieve a list of all invoices generated for their account.",
+      "ideal": "Returns a paginated list of invoices with their statuses and amounts."
     },
     {
-      "path": "/v1/tax/rates",
+      "path": "/v1/invoices/{invoice}",
       "method": "GET",
-      "operationId": "GetTaxRates",
+      "operationId": "GetInvoicesInvoice",
       "summary": "",
-      "user": "User needs to check the current tax rates applicable to their transactions.",
-      "ideal": "The response should provide a list of tax rates, including jurisdiction and percentage."
-    },
-    {
-      "path": "/v1/accounts",
-      "method": "POST",
-      "operationId": "PostAccounts",
-      "summary": "",
-      "user": "A user wants to create a new Stripe account for their business to start accepting payments online.",
-      "ideal": "The API should return the newly created account details, including the account ID and status."
-    },
-    {
-      "path": "/v1/customers/{customer}/sources",
-      "method": "POST",
-      "operationId": "PostCustomersCustomerSources",
-      "summary": "",
-      "user": "A user wants to add a new payment source to their customer profile for future transactions.",
-      "ideal": "The API should successfully add the payment source and return the updated customer object with the new source included."
+      "user": "User needs to get detailed information about a specific invoice.",
+      "ideal": "Returns detailed information about the specified invoice including line items and payment status."
     },
     {
       "path": "/v1/charges/{charge}/refunds",
       "method": "POST",
       "operationId": "PostChargesChargeRefunds",
       "summary": "",
-      "user": "A user needs to refund a charge made by a customer due to a product return.",
-      "ideal": "The API should process the refund and return the refund details, including the refund ID and status."
-    },
-    {
-      "path": "/v1/invoices/{invoice}/void",
-      "method": "POST",
-      "operationId": "PostInvoicesInvoiceVoid",
-      "summary": "",
-      "user": "A user wants to void an invoice that was mistakenly created.",
-      "ideal": "The API should void the invoice and return a confirmation that the invoice has been successfully voided."
-    },
-    {
-      "path": "/v1/payment_intents",
-      "method": "POST",
-      "operationId": "PostPaymentIntents",
-      "summary": "",
-      "user": "A user is creating a payment intent to process a customer's payment for an online order.",
-      "ideal": "The API should return the payment intent details, including the client secret for the frontend to complete the payment."
-    },
-    {
-      "path": "/v1/products",
-      "method": "POST",
-      "operationId": "PostProductsId",
-      "summary": "",
-      "user": "A user wants to add a new product to their Stripe account to sell on their e-commerce site.",
-      "ideal": "The API should return the newly created product details, including the product ID and pricing information."
-    },
-    {
-      "path": "/v1/subscriptions",
-      "method": "POST",
-      "operationId": "PostSubscriptionsSubscriptionExposedId",
-      "summary": "",
-      "user": "A user wants to create a subscription for a customer to access a monthly service.",
-      "ideal": "The API should return the subscription details, including the subscription ID and status."
-    },
-    {
-      "path": "/v1/charges/search",
-      "method": "GET",
-      "operationId": "GetChargesSearch",
-      "summary": "",
-      "user": "A user wants to search for all charges made in the last month to analyze sales performance.",
-      "ideal": "The API should return a list of charges that match the search criteria, including charge IDs and amounts."
-    },
-    {
-      "path": "/v1/tokens/{token}",
-      "method": "GET",
-      "operationId": "GetTokensToken",
-      "summary": "",
-      "user": "A user needs to retrieve a specific token to verify its validity for a payment method.",
-      "ideal": "The API should return the token details, including its status and associated payment method information."
-    },
-    {
-      "path": "/v1/identity/verification_sessions",
-      "method": "POST",
-      "operationId": "PostIdentityVerificationSessions",
-      "summary": "",
-      "user": "A user wants to initiate an identity verification session for a new customer onboarding process.",
-      "ideal": "The API should create a verification session and return the session ID and status."
-    },
-    {
-      "path": "/v1/terminal/locations",
-      "method": "GET",
-      "operationId": "GetTerminalLocations",
-      "summary": "",
-      "user": "A user wants to retrieve a list of all terminal locations for their business to manage in-person payments.",
-      "ideal": "The API should return a list of terminal locations, including location IDs and addresses."
-    },
-    {
-      "path": "/v1/accounts/{account}/login_links",
-      "method": "POST",
-      "operationId": "PostAccountsAccountLoginLinks",
-      "summary": "",
-      "user": "User requests a login link for their account to access the Stripe dashboard.",
-      "ideal": "A login link is generated and sent to the user's email."
-    },
-    {
-      "path": "/v1/charges/{charge}/refund",
-      "method": "POST",
-      "operationId": "PostChargesChargeRefund",
-      "summary": "",
-      "user": "User wants to refund a charge made to a customer due to a product return.",
-      "ideal": "The charge is successfully refunded and the customer is notified."
-    },
-    {
-      "path": "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount",
-      "method": "DELETE",
-      "operationId": "DeleteSubscriptionsSubscriptionExposedIdDiscount",
-      "summary": "",
-      "user": "User wants to remove a discount from a customer's subscription.",
-      "ideal": "The discount is removed from the subscription successfully."
-    },
-    {
-      "path": "/v1/invoices/{invoice}/send",
-      "method": "POST",
-      "operationId": "PostInvoicesInvoiceSend",
-      "summary": "",
-      "user": "User needs to send an invoice to a customer for payment.",
-      "ideal": "The invoice is sent to the customer's email address."
-    },
-    {
-      "path": "/v1/products",
-      "method": "GET",
-      "operationId": "GetProducts",
-      "summary": "",
-      "user": "User wants to retrieve a list of all products available in their Stripe account.",
-      "ideal": "A list of products is returned with their details."
-    },
-    {
-      "path": "/v1/payment_intents/{intent}/confirm",
-      "method": "POST",
-      "operationId": "PostPaymentIntentsIntentConfirm",
-      "summary": "",
-      "user": "User wants to confirm a payment intent for a customer's transaction.",
-      "ideal": "The payment intent is confirmed and the payment is processed."
-    },
-    {
-      "path": "/v1/charges/{charge}/dispute",
-      "method": "GET",
-      "operationId": "GetChargesChargeDispute",
-      "summary": "",
-      "user": "User wants to check the status of a dispute related to a specific charge.",
-      "ideal": "The current status of the dispute is returned."
-    },
-    {
-      "path": "/v1/tax/registrations",
-      "method": "GET",
-      "operationId": "GetTaxRegistrations",
-      "summary": "",
-      "user": "User needs to view all tax registrations associated with their account.",
-      "ideal": "A list of tax registrations is returned with their details."
-    },
-    {
-      "path": "/v1/financial_connections/accounts",
-      "method": "GET",
-      "operationId": "GetFinancialConnectionsAccounts",
-      "summary": "",
-      "user": "User wants to retrieve all financial accounts connected to their Stripe account.",
-      "ideal": "A list of connected financial accounts is returned."
-    },
-    {
-      "path": "/v1/webhook_endpoints/{webhook_endpoint}",
-      "method": "DELETE",
-      "operationId": "DeleteWebhookEndpointsWebhookEndpoint",
-      "summary": "",
-      "user": "User wants to delete a specific webhook endpoint that is no longer needed.",
-      "ideal": "The webhook endpoint is successfully deleted."
+      "user": "User wants to initiate a refund for a specific charge.",
+      "ideal": "Successfully processes the refund and returns the refund details including status and amount."
     }
   ]
 }

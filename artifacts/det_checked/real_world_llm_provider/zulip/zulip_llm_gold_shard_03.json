@@ -1,372 +1,68 @@
 {
   "gold": [
     {
-      "path": "/events",
+      "path": "/drafts",
       "method": "GET",
-      "operationId": "get-events",
+      "operationId": "get-drafts",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve the list of events for the user."
-    },
-    {
-      "path": "/mark_all_as_read",
-      "method": "POST",
-      "operationId": "mark-all-as-read",
-      "summary": "",
-      "user": "user456",
-      "ideal": "Mark all messages as read for the current user."
-    },
-    {
-      "path": "/attachments",
-      "method": "GET",
-      "operationId": "get-attachments",
-      "summary": "",
-      "user": "user789",
-      "ideal": "Fetch all attachments available to the user."
+      "ideal": "Retrieve all drafts created by the user."
     },
     {
       "path": "/drafts",
       "method": "POST",
       "operationId": "create-drafts",
       "summary": "",
-      "user": "user101",
-      "ideal": "Create a new draft message."
+      "user": "user456",
+      "ideal": "Create a new draft with the provided content."
     },
     {
-      "path": "/navigation_views",
-      "method": "GET",
-      "operationId": "get-navigation-views",
+      "path": "/drafts/1",
+      "method": "PATCH",
+      "operationId": "edit-draft",
       "summary": "",
-      "user": "user202",
-      "ideal": "Get the user's navigation views."
+      "user": "user789",
+      "ideal": "Edit the draft with ID 1 to update its content."
     },
     {
-      "path": "/navigation_views/{fragment}",
+      "path": "/drafts/2",
       "method": "DELETE",
-      "operationId": "remove-navigation-view",
+      "operationId": "delete-draft",
       "summary": "",
-      "user": "user303",
-      "ideal": "Remove a specific navigation view."
+      "user": "user321",
+      "ideal": "Delete the draft with ID 2."
     },
     {
-      "path": "/saved_snippets/{saved_snippet_id}",
+      "path": "/saved_snippets",
+      "method": "GET",
+      "operationId": "get-saved-snippets",
+      "summary": "",
+      "user": "user654",
+      "ideal": "Retrieve all saved snippets for the user."
+    },
+    {
+      "path": "/saved_snippets",
+      "method": "POST",
+      "operationId": "create-saved-snippet",
+      "summary": "",
+      "user": "user987",
+      "ideal": "Create a new saved snippet with the provided text."
+    },
+    {
+      "path": "/saved_snippets/3",
       "method": "PATCH",
       "operationId": "edit-saved-snippet",
       "summary": "",
-      "user": "user404",
-      "ideal": "Edit an existing saved snippet."
+      "user": "user159",
+      "ideal": "Edit the saved snippet with ID 3 to update its content."
     },
     {
-      "path": "/reminders",
-      "method": "POST",
-      "operationId": "create-message-reminder",
-      "summary": "",
-      "user": "user505",
-      "ideal": "Set a reminder for a message."
-    },
-    {
-      "path": "/scheduled_messages",
-      "method": "POST",
-      "operationId": "create-scheduled-message",
-      "summary": "",
-      "user": "user606",
-      "ideal": "Schedule a message to be sent later."
-    },
-    {
-      "path": "/default_streams",
-      "method": "POST",
-      "operationId": "add-default-stream",
-      "summary": "",
-      "user": "user707",
-      "ideal": "Add a stream to the user's default streams."
-    },
-    {
-      "path": "/messages",
-      "method": "POST",
-      "operationId": "send-message",
-      "summary": "",
-      "user": "user808",
-      "ideal": "Send a new message to a stream or user."
-    },
-    {
-      "path": "/messages/flags/narrow",
-      "method": "POST",
-      "operationId": "update-message-flags-for-narrow",
-      "summary": "",
-      "user": "user909",
-      "ideal": "Update flags for messages in a narrow view."
-    },
-    {
-      "path": "/messages/{message_id}/reactions",
+      "path": "/saved_snippets/4",
       "method": "DELETE",
-      "operationId": "remove-reaction",
+      "operationId": "delete-saved-snippet",
       "summary": "",
-      "user": "user1010",
-      "ideal": "Remove a reaction from a specific message."
-    },
-    {
-      "path": "/messages/{message_id}",
-      "method": "GET",
-      "operationId": "get-message",
-      "summary": "",
-      "user": "user1111",
-      "ideal": "Retrieve a specific message by its ID."
-    },
-    {
-      "path": "/messages/{message_id}/report",
-      "method": "POST",
-      "operationId": "report-message",
-      "summary": "",
-      "user": "user1212",
-      "ideal": "Report a message for inappropriate content."
-    },
-    {
-      "path": "/users",
-      "method": "GET",
-      "operationId": "get-users",
-      "summary": "",
-      "user": "user1313",
-      "ideal": "Get a list of all users in the organization."
-    },
-    {
-      "path": "/users/{user_id}/status",
-      "method": "POST",
-      "operationId": "update-status-for-user",
-      "summary": "",
-      "user": "user1414",
-      "ideal": "Update the status for a specific user."
-    },
-    {
-      "path": "/users/me",
-      "method": "GET",
-      "operationId": "get-own-user",
-      "summary": "",
-      "user": "user1515",
-      "ideal": "Get the current user's profile information."
-    },
-    {
-      "path": "/users/me/alert_words",
-      "method": "POST",
-      "operationId": "add-alert-words",
-      "summary": "",
-      "user": "user1616",
-      "ideal": "Add alert words for the current user."
-    },
-    {
-      "path": "/users/me/status",
-      "method": "POST",
-      "operationId": "update-status",
-      "summary": "",
-      "user": "user1717",
-      "ideal": "Update the current user's status."
-    },
-    {
-      "path": "/users/me/subscriptions",
-      "method": "POST",
-      "operationId": "subscribe",
-      "summary": "",
-      "user": "user1818",
-      "ideal": "Subscribe the current user to a stream."
-    },
-    {
-      "path": "/users/me/subscriptions/muted_topics",
-      "method": "PATCH",
-      "operationId": "mute-topic",
-      "summary": "",
-      "user": "user1919",
-      "ideal": "Mute a specific topic for the current user."
-    },
-    {
-      "path": "/mobile_push/register",
-      "method": "POST",
-      "operationId": "register-push-device",
-      "summary": "",
-      "user": "user2020",
-      "ideal": "Register a mobile device for push notifications."
-    },
-    {
-      "path": "/users/me/muted_users/{muted_user_id}",
-      "method": "POST",
-      "operationId": "mute-user",
-      "summary": "",
-      "user": "user2121",
-      "ideal": "Mute a specific user for the current user."
-    },
-    {
-      "path": "/users/me/apns_device_token",
-      "method": "DELETE",
-      "operationId": "remove-apns-token",
-      "summary": "",
-      "user": "user2222",
-      "ideal": "Remove the APNs device token for push notifications."
-    },
-    {
-      "path": "/users/{user_id}/subscriptions/{stream_id}",
-      "method": "GET",
-      "operationId": "get-subscription-status",
-      "summary": "",
-      "user": "user2323",
-      "ideal": "Get the subscription status of a user for a specific stream."
-    },
-    {
-      "path": "/realm/emoji",
-      "method": "GET",
-      "operationId": "get-custom-emoji",
-      "summary": "",
-      "user": "user2424",
-      "ideal": "Fetch the custom emojis available in the realm."
-    },
-    {
-      "path": "/realm/profile_fields",
-      "method": "PATCH",
-      "operationId": "reorder-custom-profile-fields",
-      "summary": "",
-      "user": "user2525",
-      "ideal": "Reorder custom profile fields in the realm."
-    },
-    {
-      "path": "/users/me/subscriptions/properties",
-      "method": "POST",
-      "operationId": "update-subscription-settings",
-      "summary": "",
-      "user": "user2626",
-      "ideal": "Update subscription settings for the current user."
-    },
-    {
-      "path": "/users/{user_id}",
-      "method": "GET",
-      "operationId": "get-user",
-      "summary": "",
-      "user": "user2727",
-      "ideal": "Retrieve information about a specific user."
-    },
-    {
-      "path": "/realm/linkifiers",
-      "method": "GET",
-      "operationId": "get-linkifiers",
-      "summary": "",
-      "user": "user2828",
-      "ideal": "Get the linkifiers configured in the realm."
-    },
-    {
-      "path": "/realm/filters/{filter_id}",
-      "method": "DELETE",
-      "operationId": "remove-linkifier",
-      "summary": "",
-      "user": "user2929",
-      "ideal": "Remove a specific linkifier from the realm."
-    },
-    {
-      "path": "/realm/playgrounds/{playground_id}",
-      "method": "DELETE",
-      "operationId": "remove-code-playground",
-      "summary": "",
-      "user": "user3030",
-      "ideal": "Remove a specific code playground from the realm."
-    },
-    {
-      "path": "/export/realm/consents",
-      "method": "GET",
-      "operationId": "get-realm-export-consents",
-      "summary": "",
-      "user": "user3131",
-      "ideal": "Get the export consents for the realm."
-    },
-    {
-      "path": "/invites/multiuse",
-      "method": "POST",
-      "operationId": "create-invite-link",
-      "summary": "",
-      "user": "user3232",
-      "ideal": "Create a multi-use invite link for the realm."
-    },
-    {
-      "path": "/invites/{invite_id}/resend",
-      "method": "POST",
-      "operationId": "resend-email-invite",
-      "summary": "",
-      "user": "user3333",
-      "ideal": "Resend an email invite using the invite ID."
-    },
-    {
-      "path": "/server_settings",
-      "method": "GET",
-      "operationId": "get-server-settings",
-      "summary": "",
-      "user": "user3434",
-      "ideal": "Retrieve the server settings."
-    },
-    {
-      "path": "/streams",
-      "method": "GET",
-      "operationId": "get-streams",
-      "summary": "",
-      "user": "user3535",
-      "ideal": "Get a list of all streams available."
-    },
-    {
-      "path": "/streams/{stream_id}",
-      "method": "PATCH",
-      "operationId": "update-stream",
-      "summary": "",
-      "user": "user3636",
-      "ideal": "Update the details of a specific stream."
-    },
-    {
-      "path": "/typing",
-      "method": "POST",
-      "operationId": "set-typing-status",
-      "summary": "",
-      "user": "user3737",
-      "ideal": "Set the typing status for the current user."
-    },
-    {
-      "path": "/user_groups/create",
-      "method": "POST",
-      "operationId": "create-user-group",
-      "summary": "",
-      "user": "user3838",
-      "ideal": "Create a new user group."
-    },
-    {
-      "path": "/user_groups/{user_group_id}",
-      "method": "PATCH",
-      "operationId": "update-user-group",
-      "summary": "",
-      "user": "user3939",
-      "ideal": "Update an existing user group."
-    },
-    {
-      "path": "/user_groups/{user_group_id}/subgroups",
-      "method": "GET",
-      "operationId": "get-user-group-subgroups",
-      "summary": "",
-      "user": "user4040",
-      "ideal": "Get the subgroups of a specific user group."
-    },
-    {
-      "path": "/channel_folders/create",
-      "method": "POST",
-      "operationId": "create-channel-folder",
-      "summary": "",
-      "user": "user4141",
-      "ideal": "Create a new channel folder."
-    },
-    {
-      "path": "/channel_folders/{channel_folder_id}",
-      "method": "PATCH",
-      "operationId": "update-channel-folder",
-      "summary": "",
-      "user": "user4242",
-      "ideal": "Update an existing channel folder."
-    },
-    {
-      "path": "/zulip-outgoing-webhook",
-      "method": "POST",
-      "operationId": "zulip-outgoing-webhooks",
-      "summary": "",
-      "user": "user4343",
-      "ideal": "Send a message via an outgoing webhook."
+      "user": "user753",
+      "ideal": "Delete the saved snippet with ID 4."
     }
   ]
 }

@@ -1,0 +1,108 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/issuetypescreenscheme",
+      "method": "GET",
+      "tags": [
+        "Issue type screen schemes"
+      ],
+      "summary": "Get issue type screen schemes",
+      "operationId": "getIssueTypeScreenSchemes"
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme",
+      "method": "POST",
+      "tags": [
+        "Issue type screen schemes"
+      ],
+      "summary": "Create issue type screen scheme",
+      "operationId": "createIssueTypeScreenScheme"
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/mapping",
+      "method": "GET",
+      "tags": [
+        "Issue type screen schemes"
+      ],
+      "summary": "Get issue type screen scheme items",
+      "operationId": "getIssueTypeScreenSchemeMappings"
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/project",
+      "method": "GET",
+      "tags": [
+        "Issue type screen schemes"
+      ],
+      "summary": "Get issue type screen schemes for projects",
+      "operationId": "getIssueTypeScreenSchemeProjectAssociations"
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/project",
+      "method": "PUT",
+      "tags": [
+        "Issue type screen schemes"
+      ],
+      "summary": "Assign issue type screen scheme to project",
+      "operationId": "assignIssueTypeScreenSchemeToProject"
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}",
+      "method": "DELETE",
+      "tags": [
+        "Issue type screen schemes"
+      ],
+      "summary": "Delete issue type screen scheme",
+      "operationId": "deleteIssueTypeScreenScheme"
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}",
+      "method": "PUT",
+      "tags": [
+        "Issue type screen schemes"
+      ],
+      "summary": "Update issue type screen scheme",
+      "operationId": "updateIssueTypeScreenScheme"
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping",
+      "method": "PUT",
+      "tags": [
+        "Issue type screen schemes"
+      ],
+      "summary": "Append mappings to issue type screen scheme",
+      "operationId": "appendMappingsForIssueTypeScreenScheme"
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping/default",
+      "method": "PUT",
+      "tags": [
+        "Issue type screen schemes"
+      ],
+      "summary": "Update issue type screen scheme default screen scheme",
+      "operationId": "updateDefaultScreenScheme"
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping/remove",
+      "method": "POST",
+      "tags": [
+        "Issue type screen schemes"
+      ],
+      "summary": "Remove mappings from issue type screen scheme",
+      "operationId": "removeMappingsFromIssueTypeScreenScheme"
+    },
+    {
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/project",
+      "method": "GET",
+      "tags": [
+        "Issue type screen schemes"
+      ],
+      "summary": "Get issue type screen scheme projects",
+      "operationId": "getProjectsForIssueTypeScreenScheme"
+    }
+  ]
+}

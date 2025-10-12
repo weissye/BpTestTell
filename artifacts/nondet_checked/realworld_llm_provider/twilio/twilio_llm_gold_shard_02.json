@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchRecordingAddOnResult",
+      "summary": "",
+      "user": "A user wants to retrieve the add-on results for a specific recording identified by its ReferenceSid and Sid. They have the necessary AccountSid and want to ensure they get the correct data for analysis.",
+      "ideal": "The API should return a JSON object containing the details of the add-on results for the specified recording, including any relevant metadata."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteRecordingAddOnResult",
+      "summary": "",
+      "user": "A user needs to delete a specific add-on result associated with a recording. They have the AccountSid, ReferenceSid, and Sid of the add-on result they wish to remove.",
+      "ideal": "The API should confirm the deletion of the specified add-on result and return a success message or status code indicating the operation was successful."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json",
+      "method": "GET",
+      "operationId": "ListRecordingAddOnResult",
+      "summary": "",
+      "user": "A user wants to list all add-on results for a particular recording. They have the AccountSid and ReferenceSid and are looking to gather insights from all associated add-on results.",
+      "ideal": "The API should return a JSON array containing all add-on results for the specified recording, including details such as Sid, status, and any relevant data."
+    }
+  ]
+}

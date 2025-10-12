@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/enterprises/my-enterprise/teams",
+      "method": "GET",
+      "operationId": "enterprise-teams/list",
+      "summary": "",
+      "user": "As a team manager, I want to retrieve a list of all teams in my enterprise to manage their permissions and activities effectively.",
+      "ideal": "The response should include an array of teams with details such as team name, ID, and description."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams",
+      "method": "POST",
+      "operationId": "enterprise-teams/create",
+      "summary": "",
+      "user": "As an admin, I want to create a new team in my enterprise to facilitate collaboration on projects.",
+      "ideal": "The response should confirm the creation of the team and return the new team's details including its ID."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams/my-team",
+      "method": "GET",
+      "operationId": "enterprise-teams/get",
+      "summary": "",
+      "user": "As a team member, I want to view the details of my team to understand its purpose and members.",
+      "ideal": "The response should provide detailed information about the team, including its members and their roles."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams/my-team",
+      "method": "PATCH",
+      "operationId": "enterprise-teams/update",
+      "summary": "",
+      "user": "As a team leader, I want to update my team's description to reflect our new objectives.",
+      "ideal": "The response should confirm the update and return the updated team details."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams/my-team",
+      "method": "DELETE",
+      "operationId": "enterprise-teams/delete",
+      "summary": "",
+      "user": "As an admin, I want to delete a team that is no longer active to keep our enterprise organized.",
+      "ideal": "The response should confirm the deletion of the team and indicate that it has been removed successfully."
+    }
+  ]
+}

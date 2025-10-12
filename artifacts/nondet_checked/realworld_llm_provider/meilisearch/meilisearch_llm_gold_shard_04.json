@@ -5,8 +5,8 @@
       "method": "POST",
       "operationId": "indexes.documents.facet.search",
       "summary": "",
-      "user": "User wants to search for specific facets in the 'myIndex' index to filter results based on certain criteria. They are looking for a way to refine their search results by selecting specific attributes or categories that are relevant to their query.",
-      "ideal": "The user sends a POST request to the /indexes/myIndex/facet-search endpoint with a JSON body containing the search criteria, including the facet fields they want to filter by and the values they are interested in. The response should return the filtered results based on the specified facets."
+      "user": "{\"facetName\":\"category\",\"facetValue\":\"electronics\",\"limit\":10}",
+      "ideal": "{\"hits\":[{\"id\":\"1\",\"name\":\"Smartphone\",\"category\":\"electronics\"},{\"id\":\"2\",\"name\":\"Laptop\",\"category\":\"electronics\"}],\"limit\":10,\"estimatedTotalHits\":50}"
     }
   ]
 }

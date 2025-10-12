@@ -5,48 +5,48 @@
       "method": "GET",
       "operationId": "indexes.list",
       "summary": "",
-      "user": "A developer looking to retrieve a list of all indexes in the Meilisearch instance to understand the available datasets.",
-      "ideal": "Returns a JSON array of index objects, each containing details like uid, name, and document count."
+      "user": "admin",
+      "ideal": "Retrieve a list of all indexes available in the Meilisearch instance."
     },
     {
       "path": "/indexes",
       "method": "POST",
       "operationId": "indexes.create",
       "summary": "",
-      "user": "A data engineer wanting to create a new index for a collection of product data to enable fast searching capabilities.",
-      "ideal": "Returns the created index object with its uid and status, confirming the successful creation of the index."
+      "user": "admin",
+      "ideal": "Create a new index with a specified UID and optional settings."
     },
     {
-      "path": "/indexes/{indexUid}",
+      "path": "/indexes/my_index",
       "method": "GET",
       "operationId": "indexes.get",
       "summary": "",
-      "user": "A researcher needing to fetch specific details about an index to verify its configuration and settings.",
-      "ideal": "Returns the index object with detailed information including uid, name, and settings."
+      "user": "admin",
+      "ideal": "Fetch details of the index with UID 'my_index'."
     },
     {
-      "path": "/indexes/{indexUid}",
+      "path": "/indexes/my_index",
       "method": "PATCH",
       "operationId": "indexes.update",
       "summary": "",
-      "user": "A system administrator who wants to update the settings of an existing index to improve search performance.",
-      "ideal": "Returns the updated index object reflecting the new settings and confirming the update."
+      "user": "admin",
+      "ideal": "Update settings or schema of the index with UID 'my_index'."
     },
     {
-      "path": "/indexes/{indexUid}",
+      "path": "/indexes/my_index",
       "method": "DELETE",
       "operationId": "indexes.remove",
       "summary": "",
-      "user": "A database manager needing to remove an obsolete index to clean up the Meilisearch instance and free up resources.",
-      "ideal": "Returns a success message confirming the deletion of the index."
+      "user": "admin",
+      "ideal": "Remove the index with UID 'my_index' from the Meilisearch instance."
     },
     {
       "path": "/swap-indexes",
       "method": "POST",
       "operationId": "indexes.swap",
       "summary": "",
-      "user": "A backend developer implementing a feature that requires swapping two indexes to update search results without downtime.",
-      "ideal": "Returns a success message indicating that the indexes have been swapped successfully."
+      "user": "admin",
+      "ideal": "Swap the positions of two indexes in the Meilisearch instance."
     }
   ]
 }

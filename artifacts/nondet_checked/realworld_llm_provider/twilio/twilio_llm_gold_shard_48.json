@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+      "method": "POST",
+      "operationId": "CreateNewSigningKey",
+      "summary": "",
+      "user": "User wants to create a new signing key for their Twilio account to enhance security for their API requests. They have their Account SID ready and are looking to generate a new key that can be used for signing requests.",
+      "ideal": "The API should return a success response with the details of the newly created signing key, including the key SID and the secret."
+    }
+  ]
+}

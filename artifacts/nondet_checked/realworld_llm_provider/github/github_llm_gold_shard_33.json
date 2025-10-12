@@ -5,144 +5,144 @@
       "method": "GET",
       "operationId": "projects/list-for-org",
       "summary": "",
-      "user": "Requesting a list of all projects for the organization 'my-org'.",
-      "ideal": "A successful response containing an array of project objects associated with 'my-org'."
+      "user": "Retrieve a list of all projects in the organization 'my-org'.",
+      "ideal": "A successful response should return a JSON array of project objects."
     },
     {
-      "path": "/orgs/my-org/projectsV2/1",
+      "path": "/orgs/my-org/projectsV2/123",
       "method": "GET",
       "operationId": "projects/get-for-org",
       "summary": "",
-      "user": "Fetching details for project number 1 in 'my-org'.",
-      "ideal": "A successful response with detailed information about project number 1."
+      "user": "Get details for the project with number 123 in the organization 'my-org'.",
+      "ideal": "The response should include the project's details such as name, description, and status."
     },
     {
-      "path": "/orgs/my-org/projectsV2/1/fields",
+      "path": "/orgs/my-org/projectsV2/123/fields",
       "method": "GET",
       "operationId": "projects/list-fields-for-org",
       "summary": "",
-      "user": "Retrieving all fields for project number 1 in 'my-org'.",
-      "ideal": "A successful response containing an array of field objects for project number 1."
+      "user": "List all fields for the project with number 123 in 'my-org'.",
+      "ideal": "The response should return an array of field objects associated with the project."
     },
     {
-      "path": "/orgs/my-org/projectsV2/1/fields/field-1",
+      "path": "/orgs/my-org/projectsV2/123/fields/456",
       "method": "GET",
       "operationId": "projects/get-field-for-org",
       "summary": "",
-      "user": "Getting details for field 'field-1' in project number 1 of 'my-org'.",
-      "ideal": "A successful response with detailed information about 'field-1'."
+      "user": "Retrieve details of the field with ID 456 for project 123 in 'my-org'.",
+      "ideal": "The response should provide details about the specific field."
     },
     {
-      "path": "/orgs/my-org/projectsV2/1/items",
+      "path": "/orgs/my-org/projectsV2/123/items",
       "method": "GET",
       "operationId": "projects/list-items-for-org",
       "summary": "",
-      "user": "Listing all items for project number 1 in 'my-org'.",
-      "ideal": "A successful response containing an array of item objects for project number 1."
+      "user": "Get a list of all items in the project with number 123 in 'my-org'.",
+      "ideal": "The response should return an array of item objects."
     },
     {
-      "path": "/orgs/my-org/projectsV2/1/items",
+      "path": "/orgs/my-org/projectsV2/123/items",
       "method": "POST",
       "operationId": "projects/add-item-for-org",
       "summary": "",
-      "user": "Adding a new item to project number 1 in 'my-org'.",
-      "ideal": "A successful response confirming the addition of the new item."
+      "user": "Add a new item to the project with number 123 in 'my-org'.",
+      "ideal": "The response should confirm the item was added and return the new item object."
     },
     {
-      "path": "/orgs/my-org/projectsV2/1/items/item-1",
+      "path": "/orgs/my-org/projectsV2/123/items/789",
       "method": "GET",
       "operationId": "projects/get-org-item",
       "summary": "",
-      "user": "Retrieving details for item 'item-1' in project number 1 of 'my-org'.",
-      "ideal": "A successful response with detailed information about 'item-1'."
+      "user": "Retrieve details of the item with ID 789 in project 123 of 'my-org'.",
+      "ideal": "The response should include the item's details such as title and status."
     },
     {
-      "path": "/orgs/my-org/projectsV2/1/items/item-1",
+      "path": "/orgs/my-org/projectsV2/123/items/789",
       "method": "PATCH",
       "operationId": "projects/update-item-for-org",
       "summary": "",
-      "user": "Updating item 'item-1' in project number 1 of 'my-org'.",
-      "ideal": "A successful response confirming the update of 'item-1'."
+      "user": "Update the item with ID 789 in project 123 of 'my-org'.",
+      "ideal": "The response should confirm the item was updated and return the updated item object."
     },
     {
-      "path": "/orgs/my-org/projectsV2/1/items/item-1",
+      "path": "/orgs/my-org/projectsV2/123/items/789",
       "method": "DELETE",
       "operationId": "projects/delete-item-for-org",
       "summary": "",
-      "user": "Deleting item 'item-1' from project number 1 in 'my-org'.",
-      "ideal": "A successful response confirming the deletion of 'item-1'."
+      "user": "Delete the item with ID 789 from project 123 in 'my-org'.",
+      "ideal": "The response should confirm that the item was successfully deleted."
     },
     {
       "path": "/users/johndoe/projectsV2",
       "method": "GET",
       "operationId": "projects/list-for-user",
       "summary": "",
-      "user": "Requesting a list of all projects for user 'johndoe'.",
-      "ideal": "A successful response containing an array of project objects associated with 'johndoe'."
+      "user": "List all projects for the user 'johndoe'.",
+      "ideal": "The response should return an array of project objects associated with the user."
     },
     {
-      "path": "/users/johndoe/projectsV2/2",
+      "path": "/users/johndoe/projectsV2/456",
       "method": "GET",
       "operationId": "projects/get-for-user",
       "summary": "",
-      "user": "Fetching details for project number 2 for user 'johndoe'.",
-      "ideal": "A successful response with detailed information about project number 2."
+      "user": "Get details for the project with number 456 for user 'johndoe'.",
+      "ideal": "The response should include the project's details such as name and description."
     },
     {
-      "path": "/users/johndoe/projectsV2/2/fields",
+      "path": "/users/johndoe/projectsV2/456/fields",
       "method": "GET",
       "operationId": "projects/list-fields-for-user",
       "summary": "",
-      "user": "Retrieving all fields for project number 2 of user 'johndoe'.",
-      "ideal": "A successful response containing an array of field objects for project number 2."
+      "user": "List all fields for the project with number 456 for user 'johndoe'.",
+      "ideal": "The response should return an array of field objects associated with the project."
     },
     {
-      "path": "/users/johndoe/projectsV2/2/fields/field-2",
+      "path": "/users/johndoe/projectsV2/456/fields/101",
       "method": "GET",
       "operationId": "projects/get-field-for-user",
       "summary": "",
-      "user": "Getting details for field 'field-2' in project number 2 of user 'johndoe'.",
-      "ideal": "A successful response with detailed information about 'field-2'."
+      "user": "Retrieve details of the field with ID 101 for project 456 of user 'johndoe'.",
+      "ideal": "The response should provide details about the specific field."
     },
     {
-      "path": "/users/johndoe/projectsV2/2/items",
+      "path": "/users/johndoe/projectsV2/456/items",
       "method": "GET",
       "operationId": "projects/list-items-for-user",
       "summary": "",
-      "user": "Listing all items for project number 2 of user 'johndoe'.",
-      "ideal": "A successful response containing an array of item objects for project number 2."
+      "user": "Get a list of all items in the project with number 456 for user 'johndoe'.",
+      "ideal": "The response should return an array of item objects."
     },
     {
-      "path": "/users/johndoe/projectsV2/2/items",
+      "path": "/users/johndoe/projectsV2/456/items",
       "method": "POST",
       "operationId": "projects/add-item-for-user",
       "summary": "",
-      "user": "Adding a new item to project number 2 of user 'johndoe'.",
-      "ideal": "A successful response confirming the addition of the new item."
+      "user": "Add a new item to the project with number 456 for user 'johndoe'.",
+      "ideal": "The response should confirm the item was added and return the new item object."
     },
     {
-      "path": "/users/johndoe/projectsV2/2/items/item-2",
+      "path": "/users/johndoe/projectsV2/456/items/202",
       "method": "GET",
       "operationId": "projects/get-user-item",
       "summary": "",
-      "user": "Retrieving details for item 'item-2' in project number 2 of user 'johndoe'.",
-      "ideal": "A successful response with detailed information about 'item-2'."
+      "user": "Retrieve details of the item with ID 202 in project 456 for user 'johndoe'.",
+      "ideal": "The response should include the item's details such as title and status."
     },
     {
-      "path": "/users/johndoe/projectsV2/2/items/item-2",
+      "path": "/users/johndoe/projectsV2/456/items/202",
       "method": "PATCH",
       "operationId": "projects/update-item-for-user",
       "summary": "",
-      "user": "Updating item 'item-2' in project number 2 of user 'johndoe'.",
-      "ideal": "A successful response confirming the update of 'item-2'."
+      "user": "Update the item with ID 202 in project 456 for user 'johndoe'.",
+      "ideal": "The response should confirm the item was updated and return the updated item object."
     },
     {
-      "path": "/users/johndoe/projectsV2/2/items/item-2",
+      "path": "/users/johndoe/projectsV2/456/items/202",
       "method": "DELETE",
       "operationId": "projects/delete-item-for-user",
       "summary": "",
-      "user": "Deleting item 'item-2' from project number 2 of user 'johndoe'.",
-      "ideal": "A successful response confirming the deletion of 'item-2'."
+      "user": "Delete the item with ID 202 from project 456 for user 'johndoe'.",
+      "ideal": "The response should confirm that the item was successfully deleted."
     }
   ]
 }

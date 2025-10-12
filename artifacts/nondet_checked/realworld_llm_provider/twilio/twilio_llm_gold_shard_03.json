@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "method": "POST",
+      "operationId": "CreateAddress",
+      "summary": "",
+      "user": "User wants to create a new address for their Twilio account to manage shipping and billing.",
+      "ideal": "Successfully creates a new address with the provided details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "method": "GET",
+      "operationId": "ListAddress",
+      "summary": "",
+      "user": "User needs to retrieve a list of all addresses associated with their Twilio account for review.",
+      "ideal": "Returns a list of addresses with their details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteAddress",
+      "summary": "",
+      "user": "User wants to delete an address that is no longer needed from their Twilio account.",
+      "ideal": "Successfully deletes the specified address and confirms the action."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchAddress",
+      "summary": "",
+      "user": "User wants to fetch the details of a specific address to verify its information.",
+      "ideal": "Returns the details of the specified address."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateAddress",
+      "summary": "",
+      "user": "User needs to update the details of an existing address to correct an error.",
+      "ideal": "Successfully updates the address with the new information provided."
+    }
+  ]
+}

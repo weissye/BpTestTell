@@ -1,28 +1,28 @@
 {
   "gold": [
     {
-      "path": "/myrealm/clients-initial-access",
+      "path": "/{realm}/clients-initial-access",
       "method": "GET",
       "operationId": "getClientsInitialAccess",
       "summary": "",
-      "user": "Admin user retrieving initial access tokens for clients in the 'myrealm' realm to manage client access.",
-      "ideal": "Returns a list of initial access tokens for clients in the specified realm."
+      "user": "As an admin, I want to retrieve the list of initial access tokens for clients in a specific realm so that I can manage client access effectively.",
+      "ideal": "The response should return a JSON array of initial access tokens, including details such as token ID, client ID, and expiration time."
     },
     {
-      "path": "/myrealm/clients-initial-access",
+      "path": "/{realm}/clients-initial-access",
       "method": "POST",
       "operationId": "postClientsInitialAccess",
       "summary": "",
-      "user": "Admin user creating a new initial access token for a client in the 'myrealm' realm to facilitate client registration.",
-      "ideal": "Creates a new initial access token for the specified realm and returns the token details."
+      "user": "As an admin, I want to create a new initial access token for a client in a specific realm so that I can grant temporary access for client registration.",
+      "ideal": "The request should accept a JSON body with client ID and the number of tokens to create, and the response should return the created token details including token ID and expiration."
     },
     {
-      "path": "/myrealm/clients-initial-access/12345",
+      "path": "/{realm}/clients-initial-access/{id}",
       "method": "DELETE",
       "operationId": "deleteClientsInitialAccess",
       "summary": "",
-      "user": "Admin user deleting an existing initial access token with ID '12345' in the 'myrealm' realm to revoke client access.",
-      "ideal": "Successfully deletes the specified initial access token and returns a confirmation message."
+      "user": "As an admin, I want to delete a specific initial access token for a client in a realm so that I can revoke access when it's no longer needed.",
+      "ideal": "The response should confirm the deletion of the token and return a success message indicating that the token has been removed."
     }
   ]
 }

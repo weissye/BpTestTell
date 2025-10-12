@@ -1,84 +1,92 @@
 {
   "gold": [
     {
-      "path": "/v1/gists",
+      "path": "/orgs/{org}/actions/cache/usage",
       "method": "GET",
-      "operationId": "gists/list",
+      "operationId": "actions/get-actions-cache-usage-for-org",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve a list of all gists for the authenticated user."
+      "user": "User123",
+      "ideal": "Retrieve the cache usage statistics for the specified organization."
     },
     {
-      "path": "/v1/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts",
+      "path": "/repos/{owner}/{repo}/actions/artifacts",
       "method": "GET",
-      "operationId": "actions/list-workflow-run-artifacts",
+      "operationId": "actions/list-artifacts-for-repo",
       "summary": "",
-      "user": "user456",
-      "ideal": "Fetch the artifacts for a specific workflow run in the repository."
+      "user": "User456",
+      "ideal": "List all artifacts available for the specified repository."
     },
     {
-      "path": "/v1/orgs/{org}/teams",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}/logs",
       "method": "GET",
-      "operationId": "teams/list",
+      "operationId": "actions/download-workflow-run-logs",
       "summary": "",
-      "user": "user789",
-      "ideal": "List all teams within the specified organization."
+      "user": "User789",
+      "ideal": "Download the logs for the specified workflow run."
     },
     {
-      "path": "/v1/orgs/{org}/members/{username}/codespaces",
+      "path": "/orgs/{org}/actions/permissions",
       "method": "GET",
-      "operationId": "codespaces/get-codespaces-for-user-in-org",
+      "operationId": "actions/get-github-actions-permissions-organization",
       "summary": "",
-      "user": "user101",
-      "ideal": "Get a list of codespaces for a specific user in the organization."
+      "user": "User101",
+      "ideal": "Get the GitHub Actions permissions for the specified organization."
     },
     {
-      "path": "/v1/repos/{owner}/{repo}/branches/{branch}/protection",
-      "method": "DELETE",
-      "operationId": "repos/delete-branch-protection",
-      "summary": "",
-      "user": "user202",
-      "ideal": "Remove branch protection rules from the specified branch."
-    },
-    {
-      "path": "/v1/orgs/{org}/hooks",
-      "method": "POST",
-      "operationId": "orgs/create-webhook",
-      "summary": "",
-      "user": "user303",
-      "ideal": "Create a new webhook for the specified organization."
-    },
-    {
-      "path": "/v1/repos/{owner}/{repo}/actions/secrets",
+      "path": "/repos/{owner}/{repo}/actions/secrets/{secret_name}",
       "method": "GET",
-      "operationId": "actions/list-repo-secrets",
+      "operationId": "actions/get-repo-secret",
       "summary": "",
-      "user": "user404",
-      "ideal": "List all secrets for the specified repository."
+      "user": "User202",
+      "ideal": "Retrieve the specified secret for the repository."
     },
     {
-      "path": "/v1/orgs/{org}/packages/{package_type}/{package_name}/restore",
-      "method": "POST",
-      "operationId": "packages/restore-package-for-org",
-      "summary": "",
-      "user": "user505",
-      "ideal": "Restore a deleted package for the specified organization."
-    },
-    {
-      "path": "/v1/orgs/{org}/members/{username}/copilot",
+      "path": "/orgs/{org}/actions/runner-groups",
       "method": "GET",
-      "operationId": "copilot/get-copilot-seat-details-for-user",
+      "operationId": "actions/list-self-hosted-runner-groups-for-org",
       "summary": "",
-      "user": "user606",
-      "ideal": "Retrieve Copilot seat details for a specific user in the organization."
+      "user": "User303",
+      "ideal": "List all self-hosted runner groups for the specified organization."
     },
     {
-      "path": "/v1/repos/{owner}/{repo}/actions/permissions",
-      "method": "PUT",
-      "operationId": "actions/set-github-actions-permissions-repository",
+      "path": "/repos/{owner}/{repo}/actions/permissions/access",
+      "method": "GET",
+      "operationId": "actions/get-workflow-access-to-repository",
       "summary": "",
-      "user": "user707",
-      "ideal": "Set GitHub Actions permissions for the specified repository."
+      "user": "User404",
+      "ideal": "Check the workflow access permissions for the specified repository."
+    },
+    {
+      "path": "/orgs/{org}/actions/secrets",
+      "method": "GET",
+      "operationId": "actions/list-org-secrets",
+      "summary": "",
+      "user": "User505",
+      "ideal": "List all secrets for the specified organization."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/variables/{name}",
+      "method": "GET",
+      "operationId": "actions/get-repo-variable",
+      "summary": "",
+      "user": "User606",
+      "ideal": "Retrieve the specified variable for the repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/workflows",
+      "method": "GET",
+      "operationId": "actions/list-repo-workflows",
+      "summary": "",
+      "user": "User707",
+      "ideal": "List all workflows for the specified repository."
+    },
+    {
+      "path": "/orgs/{org}/actions/permissions/self-hosted-runners",
+      "method": "GET",
+      "operationId": "actions/get-self-hosted-runners-permissions-organization",
+      "summary": "",
+      "user": "User808",
+      "ideal": "Get the permissions for self-hosted runners in the specified organization."
     }
   ]
 }

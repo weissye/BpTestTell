@@ -6,7 +6,7 @@
       "operationId": "getEmojis",
       "summary": "",
       "user": "octocat",
-      "ideal": "Returns a list of all the emojis available on GitHub."
+      "ideal": "Retrieve a list of all available emojis on GitHub."
     }
   ]
 }

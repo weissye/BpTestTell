@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/priority",
+      "method": "GET",
+      "operationId": "getPriorities",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all priority levels available in Jira to ensure that my team can categorize tasks effectively.",
+      "ideal": "Returns a list of all priority levels with their details."
+    },
+    {
+      "path": "/rest/api/3/priority",
+      "method": "POST",
+      "operationId": "createPriority",
+      "summary": "",
+      "user": "As a Jira administrator, I want to create a new priority level for urgent tasks so that my team can prioritize them accordingly.",
+      "ideal": "Creates a new priority level and returns the created priority details."
+    },
+    {
+      "path": "/rest/api/3/priority/default",
+      "method": "PUT",
+      "operationId": "setDefaultPriority",
+      "summary": "",
+      "user": "As a project lead, I want to set a default priority for new issues to streamline the issue creation process.",
+      "ideal": "Sets the specified priority as the default and returns the updated priority details."
+    },
+    {
+      "path": "/rest/api/3/priority/move",
+      "method": "PUT",
+      "operationId": "movePriorities",
+      "summary": "",
+      "user": "As a Jira administrator, I want to reorder the priority levels to reflect the new workflow of my team.",
+      "ideal": "Reorders the priority levels and returns the updated list of priorities."
+    },
+    {
+      "path": "/rest/api/3/priority/search",
+      "method": "GET",
+      "operationId": "searchPriorities",
+      "summary": "",
+      "user": "As a developer, I want to search for specific priority levels to find the one that matches my task requirements.",
+      "ideal": "Returns a list of priority levels that match the search criteria."
+    },
+    {
+      "path": "/rest/api/3/priority/{id}",
+      "method": "DELETE",
+      "operationId": "deletePriority",
+      "summary": "",
+      "user": "As a project manager, I want to delete an obsolete priority level that is no longer relevant to our projects.",
+      "ideal": "Deletes the specified priority level and confirms the deletion."
+    },
+    {
+      "path": "/rest/api/3/priority/{id}",
+      "method": "GET",
+      "operationId": "getPriority",
+      "summary": "",
+      "user": "As a team member, I want to retrieve details of a specific priority level to understand its significance in our workflow.",
+      "ideal": "Returns the details of the specified priority level."
+    },
+    {
+      "path": "/rest/api/3/priority/{id}",
+      "method": "PUT",
+      "operationId": "updatePriority",
+      "summary": "",
+      "user": "As a Jira administrator, I want to update the details of an existing priority level to better reflect its importance.",
+      "ideal": "Updates the specified priority level and returns the updated details."
+    }
+  ]
+}

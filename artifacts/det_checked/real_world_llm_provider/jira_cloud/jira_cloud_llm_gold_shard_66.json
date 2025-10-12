@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/ABC/issuesecuritylevelscheme",
+      "method": "GET",
+      "operationId": "getProjectIssueSecurityScheme",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Retrieve the issue security level scheme for project ABC."
+    },
+    {
+      "path": "/rest/api/3/project/XYZ/permissionscheme",
+      "method": "GET",
+      "operationId": "getAssignedPermissionScheme",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Get the permission scheme assigned to project XYZ."
+    },
+    {
+      "path": "/rest/api/3/project/DEF/permissionscheme",
+      "method": "PUT",
+      "operationId": "assignPermissionScheme",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Assign a new permission scheme to project DEF."
+    },
+    {
+      "path": "/rest/api/3/project/GHI/securitylevel",
+      "method": "GET",
+      "operationId": "getSecurityLevelsForProject",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Fetch the security levels configured for project GHI."
+    }
+  ]
+}

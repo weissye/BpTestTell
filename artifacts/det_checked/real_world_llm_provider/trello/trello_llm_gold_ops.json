@@ -1,0 +1,1344 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345/card",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345/member",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345/memberCreator",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345/organization",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/actions/12345/text",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/actions/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345/display",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/batch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/boards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/boards/{idBoard}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/boards/{idBoard}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/boards/{idBoard}/actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/boards/{idBoard}/cards",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/boards/{idBoard}/checklists",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/boards/{idBoard}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/boards/{idBoard}/labels",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/boards/{idBoard}/lists",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/boards/{idBoard}/prefs/background",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/cards/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/cards/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/cards/12345/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/cards/12345/checklists",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/cards/12345/attachments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/cards/12345/members",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/cards/12345/labels",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/cards/12345/checklist/67890/checkItem/11111",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/cards/12345/stickers",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/cards/12345/membersVoted",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/checklists",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/board/name",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/cards/active",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems/1a2b3c4d",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems/1a2b3c4d",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/idCard",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/pos",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/description",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/labels",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/labels/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/labels/12345/color",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/labels/12345/name",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists/{idList}/archiveAllCards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/board/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/cards",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists/{idList}/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/cards/{filter}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/closed",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/idBoard",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists/{idList}/moveAllCards",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/pos",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/subscribed",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/12345/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/12345/avatar",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/12345/bio",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/12345/boardBackgrounds",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/12345/boardBackgrounds",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/12345/boardStars",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/12345/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/12345/notifications",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/notifications/all/read",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/notifications/789",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/123/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/321/board/name",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/654/card",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/987/card/title",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/234/display",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/567/entities",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/890/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/135/list/name",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/246/member",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/357/member/email",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/468/memberCreator",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/579/memberCreator/username",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/680/organization",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/791/organization/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/notifications/902/unread",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/123/type",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/12345/boards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/12345/members",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/12345/members/67890",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/12345/name",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/12345/prefs/associatedDomain",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/12345/membersInvited",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/organizations/12345/logo",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/12345/desc",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/12345/members/67890/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/search/members",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/sessions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/sessions/socket",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/sessions/abc123",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/sessions/abc123/status",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/tokens/abc123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tokens/abc123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tokens/abc123/member",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tokens/abc123/member/email",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tokens/abc123/webhooks",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/tokens/abc123/webhooks",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/tokens/abc123/webhooks",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/tokens/abc123/webhooks/webhook1",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tokens/abc123/webhooks/webhook1",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tokens/abc123/permissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/types/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/webhooks",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/active",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/callbackURL",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/description",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/idModel",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks/{idWebhook}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345/card",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345/member",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345/memberCreator",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345/organization",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/actions/12345/text",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/actions/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/actions/12345/display",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/batch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/boards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/boards/{idBoard}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/boards/{idBoard}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/boards/{idBoard}/actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/boards/{idBoard}/cards",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/boards/{idBoard}/checklists",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/boards/{idBoard}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/boards/{idBoard}/labels",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/boards/{idBoard}/lists",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/boards/{idBoard}/prefs/background",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/cards/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/cards/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/cards/12345/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/cards/12345/checklists",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/cards/12345/attachments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/cards/12345/members",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/cards/12345/labels",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/cards/12345/checklist/67890/checkItem/11111",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/cards/12345/stickers",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/cards/12345/membersVoted",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/checklists",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/board/name",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/cards/active",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems/1a2b3c4d",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems/1a2b3c4d",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/idCard",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/pos",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/description",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/labels",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/labels/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/labels/12345/color",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/labels/12345/name",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists/{idList}/archiveAllCards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/board/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/cards",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists/{idList}/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/cards/{filter}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/closed",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/idBoard",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists/{idList}/moveAllCards",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/pos",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/subscribed",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/12345/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/12345/avatar",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/12345/bio",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/12345/boardBackgrounds",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/12345/boardBackgrounds",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/12345/boardStars",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/12345/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/12345/notifications",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/notifications/all/read",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/notifications/789",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/123/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/321/board/name",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/654/card",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/987/card/title",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/234/display",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/567/entities",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/890/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/135/list/name",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/246/member",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/357/member/email",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/468/memberCreator",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/579/memberCreator/username",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/680/organization",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/791/organization/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/notifications/902/unread",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/123/type",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/12345/boards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/12345/members",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/12345/members/67890",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/12345/name",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/12345/prefs/associatedDomain",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/12345/membersInvited",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/organizations/12345/logo",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/12345/desc",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/12345/members/67890/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/search/members",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/sessions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/sessions/socket",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/sessions/abc123",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/sessions/abc123/status",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/tokens/abc123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tokens/abc123",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tokens/abc123/member",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tokens/abc123/member/email",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tokens/abc123/webhooks",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/v1/tokens/abc123/webhooks",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/tokens/abc123/webhooks",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/tokens/abc123/webhooks/webhook1",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tokens/abc123/webhooks/webhook1",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tokens/abc123/permissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/types/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/webhooks",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/active",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/callbackURL",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/description",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/idModel",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks/{idWebhook}/{field}",
+      "body": null
+    }
+  ]
+}

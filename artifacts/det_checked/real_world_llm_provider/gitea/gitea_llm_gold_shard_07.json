@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/packages/johndoe",
+      "method": "GET",
+      "operationId": "listPackages",
+      "summary": "",
+      "user": "johndoe",
+      "ideal": "Retrieve a list of all packages owned by johndoe."
+    },
+    {
+      "path": "/packages/johndoe/npm/my-package/1.0.0",
+      "method": "GET",
+      "operationId": "getPackage",
+      "summary": "",
+      "user": "johndoe",
+      "ideal": "Get details of the package 'my-package' version '1.0.0' owned by johndoe."
+    },
+    {
+      "path": "/packages/johndoe/npm/my-package/1.0.0",
+      "method": "DELETE",
+      "operationId": "deletePackage",
+      "summary": "",
+      "user": "johndoe",
+      "ideal": "Delete the package 'my-package' version '1.0.0' owned by johndoe."
+    },
+    {
+      "path": "/packages/johndoe/npm/my-package/1.0.0/files",
+      "method": "GET",
+      "operationId": "listPackageFiles",
+      "summary": "",
+      "user": "johndoe",
+      "ideal": "List all files associated with the package 'my-package' version '1.0.0' owned by johndoe."
+    }
+  ]
+}

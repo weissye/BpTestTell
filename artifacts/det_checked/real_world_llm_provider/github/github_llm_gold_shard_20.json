@@ -1,0 +1,108 @@
+{
+  "gold": [
+    {
+      "path": "/repos/octocat/Hello-World/git/blobs",
+      "method": "POST",
+      "operationId": "git/create-blob",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new blob in the repository with the content provided."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/blobs/abc123",
+      "method": "GET",
+      "operationId": "git/get-blob",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve the blob data for the specified SHA."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/commits",
+      "method": "POST",
+      "operationId": "git/create-commit",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new commit in the repository with the specified tree and parents."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/commits/def456",
+      "method": "GET",
+      "operationId": "git/get-commit",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Fetch the commit details for the specified SHA."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/matching-refs/heads",
+      "method": "GET",
+      "operationId": "git/list-matching-refs",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "List all references that match the specified pattern."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/ref/heads/main",
+      "method": "GET",
+      "operationId": "git/get-ref",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Get the reference details for the specified ref."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/refs",
+      "method": "POST",
+      "operationId": "git/create-ref",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new reference in the repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/refs/heads/feature",
+      "method": "PATCH",
+      "operationId": "git/update-ref",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Update the specified reference to point to a new SHA."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/refs/heads/feature",
+      "method": "DELETE",
+      "operationId": "git/delete-ref",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Delete the specified reference from the repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/tags",
+      "method": "POST",
+      "operationId": "git/create-tag",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new tag in the repository with the specified details."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/tags/ghi789",
+      "method": "GET",
+      "operationId": "git/get-tag",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve the tag details for the specified SHA."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/trees",
+      "method": "POST",
+      "operationId": "git/create-tree",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Create a new tree in the repository with the specified structure."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/git/trees/jkl012",
+      "method": "GET",
+      "operationId": "git/get-tree",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Fetch the tree details for the specified SHA."
+    }
+  ]
+}

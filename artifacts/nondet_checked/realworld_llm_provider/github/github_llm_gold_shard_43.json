@@ -14,7 +14,7 @@
       "operationId": "users/update-authenticated",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Update the authenticated user's profile with new information."
+      "ideal": "Update the authenticated user's profile information."
     },
     {
       "path": "/user/blocks",
@@ -25,15 +25,7 @@
       "ideal": "List all users blocked by the authenticated user."
     },
     {
-      "path": "/user/blocks/{username}",
-      "method": "GET",
-      "operationId": "users/check-blocked",
-      "summary": "",
-      "user": "john_doe",
-      "ideal": "Check if the user 'jane_smith' is blocked by the authenticated user."
-    },
-    {
-      "path": "/user/blocks/{username}",
+      "path": "/user/blocks/jane_smith",
       "method": "PUT",
       "operationId": "users/block",
       "summary": "",
@@ -41,7 +33,7 @@
       "ideal": "Block the user 'jane_smith'."
     },
     {
-      "path": "/user/blocks/{username}",
+      "path": "/user/blocks/jane_smith",
       "method": "DELETE",
       "operationId": "users/unblock",
       "summary": "",
@@ -62,7 +54,7 @@
       "operationId": "users/add-email-for-authenticated-user",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Add a new email address to the authenticated user's account."
+      "ideal": "Add a new email address for the authenticated user."
     },
     {
       "path": "/user/emails",
@@ -89,15 +81,7 @@
       "ideal": "List all users followed by the authenticated user."
     },
     {
-      "path": "/user/following/{username}",
-      "method": "GET",
-      "operationId": "users/check-person-is-followed-by-authenticated",
-      "summary": "",
-      "user": "john_doe",
-      "ideal": "Check if the authenticated user is following 'jane_smith'."
-    },
-    {
-      "path": "/user/following/{username}",
+      "path": "/user/following/jane_smith",
       "method": "PUT",
       "operationId": "users/follow",
       "summary": "",
@@ -105,7 +89,7 @@
       "ideal": "Follow the user 'jane_smith'."
     },
     {
-      "path": "/user/following/{username}",
+      "path": "/user/following/jane_smith",
       "method": "DELETE",
       "operationId": "users/unfollow",
       "summary": "",
@@ -129,20 +113,12 @@
       "ideal": "Create a new GPG key for the authenticated user."
     },
     {
-      "path": "/user/gpg_keys/{gpg_key_id}",
-      "method": "GET",
-      "operationId": "users/get-gpg-key-for-authenticated-user",
-      "summary": "",
-      "user": "john_doe",
-      "ideal": "Retrieve the GPG key with ID '12345' for the authenticated user."
-    },
-    {
-      "path": "/user/gpg_keys/{gpg_key_id}",
+      "path": "/user/gpg_keys/12345",
       "method": "DELETE",
       "operationId": "users/delete-gpg-key-for-authenticated-user",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Delete the GPG key with ID '12345' for the authenticated user."
+      "ideal": "Delete the GPG key with ID 12345 from the authenticated user's account."
     },
     {
       "path": "/user/keys",
@@ -161,20 +137,12 @@
       "ideal": "Create a new public SSH key for the authenticated user."
     },
     {
-      "path": "/user/keys/{key_id}",
-      "method": "GET",
-      "operationId": "users/get-public-ssh-key-for-authenticated-user",
-      "summary": "",
-      "user": "john_doe",
-      "ideal": "Retrieve the public SSH key with ID '67890' for the authenticated user."
-    },
-    {
-      "path": "/user/keys/{key_id}",
+      "path": "/user/keys/67890",
       "method": "DELETE",
       "operationId": "users/delete-public-ssh-key-for-authenticated-user",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Delete the public SSH key with ID '67890' for the authenticated user."
+      "ideal": "Delete the public SSH key with ID 67890 from the authenticated user's account."
     },
     {
       "path": "/user/social_accounts",
@@ -182,7 +150,7 @@
       "operationId": "users/list-social-accounts-for-authenticated-user",
       "summary": "",
       "user": "john_doe",
-      "ideal": "List all social accounts linked to the authenticated user's profile."
+      "ideal": "List all social accounts linked to the authenticated user's account."
     },
     {
       "path": "/user/social_accounts",

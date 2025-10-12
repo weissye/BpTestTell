@@ -6,23 +6,23 @@
       "operationId": "analyseExpression",
       "summary": "",
       "user": "User wants to analyze a Jira expression to understand its structure and components.",
-      "ideal": "The API should return a detailed breakdown of the expression, including its syntax, variables, and any potential errors."
+      "ideal": "The API should return a detailed analysis of the expression, including any errors or warnings."
     },
     {
       "path": "/rest/api/3/expression/eval",
       "method": "POST",
       "operationId": "evaluateJiraExpression",
       "summary": "",
-      "user": "User needs to evaluate a specific Jira expression to retrieve a calculated value based on current issue data.",
-      "ideal": "The API should return the evaluated result of the expression, along with any relevant context or error messages if the evaluation fails."
+      "user": "User needs to evaluate a specific Jira expression to get the result based on current issue data.",
+      "ideal": "The API should return the evaluated result of the expression, along with any relevant context."
     },
     {
       "path": "/rest/api/3/expression/evaluate",
       "method": "POST",
       "operationId": "evaluateJSISJiraExpression",
       "summary": "",
-      "user": "User is looking to evaluate a JSIS (Jira Server Integration Service) expression for advanced calculations.",
-      "ideal": "The API should return the result of the JSIS expression evaluation, including any necessary details about the execution context."
+      "user": "User is looking to evaluate a JSIS Jira expression for a custom field calculation.",
+      "ideal": "The API should provide the evaluation result of the JSIS expression, including any errors encountered."
     }
   ]
 }

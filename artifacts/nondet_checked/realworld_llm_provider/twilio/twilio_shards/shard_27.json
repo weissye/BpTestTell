@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Domain"
+      ],
+      "summary": "Retrieve a list of domains belonging to the account used to make the request",
+      "operationId": "ListSipDomain"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Domain"
+      ],
+      "summary": "Create a new Domain",
+      "operationId": "CreateSipDomain"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Domain"
+      ],
+      "summary": "Fetch an instance of a Domain",
+      "operationId": "FetchSipDomain"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Domain"
+      ],
+      "summary": "Update the attributes of a domain",
+      "operationId": "UpdateSipDomain"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Domain"
+      ],
+      "summary": "Delete an instance of a Domain",
+      "operationId": "DeleteSipDomain"
+    }
+  ]
+}

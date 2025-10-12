@@ -1,0 +1,1647 @@
+{
+  "openapi_meta": {
+    "title": "NetBox REST API",
+    "version": "4.4.2 (4.4)"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/api/extras/bookmarks/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_bookmarks_list"
+    },
+    {
+      "path": "/api/extras/bookmarks/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_bookmarks_create"
+    },
+    {
+      "path": "/api/extras/bookmarks/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_bookmarks_bulk_update"
+    },
+    {
+      "path": "/api/extras/bookmarks/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_bookmarks_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/bookmarks/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_bookmarks_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/bookmarks/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_bookmarks_retrieve"
+    },
+    {
+      "path": "/api/extras/bookmarks/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_bookmarks_update"
+    },
+    {
+      "path": "/api/extras/bookmarks/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_bookmarks_partial_update"
+    },
+    {
+      "path": "/api/extras/bookmarks/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_bookmarks_destroy"
+    },
+    {
+      "path": "/api/extras/config-context-profiles/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_context_profiles_list"
+    },
+    {
+      "path": "/api/extras/config-context-profiles/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_context_profiles_create"
+    },
+    {
+      "path": "/api/extras/config-context-profiles/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_context_profiles_bulk_update"
+    },
+    {
+      "path": "/api/extras/config-context-profiles/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_context_profiles_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/config-context-profiles/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_context_profiles_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/config-context-profiles/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_context_profiles_retrieve"
+    },
+    {
+      "path": "/api/extras/config-context-profiles/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_context_profiles_update"
+    },
+    {
+      "path": "/api/extras/config-context-profiles/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_context_profiles_partial_update"
+    },
+    {
+      "path": "/api/extras/config-context-profiles/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_context_profiles_destroy"
+    },
+    {
+      "path": "/api/extras/config-context-profiles/{id}/sync/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_context_profiles_sync_create"
+    },
+    {
+      "path": "/api/extras/config-contexts/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_contexts_list"
+    },
+    {
+      "path": "/api/extras/config-contexts/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_contexts_create"
+    },
+    {
+      "path": "/api/extras/config-contexts/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_contexts_bulk_update"
+    },
+    {
+      "path": "/api/extras/config-contexts/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_contexts_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/config-contexts/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_contexts_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/config-contexts/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_contexts_retrieve"
+    },
+    {
+      "path": "/api/extras/config-contexts/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_contexts_update"
+    },
+    {
+      "path": "/api/extras/config-contexts/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_contexts_partial_update"
+    },
+    {
+      "path": "/api/extras/config-contexts/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_contexts_destroy"
+    },
+    {
+      "path": "/api/extras/config-contexts/{id}/sync/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_contexts_sync_create"
+    },
+    {
+      "path": "/api/extras/config-templates/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_templates_list"
+    },
+    {
+      "path": "/api/extras/config-templates/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_templates_create"
+    },
+    {
+      "path": "/api/extras/config-templates/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_templates_bulk_update"
+    },
+    {
+      "path": "/api/extras/config-templates/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_templates_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/config-templates/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_templates_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/config-templates/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_templates_retrieve"
+    },
+    {
+      "path": "/api/extras/config-templates/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_templates_update"
+    },
+    {
+      "path": "/api/extras/config-templates/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_templates_partial_update"
+    },
+    {
+      "path": "/api/extras/config-templates/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_templates_destroy"
+    },
+    {
+      "path": "/api/extras/config-templates/{id}/render/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_templates_render_create"
+    },
+    {
+      "path": "/api/extras/config-templates/{id}/sync/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_config_templates_sync_create"
+    },
+    {
+      "path": "/api/extras/custom-field-choice-sets/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_field_choice_sets_list"
+    },
+    {
+      "path": "/api/extras/custom-field-choice-sets/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_field_choice_sets_create"
+    },
+    {
+      "path": "/api/extras/custom-field-choice-sets/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_field_choice_sets_bulk_update"
+    },
+    {
+      "path": "/api/extras/custom-field-choice-sets/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_field_choice_sets_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/custom-field-choice-sets/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_field_choice_sets_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/custom-field-choice-sets/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_field_choice_sets_retrieve"
+    },
+    {
+      "path": "/api/extras/custom-field-choice-sets/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_field_choice_sets_update"
+    },
+    {
+      "path": "/api/extras/custom-field-choice-sets/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_field_choice_sets_partial_update"
+    },
+    {
+      "path": "/api/extras/custom-field-choice-sets/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_field_choice_sets_destroy"
+    },
+    {
+      "path": "/api/extras/custom-field-choice-sets/{id}/choices/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_field_choice_sets_choices_retrieve"
+    },
+    {
+      "path": "/api/extras/custom-fields/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_fields_list"
+    },
+    {
+      "path": "/api/extras/custom-fields/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_fields_create"
+    },
+    {
+      "path": "/api/extras/custom-fields/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_fields_bulk_update"
+    },
+    {
+      "path": "/api/extras/custom-fields/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_fields_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/custom-fields/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_fields_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/custom-fields/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_fields_retrieve"
+    },
+    {
+      "path": "/api/extras/custom-fields/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_fields_update"
+    },
+    {
+      "path": "/api/extras/custom-fields/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_fields_partial_update"
+    },
+    {
+      "path": "/api/extras/custom-fields/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_fields_destroy"
+    },
+    {
+      "path": "/api/extras/custom-links/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_links_list"
+    },
+    {
+      "path": "/api/extras/custom-links/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_links_create"
+    },
+    {
+      "path": "/api/extras/custom-links/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_links_bulk_update"
+    },
+    {
+      "path": "/api/extras/custom-links/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_links_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/custom-links/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_links_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/custom-links/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_links_retrieve"
+    },
+    {
+      "path": "/api/extras/custom-links/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_links_update"
+    },
+    {
+      "path": "/api/extras/custom-links/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_links_partial_update"
+    },
+    {
+      "path": "/api/extras/custom-links/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_custom_links_destroy"
+    },
+    {
+      "path": "/api/extras/dashboard/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_dashboard_retrieve"
+    },
+    {
+      "path": "/api/extras/dashboard/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_dashboard_update"
+    },
+    {
+      "path": "/api/extras/dashboard/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_dashboard_partial_update"
+    },
+    {
+      "path": "/api/extras/dashboard/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_dashboard_destroy"
+    },
+    {
+      "path": "/api/extras/event-rules/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_event_rules_list"
+    },
+    {
+      "path": "/api/extras/event-rules/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_event_rules_create"
+    },
+    {
+      "path": "/api/extras/event-rules/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_event_rules_bulk_update"
+    },
+    {
+      "path": "/api/extras/event-rules/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_event_rules_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/event-rules/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_event_rules_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/event-rules/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_event_rules_retrieve"
+    },
+    {
+      "path": "/api/extras/event-rules/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_event_rules_update"
+    },
+    {
+      "path": "/api/extras/event-rules/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_event_rules_partial_update"
+    },
+    {
+      "path": "/api/extras/event-rules/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_event_rules_destroy"
+    },
+    {
+      "path": "/api/extras/export-templates/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_export_templates_list"
+    },
+    {
+      "path": "/api/extras/export-templates/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_export_templates_create"
+    },
+    {
+      "path": "/api/extras/export-templates/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_export_templates_bulk_update"
+    },
+    {
+      "path": "/api/extras/export-templates/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_export_templates_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/export-templates/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_export_templates_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/export-templates/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_export_templates_retrieve"
+    },
+    {
+      "path": "/api/extras/export-templates/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_export_templates_update"
+    },
+    {
+      "path": "/api/extras/export-templates/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_export_templates_partial_update"
+    },
+    {
+      "path": "/api/extras/export-templates/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_export_templates_destroy"
+    },
+    {
+      "path": "/api/extras/export-templates/{id}/sync/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_export_templates_sync_create"
+    },
+    {
+      "path": "/api/extras/image-attachments/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_image_attachments_list"
+    },
+    {
+      "path": "/api/extras/image-attachments/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_image_attachments_create"
+    },
+    {
+      "path": "/api/extras/image-attachments/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_image_attachments_bulk_update"
+    },
+    {
+      "path": "/api/extras/image-attachments/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_image_attachments_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/image-attachments/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_image_attachments_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/image-attachments/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_image_attachments_retrieve"
+    },
+    {
+      "path": "/api/extras/image-attachments/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_image_attachments_update"
+    },
+    {
+      "path": "/api/extras/image-attachments/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_image_attachments_partial_update"
+    },
+    {
+      "path": "/api/extras/image-attachments/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_image_attachments_destroy"
+    },
+    {
+      "path": "/api/extras/journal-entries/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_journal_entries_list"
+    },
+    {
+      "path": "/api/extras/journal-entries/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_journal_entries_create"
+    },
+    {
+      "path": "/api/extras/journal-entries/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_journal_entries_bulk_update"
+    },
+    {
+      "path": "/api/extras/journal-entries/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_journal_entries_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/journal-entries/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_journal_entries_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/journal-entries/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_journal_entries_retrieve"
+    },
+    {
+      "path": "/api/extras/journal-entries/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_journal_entries_update"
+    },
+    {
+      "path": "/api/extras/journal-entries/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_journal_entries_partial_update"
+    },
+    {
+      "path": "/api/extras/journal-entries/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_journal_entries_destroy"
+    },
+    {
+      "path": "/api/extras/notification-groups/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notification_groups_list"
+    },
+    {
+      "path": "/api/extras/notification-groups/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notification_groups_create"
+    },
+    {
+      "path": "/api/extras/notification-groups/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notification_groups_bulk_update"
+    },
+    {
+      "path": "/api/extras/notification-groups/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notification_groups_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/notification-groups/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notification_groups_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/notification-groups/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notification_groups_retrieve"
+    },
+    {
+      "path": "/api/extras/notification-groups/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notification_groups_update"
+    },
+    {
+      "path": "/api/extras/notification-groups/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notification_groups_partial_update"
+    },
+    {
+      "path": "/api/extras/notification-groups/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notification_groups_destroy"
+    },
+    {
+      "path": "/api/extras/notifications/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notifications_list"
+    },
+    {
+      "path": "/api/extras/notifications/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notifications_create"
+    },
+    {
+      "path": "/api/extras/notifications/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notifications_bulk_update"
+    },
+    {
+      "path": "/api/extras/notifications/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notifications_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/notifications/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notifications_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/notifications/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notifications_retrieve"
+    },
+    {
+      "path": "/api/extras/notifications/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notifications_update"
+    },
+    {
+      "path": "/api/extras/notifications/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notifications_partial_update"
+    },
+    {
+      "path": "/api/extras/notifications/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_notifications_destroy"
+    },
+    {
+      "path": "/api/extras/object-types/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_object_types_list"
+    },
+    {
+      "path": "/api/extras/object-types/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_object_types_retrieve"
+    },
+    {
+      "path": "/api/extras/saved-filters/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_saved_filters_list"
+    },
+    {
+      "path": "/api/extras/saved-filters/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_saved_filters_create"
+    },
+    {
+      "path": "/api/extras/saved-filters/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_saved_filters_bulk_update"
+    },
+    {
+      "path": "/api/extras/saved-filters/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_saved_filters_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/saved-filters/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_saved_filters_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/saved-filters/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_saved_filters_retrieve"
+    },
+    {
+      "path": "/api/extras/saved-filters/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_saved_filters_update"
+    },
+    {
+      "path": "/api/extras/saved-filters/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_saved_filters_partial_update"
+    },
+    {
+      "path": "/api/extras/saved-filters/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_saved_filters_destroy"
+    },
+    {
+      "path": "/api/extras/scripts/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_scripts_list"
+    },
+    {
+      "path": "/api/extras/scripts/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_scripts_create"
+    },
+    {
+      "path": "/api/extras/scripts/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_scripts_retrieve"
+    },
+    {
+      "path": "/api/extras/scripts/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_scripts_update"
+    },
+    {
+      "path": "/api/extras/scripts/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_scripts_partial_update"
+    },
+    {
+      "path": "/api/extras/scripts/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_scripts_destroy"
+    },
+    {
+      "path": "/api/extras/subscriptions/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_subscriptions_list"
+    },
+    {
+      "path": "/api/extras/subscriptions/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_subscriptions_create"
+    },
+    {
+      "path": "/api/extras/subscriptions/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_subscriptions_bulk_update"
+    },
+    {
+      "path": "/api/extras/subscriptions/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_subscriptions_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/subscriptions/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_subscriptions_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/subscriptions/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_subscriptions_retrieve"
+    },
+    {
+      "path": "/api/extras/subscriptions/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_subscriptions_update"
+    },
+    {
+      "path": "/api/extras/subscriptions/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_subscriptions_partial_update"
+    },
+    {
+      "path": "/api/extras/subscriptions/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_subscriptions_destroy"
+    },
+    {
+      "path": "/api/extras/table-configs/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_table_configs_list"
+    },
+    {
+      "path": "/api/extras/table-configs/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_table_configs_create"
+    },
+    {
+      "path": "/api/extras/table-configs/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_table_configs_bulk_update"
+    },
+    {
+      "path": "/api/extras/table-configs/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_table_configs_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/table-configs/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_table_configs_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/table-configs/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_table_configs_retrieve"
+    },
+    {
+      "path": "/api/extras/table-configs/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_table_configs_update"
+    },
+    {
+      "path": "/api/extras/table-configs/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_table_configs_partial_update"
+    },
+    {
+      "path": "/api/extras/table-configs/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_table_configs_destroy"
+    },
+    {
+      "path": "/api/extras/tagged-objects/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_tagged_objects_list"
+    },
+    {
+      "path": "/api/extras/tagged-objects/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_tagged_objects_retrieve"
+    },
+    {
+      "path": "/api/extras/tags/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_tags_list"
+    },
+    {
+      "path": "/api/extras/tags/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_tags_create"
+    },
+    {
+      "path": "/api/extras/tags/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_tags_bulk_update"
+    },
+    {
+      "path": "/api/extras/tags/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_tags_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/tags/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_tags_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/tags/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_tags_retrieve"
+    },
+    {
+      "path": "/api/extras/tags/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_tags_update"
+    },
+    {
+      "path": "/api/extras/tags/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_tags_partial_update"
+    },
+    {
+      "path": "/api/extras/tags/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_tags_destroy"
+    },
+    {
+      "path": "/api/extras/webhooks/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_webhooks_list"
+    },
+    {
+      "path": "/api/extras/webhooks/",
+      "method": "POST",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_webhooks_create"
+    },
+    {
+      "path": "/api/extras/webhooks/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_webhooks_bulk_update"
+    },
+    {
+      "path": "/api/extras/webhooks/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_webhooks_bulk_partial_update"
+    },
+    {
+      "path": "/api/extras/webhooks/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_webhooks_bulk_destroy"
+    },
+    {
+      "path": "/api/extras/webhooks/{id}/",
+      "method": "GET",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_webhooks_retrieve"
+    },
+    {
+      "path": "/api/extras/webhooks/{id}/",
+      "method": "PUT",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_webhooks_update"
+    },
+    {
+      "path": "/api/extras/webhooks/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_webhooks_partial_update"
+    },
+    {
+      "path": "/api/extras/webhooks/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "extras"
+      ],
+      "summary": "",
+      "operationId": "extras_webhooks_destroy"
+    }
+  ]
+}

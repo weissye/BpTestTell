@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/plans/plan",
+      "method": "GET",
+      "operationId": "getPlans",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all plans to review the current project timelines and resources allocated.",
+      "ideal": "The response should return a list of all plans with their details including ID, name, and status."
+    },
+    {
+      "path": "/rest/api/3/plans/plan",
+      "method": "POST",
+      "operationId": "createPlan",
+      "summary": "",
+      "user": "As a project manager, I want to create a new plan for the upcoming project to ensure all tasks are organized.",
+      "ideal": "The response should confirm the creation of the plan with its ID and initial details."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/{planId}",
+      "method": "GET",
+      "operationId": "getPlan",
+      "summary": "",
+      "user": "As a team lead, I want to view the details of a specific plan to understand its objectives and deadlines.",
+      "ideal": "The response should return the details of the specified plan including tasks, deadlines, and team members."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/{planId}",
+      "method": "PUT",
+      "operationId": "updatePlan",
+      "summary": "",
+      "user": "As a project manager, I want to update the plan details to reflect changes in project scope and timelines.",
+      "ideal": "The response should confirm the update and return the updated plan details."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/{planId}/archive",
+      "method": "PUT",
+      "operationId": "archivePlan",
+      "summary": "",
+      "user": "As a project manager, I want to archive completed plans to keep the workspace organized.",
+      "ideal": "The response should confirm that the plan has been archived successfully."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/{planId}/duplicate",
+      "method": "POST",
+      "operationId": "duplicatePlan",
+      "summary": "",
+      "user": "As a project manager, I want to duplicate an existing plan to create a new plan with similar tasks and timelines.",
+      "ideal": "The response should return the details of the newly created duplicate plan."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/{planId}/trash",
+      "method": "PUT",
+      "operationId": "trashPlan",
+      "summary": "",
+      "user": "As a project manager, I want to move outdated plans to trash to declutter my project list.",
+      "ideal": "The response should confirm that the plan has been moved to trash successfully."
+    }
+  ]
+}

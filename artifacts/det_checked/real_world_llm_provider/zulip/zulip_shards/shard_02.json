@@ -6,15 +6,6 @@
   "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
   "operations": [
     {
-      "path": "/dev_fetch_api_key",
-      "method": "POST",
-      "tags": [
-        "authentication"
-      ],
-      "summary": "Fetch an API key (development only)",
-      "operationId": "dev-fetch-api-key"
-    },
-    {
       "path": "/get_stream_id",
       "method": "GET",
       "tags": [
@@ -24,166 +15,31 @@
       "operationId": "get-stream-id"
     },
     {
-      "path": "/mark_topic_as_read",
+      "path": "/default_streams",
       "method": "POST",
       "tags": [
-        "messages"
+        "channels"
       ],
-      "summary": "Mark messages in a topic as read",
-      "operationId": "mark-topic-as-read"
+      "summary": "Add a default channel",
+      "operationId": "add-default-stream"
     },
     {
-      "path": "/drafts",
-      "method": "GET",
-      "tags": [
-        "drafts"
-      ],
-      "summary": "Get drafts",
-      "operationId": "get-drafts"
-    },
-    {
-      "path": "/drafts/{draft_id}",
+      "path": "/default_streams",
       "method": "DELETE",
       "tags": [
-        "drafts"
+        "channels"
       ],
-      "summary": "Delete a draft",
-      "operationId": "delete-draft"
+      "summary": "Remove a default channel",
+      "operationId": "remove-default-stream"
     },
     {
-      "path": "/navigation_views/{fragment}",
-      "method": "PATCH",
-      "tags": [
-        "navigation_views"
-      ],
-      "summary": "Update the navigation view",
-      "operationId": "edit-navigation-view"
-    },
-    {
-      "path": "/saved_snippets",
-      "method": "POST",
-      "tags": [
-        "drafts"
-      ],
-      "summary": "Create a saved snippet",
-      "operationId": "create-saved-snippet"
-    },
-    {
-      "path": "/reminders",
+      "path": "/users/me/{stream_id}/topics",
       "method": "GET",
       "tags": [
-        "reminders"
+        "channels"
       ],
-      "summary": "Get reminders",
-      "operationId": "get-reminders"
-    },
-    {
-      "path": "/scheduled_messages",
-      "method": "GET",
-      "tags": [
-        "scheduled_messages"
-      ],
-      "summary": "Get scheduled messages",
-      "operationId": "get-scheduled-messages"
-    },
-    {
-      "path": "/scheduled_messages/{scheduled_message_id}",
-      "method": "DELETE",
-      "tags": [
-        "scheduled_messages"
-      ],
-      "summary": "Delete a scheduled message",
-      "operationId": "delete-scheduled-message"
-    },
-    {
-      "path": "/messages",
-      "method": "GET",
-      "tags": [
-        "messages"
-      ],
-      "summary": "Get messages",
-      "operationId": "get-messages"
-    },
-    {
-      "path": "/messages/flags",
-      "method": "POST",
-      "tags": [
-        "messages"
-      ],
-      "summary": "Update personal message flags",
-      "operationId": "update-message-flags"
-    },
-    {
-      "path": "/messages/{message_id}/reactions",
-      "method": "POST",
-      "tags": [
-        "messages"
-      ],
-      "summary": "Add an emoji reaction",
-      "operationId": "add-reaction"
-    },
-    {
-      "path": "/messages/matches_narrow",
-      "method": "GET",
-      "tags": [
-        "messages"
-      ],
-      "summary": "Check if messages match a narrow",
-      "operationId": "check-messages-match-narrow"
-    },
-    {
-      "path": "/messages/{message_id}",
-      "method": "DELETE",
-      "tags": [
-        "messages"
-      ],
-      "summary": "Delete a message",
-      "operationId": "delete-message"
-    },
-    {
-      "path": "/user_uploads/{realm_id_str}/{filename}",
-      "method": "GET",
-      "tags": [
-        "messages"
-      ],
-      "summary": "Get public temporary URL for an uploaded file",
-      "operationId": "get-file-temporary-url"
-    },
-    {
-      "path": "/users/{user_id}/reactivate",
-      "method": "POST",
-      "tags": [
-        "users"
-      ],
-      "summary": "Reactivate a user",
-      "operationId": "reactivate-user"
-    },
-    {
-      "path": "/users/{user_id_or_email}/presence",
-      "method": "GET",
-      "tags": [
-        "users"
-      ],
-      "summary": "Get a user's presence",
-      "operationId": "get-user-presence"
-    },
-    {
-      "path": "/users/me/alert_words",
-      "method": "GET",
-      "tags": [
-        "users"
-      ],
-      "summary": "Get all alert words",
-      "operationId": "get-alert-words"
-    },
-    {
-      "path": "/users/me/presence",
-      "method": "POST",
-      "tags": [
-        "users"
-      ],
-      "summary": "Update your presence",
-      "operationId": "update-presence"
+      "summary": "Get topics in a channel",
+      "operationId": "get-stream-topics"
     },
     {
       "path": "/users/me/subscriptions",
@@ -196,6 +52,24 @@
     },
     {
       "path": "/users/me/subscriptions",
+      "method": "POST",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Subscribe to a channel",
+      "operationId": "subscribe"
+    },
+    {
+      "path": "/users/me/subscriptions",
+      "method": "PATCH",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Update subscriptions",
+      "operationId": "update-subscriptions"
+    },
+    {
+      "path": "/users/me/subscriptions",
       "method": "DELETE",
       "tags": [
         "channels"
@@ -204,13 +78,13 @@
       "operationId": "unsubscribe"
     },
     {
-      "path": "/mobile_push/e2ee/test_notification",
-      "method": "POST",
+      "path": "/users/me/subscriptions/muted_topics",
+      "method": "PATCH",
       "tags": [
-        "mobile"
+        "channels"
       ],
-      "summary": "Send an E2EE test notification to mobile device(s)",
-      "operationId": "e2ee-test-notify"
+      "summary": "Topic muting",
+      "operationId": "mute-topic"
     },
     {
       "path": "/user_topics",
@@ -222,121 +96,22 @@
       "operationId": "update-user-topic"
     },
     {
-      "path": "/users/me/apns_device_token",
-      "method": "POST",
-      "tags": [
-        "users"
-      ],
-      "summary": "Add an APNs device token",
-      "operationId": "add-apns-token"
-    },
-    {
-      "path": "/users/me/android_gcm_reg_id",
-      "method": "DELETE",
-      "tags": [
-        "users"
-      ],
-      "summary": "Remove an FCM registration token",
-      "operationId": "remove-fcm-token"
-    },
-    {
-      "path": "/realm/emoji/{emoji_name}",
-      "method": "DELETE",
-      "tags": [
-        "server_and_organizations"
-      ],
-      "summary": "Deactivate custom emoji",
-      "operationId": "deactivate-custom-emoji"
-    },
-    {
-      "path": "/realm/profile_fields",
+      "path": "/users/{user_id}/subscriptions/{stream_id}",
       "method": "GET",
       "tags": [
-        "server_and_organizations"
+        "channels"
       ],
-      "summary": "Get all custom profile fields",
-      "operationId": "get-custom-profile-fields"
+      "summary": "Get subscription status",
+      "operationId": "get-subscription-status"
     },
     {
-      "path": "/realm/user_settings_defaults",
-      "method": "PATCH",
-      "tags": [
-        "server_and_organizations"
-      ],
-      "summary": "Update realm-level defaults of user settings",
-      "operationId": "update-realm-user-settings-defaults"
-    },
-    {
-      "path": "/users/{email}",
-      "method": "PATCH",
-      "tags": [
-        "users"
-      ],
-      "summary": "Update a user by email",
-      "operationId": "update-user-by-email"
-    },
-    {
-      "path": "/users/{user_id}",
-      "method": "DELETE",
-      "tags": [
-        "users"
-      ],
-      "summary": "Deactivate a user",
-      "operationId": "deactivate-user"
-    },
-    {
-      "path": "/realm/filters",
+      "path": "/users/me/subscriptions/properties",
       "method": "POST",
       "tags": [
-        "server_and_organizations"
+        "channels"
       ],
-      "summary": "Add a linkifier",
-      "operationId": "add-linkifier"
-    },
-    {
-      "path": "/realm/playgrounds",
-      "method": "POST",
-      "tags": [
-        "server_and_organizations"
-      ],
-      "summary": "Add a code playground",
-      "operationId": "add-code-playground"
-    },
-    {
-      "path": "/export/realm",
-      "method": "POST",
-      "tags": [
-        "server_and_organizations"
-      ],
-      "summary": "Create a data export",
-      "operationId": "export-realm"
-    },
-    {
-      "path": "/invites",
-      "method": "POST",
-      "tags": [
-        "invites"
-      ],
-      "summary": "Send invitations",
-      "operationId": "send-invites"
-    },
-    {
-      "path": "/invites/multiuse/{invite_id}",
-      "method": "DELETE",
-      "tags": [
-        "invites"
-      ],
-      "summary": "Revoke a reusable invitation link",
-      "operationId": "revoke-invite-link"
-    },
-    {
-      "path": "/register",
-      "method": "POST",
-      "tags": [
-        "real_time_events"
-      ],
-      "summary": "Register an event queue",
-      "operationId": "register-queue"
+      "summary": "Update subscription settings",
+      "operationId": "update-subscription-settings"
     },
     {
       "path": "/streams/{stream_id}/members",
@@ -348,6 +123,24 @@
       "operationId": "get-subscribers"
     },
     {
+      "path": "/streams",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Get all channels",
+      "operationId": "get-streams"
+    },
+    {
+      "path": "/streams/{stream_id}",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Get a channel by ID",
+      "operationId": "get-stream-by-id"
+    },
+    {
       "path": "/streams/{stream_id}",
       "method": "DELETE",
       "tags": [
@@ -355,6 +148,24 @@
       ],
       "summary": "Archive a channel",
       "operationId": "archive-stream"
+    },
+    {
+      "path": "/streams/{stream_id}",
+      "method": "PATCH",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Update a channel",
+      "operationId": "update-stream"
+    },
+    {
+      "path": "/streams/{stream_id}/email_address",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Get channel's email address",
+      "operationId": "get-stream-email-address"
     },
     {
       "path": "/streams/{stream_id}/delete_topic",
@@ -375,31 +186,22 @@
       "operationId": "create-channel"
     },
     {
-      "path": "/user_groups/{user_group_id}/members",
+      "path": "/channel_folders/create",
+      "method": "POST",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Create a channel folder",
+      "operationId": "create-channel-folder"
+    },
+    {
+      "path": "/channel_folders",
       "method": "GET",
       "tags": [
-        "users"
+        "channels"
       ],
-      "summary": "Get user group members",
-      "operationId": "get-user-group-members"
-    },
-    {
-      "path": "/user_groups/{user_group_id}/subgroups",
-      "method": "POST",
-      "tags": [
-        "users"
-      ],
-      "summary": "Update subgroups of a user group",
-      "operationId": "update-user-group-subgroups"
-    },
-    {
-      "path": "/user_groups/{user_group_id}/deactivate",
-      "method": "POST",
-      "tags": [
-        "users"
-      ],
-      "summary": "Deactivate a user group",
-      "operationId": "deactivate-user-group"
+      "summary": "Get channel folders",
+      "operationId": "get-channel-folders"
     },
     {
       "path": "/channel_folders",
@@ -411,13 +213,22 @@
       "operationId": "patch-channel-folders"
     },
     {
-      "path": "/rest-error-handling",
-      "method": "POST",
+      "path": "/channel_folders/{channel_folder_id}",
+      "method": "PATCH",
       "tags": [
-        "real_time_events"
+        "channels"
       ],
-      "summary": "Error handling",
-      "operationId": "rest-error-handling"
+      "summary": "Update a channel folder",
+      "operationId": "update-channel-folder"
+    },
+    {
+      "path": "/calls/bigbluebutton/create",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Create BigBlueButton video call",
+      "operationId": "create-big-blue-button-video-call"
     }
   ]
 }

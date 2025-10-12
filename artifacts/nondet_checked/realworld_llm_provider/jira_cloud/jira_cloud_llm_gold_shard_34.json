@@ -5,48 +5,48 @@
       "method": "GET",
       "operationId": "getRemoteIssueLinks",
       "summary": "",
-      "user": "User requests to retrieve all remote links associated with issue ABC-123.",
-      "ideal": "Returns a list of remote issue links for the specified issue."
+      "user": "User123",
+      "ideal": "Retrieve all remote issue links associated with issue ABC-123."
     },
     {
       "path": "/rest/api/3/issue/ABC-123/remotelink",
       "method": "POST",
       "operationId": "createOrUpdateRemoteIssueLink",
       "summary": "",
-      "user": "User wants to create a new remote link for issue ABC-123 with a URL to an external system.",
-      "ideal": "Creates a new remote issue link and returns the created link details."
+      "user": "User456",
+      "ideal": "Create a new remote issue link for issue ABC-123 with the specified details."
     },
     {
-      "path": "/rest/api/3/issue/ABC-123/remotelink/456",
+      "path": "/rest/api/3/issue/ABC-123/remotelink/789",
       "method": "DELETE",
       "operationId": "deleteRemoteIssueLinkById",
       "summary": "",
-      "user": "User intends to delete the remote link with ID 456 from issue ABC-123.",
-      "ideal": "Successfully deletes the specified remote issue link."
+      "user": "User789",
+      "ideal": "Delete the remote issue link with ID 789 from issue ABC-123."
     },
     {
-      "path": "/rest/api/3/issue/ABC-123/remotelink/456",
+      "path": "/rest/api/3/issue/ABC-123/remotelink/789",
       "method": "GET",
       "operationId": "getRemoteIssueLinkById",
       "summary": "",
-      "user": "User wants to retrieve details of the remote link with ID 456 for issue ABC-123.",
-      "ideal": "Returns the details of the specified remote issue link."
+      "user": "User101",
+      "ideal": "Retrieve the details of the remote issue link with ID 789 for issue ABC-123."
     },
     {
-      "path": "/rest/api/3/issue/ABC-123/remotelink/456",
+      "path": "/rest/api/3/issue/ABC-123/remotelink/789",
       "method": "PUT",
       "operationId": "updateRemoteIssueLink",
       "summary": "",
-      "user": "User needs to update the remote link with ID 456 for issue ABC-123 to point to a new URL.",
-      "ideal": "Updates the specified remote issue link and returns the updated link details."
+      "user": "User202",
+      "ideal": "Update the remote issue link with ID 789 for issue ABC-123 with new information."
     },
     {
-      "path": "/rest/api/3/issue/ABC-123/remotelink/{globalId}",
+      "path": "/rest/api/3/issue/ABC-123/remotelink/{linkId}",
       "method": "DELETE",
       "operationId": "deleteRemoteIssueLinkByGlobalId",
       "summary": "",
-      "user": "User wants to delete a remote link associated with issue ABC-123 using its global ID.",
-      "ideal": "Successfully deletes the remote issue link identified by the global ID."
+      "user": "User303",
+      "ideal": "Delete a remote issue link by its global ID for issue ABC-123."
     }
   ]
 }

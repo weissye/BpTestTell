@@ -1,36 +1,36 @@
 {
   "gold": [
     {
-      "path": "/rest/api/3/project/ABC/properties",
+      "path": "/rest/api/3/project/PROJ-123/properties",
       "method": "GET",
       "operationId": "getProjectPropertyKeys",
       "summary": "",
-      "user": "As a project manager, I want to retrieve all property keys associated with the project ABC to understand the custom configurations applied.",
-      "ideal": "The response should return a list of property keys for project ABC."
+      "user": "User A wants to retrieve all property keys associated with the project identified by PROJ-123 to understand the custom configurations applied.",
+      "ideal": "Returns a list of property keys for the specified project."
     },
     {
-      "path": "/rest/api/3/project/ABC/properties/customProperty",
+      "path": "/rest/api/3/project/PROJ-123/properties/customProperty",
       "method": "DELETE",
       "operationId": "deleteProjectProperty",
       "summary": "",
-      "user": "As a developer, I need to delete the custom property 'customProperty' from project ABC to clean up unused configurations.",
-      "ideal": "The response should confirm the deletion of 'customProperty' from project ABC."
+      "user": "User B needs to remove a custom property 'customProperty' from the project PROJ-123 as it is no longer needed.",
+      "ideal": "Successfully deletes the specified property from the project."
     },
     {
-      "path": "/rest/api/3/project/ABC/properties/customProperty",
+      "path": "/rest/api/3/project/PROJ-123/properties/customProperty",
       "method": "GET",
       "operationId": "getProjectProperty",
       "summary": "",
-      "user": "As a team lead, I want to check the value of the property 'customProperty' in project ABC to ensure it is set correctly.",
-      "ideal": "The response should return the value of 'customProperty' for project ABC."
+      "user": "User C wants to check the value of 'customProperty' for project PROJ-123 to verify its current setting before making changes.",
+      "ideal": "Returns the value of the specified property for the project."
     },
     {
-      "path": "/rest/api/3/project/ABC/properties/customProperty",
+      "path": "/rest/api/3/project/PROJ-123/properties/customProperty",
       "method": "PUT",
       "operationId": "setProjectProperty",
       "summary": "",
-      "user": "As a project administrator, I want to set the value of 'customProperty' for project ABC to 'newValue' to update the project settings.",
-      "ideal": "The response should confirm that 'customProperty' has been updated to 'newValue' for project ABC."
+      "user": "User D is updating the 'customProperty' for project PROJ-123 to a new value to reflect the latest project requirements.",
+      "ideal": "Successfully updates the specified property with the new value."
     }
   ]
 }

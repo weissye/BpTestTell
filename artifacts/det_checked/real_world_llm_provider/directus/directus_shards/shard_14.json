@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/presets",
+      "method": "GET",
+      "tags": [
+        "Presets"
+      ],
+      "summary": "List Presets",
+      "operationId": "getPresets"
+    },
+    {
+      "path": "/presets",
+      "method": "POST",
+      "tags": [
+        "Presets"
+      ],
+      "summary": "Create a Preset",
+      "operationId": "createPreset"
+    },
+    {
+      "path": "/presets",
+      "method": "PATCH",
+      "tags": [
+        "Presets"
+      ],
+      "summary": "Update Multiple Presets",
+      "operationId": "updatePresets"
+    },
+    {
+      "path": "/presets",
+      "method": "DELETE",
+      "tags": [
+        "Presets"
+      ],
+      "summary": "Delete Multiple Presets",
+      "operationId": "deletePresets"
+    },
+    {
+      "path": "/presets/{id}",
+      "method": "GET",
+      "tags": [
+        "Presets"
+      ],
+      "summary": "Retrieve a Preset",
+      "operationId": "getPreset"
+    },
+    {
+      "path": "/presets/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Presets"
+      ],
+      "summary": "Update a Preset",
+      "operationId": "updatePreset"
+    },
+    {
+      "path": "/presets/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Presets"
+      ],
+      "summary": "Delete a Preset",
+      "operationId": "deletePreset"
+    }
+  ]
+}

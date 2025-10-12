@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "getUserPropertyKeys",
       "summary": "",
-      "user": "john.doe@example.com",
-      "ideal": "Retrieve all user property keys for the specified user."
+      "user": "user123",
+      "ideal": "Retrieve all property keys associated with the user."
     },
     {
       "path": "/rest/api/3/user/properties/notificationPreference",
       "method": "DELETE",
       "operationId": "deleteUserProperty",
       "summary": "",
-      "user": "jane.smith@example.com",
+      "user": "user123",
       "ideal": "Delete the user's notification preference property."
     },
     {
-      "path": "/rest/api/3/user/properties/theme",
+      "path": "/rest/api/3/user/properties/notificationPreference",
       "method": "GET",
       "operationId": "getUserProperty",
       "summary": "",
-      "user": "alice.brown@example.com",
-      "ideal": "Fetch the user's theme property to determine their UI preferences."
+      "user": "user123",
+      "ideal": "Fetch the user's current notification preference property."
     },
     {
-      "path": "/rest/api/3/user/properties/language",
+      "path": "/rest/api/3/user/properties/notificationPreference",
       "method": "PUT",
       "operationId": "setUserProperty",
       "summary": "",
-      "user": "bob.johnson@example.com",
-      "ideal": "Set the user's preferred language property to 'en-US'."
+      "user": "user123",
+      "ideal": "Set the user's notification preference property to 'email'."
     }
   ]
 }

@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumberLocal",
+      "summary": "",
+      "user": "User wants to retrieve a list of local incoming phone numbers associated with their Twilio account to manage their communication channels effectively.",
+      "ideal": "A successful response containing an array of local incoming phone numbers with details such as phone number, friendly name, and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json",
+      "method": "POST",
+      "operationId": "CreateIncomingPhoneNumberLocal",
+      "summary": "",
+      "user": "User needs to create a new local incoming phone number for their Twilio account to enhance their business presence in a specific area.",
+      "ideal": "A successful response confirming the creation of the local incoming phone number with its details, including the new phone number and its SID."
+    }
+  ]
+}

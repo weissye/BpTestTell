@@ -38,7 +38,7 @@
       "operationId": "createPrescription",
       "summary": "",
       "user": "doctor",
-      "ideal": "Submits a new prescription for a patient."
+      "ideal": "Creates a new prescription for a patient."
     },
     {
       "path": "/orders",
@@ -46,7 +46,7 @@
       "operationId": "listOrders",
       "summary": "",
       "user": "pharmacist",
-      "ideal": "Fetches a list of all orders placed in the pharmacy."
+      "ideal": "Retrieves a list of all orders placed in the pharmacy."
     },
     {
       "path": "/orders",
@@ -54,7 +54,7 @@
       "operationId": "createOrder",
       "summary": "",
       "user": "pharmacist",
-      "ideal": "Places a new order for drugs from the supplier."
+      "ideal": "Places a new order for drugs from suppliers."
     },
     {
       "path": "/inventory/{ndc}",

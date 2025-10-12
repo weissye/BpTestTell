@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "Zulip REST API",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/mobile_push/test_notification",
+      "method": "POST",
+      "tags": [
+        "mobile"
+      ],
+      "summary": "Send a test notification to mobile device(s)",
+      "operationId": "test-notify"
+    },
+    {
+      "path": "/mobile_push/e2ee/test_notification",
+      "method": "POST",
+      "tags": [
+        "mobile"
+      ],
+      "summary": "Send an E2EE test notification to mobile device(s)",
+      "operationId": "e2ee-test-notify"
+    },
+    {
+      "path": "/mobile_push/register",
+      "method": "POST",
+      "tags": [
+        "mobile"
+      ],
+      "summary": "Register E2EE push device",
+      "operationId": "register-push-device"
+    },
+    {
+      "path": "/remotes/push/e2ee/register",
+      "method": "POST",
+      "tags": [
+        "mobile"
+      ],
+      "summary": "Register E2EE push device to bouncer",
+      "operationId": "register-remote-push-device"
+    }
+  ]
+}

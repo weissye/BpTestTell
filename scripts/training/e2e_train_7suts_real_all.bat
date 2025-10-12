@@ -18,7 +18,7 @@ if "%MODEL_ID%"=="" (
 )
 
 :: Real-world packs (add more later)
-set REAL_PACKS=stripe github trello twilio shopify_admin jira_cloud gitea meilisearch keycloak_admin zulip
+set REAL_PACKS=netbox github trello twilio jira_cloud directus meilisearch keycloak_admin zulip
 
 :: 7 SUT packs
 set SUT_PACKS=banking config_control ecommerce factory garage library pharmacy
@@ -66,7 +66,7 @@ echo [INFO] Using model: %MODEL_ID%
 
 :: -----------------------------
 :: Function-like macro to run a pack
-:: Usage: call :RUN_PACK realworld stripe packs\realworld\stripe\openapi.yaml artifacts\nondet_checked\realworld_llm_provider\stripe
+:: Usage: call :RUN_PACK realworld netbox packs\realworld\netbox\openapi.yaml artifacts\nondet_checked\realworld_llm_provider\netbox
 :: -----------------------------
 goto :AFTER_FUNCS
 
@@ -133,11 +133,11 @@ endlocal & goto :eof
 :: Run REAL-WORLD packs
 :: -----------------------------
 for %%P in (%REAL_PACKS%) do (
-  if /I "%%P"=="stripe"         call :RUN_PACK realworld stripe         packs\realworld\stripe\openapi.yaml         artifacts\nondet_checked\realworld_llm_provider\stripe
+  if /I "%%P"=="netbox"         call :RUN_PACK realworld netbox         packs\realworld\netbox\openapi.json         artifacts\nondet_checked\realworld_llm_provider\netbox
   if /I "%%P"=="github"         call :RUN_PACK realworld github         packs\realworld\github\openapi.json         artifacts\nondet_checked\realworld_llm_provider\github
   if /I "%%P"=="trello"         call :RUN_PACK realworld trello         packs\realworld\trello\openapi.yaml         artifacts\nondet_checked\realworld_llm_provider\trello
   if /I "%%P"=="twilio"         call :RUN_PACK realworld twilio         packs\realworld\twilio\openapi.json         artifacts\nondet_checked\realworld_llm_provider\twilio
-  if /I "%%P"=="shopify_admin"  call :RUN_PACK realworld shopify_admin  packs\realworld\shopify_admin\openapi.yaml  artifacts\nondet_checked\realworld_llm_provider\shopify_admin
+  if /I "%%P"=="directus"  		call :RUN_PACK realworld directus  		packs\realworld\directus\openapi.yaml  		artifacts\nondet_checked\realworld_llm_provider\directus
   if /I "%%P"=="jira_cloud"     call :RUN_PACK realworld jira_cloud     packs\realworld\jira_cloud\openapi.json     artifacts\nondet_checked\realworld_llm_provider\jira_cloud
   if /I "%%P"=="gitea"          call :RUN_PACK realworld gitea          packs\realworld\gitea\openapi.json          artifacts\nondet_checked\realworld_llm_provider\gitea
   if /I "%%P"=="meilisearch"    call :RUN_PACK realworld meilisearch    packs\realworld\meilisearch\openapi.yaml    artifacts\nondet_checked\realworld_llm_provider\meilisearch

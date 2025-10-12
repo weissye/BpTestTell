@@ -5,48 +5,48 @@
       "method": "GET",
       "operationId": "enterprise-team-memberships/list",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Retrieve a list of all team memberships for the specified enterprise team."
+      "user": "user123",
+      "ideal": "Retrieve a list of all team memberships for the specified team in the enterprise."
     },
     {
       "path": "/enterprises/my-enterprise/teams/my-team/memberships/add",
       "method": "POST",
       "operationId": "enterprise-team-memberships/bulk-add",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Add multiple users to the specified enterprise team in bulk."
+      "user": "user456",
+      "ideal": "Add multiple users to the specified team in the enterprise."
     },
     {
       "path": "/enterprises/my-enterprise/teams/my-team/memberships/remove",
       "method": "POST",
       "operationId": "enterprise-team-memberships/bulk-remove",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Remove multiple users from the specified enterprise team in bulk."
+      "user": "user789",
+      "ideal": "Remove multiple users from the specified team in the enterprise."
     },
     {
-      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/user123",
       "method": "GET",
       "operationId": "enterprise-team-memberships/get",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Get the membership details of a specific user in the specified enterprise team."
+      "user": "user123",
+      "ideal": "Retrieve the membership details for user123 in the specified team."
     },
     {
-      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/user456",
       "method": "PUT",
       "operationId": "enterprise-team-memberships/add",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Add a specific user to the specified enterprise team."
+      "user": "user456",
+      "ideal": "Add user456 to the specified team in the enterprise."
     },
     {
-      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/user789",
       "method": "DELETE",
       "operationId": "enterprise-team-memberships/remove",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Remove a specific user from the specified enterprise team."
+      "user": "user789",
+      "ideal": "Remove user789 from the specified team in the enterprise."
     }
   ]
 }

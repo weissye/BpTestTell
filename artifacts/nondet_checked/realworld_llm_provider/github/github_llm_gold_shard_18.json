@@ -5,40 +5,40 @@
       "method": "GET",
       "operationId": "enterprise-teams/list",
       "summary": "",
-      "user": "As a team manager, I want to retrieve a list of all teams within my enterprise to manage their permissions and activities effectively.",
-      "ideal": "The response should include an array of team objects, each containing details such as team name, ID, and description."
+      "user": "As an enterprise admin, I want to retrieve a list of all teams in my enterprise to manage team permissions and access.",
+      "ideal": "A successful response with a list of teams, including their names, slugs, and IDs."
     },
     {
       "path": "/enterprises/my-enterprise/teams",
       "method": "POST",
       "operationId": "enterprise-teams/create",
       "summary": "",
-      "user": "As an admin, I want to create a new team in my enterprise to facilitate collaboration among developers working on a specific project.",
-      "ideal": "The response should return the newly created team object with its ID, name, and other relevant details."
+      "user": "As an enterprise admin, I want to create a new team in my enterprise so that I can organize members by projects.",
+      "ideal": "A successful response with the details of the newly created team, including its ID and slug."
     },
     {
       "path": "/enterprises/my-enterprise/teams/my-team",
       "method": "GET",
       "operationId": "enterprise-teams/get",
       "summary": "",
-      "user": "As a team lead, I want to fetch the details of my specific team to review its members and their roles.",
-      "ideal": "The response should provide detailed information about the team, including its members, permissions, and description."
+      "user": "As a team member, I want to view the details of my team to understand its purpose and members.",
+      "ideal": "A successful response with the team's details, including its name, members, and permissions."
     },
     {
       "path": "/enterprises/my-enterprise/teams/my-team",
       "method": "PATCH",
       "operationId": "enterprise-teams/update",
       "summary": "",
-      "user": "As a team manager, I want to update the description of my team to reflect our current focus and objectives.",
-      "ideal": "The response should confirm the update and return the updated team object with the new description."
+      "user": "As a team maintainer, I want to update my team's name and description to reflect our current focus.",
+      "ideal": "A successful response confirming the update with the new team details."
     },
     {
       "path": "/enterprises/my-enterprise/teams/my-team",
       "method": "DELETE",
       "operationId": "enterprise-teams/delete",
       "summary": "",
-      "user": "As an admin, I want to delete a team that is no longer active to keep our enterprise organized and free of clutter.",
-      "ideal": "The response should confirm the deletion of the team and return a success message."
+      "user": "As an enterprise admin, I want to delete a team that is no longer needed to keep the organization clean.",
+      "ideal": "A successful response confirming the deletion of the team."
     }
   ]
 }

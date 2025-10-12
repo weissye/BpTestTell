@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/mobile_push/test_notification",
+      "method": "POST",
+      "operationId": "test-notify",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Send a test notification to verify mobile push setup."
+    },
+    {
+      "path": "/mobile_push/e2ee/test_notification",
+      "method": "POST",
+      "operationId": "e2ee-test-notify",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Send a test end-to-end encrypted notification to ensure security."
+    },
+    {
+      "path": "/mobile_push/register",
+      "method": "POST",
+      "operationId": "register-push-device",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Register a mobile device for push notifications."
+    },
+    {
+      "path": "/remotes/push/e2ee/register",
+      "method": "POST",
+      "operationId": "register-remote-push-device",
+      "summary": "",
+      "user": "user101112",
+      "ideal": "Register a remote device for end-to-end encrypted push notifications."
+    }
+  ]
+}

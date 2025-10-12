@@ -1,84 +1,300 @@
 {
   "gold": [
     {
-      "path": "/advisories/{ghsa_id}",
+      "path": "/app",
       "method": "GET",
-      "operationId": "security-advisories/get-global-advisory",
+      "operationId": "apps/get-authenticated",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve security advisory details for a specific GHSA ID."
+      "ideal": "Retrieve the authenticated app's details."
+    },
+    {
+      "path": "/app-manifests/abc123/conversions",
+      "method": "POST",
+      "operationId": "apps/create-from-manifest",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Convert the app manifest with code 'abc123' into an app."
     },
     {
       "path": "/app/hook/config",
       "method": "GET",
       "operationId": "apps/get-webhook-config-for-app",
       "summary": "",
-      "user": "user456",
-      "ideal": "Fetch the current configuration of the webhook for the app."
+      "user": "user789",
+      "ideal": "Get the current webhook configuration for the app."
+    },
+    {
+      "path": "/app/hook/config",
+      "method": "PATCH",
+      "operationId": "apps/update-webhook-config-for-app",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Update the webhook configuration for the app."
+    },
+    {
+      "path": "/app/hook/deliveries",
+      "method": "GET",
+      "operationId": "apps/list-webhook-deliveries",
+      "summary": "",
+      "user": "user202",
+      "ideal": "List all webhook deliveries for the app."
+    },
+    {
+      "path": "/app/hook/deliveries/12345",
+      "method": "GET",
+      "operationId": "apps/get-webhook-delivery",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Retrieve details of the webhook delivery with ID '12345'."
+    },
+    {
+      "path": "/app/hook/deliveries/12345/attempts",
+      "method": "POST",
+      "operationId": "apps/redeliver-webhook-delivery",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Redeliver the webhook delivery with ID '12345'."
+    },
+    {
+      "path": "/app/installation-requests",
+      "method": "GET",
+      "operationId": "apps/list-installation-requests-for-authenticated-app",
+      "summary": "",
+      "user": "user505",
+      "ideal": "List all installation requests for the authenticated app."
     },
     {
       "path": "/app/installations",
       "method": "GET",
       "operationId": "apps/list-installations",
       "summary": "",
-      "user": "user789",
-      "ideal": "List all installations of the app across different accounts."
+      "user": "user606",
+      "ideal": "Get a list of installations for the app."
     },
     {
-      "path": "/orgs/{org}/actions/permissions",
+      "path": "/app/installations/789",
       "method": "GET",
-      "operationId": "actions/get-github-actions-permissions-organization",
+      "operationId": "apps/get-installation",
       "summary": "",
-      "user": "orgAdmin",
-      "ideal": "Get the GitHub Actions permissions for the organization."
+      "user": "user707",
+      "ideal": "Retrieve details of the installation with ID '789'."
     },
     {
-      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}",
-      "method": "GET",
-      "operationId": "actions/get-workflow-run",
+      "path": "/app/installations/789",
+      "method": "DELETE",
+      "operationId": "apps/delete-installation",
       "summary": "",
-      "user": "devUser",
-      "ideal": "Retrieve details about a specific workflow run."
+      "user": "user808",
+      "ideal": "Delete the installation with ID '789'."
     },
     {
-      "path": "/repos/{owner}/{repo}/branches/{branch}/protection",
+      "path": "/app/installations/789/access_tokens",
+      "method": "POST",
+      "operationId": "apps/create-installation-access-token",
+      "summary": "",
+      "user": "user909",
+      "ideal": "Create an access token for the installation with ID '789'."
+    },
+    {
+      "path": "/app/installations/789/suspended",
       "method": "PUT",
-      "operationId": "repos/update-branch-protection",
+      "operationId": "apps/suspend-installation",
       "summary": "",
-      "user": "repoAdmin",
-      "ideal": "Update the branch protection settings for a specified branch."
+      "user": "user010",
+      "ideal": "Suspend the installation with ID '789'."
     },
     {
-      "path": "/orgs/{org}/teams/{team_slug}/memberships/{username}",
-      "method": "GET",
-      "operationId": "teams/get-membership-for-user-in-org",
+      "path": "/app/installations/789/suspended",
+      "method": "DELETE",
+      "operationId": "apps/unsuspend-installation",
       "summary": "",
-      "user": "teamLead",
-      "ideal": "Check the membership status of a user in a specific team."
+      "user": "user111",
+      "ideal": "Unsuspend the installation with ID '789'."
     },
     {
-      "path": "/gists/public",
-      "method": "GET",
-      "operationId": "gists/list-public",
+      "path": "/applications/client_id/grant",
+      "method": "DELETE",
+      "operationId": "apps/delete-authorization",
       "summary": "",
-      "user": "publicUser",
-      "ideal": "List all public gists available on GitHub."
+      "user": "user222",
+      "ideal": "Delete the authorization for the application with client_id."
     },
     {
-      "path": "/orgs/{org}/projects",
+      "path": "/applications/client_id/token",
       "method": "POST",
-      "operationId": "projects-classic/create-for-org",
+      "operationId": "apps/check-token",
       "summary": "",
-      "user": "projectManager",
-      "ideal": "Create a new project for the organization."
+      "user": "user333",
+      "ideal": "Check the validity of the token for the application with client_id."
     },
     {
-      "path": "/repos/{owner}/{repo}/check-runs",
-      "method": "POST",
-      "operationId": "checks/create",
+      "path": "/applications/client_id/token",
+      "method": "PATCH",
+      "operationId": "apps/reset-token",
       "summary": "",
-      "user": "ciUser",
-      "ideal": "Create a new check run for the repository."
+      "user": "user444",
+      "ideal": "Reset the token for the application with client_id."
+    },
+    {
+      "path": "/applications/client_id/token",
+      "method": "DELETE",
+      "operationId": "apps/delete-token",
+      "summary": "",
+      "user": "user555",
+      "ideal": "Delete the token for the application with client_id."
+    },
+    {
+      "path": "/applications/client_id/token/scoped",
+      "method": "POST",
+      "operationId": "apps/scope-token",
+      "summary": "",
+      "user": "user666",
+      "ideal": "Scope the token for the application with client_id."
+    },
+    {
+      "path": "/apps/app_slug",
+      "method": "GET",
+      "operationId": "apps/get-by-slug",
+      "summary": "",
+      "user": "user777",
+      "ideal": "Retrieve the app details by its slug."
+    },
+    {
+      "path": "/installation/repositories",
+      "method": "GET",
+      "operationId": "apps/list-repos-accessible-to-installation",
+      "summary": "",
+      "user": "user888",
+      "ideal": "List repositories accessible to the installation."
+    },
+    {
+      "path": "/installation/token",
+      "method": "DELETE",
+      "operationId": "apps/revoke-installation-access-token",
+      "summary": "",
+      "user": "user999",
+      "ideal": "Revoke the access token for the installation."
+    },
+    {
+      "path": "/marketplace_listing/accounts/account_id",
+      "method": "GET",
+      "operationId": "apps/get-subscription-plan-for-account",
+      "summary": "",
+      "user": "user000",
+      "ideal": "Get the subscription plan for the account with account_id."
+    },
+    {
+      "path": "/marketplace_listing/plans",
+      "method": "GET",
+      "operationId": "apps/list-plans",
+      "summary": "",
+      "user": "user111",
+      "ideal": "List all subscription plans available."
+    },
+    {
+      "path": "/marketplace_listing/plans/plan_id/accounts",
+      "method": "GET",
+      "operationId": "apps/list-accounts-for-plan",
+      "summary": "",
+      "user": "user222",
+      "ideal": "List accounts subscribed to the plan with plan_id."
+    },
+    {
+      "path": "/marketplace_listing/stubbed/accounts/account_id",
+      "method": "GET",
+      "operationId": "apps/get-subscription-plan-for-account-stubbed",
+      "summary": "",
+      "user": "user333",
+      "ideal": "Get the stubbed subscription plan for the account with account_id."
+    },
+    {
+      "path": "/marketplace_listing/stubbed/plans",
+      "method": "GET",
+      "operationId": "apps/list-plans-stubbed",
+      "summary": "",
+      "user": "user444",
+      "ideal": "List all stubbed subscription plans available."
+    },
+    {
+      "path": "/marketplace_listing/stubbed/plans/plan_id/accounts",
+      "method": "GET",
+      "operationId": "apps/list-accounts-for-plan-stubbed",
+      "summary": "",
+      "user": "user555",
+      "ideal": "List stubbed accounts subscribed to the plan with plan_id."
+    },
+    {
+      "path": "/orgs/org/installation",
+      "method": "GET",
+      "operationId": "apps/get-org-installation",
+      "summary": "",
+      "user": "user666",
+      "ideal": "Retrieve the installation details for the organization 'org'."
+    },
+    {
+      "path": "/repos/owner/repo/installation",
+      "method": "GET",
+      "operationId": "apps/get-repo-installation",
+      "summary": "",
+      "user": "user777",
+      "ideal": "Get the installation details for the repository 'repo' owned by 'owner'."
+    },
+    {
+      "path": "/user/installations",
+      "method": "GET",
+      "operationId": "apps/list-installations-for-authenticated-user",
+      "summary": "",
+      "user": "user888",
+      "ideal": "List installations for the authenticated user."
+    },
+    {
+      "path": "/user/installations/789/repositories",
+      "method": "GET",
+      "operationId": "apps/list-installation-repos-for-authenticated-user",
+      "summary": "",
+      "user": "user999",
+      "ideal": "List repositories for the installation with ID '789' for the authenticated user."
+    },
+    {
+      "path": "/user/installations/789/repositories/repo_id",
+      "method": "PUT",
+      "operationId": "apps/add-repo-to-installation-for-authenticated-user",
+      "summary": "",
+      "user": "user000",
+      "ideal": "Add the repository with ID 'repo_id' to the installation with ID '789'."
+    },
+    {
+      "path": "/user/installations/789/repositories/repo_id",
+      "method": "DELETE",
+      "operationId": "apps/remove-repo-from-installation-for-authenticated-user",
+      "summary": "",
+      "user": "user111",
+      "ideal": "Remove the repository with ID 'repo_id' from the installation with ID '789'."
+    },
+    {
+      "path": "/user/marketplace_purchases",
+      "method": "GET",
+      "operationId": "apps/list-subscriptions-for-authenticated-user",
+      "summary": "",
+      "user": "user222",
+      "ideal": "List all subscriptions for the authenticated user."
+    },
+    {
+      "path": "/user/marketplace_purchases/stubbed",
+      "method": "GET",
+      "operationId": "apps/list-subscriptions-for-authenticated-user-stubbed",
+      "summary": "",
+      "user": "user333",
+      "ideal": "List stubbed subscriptions for the authenticated user."
+    },
+    {
+      "path": "/users/username/installation",
+      "method": "GET",
+      "operationId": "apps/get-user-installation",
+      "summary": "",
+      "user": "user444",
+      "ideal": "Retrieve the installation details for the user 'username'."
     }
   ]
 }

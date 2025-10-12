@@ -5,152 +5,152 @@
       "method": "POST",
       "operationId": "mark-all-as-read",
       "summary": "",
-      "user": "user123",
-      "ideal": "Marks all messages as read for the user."
+      "user": "User requests to mark all messages as read after a busy day.",
+      "ideal": "Successfully marks all messages as read."
     },
     {
       "path": "/mark_stream_as_read",
       "method": "POST",
       "operationId": "mark-stream-as-read",
       "summary": "",
-      "user": "user456",
-      "ideal": "Marks all messages in the specified stream as read."
+      "user": "User wants to mark a specific stream as read to focus on other topics.",
+      "ideal": "Successfully marks the specified stream as read."
     },
     {
       "path": "/mark_topic_as_read",
       "method": "POST",
       "operationId": "mark-topic-as-read",
       "summary": "",
-      "user": "user789",
-      "ideal": "Marks all messages in the specified topic as read."
+      "user": "User marks a topic as read to clear notifications.",
+      "ideal": "Successfully marks the specified topic as read."
     },
     {
       "path": "/messages",
       "method": "GET",
       "operationId": "get-messages",
       "summary": "",
-      "user": "user101",
-      "ideal": "Retrieves a list of messages for the user."
+      "user": "User retrieves messages from a specific stream to catch up.",
+      "ideal": "Returns a list of messages from the specified stream."
     },
     {
       "path": "/messages",
       "method": "POST",
       "operationId": "send-message",
       "summary": "",
-      "user": "user202",
-      "ideal": "Sends a new message to a specified stream or user."
+      "user": "User sends a message to a group chat to share updates.",
+      "ideal": "Successfully sends the message to the group chat."
     },
     {
       "path": "/messages/{message_id}/history",
       "method": "GET",
       "operationId": "get-message-history",
       "summary": "",
-      "user": "user303",
-      "ideal": "Retrieves the edit history of a specific message."
+      "user": "User checks the history of a specific message for context.",
+      "ideal": "Returns the history of the specified message."
     },
     {
       "path": "/messages/flags",
       "method": "POST",
       "operationId": "update-message-flags",
       "summary": "",
-      "user": "user404",
-      "ideal": "Updates flags for specified messages."
+      "user": "User updates flags on messages to categorize them.",
+      "ideal": "Successfully updates the flags on the specified messages."
     },
     {
       "path": "/messages/flags/narrow",
       "method": "POST",
       "operationId": "update-message-flags-for-narrow",
       "summary": "",
-      "user": "user505",
-      "ideal": "Updates flags for messages in a narrow view."
+      "user": "User updates flags for messages in a narrowed view.",
+      "ideal": "Successfully updates flags for messages in the narrowed context."
     },
     {
       "path": "/messages/render",
       "method": "POST",
       "operationId": "render-message",
       "summary": "",
-      "user": "user606",
-      "ideal": "Renders a message's content for display."
+      "user": "User requests to render a message with markdown formatting.",
+      "ideal": "Successfully renders the message with the appropriate formatting."
     },
     {
       "path": "/messages/{message_id}/reactions",
       "method": "POST",
       "operationId": "add-reaction",
       "summary": "",
-      "user": "user707",
-      "ideal": "Adds a reaction to a specific message."
+      "user": "User adds a reaction to a message to express agreement.",
+      "ideal": "Successfully adds the reaction to the specified message."
     },
     {
       "path": "/messages/{message_id}/reactions",
       "method": "DELETE",
       "operationId": "remove-reaction",
       "summary": "",
-      "user": "user808",
-      "ideal": "Removes a reaction from a specific message."
+      "user": "User removes their reaction from a message.",
+      "ideal": "Successfully removes the reaction from the specified message."
     },
     {
       "path": "/messages/{message_id}/read_receipts",
       "method": "GET",
       "operationId": "get-read-receipts",
       "summary": "",
-      "user": "user909",
-      "ideal": "Retrieves read receipts for a specific message."
+      "user": "User checks read receipts for a specific message to see who has read it.",
+      "ideal": "Returns the read receipts for the specified message."
     },
     {
       "path": "/messages/matches_narrow",
       "method": "GET",
       "operationId": "check-messages-match-narrow",
       "summary": "",
-      "user": "user010",
-      "ideal": "Checks if messages match the specified narrow criteria."
+      "user": "User checks if messages match a specific narrow filter.",
+      "ideal": "Returns messages that match the specified narrow criteria."
     },
     {
       "path": "/messages/{message_id}",
       "method": "GET",
       "operationId": "get-message",
       "summary": "",
-      "user": "user111",
-      "ideal": "Retrieves a specific message by its ID."
+      "user": "User retrieves a specific message to review its content.",
+      "ideal": "Returns the content of the specified message."
     },
     {
       "path": "/messages/{message_id}",
       "method": "PATCH",
       "operationId": "update-message",
       "summary": "",
-      "user": "user222",
-      "ideal": "Updates the content of a specific message."
+      "user": "User updates a message to correct a typo.",
+      "ideal": "Successfully updates the specified message."
     },
     {
       "path": "/messages/{message_id}",
       "method": "DELETE",
       "operationId": "delete-message",
       "summary": "",
-      "user": "user333",
-      "ideal": "Deletes a specific message by its ID."
+      "user": "User deletes a message that was sent by mistake.",
+      "ideal": "Successfully deletes the specified message."
     },
     {
       "path": "/messages/{message_id}/report",
       "method": "POST",
       "operationId": "report-message",
       "summary": "",
-      "user": "user444",
-      "ideal": "Reports a specific message for review."
+      "user": "User reports a message for inappropriate content.",
+      "ideal": "Successfully reports the specified message."
     },
     {
       "path": "/user_uploads",
       "method": "POST",
       "operationId": "upload-file",
       "summary": "",
-      "user": "user555",
-      "ideal": "Uploads a file to the user's account."
+      "user": "User uploads a file to share with the team.",
+      "ideal": "Successfully uploads the file."
     },
     {
       "path": "/user_uploads/{realm_id_str}/{filename}",
       "method": "GET",
       "operationId": "get-file-temporary-url",
       "summary": "",
-      "user": "user666",
-      "ideal": "Retrieves a temporary URL for a specific uploaded file."
+      "user": "User retrieves a temporary URL for a recently uploaded file.",
+      "ideal": "Returns the temporary URL for the specified file."
     }
   ]
 }

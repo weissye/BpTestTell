@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/priorityscheme",
+      "method": "GET",
+      "operationId": "getPrioritySchemes",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all priority schemes available in Jira so that I can understand how priorities are organized across different projects.",
+      "ideal": "The response should include a list of all priority schemes with their IDs and names."
+    },
+    {
+      "path": "/rest/api/3/priorityscheme",
+      "method": "POST",
+      "operationId": "createPriorityScheme",
+      "summary": "",
+      "user": "As a Jira administrator, I want to create a new priority scheme to better manage the priorities for my team's projects.",
+      "ideal": "The response should confirm the creation of the priority scheme and return its ID and name."
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/mappings",
+      "method": "POST",
+      "operationId": "suggestedPrioritiesForMappings",
+      "summary": "",
+      "user": "As a developer, I want to get suggested priorities for a set of mappings to ensure that my issues are prioritized correctly.",
+      "ideal": "The response should provide a list of suggested priorities based on the provided mappings."
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/priorities/available",
+      "method": "GET",
+      "operationId": "getAvailablePrioritiesByPriorityScheme",
+      "summary": "",
+      "user": "As a product owner, I want to see the available priorities for a specific priority scheme to make informed decisions on issue prioritization.",
+      "ideal": "The response should list all available priorities for the specified priority scheme."
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/{schemeId}",
+      "method": "DELETE",
+      "operationId": "deletePriorityScheme",
+      "summary": "",
+      "user": "As a project administrator, I want to delete an obsolete priority scheme to keep our Jira instance clean and organized.",
+      "ideal": "The response should confirm the deletion of the priority scheme."
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/{schemeId}",
+      "method": "PUT",
+      "operationId": "updatePriorityScheme",
+      "summary": "",
+      "user": "As a Jira administrator, I want to update an existing priority scheme to reflect changes in our project priorities.",
+      "ideal": "The response should confirm the update and return the updated priority scheme details."
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/{schemeId}/priorities",
+      "method": "GET",
+      "operationId": "getPrioritiesByPriorityScheme",
+      "summary": "",
+      "user": "As a team lead, I want to retrieve the priorities associated with a specific priority scheme to understand how tasks are prioritized.",
+      "ideal": "The response should include a list of priorities linked to the specified priority scheme."
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/{schemeId}/projects",
+      "method": "GET",
+      "operationId": "getProjectsByPriorityScheme",
+      "summary": "",
+      "user": "As a project manager, I want to find out which projects are using a specific priority scheme to assess its impact on project management.",
+      "ideal": "The response should list all projects associated with the specified priority scheme."
+    }
+  ]
+}

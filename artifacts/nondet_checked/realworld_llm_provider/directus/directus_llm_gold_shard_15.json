@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/relations",
+      "method": "GET",
+      "operationId": "getRelations",
+      "summary": "",
+      "user": "Admin user requesting all relations to review the current database schema and ensure all necessary relationships are established for optimal data retrieval.",
+      "ideal": "Returns a list of all relations in the database, including their types and associated collections."
+    },
+    {
+      "path": "/relations",
+      "method": "POST",
+      "operationId": "createRelation",
+      "summary": "",
+      "user": "Database architect creating a new relation between the 'users' and 'roles' collections to manage user permissions effectively.",
+      "ideal": "Creates a new relation and returns the details of the created relation, including its ID and properties."
+    },
+    {
+      "path": "/relations/123",
+      "method": "GET",
+      "operationId": "getRelation",
+      "summary": "",
+      "user": "Developer checking the details of a specific relation with ID 123 to understand its configuration and usage in the application.",
+      "ideal": "Returns the details of the relation with ID 123, including its type and associated collections."
+    },
+    {
+      "path": "/relations/123",
+      "method": "PATCH",
+      "operationId": "updateRelation",
+      "summary": "",
+      "user": "Admin user updating the relation with ID 123 to change its type from 'one-to-many' to 'many-to-many' to better reflect the data model.",
+      "ideal": "Updates the relation with ID 123 and returns the updated relation details."
+    },
+    {
+      "path": "/relations/123",
+      "method": "DELETE",
+      "operationId": "deleteRelation",
+      "summary": "",
+      "user": "Database administrator removing an obsolete relation with ID 123 that is no longer needed in the current schema.",
+      "ideal": "Deletes the relation with ID 123 and confirms the deletion with a success message."
+    }
+  ]
+}

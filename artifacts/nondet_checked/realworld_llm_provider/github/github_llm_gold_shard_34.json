@@ -6,7 +6,7 @@
       "operationId": "projects-classic/list-for-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve a list of projects for the specified organization."
+      "ideal": "Retrieve a list of projects for the organization 'my-org'."
     },
     {
       "path": "/orgs/my-org/projects",
@@ -14,7 +14,7 @@
       "operationId": "projects-classic/create-for-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Create a new project for the specified organization."
+      "ideal": "Create a new project for the organization 'my-org'."
     },
     {
       "path": "/projects/columns/12345",
@@ -22,7 +22,7 @@
       "operationId": "projects-classic/get-column",
       "summary": "",
       "user": "user123",
-      "ideal": "Get details of a specific column in a project."
+      "ideal": "Get details of the column with ID '12345'."
     },
     {
       "path": "/projects/columns/12345",
@@ -30,7 +30,7 @@
       "operationId": "projects-classic/update-column",
       "summary": "",
       "user": "user123",
-      "ideal": "Update the details of a specific column in a project."
+      "ideal": "Update the column with ID '12345'."
     },
     {
       "path": "/projects/columns/12345",
@@ -38,7 +38,7 @@
       "operationId": "projects-classic/delete-column",
       "summary": "",
       "user": "user123",
-      "ideal": "Delete a specific column from a project."
+      "ideal": "Delete the column with ID '12345'."
     },
     {
       "path": "/projects/columns/12345/moves",
@@ -46,7 +46,7 @@
       "operationId": "projects-classic/move-column",
       "summary": "",
       "user": "user123",
-      "ideal": "Move a column to a different position in the project."
+      "ideal": "Move the column with ID '12345' to a new position."
     },
     {
       "path": "/projects/67890",
@@ -54,7 +54,7 @@
       "operationId": "projects-classic/get",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve details of a specific project."
+      "ideal": "Retrieve details of the project with ID '67890'."
     },
     {
       "path": "/projects/67890",
@@ -62,7 +62,7 @@
       "operationId": "projects-classic/update",
       "summary": "",
       "user": "user123",
-      "ideal": "Update the details of a specific project."
+      "ideal": "Update the project with ID '67890'."
     },
     {
       "path": "/projects/67890",
@@ -70,7 +70,7 @@
       "operationId": "projects-classic/delete",
       "summary": "",
       "user": "user123",
-      "ideal": "Delete a specific project."
+      "ideal": "Delete the project with ID '67890'."
     },
     {
       "path": "/projects/67890/collaborators",
@@ -78,7 +78,7 @@
       "operationId": "projects-classic/list-collaborators",
       "summary": "",
       "user": "user123",
-      "ideal": "List all collaborators for a specific project."
+      "ideal": "List all collaborators for the project with ID '67890'."
     },
     {
       "path": "/projects/67890/collaborators/user456",
@@ -86,7 +86,7 @@
       "operationId": "projects-classic/add-collaborator",
       "summary": "",
       "user": "user123",
-      "ideal": "Add a collaborator to a specific project."
+      "ideal": "Add 'user456' as a collaborator to the project with ID '67890'."
     },
     {
       "path": "/projects/67890/collaborators/user456",
@@ -94,7 +94,7 @@
       "operationId": "projects-classic/remove-collaborator",
       "summary": "",
       "user": "user123",
-      "ideal": "Remove a collaborator from a specific project."
+      "ideal": "Remove 'user456' from the collaborators of the project with ID '67890'."
     },
     {
       "path": "/projects/67890/collaborators/user456/permission",
@@ -102,7 +102,7 @@
       "operationId": "projects-classic/get-permission-for-user",
       "summary": "",
       "user": "user123",
-      "ideal": "Get the permission level of a specific user on a project."
+      "ideal": "Get permission level for 'user456' on the project with ID '67890'."
     },
     {
       "path": "/projects/67890/columns",
@@ -110,7 +110,7 @@
       "operationId": "projects-classic/list-columns",
       "summary": "",
       "user": "user123",
-      "ideal": "List all columns in a specific project."
+      "ideal": "List all columns for the project with ID '67890'."
     },
     {
       "path": "/projects/67890/columns",
@@ -118,23 +118,23 @@
       "operationId": "projects-classic/create-column",
       "summary": "",
       "user": "user123",
-      "ideal": "Create a new column in a specific project."
+      "ideal": "Create a new column for the project with ID '67890'."
     },
     {
-      "path": "/repos/my-owner/my-repo/projects",
+      "path": "/repos/my-user/my-repo/projects",
       "method": "GET",
       "operationId": "projects-classic/list-for-repo",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve a list of projects for a specific repository."
+      "ideal": "Retrieve a list of projects for the repository 'my-repo'."
     },
     {
-      "path": "/repos/my-owner/my-repo/projects",
+      "path": "/repos/my-user/my-repo/projects",
       "method": "POST",
       "operationId": "projects-classic/create-for-repo",
       "summary": "",
       "user": "user123",
-      "ideal": "Create a new project for a specific repository."
+      "ideal": "Create a new project for the repository 'my-repo'."
     },
     {
       "path": "/user/projects",
@@ -150,7 +150,7 @@
       "operationId": "projects-classic/list-for-user",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve a list of projects for a specific user."
+      "ideal": "Retrieve a list of projects for the user 'user456'."
     }
   ]
 }

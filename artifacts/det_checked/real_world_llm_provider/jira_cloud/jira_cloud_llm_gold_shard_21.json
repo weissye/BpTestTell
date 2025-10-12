@@ -1,0 +1,108 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/field/10000/context",
+      "method": "GET",
+      "operationId": "getContextsForField",
+      "summary": "",
+      "user": "User A is retrieving the contexts for a custom field with ID 10000 to understand its configurations across different projects.",
+      "ideal": "The response should contain a list of contexts associated with the specified custom field, including details like context ID, name, and applicable projects."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context",
+      "method": "POST",
+      "operationId": "createCustomFieldContext",
+      "summary": "",
+      "user": "User B wants to create a new context for a custom field to apply specific settings for a project.",
+      "ideal": "The response should confirm the creation of the new context with its ID and details, indicating successful addition."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/defaultValue",
+      "method": "GET",
+      "operationId": "getDefaultValues",
+      "summary": "",
+      "user": "User C is checking the default values set for a custom field to ensure they align with project requirements.",
+      "ideal": "The response should return the current default values for the specified custom field, allowing the user to verify or adjust them."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/defaultValue",
+      "method": "PUT",
+      "operationId": "setDefaultValues",
+      "summary": "",
+      "user": "User D needs to update the default values for a custom field to reflect new business rules.",
+      "ideal": "The response should confirm the update of default values and provide the new values set for the custom field."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/issuetypemapping",
+      "method": "GET",
+      "operationId": "getIssueTypeMappingsForContexts",
+      "summary": "",
+      "user": "User E is analyzing the issue type mappings for a custom field to ensure it is correctly configured for various issue types.",
+      "ideal": "The response should include a mapping of issue types to contexts for the specified custom field, detailing which issue types are associated."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/mapping",
+      "method": "POST",
+      "operationId": "getCustomFieldContextsForProjectsAndIssueTypes",
+      "summary": "",
+      "user": "User F is looking to retrieve contexts for a custom field based on specific projects and issue types to streamline configuration.",
+      "ideal": "The response should return the relevant contexts that match the specified projects and issue types for the custom field."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/projectmapping",
+      "method": "GET",
+      "operationId": "getProjectContextMapping",
+      "summary": "",
+      "user": "User G is interested in understanding how a custom field is mapped to different projects to manage visibility.",
+      "ideal": "The response should provide a mapping of projects to the contexts of the specified custom field, indicating where it is used."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/12345",
+      "method": "DELETE",
+      "operationId": "deleteCustomFieldContext",
+      "summary": "",
+      "user": "User H needs to remove an outdated context for a custom field that is no longer relevant to any project.",
+      "ideal": "The response should confirm the successful deletion of the specified context, ensuring it is no longer available."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/12345",
+      "method": "PUT",
+      "operationId": "updateCustomFieldContext",
+      "summary": "",
+      "user": "User I is updating the details of a specific context for a custom field to reflect new project requirements.",
+      "ideal": "The response should confirm the update of the context with the new details provided, ensuring the context is correctly configured."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/12345/issuetype",
+      "method": "PUT",
+      "operationId": "addIssueTypesToContext",
+      "summary": "",
+      "user": "User J wants to add new issue types to an existing context for a custom field to expand its applicability.",
+      "ideal": "The response should confirm the addition of the new issue types to the specified context, detailing the updated mappings."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/12345/issuetype/remove",
+      "method": "POST",
+      "operationId": "removeIssueTypesFromContext",
+      "summary": "",
+      "user": "User K is removing certain issue types from a context for a custom field to refine its usage.",
+      "ideal": "The response should confirm the removal of the specified issue types from the context, ensuring the context is now updated."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/12345/project",
+      "method": "PUT",
+      "operationId": "assignProjectsToCustomFieldContext",
+      "summary": "",
+      "user": "User L is assigning new projects to a context for a custom field to enhance its relevance.",
+      "ideal": "The response should confirm the successful assignment of the new projects to the specified context, detailing the changes made."
+    },
+    {
+      "path": "/rest/api/3/field/10000/context/12345/project/remove",
+      "method": "POST",
+      "operationId": "removeCustomFieldContextFromProjects",
+      "summary": "",
+      "user": "User M needs to remove a context from certain projects as they are no longer applicable.",
+      "ideal": "The response should confirm the removal of the context from the specified projects, ensuring it is no longer associated."
+    }
+  ]
+}

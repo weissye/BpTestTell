@@ -5,40 +5,8 @@
       "method": "POST",
       "operationId": "createUser",
       "summary": "",
-      "user": "{\"name\":\"Alice Smith\",\"email\":\"alice.smith@example.com\"}",
-      "ideal": "{\"id\":\"12345\",\"name\":\"Alice Smith\",\"email\":\"alice.smith@example.com\"}"
-    },
-    {
-      "path": "/books",
-      "method": "POST",
-      "operationId": "createBook",
-      "summary": "",
-      "user": "{\"title\":\"The Great Gatsby\",\"author\":\"F. Scott Fitzgerald\",\"isbn\":\"9780743273565\"}",
-      "ideal": "{\"id\":\"54321\",\"title\":\"The Great Gatsby\",\"author\":\"F. Scott Fitzgerald\",\"isbn\":\"9780743273565\"}"
-    },
-    {
-      "path": "/books/54321",
-      "method": "DELETE",
-      "operationId": "deleteBook",
-      "summary": "",
-      "user": "{\"book_id\":\"54321\"}",
-      "ideal": "{\"message\":\"Book deleted successfully\"}"
-    },
-    {
-      "path": "/loans/12345/54321",
-      "method": "DELETE",
-      "operationId": "deleteLoan",
-      "summary": "",
-      "user": "{\"user_id\":\"12345\",\"book_id\":\"54321\"}",
-      "ideal": "{\"message\":\"Loan deleted successfully\"}"
-    },
-    {
-      "path": "/holds/67890",
-      "method": "DELETE",
-      "operationId": "deleteHold",
-      "summary": "",
-      "user": "{\"hold_id\":\"67890\"}",
-      "ideal": "{\"message\":\"Hold deleted successfully\"}"
+      "user": "john_doe",
+      "ideal": "User 'john_doe' created successfully."
     },
     {
       "path": "/users",
@@ -46,63 +14,95 @@
       "operationId": "listUsers",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve a list of all users in the library system."
+      "ideal": "List of users retrieved successfully."
+    },
+    {
+      "path": "/users/{user_id}",
+      "method": "DELETE",
+      "operationId": "deleteUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "User with ID '123' deleted successfully."
+    },
+    {
+      "path": "/books",
+      "method": "POST",
+      "operationId": "createBook",
+      "summary": "",
+      "user": "librarian",
+      "ideal": "Book 'The Great Gatsby' created successfully."
     },
     {
       "path": "/books",
       "method": "GET",
       "operationId": "listBooks",
       "summary": "",
+      "user": "visitor",
+      "ideal": "List of books retrieved successfully."
+    },
+    {
+      "path": "/books/{book_id}",
+      "method": "GET",
+      "operationId": "getBook",
+      "summary": "",
+      "user": "visitor",
+      "ideal": "Details of book with ID '456' retrieved successfully."
+    },
+    {
+      "path": "/books/{book_id}",
+      "method": "DELETE",
+      "operationId": "deleteBook",
+      "summary": "",
       "user": "librarian",
-      "ideal": "Fetch a list of all available books in the library."
+      "ideal": "Book with ID '456' deleted successfully."
     },
     {
       "path": "/loans",
       "method": "POST",
       "operationId": "createLoan",
       "summary": "",
-      "user": "member123",
-      "ideal": "Create a new loan for the book with ID 456 for user member123."
-    },
-    {
-      "path": "/holds",
-      "method": "POST",
-      "operationId": "createHold",
-      "summary": "",
-      "user": "member456",
-      "ideal": "Place a hold on the book with ID 789 for user member456."
-    },
-    {
-      "path": "/users/12345",
-      "method": "DELETE",
-      "operationId": "deleteUser",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Successfully deleted user with ID 12345."
-    },
-    {
-      "path": "/books/67890",
-      "method": "GET",
-      "operationId": "getBook",
-      "summary": "",
-      "user": "librarian",
-      "ideal": "Retrieved book details for book ID 67890."
+      "user": "john_doe",
+      "ideal": "Loan for book 'The Great Gatsby' created successfully."
     },
     {
       "path": "/loans",
       "method": "GET",
       "operationId": "listLoans",
       "summary": "",
-      "user": "member",
-      "ideal": "Listed all current loans for the member."
+      "user": "john_doe",
+      "ideal": "List of loans retrieved successfully."
+    },
+    {
+      "path": "/loans/{user_id}/{book_id}",
+      "method": "DELETE",
+      "operationId": "deleteLoan",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Loan for book with ID '456' deleted successfully."
+    },
+    {
+      "path": "/holds",
+      "method": "POST",
+      "operationId": "createHold",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Hold for book '1984' created successfully."
     },
     {
       "path": "/holds",
       "method": "GET",
       "operationId": "listHolds",
       "summary": "",
-      "user": "member",
-      "ideal": "Retrieved all holds placed by the member."
+      "user": "john_doe",
+      "ideal": "List of holds retrieved successfully."
+    },
+    {
+      "path": "/holds/{hold_id}",
+      "method": "DELETE",
+      "operationId": "deleteHold",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Hold with ID '789' deleted successfully."
     }
   ]
 }

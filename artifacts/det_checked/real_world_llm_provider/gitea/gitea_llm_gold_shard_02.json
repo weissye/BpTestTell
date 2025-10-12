@@ -1,0 +1,212 @@
+{
+  "gold": [
+    {
+      "path": "/admin/cron",
+      "method": "GET",
+      "operationId": "adminCronList",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve a list of all scheduled cron jobs."
+    },
+    {
+      "path": "/admin/cron/my-task",
+      "method": "POST",
+      "operationId": "adminCronRun",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Execute the specified cron job immediately."
+    },
+    {
+      "path": "/admin/emails",
+      "method": "GET",
+      "operationId": "adminGetAllEmails",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Fetch all email addresses associated with the admin account."
+    },
+    {
+      "path": "/admin/emails/search",
+      "method": "GET",
+      "operationId": "adminSearchEmails",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Search for specific email addresses in the admin account."
+    },
+    {
+      "path": "/admin/hooks",
+      "method": "GET",
+      "operationId": "adminListHooks",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "List all webhooks configured in the system."
+    },
+    {
+      "path": "/admin/hooks",
+      "method": "POST",
+      "operationId": "adminCreateHook",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new webhook with the specified configuration."
+    },
+    {
+      "path": "/admin/hooks/1",
+      "method": "GET",
+      "operationId": "adminGetHook",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve details of a specific webhook by ID."
+    },
+    {
+      "path": "/admin/hooks/1",
+      "method": "DELETE",
+      "operationId": "adminDeleteHook",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete a specific webhook by ID."
+    },
+    {
+      "path": "/admin/hooks/1",
+      "method": "PATCH",
+      "operationId": "adminEditHook",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Update the configuration of a specific webhook."
+    },
+    {
+      "path": "/admin/orgs",
+      "method": "GET",
+      "operationId": "adminGetAllOrgs",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve a list of all organizations managed by the admin."
+    },
+    {
+      "path": "/admin/runners/registration-token",
+      "method": "GET",
+      "operationId": "adminGetRunnerRegistrationToken",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Get a registration token for adding new runners."
+    },
+    {
+      "path": "/admin/unadopted",
+      "method": "GET",
+      "operationId": "adminUnadoptedList",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "List all unadopted repositories."
+    },
+    {
+      "path": "/admin/unadopted/my-org/my-repo",
+      "method": "POST",
+      "operationId": "adminAdoptRepository",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Adopt an unadopted repository."
+    },
+    {
+      "path": "/admin/unadopted/my-org/my-repo",
+      "method": "DELETE",
+      "operationId": "adminDeleteUnadoptedRepository",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete an unadopted repository."
+    },
+    {
+      "path": "/admin/users",
+      "method": "GET",
+      "operationId": "adminSearchUsers",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Search for users in the system."
+    },
+    {
+      "path": "/admin/users",
+      "method": "POST",
+      "operationId": "adminCreateUser",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new user in the system."
+    },
+    {
+      "path": "/admin/users/john_doe",
+      "method": "DELETE",
+      "operationId": "adminDeleteUser",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete a user by username."
+    },
+    {
+      "path": "/admin/users/john_doe",
+      "method": "PATCH",
+      "operationId": "adminEditUser",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Update user details for a specific user."
+    },
+    {
+      "path": "/admin/users/john_doe/badges",
+      "method": "GET",
+      "operationId": "adminListUserBadges",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "List all badges for a specific user."
+    },
+    {
+      "path": "/admin/users/john_doe/badges",
+      "method": "POST",
+      "operationId": "adminAddUserBadges",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Add badges to a specific user."
+    },
+    {
+      "path": "/admin/users/john_doe/badges",
+      "method": "DELETE",
+      "operationId": "adminDeleteUserBadges",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Remove badges from a specific user."
+    },
+    {
+      "path": "/admin/users/john_doe/keys",
+      "method": "POST",
+      "operationId": "adminCreatePublicKey",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Add a new public key for a specific user."
+    },
+    {
+      "path": "/admin/users/john_doe/keys/1",
+      "method": "DELETE",
+      "operationId": "adminDeleteUserPublicKey",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete a specific public key for a user."
+    },
+    {
+      "path": "/admin/users/john_doe/orgs",
+      "method": "POST",
+      "operationId": "adminCreateOrg",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new organization for the user."
+    },
+    {
+      "path": "/admin/users/john_doe/rename",
+      "method": "POST",
+      "operationId": "adminRenameUser",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Rename a specific user."
+    },
+    {
+      "path": "/admin/users/john_doe/repos",
+      "method": "POST",
+      "operationId": "adminCreateRepo",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new repository for the user."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/jql/function/computation",
+      "method": "GET",
+      "operationId": "getPrecomputations",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all precomputations available in the Jira system to analyze their performance and usage across different projects.",
+      "ideal": "The API should return a list of all precomputations with their details, including IDs, names, and associated projects."
+    },
+    {
+      "path": "/rest/api/3/jql/function/computation",
+      "method": "POST",
+      "operationId": "updatePrecomputations",
+      "summary": "",
+      "user": "As a data analyst, I need to update existing precomputations to reflect the latest changes in our data model and ensure accurate reporting.",
+      "ideal": "The API should accept a payload with updated precomputation details and return a success message along with the updated precomputation object."
+    },
+    {
+      "path": "/rest/api/3/jql/function/computation/search",
+      "method": "POST",
+      "operationId": "getPrecomputationsByID",
+      "summary": "",
+      "user": "As a developer, I want to search for specific precomputations by their IDs to quickly access their configurations and make necessary adjustments.",
+      "ideal": "The API should return the precomputation details for the specified ID, including its parameters and any associated metadata."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Balance.json",
+      "method": "GET",
+      "operationId": "FetchBalance",
+      "summary": "",
+      "user": "User wants to check the current balance of their Twilio account to ensure they have enough funds for upcoming messaging campaigns.",
+      "ideal": "The response should include the account balance in USD, the currency type, and the date of the last update."
+    }
+  ]
+}

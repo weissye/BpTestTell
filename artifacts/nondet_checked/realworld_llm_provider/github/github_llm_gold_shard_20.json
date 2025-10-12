@@ -14,7 +14,7 @@
       "operationId": "git/get-blob",
       "summary": "",
       "user": "octocat",
-      "ideal": "Retrieve the blob with the specified SHA from the repository."
+      "ideal": "Retrieve the blob data for the specified SHA."
     },
     {
       "path": "/repos/octocat/Hello-World/git/commits",
@@ -22,7 +22,7 @@
       "operationId": "git/create-commit",
       "summary": "",
       "user": "octocat",
-      "ideal": "Create a new commit in the repository with the specified parameters."
+      "ideal": "Create a new commit in the repository with the specified tree and parents."
     },
     {
       "path": "/repos/octocat/Hello-World/git/commits/def456",
@@ -30,7 +30,7 @@
       "operationId": "git/get-commit",
       "summary": "",
       "user": "octocat",
-      "ideal": "Retrieve the commit with the specified SHA from the repository."
+      "ideal": "Retrieve the commit data for the specified SHA."
     },
     {
       "path": "/repos/octocat/Hello-World/git/matching-refs/heads",
@@ -38,7 +38,7 @@
       "operationId": "git/list-matching-refs",
       "summary": "",
       "user": "octocat",
-      "ideal": "List all references in the repository that match the specified pattern."
+      "ideal": "List all references that match the specified pattern."
     },
     {
       "path": "/repos/octocat/Hello-World/git/ref/heads/main",
@@ -46,7 +46,7 @@
       "operationId": "git/get-ref",
       "summary": "",
       "user": "octocat",
-      "ideal": "Retrieve the reference for the specified branch in the repository."
+      "ideal": "Retrieve the reference data for the specified ref."
     },
     {
       "path": "/repos/octocat/Hello-World/git/refs",
@@ -54,7 +54,7 @@
       "operationId": "git/create-ref",
       "summary": "",
       "user": "octocat",
-      "ideal": "Create a new reference in the repository pointing to the specified commit."
+      "ideal": "Create a new reference in the repository."
     },
     {
       "path": "/repos/octocat/Hello-World/git/refs/heads/main",
@@ -62,7 +62,7 @@
       "operationId": "git/update-ref",
       "summary": "",
       "user": "octocat",
-      "ideal": "Update the reference for the specified branch to point to a new commit."
+      "ideal": "Update the specified reference to point to a new SHA."
     },
     {
       "path": "/repos/octocat/Hello-World/git/refs/heads/old-branch",
@@ -78,7 +78,7 @@
       "operationId": "git/create-tag",
       "summary": "",
       "user": "octocat",
-      "ideal": "Create a new tag in the repository pointing to the specified commit."
+      "ideal": "Create a new tag in the repository with the specified commit."
     },
     {
       "path": "/repos/octocat/Hello-World/git/tags/ghi789",
@@ -86,7 +86,7 @@
       "operationId": "git/get-tag",
       "summary": "",
       "user": "octocat",
-      "ideal": "Retrieve the tag with the specified SHA from the repository."
+      "ideal": "Retrieve the tag data for the specified SHA."
     },
     {
       "path": "/repos/octocat/Hello-World/git/trees",
@@ -94,7 +94,7 @@
       "operationId": "git/create-tree",
       "summary": "",
       "user": "octocat",
-      "ideal": "Create a new tree in the repository with the specified structure."
+      "ideal": "Create a new tree in the repository with the specified entries."
     },
     {
       "path": "/repos/octocat/Hello-World/git/trees/jkl012",
@@ -102,7 +102,7 @@
       "operationId": "git/get-tree",
       "summary": "",
       "user": "octocat",
-      "ideal": "Retrieve the tree with the specified SHA from the repository."
+      "ideal": "Retrieve the tree data for the specified SHA."
     }
   ]
 }

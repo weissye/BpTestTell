@@ -5,40 +5,40 @@
       "method": "POST",
       "operationId": "createProjectWithCustomTemplate",
       "summary": "",
-      "user": "A project manager looking to create a new project using a predefined template for better consistency across teams.",
-      "ideal": "Successfully creates a new project with the specified custom template and returns the project details."
+      "user": "A project manager creating a new project using a custom template for better organization.",
+      "ideal": "Successfully creates a new project with the specified custom template."
     },
     {
       "path": "/rest/api/3/project-template/edit-template",
       "method": "PUT",
       "operationId": "editTemplate",
       "summary": "",
-      "user": "A team lead who needs to update an existing project template to include new fields and workflows.",
-      "ideal": "Updates the specified project template and returns the updated template details."
+      "user": "A team lead updating an existing project template to include new fields and workflows.",
+      "ideal": "Successfully updates the existing project template with the new configurations."
     },
     {
       "path": "/rest/api/3/project-template/live-template",
       "method": "GET",
       "operationId": "liveTemplate",
       "summary": "",
-      "user": "A developer wanting to view the current live project template to ensure their project aligns with the latest standards.",
-      "ideal": "Returns the current live project template details for review."
+      "user": "A developer checking the current live project template to ensure it meets the team's needs.",
+      "ideal": "Returns the current live project template details."
     },
     {
       "path": "/rest/api/3/project-template/remove-template",
       "method": "DELETE",
       "operationId": "removeTemplate",
       "summary": "",
-      "user": "An administrator who needs to remove an outdated project template that is no longer in use.",
-      "ideal": "Successfully removes the specified project template and confirms the deletion."
+      "user": "An administrator removing an outdated project template that is no longer in use.",
+      "ideal": "Successfully removes the specified project template from the system."
     },
     {
       "path": "/rest/api/3/project-template/save-template",
       "method": "POST",
       "operationId": "saveTemplate",
       "summary": "",
-      "user": "A project coordinator who wants to save a new project template after customizing it for future use.",
-      "ideal": "Saves the new project template and returns a confirmation along with the template ID."
+      "user": "A project coordinator saving a newly created project template for future use.",
+      "ideal": "Successfully saves the new project template for later application."
     }
   ]
 }

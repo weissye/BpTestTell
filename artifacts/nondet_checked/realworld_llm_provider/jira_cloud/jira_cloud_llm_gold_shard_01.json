@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "getBanner",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve the current announcement banner settings for the Jira Cloud instance."
+      "user": "As a project manager, I want to retrieve the current announcement banner to ensure that the message displayed to users is accurate and up-to-date.",
+      "ideal": "The API should return the current announcement banner details, including the message, visibility settings, and any associated links."
     },
     {
       "path": "/rest/api/3/announcementBanner",
       "method": "PUT",
       "operationId": "setBanner",
       "summary": "",
-      "user": "admin456",
-      "ideal": "Update the announcement banner settings with new content and visibility options."
+      "user": "As an admin, I want to update the announcement banner to communicate important changes to all users, ensuring they are aware of the latest updates.",
+      "ideal": "The API should successfully update the announcement banner with the new message and settings, returning a confirmation of the update."
     }
   ]
 }

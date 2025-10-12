@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteMedia",
+      "summary": "",
+      "user": "As a developer, I want to delete a specific media attachment from a message in my Twilio account to ensure that unnecessary files are removed and storage is optimized.",
+      "ideal": "The media attachment should be successfully deleted, and the API should return a 204 No Content status indicating that the operation was successful."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchMedia",
+      "summary": "",
+      "user": "As a user of the Twilio API, I need to retrieve a specific media attachment associated with a message to display it in my application, ensuring that users can view the content shared via SMS.",
+      "ideal": "The API should return the media details, including the URL and content type, along with a 200 OK status to confirm successful retrieval."
+    }
+  ]
+}

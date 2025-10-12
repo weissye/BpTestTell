@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberLocal",
+      "summary": "",
+      "user": "User wants to find local phone numbers available in the US for their Twilio account to set up a new business line.",
+      "ideal": "Retrieve a list of available local phone numbers in the specified country (US) for the given account."
+    }
+  ]
+}

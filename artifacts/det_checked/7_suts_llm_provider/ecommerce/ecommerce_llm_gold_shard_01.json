@@ -3,26 +3,66 @@
     {
       "path": "/reset",
       "method": "POST",
-      "operationId": "resetPharmacy",
+      "operationId": "resetSystem",
       "summary": "",
-      "user": "admin_user_01",
-      "ideal": "Resets the pharmacy system to its initial state, clearing all data."
+      "user": "admin",
+      "ideal": "Resets the pharmacy system to its initial state."
+    },
+    {
+      "path": "/patients",
+      "method": "POST",
+      "operationId": "createPatient",
+      "summary": "",
+      "user": "nurse",
+      "ideal": "Creates a new patient record in the system."
+    },
+    {
+      "path": "/drugs",
+      "method": "GET",
+      "operationId": "getDrugs",
+      "summary": "",
+      "user": "pharmacist",
+      "ideal": "Retrieves a list of all available drugs in the pharmacy."
     },
     {
       "path": "/drugs",
       "method": "POST",
       "operationId": "addDrug",
       "summary": "",
-      "user": "pharmacist_02",
-      "ideal": "Adds a new drug to the pharmacy inventory with all required details."
+      "user": "pharmacist",
+      "ideal": "Adds a new drug to the pharmacy inventory."
+    },
+    {
+      "path": "/prescriptions",
+      "method": "POST",
+      "operationId": "createPrescription",
+      "summary": "",
+      "user": "doctor",
+      "ideal": "Creates a new prescription for a patient."
+    },
+    {
+      "path": "/orders",
+      "method": "GET",
+      "operationId": "getOrders",
+      "summary": "",
+      "user": "pharmacist",
+      "ideal": "Retrieves a list of all orders placed in the pharmacy."
     },
     {
       "path": "/orders",
       "method": "POST",
       "operationId": "createOrder",
       "summary": "",
-      "user": "customer_03",
-      "ideal": "Creates a new order for the specified drugs, including customer details and payment information."
+      "user": "pharmacist",
+      "ideal": "Places a new order for drugs in the pharmacy."
+    },
+    {
+      "path": "/inventory/{ndc}",
+      "method": "GET",
+      "operationId": "getInventoryItem",
+      "summary": "",
+      "user": "pharmacist",
+      "ideal": "Retrieves detailed information about a specific drug in inventory using its NDC."
     }
   ]
 }

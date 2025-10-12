@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/{org}/actions/oidc/customization/sub",
+      "method": "GET",
+      "operationId": "oidc/get-oidc-custom-sub-template-for-org",
+      "summary": "",
+      "user": "A developer wants to retrieve the OIDC custom subject template for their organization to understand how to configure it for their CI/CD pipeline.",
+      "ideal": "The response should include the current OIDC custom subject template for the specified organization, detailing the structure and any placeholders used."
+    },
+    {
+      "path": "/orgs/{org}/actions/oidc/customization/sub",
+      "method": "PUT",
+      "operationId": "oidc/update-oidc-custom-sub-template-for-org",
+      "summary": "",
+      "user": "An administrator needs to update the OIDC custom subject template for their organization to include additional claims for better identification of users in their workflows.",
+      "ideal": "The response should confirm that the OIDC custom subject template has been successfully updated, along with the new template details."
+    }
+  ]
+}

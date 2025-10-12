@@ -5,64 +5,64 @@
       "method": "GET",
       "operationId": "getGroup",
       "summary": "",
-      "user": "Retrieve the details of a specific group by its ID.",
-      "ideal": "Successful retrieval of group details."
+      "user": "Retrieve the details of a specific group in Jira to check its members and permissions.",
+      "ideal": "Successful retrieval of group details with a 200 status code."
     },
     {
       "path": "/rest/api/3/group",
       "method": "POST",
       "operationId": "createGroup",
       "summary": "",
-      "user": "Create a new group with the specified name and description.",
-      "ideal": "Group is successfully created and returned with its ID."
+      "user": "Create a new group in Jira for organizing users based on their roles.",
+      "ideal": "Group created successfully with a 201 status code and the group ID returned."
     },
     {
       "path": "/rest/api/3/group",
       "method": "DELETE",
       "operationId": "removeGroup",
       "summary": "",
-      "user": "Remove an existing group by its ID.",
-      "ideal": "Group is successfully deleted."
+      "user": "Remove an existing group from Jira that is no longer needed.",
+      "ideal": "Group removed successfully with a 204 status code."
     },
     {
       "path": "/rest/api/3/group/bulk",
       "method": "GET",
       "operationId": "bulkGetGroups",
       "summary": "",
-      "user": "Retrieve details of multiple groups in a single request.",
-      "ideal": "Successful retrieval of all specified groups."
+      "user": "Fetch details of multiple groups at once to streamline management.",
+      "ideal": "Successful retrieval of group details with a 200 status code and a list of groups."
     },
     {
       "path": "/rest/api/3/group/member",
       "method": "GET",
       "operationId": "getUsersFromGroup",
       "summary": "",
-      "user": "Get a list of users belonging to a specific group.",
-      "ideal": "Successful retrieval of users in the group."
+      "user": "Get a list of users belonging to a specific group to manage access rights.",
+      "ideal": "Successful retrieval of users with a 200 status code and a list of user details."
     },
     {
       "path": "/rest/api/3/group/user",
       "method": "POST",
       "operationId": "addUserToGroup",
       "summary": "",
-      "user": "Add a user to a specified group by user ID.",
-      "ideal": "User is successfully added to the group."
+      "user": "Add a user to a specific group in Jira to grant them access to group resources.",
+      "ideal": "User added successfully with a 201 status code."
     },
     {
       "path": "/rest/api/3/group/user",
       "method": "DELETE",
       "operationId": "removeUserFromGroup",
       "summary": "",
-      "user": "Remove a user from a specified group by user ID.",
-      "ideal": "User is successfully removed from the group."
+      "user": "Remove a user from a group in Jira to revoke their access.",
+      "ideal": "User removed successfully with a 204 status code."
     },
     {
       "path": "/rest/api/3/groups/picker",
       "method": "GET",
       "operationId": "findGroups",
       "summary": "",
-      "user": "Search for groups based on a query string.",
-      "ideal": "Successful retrieval of groups matching the query."
+      "user": "Search for groups in Jira based on a query to find relevant groups quickly.",
+      "ideal": "Successful retrieval of matching groups with a 200 status code and a list of groups."
     }
   ]
 }

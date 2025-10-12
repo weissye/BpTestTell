@@ -1,84 +1,84 @@
 {
   "gold": [
     {
-      "path": "/boards/{idBoard}/cards/{filter}",
+      "path": "/v1/actions/12345",
       "method": "GET",
-      "operationId": "getBoardsCardsByIdBoardByFilter",
+      "operationId": "getActionsByIdAction",
       "summary": "",
       "user": "User123",
-      "ideal": "Retrieve all cards from the specified board filtered by the given criteria."
+      "ideal": "Retrieve the action details for the action with ID 12345."
     },
     {
-      "path": "/cards/{idCard}/members",
-      "method": "GET",
-      "operationId": "getCardsMembersByIdCard",
-      "summary": "",
-      "user": "User456",
-      "ideal": "Get a list of members assigned to the specified card."
-    },
-    {
-      "path": "/actions/{idAction}/board",
+      "path": "/v1/actions/12345/board",
       "method": "GET",
       "operationId": "getActionsBoardByIdAction",
       "summary": "",
-      "user": "User789",
-      "ideal": "Fetch the board associated with the specified action."
+      "user": "User456",
+      "ideal": "Get the board information associated with the action ID 12345."
     },
     {
-      "path": "/checklists/{idChecklist}/checkItems",
+      "path": "/v1/actions/12345/card",
       "method": "GET",
-      "operationId": "getChecklistsCheckItemsByIdChecklist",
+      "operationId": "getActionsCardByIdAction",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Fetch the card details related to action ID 12345."
+    },
+    {
+      "path": "/v1/actions/12345/member",
+      "method": "GET",
+      "operationId": "getActionsMemberByIdAction",
       "summary": "",
       "user": "User101",
-      "ideal": "Retrieve all check items from the specified checklist."
+      "ideal": "Retrieve the member information for the action with ID 12345."
     },
     {
-      "path": "/members/{idMember}/boards",
+      "path": "/v1/actions/12345/memberCreator",
       "method": "GET",
-      "operationId": "getMembersBoardsByIdMember",
+      "operationId": "getActionsMemberCreatorByIdAction",
       "summary": "",
       "user": "User202",
-      "ideal": "Get all boards that the specified member is part of."
+      "ideal": "Get the creator's member details for action ID 12345."
     },
     {
-      "path": "/organizations/{idOrg}/members/{filter}",
+      "path": "/v1/actions/12345/organization",
       "method": "GET",
-      "operationId": "getOrganizationsMembersByIdOrgByFilter",
+      "operationId": "getActionsOrganizationByIdAction",
       "summary": "",
       "user": "User303",
-      "ideal": "Retrieve members of the organization filtered by the specified criteria."
+      "ideal": "Fetch the organization details linked to action ID 12345."
     },
     {
-      "path": "/notifications/{idNotification}/card/{field}",
-      "method": "GET",
-      "operationId": "getNotificationsCardByIdNotificationByField",
+      "path": "/v1/actions/12345/text",
+      "method": "PUT",
+      "operationId": "updateActionsTextByIdAction",
       "summary": "",
       "user": "User404",
-      "ideal": "Get specific field information about the card related to the notification."
+      "ideal": "Update the text content of the action with ID 12345."
     },
     {
-      "path": "/tokens/{token}/member/{field}",
-      "method": "GET",
-      "operationId": "getTokensMemberByTokenByField",
+      "path": "/v1/actions/12345",
+      "method": "DELETE",
+      "operationId": "deleteActionsByIdAction",
       "summary": "",
       "user": "User505",
-      "ideal": "Retrieve specific field information about the member associated with the token."
+      "ideal": "Delete the action with ID 12345 from the system."
     },
     {
-      "path": "/lists/{idList}/board",
+      "path": "/v1/actions/12345/list",
       "method": "GET",
-      "operationId": "getListsBoardByIdList",
+      "operationId": "getActionsListByIdAction",
       "summary": "",
       "user": "User606",
-      "ideal": "Fetch the board associated with the specified list."
+      "ideal": "Retrieve the list information for action ID 12345."
     },
     {
-      "path": "/cards/{idCard}/stickers",
+      "path": "/v1/actions/12345/display",
       "method": "GET",
-      "operationId": "getCardsStickersByIdCard",
+      "operationId": "getActionsDisplayByIdAction",
       "summary": "",
       "user": "User707",
-      "ideal": "Retrieve all stickers applied to the specified card."
+      "ideal": "Get the display information for action ID 12345."
     }
   ]
 }

@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/flows",
+      "method": "GET",
+      "operationId": "getFlows",
+      "summary": "",
+      "user": "Admin user requesting to view all available flows in the system.",
+      "ideal": "Returns a list of all flows with their details."
+    },
+    {
+      "path": "/flows",
+      "method": "POST",
+      "operationId": "createFlow",
+      "summary": "",
+      "user": "User creating a new flow to automate data processing tasks.",
+      "ideal": "Creates a new flow and returns the details of the created flow."
+    },
+    {
+      "path": "/flows",
+      "method": "PATCH",
+      "operationId": "updateFlows",
+      "summary": "",
+      "user": "Admin user updating multiple flows to improve efficiency.",
+      "ideal": "Updates the specified flows and returns the updated details."
+    },
+    {
+      "path": "/flows",
+      "method": "DELETE",
+      "operationId": "deleteFlows",
+      "summary": "",
+      "user": "User deleting obsolete flows that are no longer needed.",
+      "ideal": "Deletes the specified flows and confirms the deletion."
+    },
+    {
+      "path": "/flows/{id}",
+      "method": "GET",
+      "operationId": "getFlow",
+      "summary": "",
+      "user": "User retrieving details of a specific flow by its ID.",
+      "ideal": "Returns the details of the flow identified by the given ID."
+    },
+    {
+      "path": "/flows/{id}",
+      "method": "PATCH",
+      "operationId": "updateFlow",
+      "summary": "",
+      "user": "Admin user making changes to a specific flow to enhance its functionality.",
+      "ideal": "Updates the specified flow and returns the updated flow details."
+    },
+    {
+      "path": "/flows/{id}",
+      "method": "DELETE",
+      "operationId": "deleteFlow",
+      "summary": "",
+      "user": "User removing a specific flow that is no longer relevant.",
+      "ideal": "Deletes the specified flow and confirms the deletion."
+    }
+  ]
+}

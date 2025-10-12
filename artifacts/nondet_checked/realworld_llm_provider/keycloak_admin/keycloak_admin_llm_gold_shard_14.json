@@ -1,84 +1,84 @@
 {
   "gold": [
     {
+      "path": "/v1/",
+      "method": "GET",
+      "operationId": "get",
+      "summary": "",
+      "user": "Admin user retrieves the API root to check available endpoints.",
+      "ideal": "Returns a list of available operations in the Keycloak Admin REST API."
+    },
+    {
       "path": "/v1/{realm}",
       "method": "GET",
       "operationId": "getByRealm",
       "summary": "",
-      "user": "Admin user requesting realm details.",
+      "user": "An admin user wants to fetch details about a specific realm.",
       "ideal": "Returns the details of the specified realm."
+    },
+    {
+      "path": "/v1/{realm}",
+      "method": "PUT",
+      "operationId": "putByRealm",
+      "summary": "",
+      "user": "An admin user updates the configuration of a specific realm.",
+      "ideal": "Successfully updates the realm configuration and returns the updated details."
+    },
+    {
+      "path": "/v1/{realm}",
+      "method": "DELETE",
+      "operationId": "deleteByRealm",
+      "summary": "",
+      "user": "An admin user deletes a specific realm that is no longer needed.",
+      "ideal": "Successfully deletes the realm and returns a confirmation message."
     },
     {
       "path": "/v1/{realm}/admin-events",
       "method": "GET",
       "operationId": "getAdminEvents",
       "summary": "",
-      "user": "Security officer reviewing admin events for compliance.",
-      "ideal": "Fetches a list of admin events for the specified realm."
+      "user": "An admin user wants to retrieve all admin events for auditing purposes.",
+      "ideal": "Returns a list of admin events associated with the specified realm."
     },
     {
       "path": "/v1/{realm}/client-policies/policies",
       "method": "GET",
       "operationId": "getPolicies",
       "summary": "",
-      "user": "Policy manager checking current client policies.",
-      "ideal": "Retrieves the client policies configured in the realm."
-    },
-    {
-      "path": "/v1/{realm}/default-groups",
-      "method": "GET",
-      "operationId": "getDefaultGroups",
-      "summary": "",
-      "user": "System administrator listing default groups in the realm.",
-      "ideal": "Returns a list of default groups for the specified realm."
+      "user": "A security officer needs to review the client policies in a realm.",
+      "ideal": "Returns the list of client policies defined in the specified realm."
     },
     {
       "path": "/v1/{realm}/localization/en",
       "method": "GET",
       "operationId": "getLocalizationByRealmByLocale",
       "summary": "",
-      "user": "Localization manager checking English localization settings.",
-      "ideal": "Fetches localization settings for the specified locale in the realm."
+      "user": "A developer wants to fetch localization settings for English in a specific realm.",
+      "ideal": "Returns localization settings for the specified locale in the realm."
     },
     {
       "path": "/v1/{realm}/localization/en/welcome",
       "method": "GET",
       "operationId": "getLocalizationByRealmByLocaleByKey",
       "summary": "",
-      "user": "Content manager retrieving the welcome message localization.",
-      "ideal": "Returns the localization string for the specified key in the given locale."
+      "user": "A developer retrieves the localized welcome message for English.",
+      "ideal": "Returns the localized string for the key 'welcome' in English."
     },
     {
       "path": "/v1/{realm}/logout-all",
       "method": "POST",
       "operationId": "postLogoutAll",
       "summary": "",
-      "user": "Admin user logging out all users for security reasons.",
-      "ideal": "Logs out all users from the specified realm."
+      "user": "An admin user wants to log out all users from a specific realm.",
+      "ideal": "Successfully logs out all users and returns a confirmation message."
     },
     {
       "path": "/v1/{realm}/partial-export",
       "method": "POST",
       "operationId": "postPartialExport",
       "summary": "",
-      "user": "Data analyst exporting specific realm data for reporting.",
-      "ideal": "Exports a partial set of data from the specified realm."
-    },
-    {
-      "path": "/v1/{realm}/sessions/{session}",
-      "method": "DELETE",
-      "operationId": "deleteSession",
-      "summary": "",
-      "user": "Support staff terminating a specific user session.",
-      "ideal": "Deletes the specified user session from the realm."
-    },
-    {
-      "path": "/v1/{realm}/testSMTPConnection",
-      "method": "POST",
-      "operationId": "postTestSmtpConnection",
-      "summary": "",
-      "user": "System administrator testing SMTP configuration.",
-      "ideal": "Tests the SMTP connection settings for the specified realm."
+      "user": "An admin user needs to export specific data from a realm for backup.",
+      "ideal": "Returns the exported data in the specified format."
     }
   ]
 }

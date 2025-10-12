@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "getLicense",
       "summary": "",
-      "user": "As a Jira administrator, I want to retrieve the license details of my Jira instance to ensure compliance and manage user access effectively.",
-      "ideal": "The response should include the license type, the number of users allowed, and the expiration date of the license."
+      "user": "User requests the current license details for their Jira Cloud instance to verify the active subscription and its features.",
+      "ideal": "Returns the license information including the type of license, the number of users allowed, and the expiration date."
     },
     {
       "path": "/rest/api/3/license/approximateLicenseCount",
       "method": "GET",
       "operationId": "getApproximateLicenseCount",
       "summary": "",
-      "user": "As a project manager, I need to know the approximate number of licenses in use to plan for future user additions and budget accordingly.",
-      "ideal": "The response should provide an approximate count of active licenses currently in use across the Jira instance."
+      "user": "User wants to know the approximate number of licenses available for their Jira Cloud instance to manage user access effectively.",
+      "ideal": "Provides an approximate count of the total licenses available for the Jira Cloud instance."
     },
     {
       "path": "/rest/api/3/license/approximateLicenseCount/product/{applicationKey}",
       "method": "GET",
       "operationId": "getApproximateApplicationLicenseCount",
       "summary": "",
-      "user": "As a product owner, I want to check the approximate license count for a specific application key to evaluate its usage and determine if we need to purchase more licenses.",
-      "ideal": "The response should return the approximate number of licenses in use for the specified application key, helping in resource allocation."
+      "user": "User queries the approximate license count for a specific application key to ensure compliance with user limits.",
+      "ideal": "Returns the approximate number of licenses available for the specified application key, helping the user manage their application usage."
     }
   ]
 }

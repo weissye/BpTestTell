@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchOutgoingCallerId",
+      "summary": "",
+      "user": "As a user, I want to retrieve the details of a specific outgoing caller ID associated with my Twilio account so that I can verify its configuration.",
+      "ideal": "The response should include the SID, friendly name, phone number, and status of the outgoing caller ID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateOutgoingCallerId",
+      "summary": "",
+      "user": "As a user, I want to update the friendly name of an existing outgoing caller ID so that it is easier to identify in my account.",
+      "ideal": "The response should confirm the update and return the updated details of the outgoing caller ID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteOutgoingCallerId",
+      "summary": "",
+      "user": "As a user, I want to delete an outgoing caller ID that I no longer use to keep my account organized.",
+      "ideal": "The response should confirm the deletion and indicate that the outgoing caller ID has been successfully removed."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
+      "method": "GET",
+      "operationId": "ListOutgoingCallerId",
+      "summary": "",
+      "user": "As a user, I want to list all outgoing caller IDs associated with my Twilio account so that I can manage them effectively.",
+      "ideal": "The response should include an array of outgoing caller IDs with their respective details such as SID, friendly name, and phone number."
+    }
+  ]
+}

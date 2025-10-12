@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/auth/login",
+      "method": "POST",
+      "operationId": "login",
+      "summary": "",
+      "user": "{\"email\":\"user@example.com\",\"password\":\"securePassword123\"}",
+      "ideal": "{\"access_token\":\"abc123xyz\",\"refresh_token\":\"def456uvw\"}"
+    },
+    {
+      "path": "/auth/refresh",
+      "method": "POST",
+      "operationId": "refresh",
+      "summary": "",
+      "user": "{\"refresh_token\":\"def456uvw\"}",
+      "ideal": "{\"access_token\":\"ghi789rst\"}"
+    },
+    {
+      "path": "/auth/logout",
+      "method": "POST",
+      "operationId": "logout",
+      "summary": "",
+      "user": "{\"access_token\":\"abc123xyz\"}",
+      "ideal": "{\"message\":\"Successfully logged out\"}"
+    },
+    {
+      "path": "/auth/password/request",
+      "method": "POST",
+      "operationId": "passwordRequest",
+      "summary": "",
+      "user": "{\"email\":\"user@example.com\"}",
+      "ideal": "{\"message\":\"Password reset link sent\"}"
+    },
+    {
+      "path": "/auth/password/reset",
+      "method": "POST",
+      "operationId": "passwordReset",
+      "summary": "",
+      "user": "{\"token\":\"resetToken123\",\"new_password\":\"newSecurePassword456\"}",
+      "ideal": "{\"message\":\"Password has been reset successfully\"}"
+    },
+    {
+      "path": "/auth/oauth/{provider}",
+      "method": "GET",
+      "operationId": "oauthProvider",
+      "summary": "",
+      "user": "{\"provider\":\"Google\"}",
+      "ideal": "{\"url\":\"https://accounts.google.com/o/oauth2/auth?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code\"}"
+    }
+  ]
+}

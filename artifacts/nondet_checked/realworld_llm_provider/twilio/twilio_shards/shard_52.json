@@ -1,0 +1,36 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Payload"
+      ],
+      "summary": "Fetch an instance of a result payload",
+      "operationId": "FetchRecordingAddOnResultPayload"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Payload"
+      ],
+      "summary": "Delete a payload from the result along with all associated Data",
+      "operationId": "DeleteRecordingAddOnResultPayload"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Payload"
+      ],
+      "summary": "Retrieve a list of payloads belonging to the AddOnResult",
+      "operationId": "ListRecordingAddOnResultPayload"
+    }
+  ]
+}

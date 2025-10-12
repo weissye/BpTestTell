@@ -6,7 +6,7 @@
       "operationId": "getCommentsByIds",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve comments by their IDs."
+      "ideal": "Retrieve a list of comments based on their IDs."
     },
     {
       "path": "/rest/api/3/issue/PROJECT-1/comment",
@@ -14,7 +14,7 @@
       "operationId": "getComments",
       "summary": "",
       "user": "user456",
-      "ideal": "Fetch all comments associated with the issue PROJECT-1."
+      "ideal": "Fetch all comments associated with the issue identified by PROJECT-1."
     },
     {
       "path": "/rest/api/3/issue/PROJECT-1/comment",
@@ -38,7 +38,7 @@
       "operationId": "getComment",
       "summary": "",
       "user": "user654",
-      "ideal": "Retrieve the details of comment ID 10001 from the issue PROJECT-1."
+      "ideal": "Retrieve the details of the comment with ID 10001 from the issue PROJECT-1."
     },
     {
       "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
@@ -46,7 +46,7 @@
       "operationId": "updateComment",
       "summary": "",
       "user": "user987",
-      "ideal": "Update the content of comment ID 10001 on the issue PROJECT-1."
+      "ideal": "Update the content of the comment with ID 10001 on the issue PROJECT-1."
     }
   ]
 }

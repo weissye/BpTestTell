@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "findBulkAssignableUsers",
       "summary": "",
-      "user": "john.doe@example.com",
+      "user": "project_manager",
       "ideal": "Retrieve a list of users who can be assigned issues across multiple projects."
     },
     {
@@ -13,7 +13,7 @@
       "method": "GET",
       "operationId": "findAssignableUsers",
       "summary": "",
-      "user": "jane.smith@example.com",
+      "user": "team_lead",
       "ideal": "Get a list of users who can be assigned issues in a specific project."
     },
     {
@@ -21,7 +21,7 @@
       "method": "GET",
       "operationId": "findUsersWithAllPermissions",
       "summary": "",
-      "user": "admin@example.com",
+      "user": "admin",
       "ideal": "Find users who have all permissions in the Jira instance."
     },
     {
@@ -29,7 +29,7 @@
       "method": "GET",
       "operationId": "findUsersForPicker",
       "summary": "",
-      "user": "project.manager@example.com",
+      "user": "issue_reporter",
       "ideal": "Search for users to display in a user picker dropdown."
     },
     {
@@ -37,32 +37,32 @@
       "method": "GET",
       "operationId": "findUsers",
       "summary": "",
-      "user": "team.lead@example.com",
-      "ideal": "Retrieve a list of users based on search criteria."
+      "user": "hr_manager",
+      "ideal": "Retrieve a list of users based on specific search criteria."
     },
     {
       "path": "/rest/api/3/user/search/query",
       "method": "GET",
       "operationId": "findUsersByQuery",
       "summary": "",
-      "user": "dev.team@example.com",
-      "ideal": "Search for users using a specific query string."
+      "user": "developer",
+      "ideal": "Search for users using a query string to filter results."
     },
     {
       "path": "/rest/api/3/user/search/query/key",
       "method": "GET",
       "operationId": "findUserKeysByQuery",
       "summary": "",
-      "user": "qa.tester@example.com",
-      "ideal": "Find user keys based on a query string."
+      "user": "qa_tester",
+      "ideal": "Find user keys based on a search query."
     },
     {
       "path": "/rest/api/3/user/viewissue/search",
       "method": "GET",
       "operationId": "findUsersWithBrowsePermission",
       "summary": "",
-      "user": "support@example.com",
-      "ideal": "Get a list of users who have permission to browse issues."
+      "user": "project_admin",
+      "ideal": "Get a list of users who have permission to browse issues in a project."
     }
   ]
 }

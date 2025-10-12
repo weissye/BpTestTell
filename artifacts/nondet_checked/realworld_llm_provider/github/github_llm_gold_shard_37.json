@@ -14,191 +14,79 @@
       "operationId": "reactions/create-for-team-discussion-comment-in-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Add a reaction to a specific comment in a team discussion within an organization."
+      "ideal": "Add a new reaction to a specific comment in a team discussion within an organization."
     },
     {
-      "path": "/orgs/my-org/teams/my-team/discussions/1/comments/2/reactions/12345",
+      "path": "/orgs/my-org/teams/my-team/discussions/1/comments/2/reactions/123",
       "method": "DELETE",
       "operationId": "reactions/delete-for-team-discussion-comment",
       "summary": "",
       "user": "user123",
-      "ideal": "Remove a specific reaction from a comment in a team discussion."
+      "ideal": "Remove a specific reaction from a comment in a team discussion within an organization."
     },
     {
-      "path": "/orgs/my-org/teams/my-team/discussions/1/reactions",
-      "method": "GET",
-      "operationId": "reactions/list-for-team-discussion-in-org",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve all reactions for a specific team discussion within an organization."
-    },
-    {
-      "path": "/orgs/my-org/teams/my-team/discussions/1/reactions",
-      "method": "POST",
-      "operationId": "reactions/create-for-team-discussion-in-org",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Add a reaction to a specific team discussion within an organization."
-    },
-    {
-      "path": "/orgs/my-org/teams/my-team/discussions/1/reactions/12345",
-      "method": "DELETE",
-      "operationId": "reactions/delete-for-team-discussion",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Remove a specific reaction from a team discussion."
-    },
-    {
-      "path": "/repos/my-repo/commits/1/comments/2/reactions",
-      "method": "GET",
-      "operationId": "reactions/list-for-commit-comment",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve all reactions for a specific commit comment."
-    },
-    {
-      "path": "/repos/my-repo/commits/1/comments/2/reactions",
-      "method": "POST",
-      "operationId": "reactions/create-for-commit-comment",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Add a reaction to a specific commit comment."
-    },
-    {
-      "path": "/repos/my-repo/commits/1/comments/2/reactions/12345",
-      "method": "DELETE",
-      "operationId": "reactions/delete-for-commit-comment",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Remove a specific reaction from a commit comment."
-    },
-    {
-      "path": "/repos/my-repo/issues/comments/2/reactions",
-      "method": "GET",
-      "operationId": "reactions/list-for-issue-comment",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve all reactions for a specific issue comment."
-    },
-    {
-      "path": "/repos/my-repo/issues/comments/2/reactions",
-      "method": "POST",
-      "operationId": "reactions/create-for-issue-comment",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Add a reaction to a specific issue comment."
-    },
-    {
-      "path": "/repos/my-repo/issues/comments/2/reactions/12345",
-      "method": "DELETE",
-      "operationId": "reactions/delete-for-issue-comment",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Remove a specific reaction from an issue comment."
-    },
-    {
-      "path": "/repos/my-repo/issues/1/reactions",
+      "path": "/repos/my-user/my-repo/issues/1/reactions",
       "method": "GET",
       "operationId": "reactions/list-for-issue",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve all reactions for a specific issue."
+      "user": "user456",
+      "ideal": "Get all reactions for a specific issue in a repository."
     },
     {
-      "path": "/repos/my-repo/issues/1/reactions",
+      "path": "/repos/my-user/my-repo/issues/1/reactions",
       "method": "POST",
       "operationId": "reactions/create-for-issue",
       "summary": "",
-      "user": "user123",
-      "ideal": "Add a reaction to a specific issue."
+      "user": "user456",
+      "ideal": "Create a new reaction for a specific issue in a repository."
     },
     {
-      "path": "/repos/my-repo/issues/1/reactions/12345",
+      "path": "/repos/my-user/my-repo/issues/1/reactions/456",
       "method": "DELETE",
       "operationId": "reactions/delete-for-issue",
       "summary": "",
-      "user": "user123",
-      "ideal": "Remove a specific reaction from an issue."
+      "user": "user456",
+      "ideal": "Delete a specific reaction from an issue in a repository."
     },
     {
-      "path": "/repos/my-repo/pulls/comments/2/reactions",
-      "method": "GET",
-      "operationId": "reactions/list-for-pull-request-review-comment",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve all reactions for a specific pull request review comment."
-    },
-    {
-      "path": "/repos/my-repo/pulls/comments/2/reactions",
-      "method": "POST",
-      "operationId": "reactions/create-for-pull-request-review-comment",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Add a reaction to a specific pull request review comment."
-    },
-    {
-      "path": "/repos/my-repo/pulls/comments/2/reactions/12345",
-      "method": "DELETE",
-      "operationId": "reactions/delete-for-pull-request-comment",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Remove a specific reaction from a pull request review comment."
-    },
-    {
-      "path": "/repos/my-repo/releases/1/reactions",
+      "path": "/repos/my-user/my-repo/releases/1/reactions",
       "method": "GET",
       "operationId": "reactions/list-for-release",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve all reactions for a specific release."
+      "user": "user789",
+      "ideal": "List all reactions for a specific release in a repository."
     },
     {
-      "path": "/repos/my-repo/releases/1/reactions",
+      "path": "/repos/my-user/my-repo/releases/1/reactions",
       "method": "POST",
       "operationId": "reactions/create-for-release",
       "summary": "",
-      "user": "user123",
-      "ideal": "Add a reaction to a specific release."
+      "user": "user789",
+      "ideal": "Add a new reaction to a specific release in a repository."
     },
     {
-      "path": "/repos/my-repo/releases/1/reactions/12345",
+      "path": "/repos/my-user/my-repo/releases/1/reactions/789",
       "method": "DELETE",
       "operationId": "reactions/delete-for-release",
       "summary": "",
-      "user": "user123",
-      "ideal": "Remove a specific reaction from a release."
+      "user": "user789",
+      "ideal": "Remove a specific reaction from a release in a repository."
     },
     {
-      "path": "/teams/my-team/discussions/1/comments/2/reactions",
+      "path": "/teams/1/discussions/1/comments/1/reactions",
       "method": "GET",
       "operationId": "reactions/list-for-team-discussion-comment-legacy",
       "summary": "",
-      "user": "user123",
+      "user": "user101",
       "ideal": "Retrieve all reactions for a specific comment in a legacy team discussion."
     },
     {
-      "path": "/teams/my-team/discussions/1/comments/2/reactions",
+      "path": "/teams/1/discussions/1/comments/1/reactions",
       "method": "POST",
       "operationId": "reactions/create-for-team-discussion-comment-legacy",
       "summary": "",
-      "user": "user123",
-      "ideal": "Add a reaction to a specific comment in a legacy team discussion."
-    },
-    {
-      "path": "/teams/my-team/discussions/1/reactions",
-      "method": "GET",
-      "operationId": "reactions/list-for-team-discussion-legacy",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve all reactions for a specific legacy team discussion."
-    },
-    {
-      "path": "/teams/my-team/discussions/1/reactions",
-      "method": "POST",
-      "operationId": "reactions/create-for-team-discussion-legacy",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Add a reaction to a specific legacy team discussion."
+      "user": "user101",
+      "ideal": "Add a new reaction to a specific comment in a legacy team discussion."
     }
   ]
 }

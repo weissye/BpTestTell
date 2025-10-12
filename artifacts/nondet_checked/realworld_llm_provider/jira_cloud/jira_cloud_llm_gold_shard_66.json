@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "getProjectIssueSecurityScheme",
       "summary": "",
-      "user": "User with project management role wants to retrieve the issue security level scheme for project ABC123 to ensure proper access control.",
+      "user": "Project Manager accessing the issue security level scheme for project ABC123 to ensure proper access controls are in place.",
       "ideal": "Returns the issue security level scheme associated with the specified project."
     },
     {
@@ -13,24 +13,24 @@
       "method": "GET",
       "operationId": "getAssignedPermissionScheme",
       "summary": "",
-      "user": "A project administrator needs to check the permission scheme assigned to project ABC123 to verify user access rights.",
-      "ideal": "Provides the permission scheme currently assigned to the specified project."
+      "user": "Team Lead checking the assigned permission scheme for project ABC123 to verify user permissions.",
+      "ideal": "Retrieves the permission scheme currently assigned to the specified project."
     },
     {
       "path": "/rest/api/3/project/ABC123/permissionscheme",
       "method": "PUT",
       "operationId": "assignPermissionScheme",
       "summary": "",
-      "user": "A project manager wants to assign a new permission scheme to project ABC123 to update user permissions.",
-      "ideal": "Successfully assigns the specified permission scheme to the project."
+      "user": "Administrator updating the permission scheme for project ABC123 to align with new organizational policies.",
+      "ideal": "Updates the permission scheme for the specified project with the new scheme provided in the request."
     },
     {
       "path": "/rest/api/3/project/ABC123/securitylevel",
       "method": "GET",
       "operationId": "getSecurityLevelsForProject",
       "summary": "",
-      "user": "A security officer needs to retrieve the security levels for project ABC123 to ensure compliance with security policies.",
-      "ideal": "Returns a list of security levels defined for the specified project."
+      "user": "Security Officer reviewing the security levels for project ABC123 to ensure compliance with data protection regulations.",
+      "ideal": "Fetches the security levels defined for the specified project."
     }
   ]
 }

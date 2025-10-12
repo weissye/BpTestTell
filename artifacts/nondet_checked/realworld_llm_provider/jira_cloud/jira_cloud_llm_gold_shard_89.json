@@ -5,112 +5,112 @@
       "method": "POST",
       "operationId": "createWorkflowSchemeDraftFromParent",
       "summary": "",
-      "user": "admin",
-      "ideal": "Creates a draft workflow scheme based on the existing scheme with ID 123."
+      "user": "Admin user creating a draft workflow scheme from an existing parent scheme.",
+      "ideal": "Successfully creates a draft workflow scheme based on the specified parent workflow scheme."
     },
     {
       "path": "/rest/api/3/workflowscheme/123/draft",
       "method": "DELETE",
       "operationId": "deleteWorkflowSchemeDraft",
       "summary": "",
-      "user": "admin",
-      "ideal": "Deletes the draft workflow scheme associated with the workflow scheme ID 123."
+      "user": "Admin user deleting an existing draft workflow scheme.",
+      "ideal": "Successfully deletes the specified draft workflow scheme."
     },
     {
       "path": "/rest/api/3/workflowscheme/123/draft",
       "method": "GET",
       "operationId": "getWorkflowSchemeDraft",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieves the draft workflow scheme for the workflow scheme ID 123."
+      "user": "Admin user retrieving the details of a draft workflow scheme.",
+      "ideal": "Returns the details of the specified draft workflow scheme."
     },
     {
       "path": "/rest/api/3/workflowscheme/123/draft",
       "method": "PUT",
       "operationId": "updateWorkflowSchemeDraft",
       "summary": "",
-      "user": "admin",
-      "ideal": "Updates the draft workflow scheme for the workflow scheme ID 123 with new configurations."
+      "user": "Admin user updating the draft workflow scheme with new configurations.",
+      "ideal": "Successfully updates the specified draft workflow scheme with the provided details."
     },
     {
       "path": "/rest/api/3/workflowscheme/123/draft/default",
       "method": "DELETE",
       "operationId": "deleteDraftDefaultWorkflow",
       "summary": "",
-      "user": "admin",
-      "ideal": "Deletes the default workflow from the draft workflow scheme ID 123."
+      "user": "Admin user removing the default workflow from the draft scheme.",
+      "ideal": "Successfully deletes the default workflow from the draft workflow scheme."
     },
     {
       "path": "/rest/api/3/workflowscheme/123/draft/default",
       "method": "GET",
       "operationId": "getDraftDefaultWorkflow",
       "summary": "",
-      "user": "admin",
-      "ideal": "Fetches the default workflow from the draft workflow scheme ID 123."
+      "user": "Admin user checking the default workflow set in the draft scheme.",
+      "ideal": "Returns the default workflow associated with the draft workflow scheme."
     },
     {
       "path": "/rest/api/3/workflowscheme/123/draft/default",
       "method": "PUT",
       "operationId": "updateDraftDefaultWorkflow",
       "summary": "",
-      "user": "admin",
-      "ideal": "Updates the default workflow for the draft workflow scheme ID 123."
+      "user": "Admin user updating the default workflow for the draft scheme.",
+      "ideal": "Successfully updates the default workflow for the specified draft workflow scheme."
     },
     {
       "path": "/rest/api/3/workflowscheme/123/draft/issuetype/bug",
       "method": "DELETE",
       "operationId": "deleteWorkflowSchemeDraftIssueType",
       "summary": "",
-      "user": "admin",
-      "ideal": "Removes the issue type 'bug' from the draft workflow scheme ID 123."
+      "user": "Admin user removing the issue type 'bug' from the draft workflow scheme.",
+      "ideal": "Successfully deletes the specified issue type from the draft workflow scheme."
     },
     {
       "path": "/rest/api/3/workflowscheme/123/draft/issuetype/bug",
       "method": "GET",
       "operationId": "getWorkflowSchemeDraftIssueType",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieves the configuration for the issue type 'bug' in the draft workflow scheme ID 123."
+      "user": "Admin user retrieving details for the 'bug' issue type in the draft workflow scheme.",
+      "ideal": "Returns the details of the specified issue type in the draft workflow scheme."
     },
     {
       "path": "/rest/api/3/workflowscheme/123/draft/issuetype/bug",
       "method": "PUT",
       "operationId": "setWorkflowSchemeDraftIssueType",
       "summary": "",
-      "user": "admin",
-      "ideal": "Sets the issue type 'bug' for the draft workflow scheme ID 123 with new workflow mapping."
+      "user": "Admin user setting the 'bug' issue type in the draft workflow scheme.",
+      "ideal": "Successfully sets the specified issue type in the draft workflow scheme."
     },
     {
       "path": "/rest/api/3/workflowscheme/123/draft/publish",
       "method": "POST",
       "operationId": "publishDraftWorkflowScheme",
       "summary": "",
-      "user": "admin",
-      "ideal": "Publishes the draft workflow scheme ID 123, making it active."
+      "user": "Admin user publishing the draft workflow scheme to make it active.",
+      "ideal": "Successfully publishes the draft workflow scheme, making it the active scheme."
     },
     {
       "path": "/rest/api/3/workflowscheme/123/draft/workflow",
       "method": "DELETE",
       "operationId": "deleteDraftWorkflowMapping",
       "summary": "",
-      "user": "admin",
-      "ideal": "Deletes the workflow mapping from the draft workflow scheme ID 123."
+      "user": "Admin user removing a workflow mapping from the draft scheme.",
+      "ideal": "Successfully deletes the specified workflow mapping from the draft workflow scheme."
     },
     {
       "path": "/rest/api/3/workflowscheme/123/draft/workflow",
       "method": "GET",
       "operationId": "getDraftWorkflow",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieves the workflow mapping from the draft workflow scheme ID 123."
+      "user": "Admin user retrieving the workflow mapping details from the draft scheme.",
+      "ideal": "Returns the workflow mapping details associated with the draft workflow scheme."
     },
     {
       "path": "/rest/api/3/workflowscheme/123/draft/workflow",
       "method": "PUT",
       "operationId": "updateDraftWorkflowMapping",
       "summary": "",
-      "user": "admin",
-      "ideal": "Updates the workflow mapping for the draft workflow scheme ID 123."
+      "user": "Admin user updating the workflow mapping in the draft workflow scheme.",
+      "ideal": "Successfully updates the workflow mapping for the specified draft workflow scheme."
     }
   ]
 }

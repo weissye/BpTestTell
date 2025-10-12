@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/example-org/interaction-limits",
+      "method": "GET",
+      "operationId": "interactions/get-restrictions-for-org",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve the interaction limits set for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/interaction-limits",
+      "method": "PUT",
+      "operationId": "interactions/set-restrictions-for-org",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Set new interaction limits for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/interaction-limits",
+      "method": "DELETE",
+      "operationId": "interactions/remove-restrictions-for-org",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Remove all interaction limits for the organization 'example-org'."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/interaction-limits",
+      "method": "GET",
+      "operationId": "interactions/get-restrictions-for-repo",
+      "summary": "",
+      "user": "repo_owner",
+      "ideal": "Get the interaction limits for the repository 'example-repo' owned by 'example-owner'."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/interaction-limits",
+      "method": "PUT",
+      "operationId": "interactions/set-restrictions-for-repo",
+      "summary": "",
+      "user": "repo_owner",
+      "ideal": "Set interaction limits for the repository 'example-repo' owned by 'example-owner'."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/interaction-limits",
+      "method": "DELETE",
+      "operationId": "interactions/remove-restrictions-for-repo",
+      "summary": "",
+      "user": "repo_owner",
+      "ideal": "Remove interaction limits for the repository 'example-repo' owned by 'example-owner'."
+    },
+    {
+      "path": "/user/interaction-limits",
+      "method": "GET",
+      "operationId": "interactions/get-restrictions-for-authenticated-user",
+      "summary": "",
+      "user": "authenticated_user",
+      "ideal": "Fetch the interaction limits for the authenticated user."
+    },
+    {
+      "path": "/user/interaction-limits",
+      "method": "PUT",
+      "operationId": "interactions/set-restrictions-for-authenticated-user",
+      "summary": "",
+      "user": "authenticated_user",
+      "ideal": "Set interaction limits for the authenticated user."
+    },
+    {
+      "path": "/user/interaction-limits",
+      "method": "DELETE",
+      "operationId": "interactions/remove-restrictions-for-authenticated-user",
+      "summary": "",
+      "user": "authenticated_user",
+      "ideal": "Remove interaction limits for the authenticated user."
+    }
+  ]
+}

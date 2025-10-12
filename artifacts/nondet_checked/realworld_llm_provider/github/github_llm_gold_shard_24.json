@@ -14,7 +14,7 @@
       "operationId": "issues/list-comments",
       "summary": "",
       "user": "user456",
-      "ideal": "Get comments for issue number 42 in the Hello-World repository."
+      "ideal": "Get all comments for issue number 42 in the repository."
     },
     {
       "path": "/repos/octocat/Hello-World/issues/42/assignees",
@@ -22,7 +22,7 @@
       "operationId": "issues/list-assignees",
       "summary": "",
       "user": "user789",
-      "ideal": "List all assignees for issue number 42."
+      "ideal": "List all assignees for issue number 42 in the repository."
     },
     {
       "path": "/repos/octocat/Hello-World/issues/42",
@@ -30,7 +30,7 @@
       "operationId": "issues/get",
       "summary": "",
       "user": "user101",
-      "ideal": "Retrieve details of issue number 42."
+      "ideal": "Retrieve details of issue number 42 in the repository."
     },
     {
       "path": "/repos/octocat/Hello-World/issues",
@@ -38,7 +38,7 @@
       "operationId": "issues/create",
       "summary": "",
       "user": "user202",
-      "ideal": "Create a new issue in the Hello-World repository."
+      "ideal": "Create a new issue in the specified repository."
     },
     {
       "path": "/repos/octocat/Hello-World/issues/42/labels",
@@ -46,22 +46,14 @@
       "operationId": "issues/add-labels",
       "summary": "",
       "user": "user303",
-      "ideal": "Add labels to issue number 42."
-    },
-    {
-      "path": "/repos/octocat/Hello-World/issues/42/assignees/user456",
-      "method": "POST",
-      "operationId": "issues/add-assignees",
-      "summary": "",
-      "user": "user404",
-      "ideal": "Assign user456 to issue number 42."
+      "ideal": "Add labels to issue number 42 in the repository."
     },
     {
       "path": "/repos/octocat/Hello-World/issues/42/lock",
       "method": "PUT",
       "operationId": "issues/lock",
       "summary": "",
-      "user": "user505",
+      "user": "user404",
       "ideal": "Lock issue number 42 to prevent further comments."
     },
     {
@@ -69,16 +61,24 @@
       "method": "PATCH",
       "operationId": "issues/update-comment",
       "summary": "",
-      "user": "user606",
+      "user": "user505",
       "ideal": "Update comment with ID 1 on issue number 42."
     },
     {
-      "path": "/repos/octocat/Hello-World/issues/42",
-      "method": "PATCH",
-      "operationId": "issues/update",
+      "path": "/repos/octocat/Hello-World/issues/42/assignees/user456",
+      "method": "DELETE",
+      "operationId": "issues/remove-assignees",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Remove user456 from the assignees of issue number 42."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/milestones",
+      "method": "GET",
+      "operationId": "issues/list-milestones",
       "summary": "",
       "user": "user707",
-      "ideal": "Update the details of issue number 42."
+      "ideal": "Retrieve a list of milestones for the specified repository."
     }
   ]
 }

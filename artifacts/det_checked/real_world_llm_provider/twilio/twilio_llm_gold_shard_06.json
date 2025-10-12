@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/ADXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchIncomingPhoneNumberAssignedAddOn",
+      "summary": "",
+      "user": "As a developer, I want to retrieve the details of a specific assigned add-on for an incoming phone number to verify its configuration and status.",
+      "ideal": "The response should include the details of the assigned add-on, such as its SID, friendly name, and any associated settings."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/ADXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteIncomingPhoneNumberAssignedAddOn",
+      "summary": "",
+      "user": "As an administrator, I need to remove an assigned add-on from an incoming phone number to clean up unused resources and avoid unnecessary charges.",
+      "ideal": "The response should confirm the successful deletion of the assigned add-on with a status message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumberAssignedAddOn",
+      "summary": "",
+      "user": "As a product manager, I want to list all assigned add-ons for a specific incoming phone number to analyze which features are currently in use.",
+      "ideal": "The response should return an array of assigned add-ons, including their SIDs and names, allowing for easy review."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns.json",
+      "method": "POST",
+      "operationId": "CreateIncomingPhoneNumberAssignedAddOn",
+      "summary": "",
+      "user": "As a developer, I want to assign a new add-on to an incoming phone number to enhance its functionality and provide additional features to users.",
+      "ideal": "The response should include the details of the newly created assigned add-on, including its SID and any relevant configuration options."
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/client-scopes",
+      "method": "GET",
+      "tags": [
+        "Client Scopes"
+      ],
+      "summary": "",
+      "operationId": "getClientScopes"
+    },
+    {
+      "path": "/{realm}/client-scopes",
+      "method": "POST",
+      "tags": [
+        "Client Scopes"
+      ],
+      "summary": "",
+      "operationId": "postClientScopes"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}",
+      "method": "GET",
+      "tags": [
+        "Client Scopes"
+      ],
+      "summary": "",
+      "operationId": "getClientScope"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}",
+      "method": "PUT",
+      "tags": [
+        "Client Scopes"
+      ],
+      "summary": "",
+      "operationId": "putClientScope"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Client Scopes"
+      ],
+      "summary": "",
+      "operationId": "deleteClientScope"
+    },
+    {
+      "path": "/{realm}/client-templates",
+      "method": "GET",
+      "tags": [
+        "Client Scopes"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplates"
+    },
+    {
+      "path": "/{realm}/client-templates",
+      "method": "POST",
+      "tags": [
+        "Client Scopes"
+      ],
+      "summary": "",
+      "operationId": "postClientTemplates"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}",
+      "method": "GET",
+      "tags": [
+        "Client Scopes"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplate"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}",
+      "method": "PUT",
+      "tags": [
+        "Client Scopes"
+      ],
+      "summary": "",
+      "operationId": "putClientTemplate"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Client Scopes"
+      ],
+      "summary": "",
+      "operationId": "deleteClientTemplate"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/client-registration-policy/providers",
+      "method": "GET",
+      "operationId": "getProviders",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all client registration policy providers available in the specified realm."
+    }
+  ]
+}

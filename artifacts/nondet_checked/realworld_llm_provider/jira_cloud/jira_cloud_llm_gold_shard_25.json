@@ -5,120 +5,120 @@
       "method": "GET",
       "operationId": "getAllFieldConfigurations",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve all field configurations available in the Jira instance."
+      "user": "User requests to retrieve all field configurations to understand the current setup of fields in the Jira instance.",
+      "ideal": "A list of all field configurations with their respective IDs and names."
     },
     {
       "path": "/rest/api/3/fieldconfiguration",
       "method": "POST",
       "operationId": "createFieldConfiguration",
       "summary": "",
-      "user": "admin",
-      "ideal": "Create a new field configuration with specified settings."
+      "user": "User wants to create a new field configuration for a specific project to manage fields effectively.",
+      "ideal": "A confirmation of the new field configuration creation along with its ID and details."
     },
     {
       "path": "/rest/api/3/fieldconfiguration/{id}",
       "method": "DELETE",
       "operationId": "deleteFieldConfiguration",
       "summary": "",
-      "user": "admin",
-      "ideal": "Delete the field configuration identified by the specified ID."
+      "user": "User intends to delete an obsolete field configuration that is no longer in use.",
+      "ideal": "A success message confirming the deletion of the specified field configuration."
     },
     {
       "path": "/rest/api/3/fieldconfiguration/{id}",
       "method": "PUT",
       "operationId": "updateFieldConfiguration",
       "summary": "",
-      "user": "admin",
-      "ideal": "Update the field configuration with new settings for the specified ID."
+      "user": "User needs to update the name of an existing field configuration to reflect recent changes in the project.",
+      "ideal": "A confirmation of the updated field configuration with the new details."
     },
     {
       "path": "/rest/api/3/fieldconfiguration/{id}/fields",
       "method": "GET",
       "operationId": "getFieldConfigurationItems",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve all fields associated with the specified field configuration."
+      "user": "User is looking to retrieve all fields associated with a specific field configuration for review.",
+      "ideal": "A list of fields linked to the specified field configuration, including their IDs and names."
     },
     {
       "path": "/rest/api/3/fieldconfiguration/{id}/fields",
       "method": "PUT",
       "operationId": "updateFieldConfigurationItems",
       "summary": "",
-      "user": "admin",
-      "ideal": "Update the fields associated with the specified field configuration."
+      "user": "User wants to update the fields in a specific field configuration to add or remove fields as necessary.",
+      "ideal": "A confirmation of the updated field configuration items with the new list of fields."
     },
     {
       "path": "/rest/api/3/fieldconfigurationscheme",
       "method": "GET",
       "operationId": "getAllFieldConfigurationSchemes",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve all field configuration schemes available in the Jira instance."
+      "user": "User requests to see all field configuration schemes to manage how fields are displayed across projects.",
+      "ideal": "A list of all field configuration schemes with their IDs and names."
     },
     {
       "path": "/rest/api/3/fieldconfigurationscheme",
       "method": "POST",
       "operationId": "createFieldConfigurationScheme",
       "summary": "",
-      "user": "admin",
-      "ideal": "Create a new field configuration scheme with specified settings."
+      "user": "User wants to create a new field configuration scheme to apply specific field configurations to multiple projects.",
+      "ideal": "A confirmation of the new field configuration scheme creation along with its ID and details."
     },
     {
       "path": "/rest/api/3/fieldconfigurationscheme/mapping",
       "method": "GET",
       "operationId": "getFieldConfigurationSchemeMappings",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve mappings of field configuration schemes to their respective field configurations."
+      "user": "User is looking to retrieve the mappings of field configuration schemes to understand their application.",
+      "ideal": "A list of mappings between field configuration schemes and their respective projects."
     },
     {
       "path": "/rest/api/3/fieldconfigurationscheme/project",
       "method": "GET",
       "operationId": "getFieldConfigurationSchemeProjectMapping",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve the project mapping for field configuration schemes."
+      "user": "User wants to see which field configuration scheme is assigned to a specific project.",
+      "ideal": "Details of the field configuration scheme currently assigned to the specified project."
     },
     {
       "path": "/rest/api/3/fieldconfigurationscheme/project",
       "method": "PUT",
       "operationId": "assignFieldConfigurationSchemeToProject",
       "summary": "",
-      "user": "admin",
-      "ideal": "Assign a field configuration scheme to a specific project."
+      "user": "User intends to assign a specific field configuration scheme to a project to ensure proper field management.",
+      "ideal": "A confirmation that the field configuration scheme has been successfully assigned to the project."
     },
     {
       "path": "/rest/api/3/fieldconfigurationscheme/{id}",
       "method": "DELETE",
       "operationId": "deleteFieldConfigurationScheme",
       "summary": "",
-      "user": "admin",
-      "ideal": "Delete the field configuration scheme identified by the specified ID."
+      "user": "User wants to delete a field configuration scheme that is no longer needed.",
+      "ideal": "A success message confirming the deletion of the specified field configuration scheme."
     },
     {
       "path": "/rest/api/3/fieldconfigurationscheme/{id}",
       "method": "PUT",
       "operationId": "updateFieldConfigurationScheme",
       "summary": "",
-      "user": "admin",
-      "ideal": "Update the field configuration scheme with new settings for the specified ID."
+      "user": "User needs to update the details of a field configuration scheme to reflect recent changes.",
+      "ideal": "A confirmation of the updated field configuration scheme with the new details."
     },
     {
       "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping",
       "method": "PUT",
       "operationId": "setFieldConfigurationSchemeMapping",
       "summary": "",
-      "user": "admin",
-      "ideal": "Set the mapping for the specified field configuration scheme."
+      "user": "User wants to set or update the mapping of issue types to a field configuration scheme.",
+      "ideal": "A confirmation that the mapping has been successfully updated."
     },
     {
       "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping/delete",
       "method": "POST",
       "operationId": "removeIssueTypesFromGlobalFieldConfigurationScheme",
       "summary": "",
-      "user": "admin",
-      "ideal": "Remove specified issue types from the global field configuration scheme."
+      "user": "User intends to remove specific issue types from a global field configuration scheme.",
+      "ideal": "A confirmation that the specified issue types have been successfully removed from the scheme."
     }
   ]
 }

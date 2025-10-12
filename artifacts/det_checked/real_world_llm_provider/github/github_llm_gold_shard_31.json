@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/my-org/packages",
+      "method": "GET",
+      "operationId": "packages/list-packages-for-organization",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all packages for the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/packages/npm/my-package",
+      "method": "GET",
+      "operationId": "packages/get-package-for-organization",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get details of the package 'my-package' of type 'npm' for the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/packages/npm/my-package",
+      "method": "DELETE",
+      "operationId": "packages/delete-package-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete the package 'my-package' of type 'npm' from the organization 'my-org'."
+    },
+    {
+      "path": "/user/packages",
+      "method": "GET",
+      "operationId": "packages/list-packages-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all packages owned by the authenticated user."
+    },
+    {
+      "path": "/user/packages/npm/my-package",
+      "method": "GET",
+      "operationId": "packages/get-package-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve details of the package 'my-package' of type 'npm' for the authenticated user."
+    },
+    {
+      "path": "/users/another-user/packages",
+      "method": "GET",
+      "operationId": "packages/list-packages-for-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get a list of all packages for the user 'another-user'."
+    },
+    {
+      "path": "/users/another-user/packages/docker/my-docker-image",
+      "method": "DELETE",
+      "operationId": "packages/delete-package-for-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete the Docker package 'my-docker-image' for the user 'another-user'."
+    },
+    {
+      "path": "/orgs/my-org/packages/npm/my-package/versions",
+      "method": "GET",
+      "operationId": "packages/get-all-package-versions-for-package-owned-by-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all versions of the package 'my-package' of type 'npm' for the organization 'my-org'."
+    },
+    {
+      "path": "/users/another-user/packages/npm/my-package/versions/1.0.0",
+      "method": "GET",
+      "operationId": "packages/get-package-version-for-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve details of version '1.0.0' of the package 'my-package' for user 'another-user'."
+    },
+    {
+      "path": "/user/packages/npm/my-package/versions/1.0.0",
+      "method": "DELETE",
+      "operationId": "packages/delete-package-version-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete version '1.0.0' of the package 'my-package' for the authenticated user."
+    }
+  ]
+}

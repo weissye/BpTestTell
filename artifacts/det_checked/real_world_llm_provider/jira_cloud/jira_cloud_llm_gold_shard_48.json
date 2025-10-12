@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/jql/autocompletedata",
+      "method": "GET",
+      "operationId": "getAutoComplete",
+      "summary": "",
+      "user": "User wants to retrieve autocomplete suggestions for JQL queries to enhance their search experience in Jira.",
+      "ideal": "The API should return a list of possible JQL keywords and fields based on the user's input."
+    },
+    {
+      "path": "/rest/api/3/jql/autocompletedata",
+      "method": "POST",
+      "operationId": "getAutoCompletePost",
+      "summary": "",
+      "user": "User submits a JQL query string to get autocomplete suggestions for fields and values.",
+      "ideal": "The API should return relevant autocomplete suggestions based on the provided JQL query."
+    },
+    {
+      "path": "/rest/api/3/jql/autocompletedata/suggestions",
+      "method": "GET",
+      "operationId": "getFieldAutoCompleteForQueryString",
+      "summary": "",
+      "user": "User is looking for specific field suggestions to complete their JQL query.",
+      "ideal": "The API should return a list of field suggestions that match the user's query string."
+    },
+    {
+      "path": "/rest/api/3/jql/parse",
+      "method": "POST",
+      "operationId": "parseJqlQueries",
+      "summary": "",
+      "user": "User wants to parse a complex JQL query to understand its structure and components.",
+      "ideal": "The API should return a structured representation of the parsed JQL query."
+    },
+    {
+      "path": "/rest/api/3/jql/pdcleaner",
+      "method": "POST",
+      "operationId": "migrateQueries",
+      "summary": "",
+      "user": "User needs to migrate legacy JQL queries to the new format supported by Jira.",
+      "ideal": "The API should return the migrated queries in the new format without losing any information."
+    },
+    {
+      "path": "/rest/api/3/jql/sanitize",
+      "method": "POST",
+      "operationId": "sanitiseJqlQueries",
+      "summary": "",
+      "user": "User wants to sanitize their JQL queries to ensure they are safe and free from errors.",
+      "ideal": "The API should return sanitized JQL queries that are safe to execute."
+    }
+  ]
+}

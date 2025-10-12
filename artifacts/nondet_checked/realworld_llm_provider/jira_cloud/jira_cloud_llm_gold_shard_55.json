@@ -5,72 +5,72 @@
       "method": "GET",
       "operationId": "getAllPermissionSchemes",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve a list of all permission schemes available in the Jira instance."
+      "user": "Admin user fetching all permission schemes to review current access levels.",
+      "ideal": "Returns a list of all permission schemes available in the Jira instance."
     },
     {
       "path": "/rest/api/3/permissionscheme",
       "method": "POST",
       "operationId": "createPermissionScheme",
       "summary": "",
-      "user": "admin",
-      "ideal": "Create a new permission scheme with specified permissions and settings."
+      "user": "Project manager creating a new permission scheme for a new project.",
+      "ideal": "Creates a new permission scheme and returns the details of the created scheme."
     },
     {
       "path": "/rest/api/3/permissionscheme/{schemeId}",
       "method": "DELETE",
       "operationId": "deletePermissionScheme",
       "summary": "",
-      "user": "admin",
-      "ideal": "Delete the specified permission scheme by its ID."
+      "user": "Admin user deleting an outdated permission scheme that is no longer in use.",
+      "ideal": "Deletes the specified permission scheme and returns a success message."
     },
     {
       "path": "/rest/api/3/permissionscheme/{schemeId}",
       "method": "GET",
       "operationId": "getPermissionScheme",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve details of a specific permission scheme using its ID."
+      "user": "User looking to retrieve details of a specific permission scheme for auditing.",
+      "ideal": "Returns the details of the specified permission scheme."
     },
     {
       "path": "/rest/api/3/permissionscheme/{schemeId}",
       "method": "PUT",
       "operationId": "updatePermissionScheme",
       "summary": "",
-      "user": "admin",
-      "ideal": "Update the details of an existing permission scheme."
+      "user": "Admin updating an existing permission scheme to adjust access levels.",
+      "ideal": "Updates the specified permission scheme and returns the updated details."
     },
     {
       "path": "/rest/api/3/permissionscheme/{schemeId}/permission",
       "method": "GET",
       "operationId": "getPermissionSchemeGrants",
       "summary": "",
-      "user": "admin",
-      "ideal": "Get all permission grants associated with a specific permission scheme."
+      "user": "User checking the permissions granted by a specific permission scheme.",
+      "ideal": "Returns a list of permissions granted by the specified permission scheme."
     },
     {
       "path": "/rest/api/3/permissionscheme/{schemeId}/permission",
       "method": "POST",
       "operationId": "createPermissionGrant",
       "summary": "",
-      "user": "admin",
-      "ideal": "Add a new permission grant to the specified permission scheme."
+      "user": "Admin adding a new permission grant to an existing permission scheme.",
+      "ideal": "Creates a new permission grant for the specified permission scheme and returns the details."
     },
     {
       "path": "/rest/api/3/permissionscheme/{schemeId}/permission/{permissionId}",
       "method": "DELETE",
       "operationId": "deletePermissionSchemeEntity",
       "summary": "",
-      "user": "admin",
-      "ideal": "Remove a specific permission grant from the permission scheme."
+      "user": "Admin removing a specific permission grant that is no longer needed.",
+      "ideal": "Deletes the specified permission grant and returns a success message."
     },
     {
       "path": "/rest/api/3/permissionscheme/{schemeId}/permission/{permissionId}",
       "method": "GET",
       "operationId": "getPermissionSchemeGrant",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve details of a specific permission grant within a permission scheme."
+      "user": "User retrieving details of a specific permission grant for review.",
+      "ideal": "Returns the details of the specified permission grant."
     }
   ]
 }

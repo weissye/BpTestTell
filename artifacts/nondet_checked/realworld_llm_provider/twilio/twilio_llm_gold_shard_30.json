@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumber",
+      "summary": "",
+      "user": "A user wants to retrieve a list of all incoming phone numbers associated with their Twilio account to manage their communication channels effectively.",
+      "ideal": "The API should return a paginated list of incoming phone numbers, including details such as SID, friendly name, phone number, and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchIncomingPhoneNumber",
+      "summary": "",
+      "user": "A user needs to fetch the details of a specific incoming phone number to verify its configuration and usage.",
+      "ideal": "The API should return the details of the specified incoming phone number, including its SID, friendly name, and any associated settings."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateIncomingPhoneNumber",
+      "summary": "",
+      "user": "A user wants to update the friendly name of an incoming phone number to better reflect its purpose in their application.",
+      "ideal": "The API should successfully update the incoming phone number and return the updated details, confirming the changes made."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteIncomingPhoneNumber",
+      "summary": "",
+      "user": "A user decides to delete an unused incoming phone number to reduce costs and streamline their account.",
+      "ideal": "The API should confirm the deletion of the incoming phone number and return a success message indicating that the operation was completed."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "method": "POST",
+      "operationId": "CreateIncomingPhoneNumber",
+      "summary": "",
+      "user": "A user wants to create a new incoming phone number for their business to handle customer inquiries more effectively.",
+      "ideal": "The API should create the incoming phone number and return the details of the newly created number, including its SID and status."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/indexes/myIndex/search",
+      "method": "GET",
+      "operationId": "indexes.documents.searchGet",
+      "summary": "",
+      "user": "A user wants to retrieve documents from the 'myIndex' index based on a specific query. They are looking for documents that contain the keyword 'AI' in their content.",
+      "ideal": "The API should return a list of documents that match the search criteria, including relevant metadata such as document IDs and scores."
+    },
+    {
+      "path": "/indexes/myIndex/search",
+      "method": "POST",
+      "operationId": "indexes.documents.search",
+      "summary": "",
+      "user": "A developer is implementing a search feature in their application. They need to send a POST request to the 'myIndex' index with a search query to retrieve documents that match the user's input.",
+      "ideal": "The API should process the search query and return a JSON response containing the matching documents along with their attributes."
+    },
+    {
+      "path": "/indexes/myIndex/facet-search",
+      "method": "POST",
+      "operationId": "indexes.documents.facet.search",
+      "summary": "",
+      "user": "An e-commerce platform wants to allow users to filter products by categories and price ranges. They send a POST request to the 'myIndex' index to perform a facet search.",
+      "ideal": "The API should return the filtered results based on the specified facets, including counts for each facet value."
+    },
+    {
+      "path": "/multi-search",
+      "method": "POST",
+      "operationId": "multi_search",
+      "summary": "",
+      "user": "A data analyst needs to perform multiple searches across different indexes simultaneously to gather insights. They send a POST request to the multi-search endpoint with their queries.",
+      "ideal": "The API should return a consolidated response containing the results of each search query, allowing the analyst to compare data across indexes."
+    }
+  ]
+}

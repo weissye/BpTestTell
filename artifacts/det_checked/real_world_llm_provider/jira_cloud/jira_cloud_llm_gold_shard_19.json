@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/field/association",
+      "method": "DELETE",
+      "operationId": "removeAssociations",
+      "summary": "",
+      "user": "Project Manager removing a custom field association from a specific issue type to streamline the workflow.",
+      "ideal": "Successfully removed the association of the custom field from the specified issue type."
+    },
+    {
+      "path": "/rest/api/3/field/association",
+      "method": "PUT",
+      "operationId": "createAssociations",
+      "summary": "",
+      "user": "System Administrator creating a new association between a custom field and an issue type to ensure that the field appears in the relevant screens.",
+      "ideal": "Successfully created the association of the custom field with the specified issue type."
+    }
+  ]
+}

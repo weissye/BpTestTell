@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberCountry",
+      "summary": "",
+      "user": "User wants to retrieve a list of available phone numbers across all countries for their Twilio account to explore options for purchasing new numbers.",
+      "ideal": "The API should return a JSON object containing an array of available phone numbers, including details such as area codes, types, and capabilities."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json",
+      "method": "GET",
+      "operationId": "FetchAvailablePhoneNumberCountry",
+      "summary": "",
+      "user": "User is interested in fetching available phone numbers specifically for the United States to assess options for local presence.",
+      "ideal": "The API should return a JSON object with a list of available phone numbers in the specified country, including relevant details like number type and capabilities."
+    }
+  ]
+}

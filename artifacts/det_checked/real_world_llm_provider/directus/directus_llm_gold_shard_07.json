@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/fields",
+      "method": "GET",
+      "operationId": "getFields",
+      "summary": "",
+      "user": "Admin user requesting all available fields in the system to review the schema.",
+      "ideal": "Returns a list of all fields with their metadata."
+    },
+    {
+      "path": "/fields/users",
+      "method": "GET",
+      "operationId": "getCollectionFields",
+      "summary": "",
+      "user": "Developer looking to fetch all fields for the 'users' collection to understand its structure.",
+      "ideal": "Returns a list of fields specific to the 'users' collection."
+    },
+    {
+      "path": "/fields/posts",
+      "method": "POST",
+      "operationId": "createField",
+      "summary": "",
+      "user": "Content manager creating a new field for the 'posts' collection to add a 'summary' field.",
+      "ideal": "Successfully creates a new field in the 'posts' collection and returns the created field's details."
+    },
+    {
+      "path": "/fields/posts/123",
+      "method": "GET",
+      "operationId": "getCollectionField",
+      "summary": "",
+      "user": "Developer retrieving details of a specific field with ID 123 in the 'posts' collection.",
+      "ideal": "Returns the details of the field with ID 123 in the 'posts' collection."
+    },
+    {
+      "path": "/fields/posts/123",
+      "method": "PATCH",
+      "operationId": "updateField",
+      "summary": "",
+      "user": "Admin updating the field with ID 123 in the 'posts' collection to change its type to 'text'.",
+      "ideal": "Successfully updates the field and returns the updated field's details."
+    },
+    {
+      "path": "/fields/posts/123",
+      "method": "DELETE",
+      "operationId": "deleteField",
+      "summary": "",
+      "user": "Admin deleting the field with ID 123 in the 'posts' collection as it is no longer needed.",
+      "ideal": "Successfully deletes the field and confirms the deletion."
+    }
+  ]
+}

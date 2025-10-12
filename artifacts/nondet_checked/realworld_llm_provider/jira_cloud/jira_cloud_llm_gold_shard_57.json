@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "getPlans",
       "summary": "",
-      "user": "Project Manager seeking to retrieve all existing plans for review.",
+      "user": "User requests to retrieve all plans to view their current project management status.",
       "ideal": "Returns a list of all plans with their details."
     },
     {
@@ -13,15 +13,15 @@
       "method": "POST",
       "operationId": "createPlan",
       "summary": "",
-      "user": "Team Lead creating a new plan for the upcoming sprint.",
-      "ideal": "Creates a new plan and returns the created plan's details."
+      "user": "User submits a request to create a new plan for an upcoming project.",
+      "ideal": "Successfully creates a new plan and returns the plan details."
     },
     {
       "path": "/rest/api/3/plans/plan/{planId}",
       "method": "GET",
       "operationId": "getPlan",
       "summary": "",
-      "user": "Developer looking to view details of a specific plan.",
+      "user": "User wants to fetch details of a specific plan to review its components.",
       "ideal": "Returns the details of the specified plan."
     },
     {
@@ -29,32 +29,32 @@
       "method": "PUT",
       "operationId": "updatePlan",
       "summary": "",
-      "user": "Scrum Master updating the plan to reflect new deadlines.",
-      "ideal": "Updates the specified plan and returns the updated plan's details."
+      "user": "User updates the existing plan to reflect changes in project scope.",
+      "ideal": "Successfully updates the plan and returns the updated plan details."
     },
     {
       "path": "/rest/api/3/plans/plan/{planId}/archive",
       "method": "PUT",
       "operationId": "archivePlan",
       "summary": "",
-      "user": "Project Manager archiving a completed plan.",
-      "ideal": "Archives the specified plan and confirms the action."
+      "user": "User archives a completed plan to keep the workspace organized.",
+      "ideal": "Successfully archives the plan and confirms the action."
     },
     {
       "path": "/rest/api/3/plans/plan/{planId}/duplicate",
       "method": "POST",
       "operationId": "duplicatePlan",
       "summary": "",
-      "user": "Team Lead duplicating a plan to create a similar one for another project.",
-      "ideal": "Duplicates the specified plan and returns the new plan's details."
+      "user": "User duplicates an existing plan to create a similar project setup.",
+      "ideal": "Successfully creates a duplicate of the plan and returns the new plan details."
     },
     {
       "path": "/rest/api/3/plans/plan/{planId}/trash",
       "method": "PUT",
       "operationId": "trashPlan",
       "summary": "",
-      "user": "Developer removing an outdated plan from the active list.",
-      "ideal": "Moves the specified plan to the trash and confirms the action."
+      "user": "User trashes a plan that is no longer needed to declutter the workspace.",
+      "ideal": "Successfully moves the plan to trash and confirms the action."
     }
   ]
 }

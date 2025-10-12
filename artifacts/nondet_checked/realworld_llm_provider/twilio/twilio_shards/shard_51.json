@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Participant"
+      ],
+      "summary": "Fetch an instance of a participant",
+      "operationId": "FetchParticipant"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Participant"
+      ],
+      "summary": "Update the properties of the participant",
+      "operationId": "UpdateParticipant"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Participant"
+      ],
+      "summary": "Kick a participant from a given conference",
+      "operationId": "DeleteParticipant"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Participant"
+      ],
+      "summary": "",
+      "operationId": "CreateParticipant"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Participant"
+      ],
+      "summary": "Retrieve a list of participants belonging to the account used to make the request",
+      "operationId": "ListParticipant"
+    }
+  ]
+}

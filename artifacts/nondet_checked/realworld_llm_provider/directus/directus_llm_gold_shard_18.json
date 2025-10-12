@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/schema/snapshot",
+      "method": "GET",
+      "operationId": "schemaSnapshot",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the current schema snapshot of the database."
+    },
+    {
+      "path": "/schema/apply",
+      "method": "POST",
+      "operationId": "schemaApply",
+      "summary": "",
+      "user": "developer",
+      "ideal": "Apply the provided schema changes to the database."
+    },
+    {
+      "path": "/schema/diff",
+      "method": "POST",
+      "operationId": "schemaDiff",
+      "summary": "",
+      "user": "db_manager",
+      "ideal": "Get the differences between the current schema and the provided schema."
+    }
+  ]
+}

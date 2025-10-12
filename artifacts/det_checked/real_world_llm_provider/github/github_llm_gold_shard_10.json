@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/codes_of_conduct",
+      "method": "GET",
+      "operationId": "codes-of-conduct/get-all-codes-of-conduct",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all available codes of conduct from the GitHub API."
+    },
+    {
+      "path": "/codes_of_conduct/{key}",
+      "method": "GET",
+      "operationId": "codes-of-conduct/get-conduct-code",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Fetch the specific code of conduct associated with the provided key."
+    }
+  ]
+}

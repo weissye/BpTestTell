@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/server/info",
+      "method": "GET",
+      "tags": [
+        "Server"
+      ],
+      "summary": "System Info",
+      "operationId": "serverInfo"
+    },
+    {
+      "path": "/server/ping",
+      "method": "GET",
+      "tags": [
+        "Server"
+      ],
+      "summary": "Ping",
+      "operationId": "ping"
+    }
+  ]
+}

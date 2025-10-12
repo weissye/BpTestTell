@@ -1,0 +1,135 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/users",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "List Users",
+      "operationId": "getUsers"
+    },
+    {
+      "path": "/users",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Create a User",
+      "operationId": "createUser"
+    },
+    {
+      "path": "/users",
+      "method": "PATCH",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Update Multiple Users",
+      "operationId": "updateUsers"
+    },
+    {
+      "path": "/users",
+      "method": "DELETE",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Delete Multiple Users",
+      "operationId": "deleteUsers"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Retrieve a User",
+      "operationId": "getUser"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Update a User",
+      "operationId": "updateUser"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Delete a User",
+      "operationId": "deleteUser"
+    },
+    {
+      "path": "/users/invite",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Invite User(s)",
+      "operationId": "invite"
+    },
+    {
+      "path": "/users/invite/accept",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Accept User Invite",
+      "operationId": "acceptInvite"
+    },
+    {
+      "path": "/users/me",
+      "method": "GET",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Retrieve Current User",
+      "operationId": "getMe"
+    },
+    {
+      "path": "/users/me",
+      "method": "PATCH",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Update Current User",
+      "operationId": "updateMe"
+    },
+    {
+      "path": "/users/me/track/page",
+      "method": "PATCH",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Update Last Page",
+      "operationId": "updateLastUsedPageMe"
+    },
+    {
+      "path": "/users/me/tfa/enable",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Enable 2FA",
+      "operationId": "meTfaEnable"
+    },
+    {
+      "path": "/users/me/tfa/disable",
+      "method": "POST",
+      "tags": [
+        "Users"
+      ],
+      "summary": "Disable 2FA",
+      "operationId": "meTfaDisable"
+    }
+  ]
+}

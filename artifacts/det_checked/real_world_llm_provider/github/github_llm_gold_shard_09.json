@@ -1,0 +1,164 @@
+{
+  "gold": [
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations",
+      "method": "GET",
+      "operationId": "code-security/get-configurations-for-enterprise",
+      "summary": "",
+      "user": "Retrieve all code security configurations for the specified enterprise.",
+      "ideal": "A list of configurations with their details."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations",
+      "method": "POST",
+      "operationId": "code-security/create-configuration-for-enterprise",
+      "summary": "",
+      "user": "Create a new code security configuration for the enterprise.",
+      "ideal": "Confirmation of configuration creation with its details."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/defaults",
+      "method": "GET",
+      "operationId": "code-security/get-default-configurations-for-enterprise",
+      "summary": "",
+      "user": "Fetch the default code security configurations for the enterprise.",
+      "ideal": "A list of default configurations."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345",
+      "method": "GET",
+      "operationId": "code-security/get-single-configuration-for-enterprise",
+      "summary": "",
+      "user": "Get details of a specific code security configuration by ID.",
+      "ideal": "Detailed information about the specified configuration."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345",
+      "method": "PATCH",
+      "operationId": "code-security/update-enterprise-configuration",
+      "summary": "",
+      "user": "Update an existing code security configuration for the enterprise.",
+      "ideal": "Confirmation of successful update with updated details."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345",
+      "method": "DELETE",
+      "operationId": "code-security/delete-configuration-for-enterprise",
+      "summary": "",
+      "user": "Delete a specific code security configuration by ID.",
+      "ideal": "Confirmation of successful deletion."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345/attach",
+      "method": "POST",
+      "operationId": "code-security/attach-enterprise-configuration",
+      "summary": "",
+      "user": "Attach a configuration to the enterprise.",
+      "ideal": "Confirmation of successful attachment."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345/defaults",
+      "method": "PUT",
+      "operationId": "code-security/set-configuration-as-default-for-enterprise",
+      "summary": "",
+      "user": "Set a specific configuration as the default for the enterprise.",
+      "ideal": "Confirmation of successful default setting."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345/repositories",
+      "method": "GET",
+      "operationId": "code-security/get-repositories-for-enterprise-configuration",
+      "summary": "",
+      "user": "List all repositories associated with a specific configuration.",
+      "ideal": "A list of repositories linked to the configuration."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations",
+      "method": "GET",
+      "operationId": "code-security/get-configurations-for-org",
+      "summary": "",
+      "user": "Retrieve all code security configurations for the specified organization.",
+      "ideal": "A list of configurations with their details."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations",
+      "method": "POST",
+      "operationId": "code-security/create-configuration",
+      "summary": "",
+      "user": "Create a new code security configuration for the organization.",
+      "ideal": "Confirmation of configuration creation with its details."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/defaults",
+      "method": "GET",
+      "operationId": "code-security/get-default-configurations",
+      "summary": "",
+      "user": "Fetch the default code security configurations for the organization.",
+      "ideal": "A list of default configurations."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/detach",
+      "method": "DELETE",
+      "operationId": "code-security/detach-configuration",
+      "summary": "",
+      "user": "Detach a configuration from the organization.",
+      "ideal": "Confirmation of successful detachment."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345",
+      "method": "GET",
+      "operationId": "code-security/get-configuration",
+      "summary": "",
+      "user": "Get details of a specific code security configuration by ID.",
+      "ideal": "Detailed information about the specified configuration."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345",
+      "method": "PATCH",
+      "operationId": "code-security/update-configuration",
+      "summary": "",
+      "user": "Update an existing code security configuration for the organization.",
+      "ideal": "Confirmation of successful update with updated details."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345",
+      "method": "DELETE",
+      "operationId": "code-security/delete-configuration",
+      "summary": "",
+      "user": "Delete a specific code security configuration by ID.",
+      "ideal": "Confirmation of successful deletion."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345/attach",
+      "method": "POST",
+      "operationId": "code-security/attach-configuration",
+      "summary": "",
+      "user": "Attach a configuration to the organization.",
+      "ideal": "Confirmation of successful attachment."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345/defaults",
+      "method": "PUT",
+      "operationId": "code-security/set-configuration-as-default",
+      "summary": "",
+      "user": "Set a specific configuration as the default for the organization.",
+      "ideal": "Confirmation of successful default setting."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345/repositories",
+      "method": "GET",
+      "operationId": "code-security/get-repositories-for-configuration",
+      "summary": "",
+      "user": "List all repositories associated with a specific configuration.",
+      "ideal": "A list of repositories linked to the configuration."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/code-security-configuration",
+      "method": "GET",
+      "operationId": "code-security/get-configuration-for-repository",
+      "summary": "",
+      "user": "Get the code security configuration for a specific repository.",
+      "ideal": "Detailed information about the repository's security configuration."
+    }
+  ]
+}

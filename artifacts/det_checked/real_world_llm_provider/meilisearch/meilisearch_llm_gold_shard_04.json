@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/indexes/myIndex/facet-search",
+      "method": "POST",
+      "operationId": "indexes.documents.facet.search",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Search for facets in the 'myIndex' index using specific criteria."
+    }
+  ]
+}

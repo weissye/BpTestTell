@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401AssignedAddOnExtension"
+      ],
+      "summary": "Fetch an instance of an Extension for the Assigned Add-on.",
+      "operationId": "FetchIncomingPhoneNumberAssignedAddOnExtension"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401AssignedAddOnExtension"
+      ],
+      "summary": "Retrieve a list of Extensions for the Assigned Add-on.",
+      "operationId": "ListIncomingPhoneNumberAssignedAddOnExtension"
+    }
+  ]
+}

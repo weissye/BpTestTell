@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Mobile.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberMobile",
+      "summary": "",
+      "user": "A small business owner looking to expand their services in the US and needs to find available mobile phone numbers for their new marketing campaign.",
+      "ideal": "Returns a list of available mobile phone numbers in the specified country (US) for the given account."
+    }
+  ]
+}

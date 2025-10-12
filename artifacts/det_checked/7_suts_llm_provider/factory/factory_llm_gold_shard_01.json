@@ -6,15 +6,47 @@
       "operationId": "resetFactory",
       "summary": "",
       "user": "admin",
-      "ideal": "Resets the factory state, clearing all work orders and maintenance tickets."
+      "ideal": "Resets the factory state to initial configuration."
+    },
+    {
+      "path": "/machines",
+      "method": "GET",
+      "operationId": "getMachines",
+      "summary": "",
+      "user": "operator",
+      "ideal": "Retrieves a list of all machines in the factory."
+    },
+    {
+      "path": "/machines",
+      "method": "POST",
+      "operationId": "addMachine",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Adds a new machine to the factory."
     },
     {
       "path": "/workorders",
       "method": "GET",
       "operationId": "getWorkOrders",
       "summary": "",
-      "user": "operator",
-      "ideal": "Retrieves a list of all current work orders in the system."
+      "user": "manager",
+      "ideal": "Fetches all active work orders in the system."
+    },
+    {
+      "path": "/workorders",
+      "method": "POST",
+      "operationId": "createWorkOrder",
+      "summary": "",
+      "user": "manager",
+      "ideal": "Creates a new work order for production."
+    },
+    {
+      "path": "/maintenance-tickets",
+      "method": "GET",
+      "operationId": "getMaintenanceTickets",
+      "summary": "",
+      "user": "technician",
+      "ideal": "Lists all maintenance tickets for review."
     },
     {
       "path": "/maintenance-tickets",
@@ -22,7 +54,23 @@
       "operationId": "createMaintenanceTicket",
       "summary": "",
       "user": "technician",
-      "ideal": "Creates a new maintenance ticket for equipment that requires servicing."
+      "ideal": "Submits a new maintenance ticket for a machine."
+    },
+    {
+      "path": "/sensor-readings",
+      "method": "GET",
+      "operationId": "getSensorReadings",
+      "summary": "",
+      "user": "operator",
+      "ideal": "Retrieves the latest sensor readings from machines."
+    },
+    {
+      "path": "/sensor-readings",
+      "method": "POST",
+      "operationId": "submitSensorReading",
+      "summary": "",
+      "user": "operator",
+      "ideal": "Submits a new sensor reading for a machine."
     }
   ]
 }

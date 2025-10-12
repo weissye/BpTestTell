@@ -5,47 +5,47 @@
       "method": "GET",
       "operationId": "getAllIssueFieldOptions",
       "summary": "",
-      "user": "User A wants to retrieve all options for a custom field to understand what values can be assigned to issues.",
-      "ideal": "Returns a list of all options for the specified custom field."
+      "user": "User requests all options for a custom field to display in a dropdown.",
+      "ideal": "Returns a list of all options for the specified field."
     },
     {
       "path": "/rest/api/3/field/customfield_10001/option",
       "method": "POST",
       "operationId": "createIssueFieldOption",
       "summary": "",
-      "user": "User B needs to add a new option to a custom field for better categorization of issues.",
-      "ideal": "Creates a new option for the specified custom field and returns the created option details."
+      "user": "User wants to add a new option to a custom field for better categorization.",
+      "ideal": "Creates a new option for the specified field and returns the created option details."
     },
     {
       "path": "/rest/api/3/field/customfield_10001/option/suggestions/edit",
       "method": "GET",
       "operationId": "getSelectableIssueFieldOptions",
       "summary": "",
-      "user": "User C is looking for options that can be selected when editing an issue to ensure they are using valid values.",
-      "ideal": "Returns a list of selectable options for the specified custom field."
+      "user": "User is looking for options to edit in a custom field dropdown.",
+      "ideal": "Returns a list of selectable options for editing in the specified field."
     },
     {
       "path": "/rest/api/3/field/customfield_10001/option/suggestions/search",
       "method": "GET",
       "operationId": "getVisibleIssueFieldOptions",
       "summary": "",
-      "user": "User D wants to search for specific options in a custom field to quickly find the right value for an issue.",
-      "ideal": "Returns a list of visible options based on the search criteria for the specified custom field."
+      "user": "User searches for specific options in a custom field to find relevant choices.",
+      "ideal": "Returns a filtered list of visible options based on the search criteria."
     },
     {
       "path": "/rest/api/3/field/customfield_10001/option/12345",
       "method": "DELETE",
       "operationId": "deleteIssueFieldOption",
       "summary": "",
-      "user": "User E needs to remove an outdated option from a custom field to prevent confusion among users.",
-      "ideal": "Deletes the specified option from the custom field and confirms the deletion."
+      "user": "User wants to remove an obsolete option from a custom field.",
+      "ideal": "Deletes the specified option and confirms the deletion."
     },
     {
       "path": "/rest/api/3/field/customfield_10001/option/12345",
       "method": "GET",
       "operationId": "getIssueFieldOption",
       "summary": "",
-      "user": "User F wants to view the details of a specific option in a custom field to verify its attributes.",
+      "user": "User needs details about a specific option in a custom field.",
       "ideal": "Returns the details of the specified option for the custom field."
     },
     {
@@ -53,16 +53,16 @@
       "method": "PUT",
       "operationId": "updateIssueFieldOption",
       "summary": "",
-      "user": "User G needs to update the name of an existing option in a custom field to reflect recent changes.",
-      "ideal": "Updates the specified option for the custom field and returns the updated option details."
+      "user": "User wants to update the label of an existing option in a custom field.",
+      "ideal": "Updates the specified option and returns the updated option details."
     },
     {
       "path": "/rest/api/3/field/customfield_10001/option/12345/issue",
       "method": "DELETE",
       "operationId": "replaceIssueFieldOption",
       "summary": "",
-      "user": "User H wants to replace an option in a custom field with a new one to maintain data integrity.",
-      "ideal": "Replaces the specified option in the custom field with a new option and confirms the replacement."
+      "user": "User needs to replace an option in a custom field that is linked to existing issues.",
+      "ideal": "Replaces the specified option with a new one and updates all linked issues accordingly."
     }
   ]
 }

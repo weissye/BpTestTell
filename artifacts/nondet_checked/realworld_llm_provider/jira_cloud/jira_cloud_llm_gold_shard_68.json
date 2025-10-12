@@ -5,7 +5,7 @@
       "method": "DELETE",
       "operationId": "deleteActor",
       "summary": "",
-      "user": "admin_user",
+      "user": "adminUser",
       "ideal": "Successfully removed the actor from the specified project role."
     },
     {
@@ -13,7 +13,7 @@
       "method": "POST",
       "operationId": "addActorUsers",
       "summary": "",
-      "user": "project_manager",
+      "user": "projectManager",
       "ideal": "Successfully added users to the specified project role."
     },
     {
@@ -21,7 +21,7 @@
       "method": "PUT",
       "operationId": "setActors",
       "summary": "",
-      "user": "team_lead",
+      "user": "teamLead",
       "ideal": "Successfully updated the actors for the specified project role."
     },
     {
@@ -29,24 +29,24 @@
       "method": "DELETE",
       "operationId": "deleteProjectRoleActorsFromRole",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Successfully deleted actors from the specified project role."
+      "user": "adminUser",
+      "ideal": "Successfully deleted actors from the specified role."
     },
     {
       "path": "/rest/api/3/role/{id}/actors",
       "method": "GET",
       "operationId": "getProjectRoleActorsForRole",
       "summary": "",
-      "user": "project_viewer",
-      "ideal": "Successfully retrieved the list of actors for the specified project role."
+      "user": "projectManager",
+      "ideal": "Successfully retrieved the list of actors for the specified role."
     },
     {
       "path": "/rest/api/3/role/{id}/actors",
       "method": "POST",
       "operationId": "addProjectRoleActorsToRole",
       "summary": "",
-      "user": "project_manager",
-      "ideal": "Successfully added actors to the specified project role."
+      "user": "teamLead",
+      "ideal": "Successfully added actors to the specified role."
     }
   ]
 }

@@ -14,7 +14,7 @@
       "operationId": "postUsers",
       "summary": "",
       "user": "admin",
-      "ideal": "Create a new user in the specified realm."
+      "ideal": "Create a new user in the specified realm with the provided details."
     },
     {
       "path": "/myrealm/users/count",
@@ -46,7 +46,7 @@
       "operationId": "getUserByRealmById",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve user details by user ID."
+      "ideal": "Fetch details of the user with ID 12345 in the specified realm."
     },
     {
       "path": "/myrealm/users/12345",
@@ -54,7 +54,7 @@
       "operationId": "putUser",
       "summary": "",
       "user": "admin",
-      "ideal": "Update user details by user ID."
+      "ideal": "Update the user information for the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345",
@@ -62,7 +62,7 @@
       "operationId": "deleteUserByRealmById",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete a user by user ID."
+      "ideal": "Delete the user with ID 12345 from the specified realm."
     },
     {
       "path": "/myrealm/users/12345/configured-user-storage-credential-types",
@@ -70,7 +70,7 @@
       "operationId": "getConfiguredUserStorageCredentialTypes",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve configured credential types for a user."
+      "ideal": "Retrieve configured credential types for the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/consents",
@@ -78,7 +78,7 @@
       "operationId": "getConsents",
       "summary": "",
       "user": "admin",
-      "ideal": "Get the consents granted by the user."
+      "ideal": "Get the consents granted by the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/consents/myclient",
@@ -86,7 +86,7 @@
       "operationId": "deleteConsent",
       "summary": "",
       "user": "admin",
-      "ideal": "Revoke consent for a specific client."
+      "ideal": "Remove consent for the client 'myclient' for the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/credentials",
@@ -94,7 +94,7 @@
       "operationId": "getCredentials",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve the credentials for a user."
+      "ideal": "Retrieve all credentials for the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/credentials/cred1",
@@ -102,7 +102,7 @@
       "operationId": "deleteCredential",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete a specific credential for a user."
+      "ideal": "Delete the credential with ID 'cred1' for the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/credentials/cred1/moveAfter/cred2",
@@ -110,7 +110,7 @@
       "operationId": "postMoveAfter",
       "summary": "",
       "user": "admin",
-      "ideal": "Move a credential after another credential."
+      "ideal": "Move the credential 'cred1' after 'cred2' for the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/credentials/cred1/moveToFirst",
@@ -118,7 +118,7 @@
       "operationId": "postMoveToFirst",
       "summary": "",
       "user": "admin",
-      "ideal": "Move a credential to the first position."
+      "ideal": "Move the credential 'cred1' to the first position for the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/credentials/cred1/userLabel",
@@ -126,7 +126,7 @@
       "operationId": "putUserLabel",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the label for a specific credential."
+      "ideal": "Update the user label for credential 'cred1' of the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/disable-credential-types",
@@ -134,7 +134,7 @@
       "operationId": "putDisableCredentialTypes",
       "summary": "",
       "user": "admin",
-      "ideal": "Disable specific credential types for a user."
+      "ideal": "Disable specified credential types for the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/execute-actions-email",
@@ -142,7 +142,7 @@
       "operationId": "putExecuteActionsEmail",
       "summary": "",
       "user": "admin",
-      "ideal": "Trigger email actions for a user."
+      "ideal": "Send an email to the user with ID 12345 to execute specified actions."
     },
     {
       "path": "/myrealm/users/12345/federated-identity",
@@ -150,7 +150,7 @@
       "operationId": "getFederatedIdentity",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve federated identity information for a user."
+      "ideal": "Retrieve federated identity information for the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/federated-identity/myprovider",
@@ -158,7 +158,7 @@
       "operationId": "postFederatedIdentity",
       "summary": "",
       "user": "admin",
-      "ideal": "Link a federated identity to a user."
+      "ideal": "Link a federated identity from 'myprovider' to the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/federated-identity/myprovider",
@@ -166,7 +166,7 @@
       "operationId": "deleteFederatedIdentity",
       "summary": "",
       "user": "admin",
-      "ideal": "Unlink a federated identity from a user."
+      "ideal": "Remove the federated identity from 'myprovider' for the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/groups",
@@ -174,7 +174,7 @@
       "operationId": "getUserGroups",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve groups associated with a user."
+      "ideal": "Retrieve all groups the user with ID 12345 belongs to."
     },
     {
       "path": "/myrealm/users/12345/groups/count",
@@ -182,23 +182,23 @@
       "operationId": "getUserGroupsCount",
       "summary": "",
       "user": "admin",
-      "ideal": "Get the count of groups associated with a user."
+      "ideal": "Get the count of groups the user with ID 12345 is a member of."
     },
     {
-      "path": "/myrealm/users/12345/groups/mygroup",
+      "path": "/myrealm/users/12345/groups/67890",
       "method": "PUT",
       "operationId": "putUserGroup",
       "summary": "",
       "user": "admin",
-      "ideal": "Add a user to a specific group."
+      "ideal": "Add the user with ID 12345 to the group with ID 67890."
     },
     {
-      "path": "/myrealm/users/12345/groups/mygroup",
+      "path": "/myrealm/users/12345/groups/67890",
       "method": "DELETE",
       "operationId": "deleteUserGroup",
       "summary": "",
       "user": "admin",
-      "ideal": "Remove a user from a specific group."
+      "ideal": "Remove the user with ID 12345 from the group with ID 67890."
     },
     {
       "path": "/myrealm/users/12345/impersonation",
@@ -206,7 +206,7 @@
       "operationId": "postImpersonation",
       "summary": "",
       "user": "admin",
-      "ideal": "Impersonate a user."
+      "ideal": "Impersonate the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/logout",
@@ -214,7 +214,7 @@
       "operationId": "postLogout",
       "summary": "",
       "user": "admin",
-      "ideal": "Log out a user."
+      "ideal": "Log out the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/offline-sessions/myclientuuid",
@@ -222,7 +222,7 @@
       "operationId": "getOfflineSession",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve offline session details for a user."
+      "ideal": "Retrieve offline session details for the user with ID 12345 and client UUID 'myclientuuid'."
     },
     {
       "path": "/myrealm/users/12345/reset-password",
@@ -230,7 +230,7 @@
       "operationId": "putResetPassword",
       "summary": "",
       "user": "admin",
-      "ideal": "Reset the password for a user."
+      "ideal": "Reset the password for the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/reset-password-email",
@@ -238,7 +238,7 @@
       "operationId": "putResetPasswordEmail",
       "summary": "",
       "user": "admin",
-      "ideal": "Send a password reset email to a user."
+      "ideal": "Send a password reset email to the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/send-verify-email",
@@ -246,7 +246,7 @@
       "operationId": "putSendVerifyEmail",
       "summary": "",
       "user": "admin",
-      "ideal": "Send a verification email to a user."
+      "ideal": "Send a verification email to the user with ID 12345."
     },
     {
       "path": "/myrealm/users/12345/sessions",
@@ -254,7 +254,7 @@
       "operationId": "getSessions",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve active sessions for a user."
+      "ideal": "Retrieve all active sessions for the user with ID 12345."
     }
   ]
 }

@@ -5,32 +5,32 @@
       "method": "DELETE",
       "operationId": "deleteWorkflowTransitionProperty",
       "summary": "",
-      "user": "Admin user deleting a property from a workflow transition.",
-      "ideal": "Successfully deleted the property from the specified workflow transition."
+      "user": "Admin user attempting to remove a property from a specific workflow transition to streamline the transition process.",
+      "ideal": "Successfully deletes the property associated with transition ID 123."
     },
     {
       "path": "/rest/api/3/workflow/transitions/123/properties",
       "method": "GET",
       "operationId": "getWorkflowTransitionProperties",
       "summary": "",
-      "user": "Project manager retrieving properties for a specific workflow transition.",
-      "ideal": "Returned a list of properties associated with the specified workflow transition."
+      "user": "Project manager reviewing the properties of a workflow transition to ensure they align with project requirements.",
+      "ideal": "Returns a list of properties associated with transition ID 123."
     },
     {
       "path": "/rest/api/3/workflow/transitions/123/properties",
       "method": "POST",
       "operationId": "createWorkflowTransitionProperty",
       "summary": "",
-      "user": "Developer adding a new property to a workflow transition.",
-      "ideal": "Successfully created a new property for the specified workflow transition."
+      "user": "Developer adding a new property to a workflow transition to enhance functionality and provide additional context.",
+      "ideal": "Successfully creates a new property for transition ID 123."
     },
     {
       "path": "/rest/api/3/workflow/transitions/123/properties",
       "method": "PUT",
       "operationId": "updateWorkflowTransitionProperty",
       "summary": "",
-      "user": "Team lead updating an existing property for a workflow transition.",
-      "ideal": "Successfully updated the property for the specified workflow transition."
+      "user": "Team lead updating an existing property of a workflow transition to correct an error or improve clarity.",
+      "ideal": "Successfully updates the property for transition ID 123."
     }
   ]
 }

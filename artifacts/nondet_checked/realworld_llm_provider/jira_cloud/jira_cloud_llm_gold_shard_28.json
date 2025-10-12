@@ -5,24 +5,24 @@
       "method": "POST",
       "operationId": "linkIssues",
       "summary": "",
-      "user": "As a project manager, I want to link related issues in Jira to track dependencies and progress effectively.",
-      "ideal": "Successfully creates a link between two issues, returning the details of the newly created link."
+      "user": "As a project manager, I want to link two issues together to show their relationship, so that team members can easily navigate between related tasks.",
+      "ideal": "The request should successfully create a link between the specified issues and return the details of the new link."
     },
     {
       "path": "/rest/api/3/issueLink/{linkId}",
       "method": "DELETE",
       "operationId": "deleteIssueLink",
       "summary": "",
-      "user": "As a developer, I need to remove a link between issues that is no longer relevant to keep the project organized.",
-      "ideal": "Successfully deletes the specified issue link and confirms the deletion."
+      "user": "As a developer, I need to remove a link between two issues that are no longer relevant, to keep the issue tracker organized.",
+      "ideal": "The request should successfully delete the specified issue link and return a confirmation of the deletion."
     },
     {
       "path": "/rest/api/3/issueLink/{linkId}",
       "method": "GET",
       "operationId": "getIssueLink",
       "summary": "",
-      "user": "As a team lead, I want to retrieve the details of a specific issue link to understand its context and relationships.",
-      "ideal": "Returns the details of the specified issue link, including the issues it connects and the link type."
+      "user": "As a QA engineer, I want to retrieve the details of a specific issue link to understand how two issues are related before testing.",
+      "ideal": "The request should return the details of the specified issue link, including the linked issues and the type of link."
     }
   ]
 }

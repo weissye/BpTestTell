@@ -1,0 +1,100 @@
+{
+  "gold": [
+    {
+      "path": "/gitignore/templates",
+      "method": "GET",
+      "operationId": "listGitignoresTemplates",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of available gitignore templates."
+    },
+    {
+      "path": "/gitignore/templates/Python",
+      "method": "GET",
+      "operationId": "getGitignoreTemplateInfo",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Get detailed information about the Python gitignore template."
+    },
+    {
+      "path": "/label/templates",
+      "method": "GET",
+      "operationId": "listLabelTemplates",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Fetch a list of available label templates."
+    },
+    {
+      "path": "/label/templates/bug",
+      "method": "GET",
+      "operationId": "getLabelTemplateInfo",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Retrieve information about the 'bug' label template."
+    },
+    {
+      "path": "/licenses",
+      "method": "GET",
+      "operationId": "listLicenseTemplates",
+      "summary": "",
+      "user": "user112",
+      "ideal": "List all available license templates."
+    },
+    {
+      "path": "/licenses/MIT",
+      "method": "GET",
+      "operationId": "getLicenseTemplateInfo",
+      "summary": "",
+      "user": "user131",
+      "ideal": "Get details about the MIT license template."
+    },
+    {
+      "path": "/markdown",
+      "method": "POST",
+      "operationId": "renderMarkdown",
+      "summary": "",
+      "user": "user415",
+      "ideal": "Render markdown content into HTML."
+    },
+    {
+      "path": "/markdown/raw",
+      "method": "POST",
+      "operationId": "renderMarkdownRaw",
+      "summary": "",
+      "user": "user161",
+      "ideal": "Render raw markdown content into HTML without additional processing."
+    },
+    {
+      "path": "/markup",
+      "method": "POST",
+      "operationId": "renderMarkup",
+      "summary": "",
+      "user": "user718",
+      "ideal": "Convert markup content into a structured format."
+    },
+    {
+      "path": "/nodeinfo",
+      "method": "GET",
+      "operationId": "getNodeInfo",
+      "summary": "",
+      "user": "user192",
+      "ideal": "Retrieve information about the Gitea instance."
+    },
+    {
+      "path": "/signing-key.gpg",
+      "method": "GET",
+      "operationId": "getSigningKey",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Fetch the GPG signing key for verifying commits."
+    },
+    {
+      "path": "/version",
+      "method": "GET",
+      "operationId": "getVersion",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Get the current version of the Gitea API."
+    }
+  ]
+}

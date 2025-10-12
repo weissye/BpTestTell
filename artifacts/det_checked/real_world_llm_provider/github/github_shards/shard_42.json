@@ -1,0 +1,549 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/orgs/{org}/teams",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List teams",
+      "operationId": "teams/list"
+    },
+    {
+      "path": "/orgs/{org}/teams",
+      "method": "POST",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Create a team",
+      "operationId": "teams/create"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get a team by name",
+      "operationId": "teams/get-by-name"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}",
+      "method": "PATCH",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Update a team",
+      "operationId": "teams/update-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}",
+      "method": "DELETE",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Delete a team",
+      "operationId": "teams/delete-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List discussions",
+      "operationId": "teams/list-discussions-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions",
+      "method": "POST",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Create a discussion",
+      "operationId": "teams/create-discussion-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get a discussion",
+      "operationId": "teams/get-discussion-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}",
+      "method": "PATCH",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Update a discussion",
+      "operationId": "teams/update-discussion-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}",
+      "method": "DELETE",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Delete a discussion",
+      "operationId": "teams/delete-discussion-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List discussion comments",
+      "operationId": "teams/list-discussion-comments-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments",
+      "method": "POST",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Create a discussion comment",
+      "operationId": "teams/create-discussion-comment-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get a discussion comment",
+      "operationId": "teams/get-discussion-comment-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}",
+      "method": "PATCH",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Update a discussion comment",
+      "operationId": "teams/update-discussion-comment-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}",
+      "method": "DELETE",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Delete a discussion comment",
+      "operationId": "teams/delete-discussion-comment-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/invitations",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List pending team invitations",
+      "operationId": "teams/list-pending-invitations-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/members",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List team members",
+      "operationId": "teams/list-members-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/memberships/{username}",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get team membership for a user",
+      "operationId": "teams/get-membership-for-user-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/memberships/{username}",
+      "method": "PUT",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Add or update team membership for a user",
+      "operationId": "teams/add-or-update-membership-for-user-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/memberships/{username}",
+      "method": "DELETE",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Remove team membership for a user",
+      "operationId": "teams/remove-membership-for-user-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/projects",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List team projects",
+      "operationId": "teams/list-projects-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/projects/{project_id}",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Check team permissions for a project",
+      "operationId": "teams/check-permissions-for-project-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/projects/{project_id}",
+      "method": "PUT",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Add or update team project permissions",
+      "operationId": "teams/add-or-update-project-permissions-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/projects/{project_id}",
+      "method": "DELETE",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Remove a project from a team",
+      "operationId": "teams/remove-project-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/repos",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List team repositories",
+      "operationId": "teams/list-repos-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Check team permissions for a repository",
+      "operationId": "teams/check-permissions-for-repo-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}",
+      "method": "PUT",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Add or update team repository permissions",
+      "operationId": "teams/add-or-update-repo-permissions-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}",
+      "method": "DELETE",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Remove a repository from a team",
+      "operationId": "teams/remove-repo-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/teams",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List child teams",
+      "operationId": "teams/list-child-in-org"
+    },
+    {
+      "path": "/teams/{team_id}",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get a team (Legacy)",
+      "operationId": "teams/get-legacy"
+    },
+    {
+      "path": "/teams/{team_id}",
+      "method": "PATCH",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Update a team (Legacy)",
+      "operationId": "teams/update-legacy"
+    },
+    {
+      "path": "/teams/{team_id}",
+      "method": "DELETE",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Delete a team (Legacy)",
+      "operationId": "teams/delete-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/discussions",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List discussions (Legacy)",
+      "operationId": "teams/list-discussions-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/discussions",
+      "method": "POST",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Create a discussion (Legacy)",
+      "operationId": "teams/create-discussion-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/discussions/{discussion_number}",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get a discussion (Legacy)",
+      "operationId": "teams/get-discussion-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/discussions/{discussion_number}",
+      "method": "PATCH",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Update a discussion (Legacy)",
+      "operationId": "teams/update-discussion-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/discussions/{discussion_number}",
+      "method": "DELETE",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Delete a discussion (Legacy)",
+      "operationId": "teams/delete-discussion-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List discussion comments (Legacy)",
+      "operationId": "teams/list-discussion-comments-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments",
+      "method": "POST",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Create a discussion comment (Legacy)",
+      "operationId": "teams/create-discussion-comment-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get a discussion comment (Legacy)",
+      "operationId": "teams/get-discussion-comment-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",
+      "method": "PATCH",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Update a discussion comment (Legacy)",
+      "operationId": "teams/update-discussion-comment-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",
+      "method": "DELETE",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Delete a discussion comment (Legacy)",
+      "operationId": "teams/delete-discussion-comment-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/invitations",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List pending team invitations (Legacy)",
+      "operationId": "teams/list-pending-invitations-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/members",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List team members (Legacy)",
+      "operationId": "teams/list-members-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/members/{username}",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get team member (Legacy)",
+      "operationId": "teams/get-member-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/members/{username}",
+      "method": "PUT",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Add team member (Legacy)",
+      "operationId": "teams/add-member-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/members/{username}",
+      "method": "DELETE",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Remove team member (Legacy)",
+      "operationId": "teams/remove-member-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/memberships/{username}",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Get team membership for a user (Legacy)",
+      "operationId": "teams/get-membership-for-user-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/memberships/{username}",
+      "method": "PUT",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Add or update team membership for a user (Legacy)",
+      "operationId": "teams/add-or-update-membership-for-user-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/memberships/{username}",
+      "method": "DELETE",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Remove team membership for a user (Legacy)",
+      "operationId": "teams/remove-membership-for-user-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/projects",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List team projects (Legacy)",
+      "operationId": "teams/list-projects-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/projects/{project_id}",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Check team permissions for a project (Legacy)",
+      "operationId": "teams/check-permissions-for-project-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/projects/{project_id}",
+      "method": "PUT",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Add or update team project permissions (Legacy)",
+      "operationId": "teams/add-or-update-project-permissions-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/projects/{project_id}",
+      "method": "DELETE",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Remove a project from a team (Legacy)",
+      "operationId": "teams/remove-project-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/repos",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List team repositories (Legacy)",
+      "operationId": "teams/list-repos-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/repos/{owner}/{repo}",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Check team permissions for a repository (Legacy)",
+      "operationId": "teams/check-permissions-for-repo-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/repos/{owner}/{repo}",
+      "method": "PUT",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Add or update team repository permissions (Legacy)",
+      "operationId": "teams/add-or-update-repo-permissions-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/repos/{owner}/{repo}",
+      "method": "DELETE",
+      "tags": [
+        "teams"
+      ],
+      "summary": "Remove a repository from a team (Legacy)",
+      "operationId": "teams/remove-repo-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/teams",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List child teams (Legacy)",
+      "operationId": "teams/list-child-legacy"
+    },
+    {
+      "path": "/user/teams",
+      "method": "GET",
+      "tags": [
+        "teams"
+      ],
+      "summary": "List teams for the authenticated user",
+      "operationId": "teams/list-for-authenticated-user"
+    }
+  ]
+}

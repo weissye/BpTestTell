@@ -26,50 +26,50 @@ function matchesDescriptionRegex(rx) {
 /** === V1 Operations === */
 
 // CREATE
-function addV1(account, customer, invoice, charge, intent, token, subscription_exposed_id, webhook_endpoint) {
+function addV1(account, customer, invoice, charge) {
   svc.post("/v1", {
-      body: JSON.stringify({ account: account, customer: customer, invoice: invoice, charge: charge, intent: intent, token: token, subscription_exposed_id: subscription_exposed_id, webhook_endpoint: webhook_endpoint }),
-      parameters: { description: "Add a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + " and intent " + intent + " and token " + token + " and subscription_exposed_id " + subscription_exposed_id + " and webhook_endpoint " + webhook_endpoint + "" }
+      body: JSON.stringify({ account: account, customer: customer, invoice: invoice, charge: charge }),
+      parameters: { description: "Add a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "" }
     });
 }
 
 // DELETE
-function deleteV1(account, customer, invoice, charge, intent, token, subscription_exposed_id, webhook_endpoint) {
-  svc.delete("/v1/" + account + "/"+ customer + "/"+ invoice + "/"+ charge + "/"+ intent + "/"+ token + "/"+ subscription_exposed_id + "/"+ webhook_endpoint, {
-    parameters: { description: "Delete a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + " and intent " + intent + " and token " + token + " and subscription_exposed_id " + subscription_exposed_id + " and webhook_endpoint " + webhook_endpoint + "" }
+function deleteV1(account, customer, invoice, charge) {
+  svc.delete("/v1/" + account + "/"+ customer + "/"+ invoice + "/"+ charge, {
+    parameters: { description: "Delete a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "" }
   });
 }
 
 // Negative: delete non-existing (404/401)
-function tryToDeleteANonExistingV1(account, customer, invoice, charge, intent, token, subscription_exposed_id, webhook_endpoint) {
-  svc.delete("/v1/" + account + "/"+ customer + "/"+ invoice + "/"+ charge + "/"+ intent + "/"+ token + "/"+ subscription_exposed_id + "/"+ webhook_endpoint, {
+function tryToDeleteANonExistingV1(account, customer, invoice, charge) {
+  svc.delete("/v1/" + account + "/"+ customer + "/"+ invoice + "/"+ charge, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + " and intent " + intent + " and token " + token + " and subscription_exposed_id " + subscription_exposed_id + " and webhook_endpoint " + webhook_endpoint + "" }
+    parameters: { description: "Delete a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "" }
   });
 }
 
 // Negative: add existing (400/409)
-function tryToAddExistingV1(account, customer, invoice, charge, intent, token, subscription_exposed_id, webhook_endpoint) {
+function tryToAddExistingV1(account, customer, invoice, charge) {
   svc.post("/v1", {
-      body: JSON.stringify({ account: account, customer: customer, invoice: invoice, charge: charge, intent: intent, token: token, subscription_exposed_id: subscription_exposed_id, webhook_endpoint: webhook_endpoint }),
-      parameters: { description: "Add a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + " and intent " + intent + " and token " + token + " and subscription_exposed_id " + subscription_exposed_id + " and webhook_endpoint " + webhook_endpoint + "" }
+      body: JSON.stringify({ account: account, customer: customer, invoice: invoice, charge: charge }),
+      parameters: { description: "Add a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "" }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + " and intent " + intent + " and token " + token + " and subscription_exposed_id " + subscription_exposed_id + " and webhook_endpoint " + webhook_endpoint + "" }
+    parameters: { description: "Add a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "" }
   });
 }
 
 // UPDATE (if your SUT supports it; path heuristic)
-function updateV1(account, customer, invoice, charge, intent, token, subscription_exposed_id, webhook_endpoint) {
-  svc.put("/v1/" + account + "/"+ customer + "/"+ invoice + "/"+ charge + "/"+ intent + "/"+ token + "/"+ subscription_exposed_id + "/"+ webhook_endpoint, {
-      body: JSON.stringify({ account: account, customer: customer, invoice: invoice, charge: charge, intent: intent, token: token, subscription_exposed_id: subscription_exposed_id, webhook_endpoint: webhook_endpoint }),
+function updateV1(account, customer, invoice, charge) {
+  svc.put("/v1/" + account + "/"+ customer + "/"+ invoice + "/"+ charge, {
+      body: JSON.stringify({ account: account, customer: customer, invoice: invoice, charge: charge }),
       parameters: { description: "Update a v1" }
     });
 }
 
 // GET one
-function getV1(account, customer, invoice, charge, intent, token, subscription_exposed_id, webhook_endpoint) {
-  svc.get("/v1/" + account + "/"+ customer + "/"+ invoice + "/"+ charge + "/"+ intent + "/"+ token + "/"+ subscription_exposed_id + "/"+ webhook_endpoint, {
+function getV1(account, customer, invoice, charge) {
+  svc.get("/v1/" + account + "/"+ customer + "/"+ invoice + "/"+ charge, {
     parameters: { description: "Get a v1" }
   });
 }
@@ -82,34 +82,34 @@ function listV1() {
 }
 
 // Verify exists (by list)
-function verifyV1Exists(account, customer, invoice, charge, intent, token, subscription_exposed_id, webhook_endpoint) {
+function verifyV1Exists(account, customer, invoice, charge) {
   svc.get("/v1", {
     callback: function (response) {
       v1 = JSON.parse(response.body);
       for (let i = 0; i < v1.length; i++) {
-        if (v1[i].account === account && v1[i].customer === customer && v1[i].invoice === invoice && v1[i].charge === charge && v1[i].intent === intent && v1[i].token === token && v1[i].subscription_exposed_id === subscription_exposed_id && v1[i].webhook_endpoint === webhook_endpoint) {
+        if (v1[i].account === account && v1[i].customer === customer && v1[i].invoice === invoice && v1[i].charge === charge) {
           return pvg.success("V1 exists");
         }
       }
       return pvg.fail("Expected a v1 to exist but it does not");
     },
-    parameters: { description: "Verify v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + " and intent " + intent + " and token " + token + " and subscription_exposed_id " + subscription_exposed_id + " and webhook_endpoint " + webhook_endpoint + " exists" }
+    parameters: { description: "Verify v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyV1DoesNotExist(account, customer, invoice, charge, intent, token, subscription_exposed_id, webhook_endpoint) {
+function verifyV1DoesNotExist(account, customer, invoice, charge) {
   svc.get("/v1", {
     callback: function (response) {
       v1 = JSON.parse(response.body);
       for (let i = 0; i < v1.length; i++) {
-        if (v1[i].account === account && v1[i].customer === customer && v1[i].invoice === invoice && v1[i].charge === charge && v1[i].intent === intent && v1[i].token === token && v1[i].subscription_exposed_id === subscription_exposed_id && v1[i].webhook_endpoint === webhook_endpoint) {
+        if (v1[i].account === account && v1[i].customer === customer && v1[i].invoice === invoice && v1[i].charge === charge) {
           return pvg.fail("Expected a v1 to not exist but it does");
         }
       }
       return pvg.success("V1 does not exist");
     },
-    parameters: { description: "Verify v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + " and intent " + intent + " and token " + token + " and subscription_exposed_id " + subscription_exposed_id + " and webhook_endpoint " + webhook_endpoint + " does not exist" }
+    parameters: { description: "Verify v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + " does not exist" }
   });
 }
 
@@ -120,10 +120,10 @@ function matchAnyAddV1() {
     return e.data.parameters.description.startsWith("Add a v1");
   });
 }
-function matchAddV1(account, customer, invoice, charge, intent, token, subscription_exposed_id, webhook_endpoint) {
+function matchAddV1(account, customer, invoice, charge) {
   return bp.EventSet("add-v1", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + " and intent " + intent + " and token " + token + " and subscription_exposed_id " + subscription_exposed_id + " and webhook_endpoint " + webhook_endpoint + "";
+    return e.data.parameters.description === "Add a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "";
   });
 }
 function matchAnyDeleteV1() {
@@ -132,28 +132,28 @@ function matchAnyDeleteV1() {
     return e.data.parameters.description.startsWith("Delete a v1");
   });
 }
-function matchDeleteV1(account, customer, invoice, charge, intent, token, subscription_exposed_id, webhook_endpoint) {
+function matchDeleteV1(account, customer, invoice, charge) {
   return bp.EventSet("del-v1", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + " and intent " + intent + " and token " + token + " and subscription_exposed_id " + subscription_exposed_id + " and webhook_endpoint " + webhook_endpoint + "";
+    return e.data.parameters.description === "Delete a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "";
   });
 }
 
 // Wait helpers
 function waitForAnyV1Added() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+) and intent\ (.+) and token\ (.+) and subscription_exposed_id\ (.+) and webhook_endpoint\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+) and intent\ (.+) and token\ (.+) and subscription_exposed_id\ (.+) and webhook_endpoint\ (.+)$/);
-    return { account: (x)=>x(m[1]), customer: (x)=>x(m[2]), invoice: (x)=>x(m[3]), charge: (x)=>x(m[4]), intent: (x)=>x(m[5]), token: (x)=>x(m[6]), subscription_exposed_id: parseInt(m[7]), webhook_endpoint: (x)=>x(m[8]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+)$/);
+    return { account: (x)=>x(m[1]), customer: (x)=>x(m[2]), invoice: (x)=>x(m[3]), charge: (x)=>x(m[4]) };
 }
-function waitForV1Added(account, customer, invoice, charge, intent, token, subscription_exposed_id, webhook_endpoint) {
-  waitFor(matchAddV1(account, customer, invoice, charge, intent, token, subscription_exposed_id, webhook_endpoint));
+function waitForV1Added(account, customer, invoice, charge) {
+  waitFor(matchAddV1(account, customer, invoice, charge));
 }
-function waitForV1Deleted(account, customer, invoice, charge, intent, token, subscription_exposed_id, webhook_endpoint) {
-  waitFor(matchDeleteV1(account, customer, invoice, charge, intent, token, subscription_exposed_id, webhook_endpoint));
+function waitForV1Deleted(account, customer, invoice, charge) {
+  waitFor(matchDeleteV1(account, customer, invoice, charge));
 }
 function waitForAnyV1Deleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+) and intent\ (.+) and token\ (.+) and subscription_exposed_id\ (.+) and webhook_endpoint\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+) and intent\ (.+) and token\ (.+) and subscription_exposed_id\ (.+) and webhook_endpoint\ (.+)$/);
-    return { account: (x)=>x(m[1]), customer: (x)=>x(m[2]), invoice: (x)=>x(m[3]), charge: (x)=>x(m[4]), intent: (x)=>x(m[5]), token: (x)=>x(m[6]), subscription_exposed_id: parseInt(m[7]), webhook_endpoint: (x)=>x(m[8]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+)$/);
+    return { account: (x)=>x(m[1]), customer: (x)=>x(m[2]), invoice: (x)=>x(m[3]), charge: (x)=>x(m[4]) };
 }
 

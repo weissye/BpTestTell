@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/Monthly.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordMonthly",
+      "summary": "",
+      "user": "As a developer, I want to retrieve the monthly usage records for my Twilio account to analyze my spending and usage patterns over the past month.",
+      "ideal": "The API should return a JSON response containing an array of usage records for the specified account, including details such as the usage category, total usage, and cost for each record."
+    }
+  ]
+}

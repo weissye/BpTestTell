@@ -6,55 +6,55 @@
       "operationId": "search/code",
       "summary": "",
       "user": "developer123",
-      "ideal": "Search for code snippets containing the term 'authentication' in public repositories."
+      "ideal": "Search for code snippets across GitHub repositories."
     },
     {
       "path": "/search/commits",
       "method": "GET",
       "operationId": "search/commits",
       "summary": "",
-      "user": "dataAnalyst456",
-      "ideal": "Find commits related to 'data visualization' in the last month."
+      "user": "codeHistorian",
+      "ideal": "Retrieve commit history based on specific search criteria."
     },
     {
       "path": "/search/issues",
       "method": "GET",
       "operationId": "search/issues-and-pull-requests",
       "summary": "",
-      "user": "bugHunter789",
-      "ideal": "Retrieve open issues tagged with 'bug' in the repository 'example/repo'."
+      "user": "issueTracker",
+      "ideal": "Find issues and pull requests related to a specific topic or repository."
     },
     {
       "path": "/search/labels",
       "method": "GET",
       "operationId": "search/labels",
       "summary": "",
-      "user": "projectManager101",
-      "ideal": "List all labels in the repository 'example/repo'."
+      "user": "labelMaster",
+      "ideal": "Search for labels used in GitHub repositories."
     },
     {
       "path": "/search/repositories",
       "method": "GET",
       "operationId": "search/repos",
       "summary": "",
-      "user": "repoExplorer202",
-      "ideal": "Search for repositories related to 'machine learning' that are public."
+      "user": "repoExplorer",
+      "ideal": "Search for repositories based on keywords or topics."
     },
     {
       "path": "/search/topics",
       "method": "GET",
       "operationId": "search/topics",
       "summary": "",
-      "user": "topicCurator303",
-      "ideal": "Get topics related to 'web development'."
+      "user": "topicSeeker",
+      "ideal": "Discover topics that are trending or relevant on GitHub."
     },
     {
       "path": "/search/users",
       "method": "GET",
       "operationId": "search/users",
       "summary": "",
-      "user": "networker404",
-      "ideal": "Find GitHub users with the username 'john_doe'."
+      "user": "userFinder",
+      "ideal": "Search for GitHub users by username or other criteria."
     }
   ]
 }

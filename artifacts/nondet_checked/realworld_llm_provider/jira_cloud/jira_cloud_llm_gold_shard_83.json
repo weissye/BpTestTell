@@ -6,39 +6,39 @@
       "operationId": "getSelectedTimeTrackingImplementation",
       "summary": "",
       "user": "As a project manager, I want to retrieve the currently selected time tracking implementation for my Jira project so that I can ensure it aligns with our team's workflow.",
-      "ideal": "The response should include the details of the selected time tracking implementation, such as its name and configuration settings."
+      "ideal": "The response should include the currently selected time tracking implementation details, such as the implementation name and any relevant configuration options."
     },
     {
       "path": "/rest/api/3/configuration/timetracking",
       "method": "PUT",
       "operationId": "selectTimeTrackingImplementation",
       "summary": "",
-      "user": "As an administrator, I need to change the time tracking implementation for my Jira instance to a new one that better fits our project needs.",
-      "ideal": "The request should successfully update the time tracking implementation and return a confirmation message indicating the change was made."
+      "user": "As a system administrator, I need to update the time tracking implementation for our Jira instance to a new method that better suits our reporting needs.",
+      "ideal": "The response should confirm the successful update of the time tracking implementation and provide the new implementation details."
     },
     {
       "path": "/rest/api/3/configuration/timetracking/list",
       "method": "GET",
       "operationId": "getAvailableTimeTrackingImplementations",
       "summary": "",
-      "user": "As a developer, I want to see a list of all available time tracking implementations so that I can choose the best one for my project.",
-      "ideal": "The response should provide a comprehensive list of all available time tracking implementations, including their names and descriptions."
+      "user": "As a developer, I want to see a list of all available time tracking implementations so that I can recommend the best option for our team.",
+      "ideal": "The response should include a comprehensive list of available time tracking implementations along with their descriptions and any relevant features."
     },
     {
       "path": "/rest/api/3/configuration/timetracking/options",
       "method": "GET",
       "operationId": "getSharedTimeTrackingConfiguration",
       "summary": "",
-      "user": "As a team lead, I want to access the shared time tracking configuration to ensure all team members are using the same settings.",
-      "ideal": "The response should return the current shared time tracking configuration, detailing the settings that are applied across the team."
+      "user": "As a product owner, I want to access the shared time tracking configuration to ensure consistency across all projects in our organization.",
+      "ideal": "The response should provide the current shared time tracking configuration settings, including any custom fields or options that are being used."
     },
     {
       "path": "/rest/api/3/configuration/timetracking/options",
       "method": "PUT",
       "operationId": "setSharedTimeTrackingConfiguration",
       "summary": "",
-      "user": "As a system administrator, I need to update the shared time tracking configuration to reflect new policies regarding time tracking across all projects.",
-      "ideal": "The request should successfully update the shared time tracking configuration and return a confirmation message with the new settings."
+      "user": "As a project administrator, I need to update the shared time tracking configuration to reflect our new policies regarding time entry and reporting.",
+      "ideal": "The response should confirm the successful update of the shared time tracking configuration and return the updated settings."
     }
   ]
 }

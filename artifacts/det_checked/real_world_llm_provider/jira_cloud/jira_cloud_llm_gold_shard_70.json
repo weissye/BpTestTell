@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project-template",
+      "method": "POST",
+      "operationId": "createProjectWithCustomTemplate",
+      "summary": "",
+      "user": "As a project manager, I want to create a new project using a custom template so that I can streamline the setup process.",
+      "ideal": "The API should successfully create a new project based on the specified template and return the project details."
+    },
+    {
+      "path": "/rest/api/3/project-template/edit-template",
+      "method": "PUT",
+      "operationId": "editTemplate",
+      "summary": "",
+      "user": "As a template designer, I want to edit an existing project template to update its configurations and improve usability.",
+      "ideal": "The API should update the specified template and return the updated template details."
+    },
+    {
+      "path": "/rest/api/3/project-template/live-template",
+      "method": "GET",
+      "operationId": "liveTemplate",
+      "summary": "",
+      "user": "As a developer, I want to retrieve the live project template to ensure I am using the latest version for my project.",
+      "ideal": "The API should return the current live template details, including any recent changes."
+    },
+    {
+      "path": "/rest/api/3/project-template/remove-template",
+      "method": "DELETE",
+      "operationId": "removeTemplate",
+      "summary": "",
+      "user": "As an administrator, I want to remove an outdated project template to keep the template list clean and relevant.",
+      "ideal": "The API should successfully delete the specified template and confirm the deletion."
+    },
+    {
+      "path": "/rest/api/3/project-template/save-template",
+      "method": "POST",
+      "operationId": "saveTemplate",
+      "summary": "",
+      "user": "As a project coordinator, I want to save a new project template so that it can be reused for future projects.",
+      "ideal": "The API should save the new template and return the details of the saved template."
+    }
+  ]
+}

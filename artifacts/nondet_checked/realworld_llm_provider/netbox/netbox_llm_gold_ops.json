@@ -1,0 +1,1754 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/api/circuits/circuit-groups/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/circuits/circuit-groups/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/circuits/circuit-terminations/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/circuits/circuit-terminations/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/circuits/circuit-types/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/circuits/circuit-types/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/background-queues/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/background-queues/{name}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/background-tasks/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/background-tasks/{id}/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/core/background-tasks/{id}/delete/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/core/background-tasks/{id}/enqueue/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/core/background-tasks/{id}/requeue/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/core/background-tasks/{id}/stop/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/background-workers/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/background-workers/{name}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/data-files/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/data-files/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/data-sources/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/core/data-sources/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/core/data-sources/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/core/data-sources/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/core/data-sources/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/data-sources/{id}/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/core/data-sources/{id}/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/core/data-sources/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/core/data-sources/{id}/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/core/data-sources/{id}/sync/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/jobs/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/jobs/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/object-changes/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/object-changes/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/object-types/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/object-types/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/cable-terminations/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/dcim/cable-terminations/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/cable-terminations/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/cables/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/dcim/cables/{id}/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/dcim/devices/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/dcim/devices/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/locations/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/dcim/locations/{id}/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/dcim/power-feeds/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/power-feeds/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/bookmarks/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/extras/bookmarks/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/bookmarks/1/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/bookmarks/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/extras/bookmarks/1/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/config-context-profiles/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/extras/config-context-profiles/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/config-context-profiles/1/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/config-context-profiles/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/extras/config-context-profiles/1/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/config-contexts/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/extras/config-contexts/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/config-contexts/1/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/config-contexts/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/extras/config-contexts/1/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/custom-fields/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/extras/custom-fields/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/custom-fields/1/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/custom-fields/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/extras/custom-fields/1/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/ipam/aggregates/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/ipam/aggregates/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/ipam/aggregates/{id}/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/ipam/aggregates/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/ipam/aggregates/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/ipam/asn-ranges/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/ipam/asn-ranges/{id}/available-asns/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/ipam/ip-addresses/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/ipam/ip-addresses/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/ipam/ip-addresses/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/ipam/vlans/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/ipam/vlans/{id}/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/ipam/vrfs/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/ipam/vrfs/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/schema/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/status/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contact-assignments/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/tenancy/contact-assignments/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contact-assignments/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contact-groups/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/tenancy/contact-groups/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contact-groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contact-roles/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/tenancy/contact-roles/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contact-roles/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contacts/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/tenancy/contacts/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contacts/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/tenant-groups/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/tenancy/tenant-groups/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/tenant-groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/tenants/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/tenancy/tenants/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/tenants/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/config/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/groups/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/users/groups/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/groups/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/groups/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/groups/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/permissions/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/users/permissions/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/permissions/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/permissions/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/permissions/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/permissions/{id}/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/permissions/{id}/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/permissions/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/permissions/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/tokens/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/users/tokens/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/tokens/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/tokens/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/tokens/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/tokens/{id}/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/tokens/{id}/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/tokens/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/tokens/{id}/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/users/tokens/provision/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/users/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/users/users/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/users/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/users/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/users/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/users/{id}/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/users/{id}/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/users/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/users/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/virtualization/cluster-groups/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/virtualization/cluster-groups/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/virtualization/cluster-groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/virtualization/clusters/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/virtualization/clusters/{id}/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/virtualization/virtual-machines/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/virtualization/virtual-machines/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/virtualization/virtual-disks/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/virtualization/interfaces/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/virtualization/virtual-machines/{id}/render-config/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/vpn/ike-policies/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/vpn/ike-policies/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/vpn/ike-policies/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/vpn/ike-policies/1/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/vpn/ipsec-policies/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/vpn/ipsec-proposals/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/vpn/ipsec-proposals/2/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/vpn/l2vpns/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/vpn/tunnel-groups/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/vpn/tunnels/3/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/vpn/tunnel-terminations/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/wireless/wireless-lan-groups/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/wireless/wireless-lan-groups/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/wireless/wireless-lan-groups/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/wireless/wireless-lan-groups/1/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/wireless/wireless-lans/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/wireless/wireless-lans/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/wireless/wireless-lans/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/wireless/wireless-lans/1/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/wireless/wireless-links/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/wireless/wireless-links/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/wireless/wireless-links/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/wireless/wireless-links/1/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/circuits/circuit-groups/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/circuits/circuit-groups/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/circuits/circuit-terminations/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/circuits/circuit-terminations/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/circuits/circuit-types/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/circuits/circuit-types/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/background-queues/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/background-queues/{name}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/background-tasks/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/background-tasks/{id}/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/core/background-tasks/{id}/delete/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/core/background-tasks/{id}/enqueue/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/core/background-tasks/{id}/requeue/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/core/background-tasks/{id}/stop/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/background-workers/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/background-workers/{name}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/data-files/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/data-files/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/data-sources/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/core/data-sources/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/core/data-sources/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/core/data-sources/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/core/data-sources/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/data-sources/{id}/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/core/data-sources/{id}/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/core/data-sources/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/core/data-sources/{id}/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/core/data-sources/{id}/sync/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/jobs/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/jobs/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/object-changes/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/object-changes/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/object-types/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/core/object-types/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/cable-terminations/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/dcim/cable-terminations/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/cable-terminations/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/cables/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/dcim/cables/{id}/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/dcim/devices/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/dcim/devices/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/locations/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/dcim/locations/{id}/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/dcim/power-feeds/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/power-feeds/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/bookmarks/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/extras/bookmarks/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/bookmarks/1/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/bookmarks/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/extras/bookmarks/1/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/config-context-profiles/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/extras/config-context-profiles/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/config-context-profiles/1/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/config-context-profiles/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/extras/config-context-profiles/1/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/config-contexts/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/extras/config-contexts/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/config-contexts/1/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/config-contexts/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/extras/config-contexts/1/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/custom-fields/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/extras/custom-fields/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/custom-fields/1/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/custom-fields/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/extras/custom-fields/1/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/ipam/aggregates/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/ipam/aggregates/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/ipam/aggregates/{id}/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/ipam/aggregates/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/ipam/aggregates/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/ipam/asn-ranges/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/ipam/asn-ranges/{id}/available-asns/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/ipam/ip-addresses/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/ipam/ip-addresses/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/ipam/ip-addresses/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/ipam/vlans/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/ipam/vlans/{id}/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/ipam/vrfs/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/ipam/vrfs/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/schema/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/status/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contact-assignments/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/tenancy/contact-assignments/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contact-assignments/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contact-groups/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/tenancy/contact-groups/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contact-groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contact-roles/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/tenancy/contact-roles/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contact-roles/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contacts/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/tenancy/contacts/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/contacts/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/tenant-groups/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/tenancy/tenant-groups/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/tenant-groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/tenants/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/tenancy/tenants/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/tenancy/tenants/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/config/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/groups/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/users/groups/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/groups/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/groups/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/groups/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/permissions/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/users/permissions/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/permissions/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/permissions/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/permissions/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/permissions/{id}/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/permissions/{id}/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/permissions/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/permissions/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/tokens/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/users/tokens/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/tokens/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/tokens/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/tokens/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/tokens/{id}/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/tokens/{id}/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/tokens/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/tokens/{id}/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/users/tokens/provision/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/users/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/users/users/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/users/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/users/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/users/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/users/{id}/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/users/{id}/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/users/{id}/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/users/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/virtualization/cluster-groups/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/virtualization/cluster-groups/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/virtualization/cluster-groups/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/virtualization/clusters/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/virtualization/clusters/{id}/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/virtualization/virtual-machines/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/virtualization/virtual-machines/{id}/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/virtualization/virtual-disks/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/virtualization/interfaces/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/virtualization/virtual-machines/{id}/render-config/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/vpn/ike-policies/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/vpn/ike-policies/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/vpn/ike-policies/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/vpn/ike-policies/1/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/vpn/ipsec-policies/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/vpn/ipsec-proposals/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/vpn/ipsec-proposals/2/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/vpn/l2vpns/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/vpn/tunnel-groups/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/vpn/tunnels/3/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/vpn/tunnel-terminations/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/wireless/wireless-lan-groups/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/wireless/wireless-lan-groups/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/wireless/wireless-lan-groups/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/wireless/wireless-lan-groups/1/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/wireless/wireless-lans/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/wireless/wireless-lans/",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/wireless/wireless-lans/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/wireless/wireless-lans/1/",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/api/wireless/wireless-links/",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/api/wireless/wireless-links/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/api/wireless/wireless-links/1/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/wireless/wireless-links/1/",
+      "body": null
+    }
+  ]
+}

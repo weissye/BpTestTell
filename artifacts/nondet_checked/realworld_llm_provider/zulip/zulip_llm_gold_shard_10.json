@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "get-scheduled-messages",
       "summary": "",
-      "user": "User123",
+      "user": "user_123",
       "ideal": "Retrieve a list of scheduled messages for the user."
     },
     {
@@ -13,23 +13,23 @@
       "method": "POST",
       "operationId": "create-scheduled-message",
       "summary": "",
-      "user": "User456",
-      "ideal": "Create a new scheduled message with specified content and delivery time."
+      "user": "user_456",
+      "ideal": "Create a new scheduled message with specified content and time."
     },
     {
       "path": "/scheduled_messages/{scheduled_message_id}",
       "method": "PATCH",
       "operationId": "update-scheduled-message",
       "summary": "",
-      "user": "User789",
-      "ideal": "Update the content or delivery time of an existing scheduled message."
+      "user": "user_789",
+      "ideal": "Update the content or time of an existing scheduled message."
     },
     {
       "path": "/scheduled_messages/{scheduled_message_id}",
       "method": "DELETE",
       "operationId": "delete-scheduled-message",
       "summary": "",
-      "user": "User101",
+      "user": "user_101",
       "ideal": "Delete a specific scheduled message by its ID."
     }
   ]

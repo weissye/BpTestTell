@@ -6,7 +6,7 @@
       "operationId": "teams/list",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve a list of all teams in the specified organization."
+      "ideal": "Retrieve a list of teams within the specified organization."
     },
     {
       "path": "/orgs/example-org/teams/example-team",
@@ -14,7 +14,7 @@
       "operationId": "teams/get-by-name",
       "summary": "",
       "user": "user456",
-      "ideal": "Get details of the team named 'example-team' in the organization 'example-org'."
+      "ideal": "Get details of a specific team by its slug within the organization."
     },
     {
       "path": "/orgs/example-org/teams/example-team/members",
@@ -22,7 +22,7 @@
       "operationId": "teams/list-members-in-org",
       "summary": "",
       "user": "user789",
-      "ideal": "List all members of the team 'example-team' in the organization 'example-org'."
+      "ideal": "List all members of the specified team in the organization."
     },
     {
       "path": "/orgs/example-org/teams/example-team/memberships/user123",
@@ -30,7 +30,7 @@
       "operationId": "teams/get-membership-for-user-in-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Check the membership status of user 'user123' in the team 'example-team'."
+      "ideal": "Retrieve the membership status of a specific user in the team."
     },
     {
       "path": "/orgs/example-org/teams/example-team/projects",
@@ -38,15 +38,15 @@
       "operationId": "teams/list-projects-in-org",
       "summary": "",
       "user": "user234",
-      "ideal": "Retrieve a list of projects associated with the team 'example-team' in the organization 'example-org'."
+      "ideal": "Get a list of projects associated with the specified team."
     },
     {
-      "path": "/orgs/example-org/teams/example-team/repos/example-owner/example-repo",
+      "path": "/orgs/example-org/teams/example-team/repos",
       "method": "GET",
-      "operationId": "teams/check-permissions-for-repo-in-org",
+      "operationId": "teams/list-repos-in-org",
       "summary": "",
       "user": "user345",
-      "ideal": "Check the permissions of the team 'example-team' for the repository 'example-repo' owned by 'example-owner'."
+      "ideal": "List all repositories that the specified team has access to."
     },
     {
       "path": "/orgs/example-org/teams/example-team/discussions",
@@ -54,7 +54,15 @@
       "operationId": "teams/list-discussions-in-org",
       "summary": "",
       "user": "user456",
-      "ideal": "Get a list of discussions in the team 'example-team' within the organization 'example-org'."
+      "ideal": "Retrieve a list of discussions for the specified team."
+    },
+    {
+      "path": "/orgs/example-org/teams/example-team/invitations",
+      "method": "GET",
+      "operationId": "teams/list-pending-invitations-in-org",
+      "summary": "",
+      "user": "user567",
+      "ideal": "Get a list of pending invitations for the specified team."
     },
     {
       "path": "/orgs/example-org/teams/example-team/memberships/user456",
@@ -62,23 +70,15 @@
       "operationId": "teams/remove-membership-for-user-in-org",
       "summary": "",
       "user": "user456",
-      "ideal": "Remove the membership of user 'user456' from the team 'example-team' in the organization 'example-org'."
+      "ideal": "Remove a user's membership from the specified team."
     },
     {
       "path": "/orgs/example-org/teams/example-team/discussions/1/comments",
       "method": "GET",
       "operationId": "teams/list-discussion-comments-in-org",
       "summary": "",
-      "user": "user567",
-      "ideal": "Retrieve comments for the discussion number 1 in the team 'example-team'."
-    },
-    {
-      "path": "/orgs/example-org/teams/example-team/discussions/1/comments/1",
-      "method": "DELETE",
-      "operationId": "teams/delete-discussion-comment-in-org",
-      "summary": "",
       "user": "user678",
-      "ideal": "Delete the comment number 1 from discussion number 1 in the team 'example-team'."
+      "ideal": "Retrieve comments for a specific discussion in the team."
     }
   ]
 }

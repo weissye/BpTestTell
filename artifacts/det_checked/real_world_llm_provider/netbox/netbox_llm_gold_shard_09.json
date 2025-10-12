@@ -1,0 +1,124 @@
+{
+  "gold": [
+    {
+      "path": "/api/users/config/",
+      "method": "GET",
+      "operationId": "users_config_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the current user configuration settings."
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "GET",
+      "operationId": "users_groups_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "List all user groups in the system."
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "POST",
+      "operationId": "users_groups_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new user group with specified attributes."
+    },
+    {
+      "path": "/api/users/groups/{id}/",
+      "method": "GET",
+      "operationId": "users_groups_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific user group by ID."
+    },
+    {
+      "path": "/api/users/groups/{id}/",
+      "method": "PUT",
+      "operationId": "users_groups_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the details of a specific user group."
+    },
+    {
+      "path": "/api/users/groups/{id}/",
+      "method": "DELETE",
+      "operationId": "users_groups_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific user group by ID."
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "GET",
+      "operationId": "users_permissions_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "List all user permissions available in the system."
+    },
+    {
+      "path": "/api/users/permissions/{id}/",
+      "method": "GET",
+      "operationId": "users_permissions_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific user permission by ID."
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "GET",
+      "operationId": "users_tokens_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "List all user tokens issued in the system."
+    },
+    {
+      "path": "/api/users/tokens/{id}/",
+      "method": "GET",
+      "operationId": "users_tokens_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific user token by ID."
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "GET",
+      "operationId": "users_users_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "List all users in the system."
+    },
+    {
+      "path": "/api/users/users/{id}/",
+      "method": "GET",
+      "operationId": "users_users_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific user by ID."
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "POST",
+      "operationId": "users_users_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new user with specified attributes."
+    },
+    {
+      "path": "/api/users/users/{id}/",
+      "method": "PUT",
+      "operationId": "users_users_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the details of a specific user."
+    },
+    {
+      "path": "/api/users/users/{id}/",
+      "method": "DELETE",
+      "operationId": "users_users_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific user by ID."
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/priorityscheme",
+      "method": "GET",
+      "tags": [
+        "Priority schemes"
+      ],
+      "summary": "Get priority schemes",
+      "operationId": "getPrioritySchemes"
+    },
+    {
+      "path": "/rest/api/3/priorityscheme",
+      "method": "POST",
+      "tags": [
+        "Priority schemes"
+      ],
+      "summary": "Create priority scheme",
+      "operationId": "createPriorityScheme"
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/mappings",
+      "method": "POST",
+      "tags": [
+        "Priority schemes"
+      ],
+      "summary": "Suggested priorities for mappings",
+      "operationId": "suggestedPrioritiesForMappings"
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/priorities/available",
+      "method": "GET",
+      "tags": [
+        "Priority schemes"
+      ],
+      "summary": "Get available priorities by priority scheme",
+      "operationId": "getAvailablePrioritiesByPriorityScheme"
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/{schemeId}",
+      "method": "DELETE",
+      "tags": [
+        "Priority schemes"
+      ],
+      "summary": "Delete priority scheme",
+      "operationId": "deletePriorityScheme"
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/{schemeId}",
+      "method": "PUT",
+      "tags": [
+        "Priority schemes"
+      ],
+      "summary": "Update priority scheme",
+      "operationId": "updatePriorityScheme"
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/{schemeId}/priorities",
+      "method": "GET",
+      "tags": [
+        "Priority schemes"
+      ],
+      "summary": "Get priorities by priority scheme",
+      "operationId": "getPrioritiesByPriorityScheme"
+    },
+    {
+      "path": "/rest/api/3/priorityscheme/{schemeId}/projects",
+      "method": "GET",
+      "tags": [
+        "Priority schemes"
+      ],
+      "summary": "Get projects by priority scheme",
+      "operationId": "getProjectsByPriorityScheme"
+    }
+  ]
+}

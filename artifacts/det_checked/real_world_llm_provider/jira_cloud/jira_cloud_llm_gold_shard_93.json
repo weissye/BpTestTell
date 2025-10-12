@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/status",
+      "method": "GET",
+      "operationId": "getStatuses",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all available statuses in Jira so that I can understand the workflow options for my team's tasks.",
+      "ideal": "The API should return a list of all statuses, including their IDs and names, allowing me to see the current workflow states."
+    },
+    {
+      "path": "/rest/api/3/status/{idOrName}",
+      "method": "GET",
+      "operationId": "getStatus",
+      "summary": "",
+      "user": "As a developer, I need to fetch the details of a specific status by its ID or name to ensure I am using the correct status in my API calls.",
+      "ideal": "The API should return the details of the specified status, including its ID, name, and description, so I can confirm its attributes."
+    }
+  ]
+}

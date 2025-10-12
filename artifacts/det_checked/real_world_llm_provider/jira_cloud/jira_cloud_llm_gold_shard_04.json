@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties",
+      "method": "GET",
+      "operationId": "AddonPropertiesResource.getAddonProperties_get",
+      "summary": "",
+      "user": "User requests all properties for the specified addon to manage configurations.",
+      "ideal": "Returns a list of properties associated with the addon."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "method": "GET",
+      "operationId": "AddonPropertiesResource.getAddonProperty_get",
+      "summary": "",
+      "user": "User retrieves a specific property value for the addon to check its current setting.",
+      "ideal": "Returns the value of the specified property for the addon."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "method": "PUT",
+      "operationId": "AddonPropertiesResource.putAddonProperty_put",
+      "summary": "",
+      "user": "User updates a specific property for the addon to change its configuration.",
+      "ideal": "Updates the property value and confirms the change."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "method": "DELETE",
+      "operationId": "AddonPropertiesResource.deleteAddonProperty_delete",
+      "summary": "",
+      "user": "User deletes a specific property for the addon to remove unnecessary configurations.",
+      "ideal": "Confirms the deletion of the specified property."
+    },
+    {
+      "path": "/rest/forge/1/app/properties",
+      "method": "GET",
+      "operationId": "getForgeAppPropertyKeys",
+      "summary": "",
+      "user": "User requests all property keys for the Forge app to review available configurations.",
+      "ideal": "Returns a list of property keys for the Forge app."
+    },
+    {
+      "path": "/rest/forge/1/app/properties/my-property",
+      "method": "GET",
+      "operationId": "getForgeAppProperty",
+      "summary": "",
+      "user": "User retrieves a specific property for the Forge app to check its current value.",
+      "ideal": "Returns the value of the specified property for the Forge app."
+    },
+    {
+      "path": "/rest/forge/1/app/properties/my-property",
+      "method": "PUT",
+      "operationId": "putForgeAppProperty",
+      "summary": "",
+      "user": "User updates a specific property for the Forge app to modify its settings.",
+      "ideal": "Updates the property and confirms the change."
+    },
+    {
+      "path": "/rest/forge/1/app/properties/my-property",
+      "method": "DELETE",
+      "operationId": "deleteForgeAppProperty",
+      "summary": "",
+      "user": "User deletes a specific property for the Forge app to clean up configurations.",
+      "ideal": "Confirms the deletion of the specified property."
+    }
+  ]
+}

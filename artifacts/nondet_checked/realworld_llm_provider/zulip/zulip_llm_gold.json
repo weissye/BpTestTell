@@ -5,16 +5,16 @@
       "method": "POST",
       "operationId": "fetch-api-key",
       "summary": "",
-      "user": "user@example.com",
-      "ideal": "Returns a new API key for the user based on their credentials."
+      "user": "{\"email\":\"user@example.com\",\"password\":\"securepassword123\"}",
+      "ideal": "{\"api_key\":\"abc123xyz456\"}"
     },
     {
       "path": "/dev_fetch_api_key",
       "method": "POST",
       "operationId": "dev-fetch-api-key",
       "summary": "",
-      "user": "dev_user@example.com",
-      "ideal": "Returns a development API key for testing purposes."
+      "user": "{\"email\":\"dev@example.com\",\"password\":\"devpassword456\"}",
+      "ideal": "{\"api_key\":\"devkey789xyz\"}"
     },
     {
       "path": "/get_stream_id",
@@ -30,7 +30,7 @@
       "operationId": "add-default-stream",
       "summary": "",
       "user": "user456",
-      "ideal": "Add a stream to the user's default streams."
+      "ideal": "Add a stream to the default streams list."
     },
     {
       "path": "/default_streams",
@@ -38,7 +38,7 @@
       "operationId": "remove-default-stream",
       "summary": "",
       "user": "user789",
-      "ideal": "Remove a stream from the user's default streams."
+      "ideal": "Remove a stream from the default streams list."
     },
     {
       "path": "/users/me/{stream_id}/topics",
@@ -46,7 +46,7 @@
       "operationId": "get-stream-topics",
       "summary": "",
       "user": "user101",
-      "ideal": "Get the topics in a specific stream."
+      "ideal": "Fetch topics from a specific stream."
     },
     {
       "path": "/users/me/subscriptions",
@@ -54,7 +54,7 @@
       "operationId": "get-subscriptions",
       "summary": "",
       "user": "user202",
-      "ideal": "Retrieve the list of subscriptions for the user."
+      "ideal": "Get a list of subscriptions for the user."
     },
     {
       "path": "/users/me/subscriptions",
@@ -94,7 +94,7 @@
       "operationId": "update-user-topic",
       "summary": "",
       "user": "user707",
-      "ideal": "Update the user's topic settings."
+      "ideal": "Update a user's topic preferences."
     },
     {
       "path": "/users/{user_id}/subscriptions/{stream_id}",
@@ -102,7 +102,7 @@
       "operationId": "get-subscription-status",
       "summary": "",
       "user": "user808",
-      "ideal": "Check the subscription status of a user for a specific stream."
+      "ideal": "Check the subscription status of a user for a stream."
     },
     {
       "path": "/users/me/subscriptions/properties",
@@ -118,7 +118,7 @@
       "operationId": "get-subscribers",
       "summary": "",
       "user": "user111",
-      "ideal": "Get the list of subscribers for a specific stream."
+      "ideal": "Retrieve the members subscribed to a stream."
     },
     {
       "path": "/streams",
@@ -126,7 +126,7 @@
       "operationId": "get-streams",
       "summary": "",
       "user": "user222",
-      "ideal": "Retrieve all available streams."
+      "ideal": "Get a list of all available streams."
     },
     {
       "path": "/streams/{stream_id}",
@@ -134,7 +134,7 @@
       "operationId": "get-stream-by-id",
       "summary": "",
       "user": "user333",
-      "ideal": "Get details of a specific stream by its ID."
+      "ideal": "Retrieve details of a specific stream by ID."
     },
     {
       "path": "/streams/{stream_id}",
@@ -158,7 +158,7 @@
       "operationId": "get-stream-email-address",
       "summary": "",
       "user": "user666",
-      "ideal": "Retrieve the email address associated with a stream."
+      "ideal": "Get the email address associated with a stream."
     },
     {
       "path": "/streams/{stream_id}/delete_topic",
@@ -190,7 +190,7 @@
       "operationId": "get-channel-folders",
       "summary": "",
       "user": "user000",
-      "ideal": "Retrieve all channel folders."
+      "ideal": "Retrieve a list of channel folders."
     },
     {
       "path": "/channel_folders",
@@ -198,7 +198,7 @@
       "operationId": "patch-channel-folders",
       "summary": "",
       "user": "user1234",
-      "ideal": "Update multiple channel folders."
+      "ideal": "Update properties of channel folders."
     },
     {
       "path": "/channel_folders/{channel_folder_id}",
@@ -214,7 +214,7 @@
       "operationId": "create-big-blue-button-video-call",
       "summary": "",
       "user": "user91011",
-      "ideal": "Create a Big Blue Button video call."
+      "ideal": "Create a BigBlueButton video call."
     },
     {
       "path": "/drafts",
@@ -238,7 +238,7 @@
       "operationId": "edit-draft",
       "summary": "",
       "user": "user789",
-      "ideal": "Edit the draft with ID 1 to update its content."
+      "ideal": "Update the content of the draft with ID 1."
     },
     {
       "path": "/drafts/2",
@@ -254,7 +254,7 @@
       "operationId": "get-saved-snippets",
       "summary": "",
       "user": "user202",
-      "ideal": "Retrieve a list of all saved snippets for the user."
+      "ideal": "Fetch all saved snippets for the user."
     },
     {
       "path": "/saved_snippets",
@@ -262,7 +262,7 @@
       "operationId": "create-saved-snippet",
       "summary": "",
       "user": "user303",
-      "ideal": "Create a new saved snippet with the provided content."
+      "ideal": "Save a new snippet with the specified content."
     },
     {
       "path": "/saved_snippets/1",
@@ -270,7 +270,7 @@
       "operationId": "edit-saved-snippet",
       "summary": "",
       "user": "user404",
-      "ideal": "Edit the saved snippet with ID 1 to update its content."
+      "ideal": "Modify the saved snippet with ID 1."
     },
     {
       "path": "/saved_snippets/2",
@@ -278,207 +278,207 @@
       "operationId": "delete-saved-snippet",
       "summary": "",
       "user": "user505",
-      "ideal": "Delete the saved snippet with ID 2 from the user's saved snippets."
+      "ideal": "Remove the saved snippet with ID 2 from the user's collection."
     },
     {
       "path": "/invites",
       "method": "GET",
       "operationId": "get-invites",
       "summary": "",
-      "user": "Alice wants to check the current invites sent to users in her Zulip organization to manage them effectively.",
-      "ideal": "Returns a list of all invites currently sent, including their status and recipient details."
+      "user": "admin",
+      "ideal": "Retrieve a list of all pending invites for the organization."
     },
     {
       "path": "/invites",
       "method": "POST",
       "operationId": "send-invites",
       "summary": "",
-      "user": "Bob needs to invite new team members to his Zulip organization, so he prepares a list of email addresses to send invites.",
-      "ideal": "Successfully sends invites to the specified email addresses and returns a confirmation message."
+      "user": "admin",
+      "ideal": "Send an email invite to a new user with the specified email address."
     },
     {
       "path": "/invites/multiuse",
       "method": "POST",
       "operationId": "create-invite-link",
       "summary": "",
-      "user": "Charlie wants to create a multi-use invite link for a workshop, allowing multiple participants to join easily.",
-      "ideal": "Generates a multi-use invite link and returns the link along with its expiration details."
+      "user": "admin",
+      "ideal": "Create a multi-use invite link that can be shared with multiple users."
     },
     {
       "path": "/invites/{invite_id}",
       "method": "DELETE",
       "operationId": "revoke-email-invite",
       "summary": "",
-      "user": "Diana realizes that she sent an invite to the wrong email address and wants to revoke it.",
-      "ideal": "Successfully revokes the specified email invite and returns a confirmation of the action."
+      "user": "admin",
+      "ideal": "Revoke a specific email invite using its unique invite ID."
     },
     {
       "path": "/invites/multiuse/{invite_id}",
       "method": "DELETE",
       "operationId": "revoke-invite-link",
       "summary": "",
-      "user": "Ethan needs to disable a multi-use invite link that he created earlier to prevent further access.",
-      "ideal": "Successfully revokes the specified multi-use invite link and confirms the revocation."
+      "user": "admin",
+      "ideal": "Revoke a specific multi-use invite link using its unique invite ID."
     },
     {
       "path": "/invites/{invite_id}/resend",
       "method": "POST",
       "operationId": "resend-email-invite",
       "summary": "",
-      "user": "Fiona wants to resend an invite to a colleague who didn't receive the original email.",
-      "ideal": "Successfully resends the email invite to the specified address and returns a confirmation message."
+      "user": "admin",
+      "ideal": "Resend the email invite for a user using their unique invite ID."
     },
     {
       "path": "/mark_all_as_read",
       "method": "POST",
       "operationId": "mark-all-as-read",
       "summary": "",
-      "user": "user123",
-      "ideal": "Marks all messages as read for the user."
+      "user": "User requests to mark all messages as read after a busy day.",
+      "ideal": "Successfully marks all messages as read."
     },
     {
       "path": "/mark_stream_as_read",
       "method": "POST",
       "operationId": "mark-stream-as-read",
       "summary": "",
-      "user": "user456",
-      "ideal": "Marks all messages in the specified stream as read."
+      "user": "User wants to mark a specific stream as read to focus on other topics.",
+      "ideal": "Successfully marks the specified stream as read."
     },
     {
       "path": "/mark_topic_as_read",
       "method": "POST",
       "operationId": "mark-topic-as-read",
       "summary": "",
-      "user": "user789",
-      "ideal": "Marks all messages in the specified topic as read."
+      "user": "User marks a topic as read to clear notifications.",
+      "ideal": "Successfully marks the specified topic as read."
     },
     {
       "path": "/messages",
       "method": "GET",
       "operationId": "get-messages",
       "summary": "",
-      "user": "user101",
-      "ideal": "Retrieves a list of messages for the user."
+      "user": "User retrieves messages from a specific stream to catch up.",
+      "ideal": "Returns a list of messages from the specified stream."
     },
     {
       "path": "/messages",
       "method": "POST",
       "operationId": "send-message",
       "summary": "",
-      "user": "user202",
-      "ideal": "Sends a new message to a specified stream or user."
+      "user": "User sends a message to a group chat to share updates.",
+      "ideal": "Successfully sends the message to the group chat."
     },
     {
       "path": "/messages/{message_id}/history",
       "method": "GET",
       "operationId": "get-message-history",
       "summary": "",
-      "user": "user303",
-      "ideal": "Retrieves the edit history of a specific message."
+      "user": "User checks the history of a specific message for context.",
+      "ideal": "Returns the history of the specified message."
     },
     {
       "path": "/messages/flags",
       "method": "POST",
       "operationId": "update-message-flags",
       "summary": "",
-      "user": "user404",
-      "ideal": "Updates flags for specified messages."
+      "user": "User updates flags on messages to categorize them.",
+      "ideal": "Successfully updates the flags on the specified messages."
     },
     {
       "path": "/messages/flags/narrow",
       "method": "POST",
       "operationId": "update-message-flags-for-narrow",
       "summary": "",
-      "user": "user505",
-      "ideal": "Updates flags for messages in a narrow view."
+      "user": "User updates flags for messages in a narrowed view.",
+      "ideal": "Successfully updates flags for messages in the narrowed context."
     },
     {
       "path": "/messages/render",
       "method": "POST",
       "operationId": "render-message",
       "summary": "",
-      "user": "user606",
-      "ideal": "Renders a message's content for display."
+      "user": "User requests to render a message with markdown formatting.",
+      "ideal": "Successfully renders the message with the appropriate formatting."
     },
     {
       "path": "/messages/{message_id}/reactions",
       "method": "POST",
       "operationId": "add-reaction",
       "summary": "",
-      "user": "user707",
-      "ideal": "Adds a reaction to a specific message."
+      "user": "User adds a reaction to a message to express agreement.",
+      "ideal": "Successfully adds the reaction to the specified message."
     },
     {
       "path": "/messages/{message_id}/reactions",
       "method": "DELETE",
       "operationId": "remove-reaction",
       "summary": "",
-      "user": "user808",
-      "ideal": "Removes a reaction from a specific message."
+      "user": "User removes their reaction from a message.",
+      "ideal": "Successfully removes the reaction from the specified message."
     },
     {
       "path": "/messages/{message_id}/read_receipts",
       "method": "GET",
       "operationId": "get-read-receipts",
       "summary": "",
-      "user": "user909",
-      "ideal": "Retrieves read receipts for a specific message."
+      "user": "User checks read receipts for a specific message to see who has read it.",
+      "ideal": "Returns the read receipts for the specified message."
     },
     {
       "path": "/messages/matches_narrow",
       "method": "GET",
       "operationId": "check-messages-match-narrow",
       "summary": "",
-      "user": "user010",
-      "ideal": "Checks if messages match the specified narrow criteria."
+      "user": "User checks if messages match a specific narrow filter.",
+      "ideal": "Returns messages that match the specified narrow criteria."
     },
     {
       "path": "/messages/{message_id}",
       "method": "GET",
       "operationId": "get-message",
       "summary": "",
-      "user": "user111",
-      "ideal": "Retrieves a specific message by its ID."
+      "user": "User retrieves a specific message to review its content.",
+      "ideal": "Returns the content of the specified message."
     },
     {
       "path": "/messages/{message_id}",
       "method": "PATCH",
       "operationId": "update-message",
       "summary": "",
-      "user": "user222",
-      "ideal": "Updates the content of a specific message."
+      "user": "User updates a message to correct a typo.",
+      "ideal": "Successfully updates the specified message."
     },
     {
       "path": "/messages/{message_id}",
       "method": "DELETE",
       "operationId": "delete-message",
       "summary": "",
-      "user": "user333",
-      "ideal": "Deletes a specific message by its ID."
+      "user": "User deletes a message that was sent by mistake.",
+      "ideal": "Successfully deletes the specified message."
     },
     {
       "path": "/messages/{message_id}/report",
       "method": "POST",
       "operationId": "report-message",
       "summary": "",
-      "user": "user444",
-      "ideal": "Reports a specific message for review."
+      "user": "User reports a message for inappropriate content.",
+      "ideal": "Successfully reports the specified message."
     },
     {
       "path": "/user_uploads",
       "method": "POST",
       "operationId": "upload-file",
       "summary": "",
-      "user": "user555",
-      "ideal": "Uploads a file to the user's account."
+      "user": "User uploads a file to share with the team.",
+      "ideal": "Successfully uploads the file."
     },
     {
       "path": "/user_uploads/{realm_id_str}/{filename}",
       "method": "GET",
       "operationId": "get-file-temporary-url",
       "summary": "",
-      "user": "user666",
-      "ideal": "Retrieves a temporary URL for a specific uploaded file."
+      "user": "User retrieves a temporary URL for a recently uploaded file.",
+      "ideal": "Returns the temporary URL for the specified file."
     },
     {
       "path": "/mobile_push/test_notification",
@@ -517,31 +517,31 @@
       "method": "GET",
       "operationId": "get-navigation-views",
       "summary": "",
-      "user": "As a user, I want to retrieve a list of all navigation views available in the Zulip application so that I can understand the structure and organization of the navigation.",
-      "ideal": "The response should include an array of navigation views with their respective properties such as id, name, and order."
+      "user": "As a user, I want to retrieve the list of navigation views available in my Zulip organization so that I can understand how to navigate through the application.",
+      "ideal": "The response should return a JSON array containing all the navigation views, including their names and associated fragments."
     },
     {
       "path": "/navigation_views",
       "method": "POST",
       "operationId": "add-navigation-view",
       "summary": "",
-      "user": "As a user, I want to add a new navigation view to the Zulip application so that I can customize my navigation experience according to my preferences.",
-      "ideal": "The response should confirm the successful creation of the navigation view and return the details of the newly created view."
+      "user": "As a user, I want to add a new navigation view to my Zulip organization so that I can customize my navigation experience.",
+      "ideal": "The response should confirm the successful creation of the navigation view and return the details of the newly added view."
     },
     {
       "path": "/navigation_views/{fragment}",
       "method": "PATCH",
       "operationId": "edit-navigation-view",
       "summary": "",
-      "user": "As a user, I want to edit an existing navigation view in the Zulip application so that I can update its properties like name or order to better fit my workflow.",
-      "ideal": "The response should indicate the successful update of the navigation view and return the updated details."
+      "user": "As a user, I want to edit an existing navigation view in my Zulip organization so that I can update its name or properties.",
+      "ideal": "The response should confirm the successful update of the navigation view and return the updated details."
     },
     {
       "path": "/navigation_views/{fragment}",
       "method": "DELETE",
       "operationId": "remove-navigation-view",
       "summary": "",
-      "user": "As a user, I want to remove a navigation view from the Zulip application that I no longer need, to keep my navigation clean and relevant.",
+      "user": "As a user, I want to remove a navigation view from my Zulip organization so that I can declutter my navigation options.",
       "ideal": "The response should confirm the successful deletion of the navigation view and indicate that it is no longer available."
     },
     {
@@ -558,7 +558,7 @@
       "operationId": "delete-queue",
       "summary": "",
       "user": "user456",
-      "ideal": "Delete the event queue for the user."
+      "ideal": "Delete all events from the user's event queue."
     },
     {
       "path": "/register",
@@ -566,15 +566,15 @@
       "operationId": "register-queue",
       "summary": "",
       "user": "user789",
-      "ideal": "Register a new user to the Zulip server."
+      "ideal": "Register a new user to the Zulip server and create an event queue."
     },
     {
       "path": "/real-time",
       "method": "POST",
-      "operationId": "POST /real-time",
+      "operationId": "real-time",
       "summary": "",
       "user": "user101",
-      "ideal": "Establish a real-time connection to receive events."
+      "ideal": "Establish a real-time connection to receive events as they occur."
     },
     {
       "path": "/rest-error-handling",
@@ -582,38 +582,38 @@
       "operationId": "rest-error-handling",
       "summary": "",
       "user": "user202",
-      "ideal": "Test the error handling mechanism of the Zulip API."
+      "ideal": "Test the API's error handling by triggering a known error condition."
     },
     {
       "path": "/reminders",
       "method": "GET",
       "operationId": "get-reminders",
       "summary": "",
-      "user": "User wants to retrieve a list of all reminders they have set in Zulip to manage their tasks effectively.",
-      "ideal": "A successful response with a list of reminders, including details such as reminder ID, content, and due date."
+      "user": "User requests to retrieve all reminders set in their Zulip account to manage their tasks effectively.",
+      "ideal": "Returns a list of reminders with details such as reminder ID, content, and time."
     },
     {
       "path": "/reminders",
       "method": "POST",
       "operationId": "create-message-reminder",
       "summary": "",
-      "user": "User needs to create a reminder for an important message in Zulip to ensure they follow up on it later.",
-      "ideal": "A successful response confirming the creation of the reminder, including the reminder ID and the content of the reminder."
+      "user": "User wants to create a reminder for an important message to follow up later.",
+      "ideal": "Successfully creates a reminder and returns the reminder ID and confirmation message."
     },
     {
       "path": "/reminders/{reminder_id}",
       "method": "DELETE",
       "operationId": "delete-reminder",
       "summary": "",
-      "user": "User wants to delete a specific reminder that is no longer needed to keep their reminders organized.",
-      "ideal": "A successful response indicating that the reminder has been deleted, with a confirmation message."
+      "user": "User decides to delete a reminder that is no longer needed.",
+      "ideal": "Confirms the deletion of the reminder and returns a success message."
     },
     {
       "path": "/scheduled_messages",
       "method": "GET",
       "operationId": "get-scheduled-messages",
       "summary": "",
-      "user": "User123",
+      "user": "user_123",
       "ideal": "Retrieve a list of scheduled messages for the user."
     },
     {
@@ -621,23 +621,23 @@
       "method": "POST",
       "operationId": "create-scheduled-message",
       "summary": "",
-      "user": "User456",
-      "ideal": "Create a new scheduled message with specified content and delivery time."
+      "user": "user_456",
+      "ideal": "Create a new scheduled message with specified content and time."
     },
     {
       "path": "/scheduled_messages/{scheduled_message_id}",
       "method": "PATCH",
       "operationId": "update-scheduled-message",
       "summary": "",
-      "user": "User789",
-      "ideal": "Update the content or delivery time of an existing scheduled message."
+      "user": "user_789",
+      "ideal": "Update the content or time of an existing scheduled message."
     },
     {
       "path": "/scheduled_messages/{scheduled_message_id}",
       "method": "DELETE",
       "operationId": "delete-scheduled-message",
       "summary": "",
-      "user": "User101",
+      "user": "user_101",
       "ideal": "Delete a specific scheduled message by its ID."
     },
     {
@@ -645,167 +645,167 @@
       "method": "POST",
       "operationId": "upload-custom-emoji",
       "summary": "",
-      "user": "user123",
-      "ideal": "Successfully uploads a custom emoji named 'custom_emoji'."
+      "user": "User123 uploaded a new custom emoji named 'custom_emoji' to enhance the team's communication.",
+      "ideal": "Successfully uploaded the custom emoji."
     },
     {
       "path": "/realm/emoji/custom_emoji",
       "method": "DELETE",
       "operationId": "deactivate-custom-emoji",
       "summary": "",
-      "user": "user123",
-      "ideal": "Successfully deactivates the custom emoji named 'custom_emoji'."
+      "user": "User123 decided to deactivate the custom emoji 'custom_emoji' as it was no longer relevant.",
+      "ideal": "Successfully deactivated the custom emoji."
     },
     {
       "path": "/realm/emoji",
       "method": "GET",
       "operationId": "get-custom-emoji",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieves a list of all custom emojis in the realm."
+      "user": "User123 wanted to view all custom emojis available in the realm.",
+      "ideal": "Retrieved a list of all custom emojis."
     },
     {
       "path": "/realm/presence",
       "method": "GET",
       "operationId": "get-presence",
       "summary": "",
-      "user": "user123",
-      "ideal": "Gets the presence status of all users in the realm."
+      "user": "User123 checked the presence status of team members to see who is online.",
+      "ideal": "Successfully retrieved presence information."
     },
     {
       "path": "/realm/profile_fields",
       "method": "GET",
       "operationId": "get-custom-profile-fields",
       "summary": "",
-      "user": "user123",
-      "ideal": "Fetches the custom profile fields configured in the realm."
+      "user": "User123 wanted to see the custom profile fields set up for the realm.",
+      "ideal": "Retrieved a list of custom profile fields."
     },
     {
       "path": "/realm/profile_fields",
       "method": "PATCH",
       "operationId": "reorder-custom-profile-fields",
       "summary": "",
-      "user": "user123",
-      "ideal": "Successfully reorders the custom profile fields."
+      "user": "User123 reordered the custom profile fields to prioritize important information.",
+      "ideal": "Successfully reordered the custom profile fields."
     },
     {
       "path": "/realm/profile_fields",
       "method": "POST",
       "operationId": "create-custom-profile-field",
       "summary": "",
-      "user": "user123",
-      "ideal": "Creates a new custom profile field named 'New Field'."
+      "user": "User123 created a new custom profile field for 'Favorite Color' to personalize profiles.",
+      "ideal": "Successfully created a new custom profile field."
     },
     {
       "path": "/realm/user_settings_defaults",
       "method": "PATCH",
       "operationId": "update-realm-user-settings-defaults",
       "summary": "",
-      "user": "user123",
-      "ideal": "Updates the default user settings for the realm."
+      "user": "User123 updated the default user settings for better user experience.",
+      "ideal": "Successfully updated user settings defaults."
     },
     {
       "path": "/realm/linkifiers",
       "method": "GET",
       "operationId": "get-linkifiers",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieves a list of all linkifiers in the realm."
+      "user": "User123 wanted to review the linkifiers set up in the realm.",
+      "ideal": "Retrieved a list of all linkifiers."
     },
     {
       "path": "/realm/linkifiers",
       "method": "PATCH",
       "operationId": "reorder-linkifiers",
       "summary": "",
-      "user": "user123",
-      "ideal": "Successfully reorders the linkifiers."
+      "user": "User123 reordered the linkifiers to improve their effectiveness.",
+      "ideal": "Successfully reordered the linkifiers."
     },
     {
       "path": "/realm/filters",
       "method": "POST",
       "operationId": "add-linkifier",
       "summary": "",
-      "user": "user123",
-      "ideal": "Adds a new linkifier with the specified pattern."
+      "user": "User123 added a new linkifier for URLs to enhance message formatting.",
+      "ideal": "Successfully added a new linkifier."
     },
     {
-      "path": "/realm/filters/{filter_id}",
+      "path": "/realm/filters/1",
       "method": "DELETE",
       "operationId": "remove-linkifier",
       "summary": "",
-      "user": "user123",
-      "ideal": "Successfully removes the linkifier with the given filter_id."
+      "user": "User123 removed an outdated linkifier that was no longer needed.",
+      "ideal": "Successfully removed the linkifier."
     },
     {
-      "path": "/realm/filters/{filter_id}",
+      "path": "/realm/filters/1",
       "method": "PATCH",
       "operationId": "update-linkifier",
       "summary": "",
-      "user": "user123",
-      "ideal": "Updates the linkifier with the specified filter_id."
+      "user": "User123 updated the linkifier to improve its matching criteria.",
+      "ideal": "Successfully updated the linkifier."
     },
     {
       "path": "/realm/playgrounds",
       "method": "POST",
       "operationId": "add-code-playground",
       "summary": "",
-      "user": "user123",
-      "ideal": "Successfully adds a new code playground."
+      "user": "User123 created a new code playground for testing JavaScript snippets.",
+      "ideal": "Successfully added a new code playground."
     },
     {
-      "path": "/realm/playgrounds/{playground_id}",
+      "path": "/realm/playgrounds/1",
       "method": "DELETE",
       "operationId": "remove-code-playground",
       "summary": "",
-      "user": "user123",
-      "ideal": "Successfully removes the code playground with the given playground_id."
+      "user": "User123 deleted an unused code playground to keep the workspace tidy.",
+      "ideal": "Successfully removed the code playground."
     },
     {
       "path": "/export/realm",
       "method": "GET",
       "operationId": "get-realm-exports",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieves the list of available realm exports."
+      "user": "User123 checked the status of realm exports to ensure data availability.",
+      "ideal": "Retrieved the status of realm exports."
     },
     {
       "path": "/export/realm",
       "method": "POST",
       "operationId": "export-realm",
       "summary": "",
-      "user": "user123",
-      "ideal": "Initiates the export process for the realm."
+      "user": "User123 initiated a realm export to back up important data.",
+      "ideal": "Successfully initiated realm export."
     },
     {
       "path": "/export/realm/consents",
       "method": "GET",
       "operationId": "get-realm-export-consents",
       "summary": "",
-      "user": "user123",
-      "ideal": "Fetches the consents related to realm exports."
+      "user": "User123 wanted to review the consents related to realm exports.",
+      "ideal": "Retrieved a list of export consents."
     },
     {
       "path": "/realm/test_welcome_bot_custom_message",
       "method": "POST",
       "operationId": "test-welcome-bot-custom-message",
       "summary": "",
-      "user": "user123",
-      "ideal": "Tests the welcome bot's custom message functionality."
+      "user": "User123 tested the welcome bot's custom message to ensure it works as intended.",
+      "ideal": "Successfully tested the welcome bot custom message."
     },
     {
       "path": "/server_settings",
       "method": "GET",
       "operationId": "get-server-settings",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieves the current server settings."
+      "user": "User123 checked the server settings to verify configurations.",
+      "ideal": "Retrieved the current server settings."
     },
     {
       "path": "/users",
       "method": "GET",
       "operationId": "get-users",
       "summary": "",
-      "user": "admin",
+      "user": "user123",
       "ideal": "Retrieve a list of all users in the organization."
     },
     {
@@ -813,15 +813,15 @@
       "method": "POST",
       "operationId": "create-user",
       "summary": "",
-      "user": "admin",
-      "ideal": "Create a new user with specified details."
+      "user": "adminUser",
+      "ideal": "Create a new user with the provided details."
     },
     {
       "path": "/users/me",
       "method": "GET",
       "operationId": "get-own-user",
       "summary": "",
-      "user": "user123",
+      "user": "currentUser",
       "ideal": "Fetch the details of the currently authenticated user."
     },
     {
@@ -829,31 +829,31 @@
       "method": "POST",
       "operationId": "add-alert-words",
       "summary": "",
-      "user": "user123",
-      "ideal": "Add new alert words for the user to receive notifications."
+      "user": "alertUser",
+      "ideal": "Add specific words to the user's alert words list."
     },
     {
       "path": "/users/{user_id}/status",
       "method": "POST",
       "operationId": "update-status-for-user",
       "summary": "",
-      "user": "admin",
+      "user": "managerUser",
       "ideal": "Update the status message for a specific user."
     },
     {
-      "path": "/users/me/presence",
-      "method": "POST",
-      "operationId": "update-presence",
+      "path": "/users/{user_id}/presence",
+      "method": "GET",
+      "operationId": "get-user-presence",
       "summary": "",
-      "user": "user123",
-      "ideal": "Update the presence status of the currently authenticated user."
+      "user": "teamLead",
+      "ideal": "Check the presence status of a specific user."
     },
     {
       "path": "/user_groups",
       "method": "GET",
       "operationId": "get-user-groups",
       "summary": "",
-      "user": "admin",
+      "user": "groupAdmin",
       "ideal": "Retrieve a list of all user groups in the organization."
     },
     {
@@ -861,24 +861,24 @@
       "method": "GET",
       "operationId": "get-user-group-members",
       "summary": "",
-      "user": "admin",
+      "user": "groupManager",
       "ideal": "Get the members of a specific user group."
+    },
+    {
+      "path": "/user_groups/{user_group_id}/members",
+      "method": "POST",
+      "operationId": "update-user-group-members",
+      "summary": "",
+      "user": "groupAdmin",
+      "ideal": "Add or remove members from a specific user group."
     },
     {
       "path": "/attachments",
       "method": "GET",
       "operationId": "get-attachments",
       "summary": "",
-      "user": "user123",
+      "user": "fileManager",
       "ideal": "Retrieve a list of all attachments available."
-    },
-    {
-      "path": "/users/{user_id}/reactivate",
-      "method": "POST",
-      "operationId": "reactivate-user",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Reactivate a previously deactivated user."
     },
     {
       "path": "/zulip-outgoing-webhook",
@@ -886,7 +886,7 @@
       "operationId": "zulip-outgoing-webhooks",
       "summary": "",
       "user": "user@example.com",
-      "ideal": "This endpoint allows you to send outgoing webhooks from Zulip to your specified URL. You need to provide the necessary payload in the request body."
+      "ideal": "This endpoint allows you to send outgoing webhooks from Zulip to an external service. The request should include the necessary payload, such as the content of the message and the stream it originated from."
     }
   ]
 }

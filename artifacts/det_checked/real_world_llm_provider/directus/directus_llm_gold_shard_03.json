@@ -1,372 +1,44 @@
 {
   "gold": [
     {
-      "path": "/assets/{id}",
-      "method": "GET",
-      "operationId": "getAsset",
+      "path": "/auth/login",
+      "method": "POST",
+      "operationId": "login",
       "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve the asset with the specified ID."
+      "user": "{\"email\":\"user@example.com\",\"password\":\"securePassword123\"}",
+      "ideal": "{\"access_token\":\"abc123xyz\",\"refresh_token\":\"def456uvw\"}"
+    },
+    {
+      "path": "/auth/refresh",
+      "method": "POST",
+      "operationId": "refresh",
+      "summary": "",
+      "user": "{\"refresh_token\":\"def456uvw\"}",
+      "ideal": "{\"access_token\":\"ghi789rst\"}"
     },
     {
       "path": "/auth/logout",
       "method": "POST",
       "operationId": "logout",
       "summary": "",
-      "user": "User123",
-      "ideal": "Log out the current user session."
+      "user": "{\"access_token\":\"abc123xyz\"}",
+      "ideal": "{\"message\":\"Successfully logged out\"}"
     },
     {
-      "path": "/auth/oauth",
-      "method": "GET",
-      "operationId": "oauth",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Get OAuth authorization details."
-    },
-    {
-      "path": "/items/{collection}",
+      "path": "/auth/password/request",
       "method": "POST",
-      "operationId": "createItem",
+      "operationId": "passwordRequest",
       "summary": "",
-      "user": "User123",
-      "ideal": "Create a new item in the specified collection."
+      "user": "{\"email\":\"user@example.com\"}",
+      "ideal": "{\"message\":\"Password reset link sent\"}"
     },
     {
-      "path": "/items/{collection}/{id}",
-      "method": "GET",
-      "operationId": "getItem",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve the item with the specified ID from the collection."
-    },
-    {
-      "path": "/presets",
-      "method": "GET",
-      "operationId": "getPresets",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Fetch all available presets."
-    },
-    {
-      "path": "/presets",
-      "method": "DELETE",
-      "operationId": "deletePresets",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Delete all presets."
-    },
-    {
-      "path": "/presets/{id}",
-      "method": "DELETE",
-      "operationId": "deletePreset",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Delete the preset with the specified ID."
-    },
-    {
-      "path": "/collections/{id}",
-      "method": "GET",
-      "operationId": "getCollection",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve details of the specified collection."
-    },
-    {
-      "path": "/comments",
-      "method": "GET",
-      "operationId": "getComments",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Fetch all comments."
-    },
-    {
-      "path": "/comments",
-      "method": "DELETE",
-      "operationId": "deleteComments",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Delete all comments."
-    },
-    {
-      "path": "/comments/{id}",
-      "method": "DELETE",
-      "operationId": "deleteComment",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Delete the comment with the specified ID."
-    },
-    {
-      "path": "/extensions/{bundle}/{name}",
-      "method": "PATCH",
-      "operationId": "updateExtensionBundle",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Update the specified extension bundle."
-    },
-    {
-      "path": "/fields/{collection}",
+      "path": "/auth/password/reset",
       "method": "POST",
-      "operationId": "createField",
+      "operationId": "passwordReset",
       "summary": "",
-      "user": "User123",
-      "ideal": "Create a new field in the specified collection."
-    },
-    {
-      "path": "/fields/{collection}/{id}",
-      "method": "DELETE",
-      "operationId": "deleteField",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Delete the field with the specified ID from the collection."
-    },
-    {
-      "path": "/files",
-      "method": "PATCH",
-      "operationId": "updateFiles",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Update multiple files."
-    },
-    {
-      "path": "/files/{id}",
-      "method": "PATCH",
-      "operationId": "updateFile",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Update the file with the specified ID."
-    },
-    {
-      "path": "/flows",
-      "method": "POST",
-      "operationId": "createFlow",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Create a new flow."
-    },
-    {
-      "path": "/flows/{id}",
-      "method": "GET",
-      "operationId": "getFlow",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve the flow with the specified ID."
-    },
-    {
-      "path": "/folders",
-      "method": "GET",
-      "operationId": "getFolders",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Fetch all folders."
-    },
-    {
-      "path": "/folders",
-      "method": "DELETE",
-      "operationId": "deleteFolders",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Delete all folders."
-    },
-    {
-      "path": "/folders/{id}",
-      "method": "DELETE",
-      "operationId": "deleteFolder",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Delete the folder with the specified ID."
-    },
-    {
-      "path": "/operations",
-      "method": "PATCH",
-      "operationId": "updateOperations",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Update multiple operations."
-    },
-    {
-      "path": "/operations/{id}",
-      "method": "PATCH",
-      "operationId": "updateOperation",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Update the operation with the specified ID."
-    },
-    {
-      "path": "/permissions",
-      "method": "POST",
-      "operationId": "createPermission",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Create a new permission."
-    },
-    {
-      "path": "/permissions/me",
-      "method": "GET",
-      "operationId": "getMyPermissions",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve the permissions for the current user."
-    },
-    {
-      "path": "/permissions/{id}",
-      "method": "DELETE",
-      "operationId": "deletePermission",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Delete the permission with the specified ID."
-    },
-    {
-      "path": "/relations/{id}",
-      "method": "GET",
-      "operationId": "getRelation",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve the relation with the specified ID."
-    },
-    {
-      "path": "/revisions",
-      "method": "GET",
-      "operationId": "getRevisions",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Fetch all revisions."
-    },
-    {
-      "path": "/roles",
-      "method": "POST",
-      "operationId": "createRole",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Create a new role."
-    },
-    {
-      "path": "/roles/{id}",
-      "method": "GET",
-      "operationId": "getRole",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve the role with the specified ID."
-    },
-    {
-      "path": "/schema/snapshot",
-      "method": "GET",
-      "operationId": "schemaSnapshot",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Get a snapshot of the current schema."
-    },
-    {
-      "path": "/server/info",
-      "method": "GET",
-      "operationId": "serverInfo",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve information about the server."
-    },
-    {
-      "path": "/settings",
-      "method": "PATCH",
-      "operationId": "updateSetting",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Update server settings."
-    },
-    {
-      "path": "/users",
-      "method": "PATCH",
-      "operationId": "updateUsers",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Update multiple users."
-    },
-    {
-      "path": "/users/{id}",
-      "method": "PATCH",
-      "operationId": "updateUser",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Update the user with the specified ID."
-    },
-    {
-      "path": "/users/invite/accept",
-      "method": "POST",
-      "operationId": "acceptInvite",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Accept an invitation to join."
-    },
-    {
-      "path": "/users/me/track/page",
-      "method": "PATCH",
-      "operationId": "updateLastUsedPageMe",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Update the last used page for the current user."
-    },
-    {
-      "path": "/utils/hash/generate",
-      "method": "POST",
-      "operationId": "hash-generate",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Generate a hash."
-    },
-    {
-      "path": "/utils/import/{collection}",
-      "method": "POST",
-      "operationId": "import",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Import data into the specified collection."
-    },
-    {
-      "path": "/utils/random/string",
-      "method": "GET",
-      "operationId": "random",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Generate a random string."
-    },
-    {
-      "path": "/versions",
-      "method": "PATCH",
-      "operationId": "updateContentVersions",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Update multiple content versions."
-    },
-    {
-      "path": "/versions/{id}",
-      "method": "PATCH",
-      "operationId": "updateContentVersion",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Update the content version with the specified ID."
-    },
-    {
-      "path": "/versions/{id}/compare",
-      "method": "GET",
-      "operationId": "compareContentVersion",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Compare the specified content version."
-    },
-    {
-      "path": "/webhooks",
-      "method": "POST",
-      "operationId": "createWebhook",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Create a new webhook."
-    },
-    {
-      "path": "/webhooks/{id}",
-      "method": "GET",
-      "operationId": "getWebhook",
-      "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve the webhook with the specified ID."
+      "user": "{\"token\":\"resetToken123\",\"new_password\":\"newSecurePassword456\"}",
+      "ideal": "{\"message\":\"Password has been reset successfully\"}"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/gitignore/templates",
+      "method": "GET",
+      "tags": [
+        "gitignore"
+      ],
+      "summary": "Get all gitignore templates",
+      "operationId": "gitignore/get-all-templates"
+    },
+    {
+      "path": "/gitignore/templates/{name}",
+      "method": "GET",
+      "tags": [
+        "gitignore"
+      ],
+      "summary": "Get a gitignore template",
+      "operationId": "gitignore/get-template"
+    }
+  ]
+}

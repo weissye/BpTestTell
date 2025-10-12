@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "ServiceRegistryResource.services_get",
       "summary": "",
-      "user": "As a Jira administrator, I want to retrieve the list of services registered with the Atlassian Connect framework so that I can manage integrations effectively.",
-      "ideal": "The response should include a JSON array of services, each containing details such as service name, URL, and status."
+      "user": "As a Jira administrator, I want to retrieve the list of registered services in my Atlassian Connect application so that I can manage integrations effectively.",
+      "ideal": "The API should return a JSON array of services with their details, including service name, URL, and status."
     }
   ]
 }

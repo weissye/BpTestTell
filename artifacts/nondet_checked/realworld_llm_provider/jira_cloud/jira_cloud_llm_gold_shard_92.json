@@ -13,8 +13,8 @@
       "method": "GET",
       "operationId": "getStatusCategory",
       "summary": "",
-      "user": "As a developer, I need to fetch details of a specific status category by its ID or key to ensure I am using the correct category in my API calls.",
-      "ideal": "The response should provide detailed information about the specified status category, including its ID, name, and any associated metadata."
+      "user": "As a developer, I need to fetch details of a specific status category by its ID to ensure that I am using the correct category in my API calls.",
+      "ideal": "The response should provide detailed information about the specified status category, including its ID, name, and description, so I can confirm its attributes."
     }
   ]
 }

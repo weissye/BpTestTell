@@ -1,0 +1,351 @@
+{
+  "openapi_meta": {
+    "title": "NetBox REST API",
+    "version": "4.4.2 (4.4)"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/api/users/config/",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_config_retrieve"
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_groups_list"
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_groups_create"
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "PUT",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_groups_bulk_update"
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "PATCH",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_groups_bulk_partial_update"
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_groups_bulk_destroy"
+    },
+    {
+      "path": "/api/users/groups/{id}/",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_groups_retrieve"
+    },
+    {
+      "path": "/api/users/groups/{id}/",
+      "method": "PUT",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_groups_update"
+    },
+    {
+      "path": "/api/users/groups/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_groups_partial_update"
+    },
+    {
+      "path": "/api/users/groups/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_groups_destroy"
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_permissions_list"
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_permissions_create"
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "PUT",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_permissions_bulk_update"
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "PATCH",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_permissions_bulk_partial_update"
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_permissions_bulk_destroy"
+    },
+    {
+      "path": "/api/users/permissions/{id}/",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_permissions_retrieve"
+    },
+    {
+      "path": "/api/users/permissions/{id}/",
+      "method": "PUT",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_permissions_update"
+    },
+    {
+      "path": "/api/users/permissions/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_permissions_partial_update"
+    },
+    {
+      "path": "/api/users/permissions/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_permissions_destroy"
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_tokens_list"
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_tokens_create"
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "PUT",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_tokens_bulk_update"
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "PATCH",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_tokens_bulk_partial_update"
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_tokens_bulk_destroy"
+    },
+    {
+      "path": "/api/users/tokens/{id}/",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_tokens_retrieve"
+    },
+    {
+      "path": "/api/users/tokens/{id}/",
+      "method": "PUT",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_tokens_update"
+    },
+    {
+      "path": "/api/users/tokens/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_tokens_partial_update"
+    },
+    {
+      "path": "/api/users/tokens/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_tokens_destroy"
+    },
+    {
+      "path": "/api/users/tokens/provision/",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_tokens_provision_create"
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_users_list"
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "POST",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_users_create"
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "PUT",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_users_bulk_update"
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "PATCH",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_users_bulk_partial_update"
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_users_bulk_destroy"
+    },
+    {
+      "path": "/api/users/users/{id}/",
+      "method": "GET",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_users_retrieve"
+    },
+    {
+      "path": "/api/users/users/{id}/",
+      "method": "PUT",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_users_update"
+    },
+    {
+      "path": "/api/users/users/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_users_partial_update"
+    },
+    {
+      "path": "/api/users/users/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "users"
+      ],
+      "summary": "",
+      "operationId": "users_users_destroy"
+    }
+  ]
+}

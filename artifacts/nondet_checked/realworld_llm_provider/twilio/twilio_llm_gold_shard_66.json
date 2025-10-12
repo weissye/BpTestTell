@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Tokens.json",
+      "method": "POST",
+      "operationId": "CreateToken",
+      "summary": "",
+      "user": "User wants to generate a new access token for their Twilio account to enable secure communication with the Twilio API for sending SMS messages and making calls.",
+      "ideal": "The API should return a JSON object containing the generated token, along with its expiration time and any relevant metadata."
+    }
+  ]
+}

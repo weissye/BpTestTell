@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/server/info",
+      "method": "GET",
+      "operationId": "serverInfo",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve detailed information about the Directus server, including version, environment, and any relevant configuration details."
+    },
+    {
+      "path": "/server/ping",
+      "method": "GET",
+      "operationId": "ping",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Check the availability of the Directus server by sending a ping request and receiving a simple response indicating the server is operational."
+    }
+  ]
+}

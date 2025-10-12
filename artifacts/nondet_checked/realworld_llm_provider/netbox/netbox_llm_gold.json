@@ -1,0 +1,1404 @@
+{
+  "gold": [
+    {
+      "path": "/api/circuits/circuit-groups/",
+      "method": "GET",
+      "operationId": "circuits_circuit_groups_list",
+      "summary": "",
+      "user": "Admin user requesting a list of all circuit groups to manage network configurations.",
+      "ideal": "Returns a list of circuit groups with their details."
+    },
+    {
+      "path": "/api/circuits/circuit-groups/",
+      "method": "POST",
+      "operationId": "circuits_circuit_groups_create",
+      "summary": "",
+      "user": "Network engineer creating a new circuit group for a project.",
+      "ideal": "Creates a new circuit group and returns the created object."
+    },
+    {
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "method": "GET",
+      "operationId": "circuits_circuit_groups_retrieve",
+      "summary": "",
+      "user": "Support staff retrieving details of a specific circuit group for troubleshooting.",
+      "ideal": "Returns the details of the specified circuit group."
+    },
+    {
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "method": "PUT",
+      "operationId": "circuits_circuit_groups_update",
+      "summary": "",
+      "user": "Admin updating the configuration of an existing circuit group.",
+      "ideal": "Updates the specified circuit group and returns the updated object."
+    },
+    {
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "method": "DELETE",
+      "operationId": "circuits_circuit_groups_destroy",
+      "summary": "",
+      "user": "Network administrator deleting an obsolete circuit group.",
+      "ideal": "Deletes the specified circuit group and confirms deletion."
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/",
+      "method": "GET",
+      "operationId": "circuits_circuit_terminations_list",
+      "summary": "",
+      "user": "Network analyst reviewing all circuit terminations for performance analysis.",
+      "ideal": "Returns a list of all circuit terminations with their statuses."
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/",
+      "method": "POST",
+      "operationId": "circuits_circuit_terminations_create",
+      "summary": "",
+      "user": "Technician adding a new circuit termination for a client.",
+      "ideal": "Creates a new circuit termination and returns the created object."
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "method": "PATCH",
+      "operationId": "circuits_circuit_terminations_partial_update",
+      "summary": "",
+      "user": "Network engineer updating specific fields of a circuit termination.",
+      "ideal": "Partially updates the specified circuit termination and returns the updated object."
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "method": "DELETE",
+      "operationId": "circuits_circuit_terminations_destroy",
+      "summary": "",
+      "user": "Admin removing a circuit termination that is no longer in use.",
+      "ideal": "Deletes the specified circuit termination and confirms deletion."
+    },
+    {
+      "path": "/api/circuits/circuit-types/",
+      "method": "GET",
+      "operationId": "circuits_circuit_types_list",
+      "summary": "",
+      "user": "Network planner reviewing available circuit types for new installations.",
+      "ideal": "Returns a list of all circuit types with their specifications."
+    },
+    {
+      "path": "/api/circuits/circuit-types/{id}/",
+      "method": "PUT",
+      "operationId": "circuits_circuit_types_update",
+      "summary": "",
+      "user": "Admin updating the details of a specific circuit type.",
+      "ideal": "Updates the specified circuit type and returns the updated object."
+    },
+    {
+      "path": "/api/core/background-queues/",
+      "method": "GET",
+      "operationId": "core_background_queues_retrieve",
+      "summary": "",
+      "user": "Admin user requesting the list of all background queues to monitor their status.",
+      "ideal": "A JSON array containing details of all background queues, including their names and current statuses."
+    },
+    {
+      "path": "/api/core/background-queues/{name}/",
+      "method": "GET",
+      "operationId": "core_background_queues_retrieve_by_name",
+      "summary": "",
+      "user": "System operator checking the status of a specific background queue named 'queue1'.",
+      "ideal": "A JSON object with detailed information about the specified background queue, including its name, status, and job count."
+    },
+    {
+      "path": "/api/core/background-tasks/",
+      "method": "GET",
+      "operationId": "core_background_tasks_retrieve",
+      "summary": "",
+      "user": "Developer looking to retrieve a list of all background tasks for debugging purposes.",
+      "ideal": "A JSON array containing all background tasks with their IDs, names, and current statuses."
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/",
+      "method": "GET",
+      "operationId": "core_background_tasks_retrieve_by_id",
+      "summary": "",
+      "user": "Support team member needing details about a specific background task with ID 123.",
+      "ideal": "A JSON object with detailed information about the background task, including its ID, name, status, and execution history."
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/delete/",
+      "method": "POST",
+      "operationId": "core_background_tasks_delete_create",
+      "summary": "",
+      "user": "Admin user attempting to delete a background task with ID 456 that is no longer needed.",
+      "ideal": "A success message confirming the deletion of the background task with ID 456."
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/enqueue/",
+      "method": "POST",
+      "operationId": "core_background_tasks_enqueue_create",
+      "summary": "",
+      "user": "User wanting to enqueue a background task with ID 789 for immediate execution.",
+      "ideal": "A JSON object confirming that the task with ID 789 has been successfully enqueued."
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/requeue/",
+      "method": "POST",
+      "operationId": "core_background_tasks_requeue_create",
+      "summary": "",
+      "user": "Developer needing to requeue a failed background task with ID 321.",
+      "ideal": "A JSON object confirming that the task with ID 321 has been successfully requeued."
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/stop/",
+      "method": "POST",
+      "operationId": "core_background_tasks_stop_create",
+      "summary": "",
+      "user": "Admin user wanting to stop a long-running background task with ID 654.",
+      "ideal": "A JSON object confirming that the task with ID 654 has been successfully stopped."
+    },
+    {
+      "path": "/api/core/background-workers/",
+      "method": "GET",
+      "operationId": "core_background_workers_retrieve",
+      "summary": "",
+      "user": "System administrator checking the status of all background workers.",
+      "ideal": "A JSON array containing details of all background workers, including their names and statuses."
+    },
+    {
+      "path": "/api/core/background-workers/{name}/",
+      "method": "GET",
+      "operationId": "core_background_workers_retrieve_by_name",
+      "summary": "",
+      "user": "User looking for detailed information about a specific background worker named 'worker1'.",
+      "ideal": "A JSON object with detailed information about the specified background worker, including its name, status, and task count."
+    },
+    {
+      "path": "/api/core/data-files/",
+      "method": "GET",
+      "operationId": "core_data_files_list",
+      "summary": "",
+      "user": "Data analyst retrieving a list of all data files for analysis.",
+      "ideal": "A JSON array containing metadata for all data files, including their IDs, names, and sizes."
+    },
+    {
+      "path": "/api/core/data-files/{id}/",
+      "method": "GET",
+      "operationId": "core_data_files_retrieve",
+      "summary": "",
+      "user": "User needing to access details about a specific data file with ID 101.",
+      "ideal": "A JSON object with detailed information about the data file, including its ID, name, size, and upload date."
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "GET",
+      "operationId": "core_data_sources_list",
+      "summary": "",
+      "user": "Database administrator listing all data sources for configuration.",
+      "ideal": "A JSON array containing all data sources with their IDs, names, and connection statuses."
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "POST",
+      "operationId": "core_data_sources_create",
+      "summary": "",
+      "user": "User creating a new data source for a new database connection.",
+      "ideal": "A JSON object confirming the successful creation of the new data source with its ID and details."
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "PUT",
+      "operationId": "core_data_sources_bulk_update",
+      "summary": "",
+      "user": "Admin user performing a bulk update on multiple data sources.",
+      "ideal": "A JSON object confirming the successful bulk update of data sources with a summary of changes."
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "PATCH",
+      "operationId": "core_data_sources_bulk_partial_update",
+      "summary": "",
+      "user": "User making partial updates to several data sources.",
+      "ideal": "A JSON object confirming the successful partial update of data sources with a summary of changes."
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "DELETE",
+      "operationId": "core_data_sources_bulk_destroy",
+      "summary": "",
+      "user": "Admin user deleting multiple data sources that are no longer in use.",
+      "ideal": "A JSON object confirming the successful deletion of the specified data sources."
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "GET",
+      "operationId": "core_data_sources_retrieve",
+      "summary": "",
+      "user": "User needing to retrieve details about a specific data source with ID 202.",
+      "ideal": "A JSON object with detailed information about the data source, including its ID, name, and connection details."
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "PUT",
+      "operationId": "core_data_sources_update",
+      "summary": "",
+      "user": "Admin user updating the configuration of a data source with ID 303.",
+      "ideal": "A JSON object confirming the successful update of the data source with its new details."
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "PATCH",
+      "operationId": "core_data_sources_partial_update",
+      "summary": "",
+      "user": "User making a partial update to a data source with ID 404.",
+      "ideal": "A JSON object confirming the successful partial update of the data source with its new details."
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "DELETE",
+      "operationId": "core_data_sources_destroy",
+      "summary": "",
+      "user": "Admin user deleting a data source with ID 505 that is no longer needed.",
+      "ideal": "A JSON object confirming the successful deletion of the data source with ID 505."
+    },
+    {
+      "path": "/api/core/data-sources/{id}/sync/",
+      "method": "POST",
+      "operationId": "core_data_sources_sync_create",
+      "summary": "",
+      "user": "User initiating a sync operation for a data source with ID 606.",
+      "ideal": "A JSON object confirming that the sync operation for the data source with ID 606 has been successfully initiated."
+    },
+    {
+      "path": "/api/core/jobs/",
+      "method": "GET",
+      "operationId": "core_jobs_list",
+      "summary": "",
+      "user": "Admin user retrieving a list of all jobs for monitoring.",
+      "ideal": "A JSON array containing all jobs with their IDs, names, and statuses."
+    },
+    {
+      "path": "/api/core/jobs/{id}/",
+      "method": "GET",
+      "operationId": "core_jobs_retrieve",
+      "summary": "",
+      "user": "User needing details about a specific job with ID 707.",
+      "ideal": "A JSON object with detailed information about the job, including its ID, name, status, and execution history."
+    },
+    {
+      "path": "/api/core/object-changes/",
+      "method": "GET",
+      "operationId": "core_object_changes_list",
+      "summary": "",
+      "user": "User reviewing all object changes for auditing purposes.",
+      "ideal": "A JSON array containing all object changes with their IDs, timestamps, and descriptions."
+    },
+    {
+      "path": "/api/core/object-changes/{id}/",
+      "method": "GET",
+      "operationId": "core_object_changes_retrieve",
+      "summary": "",
+      "user": "Admin user needing details about a specific object change with ID 808.",
+      "ideal": "A JSON object with detailed information about the object change, including its ID, timestamp, and affected objects."
+    },
+    {
+      "path": "/api/core/object-types/",
+      "method": "GET",
+      "operationId": "core_object_types_list",
+      "summary": "",
+      "user": "Developer retrieving a list of all object types for reference.",
+      "ideal": "A JSON array containing all object types with their IDs and names."
+    },
+    {
+      "path": "/api/core/object-types/{id}/",
+      "method": "GET",
+      "operationId": "core_object_types_retrieve",
+      "summary": "",
+      "user": "User needing details about a specific object type with ID 909.",
+      "ideal": "A JSON object with detailed information about the object type, including its ID and name."
+    },
+    {
+      "path": "/api/dcim/cable-terminations/",
+      "method": "GET",
+      "operationId": "dcim_cable_terminations_list",
+      "summary": "",
+      "user": "Retrieve a list of all cable terminations in the system.",
+      "ideal": "A successful response with a list of cable terminations."
+    },
+    {
+      "path": "/api/dcim/cable-terminations/",
+      "method": "POST",
+      "operationId": "dcim_cable_terminations_create",
+      "summary": "",
+      "user": "Create a new cable termination with specified attributes.",
+      "ideal": "A successful response with the created cable termination details."
+    },
+    {
+      "path": "/api/dcim/cable-terminations/{id}/",
+      "method": "GET",
+      "operationId": "dcim_cable_terminations_retrieve",
+      "summary": "",
+      "user": "Retrieve details of a specific cable termination by ID.",
+      "ideal": "A successful response with the details of the specified cable termination."
+    },
+    {
+      "path": "/api/dcim/cables/",
+      "method": "GET",
+      "operationId": "dcim_cables_list",
+      "summary": "",
+      "user": "Get a list of all cables in the system.",
+      "ideal": "A successful response with a list of cables."
+    },
+    {
+      "path": "/api/dcim/cables/{id}/",
+      "method": "DELETE",
+      "operationId": "dcim_cables_destroy",
+      "summary": "",
+      "user": "Delete a specific cable by its ID.",
+      "ideal": "A successful response confirming the cable has been deleted."
+    },
+    {
+      "path": "/api/dcim/devices/",
+      "method": "POST",
+      "operationId": "dcim_devices_create",
+      "summary": "",
+      "user": "Create a new device with the provided specifications.",
+      "ideal": "A successful response with the created device's details."
+    },
+    {
+      "path": "/api/dcim/devices/{id}/",
+      "method": "PATCH",
+      "operationId": "dcim_devices_partial_update",
+      "summary": "",
+      "user": "Update specific fields of a device by its ID.",
+      "ideal": "A successful response with the updated device details."
+    },
+    {
+      "path": "/api/dcim/locations/",
+      "method": "GET",
+      "operationId": "dcim_locations_list",
+      "summary": "",
+      "user": "Retrieve a list of all locations in the system.",
+      "ideal": "A successful response with a list of locations."
+    },
+    {
+      "path": "/api/dcim/locations/{id}/",
+      "method": "DELETE",
+      "operationId": "dcim_locations_destroy",
+      "summary": "",
+      "user": "Delete a specific location by its ID.",
+      "ideal": "A successful response confirming the location has been deleted."
+    },
+    {
+      "path": "/api/dcim/power-feeds/",
+      "method": "POST",
+      "operationId": "dcim_power_feeds_create",
+      "summary": "",
+      "user": "Create a new power feed with specified attributes.",
+      "ideal": "A successful response with the created power feed details."
+    },
+    {
+      "path": "/api/dcim/power-feeds/{id}/",
+      "method": "GET",
+      "operationId": "dcim_power_feeds_retrieve",
+      "summary": "",
+      "user": "Retrieve details of a specific power feed by ID.",
+      "ideal": "A successful response with the details of the specified power feed."
+    },
+    {
+      "path": "/api/extras/bookmarks/",
+      "method": "GET",
+      "operationId": "extras_bookmarks_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all bookmarks."
+    },
+    {
+      "path": "/api/extras/bookmarks/",
+      "method": "POST",
+      "operationId": "extras_bookmarks_create",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new bookmark with the provided details."
+    },
+    {
+      "path": "/api/extras/bookmarks/1/",
+      "method": "GET",
+      "operationId": "extras_bookmarks_retrieve",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve details of the bookmark with ID 1."
+    },
+    {
+      "path": "/api/extras/bookmarks/1/",
+      "method": "PUT",
+      "operationId": "extras_bookmarks_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the bookmark with ID 1 with new details."
+    },
+    {
+      "path": "/api/extras/bookmarks/1/",
+      "method": "DELETE",
+      "operationId": "extras_bookmarks_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the bookmark with ID 1."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/",
+      "method": "GET",
+      "operationId": "extras_config_context_profiles_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all configuration context profiles."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/",
+      "method": "POST",
+      "operationId": "extras_config_context_profiles_create",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Create a new configuration context profile."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/1/",
+      "method": "GET",
+      "operationId": "extras_config_context_profiles_retrieve",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Retrieve details of the configuration context profile with ID 1."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/1/",
+      "method": "PUT",
+      "operationId": "extras_config_context_profiles_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the configuration context profile with ID 1."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/1/",
+      "method": "DELETE",
+      "operationId": "extras_config_context_profiles_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the configuration context profile with ID 1."
+    },
+    {
+      "path": "/api/extras/config-contexts/",
+      "method": "GET",
+      "operationId": "extras_config_contexts_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all configuration contexts."
+    },
+    {
+      "path": "/api/extras/config-contexts/",
+      "method": "POST",
+      "operationId": "extras_config_contexts_create",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Create a new configuration context."
+    },
+    {
+      "path": "/api/extras/config-contexts/1/",
+      "method": "GET",
+      "operationId": "extras_config_contexts_retrieve",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Retrieve details of the configuration context with ID 1."
+    },
+    {
+      "path": "/api/extras/config-contexts/1/",
+      "method": "PUT",
+      "operationId": "extras_config_contexts_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the configuration context with ID 1."
+    },
+    {
+      "path": "/api/extras/config-contexts/1/",
+      "method": "DELETE",
+      "operationId": "extras_config_contexts_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the configuration context with ID 1."
+    },
+    {
+      "path": "/api/extras/custom-fields/",
+      "method": "GET",
+      "operationId": "extras_custom_fields_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all custom fields."
+    },
+    {
+      "path": "/api/extras/custom-fields/",
+      "method": "POST",
+      "operationId": "extras_custom_fields_create",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new custom field."
+    },
+    {
+      "path": "/api/extras/custom-fields/1/",
+      "method": "GET",
+      "operationId": "extras_custom_fields_retrieve",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve details of the custom field with ID 1."
+    },
+    {
+      "path": "/api/extras/custom-fields/1/",
+      "method": "PUT",
+      "operationId": "extras_custom_fields_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the custom field with ID 1."
+    },
+    {
+      "path": "/api/extras/custom-fields/1/",
+      "method": "DELETE",
+      "operationId": "extras_custom_fields_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the custom field with ID 1."
+    },
+    {
+      "path": "/api/ipam/aggregates/",
+      "method": "GET",
+      "operationId": "ipam_aggregates_list",
+      "summary": "",
+      "user": "Admin user requesting a list of all IP address aggregates.",
+      "ideal": "A JSON array containing all aggregates with their details."
+    },
+    {
+      "path": "/api/ipam/aggregates/",
+      "method": "POST",
+      "operationId": "ipam_aggregates_create",
+      "summary": "",
+      "user": "Network engineer creating a new IP address aggregate.",
+      "ideal": "A JSON object confirming the creation of the aggregate with its ID."
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "GET",
+      "operationId": "ipam_aggregates_retrieve",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific aggregate by ID.",
+      "ideal": "A JSON object containing the details of the specified aggregate."
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "PUT",
+      "operationId": "ipam_aggregates_update",
+      "summary": "",
+      "user": "Network engineer updating an existing IP address aggregate.",
+      "ideal": "A JSON object confirming the update of the aggregate."
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "DELETE",
+      "operationId": "ipam_aggregates_destroy",
+      "summary": "",
+      "user": "Admin user deleting an IP address aggregate.",
+      "ideal": "A JSON object confirming the deletion of the aggregate."
+    },
+    {
+      "path": "/api/ipam/asn-ranges/",
+      "method": "GET",
+      "operationId": "ipam_asn_ranges_list",
+      "summary": "",
+      "user": "Network administrator listing all ASN ranges.",
+      "ideal": "A JSON array containing all ASN ranges with their details."
+    },
+    {
+      "path": "/api/ipam/asn-ranges/{id}/available-asns/",
+      "method": "GET",
+      "operationId": "ipam_asn_ranges_available_asns_list",
+      "summary": "",
+      "user": "Network engineer checking available ASNs for a specific range.",
+      "ideal": "A JSON array of available ASNs for the specified range."
+    },
+    {
+      "path": "/api/ipam/ip-addresses/",
+      "method": "POST",
+      "operationId": "ipam_ip_addresses_create",
+      "summary": "",
+      "user": "Network engineer creating a new IP address entry.",
+      "ideal": "A JSON object confirming the creation of the IP address with its ID."
+    },
+    {
+      "path": "/api/ipam/ip-addresses/{id}/",
+      "method": "PATCH",
+      "operationId": "ipam_ip_addresses_partial_update",
+      "summary": "",
+      "user": "Admin user partially updating an IP address entry.",
+      "ideal": "A JSON object confirming the partial update of the IP address."
+    },
+    {
+      "path": "/api/ipam/ip-addresses/{id}/",
+      "method": "DELETE",
+      "operationId": "ipam_ip_addresses_destroy",
+      "summary": "",
+      "user": "Network administrator deleting an IP address entry.",
+      "ideal": "A JSON object confirming the deletion of the IP address."
+    },
+    {
+      "path": "/api/ipam/vlans/",
+      "method": "GET",
+      "operationId": "ipam_vlans_list",
+      "summary": "",
+      "user": "Network engineer retrieving a list of all VLANs.",
+      "ideal": "A JSON array containing all VLANs with their details."
+    },
+    {
+      "path": "/api/ipam/vlans/{id}/",
+      "method": "PUT",
+      "operationId": "ipam_vlans_update",
+      "summary": "",
+      "user": "Admin user updating a specific VLAN's details.",
+      "ideal": "A JSON object confirming the update of the VLAN."
+    },
+    {
+      "path": "/api/ipam/vrfs/",
+      "method": "POST",
+      "operationId": "ipam_vrfs_create",
+      "summary": "",
+      "user": "Network engineer creating a new VRF.",
+      "ideal": "A JSON object confirming the creation of the VRF with its ID."
+    },
+    {
+      "path": "/api/ipam/vrfs/{id}/",
+      "method": "DELETE",
+      "operationId": "ipam_vrfs_destroy",
+      "summary": "",
+      "user": "Admin user deleting a VRF.",
+      "ideal": "A JSON object confirming the deletion of the VRF."
+    },
+    {
+      "path": "/api/schema/",
+      "method": "GET",
+      "operationId": "schema_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the current schema of the NetBox API, including all available endpoints, their parameters, and response formats."
+    },
+    {
+      "path": "/api/status/",
+      "method": "GET",
+      "operationId": "status_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the current status of the NetBox API, including information about the database connection and any background tasks."
+    },
+    {
+      "path": "/api/tenancy/contact-assignments/",
+      "method": "GET",
+      "operationId": "tenancy_contact_assignments_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all contact assignments."
+    },
+    {
+      "path": "/api/tenancy/contact-assignments/",
+      "method": "POST",
+      "operationId": "tenancy_contact_assignments_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new contact assignment with specified details."
+    },
+    {
+      "path": "/api/tenancy/contact-assignments/{id}/",
+      "method": "GET",
+      "operationId": "tenancy_contact_assignments_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific contact assignment by ID."
+    },
+    {
+      "path": "/api/tenancy/contact-groups/",
+      "method": "GET",
+      "operationId": "tenancy_contact_groups_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all contact groups."
+    },
+    {
+      "path": "/api/tenancy/contact-groups/",
+      "method": "POST",
+      "operationId": "tenancy_contact_groups_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new contact group with specified details."
+    },
+    {
+      "path": "/api/tenancy/contact-groups/{id}/",
+      "method": "GET",
+      "operationId": "tenancy_contact_groups_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific contact group by ID."
+    },
+    {
+      "path": "/api/tenancy/contact-roles/",
+      "method": "GET",
+      "operationId": "tenancy_contact_roles_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all contact roles."
+    },
+    {
+      "path": "/api/tenancy/contact-roles/",
+      "method": "POST",
+      "operationId": "tenancy_contact_roles_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new contact role with specified details."
+    },
+    {
+      "path": "/api/tenancy/contact-roles/{id}/",
+      "method": "GET",
+      "operationId": "tenancy_contact_roles_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific contact role by ID."
+    },
+    {
+      "path": "/api/tenancy/contacts/",
+      "method": "GET",
+      "operationId": "tenancy_contacts_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all contacts."
+    },
+    {
+      "path": "/api/tenancy/contacts/",
+      "method": "POST",
+      "operationId": "tenancy_contacts_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new contact with specified details."
+    },
+    {
+      "path": "/api/tenancy/contacts/{id}/",
+      "method": "GET",
+      "operationId": "tenancy_contacts_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific contact by ID."
+    },
+    {
+      "path": "/api/tenancy/tenant-groups/",
+      "method": "GET",
+      "operationId": "tenancy_tenant_groups_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all tenant groups."
+    },
+    {
+      "path": "/api/tenancy/tenant-groups/",
+      "method": "POST",
+      "operationId": "tenancy_tenant_groups_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new tenant group with specified details."
+    },
+    {
+      "path": "/api/tenancy/tenant-groups/{id}/",
+      "method": "GET",
+      "operationId": "tenancy_tenant_groups_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific tenant group by ID."
+    },
+    {
+      "path": "/api/tenancy/tenants/",
+      "method": "GET",
+      "operationId": "tenancy_tenants_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all tenants."
+    },
+    {
+      "path": "/api/tenancy/tenants/",
+      "method": "POST",
+      "operationId": "tenancy_tenants_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new tenant with specified details."
+    },
+    {
+      "path": "/api/tenancy/tenants/{id}/",
+      "method": "GET",
+      "operationId": "tenancy_tenants_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific tenant by ID."
+    },
+    {
+      "path": "/api/users/config/",
+      "method": "GET",
+      "operationId": "users_config_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the current configuration settings for users."
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "GET",
+      "operationId": "users_groups_list",
+      "summary": "",
+      "user": "manager",
+      "ideal": "List all user groups in the system."
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "POST",
+      "operationId": "users_groups_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new user group with specified attributes."
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "PUT",
+      "operationId": "users_groups_bulk_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Bulk update multiple user groups with new data."
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "PATCH",
+      "operationId": "users_groups_bulk_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update multiple user groups."
+    },
+    {
+      "path": "/api/users/groups/",
+      "method": "DELETE",
+      "operationId": "users_groups_bulk_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete multiple user groups from the system."
+    },
+    {
+      "path": "/api/users/groups/{id}/",
+      "method": "GET",
+      "operationId": "users_groups_retrieve",
+      "summary": "",
+      "user": "manager",
+      "ideal": "Retrieve details of a specific user group by ID."
+    },
+    {
+      "path": "/api/users/groups/{id}/",
+      "method": "PUT",
+      "operationId": "users_groups_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update a specific user group with new data."
+    },
+    {
+      "path": "/api/users/groups/{id}/",
+      "method": "PATCH",
+      "operationId": "users_groups_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update a specific user group."
+    },
+    {
+      "path": "/api/users/groups/{id}/",
+      "method": "DELETE",
+      "operationId": "users_groups_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific user group by ID."
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "GET",
+      "operationId": "users_permissions_list",
+      "summary": "",
+      "user": "manager",
+      "ideal": "List all permissions available for users."
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "POST",
+      "operationId": "users_permissions_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new permission for user roles."
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "PUT",
+      "operationId": "users_permissions_bulk_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Bulk update multiple permissions."
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "PATCH",
+      "operationId": "users_permissions_bulk_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update multiple permissions."
+    },
+    {
+      "path": "/api/users/permissions/",
+      "method": "DELETE",
+      "operationId": "users_permissions_bulk_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete multiple permissions from the system."
+    },
+    {
+      "path": "/api/users/permissions/{id}/",
+      "method": "GET",
+      "operationId": "users_permissions_retrieve",
+      "summary": "",
+      "user": "manager",
+      "ideal": "Retrieve details of a specific permission by ID."
+    },
+    {
+      "path": "/api/users/permissions/{id}/",
+      "method": "PUT",
+      "operationId": "users_permissions_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update a specific permission with new data."
+    },
+    {
+      "path": "/api/users/permissions/{id}/",
+      "method": "PATCH",
+      "operationId": "users_permissions_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update a specific permission."
+    },
+    {
+      "path": "/api/users/permissions/{id}/",
+      "method": "DELETE",
+      "operationId": "users_permissions_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific permission by ID."
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "GET",
+      "operationId": "users_tokens_list",
+      "summary": "",
+      "user": "manager",
+      "ideal": "List all user tokens in the system."
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "POST",
+      "operationId": "users_tokens_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new token for a user."
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "PUT",
+      "operationId": "users_tokens_bulk_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Bulk update multiple user tokens."
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "PATCH",
+      "operationId": "users_tokens_bulk_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update multiple user tokens."
+    },
+    {
+      "path": "/api/users/tokens/",
+      "method": "DELETE",
+      "operationId": "users_tokens_bulk_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete multiple user tokens from the system."
+    },
+    {
+      "path": "/api/users/tokens/{id}/",
+      "method": "GET",
+      "operationId": "users_tokens_retrieve",
+      "summary": "",
+      "user": "manager",
+      "ideal": "Retrieve details of a specific token by ID."
+    },
+    {
+      "path": "/api/users/tokens/{id}/",
+      "method": "PUT",
+      "operationId": "users_tokens_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update a specific token with new data."
+    },
+    {
+      "path": "/api/users/tokens/{id}/",
+      "method": "PATCH",
+      "operationId": "users_tokens_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update a specific token."
+    },
+    {
+      "path": "/api/users/tokens/{id}/",
+      "method": "DELETE",
+      "operationId": "users_tokens_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific token by ID."
+    },
+    {
+      "path": "/api/users/tokens/provision/",
+      "method": "POST",
+      "operationId": "users_tokens_provision_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Provision a new token for a user."
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "GET",
+      "operationId": "users_users_list",
+      "summary": "",
+      "user": "manager",
+      "ideal": "List all users in the system."
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "POST",
+      "operationId": "users_users_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new user with specified attributes."
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "PUT",
+      "operationId": "users_users_bulk_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Bulk update multiple users with new data."
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "PATCH",
+      "operationId": "users_users_bulk_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update multiple users."
+    },
+    {
+      "path": "/api/users/users/",
+      "method": "DELETE",
+      "operationId": "users_users_bulk_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete multiple users from the system."
+    },
+    {
+      "path": "/api/users/users/{id}/",
+      "method": "GET",
+      "operationId": "users_users_retrieve",
+      "summary": "",
+      "user": "manager",
+      "ideal": "Retrieve details of a specific user by ID."
+    },
+    {
+      "path": "/api/users/users/{id}/",
+      "method": "PUT",
+      "operationId": "users_users_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update a specific user with new data."
+    },
+    {
+      "path": "/api/users/users/{id}/",
+      "method": "PATCH",
+      "operationId": "users_users_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update a specific user."
+    },
+    {
+      "path": "/api/users/users/{id}/",
+      "method": "DELETE",
+      "operationId": "users_users_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific user by ID."
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/",
+      "method": "GET",
+      "operationId": "virtualization_cluster_groups_list",
+      "summary": "",
+      "user": "Admin user requesting a list of all cluster groups to manage virtualization resources.",
+      "ideal": "Returns a list of cluster groups with details such as name, description, and associated clusters."
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/",
+      "method": "POST",
+      "operationId": "virtualization_cluster_groups_create",
+      "summary": "",
+      "user": "Network engineer creating a new cluster group for organizing virtual clusters.",
+      "ideal": "Creates a new cluster group and returns the details of the created group including its ID."
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/{id}/",
+      "method": "PUT",
+      "operationId": "virtualization_cluster_groups_update",
+      "summary": "",
+      "user": "System administrator updating the configuration of an existing cluster group.",
+      "ideal": "Updates the specified cluster group and returns the updated details."
+    },
+    {
+      "path": "/api/virtualization/clusters/",
+      "method": "GET",
+      "operationId": "virtualization_clusters_list",
+      "summary": "",
+      "user": "IT manager retrieving a list of all virtual clusters for reporting.",
+      "ideal": "Returns a list of virtual clusters with their statuses, resources, and configurations."
+    },
+    {
+      "path": "/api/virtualization/clusters/{id}/",
+      "method": "DELETE",
+      "operationId": "virtualization_clusters_destroy",
+      "summary": "",
+      "user": "DevOps engineer deleting an obsolete virtual cluster from the system.",
+      "ideal": "Successfully deletes the specified cluster and returns a confirmation message."
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/",
+      "method": "POST",
+      "operationId": "virtualization_virtual_machines_create",
+      "summary": "",
+      "user": "Cloud architect provisioning a new virtual machine for a development environment.",
+      "ideal": "Creates a new virtual machine and returns its configuration details including ID and status."
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/{id}/",
+      "method": "PATCH",
+      "operationId": "virtualization_virtual_machines_partial_update",
+      "summary": "",
+      "user": "System administrator updating the memory allocation for a specific virtual machine.",
+      "ideal": "Partially updates the specified virtual machine and returns the updated configuration."
+    },
+    {
+      "path": "/api/virtualization/virtual-disks/",
+      "method": "GET",
+      "operationId": "virtualization_virtual_disks_list",
+      "summary": "",
+      "user": "Storage administrator reviewing all virtual disks to optimize storage usage.",
+      "ideal": "Returns a list of virtual disks with details such as size, type, and associated virtual machines."
+    },
+    {
+      "path": "/api/virtualization/interfaces/",
+      "method": "DELETE",
+      "operationId": "virtualization_interfaces_bulk_destroy",
+      "summary": "",
+      "user": "Network administrator removing multiple unused virtual interfaces from the system.",
+      "ideal": "Successfully deletes the specified interfaces and returns a confirmation of the operation."
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/{id}/render-config/",
+      "method": "POST",
+      "operationId": "virtualization_virtual_machines_render_config_create",
+      "summary": "",
+      "user": "Developer generating a render configuration for a virtual machine for deployment.",
+      "ideal": "Creates a render configuration for the specified virtual machine and returns the configuration details."
+    },
+    {
+      "path": "/api/vpn/ike-policies/",
+      "method": "GET",
+      "operationId": "vpn_ike_policies_list",
+      "summary": "",
+      "user": "Admin user requesting a list of all IKE policies for VPN configuration.",
+      "ideal": "Returns a list of IKE policies with their details."
+    },
+    {
+      "path": "/api/vpn/ike-policies/",
+      "method": "POST",
+      "operationId": "vpn_ike_policies_create",
+      "summary": "",
+      "user": "Network engineer creating a new IKE policy for site-to-site VPN.",
+      "ideal": "Creates a new IKE policy and returns the created policy details."
+    },
+    {
+      "path": "/api/vpn/ike-policies/1/",
+      "method": "PUT",
+      "operationId": "vpn_ike_policies_update",
+      "summary": "",
+      "user": "Admin updating the existing IKE policy with ID 1.",
+      "ideal": "Updates the IKE policy and returns the updated policy details."
+    },
+    {
+      "path": "/api/vpn/ike-policies/1/",
+      "method": "DELETE",
+      "operationId": "vpn_ike_policies_destroy",
+      "summary": "",
+      "user": "Network administrator deleting an obsolete IKE policy.",
+      "ideal": "Successfully deletes the IKE policy and returns a confirmation message."
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/",
+      "method": "GET",
+      "operationId": "vpn_ipsec_policies_list",
+      "summary": "",
+      "user": "Security analyst retrieving all IPsec policies for review.",
+      "ideal": "Returns a list of all IPsec policies with their configurations."
+    },
+    {
+      "path": "/api/vpn/ipsec-proposals/",
+      "method": "POST",
+      "operationId": "vpn_ipsec_proposals_create",
+      "summary": "",
+      "user": "Network engineer creating a new IPsec proposal for a VPN.",
+      "ideal": "Creates a new IPsec proposal and returns the details of the created proposal."
+    },
+    {
+      "path": "/api/vpn/ipsec-proposals/2/",
+      "method": "PATCH",
+      "operationId": "vpn_ipsec_proposals_partial_update",
+      "summary": "",
+      "user": "Admin updating specific fields of IPsec proposal with ID 2.",
+      "ideal": "Updates specified fields of the IPsec proposal and returns the updated details."
+    },
+    {
+      "path": "/api/vpn/l2vpns/",
+      "method": "GET",
+      "operationId": "vpn_l2vpns_list",
+      "summary": "",
+      "user": "Network administrator checking the list of all L2VPNs configured.",
+      "ideal": "Returns a list of all L2VPNs with their configurations."
+    },
+    {
+      "path": "/api/vpn/tunnel-groups/",
+      "method": "POST",
+      "operationId": "vpn_tunnel_groups_create",
+      "summary": "",
+      "user": "Network engineer creating a new tunnel group for VPN connections.",
+      "ideal": "Creates a new tunnel group and returns the details of the created group."
+    },
+    {
+      "path": "/api/vpn/tunnels/3/",
+      "method": "DELETE",
+      "operationId": "vpn_tunnels_destroy",
+      "summary": "",
+      "user": "Admin removing an unused tunnel with ID 3.",
+      "ideal": "Successfully deletes the tunnel and returns a confirmation message."
+    },
+    {
+      "path": "/api/vpn/tunnel-terminations/",
+      "method": "GET",
+      "operationId": "vpn_tunnel_terminations_list",
+      "summary": "",
+      "user": "Security analyst reviewing all tunnel terminations for compliance.",
+      "ideal": "Returns a list of all tunnel terminations with their details."
+    },
+    {
+      "path": "/api/wireless/wireless-lan-groups/",
+      "method": "GET",
+      "operationId": "wireless_wireless_lan_groups_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all wireless LAN groups."
+    },
+    {
+      "path": "/api/wireless/wireless-lan-groups/",
+      "method": "POST",
+      "operationId": "wireless_wireless_lan_groups_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new wireless LAN group with specified parameters."
+    },
+    {
+      "path": "/api/wireless/wireless-lan-groups/1/",
+      "method": "PUT",
+      "operationId": "wireless_wireless_lan_groups_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the wireless LAN group with ID 1."
+    },
+    {
+      "path": "/api/wireless/wireless-lan-groups/1/",
+      "method": "DELETE",
+      "operationId": "wireless_wireless_lan_groups_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the wireless LAN group with ID 1."
+    },
+    {
+      "path": "/api/wireless/wireless-lans/",
+      "method": "GET",
+      "operationId": "wireless_wireless_lans_list",
+      "summary": "",
+      "user": "user1",
+      "ideal": "Retrieve a list of all wireless LANs."
+    },
+    {
+      "path": "/api/wireless/wireless-lans/",
+      "method": "POST",
+      "operationId": "wireless_wireless_lans_create",
+      "summary": "",
+      "user": "user1",
+      "ideal": "Create a new wireless LAN with specified parameters."
+    },
+    {
+      "path": "/api/wireless/wireless-lans/1/",
+      "method": "PATCH",
+      "operationId": "wireless_wireless_lans_partial_update",
+      "summary": "",
+      "user": "user1",
+      "ideal": "Partially update the wireless LAN with ID 1."
+    },
+    {
+      "path": "/api/wireless/wireless-lans/1/",
+      "method": "DELETE",
+      "operationId": "wireless_wireless_lans_destroy",
+      "summary": "",
+      "user": "user1",
+      "ideal": "Delete the wireless LAN with ID 1."
+    },
+    {
+      "path": "/api/wireless/wireless-links/",
+      "method": "GET",
+      "operationId": "wireless_wireless_links_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all wireless links."
+    },
+    {
+      "path": "/api/wireless/wireless-links/",
+      "method": "POST",
+      "operationId": "wireless_wireless_links_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new wireless link with specified parameters."
+    },
+    {
+      "path": "/api/wireless/wireless-links/1/",
+      "method": "PUT",
+      "operationId": "wireless_wireless_links_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the wireless link with ID 1."
+    },
+    {
+      "path": "/api/wireless/wireless-links/1/",
+      "method": "DELETE",
+      "operationId": "wireless_wireless_links_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the wireless link with ID 1."
+    }
+  ]
+}

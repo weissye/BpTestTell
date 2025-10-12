@@ -1,84 +1,84 @@
 {
   "gold": [
     {
-      "path": "/boards/{idBoard}/cards",
+      "path": "/v1/boards",
+      "method": "POST",
+      "operationId": "addBoards",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new board with the title 'Project Plan' and description 'Planning for the upcoming project.'"
+    },
+    {
+      "path": "/v1/boards/{idBoard}",
+      "method": "GET",
+      "operationId": "getBoardsByIdBoard",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Retrieve the board details for the board with ID 'abc123'."
+    },
+    {
+      "path": "/v1/boards/{idBoard}",
+      "method": "PUT",
+      "operationId": "updateBoardsByIdBoard",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Update the board with ID 'xyz789' to change its name to 'Updated Project Plan'."
+    },
+    {
+      "path": "/v1/boards/{idBoard}/actions",
+      "method": "GET",
+      "operationId": "getBoardsActionsByIdBoard",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Get all actions performed on the board with ID 'abc123'."
+    },
+    {
+      "path": "/v1/boards/{idBoard}/cards",
       "method": "GET",
       "operationId": "getBoardsCardsByIdBoard",
       "summary": "",
-      "user": "User requests to retrieve all cards on a specific board to review tasks.",
-      "ideal": "Returns a list of cards associated with the specified board."
+      "user": "user202",
+      "ideal": "Fetch all cards associated with the board ID 'def456'."
     },
     {
-      "path": "/cards/{idCard}/desc",
+      "path": "/v1/boards/{idBoard}/checklists",
+      "method": "POST",
+      "operationId": "addBoardsChecklistsByIdBoard",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Add a new checklist titled 'To Do' to the board with ID 'ghi789'."
+    },
+    {
+      "path": "/v1/boards/{idBoard}/members",
       "method": "PUT",
-      "operationId": "updateCardsDescByIdCard",
+      "operationId": "updateBoardsMembersByIdBoard",
       "summary": "",
-      "user": "User updates the description of a specific card to provide more details.",
-      "ideal": "Successfully updates the card description and returns the updated card."
+      "user": "user404",
+      "ideal": "Add a new member with ID 'member123' to the board with ID 'jkl012'."
     },
     {
-      "path": "/actions/{idAction}/card",
+      "path": "/v1/boards/{idBoard}/labels",
       "method": "GET",
-      "operationId": "getActionsCardByIdAction",
+      "operationId": "getBoardsLabelsByIdBoard",
       "summary": "",
-      "user": "User wants to see which card an action is associated with.",
-      "ideal": "Returns the card details related to the specified action."
+      "user": "user505",
+      "ideal": "Retrieve all labels associated with the board ID 'mno345'."
     },
     {
-      "path": "/members/{idMember}/boardsInvited",
-      "method": "GET",
-      "operationId": "getMembersBoardsInvitedByIdMember",
-      "summary": "",
-      "user": "User checks which boards they have been invited to.",
-      "ideal": "Returns a list of boards the member has been invited to."
-    },
-    {
-      "path": "/organizations/{idOrg}/memberships",
-      "method": "GET",
-      "operationId": "getOrganizationsMembershipsByIdOrg",
-      "summary": "",
-      "user": "User wants to see all memberships within a specific organization.",
-      "ideal": "Returns a list of memberships associated with the organization."
-    },
-    {
-      "path": "/checklists/{idChecklist}/cards/{filter}",
-      "method": "GET",
-      "operationId": "getChecklistsCardsByIdChecklistByFilter",
-      "summary": "",
-      "user": "User filters cards in a checklist to find specific tasks.",
-      "ideal": "Returns a filtered list of cards associated with the checklist."
-    },
-    {
-      "path": "/labels",
+      "path": "/v1/boards/{idBoard}/lists",
       "method": "POST",
-      "operationId": "addLabels",
+      "operationId": "addBoardsListsByIdBoard",
       "summary": "",
-      "user": "User creates a new label to categorize cards.",
-      "ideal": "Successfully adds a new label and returns the label details."
+      "user": "user606",
+      "ideal": "Create a new list named 'In Progress' on the board with ID 'pqr678'."
     },
     {
-      "path": "/sessions",
-      "method": "POST",
-      "operationId": "addSessions",
+      "path": "/v1/boards/{idBoard}/prefs/background",
+      "method": "PUT",
+      "operationId": "updateBoardsPrefsBackgroundByIdBoard",
       "summary": "",
-      "user": "User logs in to start a new session.",
-      "ideal": "Returns session details including authentication token."
-    },
-    {
-      "path": "/webhooks",
-      "method": "POST",
-      "operationId": "addWebhooks",
-      "summary": "",
-      "user": "User sets up a webhook to receive notifications for board updates.",
-      "ideal": "Successfully creates a webhook and returns its details."
-    },
-    {
-      "path": "/notifications/{idNotification}/member",
-      "method": "GET",
-      "operationId": "getNotificationsMemberByIdNotification",
-      "summary": "",
-      "user": "User checks which member triggered a specific notification.",
-      "ideal": "Returns the member details associated with the notification."
+      "user": "user707",
+      "ideal": "Change the background of the board with ID 'stu901' to a blue color."
     }
   ]
 }

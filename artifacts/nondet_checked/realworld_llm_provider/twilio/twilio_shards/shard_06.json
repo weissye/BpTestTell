@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401AssignedAddOn"
+      ],
+      "summary": "Fetch an instance of an Add-on installation currently assigned to this Number.",
+      "operationId": "FetchIncomingPhoneNumberAssignedAddOn"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401AssignedAddOn"
+      ],
+      "summary": "Remove the assignment of an Add-on installation from the Number specified.",
+      "operationId": "DeleteIncomingPhoneNumberAssignedAddOn"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401AssignedAddOn"
+      ],
+      "summary": "Retrieve a list of Add-on installations currently assigned to this Number.",
+      "operationId": "ListIncomingPhoneNumberAssignedAddOn"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401AssignedAddOn"
+      ],
+      "summary": "Assign an Add-on installation to the Number specified.",
+      "operationId": "CreateIncomingPhoneNumberAssignedAddOn"
+    }
+  ]
+}

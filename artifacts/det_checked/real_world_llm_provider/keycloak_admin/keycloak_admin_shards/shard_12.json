@@ -1,0 +1,18 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/keys",
+      "method": "GET",
+      "tags": [
+        "Key"
+      ],
+      "summary": "",
+      "operationId": "getKeys"
+    }
+  ]
+}

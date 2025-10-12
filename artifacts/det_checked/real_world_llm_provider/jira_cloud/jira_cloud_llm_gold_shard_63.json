@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/{projectId}/email",
+      "method": "GET",
+      "operationId": "getProjectEmail",
+      "summary": "",
+      "user": "A project manager wants to retrieve the email address associated with a specific Jira project to ensure that notifications are sent to the correct team members.",
+      "ideal": "The response should return the email address linked to the project identified by {projectId}."
+    },
+    {
+      "path": "/rest/api/3/project/{projectId}/email",
+      "method": "PUT",
+      "operationId": "updateProjectEmail",
+      "summary": "",
+      "user": "A project administrator needs to update the email address for a project to reflect a new contact point for project-related communications.",
+      "ideal": "The response should confirm that the email address for the project identified by {projectId} has been successfully updated."
+    }
+  ]
+}

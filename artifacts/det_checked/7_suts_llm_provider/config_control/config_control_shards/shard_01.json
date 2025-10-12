@@ -13,11 +13,39 @@
       "operationId": "POST /reset"
     },
     {
+      "path": "/apps",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /apps"
+    },
+    {
+      "path": "/apps",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /apps"
+    },
+    {
       "path": "/envs",
       "method": "POST",
       "tags": [],
       "summary": "",
       "operationId": "POST /envs"
+    },
+    {
+      "path": "/envs",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /envs"
+    },
+    {
+      "path": "/configs",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /configs"
     },
     {
       "path": "/configs",
@@ -27,11 +55,32 @@
       "operationId": "GET /configs"
     },
     {
+      "path": "/releases",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /releases"
+    },
+    {
+      "path": "/releases",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /releases"
+    },
+    {
       "path": "/policies",
       "method": "POST",
       "tags": [],
       "summary": "",
       "operationId": "POST /policies"
+    },
+    {
+      "path": "/policies",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /policies"
     }
   ]
 }

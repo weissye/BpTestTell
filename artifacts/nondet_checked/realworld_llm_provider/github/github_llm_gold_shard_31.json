@@ -5,80 +5,80 @@
       "method": "GET",
       "operationId": "packages/list-packages-for-organization",
       "summary": "",
-      "user": "org_user_1",
+      "user": "orgUser123",
       "ideal": "Retrieve a list of all packages for the organization 'my-org'."
-    },
-    {
-      "path": "/orgs/my-org/packages/npm/my-package",
-      "method": "GET",
-      "operationId": "packages/get-package-for-organization",
-      "summary": "",
-      "user": "org_user_2",
-      "ideal": "Get details of the package 'my-package' of type 'npm' for the organization 'my-org'."
-    },
-    {
-      "path": "/orgs/my-org/packages/npm/my-package/versions",
-      "method": "GET",
-      "operationId": "packages/get-all-package-versions-for-package-owned-by-org",
-      "summary": "",
-      "user": "org_user_3",
-      "ideal": "List all versions of the package 'my-package' of type 'npm' for the organization 'my-org'."
     },
     {
       "path": "/user/packages",
       "method": "GET",
       "operationId": "packages/list-packages-for-authenticated-user",
       "summary": "",
-      "user": "auth_user_1",
-      "ideal": "Retrieve a list of all packages for the authenticated user."
+      "user": "authUser456",
+      "ideal": "Get a list of all packages owned by the authenticated user."
     },
     {
-      "path": "/user/packages/docker/my-docker-package",
-      "method": "DELETE",
-      "operationId": "packages/delete-package-for-authenticated-user",
-      "summary": "",
-      "user": "auth_user_2",
-      "ideal": "Delete the Docker package 'my-docker-package' for the authenticated user."
-    },
-    {
-      "path": "/users/john_doe/packages",
+      "path": "/users/johnDoe/packages/npm/my-package",
       "method": "GET",
-      "operationId": "packages/list-packages-for-user",
+      "operationId": "packages/get-package-for-user",
       "summary": "",
-      "user": "user_1",
-      "ideal": "Get a list of all packages for the user 'john_doe'."
+      "user": "johnDoe",
+      "ideal": "Fetch details of the 'my-package' npm package owned by user 'johnDoe'."
     },
     {
-      "path": "/users/john_doe/packages/npm/my-package/versions/1.0.0",
+      "path": "/orgs/my-org/packages/npm/my-package",
+      "method": "DELETE",
+      "operationId": "packages/delete-package-for-org",
+      "summary": "",
+      "user": "orgAdmin789",
+      "ideal": "Delete the 'my-package' npm package from the organization 'my-org'."
+    },
+    {
+      "path": "/user/packages/npm/my-package/versions",
+      "method": "GET",
+      "operationId": "packages/get-all-package-versions-for-package-owned-by-authenticated-user",
+      "summary": "",
+      "user": "authUser456",
+      "ideal": "List all versions of the 'my-package' npm package owned by the authenticated user."
+    },
+    {
+      "path": "/users/janeDoe/packages/docker/my-docker-image/versions/1.0.0",
       "method": "GET",
       "operationId": "packages/get-package-version-for-user",
       "summary": "",
-      "user": "user_2",
-      "ideal": "Retrieve details of version '1.0.0' of the package 'my-package' of type 'npm' for user 'john_doe'."
+      "user": "janeDoe",
+      "ideal": "Retrieve details of version '1.0.0' of the 'my-docker-image' package owned by user 'janeDoe'."
     },
     {
-      "path": "/orgs/my-org/packages/npm/my-package/versions/1.0.0/restore",
-      "method": "POST",
-      "operationId": "packages/restore-package-version-for-org",
-      "summary": "",
-      "user": "org_user_4",
-      "ideal": "Restore the deleted version '1.0.0' of the package 'my-package' for the organization 'my-org'."
-    },
-    {
-      "path": "/user/packages/docker/my-docker-package/versions/1.0.0",
+      "path": "/orgs/my-org/packages/npm/my-package/versions/1.0.0",
       "method": "DELETE",
-      "operationId": "packages/delete-package-version-for-authenticated-user",
+      "operationId": "packages/delete-package-version-for-org",
       "summary": "",
-      "user": "auth_user_3",
-      "ideal": "Delete version '1.0.0' of the Docker package 'my-docker-package' for the authenticated user."
+      "user": "orgAdmin789",
+      "ideal": "Delete version '1.0.0' of the 'my-package' npm package from the organization 'my-org'."
     },
     {
-      "path": "/users/john_doe/packages/npm/my-package/restore",
+      "path": "/users/johnDoe/packages/npm/my-package/versions/1.0.0/restore",
       "method": "POST",
-      "operationId": "packages/restore-package-for-user",
+      "operationId": "packages/restore-package-version-for-user",
       "summary": "",
-      "user": "user_3",
-      "ideal": "Restore the deleted package 'my-package' of type 'npm' for user 'john_doe'."
+      "user": "johnDoe",
+      "ideal": "Restore version '1.0.0' of the 'my-package' npm package owned by user 'johnDoe'."
+    },
+    {
+      "path": "/user/packages/docker/my-docker-image/restore",
+      "method": "POST",
+      "operationId": "packages/restore-package-for-authenticated-user",
+      "summary": "",
+      "user": "authUser456",
+      "ideal": "Restore the 'my-docker-image' Docker package owned by the authenticated user."
+    },
+    {
+      "path": "/users/janeDoe/packages/npm/my-package/docker/conflicts",
+      "method": "GET",
+      "operationId": "packages/list-docker-migration-conflicting-packages-for-user",
+      "summary": "",
+      "user": "janeDoe",
+      "ideal": "List any Docker migration conflicts for the 'my-package' npm package owned by user 'janeDoe'."
     }
   ]
 }

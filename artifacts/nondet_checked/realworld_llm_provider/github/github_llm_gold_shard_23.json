@@ -14,7 +14,7 @@
       "operationId": "interactions/set-restrictions-for-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Set interaction limits for the organization 'example-org' to restrict certain actions."
+      "ideal": "Set new interaction limits for the organization 'example-org'."
     },
     {
       "path": "/orgs/example-org/interaction-limits",
@@ -22,7 +22,7 @@
       "operationId": "interactions/remove-restrictions-for-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Remove all interaction restrictions for the organization 'example-org'."
+      "ideal": "Remove all interaction limits for the organization 'example-org'."
     },
     {
       "path": "/repos/example-owner/example-repo/interaction-limits",
@@ -38,7 +38,7 @@
       "operationId": "interactions/set-restrictions-for-repo",
       "summary": "",
       "user": "user456",
-      "ideal": "Set interaction limits for the repository 'example-repo' to control user actions."
+      "ideal": "Set interaction limits for the repository 'example-repo' owned by 'example-owner'."
     },
     {
       "path": "/repos/example-owner/example-repo/interaction-limits",
@@ -46,7 +46,7 @@
       "operationId": "interactions/remove-restrictions-for-repo",
       "summary": "",
       "user": "user456",
-      "ideal": "Delete all interaction restrictions for the repository 'example-repo'."
+      "ideal": "Remove interaction limits for the repository 'example-repo' owned by 'example-owner'."
     },
     {
       "path": "/user/interaction-limits",
@@ -54,7 +54,7 @@
       "operationId": "interactions/get-restrictions-for-authenticated-user",
       "summary": "",
       "user": "user789",
-      "ideal": "Fetch the interaction limits set for the authenticated user."
+      "ideal": "Retrieve the interaction limits set for the authenticated user."
     },
     {
       "path": "/user/interaction-limits",
@@ -62,7 +62,7 @@
       "operationId": "interactions/set-restrictions-for-authenticated-user",
       "summary": "",
       "user": "user789",
-      "ideal": "Define interaction limits for the authenticated user to manage their interactions."
+      "ideal": "Set new interaction limits for the authenticated user."
     },
     {
       "path": "/user/interaction-limits",
@@ -70,7 +70,7 @@
       "operationId": "interactions/remove-restrictions-for-authenticated-user",
       "summary": "",
       "user": "user789",
-      "ideal": "Clear all interaction restrictions for the authenticated user."
+      "ideal": "Remove all interaction limits for the authenticated user."
     }
   ]
 }

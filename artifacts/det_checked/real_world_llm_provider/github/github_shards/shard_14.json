@@ -1,0 +1,207 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/enterprises/{enterprise}/dependabot/alerts",
+      "method": "GET",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "List Dependabot alerts for an enterprise",
+      "operationId": "dependabot/list-alerts-for-enterprise"
+    },
+    {
+      "path": "/organizations/{org}/dependabot/repository-access",
+      "method": "GET",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Lists the repositories Dependabot can access in an organization",
+      "operationId": "dependabot/repository-access-for-org"
+    },
+    {
+      "path": "/organizations/{org}/dependabot/repository-access",
+      "method": "PATCH",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Updates Dependabot's repository access list for an organization",
+      "operationId": "dependabot/update-repository-access-for-org"
+    },
+    {
+      "path": "/organizations/{org}/dependabot/repository-access/default-level",
+      "method": "PUT",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Set the default repository access level for Dependabot",
+      "operationId": "dependabot/set-repository-access-default-level"
+    },
+    {
+      "path": "/orgs/{org}/dependabot/alerts",
+      "method": "GET",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "List Dependabot alerts for an organization",
+      "operationId": "dependabot/list-alerts-for-org"
+    },
+    {
+      "path": "/orgs/{org}/dependabot/secrets",
+      "method": "GET",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "List organization secrets",
+      "operationId": "dependabot/list-org-secrets"
+    },
+    {
+      "path": "/orgs/{org}/dependabot/secrets/public-key",
+      "method": "GET",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Get an organization public key",
+      "operationId": "dependabot/get-org-public-key"
+    },
+    {
+      "path": "/orgs/{org}/dependabot/secrets/{secret_name}",
+      "method": "GET",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Get an organization secret",
+      "operationId": "dependabot/get-org-secret"
+    },
+    {
+      "path": "/orgs/{org}/dependabot/secrets/{secret_name}",
+      "method": "PUT",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Create or update an organization secret",
+      "operationId": "dependabot/create-or-update-org-secret"
+    },
+    {
+      "path": "/orgs/{org}/dependabot/secrets/{secret_name}",
+      "method": "DELETE",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Delete an organization secret",
+      "operationId": "dependabot/delete-org-secret"
+    },
+    {
+      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories",
+      "method": "GET",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "List selected repositories for an organization secret",
+      "operationId": "dependabot/list-selected-repos-for-org-secret"
+    },
+    {
+      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories",
+      "method": "PUT",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Set selected repositories for an organization secret",
+      "operationId": "dependabot/set-selected-repos-for-org-secret"
+    },
+    {
+      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}",
+      "method": "PUT",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Add selected repository to an organization secret",
+      "operationId": "dependabot/add-selected-repo-to-org-secret"
+    },
+    {
+      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}",
+      "method": "DELETE",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Remove selected repository from an organization secret",
+      "operationId": "dependabot/remove-selected-repo-from-org-secret"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/dependabot/alerts",
+      "method": "GET",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "List Dependabot alerts for a repository",
+      "operationId": "dependabot/list-alerts-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/dependabot/alerts/{alert_number}",
+      "method": "GET",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Get a Dependabot alert",
+      "operationId": "dependabot/get-alert"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/dependabot/alerts/{alert_number}",
+      "method": "PATCH",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Update a Dependabot alert",
+      "operationId": "dependabot/update-alert"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/dependabot/secrets",
+      "method": "GET",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "List repository secrets",
+      "operationId": "dependabot/list-repo-secrets"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/dependabot/secrets/public-key",
+      "method": "GET",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Get a repository public key",
+      "operationId": "dependabot/get-repo-public-key"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/dependabot/secrets/{secret_name}",
+      "method": "GET",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Get a repository secret",
+      "operationId": "dependabot/get-repo-secret"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/dependabot/secrets/{secret_name}",
+      "method": "PUT",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Create or update a repository secret",
+      "operationId": "dependabot/create-or-update-repo-secret"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/dependabot/secrets/{secret_name}",
+      "method": "DELETE",
+      "tags": [
+        "dependabot"
+      ],
+      "summary": "Delete a repository secret",
+      "operationId": "dependabot/delete-repo-secret"
+    }
+  ]
+}

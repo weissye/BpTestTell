@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchUsageTrigger",
+      "summary": "",
+      "user": "As a developer, I want to retrieve the details of a specific usage trigger by its SID so that I can monitor its configuration and status.",
+      "ideal": "The API should return a JSON object containing the details of the usage trigger, including its SID, friendly name, and current usage metrics."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateUsageTrigger",
+      "summary": "",
+      "user": "As a user, I need to update the settings of an existing usage trigger to adjust the thresholds for alerts based on my usage patterns.",
+      "ideal": "The API should accept the updated parameters and return a confirmation response indicating that the usage trigger has been successfully updated."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteUsageTrigger",
+      "summary": "",
+      "user": "As an administrator, I want to delete a specific usage trigger that is no longer needed to keep my account organized and avoid unnecessary alerts.",
+      "ideal": "The API should confirm the deletion of the usage trigger and return a success message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+      "method": "POST",
+      "operationId": "CreateUsageTrigger",
+      "summary": "",
+      "user": "As a product manager, I want to create a new usage trigger to monitor specific usage metrics and receive alerts when thresholds are exceeded.",
+      "ideal": "The API should accept the parameters for the new trigger and return the SID and details of the created usage trigger."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+      "method": "GET",
+      "operationId": "ListUsageTrigger",
+      "summary": "",
+      "user": "As a data analyst, I need to list all usage triggers associated with my account to analyze their configurations and usage patterns.",
+      "ideal": "The API should return an array of usage triggers, each containing its SID, friendly name, and current usage metrics."
+    }
+  ]
+}

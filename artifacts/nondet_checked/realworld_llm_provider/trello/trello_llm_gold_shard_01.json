@@ -5,80 +5,80 @@
       "method": "GET",
       "operationId": "getActionsByIdAction",
       "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve the action details for the action with ID 12345."
-    },
-    {
-      "path": "/actions/12345/board",
-      "method": "GET",
-      "operationId": "getActionsBoardByIdAction",
-      "summary": "",
-      "user": "User456",
-      "ideal": "Get the board associated with the action ID 12345."
-    },
-    {
-      "path": "/actions/12345/card",
-      "method": "GET",
-      "operationId": "getActionsCardByIdAction",
-      "summary": "",
-      "user": "User789",
-      "ideal": "Fetch the card linked to the action with ID 12345."
-    },
-    {
-      "path": "/actions/12345/member",
-      "method": "GET",
-      "operationId": "getActionsMemberByIdAction",
-      "summary": "",
-      "user": "User101",
-      "ideal": "Retrieve the member associated with the action ID 12345."
-    },
-    {
-      "path": "/actions/12345/organization",
-      "method": "GET",
-      "operationId": "getActionsOrganizationByIdAction",
-      "summary": "",
-      "user": "User202",
-      "ideal": "Get the organization linked to the action with ID 12345."
-    },
-    {
-      "path": "/actions/12345/text",
-      "method": "PUT",
-      "operationId": "updateActionsTextByIdAction",
-      "summary": "",
-      "user": "User303",
-      "ideal": "Update the text of the action with ID 12345."
-    },
-    {
-      "path": "/actions/12345/card/title",
-      "method": "GET",
-      "operationId": "getActionsCardByIdActionByField",
-      "summary": "",
-      "user": "User404",
-      "ideal": "Retrieve the title of the card linked to action ID 12345."
-    },
-    {
-      "path": "/actions/12345/memberCreator",
-      "method": "GET",
-      "operationId": "getActionsMemberCreatorByIdAction",
-      "summary": "",
-      "user": "User505",
-      "ideal": "Fetch the creator of the action with ID 12345."
-    },
-    {
-      "path": "/actions/12345/list",
-      "method": "GET",
-      "operationId": "getActionsListByIdAction",
-      "summary": "",
-      "user": "User606",
-      "ideal": "Get the list associated with the action ID 12345."
+      "user": "User requests details of a specific action by its ID.",
+      "ideal": "Returns the action details including type, date, and associated card."
     },
     {
       "path": "/actions/12345",
       "method": "DELETE",
       "operationId": "deleteActionsByIdAction",
       "summary": "",
-      "user": "User707",
-      "ideal": "Delete the action with ID 12345."
+      "user": "User wants to delete an action from Trello.",
+      "ideal": "Confirms the action has been successfully deleted."
+    },
+    {
+      "path": "/actions/12345",
+      "method": "PUT",
+      "operationId": "updateActionsByIdAction",
+      "summary": "",
+      "user": "User updates the details of an existing action.",
+      "ideal": "Returns the updated action details."
+    },
+    {
+      "path": "/actions/12345/board",
+      "method": "GET",
+      "operationId": "getActionsBoardByIdAction",
+      "summary": "",
+      "user": "User retrieves the board associated with a specific action.",
+      "ideal": "Returns the board details including name and ID."
+    },
+    {
+      "path": "/actions/12345/card",
+      "method": "GET",
+      "operationId": "getActionsCardByIdAction",
+      "summary": "",
+      "user": "User wants to know which card is linked to a specific action.",
+      "ideal": "Returns the card details including title and ID."
+    },
+    {
+      "path": "/actions/12345/member",
+      "method": "GET",
+      "operationId": "getActionsMemberByIdAction",
+      "summary": "",
+      "user": "User checks which member is associated with a specific action.",
+      "ideal": "Returns the member details including name and ID."
+    },
+    {
+      "path": "/actions/12345/memberCreator",
+      "method": "GET",
+      "operationId": "getActionsMemberCreatorByIdAction",
+      "summary": "",
+      "user": "User wants to find out who created the action.",
+      "ideal": "Returns the creator's member details."
+    },
+    {
+      "path": "/actions/12345/organization",
+      "method": "GET",
+      "operationId": "getActionsOrganizationByIdAction",
+      "summary": "",
+      "user": "User retrieves the organization linked to the action.",
+      "ideal": "Returns the organization details including name and ID."
+    },
+    {
+      "path": "/actions/12345/text",
+      "method": "PUT",
+      "operationId": "updateActionsTextByIdAction",
+      "summary": "",
+      "user": "User updates the text of a specific action.",
+      "ideal": "Returns the action with updated text."
+    },
+    {
+      "path": "/actions/12345/list",
+      "method": "GET",
+      "operationId": "getActionsListByIdAction",
+      "summary": "",
+      "user": "User wants to see which list the action belongs to.",
+      "ideal": "Returns the list details including name and ID."
     }
   ]
 }

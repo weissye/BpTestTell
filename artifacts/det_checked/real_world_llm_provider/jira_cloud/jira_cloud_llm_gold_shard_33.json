@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/redact",
+      "method": "POST",
+      "operationId": "redact",
+      "summary": "",
+      "user": "A project manager wants to redact sensitive information from a document before sharing it with external stakeholders. They prepare the document and send a request to the API to redact specific fields.",
+      "ideal": "The API successfully processes the redaction request and returns a confirmation that the redaction is in progress."
+    },
+    {
+      "path": "/rest/api/3/redact/status/{jobId}",
+      "method": "GET",
+      "operationId": "getRedactionStatus",
+      "summary": "",
+      "user": "After submitting a redaction request, the project manager needs to check the status of the redaction job to ensure it has been completed before sharing the document.",
+      "ideal": "The API returns the current status of the redaction job, indicating whether it is still in progress or has been completed successfully."
+    }
+  ]
+}

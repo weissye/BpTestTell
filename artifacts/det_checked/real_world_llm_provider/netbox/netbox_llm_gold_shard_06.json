@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/api/schema/",
+      "method": "GET",
+      "operationId": "schema_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the schema of the NetBox API, including all available endpoints, their parameters, and response formats."
+    }
+  ]
+}

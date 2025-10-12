@@ -1,0 +1,36 @@
+{
+  "openapi_meta": {
+    "title": "Zulip REST API",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/reminders",
+      "method": "GET",
+      "tags": [
+        "reminders"
+      ],
+      "summary": "Get reminders",
+      "operationId": "get-reminders"
+    },
+    {
+      "path": "/reminders",
+      "method": "POST",
+      "tags": [
+        "reminders"
+      ],
+      "summary": "Create a message reminder",
+      "operationId": "create-message-reminder"
+    },
+    {
+      "path": "/reminders/{reminder_id}",
+      "method": "DELETE",
+      "tags": [
+        "reminders"
+      ],
+      "summary": "Delete a reminder",
+      "operationId": "delete-reminder"
+    }
+  ]
+}

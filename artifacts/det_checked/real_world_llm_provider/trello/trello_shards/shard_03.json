@@ -6,60 +6,6 @@
   "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
   "operations": [
     {
-      "path": "/actions/{idAction}",
-      "method": "PUT",
-      "tags": [
-        "action"
-      ],
-      "summary": "updateActionsByIdAction()",
-      "operationId": "updateActionsByIdAction"
-    },
-    {
-      "path": "/actions/{idAction}/card",
-      "method": "GET",
-      "tags": [
-        "action"
-      ],
-      "summary": "getActionsCardByIdAction()",
-      "operationId": "getActionsCardByIdAction"
-    },
-    {
-      "path": "/actions/{idAction}/entities",
-      "method": "GET",
-      "tags": [
-        "action"
-      ],
-      "summary": "getActionsEntitiesByIdAction()",
-      "operationId": "getActionsEntitiesByIdAction"
-    },
-    {
-      "path": "/actions/{idAction}/member",
-      "method": "GET",
-      "tags": [
-        "action"
-      ],
-      "summary": "getActionsMemberByIdAction()",
-      "operationId": "getActionsMemberByIdAction"
-    },
-    {
-      "path": "/actions/{idAction}/memberCreator/{field}",
-      "method": "GET",
-      "tags": [
-        "action"
-      ],
-      "summary": "getActionsMemberCreatorByIdActionByField()",
-      "operationId": "getActionsMemberCreatorByIdActionByField"
-    },
-    {
-      "path": "/actions/{idAction}/text",
-      "method": "PUT",
-      "tags": [
-        "action"
-      ],
-      "summary": "updateActionsTextByIdAction()",
-      "operationId": "updateActionsTextByIdAction"
-    },
-    {
       "path": "/boards",
       "method": "POST",
       "tags": [
@@ -67,6 +13,24 @@
       ],
       "summary": "addBoards()",
       "operationId": "addBoards"
+    },
+    {
+      "path": "/boards/{idBoard}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsByIdBoard()",
+      "operationId": "getBoardsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsByIdBoard()",
+      "operationId": "updateBoardsByIdBoard"
     },
     {
       "path": "/boards/{idBoard}/actions",
@@ -78,6 +42,24 @@
       "operationId": "getBoardsActionsByIdBoard"
     },
     {
+      "path": "/boards/{idBoard}/boardStars",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsBoardStarsByIdBoard()",
+      "operationId": "getBoardsBoardStarsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/calendarKey/generate",
+      "method": "POST",
+      "tags": [
+        "board"
+      ],
+      "summary": "addBoardsCalendarKeyGenerateByIdBoard()",
+      "operationId": "addBoardsCalendarKeyGenerateByIdBoard"
+    },
+    {
       "path": "/boards/{idBoard}/cards",
       "method": "GET",
       "tags": [
@@ -85,6 +67,24 @@
       ],
       "summary": "getBoardsCardsByIdBoard()",
       "operationId": "getBoardsCardsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/cards/{filter}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsCardsByIdBoardByFilter()",
+      "operationId": "getBoardsCardsByIdBoardByFilter"
+    },
+    {
+      "path": "/boards/{idBoard}/cards/{idCard}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsCardsByIdBoardByIdCard()",
+      "operationId": "getBoardsCardsByIdBoardByIdCard"
     },
     {
       "path": "/boards/{idBoard}/checklists",
@@ -96,6 +96,24 @@
       "operationId": "getBoardsChecklistsByIdBoard"
     },
     {
+      "path": "/boards/{idBoard}/checklists",
+      "method": "POST",
+      "tags": [
+        "board"
+      ],
+      "summary": "addBoardsChecklistsByIdBoard()",
+      "operationId": "addBoardsChecklistsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/closed",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsClosedByIdBoard()",
+      "operationId": "updateBoardsClosedByIdBoard"
+    },
+    {
       "path": "/boards/{idBoard}/deltas",
       "method": "GET",
       "tags": [
@@ -103,6 +121,24 @@
       ],
       "summary": "getBoardsDeltasByIdBoard()",
       "operationId": "getBoardsDeltasByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/desc",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsDescByIdBoard()",
+      "operationId": "updateBoardsDescByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/emailKey/generate",
+      "method": "POST",
+      "tags": [
+        "board"
+      ],
+      "summary": "addBoardsEmailKeyGenerateByIdBoard()",
+      "operationId": "addBoardsEmailKeyGenerateByIdBoard"
     },
     {
       "path": "/boards/{idBoard}/idOrganization",
@@ -114,6 +150,24 @@
       "operationId": "updateBoardsIdOrganizationByIdBoard"
     },
     {
+      "path": "/boards/{idBoard}/labelNames/blue",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsLabelNamesBlueByIdBoard()",
+      "operationId": "updateBoardsLabelNamesBlueByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/labelNames/green",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsLabelNamesGreenByIdBoard()",
+      "operationId": "updateBoardsLabelNamesGreenByIdBoard"
+    },
+    {
       "path": "/boards/{idBoard}/labelNames/orange",
       "method": "PUT",
       "tags": [
@@ -121,6 +175,24 @@
       ],
       "summary": "updateBoardsLabelNamesOrangeByIdBoard()",
       "operationId": "updateBoardsLabelNamesOrangeByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/labelNames/purple",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsLabelNamesPurpleByIdBoard()",
+      "operationId": "updateBoardsLabelNamesPurpleByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/labelNames/red",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsLabelNamesRedByIdBoard()",
+      "operationId": "updateBoardsLabelNamesRedByIdBoard"
     },
     {
       "path": "/boards/{idBoard}/labelNames/yellow",
@@ -132,6 +204,24 @@
       "operationId": "updateBoardsLabelNamesYellowByIdBoard"
     },
     {
+      "path": "/boards/{idBoard}/labels",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsLabelsByIdBoard()",
+      "operationId": "getBoardsLabelsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/labels",
+      "method": "POST",
+      "tags": [
+        "board"
+      ],
+      "summary": "addBoardsLabelsByIdBoard()",
+      "operationId": "addBoardsLabelsByIdBoard"
+    },
+    {
       "path": "/boards/{idBoard}/labels/{idLabel}",
       "method": "GET",
       "tags": [
@@ -139,6 +229,24 @@
       ],
       "summary": "getBoardsLabelsByIdBoardByIdLabel()",
       "operationId": "getBoardsLabelsByIdBoardByIdLabel"
+    },
+    {
+      "path": "/boards/{idBoard}/lists",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsListsByIdBoard()",
+      "operationId": "getBoardsListsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/lists",
+      "method": "POST",
+      "tags": [
+        "board"
+      ],
+      "summary": "addBoardsListsByIdBoard()",
+      "operationId": "addBoardsListsByIdBoard"
     },
     {
       "path": "/boards/{idBoard}/lists/{filter}",
@@ -150,6 +258,24 @@
       "operationId": "getBoardsListsByIdBoardByFilter"
     },
     {
+      "path": "/boards/{idBoard}/markAsViewed",
+      "method": "POST",
+      "tags": [
+        "board"
+      ],
+      "summary": "addBoardsMarkAsViewedByIdBoard()",
+      "operationId": "addBoardsMarkAsViewedByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/members",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsMembersByIdBoard()",
+      "operationId": "getBoardsMembersByIdBoard"
+    },
+    {
       "path": "/boards/{idBoard}/members",
       "method": "PUT",
       "tags": [
@@ -157,6 +283,24 @@
       ],
       "summary": "updateBoardsMembersByIdBoard()",
       "operationId": "updateBoardsMembersByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/members/{filter}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsMembersByIdBoardByFilter()",
+      "operationId": "getBoardsMembersByIdBoardByFilter"
+    },
+    {
+      "path": "/boards/{idBoard}/members/{idMember}",
+      "method": "DELETE",
+      "tags": [
+        "board"
+      ],
+      "summary": "deleteBoardsMembersByIdBoardByIdMember()",
+      "operationId": "deleteBoardsMembersByIdBoardByIdMember"
     },
     {
       "path": "/boards/{idBoard}/members/{idMember}",
@@ -168,6 +312,24 @@
       "operationId": "updateBoardsMembersByIdBoardByIdMember"
     },
     {
+      "path": "/boards/{idBoard}/members/{idMember}/cards",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsMembersCardsByIdBoardByIdMember()",
+      "operationId": "getBoardsMembersCardsByIdBoardByIdMember"
+    },
+    {
+      "path": "/boards/{idBoard}/membersInvited",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsMembersInvitedByIdBoard()",
+      "operationId": "getBoardsMembersInvitedByIdBoard"
+    },
+    {
       "path": "/boards/{idBoard}/membersInvited/{field}",
       "method": "GET",
       "tags": [
@@ -175,6 +337,24 @@
       ],
       "summary": "getBoardsMembersInvitedByIdBoardByField()",
       "operationId": "getBoardsMembersInvitedByIdBoardByField"
+    },
+    {
+      "path": "/boards/{idBoard}/memberships",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsMembershipsByIdBoard()",
+      "operationId": "getBoardsMembershipsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/memberships/{idMembership}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsMembershipsByIdBoardByIdMembership()",
+      "operationId": "getBoardsMembershipsByIdBoardByIdMembership"
     },
     {
       "path": "/boards/{idBoard}/memberships/{idMembership}",
@@ -186,6 +366,24 @@
       "operationId": "updateBoardsMembershipsByIdBoardByIdMembership"
     },
     {
+      "path": "/boards/{idBoard}/myPrefs",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsMyPrefsByIdBoard()",
+      "operationId": "getBoardsMyPrefsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/myPrefs/emailPosition",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsMyPrefsEmailPositionByIdBoard()",
+      "operationId": "updateBoardsMyPrefsEmailPositionByIdBoard"
+    },
+    {
       "path": "/boards/{idBoard}/myPrefs/idEmailList",
       "method": "PUT",
       "tags": [
@@ -193,6 +391,24 @@
       ],
       "summary": "updateBoardsMyPrefsIdEmailListByIdBoard()",
       "operationId": "updateBoardsMyPrefsIdEmailListByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/myPrefs/showListGuide",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsMyPrefsShowListGuideByIdBoard()",
+      "operationId": "updateBoardsMyPrefsShowListGuideByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/myPrefs/showSidebar",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsMyPrefsShowSidebarByIdBoard()",
+      "operationId": "updateBoardsMyPrefsShowSidebarByIdBoard"
     },
     {
       "path": "/boards/{idBoard}/myPrefs/showSidebarActivity",
@@ -204,6 +420,24 @@
       "operationId": "updateBoardsMyPrefsShowSidebarActivityByIdBoard"
     },
     {
+      "path": "/boards/{idBoard}/myPrefs/showSidebarBoardActions",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsMyPrefsShowSidebarBoardActionsByIdBoard()",
+      "operationId": "updateBoardsMyPrefsShowSidebarBoardActionsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/myPrefs/showSidebarMembers",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsMyPrefsShowSidebarMembersByIdBoard()",
+      "operationId": "updateBoardsMyPrefsShowSidebarMembersByIdBoard"
+    },
+    {
       "path": "/boards/{idBoard}/name",
       "method": "PUT",
       "tags": [
@@ -211,6 +445,24 @@
       ],
       "summary": "updateBoardsNameByIdBoard()",
       "operationId": "updateBoardsNameByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/organization",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsOrganizationByIdBoard()",
+      "operationId": "getBoardsOrganizationByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/organization/{field}",
+      "method": "GET",
+      "tags": [
+        "board"
+      ],
+      "summary": "getBoardsOrganizationByIdBoardByField()",
+      "operationId": "getBoardsOrganizationByIdBoardByField"
     },
     {
       "path": "/boards/{idBoard}/powerUps",
@@ -222,6 +474,24 @@
       "operationId": "addBoardsPowerUpsByIdBoard"
     },
     {
+      "path": "/boards/{idBoard}/powerUps/{powerUp}",
+      "method": "DELETE",
+      "tags": [
+        "board"
+      ],
+      "summary": "deleteBoardsPowerUpsByIdBoardByPowerUp()",
+      "operationId": "deleteBoardsPowerUpsByIdBoardByPowerUp"
+    },
+    {
+      "path": "/boards/{idBoard}/prefs/background",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsPrefsBackgroundByIdBoard()",
+      "operationId": "updateBoardsPrefsBackgroundByIdBoard"
+    },
+    {
       "path": "/boards/{idBoard}/prefs/calendarFeedEnabled",
       "method": "PUT",
       "tags": [
@@ -229,6 +499,24 @@
       ],
       "summary": "updateBoardsPrefsCalendarFeedEnabledByIdBoard()",
       "operationId": "updateBoardsPrefsCalendarFeedEnabledByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/prefs/cardAging",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsPrefsCardAgingByIdBoard()",
+      "operationId": "updateBoardsPrefsCardAgingByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/prefs/cardCovers",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsPrefsCardCoversByIdBoard()",
+      "operationId": "updateBoardsPrefsCardCoversByIdBoard"
     },
     {
       "path": "/boards/{idBoard}/prefs/comments",
@@ -240,6 +528,24 @@
       "operationId": "updateBoardsPrefsCommentsByIdBoard"
     },
     {
+      "path": "/boards/{idBoard}/prefs/invitations",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsPrefsInvitationsByIdBoard()",
+      "operationId": "updateBoardsPrefsInvitationsByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/prefs/permissionLevel",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsPrefsPermissionLevelByIdBoard()",
+      "operationId": "updateBoardsPrefsPermissionLevelByIdBoard"
+    },
+    {
       "path": "/boards/{idBoard}/prefs/selfJoin",
       "method": "PUT",
       "tags": [
@@ -249,6 +555,24 @@
       "operationId": "updateBoardsPrefsSelfJoinByIdBoard"
     },
     {
+      "path": "/boards/{idBoard}/prefs/voting",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsPrefsVotingByIdBoard()",
+      "operationId": "updateBoardsPrefsVotingByIdBoard"
+    },
+    {
+      "path": "/boards/{idBoard}/subscribed",
+      "method": "PUT",
+      "tags": [
+        "board"
+      ],
+      "summary": "updateBoardsSubscribedByIdBoard()",
+      "operationId": "updateBoardsSubscribedByIdBoard"
+    },
+    {
       "path": "/boards/{idBoard}/{field}",
       "method": "GET",
       "tags": [
@@ -256,726 +580,6 @@
       ],
       "summary": "getBoardsByIdBoardByField()",
       "operationId": "getBoardsByIdBoardByField"
-    },
-    {
-      "path": "/cards/{idCard}",
-      "method": "GET",
-      "tags": [
-        "card"
-      ],
-      "summary": "getCardsByIdCard()",
-      "operationId": "getCardsByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/actions/comments",
-      "method": "POST",
-      "tags": [
-        "card"
-      ],
-      "summary": "addCardsActionsCommentsByIdCard()",
-      "operationId": "addCardsActionsCommentsByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/attachments",
-      "method": "GET",
-      "tags": [
-        "card"
-      ],
-      "summary": "getCardsAttachmentsByIdCard()",
-      "operationId": "getCardsAttachmentsByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/attachments/{idAttachment}",
-      "method": "GET",
-      "tags": [
-        "card"
-      ],
-      "summary": "getCardsAttachmentsByIdCardByIdAttachment()",
-      "operationId": "getCardsAttachmentsByIdCardByIdAttachment"
-    },
-    {
-      "path": "/cards/{idCard}/checkItemStates",
-      "method": "GET",
-      "tags": [
-        "card"
-      ],
-      "summary": "getCardsCheckItemStatesByIdCard()",
-      "operationId": "getCardsCheckItemStatesByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}",
-      "method": "DELETE",
-      "tags": [
-        "card"
-      ],
-      "summary": "deleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem()",
-      "operationId": "deleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem"
-    },
-    {
-      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/pos",
-      "method": "PUT",
-      "tags": [
-        "card"
-      ],
-      "summary": "updateCardsChecklistCheckItemPosByIdCardByIdChecklistByIdCheckItem()",
-      "operationId": "updateCardsChecklistCheckItemPosByIdCardByIdChecklistByIdCheckItem"
-    },
-    {
-      "path": "/cards/{idCard}/checklists",
-      "method": "POST",
-      "tags": [
-        "card"
-      ],
-      "summary": "addCardsChecklistsByIdCard()",
-      "operationId": "addCardsChecklistsByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/desc",
-      "method": "PUT",
-      "tags": [
-        "card"
-      ],
-      "summary": "updateCardsDescByIdCard()",
-      "operationId": "updateCardsDescByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/idBoard",
-      "method": "PUT",
-      "tags": [
-        "card"
-      ],
-      "summary": "updateCardsIdBoardByIdCard()",
-      "operationId": "updateCardsIdBoardByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/idList",
-      "method": "PUT",
-      "tags": [
-        "card"
-      ],
-      "summary": "updateCardsIdListByIdCard()",
-      "operationId": "updateCardsIdListByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/idMembers/{idMember}",
-      "method": "DELETE",
-      "tags": [
-        "card"
-      ],
-      "summary": "deleteCardsIdMembersByIdCardByIdMember()",
-      "operationId": "deleteCardsIdMembersByIdCardByIdMember"
-    },
-    {
-      "path": "/cards/{idCard}/labels/{color}",
-      "method": "DELETE",
-      "tags": [
-        "card"
-      ],
-      "summary": "deleteCardsLabelsByIdCardByColor()",
-      "operationId": "deleteCardsLabelsByIdCardByColor"
-    },
-    {
-      "path": "/cards/{idCard}/markAssociatedNotificationsRead",
-      "method": "POST",
-      "tags": [
-        "card"
-      ],
-      "summary": "addCardsMarkAssociatedNotificationsReadByIdCard()",
-      "operationId": "addCardsMarkAssociatedNotificationsReadByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/membersVoted",
-      "method": "POST",
-      "tags": [
-        "card"
-      ],
-      "summary": "addCardsMembersVotedByIdCard()",
-      "operationId": "addCardsMembersVotedByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/pos",
-      "method": "PUT",
-      "tags": [
-        "card"
-      ],
-      "summary": "updateCardsPosByIdCard()",
-      "operationId": "updateCardsPosByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/stickers/{idSticker}",
-      "method": "DELETE",
-      "tags": [
-        "card"
-      ],
-      "summary": "deleteCardsStickersByIdCardByIdSticker()",
-      "operationId": "deleteCardsStickersByIdCardByIdSticker"
-    },
-    {
-      "path": "/cards/{idCard}/subscribed",
-      "method": "PUT",
-      "tags": [
-        "card"
-      ],
-      "summary": "updateCardsSubscribedByIdCard()",
-      "operationId": "updateCardsSubscribedByIdCard"
-    },
-    {
-      "path": "/checklists/{idChecklist}",
-      "method": "DELETE",
-      "tags": [
-        "checklist"
-      ],
-      "summary": "deleteChecklistsByIdChecklist()",
-      "operationId": "deleteChecklistsByIdChecklist"
-    },
-    {
-      "path": "/checklists/{idChecklist}/board",
-      "method": "GET",
-      "tags": [
-        "checklist"
-      ],
-      "summary": "getChecklistsBoardByIdChecklist()",
-      "operationId": "getChecklistsBoardByIdChecklist"
-    },
-    {
-      "path": "/checklists/{idChecklist}/cards/{filter}",
-      "method": "GET",
-      "tags": [
-        "checklist"
-      ],
-      "summary": "getChecklistsCardsByIdChecklistByFilter()",
-      "operationId": "getChecklistsCardsByIdChecklistByFilter"
-    },
-    {
-      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
-      "method": "DELETE",
-      "tags": [
-        "checklist"
-      ],
-      "summary": "deleteChecklistsCheckItemsByIdChecklistByIdCheckItem()",
-      "operationId": "deleteChecklistsCheckItemsByIdChecklistByIdCheckItem"
-    },
-    {
-      "path": "/checklists/{idChecklist}/name",
-      "method": "PUT",
-      "tags": [
-        "checklist"
-      ],
-      "summary": "updateChecklistsNameByIdChecklist()",
-      "operationId": "updateChecklistsNameByIdChecklist"
-    },
-    {
-      "path": "/labels",
-      "method": "POST",
-      "tags": [
-        "label"
-      ],
-      "summary": "addLabels()",
-      "operationId": "addLabels"
-    },
-    {
-      "path": "/labels/{idLabel}",
-      "method": "PUT",
-      "tags": [
-        "label"
-      ],
-      "summary": "updateLabelsByIdLabel()",
-      "operationId": "updateLabelsByIdLabel"
-    },
-    {
-      "path": "/labels/{idLabel}/color",
-      "method": "PUT",
-      "tags": [
-        "label"
-      ],
-      "summary": "updateLabelsColorByIdLabel()",
-      "operationId": "updateLabelsColorByIdLabel"
-    },
-    {
-      "path": "/lists/{idList}",
-      "method": "GET",
-      "tags": [
-        "list"
-      ],
-      "summary": "getListsByIdList()",
-      "operationId": "getListsByIdList"
-    },
-    {
-      "path": "/lists/{idList}/archiveAllCards",
-      "method": "POST",
-      "tags": [
-        "list"
-      ],
-      "summary": "addListsArchiveAllCardsByIdList()",
-      "operationId": "addListsArchiveAllCardsByIdList"
-    },
-    {
-      "path": "/lists/{idList}/cards",
-      "method": "GET",
-      "tags": [
-        "list"
-      ],
-      "summary": "getListsCardsByIdList()",
-      "operationId": "getListsCardsByIdList"
-    },
-    {
-      "path": "/lists/{idList}/closed",
-      "method": "PUT",
-      "tags": [
-        "list"
-      ],
-      "summary": "updateListsClosedByIdList()",
-      "operationId": "updateListsClosedByIdList"
-    },
-    {
-      "path": "/lists/{idList}/name",
-      "method": "PUT",
-      "tags": [
-        "list"
-      ],
-      "summary": "updateListsNameByIdList()",
-      "operationId": "updateListsNameByIdList"
-    },
-    {
-      "path": "/lists/{idList}/{field}",
-      "method": "GET",
-      "tags": [
-        "list"
-      ],
-      "summary": "getListsByIdListByField()",
-      "operationId": "getListsByIdListByField"
-    },
-    {
-      "path": "/members/{idMember}/actions",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersActionsByIdMember()",
-      "operationId": "getMembersActionsByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/bio",
-      "method": "PUT",
-      "tags": [
-        "member"
-      ],
-      "summary": "updateMembersBioByIdMember()",
-      "operationId": "updateMembersBioByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
-      "method": "DELETE",
-      "tags": [
-        "member"
-      ],
-      "summary": "deleteMembersBoardBackgroundsByIdMemberByIdBoardBackground()",
-      "operationId": "deleteMembersBoardBackgroundsByIdMemberByIdBoardBackground"
-    },
-    {
-      "path": "/members/{idMember}/boardStars",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersBoardStarsByIdMember()",
-      "operationId": "getMembersBoardStarsByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/boardStars/{idBoardStar}",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersBoardStarsByIdMemberByIdBoardStar()",
-      "operationId": "getMembersBoardStarsByIdMemberByIdBoardStar"
-    },
-    {
-      "path": "/members/{idMember}/boardStars/{idBoardStar}/pos",
-      "method": "PUT",
-      "tags": [
-        "member"
-      ],
-      "summary": "updateMembersBoardStarsPosByIdMemberByIdBoardStar()",
-      "operationId": "updateMembersBoardStarsPosByIdMemberByIdBoardStar"
-    },
-    {
-      "path": "/members/{idMember}/boardsInvited",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersBoardsInvitedByIdMember()",
-      "operationId": "getMembersBoardsInvitedByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/cards/{filter}",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersCardsByIdMemberByFilter()",
-      "operationId": "getMembersCardsByIdMemberByFilter"
-    },
-    {
-      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
-      "method": "DELETE",
-      "tags": [
-        "member"
-      ],
-      "summary": "deleteMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground()",
-      "operationId": "deleteMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground"
-    },
-    {
-      "path": "/members/{idMember}/customEmoji",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersCustomEmojiByIdMember()",
-      "operationId": "getMembersCustomEmojiByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/customStickers",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersCustomStickersByIdMember()",
-      "operationId": "getMembersCustomStickersByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/customStickers/{idCustomSticker}",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersCustomStickersByIdMemberByIdCustomSticker()",
-      "operationId": "getMembersCustomStickersByIdMemberByIdCustomSticker"
-    },
-    {
-      "path": "/members/{idMember}/initials",
-      "method": "PUT",
-      "tags": [
-        "member"
-      ],
-      "summary": "updateMembersInitialsByIdMember()",
-      "operationId": "updateMembersInitialsByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/oneTimeMessagesDismissed",
-      "method": "POST",
-      "tags": [
-        "member"
-      ],
-      "summary": "addMembersOneTimeMessagesDismissedByIdMember()",
-      "operationId": "addMembersOneTimeMessagesDismissedByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/organizationsInvited",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersOrganizationsInvitedByIdMember()",
-      "operationId": "getMembersOrganizationsInvitedByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/prefs/locale",
-      "method": "PUT",
-      "tags": [
-        "member"
-      ],
-      "summary": "updateMembersPrefsLocaleByIdMember()",
-      "operationId": "updateMembersPrefsLocaleByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/savedSearches",
-      "method": "POST",
-      "tags": [
-        "member"
-      ],
-      "summary": "addMembersSavedSearchesByIdMember()",
-      "operationId": "addMembersSavedSearchesByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
-      "method": "PUT",
-      "tags": [
-        "member"
-      ],
-      "summary": "updateMembersSavedSearchesByIdMemberByIdSavedSearch()",
-      "operationId": "updateMembersSavedSearchesByIdMemberByIdSavedSearch"
-    },
-    {
-      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/query",
-      "method": "PUT",
-      "tags": [
-        "member"
-      ],
-      "summary": "updateMembersSavedSearchesQueryByIdMemberByIdSavedSearch()",
-      "operationId": "updateMembersSavedSearchesQueryByIdMemberByIdSavedSearch"
-    },
-    {
-      "path": "/members/{idMember}/{field}",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersByIdMemberByField()",
-      "operationId": "getMembersByIdMemberByField"
-    },
-    {
-      "path": "/notifications/{idNotification}",
-      "method": "PUT",
-      "tags": [
-        "notification"
-      ],
-      "summary": "updateNotificationsByIdNotification()",
-      "operationId": "updateNotificationsByIdNotification"
-    },
-    {
-      "path": "/notifications/{idNotification}/card",
-      "method": "GET",
-      "tags": [
-        "notification"
-      ],
-      "summary": "getNotificationsCardByIdNotification()",
-      "operationId": "getNotificationsCardByIdNotification"
-    },
-    {
-      "path": "/notifications/{idNotification}/entities",
-      "method": "GET",
-      "tags": [
-        "notification"
-      ],
-      "summary": "getNotificationsEntitiesByIdNotification()",
-      "operationId": "getNotificationsEntitiesByIdNotification"
-    },
-    {
-      "path": "/notifications/{idNotification}/member",
-      "method": "GET",
-      "tags": [
-        "notification"
-      ],
-      "summary": "getNotificationsMemberByIdNotification()",
-      "operationId": "getNotificationsMemberByIdNotification"
-    },
-    {
-      "path": "/notifications/{idNotification}/memberCreator/{field}",
-      "method": "GET",
-      "tags": [
-        "notification"
-      ],
-      "summary": "getNotificationsMemberCreatorByIdNotificationByField()",
-      "operationId": "getNotificationsMemberCreatorByIdNotificationByField"
-    },
-    {
-      "path": "/notifications/{idNotification}/unread",
-      "method": "PUT",
-      "tags": [
-        "notification"
-      ],
-      "summary": "updateNotificationsUnreadByIdNotification()",
-      "operationId": "updateNotificationsUnreadByIdNotification"
-    },
-    {
-      "path": "/organizations/{idOrg}",
-      "method": "DELETE",
-      "tags": [
-        "organization"
-      ],
-      "summary": "deleteOrganizationsByIdOrg()",
-      "operationId": "deleteOrganizationsByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/actions",
-      "method": "GET",
-      "tags": [
-        "organization"
-      ],
-      "summary": "getOrganizationsActionsByIdOrg()",
-      "operationId": "getOrganizationsActionsByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/deltas",
-      "method": "GET",
-      "tags": [
-        "organization"
-      ],
-      "summary": "getOrganizationsDeltasByIdOrg()",
-      "operationId": "getOrganizationsDeltasByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/logo",
-      "method": "DELETE",
-      "tags": [
-        "organization"
-      ],
-      "summary": "deleteOrganizationsLogoByIdOrg()",
-      "operationId": "deleteOrganizationsLogoByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/members",
-      "method": "PUT",
-      "tags": [
-        "organization"
-      ],
-      "summary": "updateOrganizationsMembersByIdOrg()",
-      "operationId": "updateOrganizationsMembersByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/members/{idMember}",
-      "method": "PUT",
-      "tags": [
-        "organization"
-      ],
-      "summary": "updateOrganizationsMembersByIdOrgByIdMember()",
-      "operationId": "updateOrganizationsMembersByIdOrgByIdMember"
-    },
-    {
-      "path": "/organizations/{idOrg}/members/{idMember}/deactivated",
-      "method": "PUT",
-      "tags": [
-        "organization"
-      ],
-      "summary": "updateOrganizationsMembersDeactivatedByIdOrgByIdMember()",
-      "operationId": "updateOrganizationsMembersDeactivatedByIdOrgByIdMember"
-    },
-    {
-      "path": "/organizations/{idOrg}/memberships",
-      "method": "GET",
-      "tags": [
-        "organization"
-      ],
-      "summary": "getOrganizationsMembershipsByIdOrg()",
-      "operationId": "getOrganizationsMembershipsByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/name",
-      "method": "PUT",
-      "tags": [
-        "organization"
-      ],
-      "summary": "updateOrganizationsNameByIdOrg()",
-      "operationId": "updateOrganizationsNameByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/org",
-      "method": "PUT",
-      "tags": [
-        "organization"
-      ],
-      "summary": "updateOrganizationsPrefsBoardVisibilityRestrictOrgByIdOrg()",
-      "operationId": "updateOrganizationsPrefsBoardVisibilityRestrictOrgByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/prefs/externalMembersDisabled",
-      "method": "PUT",
-      "tags": [
-        "organization"
-      ],
-      "summary": "updateOrganizationsPrefsExternalMembersDisabledByIdOrg()",
-      "operationId": "updateOrganizationsPrefsExternalMembersDisabledByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/prefs/orgInviteRestrict",
-      "method": "PUT",
-      "tags": [
-        "organization"
-      ],
-      "summary": "updateOrganizationsPrefsOrgInviteRestrictByIdOrg()",
-      "operationId": "updateOrganizationsPrefsOrgInviteRestrictByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/{field}",
-      "method": "GET",
-      "tags": [
-        "organization"
-      ],
-      "summary": "getOrganizationsByIdOrgByField()",
-      "operationId": "getOrganizationsByIdOrgByField"
-    },
-    {
-      "path": "/sessions",
-      "method": "POST",
-      "tags": [
-        "session"
-      ],
-      "summary": "addSessions()",
-      "operationId": "addSessions"
-    },
-    {
-      "path": "/sessions/{idSession}/status",
-      "method": "PUT",
-      "tags": [
-        "session"
-      ],
-      "summary": "updateSessionsStatusByIdSession()",
-      "operationId": "updateSessionsStatusByIdSession"
-    },
-    {
-      "path": "/tokens/{token}/member",
-      "method": "GET",
-      "tags": [
-        "token"
-      ],
-      "summary": "getTokensMemberByToken()",
-      "operationId": "getTokensMemberByToken"
-    },
-    {
-      "path": "/tokens/{token}/webhooks",
-      "method": "POST",
-      "tags": [
-        "token"
-      ],
-      "summary": "addTokensWebhooksByToken()",
-      "operationId": "addTokensWebhooksByToken"
-    },
-    {
-      "path": "/tokens/{token}/webhooks/{idWebhook}",
-      "method": "GET",
-      "tags": [
-        "token"
-      ],
-      "summary": "getTokensWebhooksByTokenByIdWebhook()",
-      "operationId": "getTokensWebhooksByTokenByIdWebhook"
-    },
-    {
-      "path": "/webhooks",
-      "method": "POST",
-      "tags": [
-        "webhook"
-      ],
-      "summary": "addWebhooks()",
-      "operationId": "addWebhooks"
-    },
-    {
-      "path": "/webhooks/{idWebhook}",
-      "method": "GET",
-      "tags": [
-        "webhook"
-      ],
-      "summary": "getWebhooksByIdWebhook()",
-      "operationId": "getWebhooksByIdWebhook"
-    },
-    {
-      "path": "/webhooks/{idWebhook}/callbackURL",
-      "method": "PUT",
-      "tags": [
-        "webhook"
-      ],
-      "summary": "updateWebhooksCallbackURLByIdWebhook()",
-      "operationId": "updateWebhooksCallbackURLByIdWebhook"
-    },
-    {
-      "path": "/webhooks/{idWebhook}/{field}",
-      "method": "GET",
-      "tags": [
-        "webhook"
-      ],
-      "summary": "getWebhooksByIdWebhookByField()",
-      "operationId": "getWebhooksByIdWebhookByField"
     }
   ]
 }

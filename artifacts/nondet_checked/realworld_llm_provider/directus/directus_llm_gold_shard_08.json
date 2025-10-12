@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/files",
+      "method": "GET",
+      "operationId": "getFiles",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all files available in the system."
+    },
+    {
+      "path": "/files",
+      "method": "POST",
+      "operationId": "createFile",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Upload a new file to the system with appropriate metadata."
+    },
+    {
+      "path": "/files",
+      "method": "PATCH",
+      "operationId": "updateFiles",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update metadata for multiple files in the system."
+    },
+    {
+      "path": "/files",
+      "method": "DELETE",
+      "operationId": "deleteFiles",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete multiple files from the system."
+    },
+    {
+      "path": "/files/{id}",
+      "method": "GET",
+      "operationId": "getFile",
+      "summary": "",
+      "user": "viewer",
+      "ideal": "Retrieve details of a specific file by its ID."
+    },
+    {
+      "path": "/files/{id}",
+      "method": "PATCH",
+      "operationId": "updateFile",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update metadata for a specific file identified by its ID."
+    },
+    {
+      "path": "/files/{id}",
+      "method": "DELETE",
+      "operationId": "deleteFile",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific file from the system by its ID."
+    }
+  ]
+}

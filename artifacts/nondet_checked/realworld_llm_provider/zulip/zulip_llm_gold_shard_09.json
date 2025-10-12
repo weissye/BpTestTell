@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "get-reminders",
       "summary": "",
-      "user": "User wants to retrieve a list of all reminders they have set in Zulip to manage their tasks effectively.",
-      "ideal": "A successful response with a list of reminders, including details such as reminder ID, content, and due date."
+      "user": "User requests to retrieve all reminders set in their Zulip account to manage their tasks effectively.",
+      "ideal": "Returns a list of reminders with details such as reminder ID, content, and time."
     },
     {
       "path": "/reminders",
       "method": "POST",
       "operationId": "create-message-reminder",
       "summary": "",
-      "user": "User needs to create a reminder for an important message in Zulip to ensure they follow up on it later.",
-      "ideal": "A successful response confirming the creation of the reminder, including the reminder ID and the content of the reminder."
+      "user": "User wants to create a reminder for an important message to follow up later.",
+      "ideal": "Successfully creates a reminder and returns the reminder ID and confirmation message."
     },
     {
       "path": "/reminders/{reminder_id}",
       "method": "DELETE",
       "operationId": "delete-reminder",
       "summary": "",
-      "user": "User wants to delete a specific reminder that is no longer needed to keep their reminders organized.",
-      "ideal": "A successful response indicating that the reminder has been deleted, with a confirmation message."
+      "user": "User decides to delete a reminder that is no longer needed.",
+      "ideal": "Confirms the deletion of the reminder and returns a success message."
     }
   ]
 }

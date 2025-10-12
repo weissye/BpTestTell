@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties",
+      "method": "GET",
+      "operationId": "getWorklogPropertyKeys",
+      "summary": "",
+      "user": "User wants to retrieve all property keys associated with a specific worklog for issue ABC-123.",
+      "ideal": "Returns a list of property keys for the specified worklog."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/priority",
+      "method": "DELETE",
+      "operationId": "deleteWorklogProperty",
+      "summary": "",
+      "user": "User wants to delete the 'priority' property from the worklog of issue ABC-123.",
+      "ideal": "Successfully deletes the specified property from the worklog."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/priority",
+      "method": "GET",
+      "operationId": "getWorklogProperty",
+      "summary": "",
+      "user": "User wants to fetch the value of the 'priority' property for the worklog of issue ABC-123.",
+      "ideal": "Returns the value of the 'priority' property for the specified worklog."
+    },
+    {
+      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/priority",
+      "method": "PUT",
+      "operationId": "setWorklogProperty",
+      "summary": "",
+      "user": "User wants to set the 'priority' property to 'high' for the worklog of issue ABC-123.",
+      "ideal": "Successfully updates the 'priority' property for the specified worklog."
+    }
+  ]
+}

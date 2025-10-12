@@ -6,7 +6,7 @@
       "operationId": "resetFactory",
       "summary": "",
       "user": "admin",
-      "ideal": "Resets the factory state to initial configuration."
+      "ideal": "Resets the factory system to its initial state."
     },
     {
       "path": "/machines",
@@ -14,7 +14,7 @@
       "operationId": "getMachines",
       "summary": "",
       "user": "operator",
-      "ideal": "Retrieves a list of all machines currently in the factory."
+      "ideal": "Retrieves a list of all machines in the factory."
     },
     {
       "path": "/machines",
@@ -22,38 +22,38 @@
       "operationId": "addMachine",
       "summary": "",
       "user": "admin",
-      "ideal": "Adds a new machine to the factory with specified parameters."
+      "ideal": "Adds a new machine to the factory system."
     },
     {
       "path": "/workorders",
       "method": "GET",
       "operationId": "getWorkOrders",
       "summary": "",
-      "user": "supervisor",
-      "ideal": "Fetches all active work orders in the system."
+      "user": "manager",
+      "ideal": "Fetches all active work orders in the factory."
     },
     {
       "path": "/workorders",
       "method": "POST",
       "operationId": "createWorkOrder",
       "summary": "",
-      "user": "operator",
-      "ideal": "Creates a new work order for production with details."
+      "user": "manager",
+      "ideal": "Creates a new work order for production."
     },
     {
       "path": "/maintenance-tickets",
       "method": "GET",
       "operationId": "getMaintenanceTickets",
       "summary": "",
-      "user": "maintenance",
-      "ideal": "Lists all maintenance tickets that are currently open."
+      "user": "technician",
+      "ideal": "Lists all maintenance tickets for machines."
     },
     {
       "path": "/maintenance-tickets",
       "method": "POST",
       "operationId": "createMaintenanceTicket",
       "summary": "",
-      "user": "operator",
+      "user": "technician",
       "ideal": "Submits a new maintenance ticket for a machine issue."
     },
     {
@@ -61,16 +61,16 @@
       "method": "GET",
       "operationId": "getSensorReadings",
       "summary": "",
-      "user": "data-analyst",
-      "ideal": "Retrieves the latest sensor readings from all machines."
+      "user": "operator",
+      "ideal": "Retrieves the latest sensor readings from machines."
     },
     {
       "path": "/sensor-readings",
       "method": "POST",
       "operationId": "submitSensorReading",
       "summary": "",
-      "user": "machine",
-      "ideal": "Submits a new sensor reading from a specific machine."
+      "user": "operator",
+      "ideal": "Submits a new sensor reading for a specific machine."
     }
   ]
 }

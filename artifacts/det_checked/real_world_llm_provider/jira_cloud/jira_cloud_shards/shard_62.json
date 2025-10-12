@@ -1,0 +1,81 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/component",
+      "method": "GET",
+      "tags": [
+        "Project components"
+      ],
+      "summary": "Find components for projects",
+      "operationId": "findComponentsForProjects"
+    },
+    {
+      "path": "/rest/api/3/component",
+      "method": "POST",
+      "tags": [
+        "Project components"
+      ],
+      "summary": "Create component",
+      "operationId": "createComponent"
+    },
+    {
+      "path": "/rest/api/3/component/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Project components"
+      ],
+      "summary": "Delete component",
+      "operationId": "deleteComponent"
+    },
+    {
+      "path": "/rest/api/3/component/{id}",
+      "method": "GET",
+      "tags": [
+        "Project components"
+      ],
+      "summary": "Get component",
+      "operationId": "getComponent"
+    },
+    {
+      "path": "/rest/api/3/component/{id}",
+      "method": "PUT",
+      "tags": [
+        "Project components"
+      ],
+      "summary": "Update component",
+      "operationId": "updateComponent"
+    },
+    {
+      "path": "/rest/api/3/component/{id}/relatedIssueCounts",
+      "method": "GET",
+      "tags": [
+        "Project components"
+      ],
+      "summary": "Get component issues count",
+      "operationId": "getComponentRelatedIssues"
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/component",
+      "method": "GET",
+      "tags": [
+        "Project components"
+      ],
+      "summary": "Get project components paginated",
+      "operationId": "getProjectComponentsPaginated"
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/components",
+      "method": "GET",
+      "tags": [
+        "Project components"
+      ],
+      "summary": "Get project components",
+      "operationId": "getProjectComponents"
+    }
+  ]
+}

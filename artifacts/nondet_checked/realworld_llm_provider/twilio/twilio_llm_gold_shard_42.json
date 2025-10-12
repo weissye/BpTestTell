@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "method": "GET",
+      "operationId": "FetchMember",
+      "summary": "",
+      "user": "A customer service representative wants to check the details of a specific member in a queue to understand their status and position.",
+      "ideal": "The API should return the member's details, including their status, position in the queue, and any relevant metadata."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "method": "POST",
+      "operationId": "UpdateMember",
+      "summary": "",
+      "user": "A queue manager needs to update the status of a member in the queue to indicate they are now on hold.",
+      "ideal": "The API should successfully update the member's status and return a confirmation response with the updated member details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json",
+      "method": "GET",
+      "operationId": "ListMember",
+      "summary": "",
+      "user": "An operations analyst wants to retrieve a list of all members currently in a specific queue to analyze call handling times.",
+      "ideal": "The API should return a list of all members in the queue, including their statuses and positions, in a structured format."
+    }
+  ]
+}

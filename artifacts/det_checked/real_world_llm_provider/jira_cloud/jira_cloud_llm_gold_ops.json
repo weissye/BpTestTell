@@ -6,18 +6,133 @@
       "body": null
     },
     {
-      "method": "POST",
-      "path": "/rest/api/3/app/field/value",
+      "method": "PUT",
+      "path": "/rest/api/3/announcementBanner",
       "body": null
     },
     {
-      "method": "POST",
-      "path": "/rest/api/3/issue/PROJ-123/comment",
+      "method": "GET",
+      "path": "/rest/api/3/data-policy",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/data-policy/project",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/issue/PROJ-123",
+      "path": "/rest/atlassian-connect/1/migration/field",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/atlassian-connect/1/migration/properties/{entityType}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/atlassian-connect/1/migration/workflow/rule/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/forge/1/app/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/forge/1/app/properties/my-property",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/forge/1/app/properties/my-property",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/forge/1/app/properties/my-property",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/applicationrole",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/applicationrole/{key}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/auditing/record",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/avatar/system",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/universal_avatar/type/user/owner/12345",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/universal_avatar/type/user/owner/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/universal_avatar/type/user/owner/12345/avatar/67890",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/universal_avatar/view/type/user",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/universal_avatar/view/type/user/avatar/67890",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/universal_avatar/view/type/user/owner/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/classification-levels",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/dashboard",
       "body": null
     },
     {
@@ -26,23 +141,668 @@
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/rest/api/3/project/PROJ-456/notificationscheme",
+      "method": "PUT",
+      "path": "/rest/api/3/dashboard/bulk/edit",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/user/columns",
+      "path": "/rest/api/3/dashboard/gadgets",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/workflow/search",
+      "path": "/rest/api/3/dashboard/search",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/version/1",
+      "path": "/rest/api/3/dashboard/{dashboardId}/gadget",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/dashboard/{dashboardId}/gadget",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/dashboard/{dashboardId}/gadget/{gadgetId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/dashboard/{dashboardId}/gadget/{gadgetId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/dashboard/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/dashboard/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/dashboard/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/dashboard/{id}/copy",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/atlassian-connect/1/app/module/dynamic",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/atlassian-connect/1/app/module/dynamic",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/atlassian-connect/1/app/module/dynamic",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/defaultShareScope",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/filter/defaultShareScope",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/{id}/permission",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/filter/{id}/permission",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/filter/{id}/permission/{permissionId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/{id}/permission/{permissionId}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/filter",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/favourite",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/my",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/search",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/filter/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/filter/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/filter/{id}/columns",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/{id}/columns",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/filter/{id}/columns",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/filter/{id}/favourite",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/filter/{id}/favourite",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/filter/{id}/owner",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/groupuserpicker",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/group",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/group",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/group",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/group/bulk",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/group/member",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/group/user",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/group/user",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/groups/picker",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/attachment/content/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/attachment/meta",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/attachment/thumbnail/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/attachment/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/attachment/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/attachment/12345/expand/human",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/attachment/12345/expand/raw",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/ISSUE-123/attachments",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/bulk/issues/delete",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/bulk/issues/fields",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/bulk/issues/fields",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/bulk/issues/move",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/bulk/issues/transition",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/bulk/issues/transition",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/bulk/issues/unwatch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/bulk/issues/watch",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/bulk/queue/{taskId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/comment/{commentId}/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/comment/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/PROJECT-1/comment",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/PROJECT-1/comment",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/association",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/association",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/app/field/context/configuration/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/app/field/{fieldIdOrKey}/context/configuration",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/app/field/{fieldIdOrKey}/context/configuration",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/10000/context",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/10000/context",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/10000/context/defaultValue",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/10000/context/defaultValue",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/10000/context/issuetypemapping",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/10000/context/mapping",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/10000/context/projectmapping",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/10000/context/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/10000/context/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/10000/context/12345/issuetype",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/10000/context/12345/issuetype/remove",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/10000/context/12345/project",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/10000/context/12345/project/remove",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/customFieldOption/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/10000/context/20000/option",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/10000/context/20000/option",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/10000/context/20000/option",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/10000/context/20000/option/move",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/10000/context/20000/option/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/10000/context/20000/option/12345/issue",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/customfield_10001/option",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/customfield_10001/option",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/customfield_10001/option/suggestions/edit",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/customfield_10001/option/suggestions/search",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/customfield_10001/option/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/customfield_10001/option/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/customfield_10001/option/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/customfield_10001/option/12345/issue",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/app/field/value",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/app/field/{fieldIdOrKey}/value",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/fieldconfiguration",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/fieldconfiguration",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/fieldconfiguration/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/fieldconfiguration/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/fieldconfiguration/{id}/fields",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/fieldconfiguration/{id}/fields",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/fieldconfigurationscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/fieldconfigurationscheme",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/fieldconfigurationscheme/mapping",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/fieldconfigurationscheme/project",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/fieldconfigurationscheme/project",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping/delete",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/search/trashed",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/{fieldId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/{fieldId}/contexts",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/{id}/restore",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/{id}/trash",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issueLinkType",
       "body": null
     },
     {
@@ -51,33 +811,553 @@
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "method": "DELETE",
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/{projectIdOrKey}/versions",
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issueLink",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issueLink/{linkId}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+      "path": "/rest/api/3/issueLink/{linkId}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/user/search",
+      "path": "/rest/api/3/settings/columns",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/settings/columns",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/votes",
+      "path": "/rest/api/3/notificationscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/notificationscheme",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/comments",
+      "path": "/rest/api/3/notificationscheme/project",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/notificationscheme/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/notificationscheme/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/notificationscheme/{id}/notification",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/notificationscheme/{notificationSchemeId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/notificationscheme/{notificationSchemeId}/notification/{notificationId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priority",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/priority",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/priority/default",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/priority/move",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priority/search",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/priority/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priority/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/priority/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/properties",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/properties/multi",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/redact",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/redact/status/{jobId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink/456",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink/456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink/456",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink/{globalId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/resolution",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/resolution",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/resolution/default",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/resolution/move",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/resolution/search",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/resolution/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/resolution/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/resolution/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/picker",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/match",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/search/approximate-count",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/search/jql",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/search/jql",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes/{issueSecuritySchemeId}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/securitylevel/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issuesecurityschemes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes/level",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuesecurityschemes/level/default",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes/level/member",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes/project",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuesecurityschemes/project",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuesecurityschemes/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}/member",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}/member/{memberId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issuetypescheme",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescheme/mapping",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescheme/project",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescheme/project",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype/move",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype/{issueTypeId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescreenscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issuetypescreenscheme",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescreenscheme/mapping",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescreenscheme/project",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescreenscheme/project",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping/default",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping/remove",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/project",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issuetype",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype/project",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuetype/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetype/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype/{id}/alternatives",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issuetype/{id}/avatar2",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/ABC-123/votes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/ABC-123/votes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/ABC-123/votes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/watching",
       "body": null
     },
     {
@@ -87,32 +1367,97 @@
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/changelog/list",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink",
+      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/priority",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/comment",
+      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/priority",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/priority",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/{projectIdOrKey}/components",
+      "path": "/rest/api/3/issue/PROJ-123/worklog",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/attachments",
+      "path": "/rest/api/3/issue/PROJ-123/worklog",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/move",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/worklog/deleted",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/worklog/updated",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/worklog/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/789",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/bulkDelete",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
       "body": null
     },
     {
@@ -122,17 +1467,1057 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/dashboard",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/changelog",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/field/{fieldId}/context",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/editmeta",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/notify",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/assignee",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/archive",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/createmeta",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/limit/report",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/jql/autocompletedata",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/autocompletedata",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/jql/autocompletedata/suggestions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/parse",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/pdcleaner",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/sanitize",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/jql/function/computation",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/function/computation",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/function/computation/search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/expression/analyse",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/expression/eval",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/expression/evaluate",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/application-properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/application-properties/advanced-settings",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/application-properties/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/configuration",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/label",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/instance/license",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/license/approximateLicenseCount",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/license/approximateLicenseCount/product/{applicationKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/mypreferences",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/mypreferences",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/mypreferences",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/mypreferences/locale",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/mypreferences/locale",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/myself",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/permissionscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/permissionscheme",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/permissionscheme/{schemeId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/permissionscheme/{schemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/permissionscheme/{schemeId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission/{permissionId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission/{permissionId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/mypermissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/permissions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/permissions/check",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/permissions/project",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/plans/plan",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/plans/plan",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/plans/plan/{planId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/plans/plan/{planId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/plans/plan/{planId}/archive",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/plans/plan/{planId}/duplicate",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/plans/plan/{planId}/trash",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priorityscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/priorityscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/priorityscheme/mappings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priorityscheme/priorities/available",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/priorityscheme/{schemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/priorityscheme/{schemeId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priorityscheme/{schemeId}/priorities",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priorityscheme/{schemeId}/projects",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar2",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatars",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/projectCategory",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/projectCategory",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/projectCategory/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/projectCategory/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/projectCategory/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/component",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/component",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/component/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/component/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/component/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/component/{id}/relatedIssueCounts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/component",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/components",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectId}/email",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectId}/email",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/features",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectIdOrKey}/features/{featureKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/projectvalidate/key",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/projectvalidate/validProjectKey",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/projectvalidate/validProjectName",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/ABC/issuesecuritylevelscheme",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/XYZ/permissionscheme",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/DEF/permissionscheme",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/GHI/securitylevel",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/PROJ-123/properties",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project/PROJ-123/properties/customProperty",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/PROJ-123/properties/customProperty",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/PROJ-123/properties/customProperty",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/role/{id}/actors",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/role/{id}/actors",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/role/{id}/actors",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/TEST/role",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/TEST/role/10000",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/TEST/roledetails",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/role",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/role",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/role/10000",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/role/10000",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/role/10000",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/role/10000",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project-template",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project-template/edit-template",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project-template/live-template",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project-template/remove-template",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project-template/save-template",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/type",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/type/accessible",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/type/{projectTypeKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/type/{projectTypeKey}/accessible",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/PROJ-123/version",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/PROJ-123/versions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/version",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/version/456",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/version/456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/version/456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/version/456/mergeto/789",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/version/456/move",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/version/456/relatedIssueCounts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/version/456/relatedwork",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/version/456/relatedwork",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/version/456/relatedwork",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/version/456/removeAndSwap",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/version/456/unresolvedIssueCount",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/version/456/relatedwork/789",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/recent",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/search",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project/{projectIdOrKey}/archive",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project/{projectIdOrKey}/delete",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project/{projectIdOrKey}/restore",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/statuses",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectId}/hierarchy",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectKeyOrId}/notificationscheme",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/screenscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screenscheme",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/screenscheme/{screenSchemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/screenscheme/{screenSchemeId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/screens/1001/tabs/2001/fields",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screens/1001/tabs/2001/fields",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/screens/1001/tabs/2001/fields/3001",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screens/1001/tabs/2001/fields/3001/move",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/screens/tabs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/screens/{screenId}/tabs",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screens/{screenId}/tabs",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}/move/{pos}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/{fieldId}/screens",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/screens",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screens",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screens/addToDefault/{fieldId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/screens/{screenId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/screens/{screenId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/screens/{screenId}/availableFields",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/serverInfo",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/atlassian-connect/1/service-registry",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/statuses",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/statuses/{statusId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses/{statusId}/project/{projectId}/issueTypeUsages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses/byNames",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses/{statusId}/projectUsages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses/{statusId}/workflowUsages",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/statuses/{statusId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/task/12345",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/task/12345/cancel",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/plans/plan/123/team",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/plans/plan/123/team/atlassian",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/plans/plan/123/team/atlassian/789",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/plans/plan/123/team/atlassian/789",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/plans/plan/123/team/atlassian/789",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/plans/plan/123/team/planonly",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/plans/plan/123/team/planonly/456",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/plans/plan/123/team/planonly/456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/plans/plan/123/team/planonly/456",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/configuration/timetracking",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/configuration/timetracking",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/configuration/timetracking/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/configuration/timetracking/options",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/configuration/timetracking/options",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/uiModifications",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/uiModifications",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/uiModifications/{uiModificationId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/uiModifications/{uiModificationId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/properties",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/user/properties/notifications",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/properties/theme",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/user/properties/language",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/assignable/multiProjectSearch",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/assignable/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/permission/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/picker",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/search",
       "body": null
     },
     {
@@ -142,12 +2527,417 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "path": "/rest/api/3/user/search/query/key",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issueLinkType",
+      "path": "/rest/api/3/user/viewissue/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/user",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/columns",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/user/columns",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/groups",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/bulk",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/email",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/email/bulk",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/users",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/users/search",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/user/columns",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/bulk/migration",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/user",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/webhook",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/webhook",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/webhook/{webhookId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/webhook/failed",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/webhook/refresh",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflowscheme/123/createdraft",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/123/draft",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/123/draft",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/123/draft",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/123/draft/default",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/123/draft/default",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/123/draft/default",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/123/draft/issuetype/bug",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/123/draft/issuetype/bug",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/123/draft/issuetype/bug",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflowscheme/123/draft/publish",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/123/draft/workflow",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/123/draft/workflow",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/123/draft/workflow",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/project",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/project",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflowscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflowscheme/read",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflowscheme/update",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflowscheme/update/mappings",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}/default",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{id}/default",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/{id}/default",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{workflowSchemeId}/projectUsages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuscategory",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuscategory/{idOrKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/status",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/status/{idOrName}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflow/transitions/123/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/transitions/123/properties",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflow/transitions/123/properties",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflow/transitions/123/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/rule/config",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflow/rule/config",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflow/rule/config/delete",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflow",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/search",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflow/{entityId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/{workflowId}/project/{projectId}/issueTypeUsages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/{workflowId}/projectUsages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/{workflowId}/workflowSchemes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflows",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflows/capabilities",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflows/create",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflows/create/validation",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflows/defaultEditor",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflows/preview",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflows/search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflows/update",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflows/update/validation",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/nav4-opt-property/theme",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/user/nav4-opt-property/theme",
       "body": null
     },
     {
@@ -156,18 +2946,133 @@
       "body": null
     },
     {
-      "method": "POST",
-      "path": "/rest/api/3/app/field/value",
+      "method": "PUT",
+      "path": "/rest/api/3/announcementBanner",
       "body": null
     },
     {
-      "method": "POST",
-      "path": "/rest/api/3/issue/PROJ-123/comment",
+      "method": "GET",
+      "path": "/rest/api/3/data-policy",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/data-policy/project",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/issue/PROJ-123",
+      "path": "/rest/atlassian-connect/1/migration/field",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/atlassian-connect/1/migration/properties/{entityType}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/atlassian-connect/1/migration/workflow/rule/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/forge/1/app/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/forge/1/app/properties/my-property",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/forge/1/app/properties/my-property",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/forge/1/app/properties/my-property",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/applicationrole",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/applicationrole/{key}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/auditing/record",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/avatar/system",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/universal_avatar/type/user/owner/12345",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/universal_avatar/type/user/owner/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/universal_avatar/type/user/owner/12345/avatar/67890",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/universal_avatar/view/type/user",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/universal_avatar/view/type/user/avatar/67890",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/universal_avatar/view/type/user/owner/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/classification-levels",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/dashboard",
       "body": null
     },
     {
@@ -176,23 +3081,668 @@
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/rest/api/3/project/PROJ-456/notificationscheme",
+      "method": "PUT",
+      "path": "/rest/api/3/dashboard/bulk/edit",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/user/columns",
+      "path": "/rest/api/3/dashboard/gadgets",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/workflow/search",
+      "path": "/rest/api/3/dashboard/search",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/version/1",
+      "path": "/rest/api/3/dashboard/{dashboardId}/gadget",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/dashboard/{dashboardId}/gadget",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/dashboard/{dashboardId}/gadget/{gadgetId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/dashboard/{dashboardId}/gadget/{gadgetId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/dashboard/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/dashboard/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/dashboard/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/dashboard/{id}/copy",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/atlassian-connect/1/app/module/dynamic",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/atlassian-connect/1/app/module/dynamic",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/atlassian-connect/1/app/module/dynamic",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/defaultShareScope",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/filter/defaultShareScope",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/{id}/permission",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/filter/{id}/permission",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/filter/{id}/permission/{permissionId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/{id}/permission/{permissionId}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/filter",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/favourite",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/my",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/search",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/filter/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/filter/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/filter/{id}/columns",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/{id}/columns",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/filter/{id}/columns",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/filter/{id}/favourite",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/filter/{id}/favourite",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/filter/{id}/owner",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/groupuserpicker",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/group",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/group",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/group",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/group/bulk",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/group/member",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/group/user",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/group/user",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/groups/picker",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/attachment/content/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/attachment/meta",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/attachment/thumbnail/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/attachment/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/attachment/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/attachment/12345/expand/human",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/attachment/12345/expand/raw",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/ISSUE-123/attachments",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/bulk/issues/delete",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/bulk/issues/fields",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/bulk/issues/fields",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/bulk/issues/move",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/bulk/issues/transition",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/bulk/issues/transition",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/bulk/issues/unwatch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/bulk/issues/watch",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/bulk/queue/{taskId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/comment/{commentId}/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/comment/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/PROJECT-1/comment",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/PROJECT-1/comment",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/association",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/association",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/app/field/context/configuration/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/app/field/{fieldIdOrKey}/context/configuration",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/app/field/{fieldIdOrKey}/context/configuration",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/10000/context",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/10000/context",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/10000/context/defaultValue",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/10000/context/defaultValue",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/10000/context/issuetypemapping",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/10000/context/mapping",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/10000/context/projectmapping",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/10000/context/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/10000/context/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/10000/context/12345/issuetype",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/10000/context/12345/issuetype/remove",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/10000/context/12345/project",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/10000/context/12345/project/remove",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/customFieldOption/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/10000/context/20000/option",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/10000/context/20000/option",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/10000/context/20000/option",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/10000/context/20000/option/move",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/10000/context/20000/option/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/10000/context/20000/option/12345/issue",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/customfield_10001/option",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/customfield_10001/option",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/customfield_10001/option/suggestions/edit",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/customfield_10001/option/suggestions/search",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/customfield_10001/option/12345",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/customfield_10001/option/12345",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/customfield_10001/option/12345",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/customfield_10001/option/12345/issue",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/app/field/value",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/app/field/{fieldIdOrKey}/value",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/fieldconfiguration",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/fieldconfiguration",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/fieldconfiguration/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/fieldconfiguration/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/fieldconfiguration/{id}/fields",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/fieldconfiguration/{id}/fields",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/fieldconfigurationscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/fieldconfigurationscheme",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/fieldconfigurationscheme/mapping",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/fieldconfigurationscheme/project",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/fieldconfigurationscheme/project",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping/delete",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/search/trashed",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/{fieldId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/{fieldId}/contexts",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/{id}/restore",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/{id}/trash",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issueLinkType",
       "body": null
     },
     {
@@ -201,33 +3751,553 @@
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "method": "DELETE",
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/{projectIdOrKey}/versions",
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issueLink",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issueLink/{linkId}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+      "path": "/rest/api/3/issueLink/{linkId}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/user/search",
+      "path": "/rest/api/3/settings/columns",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/settings/columns",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/votes",
+      "path": "/rest/api/3/notificationscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/notificationscheme",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/comments",
+      "path": "/rest/api/3/notificationscheme/project",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/notificationscheme/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/notificationscheme/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/notificationscheme/{id}/notification",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/notificationscheme/{notificationSchemeId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/notificationscheme/{notificationSchemeId}/notification/{notificationId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priority",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/priority",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/priority/default",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/priority/move",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priority/search",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/priority/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priority/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/priority/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/properties",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/properties/multi",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/redact",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/redact/status/{jobId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink/456",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink/456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink/456",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink/{globalId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/resolution",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/resolution",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/resolution/default",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/resolution/move",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/resolution/search",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/resolution/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/resolution/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/resolution/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/picker",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/match",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/search/approximate-count",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/search/jql",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/search/jql",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes/{issueSecuritySchemeId}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/securitylevel/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issuesecurityschemes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes/level",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuesecurityschemes/level/default",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes/level/member",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes/project",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuesecurityschemes/project",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuesecurityschemes/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}/member",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}/member/{memberId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issuetypescheme",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescheme/mapping",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescheme/project",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescheme/project",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype/move",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype/{issueTypeId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescreenscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issuetypescreenscheme",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescreenscheme/mapping",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescreenscheme/project",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescreenscheme/project",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping/default",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping/remove",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/project",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issuetype",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype/project",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuetype/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetype/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype/{id}/alternatives",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issuetype/{id}/avatar2",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/ABC-123/votes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/ABC-123/votes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/ABC-123/votes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/watching",
       "body": null
     },
     {
@@ -237,32 +4307,97 @@
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/changelog/list",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink",
+      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/priority",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/comment",
+      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/priority",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/priority",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/{projectIdOrKey}/components",
+      "path": "/rest/api/3/issue/PROJ-123/worklog",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/attachments",
+      "path": "/rest/api/3/issue/PROJ-123/worklog",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/move",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/worklog/deleted",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/worklog/updated",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/worklog/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/789",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/bulkDelete",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
       "body": null
     },
     {
@@ -272,17 +4407,1057 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/dashboard",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/changelog",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/field/{fieldId}/context",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/editmeta",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/notify",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/assignee",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/archive",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/createmeta",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/limit/report",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/jql/autocompletedata",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/autocompletedata",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/jql/autocompletedata/suggestions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/parse",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/pdcleaner",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/sanitize",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/jql/function/computation",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/function/computation",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/function/computation/search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/expression/analyse",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/expression/eval",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/expression/evaluate",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/application-properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/application-properties/advanced-settings",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/application-properties/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/configuration",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/label",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/instance/license",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/license/approximateLicenseCount",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/license/approximateLicenseCount/product/{applicationKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/mypreferences",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/mypreferences",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/mypreferences",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/mypreferences/locale",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/mypreferences/locale",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/myself",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/permissionscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/permissionscheme",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/permissionscheme/{schemeId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/permissionscheme/{schemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/permissionscheme/{schemeId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission/{permissionId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission/{permissionId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/mypermissions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/permissions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/permissions/check",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/permissions/project",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/plans/plan",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/plans/plan",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/plans/plan/{planId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/plans/plan/{planId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/plans/plan/{planId}/archive",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/plans/plan/{planId}/duplicate",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/plans/plan/{planId}/trash",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priorityscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/priorityscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/priorityscheme/mappings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priorityscheme/priorities/available",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/priorityscheme/{schemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/priorityscheme/{schemeId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priorityscheme/{schemeId}/priorities",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priorityscheme/{schemeId}/projects",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar2",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatars",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/projectCategory",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/projectCategory",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/projectCategory/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/projectCategory/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/projectCategory/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/component",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/component",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/component/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/component/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/component/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/component/{id}/relatedIssueCounts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/component",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/components",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectId}/email",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectId}/email",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/features",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectIdOrKey}/features/{featureKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/projectvalidate/key",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/projectvalidate/validProjectKey",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/projectvalidate/validProjectName",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/ABC/issuesecuritylevelscheme",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/XYZ/permissionscheme",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/DEF/permissionscheme",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/GHI/securitylevel",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/PROJ-123/properties",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project/PROJ-123/properties/customProperty",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/PROJ-123/properties/customProperty",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/PROJ-123/properties/customProperty",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/role/{id}/actors",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/role/{id}/actors",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/role/{id}/actors",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/TEST/role",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/TEST/role/10000",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/TEST/roledetails",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/role",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/role",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/role/10000",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/role/10000",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/role/10000",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/role/10000",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project-template",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project-template/edit-template",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project-template/live-template",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project-template/remove-template",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project-template/save-template",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/type",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/type/accessible",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/type/{projectTypeKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/type/{projectTypeKey}/accessible",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/PROJ-123/version",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/PROJ-123/versions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/version",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/version/456",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/version/456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/version/456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/version/456/mergeto/789",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/version/456/move",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/version/456/relatedIssueCounts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/version/456/relatedwork",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/version/456/relatedwork",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/version/456/relatedwork",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/version/456/removeAndSwap",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/version/456/unresolvedIssueCount",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/version/456/relatedwork/789",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/recent",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/search",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project/{projectIdOrKey}/archive",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project/{projectIdOrKey}/delete",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project/{projectIdOrKey}/restore",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/statuses",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectId}/hierarchy",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectKeyOrId}/notificationscheme",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/screenscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screenscheme",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/screenscheme/{screenSchemeId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/screenscheme/{screenSchemeId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/screens/1001/tabs/2001/fields",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screens/1001/tabs/2001/fields",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/screens/1001/tabs/2001/fields/3001",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screens/1001/tabs/2001/fields/3001/move",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/screens/tabs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/screens/{screenId}/tabs",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screens/{screenId}/tabs",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}/move/{pos}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/{fieldId}/screens",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/screens",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screens",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screens/addToDefault/{fieldId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/screens/{screenId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/screens/{screenId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/screens/{screenId}/availableFields",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/serverInfo",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/atlassian-connect/1/service-registry",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/statuses",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/statuses/{statusId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses/{statusId}/project/{projectId}/issueTypeUsages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses/byNames",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses/{statusId}/projectUsages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses/{statusId}/workflowUsages",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/statuses/{statusId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/task/12345",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/task/12345/cancel",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/plans/plan/123/team",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/plans/plan/123/team/atlassian",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/plans/plan/123/team/atlassian/789",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/plans/plan/123/team/atlassian/789",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/plans/plan/123/team/atlassian/789",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/plans/plan/123/team/planonly",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/plans/plan/123/team/planonly/456",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/plans/plan/123/team/planonly/456",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/plans/plan/123/team/planonly/456",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/configuration/timetracking",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/configuration/timetracking",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/configuration/timetracking/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/configuration/timetracking/options",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/configuration/timetracking/options",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/uiModifications",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/uiModifications",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/uiModifications/{uiModificationId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/uiModifications/{uiModificationId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/properties",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/user/properties/notifications",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/properties/theme",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/user/properties/language",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/assignable/multiProjectSearch",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/assignable/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/permission/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/picker",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/search",
       "body": null
     },
     {
@@ -292,12 +5467,417 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "path": "/rest/api/3/user/search/query/key",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issueLinkType",
+      "path": "/rest/api/3/user/viewissue/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/user",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/columns",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/user/columns",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/groups",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/bulk",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/email",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/email/bulk",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/users",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/users/search",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/user/columns",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/bulk/migration",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/user",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/webhook",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/webhook",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/webhook/{webhookId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/webhook/failed",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/webhook/refresh",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflowscheme/123/createdraft",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/123/draft",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/123/draft",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/123/draft",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/123/draft/default",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/123/draft/default",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/123/draft/default",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/123/draft/issuetype/bug",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/123/draft/issuetype/bug",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/123/draft/issuetype/bug",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflowscheme/123/draft/publish",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/123/draft/workflow",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/123/draft/workflow",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/123/draft/workflow",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/project",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/project",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflowscheme",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflowscheme/read",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflowscheme/update",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflowscheme/update/mappings",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}/default",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{id}/default",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/{id}/default",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{workflowSchemeId}/projectUsages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuscategory",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuscategory/{idOrKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/status",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/status/{idOrName}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflow/transitions/123/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/transitions/123/properties",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflow/transitions/123/properties",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflow/transitions/123/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/rule/config",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflow/rule/config",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflow/rule/config/delete",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflow",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/search",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflow/{entityId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/{workflowId}/project/{projectId}/issueTypeUsages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/{workflowId}/projectUsages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/{workflowId}/workflowSchemes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflows",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflows/capabilities",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflows/create",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflows/create/validation",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflows/defaultEditor",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflows/preview",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflows/search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflows/update",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflows/update/validation",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/nav4-opt-property/theme",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/user/nav4-opt-property/theme",
       "body": null
     }
   ]

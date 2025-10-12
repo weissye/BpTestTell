@@ -5,40 +5,40 @@
       "method": "GET",
       "operationId": "meta/root",
       "summary": "",
-      "user": "developer123",
-      "ideal": "Retrieve the root endpoint of the GitHub API."
+      "user": "User requests the root endpoint to check the API's availability and get basic information.",
+      "ideal": "Returns a JSON object with information about the API."
     },
     {
       "path": "/meta",
       "method": "GET",
       "operationId": "meta/get",
       "summary": "",
-      "user": "user456",
-      "ideal": "Fetch metadata about the GitHub API."
+      "user": "User wants to retrieve metadata about the API, such as its version and available endpoints.",
+      "ideal": "Returns a JSON object containing metadata about the API."
     },
     {
       "path": "/octocat",
       "method": "GET",
       "operationId": "meta/get-octocat",
       "summary": "",
-      "user": "octocatFan",
-      "ideal": "Get the Octocat avatar and related information."
+      "user": "User is curious about the Octocat character, a mascot of GitHub, and wants to see its details.",
+      "ideal": "Returns a JSON object with details about Octocat."
     },
     {
       "path": "/versions",
       "method": "GET",
       "operationId": "meta/get-all-versions",
       "summary": "",
-      "user": "versionChecker",
-      "ideal": "List all available versions of the GitHub API."
+      "user": "User wants to see all the available versions of the GitHub API to ensure compatibility with their application.",
+      "ideal": "Returns a JSON array listing all available API versions."
     },
     {
       "path": "/zen",
       "method": "GET",
       "operationId": "meta/get-zen",
       "summary": "",
-      "user": "philosopherDev",
-      "ideal": "Receive a random GitHub zen quote."
+      "user": "User is looking for a motivational quote from the GitHub Zen philosophy to inspire their coding session.",
+      "ideal": "Returns a JSON object containing a random Zen quote."
     }
   ]
 }

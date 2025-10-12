@@ -15,6 +15,24 @@
       "operationId": "deleteActionsByIdAction"
     },
     {
+      "path": "/actions/{idAction}",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsByIdAction()",
+      "operationId": "getActionsByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}",
+      "method": "PUT",
+      "tags": [
+        "action"
+      ],
+      "summary": "updateActionsByIdAction()",
+      "operationId": "updateActionsByIdAction"
+    },
+    {
       "path": "/actions/{idAction}/board",
       "method": "GET",
       "tags": [
@@ -22,6 +40,24 @@
       ],
       "summary": "getActionsBoardByIdAction()",
       "operationId": "getActionsBoardByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}/board/{field}",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsBoardByIdActionByField()",
+      "operationId": "getActionsBoardByIdActionByField"
+    },
+    {
+      "path": "/actions/{idAction}/card",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsCardByIdAction()",
+      "operationId": "getActionsCardByIdAction"
     },
     {
       "path": "/actions/{idAction}/card/{field}",
@@ -33,6 +69,24 @@
       "operationId": "getActionsCardByIdActionByField"
     },
     {
+      "path": "/actions/{idAction}/display",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsDisplayByIdAction()",
+      "operationId": "getActionsDisplayByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}/entities",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsEntitiesByIdAction()",
+      "operationId": "getActionsEntitiesByIdAction"
+    },
+    {
       "path": "/actions/{idAction}/list",
       "method": "GET",
       "tags": [
@@ -40,6 +94,24 @@
       ],
       "summary": "getActionsListByIdAction()",
       "operationId": "getActionsListByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}/list/{field}",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsListByIdActionByField()",
+      "operationId": "getActionsListByIdActionByField"
+    },
+    {
+      "path": "/actions/{idAction}/member",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsMemberByIdAction()",
+      "operationId": "getActionsMemberByIdAction"
     },
     {
       "path": "/actions/{idAction}/member/{field}",
@@ -51,6 +123,24 @@
       "operationId": "getActionsMemberByIdActionByField"
     },
     {
+      "path": "/actions/{idAction}/memberCreator",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsMemberCreatorByIdAction()",
+      "operationId": "getActionsMemberCreatorByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}/memberCreator/{field}",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsMemberCreatorByIdActionByField()",
+      "operationId": "getActionsMemberCreatorByIdActionByField"
+    },
+    {
       "path": "/actions/{idAction}/organization",
       "method": "GET",
       "tags": [
@@ -60,6 +150,24 @@
       "operationId": "getActionsOrganizationByIdAction"
     },
     {
+      "path": "/actions/{idAction}/organization/{field}",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsOrganizationByIdActionByField()",
+      "operationId": "getActionsOrganizationByIdActionByField"
+    },
+    {
+      "path": "/actions/{idAction}/text",
+      "method": "PUT",
+      "tags": [
+        "action"
+      ],
+      "summary": "updateActionsTextByIdAction()",
+      "operationId": "updateActionsTextByIdAction"
+    },
+    {
       "path": "/actions/{idAction}/{field}",
       "method": "GET",
       "tags": [
@@ -67,915 +175,6 @@
       ],
       "summary": "getActionsByIdActionByField()",
       "operationId": "getActionsByIdActionByField"
-    },
-    {
-      "path": "/boards/{idBoard}",
-      "method": "GET",
-      "tags": [
-        "board"
-      ],
-      "summary": "getBoardsByIdBoard()",
-      "operationId": "getBoardsByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/boardStars",
-      "method": "GET",
-      "tags": [
-        "board"
-      ],
-      "summary": "getBoardsBoardStarsByIdBoard()",
-      "operationId": "getBoardsBoardStarsByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/cards/{filter}",
-      "method": "GET",
-      "tags": [
-        "board"
-      ],
-      "summary": "getBoardsCardsByIdBoardByFilter()",
-      "operationId": "getBoardsCardsByIdBoardByFilter"
-    },
-    {
-      "path": "/boards/{idBoard}/checklists",
-      "method": "POST",
-      "tags": [
-        "board"
-      ],
-      "summary": "addBoardsChecklistsByIdBoard()",
-      "operationId": "addBoardsChecklistsByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/desc",
-      "method": "PUT",
-      "tags": [
-        "board"
-      ],
-      "summary": "updateBoardsDescByIdBoard()",
-      "operationId": "updateBoardsDescByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/labelNames/blue",
-      "method": "PUT",
-      "tags": [
-        "board"
-      ],
-      "summary": "updateBoardsLabelNamesBlueByIdBoard()",
-      "operationId": "updateBoardsLabelNamesBlueByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/labelNames/purple",
-      "method": "PUT",
-      "tags": [
-        "board"
-      ],
-      "summary": "updateBoardsLabelNamesPurpleByIdBoard()",
-      "operationId": "updateBoardsLabelNamesPurpleByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/labels",
-      "method": "GET",
-      "tags": [
-        "board"
-      ],
-      "summary": "getBoardsLabelsByIdBoard()",
-      "operationId": "getBoardsLabelsByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/lists",
-      "method": "GET",
-      "tags": [
-        "board"
-      ],
-      "summary": "getBoardsListsByIdBoard()",
-      "operationId": "getBoardsListsByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/markAsViewed",
-      "method": "POST",
-      "tags": [
-        "board"
-      ],
-      "summary": "addBoardsMarkAsViewedByIdBoard()",
-      "operationId": "addBoardsMarkAsViewedByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/members/{filter}",
-      "method": "GET",
-      "tags": [
-        "board"
-      ],
-      "summary": "getBoardsMembersByIdBoardByFilter()",
-      "operationId": "getBoardsMembersByIdBoardByFilter"
-    },
-    {
-      "path": "/boards/{idBoard}/members/{idMember}/cards",
-      "method": "GET",
-      "tags": [
-        "board"
-      ],
-      "summary": "getBoardsMembersCardsByIdBoardByIdMember()",
-      "operationId": "getBoardsMembersCardsByIdBoardByIdMember"
-    },
-    {
-      "path": "/boards/{idBoard}/memberships",
-      "method": "GET",
-      "tags": [
-        "board"
-      ],
-      "summary": "getBoardsMembershipsByIdBoard()",
-      "operationId": "getBoardsMembershipsByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/myPrefs",
-      "method": "GET",
-      "tags": [
-        "board"
-      ],
-      "summary": "getBoardsMyPrefsByIdBoard()",
-      "operationId": "getBoardsMyPrefsByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/myPrefs/showListGuide",
-      "method": "PUT",
-      "tags": [
-        "board"
-      ],
-      "summary": "updateBoardsMyPrefsShowListGuideByIdBoard()",
-      "operationId": "updateBoardsMyPrefsShowListGuideByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/myPrefs/showSidebarBoardActions",
-      "method": "PUT",
-      "tags": [
-        "board"
-      ],
-      "summary": "updateBoardsMyPrefsShowSidebarBoardActionsByIdBoard()",
-      "operationId": "updateBoardsMyPrefsShowSidebarBoardActionsByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/organization",
-      "method": "GET",
-      "tags": [
-        "board"
-      ],
-      "summary": "getBoardsOrganizationByIdBoard()",
-      "operationId": "getBoardsOrganizationByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/powerUps/{powerUp}",
-      "method": "DELETE",
-      "tags": [
-        "board"
-      ],
-      "summary": "deleteBoardsPowerUpsByIdBoardByPowerUp()",
-      "operationId": "deleteBoardsPowerUpsByIdBoardByPowerUp"
-    },
-    {
-      "path": "/boards/{idBoard}/prefs/cardAging",
-      "method": "PUT",
-      "tags": [
-        "board"
-      ],
-      "summary": "updateBoardsPrefsCardAgingByIdBoard()",
-      "operationId": "updateBoardsPrefsCardAgingByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/prefs/invitations",
-      "method": "PUT",
-      "tags": [
-        "board"
-      ],
-      "summary": "updateBoardsPrefsInvitationsByIdBoard()",
-      "operationId": "updateBoardsPrefsInvitationsByIdBoard"
-    },
-    {
-      "path": "/boards/{idBoard}/prefs/voting",
-      "method": "PUT",
-      "tags": [
-        "board"
-      ],
-      "summary": "updateBoardsPrefsVotingByIdBoard()",
-      "operationId": "updateBoardsPrefsVotingByIdBoard"
-    },
-    {
-      "path": "/cards",
-      "method": "POST",
-      "tags": [
-        "card"
-      ],
-      "summary": "addCards()",
-      "operationId": "addCards"
-    },
-    {
-      "path": "/cards/{idCard}",
-      "method": "PUT",
-      "tags": [
-        "card"
-      ],
-      "summary": "updateCardsByIdCard()",
-      "operationId": "updateCardsByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/actions/{idAction}/comments",
-      "method": "DELETE",
-      "tags": [
-        "card"
-      ],
-      "summary": "deleteCardsActionsCommentsByIdCardByIdAction()",
-      "operationId": "deleteCardsActionsCommentsByIdCardByIdAction"
-    },
-    {
-      "path": "/cards/{idCard}/attachments",
-      "method": "POST",
-      "tags": [
-        "card"
-      ],
-      "summary": "addCardsAttachmentsByIdCard()",
-      "operationId": "addCardsAttachmentsByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/board",
-      "method": "GET",
-      "tags": [
-        "card"
-      ],
-      "summary": "getCardsBoardByIdCard()",
-      "operationId": "getCardsBoardByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/checklist/{idChecklistCurrent}/checkItem/{idCheckItem}",
-      "method": "PUT",
-      "tags": [
-        "card"
-      ],
-      "summary": "updateCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItem()",
-      "operationId": "updateCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItem"
-    },
-    {
-      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/convertToCard",
-      "method": "POST",
-      "tags": [
-        "card"
-      ],
-      "summary": "addCardsChecklistCheckItemConvertToCardByIdCardByIdChecklistByIdCheckItem()",
-      "operationId": "addCardsChecklistCheckItemConvertToCardByIdCardByIdChecklistByIdCheckItem"
-    },
-    {
-      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/state",
-      "method": "PUT",
-      "tags": [
-        "card"
-      ],
-      "summary": "updateCardsChecklistCheckItemStateByIdCardByIdChecklistByIdCheckItem()",
-      "operationId": "updateCardsChecklistCheckItemStateByIdCardByIdChecklistByIdCheckItem"
-    },
-    {
-      "path": "/cards/{idCard}/checklists/{idChecklist}",
-      "method": "DELETE",
-      "tags": [
-        "card"
-      ],
-      "summary": "deleteCardsChecklistsByIdCardByIdChecklist()",
-      "operationId": "deleteCardsChecklistsByIdCardByIdChecklist"
-    },
-    {
-      "path": "/cards/{idCard}/due",
-      "method": "PUT",
-      "tags": [
-        "card"
-      ],
-      "summary": "updateCardsDueByIdCard()",
-      "operationId": "updateCardsDueByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/idLabels",
-      "method": "POST",
-      "tags": [
-        "card"
-      ],
-      "summary": "addCardsIdLabelsByIdCard()",
-      "operationId": "addCardsIdLabelsByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/idMembers",
-      "method": "POST",
-      "tags": [
-        "card"
-      ],
-      "summary": "addCardsIdMembersByIdCard()",
-      "operationId": "addCardsIdMembersByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/labels",
-      "method": "POST",
-      "tags": [
-        "card"
-      ],
-      "summary": "addCardsLabelsByIdCard()",
-      "operationId": "addCardsLabelsByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/list",
-      "method": "GET",
-      "tags": [
-        "card"
-      ],
-      "summary": "getCardsListByIdCard()",
-      "operationId": "getCardsListByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/members",
-      "method": "GET",
-      "tags": [
-        "card"
-      ],
-      "summary": "getCardsMembersByIdCard()",
-      "operationId": "getCardsMembersByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/membersVoted/{idMember}",
-      "method": "DELETE",
-      "tags": [
-        "card"
-      ],
-      "summary": "deleteCardsMembersVotedByIdCardByIdMember()",
-      "operationId": "deleteCardsMembersVotedByIdCardByIdMember"
-    },
-    {
-      "path": "/cards/{idCard}/stickers",
-      "method": "GET",
-      "tags": [
-        "card"
-      ],
-      "summary": "getCardsStickersByIdCard()",
-      "operationId": "getCardsStickersByIdCard"
-    },
-    {
-      "path": "/cards/{idCard}/stickers/{idSticker}",
-      "method": "GET",
-      "tags": [
-        "card"
-      ],
-      "summary": "getCardsStickersByIdCardByIdSticker()",
-      "operationId": "getCardsStickersByIdCardByIdSticker"
-    },
-    {
-      "path": "/cards/{idCard}/{field}",
-      "method": "GET",
-      "tags": [
-        "card"
-      ],
-      "summary": "getCardsByIdCardByField()",
-      "operationId": "getCardsByIdCardByField"
-    },
-    {
-      "path": "/checklists/{idChecklist}",
-      "method": "GET",
-      "tags": [
-        "checklist"
-      ],
-      "summary": "getChecklistsByIdChecklist()",
-      "operationId": "getChecklistsByIdChecklist"
-    },
-    {
-      "path": "/checklists/{idChecklist}/board/{field}",
-      "method": "GET",
-      "tags": [
-        "checklist"
-      ],
-      "summary": "getChecklistsBoardByIdChecklistByField()",
-      "operationId": "getChecklistsBoardByIdChecklistByField"
-    },
-    {
-      "path": "/checklists/{idChecklist}/checkItems",
-      "method": "GET",
-      "tags": [
-        "checklist"
-      ],
-      "summary": "getChecklistsCheckItemsByIdChecklist()",
-      "operationId": "getChecklistsCheckItemsByIdChecklist"
-    },
-    {
-      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
-      "method": "GET",
-      "tags": [
-        "checklist"
-      ],
-      "summary": "getChecklistsCheckItemsByIdChecklistByIdCheckItem()",
-      "operationId": "getChecklistsCheckItemsByIdChecklistByIdCheckItem"
-    },
-    {
-      "path": "/checklists/{idChecklist}/pos",
-      "method": "PUT",
-      "tags": [
-        "checklist"
-      ],
-      "summary": "updateChecklistsPosByIdChecklist()",
-      "operationId": "updateChecklistsPosByIdChecklist"
-    },
-    {
-      "path": "/labels/{idLabel}",
-      "method": "DELETE",
-      "tags": [
-        "label"
-      ],
-      "summary": "deleteLabelsByIdLabel()",
-      "operationId": "deleteLabelsByIdLabel"
-    },
-    {
-      "path": "/labels/{idLabel}/board",
-      "method": "GET",
-      "tags": [
-        "label"
-      ],
-      "summary": "getLabelsBoardByIdLabel()",
-      "operationId": "getLabelsBoardByIdLabel"
-    },
-    {
-      "path": "/labels/{idLabel}/name",
-      "method": "PUT",
-      "tags": [
-        "label"
-      ],
-      "summary": "updateLabelsNameByIdLabel()",
-      "operationId": "updateLabelsNameByIdLabel"
-    },
-    {
-      "path": "/lists/{idList}",
-      "method": "PUT",
-      "tags": [
-        "list"
-      ],
-      "summary": "updateListsByIdList()",
-      "operationId": "updateListsByIdList"
-    },
-    {
-      "path": "/lists/{idList}/board",
-      "method": "GET",
-      "tags": [
-        "list"
-      ],
-      "summary": "getListsBoardByIdList()",
-      "operationId": "getListsBoardByIdList"
-    },
-    {
-      "path": "/lists/{idList}/cards",
-      "method": "POST",
-      "tags": [
-        "list"
-      ],
-      "summary": "addListsCardsByIdList()",
-      "operationId": "addListsCardsByIdList"
-    },
-    {
-      "path": "/lists/{idList}/idBoard",
-      "method": "PUT",
-      "tags": [
-        "list"
-      ],
-      "summary": "updateListsIdBoardByIdList()",
-      "operationId": "updateListsIdBoardByIdList"
-    },
-    {
-      "path": "/lists/{idList}/pos",
-      "method": "PUT",
-      "tags": [
-        "list"
-      ],
-      "summary": "updateListsPosByIdList()",
-      "operationId": "updateListsPosByIdList"
-    },
-    {
-      "path": "/members/{idMember}",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersByIdMember()",
-      "operationId": "getMembersByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/avatar",
-      "method": "POST",
-      "tags": [
-        "member"
-      ],
-      "summary": "addMembersAvatarByIdMember()",
-      "operationId": "addMembersAvatarByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/boardBackgrounds",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersBoardBackgroundsByIdMember()",
-      "operationId": "getMembersBoardBackgroundsByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersBoardBackgroundsByIdMemberByIdBoardBackground()",
-      "operationId": "getMembersBoardBackgroundsByIdMemberByIdBoardBackground"
-    },
-    {
-      "path": "/members/{idMember}/boardStars",
-      "method": "POST",
-      "tags": [
-        "member"
-      ],
-      "summary": "addMembersBoardStarsByIdMember()",
-      "operationId": "addMembersBoardStarsByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/boardStars/{idBoardStar}",
-      "method": "PUT",
-      "tags": [
-        "member"
-      ],
-      "summary": "updateMembersBoardStarsByIdMemberByIdBoardStar()",
-      "operationId": "updateMembersBoardStarsByIdMemberByIdBoardStar"
-    },
-    {
-      "path": "/members/{idMember}/boards",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersBoardsByIdMember()",
-      "operationId": "getMembersBoardsByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/boardsInvited/{field}",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersBoardsInvitedByIdMemberByField()",
-      "operationId": "getMembersBoardsInvitedByIdMemberByField"
-    },
-    {
-      "path": "/members/{idMember}/customBoardBackgrounds",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersCustomBoardBackgroundsByIdMember()",
-      "operationId": "getMembersCustomBoardBackgroundsByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground()",
-      "operationId": "getMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground"
-    },
-    {
-      "path": "/members/{idMember}/customEmoji",
-      "method": "POST",
-      "tags": [
-        "member"
-      ],
-      "summary": "addMembersCustomEmojiByIdMember()",
-      "operationId": "addMembersCustomEmojiByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/customStickers",
-      "method": "POST",
-      "tags": [
-        "member"
-      ],
-      "summary": "addMembersCustomStickersByIdMember()",
-      "operationId": "addMembersCustomStickersByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/deltas",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersDeltasByIdMember()",
-      "operationId": "getMembersDeltasByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/notifications",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersNotificationsByIdMember()",
-      "operationId": "getMembersNotificationsByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/organizations",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersOrganizationsByIdMember()",
-      "operationId": "getMembersOrganizationsByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/organizationsInvited/{field}",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersOrganizationsInvitedByIdMemberByField()",
-      "operationId": "getMembersOrganizationsInvitedByIdMemberByField"
-    },
-    {
-      "path": "/members/{idMember}/prefs/minutesBetweenSummaries",
-      "method": "PUT",
-      "tags": [
-        "member"
-      ],
-      "summary": "updateMembersPrefsMinutesBetweenSummariesByIdMember()",
-      "operationId": "updateMembersPrefsMinutesBetweenSummariesByIdMember"
-    },
-    {
-      "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
-      "method": "DELETE",
-      "tags": [
-        "member"
-      ],
-      "summary": "deleteMembersSavedSearchesByIdMemberByIdSavedSearch()",
-      "operationId": "deleteMembersSavedSearchesByIdMemberByIdSavedSearch"
-    },
-    {
-      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/name",
-      "method": "PUT",
-      "tags": [
-        "member"
-      ],
-      "summary": "updateMembersSavedSearchesNameByIdMemberByIdSavedSearch()",
-      "operationId": "updateMembersSavedSearchesNameByIdMemberByIdSavedSearch"
-    },
-    {
-      "path": "/members/{idMember}/tokens",
-      "method": "GET",
-      "tags": [
-        "member"
-      ],
-      "summary": "getMembersTokensByIdMember()",
-      "operationId": "getMembersTokensByIdMember"
-    },
-    {
-      "path": "/notifications/all/read",
-      "method": "POST",
-      "tags": [
-        "notification"
-      ],
-      "summary": "addNotificationsAllRead()",
-      "operationId": "addNotificationsAllRead"
-    },
-    {
-      "path": "/notifications/{idNotification}/board",
-      "method": "GET",
-      "tags": [
-        "notification"
-      ],
-      "summary": "getNotificationsBoardByIdNotification()",
-      "operationId": "getNotificationsBoardByIdNotification"
-    },
-    {
-      "path": "/notifications/{idNotification}/card/{field}",
-      "method": "GET",
-      "tags": [
-        "notification"
-      ],
-      "summary": "getNotificationsCardByIdNotificationByField()",
-      "operationId": "getNotificationsCardByIdNotificationByField"
-    },
-    {
-      "path": "/notifications/{idNotification}/list",
-      "method": "GET",
-      "tags": [
-        "notification"
-      ],
-      "summary": "getNotificationsListByIdNotification()",
-      "operationId": "getNotificationsListByIdNotification"
-    },
-    {
-      "path": "/notifications/{idNotification}/member/{field}",
-      "method": "GET",
-      "tags": [
-        "notification"
-      ],
-      "summary": "getNotificationsMemberByIdNotificationByField()",
-      "operationId": "getNotificationsMemberByIdNotificationByField"
-    },
-    {
-      "path": "/notifications/{idNotification}/organization",
-      "method": "GET",
-      "tags": [
-        "notification"
-      ],
-      "summary": "getNotificationsOrganizationByIdNotification()",
-      "operationId": "getNotificationsOrganizationByIdNotification"
-    },
-    {
-      "path": "/notifications/{idNotification}/{field}",
-      "method": "GET",
-      "tags": [
-        "notification"
-      ],
-      "summary": "getNotificationsByIdNotificationByField()",
-      "operationId": "getNotificationsByIdNotificationByField"
-    },
-    {
-      "path": "/organizations/{idOrg}",
-      "method": "GET",
-      "tags": [
-        "organization"
-      ],
-      "summary": "getOrganizationsByIdOrg()",
-      "operationId": "getOrganizationsByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/boards",
-      "method": "GET",
-      "tags": [
-        "organization"
-      ],
-      "summary": "getOrganizationsBoardsByIdOrg()",
-      "operationId": "getOrganizationsBoardsByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/desc",
-      "method": "PUT",
-      "tags": [
-        "organization"
-      ],
-      "summary": "updateOrganizationsDescByIdOrg()",
-      "operationId": "updateOrganizationsDescByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/logo",
-      "method": "POST",
-      "tags": [
-        "organization"
-      ],
-      "summary": "addOrganizationsLogoByIdOrg()",
-      "operationId": "addOrganizationsLogoByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/members/{filter}",
-      "method": "GET",
-      "tags": [
-        "organization"
-      ],
-      "summary": "getOrganizationsMembersByIdOrgByFilter()",
-      "operationId": "getOrganizationsMembersByIdOrgByFilter"
-    },
-    {
-      "path": "/organizations/{idOrg}/members/{idMember}/all",
-      "method": "DELETE",
-      "tags": [
-        "organization"
-      ],
-      "summary": "deleteOrganizationsMembersAllByIdOrgByIdMember()",
-      "operationId": "deleteOrganizationsMembersAllByIdOrgByIdMember"
-    },
-    {
-      "path": "/organizations/{idOrg}/membersInvited",
-      "method": "GET",
-      "tags": [
-        "organization"
-      ],
-      "summary": "getOrganizationsMembersInvitedByIdOrg()",
-      "operationId": "getOrganizationsMembersInvitedByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/memberships/{idMembership}",
-      "method": "GET",
-      "tags": [
-        "organization"
-      ],
-      "summary": "getOrganizationsMembershipsByIdOrgByIdMembership()",
-      "operationId": "getOrganizationsMembershipsByIdOrgByIdMembership"
-    },
-    {
-      "path": "/organizations/{idOrg}/prefs/associatedDomain",
-      "method": "DELETE",
-      "tags": [
-        "organization"
-      ],
-      "summary": "deleteOrganizationsPrefsAssociatedDomainByIdOrg()",
-      "operationId": "deleteOrganizationsPrefsAssociatedDomainByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/private",
-      "method": "PUT",
-      "tags": [
-        "organization"
-      ],
-      "summary": "updateOrganizationsPrefsBoardVisibilityRestrictPrivateByIdOrg()",
-      "operationId": "updateOrganizationsPrefsBoardVisibilityRestrictPrivateByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/prefs/googleAppsVersion",
-      "method": "PUT",
-      "tags": [
-        "organization"
-      ],
-      "summary": "updateOrganizationsPrefsGoogleAppsVersionByIdOrg()",
-      "operationId": "updateOrganizationsPrefsGoogleAppsVersionByIdOrg"
-    },
-    {
-      "path": "/organizations/{idOrg}/prefs/permissionLevel",
-      "method": "PUT",
-      "tags": [
-        "organization"
-      ],
-      "summary": "updateOrganizationsPrefsPermissionLevelByIdOrg()",
-      "operationId": "updateOrganizationsPrefsPermissionLevelByIdOrg"
-    },
-    {
-      "path": "/search",
-      "method": "GET",
-      "tags": [
-        "search"
-      ],
-      "summary": "getSearch()",
-      "operationId": "getSearch"
-    },
-    {
-      "path": "/sessions/socket",
-      "method": "GET",
-      "tags": [
-        "session"
-      ],
-      "summary": "getSessionsSocket()",
-      "operationId": "getSessionsSocket"
-    },
-    {
-      "path": "/tokens/{token}",
-      "method": "DELETE",
-      "tags": [
-        "token"
-      ],
-      "summary": "deleteTokensByToken()",
-      "operationId": "deleteTokensByToken"
-    },
-    {
-      "path": "/tokens/{token}/member/{field}",
-      "method": "GET",
-      "tags": [
-        "token"
-      ],
-      "summary": "getTokensMemberByTokenByField()",
-      "operationId": "getTokensMemberByTokenByField"
-    },
-    {
-      "path": "/tokens/{token}/webhooks",
-      "method": "PUT",
-      "tags": [
-        "token"
-      ],
-      "summary": "updateTokensWebhooksByToken()",
-      "operationId": "updateTokensWebhooksByToken"
-    },
-    {
-      "path": "/tokens/{token}/{field}",
-      "method": "GET",
-      "tags": [
-        "token"
-      ],
-      "summary": "getTokensByTokenByField()",
-      "operationId": "getTokensByTokenByField"
-    },
-    {
-      "path": "/webhooks/",
-      "method": "PUT",
-      "tags": [
-        "webhook"
-      ],
-      "summary": "updateWebhooks()",
-      "operationId": "updateWebhooks"
-    },
-    {
-      "path": "/webhooks/{idWebhook}",
-      "method": "PUT",
-      "tags": [
-        "webhook"
-      ],
-      "summary": "updateWebhooksByIdWebhook()",
-      "operationId": "updateWebhooksByIdWebhook"
-    },
-    {
-      "path": "/webhooks/{idWebhook}/description",
-      "method": "PUT",
-      "tags": [
-        "webhook"
-      ],
-      "summary": "updateWebhooksDescriptionByIdWebhook()",
-      "operationId": "updateWebhooksDescriptionByIdWebhook"
     }
   ]
 }

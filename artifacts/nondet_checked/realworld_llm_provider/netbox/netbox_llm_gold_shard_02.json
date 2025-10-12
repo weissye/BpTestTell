@@ -1,0 +1,228 @@
+{
+  "gold": [
+    {
+      "path": "/api/core/background-queues/",
+      "method": "GET",
+      "operationId": "core_background_queues_retrieve",
+      "summary": "",
+      "user": "Admin user requesting the list of all background queues to monitor their status.",
+      "ideal": "A JSON array containing details of all background queues, including their names and current statuses."
+    },
+    {
+      "path": "/api/core/background-queues/{name}/",
+      "method": "GET",
+      "operationId": "core_background_queues_retrieve_by_name",
+      "summary": "",
+      "user": "System operator checking the status of a specific background queue named 'queue1'.",
+      "ideal": "A JSON object with detailed information about the specified background queue, including its name, status, and job count."
+    },
+    {
+      "path": "/api/core/background-tasks/",
+      "method": "GET",
+      "operationId": "core_background_tasks_retrieve",
+      "summary": "",
+      "user": "Developer looking to retrieve a list of all background tasks for debugging purposes.",
+      "ideal": "A JSON array containing all background tasks with their IDs, names, and current statuses."
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/",
+      "method": "GET",
+      "operationId": "core_background_tasks_retrieve_by_id",
+      "summary": "",
+      "user": "Support team member needing details about a specific background task with ID 123.",
+      "ideal": "A JSON object with detailed information about the background task, including its ID, name, status, and execution history."
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/delete/",
+      "method": "POST",
+      "operationId": "core_background_tasks_delete_create",
+      "summary": "",
+      "user": "Admin user attempting to delete a background task with ID 456 that is no longer needed.",
+      "ideal": "A success message confirming the deletion of the background task with ID 456."
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/enqueue/",
+      "method": "POST",
+      "operationId": "core_background_tasks_enqueue_create",
+      "summary": "",
+      "user": "User wanting to enqueue a background task with ID 789 for immediate execution.",
+      "ideal": "A JSON object confirming that the task with ID 789 has been successfully enqueued."
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/requeue/",
+      "method": "POST",
+      "operationId": "core_background_tasks_requeue_create",
+      "summary": "",
+      "user": "Developer needing to requeue a failed background task with ID 321.",
+      "ideal": "A JSON object confirming that the task with ID 321 has been successfully requeued."
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/stop/",
+      "method": "POST",
+      "operationId": "core_background_tasks_stop_create",
+      "summary": "",
+      "user": "Admin user wanting to stop a long-running background task with ID 654.",
+      "ideal": "A JSON object confirming that the task with ID 654 has been successfully stopped."
+    },
+    {
+      "path": "/api/core/background-workers/",
+      "method": "GET",
+      "operationId": "core_background_workers_retrieve",
+      "summary": "",
+      "user": "System administrator checking the status of all background workers.",
+      "ideal": "A JSON array containing details of all background workers, including their names and statuses."
+    },
+    {
+      "path": "/api/core/background-workers/{name}/",
+      "method": "GET",
+      "operationId": "core_background_workers_retrieve_by_name",
+      "summary": "",
+      "user": "User looking for detailed information about a specific background worker named 'worker1'.",
+      "ideal": "A JSON object with detailed information about the specified background worker, including its name, status, and task count."
+    },
+    {
+      "path": "/api/core/data-files/",
+      "method": "GET",
+      "operationId": "core_data_files_list",
+      "summary": "",
+      "user": "Data analyst retrieving a list of all data files for analysis.",
+      "ideal": "A JSON array containing metadata for all data files, including their IDs, names, and sizes."
+    },
+    {
+      "path": "/api/core/data-files/{id}/",
+      "method": "GET",
+      "operationId": "core_data_files_retrieve",
+      "summary": "",
+      "user": "User needing to access details about a specific data file with ID 101.",
+      "ideal": "A JSON object with detailed information about the data file, including its ID, name, size, and upload date."
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "GET",
+      "operationId": "core_data_sources_list",
+      "summary": "",
+      "user": "Database administrator listing all data sources for configuration.",
+      "ideal": "A JSON array containing all data sources with their IDs, names, and connection statuses."
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "POST",
+      "operationId": "core_data_sources_create",
+      "summary": "",
+      "user": "User creating a new data source for a new database connection.",
+      "ideal": "A JSON object confirming the successful creation of the new data source with its ID and details."
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "PUT",
+      "operationId": "core_data_sources_bulk_update",
+      "summary": "",
+      "user": "Admin user performing a bulk update on multiple data sources.",
+      "ideal": "A JSON object confirming the successful bulk update of data sources with a summary of changes."
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "PATCH",
+      "operationId": "core_data_sources_bulk_partial_update",
+      "summary": "",
+      "user": "User making partial updates to several data sources.",
+      "ideal": "A JSON object confirming the successful partial update of data sources with a summary of changes."
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "DELETE",
+      "operationId": "core_data_sources_bulk_destroy",
+      "summary": "",
+      "user": "Admin user deleting multiple data sources that are no longer in use.",
+      "ideal": "A JSON object confirming the successful deletion of the specified data sources."
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "GET",
+      "operationId": "core_data_sources_retrieve",
+      "summary": "",
+      "user": "User needing to retrieve details about a specific data source with ID 202.",
+      "ideal": "A JSON object with detailed information about the data source, including its ID, name, and connection details."
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "PUT",
+      "operationId": "core_data_sources_update",
+      "summary": "",
+      "user": "Admin user updating the configuration of a data source with ID 303.",
+      "ideal": "A JSON object confirming the successful update of the data source with its new details."
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "PATCH",
+      "operationId": "core_data_sources_partial_update",
+      "summary": "",
+      "user": "User making a partial update to a data source with ID 404.",
+      "ideal": "A JSON object confirming the successful partial update of the data source with its new details."
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "DELETE",
+      "operationId": "core_data_sources_destroy",
+      "summary": "",
+      "user": "Admin user deleting a data source with ID 505 that is no longer needed.",
+      "ideal": "A JSON object confirming the successful deletion of the data source with ID 505."
+    },
+    {
+      "path": "/api/core/data-sources/{id}/sync/",
+      "method": "POST",
+      "operationId": "core_data_sources_sync_create",
+      "summary": "",
+      "user": "User initiating a sync operation for a data source with ID 606.",
+      "ideal": "A JSON object confirming that the sync operation for the data source with ID 606 has been successfully initiated."
+    },
+    {
+      "path": "/api/core/jobs/",
+      "method": "GET",
+      "operationId": "core_jobs_list",
+      "summary": "",
+      "user": "Admin user retrieving a list of all jobs for monitoring.",
+      "ideal": "A JSON array containing all jobs with their IDs, names, and statuses."
+    },
+    {
+      "path": "/api/core/jobs/{id}/",
+      "method": "GET",
+      "operationId": "core_jobs_retrieve",
+      "summary": "",
+      "user": "User needing details about a specific job with ID 707.",
+      "ideal": "A JSON object with detailed information about the job, including its ID, name, status, and execution history."
+    },
+    {
+      "path": "/api/core/object-changes/",
+      "method": "GET",
+      "operationId": "core_object_changes_list",
+      "summary": "",
+      "user": "User reviewing all object changes for auditing purposes.",
+      "ideal": "A JSON array containing all object changes with their IDs, timestamps, and descriptions."
+    },
+    {
+      "path": "/api/core/object-changes/{id}/",
+      "method": "GET",
+      "operationId": "core_object_changes_retrieve",
+      "summary": "",
+      "user": "Admin user needing details about a specific object change with ID 808.",
+      "ideal": "A JSON object with detailed information about the object change, including its ID, timestamp, and affected objects."
+    },
+    {
+      "path": "/api/core/object-types/",
+      "method": "GET",
+      "operationId": "core_object_types_list",
+      "summary": "",
+      "user": "Developer retrieving a list of all object types for reference.",
+      "ideal": "A JSON array containing all object types with their IDs and names."
+    },
+    {
+      "path": "/api/core/object-types/{id}/",
+      "method": "GET",
+      "operationId": "core_object_types_retrieve",
+      "summary": "",
+      "user": "User needing details about a specific object type with ID 909.",
+      "ideal": "A JSON object with detailed information about the object type, including its ID and name."
+    }
+  ]
+}

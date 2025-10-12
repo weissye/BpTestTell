@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "DynamicModulesResource.getModules_get",
       "summary": "",
-      "user": "As a developer, I want to retrieve the list of dynamic modules registered in my Jira Cloud application so that I can manage their configurations.",
-      "ideal": "The response should include a JSON array of dynamic modules with their respective details such as id, name, and type."
+      "user": "As a developer, I want to retrieve the list of dynamic modules registered in the Jira Cloud platform so that I can verify their status and configuration.",
+      "ideal": "The response should include a JSON array of dynamic modules with their respective details such as module key, name, and status."
     },
     {
       "path": "/rest/atlassian-connect/1/app/module/dynamic",
       "method": "POST",
       "operationId": "DynamicModulesResource.registerModules_post",
       "summary": "",
-      "user": "As a plugin developer, I need to register new dynamic modules to enhance the functionality of my Jira application.",
-      "ideal": "The request should accept a JSON payload with module details and return a success message with the module id upon successful registration."
+      "user": "As an administrator, I want to register new dynamic modules in the Jira Cloud platform so that they can be utilized by users in the application.",
+      "ideal": "The response should confirm the successful registration of the dynamic modules with their keys and any relevant metadata."
     },
     {
       "path": "/rest/atlassian-connect/1/app/module/dynamic",
       "method": "DELETE",
       "operationId": "DynamicModulesResource.removeModules_delete",
       "summary": "",
-      "user": "As an administrator, I want to remove a specific dynamic module from my Jira application to declutter the interface.",
-      "ideal": "The request should specify the module id to be deleted and return a confirmation message indicating successful removal."
+      "user": "As a system administrator, I want to remove specific dynamic modules from the Jira Cloud platform to clean up unused or outdated modules.",
+      "ideal": "The response should indicate that the specified dynamic modules have been successfully removed and provide a confirmation message."
     }
   ]
 }

@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401IpAccessControlList"
+      ],
+      "summary": "Retrieve a list of IpAccessControlLists that belong to the account used to make the request",
+      "operationId": "ListSipIpAccessControlList"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401IpAccessControlList"
+      ],
+      "summary": "Create a new IpAccessControlList resource",
+      "operationId": "CreateSipIpAccessControlList"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401IpAccessControlList"
+      ],
+      "summary": "Fetch a specific instance of an IpAccessControlList",
+      "operationId": "FetchSipIpAccessControlList"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401IpAccessControlList"
+      ],
+      "summary": "Rename an IpAccessControlList",
+      "operationId": "UpdateSipIpAccessControlList"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401IpAccessControlList"
+      ],
+      "summary": "Delete an IpAccessControlList from the requested account",
+      "operationId": "DeleteSipIpAccessControlList"
+    }
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "gold": [
+    {
+      "path": "/realm/emoji/custom_emoji",
+      "method": "POST",
+      "operationId": "upload-custom-emoji",
+      "summary": "",
+      "user": "User123 uploaded a new custom emoji named 'custom_emoji' for the team.",
+      "ideal": "Successfully uploaded the custom emoji."
+    },
+    {
+      "path": "/realm/emoji/custom_emoji",
+      "method": "DELETE",
+      "operationId": "deactivate-custom-emoji",
+      "summary": "",
+      "user": "User123 deactivated the custom emoji 'custom_emoji' as it was no longer needed.",
+      "ideal": "Successfully deactivated the custom emoji."
+    },
+    {
+      "path": "/realm/emoji",
+      "method": "GET",
+      "operationId": "get-custom-emoji",
+      "summary": "",
+      "user": "User123 requested the list of all custom emojis in the realm.",
+      "ideal": "Returned a list of custom emojis."
+    },
+    {
+      "path": "/realm/presence",
+      "method": "GET",
+      "operationId": "get-presence",
+      "summary": "",
+      "user": "User123 checked the presence status of all users in the realm.",
+      "ideal": "Returned the presence status of users."
+    },
+    {
+      "path": "/realm/profile_fields",
+      "method": "GET",
+      "operationId": "get-custom-profile-fields",
+      "summary": "",
+      "user": "User123 retrieved the custom profile fields for user profiles.",
+      "ideal": "Returned a list of custom profile fields."
+    },
+    {
+      "path": "/realm/profile_fields",
+      "method": "PATCH",
+      "operationId": "reorder-custom-profile-fields",
+      "summary": "",
+      "user": "User123 reordered the custom profile fields to prioritize important information.",
+      "ideal": "Successfully reordered the custom profile fields."
+    },
+    {
+      "path": "/realm/profile_fields",
+      "method": "POST",
+      "operationId": "create-custom-profile-field",
+      "summary": "",
+      "user": "User123 created a new custom profile field for 'Favorite Color'.",
+      "ideal": "Successfully created the custom profile field."
+    },
+    {
+      "path": "/realm/user_settings_defaults",
+      "method": "PATCH",
+      "operationId": "update-realm-user-settings-defaults",
+      "summary": "",
+      "user": "User123 updated the default user settings for the realm.",
+      "ideal": "Successfully updated the user settings defaults."
+    },
+    {
+      "path": "/realm/linkifiers",
+      "method": "GET",
+      "operationId": "get-linkifiers",
+      "summary": "",
+      "user": "User123 fetched the current linkifiers set up in the realm.",
+      "ideal": "Returned a list of linkifiers."
+    },
+    {
+      "path": "/realm/linkifiers",
+      "method": "PATCH",
+      "operationId": "reorder-linkifiers",
+      "summary": "",
+      "user": "User123 reordered the linkifiers to improve usability.",
+      "ideal": "Successfully reordered the linkifiers."
+    },
+    {
+      "path": "/realm/filters",
+      "method": "POST",
+      "operationId": "add-linkifier",
+      "summary": "",
+      "user": "User123 added a new linkifier for URLs containing 'example.com'.",
+      "ideal": "Successfully added the linkifier."
+    },
+    {
+      "path": "/realm/filters/1",
+      "method": "DELETE",
+      "operationId": "remove-linkifier",
+      "summary": "",
+      "user": "User123 removed the linkifier with ID 1 as it was outdated.",
+      "ideal": "Successfully removed the linkifier."
+    },
+    {
+      "path": "/realm/filters/1",
+      "method": "PATCH",
+      "operationId": "update-linkifier",
+      "summary": "",
+      "user": "User123 updated the linkifier with ID 1 to change its pattern.",
+      "ideal": "Successfully updated the linkifier."
+    },
+    {
+      "path": "/realm/playgrounds",
+      "method": "POST",
+      "operationId": "add-code-playground",
+      "summary": "",
+      "user": "User123 created a new code playground for testing JavaScript snippets.",
+      "ideal": "Successfully added the code playground."
+    },
+    {
+      "path": "/realm/playgrounds/1",
+      "method": "DELETE",
+      "operationId": "remove-code-playground",
+      "summary": "",
+      "user": "User123 removed the code playground with ID 1 as it was no longer needed.",
+      "ideal": "Successfully removed the code playground."
+    },
+    {
+      "path": "/export/realm",
+      "method": "GET",
+      "operationId": "get-realm-exports",
+      "summary": "",
+      "user": "User123 requested the current export status of the realm.",
+      "ideal": "Returned the export status."
+    },
+    {
+      "path": "/export/realm",
+      "method": "POST",
+      "operationId": "export-realm",
+      "summary": "",
+      "user": "User123 initiated a realm export for backup purposes.",
+      "ideal": "Successfully initiated the realm export."
+    },
+    {
+      "path": "/export/realm/consents",
+      "method": "GET",
+      "operationId": "get-realm-export-consents",
+      "summary": "",
+      "user": "User123 checked the consents for realm exports.",
+      "ideal": "Returned the export consents."
+    },
+    {
+      "path": "/realm/test_welcome_bot_custom_message",
+      "method": "POST",
+      "operationId": "test-welcome-bot-custom-message",
+      "summary": "",
+      "user": "User123 tested the welcome bot's custom message to ensure it displays correctly.",
+      "ideal": "Successfully tested the welcome bot custom message."
+    },
+    {
+      "path": "/server_settings",
+      "method": "GET",
+      "operationId": "get-server-settings",
+      "summary": "",
+      "user": "User123 retrieved the current server settings for review.",
+      "ideal": "Returned the server settings."
+    }
+  ]
+}

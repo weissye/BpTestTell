@@ -1,84 +1,28 @@
 {
   "gold": [
     {
-      "path": "/v1/{realm}/users/{id}",
-      "method": "GET",
-      "operationId": "getUserByRealmById",
+      "path": "/v1/{realm}/attack-detection/brute-force/users",
+      "method": "DELETE",
+      "operationId": "deleteUsers",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve user details by user ID in the specified realm."
+      "ideal": "Successfully deleted all brute force users."
     },
     {
-      "path": "/v1/{realm}/clients/{id}/roles/{role-name}",
-      "method": "PUT",
-      "operationId": "putClientRole",
-      "summary": "",
-      "user": "clientAdmin",
-      "ideal": "Update the specified role for the client in the given realm."
-    },
-    {
-      "path": "/v1/{realm}/groups/{id}/role-mappings/realm",
+      "path": "/v1/{realm}/attack-detection/brute-force/users/{userId}",
       "method": "GET",
-      "operationId": "getGroupRoleMappingsRealm",
+      "operationId": "getBruteForceUser",
       "summary": "",
-      "user": "groupManager",
-      "ideal": "Fetch role mappings for the specified group in the realm."
+      "user": "admin",
+      "ideal": "Retrieved details for brute force user with ID {userId}."
     },
     {
-      "path": "/v1/{realm}/authentication/flows/{flowAlias}/executions",
-      "method": "GET",
-      "operationId": "getExecutions",
+      "path": "/v1/{realm}/attack-detection/brute-force/users/{userId}",
+      "method": "DELETE",
+      "operationId": "deleteBruteForceUser",
       "summary": "",
-      "user": "authAdmin",
-      "ideal": "List all executions for the specified authentication flow."
-    },
-    {
-      "path": "/v1/{realm}/clients/{id}/protocol-mappers/protocol/{protocol}",
-      "method": "GET",
-      "operationId": "getClientProtocolMappersProtocol",
-      "summary": "",
-      "user": "clientAdmin",
-      "ideal": "Retrieve protocol mappers for the specified client and protocol."
-    },
-    {
-      "path": "/v1/{realm}/users/{id}/credentials",
-      "method": "GET",
-      "operationId": "getCredentials",
-      "summary": "",
-      "user": "userAdmin",
-      "ideal": "Get the credentials associated with the specified user."
-    },
-    {
-      "path": "/v1/{realm}/identity-provider/instances/{alias}/mappers",
-      "method": "GET",
-      "operationId": "getMappers",
-      "summary": "",
-      "user": "identityProviderAdmin",
-      "ideal": "Retrieve mappers for the specified identity provider instance."
-    },
-    {
-      "path": "/v1/{realm}/roles/{role-name}/composites",
-      "method": "GET",
-      "operationId": "getRoleCompositesByRealmByRoleName",
-      "summary": "",
-      "user": "roleAdmin",
-      "ideal": "List composite roles for the specified role in the realm."
-    },
-    {
-      "path": "/v1/{realm}/clients/{id}/management/permissions",
-      "method": "GET",
-      "operationId": "getClientManagementPermissions",
-      "summary": "",
-      "user": "clientAdmin",
-      "ideal": "Retrieve management permissions for the specified client."
-    },
-    {
-      "path": "/v1/{realm}/users/{id}/role-mappings/clients/{client}",
-      "method": "POST",
-      "operationId": "postUserRoleMappingsClient",
-      "summary": "",
-      "user": "userAdmin",
-      "ideal": "Assign role mappings for the user to the specified client."
+      "user": "admin",
+      "ideal": "Successfully deleted brute force user with ID {userId}."
     }
   ]
 }
