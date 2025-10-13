@@ -1,0 +1,130 @@
+{
+  "sut": "garage",
+  "mode": "det",
+  "stories": [
+    {
+      "story_id": "hls_Customer_add_0001",
+      "entity": "Customer",
+      "op": "add",
+      "params": {
+        "id": 200,
+        "name": "Roni"
+      },
+      "blocks": [
+        {
+          "op": "delete",
+          "keyFields": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "type": "exists",
+          "entity": "Customer",
+          "key": "id"
+        }
+      ]
+    },
+    {
+      "story_id": "hls_Vehicle_add_0002",
+      "entity": "Vehicle",
+      "op": "add",
+      "params": {
+        "vin": "VIN-200-A",
+        "customerId": 200,
+        "model": "Corolla"
+      },
+      "blocks": [
+        {
+          "op": "delete",
+          "keyFields": [
+            "vin"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "type": "exists",
+          "entity": "Vehicle",
+          "key": "vin"
+        }
+      ]
+    },
+    {
+      "story_id": "hls_WorkOrder_add_0003",
+      "entity": "WorkOrder",
+      "op": "add",
+      "params": {
+        "woId": "WO-200-A1",
+        "vehicleVin": "VIN-200-A",
+        "customerId": 200
+      },
+      "blocks": [
+        {
+          "op": "delete",
+          "keyFields": [
+            "woId"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "type": "exists",
+          "entity": "WorkOrder",
+          "key": "woId"
+        }
+      ]
+    },
+    {
+      "story_id": "hls_Invoice_add_0004",
+      "entity": "Invoice",
+      "op": "add",
+      "params": {
+        "invoiceId": "INV-200-A1",
+        "workOrderId": "WO-200-A1",
+        "total": 35.0
+      },
+      "blocks": [
+        {
+          "op": "delete",
+          "keyFields": [
+            "invoiceId"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "type": "exists",
+          "entity": "Invoice",
+          "key": "invoiceId"
+        }
+      ]
+    },
+    {
+      "story_id": "hls_Payment_add_0005",
+      "entity": "Payment",
+      "op": "add",
+      "params": {
+        "paymentId": "PAY-200-A1",
+        "invoiceId": "INV-200-A1",
+        "amount": 35.0
+      },
+      "blocks": [
+        {
+          "op": "delete",
+          "keyFields": [
+            "paymentId"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "type": "exists",
+          "entity": "Payment",
+          "key": "paymentId"
+        }
+      ]
+    }
+  ]
+}

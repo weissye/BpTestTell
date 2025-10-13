@@ -1,9 +1,9 @@
 {
   "systems": [
     {
-      "name": "stripe",
-      "url": "https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.yaml",
-      "format": "yaml"
+      "name": "netbox",
+      "url": "https://demo.netbox.dev/api/schema/",
+      "format": "json"
     },
     {
       "name": "github",

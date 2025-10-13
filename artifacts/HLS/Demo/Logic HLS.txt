@@ -1,0 +1,125 @@
+HLS bthread catalog (Library SUT)
+
+Entities: User, Book, Loan
+Ops: add, update, delete
+
+Active HLS (lifecycles)
+
+Seed books (librarian) — add a few books to enable loans (≥3 samples).
+
+User lifecycles (≥3 users): add → (multi)update → (wait for/clear loans) → delete (block if loans exist).
+
+Loan lifecycles (≥3 loans): create loan(s) → verify → delete loan(s).
+
+Passive HLS (monitors & guards)
+
+A) Verification monitors (atomicity: block inverse until verified):
+
+User add verification, User update verification, User deletion verification
+
+Book add verification, Book update verification, Book deletion verification
+
+Loan add verification, Loan update verification, Loan deletion verification
+
+B) Invariant/constraint guards (business rules):
+
+Prevent deleting a User with active Loans
+
+Prevent deleting a Book that’s on Loan
+
+Prevent duplicate Loan (same userId, bookId)
+
+Prevent Loan on missing User/Book
+
+Prevent double-loan of the same Book to two users concurrently
+
+Prevent update-after-delete races (any entity)
+
+
+
+
+HLS bthread catalog (Garage SUT)
+
+Customer
+
+addCustomer(id, name)
+
+updateCustomer(id, fields)
+
+deleteCustomer(id, name)
+
+Vehicle
+
+addVehicle(vin, customerId, model)
+
+updateVehicle(vin, fields)
+
+deleteVehicle(vin)
+
+WorkOrder (WO)
+
+addWorkOrder(woId, vehicleVin, customerId)
+
+updateWorkOrder(woId, fields) // e.g., { status: "closed" }
+
+deleteWorkOrder(woId)
+
+WorkOrder Parts
+
+addWorkOrderPart(woId, partId, qty)
+
+deleteWorkOrderPart(woId, partId)
+
+Invoice
+
+addInvoice(invoiceId, workOrderId, total)
+
+updateInvoice(invoiceId, fields) // e.g., { status: "paid" }
+
+deleteInvoice(invoiceId)
+
+Payment
+
+addPayment(paymentId, invoiceId, amount)
+
+updatePayment(paymentId, fields)
+
+deletePayment(paymentId)
+
+Part
+
+addPart(partId, name, price)
+
+updatePart(partId, fields)
+
+deletePart(partId)
+
+Checks / matchers (LLE atoms)
+
+verifyCustomerExists/Updated/DoesNotExist(...)
+
+verifyVehicleExists/Updated/DoesNotExist(...)
+
+verifyWorkOrderExists/Updated/DoesNotExist(...)
+
+verifyInvoiceExists/Updated/DoesNotExist(...)
+
+verifyPaymentExists/DoesNotExist(...)
+
+verifyPartExists/Updated/DoesNotExist(...)
+
+verifyNoOpenWorkOrders(customerId)
+
+verifyVehicleHasNoOpenWO(vin)
+
+verifyInvoicePaid(invoiceId) / verifyInvoiceUnpaid(invoiceId)
+
+verifyPartNotUsedInOpenWO(partId)
+
+matchAdd*/matchUpdate*/matchDelete* for each entity
+
+waitForAny*Added/Updated/Deleted for each entity
+
+Helpers: ANY, ANY_EXCEPT(x), anyOf(...), waitFor(...), block(...)
+
+If any of these names differ in your LLE, just search/replace the function names below.
