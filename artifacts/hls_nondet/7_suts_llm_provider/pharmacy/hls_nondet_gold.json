@@ -1,0 +1,63 @@
+{
+  "sut": "pharmacy",
+  "from_det": "artifacts\\hls_det\\7_suts_llm_provider\\pharmacy\\hls_det_gold.json",
+  "model_or_dir": "models\\hls\\ALL",
+  "stories": [
+    {
+      "entity": "Drug",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteDrug"
+      ],
+      "checks": [
+        "verifyDrugExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Order",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteOrder"
+      ],
+      "checks": [
+        "verifyOrderExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Patient",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deletePatient"
+      ],
+      "checks": [
+        "verifyPatientExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Prescription",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deletePrescription"
+      ],
+      "checks": [
+        "verifyPrescriptionExists"
+      ],
+      "nondet": true
+    }
+  ]
+}

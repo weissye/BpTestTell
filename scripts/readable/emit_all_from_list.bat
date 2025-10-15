@@ -1,36 +1,44 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
-REM Usage: scripts\readable\emit_all_from_list.bat  [LIST_PATH]
+
+:: Usage:
+::   emit_all_from_list.bat [config\suts_and_rw.txt]
+
 set "LIST=%~1"
 if "%LIST%"=="" set "LIST=config\suts_and_rw.txt"
 
-for /f "usebackq delims=" %%S in ("%LIST%") do (
-  set "NAME=%%S"
-  if not defined NAME (
-  ) else (
-    if "!NAME:~0,1!"=="#" (
-    ) else (
-      call :EMIT_ONE
-    )
-  )
+:: iterate names; ignore #comments and blank lines
+for /f "usebackq eol=# delims=" %%S in ("%LIST%") do (
+  set "NAME=%%~S"
+  if not "!NAME!"=="" call :ONE
 )
-echo ALL EMITTED.
+
+echo ALL READABLES DONE
 exit /b 0
 
-:EMIT_ONE
-set "NONDET=artifacts\hls_nondet\!NAME!\hls_nondet_gold.json"
-set "OUT_JS=readables\hls\!NAME!\stories_hls.js"
-set "ACTIVE=examples\samples\!NAME!_active_samples.json"
+:ONE
+setlocal EnableDelayedExpansion
+set "NAME=!NAME!"
 
-if not exist "!NONDET!" (
-  echo [SKIP] Missing NONDET: !NONDET!
-  exit /b 0
+:: find NONDET GOLD for this NAME under either provider
+set "ND="
+if exist "artifacts\hls_nondet\7_suts_llm_provider\!NAME!\hls_nondet_gold.json" set "ND=artifacts\hls_nondet\7_suts_llm_provider\!NAME!\hls_nondet_gold.json"
+if exist "artifacts\hls_nondet\real_world_llm_provider\!NAME!\hls_nondet_gold.json" set "ND=artifacts\hls_nondet\real_world_llm_provider\!NAME!\hls_nondet_gold.json"
+
+if "!ND!"=="" (
+  echo [SKIP] !NAME! - no NONDET gold
+  endlocal & goto :eof
 )
+
+set "ACTIVE=examples\samples\!NAME!_active_samples.json"
+set "OUT=readables\hls\!NAME!\stories_hls.js"
+for %%D in ("!OUT!") do if not exist "%%~dpD" mkdir "%%~dpD" 2>nul
 
 if exist "!ACTIVE!" (
-  call scripts\readable\emit_hls_all_in_one.bat "!NONDET!" "!ACTIVE!" "!OUT_JS!" || exit /b 1
+  call scripts\readable\emit_hls_all_in_one.bat "!ND!" "!ACTIVE!" "!OUT!" || (echo [FAIL] !NAME! & endlocal & goto :eof)
 ) else (
-  call scripts\readable\emit_hls_all_in_one.bat "!NONDET!" "" "!OUT_JS!" || exit /b 1
+  call scripts\readable\emit_hls_all_in_one.bat "!ND!" "!OUT!" || (echo [FAIL] !NAME! & endlocal & goto :eof)
 )
-echo [EMITTED] !OUT_JS!
-exit /b 0
+
+echo [READABLE] !OUT!
+endlocal & goto :eof

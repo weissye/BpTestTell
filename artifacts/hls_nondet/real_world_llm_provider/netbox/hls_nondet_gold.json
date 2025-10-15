@@ -1,0 +1,50 @@
+{
+  "sut": "netbox",
+  "from_det": "artifacts\\hls_det\\real_world_llm_provider\\netbox\\hls_det_gold.json",
+  "model_or_dir": "models\\hls\\ALL",
+  "stories": [
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Silver",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addSilver"
+      ],
+      "checks": [
+        "verifySilverNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Silver",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateSilver"
+      ],
+      "checks": [
+        "verifySilverExists",
+        "verifySilverUpdated"
+      ],
+      "nondet": true
+    }
+  ]
+}

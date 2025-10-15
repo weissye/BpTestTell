@@ -6,10 +6,15 @@ if "%LIST%"=="" set "LIST=config\suts_and_rw.txt"
 
 set "MODEL_DIR=models\hls\ALL"
 set "REF=%MODEL_DIR%\model_ref.json"
-if not exist "%REF%" (echo [ERROR] Missing %REF%& exit /b 1)
+if not exist "%REF%" (
+  echo [ERROR] Missing %REF%
+  exit /b 1
+)
 
+REM Get fine-tuned model id (blank means fallback)
 for /f "usebackq delims=" %%M in (`python -u scripts\hls\get_ft_model_id.py`) do set "MODEL_ID=%%M"
 
+REM Iterate names; ignore comments/blank lines
 for /f "usebackq eol=# delims=" %%S in ("%LIST%") do (
   set "NAME=%%~S"
   if not "!NAME!"=="" call :ONE
@@ -21,7 +26,8 @@ exit /b 0
 :ONE
 setlocal EnableDelayedExpansion
 set "NAME=!NAME!"
-set "DET=" & set "PROVIDER="
+set "DET="
+set "PROVIDER="
 
 if exist "artifacts\hls_det\7_suts_llm_provider\!NAME!\hls_det_gold.json" (
   set "DET=artifacts\hls_det\7_suts_llm_provider\!NAME!\hls_det_gold.json"
@@ -32,7 +38,10 @@ if exist "artifacts\hls_det\real_world_llm_provider\!NAME!\hls_det_gold.json" (
   set "PROVIDER=real_world_llm_provider"
 )
 
-if "!DET!"=="" (echo [SKIP] !NAME! (no hls_det_gold.json)& endlocal& goto :eof)
+if "!DET!"=="" (
+  echo [SKIP] !NAME! (no hls_det_gold.json)
+  endlocal & goto :eof
+)
 
 if "!PROVIDER!"=="7_suts_llm_provider" (
   set "OUT=artifacts\hls_nondet\7_suts_llm_provider\!NAME!\hls_nondet_gold.json"
@@ -47,5 +56,6 @@ if defined MODEL_ID (
 ) else (
   python scripts\hls\generate_nondet_from_llm.py --sut "!NAME!" --hls_det "!DET!" --trained_model_dir "%MODEL_DIR%" --out "!OUT!" --seed 142
 )
+
 if errorlevel 1 (echo [FAIL] !NAME!) else (echo [NONDET] !OUT!)
-endlocal& goto :eof
+endlocal & goto :eof

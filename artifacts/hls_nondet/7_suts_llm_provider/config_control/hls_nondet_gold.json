@@ -1,0 +1,77 @@
+{
+  "sut": "config_control",
+  "from_det": "artifacts\\hls_det\\7_suts_llm_provider\\config_control\\hls_det_gold.json",
+  "model_or_dir": "models\\hls\\ALL",
+  "stories": [
+    {
+      "entity": "App",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteApp"
+      ],
+      "checks": [
+        "verifyAppExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Config",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteConfig"
+      ],
+      "checks": [
+        "verifyConfigExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Env",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteEnv"
+      ],
+      "checks": [
+        "verifyEnvExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Policy",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deletePolicy"
+      ],
+      "checks": [
+        "verifyPolicyExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Release",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteRelease"
+      ],
+      "checks": [
+        "verifyReleaseExists"
+      ],
+      "nondet": true
+    }
+  ]
+}

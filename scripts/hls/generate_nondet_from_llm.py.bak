@@ -1,0 +1,35 @@
+def openai_vary(story, model_id, temperature=0.8, max_tokens=700, seed=None):
+    import json
+    from openai import OpenAI
+    client = OpenAI()
+
+    sys_prompt = "Return ONLY a JSON object representing one HLS story: {entity, op, params, blocks, checks}."
+    user_prompt = (
+        "Vary the following HLS story (keep semantics and constraints, allow different ids/fields/values). "
+        "Output valid JSON only.\n" + json.dumps(story, ensure_ascii=False)
+    )
+
+    # 1) Preferred path: Responses API with JSON mode
+    try:
+        resp = client.responses.create(
+            model=model_id,
+            input=[
+                {"role":"system","content":sys_prompt},
+                {"role":"user","content":user_prompt},
+            ],
+            temperature=temperature,
+            max_output_tokens=max_tokens,
+            seed=seed,
+            response_format={"type":"json_object"},
+        )
+        text = getattr(resp, "output_text", None)
+        if not text:
+            # older shapes
+            try:
+                text = resp.output[0].content[0].text
+            except Exception:
+                pass
+        return json.loads(text)
+    except TypeError:
+        # 2) Fallback for older SDKs: Chat Completions with JSON mode
+        chat = client.chat.comp

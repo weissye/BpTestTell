@@ -1,0 +1,866 @@
+{
+  "sut": "jira_cloud",
+  "from_det": "artifacts\\hls_det\\real_world_llm_provider\\jira_cloud\\hls_det_gold.json",
+  "model_or_dir": "models\\hls\\ALL",
+  "stories": [
+    {
+      "entity": "Actor",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addActor"
+      ],
+      "checks": [
+        "verifyActorNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "ActorUsers",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteActorUsers"
+      ],
+      "checks": [
+        "verifyActorUsersExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "AddonProperty_delete",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addAddonProperty_delete"
+      ],
+      "checks": [
+        "verifyAddonProperty_deleteNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "AndReplaceVersion",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addAndReplaceVersion"
+      ],
+      "checks": [
+        "verifyAndReplaceVersionNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "AndSwap",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addAndSwap"
+      ],
+      "checks": [
+        "verifyAndSwapNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Associations",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteAssociations"
+      ],
+      "checks": [
+        "verifyAssociationsExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Associations",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addAssociations"
+      ],
+      "checks": [
+        "verifyAssociationsNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "AtlassianTeam",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteAtlassianTeam"
+      ],
+      "checks": [
+        "verifyAtlassianTeamExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "AtlassianTeam",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addAtlassianTeam"
+      ],
+      "checks": [
+        "verifyAtlassianTeamNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "AtlassianTeam",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateAtlassianTeam"
+      ],
+      "checks": [
+        "verifyAtlassianTeamExists",
+        "verifyAtlassianTeamUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Attachment",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteAttachment"
+      ],
+      "checks": [
+        "verifyAttachmentExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Attachment",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addAttachment"
+      ],
+      "checks": [
+        "verifyAttachmentNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Avatar",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addAvatar"
+      ],
+      "checks": [
+        "verifyAvatarNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Comment",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteComment"
+      ],
+      "checks": [
+        "verifyCommentExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Comment",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addComment"
+      ],
+      "checks": [
+        "verifyCommentNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Comment",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateComment"
+      ],
+      "checks": [
+        "verifyCommentExists",
+        "verifyCommentUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "CommentProperty",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addCommentProperty"
+      ],
+      "checks": [
+        "verifyCommentPropertyNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Component",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteComponent"
+      ],
+      "checks": [
+        "verifyComponentExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Component",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addComponent"
+      ],
+      "checks": [
+        "verifyComponentNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Component",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateComponent"
+      ],
+      "checks": [
+        "verifyComponentExists",
+        "verifyComponentUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "CustomField",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCustomField"
+      ],
+      "checks": [
+        "verifyCustomFieldExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "CustomField",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addCustomField"
+      ],
+      "checks": [
+        "verifyCustomFieldNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "CustomField",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateCustomField"
+      ],
+      "checks": [
+        "verifyCustomFieldExists",
+        "verifyCustomFieldUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "CustomFieldConfiguration",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateCustomFieldConfiguration"
+      ],
+      "checks": [
+        "verifyCustomFieldConfigurationExists",
+        "verifyCustomFieldConfigurationUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "CustomFieldContext",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCustomFieldContext"
+      ],
+      "checks": [
+        "verifyCustomFieldContextExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "CustomFieldContext",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addCustomFieldContext"
+      ],
+      "checks": [
+        "verifyCustomFieldContextNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "CustomFieldContext",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateCustomFieldContext"
+      ],
+      "checks": [
+        "verifyCustomFieldContextExists",
+        "verifyCustomFieldContextUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "CustomFieldContextFromProjects",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addCustomFieldContextFromProjects"
+      ],
+      "checks": [
+        "verifyCustomFieldContextFromProjectsNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "CustomFieldOption",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCustomFieldOption"
+      ],
+      "checks": [
+        "verifyCustomFieldOptionExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "CustomFieldOption",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addCustomFieldOption"
+      ],
+      "checks": [
+        "verifyCustomFieldOptionNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "CustomFieldOption",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateCustomFieldOption"
+      ],
+      "checks": [
+        "verifyCustomFieldOptionExists",
+        "verifyCustomFieldOptionUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "CustomFieldValue",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateCustomFieldValue"
+      ],
+      "checks": [
+        "verifyCustomFieldValueExists",
+        "verifyCustomFieldValueUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Dashboard",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteDashboard"
+      ],
+      "checks": [
+        "verifyDashboardExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Dashboard",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addDashboard"
+      ],
+      "checks": [
+        "verifyDashboardNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Dashboard",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateDashboard"
+      ],
+      "checks": [
+        "verifyDashboardExists",
+        "verifyDashboardUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "DashboardItemProperty",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addDashboardItemProperty"
+      ],
+      "checks": [
+        "verifyDashboardItemPropertyNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "DefaultProjectClassification",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addDefaultProjectClassification"
+      ],
+      "checks": [
+        "verifyDefaultProjectClassificationNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "DefaultProjectClassification",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateDefaultProjectClassification"
+      ],
+      "checks": [
+        "verifyDefaultProjectClassificationExists",
+        "verifyDefaultProjectClassificationUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "DefaultScreenScheme",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateDefaultScreenScheme"
+      ],
+      "checks": [
+        "verifyDefaultScreenSchemeExists",
+        "verifyDefaultScreenSchemeUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "CustomWorkflow",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addCustomWorkflow"
+      ],
+      "checks": [
+        "verifyCustomWorkflowNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "DefaultWorkflow",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateDefaultWorkflow"
+      ],
+      "checks": [
+        "verifyDefaultWorkflowExists",
+        "verifyDefaultWorkflowUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "DraftDefaultWorkflow",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addDraftDefaultWorkflow"
+      ],
+      "checks": [
+        "verifyDraftDefaultWorkflowNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "DraftDefaultWorkflow",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateDraftDefaultWorkflow"
+      ],
+      "checks": [
+        "verifyDraftDefaultWorkflowExists",
+        "verifyDraftDefaultWorkflowUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "DraftWorkflowMapping",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addDraftWorkflowMapping"
+      ],
+      "checks": [
+        "verifyDraftWorkflowMappingNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "DraftWorkflowMapping",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateDraftWorkflowMapping"
+      ],
+      "checks": [
+        "verifyDraftWorkflowMappingExists",
+        "verifyDraftWorkflowMappingUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "EntityPropertiesValue_put",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateEntityPropertiesValue_put"
+      ],
+      "checks": [
+        "verifyEntityPropertiesValue_putExists",
+        "verifyEntityPropertiesValue_putUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "FavouriteForFilter",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addFavouriteForFilter"
+      ],
+      "checks": [
+        "verifyFavouriteForFilterNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "FieldConfiguration",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteFieldConfiguration"
+      ],
+      "checks": [
+        "verifyFieldConfigurationExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "FieldConfiguration",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addFieldConfiguration"
+      ],
+      "checks": [
+        "verifyFieldConfigurationNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "FieldConfiguration",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateFieldConfiguration"
+      ],
+      "checks": [
+        "verifyFieldConfigurationExists",
+        "verifyFieldConfigurationUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "FieldConfigurationItems",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateFieldConfigurationItems"
+      ],
+      "checks": [
+        "verifyFieldConfigurationItemsExists",
+        "verifyFieldConfigurationItemsUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "FieldConfigurationScheme",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteFieldConfigurationScheme"
+      ],
+      "checks": [
+        "verifyFieldConfigurationSchemeExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "FieldConfigurationScheme",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addFieldConfigurationScheme"
+      ],
+      "checks": [
+        "verifyFieldConfigurationSchemeNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "FieldConfigurationScheme",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateFieldConfigurationScheme"
+      ],
+      "checks": [
+        "verifyFieldConfigurationSchemeExists",
+        "verifyFieldConfigurationSchemeUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "FieldToDefaultScreen",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteFieldToDefaultScreen"
+      ],
+      "checks": [
+        "verifyFieldToDefaultScreenExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Filter",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteFilter"
+      ],
+      "checks": [
+        "verifyFilterExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Filter",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addFilter"
+      ],
+      "checks": [
+        "verifyFilterNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Filter",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateFilter"
+      ],
+      "checks": [
+        "verifyFilterExists",
+        "verifyFilterUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "ForgeAppProperty",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addForgeAppProperty"
+      ],
+      "checks": [
+        "verifyForgeAppPropertyNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Gadget",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGadget"
+      ],
+      "checks": [
+        "verifyGadgetExists"
+      ],
+      "nondet": true
+    }
+  ]
+}

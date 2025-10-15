@@ -1,0 +1,49 @@
+{
+  "sut": "meilisearch",
+  "from_det": "artifacts\\hls_det\\real_world_llm_provider\\meilisearch\\hls_det_gold.json",
+  "model_or_dir": "models\\hls\\ALL",
+  "stories": [
+    {
+      "entity": "All",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addAll"
+      ],
+      "checks": [
+        "verifyAllNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Batch",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addBatch"
+      ],
+      "checks": [
+        "verifyBatchNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "One",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addOne"
+      ],
+      "checks": [
+        "verifyOneNotExists"
+      ],
+      "nondet": true
+    }
+  ]
+}

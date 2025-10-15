@@ -1,0 +1,64 @@
+{
+  "sut": "garage",
+  "from_det": "artifacts\\hls_det\\7_suts_llm_provider\\garage\\hls_det_gold.json",
+  "model_or_dir": "models\\hls\\ALL",
+  "stories": [
+    {
+      "entity": "Car",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCar"
+      ],
+      "checks": [
+        "verifyCarExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Chain",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteChain"
+      ],
+      "checks": [
+        "verifyChainExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Customer",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCustomer"
+      ],
+      "checks": [
+        "verifyCustomerExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Garage",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGarage"
+      ],
+      "checks": [
+        "verifyGarageExists",
+        "verifyGarageUpdated"
+      ],
+      "nondet": true
+    }
+  ]
+}

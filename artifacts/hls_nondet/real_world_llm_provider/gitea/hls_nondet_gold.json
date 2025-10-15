@@ -1,0 +1,108 @@
+{
+  "sut": "gitea",
+  "from_det": "artifacts\\hls_det\\real_world_llm_provider\\gitea\\hls_det_gold.json",
+  "model_or_dir": "models\\hls\\ALL",
+  "stories": [
+    {
+      "entity": "CurrentUserRepo",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCurrentUserRepo"
+      ],
+      "checks": [
+        "verifyCurrentUserRepoExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Package",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addPackage"
+      ],
+      "checks": [
+        "verifyPackageNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "RepoSecret",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addRepoSecret"
+      ],
+      "checks": [
+        "verifyRepoSecretNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "RepoSecret",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateRepoSecret"
+      ],
+      "checks": [
+        "verifyRepoSecretExists",
+        "verifyRepoSecretUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "UserSecret",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addUserSecret"
+      ],
+      "checks": [
+        "verifyUserSecretNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "UserSecret",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateUserSecret"
+      ],
+      "checks": [
+        "verifyUserSecretExists",
+        "verifyUserSecretUpdated"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "UserSettings",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateUserSettings"
+      ],
+      "checks": [
+        "verifyUserSettingsExists",
+        "verifyUserSettingsUpdated"
+      ],
+      "nondet": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "sut": "twilio",
+  "from_det": "artifacts\\hls_det\\real_world_llm_provider\\twilio\\hls_det_gold.json",
+  "model_or_dir": "models\\hls\\ALL",
+  "stories": [
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "nondet": true
+    }
+  ]
+}

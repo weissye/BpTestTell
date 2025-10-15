@@ -1,0 +1,119 @@
+{
+  "sut": "library",
+  "from_det": "artifacts\\hls_det\\7_suts_llm_provider\\library\\hls_det_gold.json",
+  "model_or_dir": "models\\hls\\ALL",
+  "stories": [
+    {
+      "entity": "Book",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteBook"
+      ],
+      "checks": [
+        "verifyBookExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Book",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addBook"
+      ],
+      "checks": [
+        "verifyBookNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Hold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteHold"
+      ],
+      "checks": [
+        "verifyHoldExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Hold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addHold"
+      ],
+      "checks": [
+        "verifyHoldNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Loan",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteLoan"
+      ],
+      "checks": [
+        "verifyLoanExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Loan",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addLoan"
+      ],
+      "checks": [
+        "verifyLoanNotExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "User",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteUser"
+      ],
+      "checks": [
+        "verifyUserExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "User",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addUser"
+      ],
+      "checks": [
+        "verifyUserNotExists"
+      ],
+      "nondet": true
+    }
+  ]
+}

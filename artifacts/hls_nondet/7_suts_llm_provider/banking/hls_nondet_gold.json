@@ -1,0 +1,63 @@
+{
+  "sut": "banking",
+  "from_det": "artifacts\\hls_det\\7_suts_llm_provider\\banking\\hls_det_gold.json",
+  "model_or_dir": "models\\hls\\ALL",
+  "stories": [
+    {
+      "entity": "Account",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteAccount"
+      ],
+      "checks": [
+        "verifyAccountExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Card",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCard"
+      ],
+      "checks": [
+        "verifyCardExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Customer",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCustomer"
+      ],
+      "checks": [
+        "verifyCustomerExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "Transfer",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteTransfer"
+      ],
+      "checks": [
+        "verifyTransferExists"
+      ],
+      "nondet": true
+    }
+  ]
+}

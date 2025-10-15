@@ -33,25 +33,52 @@ def load_model_id(model_dir: Path, cli_id: str|None) -> str|None:
         return obj.get("fine_tuned_model") or obj.get("model_id")
     return None
 
-def openai_vary(story, model_id):
+def openai_vary(story, model_id, temperature=0.8, max_tokens=700, seed=None):
+    import json
     from openai import OpenAI
     client = OpenAI()
-    prompt = PROMPT + json.dumps(story, ensure_ascii=False, indent=2)
-    # Responses API with JSON response
-    resp = client.responses.create(
-        model=model_id,
-        input=[{"role":"user","content":prompt}],
-        temperature=0.6,
-        response_format={"type":"json_object"},
-        max_output_tokens=600,
+
+    sys_prompt = "Return ONLY a JSON object representing one HLS story: {entity, op, params, blocks, checks}."
+    user_prompt = (
+        "Vary the following HLS story (keep semantics and constraints, allow different ids/fields/values). "
+        "Output valid JSON only.\n" + json.dumps(story, ensure_ascii=False)
     )
-    # Extract text JSON
-    text = resp.output_text
+
+    # 1) Preferred path: Responses API with JSON mode
     try:
+        resp = client.responses.create(
+            model=model_id,
+            input=[
+                {"role":"system","content":sys_prompt},
+                {"role":"user","content":user_prompt},
+            ],
+            temperature=temperature,
+            max_output_tokens=max_tokens,
+            seed=seed,
+            response_format={"type":"json_object"},
+        )
+        text = getattr(resp, "output_text", None)
+        if not text:
+            # older shapes
+            try:
+                text = resp.output[0].content[0].text
+            except Exception:
+                pass
         return json.loads(text)
-    except Exception:
-        # If JSON parsing fails, just return original with a nondet flag
-        s = dict(story); s["nondet"]=True; return s
+    except TypeError:
+        # 2) Fallback for older SDKs: Chat Completions with JSON mode
+        chat = client.chat.completions.create(
+            model=model_id,
+            messages=[
+                {"role":"system","content":sys_prompt},
+                {"role":"user","content":user_prompt},
+            ],
+            temperature=temperature,
+            max_tokens=max_tokens,
+            seed=seed,
+            response_format={"type":"json_object"},
+        )
+        return json.loads(chat.choices[0].message.content)
 
 def main():
     ap = argparse.ArgumentParser()

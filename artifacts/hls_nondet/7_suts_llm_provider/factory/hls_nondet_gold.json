@@ -1,0 +1,49 @@
+{
+  "sut": "factory",
+  "from_det": "artifacts\\hls_det\\7_suts_llm_provider\\factory\\hls_det_gold.json",
+  "model_or_dir": "models\\hls\\ALL",
+  "stories": [
+    {
+      "entity": "Machine",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteMachine"
+      ],
+      "checks": [
+        "verifyMachineExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "MaintenanceTicket",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteMaintenanceTicket"
+      ],
+      "checks": [
+        "verifyMaintenanceTicketExists"
+      ],
+      "nondet": true
+    },
+    {
+      "entity": "WorkOrder",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteWorkOrder"
+      ],
+      "checks": [
+        "verifyWorkOrderExists"
+      ],
+      "nondet": true
+    }
+  ]
+}

@@ -1,23 +1,33 @@
 @echo off
 setlocal EnableExtensions
-if "%~3"=="" (
-  echo Usage: emit_hls_all_in_one.bat ^<gold.json^> ^<active_samples.json or ""^> ^<out_js^>
-  exit /b 2
-)
+
+:: Usage:
+::   emit_hls_all_in_one.bat <NONDET_GOLD.json> [<ACTIVE_SAMPLES.json>] <OUT_JS>
+::
+:: If ACTIVE_SAMPLES.json is missing or "", we emit PASSIVE-only.
+
 set "GOLD=%~1"
 set "ACTIVE=%~2"
-set "OUTJS=%~3"
+set "OUT=%~3"
 
-for %%D in ("%OUTJS%") do set "OUTDIR=%%~dpD"
-if not exist "%OUTDIR%" mkdir "%OUTDIR%"
-
-echo [RUN ] Emit readable JS
-if "%ACTIVE%"=="" (
-  python scripts\readable\emit_hls_all_in_one.py --gold "%GOLD%" --out "%OUTJS%"
-) else (
-  python scripts\readable\emit_hls_all_in_one.py --gold "%GOLD%" --active "%ACTIVE%" --out "%OUTJS%"
+if "%GOLD%"=="" (
+  echo [ERROR] Usage: scripts\readable\emit_hls_all_in_one.bat GOLD [ACTIVE] OUT
+  exit /b 2
 )
-if errorlevel 1 (echo [FAIL] emit_hls_all_in_one.py & exit /b 1)
-if not exist "%OUTJS%" (echo [FAIL] Missing output: %OUTJS% & exit /b 1)
-echo [OK  ] %OUTJS%
+
+if "%OUT%"=="" (
+  :: allow call with only two args: GOLD OUT
+  set "OUT=%ACTIVE%"
+  set "ACTIVE="
+)
+
+for %%D in ("%OUT%") do if not exist "%%~dpD" mkdir "%%~dpD" 2>nul
+
+if "%ACTIVE%"=="" (
+  python -u scripts\readable\emit_hls_all_in_one.py --gold "%GOLD%" --out "%OUT%" || exit /b 1
+) else (
+  python -u scripts\readable\emit_hls_all_in_one.py --gold "%GOLD%" --active "%ACTIVE%" --out "%OUT%" || exit /b 1
+)
+
+echo [READABLE] %OUT%
 exit /b 0
