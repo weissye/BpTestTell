@@ -1,13 +1,22 @@
 @echo off
-setlocal
+setlocal EnableExtensions
 if "%~3"=="" (
-  echo Usage: %~nx0 SUT PATH_TO_LLE_DET_GOLD OUT_JSON [SEED]
-  echo Example: %~nx0 library artifacts\det_checked\library\library_lle_gold.json artifacts\hls_det\library\hls_det_gold.json 42
-  exit /b 1
+  echo Usage: gen_hls_det.bat ^<NAME^> ^<lle_gold.json^> ^<out_hls_det.json^> [seed]
+  exit /b 2
 )
-set SUT=%~1
-set IN=%~2
-set OUT=%~3
-set SEED=%~4
-if "%SEED%"=="" set SEED=42
-python scripts\hls\generate_hls_from_lle.py --sut %SUT% --lle_det_gold "%IN%" --out "%OUT%" --seed %SEED%
+
+set "NAME=%~1"
+set "LLE=%~2"
+set "OUT=%~3"
+set "SEED=%~4"
+if "%SEED%"=="" set "SEED=42"
+
+for %%D in ("%OUT%") do set "OUTDIR=%%~dpD"
+if not exist "%OUTDIR%" mkdir "%OUTDIR%"
+
+echo [RUN ] DET→HLS-DET: %NAME%
+python scripts\hls\generate_hls_from_lle.py --sut "%NAME%" --lle_gold "%LLE%" --out "%OUT%" --seed %SEED%
+if errorlevel 1 (echo [FAIL] generate_hls_from_lle.py & exit /b 1)
+if not exist "%OUT%" (echo [FAIL] Missing output: %OUT% & exit /b 1)
+echo [OK  ] %OUT%
+exit /b 0

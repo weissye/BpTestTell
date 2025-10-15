@@ -1,0 +1,6 @@
+{
+  "sut": "keycloak_admin",
+  "trained_on": "artifacts\\hls_det\\real_world_llm_provider\\keycloak_admin\\hls_det_gold.json",
+  "num_stories": 38,
+  "version": 1
+}

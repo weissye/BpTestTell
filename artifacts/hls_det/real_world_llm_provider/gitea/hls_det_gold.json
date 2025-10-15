@@ -1,0 +1,101 @@
+{
+  "sut": "gitea",
+  "source": "artifacts\\det_checked\\real_world_llm_provider\\gitea\\gitea_llm_gold.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "CurrentUserRepo",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCurrentUserRepo"
+      ],
+      "checks": [
+        "verifyCurrentUserRepoExists"
+      ]
+    },
+    {
+      "entity": "Package",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addPackage"
+      ],
+      "checks": [
+        "verifyPackageNotExists"
+      ]
+    },
+    {
+      "entity": "RepoSecret",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addRepoSecret"
+      ],
+      "checks": [
+        "verifyRepoSecretNotExists"
+      ]
+    },
+    {
+      "entity": "RepoSecret",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateRepoSecret"
+      ],
+      "checks": [
+        "verifyRepoSecretExists",
+        "verifyRepoSecretUpdated"
+      ]
+    },
+    {
+      "entity": "UserSecret",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addUserSecret"
+      ],
+      "checks": [
+        "verifyUserSecretNotExists"
+      ]
+    },
+    {
+      "entity": "UserSecret",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateUserSecret"
+      ],
+      "checks": [
+        "verifyUserSecretExists",
+        "verifyUserSecretUpdated"
+      ]
+    },
+    {
+      "entity": "UserSettings",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateUserSettings"
+      ],
+      "checks": [
+        "verifyUserSettingsExists",
+        "verifyUserSettingsUpdated"
+      ]
+    }
+  ]
+}

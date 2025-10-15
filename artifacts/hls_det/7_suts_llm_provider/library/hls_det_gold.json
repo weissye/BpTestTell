@@ -1,0 +1,111 @@
+{
+  "sut": "library",
+  "source": "artifacts\\det_checked\\7_suts_llm_provider\\library\\library_llm_gold.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "Book",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteBook"
+      ],
+      "checks": [
+        "verifyBookExists"
+      ]
+    },
+    {
+      "entity": "Book",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addBook"
+      ],
+      "checks": [
+        "verifyBookNotExists"
+      ]
+    },
+    {
+      "entity": "Hold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteHold"
+      ],
+      "checks": [
+        "verifyHoldExists"
+      ]
+    },
+    {
+      "entity": "Hold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addHold"
+      ],
+      "checks": [
+        "verifyHoldNotExists"
+      ]
+    },
+    {
+      "entity": "Loan",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteLoan"
+      ],
+      "checks": [
+        "verifyLoanExists"
+      ]
+    },
+    {
+      "entity": "Loan",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addLoan"
+      ],
+      "checks": [
+        "verifyLoanNotExists"
+      ]
+    },
+    {
+      "entity": "User",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteUser"
+      ],
+      "checks": [
+        "verifyUserExists"
+      ]
+    },
+    {
+      "entity": "User",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addUser"
+      ],
+      "checks": [
+        "verifyUserNotExists"
+      ]
+    }
+  ]
+}

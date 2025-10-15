@@ -1,0 +1,59 @@
+{
+  "sut": "banking",
+  "source": "artifacts\\det_checked\\7_suts_llm_provider\\banking\\banking_llm_gold.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "Account",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteAccount"
+      ],
+      "checks": [
+        "verifyAccountExists"
+      ]
+    },
+    {
+      "entity": "Card",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCard"
+      ],
+      "checks": [
+        "verifyCardExists"
+      ]
+    },
+    {
+      "entity": "Customer",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCustomer"
+      ],
+      "checks": [
+        "verifyCustomerExists"
+      ]
+    },
+    {
+      "entity": "Transfer",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteTransfer"
+      ],
+      "checks": [
+        "verifyTransferExists"
+      ]
+    }
+  ]
+}

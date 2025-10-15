@@ -1,0 +1,6 @@
+{
+  "sut": "twilio",
+  "trained_on": "artifacts\\hls_det\\real_world_llm_provider\\twilio\\hls_det_gold.json",
+  "num_stories": 3,
+  "version": 1
+}

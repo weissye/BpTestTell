@@ -1,65 +1,95 @@
 #!/usr/bin/env python
-import argparse, json, random
+# -*- coding: utf-8 -*-
+"""
+DET -> HLS-DET generator.
+- Parses the LLE json (format-agnostic; regex-falls back).
+- Extracts (entity, op) pairs. If unknown, synthesizes add/update/delete for the SUT.
+- Emits stories with deterministic structure.
+"""
+import argparse, json, os, re, random, sys
 from pathlib import Path
-from typing import Dict, Any
 
-def stable_id(prefix: str, i: int) -> str:
-    return f"{prefix}_{i:04d}"
+def safe_read_json(p):
+    try:
+        return json.loads(Path(p).read_text(encoding="utf-8"))
+    except Exception:
+        # best-effort: sometimes the "gold" is a JSONL / shards; try to concatenate objects
+        try:
+            lines = [json.loads(x) for x in Path(p).read_text(encoding="utf-8").splitlines() if x.strip()]
+            return {"_lines": lines}
+        except Exception:
+            return None
 
-def inverse_op(op: str) -> str:
-    if op == 'add': return 'delete'
-    if op == 'delete': return 'add'
-    return 'update'
+def find_ops_entities(data_text):
+    # e.g., addUser, updateAccount, deleteRepo
+    found = re.findall(r'\b(add|create|update|modify|delete|remove)([A-Z][A-Za-z0-9_]*)\b', data_text)
+    pairs = set()
+    for verb, ent in found:
+        op = {"add":"add","create":"add","update":"update","modify":"update","delete":"delete","remove":"delete"}[verb]
+        pairs.add((ent, op))
+    return pairs
 
-def adapt_from_lle_record(rec: Dict[str, Any]) -> Dict[str, Any]:
-    entity = rec.get('entity') or rec.get('tag') or 'Entity'
-    op = rec.get('op') or 'add'
-    key_fields = rec.get('keyFields') or ['id']
-    params = rec.get('params') or {}
-    return {'entity': entity, 'op': op, 'key_fields': key_fields, 'params': params}
+def guess_entities(data_obj, fallback_name):
+    ents = set()
+    # look for top-level keys that look like entities
+    if isinstance(data_obj, dict):
+        for k,v in data_obj.items():
+            if isinstance(k,str) and re.match(r'^[A-Za-z][A-Za-z0-9_]*$', k) and k.lower() not in {"ops","events","shards","meta"}:
+                ents.add(k[0].upper()+k[1:])
+    # fallback to the sut name
+    if not ents:
+        ents = {fallback_name[0].upper()+fallback_name[1:]}
+    return ents
 
-def load_lle(path: Path):
-    data = json.loads(path.read_text(encoding='utf-8'))
-    if isinstance(data, dict) and 'records' in data:
-        data = data['records']
-    if not isinstance(data, list):
-        raise ValueError("Expected LLE det-gold as list or dict with 'records'.")
-    return data
+def build_story(entity, op):
+    reverse = {"add":"delete","update":"update","delete":"add"}[op]
+    checks = []
+    if op=="add":
+        checks = [f"verify{entity}Exists"]
+    elif op=="update":
+        checks = [f"verify{entity}Exists", f"verify{entity}Updated"]
+    elif op=="delete":
+        checks = [f"verify{entity}NotExists"]
+    return {
+        "entity": entity,
+        "op": op,
+        "params": {"id":"<id>"},
+        "blocks": [f"{reverse}{entity}"],
+        "checks": checks
+    }
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--sut', required=True)
-    ap.add_argument('--lle_det_gold', required=True)
-    ap.add_argument('--out', required=True)
-    ap.add_argument('--seed', type=int, default=42)
+    ap.add_argument("--sut", required=True)
+    ap.add_argument("--lle_gold", required=True)
+    ap.add_argument("--out", required=True)
+    ap.add_argument("--seed", type=int, default=42)
     args = ap.parse_args()
-
     random.seed(args.seed)
-    recs = load_lle(Path(args.lle_det_gold))
-    def sort_key(r):
-        try:
-            import json as _j
-            return (str(r.get('entity')), str(r.get('op')), _j.dumps(r, sort_keys=True))
-        except Exception:
-            return (str(r.get('entity')), str(r.get('op')), '')
-    stories = []
-    for i, rec in enumerate(sorted(recs, key=sort_key)):
-        a = adapt_from_lle_record(rec)
-        inv = inverse_op(a['op'])
-        stories.append({
-            'story_id': stable_id(f"hls_{a['entity']}_{a['op']}", i),
-            'entity': a['entity'],
-            'op': a['op'],
-            'params': a['params'],
-            'blocks': [{'op': inv, 'keyFields': a['key_fields']}],
-            'checks': [{'type':'exists','entity':a['entity'],'key':a['key_fields'][0]}] if a['op']=='add' else
-                      [{'type':'absent','entity':a['entity'],'key':a['key_fields'][0]}] if a['op']=='delete' else
-                      [{'type':'updated','entity':a['entity'],'fields': list(a['params'].keys())}]
-        })
-    out = Path(args.out)
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps({'sut': args.sut, 'mode': 'det', 'stories': stories}, indent=2), encoding='utf-8')
-    print(f"Wrote {out} with {len(stories)} stories")
 
-if __name__ == '__main__':
-    main()
+    src = Path(args.lle_gold)
+    txt = src.read_text(encoding="utf-8", errors="ignore")
+    data = safe_read_json(src)
+
+    pairs = find_ops_entities(txt)
+    if not pairs and isinstance(data, dict):
+        # try pull entity list and synthesize
+        ents = guess_entities(data, args.sut)
+        pairs = {(e,"add") for e in ents} | {(e,"update") for e in ents} | {(e,"delete") for e in ents}
+    # cap size to something reasonable, deterministic
+    pairs = sorted(pairs)[:60]
+
+    stories = [build_story(ent, op) for (ent, op) in pairs]
+    out_obj = {
+        "sut": args.sut,
+        "source": str(src),
+        "seed": args.seed,
+        "stories": stories
+    }
+
+    Path(args.out).parent.mkdir(parents=True, exist_ok=True)
+    Path(args.out).write_text(json.dumps(out_obj, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"[OK] wrote {args.out} with {len(stories)} stories")
+
+if __name__ == "__main__":
+    sys.exit(main())

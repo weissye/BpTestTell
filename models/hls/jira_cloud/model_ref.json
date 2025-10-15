@@ -1,0 +1,6 @@
+{
+  "sut": "jira_cloud",
+  "trained_on": "artifacts\\hls_det\\real_world_llm_provider\\jira_cloud\\hls_det_gold.json",
+  "num_stories": 60,
+  "version": 1
+}

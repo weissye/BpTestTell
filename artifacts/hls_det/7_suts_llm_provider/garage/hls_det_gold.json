@@ -1,0 +1,60 @@
+{
+  "sut": "garage",
+  "source": "artifacts\\det_checked\\7_suts_llm_provider\\garage\\garage_llm_gold.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "Car",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCar"
+      ],
+      "checks": [
+        "verifyCarExists"
+      ]
+    },
+    {
+      "entity": "Chain",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteChain"
+      ],
+      "checks": [
+        "verifyChainExists"
+      ]
+    },
+    {
+      "entity": "Customer",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCustomer"
+      ],
+      "checks": [
+        "verifyCustomerExists"
+      ]
+    },
+    {
+      "entity": "Garage",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGarage"
+      ],
+      "checks": [
+        "verifyGarageExists",
+        "verifyGarageUpdated"
+      ]
+    }
+  ]
+}

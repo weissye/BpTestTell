@@ -1,0 +1,6 @@
+{
+  "sut": "zulip",
+  "trained_on": "artifacts\\hls_det\\real_world_llm_provider\\zulip\\hls_det_gold.json",
+  "num_stories": 3,
+  "version": 1
+}

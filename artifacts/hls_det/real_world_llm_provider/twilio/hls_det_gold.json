@@ -1,0 +1,47 @@
+{
+  "sut": "twilio",
+  "source": "artifacts\\det_checked\\real_world_llm_provider\\twilio\\twilio_llm_gold.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ]
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ]
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ]
+    }
+  ]
+}

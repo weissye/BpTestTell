@@ -1,0 +1,72 @@
+{
+  "sut": "config_control",
+  "source": "artifacts\\det_checked\\7_suts_llm_provider\\config_control\\config_control_llm_gold.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "App",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteApp"
+      ],
+      "checks": [
+        "verifyAppExists"
+      ]
+    },
+    {
+      "entity": "Config",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteConfig"
+      ],
+      "checks": [
+        "verifyConfigExists"
+      ]
+    },
+    {
+      "entity": "Env",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteEnv"
+      ],
+      "checks": [
+        "verifyEnvExists"
+      ]
+    },
+    {
+      "entity": "Policy",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deletePolicy"
+      ],
+      "checks": [
+        "verifyPolicyExists"
+      ]
+    },
+    {
+      "entity": "Release",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteRelease"
+      ],
+      "checks": [
+        "verifyReleaseExists"
+      ]
+    }
+  ]
+}

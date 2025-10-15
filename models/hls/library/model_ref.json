@@ -1,0 +1,6 @@
+{
+  "sut": "library",
+  "trained_on": "artifacts\\hls_det\\7_suts_llm_provider\\library\\hls_det_gold.json",
+  "num_stories": 8,
+  "version": 1
+}

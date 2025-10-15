@@ -1,0 +1,8 @@
+{
+  "model": "ALL",
+  "base": "gpt-4o-mini-2024-07-18",
+  "training_file_id": "file-AfVB872WyAngmHAnRDv4ST",
+  "job_id": "ftjob-e9FsSMp9s3HHiu9MgU658BSU",
+  "fine_tuned_model": null,
+  "mode": "failed"
+}

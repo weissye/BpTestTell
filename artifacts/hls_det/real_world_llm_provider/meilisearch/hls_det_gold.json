@@ -1,0 +1,46 @@
+{
+  "sut": "meilisearch",
+  "source": "artifacts\\det_checked\\real_world_llm_provider\\meilisearch\\meilisearch_llm_gold.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "All",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addAll"
+      ],
+      "checks": [
+        "verifyAllNotExists"
+      ]
+    },
+    {
+      "entity": "Batch",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addBatch"
+      ],
+      "checks": [
+        "verifyBatchNotExists"
+      ]
+    },
+    {
+      "entity": "One",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addOne"
+      ],
+      "checks": [
+        "verifyOneNotExists"
+      ]
+    }
+  ]
+}

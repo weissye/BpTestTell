@@ -1,0 +1,46 @@
+{
+  "sut": "factory",
+  "source": "artifacts\\det_checked\\7_suts_llm_provider\\factory\\factory_llm_gold.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "Machine",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteMachine"
+      ],
+      "checks": [
+        "verifyMachineExists"
+      ]
+    },
+    {
+      "entity": "MaintenanceTicket",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteMaintenanceTicket"
+      ],
+      "checks": [
+        "verifyMaintenanceTicketExists"
+      ]
+    },
+    {
+      "entity": "WorkOrder",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteWorkOrder"
+      ],
+      "checks": [
+        "verifyWorkOrderExists"
+      ]
+    }
+  ]
+}

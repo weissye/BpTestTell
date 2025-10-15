@@ -1,0 +1,6 @@
+{
+  "sut": "netbox",
+  "trained_on": "artifacts\\hls_det\\real_world_llm_provider\\netbox\\hls_det_gold.json",
+  "num_stories": 3,
+  "version": 1
+}

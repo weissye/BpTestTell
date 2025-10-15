@@ -1,0 +1,6 @@
+{
+  "sut": "config_control",
+  "trained_on": "artifacts\\hls_det\\7_suts_llm_provider\\config_control\\hls_det_gold.json",
+  "num_stories": 5,
+  "version": 1
+}

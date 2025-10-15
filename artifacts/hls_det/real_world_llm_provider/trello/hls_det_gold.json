@@ -1,0 +1,817 @@
+{
+  "sut": "trello",
+  "source": "artifacts\\det_checked\\real_world_llm_provider\\trello\\trello_llm_gold.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "ActionsByIdAction",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addActionsByIdAction"
+      ],
+      "checks": [
+        "verifyActionsByIdActionNotExists"
+      ]
+    },
+    {
+      "entity": "ActionsTextByIdAction",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateActionsTextByIdAction"
+      ],
+      "checks": [
+        "verifyActionsTextByIdActionExists",
+        "verifyActionsTextByIdActionUpdated"
+      ]
+    },
+    {
+      "entity": "Boards",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteBoards"
+      ],
+      "checks": [
+        "verifyBoardsExists"
+      ]
+    },
+    {
+      "entity": "BoardsByIdBoard",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateBoardsByIdBoard"
+      ],
+      "checks": [
+        "verifyBoardsByIdBoardExists",
+        "verifyBoardsByIdBoardUpdated"
+      ]
+    },
+    {
+      "entity": "BoardsChecklistsByIdBoard",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteBoardsChecklistsByIdBoard"
+      ],
+      "checks": [
+        "verifyBoardsChecklistsByIdBoardExists"
+      ]
+    },
+    {
+      "entity": "BoardsListsByIdBoard",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteBoardsListsByIdBoard"
+      ],
+      "checks": [
+        "verifyBoardsListsByIdBoardExists"
+      ]
+    },
+    {
+      "entity": "BoardsMembersByIdBoard",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateBoardsMembersByIdBoard"
+      ],
+      "checks": [
+        "verifyBoardsMembersByIdBoardExists",
+        "verifyBoardsMembersByIdBoardUpdated"
+      ]
+    },
+    {
+      "entity": "BoardsPrefsBackgroundByIdBoard",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateBoardsPrefsBackgroundByIdBoard"
+      ],
+      "checks": [
+        "verifyBoardsPrefsBackgroundByIdBoardExists",
+        "verifyBoardsPrefsBackgroundByIdBoardUpdated"
+      ]
+    },
+    {
+      "entity": "CardsAttachmentsByIdCard",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCardsAttachmentsByIdCard"
+      ],
+      "checks": [
+        "verifyCardsAttachmentsByIdCardExists"
+      ]
+    },
+    {
+      "entity": "CardsByIdCard",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateCardsByIdCard"
+      ],
+      "checks": [
+        "verifyCardsByIdCardExists",
+        "verifyCardsByIdCardUpdated"
+      ]
+    },
+    {
+      "entity": "CardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItem",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItem"
+      ],
+      "checks": [
+        "verifyCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItemExists",
+        "verifyCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItemUpdated"
+      ]
+    },
+    {
+      "entity": "CardsChecklistsByIdCard",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCardsChecklistsByIdCard"
+      ],
+      "checks": [
+        "verifyCardsChecklistsByIdCardExists"
+      ]
+    },
+    {
+      "entity": "CardsLabelsByIdCardByColor",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addCardsLabelsByIdCardByColor"
+      ],
+      "checks": [
+        "verifyCardsLabelsByIdCardByColorNotExists"
+      ]
+    },
+    {
+      "entity": "CardsMembersVotedByIdCardByIdMember",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addCardsMembersVotedByIdCardByIdMember"
+      ],
+      "checks": [
+        "verifyCardsMembersVotedByIdCardByIdMemberNotExists"
+      ]
+    },
+    {
+      "entity": "CardsStickersByIdCard",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCardsStickersByIdCard"
+      ],
+      "checks": [
+        "verifyCardsStickersByIdCardExists"
+      ]
+    },
+    {
+      "entity": "Checklists",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteChecklists"
+      ],
+      "checks": [
+        "verifyChecklistsExists"
+      ]
+    },
+    {
+      "entity": "ChecklistsByIdChecklist",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addChecklistsByIdChecklist"
+      ],
+      "checks": [
+        "verifyChecklistsByIdChecklistNotExists"
+      ]
+    },
+    {
+      "entity": "ChecklistsByIdChecklist",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateChecklistsByIdChecklist"
+      ],
+      "checks": [
+        "verifyChecklistsByIdChecklistExists",
+        "verifyChecklistsByIdChecklistUpdated"
+      ]
+    },
+    {
+      "entity": "ChecklistsCheckItemsByIdChecklist",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteChecklistsCheckItemsByIdChecklist"
+      ],
+      "checks": [
+        "verifyChecklistsCheckItemsByIdChecklistExists"
+      ]
+    },
+    {
+      "entity": "ChecklistsCheckItemsByIdChecklistByIdCheckItem",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addChecklistsCheckItemsByIdChecklistByIdCheckItem"
+      ],
+      "checks": [
+        "verifyChecklistsCheckItemsByIdChecklistByIdCheckItemNotExists"
+      ]
+    },
+    {
+      "entity": "ChecklistsIdCardByIdChecklist",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateChecklistsIdCardByIdChecklist"
+      ],
+      "checks": [
+        "verifyChecklistsIdCardByIdChecklistExists",
+        "verifyChecklistsIdCardByIdChecklistUpdated"
+      ]
+    },
+    {
+      "entity": "ChecklistsNameByIdChecklist",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateChecklistsNameByIdChecklist"
+      ],
+      "checks": [
+        "verifyChecklistsNameByIdChecklistExists",
+        "verifyChecklistsNameByIdChecklistUpdated"
+      ]
+    },
+    {
+      "entity": "ChecklistsPosByIdChecklist",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateChecklistsPosByIdChecklist"
+      ],
+      "checks": [
+        "verifyChecklistsPosByIdChecklistExists",
+        "verifyChecklistsPosByIdChecklistUpdated"
+      ]
+    },
+    {
+      "entity": "Labels",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteLabels"
+      ],
+      "checks": [
+        "verifyLabelsExists"
+      ]
+    },
+    {
+      "entity": "LabelsByIdLabel",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateLabelsByIdLabel"
+      ],
+      "checks": [
+        "verifyLabelsByIdLabelExists",
+        "verifyLabelsByIdLabelUpdated"
+      ]
+    },
+    {
+      "entity": "LabelsColorByIdLabel",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateLabelsColorByIdLabel"
+      ],
+      "checks": [
+        "verifyLabelsColorByIdLabelExists",
+        "verifyLabelsColorByIdLabelUpdated"
+      ]
+    },
+    {
+      "entity": "LabelsNameByIdLabel",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateLabelsNameByIdLabel"
+      ],
+      "checks": [
+        "verifyLabelsNameByIdLabelExists",
+        "verifyLabelsNameByIdLabelUpdated"
+      ]
+    },
+    {
+      "entity": "Lists",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteLists"
+      ],
+      "checks": [
+        "verifyListsExists"
+      ]
+    },
+    {
+      "entity": "ListsArchiveAllCardsByIdList",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteListsArchiveAllCardsByIdList"
+      ],
+      "checks": [
+        "verifyListsArchiveAllCardsByIdListExists"
+      ]
+    },
+    {
+      "entity": "ListsByIdList",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateListsByIdList"
+      ],
+      "checks": [
+        "verifyListsByIdListExists",
+        "verifyListsByIdListUpdated"
+      ]
+    },
+    {
+      "entity": "ListsCardsByIdList",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteListsCardsByIdList"
+      ],
+      "checks": [
+        "verifyListsCardsByIdListExists"
+      ]
+    },
+    {
+      "entity": "ListsClosedByIdList",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateListsClosedByIdList"
+      ],
+      "checks": [
+        "verifyListsClosedByIdListExists",
+        "verifyListsClosedByIdListUpdated"
+      ]
+    },
+    {
+      "entity": "ListsIdBoardByIdList",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateListsIdBoardByIdList"
+      ],
+      "checks": [
+        "verifyListsIdBoardByIdListExists",
+        "verifyListsIdBoardByIdListUpdated"
+      ]
+    },
+    {
+      "entity": "ListsMoveAllCardsByIdList",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteListsMoveAllCardsByIdList"
+      ],
+      "checks": [
+        "verifyListsMoveAllCardsByIdListExists"
+      ]
+    },
+    {
+      "entity": "ListsNameByIdList",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateListsNameByIdList"
+      ],
+      "checks": [
+        "verifyListsNameByIdListExists",
+        "verifyListsNameByIdListUpdated"
+      ]
+    },
+    {
+      "entity": "ListsPosByIdList",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateListsPosByIdList"
+      ],
+      "checks": [
+        "verifyListsPosByIdListExists",
+        "verifyListsPosByIdListUpdated"
+      ]
+    },
+    {
+      "entity": "ListsSubscribedByIdList",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateListsSubscribedByIdList"
+      ],
+      "checks": [
+        "verifyListsSubscribedByIdListExists",
+        "verifyListsSubscribedByIdListUpdated"
+      ]
+    },
+    {
+      "entity": "MembersAvatarByIdMember",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteMembersAvatarByIdMember"
+      ],
+      "checks": [
+        "verifyMembersAvatarByIdMemberExists"
+      ]
+    },
+    {
+      "entity": "MembersBioByIdMember",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateMembersBioByIdMember"
+      ],
+      "checks": [
+        "verifyMembersBioByIdMemberExists",
+        "verifyMembersBioByIdMemberUpdated"
+      ]
+    },
+    {
+      "entity": "MembersBoardBackgroundsByIdMember",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteMembersBoardBackgroundsByIdMember"
+      ],
+      "checks": [
+        "verifyMembersBoardBackgroundsByIdMemberExists"
+      ]
+    },
+    {
+      "entity": "MembersByIdMember",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateMembersByIdMember"
+      ],
+      "checks": [
+        "verifyMembersByIdMemberExists",
+        "verifyMembersByIdMemberUpdated"
+      ]
+    },
+    {
+      "entity": "NotificationsAllRead",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteNotificationsAllRead"
+      ],
+      "checks": [
+        "verifyNotificationsAllReadExists"
+      ]
+    },
+    {
+      "entity": "NotificationsByIdNotification",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateNotificationsByIdNotification"
+      ],
+      "checks": [
+        "verifyNotificationsByIdNotificationExists",
+        "verifyNotificationsByIdNotificationUpdated"
+      ]
+    },
+    {
+      "entity": "NotificationsUnreadByIdNotification",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateNotificationsUnreadByIdNotification"
+      ],
+      "checks": [
+        "verifyNotificationsUnreadByIdNotificationExists",
+        "verifyNotificationsUnreadByIdNotificationUpdated"
+      ]
+    },
+    {
+      "entity": "OrganizationsDescByIdOrg",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateOrganizationsDescByIdOrg"
+      ],
+      "checks": [
+        "verifyOrganizationsDescByIdOrgExists",
+        "verifyOrganizationsDescByIdOrgUpdated"
+      ]
+    },
+    {
+      "entity": "OrganizationsLogoByIdOrg",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteOrganizationsLogoByIdOrg"
+      ],
+      "checks": [
+        "verifyOrganizationsLogoByIdOrgExists"
+      ]
+    },
+    {
+      "entity": "OrganizationsMembersByIdOrgByIdMember",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addOrganizationsMembersByIdOrgByIdMember"
+      ],
+      "checks": [
+        "verifyOrganizationsMembersByIdOrgByIdMemberNotExists"
+      ]
+    },
+    {
+      "entity": "OrganizationsNameByIdOrg",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateOrganizationsNameByIdOrg"
+      ],
+      "checks": [
+        "verifyOrganizationsNameByIdOrgExists",
+        "verifyOrganizationsNameByIdOrgUpdated"
+      ]
+    },
+    {
+      "entity": "OrganizationsPrefsAssociatedDomainByIdOrg",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addOrganizationsPrefsAssociatedDomainByIdOrg"
+      ],
+      "checks": [
+        "verifyOrganizationsPrefsAssociatedDomainByIdOrgNotExists"
+      ]
+    },
+    {
+      "entity": "Sessions",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteSessions"
+      ],
+      "checks": [
+        "verifySessionsExists"
+      ]
+    },
+    {
+      "entity": "SessionsByIdSession",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateSessionsByIdSession"
+      ],
+      "checks": [
+        "verifySessionsByIdSessionExists",
+        "verifySessionsByIdSessionUpdated"
+      ]
+    },
+    {
+      "entity": "SessionsStatusByIdSession",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateSessionsStatusByIdSession"
+      ],
+      "checks": [
+        "verifySessionsStatusByIdSessionExists",
+        "verifySessionsStatusByIdSessionUpdated"
+      ]
+    },
+    {
+      "entity": "TokensByToken",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addTokensByToken"
+      ],
+      "checks": [
+        "verifyTokensByTokenNotExists"
+      ]
+    },
+    {
+      "entity": "TokensWebhooksByToken",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteTokensWebhooksByToken"
+      ],
+      "checks": [
+        "verifyTokensWebhooksByTokenExists"
+      ]
+    },
+    {
+      "entity": "TokensWebhooksByToken",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateTokensWebhooksByToken"
+      ],
+      "checks": [
+        "verifyTokensWebhooksByTokenExists",
+        "verifyTokensWebhooksByTokenUpdated"
+      ]
+    },
+    {
+      "entity": "TokensWebhooksByTokenByIdWebhook",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addTokensWebhooksByTokenByIdWebhook"
+      ],
+      "checks": [
+        "verifyTokensWebhooksByTokenByIdWebhookNotExists"
+      ]
+    },
+    {
+      "entity": "Webhooks",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteWebhooks"
+      ],
+      "checks": [
+        "verifyWebhooksExists"
+      ]
+    },
+    {
+      "entity": "Webhooks",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateWebhooks"
+      ],
+      "checks": [
+        "verifyWebhooksExists",
+        "verifyWebhooksUpdated"
+      ]
+    },
+    {
+      "entity": "WebhooksActiveByIdWebhook",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateWebhooksActiveByIdWebhook"
+      ],
+      "checks": [
+        "verifyWebhooksActiveByIdWebhookExists",
+        "verifyWebhooksActiveByIdWebhookUpdated"
+      ]
+    },
+    {
+      "entity": "WebhooksByIdWebhook",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addWebhooksByIdWebhook"
+      ],
+      "checks": [
+        "verifyWebhooksByIdWebhookNotExists"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,501 @@
+{
+  "sut": "keycloak_admin",
+  "source": "artifacts\\det_checked\\real_world_llm_provider\\keycloak_admin\\keycloak_admin_llm_gold.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "BruteForceUser",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addBruteForceUser"
+      ],
+      "checks": [
+        "verifyBruteForceUserNotExists"
+      ]
+    },
+    {
+      "entity": "ClientByRealmById",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addClientByRealmById"
+      ],
+      "checks": [
+        "verifyClientByRealmByIdNotExists"
+      ]
+    },
+    {
+      "entity": "ClientProtocolMappersModel",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addClientProtocolMappersModel"
+      ],
+      "checks": [
+        "verifyClientProtocolMappersModelNotExists"
+      ]
+    },
+    {
+      "entity": "ClientRole",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addClientRole"
+      ],
+      "checks": [
+        "verifyClientRoleNotExists"
+      ]
+    },
+    {
+      "entity": "ClientRoleComposites",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addClientRoleComposites"
+      ],
+      "checks": [
+        "verifyClientRoleCompositesNotExists"
+      ]
+    },
+    {
+      "entity": "ClientScope",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addClientScope"
+      ],
+      "checks": [
+        "verifyClientScopeNotExists"
+      ]
+    },
+    {
+      "entity": "ClientScopeProtocolMappersModel",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addClientScopeProtocolMappersModel"
+      ],
+      "checks": [
+        "verifyClientScopeProtocolMappersModelNotExists"
+      ]
+    },
+    {
+      "entity": "ClientScopeScopeMappingsClient",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addClientScopeScopeMappingsClient"
+      ],
+      "checks": [
+        "verifyClientScopeScopeMappingsClientNotExists"
+      ]
+    },
+    {
+      "entity": "ClientScopeScopeMappingsRealm",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addClientScopeScopeMappingsRealm"
+      ],
+      "checks": [
+        "verifyClientScopeScopeMappingsRealmNotExists"
+      ]
+    },
+    {
+      "entity": "ClientTemplate",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addClientTemplate"
+      ],
+      "checks": [
+        "verifyClientTemplateNotExists"
+      ]
+    },
+    {
+      "entity": "ClientTemplateProtocolMappersModel",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addClientTemplateProtocolMappersModel"
+      ],
+      "checks": [
+        "verifyClientTemplateProtocolMappersModelNotExists"
+      ]
+    },
+    {
+      "entity": "ClientsInitialAcces",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addClientsInitialAcces"
+      ],
+      "checks": [
+        "verifyClientsInitialAccesNotExists"
+      ]
+    },
+    {
+      "entity": "Component",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addComponent"
+      ],
+      "checks": [
+        "verifyComponentNotExists"
+      ]
+    },
+    {
+      "entity": "Config",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addConfig"
+      ],
+      "checks": [
+        "verifyConfigNotExists"
+      ]
+    },
+    {
+      "entity": "Consent",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addConsent"
+      ],
+      "checks": [
+        "verifyConsentNotExists"
+      ]
+    },
+    {
+      "entity": "Credential",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addCredential"
+      ],
+      "checks": [
+        "verifyCredentialNotExists"
+      ]
+    },
+    {
+      "entity": "DefaultClientScope",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addDefaultClientScope"
+      ],
+      "checks": [
+        "verifyDefaultClientScopeNotExists"
+      ]
+    },
+    {
+      "entity": "Execution",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addExecution"
+      ],
+      "checks": [
+        "verifyExecutionNotExists"
+      ]
+    },
+    {
+      "entity": "FederatedIdentity",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addFederatedIdentity"
+      ],
+      "checks": [
+        "verifyFederatedIdentityNotExists"
+      ]
+    },
+    {
+      "entity": "Flow",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addFlow"
+      ],
+      "checks": [
+        "verifyFlowNotExists"
+      ]
+    },
+    {
+      "entity": "GroupByRealmById",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGroupByRealmById"
+      ],
+      "checks": [
+        "verifyGroupByRealmByIdNotExists"
+      ]
+    },
+    {
+      "entity": "GroupRoleMappingsClient",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGroupRoleMappingsClient"
+      ],
+      "checks": [
+        "verifyGroupRoleMappingsClientNotExists"
+      ]
+    },
+    {
+      "entity": "GroupRoleMappingsRealm",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGroupRoleMappingsRealm"
+      ],
+      "checks": [
+        "verifyGroupRoleMappingsRealmNotExists"
+      ]
+    },
+    {
+      "entity": "Instance",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addInstance"
+      ],
+      "checks": [
+        "verifyInstanceNotExists"
+      ]
+    },
+    {
+      "entity": "Mapper",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addMapper"
+      ],
+      "checks": [
+        "verifyMapperNotExists"
+      ]
+    },
+    {
+      "entity": "Node",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addNode"
+      ],
+      "checks": [
+        "verifyNodeNotExists"
+      ]
+    },
+    {
+      "entity": "OptionalClientScope",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addOptionalClientScope"
+      ],
+      "checks": [
+        "verifyOptionalClientScopeNotExists"
+      ]
+    },
+    {
+      "entity": "RequiredAction",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addRequiredAction"
+      ],
+      "checks": [
+        "verifyRequiredActionNotExists"
+      ]
+    },
+    {
+      "entity": "RoleByRealmByRoleName",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addRoleByRealmByRoleName"
+      ],
+      "checks": [
+        "verifyRoleByRealmByRoleNameNotExists"
+      ]
+    },
+    {
+      "entity": "RolesById",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addRolesById"
+      ],
+      "checks": [
+        "verifyRolesByIdNotExists"
+      ]
+    },
+    {
+      "entity": "RolesByIdComposites",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addRolesByIdComposites"
+      ],
+      "checks": [
+        "verifyRolesByIdCompositesNotExists"
+      ]
+    },
+    {
+      "entity": "Rotated",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addRotated"
+      ],
+      "checks": [
+        "verifyRotatedNotExists"
+      ]
+    },
+    {
+      "entity": "Session",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addSession"
+      ],
+      "checks": [
+        "verifySessionNotExists"
+      ]
+    },
+    {
+      "entity": "UserByRealmById",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addUserByRealmById"
+      ],
+      "checks": [
+        "verifyUserByRealmByIdNotExists"
+      ]
+    },
+    {
+      "entity": "UserGroup",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addUserGroup"
+      ],
+      "checks": [
+        "verifyUserGroupNotExists"
+      ]
+    },
+    {
+      "entity": "UserRoleMappingsClient",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addUserRoleMappingsClient"
+      ],
+      "checks": [
+        "verifyUserRoleMappingsClientNotExists"
+      ]
+    },
+    {
+      "entity": "UserRoleMappingsRealm",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addUserRoleMappingsRealm"
+      ],
+      "checks": [
+        "verifyUserRoleMappingsRealmNotExists"
+      ]
+    },
+    {
+      "entity": "Users",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addUsers"
+      ],
+      "checks": [
+        "verifyUsersNotExists"
+      ]
+    }
+  ]
+}

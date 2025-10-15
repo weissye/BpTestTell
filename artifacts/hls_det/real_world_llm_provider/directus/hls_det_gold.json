@@ -1,0 +1,812 @@
+{
+  "sut": "directus",
+  "source": "artifacts\\det_checked\\real_world_llm_provider\\directus\\directus_llm_gold.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "Collection",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteCollection"
+      ],
+      "checks": [
+        "verifyCollectionExists"
+      ]
+    },
+    {
+      "entity": "Collection",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addCollection"
+      ],
+      "checks": [
+        "verifyCollectionNotExists"
+      ]
+    },
+    {
+      "entity": "Collection",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateCollection"
+      ],
+      "checks": [
+        "verifyCollectionExists",
+        "verifyCollectionUpdated"
+      ]
+    },
+    {
+      "entity": "Comment",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteComment"
+      ],
+      "checks": [
+        "verifyCommentExists"
+      ]
+    },
+    {
+      "entity": "Comment",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addComment"
+      ],
+      "checks": [
+        "verifyCommentNotExists"
+      ]
+    },
+    {
+      "entity": "Comment",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateComment"
+      ],
+      "checks": [
+        "verifyCommentExists",
+        "verifyCommentUpdated"
+      ]
+    },
+    {
+      "entity": "Comments",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addComments"
+      ],
+      "checks": [
+        "verifyCommentsNotExists"
+      ]
+    },
+    {
+      "entity": "Comments",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateComments"
+      ],
+      "checks": [
+        "verifyCommentsExists",
+        "verifyCommentsUpdated"
+      ]
+    },
+    {
+      "entity": "ContentVersion",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteContentVersion"
+      ],
+      "checks": [
+        "verifyContentVersionExists"
+      ]
+    },
+    {
+      "entity": "ContentVersion",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addContentVersion"
+      ],
+      "checks": [
+        "verifyContentVersionNotExists"
+      ]
+    },
+    {
+      "entity": "ContentVersion",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateContentVersion"
+      ],
+      "checks": [
+        "verifyContentVersionExists",
+        "verifyContentVersionUpdated"
+      ]
+    },
+    {
+      "entity": "ContentVersions",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addContentVersions"
+      ],
+      "checks": [
+        "verifyContentVersionsNotExists"
+      ]
+    },
+    {
+      "entity": "ContentVersions",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateContentVersions"
+      ],
+      "checks": [
+        "verifyContentVersionsExists",
+        "verifyContentVersionsUpdated"
+      ]
+    },
+    {
+      "entity": "ExtensionBundle",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateExtensionBundle"
+      ],
+      "checks": [
+        "verifyExtensionBundleExists",
+        "verifyExtensionBundleUpdated"
+      ]
+    },
+    {
+      "entity": "Extensions",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateExtensions"
+      ],
+      "checks": [
+        "verifyExtensionsExists",
+        "verifyExtensionsUpdated"
+      ]
+    },
+    {
+      "entity": "Field",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteField"
+      ],
+      "checks": [
+        "verifyFieldExists"
+      ]
+    },
+    {
+      "entity": "Field",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addField"
+      ],
+      "checks": [
+        "verifyFieldNotExists"
+      ]
+    },
+    {
+      "entity": "Field",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateField"
+      ],
+      "checks": [
+        "verifyFieldExists",
+        "verifyFieldUpdated"
+      ]
+    },
+    {
+      "entity": "File",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteFile"
+      ],
+      "checks": [
+        "verifyFileExists"
+      ]
+    },
+    {
+      "entity": "File",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addFile"
+      ],
+      "checks": [
+        "verifyFileNotExists"
+      ]
+    },
+    {
+      "entity": "File",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateFile"
+      ],
+      "checks": [
+        "verifyFileExists",
+        "verifyFileUpdated"
+      ]
+    },
+    {
+      "entity": "Files",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addFiles"
+      ],
+      "checks": [
+        "verifyFilesNotExists"
+      ]
+    },
+    {
+      "entity": "Files",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateFiles"
+      ],
+      "checks": [
+        "verifyFilesExists",
+        "verifyFilesUpdated"
+      ]
+    },
+    {
+      "entity": "Flow",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteFlow"
+      ],
+      "checks": [
+        "verifyFlowExists"
+      ]
+    },
+    {
+      "entity": "Flow",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addFlow"
+      ],
+      "checks": [
+        "verifyFlowNotExists"
+      ]
+    },
+    {
+      "entity": "Flow",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateFlow"
+      ],
+      "checks": [
+        "verifyFlowExists",
+        "verifyFlowUpdated"
+      ]
+    },
+    {
+      "entity": "Flows",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addFlows"
+      ],
+      "checks": [
+        "verifyFlowsNotExists"
+      ]
+    },
+    {
+      "entity": "Flows",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateFlows"
+      ],
+      "checks": [
+        "verifyFlowsExists",
+        "verifyFlowsUpdated"
+      ]
+    },
+    {
+      "entity": "Folder",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteFolder"
+      ],
+      "checks": [
+        "verifyFolderExists"
+      ]
+    },
+    {
+      "entity": "Folder",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addFolder"
+      ],
+      "checks": [
+        "verifyFolderNotExists"
+      ]
+    },
+    {
+      "entity": "Folder",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateFolder"
+      ],
+      "checks": [
+        "verifyFolderExists",
+        "verifyFolderUpdated"
+      ]
+    },
+    {
+      "entity": "Folders",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addFolders"
+      ],
+      "checks": [
+        "verifyFoldersNotExists"
+      ]
+    },
+    {
+      "entity": "Folders",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateFolders"
+      ],
+      "checks": [
+        "verifyFoldersExists",
+        "verifyFoldersUpdated"
+      ]
+    },
+    {
+      "entity": "Item",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteItem"
+      ],
+      "checks": [
+        "verifyItemExists"
+      ]
+    },
+    {
+      "entity": "Item",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addItem"
+      ],
+      "checks": [
+        "verifyItemNotExists"
+      ]
+    },
+    {
+      "entity": "Item",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateItem"
+      ],
+      "checks": [
+        "verifyItemExists",
+        "verifyItemUpdated"
+      ]
+    },
+    {
+      "entity": "Items",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addItems"
+      ],
+      "checks": [
+        "verifyItemsNotExists"
+      ]
+    },
+    {
+      "entity": "Items",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateItems"
+      ],
+      "checks": [
+        "verifyItemsExists",
+        "verifyItemsUpdated"
+      ]
+    },
+    {
+      "entity": "LastUsedPageMe",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateLastUsedPageMe"
+      ],
+      "checks": [
+        "verifyLastUsedPageMeExists",
+        "verifyLastUsedPageMeUpdated"
+      ]
+    },
+    {
+      "entity": "Me",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateMe"
+      ],
+      "checks": [
+        "verifyMeExists",
+        "verifyMeUpdated"
+      ]
+    },
+    {
+      "entity": "Operation",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteOperation"
+      ],
+      "checks": [
+        "verifyOperationExists"
+      ]
+    },
+    {
+      "entity": "Operation",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addOperation"
+      ],
+      "checks": [
+        "verifyOperationNotExists"
+      ]
+    },
+    {
+      "entity": "Operation",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateOperation"
+      ],
+      "checks": [
+        "verifyOperationExists",
+        "verifyOperationUpdated"
+      ]
+    },
+    {
+      "entity": "Operations",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addOperations"
+      ],
+      "checks": [
+        "verifyOperationsNotExists"
+      ]
+    },
+    {
+      "entity": "Operations",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateOperations"
+      ],
+      "checks": [
+        "verifyOperationsExists",
+        "verifyOperationsUpdated"
+      ]
+    },
+    {
+      "entity": "Permission",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deletePermission"
+      ],
+      "checks": [
+        "verifyPermissionExists"
+      ]
+    },
+    {
+      "entity": "Permission",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addPermission"
+      ],
+      "checks": [
+        "verifyPermissionNotExists"
+      ]
+    },
+    {
+      "entity": "Permission",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updatePermission"
+      ],
+      "checks": [
+        "verifyPermissionExists",
+        "verifyPermissionUpdated"
+      ]
+    },
+    {
+      "entity": "Permissions",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addPermissions"
+      ],
+      "checks": [
+        "verifyPermissionsNotExists"
+      ]
+    },
+    {
+      "entity": "Permissions",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updatePermissions"
+      ],
+      "checks": [
+        "verifyPermissionsExists",
+        "verifyPermissionsUpdated"
+      ]
+    },
+    {
+      "entity": "Preset",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deletePreset"
+      ],
+      "checks": [
+        "verifyPresetExists"
+      ]
+    },
+    {
+      "entity": "Preset",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addPreset"
+      ],
+      "checks": [
+        "verifyPresetNotExists"
+      ]
+    },
+    {
+      "entity": "Preset",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updatePreset"
+      ],
+      "checks": [
+        "verifyPresetExists",
+        "verifyPresetUpdated"
+      ]
+    },
+    {
+      "entity": "Presets",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addPresets"
+      ],
+      "checks": [
+        "verifyPresetsNotExists"
+      ]
+    },
+    {
+      "entity": "Presets",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updatePresets"
+      ],
+      "checks": [
+        "verifyPresetsExists",
+        "verifyPresetsUpdated"
+      ]
+    },
+    {
+      "entity": "Relation",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteRelation"
+      ],
+      "checks": [
+        "verifyRelationExists"
+      ]
+    },
+    {
+      "entity": "Relation",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addRelation"
+      ],
+      "checks": [
+        "verifyRelationNotExists"
+      ]
+    },
+    {
+      "entity": "Relation",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateRelation"
+      ],
+      "checks": [
+        "verifyRelationExists",
+        "verifyRelationUpdated"
+      ]
+    },
+    {
+      "entity": "Role",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteRole"
+      ],
+      "checks": [
+        "verifyRoleExists"
+      ]
+    },
+    {
+      "entity": "Role",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addRole"
+      ],
+      "checks": [
+        "verifyRoleNotExists"
+      ]
+    }
+  ]
+}

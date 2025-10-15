@@ -1,0 +1,6 @@
+{
+  "sut": "gitea",
+  "trained_on": "artifacts\\hls_det\\real_world_llm_provider\\gitea\\hls_det_gold.json",
+  "num_stories": 7,
+  "version": 1
+}

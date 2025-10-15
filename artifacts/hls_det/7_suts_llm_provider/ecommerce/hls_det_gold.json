@@ -1,0 +1,59 @@
+{
+  "sut": "ecommerce",
+  "source": "artifacts\\det_checked\\7_suts_llm_provider\\ecommerce\\ecommerce_llm_gold.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "Drug",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteDrug"
+      ],
+      "checks": [
+        "verifyDrugExists"
+      ]
+    },
+    {
+      "entity": "Order",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteOrder"
+      ],
+      "checks": [
+        "verifyOrderExists"
+      ]
+    },
+    {
+      "entity": "Patient",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deletePatient"
+      ],
+      "checks": [
+        "verifyPatientExists"
+      ]
+    },
+    {
+      "entity": "Prescription",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deletePrescription"
+      ],
+      "checks": [
+        "verifyPrescriptionExists"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "sut": "trello",
+  "trained_on": "artifacts\\hls_det\\real_world_llm_provider\\trello\\hls_det_gold.json",
+  "num_stories": 60,
+  "version": 1
+}
