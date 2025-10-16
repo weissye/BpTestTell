@@ -1,539 +1,1178 @@
 {
-  "sut": "keycloak_admin",
-  "from_det": "artifacts\\hls_det\\real_world_llm_provider\\keycloak_admin\\hls_det_gold.json",
-  "model_or_dir": "models\\hls\\ALL",
   "stories": [
     {
-      "entity": "BruteForceUser",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteBruteForceUser",
+      "entities": {
+        "active": [
+          "BruteForceUser"
+        ],
+        "lifecycle": [
+          "addBruteForceUser"
+        ],
+        "passive": [
+          "BruteForceUser"
+        ]
       },
-      "blocks": [
-        "addBruteForceUser"
+      "checks": {
+        "preconditions": [
+          "BruteForceUserExists"
+        ],
+        "postconditions": [
+          "verifyBruteForceUserNotExists"
+        ],
+        "guards": [
+          "validateBruteForceUserDeletion"
+        ]
+      },
+      "steps": [
+        "deleteBruteForceUser"
       ],
-      "checks": [
-        "verifyBruteForceUserNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the user is not referenced in any active sessions."
+      ]
     },
     {
-      "entity": "ClientByRealmById",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteClient",
+      "entities": {
+        "active": [
+          "ClientByRealmById"
+        ],
+        "lifecycle": [
+          "addClientByRealmById"
+        ],
+        "passive": [
+          "ClientByRealmById"
+        ]
       },
-      "blocks": [
-        "addClientByRealmById"
+      "checks": {
+        "preconditions": [
+          "clientExists"
+        ],
+        "postconditions": [
+          "verifyClientByRealmByIdNotExists"
+        ],
+        "guards": [
+          "clientDeletionAllowed"
+        ]
+      },
+      "steps": [
+        "deleteClientByRealmById"
       ],
-      "checks": [
-        "verifyClientByRealmByIdNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the client ID is valid before deletion."
+      ]
     },
     {
-      "entity": "ClientProtocolMappersModel",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteClientProtocolMapper",
+      "entities": {
+        "active": [
+          "ClientProtocolMappersModel"
+        ],
+        "lifecycle": [
+          "addClientProtocolMappersModel"
+        ],
+        "passive": [
+          "ClientProtocolMappersModel"
+        ]
       },
-      "blocks": [
-        "addClientProtocolMappersModel"
+      "checks": {
+        "preconditions": [
+          "clientProtocolMappersModelExists"
+        ],
+        "postconditions": [
+          "verifyClientProtocolMappersModelNotExists"
+        ],
+        "guards": [
+          "clientProtocolMappersModelIsNotInUse"
+        ]
+      },
+      "steps": [
+        "deleteClientProtocolMappersModel"
       ],
-      "checks": [
-        "verifyClientProtocolMappersModelNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ClientProtocolMappersModel is not referenced by any active clients."
+      ]
     },
     {
-      "entity": "ClientRole",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteClientRole",
+      "entities": {
+        "active": [
+          "ClientRole"
+        ],
+        "lifecycle": [
+          "addClientRole"
+        ],
+        "passive": [
+          "ClientRole"
+        ]
       },
-      "blocks": [
-        "addClientRole"
+      "checks": {
+        "preconditions": [
+          "clientRoleExists"
+        ],
+        "postconditions": [
+          "verifyClientRoleNotExists"
+        ],
+        "guards": [
+          "clientRoleDeletionAllowed"
+        ]
+      },
+      "steps": [
+        "deleteClientRole"
       ],
-      "checks": [
-        "verifyClientRoleNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ClientRole is not in use before deletion."
+      ]
     },
     {
-      "entity": "ClientRoleComposites",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteClientRoleComposites",
+      "entities": {
+        "active": [
+          "ClientRoleComposites"
+        ],
+        "lifecycle": [
+          "addClientRoleComposites"
+        ],
+        "passive": [
+          "verifyClientRoleCompositesNotExists"
+        ]
       },
-      "blocks": [
-        "addClientRoleComposites"
+      "checks": {
+        "preconditions": [
+          "clientRoleCompositesExists"
+        ],
+        "postconditions": [
+          "verifyClientRoleCompositesNotExists"
+        ],
+        "guards": [
+          "clientRoleCompositesDeleteAllowed"
+        ]
+      },
+      "steps": [
+        "deleteClientRoleComposites"
       ],
-      "checks": [
-        "verifyClientRoleCompositesNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the clientRoleComposites is not referenced by any other entities."
+      ]
     },
     {
-      "entity": "ClientScope",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteClientScope",
+      "entities": {
+        "active": [
+          "ClientScope"
+        ],
+        "lifecycle": [
+          "addClientScope"
+        ],
+        "passive": [
+          "verifyClientScopeNotExists"
+        ]
       },
-      "blocks": [
-        "addClientScope"
+      "checks": {
+        "preconditions": [
+          "clientScopeExists"
+        ],
+        "postconditions": [
+          "verifyClientScopeNotExists"
+        ],
+        "guards": [
+          "clientScopeDeletionAllowed"
+        ]
+      },
+      "steps": [
+        "deleteClientScope"
       ],
-      "checks": [
-        "verifyClientScopeNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ClientScope ID is valid before deletion."
+      ]
     },
     {
-      "entity": "ClientScopeProtocolMappersModel",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteClientScopeProtocolMappersModel",
+      "entities": {
+        "active": [
+          "ClientScopeProtocolMappersModel"
+        ],
+        "lifecycle": [
+          "addClientScopeProtocolMappersModel"
+        ],
+        "passive": [
+          "ClientScopeProtocolMappersModel"
+        ]
       },
-      "blocks": [
-        "addClientScopeProtocolMappersModel"
+      "checks": {
+        "preconditions": [
+          "verifyClientScopeProtocolMappersModelExists"
+        ],
+        "postconditions": [
+          "verifyClientScopeProtocolMappersModelNotExists"
+        ],
+        "guards": [
+          "validateClientScopeProtocolMappersModelDeletion"
+        ]
+      },
+      "steps": [
+        "deleteClientScopeProtocolMappersModel"
       ],
-      "checks": [
-        "verifyClientScopeProtocolMappersModelNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the ClientScopeProtocolMappersModel is not in use before deletion."
+      ]
     },
     {
-      "entity": "ClientScopeScopeMappingsClient",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteClientScopeMapping",
+      "entities": {
+        "active": [
+          "ClientScopeScopeMappingsClient"
+        ],
+        "lifecycle": [
+          "addClientScopeScopeMappingsClient"
+        ],
+        "passive": [
+          "ClientScopeScopeMappingsClient"
+        ]
       },
-      "blocks": [
-        "addClientScopeScopeMappingsClient"
+      "checks": {
+        "preconditions": [
+          "clientScopeMappingExists"
+        ],
+        "postconditions": [
+          "verifyClientScopeScopeMappingsClientNotExists"
+        ],
+        "guards": [
+          "clientScopeMappingDeleteAllowed"
+        ]
+      },
+      "steps": [
+        "deleteClientScopeScopeMappingsClient"
       ],
-      "checks": [
-        "verifyClientScopeScopeMappingsClientNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the clientScopeMapping is not in use before deletion."
+      ]
     },
     {
-      "entity": "ClientScopeScopeMappingsRealm",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteClientScopeMapping",
+      "entities": {
+        "active": [
+          "ClientScopeScopeMappingsRealm"
+        ],
+        "lifecycle": [
+          "addClientScopeScopeMappingsRealm"
+        ],
+        "passive": [
+          "ClientScopeScopeMappingsRealm"
+        ]
       },
-      "blocks": [
-        "addClientScopeScopeMappingsRealm"
+      "checks": {
+        "preconditions": [
+          "clientScopeMappingExists"
+        ],
+        "postconditions": [
+          "verifyClientScopeScopeMappingsRealmNotExists"
+        ],
+        "guards": [
+          "validateClientScopeScopeMappingsRealmDeletion"
+        ]
+      },
+      "steps": [
+        "deleteClientScopeScopeMappingsRealm"
       ],
-      "checks": [
-        "verifyClientScopeScopeMappingsRealmNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the clientScopeMapping is not referenced by any other entities."
+      ]
     },
     {
-      "entity": "ClientTemplate",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteClientTemplate",
+      "entities": {
+        "active": [
+          "ClientTemplate"
+        ],
+        "lifecycle": [
+          "addClientTemplate"
+        ],
+        "passive": [
+          "ClientTemplate"
+        ]
       },
-      "blocks": [
-        "addClientTemplate"
+      "checks": {
+        "preconditions": [
+          "clientTemplateExists"
+        ],
+        "postconditions": [
+          "verifyClientTemplateNotExists"
+        ],
+        "guards": [
+          "clientTemplateDeletionAllowed"
+        ]
+      },
+      "steps": [
+        "deleteClientTemplate"
       ],
-      "checks": [
-        "verifyClientTemplateNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the ClientTemplate is not in use before deletion."
+      ]
     },
     {
-      "entity": "ClientTemplateProtocolMappersModel",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteClientTemplateProtocolMappersModel",
+      "entities": {
+        "active": [
+          "ClientTemplateProtocolMappersModel"
+        ],
+        "lifecycle": [
+          "addClientTemplateProtocolMappersModel"
+        ],
+        "passive": [
+          "ClientTemplateProtocolMappersModel"
+        ]
       },
-      "blocks": [
-        "addClientTemplateProtocolMappersModel"
+      "checks": {
+        "preconditions": [
+          "clientTemplateProtocolMappersModelExists"
+        ],
+        "postconditions": [
+          "verifyClientTemplateProtocolMappersModelNotExists"
+        ],
+        "guards": [
+          "clientTemplateProtocolMappersModelDeleteAllowed"
+        ]
+      },
+      "steps": [
+        "deleteClientTemplateProtocolMappersModel"
       ],
-      "checks": [
-        "verifyClientTemplateProtocolMappersModelNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the clientTemplateProtocolMappersModel is not in use before deletion."
+      ]
     },
     {
-      "entity": "ClientsInitialAcces",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteClientsInitialAcces",
+      "entities": {
+        "active": [
+          "ClientsInitialAcces"
+        ],
+        "lifecycle": [
+          "addClientsInitialAcces"
+        ],
+        "passive": [
+          "ClientsInitialAcces"
+        ]
       },
-      "blocks": [
-        "addClientsInitialAcces"
+      "checks": {
+        "preconditions": [
+          "ClientsInitialAccesExists"
+        ],
+        "postconditions": [
+          "verifyClientsInitialAccesNotExists"
+        ],
+        "guards": [
+          "validateDeleteClientsInitialAcces"
+        ]
+      },
+      "steps": [
+        "deleteClientsInitialAcces"
       ],
-      "checks": [
-        "verifyClientsInitialAccesNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the ClientsInitialAcces is not in use before deletion."
+      ]
     },
     {
-      "entity": "Component",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteComponent",
+      "entities": {
+        "active": [
+          "Component"
+        ],
+        "lifecycle": [
+          "addComponent"
+        ],
+        "passive": [
+          "Component"
+        ]
       },
-      "blocks": [
-        "addComponent"
+      "checks": {
+        "preconditions": [
+          "Component exists"
+        ],
+        "postconditions": [
+          "verifyComponentNotExists"
+        ],
+        "guards": [
+          "id is valid"
+        ]
+      },
+      "steps": [
+        "deleteComponent"
       ],
-      "checks": [
-        "verifyComponentNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Component is not in use before deletion."
+      ]
     },
     {
-      "entity": "Config",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteConfig",
+      "entities": {
+        "active": [
+          "Config"
+        ],
+        "lifecycle": [
+          "addConfig"
+        ],
+        "passive": [
+          "verifyConfigNotExists"
+        ]
       },
-      "blocks": [
-        "addConfig"
+      "checks": {
+        "preconditions": [
+          "configExists"
+        ],
+        "postconditions": [
+          "verifyConfigNotExists"
+        ],
+        "guards": [
+          "configIsDeletable"
+        ]
+      },
+      "steps": [
+        "deleteConfig"
       ],
-      "checks": [
-        "verifyConfigNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the config ID is valid before deletion."
+      ]
     },
     {
-      "entity": "Consent",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteConsent",
+      "entities": {
+        "active": [
+          "Consent"
+        ],
+        "lifecycle": [
+          "addConsent"
+        ],
+        "passive": [
+          "User"
+        ]
       },
-      "blocks": [
-        "addConsent"
+      "checks": {
+        "preconditions": [
+          "verifyConsentExists"
+        ],
+        "postconditions": [
+          "verifyConsentNotExists"
+        ],
+        "guards": [
+          "validateUserPermissions"
+        ]
+      },
+      "steps": [
+        "deleteConsent"
       ],
-      "checks": [
-        "verifyConsentNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the user has the necessary permissions to delete the consent."
+      ]
     },
     {
-      "entity": "Credential",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteCredential",
+      "entities": {
+        "active": [
+          "Credential"
+        ],
+        "lifecycle": [
+          "addCredential"
+        ],
+        "passive": [
+          "Credential"
+        ]
       },
-      "blocks": [
-        "addCredential"
+      "checks": {
+        "preconditions": [
+          "verifyCredentialExists"
+        ],
+        "postconditions": [
+          "verifyCredentialNotExists"
+        ],
+        "guards": [
+          "validateCredentialDeletion"
+        ]
+      },
+      "steps": [
+        "deleteCredential"
       ],
-      "checks": [
-        "verifyCredentialNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure proper authorization before deletion."
+      ]
     },
     {
-      "entity": "DefaultClientScope",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteClientScope",
+      "entities": {
+        "active": [
+          "DefaultClientScope"
+        ],
+        "lifecycle": [
+          "addDefaultClientScope"
+        ],
+        "passive": [
+          "DefaultClientScope"
+        ]
       },
-      "blocks": [
-        "addDefaultClientScope"
+      "checks": {
+        "preconditions": [
+          "verifyDefaultClientScopeExists"
+        ],
+        "postconditions": [
+          "verifyDefaultClientScopeNotExists"
+        ],
+        "guards": [
+          "checkClientScopeDeletion"
+        ]
+      },
+      "steps": [
+        "deleteDefaultClientScope"
       ],
-      "checks": [
-        "verifyDefaultClientScopeNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the DefaultClientScope is not in use before deletion."
+      ]
     },
     {
-      "entity": "Execution",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteExecution",
+      "entities": {
+        "active": [
+          "Execution"
+        ],
+        "lifecycle": [
+          "addExecution"
+        ],
+        "passive": [
+          "verifyExecutionNotExists"
+        ]
       },
-      "blocks": [
-        "addExecution"
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyExecutionNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteExecution"
       ],
-      "checks": [
-        "verifyExecutionNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the execution ID is valid before deletion."
+      ]
     },
     {
-      "entity": "FederatedIdentity",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteFederatedIdentity",
+      "entities": {
+        "active": [
+          "FederatedIdentity"
+        ],
+        "lifecycle": [
+          "addFederatedIdentity"
+        ],
+        "passive": [
+          "verifyFederatedIdentityNotExists"
+        ]
       },
-      "blocks": [
-        "addFederatedIdentity"
+      "checks": {
+        "preconditions": [
+          "FederatedIdentityExists"
+        ],
+        "postconditions": [
+          "verifyFederatedIdentityNotExists"
+        ],
+        "guards": [
+          "validateDeleteFederatedIdentity"
+        ]
+      },
+      "steps": [
+        "deleteFederatedIdentity"
       ],
-      "checks": [
-        "verifyFederatedIdentityNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the FederatedIdentity is not in use before deletion."
+      ]
     },
     {
-      "entity": "Flow",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteFlow",
+      "entities": {
+        "active": [
+          "Flow"
+        ],
+        "lifecycle": [
+          "addFlow"
+        ],
+        "passive": [
+          "Flow"
+        ]
       },
-      "blocks": [
-        "addFlow"
+      "checks": {
+        "preconditions": [
+          "verifyFlowExists"
+        ],
+        "postconditions": [
+          "verifyFlowNotExists"
+        ],
+        "guards": [
+          "validateFlowDeletion"
+        ]
+      },
+      "steps": [
+        "deleteFlow"
       ],
-      "checks": [
-        "verifyFlowNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the Flow is not in use before deletion."
+      ]
     },
     {
-      "entity": "GroupByRealmById",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteGroupByRealmById",
+      "entities": {
+        "active": [
+          "GroupByRealmById"
+        ],
+        "lifecycle": [
+          "addGroupByRealmById"
+        ],
+        "passive": [
+          "verifyGroupByRealmByIdNotExists"
+        ]
       },
-      "blocks": [
-        "addGroupByRealmById"
+      "checks": {
+        "preconditions": [
+          "groupByRealmByIdExists"
+        ],
+        "postconditions": [
+          "verifyGroupByRealmByIdNotExists"
+        ],
+        "guards": [
+          "groupByRealmByIdDeleteAllowed"
+        ]
+      },
+      "steps": [
+        "deleteGroupByRealmById"
       ],
-      "checks": [
-        "verifyGroupByRealmByIdNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the group is not referenced by other entities before deletion."
+      ]
     },
     {
-      "entity": "GroupRoleMappingsClient",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteGroupRoleMappingsClient",
+      "entities": {
+        "active": [
+          "GroupRoleMappingsClient"
+        ],
+        "lifecycle": [
+          "addGroupRoleMappingsClient"
+        ],
+        "passive": [
+          "GroupRoleMappingsClient"
+        ]
       },
-      "blocks": [
-        "addGroupRoleMappingsClient"
+      "checks": {
+        "preconditions": [
+          "groupRoleMappingsClientExists"
+        ],
+        "postconditions": [
+          "verifyGroupRoleMappingsClientNotExists"
+        ],
+        "guards": [
+          "validateGroupRoleMappingsClientDeletion"
+        ]
+      },
+      "steps": [
+        "deleteGroupRoleMappingsClient"
       ],
-      "checks": [
-        "verifyGroupRoleMappingsClientNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the groupRoleMappingsClient is not referenced by any other entities."
+      ]
     },
     {
-      "entity": "GroupRoleMappingsRealm",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteGroupRoleMappingsRealm",
+      "entities": {
+        "active": [
+          "GroupRoleMappingsRealm"
+        ],
+        "lifecycle": [
+          "addGroupRoleMappingsRealm"
+        ],
+        "passive": [
+          "GroupRoleMappingsRealm"
+        ]
       },
-      "blocks": [
-        "addGroupRoleMappingsRealm"
+      "checks": {
+        "preconditions": [
+          "groupRoleMappingsRealmExists"
+        ],
+        "postconditions": [
+          "verifyGroupRoleMappingsRealmNotExists"
+        ],
+        "guards": [
+          "validateGroupRoleMappingsRealmDeletion"
+        ]
+      },
+      "steps": [
+        "deleteGroupRoleMappingsRealm"
       ],
-      "checks": [
-        "verifyGroupRoleMappingsRealmNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure proper permissions are in place before deletion."
+      ]
     },
     {
-      "entity": "Instance",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteInstance",
+      "entities": {
+        "active": [
+          "Instance"
+        ],
+        "lifecycle": [
+          "addInstance"
+        ],
+        "passive": [
+          "verifyInstanceNotExists"
+        ]
       },
-      "blocks": [
-        "addInstance"
+      "checks": {
+        "preconditions": [
+          "instanceExists"
+        ],
+        "postconditions": [
+          "verifyInstanceNotExists"
+        ],
+        "guards": [
+          "instanceIsDeletable"
+        ]
+      },
+      "steps": [
+        "deleteInstance"
       ],
-      "checks": [
-        "verifyInstanceNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the instance ID is valid before deletion."
+      ]
     },
     {
-      "entity": "Mapper",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteMapperVariant",
+      "entities": {
+        "active": [
+          "Mapper"
+        ],
+        "lifecycle": [
+          "addMapper"
+        ],
+        "passive": [
+          "verifyMapperNotExists"
+        ]
       },
-      "blocks": [
-        "addMapper"
+      "checks": {
+        "preconditions": [
+          "mapperExists"
+        ],
+        "postconditions": [
+          "verifyMapperNotExists"
+        ],
+        "guards": [
+          "mapperDeletionAllowed"
+        ]
+      },
+      "steps": [
+        "deleteMapper"
       ],
-      "checks": [
-        "verifyMapperNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the mapper is not in use before deletion."
+      ]
     },
     {
-      "entity": "Node",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteNode",
+      "entities": {
+        "active": [
+          "Node"
+        ],
+        "lifecycle": [
+          "addNode"
+        ],
+        "passive": [
+          "Node"
+        ]
       },
-      "blocks": [
-        "addNode"
+      "checks": {
+        "preconditions": [
+          "verifyNodeExists"
+        ],
+        "postconditions": [
+          "verifyNodeNotExists"
+        ],
+        "guards": [
+          "validateNodeDeletion"
+        ]
+      },
+      "steps": [
+        "deleteNode"
       ],
-      "checks": [
-        "verifyNodeNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the Node ID is valid before deletion."
+      ]
     },
     {
-      "entity": "OptionalClientScope",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteOptionalClientScope",
+      "entities": {
+        "active": [
+          "OptionalClientScope"
+        ],
+        "lifecycle": [
+          "addOptionalClientScope"
+        ],
+        "passive": [
+          "verifyOptionalClientScopeNotExists"
+        ]
       },
-      "blocks": [
-        "addOptionalClientScope"
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyOptionalClientScopeNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteOptionalClientScope"
       ],
-      "checks": [
-        "verifyOptionalClientScopeNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the OptionalClientScope is not in use before deletion."
+      ]
     },
     {
-      "entity": "RequiredAction",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteRequiredAction",
+      "entities": {
+        "active": [
+          "RequiredAction"
+        ],
+        "lifecycle": [
+          "addRequiredAction"
+        ],
+        "passive": [
+          "verifyRequiredActionNotExists"
+        ]
       },
-      "blocks": [
-        "addRequiredAction"
+      "checks": {
+        "preconditions": [
+          "RequiredAction exists"
+        ],
+        "postconditions": [
+          "RequiredAction not exists"
+        ],
+        "guards": [
+          "id is valid"
+        ]
+      },
+      "steps": [
+        "deleteRequiredAction"
       ],
-      "checks": [
-        "verifyRequiredActionNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure to handle potential errors during deletion."
+      ]
     },
     {
-      "entity": "RoleByRealmByRoleName",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteRole",
+      "entities": {
+        "active": [
+          "RoleByRealmByRoleName"
+        ],
+        "lifecycle": [
+          "addRoleByRealmByRoleName"
+        ],
+        "passive": [
+          "verifyRoleByRealmByRoleNameNotExists"
+        ]
       },
-      "blocks": [
-        "addRoleByRealmByRoleName"
+      "checks": {
+        "preconditions": [
+          "roleExists"
+        ],
+        "postconditions": [
+          "verifyRoleByRealmByRoleNameNotExists"
+        ],
+        "guards": [
+          "roleIsNotInUse"
+        ]
+      },
+      "steps": [
+        "deleteRoleByRealmByRoleName"
       ],
-      "checks": [
-        "verifyRoleByRealmByRoleNameNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the role is not referenced by any other entities before deletion."
+      ]
     },
     {
-      "entity": "RolesById",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteRolesById",
+      "entities": {
+        "active": [
+          "RolesById"
+        ],
+        "lifecycle": [
+          "addRolesById"
+        ],
+        "passive": [
+          "verifyRolesByIdNotExists"
+        ]
       },
-      "blocks": [
-        "addRolesById"
+      "checks": {
+        "preconditions": [
+          "RolesById exists"
+        ],
+        "postconditions": [
+          "verifyRolesByIdNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteRolesById"
       ],
-      "checks": [
-        "verifyRolesByIdNotExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "RolesByIdComposites",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteRolesByIdComposites",
+      "entities": {
+        "active": [
+          "addRolesByIdComposites"
+        ],
+        "lifecycle": [
+          "deleteRolesByIdComposites"
+        ],
+        "passive": [
+          "verifyRolesByIdCompositesNotExists"
+        ]
       },
-      "blocks": [
-        "addRolesByIdComposites"
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyRolesByIdCompositesNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteRolesByIdComposites"
       ],
-      "checks": [
-        "verifyRolesByIdCompositesNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the id is valid before deletion."
+      ]
     },
     {
-      "entity": "Rotated",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteRotated",
+      "entities": {
+        "active": [
+          "Rotated"
+        ],
+        "lifecycle": [
+          "addRotated"
+        ],
+        "passive": [
+          "verifyRotatedNotExists"
+        ]
       },
-      "blocks": [
-        "addRotated"
+      "checks": {
+        "preconditions": [
+          "Rotated exists"
+        ],
+        "postconditions": [
+          "Rotated not exists"
+        ],
+        "guards": [
+          "id is valid"
+        ]
+      },
+      "steps": [
+        "deleteRotated"
       ],
-      "checks": [
-        "verifyRotatedNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the Rotated entity is not referenced elsewhere."
+      ]
     },
     {
-      "entity": "Session",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteSession",
+      "entities": {
+        "active": [
+          "Session"
+        ],
+        "lifecycle": [
+          "addSession"
+        ],
+        "passive": [
+          "User"
+        ]
       },
-      "blocks": [
-        "addSession"
+      "checks": {
+        "preconditions": [
+          "sessionExists"
+        ],
+        "postconditions": [
+          "verifySessionNotExists"
+        ],
+        "guards": [
+          "sessionIsActive"
+        ]
+      },
+      "steps": [
+        "deleteSession"
       ],
-      "checks": [
-        "verifySessionNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the session is not in use before deletion."
+      ]
     },
     {
-      "entity": "UserByRealmById",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteUserByRealmById",
+      "entities": {
+        "active": [
+          "UserByRealmById"
+        ],
+        "lifecycle": [
+          "addUserByRealmById"
+        ],
+        "passive": [
+          "verifyUserByRealmByIdNotExists"
+        ]
       },
-      "blocks": [
-        "addUserByRealmById"
+      "checks": {
+        "preconditions": [
+          "userByRealmByIdExists"
+        ],
+        "postconditions": [
+          "verifyUserByRealmByIdNotExists"
+        ],
+        "guards": [
+          "userByRealmByIdDeleteAllowed"
+        ]
+      },
+      "steps": [
+        "deleteUserByRealmById"
       ],
-      "checks": [
-        "verifyUserByRealmByIdNotExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "UserGroup",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteUserGroup",
+      "entities": {
+        "active": [
+          "UserGroup"
+        ],
+        "lifecycle": [
+          "addUserGroup"
+        ],
+        "passive": [
+          "User"
+        ]
       },
-      "blocks": [
-        "addUserGroup"
+      "checks": {
+        "preconditions": [
+          "verifyUserGroupExists"
+        ],
+        "postconditions": [
+          "verifyUserGroupNotExists"
+        ],
+        "guards": [
+          "validateUserGroupDeletion"
+        ]
+      },
+      "steps": [
+        "deleteUserGroup"
       ],
-      "checks": [
-        "verifyUserGroupNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the UserGroup is not referenced by any active users."
+      ]
     },
     {
-      "entity": "UserRoleMappingsClient",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteUserRoleMappingsClient",
+      "entities": {
+        "active": [
+          "UserRoleMappingsClient"
+        ],
+        "lifecycle": [
+          "addUserRoleMappingsClient"
+        ],
+        "passive": [
+          "UserRoleMappingsClient"
+        ]
       },
-      "blocks": [
-        "addUserRoleMappingsClient"
+      "checks": {
+        "preconditions": [
+          "userRoleMappingsClientExists"
+        ],
+        "postconditions": [
+          "verifyUserRoleMappingsClientNotExists"
+        ],
+        "guards": [
+          "validateUserRoleMappingsClientDeletion"
+        ]
+      },
+      "steps": [
+        "deleteUserRoleMappingsClient"
       ],
-      "checks": [
-        "verifyUserRoleMappingsClientNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the UserRoleMappingsClient is not referenced by other entities."
+      ]
     },
     {
-      "entity": "UserRoleMappingsRealm",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteUserRoleMappingsRealm",
+      "entities": {
+        "active": [
+          "UserRoleMappingsRealm"
+        ],
+        "lifecycle": [
+          "addUserRoleMappingsRealm"
+        ],
+        "passive": [
+          "UserRoleMappingsRealm"
+        ]
       },
-      "blocks": [
-        "addUserRoleMappingsRealm"
+      "checks": {
+        "preconditions": [
+          "verifyUserRoleMappingsRealmExists"
+        ],
+        "postconditions": [
+          "verifyUserRoleMappingsRealmNotExists"
+        ],
+        "guards": [
+          "validateUserRoleMappingsRealmDeletion"
+        ]
+      },
+      "steps": [
+        "deleteUserRoleMappingsRealm"
       ],
-      "checks": [
-        "verifyUserRoleMappingsRealmNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the UserRoleMappingsRealm is not in use before deletion."
+      ]
     },
     {
-      "entity": "Users",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteUser",
+      "entities": {
+        "active": [
+          "Users"
+        ],
+        "lifecycle": [
+          "addUsers"
+        ],
+        "passive": [
+          "verifyUsersNotExists"
+        ]
       },
-      "blocks": [
-        "addUsers"
+      "checks": {
+        "preconditions": [
+          "userExists"
+        ],
+        "postconditions": [
+          "verifyUsersNotExists"
+        ],
+        "guards": [
+          "userDeletionAllowed"
+        ]
+      },
+      "steps": [
+        "deleteUsers"
       ],
-      "checks": [
-        "verifyUsersNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the user ID is valid before deletion."
+      ]
     }
   ]
 }

@@ -1,50 +1,97 @@
 {
-  "sut": "twilio",
-  "from_det": "artifacts\\hls_det\\real_world_llm_provider\\twilio\\hls_det_gold.json",
-  "model_or_dir": "models\\hls\\ALL",
   "stories": [
     {
-      "entity": "Gold",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addGoldWithId",
+      "entities": {
+        "active": [
+          "Gold"
+        ],
+        "lifecycle": [
+          "deleteGold"
+        ],
+        "passive": [
+          "verifyGoldExists"
+        ]
       },
-      "blocks": [
-        "deleteGold"
-      ],
-      "checks": [
-        "verifyGoldExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Gold",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "id is provided"
+        ],
+        "postconditions": [
+          "verifyGoldExists"
+        ],
+        "guards": [
+          "deleteGold"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addGold"
       ],
-      "checks": [
-        "verifyGoldNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure id is valid before adding Gold."
+      ]
     },
     {
-      "entity": "Gold",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteGoldById",
+      "entities": {
+        "active": [
+          "Gold"
+        ],
+        "lifecycle": [
+          "addGold"
+        ],
+        "passive": [
+          "verifyGoldNotExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyGoldNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteGold"
+      ],
+      "notes": [
+        "Ensure the Gold entity is properly referenced by id."
+      ]
+    },
+    {
+      "name": "updateGoldWithNewData",
+      "entities": {
+        "active": [
+          "Gold"
+        ],
+        "lifecycle": [
+          "updateGold"
+        ],
+        "passive": [
+          "GoldUpdated"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyGoldExists"
+        ],
+        "postconditions": [
+          "verifyGoldUpdated"
+        ],
+        "guards": [
+          "checkGoldUpdatePermissions"
+        ]
+      },
+      "steps": [
         "updateGold"
       ],
-      "checks": [
-        "verifyGoldExists",
-        "verifyGoldUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the update does not affect related entities."
+      ]
     }
   ]
 }

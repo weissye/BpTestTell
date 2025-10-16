@@ -1,49 +1,97 @@
 {
-  "sut": "factory",
-  "from_det": "artifacts\\hls_det\\7_suts_llm_provider\\factory\\hls_det_gold.json",
-  "model_or_dir": "models\\hls\\ALL",
   "stories": [
     {
-      "entity": "Machine",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addMachine_001",
+      "entities": {
+        "active": [
+          "Machine"
+        ],
+        "lifecycle": [
+          "deleteMachine"
+        ],
+        "passive": [
+          "Machine"
+        ]
       },
-      "blocks": [
-        "deleteMachine"
+      "checks": {
+        "preconditions": [
+          "verifyMachineExists"
+        ],
+        "postconditions": [
+          "verifyMachineExists"
+        ],
+        "guards": [
+          "deleteMachine"
+        ]
+      },
+      "steps": [
+        "addMachine"
       ],
-      "checks": [
-        "verifyMachineExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the machine ID is valid before adding."
+      ]
     },
     {
-      "entity": "MaintenanceTicket",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addMaintenanceTicket_001",
+      "entities": {
+        "active": [
+          "MaintenanceTicket"
+        ],
+        "lifecycle": [
+          "deleteMaintenanceTicket"
+        ],
+        "passive": [
+          "MaintenanceTicket"
+        ]
       },
-      "blocks": [
-        "deleteMaintenanceTicket"
+      "checks": {
+        "preconditions": [
+          "verifyMaintenanceTicketExists"
+        ],
+        "postconditions": [
+          "verifyMaintenanceTicketExists"
+        ],
+        "guards": [
+          "deleteMaintenanceTicket"
+        ]
+      },
+      "steps": [
+        "addMaintenanceTicket"
       ],
-      "checks": [
-        "verifyMaintenanceTicketExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the MaintenanceTicket ID is unique."
+      ]
     },
     {
-      "entity": "WorkOrder",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addWorkOrder_001",
+      "entities": {
+        "active": [
+          "WorkOrder"
+        ],
+        "lifecycle": [
+          "deleteWorkOrder"
+        ],
+        "passive": [
+          "WorkOrder"
+        ]
       },
-      "blocks": [
-        "deleteWorkOrder"
+      "checks": {
+        "preconditions": [
+          "verifyWorkOrderExists"
+        ],
+        "postconditions": [
+          "verifyWorkOrderExists"
+        ],
+        "guards": [
+          "deleteWorkOrder"
+        ]
+      },
+      "steps": [
+        "addWorkOrder"
       ],
-      "checks": [
-        "verifyWorkOrderExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the WorkOrder ID is unique."
+      ]
     }
   ]
 }

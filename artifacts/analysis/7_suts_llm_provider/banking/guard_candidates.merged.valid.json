@@ -1,0 +1,9 @@
+{
+  "sut": "banking",
+  "provider": "7_suts_llm_provider",
+  "provenance": "merged",
+  "checks": [
+    "verifyStateConsistent"
+  ],
+  "blocks": []
+}

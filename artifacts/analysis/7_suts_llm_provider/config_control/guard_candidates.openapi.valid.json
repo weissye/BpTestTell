@@ -1,0 +1,11 @@
+{
+  "sut": "config_control",
+  "provider": "7_suts_llm_provider",
+  "provenance": "openapi",
+  "relations": [],
+  "checks": [
+    "verifyStateConsistent"
+  ],
+  "blocks": [],
+  "explain": []
+}

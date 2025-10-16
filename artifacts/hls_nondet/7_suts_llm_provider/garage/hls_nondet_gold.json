@@ -1,64 +1,128 @@
 {
-  "sut": "garage",
-  "from_det": "artifacts\\hls_det\\7_suts_llm_provider\\garage\\hls_det_gold.json",
-  "model_or_dir": "models\\hls\\ALL",
   "stories": [
     {
-      "entity": "Car",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addCar",
+      "entities": {
+        "active": [
+          "Car"
+        ],
+        "lifecycle": [
+          "deleteCar"
+        ],
+        "passive": [
+          "Garage"
+        ]
       },
-      "blocks": [
-        "deleteCar"
+      "checks": {
+        "preconditions": [
+          "verifyGarageExists"
+        ],
+        "postconditions": [
+          "verifyCarExists"
+        ],
+        "guards": [
+          "ensureGarageIsNotFull"
+        ]
+      },
+      "steps": [
+        "addCar"
       ],
-      "checks": [
-        "verifyCarExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the car ID is unique before adding."
+      ]
     },
     {
-      "entity": "Chain",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addChainWithId",
+      "entities": {
+        "active": [
+          "Chain"
+        ],
+        "lifecycle": [
+          "addChain"
+        ],
+        "passive": [
+          "deleteChain"
+        ]
       },
-      "blocks": [
-        "deleteChain"
+      "checks": {
+        "preconditions": [
+          "verifyChainExists"
+        ],
+        "postconditions": [
+          "verifyChainExists"
+        ],
+        "guards": [
+          "deleteChain"
+        ]
+      },
+      "steps": [
+        "addChain"
       ],
-      "checks": [
-        "verifyChainExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Chain ID is unique before adding."
+      ]
     },
     {
-      "entity": "Customer",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addCustomer_001",
+      "entities": {
+        "active": [
+          "Customer"
+        ],
+        "lifecycle": [
+          "addCustomer"
+        ],
+        "passive": [
+          "deleteCustomer"
+        ]
       },
-      "blocks": [
-        "deleteCustomer"
+      "checks": {
+        "preconditions": [
+          "verifyCustomerExists"
+        ],
+        "postconditions": [
+          "verifyCustomerExists"
+        ],
+        "guards": [
+          "deleteCustomer"
+        ]
+      },
+      "steps": [
+        "addCustomer"
       ],
-      "checks": [
-        "verifyCustomerExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure customer ID is unique."
+      ]
     },
     {
-      "entity": "Garage",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateGarageById",
+      "entities": {
+        "active": [
+          "Garage"
+        ],
+        "lifecycle": [
+          "updateGarage"
+        ],
+        "passive": [
+          "GarageDetails"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyGarageExists"
+        ],
+        "postconditions": [
+          "verifyGarageUpdated"
+        ],
+        "guards": [
+          "checkGarageId"
+        ]
+      },
+      "steps": [
         "updateGarage"
       ],
-      "checks": [
-        "verifyGarageExists",
-        "verifyGarageUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Garage ID is valid before updating."
+      ]
     }
   ]
 }

@@ -1,0 +1,11 @@
+{
+  "sut": "banking",
+  "provider": "7_suts_llm_provider",
+  "provenance": "lle_det",
+  "relations": [],
+  "checks": [
+    "verifyStateConsistent"
+  ],
+  "blocks": [],
+  "explain": []
+}

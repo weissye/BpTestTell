@@ -1,49 +1,97 @@
 {
-  "sut": "meilisearch",
-  "from_det": "artifacts\\hls_det\\real_world_llm_provider\\meilisearch\\hls_det_gold.json",
-  "model_or_dir": "models\\hls\\ALL",
   "stories": [
     {
-      "entity": "All",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteSpecific",
+      "entities": {
+        "active": [
+          "All"
+        ],
+        "lifecycle": [
+          "deleteAll"
+        ],
+        "passive": [
+          "addAll"
+        ]
       },
-      "blocks": [
-        "addAll"
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyAllNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteAll"
       ],
-      "checks": [
-        "verifyAllNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure id is valid before deletion."
+      ]
     },
     {
-      "entity": "Batch",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteBatchById",
+      "entities": {
+        "active": [
+          "Batch"
+        ],
+        "lifecycle": [
+          "addBatch"
+        ],
+        "passive": [
+          "verifyBatchNotExists"
+        ]
       },
-      "blocks": [
-        "addBatch"
+      "checks": {
+        "preconditions": [
+          "addBatch"
+        ],
+        "postconditions": [
+          "verifyBatchNotExists"
+        ],
+        "guards": [
+          "idExists"
+        ]
+      },
+      "steps": [
+        "deleteBatch"
       ],
-      "checks": [
-        "verifyBatchNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Batch ID is valid before deletion."
+      ]
     },
     {
-      "entity": "One",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteOne",
+      "entities": {
+        "active": [
+          "One"
+        ],
+        "lifecycle": [
+          "addOne"
+        ],
+        "passive": [
+          "One"
+        ]
       },
-      "blocks": [
-        "addOne"
+      "checks": {
+        "preconditions": [
+          "addOne"
+        ],
+        "postconditions": [
+          "verifyOneNotExists"
+        ],
+        "guards": [
+          "verifyOneExists"
+        ]
+      },
+      "steps": [
+        "deleteOne"
       ],
-      "checks": [
-        "verifyOneNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the entity 'One' is added before deletion."
+      ]
     }
   ]
 }

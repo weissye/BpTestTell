@@ -1,108 +1,221 @@
 {
-  "sut": "gitea",
-  "from_det": "artifacts\\hls_det\\real_world_llm_provider\\gitea\\hls_det_gold.json",
-  "model_or_dir": "models\\hls\\ALL",
   "stories": [
     {
-      "entity": "CurrentUserRepo",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addCurrentUserRepo",
+      "entities": {
+        "active": [
+          "CurrentUserRepo"
+        ],
+        "lifecycle": [
+          "deleteCurrentUserRepo"
+        ],
+        "passive": [
+          "NewCurrentUserRepo"
+        ]
       },
-      "blocks": [
-        "deleteCurrentUserRepo"
+      "checks": {
+        "preconditions": [
+          "verifyCurrentUserRepoExists"
+        ],
+        "postconditions": [
+          "verifyNewCurrentUserRepoExists"
+        ],
+        "guards": [
+          "checkCurrentUserRepoDeletion"
+        ]
+      },
+      "steps": [
+        "addCurrentUserRepo"
       ],
-      "checks": [
-        "verifyCurrentUserRepoExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the CurrentUserRepo is deleted before adding a new one."
+      ]
     },
     {
-      "entity": "Package",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deletePackage",
+      "entities": {
+        "active": [
+          "Package"
+        ],
+        "lifecycle": [
+          "addPackage"
+        ],
+        "passive": [
+          "verifyPackageNotExists"
+        ]
       },
-      "blocks": [
-        "addPackage"
+      "checks": {
+        "preconditions": [
+          "packageExists"
+        ],
+        "postconditions": [
+          "verifyPackageNotExists"
+        ],
+        "guards": [
+          "validatePackageDeletion"
+        ]
+      },
+      "steps": [
+        "deletePackage"
       ],
-      "checks": [
-        "verifyPackageNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the package ID is valid before deletion."
+      ]
     },
     {
-      "entity": "RepoSecret",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteRepoSecret",
+      "entities": {
+        "active": [
+          "RepoSecret"
+        ],
+        "lifecycle": [
+          "addRepoSecret"
+        ],
+        "passive": [
+          "verifyRepoSecretNotExists"
+        ]
       },
-      "blocks": [
-        "addRepoSecret"
+      "checks": {
+        "preconditions": [
+          "repoSecretExists"
+        ],
+        "postconditions": [
+          "verifyRepoSecretNotExists"
+        ],
+        "guards": [
+          "addRepoSecret"
+        ]
+      },
+      "steps": [
+        "deleteRepoSecret"
       ],
-      "checks": [
-        "verifyRepoSecretNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the RepoSecret is not in use before deletion."
+      ]
     },
     {
-      "entity": "RepoSecret",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateRepoSecretWithNewValue",
+      "entities": {
+        "active": [
+          "RepoSecret"
+        ],
+        "lifecycle": [
+          "updateRepoSecret"
+        ],
+        "passive": [
+          "RepoSecretUpdated"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyRepoSecretExists"
+        ],
+        "postconditions": [
+          "verifyRepoSecretUpdated"
+        ],
+        "guards": [
+          "verifyRepoSecretNotUpdated"
+        ]
+      },
+      "steps": [
         "updateRepoSecret"
       ],
-      "checks": [
-        "verifyRepoSecretExists",
-        "verifyRepoSecretUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the new value for RepoSecret is valid."
+      ]
     },
     {
-      "entity": "UserSecret",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteUserSecret",
+      "entities": {
+        "active": [
+          "UserSecret"
+        ],
+        "lifecycle": [
+          "addUserSecret"
+        ],
+        "passive": [
+          "UserSecret"
+        ]
       },
-      "blocks": [
-        "addUserSecret"
+      "checks": {
+        "preconditions": [
+          "verifyUserSecretExists"
+        ],
+        "postconditions": [
+          "verifyUserSecretNotExists"
+        ],
+        "guards": [
+          "validateUserSecretDeletion"
+        ]
+      },
+      "steps": [
+        "deleteUserSecret"
       ],
-      "checks": [
-        "verifyUserSecretNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the UserSecret is not in use before deletion."
+      ]
     },
     {
-      "entity": "UserSecret",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateUserSecretWithNewId",
+      "entities": {
+        "active": [
+          "UserSecret"
+        ],
+        "lifecycle": [
+          "updateUserSecret"
+        ],
+        "passive": [
+          "UserSecret"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyUserSecretExists"
+        ],
+        "postconditions": [
+          "verifyUserSecretUpdated"
+        ],
+        "guards": [
+          "validateUserSecretId"
+        ]
+      },
+      "steps": [
         "updateUserSecret"
       ],
-      "checks": [
-        "verifyUserSecretExists",
-        "verifyUserSecretUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the UserSecret ID is valid before updating."
+      ]
     },
     {
-      "entity": "UserSettings",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateUserSettingsWithNewEmail",
+      "entities": {
+        "active": [
+          "UserSettings"
+        ],
+        "lifecycle": [
+          "updateUserSettings"
+        ],
+        "passive": [
+          "User"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyUserSettingsExists"
+        ],
+        "postconditions": [
+          "verifyUserSettingsUpdated"
+        ],
+        "guards": [
+          "verifyUserExists"
+        ]
+      },
+      "steps": [
         "updateUserSettings"
       ],
-      "checks": [
-        "verifyUserSettingsExists",
-        "verifyUserSettingsUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the new email format is valid."
+      ]
     }
   ]
 }

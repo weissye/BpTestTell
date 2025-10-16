@@ -1,866 +1,1856 @@
 {
-  "sut": "jira_cloud",
-  "from_det": "artifacts\\hls_det\\real_world_llm_provider\\jira_cloud\\hls_det_gold.json",
-  "model_or_dir": "models\\hls\\ALL",
   "stories": [
     {
-      "entity": "Actor",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteActor",
+      "entities": {
+        "active": [
+          "Actor"
+        ],
+        "lifecycle": [
+          "addActor"
+        ],
+        "passive": [
+          "Actor"
+        ]
       },
-      "blocks": [
-        "addActor"
+      "checks": {
+        "preconditions": [
+          "verifyActorExists"
+        ],
+        "postconditions": [
+          "verifyActorNotExists"
+        ],
+        "guards": [
+          "validateDeleteActor"
+        ]
+      },
+      "steps": [
+        "deleteActor"
       ],
-      "checks": [
-        "verifyActorNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Actor ID is valid before deletion."
+      ]
     },
     {
-      "entity": "ActorUsers",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addActorUsers",
+      "entities": {
+        "active": [
+          "ActorUsers"
+        ],
+        "lifecycle": [
+          "deleteActorUsers"
+        ],
+        "passive": [
+          "verifyActorUsersExists"
+        ]
       },
-      "blocks": [
-        "deleteActorUsers"
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyActorUsersExists"
+        ],
+        "guards": [
+          "idNotEmpty"
+        ]
+      },
+      "steps": [
+        "addActorUsers"
       ],
-      "checks": [
-        "verifyActorUsersExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure id is valid before adding ActorUsers."
+      ]
     },
     {
-      "entity": "AddonProperty_delete",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteAddonProperty",
+      "entities": {
+        "active": [
+          "AddonProperty_delete"
+        ],
+        "lifecycle": [
+          "addAddonProperty_delete"
+        ],
+        "passive": [
+          "AddonProperty_delete"
+        ]
       },
-      "blocks": [
-        "addAddonProperty_delete"
+      "checks": {
+        "preconditions": [
+          "AddonProperty_deleteExists"
+        ],
+        "postconditions": [
+          "verifyAddonProperty_deleteNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteAddonProperty_delete"
       ],
-      "checks": [
-        "verifyAddonProperty_deleteNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the AddonProperty_delete is not referenced by other entities."
+      ]
     },
     {
-      "entity": "AndReplaceVersion",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteAndReplaceVersion",
+      "entities": {
+        "active": [
+          "addAndReplaceVersion"
+        ],
+        "lifecycle": [
+          "deleteAndReplaceVersion"
+        ],
+        "passive": [
+          "verifyAndReplaceVersionNotExists"
+        ]
       },
-      "blocks": [
-        "addAndReplaceVersion"
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyAndReplaceVersionNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteAndReplaceVersion"
       ],
-      "checks": [
-        "verifyAndReplaceVersionNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the version ID is valid before deletion."
+      ]
     },
     {
-      "entity": "AndSwap",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteAndSwap",
+      "entities": {
+        "active": [
+          "addAndSwap"
+        ],
+        "lifecycle": [
+          "deleteAndSwap"
+        ],
+        "passive": [
+          "verifyAndSwapNotExists"
+        ]
       },
-      "blocks": [
-        "addAndSwap"
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyAndSwapNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteAndSwap"
       ],
-      "checks": [
-        "verifyAndSwapNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id is valid before deletion."
+      ]
     },
     {
-      "entity": "Associations",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addAssociations",
+      "entities": {
+        "active": [
+          "Associations"
+        ],
+        "lifecycle": [
+          "deleteAssociations"
+        ],
+        "passive": [
+          "verifyAssociationsExists"
+        ]
       },
-      "blocks": [
-        "deleteAssociations"
-      ],
-      "checks": [
-        "verifyAssociationsExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Associations",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "id is valid"
+        ],
+        "postconditions": [
+          "verifyAssociationsExists"
+        ],
+        "guards": [
+          "id must not be empty"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addAssociations"
       ],
-      "checks": [
-        "verifyAssociationsNotExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "AtlassianTeam",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "deleteAssociations",
+      "entities": {
+        "active": [
+          "Associations"
+        ],
+        "lifecycle": [
+          "addAssociations"
+        ],
+        "passive": [
+          "verifyAssociationsNotExists"
+        ]
       },
-      "blocks": [
-        "deleteAtlassianTeam"
+      "checks": {
+        "preconditions": [
+          "associationsExist"
+        ],
+        "postconditions": [
+          "verifyAssociationsNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteAssociations"
       ],
-      "checks": [
-        "verifyAtlassianTeamExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the associations to be deleted are correctly identified."
+      ]
     },
     {
-      "entity": "AtlassianTeam",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "addAtlassianTeam",
+      "entities": {
+        "active": [
+          "AtlassianTeam"
+        ],
+        "lifecycle": [
+          "deleteAtlassianTeam"
+        ],
+        "passive": [
+          "AtlassianTeam"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyAtlassianTeamExists"
+        ],
+        "postconditions": [
+          "verifyAtlassianTeamExists"
+        ],
+        "guards": [
+          "deleteAtlassianTeam"
+        ]
+      },
+      "steps": [
         "addAtlassianTeam"
       ],
-      "checks": [
-        "verifyAtlassianTeamNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the team ID is valid before adding."
+      ]
     },
     {
-      "entity": "AtlassianTeam",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteAtlassianTeam",
+      "entities": {
+        "active": [
+          "AtlassianTeam"
+        ],
+        "lifecycle": [
+          "addAtlassianTeam"
+        ],
+        "passive": [
+          "AtlassianTeam"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "addAtlassianTeam"
+        ],
+        "postconditions": [
+          "verifyAtlassianTeamNotExists"
+        ],
+        "guards": [
+          "validateAtlassianTeamDeletion"
+        ]
+      },
+      "steps": [
+        "deleteAtlassianTeam"
+      ],
+      "notes": []
+    },
+    {
+      "name": "updateTeam",
+      "entities": {
+        "active": [
+          "AtlassianTeam"
+        ],
+        "lifecycle": [
+          "createAtlassianTeam"
+        ],
+        "passive": [
+          "AtlassianTeam"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyAtlassianTeamExists"
+        ],
+        "postconditions": [
+          "verifyAtlassianTeamUpdated"
+        ],
+        "guards": [
+          "verifyAtlassianTeamUpdateAllowed"
+        ]
+      },
+      "steps": [
         "updateAtlassianTeam"
       ],
-      "checks": [
-        "verifyAtlassianTeamExists",
-        "verifyAtlassianTeamUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the team ID is valid before updating."
+      ]
     },
     {
-      "entity": "Attachment",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addAttachment_v1",
+      "entities": {
+        "active": [
+          "Attachment"
+        ],
+        "lifecycle": [
+          "deleteAttachment"
+        ],
+        "passive": [
+          "Attachment"
+        ]
       },
-      "blocks": [
-        "deleteAttachment"
-      ],
-      "checks": [
-        "verifyAttachmentExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Attachment",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "verifyAttachmentExists"
+        ],
+        "postconditions": [
+          "verifyAttachmentExists"
+        ],
+        "guards": [
+          "deleteAttachment"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addAttachment"
       ],
-      "checks": [
-        "verifyAttachmentNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the attachment ID is valid before adding."
+      ]
     },
     {
-      "entity": "Avatar",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteAttachment",
+      "entities": {
+        "active": [
+          "Attachment"
+        ],
+        "lifecycle": [
+          "addAttachment"
+        ],
+        "passive": [
+          "Attachment"
+        ]
       },
-      "blocks": [
-        "addAvatar"
+      "checks": {
+        "preconditions": [
+          "attachmentExists"
+        ],
+        "postconditions": [
+          "verifyAttachmentNotExists"
+        ],
+        "guards": [
+          "attachmentIsNotInUse"
+        ]
+      },
+      "steps": [
+        "deleteAttachment"
       ],
-      "checks": [
-        "verifyAvatarNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the attachment is not referenced by any issues before deletion."
+      ]
     },
     {
-      "entity": "Comment",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "deleteAvatar",
+      "entities": {
+        "active": [
+          "Avatar"
+        ],
+        "lifecycle": [
+          "addAvatar"
+        ],
+        "passive": [
+          "User"
+        ]
       },
-      "blocks": [
-        "deleteComment"
+      "checks": {
+        "preconditions": [
+          "verifyAvatarExists"
+        ],
+        "postconditions": [
+          "verifyAvatarNotExists"
+        ],
+        "guards": [
+          "userHasPermissionToDelete"
+        ]
+      },
+      "steps": [
+        "deleteAvatar"
       ],
-      "checks": [
-        "verifyCommentExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the user has the necessary permissions before deletion."
+      ]
     },
     {
-      "entity": "Comment",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "addComment",
+      "entities": {
+        "active": [
+          "Comment"
+        ],
+        "lifecycle": [
+          "deleteComment"
+        ],
+        "passive": [
+          "Issue"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyIssueExists"
+        ],
+        "postconditions": [
+          "verifyCommentExists"
+        ],
+        "guards": [
+          "verifyCommentNotExists"
+        ]
+      },
+      "steps": [
         "addComment"
       ],
-      "checks": [
-        "verifyCommentNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the comment is relevant to the issue."
+      ]
     },
     {
-      "entity": "Comment",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteComment",
+      "entities": {
+        "active": [
+          "Comment"
+        ],
+        "lifecycle": [
+          "addComment"
+        ],
+        "passive": [
+          "Issue"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyCommentExists"
+        ],
+        "postconditions": [
+          "verifyCommentNotExists"
+        ],
+        "guards": [
+          "verifyIssueExists"
+        ]
+      },
+      "steps": [
+        "deleteComment"
+      ],
+      "notes": [
+        "Ensure the comment ID is valid before deletion."
+      ]
+    },
+    {
+      "name": "updateCommentWithNewText",
+      "entities": {
+        "active": [
+          "Comment"
+        ],
+        "lifecycle": [
+          "updateComment"
+        ],
+        "passive": [
+          "Comment"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyCommentExists"
+        ],
+        "postconditions": [
+          "verifyCommentUpdated"
+        ],
+        "guards": [
+          "verifyCommentNotUpdated"
+        ]
+      },
+      "steps": [
         "updateComment"
       ],
-      "checks": [
-        "verifyCommentExists",
-        "verifyCommentUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the updated comment contains the new text."
+      ]
     },
     {
-      "entity": "CommentProperty",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteCommentProperty",
+      "entities": {
+        "active": [
+          "CommentProperty"
+        ],
+        "lifecycle": [
+          "addCommentProperty"
+        ],
+        "passive": [
+          "CommentProperty"
+        ]
       },
-      "blocks": [
-        "addCommentProperty"
+      "checks": {
+        "preconditions": [
+          "commentPropertyExists"
+        ],
+        "postconditions": [
+          "verifyCommentPropertyNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteCommentProperty"
       ],
-      "checks": [
-        "verifyCommentPropertyNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the commentProperty is not referenced by other entities."
+      ]
     },
     {
-      "entity": "Component",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addComponent",
+      "entities": {
+        "active": [
+          "Component"
+        ],
+        "lifecycle": [
+          "deleteComponent"
+        ],
+        "passive": [
+          "Component"
+        ]
       },
-      "blocks": [
-        "deleteComponent"
-      ],
-      "checks": [
-        "verifyComponentExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Component",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "verifyComponentExists"
+        ],
+        "postconditions": [
+          "verifyComponentExists"
+        ],
+        "guards": [
+          "deleteComponent"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addComponent"
       ],
-      "checks": [
-        "verifyComponentNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Component ID is valid before adding."
+      ]
     },
     {
-      "entity": "Component",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteComponent",
+      "entities": {
+        "active": [
+          "Component"
+        ],
+        "lifecycle": [
+          "addComponent"
+        ],
+        "passive": [
+          "verifyComponentNotExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "componentExists"
+        ],
+        "postconditions": [
+          "verifyComponentNotExists"
+        ],
+        "guards": [
+          "componentIsNotInUse"
+        ]
+      },
+      "steps": [
+        "deleteComponent"
+      ],
+      "notes": [
+        "Ensure the component is not referenced by any other entities."
+      ]
+    },
+    {
+      "name": "updateComponentWithNewName",
+      "entities": {
+        "active": [
+          "Component"
+        ],
+        "lifecycle": [
+          "updateComponent"
+        ],
+        "passive": [
+          "ComponentUpdated"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyComponentExists"
+        ],
+        "postconditions": [
+          "verifyComponentUpdated"
+        ],
+        "guards": [
+          "checkComponentName"
+        ]
+      },
+      "steps": [
         "updateComponent"
       ],
-      "checks": [
-        "verifyComponentExists",
-        "verifyComponentUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the new name is valid and does not conflict with existing components."
+      ]
     },
     {
-      "entity": "CustomField",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addCustomField_001",
+      "entities": {
+        "active": [
+          "CustomField"
+        ],
+        "lifecycle": [
+          "deleteCustomField"
+        ],
+        "passive": [
+          "CustomField"
+        ]
       },
-      "blocks": [
-        "deleteCustomField"
-      ],
-      "checks": [
-        "verifyCustomFieldExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "CustomField",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "verifyCustomFieldExists"
+        ],
+        "postconditions": [
+          "verifyCustomFieldExists"
+        ],
+        "guards": [
+          "deleteCustomField"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addCustomField"
       ],
-      "checks": [
-        "verifyCustomFieldNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the CustomField ID is valid before adding."
+      ]
     },
     {
-      "entity": "CustomField",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteCustomField",
+      "entities": {
+        "active": [
+          "CustomField"
+        ],
+        "lifecycle": [
+          "addCustomField"
+        ],
+        "passive": [
+          "CustomField"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "customFieldExists"
+        ],
+        "postconditions": [
+          "verifyCustomFieldNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteCustomField"
+      ],
+      "notes": [
+        "Ensure the CustomField ID is valid before deletion."
+      ]
+    },
+    {
+      "name": "updateCustomFieldById",
+      "entities": {
+        "active": [
+          "CustomField"
+        ],
+        "lifecycle": [
+          "updateCustomField"
+        ],
+        "passive": [
+          "CustomField"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyCustomFieldExists"
+        ],
+        "postconditions": [
+          "verifyCustomFieldUpdated"
+        ],
+        "guards": [
+          "validateCustomFieldUpdate"
+        ]
+      },
+      "steps": [
         "updateCustomField"
       ],
-      "checks": [
-        "verifyCustomFieldExists",
-        "verifyCustomFieldUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the CustomField ID is valid before updating."
+      ]
     },
     {
-      "entity": "CustomFieldConfiguration",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateCustomFieldConfig_1",
+      "entities": {
+        "active": [
+          "CustomFieldConfiguration"
+        ],
+        "lifecycle": [
+          "updateCustomFieldConfiguration"
+        ],
+        "passive": [
+          "CustomFieldConfiguration"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyCustomFieldConfigurationExists"
+        ],
+        "postconditions": [
+          "verifyCustomFieldConfigurationUpdated"
+        ],
+        "guards": [
+          "validateCustomFieldConfigurationUpdate"
+        ]
+      },
+      "steps": [
         "updateCustomFieldConfiguration"
       ],
-      "checks": [
-        "verifyCustomFieldConfigurationExists",
-        "verifyCustomFieldConfigurationUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid before updating."
+      ]
     },
     {
-      "entity": "CustomFieldContext",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addCustomFieldContext",
+      "entities": {
+        "active": [
+          "CustomFieldContext"
+        ],
+        "lifecycle": [
+          "deleteCustomFieldContext"
+        ],
+        "passive": [
+          "CustomFieldContext"
+        ]
       },
-      "blocks": [
-        "deleteCustomFieldContext"
-      ],
-      "checks": [
-        "verifyCustomFieldContextExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "CustomFieldContext",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "verifyCustomFieldContextExists"
+        ],
+        "postconditions": [
+          "verifyCustomFieldContextExists"
+        ],
+        "guards": [
+          "deleteCustomFieldContext"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addCustomFieldContext"
       ],
-      "checks": [
-        "verifyCustomFieldContextNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the CustomFieldContext ID is valid before adding."
+      ]
     },
     {
-      "entity": "CustomFieldContext",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteCustomFieldContext",
+      "entities": {
+        "active": [
+          "CustomFieldContext"
+        ],
+        "lifecycle": [
+          "addCustomFieldContext"
+        ],
+        "passive": [
+          "CustomFieldContext"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "customFieldContextExists"
+        ],
+        "postconditions": [
+          "verifyCustomFieldContextNotExists"
+        ],
+        "guards": [
+          "validateCustomFieldContextDeletion"
+        ]
+      },
+      "steps": [
+        "deleteCustomFieldContext"
+      ],
+      "notes": [
+        "Ensure that the CustomFieldContext is not referenced by any other entities."
+      ]
+    },
+    {
+      "name": "updateCustomFieldContext_1",
+      "entities": {
+        "active": [
+          "CustomFieldContext"
+        ],
+        "lifecycle": [
+          "updateCustomFieldContext"
+        ],
+        "passive": [
+          "CustomFieldContext"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyCustomFieldContextExists"
+        ],
+        "postconditions": [
+          "verifyCustomFieldContextUpdated"
+        ],
+        "guards": [
+          "validateCustomFieldContextUpdate"
+        ]
+      },
+      "steps": [
         "updateCustomFieldContext"
       ],
-      "checks": [
-        "verifyCustomFieldContextExists",
-        "verifyCustomFieldContextUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid."
+      ]
     },
     {
-      "entity": "CustomFieldContextFromProjects",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteCustomFieldContext",
+      "entities": {
+        "active": [
+          "CustomFieldContextFromProjects"
+        ],
+        "lifecycle": [
+          "addCustomFieldContextFromProjects"
+        ],
+        "passive": [
+          "CustomFieldContextFromProjects"
+        ]
       },
-      "blocks": [
-        "addCustomFieldContextFromProjects"
+      "checks": {
+        "preconditions": [
+          "customFieldContextFromProjectsExists"
+        ],
+        "postconditions": [
+          "customFieldContextFromProjectsNotExists"
+        ],
+        "guards": [
+          "verifyCustomFieldContextFromProjectsNotExists"
+        ]
+      },
+      "steps": [
+        "deleteCustomFieldContextFromProjects"
       ],
-      "checks": [
-        "verifyCustomFieldContextFromProjectsNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the custom field context is not referenced by any active projects."
+      ]
     },
     {
-      "entity": "CustomFieldOption",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addCustomFieldOption",
+      "entities": {
+        "active": [
+          "CustomFieldOption"
+        ],
+        "lifecycle": [
+          "deleteCustomFieldOption"
+        ],
+        "passive": [
+          "CustomFieldOption"
+        ]
       },
-      "blocks": [
-        "deleteCustomFieldOption"
-      ],
-      "checks": [
-        "verifyCustomFieldOptionExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "CustomFieldOption",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "verifyCustomFieldOptionExists"
+        ],
+        "postconditions": [
+          "verifyCustomFieldOptionExists"
+        ],
+        "guards": [
+          "deleteCustomFieldOption"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addCustomFieldOption"
       ],
-      "checks": [
-        "verifyCustomFieldOptionNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the CustomFieldOption ID is valid before adding."
+      ]
     },
     {
-      "entity": "CustomFieldOption",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteCustomFieldOption",
+      "entities": {
+        "active": [
+          "CustomFieldOption"
+        ],
+        "lifecycle": [
+          "addCustomFieldOption"
+        ],
+        "passive": [
+          "CustomFieldOption"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "customFieldOptionExists"
+        ],
+        "postconditions": [
+          "verifyCustomFieldOptionNotExists"
+        ],
+        "guards": [
+          "validateCustomFieldOptionDeletion"
+        ]
+      },
+      "steps": [
+        "deleteCustomFieldOption"
+      ],
+      "notes": [
+        "Ensure that the CustomFieldOption ID is valid before deletion."
+      ]
+    },
+    {
+      "name": "updateCustomFieldOption_1",
+      "entities": {
+        "active": [
+          "CustomFieldOption"
+        ],
+        "lifecycle": [
+          "updateCustomFieldOption"
+        ],
+        "passive": [
+          "CustomFieldOption"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyCustomFieldOptionExists"
+        ],
+        "postconditions": [
+          "verifyCustomFieldOptionUpdated"
+        ],
+        "guards": [
+          "validateCustomFieldOptionUpdate"
+        ]
+      },
+      "steps": [
         "updateCustomFieldOption"
       ],
-      "checks": [
-        "verifyCustomFieldOptionExists",
-        "verifyCustomFieldOptionUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid."
+      ]
     },
     {
-      "entity": "CustomFieldValue",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateCustomFieldValueWithNewData",
+      "entities": {
+        "active": [
+          "CustomFieldValue"
+        ],
+        "lifecycle": [
+          "updateCustomFieldValue"
+        ],
+        "passive": [
+          "CustomFieldValue"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyCustomFieldValueExists"
+        ],
+        "postconditions": [
+          "verifyCustomFieldValueUpdated"
+        ],
+        "guards": [
+          "validateCustomFieldValueUpdate"
+        ]
+      },
+      "steps": [
         "updateCustomFieldValue"
       ],
-      "checks": [
-        "verifyCustomFieldValueExists",
-        "verifyCustomFieldValueUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid and corresponds to an existing CustomFieldValue."
+      ]
     },
     {
-      "entity": "Dashboard",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addDashboard_001",
+      "entities": {
+        "active": [
+          "Dashboard"
+        ],
+        "lifecycle": [
+          "deleteDashboard"
+        ],
+        "passive": [
+          "verifyDashboardExists"
+        ]
       },
-      "blocks": [
-        "deleteDashboard"
-      ],
-      "checks": [
-        "verifyDashboardExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Dashboard",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "dashboardIdExists"
+        ],
+        "postconditions": [
+          "verifyDashboardExists"
+        ],
+        "guards": [
+          "deleteDashboard"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addDashboard"
       ],
-      "checks": [
-        "verifyDashboardNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the dashboard ID is valid before adding."
+      ]
     },
     {
-      "entity": "Dashboard",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteDashboardVariant",
+      "entities": {
+        "active": [
+          "Dashboard"
+        ],
+        "lifecycle": [
+          "addDashboard"
+        ],
+        "passive": [
+          "verifyDashboardNotExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "dashboardExists"
+        ],
+        "postconditions": [
+          "verifyDashboardNotExists"
+        ],
+        "guards": [
+          "addDashboard"
+        ]
+      },
+      "steps": [
+        "deleteDashboard"
+      ],
+      "notes": [
+        "Ensure the dashboard ID is valid before deletion."
+      ]
+    },
+    {
+      "name": "updateDashboardVariant",
+      "entities": {
+        "active": [
+          "Dashboard"
+        ],
+        "lifecycle": [
+          "createDashboard"
+        ],
+        "passive": [
+          "user"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyDashboardExists"
+        ],
+        "postconditions": [
+          "verifyDashboardUpdated"
+        ],
+        "guards": [
+          "verifyUserPermissions"
+        ]
+      },
+      "steps": [
         "updateDashboard"
       ],
-      "checks": [
-        "verifyDashboardExists",
-        "verifyDashboardUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure user has the necessary permissions to update the dashboard."
+      ]
     },
     {
-      "entity": "DashboardItemProperty",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteDashboardItemProperty",
+      "entities": {
+        "active": [
+          "DashboardItemProperty"
+        ],
+        "lifecycle": [
+          "addDashboardItemProperty"
+        ],
+        "passive": [
+          "DashboardItemProperty"
+        ]
       },
-      "blocks": [
-        "addDashboardItemProperty"
+      "checks": {
+        "preconditions": [
+          "dashboardItemPropertyExists"
+        ],
+        "postconditions": [
+          "verifyDashboardItemPropertyNotExists"
+        ],
+        "guards": [
+          "validateDeleteDashboardItemProperty"
+        ]
+      },
+      "steps": [
+        "deleteDashboardItemProperty"
       ],
-      "checks": [
-        "verifyDashboardItemPropertyNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the DashboardItemProperty is not referenced by other entities."
+      ]
     },
     {
-      "entity": "DefaultProjectClassification",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteDefaultProjectClassification",
+      "entities": {
+        "active": [
+          "DefaultProjectClassification"
+        ],
+        "lifecycle": [
+          "addDefaultProjectClassification"
+        ],
+        "passive": [
+          "DefaultProjectClassification"
+        ]
       },
-      "blocks": [
-        "addDefaultProjectClassification"
+      "checks": {
+        "preconditions": [
+          "DefaultProjectClassificationExists"
+        ],
+        "postconditions": [
+          "verifyDefaultProjectClassificationNotExists"
+        ],
+        "guards": [
+          "ensureDefaultProjectClassificationIsNotDeleted"
+        ]
+      },
+      "steps": [
+        "deleteDefaultProjectClassification"
       ],
-      "checks": [
-        "verifyDefaultProjectClassificationNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure to handle dependencies if any exist."
+      ]
     },
     {
-      "entity": "DefaultProjectClassification",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateProjectClassification",
+      "entities": {
+        "active": [
+          "DefaultProjectClassification"
+        ],
+        "lifecycle": [
+          "createDefaultProjectClassification"
+        ],
+        "passive": [
+          "DefaultProjectClassification"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyDefaultProjectClassificationExists"
+        ],
+        "postconditions": [
+          "verifyDefaultProjectClassificationUpdated"
+        ],
+        "guards": [
+          "verifyDefaultProjectClassificationNotDeleted"
+        ]
+      },
+      "steps": [
         "updateDefaultProjectClassification"
       ],
-      "checks": [
-        "verifyDefaultProjectClassificationExists",
-        "verifyDefaultProjectClassificationUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ID is valid before updating."
+      ]
     },
     {
-      "entity": "DefaultScreenScheme",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateScreenScheme",
+      "entities": {
+        "active": [
+          "DefaultScreenScheme"
+        ],
+        "lifecycle": [
+          "createDefaultScreenScheme"
+        ],
+        "passive": [
+          "DefaultScreenSchemeUpdated"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyDefaultScreenSchemeExists"
+        ],
+        "postconditions": [
+          "verifyDefaultScreenSchemeUpdated"
+        ],
+        "guards": [
+          "validateScreenSchemeUpdate"
+        ]
+      },
+      "steps": [
         "updateDefaultScreenScheme"
       ],
-      "checks": [
-        "verifyDefaultScreenSchemeExists",
-        "verifyDefaultScreenSchemeUpdated"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "CustomWorkflow",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteDefaultWorkflow",
+      "entities": {
+        "active": [
+          "DefaultWorkflow"
+        ],
+        "lifecycle": [
+          "addDefaultWorkflow"
+        ],
+        "passive": [
+          "verifyDefaultWorkflowNotExists"
+        ]
       },
-      "blocks": [
-        "addCustomWorkflow"
+      "checks": {
+        "preconditions": [
+          "DefaultWorkflowExists"
+        ],
+        "postconditions": [
+          "verifyDefaultWorkflowNotExists"
+        ],
+        "guards": [
+          "addDefaultWorkflow"
+        ]
+      },
+      "steps": [
+        "deleteDefaultWorkflow"
       ],
-      "checks": [
-        "verifyCustomWorkflowNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure to check for dependencies before deletion."
+      ]
     },
     {
-      "entity": "DefaultWorkflow",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateDefaultWorkflow_v1",
+      "entities": {
+        "active": [
+          "DefaultWorkflow"
+        ],
+        "lifecycle": [
+          "updateDefaultWorkflow"
+        ],
+        "passive": [
+          "DefaultWorkflowUpdated"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyDefaultWorkflowExists"
+        ],
+        "postconditions": [
+          "verifyDefaultWorkflowUpdated"
+        ],
+        "guards": [
+          "ensureDefaultWorkflowUpdateSuccessful"
+        ]
+      },
+      "steps": [
         "updateDefaultWorkflow"
       ],
-      "checks": [
-        "verifyDefaultWorkflowExists",
-        "verifyDefaultWorkflowUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ID is valid before updating."
+      ]
     },
     {
-      "entity": "DraftDefaultWorkflow",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteDraftDefaultWorkflow",
+      "entities": {
+        "active": [
+          "DraftDefaultWorkflow"
+        ],
+        "lifecycle": [
+          "addDraftDefaultWorkflow"
+        ],
+        "passive": [
+          "DraftDefaultWorkflow"
+        ]
       },
-      "blocks": [
-        "addDraftDefaultWorkflow"
+      "checks": {
+        "preconditions": [
+          "verifyDraftDefaultWorkflowExists"
+        ],
+        "postconditions": [
+          "verifyDraftDefaultWorkflowNotExists"
+        ],
+        "guards": [
+          "addDraftDefaultWorkflow"
+        ]
+      },
+      "steps": [
+        "deleteDraftDefaultWorkflow"
       ],
-      "checks": [
-        "verifyDraftDefaultWorkflowNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the DraftDefaultWorkflow is not in use before deletion."
+      ]
     },
     {
-      "entity": "DraftDefaultWorkflow",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateDraftWorkflow",
+      "entities": {
+        "active": [
+          "DraftDefaultWorkflow"
+        ],
+        "lifecycle": [
+          "updateDraftDefaultWorkflow"
+        ],
+        "passive": [
+          "DraftDefaultWorkflowUpdated"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyDraftDefaultWorkflowExists"
+        ],
+        "postconditions": [
+          "verifyDraftDefaultWorkflowUpdated"
+        ],
+        "guards": [
+          "ensureDraftDefaultWorkflowNotInUse"
+        ]
+      },
+      "steps": [
         "updateDraftDefaultWorkflow"
       ],
-      "checks": [
-        "verifyDraftDefaultWorkflowExists",
-        "verifyDraftDefaultWorkflowUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure to backup the current workflow before updating."
+      ]
     },
     {
-      "entity": "DraftWorkflowMapping",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteDraftWorkflowMapping_1",
+      "entities": {
+        "active": [
+          "DraftWorkflowMapping"
+        ],
+        "lifecycle": [
+          "addDraftWorkflowMapping"
+        ],
+        "passive": [
+          "DraftWorkflowMapping"
+        ]
       },
-      "blocks": [
-        "addDraftWorkflowMapping"
+      "checks": {
+        "preconditions": [
+          "DraftWorkflowMappingExists"
+        ],
+        "postconditions": [
+          "verifyDraftWorkflowMappingNotExists"
+        ],
+        "guards": [
+          "addDraftWorkflowMapping"
+        ]
+      },
+      "steps": [
+        "deleteDraftWorkflowMapping"
       ],
-      "checks": [
-        "verifyDraftWorkflowMappingNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the DraftWorkflowMapping is not in use before deletion."
+      ]
     },
     {
-      "entity": "DraftWorkflowMapping",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateWorkflowMapping",
+      "entities": {
+        "active": [
+          "DraftWorkflowMapping"
+        ],
+        "lifecycle": [
+          "createDraftWorkflowMapping"
+        ],
+        "passive": [
+          "DraftWorkflowMapping"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyDraftWorkflowMappingExists"
+        ],
+        "postconditions": [
+          "verifyDraftWorkflowMappingUpdated"
+        ],
+        "guards": [
+          "verifyDraftWorkflowMappingNotUpdated"
+        ]
+      },
+      "steps": [
         "updateDraftWorkflowMapping"
       ],
-      "checks": [
-        "verifyDraftWorkflowMappingExists",
-        "verifyDraftWorkflowMappingUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ID is valid before updating."
+      ]
     },
     {
-      "entity": "EntityPropertiesValue_put",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateEntityPropertiesValue",
+      "entities": {
+        "active": [
+          "EntityPropertiesValue_put"
+        ],
+        "lifecycle": [
+          "createEntityPropertiesValue_put"
+        ],
+        "passive": [
+          "EntityPropertiesValue_put"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyEntityPropertiesValue_putExists"
+        ],
+        "postconditions": [
+          "verifyEntityPropertiesValue_putUpdated"
+        ],
+        "guards": [
+          "checkEntityPropertiesValue_putUpdateAllowed"
+        ]
+      },
+      "steps": [
         "updateEntityPropertiesValue_put"
       ],
-      "checks": [
-        "verifyEntityPropertiesValue_putExists",
-        "verifyEntityPropertiesValue_putUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ID is valid before updating."
+      ]
     },
     {
-      "entity": "FavouriteForFilter",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "removeFavouriteForFilter",
+      "entities": {
+        "active": [
+          "FavouriteForFilter"
+        ],
+        "lifecycle": [
+          "addFavouriteForFilter"
+        ],
+        "passive": [
+          "verifyFavouriteForFilterNotExists"
+        ]
       },
-      "blocks": [
-        "addFavouriteForFilter"
+      "checks": {
+        "preconditions": [
+          "FavouriteForFilter exists"
+        ],
+        "postconditions": [
+          "verifyFavouriteForFilterNotExists"
+        ],
+        "guards": [
+          "id is valid"
+        ]
+      },
+      "steps": [
+        "deleteFavouriteForFilter"
       ],
-      "checks": [
-        "verifyFavouriteForFilterNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the FavouriteForFilter is properly removed before verification."
+      ]
     },
     {
-      "entity": "FieldConfiguration",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addFieldConfiguration",
+      "entities": {
+        "active": [
+          "FieldConfiguration"
+        ],
+        "lifecycle": [
+          "deleteFieldConfiguration"
+        ],
+        "passive": [
+          "FieldConfiguration"
+        ]
       },
-      "blocks": [
-        "deleteFieldConfiguration"
-      ],
-      "checks": [
-        "verifyFieldConfigurationExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "FieldConfiguration",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "verifyFieldConfigurationExists"
+        ],
+        "postconditions": [
+          "verifyFieldConfigurationExists"
+        ],
+        "guards": [
+          "deleteFieldConfiguration"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addFieldConfiguration"
       ],
-      "checks": [
-        "verifyFieldConfigurationNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the FieldConfiguration ID is valid before adding."
+      ]
     },
     {
-      "entity": "FieldConfiguration",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteFieldConfiguration",
+      "entities": {
+        "active": [
+          "FieldConfiguration"
+        ],
+        "lifecycle": [
+          "addFieldConfiguration"
+        ],
+        "passive": [
+          "FieldConfiguration"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "fieldConfigurationExists"
+        ],
+        "postconditions": [
+          "verifyFieldConfigurationNotExists"
+        ],
+        "guards": [
+          "fieldConfigurationIsNotInUse"
+        ]
+      },
+      "steps": [
+        "deleteFieldConfiguration"
+      ],
+      "notes": [
+        "Ensure no dependencies on the FieldConfiguration before deletion."
+      ]
+    },
+    {
+      "name": "updateFieldConfig",
+      "entities": {
+        "active": [
+          "FieldConfiguration"
+        ],
+        "lifecycle": [
+          "createFieldConfiguration"
+        ],
+        "passive": [
+          "FieldConfiguration"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyFieldConfigurationExists"
+        ],
+        "postconditions": [
+          "verifyFieldConfigurationUpdated"
+        ],
+        "guards": [
+          "verifyFieldConfigurationNotUpdated"
+        ]
+      },
+      "steps": [
         "updateFieldConfiguration"
       ],
-      "checks": [
-        "verifyFieldConfigurationExists",
-        "verifyFieldConfigurationUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the FieldConfiguration ID is valid."
+      ]
     },
     {
-      "entity": "FieldConfigurationItems",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateFieldConfigItem",
+      "entities": {
+        "active": [
+          "FieldConfigurationItems"
+        ],
+        "lifecycle": [
+          "createFieldConfigurationItems"
+        ],
+        "passive": [
+          "FieldConfigurationItems"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyFieldConfigurationItemsExists"
+        ],
+        "postconditions": [
+          "verifyFieldConfigurationItemsUpdated"
+        ],
+        "guards": [
+          "validateFieldConfigurationItems"
+        ]
+      },
+      "steps": [
         "updateFieldConfigurationItems"
       ],
-      "checks": [
-        "verifyFieldConfigurationItemsExists",
-        "verifyFieldConfigurationItemsUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id is valid and exists before updating."
+      ]
     },
     {
-      "entity": "FieldConfigurationScheme",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addFieldConfigScheme",
+      "entities": {
+        "active": [
+          "FieldConfigurationScheme"
+        ],
+        "lifecycle": [
+          "addFieldConfigurationScheme"
+        ],
+        "passive": [
+          "deleteFieldConfigurationScheme"
+        ]
       },
-      "blocks": [
-        "deleteFieldConfigurationScheme"
-      ],
-      "checks": [
-        "verifyFieldConfigurationSchemeExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "FieldConfigurationScheme",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "verifyFieldConfigurationSchemeExists"
+        ],
+        "postconditions": [
+          "verifyFieldConfigurationSchemeExists"
+        ],
+        "guards": [
+          "deleteFieldConfigurationScheme"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addFieldConfigurationScheme"
       ],
-      "checks": [
-        "verifyFieldConfigurationSchemeNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid before adding."
+      ]
     },
     {
-      "entity": "FieldConfigurationScheme",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteFieldConfigScheme",
+      "entities": {
+        "active": [
+          "FieldConfigurationScheme"
+        ],
+        "lifecycle": [
+          "addFieldConfigurationScheme"
+        ],
+        "passive": [
+          "FieldConfigurationScheme"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "fieldConfigurationSchemeExists"
+        ],
+        "postconditions": [
+          "verifyFieldConfigurationSchemeNotExists"
+        ],
+        "guards": [
+          "fieldConfigurationSchemeIsNotInUse"
+        ]
+      },
+      "steps": [
+        "deleteFieldConfigurationScheme"
+      ],
+      "notes": [
+        "Ensure no dependencies on the FieldConfigurationScheme before deletion."
+      ]
+    },
+    {
+      "name": "updateFieldConfigScheme_1",
+      "entities": {
+        "active": [
+          "FieldConfigurationScheme"
+        ],
+        "lifecycle": [
+          "createFieldConfigurationScheme"
+        ],
+        "passive": [
+          "FieldConfigurationScheme"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyFieldConfigurationSchemeExists"
+        ],
+        "postconditions": [
+          "verifyFieldConfigurationSchemeUpdated"
+        ],
+        "guards": [
+          "verifyFieldConfigurationSchemeNotDeleted"
+        ]
+      },
+      "steps": [
         "updateFieldConfigurationScheme"
       ],
-      "checks": [
-        "verifyFieldConfigurationSchemeExists",
-        "verifyFieldConfigurationSchemeUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ID is valid before updating."
+      ]
     },
     {
-      "entity": "FieldToDefaultScreen",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addFieldToDefaultScreen",
+      "entities": {
+        "active": [
+          "FieldToDefaultScreen"
+        ],
+        "lifecycle": [
+          "deleteFieldToDefaultScreen"
+        ],
+        "passive": [
+          "FieldToDefaultScreen"
+        ]
       },
-      "blocks": [
-        "deleteFieldToDefaultScreen"
+      "checks": {
+        "preconditions": [
+          "verifyFieldToDefaultScreenExists"
+        ],
+        "postconditions": [
+          "verifyFieldToDefaultScreenExists"
+        ],
+        "guards": [
+          "deleteFieldToDefaultScreen"
+        ]
+      },
+      "steps": [
+        "addFieldToDefaultScreen"
       ],
-      "checks": [
-        "verifyFieldToDefaultScreenExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the FieldToDefaultScreen is correctly added."
+      ]
     },
     {
-      "entity": "Filter",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addFilterWithValidation",
+      "entities": {
+        "active": [
+          "Filter"
+        ],
+        "lifecycle": [
+          "deleteFilter"
+        ],
+        "passive": [
+          "verifyFilterExists"
+        ]
       },
-      "blocks": [
-        "deleteFilter"
-      ],
-      "checks": [
-        "verifyFilterExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Filter",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "filterIdExists"
+        ],
+        "postconditions": [
+          "verifyFilterExists"
+        ],
+        "guards": [
+          "filterIdIsValid"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addFilter"
       ],
-      "checks": [
-        "verifyFilterNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure filterId is unique before adding."
+      ]
     },
     {
-      "entity": "Filter",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteFilterById",
+      "entities": {
+        "active": [
+          "Filter"
+        ],
+        "lifecycle": [
+          "addFilter"
+        ],
+        "passive": [
+          "verifyFilterNotExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "filterExists"
+        ],
+        "postconditions": [
+          "verifyFilterNotExists"
+        ],
+        "guards": [
+          "filterIsNotInUse"
+        ]
+      },
+      "steps": [
+        "deleteFilter"
+      ],
+      "notes": [
+        "Ensure the filter is not in use before deletion."
+      ]
+    },
+    {
+      "name": "updateFilterById",
+      "entities": {
+        "active": [
+          "Filter"
+        ],
+        "lifecycle": [
+          "updateFilter"
+        ],
+        "passive": [
+          "Filter"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyFilterExists"
+        ],
+        "postconditions": [
+          "verifyFilterUpdated"
+        ],
+        "guards": [
+          "validateFilterId"
+        ]
+      },
+      "steps": [
         "updateFilter"
       ],
-      "checks": [
-        "verifyFilterExists",
-        "verifyFilterUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Filter ID is valid before updating."
+      ]
     },
     {
-      "entity": "ForgeAppProperty",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteForgeAppProperty",
+      "entities": {
+        "active": [
+          "ForgeAppProperty"
+        ],
+        "lifecycle": [
+          "addForgeAppProperty"
+        ],
+        "passive": [
+          "verifyForgeAppPropertyNotExists"
+        ]
       },
-      "blocks": [
-        "addForgeAppProperty"
+      "checks": {
+        "preconditions": [
+          "addForgeAppProperty"
+        ],
+        "postconditions": [
+          "verifyForgeAppPropertyNotExists"
+        ],
+        "guards": []
+      },
+      "steps": [
+        "deleteForgeAppProperty"
       ],
-      "checks": [
-        "verifyForgeAppPropertyNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ForgeAppProperty is added before deletion."
+      ]
     },
     {
-      "entity": "Gadget",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addGadgetWithValidation",
+      "entities": {
+        "active": [
+          "Gadget"
+        ],
+        "lifecycle": [
+          "deleteGadget"
+        ],
+        "passive": [
+          "Gadget"
+        ]
       },
-      "blocks": [
-        "deleteGadget"
+      "checks": {
+        "preconditions": [
+          "verifyGadgetExists"
+        ],
+        "postconditions": [
+          "verifyGadgetExists"
+        ],
+        "guards": [
+          "deleteGadget"
+        ]
+      },
+      "steps": [
+        "addGadget"
       ],
-      "checks": [
-        "verifyGadgetExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Gadget ID is valid before adding."
+      ]
     }
   ]
 }

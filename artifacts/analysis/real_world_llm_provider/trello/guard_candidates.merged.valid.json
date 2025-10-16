@@ -1,0 +1,9 @@
+{
+  "sut": "trello",
+  "provider": "real_world_llm_provider",
+  "provenance": "merged",
+  "checks": [
+    "verifyStateConsistent"
+  ],
+  "blocks": []
+}

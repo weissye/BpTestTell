@@ -1,50 +1,95 @@
 {
-  "sut": "netbox",
-  "from_det": "artifacts\\hls_det\\real_world_llm_provider\\netbox\\hls_det_gold.json",
-  "model_or_dir": "models\\hls\\ALL",
   "stories": [
     {
-      "entity": "Gold",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addGoldVariant",
+      "entities": {
+        "active": [
+          "Gold"
+        ],
+        "lifecycle": [
+          "deleteGold"
+        ],
+        "passive": [
+          "verifyGoldExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyGoldExists"
+        ],
+        "postconditions": [
+          "verifyGoldExists"
+        ],
+        "guards": [
+          "deleteGold"
+        ]
+      },
+      "steps": [
+        "addGold"
+      ],
+      "notes": []
+    },
+    {
+      "name": "deleteGoldById",
+      "entities": {
+        "active": [
+          "Gold"
+        ],
+        "lifecycle": [
+          "addGold"
+        ],
+        "passive": [
+          "verifyGoldNotExists"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyGoldNotExists"
+        ],
+        "guards": [
+          "idValid"
+        ]
+      },
+      "steps": [
         "deleteGold"
       ],
-      "checks": [
-        "verifyGoldExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Gold entity is added before deletion."
+      ]
     },
     {
-      "entity": "Silver",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "updateGoldById",
+      "entities": {
+        "active": [
+          "Gold"
+        ],
+        "lifecycle": [
+          "updateGold"
+        ],
+        "passive": [
+          "Gold"
+        ]
       },
-      "blocks": [
-        "addSilver"
-      ],
-      "checks": [
-        "verifySilverNotExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Silver",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "verifyGoldExists"
+        ],
+        "postconditions": [
+          "verifyGoldUpdated"
+        ],
+        "guards": [
+          "validateGoldUpdate"
+        ]
       },
-      "blocks": [
-        "updateSilver"
+      "steps": [
+        "updateGold"
       ],
-      "checks": [
-        "verifySilverExists",
-        "verifySilverUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Gold ID is valid before updating."
+      ]
     }
   ]
 }

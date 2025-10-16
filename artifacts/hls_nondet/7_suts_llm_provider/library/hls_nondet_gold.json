@@ -1,119 +1,253 @@
 {
-  "sut": "library",
-  "from_det": "artifacts\\hls_det\\7_suts_llm_provider\\library\\hls_det_gold.json",
-  "model_or_dir": "models\\hls\\ALL",
   "stories": [
     {
-      "entity": "Book",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addNewBook",
+      "entities": {
+        "active": [
+          "Book"
+        ],
+        "lifecycle": [
+          "deleteBook"
+        ],
+        "passive": [
+          "verifyBookExists"
+        ]
       },
-      "blocks": [
-        "deleteBook"
-      ],
-      "checks": [
-        "verifyBookExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Book",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "bookIdExists"
+        ],
+        "postconditions": [
+          "verifyBookExists"
+        ],
+        "guards": [
+          "bookIdNotExists"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addBook"
       ],
-      "checks": [
-        "verifyBookNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the book ID is unique before adding."
+      ]
     },
     {
-      "entity": "Hold",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "removeBook",
+      "entities": {
+        "active": [
+          "Book"
+        ],
+        "lifecycle": [
+          "addBook"
+        ],
+        "passive": [
+          "Book"
+        ]
       },
-      "blocks": [
-        "deleteHold"
+      "checks": {
+        "preconditions": [
+          "verifyBookExists"
+        ],
+        "postconditions": [
+          "verifyBookNotExists"
+        ],
+        "guards": [
+          "validateBookDeletion"
+        ]
+      },
+      "steps": [
+        "deleteBook"
       ],
-      "checks": [
-        "verifyHoldExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the book ID is valid before deletion."
+      ]
     },
     {
-      "entity": "Hold",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "addHoldWithVerification",
+      "entities": {
+        "active": [
+          "Hold"
+        ],
+        "lifecycle": [
+          "addHold"
+        ],
+        "passive": [
+          "verifyHoldExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "holdIdProvided"
+        ],
+        "postconditions": [
+          "holdAdded"
+        ],
+        "guards": [
+          "deleteHold"
+        ]
+      },
+      "steps": [
         "addHold"
       ],
-      "checks": [
-        "verifyHoldNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure holdId is valid before adding."
+      ]
     },
     {
-      "entity": "Loan",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "removeHold",
+      "entities": {
+        "active": [
+          "Hold"
+        ],
+        "lifecycle": [
+          "addHold"
+        ],
+        "passive": [
+          "Book"
+        ]
       },
-      "blocks": [
-        "deleteLoan"
+      "checks": {
+        "preconditions": [
+          "verifyHoldExists"
+        ],
+        "postconditions": [
+          "verifyHoldNotExists"
+        ],
+        "guards": [
+          "checkBookAvailability"
+        ]
+      },
+      "steps": [
+        "deleteHold"
       ],
-      "checks": [
-        "verifyLoanExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the hold is not active before deletion."
+      ]
     },
     {
-      "entity": "Loan",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "addLoanWithDelete",
+      "entities": {
+        "active": [
+          "Loan"
+        ],
+        "lifecycle": [
+          "deleteLoan"
+        ],
+        "passive": [
+          "Loan"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyLoanExists"
+        ],
+        "postconditions": [
+          "verifyLoanExists"
+        ],
+        "guards": [
+          "deleteLoan"
+        ]
+      },
+      "steps": [
         "addLoan"
       ],
-      "checks": [
-        "verifyLoanNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Loan ID is unique before adding."
+      ]
     },
     {
-      "entity": "User",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "deleteLoanById",
+      "entities": {
+        "active": [
+          "Loan"
+        ],
+        "lifecycle": [
+          "addLoan"
+        ],
+        "passive": [
+          "verifyLoanNotExists"
+        ]
       },
-      "blocks": [
-        "deleteUser"
+      "checks": {
+        "preconditions": [
+          "loanExists"
+        ],
+        "postconditions": [
+          "verifyLoanNotExists"
+        ],
+        "guards": [
+          "loanIdValid"
+        ]
+      },
+      "steps": [
+        "deleteLoan"
       ],
-      "checks": [
-        "verifyUserExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the loan ID is valid before deletion."
+      ]
     },
     {
-      "entity": "User",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "addUserWithDelete",
+      "entities": {
+        "active": [
+          "User"
+        ],
+        "lifecycle": [
+          "deleteUser"
+        ],
+        "passive": [
+          "User"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyUserExists"
+        ],
+        "postconditions": [
+          "verifyUserExists"
+        ],
+        "guards": [
+          "deleteUser"
+        ]
+      },
+      "steps": [
         "addUser"
       ],
-      "checks": [
-        "verifyUserNotExists"
+      "notes": [
+        "Ensure the user ID is unique before adding."
+      ]
+    },
+    {
+      "name": "deleteUser",
+      "entities": {
+        "active": [
+          "User"
+        ],
+        "lifecycle": [
+          "addUser"
+        ],
+        "passive": [
+          "Book",
+          "Loan"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyUserExists"
+        ],
+        "postconditions": [
+          "verifyUserNotExists"
+        ],
+        "guards": [
+          "verifyLoanNotExists"
+        ]
+      },
+      "steps": [
+        "deleteUser"
       ],
-      "nondet": true
+      "notes": [
+        "Ensure that the user has no active loans before deletion."
+      ]
     }
   ]
 }

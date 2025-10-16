@@ -1,877 +1,1817 @@
 {
-  "sut": "trello",
-  "from_det": "artifacts\\hls_det\\real_world_llm_provider\\trello\\hls_det_gold.json",
-  "model_or_dir": "models\\hls\\ALL",
   "stories": [
     {
-      "entity": "ActionsByIdAction",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteActionsByIdAction",
+      "entities": {
+        "active": [
+          "addActionsByIdAction"
+        ],
+        "lifecycle": [
+          "deleteActionsByIdAction"
+        ],
+        "passive": [
+          "verifyActionsByIdActionNotExists"
+        ]
       },
-      "blocks": [
-        "addActionsByIdAction"
+      "checks": {
+        "preconditions": [
+          "actionsByIdActionExists"
+        ],
+        "postconditions": [
+          "verifyActionsByIdActionNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteActionsByIdAction"
       ],
-      "checks": [
-        "verifyActionsByIdActionNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id is correctly specified before deletion."
+      ]
     },
     {
-      "entity": "ActionsTextByIdAction",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateActionsText",
+      "entities": {
+        "active": [
+          "ActionsTextByIdAction"
+        ],
+        "lifecycle": [
+          "createActionsTextByIdAction"
+        ],
+        "passive": [
+          "ActionsTextByIdAction"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyActionsTextByIdActionExists"
+        ],
+        "postconditions": [
+          "verifyActionsTextByIdActionUpdated"
+        ],
+        "guards": [
+          "verifyActionsTextByIdActionNotUpdated"
+        ]
+      },
+      "steps": [
         "updateActionsTextByIdAction"
       ],
-      "checks": [
-        "verifyActionsTextByIdActionExists",
-        "verifyActionsTextByIdActionUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid before updating."
+      ]
     },
     {
-      "entity": "Boards",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addBoardsVariant",
+      "entities": {
+        "active": [
+          "Boards"
+        ],
+        "lifecycle": [
+          "deleteBoards"
+        ],
+        "passive": [
+          "verifyBoardsExists"
+        ]
       },
-      "blocks": [
-        "deleteBoards"
+      "checks": {
+        "preconditions": [
+          "verifyBoardsExists"
+        ],
+        "postconditions": [
+          "verifyBoardsExists"
+        ],
+        "guards": [
+          "deleteBoards"
+        ]
+      },
+      "steps": [
+        "addBoards"
       ],
-      "checks": [
-        "verifyBoardsExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "BoardsByIdBoard",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateBoard",
+      "entities": {
+        "active": [
+          "BoardsByIdBoard"
+        ],
+        "lifecycle": [
+          "createBoardsByIdBoard"
+        ],
+        "passive": [
+          "verifyBoardsByIdBoardExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyBoardsByIdBoardExists"
+        ],
+        "postconditions": [
+          "verifyBoardsByIdBoardUpdated"
+        ],
+        "guards": [
+          "checkBoardsByIdBoardUpdate"
+        ]
+      },
+      "steps": [
         "updateBoardsByIdBoard"
       ],
-      "checks": [
-        "verifyBoardsByIdBoardExists",
-        "verifyBoardsByIdBoardUpdated"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "BoardsChecklistsByIdBoard",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addChecklistsToBoard",
+      "entities": {
+        "active": [
+          "BoardsChecklistsByIdBoard"
+        ],
+        "lifecycle": [
+          "addBoardsChecklistsByIdBoard"
+        ],
+        "passive": [
+          "deleteBoardsChecklistsByIdBoard"
+        ]
       },
-      "blocks": [
-        "deleteBoardsChecklistsByIdBoard"
+      "checks": {
+        "preconditions": [
+          "verifyBoardsChecklistsByIdBoardExists"
+        ],
+        "postconditions": [
+          "verifyBoardsChecklistsByIdBoardExists"
+        ],
+        "guards": []
+      },
+      "steps": [
+        "addBoardsChecklistsByIdBoard"
       ],
-      "checks": [
-        "verifyBoardsChecklistsByIdBoardExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the board ID is valid before adding checklists."
+      ]
     },
     {
-      "entity": "BoardsListsByIdBoard",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addBoardsLists",
+      "entities": {
+        "active": [
+          "BoardsListsByIdBoard"
+        ],
+        "lifecycle": [
+          "deleteBoardsListsByIdBoard"
+        ],
+        "passive": [
+          "BoardsListsByIdBoard"
+        ]
       },
-      "blocks": [
-        "deleteBoardsListsByIdBoard"
+      "checks": {
+        "preconditions": [
+          "verifyBoardsListsByIdBoardExists"
+        ],
+        "postconditions": [
+          "verifyBoardsListsByIdBoardExists"
+        ],
+        "guards": [
+          "deleteBoardsListsByIdBoard"
+        ]
+      },
+      "steps": [
+        "addBoardsListsByIdBoard"
       ],
-      "checks": [
-        "verifyBoardsListsByIdBoardExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid."
+      ]
     },
     {
-      "entity": "BoardsMembersByIdBoard",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateBoardMembers",
+      "entities": {
+        "active": [
+          "BoardsMembersByIdBoard"
+        ],
+        "lifecycle": [
+          "createBoardsMembersByIdBoard"
+        ],
+        "passive": [
+          "BoardsMembersByIdBoard"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyBoardsMembersByIdBoardExists"
+        ],
+        "postconditions": [
+          "verifyBoardsMembersByIdBoardUpdated"
+        ],
+        "guards": [
+          "checkBoardsMembersByIdBoardUpdatePermissions"
+        ]
+      },
+      "steps": [
         "updateBoardsMembersByIdBoard"
       ],
-      "checks": [
-        "verifyBoardsMembersByIdBoardExists",
-        "verifyBoardsMembersByIdBoardUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the update does not affect other board members."
+      ]
     },
     {
-      "entity": "BoardsPrefsBackgroundByIdBoard",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateBoardBackground",
+      "entities": {
+        "active": [
+          "BoardsPrefsBackgroundByIdBoard"
+        ],
+        "lifecycle": [
+          "createBoardsPrefsBackgroundByIdBoard"
+        ],
+        "passive": [
+          "BoardsPrefsBackgroundByIdBoard"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyBoardsPrefsBackgroundByIdBoardExists"
+        ],
+        "postconditions": [
+          "verifyBoardsPrefsBackgroundByIdBoardUpdated"
+        ],
+        "guards": [
+          "verifyBoardsPrefsBackgroundByIdBoardNotUpdated"
+        ]
+      },
+      "steps": [
         "updateBoardsPrefsBackgroundByIdBoard"
       ],
-      "checks": [
-        "verifyBoardsPrefsBackgroundByIdBoardExists",
-        "verifyBoardsPrefsBackgroundByIdBoardUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ID is valid before updating."
+      ]
     },
     {
-      "entity": "CardsAttachmentsByIdCard",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addAttachmentsToCard",
+      "entities": {
+        "active": [
+          "CardsAttachmentsByIdCard"
+        ],
+        "lifecycle": [
+          "deleteCardsAttachmentsByIdCard"
+        ],
+        "passive": [
+          "Cards"
+        ]
       },
-      "blocks": [
-        "deleteCardsAttachmentsByIdCard"
+      "checks": {
+        "preconditions": [
+          "verifyCardsAttachmentsByIdCardExists"
+        ],
+        "postconditions": [
+          "verifyCardsAttachmentsByIdCardExists"
+        ],
+        "guards": [
+          "verifyCardsExists"
+        ]
+      },
+      "steps": [
+        "addCardsAttachmentsByIdCard"
       ],
-      "checks": [
-        "verifyCardsAttachmentsByIdCardExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "CardsByIdCard",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateCard",
+      "entities": {
+        "active": [
+          "CardsByIdCard"
+        ],
+        "lifecycle": [
+          "createCardsByIdCard"
+        ],
+        "passive": [
+          "verifyCardsByIdCard"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyCardsByIdCardExists"
+        ],
+        "postconditions": [
+          "verifyCardsByIdCardUpdated"
+        ],
+        "guards": [
+          "validateCardUpdate"
+        ]
+      },
+      "steps": [
         "updateCardsByIdCard"
       ],
-      "checks": [
-        "verifyCardsByIdCardExists",
-        "verifyCardsByIdCardUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the card ID is valid before updating."
+      ]
     },
     {
-      "entity": "CardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItem",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateChecklistItem",
+      "entities": {
+        "active": [
+          "CardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItem"
+        ],
+        "lifecycle": [
+          "createCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItem"
+        ],
+        "passive": [
+          "CardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItem"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItemExists"
+        ],
+        "postconditions": [
+          "verifyCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItemUpdated"
+        ],
+        "guards": [
+          "verifyCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItemExists"
+        ]
+      },
+      "steps": [
         "updateCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItem"
       ],
-      "checks": [
-        "verifyCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItemExists",
-        "verifyCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItemUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the checklist item is correctly updated."
+      ]
     },
     {
-      "entity": "CardsChecklistsByIdCard",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addCardsChecklists",
+      "entities": {
+        "active": [
+          "CardsChecklistsByIdCard"
+        ],
+        "lifecycle": [
+          "deleteCardsChecklistsByIdCard"
+        ],
+        "passive": [
+          "verifyCardsChecklistsByIdCardExists"
+        ]
       },
-      "blocks": [
-        "deleteCardsChecklistsByIdCard"
+      "checks": {
+        "preconditions": [
+          "id is valid"
+        ],
+        "postconditions": [
+          "verifyCardsChecklistsByIdCardExists"
+        ],
+        "guards": [
+          "deleteCardsChecklistsByIdCard"
+        ]
+      },
+      "steps": [
+        "addCardsChecklistsByIdCard"
       ],
-      "checks": [
-        "verifyCardsChecklistsByIdCardExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "CardsLabelsByIdCardByColor",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteCardsLabels",
+      "entities": {
+        "active": [
+          "CardsLabelsByIdCardByColor"
+        ],
+        "lifecycle": [
+          "addCardsLabelsByIdCardByColor"
+        ],
+        "passive": [
+          "verifyCardsLabelsByIdCardByColorNotExists"
+        ]
       },
-      "blocks": [
-        "addCardsLabelsByIdCardByColor"
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyCardsLabelsByIdCardByColorNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteCardsLabelsByIdCardByColor"
       ],
-      "checks": [
-        "verifyCardsLabelsByIdCardByColorNotExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "CardsMembersVotedByIdCardByIdMember",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "removeCardsMembersVoted",
+      "entities": {
+        "active": [
+          "CardsMembersVotedByIdCardByIdMember"
+        ],
+        "lifecycle": [
+          "addCardsMembersVotedByIdCardByIdMember"
+        ],
+        "passive": [
+          "CardsMembersVotedByIdCardByIdMember"
+        ]
       },
-      "blocks": [
-        "addCardsMembersVotedByIdCardByIdMember"
+      "checks": {
+        "preconditions": [
+          "verifyCardsMembersVotedByIdCardByIdMemberExists"
+        ],
+        "postconditions": [
+          "verifyCardsMembersVotedByIdCardByIdMemberNotExists"
+        ],
+        "guards": []
+      },
+      "steps": [
+        "deleteCardsMembersVotedByIdCardByIdMember"
       ],
-      "checks": [
-        "verifyCardsMembersVotedByIdCardByIdMemberNotExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "CardsStickersByIdCard",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addCardsStickers",
+      "entities": {
+        "active": [
+          "CardsStickersByIdCard"
+        ],
+        "lifecycle": [
+          "deleteCardsStickersByIdCard"
+        ],
+        "passive": [
+          "CardsStickersByIdCard"
+        ]
       },
-      "blocks": [
-        "deleteCardsStickersByIdCard"
+      "checks": {
+        "preconditions": [
+          "verifyCardsStickersByIdCardExists"
+        ],
+        "postconditions": [
+          "verifyCardsStickersByIdCardExists"
+        ],
+        "guards": []
+      },
+      "steps": [
+        "addCardsStickersByIdCard"
       ],
-      "checks": [
-        "verifyCardsStickersByIdCardExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "Checklists",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addChecklists",
+      "entities": {
+        "active": [
+          "Checklists"
+        ],
+        "lifecycle": [
+          "deleteChecklists"
+        ],
+        "passive": [
+          "Checklists"
+        ]
       },
-      "blocks": [
-        "deleteChecklists"
+      "checks": {
+        "preconditions": [
+          "verifyChecklistsExists"
+        ],
+        "postconditions": [
+          "verifyChecklistsExists"
+        ],
+        "guards": [
+          "checkChecklistsDeletion"
+        ]
+      },
+      "steps": [
+        "addChecklists"
       ],
-      "checks": [
-        "verifyChecklistsExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Checklists are properly added before verification."
+      ]
     },
     {
-      "entity": "ChecklistsByIdChecklist",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteChecklist",
+      "entities": {
+        "active": [
+          "ChecklistsByIdChecklist"
+        ],
+        "lifecycle": [
+          "addChecklistsByIdChecklist"
+        ],
+        "passive": [
+          "ChecklistsByIdChecklist"
+        ]
       },
-      "blocks": [
-        "addChecklistsByIdChecklist"
+      "checks": {
+        "preconditions": [
+          "checkChecklistsByIdChecklistExists"
+        ],
+        "postconditions": [
+          "verifyChecklistsByIdChecklistNotExists"
+        ],
+        "guards": [
+          "checkChecklistsByIdChecklistExists"
+        ]
+      },
+      "steps": [
+        "deleteChecklistsByIdChecklist"
       ],
-      "checks": [
-        "verifyChecklistsByIdChecklistNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the checklist is not referenced by any other entities."
+      ]
     },
     {
-      "entity": "ChecklistsByIdChecklist",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateChecklist",
+      "entities": {
+        "active": [
+          "ChecklistsByIdChecklist"
+        ],
+        "lifecycle": [
+          "updateChecklistsByIdChecklist"
+        ],
+        "passive": [
+          "ChecklistsByIdChecklist"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyChecklistsByIdChecklistExists"
+        ],
+        "postconditions": [
+          "verifyChecklistsByIdChecklistUpdated"
+        ],
+        "guards": [
+          "checkUpdatePermissions"
+        ]
+      },
+      "steps": [
         "updateChecklistsByIdChecklist"
       ],
-      "checks": [
-        "verifyChecklistsByIdChecklistExists",
-        "verifyChecklistsByIdChecklistUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the checklist ID is valid before updating."
+      ]
     },
     {
-      "entity": "ChecklistsCheckItemsByIdChecklist",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addCheckItemToChecklist",
+      "entities": {
+        "active": [
+          "ChecklistsCheckItemsByIdChecklist"
+        ],
+        "lifecycle": [
+          "deleteChecklistsCheckItemsByIdChecklist"
+        ],
+        "passive": [
+          "ChecklistsCheckItemsByIdChecklist"
+        ]
       },
-      "blocks": [
-        "deleteChecklistsCheckItemsByIdChecklist"
+      "checks": {
+        "preconditions": [
+          "verifyChecklistsCheckItemsByIdChecklistExists"
+        ],
+        "postconditions": [
+          "verifyChecklistsCheckItemsByIdChecklistExists"
+        ],
+        "guards": [
+          "deleteChecklistsCheckItemsByIdChecklist"
+        ]
+      },
+      "steps": [
+        "addChecklistsCheckItemsByIdChecklist"
       ],
-      "checks": [
-        "verifyChecklistsCheckItemsByIdChecklistExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "ChecklistsCheckItemsByIdChecklistByIdCheckItem",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteCheckItem",
+      "entities": {
+        "active": [
+          "ChecklistsCheckItemsByIdChecklistByIdCheckItem"
+        ],
+        "lifecycle": [
+          "addChecklistsCheckItemsByIdChecklistByIdCheckItem"
+        ],
+        "passive": [
+          "ChecklistsCheckItemsByIdChecklistByIdCheckItem"
+        ]
       },
-      "blocks": [
-        "addChecklistsCheckItemsByIdChecklistByIdCheckItem"
+      "checks": {
+        "preconditions": [
+          "checkChecklistsCheckItemsByIdChecklistByIdCheckItemExists"
+        ],
+        "postconditions": [
+          "verifyChecklistsCheckItemsByIdChecklistByIdCheckItemNotExists"
+        ],
+        "guards": []
+      },
+      "steps": [
+        "deleteChecklistsCheckItemsByIdChecklistByIdCheckItem"
       ],
-      "checks": [
-        "verifyChecklistsCheckItemsByIdChecklistByIdCheckItemNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the item to be deleted exists before deletion."
+      ]
     },
     {
-      "entity": "ChecklistsIdCardByIdChecklist",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateChecklistCard",
+      "entities": {
+        "active": [
+          "ChecklistsIdCardByIdChecklist"
+        ],
+        "lifecycle": [
+          "createChecklistsIdCardByIdChecklist"
+        ],
+        "passive": [
+          "ChecklistsIdCardByIdChecklist"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyChecklistsIdCardByIdChecklistExists"
+        ],
+        "postconditions": [
+          "verifyChecklistsIdCardByIdChecklistUpdated"
+        ],
+        "guards": [
+          "checkChecklistsIdCardByIdChecklistUpdateAllowed"
+        ]
+      },
+      "steps": [
         "updateChecklistsIdCardByIdChecklist"
       ],
-      "checks": [
-        "verifyChecklistsIdCardByIdChecklistExists",
-        "verifyChecklistsIdCardByIdChecklistUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the checklist ID is valid before updating."
+      ]
     },
     {
-      "entity": "ChecklistsNameByIdChecklist",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateChecklistName",
+      "entities": {
+        "active": [
+          "ChecklistsNameByIdChecklist"
+        ],
+        "lifecycle": [
+          "createChecklistsNameByIdChecklist"
+        ],
+        "passive": [
+          "ChecklistsNameByIdChecklistUpdated"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyChecklistsNameByIdChecklistExists"
+        ],
+        "postconditions": [
+          "verifyChecklistsNameByIdChecklistUpdated"
+        ],
+        "guards": [
+          "verifyChecklistsNameByIdChecklistUpdated"
+        ]
+      },
+      "steps": [
         "updateChecklistsNameByIdChecklist"
       ],
-      "checks": [
-        "verifyChecklistsNameByIdChecklistExists",
-        "verifyChecklistsNameByIdChecklistUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the checklist ID is valid before updating."
+      ]
     },
     {
-      "entity": "ChecklistsPosByIdChecklist",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateChecklistPosition",
+      "entities": {
+        "active": [
+          "ChecklistsPosByIdChecklist"
+        ],
+        "lifecycle": [
+          "createChecklistsPosByIdChecklist"
+        ],
+        "passive": [
+          "ChecklistsPosByIdChecklist"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyChecklistsPosByIdChecklistExists"
+        ],
+        "postconditions": [
+          "verifyChecklistsPosByIdChecklistUpdated"
+        ],
+        "guards": [
+          "verifyChecklistsPosByIdChecklistNotUpdated"
+        ]
+      },
+      "steps": [
         "updateChecklistsPosByIdChecklist"
       ],
-      "checks": [
-        "verifyChecklistsPosByIdChecklistExists",
-        "verifyChecklistsPosByIdChecklistUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the checklist position is correctly updated."
+      ]
     },
     {
-      "entity": "Labels",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addLabels",
+      "entities": {
+        "active": [
+          "Labels"
+        ],
+        "lifecycle": [
+          "deleteLabels"
+        ],
+        "passive": [
+          "verifyLabelsExists"
+        ]
       },
-      "blocks": [
-        "deleteLabels"
+      "checks": {
+        "preconditions": [
+          "verifyLabelsExists"
+        ],
+        "postconditions": [
+          "verifyLabelsExists"
+        ],
+        "guards": [
+          "deleteLabels"
+        ]
+      },
+      "steps": [
+        "addLabels"
       ],
-      "checks": [
-        "verifyLabelsExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "LabelsByIdLabel",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateLabel",
+      "entities": {
+        "active": [
+          "LabelsByIdLabel"
+        ],
+        "lifecycle": [
+          "createLabelsByIdLabel"
+        ],
+        "passive": [
+          "LabelsByIdLabel"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyLabelsByIdLabelExists"
+        ],
+        "postconditions": [
+          "verifyLabelsByIdLabelUpdated"
+        ],
+        "guards": [
+          "verifyLabelsByIdLabelNotUpdated"
+        ]
+      },
+      "steps": [
         "updateLabelsByIdLabel"
       ],
-      "checks": [
-        "verifyLabelsByIdLabelExists",
-        "verifyLabelsByIdLabelUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the label ID is valid before updating."
+      ]
     },
     {
-      "entity": "LabelsColorByIdLabel",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateLabelColor",
+      "entities": {
+        "active": [
+          "LabelsColorByIdLabel"
+        ],
+        "lifecycle": [
+          "createLabelsColorByIdLabel"
+        ],
+        "passive": [
+          "LabelsColorByIdLabel"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyLabelsColorByIdLabelExists"
+        ],
+        "postconditions": [
+          "verifyLabelsColorByIdLabelUpdated"
+        ],
+        "guards": [
+          "verifyLabelsColorByIdLabelNotUpdated"
+        ]
+      },
+      "steps": [
         "updateLabelsColorByIdLabel"
       ],
-      "checks": [
-        "verifyLabelsColorByIdLabelExists",
-        "verifyLabelsColorByIdLabelUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id is valid before updating."
+      ]
     },
     {
-      "entity": "LabelsNameByIdLabel",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateLabelName",
+      "entities": {
+        "active": [
+          "LabelsNameByIdLabel"
+        ],
+        "lifecycle": [
+          "createLabelsNameByIdLabel"
+        ],
+        "passive": [
+          "LabelsNameByIdLabel"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyLabelsNameByIdLabelExists"
+        ],
+        "postconditions": [
+          "verifyLabelsNameByIdLabelUpdated"
+        ],
+        "guards": [
+          "verifyLabelsNameByIdLabelNotUpdated"
+        ]
+      },
+      "steps": [
         "updateLabelsNameByIdLabel"
       ],
-      "checks": [
-        "verifyLabelsNameByIdLabelExists",
-        "verifyLabelsNameByIdLabelUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id is valid before updating."
+      ]
     },
     {
-      "entity": "Lists",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addListsVariant",
+      "entities": {
+        "active": [
+          "Lists"
+        ],
+        "lifecycle": [
+          "addLists"
+        ],
+        "passive": [
+          "deleteLists"
+        ]
       },
-      "blocks": [
-        "deleteLists"
+      "checks": {
+        "preconditions": [
+          "verifyListsExists"
+        ],
+        "postconditions": [
+          "verifyListsExists"
+        ],
+        "guards": [
+          "deleteLists"
+        ]
+      },
+      "steps": [
+        "addLists"
       ],
-      "checks": [
-        "verifyListsExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Lists are properly added before verification."
+      ]
     },
     {
-      "entity": "ListsArchiveAllCardsByIdList",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addListsArchiveAllCardsByIdList",
+      "entities": {
+        "active": [
+          "addListsArchiveAllCardsByIdList"
+        ],
+        "lifecycle": [
+          "deleteListsArchiveAllCardsByIdList"
+        ],
+        "passive": [
+          "verifyListsArchiveAllCardsByIdListExists"
+        ]
       },
-      "blocks": [
-        "deleteListsArchiveAllCardsByIdList"
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyListsArchiveAllCardsByIdListExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "addListsArchiveAllCardsByIdList"
       ],
-      "checks": [
-        "verifyListsArchiveAllCardsByIdListExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id is valid before adding."
+      ]
     },
     {
-      "entity": "ListsByIdList",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateListsByIdList_v1",
+      "entities": {
+        "active": [
+          "ListsByIdList"
+        ],
+        "lifecycle": [
+          "createListsByIdList"
+        ],
+        "passive": [
+          "updatedListsByIdList"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyListsByIdListExists"
+        ],
+        "postconditions": [
+          "verifyListsByIdListUpdated"
+        ],
+        "guards": [
+          "checkUpdatePermission"
+        ]
+      },
+      "steps": [
         "updateListsByIdList"
       ],
-      "checks": [
-        "verifyListsByIdListExists",
-        "verifyListsByIdListUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id is valid before updating."
+      ]
     },
     {
-      "entity": "ListsCardsByIdList",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addCardsToList",
+      "entities": {
+        "active": [
+          "ListsCardsByIdList"
+        ],
+        "lifecycle": [
+          "deleteListsCardsByIdList"
+        ],
+        "passive": [
+          "ListsCardsByIdList"
+        ]
       },
-      "blocks": [
-        "deleteListsCardsByIdList"
+      "checks": {
+        "preconditions": [
+          "verifyListsCardsByIdListExists"
+        ],
+        "postconditions": [
+          "verifyListsCardsByIdListExists"
+        ],
+        "guards": []
+      },
+      "steps": [
+        "addListsCardsByIdList"
       ],
-      "checks": [
-        "verifyListsCardsByIdListExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "ListsClosedByIdList",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateClosedList",
+      "entities": {
+        "active": [
+          "ListsClosedByIdList"
+        ],
+        "lifecycle": [
+          "createListsClosedByIdList"
+        ],
+        "passive": [
+          "ListsClosedByIdList"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyListsClosedByIdListExists"
+        ],
+        "postconditions": [
+          "verifyListsClosedByIdListUpdated"
+        ],
+        "guards": [
+          "verifyListsClosedByIdListNotUpdated"
+        ]
+      },
+      "steps": [
         "updateListsClosedByIdList"
       ],
-      "checks": [
-        "verifyListsClosedByIdListExists",
-        "verifyListsClosedByIdListUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid."
+      ]
     },
     {
-      "entity": "ListsIdBoardByIdList",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateList",
+      "entities": {
+        "active": [
+          "updateListsIdBoardByIdList"
+        ],
+        "lifecycle": [
+          "createListsIdBoardByIdList"
+        ],
+        "passive": [
+          "getListsIdBoardByIdList"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyListsIdBoardByIdListExists"
+        ],
+        "postconditions": [
+          "verifyListsIdBoardByIdListUpdated"
+        ],
+        "guards": [
+          "checkListsIdBoardByIdListNotEmpty"
+        ]
+      },
+      "steps": [
+        "getListsIdBoardByIdList",
         "updateListsIdBoardByIdList"
       ],
-      "checks": [
-        "verifyListsIdBoardByIdListExists",
-        "verifyListsIdBoardByIdListUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the list is not empty before updating."
+      ]
     },
     {
-      "entity": "ListsMoveAllCardsByIdList",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addListsMoveAllCardsByIdList",
+      "entities": {
+        "active": [
+          "addListsMoveAllCardsByIdList"
+        ],
+        "lifecycle": [
+          "deleteListsMoveAllCardsByIdList"
+        ],
+        "passive": [
+          "verifyListsMoveAllCardsByIdListExists"
+        ]
       },
-      "blocks": [
-        "deleteListsMoveAllCardsByIdList"
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyListsMoveAllCardsByIdListExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "addListsMoveAllCardsByIdList"
       ],
-      "checks": [
-        "verifyListsMoveAllCardsByIdListExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id is valid before adding."
+      ]
     },
     {
-      "entity": "ListsNameByIdList",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateListsName",
+      "entities": {
+        "active": [
+          "updateListsName"
+        ],
+        "lifecycle": [
+          "createListsName"
+        ],
+        "passive": [
+          "ListsNameByIdList"
+        ]
       },
-      "blocks": [
-        "updateListsNameByIdList"
+      "checks": {
+        "preconditions": [
+          "verifyListsNameByIdListExists"
+        ],
+        "postconditions": [
+          "verifyListsNameByIdListUpdated"
+        ],
+        "guards": [
+          "validateListsNameUpdate"
+        ]
+      },
+      "steps": [
+        "updateListsName"
       ],
-      "checks": [
-        "verifyListsNameByIdListExists",
-        "verifyListsNameByIdListUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid before updating."
+      ]
     },
     {
-      "entity": "ListsPosByIdList",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateListsPosByIdList_v1",
+      "entities": {
+        "active": [
+          "updateListsPosByIdList"
+        ],
+        "lifecycle": [
+          "createListsPosByIdList"
+        ],
+        "passive": [
+          "verifyListsPosByIdListExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyListsPosByIdListExists"
+        ],
+        "postconditions": [
+          "verifyListsPosByIdListUpdated"
+        ],
+        "guards": [
+          "checkListsPosByIdListUpdatePermissions"
+        ]
+      },
+      "steps": [
         "updateListsPosByIdList"
       ],
-      "checks": [
-        "verifyListsPosByIdListExists",
-        "verifyListsPosByIdListUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ID is valid before updating."
+      ]
     },
     {
-      "entity": "ListsSubscribedByIdList",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateSubscribedList",
+      "entities": {
+        "active": [
+          "ListsSubscribedByIdList"
+        ],
+        "lifecycle": [
+          "createListsSubscribedByIdList"
+        ],
+        "passive": [
+          "ListsSubscribedByIdList"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyListsSubscribedByIdListExists"
+        ],
+        "postconditions": [
+          "verifyListsSubscribedByIdListUpdated"
+        ],
+        "guards": [
+          "verifyListsSubscribedByIdListNotUpdated"
+        ]
+      },
+      "steps": [
         "updateListsSubscribedByIdList"
       ],
-      "checks": [
-        "verifyListsSubscribedByIdListExists",
-        "verifyListsSubscribedByIdListUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid."
+      ]
     },
     {
-      "entity": "MembersAvatarByIdMember",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addMembersAvatar",
+      "entities": {
+        "active": [
+          "MembersAvatarByIdMember"
+        ],
+        "lifecycle": [
+          "deleteMembersAvatarByIdMember"
+        ],
+        "passive": [
+          "MembersAvatarByIdMember"
+        ]
       },
-      "blocks": [
-        "deleteMembersAvatarByIdMember"
+      "checks": {
+        "preconditions": [
+          "verifyMembersAvatarByIdMemberExists"
+        ],
+        "postconditions": [
+          "verifyMembersAvatarByIdMemberExists"
+        ],
+        "guards": []
+      },
+      "steps": [
+        "addMembersAvatarByIdMember"
       ],
-      "checks": [
-        "verifyMembersAvatarByIdMemberExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "MembersBioByIdMember",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateMemberBio",
+      "entities": {
+        "active": [
+          "MembersBioByIdMember"
+        ],
+        "lifecycle": [
+          "createMembersBioByIdMember"
+        ],
+        "passive": [
+          "MembersBioByIdMember"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyMembersBioByIdMemberExists"
+        ],
+        "postconditions": [
+          "verifyMembersBioByIdMemberUpdated"
+        ],
+        "guards": [
+          "verifyMembersBioByIdMemberNotUpdated"
+        ]
+      },
+      "steps": [
         "updateMembersBioByIdMember"
       ],
-      "checks": [
-        "verifyMembersBioByIdMemberExists",
-        "verifyMembersBioByIdMemberUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid before updating."
+      ]
     },
     {
-      "entity": "MembersBoardBackgroundsByIdMember",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addMembersBoardBackgrounds",
+      "entities": {
+        "active": [
+          "MembersBoardBackgroundsByIdMember"
+        ],
+        "lifecycle": [
+          "deleteMembersBoardBackgroundsByIdMember"
+        ],
+        "passive": [
+          "MembersBoardBackgroundsByIdMember"
+        ]
       },
-      "blocks": [
-        "deleteMembersBoardBackgroundsByIdMember"
+      "checks": {
+        "preconditions": [
+          "verifyMembersBoardBackgroundsByIdMemberExists"
+        ],
+        "postconditions": [
+          "verifyMembersBoardBackgroundsByIdMemberExists"
+        ],
+        "guards": []
+      },
+      "steps": [
+        "addMembersBoardBackgroundsByIdMember"
       ],
-      "checks": [
-        "verifyMembersBoardBackgroundsByIdMemberExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "MembersByIdMember",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateMember",
+      "entities": {
+        "active": [
+          "MembersByIdMember"
+        ],
+        "lifecycle": [
+          "createMembersByIdMember"
+        ],
+        "passive": [
+          "MembersByIdMember"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyMembersByIdMemberExists"
+        ],
+        "postconditions": [
+          "verifyMembersByIdMemberUpdated"
+        ],
+        "guards": [
+          "verifyMembersByIdMemberNotUpdated"
+        ]
+      },
+      "steps": [
         "updateMembersByIdMember"
       ],
-      "checks": [
-        "verifyMembersByIdMemberExists",
-        "verifyMembersByIdMemberUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the member ID is valid before updating."
+      ]
     },
     {
-      "entity": "NotificationsAllRead",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addNotificationsAllRead",
+      "entities": {
+        "active": [
+          "NotificationsAllRead"
+        ],
+        "lifecycle": [
+          "deleteNotificationsAllRead"
+        ],
+        "passive": [
+          "NotificationsAllRead"
+        ]
       },
-      "blocks": [
-        "deleteNotificationsAllRead"
+      "checks": {
+        "preconditions": [
+          "verifyNotificationsAllReadExists"
+        ],
+        "postconditions": [
+          "verifyNotificationsAllReadExists"
+        ],
+        "guards": [
+          "deleteNotificationsAllRead"
+        ]
+      },
+      "steps": [
+        "addNotificationsAllRead"
       ],
-      "checks": [
-        "verifyNotificationsAllReadExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the NotificationsAllRead entity is properly added."
+      ]
     },
     {
-      "entity": "NotificationsByIdNotification",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateNotification",
+      "entities": {
+        "active": [
+          "NotificationsByIdNotification"
+        ],
+        "lifecycle": [
+          "createNotificationsByIdNotification"
+        ],
+        "passive": [
+          "NotificationsByIdNotification"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyNotificationsByIdNotificationExists"
+        ],
+        "postconditions": [
+          "verifyNotificationsByIdNotificationUpdated"
+        ],
+        "guards": [
+          "verifyNotificationsByIdNotificationNotDeleted"
+        ]
+      },
+      "steps": [
         "updateNotificationsByIdNotification"
       ],
-      "checks": [
-        "verifyNotificationsByIdNotificationExists",
-        "verifyNotificationsByIdNotificationUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the notification ID is valid before updating."
+      ]
     },
     {
-      "entity": "NotificationsUnreadByIdNotification",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateUnreadNotification",
+      "entities": {
+        "active": [
+          "NotificationsUnreadByIdNotification"
+        ],
+        "lifecycle": [
+          "createNotificationsUnreadByIdNotification"
+        ],
+        "passive": [
+          "NotificationsUnreadByIdNotification"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyNotificationsUnreadByIdNotificationExists"
+        ],
+        "postconditions": [
+          "verifyNotificationsUnreadByIdNotificationUpdated"
+        ],
+        "guards": [
+          "verifyNotificationsUnreadByIdNotificationNotUpdated"
+        ]
+      },
+      "steps": [
         "updateNotificationsUnreadByIdNotification"
       ],
-      "checks": [
-        "verifyNotificationsUnreadByIdNotificationExists",
-        "verifyNotificationsUnreadByIdNotificationUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the notification ID is valid before updating."
+      ]
     },
     {
-      "entity": "OrganizationsDescByIdOrg",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateOrgDesc",
+      "entities": {
+        "active": [
+          "OrganizationsDescByIdOrg"
+        ],
+        "lifecycle": [
+          "createOrganizationsDescByIdOrg"
+        ],
+        "passive": [
+          "OrganizationsDescByIdOrg"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyOrganizationsDescByIdOrgExists"
+        ],
+        "postconditions": [
+          "verifyOrganizationsDescByIdOrgUpdated"
+        ],
+        "guards": [
+          "validateOrganizationsDescByIdOrgUpdate"
+        ]
+      },
+      "steps": [
         "updateOrganizationsDescByIdOrg"
       ],
-      "checks": [
-        "verifyOrganizationsDescByIdOrgExists",
-        "verifyOrganizationsDescByIdOrgUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ID is valid before updating."
+      ]
     },
     {
-      "entity": "OrganizationsLogoByIdOrg",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addOrganizationsLogo",
+      "entities": {
+        "active": [
+          "OrganizationsLogoByIdOrg"
+        ],
+        "lifecycle": [
+          "deleteOrganizationsLogoByIdOrg"
+        ],
+        "passive": [
+          "OrganizationsLogoByIdOrg"
+        ]
       },
-      "blocks": [
-        "deleteOrganizationsLogoByIdOrg"
+      "checks": {
+        "preconditions": [
+          "verifyOrganizationsLogoByIdOrgExists"
+        ],
+        "postconditions": [
+          "verifyOrganizationsLogoByIdOrgExists"
+        ],
+        "guards": [
+          "deleteOrganizationsLogoByIdOrg"
+        ]
+      },
+      "steps": [
+        "addOrganizationsLogoByIdOrg"
       ],
-      "checks": [
-        "verifyOrganizationsLogoByIdOrgExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ID is valid before adding the logo."
+      ]
     },
     {
-      "entity": "OrganizationsMembersByIdOrgByIdMember",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteOrgMember",
+      "entities": {
+        "active": [
+          "OrganizationsMembersByIdOrgByIdMember"
+        ],
+        "lifecycle": [
+          "addOrganizationsMembersByIdOrgByIdMember"
+        ],
+        "passive": [
+          "OrganizationsMembersByIdOrgByIdMember"
+        ]
       },
-      "blocks": [
-        "addOrganizationsMembersByIdOrgByIdMember"
+      "checks": {
+        "preconditions": [
+          "verifyOrganizationsMembersByIdOrgByIdMemberExists"
+        ],
+        "postconditions": [
+          "verifyOrganizationsMembersByIdOrgByIdMemberNotExists"
+        ],
+        "guards": [
+          "validateDeleteOrganizationsMembersByIdOrgByIdMember"
+        ]
+      },
+      "steps": [
+        "deleteOrganizationsMembersByIdOrgByIdMember"
       ],
-      "checks": [
-        "verifyOrganizationsMembersByIdOrgByIdMemberNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the member ID is valid before deletion."
+      ]
     },
     {
-      "entity": "OrganizationsNameByIdOrg",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateOrgName",
+      "entities": {
+        "active": [
+          "OrganizationsNameByIdOrg"
+        ],
+        "lifecycle": [
+          "updateOrganizationsNameByIdOrg"
+        ],
+        "passive": [
+          "OrganizationsNameByIdOrgUpdated"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyOrganizationsNameByIdOrgExists"
+        ],
+        "postconditions": [
+          "verifyOrganizationsNameByIdOrgUpdated"
+        ],
+        "guards": [
+          "validateOrganizationsNameByIdOrgUpdate"
+        ]
+      },
+      "steps": [
         "updateOrganizationsNameByIdOrg"
       ],
-      "checks": [
-        "verifyOrganizationsNameByIdOrgExists",
-        "verifyOrganizationsNameByIdOrgUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid before updating."
+      ]
     },
     {
-      "entity": "OrganizationsPrefsAssociatedDomainByIdOrg",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteOrgPrefs",
+      "entities": {
+        "active": [
+          "OrganizationsPrefsAssociatedDomainByIdOrg"
+        ],
+        "lifecycle": [
+          "addOrganizationsPrefsAssociatedDomainByIdOrg"
+        ],
+        "passive": [
+          "verifyOrganizationsPrefsAssociatedDomainByIdOrgNotExists"
+        ]
       },
-      "blocks": [
-        "addOrganizationsPrefsAssociatedDomainByIdOrg"
+      "checks": {
+        "preconditions": [
+          "idExistsOrganizationsPrefsAssociatedDomainByIdOrg"
+        ],
+        "postconditions": [
+          "verifyOrganizationsPrefsAssociatedDomainByIdOrgNotExists"
+        ],
+        "guards": [
+          "idValidOrganizationsPrefsAssociatedDomainByIdOrg"
+        ]
+      },
+      "steps": [
+        "deleteOrganizationsPrefsAssociatedDomainByIdOrg"
       ],
-      "checks": [
-        "verifyOrganizationsPrefsAssociatedDomainByIdOrgNotExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "Sessions",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addSessionsWithId",
+      "entities": {
+        "active": [
+          "Sessions"
+        ],
+        "lifecycle": [
+          "addSessions"
+        ],
+        "passive": [
+          "deleteSessions"
+        ]
       },
-      "blocks": [
-        "deleteSessions"
+      "checks": {
+        "preconditions": [
+          "verifySessionsExists"
+        ],
+        "postconditions": [
+          "verifySessionsExists"
+        ],
+        "guards": [
+          "deleteSessions"
+        ]
+      },
+      "steps": [
+        "addSessions"
       ],
-      "checks": [
-        "verifySessionsExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id is valid before adding sessions."
+      ]
     },
     {
-      "entity": "SessionsByIdSession",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateSession",
+      "entities": {
+        "active": [
+          "SessionsByIdSession"
+        ],
+        "lifecycle": [
+          "createSessionsByIdSession"
+        ],
+        "passive": [
+          "SessionsByIdSession"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifySessionsByIdSessionExists"
+        ],
+        "postconditions": [
+          "verifySessionsByIdSessionUpdated"
+        ],
+        "guards": [
+          "verifySessionsByIdSessionNotUpdated"
+        ]
+      },
+      "steps": [
         "updateSessionsByIdSession"
       ],
-      "checks": [
-        "verifySessionsByIdSessionExists",
-        "verifySessionsByIdSessionUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the session ID is valid before updating."
+      ]
     },
     {
-      "entity": "SessionsStatusByIdSession",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateSessionStatus",
+      "entities": {
+        "active": [
+          "SessionsStatusByIdSession"
+        ],
+        "lifecycle": [
+          "createSessionsStatusByIdSession"
+        ],
+        "passive": [
+          "SessionsStatusByIdSession"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifySessionsStatusByIdSessionExists"
+        ],
+        "postconditions": [
+          "verifySessionsStatusByIdSessionUpdated"
+        ],
+        "guards": [
+          "verifySessionsStatusByIdSessionNotUpdated"
+        ]
+      },
+      "steps": [
         "updateSessionsStatusByIdSession"
       ],
-      "checks": [
-        "verifySessionsStatusByIdSessionExists",
-        "verifySessionsStatusByIdSessionUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the session status is valid before updating."
+      ]
     },
     {
-      "entity": "TokensByToken",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteTokensByToken",
+      "entities": {
+        "active": [
+          "TokensByToken"
+        ],
+        "lifecycle": [
+          "addTokensByToken"
+        ],
+        "passive": [
+          "verifyTokensByTokenNotExists"
+        ]
       },
-      "blocks": [
-        "addTokensByToken"
+      "checks": {
+        "preconditions": [
+          "TokensByTokenExists"
+        ],
+        "postconditions": [
+          "verifyTokensByTokenNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteTokensByToken"
       ],
-      "checks": [
-        "verifyTokensByTokenNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the TokensByToken ID is valid before deletion."
+      ]
     },
     {
-      "entity": "TokensWebhooksByToken",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addTokensWebhooksByToken",
+      "entities": {
+        "active": [
+          "TokensWebhooksByToken"
+        ],
+        "lifecycle": [
+          "deleteTokensWebhooksByToken"
+        ],
+        "passive": [
+          "verifyTokensWebhooksByTokenExists"
+        ]
       },
-      "blocks": [
-        "deleteTokensWebhooksByToken"
+      "checks": {
+        "preconditions": [
+          "verifyTokensWebhooksByTokenExists"
+        ],
+        "postconditions": [
+          "verifyTokensWebhooksByTokenExists"
+        ],
+        "guards": [
+          "deleteTokensWebhooksByToken"
+        ]
+      },
+      "steps": [
+        "addTokensWebhooksByToken"
       ],
-      "checks": [
-        "verifyTokensWebhooksByTokenExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "TokensWebhooksByToken",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateWebhookToken",
+      "entities": {
+        "active": [
+          "TokensWebhooksByToken"
+        ],
+        "lifecycle": [
+          "createTokensWebhooksByToken"
+        ],
+        "passive": [
+          "TokensWebhooksByToken"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyTokensWebhooksByTokenExists"
+        ],
+        "postconditions": [
+          "verifyTokensWebhooksByTokenUpdated"
+        ],
+        "guards": [
+          "validateTokensWebhooksByTokenUpdate"
+        ]
+      },
+      "steps": [
         "updateTokensWebhooksByToken"
       ],
-      "checks": [
-        "verifyTokensWebhooksByTokenExists",
-        "verifyTokensWebhooksByTokenUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid before update."
+      ]
     },
     {
-      "entity": "TokensWebhooksByTokenByIdWebhook",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteWebhook",
+      "entities": {
+        "active": [
+          "TokensWebhooksByTokenByIdWebhook"
+        ],
+        "lifecycle": [
+          "addTokensWebhooksByTokenByIdWebhook"
+        ],
+        "passive": [
+          "TokensWebhooksByTokenByIdWebhook"
+        ]
       },
-      "blocks": [
-        "addTokensWebhooksByTokenByIdWebhook"
+      "checks": {
+        "preconditions": [
+          "verifyTokensWebhooksByTokenByIdWebhookExists"
+        ],
+        "postconditions": [
+          "verifyTokensWebhooksByTokenByIdWebhookNotExists"
+        ],
+        "guards": []
+      },
+      "steps": [
+        "deleteTokensWebhooksByTokenByIdWebhook"
       ],
-      "checks": [
-        "verifyTokensWebhooksByTokenByIdWebhookNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the webhook ID is valid before deletion."
+      ]
     },
     {
-      "entity": "Webhooks",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addWebhooks",
+      "entities": {
+        "active": [
+          "Webhooks"
+        ],
+        "lifecycle": [
+          "deleteWebhooks"
+        ],
+        "passive": [
+          "verifyWebhooksExists"
+        ]
       },
-      "blocks": [
-        "deleteWebhooks"
+      "checks": {
+        "preconditions": [
+          "Webhooks not exists"
+        ],
+        "postconditions": [
+          "verifyWebhooksExists"
+        ],
+        "guards": [
+          "deleteWebhooks"
+        ]
+      },
+      "steps": [
+        "addWebhooks"
       ],
-      "checks": [
-        "verifyWebhooksExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "Webhooks",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateWebhookById",
+      "entities": {
+        "active": [
+          "Webhooks"
+        ],
+        "lifecycle": [
+          "updateWebhooks"
+        ],
+        "passive": [
+          "Webhooks"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyWebhooksExists"
+        ],
+        "postconditions": [
+          "verifyWebhooksUpdated"
+        ],
+        "guards": [
+          "validateWebhookId"
+        ]
+      },
+      "steps": [
         "updateWebhooks"
       ],
-      "checks": [
-        "verifyWebhooksExists",
-        "verifyWebhooksUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Webhooks ID is valid before updating."
+      ]
     },
     {
-      "entity": "WebhooksActiveByIdWebhook",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateWebhookById",
+      "entities": {
+        "active": [
+          "WebhooksActiveByIdWebhook"
+        ],
+        "lifecycle": [
+          "createWebhooksActiveByIdWebhook"
+        ],
+        "passive": [
+          "WebhooksActiveByIdWebhook"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyWebhooksActiveByIdWebhookExists"
+        ],
+        "postconditions": [
+          "verifyWebhooksActiveByIdWebhookUpdated"
+        ],
+        "guards": [
+          "verifyWebhooksActiveByIdWebhookNotUpdated"
+        ]
+      },
+      "steps": [
         "updateWebhooksActiveByIdWebhook"
       ],
-      "checks": [
-        "verifyWebhooksActiveByIdWebhookExists",
-        "verifyWebhooksActiveByIdWebhookUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ID is valid before updating."
+      ]
     },
     {
-      "entity": "WebhooksByIdWebhook",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteWebhook",
+      "entities": {
+        "active": [
+          "WebhooksByIdWebhook"
+        ],
+        "lifecycle": [
+          "addWebhooksByIdWebhook"
+        ],
+        "passive": [
+          "verifyWebhooksByIdWebhookNotExists"
+        ]
       },
-      "blocks": [
-        "addWebhooksByIdWebhook"
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyWebhooksByIdWebhookNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteWebhooksByIdWebhook"
       ],
-      "checks": [
-        "verifyWebhooksByIdWebhookNotExists"
-      ],
-      "nondet": true
+      "notes": []
     }
   ]
 }

@@ -1,63 +1,129 @@
 {
-  "sut": "banking",
-  "from_det": "artifacts\\hls_det\\7_suts_llm_provider\\banking\\hls_det_gold.json",
-  "model_or_dir": "models\\hls\\ALL",
   "stories": [
     {
-      "entity": "Account",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addAccountWithDelete",
+      "entities": {
+        "active": [
+          "Account"
+        ],
+        "lifecycle": [
+          "deleteAccount"
+        ],
+        "passive": [
+          "Account"
+        ]
       },
-      "blocks": [
-        "deleteAccount"
+      "checks": {
+        "preconditions": [
+          "verifyAccountExists"
+        ],
+        "postconditions": [
+          "verifyAccountExists"
+        ],
+        "guards": [
+          "deleteAccount"
+        ]
+      },
+      "steps": [
+        "addAccount"
       ],
-      "checks": [
-        "verifyAccountExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the account ID is unique before adding."
+      ]
     },
     {
-      "entity": "Card",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addCardWithValidation",
+      "entities": {
+        "active": [
+          "Card"
+        ],
+        "lifecycle": [
+          "deleteCard"
+        ],
+        "passive": [
+          "Account"
+        ]
       },
-      "blocks": [
-        "deleteCard"
+      "checks": {
+        "preconditions": [
+          "verifyAccountExists"
+        ],
+        "postconditions": [
+          "verifyCardExists"
+        ],
+        "guards": [
+          "validateCardData"
+        ]
+      },
+      "steps": [
+        "addCard"
       ],
-      "checks": [
-        "verifyCardExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the card data is valid before adding."
+      ]
     },
     {
-      "entity": "Customer",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addCustomerWithVerification",
+      "entities": {
+        "active": [
+          "Customer"
+        ],
+        "lifecycle": [
+          "deleteCustomer"
+        ],
+        "passive": [
+          "Customer"
+        ]
       },
-      "blocks": [
-        "deleteCustomer"
+      "checks": {
+        "preconditions": [
+          "verifyCustomerExists"
+        ],
+        "postconditions": [
+          "verifyCustomerExists"
+        ],
+        "guards": [
+          "deleteCustomer"
+        ]
+      },
+      "steps": [
+        "addCustomer"
       ],
-      "checks": [
-        "verifyCustomerExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure customer ID is unique before adding."
+      ]
     },
     {
-      "entity": "Transfer",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addTransfer",
+      "entities": {
+        "active": [
+          "Transfer"
+        ],
+        "lifecycle": [
+          "deleteTransfer"
+        ],
+        "passive": [
+          "Account",
+          "Transaction"
+        ]
       },
-      "blocks": [
-        "deleteTransfer"
+      "checks": {
+        "preconditions": [
+          "verifyAccountExists"
+        ],
+        "postconditions": [
+          "verifyTransferExists"
+        ],
+        "guards": [
+          "verifyTransactionIsValid"
+        ]
+      },
+      "steps": [
+        "addTransfer"
       ],
-      "checks": [
-        "verifyTransferExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure sufficient balance in the account before adding the transfer."
+      ]
     }
   ]
 }

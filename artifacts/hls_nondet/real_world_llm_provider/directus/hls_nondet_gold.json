@@ -1,872 +1,1861 @@
 {
-  "sut": "directus",
-  "from_det": "artifacts\\hls_det\\real_world_llm_provider\\directus\\hls_det_gold.json",
-  "model_or_dir": "models\\hls\\ALL",
   "stories": [
     {
-      "entity": "Collection",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addCollection",
+      "entities": {
+        "active": [
+          "Collection"
+        ],
+        "lifecycle": [
+          "deleteCollection"
+        ],
+        "passive": [
+          "Collection"
+        ]
       },
-      "blocks": [
-        "deleteCollection"
-      ],
-      "checks": [
-        "verifyCollectionExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Collection",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "verifyCollectionExists"
+        ],
+        "postconditions": [
+          "verifyCollectionExists"
+        ],
+        "guards": [
+          "deleteCollection"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addCollection"
       ],
-      "checks": [
-        "verifyCollectionNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Collection ID is unique."
+      ]
     },
     {
-      "entity": "Collection",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteCollection",
+      "entities": {
+        "active": [
+          "Collection"
+        ],
+        "lifecycle": [
+          "addCollection"
+        ],
+        "passive": [
+          "verifyCollectionNotExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "collectionExists"
+        ],
+        "postconditions": [
+          "verifyCollectionNotExists"
+        ],
+        "guards": [
+          "collectionIsNotInUse"
+        ]
+      },
+      "steps": [
+        "deleteCollection"
+      ],
+      "notes": [
+        "Ensure that the collection is not referenced by any other entities."
+      ]
+    },
+    {
+      "name": "updateCollectionWithNewData",
+      "entities": {
+        "active": [
+          "Collection"
+        ],
+        "lifecycle": [
+          "updateCollection"
+        ],
+        "passive": [
+          "Collection"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyCollectionExists"
+        ],
+        "postconditions": [
+          "verifyCollectionUpdated"
+        ],
+        "guards": [
+          "validateUpdateParams"
+        ]
+      },
+      "steps": [
         "updateCollection"
       ],
-      "checks": [
-        "verifyCollectionExists",
-        "verifyCollectionUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the update parameters are valid."
+      ]
     },
     {
-      "entity": "Comment",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addComment",
+      "entities": {
+        "active": [
+          "Comment"
+        ],
+        "lifecycle": [
+          "deleteComment"
+        ],
+        "passive": [
+          "verifyCommentExists"
+        ]
       },
-      "blocks": [
-        "deleteComment"
-      ],
-      "checks": [
-        "verifyCommentExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Comment",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyCommentExists"
+        ],
+        "guards": [
+          "validateCommentData"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addComment"
       ],
-      "checks": [
-        "verifyCommentNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure id is valid before adding the comment."
+      ]
     },
     {
-      "entity": "Comment",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteComment",
+      "entities": {
+        "active": [
+          "Comment"
+        ],
+        "lifecycle": [
+          "addComment"
+        ],
+        "passive": [
+          "verifyCommentNotExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "commentExists"
+        ],
+        "postconditions": [
+          "verifyCommentNotExists"
+        ],
+        "guards": [
+          "commentIsNotDeleted"
+        ]
+      },
+      "steps": [
+        "deleteComment"
+      ],
+      "notes": [
+        "Ensure the comment ID is valid before deletion."
+      ]
+    },
+    {
+      "name": "updateCommentWithNewContent",
+      "entities": {
+        "active": [
+          "Comment"
+        ],
+        "lifecycle": [
+          "updateComment"
+        ],
+        "passive": [
+          "Comment"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyCommentExists"
+        ],
+        "postconditions": [
+          "verifyCommentUpdated"
+        ],
+        "guards": [
+          "validateCommentContent"
+        ]
+      },
+      "steps": [
         "updateComment"
       ],
-      "checks": [
-        "verifyCommentExists",
-        "verifyCommentUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the new content is valid and meets the requirements."
+      ]
     },
     {
-      "entity": "Comments",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteComments",
+      "entities": {
+        "active": [
+          "Comments"
+        ],
+        "lifecycle": [
+          "addComments"
+        ],
+        "passive": [
+          "verifyCommentsNotExists"
+        ]
       },
-      "blocks": [
-        "addComments"
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyCommentsNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteComments"
       ],
-      "checks": [
-        "verifyCommentsNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the Comments entity is properly referenced by id."
+      ]
     },
     {
-      "entity": "Comments",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateCommentsWithNewContent",
+      "entities": {
+        "active": [
+          "Comments"
+        ],
+        "lifecycle": [
+          "updateComments"
+        ],
+        "passive": [
+          "CommentsUpdated"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyCommentsExists"
+        ],
+        "postconditions": [
+          "verifyCommentsUpdated"
+        ],
+        "guards": [
+          "checkCommentsUpdatePermissions"
+        ]
+      },
+      "steps": [
         "updateComments"
       ],
-      "checks": [
-        "verifyCommentsExists",
-        "verifyCommentsUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the updated content is valid and conforms to the schema."
+      ]
     },
     {
-      "entity": "ContentVersion",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addContentVersion_1",
+      "entities": {
+        "active": [
+          "ContentVersion"
+        ],
+        "lifecycle": [
+          "deleteContentVersion"
+        ],
+        "passive": [
+          "ContentVersion"
+        ]
       },
-      "blocks": [
-        "deleteContentVersion"
-      ],
-      "checks": [
-        "verifyContentVersionExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "ContentVersion",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "verifyContentVersionExists"
+        ],
+        "postconditions": [
+          "verifyContentVersionExists"
+        ],
+        "guards": [
+          "deleteContentVersion"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addContentVersion"
       ],
-      "checks": [
-        "verifyContentVersionNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ContentVersion is added successfully."
+      ]
     },
     {
-      "entity": "ContentVersion",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteContentVersion",
+      "entities": {
+        "active": [
+          "ContentVersion"
+        ],
+        "lifecycle": [
+          "addContentVersion"
+        ],
+        "passive": [
+          "ContentVersion"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyContentVersionExists"
+        ],
+        "postconditions": [
+          "verifyContentVersionNotExists"
+        ],
+        "guards": [
+          "validateDeleteContentVersion"
+        ]
+      },
+      "steps": [
+        "deleteContentVersion"
+      ],
+      "notes": [
+        "Ensure that the ContentVersion ID is valid before deletion."
+      ]
+    },
+    {
+      "name": "updateContentVersionWithNewData",
+      "entities": {
+        "active": [
+          "ContentVersion"
+        ],
+        "lifecycle": [
+          "createContentVersion"
+        ],
+        "passive": [
+          "ContentVersion"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyContentVersionExists"
+        ],
+        "postconditions": [
+          "verifyContentVersionUpdated"
+        ],
+        "guards": [
+          "verifyContentVersionNotDeleted"
+        ]
+      },
+      "steps": [
         "updateContentVersion"
       ],
-      "checks": [
-        "verifyContentVersionExists",
-        "verifyContentVersionUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the update includes all required fields."
+      ]
     },
     {
-      "entity": "ContentVersions",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteContentVersions",
+      "entities": {
+        "active": [
+          "ContentVersions"
+        ],
+        "lifecycle": [
+          "addContentVersions"
+        ],
+        "passive": [
+          "ContentVersions"
+        ]
       },
-      "blocks": [
-        "addContentVersions"
+      "checks": {
+        "preconditions": [
+          "contentVersionsExists"
+        ],
+        "postconditions": [
+          "verifyContentVersionsNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteContentVersions"
       ],
-      "checks": [
-        "verifyContentVersionsNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure to handle dependencies if any."
+      ]
     },
     {
-      "entity": "ContentVersions",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateContentVersions_v1",
+      "entities": {
+        "active": [
+          "ContentVersions"
+        ],
+        "lifecycle": [
+          "createContentVersions"
+        ],
+        "passive": [
+          "ContentVersions"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyContentVersionsExists"
+        ],
+        "postconditions": [
+          "verifyContentVersionsUpdated"
+        ],
+        "guards": [
+          "validateContentVersionsUpdate"
+        ]
+      },
+      "steps": [
         "updateContentVersions"
       ],
-      "checks": [
-        "verifyContentVersionsExists",
-        "verifyContentVersionsUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid."
+      ]
     },
     {
-      "entity": "ExtensionBundle",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateExtensionBundle_v1",
+      "entities": {
+        "active": [
+          "ExtensionBundle"
+        ],
+        "lifecycle": [
+          "createExtensionBundle"
+        ],
+        "passive": [
+          "ExtensionBundle"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyExtensionBundleExists"
+        ],
+        "postconditions": [
+          "verifyExtensionBundleUpdated"
+        ],
+        "guards": [
+          "verifyExtensionBundleNotUpdated"
+        ]
+      },
+      "steps": [
         "updateExtensionBundle"
       ],
-      "checks": [
-        "verifyExtensionBundleExists",
-        "verifyExtensionBundleUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ExtensionBundle ID is valid."
+      ]
     },
     {
-      "entity": "Extensions",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateExtensionsWithNewData",
+      "entities": {
+        "active": [
+          "Extensions"
+        ],
+        "lifecycle": [
+          "updateExtensions"
+        ],
+        "passive": [
+          "ExtensionsUpdated"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyExtensionsExists"
+        ],
+        "postconditions": [
+          "verifyExtensionsUpdated"
+        ],
+        "guards": [
+          "validateUpdateExtensions"
+        ]
+      },
+      "steps": [
         "updateExtensions"
       ],
-      "checks": [
-        "verifyExtensionsExists",
-        "verifyExtensionsUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the update data is valid and conforms to the schema."
+      ]
     },
     {
-      "entity": "Field",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addFieldVariant1",
+      "entities": {
+        "active": [
+          "Field"
+        ],
+        "lifecycle": [
+          "addField"
+        ],
+        "passive": [
+          "deleteField"
+        ]
       },
-      "blocks": [
-        "deleteField"
-      ],
-      "checks": [
-        "verifyFieldExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Field",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "verifyFieldExists"
+        ],
+        "postconditions": [
+          "verifyFieldExists"
+        ],
+        "guards": [
+          "deleteField"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addField"
       ],
-      "checks": [
-        "verifyFieldNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Field ID is unique before adding."
+      ]
     },
     {
-      "entity": "Field",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteField",
+      "entities": {
+        "active": [
+          "Field"
+        ],
+        "lifecycle": [
+          "addField"
+        ],
+        "passive": [
+          "Field"
+        ]
       },
-      "blocks": [
-        "updateField"
+      "checks": {
+        "preconditions": [
+          "fieldExists"
+        ],
+        "postconditions": [
+          "verifyFieldNotExists"
+        ],
+        "guards": [
+          "fieldExists"
+        ]
+      },
+      "steps": [
+        "deleteField"
       ],
-      "checks": [
-        "verifyFieldExists",
-        "verifyFieldUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the field is not referenced in any other entity."
+      ]
     },
     {
-      "entity": "File",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "updateFieldName",
+      "entities": {
+        "active": [
+          "Field"
+        ],
+        "lifecycle": [
+          "updateFieldName"
+        ],
+        "passive": [
+          "FieldUpdated"
+        ]
       },
-      "blocks": [
-        "deleteFile"
+      "checks": {
+        "preconditions": [
+          "verifyFieldExists"
+        ],
+        "postconditions": [
+          "verifyFieldUpdated"
+        ],
+        "guards": [
+          "checkFieldNameFormat"
+        ]
+      },
+      "steps": [
+        "updateFieldName"
       ],
-      "checks": [
-        "verifyFileExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Field name follows the naming conventions."
+      ]
     },
     {
-      "entity": "File",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "addFileWithDelete",
+      "entities": {
+        "active": [
+          "File"
+        ],
+        "lifecycle": [
+          "deleteFile"
+        ],
+        "passive": [
+          "File"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyFileExists"
+        ],
+        "postconditions": [
+          "verifyFileExists"
+        ],
+        "guards": [
+          "deleteFile"
+        ]
+      },
+      "steps": [
         "addFile"
       ],
-      "checks": [
-        "verifyFileNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the file ID is unique before adding."
+      ]
     },
     {
-      "entity": "File",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteFileVariant",
+      "entities": {
+        "active": [
+          "File"
+        ],
+        "lifecycle": [
+          "addFile"
+        ],
+        "passive": [
+          "verifyFileNotExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "fileExists"
+        ],
+        "postconditions": [
+          "verifyFileNotExists"
+        ],
+        "guards": [
+          "fileIsNotInUse"
+        ]
+      },
+      "steps": [
+        "deleteFile"
+      ],
+      "notes": [
+        "Ensure the file is not in use before deletion."
+      ]
+    },
+    {
+      "name": "updateFileWithNewContent",
+      "entities": {
+        "active": [
+          "File"
+        ],
+        "lifecycle": [
+          "updateFile"
+        ],
+        "passive": [
+          "File"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyFileExists"
+        ],
+        "postconditions": [
+          "verifyFileUpdated"
+        ],
+        "guards": [
+          "checkFileContent"
+        ]
+      },
+      "steps": [
         "updateFile"
       ],
-      "checks": [
-        "verifyFileExists",
-        "verifyFileUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the updated file content is valid."
+      ]
     },
     {
-      "entity": "Files",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteFilesVariant1",
+      "entities": {
+        "active": [
+          "Files"
+        ],
+        "lifecycle": [
+          "addFiles"
+        ],
+        "passive": [
+          "verifyFilesNotExists"
+        ]
       },
-      "blocks": [
-        "addFiles"
+      "checks": {
+        "preconditions": [
+          "id is valid"
+        ],
+        "postconditions": [
+          "verifyFilesNotExists"
+        ],
+        "guards": [
+          "id exists"
+        ]
+      },
+      "steps": [
+        "deleteFiles"
       ],
-      "checks": [
-        "verifyFilesNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the file ID is correctly specified."
+      ]
     },
     {
-      "entity": "Files",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateFilesVariant1",
+      "entities": {
+        "active": [
+          "Files"
+        ],
+        "lifecycle": [
+          "updateFiles"
+        ],
+        "passive": [
+          "FilesUpdated"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyFilesExists"
+        ],
+        "postconditions": [
+          "verifyFilesUpdated"
+        ],
+        "guards": [
+          "checkFilesUpdate"
+        ]
+      },
+      "steps": [
         "updateFiles"
       ],
-      "checks": [
-        "verifyFilesExists",
-        "verifyFilesUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the file ID is valid before updating."
+      ]
     },
     {
-      "entity": "Flow",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addFlowWithValidation",
+      "entities": {
+        "active": [
+          "Flow"
+        ],
+        "lifecycle": [
+          "addFlow"
+        ],
+        "passive": [
+          "verifyFlowExists"
+        ]
       },
-      "blocks": [
-        "deleteFlow"
-      ],
-      "checks": [
-        "verifyFlowExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Flow",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "verifyFlowExists"
+        ],
+        "postconditions": [
+          "verifyFlowExists"
+        ],
+        "guards": [
+          "deleteFlow"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addFlow"
       ],
-      "checks": [
-        "verifyFlowNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the Flow is added successfully before verification."
+      ]
     },
     {
-      "entity": "Flow",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteFlow",
+      "entities": {
+        "active": [
+          "Flow"
+        ],
+        "lifecycle": [
+          "addFlow"
+        ],
+        "passive": [
+          "Flow"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyFlowExists"
+        ],
+        "postconditions": [
+          "verifyFlowNotExists"
+        ],
+        "guards": [
+          "validateFlowDeletion"
+        ]
+      },
+      "steps": [
+        "deleteFlow"
+      ],
+      "notes": [
+        "Ensure the Flow is not in use before deletion."
+      ]
+    },
+    {
+      "name": "updateFlowWithNewData",
+      "entities": {
+        "active": [
+          "Flow"
+        ],
+        "lifecycle": [
+          "updateFlow"
+        ],
+        "passive": [
+          "FlowUpdated"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyFlowExists"
+        ],
+        "postconditions": [
+          "verifyFlowUpdated"
+        ],
+        "guards": [
+          "checkFlowUpdatePermissions"
+        ]
+      },
+      "steps": [
         "updateFlow"
       ],
-      "checks": [
-        "verifyFlowExists",
-        "verifyFlowUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the Flow ID is valid before updating."
+      ]
     },
     {
-      "entity": "Flows",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteFlows",
+      "entities": {
+        "active": [
+          "Flows"
+        ],
+        "lifecycle": [
+          "addFlows"
+        ],
+        "passive": [
+          "verifyFlowsNotExists"
+        ]
       },
-      "blocks": [
-        "addFlows"
+      "checks": {
+        "preconditions": [
+          "Flows exists"
+        ],
+        "postconditions": [
+          "verifyFlowsNotExists"
+        ],
+        "guards": [
+          "id is valid"
+        ]
+      },
+      "steps": [
+        "delete Flows"
       ],
-      "checks": [
-        "verifyFlowsNotExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "Flows",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateFlowsVariant1",
+      "entities": {
+        "active": [
+          "Flows"
+        ],
+        "lifecycle": [
+          "updateFlows"
+        ],
+        "passive": [
+          "FlowsUpdated"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyFlowsExists"
+        ],
+        "postconditions": [
+          "verifyFlowsUpdated"
+        ],
+        "guards": [
+          "validateFlowsUpdate"
+        ]
+      },
+      "steps": [
         "updateFlows"
       ],
-      "checks": [
-        "verifyFlowsExists",
-        "verifyFlowsUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Flows entity is correctly identified by id."
+      ]
     },
     {
-      "entity": "Folder",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addFolderWithDelete",
+      "entities": {
+        "active": [
+          "Folder"
+        ],
+        "lifecycle": [
+          "deleteFolder"
+        ],
+        "passive": [
+          "verifyFolderExists"
+        ]
       },
-      "blocks": [
-        "deleteFolder"
-      ],
-      "checks": [
-        "verifyFolderExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Folder",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "folderIdExists"
+        ],
+        "postconditions": [
+          "verifyFolderExists"
+        ],
+        "guards": [
+          "folderIdIsValid"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addFolder"
       ],
-      "checks": [
-        "verifyFolderNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure folderId is unique before adding."
+      ]
     },
     {
-      "entity": "Folder",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteFolder",
+      "entities": {
+        "active": [
+          "Folder"
+        ],
+        "lifecycle": [
+          "addFolder"
+        ],
+        "passive": [
+          "verifyFolderNotExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "folderExists"
+        ],
+        "postconditions": [
+          "verifyFolderNotExists"
+        ],
+        "guards": [
+          "folderIsNotInUse"
+        ]
+      },
+      "steps": [
+        "deleteFolder"
+      ],
+      "notes": [
+        "Ensure the folder is not in use before deletion."
+      ]
+    },
+    {
+      "name": "updateFolderWithNewName",
+      "entities": {
+        "active": [
+          "Folder"
+        ],
+        "lifecycle": [
+          "updateFolder"
+        ],
+        "passive": [
+          "Folder"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyFolderExists"
+        ],
+        "postconditions": [
+          "verifyFolderUpdated"
+        ],
+        "guards": [
+          "verifyFolderNameChanged"
+        ]
+      },
+      "steps": [
         "updateFolder"
       ],
-      "checks": [
-        "verifyFolderExists",
-        "verifyFolderUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the new name is valid and does not conflict with existing folders."
+      ]
     },
     {
-      "entity": "Folders",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteFoldersVariant",
+      "entities": {
+        "active": [
+          "Folders"
+        ],
+        "lifecycle": [
+          "addFolders"
+        ],
+        "passive": [
+          "verifyFoldersNotExists"
+        ]
       },
-      "blocks": [
-        "addFolders"
+      "checks": {
+        "preconditions": [
+          "Folders exist"
+        ],
+        "postconditions": [
+          "verifyFoldersNotExists"
+        ],
+        "guards": [
+          "idExists"
+        ]
+      },
+      "steps": [
+        "deleteFolders"
       ],
-      "checks": [
-        "verifyFoldersNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the correct id is provided for deletion."
+      ]
     },
     {
-      "entity": "Folders",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateFoldersVariant1",
+      "entities": {
+        "active": [
+          "Folders"
+        ],
+        "lifecycle": [
+          "createFolders"
+        ],
+        "passive": [
+          "updatedFolders"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyFoldersExists"
+        ],
+        "postconditions": [
+          "verifyFoldersUpdated"
+        ],
+        "guards": [
+          "verifyCreateFolders"
+        ]
+      },
+      "steps": [
         "updateFolders"
       ],
-      "checks": [
-        "verifyFoldersExists",
-        "verifyFoldersUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Folders ID is valid before updating."
+      ]
     },
     {
-      "entity": "Item",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addItemWithDelete",
+      "entities": {
+        "active": [
+          "Item"
+        ],
+        "lifecycle": [
+          "deleteItem"
+        ],
+        "passive": [
+          "verifyItemExists"
+        ]
       },
-      "blocks": [
-        "deleteItem"
-      ],
-      "checks": [
-        "verifyItemExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Item",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "itemIdExists"
+        ],
+        "postconditions": [
+          "verifyItemExists"
+        ],
+        "guards": [
+          "deleteItem"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addItem"
       ],
-      "checks": [
-        "verifyItemNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure itemIdExists before adding the item."
+      ]
     },
     {
-      "entity": "Item",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteItem",
+      "entities": {
+        "active": [
+          "Item"
+        ],
+        "lifecycle": [
+          "addItem"
+        ],
+        "passive": [
+          "Item"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "itemExists"
+        ],
+        "postconditions": [
+          "verifyItemNotExists"
+        ],
+        "guards": [
+          "itemIsNotInUse"
+        ]
+      },
+      "steps": [
+        "deleteItem"
+      ],
+      "notes": [
+        "Ensure the item is not referenced by any other entities."
+      ]
+    },
+    {
+      "name": "updateItemWithNewData",
+      "entities": {
+        "active": [
+          "Item"
+        ],
+        "lifecycle": [
+          "updateItem"
+        ],
+        "passive": [
+          "Item"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyItemExists"
+        ],
+        "postconditions": [
+          "verifyItemUpdated"
+        ],
+        "guards": [
+          "validateUpdateParams"
+        ]
+      },
+      "steps": [
         "updateItem"
       ],
-      "checks": [
-        "verifyItemExists",
-        "verifyItemUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the update parameters are valid."
+      ]
     },
     {
-      "entity": "Items",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteItems",
+      "entities": {
+        "active": [
+          "Items"
+        ],
+        "lifecycle": [
+          "addItems"
+        ],
+        "passive": [
+          "verifyItemsNotExists"
+        ]
       },
-      "blocks": [
-        "addItems"
+      "checks": {
+        "preconditions": [
+          "addItems"
+        ],
+        "postconditions": [
+          "verifyItemsNotExists"
+        ],
+        "guards": []
+      },
+      "steps": [
+        "deleteItems"
       ],
-      "checks": [
-        "verifyItemsNotExists"
-      ],
-      "nondet": true
+      "notes": []
     },
     {
-      "entity": "Items",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateItemsById",
+      "entities": {
+        "active": [
+          "Items"
+        ],
+        "lifecycle": [
+          "updateItems"
+        ],
+        "passive": [
+          "Items"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyItemsExists"
+        ],
+        "postconditions": [
+          "verifyItemsUpdated"
+        ],
+        "guards": [
+          "validateUpdateItems"
+        ]
+      },
+      "steps": [
         "updateItems"
       ],
-      "checks": [
-        "verifyItemsExists",
-        "verifyItemsUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid."
+      ]
     },
     {
-      "entity": "LastUsedPageMe",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateLastUsedPageMe_v1",
+      "entities": {
+        "active": [
+          "LastUsedPageMe"
+        ],
+        "lifecycle": [
+          "createLastUsedPageMe"
+        ],
+        "passive": [
+          "LastUsedPageMe"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyLastUsedPageMeExists"
+        ],
+        "postconditions": [
+          "verifyLastUsedPageMeUpdated"
+        ],
+        "guards": [
+          "verifyLastUsedPageMeNotUpdated"
+        ]
+      },
+      "steps": [
         "updateLastUsedPageMe"
       ],
-      "checks": [
-        "verifyLastUsedPageMeExists",
-        "verifyLastUsedPageMeUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the ID is valid before updating."
+      ]
     },
     {
-      "entity": "You",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateUser",
+      "entities": {
+        "active": [
+          "Me"
+        ],
+        "lifecycle": [
+          "updateMe"
+        ],
+        "passive": [
+          "user"
+        ]
       },
-      "blocks": [
-        "updateYou"
+      "checks": {
+        "preconditions": [
+          "verifyUserExists"
+        ],
+        "postconditions": [
+          "verifyUserUpdated"
+        ],
+        "guards": [
+          "validateUserUpdate"
+        ]
+      },
+      "steps": [
+        "updateUser"
       ],
-      "checks": [
-        "verifyYouExists",
-        "verifyYouUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure user ID is valid before updating."
+      ]
     },
     {
-      "entity": "Operation",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addOperation",
+      "entities": {
+        "active": [
+          "Operation"
+        ],
+        "lifecycle": [
+          "deleteOperation"
+        ],
+        "passive": [
+          "Operation"
+        ]
       },
-      "blocks": [
-        "deleteOperation"
-      ],
-      "checks": [
-        "verifyOperationExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Operation",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "verifyOperationExists"
+        ],
+        "postconditions": [
+          "verifyOperationExists"
+        ],
+        "guards": [
+          "deleteOperation"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addOperation"
       ],
-      "checks": [
-        "verifyOperationNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Operation ID is unique before adding."
+      ]
     },
     {
-      "entity": "Operation",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteOperation",
+      "entities": {
+        "active": [
+          "Operation"
+        ],
+        "lifecycle": [
+          "addOperation"
+        ],
+        "passive": [
+          "verifyOperationNotExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "id is valid"
+        ],
+        "postconditions": [
+          "verifyOperationNotExists"
+        ],
+        "guards": [
+          "id exists"
+        ]
+      },
+      "steps": [
+        "deleteOperation"
+      ],
+      "notes": [
+        "Ensure the operation ID is correctly specified."
+      ]
+    },
+    {
+      "name": "updateOperationWithNewParams",
+      "entities": {
+        "active": [
+          "Operation"
+        ],
+        "lifecycle": [
+          "updateOperation"
+        ],
+        "passive": [
+          "OperationUpdated"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyOperationExists"
+        ],
+        "postconditions": [
+          "verifyOperationUpdated"
+        ],
+        "guards": [
+          "checkOperationUpdatePermissions"
+        ]
+      },
+      "steps": [
         "updateOperation"
       ],
-      "checks": [
-        "verifyOperationExists",
-        "verifyOperationUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the update parameters are valid."
+      ]
     },
     {
-      "entity": "Operations",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deleteOperations",
+      "entities": {
+        "active": [
+          "Operations"
+        ],
+        "lifecycle": [
+          "addOperations"
+        ],
+        "passive": [
+          "verifyOperationsNotExists"
+        ]
       },
-      "blocks": [
-        "addOperations"
+      "checks": {
+        "preconditions": [
+          "idExists"
+        ],
+        "postconditions": [
+          "verifyOperationsNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deleteOperations"
       ],
-      "checks": [
-        "verifyOperationsNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id is valid before deletion."
+      ]
     },
     {
-      "entity": "Operations",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updateOperationsWithNewData",
+      "entities": {
+        "active": [
+          "Operations"
+        ],
+        "lifecycle": [
+          "updateOperations"
+        ],
+        "passive": [
+          "OperationsUpdated"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyOperationsExists"
+        ],
+        "postconditions": [
+          "verifyOperationsUpdated"
+        ],
+        "guards": [
+          "validateUpdateParameters"
+        ]
+      },
+      "steps": [
         "updateOperations"
       ],
-      "checks": [
-        "verifyOperationsExists",
-        "verifyOperationsUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the update parameters are valid."
+      ]
     },
     {
-      "entity": "Permission",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addPermission_001",
+      "entities": {
+        "active": [
+          "Permission"
+        ],
+        "lifecycle": [
+          "deletePermission"
+        ],
+        "passive": [
+          "verifyPermissionExists"
+        ]
       },
-      "blocks": [
-        "deletePermission"
-      ],
-      "checks": [
-        "verifyPermissionExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Permission",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "verifyPermissionExists"
+        ],
+        "postconditions": [
+          "verifyPermissionExists"
+        ],
+        "guards": [
+          "deletePermission"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addPermission"
       ],
-      "checks": [
-        "verifyPermissionNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Permission ID is valid before adding."
+      ]
     },
     {
-      "entity": "Permission",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deletePermission",
+      "entities": {
+        "active": [
+          "Permission"
+        ],
+        "lifecycle": [
+          "addPermission"
+        ],
+        "passive": [
+          "verifyPermissionNotExists"
+        ]
       },
-      "blocks": [
-        "updatePermission"
+      "checks": {
+        "preconditions": [
+          "Permission exists"
+        ],
+        "postconditions": [
+          "verifyPermissionNotExists"
+        ],
+        "guards": [
+          "checkPermissionDeletion"
+        ]
+      },
+      "steps": [
+        "deletePermission"
       ],
-      "checks": [
-        "verifyPermissionExists",
-        "verifyPermissionUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the Permission ID is valid before deletion."
+      ]
     },
     {
-      "entity": "Permissions",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "updatePermissionRole",
+      "entities": {
+        "active": [
+          "Permission"
+        ],
+        "lifecycle": [
+          "updateRole"
+        ],
+        "passive": [
+          "Role"
+        ]
       },
-      "blocks": [
-        "addPermissions"
+      "checks": {
+        "preconditions": [
+          "verifyPermissionExists"
+        ],
+        "postconditions": [
+          "verifyPermissionUpdated",
+          "verifyRoleUpdated"
+        ],
+        "guards": [
+          "checkRoleExists"
+        ]
+      },
+      "steps": [
+        "updatePermission",
+        "updateRole"
       ],
-      "checks": [
-        "verifyPermissionsNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Role is correctly associated with the updated Permission."
+      ]
     },
     {
-      "entity": "Permissions",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deletePermissions",
+      "entities": {
+        "active": [
+          "Permissions"
+        ],
+        "lifecycle": [
+          "addPermissions"
+        ],
+        "passive": [
+          "verifyPermissionsNotExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "Permissions exists"
+        ],
+        "postconditions": [
+          "verifyPermissionsNotExists"
+        ],
+        "guards": [
+          "validatePermissionsDeletion"
+        ]
+      },
+      "steps": [
+        "deletePermissions"
+      ],
+      "notes": [
+        "Ensure that the Permissions ID is valid before deletion."
+      ]
+    },
+    {
+      "name": "updatePermissionsWithNewRole",
+      "entities": {
+        "active": [
+          "Permissions"
+        ],
+        "lifecycle": [
+          "updatePermissions"
+        ],
+        "passive": [
+          "Roles"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyPermissionsExists"
+        ],
+        "postconditions": [
+          "verifyPermissionsUpdated",
+          "verifyRolesUpdated"
+        ],
+        "guards": [
+          "checkRolePermissions"
+        ]
+      },
+      "steps": [
         "updatePermissions"
       ],
-      "checks": [
-        "verifyPermissionsExists",
-        "verifyPermissionsUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the new role is compatible with existing permissions."
+      ]
     },
     {
-      "entity": "Preset",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addPreset_001",
+      "entities": {
+        "active": [
+          "Preset"
+        ],
+        "lifecycle": [
+          "deletePreset"
+        ],
+        "passive": [
+          "verifyPresetExists"
+        ]
       },
-      "blocks": [
-        "deletePreset"
-      ],
-      "checks": [
-        "verifyPresetExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Preset",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "presetIdExists"
+        ],
+        "postconditions": [
+          "verifyPresetExists"
+        ],
+        "guards": [
+          "deletePreset"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addPreset"
       ],
-      "checks": [
-        "verifyPresetNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure presetId is valid before adding."
+      ]
     },
     {
-      "entity": "Preset",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deletePreset_001",
+      "entities": {
+        "active": [
+          "Preset"
+        ],
+        "lifecycle": [
+          "addPreset"
+        ],
+        "passive": [
+          "verifyPresetNotExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "presetExists"
+        ],
+        "postconditions": [
+          "verifyPresetNotExists"
+        ],
+        "guards": [
+          "idIsValid"
+        ]
+      },
+      "steps": [
+        "deletePreset"
+      ],
+      "notes": [
+        "Ensure the preset ID is valid before deletion."
+      ]
+    },
+    {
+      "name": "updatePresetWithNewValues",
+      "entities": {
+        "active": [
+          "Preset"
+        ],
+        "lifecycle": [
+          "updatePreset"
+        ],
+        "passive": [
+          "PresetUpdated"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyPresetExists"
+        ],
+        "postconditions": [
+          "verifyPresetUpdated"
+        ],
+        "guards": [
+          "verifyPresetUpdated"
+        ]
+      },
+      "steps": [
         "updatePreset"
       ],
-      "checks": [
-        "verifyPresetExists",
-        "verifyPresetUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the updated values are valid and conform to the schema."
+      ]
     },
     {
-      "entity": "Presets",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "name": "deletePresets",
+      "entities": {
+        "active": [
+          "Presets"
+        ],
+        "lifecycle": [
+          "addPresets"
+        ],
+        "passive": [
+          "verifyPresetsNotExists"
+        ]
       },
-      "blocks": [
-        "addPresets"
+      "checks": {
+        "preconditions": [
+          "Presets exists"
+        ],
+        "postconditions": [
+          "verifyPresetsNotExists"
+        ],
+        "guards": [
+          "addPresets"
+        ]
+      },
+      "steps": [
+        "deletePresets"
       ],
-      "checks": [
-        "verifyPresetsNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure that the Presets to be deleted are correctly identified."
+      ]
     },
     {
-      "entity": "Presets",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "updatePresetsById",
+      "entities": {
+        "active": [
+          "Presets"
+        ],
+        "lifecycle": [
+          "updatePresets"
+        ],
+        "passive": [
+          "PresetsUpdated"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "verifyPresetsExists"
+        ],
+        "postconditions": [
+          "verifyPresetsUpdated"
+        ],
+        "guards": [
+          "checkPresetsUpdate"
+        ]
+      },
+      "steps": [
         "updatePresets"
       ],
-      "checks": [
-        "verifyPresetsExists",
-        "verifyPresetsUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id parameter is valid."
+      ]
     },
     {
-      "entity": "Relation",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addRelationWithDelete",
+      "entities": {
+        "active": [
+          "Relation"
+        ],
+        "lifecycle": [
+          "deleteRelation"
+        ],
+        "passive": [
+          "verifyRelationExists"
+        ]
       },
-      "blocks": [
-        "deleteRelation"
-      ],
-      "checks": [
-        "verifyRelationExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Relation",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "relationIdExists"
+        ],
+        "postconditions": [
+          "verifyRelationExists"
+        ],
+        "guards": [
+          "relationIdIsValid"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addRelation"
       ],
-      "checks": [
-        "verifyRelationNotExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure relationId is valid before adding."
+      ]
     },
     {
-      "entity": "Relation",
-      "op": "update",
-      "params": {
-        "id": "<id>"
+      "name": "deleteRelation",
+      "entities": {
+        "active": [
+          "Relation"
+        ],
+        "lifecycle": [
+          "addRelation"
+        ],
+        "passive": [
+          "verifyRelationNotExists"
+        ]
       },
-      "blocks": [
+      "checks": {
+        "preconditions": [
+          "relationExists"
+        ],
+        "postconditions": [
+          "verifyRelationNotExists"
+        ],
+        "guards": [
+          "relationIsNotReferenced"
+        ]
+      },
+      "steps": [
+        "deleteRelation"
+      ],
+      "notes": [
+        "Ensure that the relation is not in use before deletion."
+      ]
+    },
+    {
+      "name": "updateRelationWithNewData",
+      "entities": {
+        "active": [
+          "Relation"
+        ],
+        "lifecycle": [
+          "updateRelation"
+        ],
+        "passive": [
+          "Relation"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "verifyRelationExists"
+        ],
+        "postconditions": [
+          "verifyRelationUpdated"
+        ],
+        "guards": [
+          "verifyRelationNotUpdated"
+        ]
+      },
+      "steps": [
         "updateRelation"
       ],
-      "checks": [
-        "verifyRelationExists",
-        "verifyRelationUpdated"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the updated data is valid and conforms to the schema."
+      ]
     },
     {
-      "entity": "Role",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addRoleVariant1",
+      "entities": {
+        "active": [
+          "Role"
+        ],
+        "lifecycle": [
+          "addRole"
+        ],
+        "passive": [
+          "deleteRole"
+        ]
       },
-      "blocks": [
-        "deleteRole"
-      ],
-      "checks": [
-        "verifyRoleExists"
-      ],
-      "nondet": true
-    },
-    {
-      "entity": "Role",
-      "op": "delete",
-      "params": {
-        "id": "<id>"
+      "checks": {
+        "preconditions": [
+          "verifyRoleExists"
+        ],
+        "postconditions": [
+          "verifyRoleExists"
+        ],
+        "guards": [
+          "deleteRole"
+        ]
       },
-      "blocks": [
+      "steps": [
         "addRole"
       ],
-      "checks": [
-        "verifyRoleNotExists"
+      "notes": [
+        "Ensure the Role ID is unique before adding."
+      ]
+    },
+    {
+      "name": "deleteRoleAdmin",
+      "entities": {
+        "active": [
+          "Role"
+        ],
+        "lifecycle": [
+          "addRole"
+        ],
+        "passive": [
+          "verifyRoleNotExists"
+        ]
+      },
+      "checks": {
+        "preconditions": [
+          "roleExists"
+        ],
+        "postconditions": [
+          "verifyRoleNotExists"
+        ],
+        "guards": [
+          "roleIsDeletable"
+        ]
+      },
+      "steps": [
+        "deleteRole"
       ],
-      "nondet": true
+      "notes": [
+        "Ensure the role to be deleted is not in use by any users."
+      ]
     }
   ]
 }

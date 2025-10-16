@@ -1,77 +1,157 @@
 {
-  "sut": "config_control",
-  "from_det": "artifacts\\hls_det\\7_suts_llm_provider\\config_control\\hls_det_gold.json",
-  "model_or_dir": "models\\hls\\ALL",
   "stories": [
     {
-      "entity": "App",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addAppWithId",
+      "entities": {
+        "active": [
+          "App"
+        ],
+        "lifecycle": [
+          "deleteApp"
+        ],
+        "passive": [
+          "App"
+        ]
       },
-      "blocks": [
-        "deleteApp"
+      "checks": {
+        "preconditions": [
+          "verifyAppExists"
+        ],
+        "postconditions": [
+          "verifyAppExists"
+        ],
+        "guards": [
+          "deleteApp"
+        ]
+      },
+      "steps": [
+        "addApp"
       ],
-      "checks": [
-        "verifyAppExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the App ID is unique before adding."
+      ]
     },
     {
-      "entity": "Config",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addConfigVariant1",
+      "entities": {
+        "active": [
+          "Config"
+        ],
+        "lifecycle": [
+          "deleteConfig"
+        ],
+        "passive": [
+          "verifyConfigExists"
+        ]
       },
-      "blocks": [
-        "deleteConfig"
+      "checks": {
+        "preconditions": [
+          "configIdExists"
+        ],
+        "postconditions": [
+          "verifyConfigExists"
+        ],
+        "guards": [
+          "configIdIsValid"
+        ]
+      },
+      "steps": [
+        "addConfig"
       ],
-      "checks": [
-        "verifyConfigExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure configId is unique before adding."
+      ]
     },
     {
-      "entity": "Env",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addEnvWithId",
+      "entities": {
+        "active": [
+          "Env"
+        ],
+        "lifecycle": [
+          "deleteEnv"
+        ],
+        "passive": [
+          "verifyEnvExists"
+        ]
       },
-      "blocks": [
-        "deleteEnv"
+      "checks": {
+        "preconditions": [
+          "verifyEnvExists"
+        ],
+        "postconditions": [
+          "verifyEnvExists"
+        ],
+        "guards": []
+      },
+      "steps": [
+        "addEnv"
       ],
-      "checks": [
-        "verifyEnvExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the id is unique before adding the environment."
+      ]
     },
     {
-      "entity": "Policy",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addPolicyWithValidation",
+      "entities": {
+        "active": [
+          "Policy"
+        ],
+        "lifecycle": [
+          "deletePolicy"
+        ],
+        "passive": [
+          "Policy"
+        ]
       },
-      "blocks": [
-        "deletePolicy"
+      "checks": {
+        "preconditions": [
+          "verifyPolicyExists"
+        ],
+        "postconditions": [
+          "verifyPolicyExists"
+        ],
+        "guards": [
+          "deletePolicy"
+        ]
+      },
+      "steps": [
+        "addPolicy"
       ],
-      "checks": [
-        "verifyPolicyExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Policy ID is unique before adding."
+      ]
     },
     {
-      "entity": "Release",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addRelease_v1",
+      "entities": {
+        "active": [
+          "Release"
+        ],
+        "lifecycle": [
+          "addRelease"
+        ],
+        "passive": [
+          "deleteRelease"
+        ]
       },
-      "blocks": [
-        "deleteRelease"
+      "checks": {
+        "preconditions": [
+          "verifyReleaseExists"
+        ],
+        "postconditions": [
+          "verifyReleaseExists"
+        ],
+        "guards": [
+          "deleteRelease"
+        ]
+      },
+      "steps": [
+        "addRelease"
       ],
-      "checks": [
-        "verifyReleaseExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure the Release ID is unique."
+      ]
     }
   ]
 }

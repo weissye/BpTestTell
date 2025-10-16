@@ -1,8 +1,5 @@
 {
   "model": "ALL",
-  "base": "gpt-4o-mini-2024-07-18",
-  "training_file_id": "file-1AgnMQYfV5LCSJHCCzhSTe",
-  "job_id": "ftjob-xgX9YDHAU3o7lRhpIi9eOANl",
-  "fine_tuned_model": "ft:gpt-4o-mini-2024-07-18:ll25::CR0Own86",
-  "mode": "succeeded"
+  "dataset": "models\\hls\\ALL\\train.jsonl",
+  "notes": "stub model; replace with a trained model if desired"
 }

@@ -1,0 +1,11 @@
+{
+  "sut": "github",
+  "provider": "real_world_llm_provider",
+  "provenance": "lle_det",
+  "relations": [],
+  "checks": [
+    "verifyStateConsistent"
+  ],
+  "blocks": [],
+  "explain": []
+}

@@ -1,63 +1,130 @@
 {
-  "sut": "ecommerce",
-  "from_det": "artifacts\\hls_det\\7_suts_llm_provider\\ecommerce\\hls_det_gold.json",
-  "model_or_dir": "models\\hls\\ALL",
   "stories": [
     {
-      "entity": "Drug",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addDrugWithValidation",
+      "entities": {
+        "active": [
+          "Drug"
+        ],
+        "lifecycle": [
+          "addDrug"
+        ],
+        "passive": [
+          "verifyDrugExists"
+        ]
       },
-      "blocks": [
-        "deleteDrug"
+      "checks": {
+        "preconditions": [
+          "deleteDrug"
+        ],
+        "postconditions": [
+          "verifyDrugExists"
+        ],
+        "guards": [
+          "validateDrugData"
+        ]
+      },
+      "steps": [
+        "addDrug"
       ],
-      "checks": [
-        "verifyDrugExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure drug data is valid before adding."
+      ]
     },
     {
-      "entity": "Order",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addOrder_001",
+      "entities": {
+        "active": [
+          "Order"
+        ],
+        "lifecycle": [
+          "deleteOrder"
+        ],
+        "passive": [
+          "Product",
+          "Customer"
+        ]
       },
-      "blocks": [
-        "deleteOrder"
+      "checks": {
+        "preconditions": [
+          "verifyProductAvailable",
+          "verifyCustomerExists"
+        ],
+        "postconditions": [
+          "verifyOrderExists"
+        ],
+        "guards": [
+          "verifyOrderDeleted"
+        ]
+      },
+      "steps": [
+        "addOrder"
       ],
-      "checks": [
-        "verifyOrderExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure product is in stock before adding order."
+      ]
     },
     {
-      "entity": "Patient",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addNewPatient",
+      "entities": {
+        "active": [
+          "Patient"
+        ],
+        "lifecycle": [
+          "updatePatient"
+        ],
+        "passive": [
+          "verifyPatientExists"
+        ]
       },
-      "blocks": [
-        "deletePatient"
+      "checks": {
+        "preconditions": [
+          "verifyPatientExists"
+        ],
+        "postconditions": [
+          "verifyPatientExists"
+        ],
+        "guards": [
+          "deletePatient"
+        ]
+      },
+      "steps": [
+        "addPatient"
       ],
-      "checks": [
-        "verifyPatientExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure patient ID is unique."
+      ]
     },
     {
-      "entity": "Prescription",
-      "op": "add",
-      "params": {
-        "id": "<id>"
+      "name": "addPrescriptionWithValidation",
+      "entities": {
+        "active": [
+          "Prescription"
+        ],
+        "lifecycle": [
+          "addPrescription"
+        ],
+        "passive": [
+          "verifyPrescriptionExists"
+        ]
       },
-      "blocks": [
-        "deletePrescription"
+      "checks": {
+        "preconditions": [
+          "deletePrescription"
+        ],
+        "postconditions": [
+          "verifyPrescriptionExists"
+        ],
+        "guards": [
+          "validatePrescriptionData"
+        ]
+      },
+      "steps": [
+        "addPrescription"
       ],
-      "checks": [
-        "verifyPrescriptionExists"
-      ],
-      "nondet": true
+      "notes": [
+        "Ensure prescription data is valid before adding."
+      ]
     }
   ]
 }

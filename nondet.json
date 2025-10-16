@@ -1,0 +1,122 @@
+{
+    "sut":  "library",
+    "stories":  [
+                    {
+                        "entity":  "Book",
+                        "op":  "add",
+                        "params":  {
+                                       "id":  "12345"
+                                   },
+                        "blocks":  [
+                                       "deleteBook"
+                                   ],
+                        "checks":  [
+                                       "verifyBookExists",
+                                       "verifyStateConsistent"
+                                   ],
+                        "nondet":  true
+                    },
+                    {
+                        "entity":  "Book",
+                        "op":  "delete",
+                        "params":  {
+                                       "id":  "12345"
+                                   },
+                        "blocks":  [
+                                       "addBook"
+                                   ],
+                        "checks":  [
+                                       "verifyBookNotExists"
+                                   ],
+                        "nondet":  true
+                    },
+                    {
+                        "entity":  "Hold",
+                        "op":  "add",
+                        "params":  {
+                                       "id":  "12345"
+                                   },
+                        "blocks":  [
+                                       "deleteHold"
+                                   ],
+                        "checks":  [
+                                       "verifyHoldExists",
+                                       "verifyStateConsistent"
+                                   ],
+                        "nondet":  true
+                    },
+                    {
+                        "entity":  "Hold",
+                        "op":  "delete",
+                        "params":  {
+                                       "id":  "A123"
+                                   },
+                        "blocks":  [
+                                       "addHold"
+                                   ],
+                        "checks":  [
+                                       "verifyHoldNotExists"
+                                   ],
+                        "nondet":  true
+                    },
+                    {
+                        "entity":  "Loan",
+                        "op":  "add",
+                        "params":  {
+                                       "id":  "12345"
+                                   },
+                        "blocks":  [
+                                       "deleteLoan"
+                                   ],
+                        "checks":  [
+                                       "verifyLoanExists",
+                                       "verifyStateConsistent"
+                                   ],
+                        "nondet":  true
+                    },
+                    {
+                        "entity":  "Loan",
+                        "op":  "delete",
+                        "params":  {
+                                       "id":  "A123456789"
+                                   },
+                        "blocks":  [
+                                       "addLoan"
+                                   ],
+                        "checks":  [
+                                       "verifyLoanNotExists"
+                                   ],
+                        "nondet":  true
+                    },
+                    {
+                        "entity":  "User",
+                        "op":  "add",
+                        "params":  {
+                                       "id":  "12345"
+                                   },
+                        "blocks":  [
+                                       "deleteUser"
+                                   ],
+                        "checks":  [
+                                       "verifyUserExists",
+                                       "verifyStateConsistent"
+                                   ],
+                        "nondet":  true
+                    },
+                    {
+                        "entity":  "User",
+                        "op":  "delete",
+                        "params":  {
+                                       "id":  "12345"
+                                   },
+                        "blocks":  [
+                                       "addUser"
+                                   ],
+                        "checks":  [
+                                       "verifyUserNotExists",
+                                       "verifyStateConsistent"
+                                   ],
+                        "nondet":  true
+                    }
+                ]
+}

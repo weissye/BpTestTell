@@ -1,51 +1,74 @@
-@echo off
-setlocal EnableExtensions EnableDelayedExpansion
+:: scripts\hls\gen_hls_nondet_from_allmodel.bat
+@echo on
+setlocal ENABLEDELAYEDEXPANSION
+
+echo ============================================
+echo Generating NONDET for all SUTs from: %~1
+echo CWD: %CD%
+echo Python:
+where python
+echo ============================================
 
 set "LIST=%~1"
 if "%LIST%"=="" set "LIST=config\suts_and_rw.txt"
-
-set "MODEL_DIR=models\hls\ALL"
-set "REF=%MODEL_DIR%\model_ref.json"
-if not exist "%REF%" (echo [ERROR] Missing %REF%& exit /b 1)
-
-for /f "usebackq delims=" %%M in (`python -u scripts\hls\get_ft_model_id.py`) do set "MODEL_ID=%%M"
-
-for /f "usebackq eol=# delims=" %%S in ("%LIST%") do (
-  set "NAME=%%~S"
-  if not "!NAME!"=="" call :ONE
+echo [DBG ] LIST="%LIST%"
+if not exist "%LIST%" (
+  echo [FAIL] SUT list not found: "%LIST%"
+  exit /b 1
 )
 
+for /f "usebackq delims=" %%S in ("%LIST%") do call :PROCESS_SUT "%%~S"
+
+echo(
 echo ALL NONDET DONE
 exit /b 0
 
-:ONE
-setlocal EnableDelayedExpansion
-set "NAME=!NAME!"
-set "DET=" & set "PROVIDER="
-
-if exist "artifacts\hls_det\7_suts_llm_provider\!NAME!\hls_det_gold.json" (
-  set "DET=artifacts\hls_det\7_suts_llm_provider\!NAME!\hls_det_gold.json"
-  set "PROVIDER=7_suts_llm_provider"
+:PROCESS_SUT
+setlocal
+set "SUT=%~1"
+if "%SUT%"=="" (
+  echo [SKIP] blank line
+  endlocal & exit /b 0
 )
-if exist "artifacts\hls_det\real_world_llm_provider\!NAME!\hls_det_gold.json" (
-  set "DET=artifacts\hls_det\real_world_llm_provider\!NAME!\hls_det_gold.json"
-  set "PROVIDER=real_world_llm_provider"
+if "%SUT:~0,1%"==";" (
+  echo [SKIP] comment line: %SUT%
+  endlocal & exit /b 0
+)
+for /f "delims= " %%A in ("%SUT%") do set "SUT=%%~A"
+echo [SUT ] !SUT!
+
+for %%P in (7_suts_llm_provider real_world_llm_provider) do (
+  set "PROVIDER=%%P"
+  set "HLS_DET=artifacts\hls_det\!PROVIDER!\!SUT!\hls_det_gold.json"
+  set "OUT=artifacts\hls_nondet\!PROVIDER!\!SUT!\hls_nondet_gold.json"
+  set "TRAIN=models\hls\!SUT!"
+  echo [DBG ] PROVIDER=!PROVIDER!  HLS_DET="!HLS_DET!"  TRAIN="!TRAIN!"  OUT="!OUT!"
+
+  if exist "!HLS_DET!" (
+    echo [RUN ] NONDET (!PROVIDER!\!SUT!)
+    call :GEN_NONDET "!SUT!" "!HLS_DET!" "!TRAIN!" "!OUT!"
+    if errorlevel 1 ( echo [FAIL] !PROVIDER!\!SUT! ) ELSE ( echo [OK  ] !OUT! )
+  ) ELSE (
+    echo [SKIP] Missing HLS-DET for !PROVIDER!\!SUT!  ->  "!HLS_DET!"
+  )
 )
 
-if "!DET!"=="" (echo [SKIP] !NAME! (no hls_det_gold.json)& endlocal& goto :eof)
+endlocal & exit /b 0
 
-if "!PROVIDER!"=="7_suts_llm_provider" (
-  set "OUT=artifacts\hls_nondet\7_suts_llm_provider\!NAME!\hls_nondet_gold.json"
-) else (
-  set "OUT=artifacts\hls_nondet\real_world_llm_provider\!NAME!\hls_nondet_gold.json"
-)
+:GEN_NONDET
+setlocal
+set "SUT=%~1"
+set "HLS_DET=%~2"
+set "TRAIN=%~3"
+set "OUT=%~4"
 
-for %%D in ("!OUT!") do mkdir "%%~dpD" 2>nul
-
-if defined MODEL_ID (
-  python scripts\hls\generate_nondet_from_llm.py --sut "!NAME!" --hls_det "!DET!" --trained_model_dir "%MODEL_DIR%" --out "!OUT!" --seed 142 --model_id "!MODEL_ID!"
-) else (
-  python scripts\hls\generate_nondet_from_llm.py --sut "!NAME!" --hls_det "!DET!" --trained_model_dir "%MODEL_DIR%" --out "!OUT!" --seed 142
-)
-if errorlevel 1 (echo [FAIL] !NAME!) else (echo [NONDET] !OUT!)
-endlocal& goto :eof
+echo [DBG ] python -u scripts\hls\generate_nondet_from_llm.py --sut "%SUT%" --hls_det "%HLS_DET%" --trained_model_dir "%TRAIN%" --out "%OUT%" --seed 142
+python -u scripts\hls\generate_nondet_from_llm.py ^
+  --sut "%SUT%" ^
+  --hls_det "%HLS_DET%" ^
+  --trained_model_dir "%TRAIN%" ^
+  --out "%OUT%" ^
+  --seed 142
+set "RC=%ERRORLEVEL%"
+echo [DBG ] RC=%RC%
+endlocal & exit /b %RC%
