@@ -1,0 +1,244 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+Build a DSL map from analysis graph.json (+ optional LLE / guards).
+
+Key goals:
+- Always produce meaningful `entities`, even for "thin" OpenAPIs
+  (derive from components.schemas, operation tags, operationIds, and path segments).
+- Keep folder structure tidy:
+    models/hls/SUTs/<sut>/dsl_map.json     (7_suts_llm_provider)
+    models/hls/RWs/<sut>/dsl_map.json      (real_world_llm_provider)
+  and mirror to legacy:
+    models/hls/<sut>/dsl_map.json
+- Keep compatibility with the emitter (do NOT change interfaces.readable.js).
+"""
+
+from __future__ import annotations  # makes PEP 604 and built-in generics safe on Py<3.10
+
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+
+STOPWORDS = {
+    "api", "v1", "v2", "v3", "v4", "service", "services", "sys", "system",
+    "admin", "auth", "oauth", "openapi", "swagger", "rest", "rpc", "ui",
+    "doc", "docs", "health", "status", "version"
+}
+
+def _slug_to_camel(s: str) -> str:
+    s = re.sub(r"[^A-Za-z0-9]+", " ", s).strip()
+    if not s:
+        return s
+    parts = re.split(r"\s+", s)
+    first = parts[0].lower()
+    rest = "".join(p.capitalize() for p in parts[1:])
+    return first + rest
+
+def _singularize(w: str) -> str:
+    lw = w.lower()
+    if lw.endswith("ies") and len(lw) > 3:
+        return lw[:-3] + "y"
+    if lw.endswith(("sses", "xes", "zes")) and len(lw) > 4:
+        return lw[:-2]  # classes -> class, boxes -> box
+    if lw.endswith("s") and not lw.endswith("ss"):
+        return lw[:-1]
+    return lw
+
+def _unique(seq):
+    seen = set()
+    out = []
+    for x in seq:
+        if not x or x in seen:
+            continue
+        seen.add(x)
+        out.append(x)
+    return out
+
+def _ensure_dir(p: Path):
+    p.parent.mkdir(parents=True, exist_ok=True)
+
+def _read_json(p: Path):
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return None
+
+def _write_json(p: Path, data):
+    _ensure_dir(p)
+    p.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+
+# ---------- Entity collection --------------------------------------------------
+
+def collect_entities_from_graph(graph: dict) -> list[str]:
+    """
+    Heuristics to get a solid set of DSL entities.
+    Priority:
+      1) components.schemas keys
+      2) schema titles
+      3) operation tags
+      4) nouns from operationId
+      5) nouns from path segments
+    """
+    entities: list[str] = []
+
+    # 1) components.schemas
+    schemas = (graph or {}).get("components", {}).get("schemas", {}) or {}
+    for key in schemas.keys():
+        key_clean = re.sub(r"Schema$|Model$|Dto$|Response$|Request$", "", key, flags=re.I)
+        ent = _singularize(_slug_to_camel(key_clean))
+        if ent and ent not in STOPWORDS:
+            entities.append(ent)
+
+    # 2) titles inside schemas
+    for sch in schemas.values():
+        title = (sch or {}).get("title")
+        if isinstance(title, str):
+            ent = _singularize(_slug_to_camel(title))
+            if ent and ent not in STOPWORDS:
+                entities.append(ent)
+
+    # 3,4) scan operations
+    paths = (graph or {}).get("paths", {}) or {}
+    for path, path_item in paths.items():
+        if not isinstance(path_item, dict):
+            continue
+        for method, op in path_item.items():
+            if method.lower() not in ("get", "put", "post", "delete", "patch", "head", "options", "trace"):
+                continue
+
+            # tags
+            for t in (op.get("tags") or []):
+                ent = _singularize(_slug_to_camel(str(t)))
+                if ent and ent not in STOPWORDS:
+                    entities.append(ent)
+
+            # operationId
+            op_id = op.get("operationId")
+            if isinstance(op_id, str):
+                # pick trailing noun-ish token: getUserAccounts -> userAccount
+                tokens = re.findall(r"[A-Z]?[a-z]+|[0-9]+", op_id)
+                if tokens:
+                    last = _singularize(tokens[-1])
+                    ent = _slug_to_camel(last)
+                    if ent and ent not in STOPWORDS:
+                        entities.append(ent)
+
+    # 5) path segments
+    for path in paths.keys():
+        segs = [s for s in re.split(r"/+", path) if s and not s.startswith("{")]
+        for seg in segs:
+            seg = re.sub(r"^\W+|\W+$", "", seg)
+            # ignore numeric/versiony segments
+            if re.fullmatch(r"v?\d+", seg, flags=re.I):
+                continue
+            ent = _singularize(_slug_to_camel(seg))
+            if ent and ent not in STOPWORDS:
+                entities.append(ent)
+
+    # de-dupe and keep it reasonable
+    entities = _unique(entities)
+
+    # Fallback so emitter never gets an empty entities list
+    if not entities:
+        entities = ["entity"]
+
+    # prefer longer, more specific names first, but keep stable order
+    entities_sorted = sorted(entities, key=lambda s: (len(s), s))
+    return entities_sorted
+
+# ---------- LLE + guards (optional, non-breaking) -----------------------------
+
+def load_lle_readable_functions(lle_path: Path) -> dict | None:
+    """Collect function signatures from interfaces.readable.js."""
+    try:
+        text = lle_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        return None
+
+    funcs = []
+    for line in text.splitlines():
+        m = re.search(r"^\s*function\s+[A-Za-z0-9_]+\s*\(", line)
+        if m:
+            funcs.append(line.strip())
+
+    return {
+        "source": str(lle_path),
+        "functions": funcs
+    }
+
+def load_guards_json(guards_path: Path) -> dict | None:
+    try:
+        return json.loads(guards_path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return None
+
+# ---------- CLI / main ---------------------------------------------------------
+
+def resolve_out(provider: str, sut: str, out_cli: str | None) -> Path:
+    if out_cli:
+        return Path(out_cli)
+    # Structured default
+    base = REPO_ROOT / "models" / "hls"
+    if provider == "real_world_llm_provider":
+        return base / "RWs" / sut / "dsl_map.json"
+    else:
+        return base / "SUTs" / sut / "dsl_map.json"
+
+def legacy_mirror_path(sut: str) -> Path:
+    return REPO_ROOT / "models" / "hls" / sut / "dsl_map.json"
+
+def main():
+    ap = argparse.ArgumentParser(description="Build DSL map from graph.json (+ optional LLE).")
+    ap.add_argument("--sut", required=True)
+    ap.add_argument("--provider", required=True, choices=["7_suts_llm_provider", "real_world_llm_provider"])
+    ap.add_argument("--graph", help="Path to artifacts/analysis/<provider>/<sut>/graph.json")
+    ap.add_argument("--lle", help="Optional path to interfaces.readable.js")
+    ap.add_argument("--guards", help="Optional path to guards.json")
+    ap.add_argument("--out", help="Output path for dsl_map.json (structured path if omitted)")
+    args = ap.parse_args()
+
+    sut = args.sut
+    provider = args.provider
+
+    graph_path = Path(args.graph) if args.graph else (
+        REPO_ROOT / "artifacts" / "analysis" / provider / sut / "graph.json"
+    )
+    out_path = resolve_out(provider, sut, args.out)
+
+    graph = _read_json(graph_path) or {}
+    entities = collect_entities_from_graph(graph)
+
+    dsl = {
+        "sut": sut,
+        "provider": provider,
+        "entities": entities,
+    }
+
+    # Optional LLE
+    if args.lle:
+        lle_info = load_lle_readable_functions(Path(args.lle))
+        if lle_info:
+            dsl["lle"] = lle_info
+
+    # Optional guards
+    if args.guards:
+        guards = load_guards_json(Path(args.guards))
+        if guards:
+            dsl["guards"] = guards
+
+    # Write primary (structured) and legacy mirror
+    _write_json(out_path, dsl)
+    print(f"[OK] wrote DSL map -> {out_path}")
+
+    legacy = legacy_mirror_path(sut)
+    _write_json(legacy, dsl)
+    print(f"[OK] mirrored legacy -> {legacy}")
+
+if __name__ == "__main__":
+    main()

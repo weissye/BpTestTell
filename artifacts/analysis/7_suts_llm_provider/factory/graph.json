@@ -1,0 +1,104 @@
+{
+  "entities": [],
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/reset",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/machines",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/machines",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workorders",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/workorders",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/maintenance-tickets",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/maintenance-tickets",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/sensor-readings",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/sensor-readings",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "201"
+      ]
+    }
+  ]
+}

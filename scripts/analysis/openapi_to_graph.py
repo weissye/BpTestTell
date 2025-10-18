@@ -1,96 +1,109 @@
-# scripts/analysis/openapi_to_graph.py
-import json, sys, os, re
+#!/usr/bin/env python
+import argparse, json, sys
 from pathlib import Path
+
 try:
-    import yaml
+    import yaml  # optional, for .yaml/.yml inputs
 except Exception:
     yaml = None
 
-def load_openapi(p: Path):
-    t = p.read_text(encoding="utf-8")
+def load_openapi(in_path: str):
+    p = Path(in_path)
+    text = p.read_text(encoding="utf-8")
     if p.suffix.lower() in (".yaml", ".yml"):
-        if not yaml: raise SystemExit("[ERROR] pyyaml not installed: pip install pyyaml")
-        return yaml.safe_load(t)
-    return json.loads(t)
+        if yaml is None:
+            print("[ERR ] YAML file given but PyYAML not installed. Run: pip install pyyaml", file=sys.stderr)
+            sys.exit(1)
+        return yaml.safe_load(text)
+    return json.loads(text)
 
-def guess_entities(spec):
-    comps = spec.get("components", {}).get("schemas", {})
-    entities = {}
-    for name, sch in comps.items():
-        props = (sch.get("properties") or {})
-        required = set(sch.get("required") or [])
-        fields = []
-        for k, v in props.items():
-            fields.append({
-                "name": k,
-                "type": v.get("type", "object"),
-                "format": v.get("format"),
-                "readOnly": bool(v.get("readOnly")),
-                "writeOnly": bool(v.get("writeOnly")),
-                "enum": v.get("enum"),
-                "description": v.get("description"),
-                "unique": bool(v.get("x-unique", False) or v.get("unique", False)),
-                "ref": (v.get("$ref") or v.get("allOf", [{}])[0].get("$ref")),
-            })
-        entities[name] = {"name": name, "fields": fields, "required": list(required), "description": sch.get("description")}
+def iter_schemas(spec: dict):
+    comps = (spec or {}).get("components") or {}
+    schemas = comps.get("schemas") or {}
+    # schemas can contain dicts OR booleans in OpenAPI 3.x
+    for name, sch in (schemas.items() if isinstance(schemas, dict) else []):
+        if isinstance(sch, bool):
+            # boolean schema: ignore for graph/entity inference
+            continue
+        if not isinstance(sch, dict):
+            continue
+        yield name, sch
+
+def to_list(x):
+    return x if isinstance(x, list) else []
+
+def to_dict(x):
+    return x if isinstance(x, dict) else {}
+
+def guess_entities(spec: dict):
+    """
+    Very light inference: each component schema becomes an 'entity'.
+    """
+    entities = []
+    for name, sch in iter_schemas(spec):
+        required = to_list(sch.get("required"))
+        props = to_dict(sch.get("properties"))
+        entities.append({
+            "name": name,
+            "required": required,
+            "properties": list(props.keys())
+        })
     return entities
 
-def detect_relations(entities):
-    # Very simple heuristic: field named <OtherEntity>Id or <other>Id implies FK->OtherEntity
-    names = set(entities.keys())
-    edges = []  # {"from": "Child", "to": "Parent", "via": "parentId", "card": "many-to-one"}
-    for en, e in entities.items():
-        for f in e["fields"]:
-            fn = f["name"]
-            m = re.match(r"^([A-Za-z0-9_]+)Id$", fn)
-            if m:
-                tgt = m.group(1)
-                # Normalize case-insensitive name match
-                candidates = [n for n in names if n.lower() == tgt.lower()]
-                if candidates:
-                    edges.append({"from": en, "to": candidates[0], "via": fn, "card": "many-to-one"})
-    return edges
-
-def extract_ops(spec):
-    # Map HTTP ops into operation names per entity by path naming
-    paths = spec.get("paths", {})
+def build_ops(spec: dict):
+    """
+    Extract a minimal operation list from paths:
+      method, path, operationId, tags, params-in, requestBody content types, response codes
+    """
+    paths = to_dict(spec.get("paths"))
     ops = []
-    for pth, item in paths.items():
-        for method, op in (item or {}).items():
-            if method.upper() not in ("GET","POST","PUT","PATCH","DELETE"): continue
-            summ = op.get("summary") or ""
-            desc = op.get("description") or ""
-            tags = op.get("tags") or []
-            # guess entity from path fragment /{entity}s or /entity
-            m = re.findall(r"/([A-Za-z0-9_]+)", pth or "")
-            entity_guess = m[-1] if m else ""
+    for path, item in paths.items():
+        if not isinstance(item, dict):
+            continue
+        for method, op in item.items():
+            if method.lower() not in ("get","post","put","patch","delete","options","head","trace"):
+                continue
+            if not isinstance(op, dict):
+                continue
+            params = []
+            for p in to_list(op.get("parameters")):
+                if isinstance(p, dict):
+                    params.append({
+                        "name": p.get("name"),
+                        "in": p.get("in"),
+                        "required": bool(p.get("required", False))
+                    })
+            req_body_ct = []
+            rb = op.get("requestBody")
+            if isinstance(rb, dict):
+                content = to_dict(rb.get("content"))
+                req_body_ct = list(content.keys())
+            resp_codes = list(to_dict(op.get("responses")).keys())
             ops.append({
-                "path": pth, "method": method.upper(),
-                "summary": summ, "description": desc, "tags": tags,
-                "entity_guess": entity_guess
+                "method": method.upper(),
+                "path": path,
+                "operationId": op.get("operationId"),
+                "tags": to_list(op.get("tags")),
+                "params": params,
+                "requestBodyCT": req_body_ct,
+                "responses": resp_codes
             })
     return ops
 
 def main():
-    if len(sys.argv) < 4:
-        print("Usage: python scripts/analysis/openapi_to_graph.py <NAME> <openapi.(yaml|json)> <OUT_JSON>", file=sys.stderr)
-        sys.exit(2)
-    name = sys.argv[1]
-    src = Path(sys.argv[2])
-    out = Path(sys.argv[3])
-    spec = load_openapi(src)
-    entities = guess_entities(spec)
-    relations = detect_relations(entities)
-    ops = extract_ops(spec)
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps({
-        "sut": name,
-        "entities": entities,
-        "relations": relations,
-        "ops": ops,
-        "info": spec.get("info", {}),
-    }, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"[GRAPH] {out}")
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--in", dest="in_path", required=True)
+    ap.add_argument("--out", dest="out_path", required=True)
+    args = ap.parse_args()
+
+    spec = load_openapi(args.in_path)
+    print("[GRAPH] --out")  # keeps your existing log line
+    out = {
+        "entities": guess_entities(spec),
+        "ops": build_ops(spec)
+    }
+    Path(args.out_path).parent.mkdir(parents=True, exist_ok=True)
+    Path(args.out_path).write_text(json.dumps(out, indent=2), encoding="utf-8")
 
 if __name__ == "__main__":
     main()

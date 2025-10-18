@@ -1,53 +1,56 @@
 @echo off
-setlocal EnableExtensions
-:: Usage:
-::   scripts\readable\emit_readables_for_det.bat  [config\suts_and_rw.txt]
+setlocal EnableExtensions EnableDelayedExpansion
+
+echo ============================================
+echo Emitting DET READABLES from: "%~1"
+echo CWD: %CD%
+echo ============================================
 
 set "LIST=%~1"
 if "%LIST%"=="" set "LIST=config\suts_and_rw.txt"
+if not exist "%LIST%" (
+  echo [FAIL] SUT list not found: "%LIST%"
+  exit /b 1
+)
 
-for /f "usebackq eol=# delims=" %%S in ("%LIST%") do call :ONE "%%~S"
+for /F "usebackq delims=" %%L in ("%LIST%") do (
+  set "LINE=%%~L"
+  for /F "tokens=* delims= " %%A in ("!LINE!") do set "LINE=%%~A"
+  if defined LINE if not "!LINE:~0,1!"==";" (
+    call :DO_ONE "!LINE!"
+  )
+)
 
 echo ALL DET READABLES DONE
 exit /b 0
 
-:ONE
+:DO_ONE
 setlocal
-set "NAME=%~1"
+set "SUT=%~1"
+set "SUT=%SUT:"=%"
+echo [SUT ] %SUT%
 
-:: detect provider + DET gold location
-set "PROVIDER="
-set "GOLD="
+call :DO_PROVIDER "%SUT%" "7_suts_llm_provider"
+call :DO_PROVIDER "%SUT%" "real_world_llm_provider"
 
-if exist "artifacts\hls_det\7_suts_llm_provider\%NAME%\hls_det_gold.json" (
-  set "PROVIDER=7_suts_llm_provider"
-  set "GOLD=artifacts\hls_det\7_suts_llm_provider\%NAME%\hls_det_gold.json"
-) else if exist "artifacts\hls_det\real_world_llm_provider\%NAME%\hls_det_gold.json" (
-  set "PROVIDER=real_world_llm_provider"
-  set "GOLD=artifacts\hls_det\real_world_llm_provider\%NAME%\hls_det_gold.json"
-)
+endlocal & goto :eof
 
-if "%PROVIDER%"=="" (
-  echo [SKIP] %NAME% (no DET gold found)
+:DO_PROVIDER
+setlocal
+set "SUT=%~1"
+set "PROV=%~2"
+
+set "DET=artifacts\hls_det\%PROV%\%SUT%\hls_det_gold.json"
+set "OUTDIR=artifacts\hls_det\%PROV%\%SUT%\readable"
+set "OUT=%OUTDIR%\stories_hls.js"
+
+if not exist "%DET%" (
+  echo [SKIP] Missing DET for %PROV%\%SUT%
   endlocal & goto :eof
 )
 
-set "OUTDIR=artifacts\hls_det\%PROVIDER%\%NAME%\readable"
-if not exist "%OUTDIR%" md "%OUTDIR%" >nul 2>&1
-set "OUT=%OUTDIR%\stories_hls.js"
+mkdir "%OUTDIR%" 2>nul
+echo [RUN ] DET→JS: %PROV%\%SUT%
+python -u scripts\readable\emit_hls_all_in_one.py --gold "%DET%" --out "%OUT%" --name %SUT%  --format bpjs
 
-:: optional active samples
-set "ACTIVE=examples\samples\%NAME%_active_samples.json"
-
-echo [RUN ] DET %NAME%
-if exist "%ACTIVE%" (
-  python -u scripts\readable\emit_hls_all_in_one.py --gold "%GOLD%" --active "%ACTIVE%" --out "%OUT%" --name "%NAME%" 1>"%OUTDIR%\emit.out" 2>"%OUTDIR%\emit.err"
-) else (
-  python -u scripts\readable\emit_hls_all_in_one.py --gold "%GOLD%" --out "%OUT%" --name "%NAME%" 1>"%OUTDIR%\emit.out" 2>"%OUTDIR%\emit.err"
-)
-if errorlevel 1 (
-  echo [FAIL] %NAME%  (see %OUTDIR%\emit.err)
-) else (
-  echo [OK  ] %NAME% => %OUT%
-)
 endlocal & goto :eof

@@ -1,3 +1,4 @@
+; === SUTs (7_suts_llm_provider) ===
 banking
 config_control
 ecommerce
@@ -5,6 +6,8 @@ factory
 garage
 library
 pharmacy
+
+; === Real-world (real_world_llm_provider) ===
 directus
 gitea
 github

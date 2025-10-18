@@ -1,0 +1,57 @@
+{
+  "sut": "garage",
+  "provider": "7_suts_llm_provider",
+  "entities": [
+    "Car",
+    "CarCreate",
+    "CarUpdate",
+    "Chain",
+    "ChainCreate",
+    "ChainUpdate",
+    "Customer",
+    "CustomerCreate",
+    "CustomerUpdate",
+    "Garage",
+    "GarageCreate",
+    "GarageUpdate",
+    "PMCreate",
+    "PMUpdate",
+    "PeriodicMaintenance",
+    "ROCreate",
+    "ROUpdate",
+    "RepairOrder"
+  ],
+  "lle": {
+    "functions": [],
+    "by_entity": {
+      "Car": [],
+      "CarCreate": [],
+      "CarUpdate": [],
+      "Chain": [],
+      "ChainCreate": [],
+      "ChainUpdate": [],
+      "Customer": [],
+      "CustomerCreate": [],
+      "CustomerUpdate": [],
+      "Garage": [],
+      "GarageCreate": [],
+      "GarageUpdate": [],
+      "PMCreate": [],
+      "PMUpdate": [],
+      "PeriodicMaintenance": [],
+      "ROCreate": [],
+      "ROUpdate": [],
+      "RepairOrder": []
+    }
+  },
+  "sources": {
+    "lle": null,
+    "graph": "artifacts\\analysis\\7_suts_llm_provider\\garage\\graph.json",
+    "guards": null
+  },
+  "notes": {
+    "entities_from_graph_count": 18,
+    "entities_inferred_count": 18
+  },
+  "version": 2
+}

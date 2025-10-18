@@ -1,0 +1,35 @@
+{
+  "sut": "library",
+  "provider": "7_suts_llm_provider",
+  "entities": [
+    "Book",
+    "BookCreate",
+    "Hold",
+    "HoldCreate",
+    "Loan",
+    "LoanCreate",
+    "UserCreate"
+  ],
+  "lle": {
+    "functions": [],
+    "by_entity": {
+      "Book": [],
+      "BookCreate": [],
+      "Hold": [],
+      "HoldCreate": [],
+      "Loan": [],
+      "LoanCreate": [],
+      "UserCreate": []
+    }
+  },
+  "sources": {
+    "lle": null,
+    "graph": "artifacts\\analysis\\7_suts_llm_provider\\library\\graph.json",
+    "guards": null
+  },
+  "notes": {
+    "entities_from_graph_count": 7,
+    "entities_inferred_count": 7
+  },
+  "version": 2
+}

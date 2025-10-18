@@ -1,0 +1,369 @@
+# -*- coding: utf-8 -*-
+"""
+emit_hls_all_in_one.py
+Generates BPjs "garage-style" stories from OpenAPI-derived graph.json + DSL map.
+
+Examples:
+  python scripts/readable/emit_hls_all_in_one.py --sut_dir 7_suts_llm_provider\\banking --mode det --profile rich --fail_under_stories 10
+  python scripts/readable/emit_hls_all_in_one.py --sut_dir real_world_llm_provider\\directus --mode nondet --profile rich --per_entity_max 3
+"""
+
+from __future__ import annotations
+import argparse, io, json, os, re, sys
+from collections import defaultdict
+
+# -------- fs helpers --------
+def pjoin(*parts): return os.path.normpath(os.path.join(*parts))
+def load_json(path):
+    if not path or not os.path.exists(path): return None
+    with io.open(path, "r", encoding="utf-8") as f:
+        try: return json.load(f)
+        except Exception: return None
+def ensure_dir(path):
+    d = os.path.dirname(path)
+    if d and not os.path.exists(d): os.makedirs(d)
+
+# -------- graph + dsl ingestion --------
+_HTTP_METHODS = {"get","post","put","patch","delete","head","options"}
+
+def _first(x, default=None):
+    for i in x: return i
+    return default
+
+def infer_entity_from_path(path_str: str) -> str:
+    parts = [p for p in path_str.strip("/").split("/") if p and not p.startswith("{")]
+    return parts[0] if parts else "root"
+
+def normalize_op_id(path_str, method, maybe_id=None):
+    return maybe_id or "{} {}".format(method.upper(), path_str)
+
+def collect_ops_from_openapi_like(doc):
+    """Try multiple places for OpenAPI 'paths' (top-level, spec/raw/etc)."""
+    candidates = []
+    if isinstance(doc, dict):
+        candidates.append(doc)
+        for k in ("spec","raw","source","openapi_doc","openapi"):
+            v = doc.get(k)
+            if isinstance(v, dict): candidates.append(v)
+    out = []
+    for cand in candidates:
+        paths = cand.get("paths") if isinstance(cand, dict) else None
+        if not isinstance(paths, dict): continue
+        for path_str, methods in paths.items():
+            if not isinstance(methods, dict): continue
+            for m, spec in methods.items():
+                if m.lower() not in _HTTP_METHODS or not isinstance(spec, dict): continue
+                op = {
+                    "method": m.upper(),
+                    "path": path_str,
+                    "operationId": spec.get("operationId"),
+                    "tags": spec.get("tags") or [],
+                    "responses": list((spec.get("responses") or {}).keys()),
+                    "parameters": spec.get("parameters") or [],
+                    "requestBody": spec.get("requestBody"),
+                }
+                entity = _first(op["tags"], None) or infer_entity_from_path(path_str)
+                op["entity"] = entity
+                op["op_id"] = normalize_op_id(path_str, m, op.get("operationId"))
+                out.append(op)
+        if out: break
+    return out
+
+def collect_ops_from_operations_list(doc):
+    """Some converters write a flat 'operations' array."""
+    ops = []
+    ops_list = doc.get("operations") if isinstance(doc, dict) else None
+    if not isinstance(ops_list, list): return ops
+    for n in ops_list:
+        method = (n.get("method") or n.get("httpMethod") or "").upper()
+        path_str = n.get("path") or n.get("url") or n.get("name")
+        if not path_str or method not in {"GET","POST","PUT","PATCH","DELETE","HEAD","OPTIONS"}:
+            continue
+        responses = n.get("responses") or n.get("statusCodes") or []
+        if isinstance(responses, dict): responses = list(responses.keys())
+        tags = n.get("tags") or []
+        entity = _first(tags, None) or infer_entity_from_path(path_str)
+        ops.append({
+            "method": method, "path": path_str, "responses": responses,
+            "parameters": n.get("parameters") or [], "requestBody": n.get("requestBody"),
+            "tags": tags, "entity": entity,
+            "op_id": normalize_op_id(path_str, method, n.get("id") or n.get("operationId")),
+        })
+    return ops
+
+def collect_ops_from_nodes_edges(doc):
+    """Generic graphs with nodes/edges."""
+    ops = []
+    nodes = doc.get("nodes") if isinstance(doc, dict) else None
+    if not isinstance(nodes, list): return ops
+    for n in nodes:
+        path_str = n.get("path") or n.get("url") or n.get("name")
+        method = (n.get("method") or n.get("httpMethod") or "").upper()
+        if not path_str or method not in {"GET","POST","PUT","PATCH","DELETE","HEAD","OPTIONS"}: continue
+        responses = n.get("responses") or n.get("statusCodes") or []
+        if isinstance(responses, dict): responses = list(responses.keys())
+        tags = n.get("tags") or []
+        entity = _first(tags, None) or infer_entity_from_path(path_str)
+        ops.append({
+            "method": method, "path": path_str, "responses": responses,
+            "parameters": n.get("parameters") or [], "requestBody": n.get("requestBody"),
+            "tags": tags, "entity": entity,
+            "op_id": normalize_op_id(path_str, method, n.get("id") or n.get("operationId")),
+        })
+    return ops
+
+def collect_relationships(doc):
+    rels = []
+    if isinstance(doc, dict):
+        r = doc.get("relationships") or doc.get("rels")
+        if isinstance(r, list):
+            for item in r:
+                f = item.get("from") or item.get("source")
+                t = item.get("to") or item.get("target")
+                typ = item.get("type") or item.get("kind") or "relates_to"
+                via = item.get("via") or item.get("key") or None
+                if f and t: rels.append({"from": f, "to": t, "type": typ, "via": via})
+    return rels
+
+def collect_ops(graph_json):
+    if not isinstance(graph_json, dict): return [], []
+    # Try in order of likelihood
+    ops = collect_ops_from_openapi_like(graph_json)
+    if not ops: ops = collect_ops_from_operations_list(graph_json)
+    if not ops: ops = collect_ops_from_nodes_edges(graph_json)
+    rels = collect_relationships(graph_json)
+    return ops, rels
+
+def load_dsl_map(dsl_path):
+    dsl = load_json(dsl_path) or {}
+    if isinstance(dsl, list):
+        out = {}
+        for rec in dsl:
+            ent = rec.get("entity") or rec.get("name") or "unknown"
+            out.setdefault(ent, {}).update(rec)
+        return out
+    if isinstance(dsl, dict): return dsl
+    return {}
+
+# -------- JS templates --------
+def js_header(sut_name, mode, profile):
+    return (
+        "// Auto-generated by emit_hls_all_in_one.py\n"
+        "// SUT: {sut} | mode: {mode} | profile: {profile}\n"
+        "/* eslint-disable */\n"
+        "load('interfaces.readable.js');\n\n"
+    ).format(sut=sut_name, mode=mode, profile=profile)
+
+def js_story(name, body_lines):
+    lines = ["bp.registerBThread({!r}, function () {{".format(name)]
+    for ln in body_lines: lines.append("  " + ln)
+    lines.append("});\n")
+    return "\n".join(lines)
+
+def story_happy(op, det=True):
+    name = "HAPPY {} {}".format(op["method"], op["path"])
+    body = [
+        "// entity: {}".format(op["entity"]),
+        "var ctx = H.ctx();",
+        "H.http('{}', '{}', {{ctx: ctx}});".format(op["method"], op["path"]),
+        "H.expectStatus(/^2\\d\\d$/);",
+    ]
+    if det: body.append("H.commit(ctx);")
+    return js_story(name, body)
+
+def story_negative(op, code):
+    name = "NEGATIVE {} {} -> {}".format(op["method"], op["path"], code)
+    body = [
+        "// entity: {}".format(op["entity"]),
+        "var ctx = H.ctx();",
+        "H.http('{}', '{}', {{ctx: ctx, provoke: '{}'}});".format(op["method"], op["path"], code),
+        "H.expectStatus({});".format(code if isinstance(code, int) else "'{}'".format(code)),
+    ]
+    return js_story(name, body)
+
+def story_edge(op, edge_desc, params_js):
+    name = "EDGE {} {} :: {}".format(op["method"], op["path"], edge_desc)
+    body = [
+        "// entity: {}".format(op["entity"]),
+        "var ctx = H.ctx();",
+        "H.http('{}', '{}', {});".format(op["method"], op["path"], params_js),
+        "H.expectStatus(/^2\\d\\d$/);",
+    ]
+    return js_story(name, body)
+
+def story_cross_flow(src_op, dst_op, rel):
+    name = "FLOW {} {} -> {} {} [{} via {}]".format(
+        src_op["method"], src_op["path"], dst_op["method"], dst_op["path"],
+        rel.get("to"), rel.get("via") or "id")
+    body = [
+        "// cross-entity: {} -> {} via {}".format(rel.get("from"), rel.get("to"), rel.get("via") or "id"),
+        "var ctx = H.ctx();",
+        "var id = H.fixtureId('{}');".format(rel.get("from")),
+        "H.http('{}', '{}'.replace('{'+(rel.via||'id')+'}', id), {{ctx: ctx}});".format(src_op["method"], src_op["path"]),
+        "H.expectStatus(/^2\\d\\d$/);",
+        "H.http('{}', '{}', {{ctx: ctx, query: {{ {}: id }} }});".format(dst_op["method"], dst_op["path"], (rel.get("via") or "id")),
+        "H.expectStatus(/^2\\d\\d$/);",
+    ]
+    return js_story(name, body)
+
+def passive_guard(name, rule_desc):
+    body = [
+        "// passive guard from DSL",
+        "bp.sync({waitFor: H.anyRequest(), block: H.ifViolates({})});".format(json.dumps(rule_desc)),
+    ]
+    return js_story("GUARD: {}".format(name), body)
+
+# -------- edge heuristics --------
+def pick_non2xx(responses):
+    out = []
+    for r in responses or []:
+        s = str(r)
+        if s and s[0].isdigit() and s[0] != "2": out.append(s)
+    if not out: out = ["400","401","403","404","409","422","500"]
+    seen, uniq = set(), []
+    for x in out:
+        if x not in seen: uniq.append(x); seen.add(x)
+    return uniq
+
+def edge_param_variants(op):
+    params = op.get("parameters") or []
+    candidates = []
+    for p in params:
+        nm = p.get("name") if isinstance(p, dict) else None
+        if not nm: continue
+        if nm.lower() in {"limit","page","size","amount","quantity","count"}:
+            candidates.append(nm)
+    out = []
+    for nm in candidates[:1]:
+        out.append( ("{}=boundary".format(nm), "{{ query: {{ {0}: 0 }} }}".format(nm)) )
+    if not out:
+        out.append( ("boundary-body", "{ body: { fuzz: H.boundary() } }") )
+    return out
+
+# -------- assembly --------
+def build_stories(ops, rels, dsl_map, profile, det_mode, per_entity_max):
+    stories = []
+    by_entity_count = defaultdict(int)
+
+    # Passive guards from DSL
+    guards_cfg = []
+    if isinstance(dsl_map, dict):
+        guards_cfg = dsl_map.get("_guards") or dsl_map.get("guards") or []
+    if isinstance(guards_cfg, dict): guards_cfg = [guards_cfg]
+    if isinstance(guards_cfg, list):
+        for idx, rule in enumerate(guards_cfg):
+            stories.append(passive_guard("rule_{}".format(idx+1), rule))
+
+    # Per-entity operations
+    for op in ops:
+        ent = op.get("entity") or "unknown"
+        if by_entity_count[ent] >= per_entity_max: continue
+        stories.append(story_happy(op, det=det_mode)); by_entity_count[ent] += 1
+        non2xx = pick_non2xx(op.get("responses"))
+        if non2xx: stories.append(story_negative(op, non2xx[0]))
+        for edge_desc, params_js in edge_param_variants(op)[:1]:
+            stories.append(story_edge(op, edge_desc, params_js))
+
+    # Cross-entity flows (light)
+    if rels:
+        by_ent = defaultdict(list)
+        for op in ops: by_ent[op.get("entity")].append(op)
+        for rel in rels[:5]:
+            f, t = rel.get("from"), rel.get("to")
+            if not f or not t: continue
+            src_list, dst_list = by_ent.get(f) or [], by_ent.get(t) or []
+            if not src_list or not dst_list: continue
+            stories.append(story_cross_flow(src_list[0], dst_list[0], rel))
+
+    return stories, by_entity_count
+
+def compute_defaults(sut_dir, mode, out, graph, dsl):
+    sut_name = os.path.basename(os.path.normpath(sut_dir))
+    if not graph: graph = pjoin("artifacts","analysis",sut_dir,"graph.json")
+    if not dsl:   dsl   = pjoin("models","hls",sut_name,"dsl_map.json")
+    if not out:   out   = pjoin("artifacts","hls_{}".format(mode),sut_dir,"readable","stories_hls.js")
+    return sut_name, out, graph, dsl
+
+def print_coverage(sut_name, kinds, ops_count, by_entity, rels):
+    print("[COVERAGE] sut={} kinds={} ops={} by_entity={} rels={}".format(
+        sut_name, sorted(list(kinds)), ops_count, dict(by_entity), rels))
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--sut_dir", required=True)
+    ap.add_argument("--mode", choices=["det","nondet"], default="det")
+    ap.add_argument("--out", default=None)
+    ap.add_argument("--graph", default=None)
+    ap.add_argument("--dsl_map", default=None)
+    ap.add_argument("--profile", choices=["basic","rich"], default="rich")
+    ap.add_argument("--per_entity_max", type=int, default=3)
+    ap.add_argument("--fail_under_stories", type=int, default=0)
+
+    # ---- Backward-compat flags (ignored or mapped) ----
+    ap.add_argument("--provider", default=None, help="(compat) ignored; inferred from --sut_dir")
+    ap.add_argument("--max_stories_per_entity", type=int, default=None,
+                    help="(compat) alias for --per_entity_max")
+
+    args = ap.parse_args()
+    if args.max_stories_per_entity is not None:
+        args.per_entity_max = args.max_stories_per_entity
+
+    sut_name, out_path, graph_path, dsl_path = compute_defaults(
+        args.sut_dir, args.mode, args.out, args.graph, args.dsl_map
+    )
+
+    graph = load_json(graph_path)
+    if graph is None:
+        print("[SKIP] no graph: ", args.sut_dir)
+        return 0
+
+    ops, rels = collect_ops(graph)
+    dsl_map = load_dsl_map(dsl_path)
+
+    # Fallback if no ops: synthesize CRUD from DSL entities
+    if not ops and isinstance(dsl_map, dict):
+        for ent, conf in dsl_map.items():
+            if not isinstance(conf, dict): continue
+            endpoints = conf.get("endpoints") or []
+            if isinstance(endpoints, list) and endpoints:
+                for hint in endpoints:
+                    m = (hint.get("method") or "GET").upper()
+                    p = hint.get("path") or "/{}".format(ent.lower())
+                    ops.append({"method": m,"path": p,"entity": ent,"responses": ["200","400","404"],
+                                "parameters": [],"op_id": normalize_op_id(p,m)})
+            else:
+                base = "/{}".format(ent.lower())
+                ops.extend([
+                    {"method":"GET","path": base,"entity":ent,"responses":["200","400","404"],"parameters":[],"op_id":normalize_op_id(base,"GET")},
+                    {"method":"POST","path": base,"entity":ent,"responses":["201","400","422"],"parameters":[],"op_id":normalize_op_id(base,"POST")},
+                    {"method":"GET","path": base+"/{id}","entity":ent,"responses":["200","404"],"parameters":[{"name":"id"}],"op_id":normalize_op_id(base+"/{id}","GET")},
+                ])
+
+    # If still empty, print a small hint
+    if not ops:
+        print("[WARN] No operations found. graph keys:", list(graph.keys())[:12], "dsl:", bool(dsl_map))
+
+    det_mode = (args.mode == "det")
+    stories, by_entity = build_stories(
+        ops=ops, rels=rels, dsl_map=dsl_map, profile=args.profile,
+        det_mode=det_mode, per_entity_max=args.per_entity_max
+    )
+
+    ensure_dir(out_path)
+    with io.open(out_path, "w", encoding="utf-8") as f:
+        f.write(js_header(sut_name, args.mode, args.profile))
+        for s in stories:
+            f.write(s)
+            if not s.endswith("\n"): f.write("\n")
+
+    count = sum(1 for s in stories if s.strip().startswith("bp.registerBThread"))
+    print("[OK] wrote {} ({} stories)".format(os.path.normpath(out_path), count))
+    kinds = set([op.get("entity") or "unknown" for op in ops])
+    print_coverage(sut_name, kinds, len(ops), by_entity, rels)
+
+    if args.fail_under_stories and count < args.fail_under_stories:
+        print("[FAIL] story count {} < threshold {}".format(count, args.fail_under_stories))
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main())

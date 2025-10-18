@@ -1,0 +1,19 @@
+{
+  "sut": "trello",
+  "provider": "real_world_llm_provider",
+  "entities": [],
+  "lle": {
+    "functions": [],
+    "by_entity": {}
+  },
+  "sources": {
+    "lle": null,
+    "graph": "artifacts\\analysis\\real_world_llm_provider\\trello\\graph.json",
+    "guards": null
+  },
+  "notes": {
+    "entities_from_graph_count": 0,
+    "entities_inferred_count": 0
+  },
+  "version": 2
+}

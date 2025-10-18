@@ -1,0 +1,41 @@
+{
+  "sut": "directus",
+  "provider": "real_world_llm_provider",
+  "entities": [
+    "Activity",
+    "Collections",
+    "Comments",
+    "Diff",
+    "Extensions",
+    "Flows",
+    "Operations",
+    "Presets",
+    "Relations",
+    "Revisions"
+  ],
+  "lle": {
+    "functions": [],
+    "by_entity": {
+      "Activity": [],
+      "Collections": [],
+      "Comments": [],
+      "Diff": [],
+      "Extensions": [],
+      "Flows": [],
+      "Operations": [],
+      "Presets": [],
+      "Relations": [],
+      "Revisions": []
+    }
+  },
+  "sources": {
+    "lle": null,
+    "graph": "artifacts\\analysis\\real_world_llm_provider\\directus\\graph.json",
+    "guards": null
+  },
+  "notes": {
+    "entities_from_graph_count": 10,
+    "entities_inferred_count": 10
+  },
+  "version": 2
+}

@@ -1,4 +1,5 @@
 # scripts/hls/generate_nondet_from_llm.py
+from __future__ import annotations
 import argparse, json, os, re, sys, time, random
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
