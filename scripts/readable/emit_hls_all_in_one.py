@@ -405,6 +405,7 @@ def build_active_lifecycle(entity: str, edsl: Dict[str, Any], per_entity_max: in
 
     body.append(concat(ver["exists"], "(", ", ".join([f"x.{a}" for a in args]), ");"))
     body.append(concat(ver["updated"], "(", ", ".join([f"x.{a}" for a in args]), ");"))
+	
     return [ bthread(titlecase(name), body) ]
 
 def build_nondet_variants(entity: str, edsl: Dict[str, Any], per_entity_max: int) -> List[str]:

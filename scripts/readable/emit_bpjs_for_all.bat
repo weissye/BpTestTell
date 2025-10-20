@@ -1,127 +1,160 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
 
-rem ===========================================================
-rem Emit BPjs readables (and always build DSL maps first)
-rem ===========================================================
+REM ── Repo root (two levels up from scripts\readable\) ──────────────────────────
+set "SCRIPT_DIR=%~dp0"
+for %%I in ("%SCRIPT_DIR%\..\..") do set "ROOT=%%~fI"
+pushd "%ROOT%" >nul
 
+REM ── Config & knobs ────────────────────────────────────────────────────────────
+set "CONFIG_ARG=%~1"
+if not defined CONFIG_ARG set "CONFIG_ARG=config\suts_and_rw.txt"
+
+set "PROFILE=rich"
+set "PER_ENTITY_MAX=10"
+set "FAIL_UNDER=0"
+
+set "OUT_DET_BASE=artifacts\hls_det"
+set "OUT_NONDET_BASE=artifacts\hls_nondet"
+
+REM Prefer venv python if present
 set "PY=python"
+if defined VIRTUAL_ENV if exist "%VIRTUAL_ENV%\Scripts\python.exe" set "PY=%VIRTUAL_ENV%\Scripts\python.exe"
 
-rem This .bat is in scripts\readable\
-set "THIS_DIR=%~dp0"
-set "EMIT_PY=%THIS_DIR%\emit_bpjs_readable.py"
-rem Single canonical build_dsl_map.py location:
-set "BUILD_DSL_MAP_PY=%THIS_DIR%\..\analysis\build_dsl_map.py"
+REM Resolve config path (absolute or root-relative)
+set "CONFIG_FILE="
+if exist "%CONFIG_ARG%" set "CONFIG_FILE=%CONFIG_ARG%"
+if not defined CONFIG_FILE if exist "%ROOT%\%CONFIG_ARG%" set "CONFIG_FILE=%ROOT%\%CONFIG_ARG%"
 
-rem Input list file
-set "LIST_FILE=%~1"
-if not defined LIST_FILE set "LIST_FILE=config\suts_and_rw.txt"
-
-rem Optional knobs (defaults)
-if not defined PROFILE set "PROFILE=exhaustive"
-if not defined PER_ENTITY_MAX set "PER_ENTITY_MAX=10"
-if not defined FAIL_UNDER set "FAIL_UNDER=0"
-
-echo(============================================
-echo(Emitting BPjs readables from: "%LIST_FILE%"
-echo(CWD: %CD%
-echo(PROFILE=%PROFILE%  PER_ENTITY_MAX=%PER_ENTITY_MAX%  FAIL_UNDER=%FAIL_UNDER%
-echo(============================================
-
-if not exist "%LIST_FILE%" (
-  echo([ERR ] List file not found: "%LIST_FILE%"
-  exit /b 1
+if not defined CONFIG_FILE (
+  echo ============================================
+  echo [ERR] Config file not found:
+  echo       "%CONFIG_ARG%"
+  echo       "%ROOT%\%CONFIG_ARG%"
+  echo ============================================
+  popd >nul & exit /b 1
 )
 
-if not exist "%BUILD_DSL_MAP_PY%" (
-  echo([ERR ] build_dsl_map.py not found at "%BUILD_DSL_MAP_PY%"
-  echo(       Keep a SINGLE copy here: scripts\analysis\build_dsl_map.py
-  exit /b 1
+REM Locate emitter
+set "EMIT_PY="
+if exist "scripts\analysis\emit_hls_all_in_one.py" set "EMIT_PY=scripts\analysis\emit_hls_all_in_one.py"
+if not defined EMIT_PY if exist "scripts\readable\emit_hls_all_in_one.py" set "EMIT_PY=scripts\readable\emit_hls_all_in_one.py"
+if not defined EMIT_PY (
+  echo ============================================
+  echo [ERR] Could not find emit_hls_all_in_one.py
+  echo       Checked:
+  echo         scripts\analysis\emit_hls_all_in_one.py
+  echo         scripts\readable\emit_hls_all_in_one.py
+  echo ============================================
+  popd >nul & exit /b 1
 )
 
-if not exist "%EMIT_PY%" (
-  echo([WARN] "%EMIT_PY%" not found.
-  echo(       I will still build DSL maps; readable emission will be skipped.
+echo ============================================
+echo Emitting BPjs readables from: "%CONFIG_FILE%"
+echo CWD: %CD%
+echo PROFILE=%PROFILE%  PER_ENTITY_MAX=%PER_ENTITY_MAX%  FAIL_UNDER=%FAIL_UNDER%
+echo Providers: 7_suts_llm_provider ^| real_world_llm_provider
+echo Using emitter: %EMIT_PY%
+echo ============================================
+
+for %%P in (7_suts_llm_provider real_world_llm_provider) do (
+  call :EMIT_FOR_PROVIDER "%%~P" "%CONFIG_FILE%"
 )
 
-rem Iterate SUTs: skip blanks/#/; and strip inline comments after ';'
-for /f "usebackq tokens=* delims=" %%L in ("%LIST_FILE%") do (
-  set "LINE=%%L"
-  for /f "tokens=* delims= " %%A in ("!LINE!") do set "LINE=%%A"
-  if not "!LINE!"=="" if not "!LINE:~0,1!"=="#" if not "!LINE:~0,1!"==";" (
-    for /f "tokens=1 delims=;" %%S in ("!LINE!") do set "SUT=%%~S"
-    for /f "tokens=* delims= " %%Z in ("!SUT!") do set "SUT=%%Z"
+echo.
+echo [DONE] %~nx0 finished.
+popd >nul
+exit /b 0
 
-    if not "!SUT!"=="" (
-      echo(
-      echo([SUT ] !SUT!)
+REM =============================================================================
+:EMIT_FOR_PROVIDER
+set "PROVIDER=%~1"
+set "CFG=%~2"
 
-      for %%P in (7_suts_llm_provider real_world_llm_provider) do (
-        set "PROVIDER=%%P"
-        set "GRAPH=artifacts\analysis\!PROVIDER!\!SUT!\graph.json"
+for /f "usebackq tokens=* delims=" %%S in ("%CFG%") do (
+  set "LINE=%%S"
+  setlocal EnableDelayedExpansion
+  set "NOSP=!LINE: =!"
+  set "FIRST1=!LINE:~0,1!"
+  set "FIRST2=!LINE:~0,2!"
 
-        rem Output location for new DSL map (canonical)
-        if /I "!PROVIDER!"=="7_suts_llm_provider" (
-          set "OUT=models\hls\SUTs\!SUT!\dsl_map.json"
-        ) else (
-          set "OUT=models\hls\RWs\!SUT!\dsl_map.json"
-        )
+  set "SKIP="
+  if "!NOSP!"=="" set "SKIP=1"
+  if "!FIRST1!"==";" set "SKIP=1"
+  if "!FIRST1!"=="#" set "SKIP=1"
+  if "!FIRST2!"=="//" set "SKIP=1"
 
-        rem Legacy path (both providers mirror to models\hls\<sut>\dsl_map.json)
-        set "DSL_MAP_LEGACY=models\hls\!SUT!\dsl_map.json"
-
-        echo(  [GEN ] dsl_map: !PROVIDER!\!SUT!
-        if exist "!GRAPH!" (
-          echo(  [RUN ] %PY% -u "%BUILD_DSL_MAP_PY%" --sut "!SUT!" --provider "!PROVIDER!" --graph "!GRAPH!" --out "!OUT!"
-          %PY% -u "%BUILD_DSL_MAP_PY%" --sut "!SUT!" --provider "!PROVIDER!" --graph "!GRAPH!" --out "!OUT!"
-          if errorlevel 1 (
-            echo(  [ERR ] build_dsl_map.py failed with exit code !errorlevel!
-          ) else (
-            echo(  [OK ] DSL map ready: !OUT!
-          )
-        ) else (
-          echo(  [SKIP] no graph:  !PROVIDER!\!SUT!
-        )
-
-        rem Emit readables only if emitter exists and graph exists
-        if exist "!EMIT_PY!" if exist "!GRAPH!" (
-          echo(  [RUN ] det JS: !PROVIDER!\!SUT!
-          echo(    using --graph "!GRAPH!"
-          echo(    using --dsl_map "!DSL_MAP_LEGACY!"
-          %PY% -u "%EMIT_PY%" ^
-            --profile "!PROFILE!" ^
-            --per_entity_max "!PER_ENTITY_MAX!" ^
-            --fail_under "!FAIL_UNDER!" ^
-            --mode det ^
-            --provider "!PROVIDER!" ^
-            --sut "!SUT!" ^
-            --graph "!GRAPH!" ^
-            --dsl_map "!DSL_MAP_LEGACY!"
-          if errorlevel 1 (
-            echo(  [ERR ] emitter ^(det^) failed with exit code !errorlevel!
-          )
-
-          echo(  [RUN ] nondet JS: !PROVIDER!\!SUT!
-          echo(    using --graph "!GRAPH!"
-          echo(    using --dsl_map "!DSL_MAP_LEGACY!"
-          %PY% -u "%EMIT_PY%" ^
-            --profile "!PROFILE!" ^
-            --per_entity_max "!PER_ENTITY_MAX!" ^
-            --fail_under "!FAIL_UNDER!" ^
-            --mode nondet ^
-            --provider "!PROVIDER!" ^
-            --sut "!SUT!" ^
-            --graph "!GRAPH!" ^
-            --dsl_map "!DSL_MAP_LEGACY!"
-          if errorlevel 1 (
-            echo(  [ERR ] emitter ^(nondet^) failed with exit code !errorlevel!
-          )
-        )
-      )
+  if not defined SKIP (
+    for /f "tokens=1,2 delims=:" %%a in ("!LINE!") do (
+      REM If the config groups by provider like:
+      REM   ; === SUTs (7_suts_llm_provider)
+      REM   banking
+      REM we just take the full line as SUT; no provider prefix in file
     )
+    endlocal & call :EMIT_FOR_SUT "%PROVIDER%" "%%S"
+  ) else (
+    endlocal
+  )
+)
+exit /b
+
+REM =============================================================================
+:EMIT_FOR_SUT
+set "PROVIDER=%~1"
+set "SUT=%~2"
+
+set "GRAPH=artifacts\analysis\%PROVIDER%\%SUT%\graph.json"
+if not exist "%GRAPH%" (
+  echo   [SKIP] no graph:  %PROVIDER%\%SUT%
+  exit /b 0
+)
+
+if /i "%PROVIDER%"=="7_suts_llm_provider" (
+  set "DSL_DIR=models\hls\SUTs\%SUT%"
+) else (
+  set "DSL_DIR=models\hls\RWs\%SUT%"
+)
+if not exist "%DSL_DIR%" mkdir "%DSL_DIR%" >nul 2>&1
+set "DSL_MAP=%DSL_DIR%\dsl_map.json"
+
+echo.
+echo [SUT ] %SUT%
+echo   [GEN ] dsl_map: %PROVIDER%\%SUT%
+echo   [RUN ] %PY% -u "%ROOT%\scripts\analysis\build_dsl_map.py" --sut "%SUT%" --provider "%PROVIDER%" --graph "%GRAPH%" --out "%DSL_MAP%"
+%PY% -u "scripts\analysis\build_dsl_map.py" --sut "%SUT%" --provider "%PROVIDER%" --graph "%GRAPH%" --out "%DSL_MAP%"
+if errorlevel 1 (
+  echo   [ERR ] dsl_map generation failed for %PROVIDER%\%SUT%
+  exit /b 1
+)
+echo   [OK ] DSL map ready: %DSL_MAP%
+
+for %%M in (det nondet) do (
+  set "MODE=%%M"
+  if /i "!MODE!"=="det" ( set "OUT_BASE=%OUT_DET_BASE%" ) else ( set "OUT_BASE=%OUT_NONDET_BASE%" )
+
+  set "OUT_DIR=!OUT_BASE!\%PROVIDER%\%SUT%"
+  set "OUT_FILE=!OUT_DIR!\stories_hls.js"
+  if not exist "!OUT_DIR!" mkdir "!OUT_DIR!" >nul 2>&1
+
+  echo     using --graph "%GRAPH%"
+  echo     using --dsl_map "%DSL_MAP%"
+  echo     using --out "!OUT_FILE!"
+
+  %PY% -u "%EMIT_PY%" ^
+    --sut_dir "%DSL_DIR%" ^
+    --mode "!MODE!" ^
+    --graph "%GRAPH%" ^
+    --dsl_map "%DSL_MAP%" ^
+    --profile "%PROFILE%" ^
+    --per_entity_max %PER_ENTITY_MAX% ^
+    --fail_under_stories %FAIL_UNDER% ^
+    --out "!OUT_FILE!"
+
+  if errorlevel 1 (
+    echo   [ERR ] emitter failed for %PROVIDER%\%SUT% mode=!MODE!
+  ) else (
+    echo   [OK ] emitter done for %PROVIDER%\%SUT% mode=!MODE!
   )
 )
 
-echo(
-echo([DONE] emit_bpjs_for_all.bat finished.
 exit /b 0
