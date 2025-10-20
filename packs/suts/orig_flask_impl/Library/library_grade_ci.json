@@ -1,0 +1,36 @@
+{
+  "score": 90,
+  "counts": {
+    "schema": 0,
+    "auto": 0,
+    "qa": 2,
+    "total": 2
+  },
+  "issues": [
+    "[Book] Q/A indicates 'no' but expected 'yes' for: After delete, does READ return 404?",
+    "[Loan] Q/A indicates 'no' but expected 'yes' for: After delete, does READ return 404?"
+  ],
+  "endpoints_count": 13,
+  "entities": [
+    "User",
+    "Book",
+    "Loan",
+    "Hold"
+  ],
+  "answers": {
+    "enforce_unique_ids::User": "yes",
+    "enforce_unique_ids::Book": "yes",
+    "enforce_unique_ids::Loan": "yes",
+    "enforce_unique_ids::Hold": "yes",
+    "not_found_after_delete::User": "yes",
+    "not_found_after_delete::Book": "no",
+    "not_found_after_delete::Loan": "no",
+    "not_found_after_delete::Hold": "yes",
+    "block_delete_when_related::User": "yes",
+    "block_delete_when_related::Book": "yes",
+    "block_delete_when_related::Loan": "yes",
+    "block_delete_when_related::Hold": "yes"
+  },
+  "augmented": true,
+  "output_used": "C:\\work\\Yeshayahu\\LLM\\Library\\library_grade_ci_augmented.json"
+}

@@ -1,0 +1,82 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "factory SUT",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/reset": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/machines": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "list"
+          }
+        }
+      },
+      "post": {
+        "responses": {
+          "201": {
+            "description": "created"
+          }
+        }
+      }
+    },
+    "/workorders": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "list"
+          }
+        }
+      },
+      "post": {
+        "responses": {
+          "201": {
+            "description": "created"
+          }
+        }
+      }
+    },
+    "/maintenance-tickets": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "list"
+          }
+        }
+      },
+      "post": {
+        "responses": {
+          "201": {
+            "description": "created"
+          }
+        }
+      }
+    },
+    "/sensor-readings": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "list"
+          }
+        }
+      },
+      "post": {
+        "responses": {
+          "201": {
+            "description": "created"
+          }
+        }
+      }
+    }
+  }
+}

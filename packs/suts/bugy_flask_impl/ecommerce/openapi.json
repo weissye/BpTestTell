@@ -1,0 +1,127 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ecommerce SUT",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/reset": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "list"
+          }
+        }
+      },
+      "post": {
+        "responses": {
+          "201": {
+            "description": "created"
+          }
+        }
+      }
+    },
+    "/products/{sku}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      },
+      "patch": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/carts": {
+      "post": {
+        "responses": {
+          "201": {
+            "description": "created"
+          }
+        }
+      }
+    },
+    "/carts/{cartId}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/carts/{cartId}/items": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/orders": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "list"
+          }
+        }
+      },
+      "post": {
+        "responses": {
+          "201": {
+            "description": "created"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/pay": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/inventory/{sku}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    }
+  }
+}

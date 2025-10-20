@@ -1,0 +1,200 @@
+[
+  {
+    "method": "POST",
+    "path": "/chains",
+    "operationId": "createChain",
+    "summary": "Create a chain"
+  },
+  {
+    "method": "GET",
+    "path": "/chains",
+    "operationId": "listChains",
+    "summary": "List chains"
+  },
+  {
+    "method": "GET",
+    "path": "/chains/{chainId}",
+    "operationId": "readChain",
+    "summary": "Read a chain"
+  },
+  {
+    "method": "PUT",
+    "path": "/chains/{chainId}",
+    "operationId": "updateChain",
+    "summary": "Update a chain"
+  },
+  {
+    "method": "DELETE",
+    "path": "/chains/{chainId}",
+    "operationId": "deleteChain",
+    "summary": "Delete a chain"
+  },
+  {
+    "method": "POST",
+    "path": "/garages",
+    "operationId": "createGarage",
+    "summary": "Create a garage"
+  },
+  {
+    "method": "GET",
+    "path": "/garages",
+    "operationId": "listGarages",
+    "summary": "List garages"
+  },
+  {
+    "method": "GET",
+    "path": "/garages/{garageId}",
+    "operationId": "readGarage",
+    "summary": "Read a garage"
+  },
+  {
+    "method": "PUT",
+    "path": "/garages/{garageId}",
+    "operationId": "updateGarage",
+    "summary": "Update a garage"
+  },
+  {
+    "method": "DELETE",
+    "path": "/garages/{garageId}",
+    "operationId": "deleteGarage",
+    "summary": "Delete a garage"
+  },
+  {
+    "method": "POST",
+    "path": "/customers",
+    "operationId": "createCustomer",
+    "summary": "Create customer"
+  },
+  {
+    "method": "GET",
+    "path": "/customers",
+    "operationId": "listCustomers",
+    "summary": "List customers"
+  },
+  {
+    "method": "GET",
+    "path": "/customers/{customerId}",
+    "operationId": "readCustomer",
+    "summary": "Read customer"
+  },
+  {
+    "method": "PUT",
+    "path": "/customers/{customerId}",
+    "operationId": "updateCustomer",
+    "summary": "Update customer"
+  },
+  {
+    "method": "DELETE",
+    "path": "/customers/{customerId}",
+    "operationId": "deleteCustomer",
+    "summary": "Delete customer"
+  },
+  {
+    "method": "POST",
+    "path": "/cars",
+    "operationId": "createCar",
+    "summary": "Create car"
+  },
+  {
+    "method": "GET",
+    "path": "/cars",
+    "operationId": "listCars",
+    "summary": "List cars"
+  },
+  {
+    "method": "GET",
+    "path": "/cars/{vin}",
+    "operationId": "readCar",
+    "summary": "Read car"
+  },
+  {
+    "method": "PUT",
+    "path": "/cars/{vin}",
+    "operationId": "updateCar",
+    "summary": "Update car"
+  },
+  {
+    "method": "DELETE",
+    "path": "/cars/{vin}",
+    "operationId": "deleteCar",
+    "summary": "Delete car"
+  },
+  {
+    "method": "POST",
+    "path": "/periodic-maintenance",
+    "operationId": "createPM",
+    "summary": "Create PM plan"
+  },
+  {
+    "method": "GET",
+    "path": "/periodic-maintenance",
+    "operationId": "listPM",
+    "summary": "List PM plans"
+  },
+  {
+    "method": "GET",
+    "path": "/periodic-maintenance/{pmId}",
+    "operationId": "readPM",
+    "summary": "Read PM plan"
+  },
+  {
+    "method": "PUT",
+    "path": "/periodic-maintenance/{pmId}",
+    "operationId": "updatePM",
+    "summary": "Update PM plan"
+  },
+  {
+    "method": "DELETE",
+    "path": "/periodic-maintenance/{pmId}",
+    "operationId": "deletePM",
+    "summary": "Delete PM plan"
+  },
+  {
+    "method": "POST",
+    "path": "/repair-orders",
+    "operationId": "createRO",
+    "summary": "Create repair order"
+  },
+  {
+    "method": "GET",
+    "path": "/repair-orders",
+    "operationId": "listRO",
+    "summary": "List repair orders"
+  },
+  {
+    "method": "GET",
+    "path": "/repair-orders/{roId}",
+    "operationId": "readRO",
+    "summary": "Read repair order"
+  },
+  {
+    "method": "PUT",
+    "path": "/repair-orders/{roId}",
+    "operationId": "updateRO",
+    "summary": "Update repair order"
+  },
+  {
+    "method": "DELETE",
+    "path": "/repair-orders/{roId}",
+    "operationId": "deleteRO",
+    "summary": "Delete repair order"
+  },
+  {
+    "method": "POST",
+    "path": "/repair-orders/{roId}/approve",
+    "operationId": "approveRO",
+    "summary": "Approve RO"
+  },
+  {
+    "method": "POST",
+    "path": "/repair-orders/{roId}/close",
+    "operationId": "closeRO",
+    "summary": "Close RO"
+  },
+  {
+    "method": "POST",
+    "path": "/reset",
+    "operationId": "reset",
+    "summary": "Reset demo data"
+  }
+]

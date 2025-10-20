@@ -1,17 +1,12 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
 REM ============================================================
-REM emit_bpjs_for_all.bat
-REM Merged runner for HLS emission across all SUTs (DET + NONDET)
-REM Uses: emit_hls_all_in_one.py
+REM emit_bpjs_for_all_hazards.bat
+REM Runner for HLS emission across all SUTs (DET + NONDET) **with Auto-Hazard pack**
+REM Uses: emit_hls_all_in_one_hazards.py
 REM ------------------------------------------------------------
 REM Usage:
-REM   emit_bpjs_for_all.bat [SUT_ROOT] [MODES] [PROFILE] [PER_ENTITY_MAX] [FAIL_UNDER]
-REM   - SUT_ROOT: base folder containing SUT subfolders (default: suts\flask_impl)
-REM   - MODES: comma-separated list of modes to run (default: det,nondet)
-REM   - PROFILE: emission profile (default: exhaustive)
-REM   - PER_ENTITY_MAX: (default: 10)
-REM   - FAIL_UNDER: coverage gate (stories) (default: 0)
+REM   emit_bpjs_for_all_hazards.bat [SUT_ROOT] [MODES] [PROFILE] [PER_ENTITY_MAX] [FAIL_UNDER]
 REM ============================================================
 
 set "_HERE=%~dp0"
@@ -30,16 +25,21 @@ if "%PER_ENTITY_MAX%"=="" set "PER_ENTITY_MAX=10"
 set "FAIL_UNDER=%~5"
 if "%FAIL_UNDER%"=="" set "FAIL_UNDER=0"
 
-REM Resolve Python emitter path
-set "EMITTER=%_HERE%emit_hls_all_in_one.py"
+REM Resolve Python emitter path (hazard-enabled)
+set "EMITTER=%_HERE%emit_hls_all_in_one_hazards.py"
 if not exist "%EMITTER%" (
-  REM try relative up-tree (repo-style)
-  if exist "%_HERE%..\..\emit_hls_all_in_one.py" set "EMITTER=%_HERE%..\..\emit_hls_all_in_one.py"
+  if exist "%_HERE%..\..\emit_hls_all_in_one_hazards.py" set "EMITTER=%_HERE%..\..\emit_hls_all_in_one_hazards.py"
 )
 if not exist "%EMITTER%" (
-  echo [ERR ] Could not find emit_hls_all_in_one.py near "%_HERE%"
+  echo [ERR ] Could not find emit_hls_all_in_one_hazards.py near "%_HERE%"
   exit /b 1
 )
+
+REM Ensure @auto-hazard behavior (on by default, but we pin it explicitly)
+set "HLS_HAZARD_PACK=auto"
+set "HLS_HAZARD_OVR=1"
+set "HLS_HAZARD_CAS=1"
+set "HLS_HAZARD_WSK=1"
 
 echo ============================================
 echo [INFO] SUT_ROOT=%SUT_ROOT%
@@ -47,14 +47,14 @@ echo [INFO] MODES=%MODES%
 echo [INFO] PROFILE=%PROFILE%
 echo [INFO] PER_ENTITY_MAX=%PER_ENTITY_MAX%  FAIL_UNDER=%FAIL_UNDER%
 echo [INFO] EMITTER=%EMITTER%
+echo [INFO] @auto-hazard is ENABLED  (HLS_HAZARD_PACK=%HLS_HAZARD_PACK%)
 echo ============================================
 
-REM Iterate SUTs (any subfolder under SUT_ROOT)
 for /d %%S in ("%SUT_ROOT%\*") do (
   set "SUT_DIR=%%~fS"
   set "SUT_NAME=%%~nS"
   echo(
-  echo [RUN ] %%~nS
+  echo [RUN ] %%~nS (auto-hazard)
 
   for %%M in (%MODES%) do (
     echo    - mode=%%M
@@ -71,5 +71,5 @@ for /d %%S in ("%SUT_ROOT%\*") do (
 )
 
 echo(
-echo([DONE] emit_bpjs_for_all.bat finished.
+echo([DONE] emit_bpjs_for_all_hazards.bat finished.
 exit /b 0

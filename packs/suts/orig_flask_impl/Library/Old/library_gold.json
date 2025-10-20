@@ -1,0 +1,585 @@
+{
+  "system": "Library",
+  "entities": [
+    {
+      "name": "Book",
+      "crud": [
+        "Create",
+        "Read",
+        "Update",
+        "Delete"
+      ],
+      "apis": [
+        {
+          "method": "POST",
+          "path": "/books",
+          "operationId": "createBook"
+        },
+        {
+          "method": "GET",
+          "path": "/books",
+          "operationId": "listBooks"
+        },
+        {
+          "method": "GET",
+          "path": "/books/{id}",
+          "operationId": "readBook"
+        },
+        {
+          "method": "PUT",
+          "path": "/books/{id}",
+          "operationId": "updateBook"
+        },
+        {
+          "method": "DELETE",
+          "path": "/books/{id}",
+          "operationId": "deleteBook"
+        }
+      ],
+      "events": {
+        "low": [
+          {
+            "name": "book.create.api",
+            "level": "low",
+            "maps_to": {
+              "method": "POST",
+              "path": "/books",
+              "operationId": "createBook"
+            },
+            "pre": {
+              "auth": "librarian"
+            },
+            "inputs": {
+              "id": "string",
+              "title": "string",
+              "author": "string"
+            },
+            "post": {
+              "status": [
+                201
+              ],
+              "json.has": [
+                "id",
+                "title",
+                "author"
+              ]
+            },
+            "expectedErrors": [
+              {
+                "status": 400,
+                "reason": "duplicate-id"
+              }
+            ]
+          },
+          {
+            "name": "book.read.api",
+            "level": "low",
+            "maps_to": {
+              "method": "GET",
+              "path": "/books/{book_id}",
+              "operationId": "readBook"
+            },
+            "pre": {
+              "auth": "any"
+            },
+            "inputs": {
+              "book_id": "string"
+            },
+            "post": {
+              "status": [
+                200
+              ],
+              "json.has": [
+                "id",
+                "title",
+                "author"
+              ]
+            },
+            "expectedErrors": [
+              {
+                "status": 404,
+                "reason": "not-found"
+              }
+            ]
+          },
+          {
+            "name": "book.update.api",
+            "level": "low",
+            "maps_to": {
+              "method": "PUT",
+              "path": "/books/{book_id}",
+              "operationId": "updateBook"
+            },
+            "pre": {
+              "auth": "librarian"
+            },
+            "inputs": {
+              "title?": "string",
+              "author?": "string",
+              "book_id": "string"
+            },
+            "post": {
+              "status": [
+                200
+              ]
+            },
+            "expectedErrors": [
+              {
+                "status": 404,
+                "reason": "not-found"
+              }
+            ]
+          },
+          {
+            "name": "book.delete.api",
+            "level": "low",
+            "maps_to": {
+              "method": "DELETE",
+              "path": "/books/{book_id}",
+              "operationId": "deleteBook"
+            },
+            "pre": {
+              "auth": "librarian"
+            },
+            "inputs": {
+              "book_id": "string"
+            },
+            "post": {
+              "status": [
+                204
+              ]
+            },
+            "expectedErrors": [
+              {
+                "status": 404,
+                "reason": "not-found"
+              },
+              {
+                "status": 400,
+                "reason": "book-in-loan"
+              }
+            ]
+          },
+          {
+            "name": "book.list.api",
+            "level": "low",
+            "maps_to": {
+              "method": "GET",
+              "path": "/books",
+              "operationId": "listBooks"
+            },
+            "pre": {
+              "auth": "any"
+            },
+            "inputs": {},
+            "post": {
+              "status": [
+                200
+              ],
+              "json.isArray": true
+            }
+          }
+        ],
+        "high": [
+          {
+            "name": "AddNewBook",
+            "level": "high",
+            "composition": [
+              "book.create.api",
+              "book.read.api"
+            ],
+            "oracle": {
+              "assert": "created.id != null"
+            }
+          },
+          {
+            "name": "UpdateBookThenVerify",
+            "level": "high",
+            "composition": [
+              "book.update.api",
+              "book.read.api"
+            ],
+            "oracle": {
+              "assert": "read.title == updated.title"
+            }
+          },
+          {
+            "name": "DeleteBookSafely",
+            "level": "high",
+            "composition": [
+              "book.read.api",
+              "book.delete.api",
+              "book.read.api"
+            ],
+            "oracle": {
+              "assert": "second_read.status == 404"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "User",
+      "crud": [
+        "Create",
+        "Read",
+        "Update",
+        "Delete"
+      ],
+      "apis": [
+        {
+          "method": "POST",
+          "path": "/users",
+          "operationId": "createUser"
+        },
+        {
+          "method": "GET",
+          "path": "/users",
+          "operationId": "listUsers"
+        },
+        {
+          "method": "GET",
+          "path": "/users/{id}",
+          "operationId": "readUser"
+        },
+        {
+          "method": "PUT",
+          "path": "/users/{id}",
+          "operationId": "updateUser"
+        },
+        {
+          "method": "DELETE",
+          "path": "/users/{id}",
+          "operationId": "deleteUser"
+        }
+      ],
+      "events": {
+        "low": [
+          {
+            "name": "user.create.api",
+            "level": "low",
+            "maps_to": {
+              "method": "POST",
+              "path": "/users",
+              "operationId": "createUser"
+            },
+            "pre": {
+              "auth": "librarian"
+            },
+            "inputs": {
+              "id": "string",
+              "name": "string"
+            },
+            "post": {
+              "status": [
+                201
+              ],
+              "json.has": [
+                "id",
+                "name"
+              ]
+            },
+            "expectedErrors": [
+              {
+                "status": 400,
+                "reason": "duplicate-id"
+              }
+            ]
+          },
+          {
+            "name": "user.read.api",
+            "level": "low",
+            "maps_to": {
+              "method": "GET",
+              "path": "/users/{user_id}",
+              "operationId": "readUser"
+            },
+            "pre": {
+              "auth": "any"
+            },
+            "inputs": {
+              "user_id": "string"
+            },
+            "post": {
+              "status": [
+                200
+              ],
+              "json.has": [
+                "id",
+                "name"
+              ]
+            },
+            "expectedErrors": [
+              {
+                "status": 404,
+                "reason": "not-found"
+              }
+            ]
+          },
+          {
+            "name": "user.update.api",
+            "level": "low",
+            "maps_to": {
+              "method": "PUT",
+              "path": "/users/{user_id}",
+              "operationId": "updateUser"
+            },
+            "pre": {
+              "auth": "librarian"
+            },
+            "inputs": {
+              "name?": "string",
+              "user_id": "string"
+            },
+            "post": {
+              "status": [
+                200
+              ]
+            },
+            "expectedErrors": [
+              {
+                "status": 404,
+                "reason": "not-found"
+              }
+            ]
+          },
+          {
+            "name": "user.delete.api",
+            "level": "low",
+            "maps_to": {
+              "method": "DELETE",
+              "path": "/users/{user_id}",
+              "operationId": "deleteUser"
+            },
+            "pre": {
+              "auth": "librarian"
+            },
+            "inputs": {
+              "user_id": "string"
+            },
+            "post": {
+              "status": [
+                204
+              ]
+            },
+            "expectedErrors": [
+              {
+                "status": 404,
+                "reason": "not-found"
+              },
+              {
+                "status": 400,
+                "reason": "user-has-active-loans"
+              }
+            ]
+          },
+          {
+            "name": "user.list.api",
+            "level": "low",
+            "maps_to": {
+              "method": "GET",
+              "path": "/users",
+              "operationId": "listUsers"
+            },
+            "pre": {
+              "auth": "any"
+            },
+            "inputs": {},
+            "post": {
+              "status": [
+                200
+              ],
+              "json.isArray": true
+            }
+          }
+        ],
+        "high": [
+          {
+            "name": "RegisterUserThenVerify",
+            "level": "high",
+            "composition": [
+              "user.create.api",
+              "user.read.api"
+            ],
+            "oracle": {
+              "assert": "created.id != null"
+            }
+          },
+          {
+            "name": "DeleteUserSafely",
+            "level": "high",
+            "composition": [
+              "user.read.api",
+              "user.delete.api",
+              "user.read.api"
+            ],
+            "oracle": {
+              "assert": "second_read.status == 404"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Loan",
+      "crud": [
+        "Create",
+        "Read",
+        "Delete"
+      ],
+      "apis": [
+        {
+          "method": "POST",
+          "path": "/loans",
+          "operationId": "createLoan"
+        },
+        {
+          "method": "GET",
+          "path": "/loans",
+          "operationId": "listLoans"
+        },
+        {
+          "method": "GET",
+          "path": "/loans/{userId}/{bookId}",
+          "operationId": "readLoan"
+        },
+        {
+          "method": "DELETE",
+          "path": "/loans/{userId}/{bookId}",
+          "operationId": "deleteLoan"
+        }
+      ],
+      "events": {
+        "low": [
+          {
+            "name": "loan.create.api",
+            "level": "low",
+            "maps_to": {
+              "method": "POST",
+              "path": "/loans",
+              "operationId": "createLoan"
+            },
+            "pre": {
+              "auth": "librarian"
+            },
+            "inputs": {
+              "userId": "string",
+              "bookId": "string"
+            },
+            "post": {
+              "status": [
+                201
+              ]
+            },
+            "expectedErrors": [
+              {
+                "status": 400,
+                "reason": "duplicate-loan"
+              }
+            ]
+          },
+          {
+            "name": "loan.read.api",
+            "level": "low",
+            "maps_to": {
+              "method": "GET",
+              "path": "/loans/{user_id}/{book_id}",
+              "operationId": "readLoan"
+            },
+            "pre": {
+              "auth": "any"
+            },
+            "inputs": {
+              "user_id": "string",
+              "book_id": "string"
+            },
+            "post": {
+              "status": [
+                200
+              ]
+            },
+            "expectedErrors": [
+              {
+                "status": 404,
+                "reason": "not-found"
+              }
+            ]
+          },
+          {
+            "name": "loan.delete.api",
+            "level": "low",
+            "maps_to": {
+              "method": "DELETE",
+              "path": "/loans/{user_id}/{book_id}",
+              "operationId": "deleteLoan"
+            },
+            "pre": {
+              "auth": "librarian"
+            },
+            "inputs": {
+              "user_id": "string",
+              "book_id": "string"
+            },
+            "post": {
+              "status": [
+                204
+              ]
+            },
+            "expectedErrors": [
+              {
+                "status": 404,
+                "reason": "not-found"
+              }
+            ]
+          },
+          {
+            "name": "loan.list.api",
+            "level": "low",
+            "maps_to": {
+              "method": "GET",
+              "path": "/loans",
+              "operationId": "listLoans"
+            },
+            "pre": {
+              "auth": "any"
+            },
+            "inputs": {},
+            "post": {
+              "status": [
+                200
+              ],
+              "json.isArray": true
+            }
+          }
+        ],
+        "high": [
+          {
+            "name": "CreateLoanThenVerify",
+            "level": "high",
+            "composition": [
+              "loan.create.api",
+              "loan.read.api"
+            ],
+            "oracle": {
+              "assert": "read.status == 200"
+            }
+          },
+          {
+            "name": "ReturnLoanSafely",
+            "level": "high",
+            "composition": [
+              "loan.read.api",
+              "loan.delete.api",
+              "loan.read.api"
+            ],
+            "oracle": {
+              "assert": "second_read.status == 404"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "waivers": [],
+  "assumptions": []
+}
