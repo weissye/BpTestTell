@@ -1,71 +1,123 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
-REM ============================================================
-REM emit_bpjs_for_all.bat
-REM Merged runner for HLS emission across all SUTs (DET + NONDET)
-REM Uses: emit_hls_all_in_one.py
-REM ------------------------------------------------------------
-REM Usage:
-REM   emit_bpjs_for_all.bat [SUT_ROOT] [MODES] [PROFILE] [PER_ENTITY_MAX] [FAIL_UNDER]
-REM   - SUT_ROOT: base folder containing SUT subfolders (default: suts\flask_impl)
-REM   - MODES: comma-separated list of modes to run (default: det,nondet)
-REM   - PROFILE: emission profile (default: exhaustive)
-REM   - PER_ENTITY_MAX: (default: 10)
-REM   - FAIL_UNDER: coverage gate (stories) (default: 0)
-REM ============================================================
 
-set "_HERE=%~dp0"
-set "SUT_ROOT=%~1"
-if "%SUT_ROOT%"=="" set "SUT_ROOT=suts\flask_impl"
+rem ===========================================================
+rem Emit BPjs readables (and always build DSL maps first)
+rem ===========================================================
 
-set "MODES=%~2"
-if "%MODES%"=="" set "MODES=det,nondet"
+set "PY=python"
 
-set "PROFILE=%~3"
-if "%PROFILE%"=="" set "PROFILE=exhaustive"
+rem This .bat is in scripts\readable\
+set "THIS_DIR=%~dp0"
+set "EMIT_PY=%THIS_DIR%\emit_bpjs_readable.py"
+rem Single canonical build_dsl_map.py location:
+set "BUILD_DSL_MAP_PY=%THIS_DIR%\..\analysis\build_dsl_map.py"
 
-set "PER_ENTITY_MAX=%~4"
-if "%PER_ENTITY_MAX%"=="" set "PER_ENTITY_MAX=10"
+rem Input list file
+set "LIST_FILE=%~1"
+if not defined LIST_FILE set "LIST_FILE=config\suts_and_rw.txt"
 
-set "FAIL_UNDER=%~5"
-if "%FAIL_UNDER%"=="" set "FAIL_UNDER=0"
+rem Optional knobs (defaults)
+if not defined PROFILE set "PROFILE=exhaustive"
+if not defined PER_ENTITY_MAX set "PER_ENTITY_MAX=10"
+if not defined FAIL_UNDER set "FAIL_UNDER=0"
 
-REM Resolve Python emitter path
-set "EMITTER=%_HERE%emit_hls_all_in_one.py"
-if not exist "%EMITTER%" (
-  REM try relative up-tree (repo-style)
-  if exist "%_HERE%..\..\emit_hls_all_in_one.py" set "EMITTER=%_HERE%..\..\emit_hls_all_in_one.py"
-)
-if not exist "%EMITTER%" (
-  echo [ERR ] Could not find emit_hls_all_in_one.py near "%_HERE%"
+echo(============================================
+echo(Emitting BPjs readables from: "%LIST_FILE%"
+echo(CWD: %CD%
+echo(PROFILE=%PROFILE%  PER_ENTITY_MAX=%PER_ENTITY_MAX%  FAIL_UNDER=%FAIL_UNDER%
+echo(============================================
+
+if not exist "%LIST_FILE%" (
+  echo([ERR ] List file not found: "%LIST_FILE%"
   exit /b 1
 )
 
-echo ============================================
-echo [INFO] SUT_ROOT=%SUT_ROOT%
-echo [INFO] MODES=%MODES%
-echo [INFO] PROFILE=%PROFILE%
-echo [INFO] PER_ENTITY_MAX=%PER_ENTITY_MAX%  FAIL_UNDER=%FAIL_UNDER%
-echo [INFO] EMITTER=%EMITTER%
-echo ============================================
+if not exist "%BUILD_DSL_MAP_PY%" (
+  echo([ERR ] build_dsl_map.py not found at "%BUILD_DSL_MAP_PY%"
+  echo(       Keep a SINGLE copy here: scripts\analysis\build_dsl_map.py
+  exit /b 1
+)
 
-REM Iterate SUTs (any subfolder under SUT_ROOT)
-for /d %%S in ("%SUT_ROOT%\*") do (
-  set "SUT_DIR=%%~fS"
-  set "SUT_NAME=%%~nS"
-  echo(
-  echo [RUN ] %%~nS
+if not exist "%EMIT_PY%" (
+  echo([WARN] "%EMIT_PY%" not found.
+  echo(       I will still build DSL maps; readable emission will be skipped.
+)
 
-  for %%M in (%MODES%) do (
-    echo    - mode=%%M
-    python "%EMITTER%" ^
-      --sut_dir "!SUT_DIR!" ^
-      --mode %%M ^
-      --profile "%PROFILE%" ^
-      --per_entity_max %PER_ENTITY_MAX% ^
-      --fail_under_stories %FAIL_UNDER%
-    if errorlevel 1 (
-      echo(    [ERR ] emitter failed for "!SUT_DIR!" (mode=%%M) ^(exit !errorlevel!^)
+rem Iterate SUTs: skip blanks/#/; and strip inline comments after ';'
+for /f "usebackq tokens=* delims=" %%L in ("%LIST_FILE%") do (
+  set "LINE=%%L"
+  for /f "tokens=* delims= " %%A in ("!LINE!") do set "LINE=%%A"
+  if not "!LINE!"=="" if not "!LINE:~0,1!"=="#" if not "!LINE:~0,1!"==";" (
+    for /f "tokens=1 delims=;" %%S in ("!LINE!") do set "SUT=%%~S"
+    for /f "tokens=* delims= " %%Z in ("!SUT!") do set "SUT=%%Z"
+
+    if not "!SUT!"=="" (
+      echo(
+      echo([SUT ] !SUT!)
+
+      for %%P in (7_suts_llm_provider real_world_llm_provider) do (
+        set "PROVIDER=%%P"
+        set "GRAPH=artifacts\analysis\!PROVIDER!\!SUT!\graph.json"
+
+        rem Output location for new DSL map (canonical)
+        if /I "!PROVIDER!"=="7_suts_llm_provider" (
+          set "OUT=models\hls\SUTs\!SUT!\dsl_map.json"
+        ) else (
+          set "OUT=models\hls\RWs\!SUT!\dsl_map.json"
+        )
+
+        rem Legacy path (both providers mirror to models\hls\<sut>\dsl_map.json)
+        set "DSL_MAP_LEGACY=models\hls\!SUT!\dsl_map.json"
+
+        echo(  [GEN ] dsl_map: !PROVIDER!\!SUT!
+        if exist "!GRAPH!" (
+          echo(  [RUN ] %PY% -u "%BUILD_DSL_MAP_PY%" --sut "!SUT!" --provider "!PROVIDER!" --graph "!GRAPH!" --out "!OUT!"
+          %PY% -u "%BUILD_DSL_MAP_PY%" --sut "!SUT!" --provider "!PROVIDER!" --graph "!GRAPH!" --out "!OUT!"
+          if errorlevel 1 (
+            echo(  [ERR ] build_dsl_map.py failed with exit code !errorlevel!
+          ) else (
+            echo(  [OK ] DSL map ready: !OUT!
+          )
+        ) else (
+          echo(  [SKIP] no graph:  !PROVIDER!\!SUT!
+        )
+
+        rem Emit readables only if emitter exists and graph exists
+        if exist "!EMIT_PY!" if exist "!GRAPH!" (
+          echo(  [RUN ] det JS: !PROVIDER!\!SUT!
+          echo(    using --graph "!GRAPH!"
+          echo(    using --dsl_map "!DSL_MAP_LEGACY!"
+          %PY% -u "%EMIT_PY%" ^
+            --profile "!PROFILE!" ^
+            --per_entity_max "!PER_ENTITY_MAX!" ^
+            --fail_under "!FAIL_UNDER!" ^
+            --mode det ^
+            --provider "!PROVIDER!" ^
+            --sut "!SUT!" ^
+            --graph "!GRAPH!" ^
+            --dsl_map "!DSL_MAP_LEGACY!"
+          if errorlevel 1 (
+            echo(  [ERR ] emitter ^(det^) failed with exit code !errorlevel!
+          )
+
+          echo(  [RUN ] nondet JS: !PROVIDER!\!SUT!
+          echo(    using --graph "!GRAPH!"
+          echo(    using --dsl_map "!DSL_MAP_LEGACY!"
+          %PY% -u "%EMIT_PY%" ^
+            --profile "!PROFILE!" ^
+            --per_entity_max "!PER_ENTITY_MAX!" ^
+            --fail_under "!FAIL_UNDER!" ^
+            --mode nondet ^
+            --provider "!PROVIDER!" ^
+            --sut "!SUT!" ^
+            --graph "!GRAPH!" ^
+            --dsl_map "!DSL_MAP_LEGACY!"
+          if errorlevel 1 (
+            echo(  [ERR ] emitter ^(nondet^) failed with exit code !errorlevel!
+          )
+        )
+      )
     )
   )
 )

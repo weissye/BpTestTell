@@ -1,9 +1,13 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
 REM ============================================================
-REM emit_bpjs_for_all_hazards_safe.bat  (list-aware)
-REM - Accepts either a SUT ROOT DIRECTORY or a TEXT FILE list (see merged script header).
-REM - Calls: emit_hls_all_in_one_hazards.py and enables @auto-hazard.
+REM emit_bpjs_for_all_hazards_safe.bat  (hardened, list-aware)
+REM - Accepts a SUT ROOT DIRECTORY or a TEXT FILE list.
+REM - If list: format -> sut_dir [modes] [profile] [per_entity_max] [fail_under]
+REM - Skips lines starting with # ; // or == (banners).
+REM - Resolves bare names (e.g., "banking") against common roots: suts\flask_impl 7_suts_llm_provider real_world_llm_provider suts
+REM - Maps profile 'exhaustive' -> 'rich' for compatibility.
+REM - Calls: emit_hls_all_in_one_hazards.py
 REM ============================================================
 
 set "_HERE=%~dp0"
@@ -14,7 +18,7 @@ set "MODES=%~2"
 if "%MODES%"=="" set "MODES=det,nondet"
 
 set "PROFILE=%~3"
-if "%PROFILE%"=="" set "PROFILE=exhaustive"
+if "%PROFILE%"=="" set "PROFILE=rich"
 
 set "PER_ENTITY_MAX=%~4"
 if "%PER_ENTITY_MAX%"=="" set "PER_ENTITY_MAX=10"
@@ -22,7 +26,7 @@ if "%PER_ENTITY_MAX%"=="" set "PER_ENTITY_MAX=10"
 set "FAIL_UNDER=%~5"
 if "%FAIL_UNDER%"=="" set "FAIL_UNDER=0"
 
-REM Resolve Python emitter path (hazard-patched)
+REM Resolve Python emitter path
 set "EMITTER=%_HERE%emit_hls_all_in_one_hazards.py"
 if not exist "%EMITTER%" (
   if exist "%_HERE%..\..\emit_hls_all_in_one_hazards.py" set "EMITTER=%_HERE%..\..\emit_hls_all_in_one_hazards.py"
@@ -32,38 +36,54 @@ if not exist "%EMITTER%" (
   goto :eof
 )
 
-REM Enable @auto-hazard
-set "HLS_HAZARD_PACK=auto"
-set "HLS_HAZARD_OVR=1"
-set "HLS_HAZARD_CAS=1"
-set "HLS_HAZARD_WSK=1"
-
 echo ============================================
 echo [INFO] TARGET=%TARGET%
 echo [INFO] MODES=%MODES%
 echo [INFO] PROFILE=%PROFILE%
 echo [INFO] PER_ENTITY_MAX=%PER_ENTITY_MAX%  FAIL_UNDER=%FAIL_UNDER%
 echo [INFO] EMITTER=%EMITTER%
-echo [INFO] Auto-Hazard: PACK=%HLS_HAZARD_PACK% OVR=%HLS_HAZARD_OVR% CAS=%HLS_HAZARD_CAS% WSK=%HLS_HAZARD_WSK%
+set "HLS_HAZARD_PACK=auto"
+set "HLS_HAZARD_OVR=1"
+set "HLS_HAZARD_CAS=1"
+set "HLS_HAZARD_WSK=1"
 echo ============================================
 
 if exist "%TARGET%\NUL" (
   for /d %%S in ("%TARGET%\*") do call :run_one "%%~fS" "%MODES%" "%PROFILE%" "%PER_ENTITY_MAX%" "%FAIL_UNDER%"
 ) else (
   if exist "%TARGET%" (
-    for /f "usebackq eol=# tokens=1-5 delims=,;| 	 " %%A in ("%TARGET%") do (
-      set "LSUT=%%~A"
-      if not defined LSUT (
+    for /f "usebackq delims=" %%L in ("%TARGET%") do (
+      set "LINE=%%L"
+      if not defined LINE ( rem skip blank
       ) else (
-        set "LMODES=%%~B"
-        if "!LMODES!"=="" set "LMODES=%MODES%"
-        set "LPROFILE=%%~C"
-        if "!LPROFILE!"=="" set "LPROFILE=%PROFILE%"
-        set "LPEM=%%~D"
-        if "!LPEM!"=="" set "LPEM=%PER_ENTITY_MAX%"
-        set "LFAIL=%%~E"
-        if "!LFAIL!"=="" set "LFAIL=%FAIL_UNDER%"
-        call :run_one "!LSUT!" "!LMODES!" "!LPROFILE!" "!LPEM!" "!LFAIL!"
+        set "TRIM=!LINE: =!"
+        set "HEAD=!TRIM:~0,2!"
+        set "HEAD3=!TRIM:~0,3!"
+        if "!HEAD!"=="# "  ( rem comment
+        ) else if "!HEAD!"=="; " ( rem comment
+        ) else if "!HEAD3!"=="// " ( rem comment
+        ) else if "!HEAD!"=="==" ( rem banner
+        ) else if "!TRIM!"=="#" ( rem comment
+        ) else if "!TRIM!"==";" ( rem comment
+        ) else if "!TRIM!"=="//" ( rem comment
+        ) else if "!TRIM:~0,1!"=="#" ( rem comment
+        ) else if "!TRIM:~0,1!"==";" ( rem comment
+        ) else if "!TRIM:~0,2!"=="==" ( rem banner
+        ) else (
+          for /f "tokens=1-5 delims=,;| 	" %%A in ("!LINE!") do (
+            set "LSUT=%%~A"
+            set "LMODES=%%~B"
+            set "LPROFILE=%%~C"
+            set "LPEM=%%~D"
+            set "LFAIL=%%~E"
+            if not defined LMODES set "LMODES=%MODES%"
+            if not defined LPROFILE set "LPROFILE=%PROFILE%"
+            if /I "!LPROFILE!"=="exhaustive" set "LPROFILE=rich"
+            if not defined LPEM set "LPEM=%PER_ENTITY_MAX%"
+            if not defined LFAIL set "LFAIL=%FAIL_UNDER%"
+            call :resolve_and_run "!LSUT!" "!LMODES!" "!LPROFILE!" "!LPEM!" "!LFAIL!"
+          )
+        )
       )
     )
   ) else (
@@ -77,6 +97,33 @@ echo [DONE] emit_bpjs_for_all_hazards_safe.bat finished.
 endlocal
 exit /b 0
 
+:resolve_and_run
+setlocal EnableExtensions EnableDelayedExpansion
+set "RAW=%~1"
+set "RMODES=%~2"
+set "RPROFILE=%~3"
+set "RPEM=%~4"
+set "RFAIL=%~5"
+
+REM If RAW is a valid dir, use it
+if exist "%RAW%\NUL" (
+  call :run_one "%RAW%" "!RMODES!" "!RPROFILE!" "!RPEM!" "!RFAIL!"
+  goto :end
+)
+
+REM Try to resolve against common roots
+for %%R in (suts\flask_impl 7_suts_llm_provider real_world_llm_provider suts) do (
+  if exist "%%R\%RAW%\NUL" (
+    call :run_one "%%R\%RAW%" "!RMODES!" "!RPROFILE!" "!RPEM!" "!RFAIL!"
+    goto :end
+  )
+)
+
+echo [SKIP] Not a directory (and not resolved): %RAW%
+:end
+endlocal
+exit /b 0
+
 :run_one
 setlocal EnableExtensions EnableDelayedExpansion
 set "SUT_DIR=%~1"
@@ -86,7 +133,7 @@ set "RPEM=%~4"
 set "RFAIL=%~5"
 
 echo.
-echo [RUN ] %SUT_DIR% (auto-hazard)
+echo [RUN ] %SUT_DIR%
 for %%M in (%RMODES%) do (
   echo    - mode=%%M
   call python "%EMITTER%" ^
