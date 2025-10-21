@@ -348,18 +348,6 @@ def js_header(sut_name: str) -> str:
     hdr.append("")
     hdr.append("var ANY = (typeof H !== 'undefined' && H.ANY) ? H.ANY : (typeof ANY !== 'undefined' ? ANY : '*');")
     hdr.append("")
-    # NEW: pick shim (prefers BPjs nondet; otherwise uses Math.random)
-    hdr.append("// --- pick() shim: prefer BPjs nondet, else random fallback ---")
-    hdr.append("if (typeof pick === 'undefined') {")
-    hdr.append("  function pick(options) {")
-    hdr.append("    if (typeof bp !== 'undefined' && typeof bp.pickFrom === 'function') {")
-    hdr.append("      return bp.pickFrom(options); // nondeterministic exploration")
-    hdr.append("    }")
-    hdr.append("    // fallback for plain JS execution")
-    hdr.append("    return options[Math.floor(Math.random() * options.length)];")
-    hdr.append("  }")
-    hdr.append("}")
-    hdr.append("")
     hdr.append("// ===== ACTIVE LIFECYCLES =====")
     hdr.append("")
     return "\n".join(hdr) + "\n"
@@ -408,22 +396,16 @@ def build_active_lifecycle(entity: str, edsl: Dict[str, Any], per_entity_max: in
         samples.append(obj)
 
     body = []
-    # Build once and reuse when calling DSL functions
-    arglist = ", ".join([f"x.{a}" for a in args])
-    # PRIMARY KEY (first arg) for verify helpers
-    arg0 = args[0] if args else "id"
-
     body += js_pick_samples("x", samples)
 
-    body.append(concat(do["add"], "(", arglist, ");"))
+    body.append(concat(do["add"], "(", ", ".join([f"x.{a}" for a in args]), ");"))
     up_count = min(2, max(1, per_entity_max-1))
     for _ in range(up_count):
-        body.append(concat(do["update"], "(", arglist, ");"))
+        body.append(concat(do["update"], "(", ", ".join([f"x.{a}" for a in args]), ");"))
 
-    # verify helpers expect the primary key; passing the whole arglist can coerce to NaN in some DSLs
-    body.append(concat(ver["exists"], "(", f"x.{arg0}", ");"))
-    body.append(concat(ver["updated"], "(", f"x.{arg0}", ");"))
-    body.append(concat(do["delete"], "(", arglist, ");"))
+    body.append(concat(ver["exists"], "(", ", ".join([f"x.{a}" for a in args]), ");"))
+    body.append(concat(ver["updated"], "(", ", ".join([f"x.{a}" for a in args]), ");"))
+	
     return [ bthread(titlecase(name), body) ]
 
 def build_nondet_variants(entity: str, edsl: Dict[str, Any], per_entity_max: int) -> List[str]:
@@ -551,11 +533,6 @@ def build_stories(graph: Optional[Dict[str, Any]], dsl: Dict[str, Any], profile:
         mapped = cleanup_entity_against_dsl(raw, dsl_names)
         if mapped:
             name_set.add(mapped)
-
-    # --- Fallback: if no entities resolved, use graph entities as-is ---
-    if not name_set:
-        name_set.update(titlecase(raw) for raw in graph_info.get("entities", []))
-
     entities: List[str] = sorted(name_set)
 
     # Finalize edsl for entities

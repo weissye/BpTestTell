@@ -5,6 +5,17 @@
 
 var ANY = (typeof H !== 'undefined' && H.ANY) ? H.ANY : (typeof ANY !== 'undefined' ? ANY : '*');
 
+// --- pick() shim: prefer BPjs nondet, else random fallback ---
+if (typeof pick === 'undefined') {
+  function pick(options) {
+    if (typeof bp !== 'undefined' && typeof bp.pickFrom === 'function') {
+      return bp.pickFrom(options); // nondeterministic exploration
+    }
+    // fallback for plain JS execution
+    return options[Math.floor(Math.random() * options.length)];
+  }
+}
+
 // ===== ACTIVE LIFECYCLES =====
 
 
