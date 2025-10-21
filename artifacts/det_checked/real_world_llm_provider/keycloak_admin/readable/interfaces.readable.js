@@ -6,6 +6,10 @@
  * This approximates the "Library SUT" interface style.
  */
 
+// CHANGE (1): add default host/port placeholders before RESTSession
+var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var port = (typeof port !== 'undefined') ? port : 5014;
+
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
   headers: { "Content-Type": "application/json" },
 });
@@ -63,14 +67,14 @@ function tryToAddExistingMyrealm(id) {
 function updateMyrealm(id) {
   svc.put("/myrealm/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a myrealm" }
+      parameters: { description: "Update a myrealm with id " + id + "" }
     });
 }
 
 // GET one
 function getMyrealm(id) {
   svc.get("/myrealm/" + id, {
-    parameters: { description: "Get a myrealm" }
+    parameters: { description: "Get a myrealm with id " + id + "" }
   });
 }
 
@@ -139,6 +143,20 @@ function matchDeleteMyrealm(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateMyrealm() {
+  return bp.EventSet("any-update-myrealm", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a myrealm");
+  });
+}
+function matchUpdateMyrealm(id) {
+  return bp.EventSet("update-myrealm", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a myrealm with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyMyrealmAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ myrealm\ with\ id\ (.+)$/));
@@ -155,6 +173,30 @@ function waitForAnyMyrealmDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ myrealm\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ myrealm\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForMyrealmUpdated(id) {
+  waitFor(matchUpdateMyrealm(id));
+}
+function waitForAnyMyrealmUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ myrealm\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ myrealm\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyMyrealmUpdated(id) {
+  svc.get("/myrealm", {
+    callback: function (response) {
+      myrealm = JSON.parse(response.body);
+      for (let i = 0; i < myrealm.length; i++) {
+        if (myrealm[i].id === id) {
+          return pvg.success("Myrealm updated (present)");
+        }
+      }
+      return pvg.fail("Expected a myrealm to be present after update, but it is not");
+    },
+    parameters: { description: "Verify myrealm with id " + id + " exists" }
+  });
 }
 
 
@@ -198,14 +240,14 @@ function tryToAddExistingV1(realm, userId, session) {
 function updateV1(realm, userId, session) {
   svc.put("/v1/" + realm + "/"+ userId + "/"+ session, {
       body: JSON.stringify({ realm: realm, userId: userId, session: session }),
-      parameters: { description: "Update a v1" }
+      parameters: { description: "Update a v1 with realm " + realm + " and userId " + userId + " and session " + session + "" }
     });
 }
 
 // GET one
 function getV1(realm, userId, session) {
   svc.get("/v1/" + realm + "/"+ userId + "/"+ session, {
-    parameters: { description: "Get a v1" }
+    parameters: { description: "Get a v1 with realm " + realm + " and userId " + userId + " and session " + session + "" }
   });
 }
 
@@ -274,6 +316,20 @@ function matchDeleteV1(realm, userId, session) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateV1() {
+  return bp.EventSet("any-update-v1", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a v1");
+  });
+}
+function matchUpdateV1(realm, userId, session) {
+  return bp.EventSet("update-v1", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a v1 with realm " + realm + " and userId " + userId + " and session " + session + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyV1Added() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ v1\ with\ realm\ (.+) and userId\ (.+) and session\ (.+)$/));
@@ -290,6 +346,30 @@ function waitForAnyV1Deleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ v1\ with\ realm\ (.+) and userId\ (.+) and session\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ v1\ with\ realm\ (.+) and userId\ (.+) and session\ (.+)$/);
     return { realm: (x)=>x(m[1]), userId: (x)=>x(m[2]), session: (x)=>x(m[3]) };
+}
+function waitForV1Updated(realm, userId, session) {
+  waitFor(matchUpdateV1(realm, userId, session));
+}
+function waitForAnyV1Updated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ v1\ with\ realm\ (.+) and userId\ (.+) and session\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ v1\ with\ realm\ (.+) and userId\ (.+) and session\ (.+)$/);
+    return { realm: (x)=>x(m[1]), userId: (x)=>x(m[2]), session: (x)=>x(m[3]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyV1Updated(realm, userId, session) {
+  svc.get("/v1", {
+    callback: function (response) {
+      v1 = JSON.parse(response.body);
+      for (let i = 0; i < v1.length; i++) {
+        if (v1[i].realm === realm && v1[i].userId === userId && v1[i].session === session) {
+          return pvg.success("V1 updated (present)");
+        }
+      }
+      return pvg.fail("Expected a v1 to be present after update, but it is not");
+    },
+    parameters: { description: "Verify v1 with realm " + realm + " and userId " + userId + " and session " + session + " exists" }
+  });
 }
 
 
@@ -333,14 +413,14 @@ function tryToAddExisting{realm}(realm, role-id, id, executionId, flowAlias, ali
 function update{realm}(realm, role-id, id, executionId, flowAlias, alias, providerId, clientUuid) {
   svc.put("/{realm}/" + realm + "/"+ role-id + "/"+ id + "/"+ executionId + "/"+ flowAlias + "/"+ alias + "/"+ providerId + "/"+ clientUuid, {
       body: JSON.stringify({ realm: realm, role-id: role-id, id: id, executionId: executionId, flowAlias: flowAlias, alias: alias, providerId: providerId, clientUuid: clientUuid }),
-      parameters: { description: "Update a {realm}" }
+      parameters: { description: "Update a {realm} with realm " + realm + " and role-id " + role-id + " and id " + id + " and executionId " + executionId + " and flowAlias " + flowAlias + " and alias " + alias + " and providerId " + providerId + " and clientUuid " + clientUuid + "" }
     });
 }
 
 // GET one
 function get{realm}(realm, role-id, id, executionId, flowAlias, alias, providerId, clientUuid) {
   svc.get("/{realm}/" + realm + "/"+ role-id + "/"+ id + "/"+ executionId + "/"+ flowAlias + "/"+ alias + "/"+ providerId + "/"+ clientUuid, {
-    parameters: { description: "Get a {realm}" }
+    parameters: { description: "Get a {realm} with realm " + realm + " and role-id " + role-id + " and id " + id + " and executionId " + executionId + " and flowAlias " + flowAlias + " and alias " + alias + " and providerId " + providerId + " and clientUuid " + clientUuid + "" }
   });
 }
 
@@ -409,6 +489,20 @@ function matchDelete{realm}(realm, role-id, id, executionId, flowAlias, alias, p
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdate{realm}() {
+  return bp.EventSet("any-update-{realm}", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a {realm}");
+  });
+}
+function matchUpdate{realm}(realm, role-id, id, executionId, flowAlias, alias, providerId, clientUuid) {
+  return bp.EventSet("update-{realm}", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a {realm} with realm " + realm + " and role-id " + role-id + " and id " + id + " and executionId " + executionId + " and flowAlias " + flowAlias + " and alias " + alias + " and providerId " + providerId + " and clientUuid " + clientUuid + "";
+  });
+}
+
 // Wait helpers
 function waitForAny{realm}Added() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ \{realm\}\ with\ realm\ (.+) and role\-id\ (.+) and id\ (.+) and executionId\ (.+) and flowAlias\ (.+) and alias\ (.+) and providerId\ (.+) and clientUuid\ (.+)$/));
@@ -425,5 +519,29 @@ function waitForAny{realm}Deleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ \{realm\}\ with\ realm\ (.+) and role\-id\ (.+) and id\ (.+) and executionId\ (.+) and flowAlias\ (.+) and alias\ (.+) and providerId\ (.+) and clientUuid\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ \{realm\}\ with\ realm\ (.+) and role\-id\ (.+) and id\ (.+) and executionId\ (.+) and flowAlias\ (.+) and alias\ (.+) and providerId\ (.+) and clientUuid\ (.+)$/);
     return { realm: (x)=>x(m[1]), role-id: (x)=>x(m[2]), id: parseInt(m[3]), executionId: (x)=>x(m[4]), flowAlias: (x)=>x(m[5]), alias: (x)=>x(m[6]), providerId: (x)=>x(m[7]), clientUuid: (x)=>x(m[8]) };
+}
+function waitFor{realm}Updated(realm, role-id, id, executionId, flowAlias, alias, providerId, clientUuid) {
+  waitFor(matchUpdate{realm}(realm, role-id, id, executionId, flowAlias, alias, providerId, clientUuid));
+}
+function waitForAny{realm}Updated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ \{realm\}\ with\ realm\ (.+) and role\-id\ (.+) and id\ (.+) and executionId\ (.+) and flowAlias\ (.+) and alias\ (.+) and providerId\ (.+) and clientUuid\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ \{realm\}\ with\ realm\ (.+) and role\-id\ (.+) and id\ (.+) and executionId\ (.+) and flowAlias\ (.+) and alias\ (.+) and providerId\ (.+) and clientUuid\ (.+)$/);
+    return { realm: (x)=>x(m[1]), role-id: (x)=>x(m[2]), id: parseInt(m[3]), executionId: (x)=>x(m[4]), flowAlias: (x)=>x(m[5]), alias: (x)=>x(m[6]), providerId: (x)=>x(m[7]), clientUuid: (x)=>x(m[8]) };
+}
+
+// Verify updated (presence-by-list)
+function verify{realm}Updated(realm, role-id, id, executionId, flowAlias, alias, providerId, clientUuid) {
+  svc.get("/{realm}", {
+    callback: function (response) {
+      {realm} = JSON.parse(response.body);
+      for (let i = 0; i < {realm}.length; i++) {
+        if ({realm}[i].realm === realm && {realm}[i].role-id === role-id && {realm}[i].id === id && {realm}[i].executionId === executionId && {realm}[i].flowAlias === flowAlias && {realm}[i].alias === alias && {realm}[i].providerId === providerId && {realm}[i].clientUuid === clientUuid) {
+          return pvg.success("{realm} updated (present)");
+        }
+      }
+      return pvg.fail("Expected a {realm} to be present after update, but it is not");
+    },
+    parameters: { description: "Verify {realm} with realm " + realm + " and role-id " + role-id + " and id " + id + " and executionId " + executionId + " and flowAlias " + flowAlias + " and alias " + alias + " and providerId " + providerId + " and clientUuid " + clientUuid + " exists" }
+  });
 }
 

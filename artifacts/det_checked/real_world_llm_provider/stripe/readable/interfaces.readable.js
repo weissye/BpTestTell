@@ -6,6 +6,10 @@
  * This approximates the "Library SUT" interface style.
  */
 
+// CHANGE (1): add default host/port placeholders before RESTSession
+var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var port = (typeof port !== 'undefined') ? port : 5014;
+
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
   headers: { "Content-Type": "application/json" },
 });
@@ -63,14 +67,14 @@ function tryToAddExistingV1(account, customer, invoice, charge) {
 function updateV1(account, customer, invoice, charge) {
   svc.put("/v1/" + account + "/"+ customer + "/"+ invoice + "/"+ charge, {
       body: JSON.stringify({ account: account, customer: customer, invoice: invoice, charge: charge }),
-      parameters: { description: "Update a v1" }
+      parameters: { description: "Update a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "" }
     });
 }
 
 // GET one
 function getV1(account, customer, invoice, charge) {
   svc.get("/v1/" + account + "/"+ customer + "/"+ invoice + "/"+ charge, {
-    parameters: { description: "Get a v1" }
+    parameters: { description: "Get a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "" }
   });
 }
 
@@ -139,6 +143,20 @@ function matchDeleteV1(account, customer, invoice, charge) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateV1() {
+  return bp.EventSet("any-update-v1", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a v1");
+  });
+}
+function matchUpdateV1(account, customer, invoice, charge) {
+  return bp.EventSet("update-v1", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyV1Added() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+)$/));
@@ -155,5 +173,29 @@ function waitForAnyV1Deleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+)$/);
     return { account: (x)=>x(m[1]), customer: (x)=>x(m[2]), invoice: (x)=>x(m[3]), charge: (x)=>x(m[4]) };
+}
+function waitForV1Updated(account, customer, invoice, charge) {
+  waitFor(matchUpdateV1(account, customer, invoice, charge));
+}
+function waitForAnyV1Updated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+)$/);
+    return { account: (x)=>x(m[1]), customer: (x)=>x(m[2]), invoice: (x)=>x(m[3]), charge: (x)=>x(m[4]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyV1Updated(account, customer, invoice, charge) {
+  svc.get("/v1", {
+    callback: function (response) {
+      v1 = JSON.parse(response.body);
+      for (let i = 0; i < v1.length; i++) {
+        if (v1[i].account === account && v1[i].customer === customer && v1[i].invoice === invoice && v1[i].charge === charge) {
+          return pvg.success("V1 updated (present)");
+        }
+      }
+      return pvg.fail("Expected a v1 to be present after update, but it is not");
+    },
+    parameters: { description: "Verify v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + " exists" }
+  });
 }
 

@@ -6,6 +6,10 @@
  * This approximates the "Library SUT" interface style.
  */
 
+// CHANGE (1): add default host/port placeholders before RESTSession
+var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var port = (typeof port !== 'undefined') ? port : 5014;
+
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
   headers: { "Content-Type": "application/json" },
 });
@@ -63,14 +67,14 @@ function tryToAddExisting2010_04_01(AccountSid, Sid, CallSid, CountryCode, Refer
 function update2010_04_01(AccountSid, Sid, CallSid, CountryCode, ReferenceSid, ConferenceSid, MessageSid, DomainSid, RecordingSid, ResourceSid, AssignedAddOnSid, ConnectAppSid, AddOnResultSid, PayloadSid, AddressSid) {
   svc.put("/2010_04_01/" + AccountSid + "/"+ Sid + "/"+ CallSid + "/"+ CountryCode + "/"+ ReferenceSid + "/"+ ConferenceSid + "/"+ MessageSid + "/"+ DomainSid + "/"+ RecordingSid + "/"+ ResourceSid + "/"+ AssignedAddOnSid + "/"+ ConnectAppSid + "/"+ AddOnResultSid + "/"+ PayloadSid + "/"+ AddressSid, {
       body: JSON.stringify({ AccountSid: AccountSid, Sid: Sid, CallSid: CallSid, CountryCode: CountryCode, ReferenceSid: ReferenceSid, ConferenceSid: ConferenceSid, MessageSid: MessageSid, DomainSid: DomainSid, RecordingSid: RecordingSid, ResourceSid: ResourceSid, AssignedAddOnSid: AssignedAddOnSid, ConnectAppSid: ConnectAppSid, AddOnResultSid: AddOnResultSid, PayloadSid: PayloadSid, AddressSid: AddressSid }),
-      parameters: { description: "Update a 2010_04_01" }
+      parameters: { description: "Update a 2010_04_01 with AccountSid " + AccountSid + " and Sid " + Sid + " and CallSid " + CallSid + " and CountryCode " + CountryCode + " and ReferenceSid " + ReferenceSid + " and ConferenceSid " + ConferenceSid + " and MessageSid " + MessageSid + " and DomainSid " + DomainSid + " and RecordingSid " + RecordingSid + " and ResourceSid " + ResourceSid + " and AssignedAddOnSid " + AssignedAddOnSid + " and ConnectAppSid " + ConnectAppSid + " and AddOnResultSid " + AddOnResultSid + " and PayloadSid " + PayloadSid + " and AddressSid " + AddressSid + "" }
     });
 }
 
 // GET one
 function get2010_04_01(AccountSid, Sid, CallSid, CountryCode, ReferenceSid, ConferenceSid, MessageSid, DomainSid, RecordingSid, ResourceSid, AssignedAddOnSid, ConnectAppSid, AddOnResultSid, PayloadSid, AddressSid) {
   svc.get("/2010_04_01/" + AccountSid + "/"+ Sid + "/"+ CallSid + "/"+ CountryCode + "/"+ ReferenceSid + "/"+ ConferenceSid + "/"+ MessageSid + "/"+ DomainSid + "/"+ RecordingSid + "/"+ ResourceSid + "/"+ AssignedAddOnSid + "/"+ ConnectAppSid + "/"+ AddOnResultSid + "/"+ PayloadSid + "/"+ AddressSid, {
-    parameters: { description: "Get a 2010_04_01" }
+    parameters: { description: "Get a 2010_04_01 with AccountSid " + AccountSid + " and Sid " + Sid + " and CallSid " + CallSid + " and CountryCode " + CountryCode + " and ReferenceSid " + ReferenceSid + " and ConferenceSid " + ConferenceSid + " and MessageSid " + MessageSid + " and DomainSid " + DomainSid + " and RecordingSid " + RecordingSid + " and ResourceSid " + ResourceSid + " and AssignedAddOnSid " + AssignedAddOnSid + " and ConnectAppSid " + ConnectAppSid + " and AddOnResultSid " + AddOnResultSid + " and PayloadSid " + PayloadSid + " and AddressSid " + AddressSid + "" }
   });
 }
 
@@ -139,6 +143,20 @@ function matchDelete2010_04_01(AccountSid, Sid, CallSid, CountryCode, ReferenceS
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdate2010_04_01() {
+  return bp.EventSet("any-update-2010_04_01", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a 2010_04_01");
+  });
+}
+function matchUpdate2010_04_01(AccountSid, Sid, CallSid, CountryCode, ReferenceSid, ConferenceSid, MessageSid, DomainSid, RecordingSid, ResourceSid, AssignedAddOnSid, ConnectAppSid, AddOnResultSid, PayloadSid, AddressSid) {
+  return bp.EventSet("update-2010_04_01", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a 2010_04_01 with AccountSid " + AccountSid + " and Sid " + Sid + " and CallSid " + CallSid + " and CountryCode " + CountryCode + " and ReferenceSid " + ReferenceSid + " and ConferenceSid " + ConferenceSid + " and MessageSid " + MessageSid + " and DomainSid " + DomainSid + " and RecordingSid " + RecordingSid + " and ResourceSid " + ResourceSid + " and AssignedAddOnSid " + AssignedAddOnSid + " and ConnectAppSid " + ConnectAppSid + " and AddOnResultSid " + AddOnResultSid + " and PayloadSid " + PayloadSid + " and AddressSid " + AddressSid + "";
+  });
+}
+
 // Wait helpers
 function waitForAny2010_04_01Added() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ 2010_04_01\ with\ AccountSid\ (.+) and Sid\ (.+) and CallSid\ (.+) and CountryCode\ (.+) and ReferenceSid\ (.+) and ConferenceSid\ (.+) and MessageSid\ (.+) and DomainSid\ (.+) and RecordingSid\ (.+) and ResourceSid\ (.+) and AssignedAddOnSid\ (.+) and ConnectAppSid\ (.+) and AddOnResultSid\ (.+) and PayloadSid\ (.+) and AddressSid\ (.+)$/));
@@ -155,5 +173,29 @@ function waitForAny2010_04_01Deleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ 2010_04_01\ with\ AccountSid\ (.+) and Sid\ (.+) and CallSid\ (.+) and CountryCode\ (.+) and ReferenceSid\ (.+) and ConferenceSid\ (.+) and MessageSid\ (.+) and DomainSid\ (.+) and RecordingSid\ (.+) and ResourceSid\ (.+) and AssignedAddOnSid\ (.+) and ConnectAppSid\ (.+) and AddOnResultSid\ (.+) and PayloadSid\ (.+) and AddressSid\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ 2010_04_01\ with\ AccountSid\ (.+) and Sid\ (.+) and CallSid\ (.+) and CountryCode\ (.+) and ReferenceSid\ (.+) and ConferenceSid\ (.+) and MessageSid\ (.+) and DomainSid\ (.+) and RecordingSid\ (.+) and ResourceSid\ (.+) and AssignedAddOnSid\ (.+) and ConnectAppSid\ (.+) and AddOnResultSid\ (.+) and PayloadSid\ (.+) and AddressSid\ (.+)$/);
     return { AccountSid: (x)=>x(m[1]), Sid: (x)=>x(m[2]), CallSid: (x)=>x(m[3]), CountryCode: (x)=>x(m[4]), ReferenceSid: (x)=>x(m[5]), ConferenceSid: (x)=>x(m[6]), MessageSid: (x)=>x(m[7]), DomainSid: (x)=>x(m[8]), RecordingSid: (x)=>x(m[9]), ResourceSid: (x)=>x(m[10]), AssignedAddOnSid: (x)=>x(m[11]), ConnectAppSid: (x)=>x(m[12]), AddOnResultSid: (x)=>x(m[13]), PayloadSid: (x)=>x(m[14]), AddressSid: (x)=>x(m[15]) };
+}
+function waitFor2010_04_01Updated(AccountSid, Sid, CallSid, CountryCode, ReferenceSid, ConferenceSid, MessageSid, DomainSid, RecordingSid, ResourceSid, AssignedAddOnSid, ConnectAppSid, AddOnResultSid, PayloadSid, AddressSid) {
+  waitFor(matchUpdate2010_04_01(AccountSid, Sid, CallSid, CountryCode, ReferenceSid, ConferenceSid, MessageSid, DomainSid, RecordingSid, ResourceSid, AssignedAddOnSid, ConnectAppSid, AddOnResultSid, PayloadSid, AddressSid));
+}
+function waitForAny2010_04_01Updated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ 2010_04_01\ with\ AccountSid\ (.+) and Sid\ (.+) and CallSid\ (.+) and CountryCode\ (.+) and ReferenceSid\ (.+) and ConferenceSid\ (.+) and MessageSid\ (.+) and DomainSid\ (.+) and RecordingSid\ (.+) and ResourceSid\ (.+) and AssignedAddOnSid\ (.+) and ConnectAppSid\ (.+) and AddOnResultSid\ (.+) and PayloadSid\ (.+) and AddressSid\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ 2010_04_01\ with\ AccountSid\ (.+) and Sid\ (.+) and CallSid\ (.+) and CountryCode\ (.+) and ReferenceSid\ (.+) and ConferenceSid\ (.+) and MessageSid\ (.+) and DomainSid\ (.+) and RecordingSid\ (.+) and ResourceSid\ (.+) and AssignedAddOnSid\ (.+) and ConnectAppSid\ (.+) and AddOnResultSid\ (.+) and PayloadSid\ (.+) and AddressSid\ (.+)$/);
+    return { AccountSid: (x)=>x(m[1]), Sid: (x)=>x(m[2]), CallSid: (x)=>x(m[3]), CountryCode: (x)=>x(m[4]), ReferenceSid: (x)=>x(m[5]), ConferenceSid: (x)=>x(m[6]), MessageSid: (x)=>x(m[7]), DomainSid: (x)=>x(m[8]), RecordingSid: (x)=>x(m[9]), ResourceSid: (x)=>x(m[10]), AssignedAddOnSid: (x)=>x(m[11]), ConnectAppSid: (x)=>x(m[12]), AddOnResultSid: (x)=>x(m[13]), PayloadSid: (x)=>x(m[14]), AddressSid: (x)=>x(m[15]) };
+}
+
+// Verify updated (presence-by-list)
+function verify2010_04_01Updated(AccountSid, Sid, CallSid, CountryCode, ReferenceSid, ConferenceSid, MessageSid, DomainSid, RecordingSid, ResourceSid, AssignedAddOnSid, ConnectAppSid, AddOnResultSid, PayloadSid, AddressSid) {
+  svc.get("/2010_04_01", {
+    callback: function (response) {
+      2010_04_01 = JSON.parse(response.body);
+      for (let i = 0; i < 2010_04_01.length; i++) {
+        if (2010_04_01[i].AccountSid === AccountSid && 2010_04_01[i].Sid === Sid && 2010_04_01[i].CallSid === CallSid && 2010_04_01[i].CountryCode === CountryCode && 2010_04_01[i].ReferenceSid === ReferenceSid && 2010_04_01[i].ConferenceSid === ConferenceSid && 2010_04_01[i].MessageSid === MessageSid && 2010_04_01[i].DomainSid === DomainSid && 2010_04_01[i].RecordingSid === RecordingSid && 2010_04_01[i].ResourceSid === ResourceSid && 2010_04_01[i].AssignedAddOnSid === AssignedAddOnSid && 2010_04_01[i].ConnectAppSid === ConnectAppSid && 2010_04_01[i].AddOnResultSid === AddOnResultSid && 2010_04_01[i].PayloadSid === PayloadSid && 2010_04_01[i].AddressSid === AddressSid) {
+          return pvg.success("2010_04_01 updated (present)");
+        }
+      }
+      return pvg.fail("Expected a 2010_04_01 to be present after update, but it is not");
+    },
+    parameters: { description: "Verify 2010_04_01 with AccountSid " + AccountSid + " and Sid " + Sid + " and CallSid " + CallSid + " and CountryCode " + CountryCode + " and ReferenceSid " + ReferenceSid + " and ConferenceSid " + ConferenceSid + " and MessageSid " + MessageSid + " and DomainSid " + DomainSid + " and RecordingSid " + RecordingSid + " and ResourceSid " + ResourceSid + " and AssignedAddOnSid " + AssignedAddOnSid + " and ConnectAppSid " + ConnectAppSid + " and AddOnResultSid " + AddOnResultSid + " and PayloadSid " + PayloadSid + " and AddressSid " + AddressSid + " exists" }
+  });
 }
 

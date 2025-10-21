@@ -96,7 +96,7 @@ def js_verify_desc(entity, keys, exists=True):
     return f"\"Verify {entity}" + "".join(parts) + f" {what}\""
 
 def js_match_equals_desc(prefix, entity, keys):
-    # "Add a user ..." OR "Delete a user ..."
+    # "Add a user ..." OR "Delete a user ..." (also used for "Update a user ...")
     if not keys:
         return f"return e.data.parameters.description.startsWith(\"{prefix} {entity}\");"
     want = f"{prefix} {entity} with " + " and ".join([f"{k} \" + {k} + \"" for k in keys])
@@ -191,6 +191,10 @@ def js_head():
  * This approximates the "Library SUT" interface style.
  */
 
+// CHANGE (1): add default host/port placeholders before RESTSession
+var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var port = (typeof port !== 'undefined') ? port : 5014;
+
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
   headers: { "Content-Type": "application/json" },
 });
@@ -226,12 +230,16 @@ def render_entity_block(e):
     add_desc = f"\"Add a {ent} with " + " and ".join([f"{k} \" + {k} + \"" for k in keys]) + "\"" if keys else f"\"Add a {ent}\""
     del_desc = f"\"Delete a {ent} with " + " and ".join([f"{k} \" + {k} + \"" for k in keys]) + "\"" if keys else f"\"Delete a {ent}\""
 
+    # CHANGE (2): identifier-aware Update & Get descriptions, same style as Add/Delete
+    upd_desc = f"\"Update a {ent} with " + " and ".join([f"{k} \" + {k} + \"" for k in keys]) + "\"" if keys else f"\"Update a {ent}\""
+    get_desc = f"\"Get a {ent} with " + " and ".join([f"{k} \" + {k} + \"" for k in keys]) + "\"" if keys else f"\"Get a {ent}\""
+
     # JS snippets
     post_body = ("{\n      body: JSON.stringify({ " + body_fields + " }),\n" if body_fields else "{\n") + \
                 f"      parameters: {{ description: {add_desc} }}\n    }}"
 
     put_body = ("{\n      body: JSON.stringify({ " + body_fields + " }),\n" if body_fields else "{\n") + \
-               f"      parameters: {{ description: \"Update a {ent}\" }}\n    }}"
+               f"      parameters: {{ description: {upd_desc} }}\n    }}"
 
     # path composition
     path_add   = f'"/{plural}"'
@@ -245,6 +253,7 @@ def render_entity_block(e):
     # regex extraction in waits
     extract_add   = render_extract_from_desc("Add a", ent, keys)
     extract_del   = render_extract_from_desc("Delete a", ent, keys)
+    extract_upd   = render_extract_from_desc("Update a", ent, keys)  # CHANGE (3) helper will use this
 
     return f'''
 /** === {Ent} Operations === */
@@ -285,7 +294,7 @@ function update{Ent}({params}) {{
 // GET one
 function get{Ent}({params}) {{
   svc.get({path_item}, {{
-    parameters: {{ description: "Get a {ent}" }}
+    parameters: {{ description: {get_desc} }}
   }});
 }}
 
@@ -354,6 +363,20 @@ function matchDelete{Ent}({params}) {{
   }});
 }}
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdate{Ent}() {{
+  return bp.EventSet("any-update-{ent}", function (e) {{
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a {ent}");
+  }});
+}}
+function matchUpdate{Ent}({params}) {{
+  return bp.EventSet("update-{ent}", function (e) {{
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    {js_match_equals_desc("Update a", ent, keys)}
+  }});
+}}
+
 // Wait helpers
 function waitForAny{Ent}Added() {{
   {extract_add}
@@ -366,6 +389,28 @@ function waitFor{Ent}Deleted({params}) {{
 }}
 function waitForAny{Ent}Deleted() {{
   {extract_del}
+}}
+function waitFor{Ent}Updated({params}) {{
+  waitFor(matchUpdate{Ent}({params}));
+}}
+function waitForAny{Ent}Updated() {{
+  {extract_upd}
+}}
+
+// Verify updated (presence-by-list)
+function verify{Ent}Updated({params}) {{
+  svc.get({path_list}, {{
+    callback: function (response) {{
+      {ent} = JSON.parse(response.body);
+      for (let i = 0; i < {ent}.length; i++) {{
+        if ({cmp_chain}) {{
+          return pvg.success("{Ent} updated (present)");
+        }}
+      }}
+      return pvg.fail("Expected a {ent} to be present after update, but it is not");
+    }},
+    parameters: {{ description: {js_verify_desc(ent, keys, exists=True)} }}
+  }});
 }}
 '''
 

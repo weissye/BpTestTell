@@ -6,6 +6,10 @@
  * This approximates the "Library SUT" interface style.
  */
 
+// CHANGE (1): add default host/port placeholders before RESTSession
+var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var port = (typeof port !== 'undefined') ? port : 5014;
+
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
   headers: { "Content-Type": "application/json" },
 });
@@ -63,14 +67,14 @@ function tryToAddExistingActivitypub(id) {
 function updateActivitypub(id) {
   svc.put("/activitypub/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a activitypub" }
+      parameters: { description: "Update a activitypub with id " + id + "" }
     });
 }
 
 // GET one
 function getActivitypub(id) {
   svc.get("/activitypub/" + id, {
-    parameters: { description: "Get a activitypub" }
+    parameters: { description: "Get a activitypub with id " + id + "" }
   });
 }
 
@@ -139,6 +143,20 @@ function matchDeleteActivitypub(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateActivitypub() {
+  return bp.EventSet("any-update-activitypub", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a activitypub");
+  });
+}
+function matchUpdateActivitypub(id) {
+  return bp.EventSet("update-activitypub", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a activitypub with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyActivitypubAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ activitypub\ with\ id\ (.+)$/));
@@ -155,6 +173,30 @@ function waitForAnyActivitypubDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ activitypub\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ activitypub\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForActivitypubUpdated(id) {
+  waitFor(matchUpdateActivitypub(id));
+}
+function waitForAnyActivitypubUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ activitypub\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ activitypub\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyActivitypubUpdated(id) {
+  svc.get("/activitypub", {
+    callback: function (response) {
+      activitypub = JSON.parse(response.body);
+      for (let i = 0; i < activitypub.length; i++) {
+        if (activitypub[i].id === id) {
+          return pvg.success("Activitypub updated (present)");
+        }
+      }
+      return pvg.fail("Expected a activitypub to be present after update, but it is not");
+    },
+    parameters: { description: "Verify activitypub with id " + id + " exists" }
+  });
 }
 
 
@@ -198,14 +240,14 @@ function tryToAddExistingAdmin(id) {
 function updateAdmin(id) {
   svc.put("/admin/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a admin" }
+      parameters: { description: "Update a admin with id " + id + "" }
     });
 }
 
 // GET one
 function getAdmin(id) {
   svc.get("/admin/" + id, {
-    parameters: { description: "Get a admin" }
+    parameters: { description: "Get a admin with id " + id + "" }
   });
 }
 
@@ -274,6 +316,20 @@ function matchDeleteAdmin(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateAdmin() {
+  return bp.EventSet("any-update-admin", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a admin");
+  });
+}
+function matchUpdateAdmin(id) {
+  return bp.EventSet("update-admin", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a admin with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyAdminAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ admin\ with\ id\ (.+)$/));
@@ -290,6 +346,30 @@ function waitForAnyAdminDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ admin\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ admin\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForAdminUpdated(id) {
+  waitFor(matchUpdateAdmin(id));
+}
+function waitForAnyAdminUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ admin\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ admin\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyAdminUpdated(id) {
+  svc.get("/admin", {
+    callback: function (response) {
+      admin = JSON.parse(response.body);
+      for (let i = 0; i < admin.length; i++) {
+        if (admin[i].id === id) {
+          return pvg.success("Admin updated (present)");
+        }
+      }
+      return pvg.fail("Expected a admin to be present after update, but it is not");
+    },
+    parameters: { description: "Verify admin with id " + id + " exists" }
+  });
 }
 
 
@@ -333,14 +413,14 @@ function tryToAddExistingGitignore(id) {
 function updateGitignore(id) {
   svc.put("/gitignore/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a gitignore" }
+      parameters: { description: "Update a gitignore with id " + id + "" }
     });
 }
 
 // GET one
 function getGitignore(id) {
   svc.get("/gitignore/" + id, {
-    parameters: { description: "Get a gitignore" }
+    parameters: { description: "Get a gitignore with id " + id + "" }
   });
 }
 
@@ -409,6 +489,20 @@ function matchDeleteGitignore(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateGitignore() {
+  return bp.EventSet("any-update-gitignore", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a gitignore");
+  });
+}
+function matchUpdateGitignore(id) {
+  return bp.EventSet("update-gitignore", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a gitignore with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyGitignoreAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ gitignore\ with\ id\ (.+)$/));
@@ -425,6 +519,30 @@ function waitForAnyGitignoreDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ gitignore\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ gitignore\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForGitignoreUpdated(id) {
+  waitFor(matchUpdateGitignore(id));
+}
+function waitForAnyGitignoreUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ gitignore\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ gitignore\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyGitignoreUpdated(id) {
+  svc.get("/gitignore", {
+    callback: function (response) {
+      gitignore = JSON.parse(response.body);
+      for (let i = 0; i < gitignore.length; i++) {
+        if (gitignore[i].id === id) {
+          return pvg.success("Gitignore updated (present)");
+        }
+      }
+      return pvg.fail("Expected a gitignore to be present after update, but it is not");
+    },
+    parameters: { description: "Verify gitignore with id " + id + " exists" }
+  });
 }
 
 
@@ -468,14 +586,14 @@ function tryToAddExistingLabel(id) {
 function updateLabel(id) {
   svc.put("/label/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a label" }
+      parameters: { description: "Update a label with id " + id + "" }
     });
 }
 
 // GET one
 function getLabel(id) {
   svc.get("/label/" + id, {
-    parameters: { description: "Get a label" }
+    parameters: { description: "Get a label with id " + id + "" }
   });
 }
 
@@ -544,6 +662,20 @@ function matchDeleteLabel(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateLabel() {
+  return bp.EventSet("any-update-label", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a label");
+  });
+}
+function matchUpdateLabel(id) {
+  return bp.EventSet("update-label", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a label with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyLabelAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ label\ with\ id\ (.+)$/));
@@ -560,6 +692,30 @@ function waitForAnyLabelDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ label\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ label\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForLabelUpdated(id) {
+  waitFor(matchUpdateLabel(id));
+}
+function waitForAnyLabelUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ label\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ label\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyLabelUpdated(id) {
+  svc.get("/label", {
+    callback: function (response) {
+      label = JSON.parse(response.body);
+      for (let i = 0; i < label.length; i++) {
+        if (label[i].id === id) {
+          return pvg.success("Label updated (present)");
+        }
+      }
+      return pvg.fail("Expected a label to be present after update, but it is not");
+    },
+    parameters: { description: "Verify label with id " + id + " exists" }
+  });
 }
 
 
@@ -603,14 +759,14 @@ function tryToAddExistingLicense(id) {
 function updateLicense(id) {
   svc.put("/licenses/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a license" }
+      parameters: { description: "Update a license with id " + id + "" }
     });
 }
 
 // GET one
 function getLicense(id) {
   svc.get("/licenses/" + id, {
-    parameters: { description: "Get a license" }
+    parameters: { description: "Get a license with id " + id + "" }
   });
 }
 
@@ -679,6 +835,20 @@ function matchDeleteLicense(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateLicense() {
+  return bp.EventSet("any-update-license", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a license");
+  });
+}
+function matchUpdateLicense(id) {
+  return bp.EventSet("update-license", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a license with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyLicenseAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ license\ with\ id\ (.+)$/));
@@ -695,6 +865,30 @@ function waitForAnyLicenseDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ license\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ license\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForLicenseUpdated(id) {
+  waitFor(matchUpdateLicense(id));
+}
+function waitForAnyLicenseUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ license\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ license\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyLicenseUpdated(id) {
+  svc.get("/licenses", {
+    callback: function (response) {
+      license = JSON.parse(response.body);
+      for (let i = 0; i < license.length; i++) {
+        if (license[i].id === id) {
+          return pvg.success("License updated (present)");
+        }
+      }
+      return pvg.fail("Expected a license to be present after update, but it is not");
+    },
+    parameters: { description: "Verify license with id " + id + " exists" }
+  });
 }
 
 
@@ -738,14 +932,14 @@ function tryToAddExistingMarkdown(id) {
 function updateMarkdown(id) {
   svc.put("/markdown/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a markdown" }
+      parameters: { description: "Update a markdown with id " + id + "" }
     });
 }
 
 // GET one
 function getMarkdown(id) {
   svc.get("/markdown/" + id, {
-    parameters: { description: "Get a markdown" }
+    parameters: { description: "Get a markdown with id " + id + "" }
   });
 }
 
@@ -814,6 +1008,20 @@ function matchDeleteMarkdown(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateMarkdown() {
+  return bp.EventSet("any-update-markdown", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a markdown");
+  });
+}
+function matchUpdateMarkdown(id) {
+  return bp.EventSet("update-markdown", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a markdown with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyMarkdownAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ markdown\ with\ id\ (.+)$/));
@@ -830,6 +1038,30 @@ function waitForAnyMarkdownDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ markdown\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ markdown\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForMarkdownUpdated(id) {
+  waitFor(matchUpdateMarkdown(id));
+}
+function waitForAnyMarkdownUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ markdown\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ markdown\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyMarkdownUpdated(id) {
+  svc.get("/markdown", {
+    callback: function (response) {
+      markdown = JSON.parse(response.body);
+      for (let i = 0; i < markdown.length; i++) {
+        if (markdown[i].id === id) {
+          return pvg.success("Markdown updated (present)");
+        }
+      }
+      return pvg.fail("Expected a markdown to be present after update, but it is not");
+    },
+    parameters: { description: "Verify markdown with id " + id + " exists" }
+  });
 }
 
 
@@ -873,14 +1105,14 @@ function tryToAddExistingMarkup(id) {
 function updateMarkup(id) {
   svc.put("/markup/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a markup" }
+      parameters: { description: "Update a markup with id " + id + "" }
     });
 }
 
 // GET one
 function getMarkup(id) {
   svc.get("/markup/" + id, {
-    parameters: { description: "Get a markup" }
+    parameters: { description: "Get a markup with id " + id + "" }
   });
 }
 
@@ -949,6 +1181,20 @@ function matchDeleteMarkup(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateMarkup() {
+  return bp.EventSet("any-update-markup", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a markup");
+  });
+}
+function matchUpdateMarkup(id) {
+  return bp.EventSet("update-markup", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a markup with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyMarkupAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ markup\ with\ id\ (.+)$/));
@@ -965,6 +1211,30 @@ function waitForAnyMarkupDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ markup\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ markup\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForMarkupUpdated(id) {
+  waitFor(matchUpdateMarkup(id));
+}
+function waitForAnyMarkupUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ markup\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ markup\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyMarkupUpdated(id) {
+  svc.get("/markup", {
+    callback: function (response) {
+      markup = JSON.parse(response.body);
+      for (let i = 0; i < markup.length; i++) {
+        if (markup[i].id === id) {
+          return pvg.success("Markup updated (present)");
+        }
+      }
+      return pvg.fail("Expected a markup to be present after update, but it is not");
+    },
+    parameters: { description: "Verify markup with id " + id + " exists" }
+  });
 }
 
 
@@ -1008,14 +1278,14 @@ function tryToAddExistingNodeinfo(id) {
 function updateNodeinfo(id) {
   svc.put("/nodeinfo/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a nodeinfo" }
+      parameters: { description: "Update a nodeinfo with id " + id + "" }
     });
 }
 
 // GET one
 function getNodeinfo(id) {
   svc.get("/nodeinfo/" + id, {
-    parameters: { description: "Get a nodeinfo" }
+    parameters: { description: "Get a nodeinfo with id " + id + "" }
   });
 }
 
@@ -1084,6 +1354,20 @@ function matchDeleteNodeinfo(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateNodeinfo() {
+  return bp.EventSet("any-update-nodeinfo", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a nodeinfo");
+  });
+}
+function matchUpdateNodeinfo(id) {
+  return bp.EventSet("update-nodeinfo", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a nodeinfo with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyNodeinfoAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ nodeinfo\ with\ id\ (.+)$/));
@@ -1100,6 +1384,30 @@ function waitForAnyNodeinfoDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ nodeinfo\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ nodeinfo\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForNodeinfoUpdated(id) {
+  waitFor(matchUpdateNodeinfo(id));
+}
+function waitForAnyNodeinfoUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ nodeinfo\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ nodeinfo\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyNodeinfoUpdated(id) {
+  svc.get("/nodeinfo", {
+    callback: function (response) {
+      nodeinfo = JSON.parse(response.body);
+      for (let i = 0; i < nodeinfo.length; i++) {
+        if (nodeinfo[i].id === id) {
+          return pvg.success("Nodeinfo updated (present)");
+        }
+      }
+      return pvg.fail("Expected a nodeinfo to be present after update, but it is not");
+    },
+    parameters: { description: "Verify nodeinfo with id " + id + " exists" }
+  });
 }
 
 
@@ -1143,14 +1451,14 @@ function tryToAddExistingNotification(id) {
 function updateNotification(id) {
   svc.put("/notifications/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a notification" }
+      parameters: { description: "Update a notification with id " + id + "" }
     });
 }
 
 // GET one
 function getNotification(id) {
   svc.get("/notifications/" + id, {
-    parameters: { description: "Get a notification" }
+    parameters: { description: "Get a notification with id " + id + "" }
   });
 }
 
@@ -1219,6 +1527,20 @@ function matchDeleteNotification(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateNotification() {
+  return bp.EventSet("any-update-notification", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a notification");
+  });
+}
+function matchUpdateNotification(id) {
+  return bp.EventSet("update-notification", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a notification with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyNotificationAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ notification\ with\ id\ (.+)$/));
@@ -1235,6 +1557,30 @@ function waitForAnyNotificationDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ notification\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ notification\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForNotificationUpdated(id) {
+  waitFor(matchUpdateNotification(id));
+}
+function waitForAnyNotificationUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ notification\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ notification\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyNotificationUpdated(id) {
+  svc.get("/notifications", {
+    callback: function (response) {
+      notification = JSON.parse(response.body);
+      for (let i = 0; i < notification.length; i++) {
+        if (notification[i].id === id) {
+          return pvg.success("Notification updated (present)");
+        }
+      }
+      return pvg.fail("Expected a notification to be present after update, but it is not");
+    },
+    parameters: { description: "Verify notification with id " + id + " exists" }
+  });
 }
 
 
@@ -1278,14 +1624,14 @@ function tryToAddExistingOrg(org, username) {
 function updateOrg(org, username) {
   svc.put("/orgs/" + org + "/"+ username, {
       body: JSON.stringify({ org: org, username: username }),
-      parameters: { description: "Update a org" }
+      parameters: { description: "Update a org with org " + org + " and username " + username + "" }
     });
 }
 
 // GET one
 function getOrg(org, username) {
   svc.get("/orgs/" + org + "/"+ username, {
-    parameters: { description: "Get a org" }
+    parameters: { description: "Get a org with org " + org + " and username " + username + "" }
   });
 }
 
@@ -1354,6 +1700,20 @@ function matchDeleteOrg(org, username) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateOrg() {
+  return bp.EventSet("any-update-org", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a org");
+  });
+}
+function matchUpdateOrg(org, username) {
+  return bp.EventSet("update-org", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a org with org " + org + " and username " + username + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyOrgAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ org\ with\ org\ (.+) and username\ (.+)$/));
@@ -1370,6 +1730,30 @@ function waitForAnyOrgDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ org\ with\ org\ (.+) and username\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ org\ with\ org\ (.+) and username\ (.+)$/);
     return { org: (x)=>x(m[1]), username: (x)=>x(m[2]) };
+}
+function waitForOrgUpdated(org, username) {
+  waitFor(matchUpdateOrg(org, username));
+}
+function waitForAnyOrgUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ org\ with\ org\ (.+) and username\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ org\ with\ org\ (.+) and username\ (.+)$/);
+    return { org: (x)=>x(m[1]), username: (x)=>x(m[2]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyOrgUpdated(org, username) {
+  svc.get("/orgs", {
+    callback: function (response) {
+      org = JSON.parse(response.body);
+      for (let i = 0; i < org.length; i++) {
+        if (org[i].org === org && org[i].username === username) {
+          return pvg.success("Org updated (present)");
+        }
+      }
+      return pvg.fail("Expected a org to be present after update, but it is not");
+    },
+    parameters: { description: "Verify org with org " + org + " and username " + username + " exists" }
+  });
 }
 
 
@@ -1413,14 +1797,14 @@ function tryToAddExistingPackage(id) {
 function updatePackage(id) {
   svc.put("/packages/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a package" }
+      parameters: { description: "Update a package with id " + id + "" }
     });
 }
 
 // GET one
 function getPackage(id) {
   svc.get("/packages/" + id, {
-    parameters: { description: "Get a package" }
+    parameters: { description: "Get a package with id " + id + "" }
   });
 }
 
@@ -1489,6 +1873,20 @@ function matchDeletePackage(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdatePackage() {
+  return bp.EventSet("any-update-package", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a package");
+  });
+}
+function matchUpdatePackage(id) {
+  return bp.EventSet("update-package", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a package with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyPackageAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ package\ with\ id\ (.+)$/));
@@ -1505,6 +1903,30 @@ function waitForAnyPackageDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ package\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ package\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForPackageUpdated(id) {
+  waitFor(matchUpdatePackage(id));
+}
+function waitForAnyPackageUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ package\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ package\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyPackageUpdated(id) {
+  svc.get("/packages", {
+    callback: function (response) {
+      package = JSON.parse(response.body);
+      for (let i = 0; i < package.length; i++) {
+        if (package[i].id === id) {
+          return pvg.success("Package updated (present)");
+        }
+      }
+      return pvg.fail("Expected a package to be present after update, but it is not");
+    },
+    parameters: { description: "Verify package with id " + id + " exists" }
+  });
 }
 
 
@@ -1548,14 +1970,14 @@ function tryToAddExistingRepo(owner, repo, index, id, secretname, branch) {
 function updateRepo(owner, repo, index, id, secretname, branch) {
   svc.put("/repos/" + owner + "/"+ repo + "/"+ index + "/"+ id + "/"+ secretname + "/"+ branch, {
       body: JSON.stringify({ owner: owner, repo: repo, index: index, id: id, secretname: secretname, branch: branch }),
-      parameters: { description: "Update a repo" }
+      parameters: { description: "Update a repo with owner " + owner + " and repo " + repo + " and index " + index + " and id " + id + " and secretname " + secretname + " and branch " + branch + "" }
     });
 }
 
 // GET one
 function getRepo(owner, repo, index, id, secretname, branch) {
   svc.get("/repos/" + owner + "/"+ repo + "/"+ index + "/"+ id + "/"+ secretname + "/"+ branch, {
-    parameters: { description: "Get a repo" }
+    parameters: { description: "Get a repo with owner " + owner + " and repo " + repo + " and index " + index + " and id " + id + " and secretname " + secretname + " and branch " + branch + "" }
   });
 }
 
@@ -1624,6 +2046,20 @@ function matchDeleteRepo(owner, repo, index, id, secretname, branch) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateRepo() {
+  return bp.EventSet("any-update-repo", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a repo");
+  });
+}
+function matchUpdateRepo(owner, repo, index, id, secretname, branch) {
+  return bp.EventSet("update-repo", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a repo with owner " + owner + " and repo " + repo + " and index " + index + " and id " + id + " and secretname " + secretname + " and branch " + branch + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyRepoAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and secretname\ (.+) and branch\ (.+)$/));
@@ -1640,6 +2076,30 @@ function waitForAnyRepoDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and secretname\ (.+) and branch\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and secretname\ (.+) and branch\ (.+)$/);
     return { owner: (x)=>x(m[1]), repo: (x)=>x(m[2]), index: (x)=>x(m[3]), id: parseInt(m[4]), secretname: (x)=>x(m[5]), branch: (x)=>x(m[6]) };
+}
+function waitForRepoUpdated(owner, repo, index, id, secretname, branch) {
+  waitFor(matchUpdateRepo(owner, repo, index, id, secretname, branch));
+}
+function waitForAnyRepoUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and secretname\ (.+) and branch\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and secretname\ (.+) and branch\ (.+)$/);
+    return { owner: (x)=>x(m[1]), repo: (x)=>x(m[2]), index: (x)=>x(m[3]), id: parseInt(m[4]), secretname: (x)=>x(m[5]), branch: (x)=>x(m[6]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyRepoUpdated(owner, repo, index, id, secretname, branch) {
+  svc.get("/repos", {
+    callback: function (response) {
+      repo = JSON.parse(response.body);
+      for (let i = 0; i < repo.length; i++) {
+        if (repo[i].owner === owner && repo[i].repo === repo && repo[i].index === index && repo[i].id === id && repo[i].secretname === secretname && repo[i].branch === branch) {
+          return pvg.success("Repo updated (present)");
+        }
+      }
+      return pvg.fail("Expected a repo to be present after update, but it is not");
+    },
+    parameters: { description: "Verify repo with owner " + owner + " and repo " + repo + " and index " + index + " and id " + id + " and secretname " + secretname + " and branch " + branch + " exists" }
+  });
 }
 
 
@@ -1683,14 +2143,14 @@ function tryToAddExistingSetting(id) {
 function updateSetting(id) {
   svc.put("/settings/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a setting" }
+      parameters: { description: "Update a setting with id " + id + "" }
     });
 }
 
 // GET one
 function getSetting(id) {
   svc.get("/settings/" + id, {
-    parameters: { description: "Get a setting" }
+    parameters: { description: "Get a setting with id " + id + "" }
   });
 }
 
@@ -1759,6 +2219,20 @@ function matchDeleteSetting(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateSetting() {
+  return bp.EventSet("any-update-setting", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a setting");
+  });
+}
+function matchUpdateSetting(id) {
+  return bp.EventSet("update-setting", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a setting with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnySettingAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ setting\ with\ id\ (.+)$/));
@@ -1775,6 +2249,30 @@ function waitForAnySettingDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ setting\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ setting\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForSettingUpdated(id) {
+  waitFor(matchUpdateSetting(id));
+}
+function waitForAnySettingUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ setting\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ setting\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifySettingUpdated(id) {
+  svc.get("/settings", {
+    callback: function (response) {
+      setting = JSON.parse(response.body);
+      for (let i = 0; i < setting.length; i++) {
+        if (setting[i].id === id) {
+          return pvg.success("Setting updated (present)");
+        }
+      }
+      return pvg.fail("Expected a setting to be present after update, but it is not");
+    },
+    parameters: { description: "Verify setting with id " + id + " exists" }
+  });
 }
 
 
@@ -1818,14 +2316,14 @@ function tryToAddExistingSigning_key.gpg(id) {
 function updateSigning_key.gpg(id) {
   svc.put("/signing_key.gpg/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a signing_key.gpg" }
+      parameters: { description: "Update a signing_key.gpg with id " + id + "" }
     });
 }
 
 // GET one
 function getSigning_key.gpg(id) {
   svc.get("/signing_key.gpg/" + id, {
-    parameters: { description: "Get a signing_key.gpg" }
+    parameters: { description: "Get a signing_key.gpg with id " + id + "" }
   });
 }
 
@@ -1894,6 +2392,20 @@ function matchDeleteSigning_key.gpg(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateSigning_key.gpg() {
+  return bp.EventSet("any-update-signing_key.gpg", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a signing_key.gpg");
+  });
+}
+function matchUpdateSigning_key.gpg(id) {
+  return bp.EventSet("update-signing_key.gpg", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a signing_key.gpg with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnySigning_key.gpgAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ signing_key\.gpg\ with\ id\ (.+)$/));
@@ -1910,6 +2422,30 @@ function waitForAnySigning_key.gpgDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ signing_key\.gpg\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ signing_key\.gpg\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForSigning_key.gpgUpdated(id) {
+  waitFor(matchUpdateSigning_key.gpg(id));
+}
+function waitForAnySigning_key.gpgUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ signing_key\.gpg\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ signing_key\.gpg\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifySigning_key.gpgUpdated(id) {
+  svc.get("/signing_key.gpg", {
+    callback: function (response) {
+      signing_key.gpg = JSON.parse(response.body);
+      for (let i = 0; i < signing_key.gpg.length; i++) {
+        if (signing_key.gpg[i].id === id) {
+          return pvg.success("Signing_key.gpg updated (present)");
+        }
+      }
+      return pvg.fail("Expected a signing_key.gpg to be present after update, but it is not");
+    },
+    parameters: { description: "Verify signing_key.gpg with id " + id + " exists" }
+  });
 }
 
 
@@ -1953,14 +2489,14 @@ function tryToAddExistingUser(id) {
 function updateUser(id) {
   svc.put("/user/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a user" }
+      parameters: { description: "Update a user with id " + id + "" }
     });
 }
 
 // GET one
 function getUser(id) {
   svc.get("/user/" + id, {
-    parameters: { description: "Get a user" }
+    parameters: { description: "Get a user with id " + id + "" }
   });
 }
 
@@ -2029,6 +2565,20 @@ function matchDeleteUser(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateUser() {
+  return bp.EventSet("any-update-user", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a user");
+  });
+}
+function matchUpdateUser(id) {
+  return bp.EventSet("update-user", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a user with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyUserAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ user\ with\ id\ (.+)$/));
@@ -2045,6 +2595,30 @@ function waitForAnyUserDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ user\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ user\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForUserUpdated(id) {
+  waitFor(matchUpdateUser(id));
+}
+function waitForAnyUserUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ user\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ user\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyUserUpdated(id) {
+  svc.get("/user", {
+    callback: function (response) {
+      user = JSON.parse(response.body);
+      for (let i = 0; i < user.length; i++) {
+        if (user[i].id === id) {
+          return pvg.success("User updated (present)");
+        }
+      }
+      return pvg.fail("Expected a user to be present after update, but it is not");
+    },
+    parameters: { description: "Verify user with id " + id + " exists" }
+  });
 }
 
 
@@ -2088,14 +2662,14 @@ function tryToAddExistingUser(id) {
 function updateUser(id) {
   svc.put("/users/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a user" }
+      parameters: { description: "Update a user with id " + id + "" }
     });
 }
 
 // GET one
 function getUser(id) {
   svc.get("/users/" + id, {
-    parameters: { description: "Get a user" }
+    parameters: { description: "Get a user with id " + id + "" }
   });
 }
 
@@ -2164,6 +2738,20 @@ function matchDeleteUser(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateUser() {
+  return bp.EventSet("any-update-user", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a user");
+  });
+}
+function matchUpdateUser(id) {
+  return bp.EventSet("update-user", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a user with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyUserAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ user\ with\ id\ (.+)$/));
@@ -2180,6 +2768,30 @@ function waitForAnyUserDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ user\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ user\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForUserUpdated(id) {
+  waitFor(matchUpdateUser(id));
+}
+function waitForAnyUserUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ user\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ user\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyUserUpdated(id) {
+  svc.get("/users", {
+    callback: function (response) {
+      user = JSON.parse(response.body);
+      for (let i = 0; i < user.length; i++) {
+        if (user[i].id === id) {
+          return pvg.success("User updated (present)");
+        }
+      }
+      return pvg.fail("Expected a user to be present after update, but it is not");
+    },
+    parameters: { description: "Verify user with id " + id + " exists" }
+  });
 }
 
 
@@ -2223,14 +2835,14 @@ function tryToAddExistingVersion(id) {
 function updateVersion(id) {
   svc.put("/version/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a version" }
+      parameters: { description: "Update a version with id " + id + "" }
     });
 }
 
 // GET one
 function getVersion(id) {
   svc.get("/version/" + id, {
-    parameters: { description: "Get a version" }
+    parameters: { description: "Get a version with id " + id + "" }
   });
 }
 
@@ -2299,6 +2911,20 @@ function matchDeleteVersion(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateVersion() {
+  return bp.EventSet("any-update-version", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a version");
+  });
+}
+function matchUpdateVersion(id) {
+  return bp.EventSet("update-version", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a version with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyVersionAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ version\ with\ id\ (.+)$/));
@@ -2315,5 +2941,29 @@ function waitForAnyVersionDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ version\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ version\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForVersionUpdated(id) {
+  waitFor(matchUpdateVersion(id));
+}
+function waitForAnyVersionUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ version\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ version\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyVersionUpdated(id) {
+  svc.get("/version", {
+    callback: function (response) {
+      version = JSON.parse(response.body);
+      for (let i = 0; i < version.length; i++) {
+        if (version[i].id === id) {
+          return pvg.success("Version updated (present)");
+        }
+      }
+      return pvg.fail("Expected a version to be present after update, but it is not");
+    },
+    parameters: { description: "Verify version with id " + id + " exists" }
+  });
 }
 

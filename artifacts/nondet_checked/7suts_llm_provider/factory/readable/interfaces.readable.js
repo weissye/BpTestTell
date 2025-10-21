@@ -6,6 +6,10 @@
  * This approximates the "Library SUT" interface style.
  */
 
+// CHANGE (1): add default host/port placeholders before RESTSession
+var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var port = (typeof port !== 'undefined') ? port : 5014;
+
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
   headers: { "Content-Type": "application/json" },
 });
@@ -63,14 +67,14 @@ function tryToAddExistingMachine(id) {
 function updateMachine(id) {
   svc.put("/machines/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a machine" }
+      parameters: { description: "Update a machine with id " + id + "" }
     });
 }
 
 // GET one
 function getMachine(id) {
   svc.get("/machines/" + id, {
-    parameters: { description: "Get a machine" }
+    parameters: { description: "Get a machine with id " + id + "" }
   });
 }
 
@@ -139,6 +143,20 @@ function matchDeleteMachine(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateMachine() {
+  return bp.EventSet("any-update-machine", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a machine");
+  });
+}
+function matchUpdateMachine(id) {
+  return bp.EventSet("update-machine", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a machine with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyMachineAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ machine\ with\ id\ (.+)$/));
@@ -155,6 +173,30 @@ function waitForAnyMachineDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ machine\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ machine\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForMachineUpdated(id) {
+  waitFor(matchUpdateMachine(id));
+}
+function waitForAnyMachineUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ machine\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ machine\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyMachineUpdated(id) {
+  svc.get("/machines", {
+    callback: function (response) {
+      machine = JSON.parse(response.body);
+      for (let i = 0; i < machine.length; i++) {
+        if (machine[i].id === id) {
+          return pvg.success("Machine updated (present)");
+        }
+      }
+      return pvg.fail("Expected a machine to be present after update, but it is not");
+    },
+    parameters: { description: "Verify machine with id " + id + " exists" }
+  });
 }
 
 
@@ -198,14 +240,14 @@ function tryToAddExistingMaintenance_ticket(id) {
 function updateMaintenance_ticket(id) {
   svc.put("/maintenance_tickets/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a maintenance_ticket" }
+      parameters: { description: "Update a maintenance_ticket with id " + id + "" }
     });
 }
 
 // GET one
 function getMaintenance_ticket(id) {
   svc.get("/maintenance_tickets/" + id, {
-    parameters: { description: "Get a maintenance_ticket" }
+    parameters: { description: "Get a maintenance_ticket with id " + id + "" }
   });
 }
 
@@ -274,6 +316,20 @@ function matchDeleteMaintenance_ticket(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateMaintenance_ticket() {
+  return bp.EventSet("any-update-maintenance_ticket", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a maintenance_ticket");
+  });
+}
+function matchUpdateMaintenance_ticket(id) {
+  return bp.EventSet("update-maintenance_ticket", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a maintenance_ticket with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyMaintenance_ticketAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ maintenance_ticket\ with\ id\ (.+)$/));
@@ -290,6 +346,30 @@ function waitForAnyMaintenance_ticketDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ maintenance_ticket\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ maintenance_ticket\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForMaintenance_ticketUpdated(id) {
+  waitFor(matchUpdateMaintenance_ticket(id));
+}
+function waitForAnyMaintenance_ticketUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ maintenance_ticket\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ maintenance_ticket\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyMaintenance_ticketUpdated(id) {
+  svc.get("/maintenance_tickets", {
+    callback: function (response) {
+      maintenance_ticket = JSON.parse(response.body);
+      for (let i = 0; i < maintenance_ticket.length; i++) {
+        if (maintenance_ticket[i].id === id) {
+          return pvg.success("Maintenance_ticket updated (present)");
+        }
+      }
+      return pvg.fail("Expected a maintenance_ticket to be present after update, but it is not");
+    },
+    parameters: { description: "Verify maintenance_ticket with id " + id + " exists" }
+  });
 }
 
 
@@ -333,14 +413,14 @@ function tryToAddExistingReset(id) {
 function updateReset(id) {
   svc.put("/reset/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a reset" }
+      parameters: { description: "Update a reset with id " + id + "" }
     });
 }
 
 // GET one
 function getReset(id) {
   svc.get("/reset/" + id, {
-    parameters: { description: "Get a reset" }
+    parameters: { description: "Get a reset with id " + id + "" }
   });
 }
 
@@ -409,6 +489,20 @@ function matchDeleteReset(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateReset() {
+  return bp.EventSet("any-update-reset", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a reset");
+  });
+}
+function matchUpdateReset(id) {
+  return bp.EventSet("update-reset", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a reset with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyResetAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ reset\ with\ id\ (.+)$/));
@@ -425,6 +519,30 @@ function waitForAnyResetDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ reset\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ reset\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForResetUpdated(id) {
+  waitFor(matchUpdateReset(id));
+}
+function waitForAnyResetUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ reset\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ reset\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyResetUpdated(id) {
+  svc.get("/reset", {
+    callback: function (response) {
+      reset = JSON.parse(response.body);
+      for (let i = 0; i < reset.length; i++) {
+        if (reset[i].id === id) {
+          return pvg.success("Reset updated (present)");
+        }
+      }
+      return pvg.fail("Expected a reset to be present after update, but it is not");
+    },
+    parameters: { description: "Verify reset with id " + id + " exists" }
+  });
 }
 
 
@@ -468,14 +586,14 @@ function tryToAddExistingSensor_reading(id) {
 function updateSensor_reading(id) {
   svc.put("/sensor_readings/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a sensor_reading" }
+      parameters: { description: "Update a sensor_reading with id " + id + "" }
     });
 }
 
 // GET one
 function getSensor_reading(id) {
   svc.get("/sensor_readings/" + id, {
-    parameters: { description: "Get a sensor_reading" }
+    parameters: { description: "Get a sensor_reading with id " + id + "" }
   });
 }
 
@@ -544,6 +662,20 @@ function matchDeleteSensor_reading(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateSensor_reading() {
+  return bp.EventSet("any-update-sensor_reading", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a sensor_reading");
+  });
+}
+function matchUpdateSensor_reading(id) {
+  return bp.EventSet("update-sensor_reading", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a sensor_reading with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnySensor_readingAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ sensor_reading\ with\ id\ (.+)$/));
@@ -560,6 +692,30 @@ function waitForAnySensor_readingDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ sensor_reading\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ sensor_reading\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForSensor_readingUpdated(id) {
+  waitFor(matchUpdateSensor_reading(id));
+}
+function waitForAnySensor_readingUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ sensor_reading\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ sensor_reading\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifySensor_readingUpdated(id) {
+  svc.get("/sensor_readings", {
+    callback: function (response) {
+      sensor_reading = JSON.parse(response.body);
+      for (let i = 0; i < sensor_reading.length; i++) {
+        if (sensor_reading[i].id === id) {
+          return pvg.success("Sensor_reading updated (present)");
+        }
+      }
+      return pvg.fail("Expected a sensor_reading to be present after update, but it is not");
+    },
+    parameters: { description: "Verify sensor_reading with id " + id + " exists" }
+  });
 }
 
 
@@ -603,14 +759,14 @@ function tryToAddExistingWorkorder(id) {
 function updateWorkorder(id) {
   svc.put("/workorders/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a workorder" }
+      parameters: { description: "Update a workorder with id " + id + "" }
     });
 }
 
 // GET one
 function getWorkorder(id) {
   svc.get("/workorders/" + id, {
-    parameters: { description: "Get a workorder" }
+    parameters: { description: "Get a workorder with id " + id + "" }
   });
 }
 
@@ -679,6 +835,20 @@ function matchDeleteWorkorder(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateWorkorder() {
+  return bp.EventSet("any-update-workorder", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a workorder");
+  });
+}
+function matchUpdateWorkorder(id) {
+  return bp.EventSet("update-workorder", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a workorder with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyWorkorderAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ workorder\ with\ id\ (.+)$/));
@@ -695,5 +865,29 @@ function waitForAnyWorkorderDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ workorder\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ workorder\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForWorkorderUpdated(id) {
+  waitFor(matchUpdateWorkorder(id));
+}
+function waitForAnyWorkorderUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ workorder\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ workorder\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyWorkorderUpdated(id) {
+  svc.get("/workorders", {
+    callback: function (response) {
+      workorder = JSON.parse(response.body);
+      for (let i = 0; i < workorder.length; i++) {
+        if (workorder[i].id === id) {
+          return pvg.success("Workorder updated (present)");
+        }
+      }
+      return pvg.fail("Expected a workorder to be present after update, but it is not");
+    },
+    parameters: { description: "Verify workorder with id " + id + " exists" }
+  });
 }
 

@@ -6,6 +6,10 @@
  * This approximates the "Library SUT" interface style.
  */
 
+// CHANGE (1): add default host/port placeholders before RESTSession
+var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var port = (typeof port !== 'undefined') ? port : 5014;
+
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
   headers: { "Content-Type": "application/json" },
 });
@@ -63,14 +67,14 @@ function tryToAddExistingApi(id, name) {
 function updateApi(id, name) {
   svc.put("/api/" + id + "/"+ name, {
       body: JSON.stringify({ id: id, name: name }),
-      parameters: { description: "Update a api" }
+      parameters: { description: "Update a api with id " + id + " and name " + name + "" }
     });
 }
 
 // GET one
 function getApi(id, name) {
   svc.get("/api/" + id + "/"+ name, {
-    parameters: { description: "Get a api" }
+    parameters: { description: "Get a api with id " + id + " and name " + name + "" }
   });
 }
 
@@ -139,6 +143,20 @@ function matchDeleteApi(id, name) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateApi() {
+  return bp.EventSet("any-update-api", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a api");
+  });
+}
+function matchUpdateApi(id, name) {
+  return bp.EventSet("update-api", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a api with id " + id + " and name " + name + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyApiAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ api\ with\ id\ (.+) and name\ (.+)$/));
@@ -155,5 +173,29 @@ function waitForAnyApiDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ api\ with\ id\ (.+) and name\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ api\ with\ id\ (.+) and name\ (.+)$/);
     return { id: parseInt(m[1]), name: (x)=>x(m[2]) };
+}
+function waitForApiUpdated(id, name) {
+  waitFor(matchUpdateApi(id, name));
+}
+function waitForAnyApiUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ api\ with\ id\ (.+) and name\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ api\ with\ id\ (.+) and name\ (.+)$/);
+    return { id: parseInt(m[1]), name: (x)=>x(m[2]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyApiUpdated(id, name) {
+  svc.get("/api", {
+    callback: function (response) {
+      api = JSON.parse(response.body);
+      for (let i = 0; i < api.length; i++) {
+        if (api[i].id === id && api[i].name === name) {
+          return pvg.success("Api updated (present)");
+        }
+      }
+      return pvg.fail("Expected a api to be present after update, but it is not");
+    },
+    parameters: { description: "Verify api with id " + id + " and name " + name + " exists" }
+  });
 }
 

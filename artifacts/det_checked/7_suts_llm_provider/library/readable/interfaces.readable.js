@@ -6,6 +6,10 @@
  * This approximates the "Library SUT" interface style.
  */
 
+// CHANGE (1): add default host/port placeholders before RESTSession
+var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var port = (typeof port !== 'undefined') ? port : 5014;
+
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
   headers: { "Content-Type": "application/json" },
 });
@@ -63,14 +67,14 @@ function tryToAddExistingBook(book_id) {
 function updateBook(book_id) {
   svc.put("/books/" + book_id, {
       body: JSON.stringify({ book_id: book_id }),
-      parameters: { description: "Update a book" }
+      parameters: { description: "Update a book with book_id " + book_id + "" }
     });
 }
 
 // GET one
 function getBook(book_id) {
   svc.get("/books/" + book_id, {
-    parameters: { description: "Get a book" }
+    parameters: { description: "Get a book with book_id " + book_id + "" }
   });
 }
 
@@ -139,6 +143,20 @@ function matchDeleteBook(book_id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateBook() {
+  return bp.EventSet("any-update-book", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a book");
+  });
+}
+function matchUpdateBook(book_id) {
+  return bp.EventSet("update-book", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a book with book_id " + book_id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyBookAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ book\ with\ book_id\ (.+)$/));
@@ -155,6 +173,30 @@ function waitForAnyBookDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ book\ with\ book_id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ book\ with\ book_id\ (.+)$/);
     return { book_id: parseInt(m[1]) };
+}
+function waitForBookUpdated(book_id) {
+  waitFor(matchUpdateBook(book_id));
+}
+function waitForAnyBookUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ book\ with\ book_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ book\ with\ book_id\ (.+)$/);
+    return { book_id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyBookUpdated(book_id) {
+  svc.get("/books", {
+    callback: function (response) {
+      book = JSON.parse(response.body);
+      for (let i = 0; i < book.length; i++) {
+        if (book[i].book_id === book_id) {
+          return pvg.success("Book updated (present)");
+        }
+      }
+      return pvg.fail("Expected a book to be present after update, but it is not");
+    },
+    parameters: { description: "Verify book with book_id " + book_id + " exists" }
+  });
 }
 
 
@@ -198,14 +240,14 @@ function tryToAddExistingHold(hold_id) {
 function updateHold(hold_id) {
   svc.put("/holds/" + hold_id, {
       body: JSON.stringify({ hold_id: hold_id }),
-      parameters: { description: "Update a hold" }
+      parameters: { description: "Update a hold with hold_id " + hold_id + "" }
     });
 }
 
 // GET one
 function getHold(hold_id) {
   svc.get("/holds/" + hold_id, {
-    parameters: { description: "Get a hold" }
+    parameters: { description: "Get a hold with hold_id " + hold_id + "" }
   });
 }
 
@@ -274,6 +316,20 @@ function matchDeleteHold(hold_id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateHold() {
+  return bp.EventSet("any-update-hold", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a hold");
+  });
+}
+function matchUpdateHold(hold_id) {
+  return bp.EventSet("update-hold", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a hold with hold_id " + hold_id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyHoldAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ hold\ with\ hold_id\ (.+)$/));
@@ -290,6 +346,30 @@ function waitForAnyHoldDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ hold\ with\ hold_id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ hold\ with\ hold_id\ (.+)$/);
     return { hold_id: parseInt(m[1]) };
+}
+function waitForHoldUpdated(hold_id) {
+  waitFor(matchUpdateHold(hold_id));
+}
+function waitForAnyHoldUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ hold\ with\ hold_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ hold\ with\ hold_id\ (.+)$/);
+    return { hold_id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyHoldUpdated(hold_id) {
+  svc.get("/holds", {
+    callback: function (response) {
+      hold = JSON.parse(response.body);
+      for (let i = 0; i < hold.length; i++) {
+        if (hold[i].hold_id === hold_id) {
+          return pvg.success("Hold updated (present)");
+        }
+      }
+      return pvg.fail("Expected a hold to be present after update, but it is not");
+    },
+    parameters: { description: "Verify hold with hold_id " + hold_id + " exists" }
+  });
 }
 
 
@@ -333,14 +413,14 @@ function tryToAddExistingLoan(user_id, book_id) {
 function updateLoan(user_id, book_id) {
   svc.put("/loans/" + user_id + "/"+ book_id, {
       body: JSON.stringify({ user_id: user_id, book_id: book_id }),
-      parameters: { description: "Update a loan" }
+      parameters: { description: "Update a loan with user_id " + user_id + " and book_id " + book_id + "" }
     });
 }
 
 // GET one
 function getLoan(user_id, book_id) {
   svc.get("/loans/" + user_id + "/"+ book_id, {
-    parameters: { description: "Get a loan" }
+    parameters: { description: "Get a loan with user_id " + user_id + " and book_id " + book_id + "" }
   });
 }
 
@@ -409,6 +489,20 @@ function matchDeleteLoan(user_id, book_id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateLoan() {
+  return bp.EventSet("any-update-loan", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a loan");
+  });
+}
+function matchUpdateLoan(user_id, book_id) {
+  return bp.EventSet("update-loan", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a loan with user_id " + user_id + " and book_id " + book_id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyLoanAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ loan\ with\ user_id\ (.+) and book_id\ (.+)$/));
@@ -425,6 +519,30 @@ function waitForAnyLoanDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ loan\ with\ user_id\ (.+) and book_id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ loan\ with\ user_id\ (.+) and book_id\ (.+)$/);
     return { user_id: parseInt(m[1]), book_id: parseInt(m[2]) };
+}
+function waitForLoanUpdated(user_id, book_id) {
+  waitFor(matchUpdateLoan(user_id, book_id));
+}
+function waitForAnyLoanUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ loan\ with\ user_id\ (.+) and book_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ loan\ with\ user_id\ (.+) and book_id\ (.+)$/);
+    return { user_id: parseInt(m[1]), book_id: parseInt(m[2]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyLoanUpdated(user_id, book_id) {
+  svc.get("/loans", {
+    callback: function (response) {
+      loan = JSON.parse(response.body);
+      for (let i = 0; i < loan.length; i++) {
+        if (loan[i].user_id === user_id && loan[i].book_id === book_id) {
+          return pvg.success("Loan updated (present)");
+        }
+      }
+      return pvg.fail("Expected a loan to be present after update, but it is not");
+    },
+    parameters: { description: "Verify loan with user_id " + user_id + " and book_id " + book_id + " exists" }
+  });
 }
 
 
@@ -468,14 +586,14 @@ function tryToAddExistingUser(user_id) {
 function updateUser(user_id) {
   svc.put("/users/" + user_id, {
       body: JSON.stringify({ user_id: user_id }),
-      parameters: { description: "Update a user" }
+      parameters: { description: "Update a user with user_id " + user_id + "" }
     });
 }
 
 // GET one
 function getUser(user_id) {
   svc.get("/users/" + user_id, {
-    parameters: { description: "Get a user" }
+    parameters: { description: "Get a user with user_id " + user_id + "" }
   });
 }
 
@@ -544,6 +662,20 @@ function matchDeleteUser(user_id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateUser() {
+  return bp.EventSet("any-update-user", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a user");
+  });
+}
+function matchUpdateUser(user_id) {
+  return bp.EventSet("update-user", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a user with user_id " + user_id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyUserAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ user\ with\ user_id\ (.+)$/));
@@ -560,5 +692,29 @@ function waitForAnyUserDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ user\ with\ user_id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ user\ with\ user_id\ (.+)$/);
     return { user_id: parseInt(m[1]) };
+}
+function waitForUserUpdated(user_id) {
+  waitFor(matchUpdateUser(user_id));
+}
+function waitForAnyUserUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ user\ with\ user_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ user\ with\ user_id\ (.+)$/);
+    return { user_id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyUserUpdated(user_id) {
+  svc.get("/users", {
+    callback: function (response) {
+      user = JSON.parse(response.body);
+      for (let i = 0; i < user.length; i++) {
+        if (user[i].user_id === user_id) {
+          return pvg.success("User updated (present)");
+        }
+      }
+      return pvg.fail("Expected a user to be present after update, but it is not");
+    },
+    parameters: { description: "Verify user with user_id " + user_id + " exists" }
+  });
 }
 

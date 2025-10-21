@@ -1,0 +1,2 @@
+ERR : No line found
+java.util.Scanner:::nextLine (Scanner.java:1660)testory.runmodes.CreateMode:::promptCreateCopilotInstructionsFiles (CreateMode.java:107)testory.runmodes.CreateMode:::go (CreateMode.java:63)testory.Main:::main (Main.java:178)

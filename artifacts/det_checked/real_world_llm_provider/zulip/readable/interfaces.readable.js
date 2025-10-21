@@ -6,6 +6,10 @@
  * This approximates the "Library SUT" interface style.
  */
 
+// CHANGE (1): add default host/port placeholders before RESTSession
+var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var port = (typeof port !== 'undefined') ? port : 5014;
+
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
   headers: { "Content-Type": "application/json" },
 });
@@ -63,14 +67,14 @@ function tryToAddExistingCall(id) {
 function updateCall(id) {
   svc.put("/calls/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a call" }
+      parameters: { description: "Update a call with id " + id + "" }
     });
 }
 
 // GET one
 function getCall(id) {
   svc.get("/calls/" + id, {
-    parameters: { description: "Get a call" }
+    parameters: { description: "Get a call with id " + id + "" }
   });
 }
 
@@ -139,6 +143,20 @@ function matchDeleteCall(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateCall() {
+  return bp.EventSet("any-update-call", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a call");
+  });
+}
+function matchUpdateCall(id) {
+  return bp.EventSet("update-call", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a call with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyCallAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ call\ with\ id\ (.+)$/));
@@ -155,6 +173,30 @@ function waitForAnyCallDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ call\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ call\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForCallUpdated(id) {
+  waitFor(matchUpdateCall(id));
+}
+function waitForAnyCallUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ call\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ call\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyCallUpdated(id) {
+  svc.get("/calls", {
+    callback: function (response) {
+      call = JSON.parse(response.body);
+      for (let i = 0; i < call.length; i++) {
+        if (call[i].id === id) {
+          return pvg.success("Call updated (present)");
+        }
+      }
+      return pvg.fail("Expected a call to be present after update, but it is not");
+    },
+    parameters: { description: "Verify call with id " + id + " exists" }
+  });
 }
 
 
@@ -198,14 +240,14 @@ function tryToAddExistingChannel_folder(channel_folder_id) {
 function updateChannel_folder(channel_folder_id) {
   svc.put("/channel_folders/" + channel_folder_id, {
       body: JSON.stringify({ channel_folder_id: channel_folder_id }),
-      parameters: { description: "Update a channel_folder" }
+      parameters: { description: "Update a channel_folder with channel_folder_id " + channel_folder_id + "" }
     });
 }
 
 // GET one
 function getChannel_folder(channel_folder_id) {
   svc.get("/channel_folders/" + channel_folder_id, {
-    parameters: { description: "Get a channel_folder" }
+    parameters: { description: "Get a channel_folder with channel_folder_id " + channel_folder_id + "" }
   });
 }
 
@@ -274,6 +316,20 @@ function matchDeleteChannel_folder(channel_folder_id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateChannel_folder() {
+  return bp.EventSet("any-update-channel_folder", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a channel_folder");
+  });
+}
+function matchUpdateChannel_folder(channel_folder_id) {
+  return bp.EventSet("update-channel_folder", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a channel_folder with channel_folder_id " + channel_folder_id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyChannel_folderAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ channel_folder\ with\ channel_folder_id\ (.+)$/));
@@ -290,6 +346,30 @@ function waitForAnyChannel_folderDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ channel_folder\ with\ channel_folder_id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ channel_folder\ with\ channel_folder_id\ (.+)$/);
     return { channel_folder_id: parseInt(m[1]) };
+}
+function waitForChannel_folderUpdated(channel_folder_id) {
+  waitFor(matchUpdateChannel_folder(channel_folder_id));
+}
+function waitForAnyChannel_folderUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ channel_folder\ with\ channel_folder_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ channel_folder\ with\ channel_folder_id\ (.+)$/);
+    return { channel_folder_id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyChannel_folderUpdated(channel_folder_id) {
+  svc.get("/channel_folders", {
+    callback: function (response) {
+      channel_folder = JSON.parse(response.body);
+      for (let i = 0; i < channel_folder.length; i++) {
+        if (channel_folder[i].channel_folder_id === channel_folder_id) {
+          return pvg.success("Channel_folder updated (present)");
+        }
+      }
+      return pvg.fail("Expected a channel_folder to be present after update, but it is not");
+    },
+    parameters: { description: "Verify channel_folder with channel_folder_id " + channel_folder_id + " exists" }
+  });
 }
 
 
@@ -333,14 +413,14 @@ function tryToAddExistingChannel(id) {
 function updateChannel(id) {
   svc.put("/channels/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a channel" }
+      parameters: { description: "Update a channel with id " + id + "" }
     });
 }
 
 // GET one
 function getChannel(id) {
   svc.get("/channels/" + id, {
-    parameters: { description: "Get a channel" }
+    parameters: { description: "Get a channel with id " + id + "" }
   });
 }
 
@@ -409,6 +489,20 @@ function matchDeleteChannel(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateChannel() {
+  return bp.EventSet("any-update-channel", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a channel");
+  });
+}
+function matchUpdateChannel(id) {
+  return bp.EventSet("update-channel", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a channel with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyChannelAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ channel\ with\ id\ (.+)$/));
@@ -425,6 +519,30 @@ function waitForAnyChannelDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ channel\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ channel\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForChannelUpdated(id) {
+  waitFor(matchUpdateChannel(id));
+}
+function waitForAnyChannelUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ channel\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ channel\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyChannelUpdated(id) {
+  svc.get("/channels", {
+    callback: function (response) {
+      channel = JSON.parse(response.body);
+      for (let i = 0; i < channel.length; i++) {
+        if (channel[i].id === id) {
+          return pvg.success("Channel updated (present)");
+        }
+      }
+      return pvg.fail("Expected a channel to be present after update, but it is not");
+    },
+    parameters: { description: "Verify channel with id " + id + " exists" }
+  });
 }
 
 
@@ -468,14 +586,14 @@ function tryToAddExistingDefault_stream(id) {
 function updateDefault_stream(id) {
   svc.put("/default_streams/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a default_stream" }
+      parameters: { description: "Update a default_stream with id " + id + "" }
     });
 }
 
 // GET one
 function getDefault_stream(id) {
   svc.get("/default_streams/" + id, {
-    parameters: { description: "Get a default_stream" }
+    parameters: { description: "Get a default_stream with id " + id + "" }
   });
 }
 
@@ -544,6 +662,20 @@ function matchDeleteDefault_stream(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateDefault_stream() {
+  return bp.EventSet("any-update-default_stream", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a default_stream");
+  });
+}
+function matchUpdateDefault_stream(id) {
+  return bp.EventSet("update-default_stream", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a default_stream with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyDefault_streamAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ default_stream\ with\ id\ (.+)$/));
@@ -560,6 +692,30 @@ function waitForAnyDefault_streamDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ default_stream\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ default_stream\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForDefault_streamUpdated(id) {
+  waitFor(matchUpdateDefault_stream(id));
+}
+function waitForAnyDefault_streamUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ default_stream\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ default_stream\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyDefault_streamUpdated(id) {
+  svc.get("/default_streams", {
+    callback: function (response) {
+      default_stream = JSON.parse(response.body);
+      for (let i = 0; i < default_stream.length; i++) {
+        if (default_stream[i].id === id) {
+          return pvg.success("Default_stream updated (present)");
+        }
+      }
+      return pvg.fail("Expected a default_stream to be present after update, but it is not");
+    },
+    parameters: { description: "Verify default_stream with id " + id + " exists" }
+  });
 }
 
 
@@ -603,14 +759,14 @@ function tryToAddExistingDev_fetch_api_key(id) {
 function updateDev_fetch_api_key(id) {
   svc.put("/dev_fetch_api_key/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a dev_fetch_api_key" }
+      parameters: { description: "Update a dev_fetch_api_key with id " + id + "" }
     });
 }
 
 // GET one
 function getDev_fetch_api_key(id) {
   svc.get("/dev_fetch_api_key/" + id, {
-    parameters: { description: "Get a dev_fetch_api_key" }
+    parameters: { description: "Get a dev_fetch_api_key with id " + id + "" }
   });
 }
 
@@ -679,6 +835,20 @@ function matchDeleteDev_fetch_api_key(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateDev_fetch_api_key() {
+  return bp.EventSet("any-update-dev_fetch_api_key", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a dev_fetch_api_key");
+  });
+}
+function matchUpdateDev_fetch_api_key(id) {
+  return bp.EventSet("update-dev_fetch_api_key", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a dev_fetch_api_key with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyDev_fetch_api_keyAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ dev_fetch_api_key\ with\ id\ (.+)$/));
@@ -695,6 +865,30 @@ function waitForAnyDev_fetch_api_keyDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ dev_fetch_api_key\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ dev_fetch_api_key\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForDev_fetch_api_keyUpdated(id) {
+  waitFor(matchUpdateDev_fetch_api_key(id));
+}
+function waitForAnyDev_fetch_api_keyUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ dev_fetch_api_key\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ dev_fetch_api_key\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyDev_fetch_api_keyUpdated(id) {
+  svc.get("/dev_fetch_api_key", {
+    callback: function (response) {
+      dev_fetch_api_key = JSON.parse(response.body);
+      for (let i = 0; i < dev_fetch_api_key.length; i++) {
+        if (dev_fetch_api_key[i].id === id) {
+          return pvg.success("Dev_fetch_api_key updated (present)");
+        }
+      }
+      return pvg.fail("Expected a dev_fetch_api_key to be present after update, but it is not");
+    },
+    parameters: { description: "Verify dev_fetch_api_key with id " + id + " exists" }
+  });
 }
 
 
@@ -738,14 +932,14 @@ function tryToAddExistingDraft(id) {
 function updateDraft(id) {
   svc.put("/drafts/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a draft" }
+      parameters: { description: "Update a draft with id " + id + "" }
     });
 }
 
 // GET one
 function getDraft(id) {
   svc.get("/drafts/" + id, {
-    parameters: { description: "Get a draft" }
+    parameters: { description: "Get a draft with id " + id + "" }
   });
 }
 
@@ -814,6 +1008,20 @@ function matchDeleteDraft(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateDraft() {
+  return bp.EventSet("any-update-draft", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a draft");
+  });
+}
+function matchUpdateDraft(id) {
+  return bp.EventSet("update-draft", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a draft with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyDraftAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ draft\ with\ id\ (.+)$/));
@@ -830,6 +1038,30 @@ function waitForAnyDraftDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ draft\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ draft\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForDraftUpdated(id) {
+  waitFor(matchUpdateDraft(id));
+}
+function waitForAnyDraftUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ draft\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ draft\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyDraftUpdated(id) {
+  svc.get("/drafts", {
+    callback: function (response) {
+      draft = JSON.parse(response.body);
+      for (let i = 0; i < draft.length; i++) {
+        if (draft[i].id === id) {
+          return pvg.success("Draft updated (present)");
+        }
+      }
+      return pvg.fail("Expected a draft to be present after update, but it is not");
+    },
+    parameters: { description: "Verify draft with id " + id + " exists" }
+  });
 }
 
 
@@ -873,14 +1105,14 @@ function tryToAddExistingEvent(id) {
 function updateEvent(id) {
   svc.put("/events/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a event" }
+      parameters: { description: "Update a event with id " + id + "" }
     });
 }
 
 // GET one
 function getEvent(id) {
   svc.get("/events/" + id, {
-    parameters: { description: "Get a event" }
+    parameters: { description: "Get a event with id " + id + "" }
   });
 }
 
@@ -949,6 +1181,20 @@ function matchDeleteEvent(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateEvent() {
+  return bp.EventSet("any-update-event", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a event");
+  });
+}
+function matchUpdateEvent(id) {
+  return bp.EventSet("update-event", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a event with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyEventAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ event\ with\ id\ (.+)$/));
@@ -965,6 +1211,30 @@ function waitForAnyEventDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ event\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ event\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForEventUpdated(id) {
+  waitFor(matchUpdateEvent(id));
+}
+function waitForAnyEventUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ event\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ event\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyEventUpdated(id) {
+  svc.get("/events", {
+    callback: function (response) {
+      event = JSON.parse(response.body);
+      for (let i = 0; i < event.length; i++) {
+        if (event[i].id === id) {
+          return pvg.success("Event updated (present)");
+        }
+      }
+      return pvg.fail("Expected a event to be present after update, but it is not");
+    },
+    parameters: { description: "Verify event with id " + id + " exists" }
+  });
 }
 
 
@@ -1008,14 +1278,14 @@ function tryToAddExistingExport(id) {
 function updateExport(id) {
   svc.put("/export/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a export" }
+      parameters: { description: "Update a export with id " + id + "" }
     });
 }
 
 // GET one
 function getExport(id) {
   svc.get("/export/" + id, {
-    parameters: { description: "Get a export" }
+    parameters: { description: "Get a export with id " + id + "" }
   });
 }
 
@@ -1084,6 +1354,20 @@ function matchDeleteExport(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateExport() {
+  return bp.EventSet("any-update-export", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a export");
+  });
+}
+function matchUpdateExport(id) {
+  return bp.EventSet("update-export", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a export with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyExportAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ export\ with\ id\ (.+)$/));
@@ -1100,6 +1384,30 @@ function waitForAnyExportDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ export\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ export\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForExportUpdated(id) {
+  waitFor(matchUpdateExport(id));
+}
+function waitForAnyExportUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ export\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ export\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyExportUpdated(id) {
+  svc.get("/export", {
+    callback: function (response) {
+      export = JSON.parse(response.body);
+      for (let i = 0; i < export.length; i++) {
+        if (export[i].id === id) {
+          return pvg.success("Export updated (present)");
+        }
+      }
+      return pvg.fail("Expected a export to be present after update, but it is not");
+    },
+    parameters: { description: "Verify export with id " + id + " exists" }
+  });
 }
 
 
@@ -1143,14 +1451,14 @@ function tryToAddExistingFetch_api_key(id) {
 function updateFetch_api_key(id) {
   svc.put("/fetch_api_key/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a fetch_api_key" }
+      parameters: { description: "Update a fetch_api_key with id " + id + "" }
     });
 }
 
 // GET one
 function getFetch_api_key(id) {
   svc.get("/fetch_api_key/" + id, {
-    parameters: { description: "Get a fetch_api_key" }
+    parameters: { description: "Get a fetch_api_key with id " + id + "" }
   });
 }
 
@@ -1219,6 +1527,20 @@ function matchDeleteFetch_api_key(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateFetch_api_key() {
+  return bp.EventSet("any-update-fetch_api_key", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a fetch_api_key");
+  });
+}
+function matchUpdateFetch_api_key(id) {
+  return bp.EventSet("update-fetch_api_key", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a fetch_api_key with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyFetch_api_keyAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ fetch_api_key\ with\ id\ (.+)$/));
@@ -1235,6 +1557,30 @@ function waitForAnyFetch_api_keyDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ fetch_api_key\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ fetch_api_key\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForFetch_api_keyUpdated(id) {
+  waitFor(matchUpdateFetch_api_key(id));
+}
+function waitForAnyFetch_api_keyUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ fetch_api_key\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ fetch_api_key\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyFetch_api_keyUpdated(id) {
+  svc.get("/fetch_api_key", {
+    callback: function (response) {
+      fetch_api_key = JSON.parse(response.body);
+      for (let i = 0; i < fetch_api_key.length; i++) {
+        if (fetch_api_key[i].id === id) {
+          return pvg.success("Fetch_api_key updated (present)");
+        }
+      }
+      return pvg.fail("Expected a fetch_api_key to be present after update, but it is not");
+    },
+    parameters: { description: "Verify fetch_api_key with id " + id + " exists" }
+  });
 }
 
 
@@ -1278,14 +1624,14 @@ function tryToAddExistingGet_stream_id(id) {
 function updateGet_stream_id(id) {
   svc.put("/get_stream_id/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a get_stream_id" }
+      parameters: { description: "Update a get_stream_id with id " + id + "" }
     });
 }
 
 // GET one
 function getGet_stream_id(id) {
   svc.get("/get_stream_id/" + id, {
-    parameters: { description: "Get a get_stream_id" }
+    parameters: { description: "Get a get_stream_id with id " + id + "" }
   });
 }
 
@@ -1354,6 +1700,20 @@ function matchDeleteGet_stream_id(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateGet_stream_id() {
+  return bp.EventSet("any-update-get_stream_id", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a get_stream_id");
+  });
+}
+function matchUpdateGet_stream_id(id) {
+  return bp.EventSet("update-get_stream_id", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a get_stream_id with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyGet_stream_idAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ get_stream_id\ with\ id\ (.+)$/));
@@ -1370,6 +1730,30 @@ function waitForAnyGet_stream_idDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ get_stream_id\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ get_stream_id\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForGet_stream_idUpdated(id) {
+  waitFor(matchUpdateGet_stream_id(id));
+}
+function waitForAnyGet_stream_idUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ get_stream_id\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ get_stream_id\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyGet_stream_idUpdated(id) {
+  svc.get("/get_stream_id", {
+    callback: function (response) {
+      get_stream_id = JSON.parse(response.body);
+      for (let i = 0; i < get_stream_id.length; i++) {
+        if (get_stream_id[i].id === id) {
+          return pvg.success("Get_stream_id updated (present)");
+        }
+      }
+      return pvg.fail("Expected a get_stream_id to be present after update, but it is not");
+    },
+    parameters: { description: "Verify get_stream_id with id " + id + " exists" }
+  });
 }
 
 
@@ -1413,14 +1797,14 @@ function tryToAddExistingInvite(invite_id) {
 function updateInvite(invite_id) {
   svc.put("/invites/" + invite_id, {
       body: JSON.stringify({ invite_id: invite_id }),
-      parameters: { description: "Update a invite" }
+      parameters: { description: "Update a invite with invite_id " + invite_id + "" }
     });
 }
 
 // GET one
 function getInvite(invite_id) {
   svc.get("/invites/" + invite_id, {
-    parameters: { description: "Get a invite" }
+    parameters: { description: "Get a invite with invite_id " + invite_id + "" }
   });
 }
 
@@ -1489,6 +1873,20 @@ function matchDeleteInvite(invite_id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateInvite() {
+  return bp.EventSet("any-update-invite", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a invite");
+  });
+}
+function matchUpdateInvite(invite_id) {
+  return bp.EventSet("update-invite", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a invite with invite_id " + invite_id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyInviteAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ invite\ with\ invite_id\ (.+)$/));
@@ -1505,6 +1903,30 @@ function waitForAnyInviteDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ invite\ with\ invite_id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ invite\ with\ invite_id\ (.+)$/);
     return { invite_id: parseInt(m[1]) };
+}
+function waitForInviteUpdated(invite_id) {
+  waitFor(matchUpdateInvite(invite_id));
+}
+function waitForAnyInviteUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ invite\ with\ invite_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ invite\ with\ invite_id\ (.+)$/);
+    return { invite_id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyInviteUpdated(invite_id) {
+  svc.get("/invites", {
+    callback: function (response) {
+      invite = JSON.parse(response.body);
+      for (let i = 0; i < invite.length; i++) {
+        if (invite[i].invite_id === invite_id) {
+          return pvg.success("Invite updated (present)");
+        }
+      }
+      return pvg.fail("Expected a invite to be present after update, but it is not");
+    },
+    parameters: { description: "Verify invite with invite_id " + invite_id + " exists" }
+  });
 }
 
 
@@ -1548,14 +1970,14 @@ function tryToAddExistingMark_all_as_read(id) {
 function updateMark_all_as_read(id) {
   svc.put("/mark_all_as_read/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a mark_all_as_read" }
+      parameters: { description: "Update a mark_all_as_read with id " + id + "" }
     });
 }
 
 // GET one
 function getMark_all_as_read(id) {
   svc.get("/mark_all_as_read/" + id, {
-    parameters: { description: "Get a mark_all_as_read" }
+    parameters: { description: "Get a mark_all_as_read with id " + id + "" }
   });
 }
 
@@ -1624,6 +2046,20 @@ function matchDeleteMark_all_as_read(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateMark_all_as_read() {
+  return bp.EventSet("any-update-mark_all_as_read", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a mark_all_as_read");
+  });
+}
+function matchUpdateMark_all_as_read(id) {
+  return bp.EventSet("update-mark_all_as_read", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a mark_all_as_read with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyMark_all_as_readAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ mark_all_as_read\ with\ id\ (.+)$/));
@@ -1640,6 +2076,30 @@ function waitForAnyMark_all_as_readDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ mark_all_as_read\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ mark_all_as_read\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForMark_all_as_readUpdated(id) {
+  waitFor(matchUpdateMark_all_as_read(id));
+}
+function waitForAnyMark_all_as_readUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ mark_all_as_read\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ mark_all_as_read\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyMark_all_as_readUpdated(id) {
+  svc.get("/mark_all_as_read", {
+    callback: function (response) {
+      mark_all_as_read = JSON.parse(response.body);
+      for (let i = 0; i < mark_all_as_read.length; i++) {
+        if (mark_all_as_read[i].id === id) {
+          return pvg.success("Mark_all_as_read updated (present)");
+        }
+      }
+      return pvg.fail("Expected a mark_all_as_read to be present after update, but it is not");
+    },
+    parameters: { description: "Verify mark_all_as_read with id " + id + " exists" }
+  });
 }
 
 
@@ -1683,14 +2143,14 @@ function tryToAddExistingMark_stream_as_read(id) {
 function updateMark_stream_as_read(id) {
   svc.put("/mark_stream_as_read/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a mark_stream_as_read" }
+      parameters: { description: "Update a mark_stream_as_read with id " + id + "" }
     });
 }
 
 // GET one
 function getMark_stream_as_read(id) {
   svc.get("/mark_stream_as_read/" + id, {
-    parameters: { description: "Get a mark_stream_as_read" }
+    parameters: { description: "Get a mark_stream_as_read with id " + id + "" }
   });
 }
 
@@ -1759,6 +2219,20 @@ function matchDeleteMark_stream_as_read(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateMark_stream_as_read() {
+  return bp.EventSet("any-update-mark_stream_as_read", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a mark_stream_as_read");
+  });
+}
+function matchUpdateMark_stream_as_read(id) {
+  return bp.EventSet("update-mark_stream_as_read", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a mark_stream_as_read with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyMark_stream_as_readAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ mark_stream_as_read\ with\ id\ (.+)$/));
@@ -1775,6 +2249,30 @@ function waitForAnyMark_stream_as_readDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ mark_stream_as_read\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ mark_stream_as_read\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForMark_stream_as_readUpdated(id) {
+  waitFor(matchUpdateMark_stream_as_read(id));
+}
+function waitForAnyMark_stream_as_readUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ mark_stream_as_read\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ mark_stream_as_read\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyMark_stream_as_readUpdated(id) {
+  svc.get("/mark_stream_as_read", {
+    callback: function (response) {
+      mark_stream_as_read = JSON.parse(response.body);
+      for (let i = 0; i < mark_stream_as_read.length; i++) {
+        if (mark_stream_as_read[i].id === id) {
+          return pvg.success("Mark_stream_as_read updated (present)");
+        }
+      }
+      return pvg.fail("Expected a mark_stream_as_read to be present after update, but it is not");
+    },
+    parameters: { description: "Verify mark_stream_as_read with id " + id + " exists" }
+  });
 }
 
 
@@ -1818,14 +2316,14 @@ function tryToAddExistingMark_topic_as_read(id) {
 function updateMark_topic_as_read(id) {
   svc.put("/mark_topic_as_read/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a mark_topic_as_read" }
+      parameters: { description: "Update a mark_topic_as_read with id " + id + "" }
     });
 }
 
 // GET one
 function getMark_topic_as_read(id) {
   svc.get("/mark_topic_as_read/" + id, {
-    parameters: { description: "Get a mark_topic_as_read" }
+    parameters: { description: "Get a mark_topic_as_read with id " + id + "" }
   });
 }
 
@@ -1894,6 +2392,20 @@ function matchDeleteMark_topic_as_read(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateMark_topic_as_read() {
+  return bp.EventSet("any-update-mark_topic_as_read", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a mark_topic_as_read");
+  });
+}
+function matchUpdateMark_topic_as_read(id) {
+  return bp.EventSet("update-mark_topic_as_read", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a mark_topic_as_read with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyMark_topic_as_readAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ mark_topic_as_read\ with\ id\ (.+)$/));
@@ -1910,6 +2422,30 @@ function waitForAnyMark_topic_as_readDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ mark_topic_as_read\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ mark_topic_as_read\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForMark_topic_as_readUpdated(id) {
+  waitFor(matchUpdateMark_topic_as_read(id));
+}
+function waitForAnyMark_topic_as_readUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ mark_topic_as_read\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ mark_topic_as_read\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyMark_topic_as_readUpdated(id) {
+  svc.get("/mark_topic_as_read", {
+    callback: function (response) {
+      mark_topic_as_read = JSON.parse(response.body);
+      for (let i = 0; i < mark_topic_as_read.length; i++) {
+        if (mark_topic_as_read[i].id === id) {
+          return pvg.success("Mark_topic_as_read updated (present)");
+        }
+      }
+      return pvg.fail("Expected a mark_topic_as_read to be present after update, but it is not");
+    },
+    parameters: { description: "Verify mark_topic_as_read with id " + id + " exists" }
+  });
 }
 
 
@@ -1953,14 +2489,14 @@ function tryToAddExistingMessage(message_id) {
 function updateMessage(message_id) {
   svc.put("/messages/" + message_id, {
       body: JSON.stringify({ message_id: message_id }),
-      parameters: { description: "Update a message" }
+      parameters: { description: "Update a message with message_id " + message_id + "" }
     });
 }
 
 // GET one
 function getMessage(message_id) {
   svc.get("/messages/" + message_id, {
-    parameters: { description: "Get a message" }
+    parameters: { description: "Get a message with message_id " + message_id + "" }
   });
 }
 
@@ -2029,6 +2565,20 @@ function matchDeleteMessage(message_id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateMessage() {
+  return bp.EventSet("any-update-message", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a message");
+  });
+}
+function matchUpdateMessage(message_id) {
+  return bp.EventSet("update-message", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a message with message_id " + message_id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyMessageAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ message\ with\ message_id\ (.+)$/));
@@ -2045,6 +2595,30 @@ function waitForAnyMessageDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ message\ with\ message_id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ message\ with\ message_id\ (.+)$/);
     return { message_id: parseInt(m[1]) };
+}
+function waitForMessageUpdated(message_id) {
+  waitFor(matchUpdateMessage(message_id));
+}
+function waitForAnyMessageUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ message\ with\ message_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ message\ with\ message_id\ (.+)$/);
+    return { message_id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyMessageUpdated(message_id) {
+  svc.get("/messages", {
+    callback: function (response) {
+      message = JSON.parse(response.body);
+      for (let i = 0; i < message.length; i++) {
+        if (message[i].message_id === message_id) {
+          return pvg.success("Message updated (present)");
+        }
+      }
+      return pvg.fail("Expected a message to be present after update, but it is not");
+    },
+    parameters: { description: "Verify message with message_id " + message_id + " exists" }
+  });
 }
 
 
@@ -2088,14 +2662,14 @@ function tryToAddExistingMobile_push(id) {
 function updateMobile_push(id) {
   svc.put("/mobile_push/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a mobile_push" }
+      parameters: { description: "Update a mobile_push with id " + id + "" }
     });
 }
 
 // GET one
 function getMobile_push(id) {
   svc.get("/mobile_push/" + id, {
-    parameters: { description: "Get a mobile_push" }
+    parameters: { description: "Get a mobile_push with id " + id + "" }
   });
 }
 
@@ -2164,6 +2738,20 @@ function matchDeleteMobile_push(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateMobile_push() {
+  return bp.EventSet("any-update-mobile_push", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a mobile_push");
+  });
+}
+function matchUpdateMobile_push(id) {
+  return bp.EventSet("update-mobile_push", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a mobile_push with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyMobile_pushAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ mobile_push\ with\ id\ (.+)$/));
@@ -2180,6 +2768,30 @@ function waitForAnyMobile_pushDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ mobile_push\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ mobile_push\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForMobile_pushUpdated(id) {
+  waitFor(matchUpdateMobile_push(id));
+}
+function waitForAnyMobile_pushUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ mobile_push\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ mobile_push\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyMobile_pushUpdated(id) {
+  svc.get("/mobile_push", {
+    callback: function (response) {
+      mobile_push = JSON.parse(response.body);
+      for (let i = 0; i < mobile_push.length; i++) {
+        if (mobile_push[i].id === id) {
+          return pvg.success("Mobile_push updated (present)");
+        }
+      }
+      return pvg.fail("Expected a mobile_push to be present after update, but it is not");
+    },
+    parameters: { description: "Verify mobile_push with id " + id + " exists" }
+  });
 }
 
 
@@ -2223,14 +2835,14 @@ function tryToAddExistingNavigation_view(fragment) {
 function updateNavigation_view(fragment) {
   svc.put("/navigation_views/" + fragment, {
       body: JSON.stringify({ fragment: fragment }),
-      parameters: { description: "Update a navigation_view" }
+      parameters: { description: "Update a navigation_view with fragment " + fragment + "" }
     });
 }
 
 // GET one
 function getNavigation_view(fragment) {
   svc.get("/navigation_views/" + fragment, {
-    parameters: { description: "Get a navigation_view" }
+    parameters: { description: "Get a navigation_view with fragment " + fragment + "" }
   });
 }
 
@@ -2299,6 +2911,20 @@ function matchDeleteNavigation_view(fragment) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateNavigation_view() {
+  return bp.EventSet("any-update-navigation_view", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a navigation_view");
+  });
+}
+function matchUpdateNavigation_view(fragment) {
+  return bp.EventSet("update-navigation_view", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a navigation_view with fragment " + fragment + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyNavigation_viewAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ navigation_view\ with\ fragment\ (.+)$/));
@@ -2315,6 +2941,30 @@ function waitForAnyNavigation_viewDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ navigation_view\ with\ fragment\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ navigation_view\ with\ fragment\ (.+)$/);
     return { fragment: (x)=>x(m[1]) };
+}
+function waitForNavigation_viewUpdated(fragment) {
+  waitFor(matchUpdateNavigation_view(fragment));
+}
+function waitForAnyNavigation_viewUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ navigation_view\ with\ fragment\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ navigation_view\ with\ fragment\ (.+)$/);
+    return { fragment: (x)=>x(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyNavigation_viewUpdated(fragment) {
+  svc.get("/navigation_views", {
+    callback: function (response) {
+      navigation_view = JSON.parse(response.body);
+      for (let i = 0; i < navigation_view.length; i++) {
+        if (navigation_view[i].fragment === fragment) {
+          return pvg.success("Navigation_view updated (present)");
+        }
+      }
+      return pvg.fail("Expected a navigation_view to be present after update, but it is not");
+    },
+    parameters: { description: "Verify navigation_view with fragment " + fragment + " exists" }
+  });
 }
 
 
@@ -2358,14 +3008,14 @@ function tryToAddExistingReal_time(id) {
 function updateReal_time(id) {
   svc.put("/real_time/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a real_time" }
+      parameters: { description: "Update a real_time with id " + id + "" }
     });
 }
 
 // GET one
 function getReal_time(id) {
   svc.get("/real_time/" + id, {
-    parameters: { description: "Get a real_time" }
+    parameters: { description: "Get a real_time with id " + id + "" }
   });
 }
 
@@ -2434,6 +3084,20 @@ function matchDeleteReal_time(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateReal_time() {
+  return bp.EventSet("any-update-real_time", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a real_time");
+  });
+}
+function matchUpdateReal_time(id) {
+  return bp.EventSet("update-real_time", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a real_time with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyReal_timeAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ real_time\ with\ id\ (.+)$/));
@@ -2450,6 +3114,30 @@ function waitForAnyReal_timeDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ real_time\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ real_time\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForReal_timeUpdated(id) {
+  waitFor(matchUpdateReal_time(id));
+}
+function waitForAnyReal_timeUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ real_time\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ real_time\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyReal_timeUpdated(id) {
+  svc.get("/real_time", {
+    callback: function (response) {
+      real_time = JSON.parse(response.body);
+      for (let i = 0; i < real_time.length; i++) {
+        if (real_time[i].id === id) {
+          return pvg.success("Real_time updated (present)");
+        }
+      }
+      return pvg.fail("Expected a real_time to be present after update, but it is not");
+    },
+    parameters: { description: "Verify real_time with id " + id + " exists" }
+  });
 }
 
 
@@ -2493,14 +3181,14 @@ function tryToAddExistingRealm(id) {
 function updateRealm(id) {
   svc.put("/realm/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a realm" }
+      parameters: { description: "Update a realm with id " + id + "" }
     });
 }
 
 // GET one
 function getRealm(id) {
   svc.get("/realm/" + id, {
-    parameters: { description: "Get a realm" }
+    parameters: { description: "Get a realm with id " + id + "" }
   });
 }
 
@@ -2569,6 +3257,20 @@ function matchDeleteRealm(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateRealm() {
+  return bp.EventSet("any-update-realm", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a realm");
+  });
+}
+function matchUpdateRealm(id) {
+  return bp.EventSet("update-realm", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a realm with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyRealmAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ realm\ with\ id\ (.+)$/));
@@ -2585,6 +3287,30 @@ function waitForAnyRealmDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ realm\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ realm\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForRealmUpdated(id) {
+  waitFor(matchUpdateRealm(id));
+}
+function waitForAnyRealmUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ realm\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ realm\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyRealmUpdated(id) {
+  svc.get("/realm", {
+    callback: function (response) {
+      realm = JSON.parse(response.body);
+      for (let i = 0; i < realm.length; i++) {
+        if (realm[i].id === id) {
+          return pvg.success("Realm updated (present)");
+        }
+      }
+      return pvg.fail("Expected a realm to be present after update, but it is not");
+    },
+    parameters: { description: "Verify realm with id " + id + " exists" }
+  });
 }
 
 
@@ -2628,14 +3354,14 @@ function tryToAddExistingRegister(id) {
 function updateRegister(id) {
   svc.put("/register/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a register" }
+      parameters: { description: "Update a register with id " + id + "" }
     });
 }
 
 // GET one
 function getRegister(id) {
   svc.get("/register/" + id, {
-    parameters: { description: "Get a register" }
+    parameters: { description: "Get a register with id " + id + "" }
   });
 }
 
@@ -2704,6 +3430,20 @@ function matchDeleteRegister(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateRegister() {
+  return bp.EventSet("any-update-register", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a register");
+  });
+}
+function matchUpdateRegister(id) {
+  return bp.EventSet("update-register", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a register with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyRegisterAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ register\ with\ id\ (.+)$/));
@@ -2720,6 +3460,30 @@ function waitForAnyRegisterDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ register\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ register\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForRegisterUpdated(id) {
+  waitFor(matchUpdateRegister(id));
+}
+function waitForAnyRegisterUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ register\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ register\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyRegisterUpdated(id) {
+  svc.get("/register", {
+    callback: function (response) {
+      register = JSON.parse(response.body);
+      for (let i = 0; i < register.length; i++) {
+        if (register[i].id === id) {
+          return pvg.success("Register updated (present)");
+        }
+      }
+      return pvg.fail("Expected a register to be present after update, but it is not");
+    },
+    parameters: { description: "Verify register with id " + id + " exists" }
+  });
 }
 
 
@@ -2763,14 +3527,14 @@ function tryToAddExistingReminder(reminder_id) {
 function updateReminder(reminder_id) {
   svc.put("/reminders/" + reminder_id, {
       body: JSON.stringify({ reminder_id: reminder_id }),
-      parameters: { description: "Update a reminder" }
+      parameters: { description: "Update a reminder with reminder_id " + reminder_id + "" }
     });
 }
 
 // GET one
 function getReminder(reminder_id) {
   svc.get("/reminders/" + reminder_id, {
-    parameters: { description: "Get a reminder" }
+    parameters: { description: "Get a reminder with reminder_id " + reminder_id + "" }
   });
 }
 
@@ -2839,6 +3603,20 @@ function matchDeleteReminder(reminder_id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateReminder() {
+  return bp.EventSet("any-update-reminder", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a reminder");
+  });
+}
+function matchUpdateReminder(reminder_id) {
+  return bp.EventSet("update-reminder", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a reminder with reminder_id " + reminder_id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyReminderAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ reminder\ with\ reminder_id\ (.+)$/));
@@ -2855,6 +3633,30 @@ function waitForAnyReminderDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ reminder\ with\ reminder_id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ reminder\ with\ reminder_id\ (.+)$/);
     return { reminder_id: parseInt(m[1]) };
+}
+function waitForReminderUpdated(reminder_id) {
+  waitFor(matchUpdateReminder(reminder_id));
+}
+function waitForAnyReminderUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ reminder\ with\ reminder_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ reminder\ with\ reminder_id\ (.+)$/);
+    return { reminder_id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyReminderUpdated(reminder_id) {
+  svc.get("/reminders", {
+    callback: function (response) {
+      reminder = JSON.parse(response.body);
+      for (let i = 0; i < reminder.length; i++) {
+        if (reminder[i].reminder_id === reminder_id) {
+          return pvg.success("Reminder updated (present)");
+        }
+      }
+      return pvg.fail("Expected a reminder to be present after update, but it is not");
+    },
+    parameters: { description: "Verify reminder with reminder_id " + reminder_id + " exists" }
+  });
 }
 
 
@@ -2898,14 +3700,14 @@ function tryToAddExistingRemote(id) {
 function updateRemote(id) {
   svc.put("/remotes/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a remote" }
+      parameters: { description: "Update a remote with id " + id + "" }
     });
 }
 
 // GET one
 function getRemote(id) {
   svc.get("/remotes/" + id, {
-    parameters: { description: "Get a remote" }
+    parameters: { description: "Get a remote with id " + id + "" }
   });
 }
 
@@ -2974,6 +3776,20 @@ function matchDeleteRemote(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateRemote() {
+  return bp.EventSet("any-update-remote", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a remote");
+  });
+}
+function matchUpdateRemote(id) {
+  return bp.EventSet("update-remote", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a remote with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyRemoteAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ remote\ with\ id\ (.+)$/));
@@ -2990,6 +3806,30 @@ function waitForAnyRemoteDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ remote\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ remote\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForRemoteUpdated(id) {
+  waitFor(matchUpdateRemote(id));
+}
+function waitForAnyRemoteUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ remote\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ remote\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyRemoteUpdated(id) {
+  svc.get("/remotes", {
+    callback: function (response) {
+      remote = JSON.parse(response.body);
+      for (let i = 0; i < remote.length; i++) {
+        if (remote[i].id === id) {
+          return pvg.success("Remote updated (present)");
+        }
+      }
+      return pvg.fail("Expected a remote to be present after update, but it is not");
+    },
+    parameters: { description: "Verify remote with id " + id + " exists" }
+  });
 }
 
 
@@ -3033,14 +3873,14 @@ function tryToAddExistingRest_error_handling(id) {
 function updateRest_error_handling(id) {
   svc.put("/rest_error_handling/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a rest_error_handling" }
+      parameters: { description: "Update a rest_error_handling with id " + id + "" }
     });
 }
 
 // GET one
 function getRest_error_handling(id) {
   svc.get("/rest_error_handling/" + id, {
-    parameters: { description: "Get a rest_error_handling" }
+    parameters: { description: "Get a rest_error_handling with id " + id + "" }
   });
 }
 
@@ -3109,6 +3949,20 @@ function matchDeleteRest_error_handling(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateRest_error_handling() {
+  return bp.EventSet("any-update-rest_error_handling", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a rest_error_handling");
+  });
+}
+function matchUpdateRest_error_handling(id) {
+  return bp.EventSet("update-rest_error_handling", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a rest_error_handling with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyRest_error_handlingAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ rest_error_handling\ with\ id\ (.+)$/));
@@ -3125,6 +3979,30 @@ function waitForAnyRest_error_handlingDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ rest_error_handling\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ rest_error_handling\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForRest_error_handlingUpdated(id) {
+  waitFor(matchUpdateRest_error_handling(id));
+}
+function waitForAnyRest_error_handlingUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ rest_error_handling\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ rest_error_handling\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyRest_error_handlingUpdated(id) {
+  svc.get("/rest_error_handling", {
+    callback: function (response) {
+      rest_error_handling = JSON.parse(response.body);
+      for (let i = 0; i < rest_error_handling.length; i++) {
+        if (rest_error_handling[i].id === id) {
+          return pvg.success("Rest_error_handling updated (present)");
+        }
+      }
+      return pvg.fail("Expected a rest_error_handling to be present after update, but it is not");
+    },
+    parameters: { description: "Verify rest_error_handling with id " + id + " exists" }
+  });
 }
 
 
@@ -3168,14 +4046,14 @@ function tryToAddExistingSaved_snippet(id) {
 function updateSaved_snippet(id) {
   svc.put("/saved_snippets/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a saved_snippet" }
+      parameters: { description: "Update a saved_snippet with id " + id + "" }
     });
 }
 
 // GET one
 function getSaved_snippet(id) {
   svc.get("/saved_snippets/" + id, {
-    parameters: { description: "Get a saved_snippet" }
+    parameters: { description: "Get a saved_snippet with id " + id + "" }
   });
 }
 
@@ -3244,6 +4122,20 @@ function matchDeleteSaved_snippet(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateSaved_snippet() {
+  return bp.EventSet("any-update-saved_snippet", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a saved_snippet");
+  });
+}
+function matchUpdateSaved_snippet(id) {
+  return bp.EventSet("update-saved_snippet", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a saved_snippet with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnySaved_snippetAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ saved_snippet\ with\ id\ (.+)$/));
@@ -3260,6 +4152,30 @@ function waitForAnySaved_snippetDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ saved_snippet\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ saved_snippet\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForSaved_snippetUpdated(id) {
+  waitFor(matchUpdateSaved_snippet(id));
+}
+function waitForAnySaved_snippetUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ saved_snippet\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ saved_snippet\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifySaved_snippetUpdated(id) {
+  svc.get("/saved_snippets", {
+    callback: function (response) {
+      saved_snippet = JSON.parse(response.body);
+      for (let i = 0; i < saved_snippet.length; i++) {
+        if (saved_snippet[i].id === id) {
+          return pvg.success("Saved_snippet updated (present)");
+        }
+      }
+      return pvg.fail("Expected a saved_snippet to be present after update, but it is not");
+    },
+    parameters: { description: "Verify saved_snippet with id " + id + " exists" }
+  });
 }
 
 
@@ -3303,14 +4219,14 @@ function tryToAddExistingScheduled_message(scheduled_message_id) {
 function updateScheduled_message(scheduled_message_id) {
   svc.put("/scheduled_messages/" + scheduled_message_id, {
       body: JSON.stringify({ scheduled_message_id: scheduled_message_id }),
-      parameters: { description: "Update a scheduled_message" }
+      parameters: { description: "Update a scheduled_message with scheduled_message_id " + scheduled_message_id + "" }
     });
 }
 
 // GET one
 function getScheduled_message(scheduled_message_id) {
   svc.get("/scheduled_messages/" + scheduled_message_id, {
-    parameters: { description: "Get a scheduled_message" }
+    parameters: { description: "Get a scheduled_message with scheduled_message_id " + scheduled_message_id + "" }
   });
 }
 
@@ -3379,6 +4295,20 @@ function matchDeleteScheduled_message(scheduled_message_id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateScheduled_message() {
+  return bp.EventSet("any-update-scheduled_message", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a scheduled_message");
+  });
+}
+function matchUpdateScheduled_message(scheduled_message_id) {
+  return bp.EventSet("update-scheduled_message", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a scheduled_message with scheduled_message_id " + scheduled_message_id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyScheduled_messageAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ scheduled_message\ with\ scheduled_message_id\ (.+)$/));
@@ -3395,6 +4325,30 @@ function waitForAnyScheduled_messageDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ scheduled_message\ with\ scheduled_message_id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ scheduled_message\ with\ scheduled_message_id\ (.+)$/);
     return { scheduled_message_id: parseInt(m[1]) };
+}
+function waitForScheduled_messageUpdated(scheduled_message_id) {
+  waitFor(matchUpdateScheduled_message(scheduled_message_id));
+}
+function waitForAnyScheduled_messageUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ scheduled_message\ with\ scheduled_message_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ scheduled_message\ with\ scheduled_message_id\ (.+)$/);
+    return { scheduled_message_id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyScheduled_messageUpdated(scheduled_message_id) {
+  svc.get("/scheduled_messages", {
+    callback: function (response) {
+      scheduled_message = JSON.parse(response.body);
+      for (let i = 0; i < scheduled_message.length; i++) {
+        if (scheduled_message[i].scheduled_message_id === scheduled_message_id) {
+          return pvg.success("Scheduled_message updated (present)");
+        }
+      }
+      return pvg.fail("Expected a scheduled_message to be present after update, but it is not");
+    },
+    parameters: { description: "Verify scheduled_message with scheduled_message_id " + scheduled_message_id + " exists" }
+  });
 }
 
 
@@ -3438,14 +4392,14 @@ function tryToAddExistingServer_setting(id) {
 function updateServer_setting(id) {
   svc.put("/server_settings/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a server_setting" }
+      parameters: { description: "Update a server_setting with id " + id + "" }
     });
 }
 
 // GET one
 function getServer_setting(id) {
   svc.get("/server_settings/" + id, {
-    parameters: { description: "Get a server_setting" }
+    parameters: { description: "Get a server_setting with id " + id + "" }
   });
 }
 
@@ -3514,6 +4468,20 @@ function matchDeleteServer_setting(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateServer_setting() {
+  return bp.EventSet("any-update-server_setting", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a server_setting");
+  });
+}
+function matchUpdateServer_setting(id) {
+  return bp.EventSet("update-server_setting", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a server_setting with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyServer_settingAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ server_setting\ with\ id\ (.+)$/));
@@ -3530,6 +4498,30 @@ function waitForAnyServer_settingDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ server_setting\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ server_setting\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForServer_settingUpdated(id) {
+  waitFor(matchUpdateServer_setting(id));
+}
+function waitForAnyServer_settingUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ server_setting\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ server_setting\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyServer_settingUpdated(id) {
+  svc.get("/server_settings", {
+    callback: function (response) {
+      server_setting = JSON.parse(response.body);
+      for (let i = 0; i < server_setting.length; i++) {
+        if (server_setting[i].id === id) {
+          return pvg.success("Server_setting updated (present)");
+        }
+      }
+      return pvg.fail("Expected a server_setting to be present after update, but it is not");
+    },
+    parameters: { description: "Verify server_setting with id " + id + " exists" }
+  });
 }
 
 
@@ -3573,14 +4565,14 @@ function tryToAddExistingStream(stream_id) {
 function updateStream(stream_id) {
   svc.put("/streams/" + stream_id, {
       body: JSON.stringify({ stream_id: stream_id }),
-      parameters: { description: "Update a stream" }
+      parameters: { description: "Update a stream with stream_id " + stream_id + "" }
     });
 }
 
 // GET one
 function getStream(stream_id) {
   svc.get("/streams/" + stream_id, {
-    parameters: { description: "Get a stream" }
+    parameters: { description: "Get a stream with stream_id " + stream_id + "" }
   });
 }
 
@@ -3649,6 +4641,20 @@ function matchDeleteStream(stream_id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateStream() {
+  return bp.EventSet("any-update-stream", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a stream");
+  });
+}
+function matchUpdateStream(stream_id) {
+  return bp.EventSet("update-stream", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a stream with stream_id " + stream_id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyStreamAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ stream\ with\ stream_id\ (.+)$/));
@@ -3665,6 +4671,30 @@ function waitForAnyStreamDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ stream\ with\ stream_id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ stream\ with\ stream_id\ (.+)$/);
     return { stream_id: parseInt(m[1]) };
+}
+function waitForStreamUpdated(stream_id) {
+  waitFor(matchUpdateStream(stream_id));
+}
+function waitForAnyStreamUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ stream\ with\ stream_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ stream\ with\ stream_id\ (.+)$/);
+    return { stream_id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyStreamUpdated(stream_id) {
+  svc.get("/streams", {
+    callback: function (response) {
+      stream = JSON.parse(response.body);
+      for (let i = 0; i < stream.length; i++) {
+        if (stream[i].stream_id === stream_id) {
+          return pvg.success("Stream updated (present)");
+        }
+      }
+      return pvg.fail("Expected a stream to be present after update, but it is not");
+    },
+    parameters: { description: "Verify stream with stream_id " + stream_id + " exists" }
+  });
 }
 
 
@@ -3708,14 +4738,14 @@ function tryToAddExistingUser_group(user_group_id) {
 function updateUser_group(user_group_id) {
   svc.put("/user_groups/" + user_group_id, {
       body: JSON.stringify({ user_group_id: user_group_id }),
-      parameters: { description: "Update a user_group" }
+      parameters: { description: "Update a user_group with user_group_id " + user_group_id + "" }
     });
 }
 
 // GET one
 function getUser_group(user_group_id) {
   svc.get("/user_groups/" + user_group_id, {
-    parameters: { description: "Get a user_group" }
+    parameters: { description: "Get a user_group with user_group_id " + user_group_id + "" }
   });
 }
 
@@ -3784,6 +4814,20 @@ function matchDeleteUser_group(user_group_id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateUser_group() {
+  return bp.EventSet("any-update-user_group", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a user_group");
+  });
+}
+function matchUpdateUser_group(user_group_id) {
+  return bp.EventSet("update-user_group", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a user_group with user_group_id " + user_group_id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyUser_groupAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ user_group\ with\ user_group_id\ (.+)$/));
@@ -3800,6 +4844,30 @@ function waitForAnyUser_groupDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ user_group\ with\ user_group_id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ user_group\ with\ user_group_id\ (.+)$/);
     return { user_group_id: parseInt(m[1]) };
+}
+function waitForUser_groupUpdated(user_group_id) {
+  waitFor(matchUpdateUser_group(user_group_id));
+}
+function waitForAnyUser_groupUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ user_group\ with\ user_group_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ user_group\ with\ user_group_id\ (.+)$/);
+    return { user_group_id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyUser_groupUpdated(user_group_id) {
+  svc.get("/user_groups", {
+    callback: function (response) {
+      user_group = JSON.parse(response.body);
+      for (let i = 0; i < user_group.length; i++) {
+        if (user_group[i].user_group_id === user_group_id) {
+          return pvg.success("User_group updated (present)");
+        }
+      }
+      return pvg.fail("Expected a user_group to be present after update, but it is not");
+    },
+    parameters: { description: "Verify user_group with user_group_id " + user_group_id + " exists" }
+  });
 }
 
 
@@ -3843,14 +4911,14 @@ function tryToAddExistingUser_topic(id) {
 function updateUser_topic(id) {
   svc.put("/user_topics/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a user_topic" }
+      parameters: { description: "Update a user_topic with id " + id + "" }
     });
 }
 
 // GET one
 function getUser_topic(id) {
   svc.get("/user_topics/" + id, {
-    parameters: { description: "Get a user_topic" }
+    parameters: { description: "Get a user_topic with id " + id + "" }
   });
 }
 
@@ -3919,6 +4987,20 @@ function matchDeleteUser_topic(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateUser_topic() {
+  return bp.EventSet("any-update-user_topic", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a user_topic");
+  });
+}
+function matchUpdateUser_topic(id) {
+  return bp.EventSet("update-user_topic", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a user_topic with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyUser_topicAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ user_topic\ with\ id\ (.+)$/));
@@ -3935,6 +5017,30 @@ function waitForAnyUser_topicDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ user_topic\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ user_topic\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForUser_topicUpdated(id) {
+  waitFor(matchUpdateUser_topic(id));
+}
+function waitForAnyUser_topicUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ user_topic\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ user_topic\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyUser_topicUpdated(id) {
+  svc.get("/user_topics", {
+    callback: function (response) {
+      user_topic = JSON.parse(response.body);
+      for (let i = 0; i < user_topic.length; i++) {
+        if (user_topic[i].id === id) {
+          return pvg.success("User_topic updated (present)");
+        }
+      }
+      return pvg.fail("Expected a user_topic to be present after update, but it is not");
+    },
+    parameters: { description: "Verify user_topic with id " + id + " exists" }
+  });
 }
 
 
@@ -3978,14 +5084,14 @@ function tryToAddExistingUser_upload(realm_id_str, filename) {
 function updateUser_upload(realm_id_str, filename) {
   svc.put("/user_uploads/" + realm_id_str + "/"+ filename, {
       body: JSON.stringify({ realm_id_str: realm_id_str, filename: filename }),
-      parameters: { description: "Update a user_upload" }
+      parameters: { description: "Update a user_upload with realm_id_str " + realm_id_str + " and filename " + filename + "" }
     });
 }
 
 // GET one
 function getUser_upload(realm_id_str, filename) {
   svc.get("/user_uploads/" + realm_id_str + "/"+ filename, {
-    parameters: { description: "Get a user_upload" }
+    parameters: { description: "Get a user_upload with realm_id_str " + realm_id_str + " and filename " + filename + "" }
   });
 }
 
@@ -4054,6 +5160,20 @@ function matchDeleteUser_upload(realm_id_str, filename) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateUser_upload() {
+  return bp.EventSet("any-update-user_upload", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a user_upload");
+  });
+}
+function matchUpdateUser_upload(realm_id_str, filename) {
+  return bp.EventSet("update-user_upload", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a user_upload with realm_id_str " + realm_id_str + " and filename " + filename + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyUser_uploadAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ user_upload\ with\ realm_id_str\ (.+) and filename\ (.+)$/));
@@ -4070,6 +5190,30 @@ function waitForAnyUser_uploadDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ user_upload\ with\ realm_id_str\ (.+) and filename\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ user_upload\ with\ realm_id_str\ (.+) and filename\ (.+)$/);
     return { realm_id_str: parseInt(m[1]), filename: (x)=>x(m[2]) };
+}
+function waitForUser_uploadUpdated(realm_id_str, filename) {
+  waitFor(matchUpdateUser_upload(realm_id_str, filename));
+}
+function waitForAnyUser_uploadUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ user_upload\ with\ realm_id_str\ (.+) and filename\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ user_upload\ with\ realm_id_str\ (.+) and filename\ (.+)$/);
+    return { realm_id_str: parseInt(m[1]), filename: (x)=>x(m[2]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyUser_uploadUpdated(realm_id_str, filename) {
+  svc.get("/user_uploads", {
+    callback: function (response) {
+      user_upload = JSON.parse(response.body);
+      for (let i = 0; i < user_upload.length; i++) {
+        if (user_upload[i].realm_id_str === realm_id_str && user_upload[i].filename === filename) {
+          return pvg.success("User_upload updated (present)");
+        }
+      }
+      return pvg.fail("Expected a user_upload to be present after update, but it is not");
+    },
+    parameters: { description: "Verify user_upload with realm_id_str " + realm_id_str + " and filename " + filename + " exists" }
+  });
 }
 
 
@@ -4113,14 +5257,14 @@ function tryToAddExistingUser(user_id, stream_id) {
 function updateUser(user_id, stream_id) {
   svc.put("/users/" + user_id + "/"+ stream_id, {
       body: JSON.stringify({ user_id: user_id, stream_id: stream_id }),
-      parameters: { description: "Update a user" }
+      parameters: { description: "Update a user with user_id " + user_id + " and stream_id " + stream_id + "" }
     });
 }
 
 // GET one
 function getUser(user_id, stream_id) {
   svc.get("/users/" + user_id + "/"+ stream_id, {
-    parameters: { description: "Get a user" }
+    parameters: { description: "Get a user with user_id " + user_id + " and stream_id " + stream_id + "" }
   });
 }
 
@@ -4189,6 +5333,20 @@ function matchDeleteUser(user_id, stream_id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateUser() {
+  return bp.EventSet("any-update-user", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a user");
+  });
+}
+function matchUpdateUser(user_id, stream_id) {
+  return bp.EventSet("update-user", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a user with user_id " + user_id + " and stream_id " + stream_id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyUserAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+)$/));
@@ -4205,6 +5363,30 @@ function waitForAnyUserDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+)$/);
     return { user_id: parseInt(m[1]), stream_id: parseInt(m[2]) };
+}
+function waitForUserUpdated(user_id, stream_id) {
+  waitFor(matchUpdateUser(user_id, stream_id));
+}
+function waitForAnyUserUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+)$/);
+    return { user_id: parseInt(m[1]), stream_id: parseInt(m[2]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyUserUpdated(user_id, stream_id) {
+  svc.get("/users", {
+    callback: function (response) {
+      user = JSON.parse(response.body);
+      for (let i = 0; i < user.length; i++) {
+        if (user[i].user_id === user_id && user[i].stream_id === stream_id) {
+          return pvg.success("User updated (present)");
+        }
+      }
+      return pvg.fail("Expected a user to be present after update, but it is not");
+    },
+    parameters: { description: "Verify user with user_id " + user_id + " and stream_id " + stream_id + " exists" }
+  });
 }
 
 
@@ -4248,14 +5430,14 @@ function tryToAddExistingZulip_outgoing_webhook(id) {
 function updateZulip_outgoing_webhook(id) {
   svc.put("/zulip_outgoing_webhook/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a zulip_outgoing_webhook" }
+      parameters: { description: "Update a zulip_outgoing_webhook with id " + id + "" }
     });
 }
 
 // GET one
 function getZulip_outgoing_webhook(id) {
   svc.get("/zulip_outgoing_webhook/" + id, {
-    parameters: { description: "Get a zulip_outgoing_webhook" }
+    parameters: { description: "Get a zulip_outgoing_webhook with id " + id + "" }
   });
 }
 
@@ -4324,6 +5506,20 @@ function matchDeleteZulip_outgoing_webhook(id) {
   });
 }
 
+// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateZulip_outgoing_webhook() {
+  return bp.EventSet("any-update-zulip_outgoing_webhook", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a zulip_outgoing_webhook");
+  });
+}
+function matchUpdateZulip_outgoing_webhook(id) {
+  return bp.EventSet("update-zulip_outgoing_webhook", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a zulip_outgoing_webhook with id " + id + "";
+  });
+}
+
 // Wait helpers
 function waitForAnyZulip_outgoing_webhookAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ zulip_outgoing_webhook\ with\ id\ (.+)$/));
@@ -4340,5 +5536,29 @@ function waitForAnyZulip_outgoing_webhookDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ zulip_outgoing_webhook\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ zulip_outgoing_webhook\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForZulip_outgoing_webhookUpdated(id) {
+  waitFor(matchUpdateZulip_outgoing_webhook(id));
+}
+function waitForAnyZulip_outgoing_webhookUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ zulip_outgoing_webhook\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ zulip_outgoing_webhook\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyZulip_outgoing_webhookUpdated(id) {
+  svc.get("/zulip_outgoing_webhook", {
+    callback: function (response) {
+      zulip_outgoing_webhook = JSON.parse(response.body);
+      for (let i = 0; i < zulip_outgoing_webhook.length; i++) {
+        if (zulip_outgoing_webhook[i].id === id) {
+          return pvg.success("Zulip_outgoing_webhook updated (present)");
+        }
+      }
+      return pvg.fail("Expected a zulip_outgoing_webhook to be present after update, but it is not");
+    },
+    parameters: { description: "Verify zulip_outgoing_webhook with id " + id + " exists" }
+  });
 }
 
