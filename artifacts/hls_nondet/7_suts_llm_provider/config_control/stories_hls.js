@@ -15,6 +15,7 @@ bthread("AppLifecycle", function () {
   updateApp(x.id);
   verifyAppExists(x.id);
   verifyAppUpdated(x.id);
+  deleteApp(x.id);
 });
 
 bthread("ConfigLifecycle", function () {
@@ -24,6 +25,7 @@ bthread("ConfigLifecycle", function () {
   updateConfig(x.id);
   verifyConfigExists(x.id);
   verifyConfigUpdated(x.id);
+  deleteConfig(x.id);
 });
 
 bthread("EnvLifecycle", function () {
@@ -33,6 +35,7 @@ bthread("EnvLifecycle", function () {
   updateEnv(x.id);
   verifyEnvExists(x.id);
   verifyEnvUpdated(x.id);
+  deleteEnv(x.id);
 });
 
 bthread("PolicyLifecycle", function () {
@@ -42,6 +45,7 @@ bthread("PolicyLifecycle", function () {
   updatePolicy(x.id);
   verifyPolicyExists(x.id);
   verifyPolicyUpdated(x.id);
+  deletePolicy(x.id);
 });
 
 bthread("ReleasLifecycle", function () {
@@ -51,6 +55,7 @@ bthread("ReleasLifecycle", function () {
   updateReleas(x.id);
   verifyReleasExists(x.id);
   verifyReleasUpdated(x.id);
+  deleteReleas(x.id);
 });
 
 bthread("ResetLifecycle", function () {
@@ -60,6 +65,7 @@ bthread("ResetLifecycle", function () {
   updateReset(x.id);
   verifyResetExists(x.id);
   verifyResetUpdated(x.id);
+  deleteReset(x.id);
 });
 
 // ===== NONDET VARIANTS =====

@@ -15,6 +15,7 @@ bthread("CancelLifecycle", function () {
   updateCancel(x.id);
   verifyCancelExists(x.id);
   verifyCancelUpdated(x.id);
+  deleteCancel(x.id);
 });
 
 bthread("DeleteLifecycle", function () {
@@ -24,6 +25,7 @@ bthread("DeleteLifecycle", function () {
   updateDelete(x.id);
   verifyDeleteExists(x.id);
   verifyDeleteUpdated(x.id);
+  deleteDelete(x.id);
 });
 
 bthread("DeletebatchLifecycle", function () {
@@ -33,6 +35,7 @@ bthread("DeletebatchLifecycle", function () {
   updateDeletebatch(x.id);
   verifyDeletebatchExists(x.id);
   verifyDeletebatchUpdated(x.id);
+  deleteDeletebatch(x.id);
 });
 
 bthread("DisplayedattributeLifecycle", function () {
@@ -42,6 +45,7 @@ bthread("DisplayedattributeLifecycle", function () {
   updateDisplayedattribute(x.id);
   verifyDisplayedattributeExists(x.id);
   verifyDisplayedattributeUpdated(x.id);
+  deleteDisplayedattribute(x.id);
 });
 
 bthread("DistinctattributeLifecycle", function () {
@@ -51,6 +55,7 @@ bthread("DistinctattributeLifecycle", function () {
   updateDistinctattribute(x.id);
   verifyDistinctattributeExists(x.id);
   verifyDistinctattributeUpdated(x.id);
+  deleteDistinctattribute(x.id);
 });
 
 bthread("DocumentLifecycle", function () {
@@ -60,6 +65,7 @@ bthread("DocumentLifecycle", function () {
   updateDocument(x.id);
   verifyDocumentExists(x.id);
   verifyDocumentUpdated(x.id);
+  deleteDocument(x.id);
 });
 
 bthread("DumpLifecycle", function () {
@@ -69,6 +75,7 @@ bthread("DumpLifecycle", function () {
   updateDump(x.id);
   verifyDumpExists(x.id);
   verifyDumpUpdated(x.id);
+  deleteDump(x.id);
 });
 
 bthread("ExperimentalfeatureLifecycle", function () {
@@ -78,6 +85,7 @@ bthread("ExperimentalfeatureLifecycle", function () {
   updateExperimentalfeature(x.id);
   verifyExperimentalfeatureExists(x.id);
   verifyExperimentalfeatureUpdated(x.id);
+  deleteExperimentalfeature(x.id);
 });
 
 bthread("FacetingLifecycle", function () {
@@ -87,6 +95,7 @@ bthread("FacetingLifecycle", function () {
   updateFaceting(x.id);
   verifyFacetingExists(x.id);
   verifyFacetingUpdated(x.id);
+  deleteFaceting(x.id);
 });
 
 bthread("FacetsearchLifecycle", function () {
@@ -96,6 +105,7 @@ bthread("FacetsearchLifecycle", function () {
   updateFacetsearch(x.id);
   verifyFacetsearchExists(x.id);
   verifyFacetsearchUpdated(x.id);
+  deleteFacetsearch(x.id);
 });
 
 bthread("FetchLifecycle", function () {
@@ -105,6 +115,7 @@ bthread("FetchLifecycle", function () {
   updateFetch(x.id);
   verifyFetchExists(x.id);
   verifyFetchUpdated(x.id);
+  deleteFetch(x.id);
 });
 
 bthread("FilterableattributeLifecycle", function () {
@@ -114,6 +125,7 @@ bthread("FilterableattributeLifecycle", function () {
   updateFilterableattribute(x.id);
   verifyFilterableattributeExists(x.id);
   verifyFilterableattributeUpdated(x.id);
+  deleteFilterableattribute(x.id);
 });
 
 bthread("HealthLifecycle", function () {
@@ -123,6 +135,7 @@ bthread("HealthLifecycle", function () {
   updateHealth(x.id);
   verifyHealthExists(x.id);
   verifyHealthUpdated(x.id);
+  deleteHealth(x.id);
 });
 
 bthread("IndexeLifecycle", function () {
@@ -132,6 +145,7 @@ bthread("IndexeLifecycle", function () {
   updateIndexe(x.id);
   verifyIndexeExists(x.id);
   verifyIndexeUpdated(x.id);
+  deleteIndexe(x.id);
 });
 
 bthread("KeyLifecycle", function () {
@@ -141,6 +155,7 @@ bthread("KeyLifecycle", function () {
   updateKey(x.id);
   verifyKeyExists(x.id);
   verifyKeyUpdated(x.id);
+  deleteKey(x.id);
 });
 
 bthread("MetricLifecycle", function () {
@@ -150,6 +165,7 @@ bthread("MetricLifecycle", function () {
   updateMetric(x.id);
   verifyMetricExists(x.id);
   verifyMetricUpdated(x.id);
+  deleteMetric(x.id);
 });
 
 bthread("MultisearchLifecycle", function () {
@@ -159,6 +175,7 @@ bthread("MultisearchLifecycle", function () {
   updateMultisearch(x.id);
   verifyMultisearchExists(x.id);
   verifyMultisearchUpdated(x.id);
+  deleteMultisearch(x.id);
 });
 
 bthread("PaginationLifecycle", function () {
@@ -168,6 +185,7 @@ bthread("PaginationLifecycle", function () {
   updatePagination(x.id);
   verifyPaginationExists(x.id);
   verifyPaginationUpdated(x.id);
+  deletePagination(x.id);
 });
 
 bthread("RankingruleLifecycle", function () {
@@ -177,6 +195,7 @@ bthread("RankingruleLifecycle", function () {
   updateRankingrule(x.id);
   verifyRankingruleExists(x.id);
   verifyRankingruleUpdated(x.id);
+  deleteRankingrule(x.id);
 });
 
 bthread("SearchLifecycle", function () {
@@ -186,6 +205,7 @@ bthread("SearchLifecycle", function () {
   updateSearch(x.id);
   verifySearchExists(x.id);
   verifySearchUpdated(x.id);
+  deleteSearch(x.id);
 });
 
 bthread("SearchableattributeLifecycle", function () {
@@ -195,6 +215,7 @@ bthread("SearchableattributeLifecycle", function () {
   updateSearchableattribute(x.id);
   verifySearchableattributeExists(x.id);
   verifySearchableattributeUpdated(x.id);
+  deleteSearchableattribute(x.id);
 });
 
 bthread("SettingLifecycle", function () {
@@ -204,6 +225,7 @@ bthread("SettingLifecycle", function () {
   updateSetting(x.id);
   verifySettingExists(x.id);
   verifySettingUpdated(x.id);
+  deleteSetting(x.id);
 });
 
 bthread("SnapshotLifecycle", function () {
@@ -213,6 +235,7 @@ bthread("SnapshotLifecycle", function () {
   updateSnapshot(x.id);
   verifySnapshotExists(x.id);
   verifySnapshotUpdated(x.id);
+  deleteSnapshot(x.id);
 });
 
 bthread("SortableattributeLifecycle", function () {
@@ -222,6 +245,7 @@ bthread("SortableattributeLifecycle", function () {
   updateSortableattribute(x.id);
   verifySortableattributeExists(x.id);
   verifySortableattributeUpdated(x.id);
+  deleteSortableattribute(x.id);
 });
 
 bthread("StatLifecycle", function () {
@@ -231,6 +255,7 @@ bthread("StatLifecycle", function () {
   updateStat(x.id);
   verifyStatExists(x.id);
   verifyStatUpdated(x.id);
+  deleteStat(x.id);
 });
 
 bthread("StopwordLifecycle", function () {
@@ -240,6 +265,7 @@ bthread("StopwordLifecycle", function () {
   updateStopword(x.id);
   verifyStopwordExists(x.id);
   verifyStopwordUpdated(x.id);
+  deleteStopword(x.id);
 });
 
 bthread("SwapindexeLifecycle", function () {
@@ -249,6 +275,7 @@ bthread("SwapindexeLifecycle", function () {
   updateSwapindexe(x.id);
   verifySwapindexeExists(x.id);
   verifySwapindexeUpdated(x.id);
+  deleteSwapindexe(x.id);
 });
 
 bthread("SynonymLifecycle", function () {
@@ -258,6 +285,7 @@ bthread("SynonymLifecycle", function () {
   updateSynonym(x.id);
   verifySynonymExists(x.id);
   verifySynonymUpdated(x.id);
+  deleteSynonym(x.id);
 });
 
 bthread("TaskLifecycle", function () {
@@ -267,6 +295,7 @@ bthread("TaskLifecycle", function () {
   updateTask(x.id);
   verifyTaskExists(x.id);
   verifyTaskUpdated(x.id);
+  deleteTask(x.id);
 });
 
 bthread("TaskuidLifecycle", function () {
@@ -276,6 +305,7 @@ bthread("TaskuidLifecycle", function () {
   updateTaskuid(x.id);
   verifyTaskuidExists(x.id);
   verifyTaskuidUpdated(x.id);
+  deleteTaskuid(x.id);
 });
 
 bthread("TypotoleranceLifecycle", function () {
@@ -285,6 +315,7 @@ bthread("TypotoleranceLifecycle", function () {
   updateTypotolerance(x.id);
   verifyTypotoleranceExists(x.id);
   verifyTypotoleranceUpdated(x.id);
+  deleteTypotolerance(x.id);
 });
 
 bthread("VersionLifecycle", function () {
@@ -294,6 +325,7 @@ bthread("VersionLifecycle", function () {
   updateVersion(x.id);
   verifyVersionExists(x.id);
   verifyVersionUpdated(x.id);
+  deleteVersion(x.id);
 });
 
 // ===== PASSIVE ASSERTIONS =====

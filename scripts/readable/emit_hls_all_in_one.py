@@ -396,16 +396,19 @@ def build_active_lifecycle(entity: str, edsl: Dict[str, Any], per_entity_max: in
         samples.append(obj)
 
     body = []
+    # Build once and reuse when calling DSL functions
+    arglist = ", ".join([f"x.{a}" for a in args])
+
     body += js_pick_samples("x", samples)
 
-    body.append(concat(do["add"], "(", ", ".join([f"x.{a}" for a in args]), ");"))
+    body.append(concat(do["add"], "(", arglist, ");"))
     up_count = min(2, max(1, per_entity_max-1))
     for _ in range(up_count):
-        body.append(concat(do["update"], "(", ", ".join([f"x.{a}" for a in args]), ");"))
+        body.append(concat(do["update"], "(", arglist, ");"))
 
-    body.append(concat(ver["exists"], "(", ", ".join([f"x.{a}" for a in args]), ");"))
-    body.append(concat(ver["updated"], "(", ", ".join([f"x.{a}" for a in args]), ");"))
-	
+    body.append(concat(ver["exists"], "(", arglist, ");"))
+    body.append(concat(ver["updated"], "(", arglist, ");"))
+    body.append(concat(do["delete"], "(", arglist, ");"))
     return [ bthread(titlecase(name), body) ]
 
 def build_nondet_variants(entity: str, edsl: Dict[str, Any], per_entity_max: int) -> List[str]:

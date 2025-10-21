@@ -15,6 +15,7 @@ bthread("MachineLifecycle", function () {
   updateMachine(x.id);
   verifyMachineExists(x.id);
   verifyMachineUpdated(x.id);
+  deleteMachine(x.id);
 });
 
 bthread("MaintenanceticketLifecycle", function () {
@@ -24,6 +25,7 @@ bthread("MaintenanceticketLifecycle", function () {
   updateMaintenanceticket(x.id);
   verifyMaintenanceticketExists(x.id);
   verifyMaintenanceticketUpdated(x.id);
+  deleteMaintenanceticket(x.id);
 });
 
 bthread("ResetLifecycle", function () {
@@ -33,6 +35,7 @@ bthread("ResetLifecycle", function () {
   updateReset(x.id);
   verifyResetExists(x.id);
   verifyResetUpdated(x.id);
+  deleteReset(x.id);
 });
 
 bthread("SensorreadingLifecycle", function () {
@@ -42,6 +45,7 @@ bthread("SensorreadingLifecycle", function () {
   updateSensorreading(x.id);
   verifySensorreadingExists(x.id);
   verifySensorreadingUpdated(x.id);
+  deleteSensorreading(x.id);
 });
 
 bthread("WorkorderLifecycle", function () {
@@ -51,6 +55,7 @@ bthread("WorkorderLifecycle", function () {
   updateWorkorder(x.id);
   verifyWorkorderExists(x.id);
   verifyWorkorderUpdated(x.id);
+  deleteWorkorder(x.id);
 });
 
 // ===== PASSIVE ASSERTIONS =====

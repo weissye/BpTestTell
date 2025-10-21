@@ -15,6 +15,7 @@ bthread("20100401Lifecycle", function () {
   update20100401(x.id);
   verify20100401Exists(x.id);
   verify20100401Updated(x.id);
+  delete20100401(x.id);
 });
 
 bthread("AccountLifecycle", function () {
@@ -24,6 +25,7 @@ bthread("AccountLifecycle", function () {
   updateAccount(x.id);
   verifyAccountExists(x.id);
   verifyAccountUpdated(x.id);
+  deleteAccount(x.id);
 });
 
 bthread("AccountsjsonLifecycle", function () {
@@ -33,6 +35,7 @@ bthread("AccountsjsonLifecycle", function () {
   updateAccountsjson(x.id);
   verifyAccountsjsonExists(x.id);
   verifyAccountsjsonUpdated(x.id);
+  deleteAccountsjson(x.id);
 });
 
 bthread("AddonresultLifecycle", function () {
@@ -42,6 +45,7 @@ bthread("AddonresultLifecycle", function () {
   updateAddonresult(x.id);
   verifyAddonresultExists(x.id);
   verifyAddonresultUpdated(x.id);
+  deleteAddonresult(x.id);
 });
 
 bthread("AddonresultsjsonLifecycle", function () {
@@ -51,6 +55,7 @@ bthread("AddonresultsjsonLifecycle", function () {
   updateAddonresultsjson(x.id);
   verifyAddonresultsjsonExists(x.id);
   verifyAddonresultsjsonUpdated(x.id);
+  deleteAddonresultsjson(x.id);
 });
 
 bthread("AddressLifecycle", function () {
@@ -60,6 +65,7 @@ bthread("AddressLifecycle", function () {
   updateAddress(x.id);
   verifyAddressExists(x.id);
   verifyAddressUpdated(x.id);
+  deleteAddress(x.id);
 });
 
 bthread("AddressesjsonLifecycle", function () {
@@ -69,6 +75,7 @@ bthread("AddressesjsonLifecycle", function () {
   updateAddressesjson(x.id);
   verifyAddressesjsonExists(x.id);
   verifyAddressesjsonUpdated(x.id);
+  deleteAddressesjson(x.id);
 });
 
 bthread("AlltimejsonLifecycle", function () {
@@ -78,6 +85,7 @@ bthread("AlltimejsonLifecycle", function () {
   updateAlltimejson(x.id);
   verifyAlltimejsonExists(x.id);
   verifyAlltimejsonUpdated(x.id);
+  deleteAlltimejson(x.id);
 });
 
 bthread("ApplicationLifecycle", function () {
@@ -87,6 +95,7 @@ bthread("ApplicationLifecycle", function () {
   updateApplication(x.id);
   verifyApplicationExists(x.id);
   verifyApplicationUpdated(x.id);
+  deleteApplication(x.id);
 });
 
 bthread("ApplicationsjsonLifecycle", function () {
@@ -96,6 +105,7 @@ bthread("ApplicationsjsonLifecycle", function () {
   updateApplicationsjson(x.id);
   verifyApplicationsjsonExists(x.id);
   verifyApplicationsjsonUpdated(x.id);
+  deleteApplicationsjson(x.id);
 });
 
 bthread("AssignedaddonLifecycle", function () {
@@ -105,6 +115,7 @@ bthread("AssignedaddonLifecycle", function () {
   updateAssignedaddon(x.id);
   verifyAssignedaddonExists(x.id);
   verifyAssignedaddonUpdated(x.id);
+  deleteAssignedaddon(x.id);
 });
 
 bthread("AssignedaddonsjsonLifecycle", function () {
@@ -114,6 +125,7 @@ bthread("AssignedaddonsjsonLifecycle", function () {
   updateAssignedaddonsjson(x.id);
   verifyAssignedaddonsjsonExists(x.id);
   verifyAssignedaddonsjsonUpdated(x.id);
+  deleteAssignedaddonsjson(x.id);
 });
 
 bthread("AuthLifecycle", function () {
@@ -123,6 +135,7 @@ bthread("AuthLifecycle", function () {
   updateAuth(x.id);
   verifyAuthExists(x.id);
   verifyAuthUpdated(x.id);
+  deleteAuth(x.id);
 });
 
 bthread("AuthorizedconnectappLifecycle", function () {
@@ -132,6 +145,7 @@ bthread("AuthorizedconnectappLifecycle", function () {
   updateAuthorizedconnectapp(x.id);
   verifyAuthorizedconnectappExists(x.id);
   verifyAuthorizedconnectappUpdated(x.id);
+  deleteAuthorizedconnectapp(x.id);
 });
 
 bthread("AuthorizedconnectappsjsonLifecycle", function () {
@@ -141,6 +155,7 @@ bthread("AuthorizedconnectappsjsonLifecycle", function () {
   updateAuthorizedconnectappsjson(x.id);
   verifyAuthorizedconnectappsjsonExists(x.id);
   verifyAuthorizedconnectappsjsonUpdated(x.id);
+  deleteAuthorizedconnectappsjson(x.id);
 });
 
 bthread("AvailablephonenumberLifecycle", function () {
@@ -150,6 +165,7 @@ bthread("AvailablephonenumberLifecycle", function () {
   updateAvailablephonenumber(x.id);
   verifyAvailablephonenumberExists(x.id);
   verifyAvailablephonenumberUpdated(x.id);
+  deleteAvailablephonenumber(x.id);
 });
 
 bthread("AvailablephonenumbersjsonLifecycle", function () {
@@ -159,6 +175,7 @@ bthread("AvailablephonenumbersjsonLifecycle", function () {
   updateAvailablephonenumbersjson(x.id);
   verifyAvailablephonenumbersjsonExists(x.id);
   verifyAvailablephonenumbersjsonUpdated(x.id);
+  deleteAvailablephonenumbersjson(x.id);
 });
 
 bthread("BalancejsonLifecycle", function () {
@@ -168,6 +185,7 @@ bthread("BalancejsonLifecycle", function () {
   updateBalancejson(x.id);
   verifyBalancejsonExists(x.id);
   verifyBalancejsonUpdated(x.id);
+  deleteBalancejson(x.id);
 });
 
 bthread("CallLifecycle", function () {
@@ -177,6 +195,7 @@ bthread("CallLifecycle", function () {
   updateCall(x.id);
   verifyCallExists(x.id);
   verifyCallUpdated(x.id);
+  deleteCall(x.id);
 });
 
 bthread("CallsidjsonLifecycle", function () {
@@ -186,6 +205,7 @@ bthread("CallsidjsonLifecycle", function () {
   updateCallsidjson(x.id);
   verifyCallsidjsonExists(x.id);
   verifyCallsidjsonUpdated(x.id);
+  deleteCallsidjson(x.id);
 });
 
 bthread("CallsjsonLifecycle", function () {
@@ -195,6 +215,7 @@ bthread("CallsjsonLifecycle", function () {
   updateCallsjson(x.id);
   verifyCallsjsonExists(x.id);
   verifyCallsjsonUpdated(x.id);
+  deleteCallsjson(x.id);
 });
 
 bthread("ConferenceLifecycle", function () {
@@ -204,6 +225,7 @@ bthread("ConferenceLifecycle", function () {
   updateConference(x.id);
   verifyConferenceExists(x.id);
   verifyConferenceUpdated(x.id);
+  deleteConference(x.id);
 });
 
 bthread("ConferencesjsonLifecycle", function () {
@@ -213,6 +235,7 @@ bthread("ConferencesjsonLifecycle", function () {
   updateConferencesjson(x.id);
   verifyConferencesjsonExists(x.id);
   verifyConferencesjsonUpdated(x.id);
+  deleteConferencesjson(x.id);
 });
 
 bthread("ConnectappLifecycle", function () {
@@ -222,6 +245,7 @@ bthread("ConnectappLifecycle", function () {
   updateConnectapp(x.id);
   verifyConnectappExists(x.id);
   verifyConnectappUpdated(x.id);
+  deleteConnectapp(x.id);
 });
 
 bthread("ConnectappsidjsonLifecycle", function () {
@@ -231,6 +255,7 @@ bthread("ConnectappsidjsonLifecycle", function () {
   updateConnectappsidjson(x.id);
   verifyConnectappsidjsonExists(x.id);
   verifyConnectappsidjsonUpdated(x.id);
+  deleteConnectappsidjson(x.id);
 });
 
 bthread("ConnectappsjsonLifecycle", function () {
@@ -240,6 +265,7 @@ bthread("ConnectappsjsonLifecycle", function () {
   updateConnectappsjson(x.id);
   verifyConnectappsjsonExists(x.id);
   verifyConnectappsjsonUpdated(x.id);
+  deleteConnectappsjson(x.id);
 });
 
 bthread("CountrycodejsonLifecycle", function () {
@@ -249,6 +275,7 @@ bthread("CountrycodejsonLifecycle", function () {
   updateCountrycodejson(x.id);
   verifyCountrycodejsonExists(x.id);
   verifyCountrycodejsonUpdated(x.id);
+  deleteCountrycodejson(x.id);
 });
 
 bthread("CredentialLifecycle", function () {
@@ -258,6 +285,7 @@ bthread("CredentialLifecycle", function () {
   updateCredential(x.id);
   verifyCredentialExists(x.id);
   verifyCredentialUpdated(x.id);
+  deleteCredential(x.id);
 });
 
 bthread("CredentiallistLifecycle", function () {
@@ -267,6 +295,7 @@ bthread("CredentiallistLifecycle", function () {
   updateCredentiallist(x.id);
   verifyCredentiallistExists(x.id);
   verifyCredentiallistUpdated(x.id);
+  deleteCredentiallist(x.id);
 });
 
 bthread("CredentiallistmappingLifecycle", function () {
@@ -276,6 +305,7 @@ bthread("CredentiallistmappingLifecycle", function () {
   updateCredentiallistmapping(x.id);
   verifyCredentiallistmappingExists(x.id);
   verifyCredentiallistmappingUpdated(x.id);
+  deleteCredentiallistmapping(x.id);
 });
 
 bthread("CredentiallistmappingsjsonLifecycle", function () {
@@ -285,6 +315,7 @@ bthread("CredentiallistmappingsjsonLifecycle", function () {
   updateCredentiallistmappingsjson(x.id);
   verifyCredentiallistmappingsjsonExists(x.id);
   verifyCredentiallistmappingsjsonUpdated(x.id);
+  deleteCredentiallistmappingsjson(x.id);
 });
 
 bthread("CredentiallistsjsonLifecycle", function () {
@@ -294,6 +325,7 @@ bthread("CredentiallistsjsonLifecycle", function () {
   updateCredentiallistsjson(x.id);
   verifyCredentiallistsjsonExists(x.id);
   verifyCredentiallistsjsonUpdated(x.id);
+  deleteCredentiallistsjson(x.id);
 });
 
 bthread("CredentialsjsonLifecycle", function () {
@@ -303,6 +335,7 @@ bthread("CredentialsjsonLifecycle", function () {
   updateCredentialsjson(x.id);
   verifyCredentialsjsonExists(x.id);
   verifyCredentialsjsonUpdated(x.id);
+  deleteCredentialsjson(x.id);
 });
 
 bthread("DailyjsonLifecycle", function () {
@@ -312,6 +345,7 @@ bthread("DailyjsonLifecycle", function () {
   updateDailyjson(x.id);
   verifyDailyjsonExists(x.id);
   verifyDailyjsonUpdated(x.id);
+  deleteDailyjson(x.id);
 });
 
 bthread("DatajsonLifecycle", function () {
@@ -321,6 +355,7 @@ bthread("DatajsonLifecycle", function () {
   updateDatajson(x.id);
   verifyDatajsonExists(x.id);
   verifyDatajsonUpdated(x.id);
+  deleteDatajson(x.id);
 });
 
 bthread("DependentphonenumbersjsonLifecycle", function () {
@@ -330,6 +365,7 @@ bthread("DependentphonenumbersjsonLifecycle", function () {
   updateDependentphonenumbersjson(x.id);
   verifyDependentphonenumbersjsonExists(x.id);
   verifyDependentphonenumbersjsonUpdated(x.id);
+  deleteDependentphonenumbersjson(x.id);
 });
 
 bthread("DomainLifecycle", function () {
@@ -339,6 +375,7 @@ bthread("DomainLifecycle", function () {
   updateDomain(x.id);
   verifyDomainExists(x.id);
   verifyDomainUpdated(x.id);
+  deleteDomain(x.id);
 });
 
 bthread("DomainsjsonLifecycle", function () {
@@ -348,6 +385,7 @@ bthread("DomainsjsonLifecycle", function () {
   updateDomainsjson(x.id);
   verifyDomainsjsonExists(x.id);
   verifyDomainsjsonUpdated(x.id);
+  deleteDomainsjson(x.id);
 });
 
 bthread("EventsjsonLifecycle", function () {
@@ -357,6 +395,7 @@ bthread("EventsjsonLifecycle", function () {
   updateEventsjson(x.id);
   verifyEventsjsonExists(x.id);
   verifyEventsjsonUpdated(x.id);
+  deleteEventsjson(x.id);
 });
 
 bthread("ExtensionLifecycle", function () {
@@ -366,6 +405,7 @@ bthread("ExtensionLifecycle", function () {
   updateExtension(x.id);
   verifyExtensionExists(x.id);
   verifyExtensionUpdated(x.id);
+  deleteExtension(x.id);
 });
 
 bthread("ExtensionsjsonLifecycle", function () {
@@ -375,6 +415,7 @@ bthread("ExtensionsjsonLifecycle", function () {
   updateExtensionsjson(x.id);
   verifyExtensionsjsonExists(x.id);
   verifyExtensionsjsonUpdated(x.id);
+  deleteExtensionsjson(x.id);
 });
 
 bthread("FeedbackjsonLifecycle", function () {
@@ -384,6 +425,7 @@ bthread("FeedbackjsonLifecycle", function () {
   updateFeedbackjson(x.id);
   verifyFeedbackjsonExists(x.id);
   verifyFeedbackjsonUpdated(x.id);
+  deleteFeedbackjson(x.id);
 });
 
 bthread("IncomingphonenumberLifecycle", function () {
@@ -393,6 +435,7 @@ bthread("IncomingphonenumberLifecycle", function () {
   updateIncomingphonenumber(x.id);
   verifyIncomingphonenumberExists(x.id);
   verifyIncomingphonenumberUpdated(x.id);
+  deleteIncomingphonenumber(x.id);
 });
 
 bthread("IncomingphonenumbersjsonLifecycle", function () {
@@ -402,6 +445,7 @@ bthread("IncomingphonenumbersjsonLifecycle", function () {
   updateIncomingphonenumbersjson(x.id);
   verifyIncomingphonenumbersjsonExists(x.id);
   verifyIncomingphonenumbersjsonUpdated(x.id);
+  deleteIncomingphonenumbersjson(x.id);
 });
 
 bthread("IpaccesscontrollistLifecycle", function () {
@@ -411,6 +455,7 @@ bthread("IpaccesscontrollistLifecycle", function () {
   updateIpaccesscontrollist(x.id);
   verifyIpaccesscontrollistExists(x.id);
   verifyIpaccesscontrollistUpdated(x.id);
+  deleteIpaccesscontrollist(x.id);
 });
 
 bthread("IpaccesscontrollistmappingLifecycle", function () {
@@ -420,6 +465,7 @@ bthread("IpaccesscontrollistmappingLifecycle", function () {
   updateIpaccesscontrollistmapping(x.id);
   verifyIpaccesscontrollistmappingExists(x.id);
   verifyIpaccesscontrollistmappingUpdated(x.id);
+  deleteIpaccesscontrollistmapping(x.id);
 });
 
 bthread("IpaccesscontrollistmappingsjsonLifecycle", function () {
@@ -429,6 +475,7 @@ bthread("IpaccesscontrollistmappingsjsonLifecycle", function () {
   updateIpaccesscontrollistmappingsjson(x.id);
   verifyIpaccesscontrollistmappingsjsonExists(x.id);
   verifyIpaccesscontrollistmappingsjsonUpdated(x.id);
+  deleteIpaccesscontrollistmappingsjson(x.id);
 });
 
 bthread("IpaccesscontrollistsjsonLifecycle", function () {
@@ -438,6 +485,7 @@ bthread("IpaccesscontrollistsjsonLifecycle", function () {
   updateIpaccesscontrollistsjson(x.id);
   verifyIpaccesscontrollistsjsonExists(x.id);
   verifyIpaccesscontrollistsjsonUpdated(x.id);
+  deleteIpaccesscontrollistsjson(x.id);
 });
 
 bthread("IpaddressLifecycle", function () {
@@ -447,6 +495,7 @@ bthread("IpaddressLifecycle", function () {
   updateIpaddress(x.id);
   verifyIpaddressExists(x.id);
   verifyIpaddressUpdated(x.id);
+  deleteIpaddress(x.id);
 });
 
 bthread("IpaddressesjsonLifecycle", function () {
@@ -456,6 +505,7 @@ bthread("IpaddressesjsonLifecycle", function () {
   updateIpaddressesjson(x.id);
   verifyIpaddressesjsonExists(x.id);
   verifyIpaddressesjsonUpdated(x.id);
+  deleteIpaddressesjson(x.id);
 });
 
 bthread("KeyLifecycle", function () {
@@ -465,6 +515,7 @@ bthread("KeyLifecycle", function () {
   updateKey(x.id);
   verifyKeyExists(x.id);
   verifyKeyUpdated(x.id);
+  deleteKey(x.id);
 });
 
 bthread("KeysjsonLifecycle", function () {
@@ -474,6 +525,7 @@ bthread("KeysjsonLifecycle", function () {
   updateKeysjson(x.id);
   verifyKeysjsonExists(x.id);
   verifyKeysjsonUpdated(x.id);
+  deleteKeysjson(x.id);
 });
 
 bthread("LastmonthjsonLifecycle", function () {
@@ -483,6 +535,7 @@ bthread("LastmonthjsonLifecycle", function () {
   updateLastmonthjson(x.id);
   verifyLastmonthjsonExists(x.id);
   verifyLastmonthjsonUpdated(x.id);
+  deleteLastmonthjson(x.id);
 });
 
 bthread("LocaljsonLifecycle", function () {
@@ -492,6 +545,7 @@ bthread("LocaljsonLifecycle", function () {
   updateLocaljson(x.id);
   verifyLocaljsonExists(x.id);
   verifyLocaljsonUpdated(x.id);
+  deleteLocaljson(x.id);
 });
 
 bthread("MachinetomachinejsonLifecycle", function () {
@@ -501,6 +555,7 @@ bthread("MachinetomachinejsonLifecycle", function () {
   updateMachinetomachinejson(x.id);
   verifyMachinetomachinejsonExists(x.id);
   verifyMachinetomachinejsonUpdated(x.id);
+  deleteMachinetomachinejson(x.id);
 });
 
 bthread("MediaLifecycle", function () {
@@ -510,6 +565,7 @@ bthread("MediaLifecycle", function () {
   updateMedia(x.id);
   verifyMediaExists(x.id);
   verifyMediaUpdated(x.id);
+  deleteMedia(x.id);
 });
 
 bthread("MediajsonLifecycle", function () {
@@ -519,6 +575,7 @@ bthread("MediajsonLifecycle", function () {
   updateMediajson(x.id);
   verifyMediajsonExists(x.id);
   verifyMediajsonUpdated(x.id);
+  deleteMediajson(x.id);
 });
 
 bthread("MemberLifecycle", function () {
@@ -528,6 +585,7 @@ bthread("MemberLifecycle", function () {
   updateMember(x.id);
   verifyMemberExists(x.id);
   verifyMemberUpdated(x.id);
+  deleteMember(x.id);
 });
 
 bthread("MembersjsonLifecycle", function () {
@@ -537,6 +595,7 @@ bthread("MembersjsonLifecycle", function () {
   updateMembersjson(x.id);
   verifyMembersjsonExists(x.id);
   verifyMembersjsonUpdated(x.id);
+  deleteMembersjson(x.id);
 });
 
 bthread("MessageLifecycle", function () {
@@ -546,6 +605,7 @@ bthread("MessageLifecycle", function () {
   updateMessage(x.id);
   verifyMessageExists(x.id);
   verifyMessageUpdated(x.id);
+  deleteMessage(x.id);
 });
 
 bthread("MessagesjsonLifecycle", function () {
@@ -555,6 +615,7 @@ bthread("MessagesjsonLifecycle", function () {
   updateMessagesjson(x.id);
   verifyMessagesjsonExists(x.id);
   verifyMessagesjsonUpdated(x.id);
+  deleteMessagesjson(x.id);
 });
 
 bthread("MobilejsonLifecycle", function () {
@@ -564,6 +625,7 @@ bthread("MobilejsonLifecycle", function () {
   updateMobilejson(x.id);
   verifyMobilejsonExists(x.id);
   verifyMobilejsonUpdated(x.id);
+  deleteMobilejson(x.id);
 });
 
 bthread("MonthlyjsonLifecycle", function () {
@@ -573,6 +635,7 @@ bthread("MonthlyjsonLifecycle", function () {
   updateMonthlyjson(x.id);
   verifyMonthlyjsonExists(x.id);
   verifyMonthlyjsonUpdated(x.id);
+  deleteMonthlyjson(x.id);
 });
 
 bthread("NationaljsonLifecycle", function () {
@@ -582,6 +645,7 @@ bthread("NationaljsonLifecycle", function () {
   updateNationaljson(x.id);
   verifyNationaljsonExists(x.id);
   verifyNationaljsonUpdated(x.id);
+  deleteNationaljson(x.id);
 });
 
 bthread("NotificationLifecycle", function () {
@@ -591,6 +655,7 @@ bthread("NotificationLifecycle", function () {
   updateNotification(x.id);
   verifyNotificationExists(x.id);
   verifyNotificationUpdated(x.id);
+  deleteNotification(x.id);
 });
 
 bthread("NotificationsjsonLifecycle", function () {
@@ -600,6 +665,7 @@ bthread("NotificationsjsonLifecycle", function () {
   updateNotificationsjson(x.id);
   verifyNotificationsjsonExists(x.id);
   verifyNotificationsjsonUpdated(x.id);
+  deleteNotificationsjson(x.id);
 });
 
 bthread("OutgoingcalleridLifecycle", function () {
@@ -609,6 +675,7 @@ bthread("OutgoingcalleridLifecycle", function () {
   updateOutgoingcallerid(x.id);
   verifyOutgoingcalleridExists(x.id);
   verifyOutgoingcalleridUpdated(x.id);
+  deleteOutgoingcallerid(x.id);
 });
 
 bthread("OutgoingcalleridsjsonLifecycle", function () {
@@ -618,6 +685,7 @@ bthread("OutgoingcalleridsjsonLifecycle", function () {
   updateOutgoingcalleridsjson(x.id);
   verifyOutgoingcalleridsjsonExists(x.id);
   verifyOutgoingcalleridsjsonUpdated(x.id);
+  deleteOutgoingcalleridsjson(x.id);
 });
 
 bthread("ParticipantLifecycle", function () {
@@ -627,6 +695,7 @@ bthread("ParticipantLifecycle", function () {
   updateParticipant(x.id);
   verifyParticipantExists(x.id);
   verifyParticipantUpdated(x.id);
+  deleteParticipant(x.id);
 });
 
 bthread("ParticipantsjsonLifecycle", function () {
@@ -636,6 +705,7 @@ bthread("ParticipantsjsonLifecycle", function () {
   updateParticipantsjson(x.id);
   verifyParticipantsjsonExists(x.id);
   verifyParticipantsjsonUpdated(x.id);
+  deleteParticipantsjson(x.id);
 });
 
 bthread("PayloadLifecycle", function () {
@@ -645,6 +715,7 @@ bthread("PayloadLifecycle", function () {
   updatePayload(x.id);
   verifyPayloadExists(x.id);
   verifyPayloadUpdated(x.id);
+  deletePayload(x.id);
 });
 
 bthread("PayloadsjsonLifecycle", function () {
@@ -654,6 +725,7 @@ bthread("PayloadsjsonLifecycle", function () {
   updatePayloadsjson(x.id);
   verifyPayloadsjsonExists(x.id);
   verifyPayloadsjsonUpdated(x.id);
+  deletePayloadsjson(x.id);
 });
 
 bthread("PaymentLifecycle", function () {
@@ -663,6 +735,7 @@ bthread("PaymentLifecycle", function () {
   updatePayment(x.id);
   verifyPaymentExists(x.id);
   verifyPaymentUpdated(x.id);
+  deletePayment(x.id);
 });
 
 bthread("PaymentsjsonLifecycle", function () {
@@ -672,6 +745,7 @@ bthread("PaymentsjsonLifecycle", function () {
   updatePaymentsjson(x.id);
   verifyPaymentsjsonExists(x.id);
   verifyPaymentsjsonUpdated(x.id);
+  deletePaymentsjson(x.id);
 });
 
 bthread("QueueLifecycle", function () {
@@ -681,6 +755,7 @@ bthread("QueueLifecycle", function () {
   updateQueue(x.id);
   verifyQueueExists(x.id);
   verifyQueueUpdated(x.id);
+  deleteQueue(x.id);
 });
 
 bthread("QueuesjsonLifecycle", function () {
@@ -690,6 +765,7 @@ bthread("QueuesjsonLifecycle", function () {
   updateQueuesjson(x.id);
   verifyQueuesjsonExists(x.id);
   verifyQueuesjsonUpdated(x.id);
+  deleteQueuesjson(x.id);
 });
 
 bthread("RecordLifecycle", function () {
@@ -699,6 +775,7 @@ bthread("RecordLifecycle", function () {
   updateRecord(x.id);
   verifyRecordExists(x.id);
   verifyRecordUpdated(x.id);
+  deleteRecord(x.id);
 });
 
 bthread("RecordingLifecycle", function () {
@@ -708,6 +785,7 @@ bthread("RecordingLifecycle", function () {
   updateRecording(x.id);
   verifyRecordingExists(x.id);
   verifyRecordingUpdated(x.id);
+  deleteRecording(x.id);
 });
 
 bthread("RecordingsjsonLifecycle", function () {
@@ -717,6 +795,7 @@ bthread("RecordingsjsonLifecycle", function () {
   updateRecordingsjson(x.id);
   verifyRecordingsjsonExists(x.id);
   verifyRecordingsjsonUpdated(x.id);
+  deleteRecordingsjson(x.id);
 });
 
 bthread("RecordsjsonLifecycle", function () {
@@ -726,6 +805,7 @@ bthread("RecordsjsonLifecycle", function () {
   updateRecordsjson(x.id);
   verifyRecordsjsonExists(x.id);
   verifyRecordsjsonUpdated(x.id);
+  deleteRecordsjson(x.id);
 });
 
 bthread("RegistrationLifecycle", function () {
@@ -735,6 +815,7 @@ bthread("RegistrationLifecycle", function () {
   updateRegistration(x.id);
   verifyRegistrationExists(x.id);
   verifyRegistrationUpdated(x.id);
+  deleteRegistration(x.id);
 });
 
 bthread("SharedcostjsonLifecycle", function () {
@@ -744,6 +825,7 @@ bthread("SharedcostjsonLifecycle", function () {
   updateSharedcostjson(x.id);
   verifySharedcostjsonExists(x.id);
   verifySharedcostjsonUpdated(x.id);
+  deleteSharedcostjson(x.id);
 });
 
 bthread("ShortcodeLifecycle", function () {
@@ -753,6 +835,7 @@ bthread("ShortcodeLifecycle", function () {
   updateShortcode(x.id);
   verifyShortcodeExists(x.id);
   verifyShortcodeUpdated(x.id);
+  deleteShortcode(x.id);
 });
 
 bthread("ShortcodesjsonLifecycle", function () {
@@ -762,6 +845,7 @@ bthread("ShortcodesjsonLifecycle", function () {
   updateShortcodesjson(x.id);
   verifyShortcodesjsonExists(x.id);
   verifyShortcodesjsonUpdated(x.id);
+  deleteShortcodesjson(x.id);
 });
 
 bthread("SidjsonLifecycle", function () {
@@ -771,6 +855,7 @@ bthread("SidjsonLifecycle", function () {
   updateSidjson(x.id);
   verifySidjsonExists(x.id);
   verifySidjsonUpdated(x.id);
+  deleteSidjson(x.id);
 });
 
 bthread("SigningkeyLifecycle", function () {
@@ -780,6 +865,7 @@ bthread("SigningkeyLifecycle", function () {
   updateSigningkey(x.id);
   verifySigningkeyExists(x.id);
   verifySigningkeyUpdated(x.id);
+  deleteSigningkey(x.id);
 });
 
 bthread("SigningkeysjsonLifecycle", function () {
@@ -789,6 +875,7 @@ bthread("SigningkeysjsonLifecycle", function () {
   updateSigningkeysjson(x.id);
   verifySigningkeysjsonExists(x.id);
   verifySigningkeysjsonUpdated(x.id);
+  deleteSigningkeysjson(x.id);
 });
 
 bthread("SipLifecycle", function () {
@@ -798,6 +885,7 @@ bthread("SipLifecycle", function () {
   updateSip(x.id);
   verifySipExists(x.id);
   verifySipUpdated(x.id);
+  deleteSip(x.id);
 });
 
 bthread("SiprecLifecycle", function () {
@@ -807,6 +895,7 @@ bthread("SiprecLifecycle", function () {
   updateSiprec(x.id);
   verifySiprecExists(x.id);
   verifySiprecUpdated(x.id);
+  deleteSiprec(x.id);
 });
 
 bthread("SiprecjsonLifecycle", function () {
@@ -816,6 +905,7 @@ bthread("SiprecjsonLifecycle", function () {
   updateSiprecjson(x.id);
   verifySiprecjsonExists(x.id);
   verifySiprecjsonUpdated(x.id);
+  deleteSiprecjson(x.id);
 });
 
 bthread("SmLifecycle", function () {
@@ -825,6 +915,7 @@ bthread("SmLifecycle", function () {
   updateSm(x.id);
   verifySmExists(x.id);
   verifySmUpdated(x.id);
+  deleteSm(x.id);
 });
 
 bthread("StreamLifecycle", function () {
@@ -834,6 +925,7 @@ bthread("StreamLifecycle", function () {
   updateStream(x.id);
   verifyStreamExists(x.id);
   verifyStreamUpdated(x.id);
+  deleteStream(x.id);
 });
 
 bthread("StreamsjsonLifecycle", function () {
@@ -843,6 +935,7 @@ bthread("StreamsjsonLifecycle", function () {
   updateStreamsjson(x.id);
   verifyStreamsjsonExists(x.id);
   verifyStreamsjsonUpdated(x.id);
+  deleteStreamsjson(x.id);
 });
 
 bthread("ThismonthjsonLifecycle", function () {
@@ -852,6 +945,7 @@ bthread("ThismonthjsonLifecycle", function () {
   updateThismonthjson(x.id);
   verifyThismonthjsonExists(x.id);
   verifyThismonthjsonUpdated(x.id);
+  deleteThismonthjson(x.id);
 });
 
 bthread("TodayjsonLifecycle", function () {
@@ -861,6 +955,7 @@ bthread("TodayjsonLifecycle", function () {
   updateTodayjson(x.id);
   verifyTodayjsonExists(x.id);
   verifyTodayjsonUpdated(x.id);
+  deleteTodayjson(x.id);
 });
 
 bthread("TokensjsonLifecycle", function () {
@@ -870,6 +965,7 @@ bthread("TokensjsonLifecycle", function () {
   updateTokensjson(x.id);
   verifyTokensjsonExists(x.id);
   verifyTokensjsonUpdated(x.id);
+  deleteTokensjson(x.id);
 });
 
 bthread("TollfreejsonLifecycle", function () {
@@ -879,6 +975,7 @@ bthread("TollfreejsonLifecycle", function () {
   updateTollfreejson(x.id);
   verifyTollfreejsonExists(x.id);
   verifyTollfreejsonUpdated(x.id);
+  deleteTollfreejson(x.id);
 });
 
 bthread("TranscriptionLifecycle", function () {
@@ -888,6 +985,7 @@ bthread("TranscriptionLifecycle", function () {
   updateTranscription(x.id);
   verifyTranscriptionExists(x.id);
   verifyTranscriptionUpdated(x.id);
+  deleteTranscription(x.id);
 });
 
 bthread("TranscriptionsjsonLifecycle", function () {
@@ -897,6 +995,7 @@ bthread("TranscriptionsjsonLifecycle", function () {
   updateTranscriptionsjson(x.id);
   verifyTranscriptionsjsonExists(x.id);
   verifyTranscriptionsjsonUpdated(x.id);
+  deleteTranscriptionsjson(x.id);
 });
 
 bthread("TriggerLifecycle", function () {
@@ -906,6 +1005,7 @@ bthread("TriggerLifecycle", function () {
   updateTrigger(x.id);
   verifyTriggerExists(x.id);
   verifyTriggerUpdated(x.id);
+  deleteTrigger(x.id);
 });
 
 bthread("TriggersjsonLifecycle", function () {
@@ -915,6 +1015,7 @@ bthread("TriggersjsonLifecycle", function () {
   updateTriggersjson(x.id);
   verifyTriggersjsonExists(x.id);
   verifyTriggersjsonUpdated(x.id);
+  deleteTriggersjson(x.id);
 });
 
 bthread("UsageLifecycle", function () {
@@ -924,6 +1025,7 @@ bthread("UsageLifecycle", function () {
   updateUsage(x.id);
   verifyUsageExists(x.id);
   verifyUsageUpdated(x.id);
+  deleteUsage(x.id);
 });
 
 bthread("UserdefinedmessagesjsonLifecycle", function () {
@@ -933,6 +1035,7 @@ bthread("UserdefinedmessagesjsonLifecycle", function () {
   updateUserdefinedmessagesjson(x.id);
   verifyUserdefinedmessagesjsonExists(x.id);
   verifyUserdefinedmessagesjsonUpdated(x.id);
+  deleteUserdefinedmessagesjson(x.id);
 });
 
 bthread("UserdefinedmessagesubscriptionLifecycle", function () {
@@ -942,6 +1045,7 @@ bthread("UserdefinedmessagesubscriptionLifecycle", function () {
   updateUserdefinedmessagesubscription(x.id);
   verifyUserdefinedmessagesubscriptionExists(x.id);
   verifyUserdefinedmessagesubscriptionUpdated(x.id);
+  deleteUserdefinedmessagesubscription(x.id);
 });
 
 bthread("UserdefinedmessagesubscriptionsjsonLifecycle", function () {
@@ -951,6 +1055,7 @@ bthread("UserdefinedmessagesubscriptionsjsonLifecycle", function () {
   updateUserdefinedmessagesubscriptionsjson(x.id);
   verifyUserdefinedmessagesubscriptionsjsonExists(x.id);
   verifyUserdefinedmessagesubscriptionsjsonUpdated(x.id);
+  deleteUserdefinedmessagesubscriptionsjson(x.id);
 });
 
 bthread("VoipjsonLifecycle", function () {
@@ -960,6 +1065,7 @@ bthread("VoipjsonLifecycle", function () {
   updateVoipjson(x.id);
   verifyVoipjsonExists(x.id);
   verifyVoipjsonUpdated(x.id);
+  deleteVoipjson(x.id);
 });
 
 bthread("YearlyjsonLifecycle", function () {
@@ -969,6 +1075,7 @@ bthread("YearlyjsonLifecycle", function () {
   updateYearlyjson(x.id);
   verifyYearlyjsonExists(x.id);
   verifyYearlyjsonUpdated(x.id);
+  deleteYearlyjson(x.id);
 });
 
 bthread("YesterdayjsonLifecycle", function () {
@@ -978,6 +1085,7 @@ bthread("YesterdayjsonLifecycle", function () {
   updateYesterdayjson(x.id);
   verifyYesterdayjsonExists(x.id);
   verifyYesterdayjsonUpdated(x.id);
+  deleteYesterdayjson(x.id);
 });
 
 // ===== PASSIVE ASSERTIONS =====

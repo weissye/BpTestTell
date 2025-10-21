@@ -1,42 +1,210 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-_hazard.py (one-compatible)
----------------------------
-Purpose: generate the *same* stories_hls.js as emit_hls_all_in_one.py,
-then append a small generic @auto-hazard pack:
-  - CollisionBinding (entity focus) via runtime wrapping of do-functions
-  - HazardOracles A/B/C (non-negative counters, referential integrity,
-    aggregate limit / write-skew)
+// ====================================================================
+// Auto-generated garage-style High-Level Stories (HLS)
+// SUT: hls
+// ====================================================================
 
-This script **does not** change the story set produced by emit_hls_all_in_one.py.
-It merely appends general stories/helpers at the end.
+var ANY = (typeof H !== 'undefined' && H.ANY) ? H.ANY : (typeof ANY !== 'undefined' ? ANY : '*');
 
-Usage (same flags as emit_hls_all_in_one.py):
-  python _hazard.py --sut_dir suts\flask_impl\banking --mode det --profile rich --per_entity_max 3
+// ===== ACTIVE LIFECYCLES =====
 
-It uses emit_hls_all_in_one.py's helpers and build_stories() to preserve
-identical baselines.
-"""
 
-import argparse, json, os, sys, re
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple
+bthread("MachineLifecycle", function () {
+  const x = pick([{id: "M001"}, {id: "M002"}]);
+  addMachine(x.id);
+  updateMachine(x.id);
+  updateMachine(x.id);
+  verifyMachineExists(x.id);
+  verifyMachineUpdated(x.id);
+  deleteMachine(x.id);
+});
 
-# --- Import the canonical emitter (must sit next to this file) ---
-try:
-    import emit_hls_all_in_one as one
-except Exception as e:
-    print("[ERR] Cannot import emit_hls_all_in_one.py:", e)
-    raise
+bthread("MaintenanceticketLifecycle", function () {
+  const x = pick([{id: "M001"}, {id: "M002"}]);
+  addMaintenanceticket(x.id);
+  updateMaintenanceticket(x.id);
+  updateMaintenanceticket(x.id);
+  verifyMaintenanceticketExists(x.id);
+  verifyMaintenanceticketUpdated(x.id);
+  deleteMaintenanceticket(x.id);
+});
 
-# ---- Generic Auto-Hazard JS (entity-agnostic) ----
-#  - Requires the following assignment lines to be present before it runs:
-#       globalThis.__DSL_ENTITIES__      = [...];
-#       globalThis.__GRAPH_RELATIONSHIPS__ = [{parent, child}, ...];
-#       globalThis.__DSL_DO__            = {Entity:{add,update,delete}};
-#       globalThis.__DSL_ARG0__          = {Entity:'idFieldName'};
-_GENERIC_HAZARD_JS = r"""
+bthread("ResetLifecycle", function () {
+  const x = pick([{id: "R001"}, {id: "R002"}]);
+  addReset(x.id);
+  updateReset(x.id);
+  updateReset(x.id);
+  verifyResetExists(x.id);
+  verifyResetUpdated(x.id);
+  deleteReset(x.id);
+});
+
+bthread("SensorreadingLifecycle", function () {
+  const x = pick([{id: "S001"}, {id: "S002"}]);
+  addSensorreading(x.id);
+  updateSensorreading(x.id);
+  updateSensorreading(x.id);
+  verifySensorreadingExists(x.id);
+  verifySensorreadingUpdated(x.id);
+  deleteSensorreading(x.id);
+});
+
+bthread("WorkorderLifecycle", function () {
+  const x = pick([{id: "W001"}, {id: "W002"}]);
+  addWorkorder(x.id);
+  updateWorkorder(x.id);
+  updateWorkorder(x.id);
+  verifyWorkorderExists(x.id);
+  verifyWorkorderUpdated(x.id);
+  deleteWorkorder(x.id);
+});
+
+// ===== PASSIVE ASSERTIONS =====
+
+bthread("Machine create verification", function () {
+  const e = waitForAnyMachineAdded();
+  block(matchDeleteMachine(e.id, ANY), function () {
+    verifyMachineExists(e.id);
+  });
+});
+
+bthread("Machine update verification", function () {
+  const e = waitForAnyMachineUpdated();
+  block(matchDeleteMachine(e.id, ANY), function () {
+    verifyMachineUpdated(e.id);
+  });
+});
+
+bthread("Machine delete verification", function () {
+  const e = waitForAnyMachineDeleted();
+  block(matchAddMachine(e.id, ANY), function () {
+    verifyMachineDoesNotExist(e.id);
+  });
+});
+
+bthread("Maintenanceticket create verification", function () {
+  const e = waitForAnyMaintenanceticketAdded();
+  block(matchDeleteMaintenanceticket(e.id, ANY), function () {
+    verifyMaintenanceticketExists(e.id);
+  });
+});
+
+bthread("Maintenanceticket update verification", function () {
+  const e = waitForAnyMaintenanceticketUpdated();
+  block(matchDeleteMaintenanceticket(e.id, ANY), function () {
+    verifyMaintenanceticketUpdated(e.id);
+  });
+});
+
+bthread("Maintenanceticket delete verification", function () {
+  const e = waitForAnyMaintenanceticketDeleted();
+  block(matchAddMaintenanceticket(e.id, ANY), function () {
+    verifyMaintenanceticketDoesNotExist(e.id);
+  });
+});
+
+bthread("Reset create verification", function () {
+  const e = waitForAnyResetAdded();
+  block(matchDeleteReset(e.id, ANY), function () {
+    verifyResetExists(e.id);
+  });
+});
+
+bthread("Reset update verification", function () {
+  const e = waitForAnyResetUpdated();
+  block(matchDeleteReset(e.id, ANY), function () {
+    verifyResetUpdated(e.id);
+  });
+});
+
+bthread("Reset delete verification", function () {
+  const e = waitForAnyResetDeleted();
+  block(matchAddReset(e.id, ANY), function () {
+    verifyResetDoesNotExist(e.id);
+  });
+});
+
+bthread("Sensorreading create verification", function () {
+  const e = waitForAnySensorreadingAdded();
+  block(matchDeleteSensorreading(e.id, ANY), function () {
+    verifySensorreadingExists(e.id);
+  });
+});
+
+bthread("Sensorreading update verification", function () {
+  const e = waitForAnySensorreadingUpdated();
+  block(matchDeleteSensorreading(e.id, ANY), function () {
+    verifySensorreadingUpdated(e.id);
+  });
+});
+
+bthread("Sensorreading delete verification", function () {
+  const e = waitForAnySensorreadingDeleted();
+  block(matchAddSensorreading(e.id, ANY), function () {
+    verifySensorreadingDoesNotExist(e.id);
+  });
+});
+
+bthread("Workorder create verification", function () {
+  const e = waitForAnyWorkorderAdded();
+  block(matchDeleteWorkorder(e.id, ANY), function () {
+    verifyWorkorderExists(e.id);
+  });
+});
+
+bthread("Workorder update verification", function () {
+  const e = waitForAnyWorkorderUpdated();
+  block(matchDeleteWorkorder(e.id, ANY), function () {
+    verifyWorkorderUpdated(e.id);
+  });
+});
+
+bthread("Workorder delete verification", function () {
+  const e = waitForAnyWorkorderDeleted();
+  block(matchAddWorkorder(e.id, ANY), function () {
+    verifyWorkorderDoesNotExist(e.id);
+  });
+});
+
+// ===== RELATIONSHIP GUARDS =====
+
+// ===== UNIQUENESS GUARDS =====
+
+bthread("Guard: Unique Machine", function () {
+  const x = waitForAnyMachineAdded();
+  block(matchAddMachine(x.id, ANY), function () {});
+});
+
+bthread("Guard: Unique Maintenanceticket", function () {
+  const x = waitForAnyMaintenanceticketAdded();
+  block(matchAddMaintenanceticket(x.id, ANY), function () {});
+});
+
+bthread("Guard: Unique Reset", function () {
+  const x = waitForAnyResetAdded();
+  block(matchAddReset(x.id, ANY), function () {});
+});
+
+bthread("Guard: Unique Sensorreading", function () {
+  const x = waitForAnySensorreadingAdded();
+  block(matchAddSensorreading(x.id, ANY), function () {});
+});
+
+bthread("Guard: Unique Workorder", function () {
+  const x = waitForAnyWorkorderAdded();
+  block(matchAddWorkorder(x.id, ANY), function () {});
+});
+
+// ===== NEGATIVE/EDGE STATUS GUARDS =====
+
+
+// ===== AUTO-HAZARD (generic pack) =====
+
+globalThis.__DSL_ENTITIES__ = ["Machine", "Maintenanceticket", "Reset", "Sensorreading", "Workorder"];
+globalThis.__GRAPH_RELATIONSHIPS__ = [];
+globalThis.__DSL_DO__ = {"Machine": {"add": "addMachine", "update": "updateMachine", "delete": "deleteMachine"}, "Maintenanceticket": {"add": "addMaintenanceticket", "update": "updateMaintenanceticket", "delete": "deleteMaintenanceticket"}, "Reset": {"add": "addReset", "update": "updateReset", "delete": "deleteReset"}, "Sensorreading": {"add": "addSensorreading", "update": "updateSensorreading", "delete": "deleteSensorreading"}, "Workorder": {"add": "addWorkorder", "update": "updateWorkorder", "delete": "deleteWorkorder"}};
+globalThis.__DSL_ARG0__ = {"Machine": "id", "Maintenanceticket": "id", "Reset": "id", "Sensorreading": "id", "Workorder": "id"};
+
+
 // @auto-hazard-begin
 (function AutoHazardPack(){
   if (typeof bp === 'undefined') return;
@@ -232,89 +400,3 @@ _GENERIC_HAZARD_JS = r"""
   }
 })(); // AutoHazardPack
 // @auto-hazard-end
-"""
-
-def _derive_entities_and_relationships(graph: Dict[str, Any], dsl: Dict[str, Any]):
-    graph_info = one.parse_graph(graph)
-    dsl_entities: Dict[str, dict] = one.derive_entities_from_dsl(dsl)
-    dsl_names = sorted(dsl_entities.keys())
-    name_set = set(dsl_names)
-    for raw in graph_info.get("entities", []):
-        mapped = one.cleanup_entity_against_dsl(raw, dsl_names)
-        if mapped:
-            name_set.add(mapped)
-    entities = sorted(name_set)
-    rels = graph_info.get("relationships", [])
-    relationships = [{"parent": r.get("parent"), "child": r.get("child")} for r in rels if r.get("parent") and r.get("child")]
-    return entities, relationships
-
-def _build_assignments_js(graph: Dict[str, Any], dsl: Dict[str, Any]) -> str:
-    entities, relationships = _derive_entities_and_relationships(graph, dsl)
-    edsl_map = {}
-    raw_dsl_entities = one.derive_entities_from_dsl(dsl)
-    for e in entities:
-        edsl_map[e] = one.build_entity_dsl(e, raw_dsl_entities.get(e, {}))
-    dsl_do = {e: edsl_map[e]["do"] for e in entities}
-    dsl_arg0 = {e: (edsl_map[e]["args"][0] if edsl_map[e]["args"] else "id") for e in entities}
-    js = []
-    js.append("globalThis.__DSL_ENTITIES__ = " + json.dumps(entities) + ";")
-    js.append("globalThis.__GRAPH_RELATIONSHIPS__ = " + json.dumps(relationships) + ";")
-    js.append("globalThis.__DSL_DO__ = " + json.dumps(dsl_do) + ";")
-    js.append("globalThis.__DSL_ARG0__ = " + json.dumps(dsl_arg0) + ";")
-    return "\n".join(js) + "\n"
-
-def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--sut_dir", required=True, help="e.g., 7_suts_llm_provider\banking")
-    ap.add_argument("--mode", choices=["det","nondet"], default="det")
-    ap.add_argument("--out", default=None)
-    ap.add_argument("--graph", default=None)
-    ap.add_argument("--dsl_map", default=None)
-    ap.add_argument("--profile", choices=["basic","rich","hazard"], default="rich")
-    ap.add_argument("--per_entity_max", type=int, default=3)
-    ap.add_argument("--fail_under_stories", type=int, default=0)
-    args = ap.parse_args()
-# Treat 'hazard' as an alias of 'rich' for --profile
-if getattr(args, 'profile', None) == 'hazard':
-    args.profile = 'rich'
-
-    out_path = Path(args.out) if args.out else one.default_out_path(args.sut_dir, args.mode)
-    graph_path = Path(args.graph) if args.graph else one.default_graph_path(args.sut_dir)
-    dsl_map_path = Path(args.dsl_map) if args.dsl_map else one.default_dsl_map_path(args.sut_dir)
-
-    if graph_path.exists():
-        print(f'    using --graph "{os.path.normpath(str(graph_path))}"')
-    else:
-        print(f'    [WARN] Graph not found at "{os.path.normpath(str(graph_path))}"')
-
-    if dsl_map_path.exists():
-        print(f'    using --dsl_map "{os.path.normpath(str(dsl_map_path))}"')
-
-    graph = one.load_json(graph_path) or {}
-    dsl   = one.load_json(dsl_map_path) or {}
-
-    _, sut = one.split_provider_and_sut(args.sut_dir)
-    dsl.setdefault("sut_name", sut)
-
-    stories, cov = one.build_stories(graph, dsl, args.profile, args.per_entity_max, args.mode)
-
-    stories.append("\n// ===== AUTO-HAZARD (generic pack) =====\n")
-    stories.append(_build_assignments_js(graph, dsl))
-    stories.append(_GENERIC_HAZARD_JS)
-
-    one.write_stories(out_path, stories)
-
-    kinds = cov.get("kinds", [])
-    ops_count = cov.get("ops", 0)
-    by_entity = cov.get("by_entity", {})
-    rels = cov.get("rels", [])
-    rel_pairs = [(r.get('parent'), r.get('child')) for r in rels]
-    print(f"[COVERAGE] sut={sut} kinds={kinds} ops={ops_count} by_entity={by_entity} rels={rel_pairs}")
-
-    if args.fail_under_stories and len(stories) < args.fail_under_stories:
-        print(f"[FAIL] story count {len(stories)} < threshold {args.fail_under_stories}")
-
-    return 0
-
-if __name__ == "__main__":
-    sys.exit(main())

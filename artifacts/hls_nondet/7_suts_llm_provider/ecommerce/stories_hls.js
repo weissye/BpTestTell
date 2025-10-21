@@ -15,6 +15,7 @@ bthread("DrugLifecycle", function () {
   updateDrug(x.id);
   verifyDrugExists(x.id);
   verifyDrugUpdated(x.id);
+  deleteDrug(x.id);
 });
 
 bthread("InventoryLifecycle", function () {
@@ -24,6 +25,7 @@ bthread("InventoryLifecycle", function () {
   updateInventory(x.id);
   verifyInventoryExists(x.id);
   verifyInventoryUpdated(x.id);
+  deleteInventory(x.id);
 });
 
 bthread("OrderLifecycle", function () {
@@ -33,6 +35,7 @@ bthread("OrderLifecycle", function () {
   updateOrder(x.id);
   verifyOrderExists(x.id);
   verifyOrderUpdated(x.id);
+  deleteOrder(x.id);
 });
 
 bthread("PatientLifecycle", function () {
@@ -42,6 +45,7 @@ bthread("PatientLifecycle", function () {
   updatePatient(x.id);
   verifyPatientExists(x.id);
   verifyPatientUpdated(x.id);
+  deletePatient(x.id);
 });
 
 bthread("PrescriptionLifecycle", function () {
@@ -51,6 +55,7 @@ bthread("PrescriptionLifecycle", function () {
   updatePrescription(x.id);
   verifyPrescriptionExists(x.id);
   verifyPrescriptionUpdated(x.id);
+  deletePrescription(x.id);
 });
 
 bthread("ResetLifecycle", function () {
@@ -60,6 +65,7 @@ bthread("ResetLifecycle", function () {
   updateReset(x.id);
   verifyResetExists(x.id);
   verifyResetUpdated(x.id);
+  deleteReset(x.id);
 });
 
 // ===== NONDET VARIANTS =====

@@ -15,6 +15,7 @@ bthread("BookLifecycle", function () {
   updateBook(x.id);
   verifyBookExists(x.id);
   verifyBookUpdated(x.id);
+  deleteBook(x.id);
 });
 
 bthread("HoldLifecycle", function () {
@@ -24,6 +25,7 @@ bthread("HoldLifecycle", function () {
   updateHold(x.id);
   verifyHoldExists(x.id);
   verifyHoldUpdated(x.id);
+  deleteHold(x.id);
 });
 
 bthread("LoanLifecycle", function () {
@@ -33,6 +35,7 @@ bthread("LoanLifecycle", function () {
   updateLoan(x.id);
   verifyLoanExists(x.id);
   verifyLoanUpdated(x.id);
+  deleteLoan(x.id);
 });
 
 bthread("UserLifecycle", function () {
@@ -42,6 +45,7 @@ bthread("UserLifecycle", function () {
   updateUser(x.id);
   verifyUserExists(x.id);
   verifyUserUpdated(x.id);
+  deleteUser(x.id);
 });
 
 // ===== NONDET VARIANTS =====

@@ -15,6 +15,7 @@ bthread("AccountLifecycle", function () {
   updateAccount(x.id);
   verifyAccountExists(x.id);
   verifyAccountUpdated(x.id);
+  deleteAccount(x.id);
 });
 
 bthread("CardLifecycle", function () {
@@ -24,6 +25,7 @@ bthread("CardLifecycle", function () {
   updateCard(x.id);
   verifyCardExists(x.id);
   verifyCardUpdated(x.id);
+  deleteCard(x.id);
 });
 
 bthread("CustomerLifecycle", function () {
@@ -33,6 +35,7 @@ bthread("CustomerLifecycle", function () {
   updateCustomer(x.id);
   verifyCustomerExists(x.id);
   verifyCustomerUpdated(x.id);
+  deleteCustomer(x.id);
 });
 
 bthread("LoanLifecycle", function () {
@@ -42,6 +45,7 @@ bthread("LoanLifecycle", function () {
   updateLoan(x.id);
   verifyLoanExists(x.id);
   verifyLoanUpdated(x.id);
+  deleteLoan(x.id);
 });
 
 bthread("ResetLifecycle", function () {
@@ -51,6 +55,7 @@ bthread("ResetLifecycle", function () {
   updateReset(x.id);
   verifyResetExists(x.id);
   verifyResetUpdated(x.id);
+  deleteReset(x.id);
 });
 
 bthread("TransactionLifecycle", function () {
@@ -60,6 +65,7 @@ bthread("TransactionLifecycle", function () {
   updateTransaction(x.id);
   verifyTransactionExists(x.id);
   verifyTransactionUpdated(x.id);
+  deleteTransaction(x.id);
 });
 
 bthread("TransferLifecycle", function () {
@@ -69,6 +75,7 @@ bthread("TransferLifecycle", function () {
   updateTransfer(x.id);
   verifyTransferExists(x.id);
   verifyTransferUpdated(x.id);
+  deleteTransfer(x.id);
 });
 
 // ===== NONDET VARIANTS =====

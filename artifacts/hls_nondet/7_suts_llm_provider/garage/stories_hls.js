@@ -15,6 +15,7 @@ bthread("ApproveLifecycle", function () {
   updateApprove(x.id);
   verifyApproveExists(x.id);
   verifyApproveUpdated(x.id);
+  deleteApprove(x.id);
 });
 
 bthread("CarLifecycle", function () {
@@ -24,6 +25,7 @@ bthread("CarLifecycle", function () {
   updateCar(x.id);
   verifyCarExists(x.id);
   verifyCarUpdated(x.id);
+  deleteCar(x.id);
 });
 
 bthread("ChainLifecycle", function () {
@@ -33,6 +35,7 @@ bthread("ChainLifecycle", function () {
   updateChain(x.id);
   verifyChainExists(x.id);
   verifyChainUpdated(x.id);
+  deleteChain(x.id);
 });
 
 bthread("CloseLifecycle", function () {
@@ -42,6 +45,7 @@ bthread("CloseLifecycle", function () {
   updateClose(x.id);
   verifyCloseExists(x.id);
   verifyCloseUpdated(x.id);
+  deleteClose(x.id);
 });
 
 bthread("CustomerLifecycle", function () {
@@ -51,6 +55,7 @@ bthread("CustomerLifecycle", function () {
   updateCustomer(x.id);
   verifyCustomerExists(x.id);
   verifyCustomerUpdated(x.id);
+  deleteCustomer(x.id);
 });
 
 bthread("GarageLifecycle", function () {
@@ -60,6 +65,7 @@ bthread("GarageLifecycle", function () {
   updateGarage(x.id);
   verifyGarageExists(x.id);
   verifyGarageUpdated(x.id);
+  deleteGarage(x.id);
 });
 
 bthread("PeriodicmaintenanceLifecycle", function () {
@@ -69,6 +75,7 @@ bthread("PeriodicmaintenanceLifecycle", function () {
   updatePeriodicmaintenance(x.id);
   verifyPeriodicmaintenanceExists(x.id);
   verifyPeriodicmaintenanceUpdated(x.id);
+  deletePeriodicmaintenance(x.id);
 });
 
 bthread("RepairorderLifecycle", function () {
@@ -78,6 +85,7 @@ bthread("RepairorderLifecycle", function () {
   updateRepairorder(x.id);
   verifyRepairorderExists(x.id);
   verifyRepairorderUpdated(x.id);
+  deleteRepairorder(x.id);
 });
 
 bthread("ResetLifecycle", function () {
@@ -87,6 +95,7 @@ bthread("ResetLifecycle", function () {
   updateReset(x.id);
   verifyResetExists(x.id);
   verifyResetUpdated(x.id);
+  deleteReset(x.id);
 });
 
 // ===== NONDET VARIANTS =====

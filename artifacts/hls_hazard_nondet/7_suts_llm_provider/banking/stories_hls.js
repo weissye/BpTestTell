@@ -1,0 +1,623 @@
+// ====================================================================
+// Auto-generated garage-style High-Level Stories (HLS)
+// SUT: hls
+// ====================================================================
+
+var ANY = (typeof H !== 'undefined' && H.ANY) ? H.ANY : (typeof ANY !== 'undefined' ? ANY : '*');
+
+// ===== ACTIVE LIFECYCLES =====
+
+
+bthread("AccountLifecycle", function () {
+  const x = pick([{id: "A001"}, {id: "A002"}]);
+  addAccount(x.id);
+  updateAccount(x.id);
+  updateAccount(x.id);
+  verifyAccountExists(x.id);
+  verifyAccountUpdated(x.id);
+  deleteAccount(x.id);
+});
+
+bthread("CardLifecycle", function () {
+  const x = pick([{id: "C001"}, {id: "C002"}]);
+  addCard(x.id);
+  updateCard(x.id);
+  updateCard(x.id);
+  verifyCardExists(x.id);
+  verifyCardUpdated(x.id);
+  deleteCard(x.id);
+});
+
+bthread("CustomerLifecycle", function () {
+  const x = pick([{id: "C001"}, {id: "C002"}]);
+  addCustomer(x.id);
+  updateCustomer(x.id);
+  updateCustomer(x.id);
+  verifyCustomerExists(x.id);
+  verifyCustomerUpdated(x.id);
+  deleteCustomer(x.id);
+});
+
+bthread("LoanLifecycle", function () {
+  const x = pick([{id: "L001"}, {id: "L002"}]);
+  addLoan(x.id);
+  updateLoan(x.id);
+  updateLoan(x.id);
+  verifyLoanExists(x.id);
+  verifyLoanUpdated(x.id);
+  deleteLoan(x.id);
+});
+
+bthread("ResetLifecycle", function () {
+  const x = pick([{id: "R001"}, {id: "R002"}]);
+  addReset(x.id);
+  updateReset(x.id);
+  updateReset(x.id);
+  verifyResetExists(x.id);
+  verifyResetUpdated(x.id);
+  deleteReset(x.id);
+});
+
+bthread("TransactionLifecycle", function () {
+  const x = pick([{id: "T001"}, {id: "T002"}]);
+  addTransaction(x.id);
+  updateTransaction(x.id);
+  updateTransaction(x.id);
+  verifyTransactionExists(x.id);
+  verifyTransactionUpdated(x.id);
+  deleteTransaction(x.id);
+});
+
+bthread("TransferLifecycle", function () {
+  const x = pick([{id: "T001"}, {id: "T002"}]);
+  addTransfer(x.id);
+  updateTransfer(x.id);
+  updateTransfer(x.id);
+  verifyTransferExists(x.id);
+  verifyTransferUpdated(x.id);
+  deleteTransfer(x.id);
+});
+
+// ===== NONDET VARIANTS =====
+
+bthread("Account nondet variant – burst updates & optional delete", function () {
+  const x = pick([{id: "Account_id_N"}]);
+  const steps = pick([0,1,2,10]);
+  addAccount(x.id);
+  for (var i=0; i<steps; i++) {
+    updateAccount(x.id);
+  }
+  if (pick([true,false])) { deleteAccount(x.id); }
+  verifyAccountExists(x.id);
+  verifyAccountUpdated(x.id);
+});
+
+bthread("Account nondet variant – uniqueness during parallel adds", function () {
+  const ids = pick([[1,2],[10,11],[100,101]]);
+  const a = { id: 'A' + ids[0] };
+  const b = { id: 'A' + ids[1] };
+  addAccount(a.id);
+  block(matchAddAccount(a.id, ANY), function () {});
+  addAccount(b.id);
+});
+
+bthread("Card nondet variant – burst updates & optional delete", function () {
+  const x = pick([{id: "Card_id_N"}]);
+  const steps = pick([0,1,2,10]);
+  addCard(x.id);
+  for (var i=0; i<steps; i++) {
+    updateCard(x.id);
+  }
+  if (pick([true,false])) { deleteCard(x.id); }
+  verifyCardExists(x.id);
+  verifyCardUpdated(x.id);
+});
+
+bthread("Card nondet variant – uniqueness during parallel adds", function () {
+  const ids = pick([[1,2],[10,11],[100,101]]);
+  const a = { id: 'C' + ids[0] };
+  const b = { id: 'C' + ids[1] };
+  addCard(a.id);
+  block(matchAddCard(a.id, ANY), function () {});
+  addCard(b.id);
+});
+
+bthread("Customer nondet variant – burst updates & optional delete", function () {
+  const x = pick([{id: "Customer_id_N"}]);
+  const steps = pick([0,1,2,10]);
+  addCustomer(x.id);
+  for (var i=0; i<steps; i++) {
+    updateCustomer(x.id);
+  }
+  if (pick([true,false])) { deleteCustomer(x.id); }
+  verifyCustomerExists(x.id);
+  verifyCustomerUpdated(x.id);
+});
+
+bthread("Customer nondet variant – uniqueness during parallel adds", function () {
+  const ids = pick([[1,2],[10,11],[100,101]]);
+  const a = { id: 'C' + ids[0] };
+  const b = { id: 'C' + ids[1] };
+  addCustomer(a.id);
+  block(matchAddCustomer(a.id, ANY), function () {});
+  addCustomer(b.id);
+});
+
+bthread("Loan nondet variant – burst updates & optional delete", function () {
+  const x = pick([{id: "Loan_id_N"}]);
+  const steps = pick([0,1,2,10]);
+  addLoan(x.id);
+  for (var i=0; i<steps; i++) {
+    updateLoan(x.id);
+  }
+  if (pick([true,false])) { deleteLoan(x.id); }
+  verifyLoanExists(x.id);
+  verifyLoanUpdated(x.id);
+});
+
+bthread("Loan nondet variant – uniqueness during parallel adds", function () {
+  const ids = pick([[1,2],[10,11],[100,101]]);
+  const a = { id: 'L' + ids[0] };
+  const b = { id: 'L' + ids[1] };
+  addLoan(a.id);
+  block(matchAddLoan(a.id, ANY), function () {});
+  addLoan(b.id);
+});
+
+bthread("Reset nondet variant – burst updates & optional delete", function () {
+  const x = pick([{id: "Reset_id_N"}]);
+  const steps = pick([0,1,2,10]);
+  addReset(x.id);
+  for (var i=0; i<steps; i++) {
+    updateReset(x.id);
+  }
+  if (pick([true,false])) { deleteReset(x.id); }
+  verifyResetExists(x.id);
+  verifyResetUpdated(x.id);
+});
+
+bthread("Reset nondet variant – uniqueness during parallel adds", function () {
+  const ids = pick([[1,2],[10,11],[100,101]]);
+  const a = { id: 'R' + ids[0] };
+  const b = { id: 'R' + ids[1] };
+  addReset(a.id);
+  block(matchAddReset(a.id, ANY), function () {});
+  addReset(b.id);
+});
+
+bthread("Transaction nondet variant – burst updates & optional delete", function () {
+  const x = pick([{id: "Transaction_id_N"}]);
+  const steps = pick([0,1,2,10]);
+  addTransaction(x.id);
+  for (var i=0; i<steps; i++) {
+    updateTransaction(x.id);
+  }
+  if (pick([true,false])) { deleteTransaction(x.id); }
+  verifyTransactionExists(x.id);
+  verifyTransactionUpdated(x.id);
+});
+
+bthread("Transaction nondet variant – uniqueness during parallel adds", function () {
+  const ids = pick([[1,2],[10,11],[100,101]]);
+  const a = { id: 'T' + ids[0] };
+  const b = { id: 'T' + ids[1] };
+  addTransaction(a.id);
+  block(matchAddTransaction(a.id, ANY), function () {});
+  addTransaction(b.id);
+});
+
+bthread("Transfer nondet variant – burst updates & optional delete", function () {
+  const x = pick([{id: "Transfer_id_N"}]);
+  const steps = pick([0,1,2,10]);
+  addTransfer(x.id);
+  for (var i=0; i<steps; i++) {
+    updateTransfer(x.id);
+  }
+  if (pick([true,false])) { deleteTransfer(x.id); }
+  verifyTransferExists(x.id);
+  verifyTransferUpdated(x.id);
+});
+
+bthread("Transfer nondet variant – uniqueness during parallel adds", function () {
+  const ids = pick([[1,2],[10,11],[100,101]]);
+  const a = { id: 'T' + ids[0] };
+  const b = { id: 'T' + ids[1] };
+  addTransfer(a.id);
+  block(matchAddTransfer(a.id, ANY), function () {});
+  addTransfer(b.id);
+});
+
+// ===== PASSIVE ASSERTIONS =====
+
+bthread("Account create verification", function () {
+  const e = waitForAnyAccountAdded();
+  block(matchDeleteAccount(e.id, ANY), function () {
+    verifyAccountExists(e.id);
+  });
+});
+
+bthread("Account update verification", function () {
+  const e = waitForAnyAccountUpdated();
+  block(matchDeleteAccount(e.id, ANY), function () {
+    verifyAccountUpdated(e.id);
+  });
+});
+
+bthread("Account delete verification", function () {
+  const e = waitForAnyAccountDeleted();
+  block(matchAddAccount(e.id, ANY), function () {
+    verifyAccountDoesNotExist(e.id);
+  });
+});
+
+bthread("Card create verification", function () {
+  const e = waitForAnyCardAdded();
+  block(matchDeleteCard(e.id, ANY), function () {
+    verifyCardExists(e.id);
+  });
+});
+
+bthread("Card update verification", function () {
+  const e = waitForAnyCardUpdated();
+  block(matchDeleteCard(e.id, ANY), function () {
+    verifyCardUpdated(e.id);
+  });
+});
+
+bthread("Card delete verification", function () {
+  const e = waitForAnyCardDeleted();
+  block(matchAddCard(e.id, ANY), function () {
+    verifyCardDoesNotExist(e.id);
+  });
+});
+
+bthread("Customer create verification", function () {
+  const e = waitForAnyCustomerAdded();
+  block(matchDeleteCustomer(e.id, ANY), function () {
+    verifyCustomerExists(e.id);
+  });
+});
+
+bthread("Customer update verification", function () {
+  const e = waitForAnyCustomerUpdated();
+  block(matchDeleteCustomer(e.id, ANY), function () {
+    verifyCustomerUpdated(e.id);
+  });
+});
+
+bthread("Customer delete verification", function () {
+  const e = waitForAnyCustomerDeleted();
+  block(matchAddCustomer(e.id, ANY), function () {
+    verifyCustomerDoesNotExist(e.id);
+  });
+});
+
+bthread("Loan create verification", function () {
+  const e = waitForAnyLoanAdded();
+  block(matchDeleteLoan(e.id, ANY), function () {
+    verifyLoanExists(e.id);
+  });
+});
+
+bthread("Loan update verification", function () {
+  const e = waitForAnyLoanUpdated();
+  block(matchDeleteLoan(e.id, ANY), function () {
+    verifyLoanUpdated(e.id);
+  });
+});
+
+bthread("Loan delete verification", function () {
+  const e = waitForAnyLoanDeleted();
+  block(matchAddLoan(e.id, ANY), function () {
+    verifyLoanDoesNotExist(e.id);
+  });
+});
+
+bthread("Reset create verification", function () {
+  const e = waitForAnyResetAdded();
+  block(matchDeleteReset(e.id, ANY), function () {
+    verifyResetExists(e.id);
+  });
+});
+
+bthread("Reset update verification", function () {
+  const e = waitForAnyResetUpdated();
+  block(matchDeleteReset(e.id, ANY), function () {
+    verifyResetUpdated(e.id);
+  });
+});
+
+bthread("Reset delete verification", function () {
+  const e = waitForAnyResetDeleted();
+  block(matchAddReset(e.id, ANY), function () {
+    verifyResetDoesNotExist(e.id);
+  });
+});
+
+bthread("Transaction create verification", function () {
+  const e = waitForAnyTransactionAdded();
+  block(matchDeleteTransaction(e.id, ANY), function () {
+    verifyTransactionExists(e.id);
+  });
+});
+
+bthread("Transaction update verification", function () {
+  const e = waitForAnyTransactionUpdated();
+  block(matchDeleteTransaction(e.id, ANY), function () {
+    verifyTransactionUpdated(e.id);
+  });
+});
+
+bthread("Transaction delete verification", function () {
+  const e = waitForAnyTransactionDeleted();
+  block(matchAddTransaction(e.id, ANY), function () {
+    verifyTransactionDoesNotExist(e.id);
+  });
+});
+
+bthread("Transfer create verification", function () {
+  const e = waitForAnyTransferAdded();
+  block(matchDeleteTransfer(e.id, ANY), function () {
+    verifyTransferExists(e.id);
+  });
+});
+
+bthread("Transfer update verification", function () {
+  const e = waitForAnyTransferUpdated();
+  block(matchDeleteTransfer(e.id, ANY), function () {
+    verifyTransferUpdated(e.id);
+  });
+});
+
+bthread("Transfer delete verification", function () {
+  const e = waitForAnyTransferDeleted();
+  block(matchAddTransfer(e.id, ANY), function () {
+    verifyTransferDoesNotExist(e.id);
+  });
+});
+
+// ===== RELATIONSHIP GUARDS =====
+
+// ===== UNIQUENESS GUARDS =====
+
+bthread("Guard: Unique Account", function () {
+  const x = waitForAnyAccountAdded();
+  block(matchAddAccount(x.id, ANY), function () {});
+});
+
+bthread("Guard: Unique Card", function () {
+  const x = waitForAnyCardAdded();
+  block(matchAddCard(x.id, ANY), function () {});
+});
+
+bthread("Guard: Unique Customer", function () {
+  const x = waitForAnyCustomerAdded();
+  block(matchAddCustomer(x.id, ANY), function () {});
+});
+
+bthread("Guard: Unique Loan", function () {
+  const x = waitForAnyLoanAdded();
+  block(matchAddLoan(x.id, ANY), function () {});
+});
+
+bthread("Guard: Unique Reset", function () {
+  const x = waitForAnyResetAdded();
+  block(matchAddReset(x.id, ANY), function () {});
+});
+
+bthread("Guard: Unique Transaction", function () {
+  const x = waitForAnyTransactionAdded();
+  block(matchAddTransaction(x.id, ANY), function () {});
+});
+
+bthread("Guard: Unique Transfer", function () {
+  const x = waitForAnyTransferAdded();
+  block(matchAddTransfer(x.id, ANY), function () {});
+});
+
+// ===== NEGATIVE/EDGE STATUS GUARDS =====
+
+
+// ===== AUTO-HAZARD (generic pack) =====
+
+globalThis.__DSL_ENTITIES__ = ["Account", "Card", "Customer", "Loan", "Reset", "Transaction", "Transfer"];
+globalThis.__GRAPH_RELATIONSHIPS__ = [];
+globalThis.__DSL_DO__ = {"Account": {"add": "addAccount", "update": "updateAccount", "delete": "deleteAccount"}, "Card": {"add": "addCard", "update": "updateCard", "delete": "deleteCard"}, "Customer": {"add": "addCustomer", "update": "updateCustomer", "delete": "deleteCustomer"}, "Loan": {"add": "addLoan", "update": "updateLoan", "delete": "deleteLoan"}, "Reset": {"add": "addReset", "update": "updateReset", "delete": "deleteReset"}, "Transaction": {"add": "addTransaction", "update": "updateTransaction", "delete": "deleteTransaction"}, "Transfer": {"add": "addTransfer", "update": "updateTransfer", "delete": "deleteTransfer"}};
+globalThis.__DSL_ARG0__ = {"Account": "id", "Card": "id", "Customer": "id", "Loan": "id", "Reset": "id", "Transaction": "id", "Transfer": "id"};
+
+
+// @auto-hazard-begin
+(function AutoHazardPack(){
+  if (typeof bp === 'undefined') return;
+  if (String((bp.env && bp.env.HLS_HAZARD_PACK) || 'auto') === 'off') return;
+
+  const R = (globalThis.read || globalThis || {});
+  const on = (name, def=1) => Number((bp.env && bp.env[name]) ?? def) !== 0;
+  const det = String((bp.env && bp.env.DET_MODE) || '1') === '1';
+  const log = (...a)=>{ if (bp && bp.log && bp.log.info) try{ bp.log.info(a.join(' ')); }catch(_){ } };
+  const FN = (k)=> typeof R[k] === 'function';
+  const looksLikeIdField = (k, ent)=> /(^id$|Id$|ID$|_id$)/.test(k) || k.toLowerCase()=== (ent.toLowerCase()+'id');
+  const looksLikeLimit   = (k)=> /(limit|capacity|quota|max|budget|credit)/i.test(k);
+  const looksLikeAmount  = (k)=> /(amount|qty|quantity|units|size|weight|cost|load)/i.test(k);
+  const looksLikeStock   = (k)=> /(stock|inventory|balance|available|remaining|free)/i.test(k);
+
+  const ENTS = globalThis.__DSL_ENTITIES__ || [];
+  const RELS = globalThis.__GRAPH_RELATIONSHIPS__ || [];
+  const DOFN = globalThis.__DSL_DO__ || {};
+  const ARG0 = globalThis.__DSL_ARG0__ || {};
+
+  globalThis.__hlsFocus = globalThis.__hlsFocus || {};
+
+  function discoverReadersForEntity(ent){
+    const plural = ent.endsWith('s') ? ent : ent + 's';
+    const guesses = ['list'+plural, 'list'+ent, 'get'+ent, 'get'+ent+'ById', 'get'+plural, 'fetch'+ent, 'fetch'+plural];
+    const readers = {};
+    for (const g of guesses){
+      if (FN(g)) readers[g] = R[g];
+    }
+    return readers;
+  }
+
+  async function sampleEntities(ent){
+    const readers = discoverReadersForEntity(ent);
+    const listFn = readers['list'+ent+'s'] || readers['list'+ent] || readers['get'+ent+'s'] || null;
+    let items = [];
+    if (listFn) { try { items = await listFn(); } catch(_) {} }
+    if (!Array.isArray(items)) items = [];
+    const sample = items[0] || {};
+    const keys = Object.keys(sample||{});
+    const idKey = keys.find(k=> looksLikeIdField(k, ent)) || 'id';
+    const numericKeys = keys.filter(k=> typeof sample[k] === 'number');
+    const counters = numericKeys.filter(k=> looksLikeStock(k));
+    const amounts  = numericKeys.filter(k=> looksLikeAmount(k));
+    const limits   = numericKeys.filter(k=> looksLikeLimit(k));
+    return { items, idKey, counters, amounts, limits };
+  }
+
+  async function chooseFocusFor(ent){
+    try {
+      const s = await sampleEntities(ent);
+      let id = s.items.length ? (det ? s.items[0][s.idKey] : s.items[Math.floor(Math.random()*s.items.length)][s.idKey]) : null;
+      if (!id) {
+        const waitName = 'waitForAny'+ent+'Added';
+        if (typeof globalThis[waitName] === 'function') {
+          const e = await globalThis[waitName]();
+          if (e && e[s.idKey]) id = e[s.idKey];
+          else if (e && e.id)  id = e.id;
+        }
+      }
+      if (id !== undefined && id !== null) {
+        globalThis.__hlsFocus[ent] = id;
+      }
+    } catch(_){}
+  }
+
+  (function wrapDo(){
+    Object.keys(DOFN).forEach(ent => {
+      const opmap = DOFN[ent] || {};
+      ['add','update','delete'].forEach(op => {
+        const fnName = opmap[op];
+        if (!fnName) return;
+        const orig = globalThis[fnName];
+        if (typeof orig !== 'function') return;
+        if (orig.__wrappedByHazard) return;
+        const arg0Name = ARG0[ent] || 'id';
+        globalThis[fnName] = async function(...args){
+          const f = globalThis.__hlsFocus ? globalThis.__hlsFocus[ent] : undefined;
+          if (f !== undefined && f !== null) {
+            if (args.length === 0) args = [f];
+            else args[0] = f;
+          }
+          return await orig.apply(this, args);
+        };
+        globalThis[fnName].__wrappedByHazard = true;
+      });
+    });
+  })();
+
+  try {
+    ENTS.forEach(ent=>{
+      bp.registerBThread('CB:'+ent+'Focus', function(){
+        return bp.async(()=> chooseFocusFor(ent));
+      });
+    });
+  } catch(_){}
+
+  if (on('HLS_HAZARD_OVR',1)) {
+    bp.registerBThread('HO:NonNegativeCounters', function(){
+      return bp.async(async function(){
+        const ents = ENTS;
+        for (const ent of ents){
+          const s = await sampleEntities(ent);
+          const id = (globalThis.__hlsFocus && globalThis.__hlsFocus[ent]) || null;
+          if (!id) continue;
+          let obj=null;
+          const r = discoverReadersForEntity(ent);
+          for (const g of ['get'+ent,'get'+ent+'ById']) {
+            if (r[g]) { try{ obj = await r[g](id); }catch(_){ } }
+            if (obj) break;
+          }
+          if (!obj) obj = s.items.find(x=> x[s.idKey]===id) || null;
+          if (!obj) continue;
+          for (const k of s.counters){
+            const v = Number(obj[k]);
+            if (isFinite(v) && v < 0) throw new Error(`[HazardOracle] NonNegative: ${ent}.${k} became negative for ${id}`);
+          }
+        }
+      });
+    });
+  }
+
+  if (on('HLS_HAZARD_CAS',1)) {
+    (function(){
+      const rels = RELS;
+      rels.forEach(({parent,child})=>{
+        bp.registerBThread(`HO:RefIntegrity ${parent}->${child}`, function(){
+          return bp.async(async function(){
+            const pS = await sampleEntities(parent);
+            const cS = await sampleEntities(child);
+            const focusId = (globalThis.__hlsFocus && globalThis.__hlsFocus[parent]) || null;
+            if (!focusId) return;
+            let children = [];
+            const cr = discoverReadersForEntity(child);
+            const listChild = cr['list'+child+'s'] || cr['list'+child] || cr['get'+child+'s'] || null;
+            if (listChild) { try{ children = await listChild(); }catch(_){ } }
+            if (!Array.isArray(children)) children = [];
+            const fkCandidates = Object.keys(children[0]||{}).filter(k=> /(Id$|_id$|ID$|^id$)/.test(k) && k.toLowerCase()!==('id'));
+            const fk = fkCandidates[0] || (parent.toLowerCase()+'Id') || 'parentId';
+            const deps = children.filter(x=> String(x[fk]) === String(focusId));
+            if (deps.length>0){
+              let parentObj = null;
+              const pr = discoverReadersForEntity(parent);
+              for (const g of ['get'+parent,'get'+parent+'ById']) {
+                if (pr[g]) { try{ parentObj = await pr[g](focusId); }catch(_){ } }
+                if (parentObj) break;
+              }
+              if (!parentObj) throw new Error(`[HazardOracle] ReferentialIntegrity: ${parent} ${focusId} missing while ${child} dependents exist`);
+            }
+          });
+        });
+      });
+    })();
+  }
+
+  if (on('HLS_HAZARD_WSK',1)) {
+    (function(){
+      const rels = RELS;
+      rels.forEach(({parent,child})=>{
+        bp.registerBThread(`HO:AggregateLimit ${parent}<-${child}`, function(){
+          return bp.async(async function(){
+            const pS = await sampleEntities(parent);
+            const cS = await sampleEntities(child);
+            const focusId = (globalThis.__hlsFocus && globalThis.__hlsFocus[parent]) || null;
+            if (!focusId) return;
+            let pObj=null;
+            const pr = discoverReadersForEntity(parent);
+            for (const g of ['get'+parent,'get'+parent+'ById']) {
+              if (pr[g]) { try{ pObj = await pr[g](focusId); }catch(_){ } }
+              if (pObj) break;
+            }
+            if (!pObj && pS.items.length) pObj = pS.items.find(x=> x[pS.idKey]===focusId) || pS.items[0];
+            if (!pObj) return;
+            const limitKey = pS.limits[0] || Object.keys(pObj).find(k=> /(limit|capacity|quota|max|budget|credit)/i.test(k));
+            const limitVal = Number(limitKey ? pObj[limitKey] : NaN);
+            if (!isFinite(limitVal)) return;
+            let children = [];
+            const cr = discoverReadersForEntity(child);
+            const listChild = cr['list'+child+'s'] || cr['list'+child] || cr['get'+child+'s'] || null;
+            if (listChild) { try{ children = await listChild(); }catch(_){ } }
+            if (!Array.isArray(children)) children = [];
+            const fkCandidates = Object.keys(children[0]||{}).filter(k=> /(Id$|_id$|ID$|^id$)/.test(k) && k.toLowerCase()!==('id'));
+            const fk = fkCandidates[0] || (parent.toLowerCase()+'Id') || 'parentId';
+            const contribKey = cS.amounts[0] || Object.keys(children[0]||{}).find(k=> /(amount|qty|quantity|units|size|weight|cost|load)/i.test(k));
+            if (!contribKey) return;
+            const total = children.filter(x=> String(x[fk])===String(focusId))
+                                  .reduce((s,x)=> s + (Number(x[contribKey])||0), 0);
+            if (total > limitVal) throw new Error(`[HazardOracle] AggregateLimit: Σ ${child}.${contribKey} (${total}) > ${parent}.${limitKey} (${limitVal}) for ${focusId}`);
+          });
+        });
+      });
+    })();
+  }
+})(); // AutoHazardPack
+// @auto-hazard-end

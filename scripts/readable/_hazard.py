@@ -270,10 +270,13 @@ def main() -> int:
     ap.add_argument("--out", default=None)
     ap.add_argument("--graph", default=None)
     ap.add_argument("--dsl_map", default=None)
-    ap.add_argument("--profile", choices=["basic","rich"], default="rich")
+    ap.add_argument("--profile", choices=["basic","rich","hazard"], default="rich")
     ap.add_argument("--per_entity_max", type=int, default=3)
     ap.add_argument("--fail_under_stories", type=int, default=0)
     args = ap.parse_args()
+    # Treat 'hazard' as an alias of 'rich' for --profile
+    if getattr(args, 'profile', None) == 'hazard':
+        args.profile = 'rich'
 
     out_path = Path(args.out) if args.out else one.default_out_path(args.sut_dir, args.mode)
     graph_path = Path(args.graph) if args.graph else one.default_graph_path(args.sut_dir)
