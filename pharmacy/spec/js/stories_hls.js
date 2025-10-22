@@ -16,73 +16,153 @@ if (typeof pick === 'undefined') {
   }
 }
 
+// --- _pk(e,key): robust primary-key extractor for wait/match events ---
+function _pk(e, key) {
+  if (e == null) return undefined;
+  if (typeof e === 'object') {
+    if (Object.prototype.hasOwnProperty.call(e, key)) return e[key];
+    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key)) return e.data[key];
+    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key)) return e.payload[key];
+    if (Object.prototype.hasOwnProperty.call(e, 'id')) return e['id'];
+    // minimal extra fallback for Inventory-like entities
+    if (Object.prototype.hasOwnProperty.call(e, 'ndc')) return e['ndc'];
+  }
+  return (typeof e === 'string' || typeof e === 'number') ? e : undefined;
+}
+
 // ===== ACTIVE LIFECYCLES =====
 
 
 bthread("DrugLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = x.id;
   addDrug(x.id);
+  const e_add = waitForDrugAdded(id);
+  block(matchDeleteDrug(id), function () {
+    verifyDrugExists(id);
+  });
   updateDrug(x.id);
   updateDrug(x.id);
-  verifyDrugExists(x.id);
-  verifyDrugUpdated(x.id);
+  const e_upd = waitForDrugUpdated(id);
+  block(matchDeleteDrug(id), function () {
+    verifyDrugUpdated(id);
+  });
   deleteDrug(x.id);
+  const e_del = waitForDrugDeleted(id);
+  block(matchAddDrug(id), function () {
+    verifyDrugDoesNotExist(id);
+  });
 });
 
 bthread("InventoryLifecycle", function () {
-  const x = pick([{id: "I001"}, {id: "I002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = x.id;
   addInventory(x.id);
+  const e_add = waitForInventoryAdded(id);
+  block(matchDeleteInventory(id), function () {
+    verifyInventoryExists(id);
+  });
   updateInventory(x.id);
   updateInventory(x.id);
-  verifyInventoryExists(x.id);
-  verifyInventoryUpdated(x.id);
+  const e_upd = waitForInventoryUpdated(id);
+  block(matchDeleteInventory(id), function () {
+    verifyInventoryUpdated(id);
+  });
   deleteInventory(x.id);
+  const e_del = waitForInventoryDeleted(id);
+  block(matchAddInventory(id), function () {
+    verifyInventoryDoesNotExist(id);
+  });
 });
 
 bthread("OrderLifecycle", function () {
-  const x = pick([{id: "O001"}, {id: "O002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = x.id;
   addOrder(x.id);
+  const e_add = waitForOrderAdded(id);
+  block(matchDeleteOrder(id), function () {
+    verifyOrderExists(id);
+  });
   updateOrder(x.id);
   updateOrder(x.id);
-  verifyOrderExists(x.id);
-  verifyOrderUpdated(x.id);
+  const e_upd = waitForOrderUpdated(id);
+  block(matchDeleteOrder(id), function () {
+    verifyOrderUpdated(id);
+  });
   deleteOrder(x.id);
+  const e_del = waitForOrderDeleted(id);
+  block(matchAddOrder(id), function () {
+    verifyOrderDoesNotExist(id);
+  });
 });
 
 bthread("PatientLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = x.id;
   addPatient(x.id);
+  const e_add = waitForPatientAdded(id);
+  block(matchDeletePatient(id), function () {
+    verifyPatientExists(id);
+  });
   updatePatient(x.id);
   updatePatient(x.id);
-  verifyPatientExists(x.id);
-  verifyPatientUpdated(x.id);
+  const e_upd = waitForPatientUpdated(id);
+  block(matchDeletePatient(id), function () {
+    verifyPatientUpdated(id);
+  });
   deletePatient(x.id);
+  const e_del = waitForPatientDeleted(id);
+  block(matchAddPatient(id), function () {
+    verifyPatientDoesNotExist(id);
+  });
 });
 
 bthread("PrescriptionLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = x.id;
   addPrescription(x.id);
+  const e_add = waitForPrescriptionAdded(id);
+  block(matchDeletePrescription(id), function () {
+    verifyPrescriptionExists(id);
+  });
   updatePrescription(x.id);
   updatePrescription(x.id);
-  verifyPrescriptionExists(x.id);
-  verifyPrescriptionUpdated(x.id);
+  const e_upd = waitForPrescriptionUpdated(id);
+  block(matchDeletePrescription(id), function () {
+    verifyPrescriptionUpdated(id);
+  });
   deletePrescription(x.id);
+  const e_del = waitForPrescriptionDeleted(id);
+  block(matchAddPrescription(id), function () {
+    verifyPrescriptionDoesNotExist(id);
+  });
 });
 
 bthread("ResetLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = x.id;
   addReset(x.id);
+  const e_add = waitForResetAdded(id);
+  block(matchDeleteReset(id), function () {
+    verifyResetExists(id);
+  });
   updateReset(x.id);
   updateReset(x.id);
-  verifyResetExists(x.id);
-  verifyResetUpdated(x.id);
+  const e_upd = waitForResetUpdated(id);
+  block(matchDeleteReset(id), function () {
+    verifyResetUpdated(id);
+  });
   deleteReset(x.id);
+  const e_del = waitForResetDeleted(id);
+  block(matchAddReset(id), function () {
+    verifyResetDoesNotExist(id);
+  });
 });
 
 // ===== NONDET VARIANTS =====
 
 bthread("Drug nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Drug_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addDrug(x.id);
   for (var i=0; i<steps; i++) {
@@ -103,7 +183,7 @@ bthread("Drug nondet variant – uniqueness during parallel adds", function () {
 });
 
 bthread("Inventory nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Inventory_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addInventory(x.id);
   for (var i=0; i<steps; i++) {
@@ -124,7 +204,7 @@ bthread("Inventory nondet variant – uniqueness during parallel adds", function
 });
 
 bthread("Order nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Order_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addOrder(x.id);
   for (var i=0; i<steps; i++) {
@@ -145,7 +225,7 @@ bthread("Order nondet variant – uniqueness during parallel adds", function () 
 });
 
 bthread("Patient nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Patient_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addPatient(x.id);
   for (var i=0; i<steps; i++) {
@@ -166,7 +246,7 @@ bthread("Patient nondet variant – uniqueness during parallel adds", function (
 });
 
 bthread("Prescription nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Prescription_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addPrescription(x.id);
   for (var i=0; i<steps; i++) {
@@ -187,7 +267,7 @@ bthread("Prescription nondet variant – uniqueness during parallel adds", funct
 });
 
 bthread("Reset nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Reset_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addReset(x.id);
   for (var i=0; i<steps; i++) {
@@ -211,127 +291,145 @@ bthread("Reset nondet variant – uniqueness during parallel adds", function () 
 
 bthread("Drug create verification", function () {
   const e = waitForAnyDrugAdded();
-  block(matchDeleteDrug(e.id, ANY), function () {
-    verifyDrugExists(e.id);
+  const k = _pk(e, "id");
+  block(matchDeleteDrug(k, ANY), function () {
+    verifyDrugExists(k);
   });
 });
 
 bthread("Drug update verification", function () {
   const e = waitForAnyDrugUpdated();
-  block(matchDeleteDrug(e.id, ANY), function () {
-    verifyDrugUpdated(e.id);
+  const k = _pk(e, "id");
+  block(matchDeleteDrug(k, ANY), function () {
+    verifyDrugUpdated(k);
   });
 });
 
 bthread("Drug delete verification", function () {
   const e = waitForAnyDrugDeleted();
-  block(matchAddDrug(e.id, ANY), function () {
-    verifyDrugDoesNotExist(e.id);
+  const k = _pk(e, "id");
+  block(matchAddDrug(k, ANY), function () {
+    verifyDrugDoesNotExist(k);
   });
 });
 
 bthread("Inventory create verification", function () {
   const e = waitForAnyInventoryAdded();
-  block(matchDeleteInventory(e.id, ANY), function () {
-    verifyInventoryExists(e.id);
+  const k = _pk(e, "id");
+  block(matchDeleteInventory(k, ANY), function () {
+    verifyInventoryExists(k);
   });
 });
 
 bthread("Inventory update verification", function () {
   const e = waitForAnyInventoryUpdated();
-  block(matchDeleteInventory(e.id, ANY), function () {
-    verifyInventoryUpdated(e.id);
+  const k = _pk(e, "id");
+  block(matchDeleteInventory(k, ANY), function () {
+    verifyInventoryUpdated(k);
   });
 });
 
 bthread("Inventory delete verification", function () {
   const e = waitForAnyInventoryDeleted();
-  block(matchAddInventory(e.id, ANY), function () {
-    verifyInventoryDoesNotExist(e.id);
+  const k = _pk(e, "id");
+  block(matchAddInventory(k, ANY), function () {
+    verifyInventoryDoesNotExist(k);
   });
 });
 
 bthread("Order create verification", function () {
   const e = waitForAnyOrderAdded();
-  block(matchDeleteOrder(e.id, ANY), function () {
-    verifyOrderExists(e.id);
+  const k = _pk(e, "id");
+  block(matchDeleteOrder(k, ANY), function () {
+    verifyOrderExists(k);
   });
 });
 
 bthread("Order update verification", function () {
   const e = waitForAnyOrderUpdated();
-  block(matchDeleteOrder(e.id, ANY), function () {
-    verifyOrderUpdated(e.id);
+  const k = _pk(e, "id");
+  block(matchDeleteOrder(k, ANY), function () {
+    verifyOrderUpdated(k);
   });
 });
 
 bthread("Order delete verification", function () {
   const e = waitForAnyOrderDeleted();
-  block(matchAddOrder(e.id, ANY), function () {
-    verifyOrderDoesNotExist(e.id);
+  const k = _pk(e, "id");
+  block(matchAddOrder(k, ANY), function () {
+    verifyOrderDoesNotExist(k);
   });
 });
 
 bthread("Patient create verification", function () {
   const e = waitForAnyPatientAdded();
-  block(matchDeletePatient(e.id, ANY), function () {
-    verifyPatientExists(e.id);
+  const k = _pk(e, "id");
+  block(matchDeletePatient(k, ANY), function () {
+    verifyPatientExists(k);
   });
 });
 
 bthread("Patient update verification", function () {
   const e = waitForAnyPatientUpdated();
-  block(matchDeletePatient(e.id, ANY), function () {
-    verifyPatientUpdated(e.id);
+  const k = _pk(e, "id");
+  block(matchDeletePatient(k, ANY), function () {
+    verifyPatientUpdated(k);
   });
 });
 
 bthread("Patient delete verification", function () {
   const e = waitForAnyPatientDeleted();
-  block(matchAddPatient(e.id, ANY), function () {
-    verifyPatientDoesNotExist(e.id);
+  const k = _pk(e, "id");
+  block(matchAddPatient(k, ANY), function () {
+    verifyPatientDoesNotExist(k);
   });
 });
 
 bthread("Prescription create verification", function () {
   const e = waitForAnyPrescriptionAdded();
-  block(matchDeletePrescription(e.id, ANY), function () {
-    verifyPrescriptionExists(e.id);
+  const k = _pk(e, "id");
+  block(matchDeletePrescription(k, ANY), function () {
+    verifyPrescriptionExists(k);
   });
 });
 
 bthread("Prescription update verification", function () {
   const e = waitForAnyPrescriptionUpdated();
-  block(matchDeletePrescription(e.id, ANY), function () {
-    verifyPrescriptionUpdated(e.id);
+  const k = _pk(e, "id");
+  block(matchDeletePrescription(k, ANY), function () {
+    verifyPrescriptionUpdated(k);
   });
 });
 
 bthread("Prescription delete verification", function () {
   const e = waitForAnyPrescriptionDeleted();
-  block(matchAddPrescription(e.id, ANY), function () {
-    verifyPrescriptionDoesNotExist(e.id);
+  const k = _pk(e, "id");
+  block(matchAddPrescription(k, ANY), function () {
+    verifyPrescriptionDoesNotExist(k);
   });
 });
 
 bthread("Reset create verification", function () {
   const e = waitForAnyResetAdded();
-  block(matchDeleteReset(e.id, ANY), function () {
-    verifyResetExists(e.id);
+  const k = _pk(e, "id");
+  block(matchDeleteReset(k, ANY), function () {
+    verifyResetExists(k);
   });
 });
 
 bthread("Reset update verification", function () {
   const e = waitForAnyResetUpdated();
-  block(matchDeleteReset(e.id, ANY), function () {
-    verifyResetUpdated(e.id);
+  const k = _pk(e, "id");
+  block(matchDeleteReset(k, ANY), function () {
+    verifyResetUpdated(k);
   });
 });
 
 bthread("Reset delete verification", function () {
   const e = waitForAnyResetDeleted();
-  block(matchAddReset(e.id, ANY), function () {
-    verifyResetDoesNotExist(e.id);
+  const k = _pk(e, "id");
+  block(matchAddReset(k, ANY), function () {
+    verifyResetDoesNotExist(k);
   });
 });
 

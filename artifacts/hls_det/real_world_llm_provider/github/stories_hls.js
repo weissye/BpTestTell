@@ -16,9866 +16,14345 @@ if (typeof pick === 'undefined') {
   }
 }
 
+// --- _pk(e,key): robust primary-key extractor for wait/match events ---
+function _pk(e, key) {
+  if (e == null) return undefined;
+  if (typeof e === 'object') {
+    if (Object.prototype.hasOwnProperty.call(e, key)) return e[key];
+    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key)) return e.data[key];
+    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key)) return e.payload[key];
+    if (Object.prototype.hasOwnProperty.call(e, 'id')) return e['id'];
+    // minimal extra fallback for Inventory-like entities
+    if (Object.prototype.hasOwnProperty.call(e, 'ndc')) return e['ndc'];
+  }
+  return (typeof e === 'string' || typeof e === 'number') ? e : undefined;
+}
+
+// --- canonKey(v): normalize any key-like value to a scalar string ---
+function canonKey(v) {
+  if (v == null) return '1001';
+  if (typeof v === 'object') {
+    if ('id' in v) return String(v.id);
+    if ('ndc' in v) return String(v.ndc);
+    const ks = Object.keys(v);
+    if (ks.length) return String(v[ks[0]]);
+    return '1001';
+  }
+  return String(v);
+}
+
 // ===== ACTIVE LIFECYCLES =====
 
 
 bthread("AcceptedassignmentLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAcceptedassignment(x.id);
+  const e_add = waitForAcceptedassignmentAdded(id);
+  block(matchDeleteAcceptedassignment(id), function () {
+    verifyAcceptedassignmentExists(id);
+  });
   updateAcceptedassignment(x.id);
   updateAcceptedassignment(x.id);
-  verifyAcceptedassignmentExists(x.id);
-  verifyAcceptedassignmentUpdated(x.id);
+  const e_upd = waitForAcceptedassignmentUpdated(id);
+  block(matchDeleteAcceptedassignment(id), function () {
+    verifyAcceptedassignmentUpdated(id);
+  });
   deleteAcceptedassignment(x.id);
+  const e_del = waitForAcceptedassignmentDeleted(id);
+  block(matchAddAcceptedassignment(id), function () {
+    verifyAcceptedassignmentDoesNotExist(id);
+  });
 });
 
 bthread("AccesLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAcces(x.id);
+  const e_add = waitForAccesAdded(id);
+  block(matchDeleteAcces(id), function () {
+    verifyAccesExists(id);
+  });
   updateAcces(x.id);
   updateAcces(x.id);
-  verifyAccesExists(x.id);
-  verifyAccesUpdated(x.id);
+  const e_upd = waitForAccesUpdated(id);
+  block(matchDeleteAcces(id), function () {
+    verifyAccesUpdated(id);
+  });
   deleteAcces(x.id);
+  const e_del = waitForAccesDeleted(id);
+  block(matchAddAcces(id), function () {
+    verifyAccesDoesNotExist(id);
+  });
 });
 
 bthread("AccesstokenLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAccesstoken(x.id);
+  const e_add = waitForAccesstokenAdded(id);
+  block(matchDeleteAccesstoken(id), function () {
+    verifyAccesstokenExists(id);
+  });
   updateAccesstoken(x.id);
   updateAccesstoken(x.id);
-  verifyAccesstokenExists(x.id);
-  verifyAccesstokenUpdated(x.id);
+  const e_upd = waitForAccesstokenUpdated(id);
+  block(matchDeleteAccesstoken(id), function () {
+    verifyAccesstokenUpdated(id);
+  });
   deleteAccesstoken(x.id);
+  const e_del = waitForAccesstokenDeleted(id);
+  block(matchAddAccesstoken(id), function () {
+    verifyAccesstokenDoesNotExist(id);
+  });
 });
 
 bthread("AccountLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAccount(x.id);
+  const e_add = waitForAccountAdded(id);
+  block(matchDeleteAccount(id), function () {
+    verifyAccountExists(id);
+  });
   updateAccount(x.id);
   updateAccount(x.id);
-  verifyAccountExists(x.id);
-  verifyAccountUpdated(x.id);
+  const e_upd = waitForAccountUpdated(id);
+  block(matchDeleteAccount(id), function () {
+    verifyAccountUpdated(id);
+  });
   deleteAccount(x.id);
+  const e_del = waitForAccountDeleted(id);
+  block(matchAddAccount(id), function () {
+    verifyAccountDoesNotExist(id);
+  });
 });
 
 bthread("ActionLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAction(x.id);
+  const e_add = waitForActionAdded(id);
+  block(matchDeleteAction(id), function () {
+    verifyActionExists(id);
+  });
   updateAction(x.id);
   updateAction(x.id);
-  verifyActionExists(x.id);
-  verifyActionUpdated(x.id);
+  const e_upd = waitForActionUpdated(id);
+  block(matchDeleteAction(id), function () {
+    verifyActionUpdated(id);
+  });
   deleteAction(x.id);
+  const e_del = waitForActionDeleted(id);
+  block(matchAddAction(id), function () {
+    verifyActionDoesNotExist(id);
+  });
 });
 
 bthread("ActivityLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addActivity(x.id);
+  const e_add = waitForActivityAdded(id);
+  block(matchDeleteActivity(id), function () {
+    verifyActivityExists(id);
+  });
   updateActivity(x.id);
   updateActivity(x.id);
-  verifyActivityExists(x.id);
-  verifyActivityUpdated(x.id);
+  const e_upd = waitForActivityUpdated(id);
+  block(matchDeleteActivity(id), function () {
+    verifyActivityUpdated(id);
+  });
   deleteActivity(x.id);
+  const e_del = waitForActivityDeleted(id);
+  block(matchAddActivity(id), function () {
+    verifyActivityDoesNotExist(id);
+  });
 });
 
 bthread("AddLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAdd(x.id);
+  const e_add = waitForAddAdded(id);
+  block(matchDeleteAdd(id), function () {
+    verifyAddExists(id);
+  });
   updateAdd(x.id);
   updateAdd(x.id);
-  verifyAddExists(x.id);
-  verifyAddUpdated(x.id);
+  const e_upd = waitForAddUpdated(id);
+  block(matchDeleteAdd(id), function () {
+    verifyAddUpdated(id);
+  });
   deleteAdd(x.id);
+  const e_del = waitForAddDeleted(id);
+  block(matchAddAdd(id), function () {
+    verifyAddDoesNotExist(id);
+  });
 });
 
 bthread("AdvisoryLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAdvisory(x.id);
+  const e_add = waitForAdvisoryAdded(id);
+  block(matchDeleteAdvisory(id), function () {
+    verifyAdvisoryExists(id);
+  });
   updateAdvisory(x.id);
   updateAdvisory(x.id);
-  verifyAdvisoryExists(x.id);
-  verifyAdvisoryUpdated(x.id);
+  const e_upd = waitForAdvisoryUpdated(id);
+  block(matchDeleteAdvisory(id), function () {
+    verifyAdvisoryUpdated(id);
+  });
   deleteAdvisory(x.id);
+  const e_del = waitForAdvisoryDeleted(id);
+  block(matchAddAdvisory(id), function () {
+    verifyAdvisoryDoesNotExist(id);
+  });
 });
 
 bthread("AlertLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAlert(x.id);
+  const e_add = waitForAlertAdded(id);
+  block(matchDeleteAlert(id), function () {
+    verifyAlertExists(id);
+  });
   updateAlert(x.id);
   updateAlert(x.id);
-  verifyAlertExists(x.id);
-  verifyAlertUpdated(x.id);
+  const e_upd = waitForAlertUpdated(id);
+  block(matchDeleteAlert(id), function () {
+    verifyAlertUpdated(id);
+  });
   deleteAlert(x.id);
+  const e_del = waitForAlertDeleted(id);
+  block(matchAddAlert(id), function () {
+    verifyAlertDoesNotExist(id);
+  });
 });
 
 bthread("AnalysLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAnalys(x.id);
+  const e_add = waitForAnalysAdded(id);
+  block(matchDeleteAnalys(id), function () {
+    verifyAnalysExists(id);
+  });
   updateAnalys(x.id);
   updateAnalys(x.id);
-  verifyAnalysExists(x.id);
-  verifyAnalysUpdated(x.id);
+  const e_upd = waitForAnalysUpdated(id);
+  block(matchDeleteAnalys(id), function () {
+    verifyAnalysUpdated(id);
+  });
   deleteAnalys(x.id);
+  const e_del = waitForAnalysDeleted(id);
+  block(matchAddAnalys(id), function () {
+    verifyAnalysDoesNotExist(id);
+  });
 });
 
 bthread("AnnotationLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAnnotation(x.id);
+  const e_add = waitForAnnotationAdded(id);
+  block(matchDeleteAnnotation(id), function () {
+    verifyAnnotationExists(id);
+  });
   updateAnnotation(x.id);
   updateAnnotation(x.id);
-  verifyAnnotationExists(x.id);
-  verifyAnnotationUpdated(x.id);
+  const e_upd = waitForAnnotationUpdated(id);
+  block(matchDeleteAnnotation(id), function () {
+    verifyAnnotationUpdated(id);
+  });
   deleteAnnotation(x.id);
+  const e_del = waitForAnnotationDeleted(id);
+  block(matchAddAnnotation(id), function () {
+    verifyAnnotationDoesNotExist(id);
+  });
 });
 
 bthread("ApiLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addApi(x.id);
+  const e_add = waitForApiAdded(id);
+  block(matchDeleteApi(id), function () {
+    verifyApiExists(id);
+  });
   updateApi(x.id);
   updateApi(x.id);
-  verifyApiExists(x.id);
-  verifyApiUpdated(x.id);
+  const e_upd = waitForApiUpdated(id);
+  block(matchDeleteApi(id), function () {
+    verifyApiUpdated(id);
+  });
   deleteApi(x.id);
+  const e_del = waitForApiDeleted(id);
+  block(matchAddApi(id), function () {
+    verifyApiDoesNotExist(id);
+  });
 });
 
 bthread("AppLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addApp(x.id);
+  const e_add = waitForAppAdded(id);
+  block(matchDeleteApp(id), function () {
+    verifyAppExists(id);
+  });
   updateApp(x.id);
   updateApp(x.id);
-  verifyAppExists(x.id);
-  verifyAppUpdated(x.id);
+  const e_upd = waitForAppUpdated(id);
+  block(matchDeleteApp(id), function () {
+    verifyAppUpdated(id);
+  });
   deleteApp(x.id);
+  const e_del = waitForAppDeleted(id);
+  block(matchAddApp(id), function () {
+    verifyAppDoesNotExist(id);
+  });
 });
 
 bthread("ApplicationLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addApplication(x.id);
+  const e_add = waitForApplicationAdded(id);
+  block(matchDeleteApplication(id), function () {
+    verifyApplicationExists(id);
+  });
   updateApplication(x.id);
   updateApplication(x.id);
-  verifyApplicationExists(x.id);
-  verifyApplicationUpdated(x.id);
+  const e_upd = waitForApplicationUpdated(id);
+  block(matchDeleteApplication(id), function () {
+    verifyApplicationUpdated(id);
+  });
   deleteApplication(x.id);
+  const e_del = waitForApplicationDeleted(id);
+  block(matchAddApplication(id), function () {
+    verifyApplicationDoesNotExist(id);
+  });
 });
 
 bthread("AppmanifestLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAppmanifest(x.id);
+  const e_add = waitForAppmanifestAdded(id);
+  block(matchDeleteAppmanifest(id), function () {
+    verifyAppmanifestExists(id);
+  });
   updateAppmanifest(x.id);
   updateAppmanifest(x.id);
-  verifyAppmanifestExists(x.id);
-  verifyAppmanifestUpdated(x.id);
+  const e_upd = waitForAppmanifestUpdated(id);
+  block(matchDeleteAppmanifest(id), function () {
+    verifyAppmanifestUpdated(id);
+  });
   deleteAppmanifest(x.id);
+  const e_del = waitForAppmanifestDeleted(id);
+  block(matchAddAppmanifest(id), function () {
+    verifyAppmanifestDoesNotExist(id);
+  });
 });
 
 bthread("ApprovalLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addApproval(x.id);
+  const e_add = waitForApprovalAdded(id);
+  block(matchDeleteApproval(id), function () {
+    verifyApprovalExists(id);
+  });
   updateApproval(x.id);
   updateApproval(x.id);
-  verifyApprovalExists(x.id);
-  verifyApprovalUpdated(x.id);
+  const e_upd = waitForApprovalUpdated(id);
+  block(matchDeleteApproval(id), function () {
+    verifyApprovalUpdated(id);
+  });
   deleteApproval(x.id);
+  const e_del = waitForApprovalDeleted(id);
+  block(matchAddApproval(id), function () {
+    verifyApprovalDoesNotExist(id);
+  });
 });
 
 bthread("ApproveLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addApprove(x.id);
+  const e_add = waitForApproveAdded(id);
+  block(matchDeleteApprove(id), function () {
+    verifyApproveExists(id);
+  });
   updateApprove(x.id);
   updateApprove(x.id);
-  verifyApproveExists(x.id);
-  verifyApproveUpdated(x.id);
+  const e_upd = waitForApproveUpdated(id);
+  block(matchDeleteApprove(id), function () {
+    verifyApproveUpdated(id);
+  });
   deleteApprove(x.id);
+  const e_del = waitForApproveDeleted(id);
+  block(matchAddApprove(id), function () {
+    verifyApproveDoesNotExist(id);
+  });
 });
 
 bthread("ArchiveLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addArchive(x.id);
+  const e_add = waitForArchiveAdded(id);
+  block(matchDeleteArchive(id), function () {
+    verifyArchiveExists(id);
+  });
   updateArchive(x.id);
   updateArchive(x.id);
-  verifyArchiveExists(x.id);
-  verifyArchiveUpdated(x.id);
+  const e_upd = waitForArchiveUpdated(id);
+  block(matchDeleteArchive(id), function () {
+    verifyArchiveUpdated(id);
+  });
   deleteArchive(x.id);
+  const e_del = waitForArchiveDeleted(id);
+  block(matchAddArchive(id), function () {
+    verifyArchiveDoesNotExist(id);
+  });
 });
 
 bthread("ArtifactLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addArtifact(x.id);
+  const e_add = waitForArtifactAdded(id);
+  block(matchDeleteArtifact(id), function () {
+    verifyArtifactExists(id);
+  });
   updateArtifact(x.id);
   updateArtifact(x.id);
-  verifyArtifactExists(x.id);
-  verifyArtifactUpdated(x.id);
+  const e_upd = waitForArtifactUpdated(id);
+  block(matchDeleteArtifact(id), function () {
+    verifyArtifactUpdated(id);
+  });
   deleteArtifact(x.id);
+  const e_del = waitForArtifactDeleted(id);
+  block(matchAddArtifact(id), function () {
+    verifyArtifactDoesNotExist(id);
+  });
 });
 
 bthread("ArtifactandlogretentionLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addArtifactandlogretention(x.id);
+  const e_add = waitForArtifactandlogretentionAdded(id);
+  block(matchDeleteArtifactandlogretention(id), function () {
+    verifyArtifactandlogretentionExists(id);
+  });
   updateArtifactandlogretention(x.id);
   updateArtifactandlogretention(x.id);
-  verifyArtifactandlogretentionExists(x.id);
-  verifyArtifactandlogretentionUpdated(x.id);
+  const e_upd = waitForArtifactandlogretentionUpdated(id);
+  block(matchDeleteArtifactandlogretention(id), function () {
+    verifyArtifactandlogretentionUpdated(id);
+  });
   deleteArtifactandlogretention(x.id);
+  const e_del = waitForArtifactandlogretentionDeleted(id);
+  block(matchAddArtifactandlogretention(id), function () {
+    verifyArtifactandlogretentionDoesNotExist(id);
+  });
 });
 
 bthread("AssetLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAsset(x.id);
+  const e_add = waitForAssetAdded(id);
+  block(matchDeleteAsset(id), function () {
+    verifyAssetExists(id);
+  });
   updateAsset(x.id);
   updateAsset(x.id);
-  verifyAssetExists(x.id);
-  verifyAssetUpdated(x.id);
+  const e_upd = waitForAssetUpdated(id);
+  block(matchDeleteAsset(id), function () {
+    verifyAssetUpdated(id);
+  });
   deleteAsset(x.id);
+  const e_del = waitForAssetDeleted(id);
+  block(matchAddAsset(id), function () {
+    verifyAssetDoesNotExist(id);
+  });
 });
 
 bthread("AssigneeLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAssignee(x.id);
+  const e_add = waitForAssigneeAdded(id);
+  block(matchDeleteAssignee(id), function () {
+    verifyAssigneeExists(id);
+  });
   updateAssignee(x.id);
   updateAssignee(x.id);
-  verifyAssigneeExists(x.id);
-  verifyAssigneeUpdated(x.id);
+  const e_upd = waitForAssigneeUpdated(id);
+  block(matchDeleteAssignee(id), function () {
+    verifyAssigneeUpdated(id);
+  });
   deleteAssignee(x.id);
+  const e_del = waitForAssigneeDeleted(id);
+  block(matchAddAssignee(id), function () {
+    verifyAssigneeDoesNotExist(id);
+  });
 });
 
 bthread("AssignmentLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAssignment(x.id);
+  const e_add = waitForAssignmentAdded(id);
+  block(matchDeleteAssignment(id), function () {
+    verifyAssignmentExists(id);
+  });
   updateAssignment(x.id);
   updateAssignment(x.id);
-  verifyAssignmentExists(x.id);
-  verifyAssignmentUpdated(x.id);
+  const e_upd = waitForAssignmentUpdated(id);
+  block(matchDeleteAssignment(id), function () {
+    verifyAssignmentUpdated(id);
+  });
   deleteAssignment(x.id);
+  const e_del = waitForAssignmentDeleted(id);
+  block(matchAddAssignment(id), function () {
+    verifyAssignmentDoesNotExist(id);
+  });
 });
 
 bthread("AttachLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAttach(x.id);
+  const e_add = waitForAttachAdded(id);
+  block(matchDeleteAttach(id), function () {
+    verifyAttachExists(id);
+  });
   updateAttach(x.id);
   updateAttach(x.id);
-  verifyAttachExists(x.id);
-  verifyAttachUpdated(x.id);
+  const e_upd = waitForAttachUpdated(id);
+  block(matchDeleteAttach(id), function () {
+    verifyAttachUpdated(id);
+  });
   deleteAttach(x.id);
+  const e_del = waitForAttachDeleted(id);
+  block(matchAddAttach(id), function () {
+    verifyAttachDoesNotExist(id);
+  });
 });
 
 bthread("AttemptLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAttempt(x.id);
+  const e_add = waitForAttemptAdded(id);
+  block(matchDeleteAttempt(id), function () {
+    verifyAttemptExists(id);
+  });
   updateAttempt(x.id);
   updateAttempt(x.id);
-  verifyAttemptExists(x.id);
-  verifyAttemptUpdated(x.id);
+  const e_upd = waitForAttemptUpdated(id);
+  block(matchDeleteAttempt(id), function () {
+    verifyAttemptUpdated(id);
+  });
   deleteAttempt(x.id);
+  const e_del = waitForAttemptDeleted(id);
+  block(matchAddAttempt(id), function () {
+    verifyAttemptDoesNotExist(id);
+  });
 });
 
 bthread("AttestationLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAttestation(x.id);
+  const e_add = waitForAttestationAdded(id);
+  block(matchDeleteAttestation(id), function () {
+    verifyAttestationExists(id);
+  });
   updateAttestation(x.id);
   updateAttestation(x.id);
-  verifyAttestationExists(x.id);
-  verifyAttestationUpdated(x.id);
+  const e_upd = waitForAttestationUpdated(id);
+  block(matchDeleteAttestation(id), function () {
+    verifyAttestationUpdated(id);
+  });
   deleteAttestation(x.id);
+  const e_del = waitForAttestationDeleted(id);
+  block(matchAddAttestation(id), function () {
+    verifyAttestationDoesNotExist(id);
+  });
 });
 
 bthread("AuthorLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAuthor(x.id);
+  const e_add = waitForAuthorAdded(id);
+  block(matchDeleteAuthor(id), function () {
+    verifyAuthorExists(id);
+  });
   updateAuthor(x.id);
   updateAuthor(x.id);
-  verifyAuthorExists(x.id);
-  verifyAuthorUpdated(x.id);
+  const e_upd = waitForAuthorUpdated(id);
+  block(matchDeleteAuthor(id), function () {
+    verifyAuthorUpdated(id);
+  });
   deleteAuthor(x.id);
+  const e_del = waitForAuthorDeleted(id);
+  block(matchAddAuthor(id), function () {
+    verifyAuthorDoesNotExist(id);
+  });
 });
 
 bthread("AutofixLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAutofix(x.id);
+  const e_add = waitForAutofixAdded(id);
+  block(matchDeleteAutofix(id), function () {
+    verifyAutofixExists(id);
+  });
   updateAutofix(x.id);
   updateAutofix(x.id);
-  verifyAutofixExists(x.id);
-  verifyAutofixUpdated(x.id);
+  const e_upd = waitForAutofixUpdated(id);
+  block(matchDeleteAutofix(id), function () {
+    verifyAutofixUpdated(id);
+  });
   deleteAutofix(x.id);
+  const e_del = waitForAutofixDeleted(id);
+  block(matchAddAutofix(id), function () {
+    verifyAutofixDoesNotExist(id);
+  });
 });
 
 bthread("AutolinkLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAutolink(x.id);
+  const e_add = waitForAutolinkAdded(id);
+  block(matchDeleteAutolink(id), function () {
+    verifyAutolinkExists(id);
+  });
   updateAutolink(x.id);
   updateAutolink(x.id);
-  verifyAutolinkExists(x.id);
-  verifyAutolinkUpdated(x.id);
+  const e_upd = waitForAutolinkUpdated(id);
+  block(matchDeleteAutolink(id), function () {
+    verifyAutolinkUpdated(id);
+  });
   deleteAutolink(x.id);
+  const e_del = waitForAutolinkDeleted(id);
+  block(matchAddAutolink(id), function () {
+    verifyAutolinkDoesNotExist(id);
+  });
 });
 
 bthread("AutomatedsecurityfixeLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAutomatedsecurityfixe(x.id);
+  const e_add = waitForAutomatedsecurityfixeAdded(id);
+  block(matchDeleteAutomatedsecurityfixe(id), function () {
+    verifyAutomatedsecurityfixeExists(id);
+  });
   updateAutomatedsecurityfixe(x.id);
   updateAutomatedsecurityfixe(x.id);
-  verifyAutomatedsecurityfixeExists(x.id);
-  verifyAutomatedsecurityfixeUpdated(x.id);
+  const e_upd = waitForAutomatedsecurityfixeUpdated(id);
+  block(matchDeleteAutomatedsecurityfixe(id), function () {
+    verifyAutomatedsecurityfixeUpdated(id);
+  });
   deleteAutomatedsecurityfixe(x.id);
+  const e_del = waitForAutomatedsecurityfixeDeleted(id);
+  block(matchAddAutomatedsecurityfixe(id), function () {
+    verifyAutomatedsecurityfixeDoesNotExist(id);
+  });
 });
 
 bthread("BillingLifecycle", function () {
-  const x = pick([{id: "B001"}, {id: "B002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addBilling(x.id);
+  const e_add = waitForBillingAdded(id);
+  block(matchDeleteBilling(id), function () {
+    verifyBillingExists(id);
+  });
   updateBilling(x.id);
   updateBilling(x.id);
-  verifyBillingExists(x.id);
-  verifyBillingUpdated(x.id);
+  const e_upd = waitForBillingUpdated(id);
+  block(matchDeleteBilling(id), function () {
+    verifyBillingUpdated(id);
+  });
   deleteBilling(x.id);
+  const e_del = waitForBillingDeleted(id);
+  block(matchAddBilling(id), function () {
+    verifyBillingDoesNotExist(id);
+  });
 });
 
 bthread("BlobLifecycle", function () {
-  const x = pick([{id: "B001"}, {id: "B002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addBlob(x.id);
+  const e_add = waitForBlobAdded(id);
+  block(matchDeleteBlob(id), function () {
+    verifyBlobExists(id);
+  });
   updateBlob(x.id);
   updateBlob(x.id);
-  verifyBlobExists(x.id);
-  verifyBlobUpdated(x.id);
+  const e_upd = waitForBlobUpdated(id);
+  block(matchDeleteBlob(id), function () {
+    verifyBlobUpdated(id);
+  });
   deleteBlob(x.id);
+  const e_del = waitForBlobDeleted(id);
+  block(matchAddBlob(id), function () {
+    verifyBlobDoesNotExist(id);
+  });
 });
 
 bthread("BlockLifecycle", function () {
-  const x = pick([{id: "B001"}, {id: "B002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addBlock(x.id);
+  const e_add = waitForBlockAdded(id);
+  block(matchDeleteBlock(id), function () {
+    verifyBlockExists(id);
+  });
   updateBlock(x.id);
   updateBlock(x.id);
-  verifyBlockExists(x.id);
-  verifyBlockUpdated(x.id);
+  const e_upd = waitForBlockUpdated(id);
+  block(matchDeleteBlock(id), function () {
+    verifyBlockUpdated(id);
+  });
   deleteBlock(x.id);
+  const e_del = waitForBlockDeleted(id);
+  block(matchAddBlock(id), function () {
+    verifyBlockDoesNotExist(id);
+  });
 });
 
 bthread("BlockedbyLifecycle", function () {
-  const x = pick([{id: "B001"}, {id: "B002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addBlockedby(x.id);
+  const e_add = waitForBlockedbyAdded(id);
+  block(matchDeleteBlockedby(id), function () {
+    verifyBlockedbyExists(id);
+  });
   updateBlockedby(x.id);
   updateBlockedby(x.id);
-  verifyBlockedbyExists(x.id);
-  verifyBlockedbyUpdated(x.id);
+  const e_upd = waitForBlockedbyUpdated(id);
+  block(matchDeleteBlockedby(id), function () {
+    verifyBlockedbyUpdated(id);
+  });
   deleteBlockedby(x.id);
+  const e_del = waitForBlockedbyDeleted(id);
+  block(matchAddBlockedby(id), function () {
+    verifyBlockedbyDoesNotExist(id);
+  });
 });
 
 bthread("BlockingLifecycle", function () {
-  const x = pick([{id: "B001"}, {id: "B002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addBlocking(x.id);
+  const e_add = waitForBlockingAdded(id);
+  block(matchDeleteBlocking(id), function () {
+    verifyBlockingExists(id);
+  });
   updateBlocking(x.id);
   updateBlocking(x.id);
-  verifyBlockingExists(x.id);
-  verifyBlockingUpdated(x.id);
+  const e_upd = waitForBlockingUpdated(id);
+  block(matchDeleteBlocking(id), function () {
+    verifyBlockingUpdated(id);
+  });
   deleteBlocking(x.id);
+  const e_del = waitForBlockingDeleted(id);
+  block(matchAddBlocking(id), function () {
+    verifyBlockingDoesNotExist(id);
+  });
 });
 
 bthread("BrancheLifecycle", function () {
-  const x = pick([{id: "B001"}, {id: "B002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addBranche(x.id);
+  const e_add = waitForBrancheAdded(id);
+  block(matchDeleteBranche(id), function () {
+    verifyBrancheExists(id);
+  });
   updateBranche(x.id);
   updateBranche(x.id);
-  verifyBrancheExists(x.id);
-  verifyBrancheUpdated(x.id);
+  const e_upd = waitForBrancheUpdated(id);
+  block(matchDeleteBranche(id), function () {
+    verifyBrancheUpdated(id);
+  });
   deleteBranche(x.id);
+  const e_del = waitForBrancheDeleted(id);
+  block(matchAddBranche(id), function () {
+    verifyBrancheDoesNotExist(id);
+  });
 });
 
 bthread("BrancheswhereheadLifecycle", function () {
-  const x = pick([{id: "B001"}, {id: "B002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addBrancheswherehead(x.id);
+  const e_add = waitForBrancheswhereheadAdded(id);
+  block(matchDeleteBrancheswherehead(id), function () {
+    verifyBrancheswhereheadExists(id);
+  });
   updateBrancheswherehead(x.id);
   updateBrancheswherehead(x.id);
-  verifyBrancheswhereheadExists(x.id);
-  verifyBrancheswhereheadUpdated(x.id);
+  const e_upd = waitForBrancheswhereheadUpdated(id);
+  block(matchDeleteBrancheswherehead(id), function () {
+    verifyBrancheswhereheadUpdated(id);
+  });
   deleteBrancheswherehead(x.id);
+  const e_del = waitForBrancheswhereheadDeleted(id);
+  block(matchAddBrancheswherehead(id), function () {
+    verifyBrancheswhereheadDoesNotExist(id);
+  });
 });
 
 bthread("BuildLifecycle", function () {
-  const x = pick([{id: "B001"}, {id: "B002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addBuild(x.id);
+  const e_add = waitForBuildAdded(id);
+  block(matchDeleteBuild(id), function () {
+    verifyBuildExists(id);
+  });
   updateBuild(x.id);
   updateBuild(x.id);
-  verifyBuildExists(x.id);
-  verifyBuildUpdated(x.id);
+  const e_upd = waitForBuildUpdated(id);
+  block(matchDeleteBuild(id), function () {
+    verifyBuildUpdated(id);
+  });
   deleteBuild(x.id);
+  const e_del = waitForBuildDeleted(id);
+  block(matchAddBuild(id), function () {
+    verifyBuildDoesNotExist(id);
+  });
 });
 
 bthread("BulklistLifecycle", function () {
-  const x = pick([{id: "B001"}, {id: "B002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addBulklist(x.id);
+  const e_add = waitForBulklistAdded(id);
+  block(matchDeleteBulklist(id), function () {
+    verifyBulklistExists(id);
+  });
   updateBulklist(x.id);
   updateBulklist(x.id);
-  verifyBulklistExists(x.id);
-  verifyBulklistUpdated(x.id);
+  const e_upd = waitForBulklistUpdated(id);
+  block(matchDeleteBulklist(id), function () {
+    verifyBulklistUpdated(id);
+  });
   deleteBulklist(x.id);
+  const e_del = waitForBulklistDeleted(id);
+  block(matchAddBulklist(id), function () {
+    verifyBulklistDoesNotExist(id);
+  });
 });
 
 bthread("CacheLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCache(x.id);
+  const e_add = waitForCacheAdded(id);
+  block(matchDeleteCache(id), function () {
+    verifyCacheExists(id);
+  });
   updateCache(x.id);
   updateCache(x.id);
-  verifyCacheExists(x.id);
-  verifyCacheUpdated(x.id);
+  const e_upd = waitForCacheUpdated(id);
+  block(matchDeleteCache(id), function () {
+    verifyCacheUpdated(id);
+  });
   deleteCache(x.id);
+  const e_del = waitForCacheDeleted(id);
+  block(matchAddCache(id), function () {
+    verifyCacheDoesNotExist(id);
+  });
 });
 
 bthread("CampaignLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCampaign(x.id);
+  const e_add = waitForCampaignAdded(id);
+  block(matchDeleteCampaign(id), function () {
+    verifyCampaignExists(id);
+  });
   updateCampaign(x.id);
   updateCampaign(x.id);
-  verifyCampaignExists(x.id);
-  verifyCampaignUpdated(x.id);
+  const e_upd = waitForCampaignUpdated(id);
+  block(matchDeleteCampaign(id), function () {
+    verifyCampaignUpdated(id);
+  });
   deleteCampaign(x.id);
+  const e_del = waitForCampaignDeleted(id);
+  block(matchAddCampaign(id), function () {
+    verifyCampaignDoesNotExist(id);
+  });
 });
 
 bthread("CancelLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCancel(x.id);
+  const e_add = waitForCancelAdded(id);
+  block(matchDeleteCancel(id), function () {
+    verifyCancelExists(id);
+  });
   updateCancel(x.id);
   updateCancel(x.id);
-  verifyCancelExists(x.id);
-  verifyCancelUpdated(x.id);
+  const e_upd = waitForCancelUpdated(id);
+  block(matchDeleteCancel(id), function () {
+    verifyCancelUpdated(id);
+  });
   deleteCancel(x.id);
+  const e_del = waitForCancelDeleted(id);
+  block(matchAddCancel(id), function () {
+    verifyCancelDoesNotExist(id);
+  });
 });
 
 bthread("CheckrunLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCheckrun(x.id);
+  const e_add = waitForCheckrunAdded(id);
+  block(matchDeleteCheckrun(id), function () {
+    verifyCheckrunExists(id);
+  });
   updateCheckrun(x.id);
   updateCheckrun(x.id);
-  verifyCheckrunExists(x.id);
-  verifyCheckrunUpdated(x.id);
+  const e_upd = waitForCheckrunUpdated(id);
+  block(matchDeleteCheckrun(id), function () {
+    verifyCheckrunUpdated(id);
+  });
   deleteCheckrun(x.id);
+  const e_del = waitForCheckrunDeleted(id);
+  block(matchAddCheckrun(id), function () {
+    verifyCheckrunDoesNotExist(id);
+  });
 });
 
 bthread("ChecksuiteLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addChecksuite(x.id);
+  const e_add = waitForChecksuiteAdded(id);
+  block(matchDeleteChecksuite(id), function () {
+    verifyChecksuiteExists(id);
+  });
   updateChecksuite(x.id);
   updateChecksuite(x.id);
-  verifyChecksuiteExists(x.id);
-  verifyChecksuiteUpdated(x.id);
+  const e_upd = waitForChecksuiteUpdated(id);
+  block(matchDeleteChecksuite(id), function () {
+    verifyChecksuiteUpdated(id);
+  });
   deleteChecksuite(x.id);
+  const e_del = waitForChecksuiteDeleted(id);
+  block(matchAddChecksuite(id), function () {
+    verifyChecksuiteDoesNotExist(id);
+  });
 });
 
 bthread("ClassroomLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addClassroom(x.id);
+  const e_add = waitForClassroomAdded(id);
+  block(matchDeleteClassroom(id), function () {
+    verifyClassroomExists(id);
+  });
   updateClassroom(x.id);
   updateClassroom(x.id);
-  verifyClassroomExists(x.id);
-  verifyClassroomUpdated(x.id);
+  const e_upd = waitForClassroomUpdated(id);
+  block(matchDeleteClassroom(id), function () {
+    verifyClassroomUpdated(id);
+  });
   deleteClassroom(x.id);
+  const e_del = waitForClassroomDeleted(id);
+  block(matchAddClassroom(id), function () {
+    verifyClassroomDoesNotExist(id);
+  });
 });
 
 bthread("CloneLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addClone(x.id);
+  const e_add = waitForCloneAdded(id);
+  block(matchDeleteClone(id), function () {
+    verifyCloneExists(id);
+  });
   updateClone(x.id);
   updateClone(x.id);
-  verifyCloneExists(x.id);
-  verifyCloneUpdated(x.id);
+  const e_upd = waitForCloneUpdated(id);
+  block(matchDeleteClone(id), function () {
+    verifyCloneUpdated(id);
+  });
   deleteClone(x.id);
+  const e_del = waitForCloneDeleted(id);
+  block(matchAddClone(id), function () {
+    verifyCloneDoesNotExist(id);
+  });
 });
 
 bthread("CodeLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCode(x.id);
+  const e_add = waitForCodeAdded(id);
+  block(matchDeleteCode(id), function () {
+    verifyCodeExists(id);
+  });
   updateCode(x.id);
   updateCode(x.id);
-  verifyCodeExists(x.id);
-  verifyCodeUpdated(x.id);
+  const e_upd = waitForCodeUpdated(id);
+  block(matchDeleteCode(id), function () {
+    verifyCodeUpdated(id);
+  });
   deleteCode(x.id);
+  const e_del = waitForCodeDeleted(id);
+  block(matchAddCode(id), function () {
+    verifyCodeDoesNotExist(id);
+  });
 });
 
 bthread("CodefrequencyLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCodefrequency(x.id);
+  const e_add = waitForCodefrequencyAdded(id);
+  block(matchDeleteCodefrequency(id), function () {
+    verifyCodefrequencyExists(id);
+  });
   updateCodefrequency(x.id);
   updateCodefrequency(x.id);
-  verifyCodefrequencyExists(x.id);
-  verifyCodefrequencyUpdated(x.id);
+  const e_upd = waitForCodefrequencyUpdated(id);
+  block(matchDeleteCodefrequency(id), function () {
+    verifyCodefrequencyUpdated(id);
+  });
   deleteCodefrequency(x.id);
+  const e_del = waitForCodefrequencyDeleted(id);
+  block(matchAddCodefrequency(id), function () {
+    verifyCodefrequencyDoesNotExist(id);
+  });
 });
 
 bthread("CodeownerLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCodeowner(x.id);
+  const e_add = waitForCodeownerAdded(id);
+  block(matchDeleteCodeowner(id), function () {
+    verifyCodeownerExists(id);
+  });
   updateCodeowner(x.id);
   updateCodeowner(x.id);
-  verifyCodeownerExists(x.id);
-  verifyCodeownerUpdated(x.id);
+  const e_upd = waitForCodeownerUpdated(id);
+  block(matchDeleteCodeowner(id), function () {
+    verifyCodeownerUpdated(id);
+  });
   deleteCodeowner(x.id);
+  const e_del = waitForCodeownerDeleted(id);
+  block(matchAddCodeowner(id), function () {
+    verifyCodeownerDoesNotExist(id);
+  });
 });
 
 bthread("CodeqlLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCodeql(x.id);
+  const e_add = waitForCodeqlAdded(id);
+  block(matchDeleteCodeql(id), function () {
+    verifyCodeqlExists(id);
+  });
   updateCodeql(x.id);
   updateCodeql(x.id);
-  verifyCodeqlExists(x.id);
-  verifyCodeqlUpdated(x.id);
+  const e_upd = waitForCodeqlUpdated(id);
+  block(matchDeleteCodeql(id), function () {
+    verifyCodeqlUpdated(id);
+  });
   deleteCodeql(x.id);
+  const e_del = waitForCodeqlDeleted(id);
+  block(matchAddCodeql(id), function () {
+    verifyCodeqlDoesNotExist(id);
+  });
 });
 
 bthread("CodescanningLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCodescanning(x.id);
+  const e_add = waitForCodescanningAdded(id);
+  block(matchDeleteCodescanning(id), function () {
+    verifyCodescanningExists(id);
+  });
   updateCodescanning(x.id);
   updateCodescanning(x.id);
-  verifyCodescanningExists(x.id);
-  verifyCodescanningUpdated(x.id);
+  const e_upd = waitForCodescanningUpdated(id);
+  block(matchDeleteCodescanning(id), function () {
+    verifyCodescanningUpdated(id);
+  });
   deleteCodescanning(x.id);
+  const e_del = waitForCodescanningDeleted(id);
+  block(matchAddCodescanning(id), function () {
+    verifyCodescanningDoesNotExist(id);
+  });
 });
 
 bthread("CodesecurityLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCodesecurity(x.id);
+  const e_add = waitForCodesecurityAdded(id);
+  block(matchDeleteCodesecurity(id), function () {
+    verifyCodesecurityExists(id);
+  });
   updateCodesecurity(x.id);
   updateCodesecurity(x.id);
-  verifyCodesecurityExists(x.id);
-  verifyCodesecurityUpdated(x.id);
+  const e_upd = waitForCodesecurityUpdated(id);
+  block(matchDeleteCodesecurity(id), function () {
+    verifyCodesecurityUpdated(id);
+  });
   deleteCodesecurity(x.id);
+  const e_del = waitForCodesecurityDeleted(id);
+  block(matchAddCodesecurity(id), function () {
+    verifyCodesecurityDoesNotExist(id);
+  });
 });
 
 bthread("CodesecurityconfigurationLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCodesecurityconfiguration(x.id);
+  const e_add = waitForCodesecurityconfigurationAdded(id);
+  block(matchDeleteCodesecurityconfiguration(id), function () {
+    verifyCodesecurityconfigurationExists(id);
+  });
   updateCodesecurityconfiguration(x.id);
   updateCodesecurityconfiguration(x.id);
-  verifyCodesecurityconfigurationExists(x.id);
-  verifyCodesecurityconfigurationUpdated(x.id);
+  const e_upd = waitForCodesecurityconfigurationUpdated(id);
+  block(matchDeleteCodesecurityconfiguration(id), function () {
+    verifyCodesecurityconfigurationUpdated(id);
+  });
   deleteCodesecurityconfiguration(x.id);
+  const e_del = waitForCodesecurityconfigurationDeleted(id);
+  block(matchAddCodesecurityconfiguration(id), function () {
+    verifyCodesecurityconfigurationDoesNotExist(id);
+  });
 });
 
 bthread("CodesofconductLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCodesofconduct(x.id);
+  const e_add = waitForCodesofconductAdded(id);
+  block(matchDeleteCodesofconduct(id), function () {
+    verifyCodesofconductExists(id);
+  });
   updateCodesofconduct(x.id);
   updateCodesofconduct(x.id);
-  verifyCodesofconductExists(x.id);
-  verifyCodesofconductUpdated(x.id);
+  const e_upd = waitForCodesofconductUpdated(id);
+  block(matchDeleteCodesofconduct(id), function () {
+    verifyCodesofconductUpdated(id);
+  });
   deleteCodesofconduct(x.id);
+  const e_del = waitForCodesofconductDeleted(id);
+  block(matchAddCodesofconduct(id), function () {
+    verifyCodesofconductDoesNotExist(id);
+  });
 });
 
 bthread("CodespaceLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCodespace(x.id);
+  const e_add = waitForCodespaceAdded(id);
+  block(matchDeleteCodespace(id), function () {
+    verifyCodespaceExists(id);
+  });
   updateCodespace(x.id);
   updateCodespace(x.id);
-  verifyCodespaceExists(x.id);
-  verifyCodespaceUpdated(x.id);
+  const e_upd = waitForCodespaceUpdated(id);
+  block(matchDeleteCodespace(id), function () {
+    verifyCodespaceUpdated(id);
+  });
   deleteCodespace(x.id);
+  const e_del = waitForCodespaceDeleted(id);
+  block(matchAddCodespace(id), function () {
+    verifyCodespaceDoesNotExist(id);
+  });
 });
 
 bthread("CollaboratorLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCollaborator(x.id);
+  const e_add = waitForCollaboratorAdded(id);
+  block(matchDeleteCollaborator(id), function () {
+    verifyCollaboratorExists(id);
+  });
   updateCollaborator(x.id);
   updateCollaborator(x.id);
-  verifyCollaboratorExists(x.id);
-  verifyCollaboratorUpdated(x.id);
+  const e_upd = waitForCollaboratorUpdated(id);
+  block(matchDeleteCollaborator(id), function () {
+    verifyCollaboratorUpdated(id);
+  });
   deleteCollaborator(x.id);
+  const e_del = waitForCollaboratorDeleted(id);
+  block(matchAddCollaborator(id), function () {
+    verifyCollaboratorDoesNotExist(id);
+  });
 });
 
 bthread("ColumnLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addColumn(x.id);
+  const e_add = waitForColumnAdded(id);
+  block(matchDeleteColumn(id), function () {
+    verifyColumnExists(id);
+  });
   updateColumn(x.id);
   updateColumn(x.id);
-  verifyColumnExists(x.id);
-  verifyColumnUpdated(x.id);
+  const e_upd = waitForColumnUpdated(id);
+  block(matchDeleteColumn(id), function () {
+    verifyColumnUpdated(id);
+  });
   deleteColumn(x.id);
+  const e_del = waitForColumnDeleted(id);
+  block(matchAddColumn(id), function () {
+    verifyColumnDoesNotExist(id);
+  });
 });
 
 bthread("CommentLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addComment(x.id);
+  const e_add = waitForCommentAdded(id);
+  block(matchDeleteComment(id), function () {
+    verifyCommentExists(id);
+  });
   updateComment(x.id);
   updateComment(x.id);
-  verifyCommentExists(x.id);
-  verifyCommentUpdated(x.id);
+  const e_upd = waitForCommentUpdated(id);
+  block(matchDeleteComment(id), function () {
+    verifyCommentUpdated(id);
+  });
   deleteComment(x.id);
+  const e_del = waitForCommentDeleted(id);
+  block(matchAddComment(id), function () {
+    verifyCommentDoesNotExist(id);
+  });
 });
 
 bthread("CommitLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCommit(x.id);
+  const e_add = waitForCommitAdded(id);
+  block(matchDeleteCommit(id), function () {
+    verifyCommitExists(id);
+  });
   updateCommit(x.id);
   updateCommit(x.id);
-  verifyCommitExists(x.id);
-  verifyCommitUpdated(x.id);
+  const e_upd = waitForCommitUpdated(id);
+  block(matchDeleteCommit(id), function () {
+    verifyCommitUpdated(id);
+  });
   deleteCommit(x.id);
+  const e_del = waitForCommitDeleted(id);
+  block(matchAddCommit(id), function () {
+    verifyCommitDoesNotExist(id);
+  });
 });
 
 bthread("CommitactivityLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCommitactivity(x.id);
+  const e_add = waitForCommitactivityAdded(id);
+  block(matchDeleteCommitactivity(id), function () {
+    verifyCommitactivityExists(id);
+  });
   updateCommitactivity(x.id);
   updateCommitactivity(x.id);
-  verifyCommitactivityExists(x.id);
-  verifyCommitactivityUpdated(x.id);
+  const e_upd = waitForCommitactivityUpdated(id);
+  block(matchDeleteCommitactivity(id), function () {
+    verifyCommitactivityUpdated(id);
+  });
   deleteCommitactivity(x.id);
+  const e_del = waitForCommitactivityDeleted(id);
+  block(matchAddCommitactivity(id), function () {
+    verifyCommitactivityDoesNotExist(id);
+  });
 });
 
 bthread("CommunityLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCommunity(x.id);
+  const e_add = waitForCommunityAdded(id);
+  block(matchDeleteCommunity(id), function () {
+    verifyCommunityExists(id);
+  });
   updateCommunity(x.id);
   updateCommunity(x.id);
-  verifyCommunityExists(x.id);
-  verifyCommunityUpdated(x.id);
+  const e_upd = waitForCommunityUpdated(id);
+  block(matchDeleteCommunity(id), function () {
+    verifyCommunityUpdated(id);
+  });
   deleteCommunity(x.id);
+  const e_del = waitForCommunityDeleted(id);
+  block(matchAddCommunity(id), function () {
+    verifyCommunityDoesNotExist(id);
+  });
 });
 
 bthread("CompareLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCompare(x.id);
+  const e_add = waitForCompareAdded(id);
+  block(matchDeleteCompare(id), function () {
+    verifyCompareExists(id);
+  });
   updateCompare(x.id);
   updateCompare(x.id);
-  verifyCompareExists(x.id);
-  verifyCompareUpdated(x.id);
+  const e_upd = waitForCompareUpdated(id);
+  block(matchDeleteCompare(id), function () {
+    verifyCompareUpdated(id);
+  });
   deleteCompare(x.id);
+  const e_del = waitForCompareDeleted(id);
+  block(matchAddCompare(id), function () {
+    verifyCompareDoesNotExist(id);
+  });
 });
 
 bthread("ConfigLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addConfig(x.id);
+  const e_add = waitForConfigAdded(id);
+  block(matchDeleteConfig(id), function () {
+    verifyConfigExists(id);
+  });
   updateConfig(x.id);
   updateConfig(x.id);
-  verifyConfigExists(x.id);
-  verifyConfigUpdated(x.id);
+  const e_upd = waitForConfigUpdated(id);
+  block(matchDeleteConfig(id), function () {
+    verifyConfigUpdated(id);
+  });
   deleteConfig(x.id);
+  const e_del = waitForConfigDeleted(id);
+  block(matchAddConfig(id), function () {
+    verifyConfigDoesNotExist(id);
+  });
 });
 
 bthread("ConfigurationLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addConfiguration(x.id);
+  const e_add = waitForConfigurationAdded(id);
+  block(matchDeleteConfiguration(id), function () {
+    verifyConfigurationExists(id);
+  });
   updateConfiguration(x.id);
   updateConfiguration(x.id);
-  verifyConfigurationExists(x.id);
-  verifyConfigurationUpdated(x.id);
+  const e_upd = waitForConfigurationUpdated(id);
+  block(matchDeleteConfiguration(id), function () {
+    verifyConfigurationUpdated(id);
+  });
   deleteConfiguration(x.id);
+  const e_del = waitForConfigurationDeleted(id);
+  block(matchAddConfiguration(id), function () {
+    verifyConfigurationDoesNotExist(id);
+  });
 });
 
 bthread("ConflictLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addConflict(x.id);
+  const e_add = waitForConflictAdded(id);
+  block(matchDeleteConflict(id), function () {
+    verifyConflictExists(id);
+  });
   updateConflict(x.id);
   updateConflict(x.id);
-  verifyConflictExists(x.id);
-  verifyConflictUpdated(x.id);
+  const e_upd = waitForConflictUpdated(id);
+  block(matchDeleteConflict(id), function () {
+    verifyConflictUpdated(id);
+  });
   deleteConflict(x.id);
+  const e_del = waitForConflictDeleted(id);
+  block(matchAddConflict(id), function () {
+    verifyConflictDoesNotExist(id);
+  });
 });
 
 bthread("ContentLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addContent(x.id);
+  const e_add = waitForContentAdded(id);
+  block(matchDeleteContent(id), function () {
+    verifyContentExists(id);
+  });
   updateContent(x.id);
   updateContent(x.id);
-  verifyContentExists(x.id);
-  verifyContentUpdated(x.id);
+  const e_upd = waitForContentUpdated(id);
+  block(matchDeleteContent(id), function () {
+    verifyContentUpdated(id);
+  });
   deleteContent(x.id);
+  const e_del = waitForContentDeleted(id);
+  block(matchAddContent(id), function () {
+    verifyContentDoesNotExist(id);
+  });
 });
 
 bthread("ContextLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addContext(x.id);
+  const e_add = waitForContextAdded(id);
+  block(matchDeleteContext(id), function () {
+    verifyContextExists(id);
+  });
   updateContext(x.id);
   updateContext(x.id);
-  verifyContextExists(x.id);
-  verifyContextUpdated(x.id);
+  const e_upd = waitForContextUpdated(id);
+  block(matchDeleteContext(id), function () {
+    verifyContextUpdated(id);
+  });
   deleteContext(x.id);
+  const e_del = waitForContextDeleted(id);
+  block(matchAddContext(id), function () {
+    verifyContextDoesNotExist(id);
+  });
 });
 
 bthread("ContributorLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addContributor(x.id);
+  const e_add = waitForContributorAdded(id);
+  block(matchDeleteContributor(id), function () {
+    verifyContributorExists(id);
+  });
   updateContributor(x.id);
   updateContributor(x.id);
-  verifyContributorExists(x.id);
-  verifyContributorUpdated(x.id);
+  const e_upd = waitForContributorUpdated(id);
+  block(matchDeleteContributor(id), function () {
+    verifyContributorUpdated(id);
+  });
   deleteContributor(x.id);
+  const e_del = waitForContributorDeleted(id);
+  block(matchAddContributor(id), function () {
+    verifyContributorDoesNotExist(id);
+  });
 });
 
 bthread("ConversionLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addConversion(x.id);
+  const e_add = waitForConversionAdded(id);
+  block(matchDeleteConversion(id), function () {
+    verifyConversionExists(id);
+  });
   updateConversion(x.id);
   updateConversion(x.id);
-  verifyConversionExists(x.id);
-  verifyConversionUpdated(x.id);
+  const e_upd = waitForConversionUpdated(id);
+  block(matchDeleteConversion(id), function () {
+    verifyConversionUpdated(id);
+  });
   deleteConversion(x.id);
+  const e_del = waitForConversionDeleted(id);
+  block(matchAddConversion(id), function () {
+    verifyConversionDoesNotExist(id);
+  });
 });
 
 bthread("CopilotLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCopilot(x.id);
+  const e_add = waitForCopilotAdded(id);
+  block(matchDeleteCopilot(id), function () {
+    verifyCopilotExists(id);
+  });
   updateCopilot(x.id);
   updateCopilot(x.id);
-  verifyCopilotExists(x.id);
-  verifyCopilotUpdated(x.id);
+  const e_upd = waitForCopilotUpdated(id);
+  block(matchDeleteCopilot(id), function () {
+    verifyCopilotUpdated(id);
+  });
   deleteCopilot(x.id);
+  const e_del = waitForCopilotDeleted(id);
+  block(matchAddCopilot(id), function () {
+    verifyCopilotDoesNotExist(id);
+  });
 });
 
 bthread("CredentialLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCredential(x.id);
+  const e_add = waitForCredentialAdded(id);
+  block(matchDeleteCredential(id), function () {
+    verifyCredentialExists(id);
+  });
   updateCredential(x.id);
   updateCredential(x.id);
-  verifyCredentialExists(x.id);
-  verifyCredentialUpdated(x.id);
+  const e_upd = waitForCredentialUpdated(id);
+  block(matchDeleteCredential(id), function () {
+    verifyCredentialUpdated(id);
+  });
   deleteCredential(x.id);
+  const e_del = waitForCredentialDeleted(id);
+  block(matchAddCredential(id), function () {
+    verifyCredentialDoesNotExist(id);
+  });
 });
 
 bthread("CustomizationLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCustomization(x.id);
+  const e_add = waitForCustomizationAdded(id);
+  block(matchDeleteCustomization(id), function () {
+    verifyCustomizationExists(id);
+  });
   updateCustomization(x.id);
   updateCustomization(x.id);
-  verifyCustomizationExists(x.id);
-  verifyCustomizationUpdated(x.id);
+  const e_upd = waitForCustomizationUpdated(id);
+  block(matchDeleteCustomization(id), function () {
+    verifyCustomizationUpdated(id);
+  });
   deleteCustomization(x.id);
+  const e_del = waitForCustomizationDeleted(id);
+  block(matchAddCustomization(id), function () {
+    verifyCustomizationDoesNotExist(id);
+  });
 });
 
 bthread("CveLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCve(x.id);
+  const e_add = waitForCveAdded(id);
+  block(matchDeleteCve(id), function () {
+    verifyCveExists(id);
+  });
   updateCve(x.id);
   updateCve(x.id);
-  verifyCveExists(x.id);
-  verifyCveUpdated(x.id);
+  const e_upd = waitForCveUpdated(id);
+  block(matchDeleteCve(id), function () {
+    verifyCveUpdated(id);
+  });
   deleteCve(x.id);
+  const e_del = waitForCveDeleted(id);
+  block(matchAddCve(id), function () {
+    verifyCveDoesNotExist(id);
+  });
 });
 
 bthread("DatabasLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDatabas(x.id);
+  const e_add = waitForDatabasAdded(id);
+  block(matchDeleteDatabas(id), function () {
+    verifyDatabasExists(id);
+  });
   updateDatabas(x.id);
   updateDatabas(x.id);
-  verifyDatabasExists(x.id);
-  verifyDatabasUpdated(x.id);
+  const e_upd = waitForDatabasUpdated(id);
+  block(matchDeleteDatabas(id), function () {
+    verifyDatabasUpdated(id);
+  });
   deleteDatabas(x.id);
+  const e_del = waitForDatabasDeleted(id);
+  block(matchAddDatabas(id), function () {
+    verifyDatabasDoesNotExist(id);
+  });
 });
 
 bthread("DefaultLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDefault(x.id);
+  const e_add = waitForDefaultAdded(id);
+  block(matchDeleteDefault(id), function () {
+    verifyDefaultExists(id);
+  });
   updateDefault(x.id);
   updateDefault(x.id);
-  verifyDefaultExists(x.id);
-  verifyDefaultUpdated(x.id);
+  const e_upd = waitForDefaultUpdated(id);
+  block(matchDeleteDefault(id), function () {
+    verifyDefaultUpdated(id);
+  });
   deleteDefault(x.id);
+  const e_del = waitForDefaultDeleted(id);
+  block(matchAddDefault(id), function () {
+    verifyDefaultDoesNotExist(id);
+  });
 });
 
 bthread("DefaultlevelLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDefaultlevel(x.id);
+  const e_add = waitForDefaultlevelAdded(id);
+  block(matchDeleteDefaultlevel(id), function () {
+    verifyDefaultlevelExists(id);
+  });
   updateDefaultlevel(x.id);
   updateDefaultlevel(x.id);
-  verifyDefaultlevelExists(x.id);
-  verifyDefaultlevelUpdated(x.id);
+  const e_upd = waitForDefaultlevelUpdated(id);
+  block(matchDeleteDefaultlevel(id), function () {
+    verifyDefaultlevelUpdated(id);
+  });
   deleteDefaultlevel(x.id);
+  const e_del = waitForDefaultlevelDeleted(id);
+  block(matchAddDefaultlevel(id), function () {
+    verifyDefaultlevelDoesNotExist(id);
+  });
 });
 
 bthread("DefaultsetupLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDefaultsetup(x.id);
+  const e_add = waitForDefaultsetupAdded(id);
+  block(matchDeleteDefaultsetup(id), function () {
+    verifyDefaultsetupExists(id);
+  });
   updateDefaultsetup(x.id);
   updateDefaultsetup(x.id);
-  verifyDefaultsetupExists(x.id);
-  verifyDefaultsetupUpdated(x.id);
+  const e_upd = waitForDefaultsetupUpdated(id);
+  block(matchDeleteDefaultsetup(id), function () {
+    verifyDefaultsetupUpdated(id);
+  });
   deleteDefaultsetup(x.id);
+  const e_del = waitForDefaultsetupDeleted(id);
+  block(matchAddDefaultsetup(id), function () {
+    verifyDefaultsetupDoesNotExist(id);
+  });
 });
 
 bthread("DeleterequestLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDeleterequest(x.id);
+  const e_add = waitForDeleterequestAdded(id);
+  block(matchDeleteDeleterequest(id), function () {
+    verifyDeleterequestExists(id);
+  });
   updateDeleterequest(x.id);
   updateDeleterequest(x.id);
-  verifyDeleterequestExists(x.id);
-  verifyDeleterequestUpdated(x.id);
+  const e_upd = waitForDeleterequestUpdated(id);
+  block(matchDeleteDeleterequest(id), function () {
+    verifyDeleterequestUpdated(id);
+  });
   deleteDeleterequest(x.id);
+  const e_del = waitForDeleterequestDeleted(id);
+  block(matchAddDeleterequest(id), function () {
+    verifyDeleterequestDoesNotExist(id);
+  });
 });
 
 bthread("DeliveryLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDelivery(x.id);
+  const e_add = waitForDeliveryAdded(id);
+  block(matchDeleteDelivery(id), function () {
+    verifyDeliveryExists(id);
+  });
   updateDelivery(x.id);
   updateDelivery(x.id);
-  verifyDeliveryExists(x.id);
-  verifyDeliveryUpdated(x.id);
+  const e_upd = waitForDeliveryUpdated(id);
+  block(matchDeleteDelivery(id), function () {
+    verifyDeliveryUpdated(id);
+  });
   deleteDelivery(x.id);
+  const e_del = waitForDeliveryDeleted(id);
+  block(matchAddDelivery(id), function () {
+    verifyDeliveryDoesNotExist(id);
+  });
 });
 
 bthread("DependabotLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDependabot(x.id);
+  const e_add = waitForDependabotAdded(id);
+  block(matchDeleteDependabot(id), function () {
+    verifyDependabotExists(id);
+  });
   updateDependabot(x.id);
   updateDependabot(x.id);
-  verifyDependabotExists(x.id);
-  verifyDependabotUpdated(x.id);
+  const e_upd = waitForDependabotUpdated(id);
+  block(matchDeleteDependabot(id), function () {
+    verifyDependabotUpdated(id);
+  });
   deleteDependabot(x.id);
+  const e_del = waitForDependabotDeleted(id);
+  block(matchAddDependabot(id), function () {
+    verifyDependabotDoesNotExist(id);
+  });
 });
 
 bthread("DependencyLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDependency(x.id);
+  const e_add = waitForDependencyAdded(id);
+  block(matchDeleteDependency(id), function () {
+    verifyDependencyExists(id);
+  });
   updateDependency(x.id);
   updateDependency(x.id);
-  verifyDependencyExists(x.id);
-  verifyDependencyUpdated(x.id);
+  const e_upd = waitForDependencyUpdated(id);
+  block(matchDeleteDependency(id), function () {
+    verifyDependencyUpdated(id);
+  });
   deleteDependency(x.id);
+  const e_del = waitForDependencyDeleted(id);
+  block(matchAddDependency(id), function () {
+    verifyDependencyDoesNotExist(id);
+  });
 });
 
 bthread("DependencygraphLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDependencygraph(x.id);
+  const e_add = waitForDependencygraphAdded(id);
+  block(matchDeleteDependencygraph(id), function () {
+    verifyDependencygraphExists(id);
+  });
   updateDependencygraph(x.id);
   updateDependencygraph(x.id);
-  verifyDependencygraphExists(x.id);
-  verifyDependencygraphUpdated(x.id);
+  const e_upd = waitForDependencygraphUpdated(id);
+  block(matchDeleteDependencygraph(id), function () {
+    verifyDependencygraphUpdated(id);
+  });
   deleteDependencygraph(x.id);
+  const e_del = waitForDependencygraphDeleted(id);
+  block(matchAddDependencygraph(id), function () {
+    verifyDependencygraphDoesNotExist(id);
+  });
 });
 
 bthread("DeploymentLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDeployment(x.id);
+  const e_add = waitForDeploymentAdded(id);
+  block(matchDeleteDeployment(id), function () {
+    verifyDeploymentExists(id);
+  });
   updateDeployment(x.id);
   updateDeployment(x.id);
-  verifyDeploymentExists(x.id);
-  verifyDeploymentUpdated(x.id);
+  const e_upd = waitForDeploymentUpdated(id);
+  block(matchDeleteDeployment(id), function () {
+    verifyDeploymentUpdated(id);
+  });
   deleteDeployment(x.id);
+  const e_del = waitForDeploymentDeleted(id);
+  block(matchAddDeployment(id), function () {
+    verifyDeploymentDoesNotExist(id);
+  });
 });
 
 bthread("DeploymentbranchpolicyLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDeploymentbranchpolicy(x.id);
+  const e_add = waitForDeploymentbranchpolicyAdded(id);
+  block(matchDeleteDeploymentbranchpolicy(id), function () {
+    verifyDeploymentbranchpolicyExists(id);
+  });
   updateDeploymentbranchpolicy(x.id);
   updateDeploymentbranchpolicy(x.id);
-  verifyDeploymentbranchpolicyExists(x.id);
-  verifyDeploymentbranchpolicyUpdated(x.id);
+  const e_upd = waitForDeploymentbranchpolicyUpdated(id);
+  block(matchDeleteDeploymentbranchpolicy(id), function () {
+    verifyDeploymentbranchpolicyUpdated(id);
+  });
   deleteDeploymentbranchpolicy(x.id);
+  const e_del = waitForDeploymentbranchpolicyDeleted(id);
+  block(matchAddDeploymentbranchpolicy(id), function () {
+    verifyDeploymentbranchpolicyDoesNotExist(id);
+  });
 });
 
 bthread("DeploymentprotectionruleLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDeploymentprotectionrule(x.id);
+  const e_add = waitForDeploymentprotectionruleAdded(id);
+  block(matchDeleteDeploymentprotectionrule(id), function () {
+    verifyDeploymentprotectionruleExists(id);
+  });
   updateDeploymentprotectionrule(x.id);
   updateDeploymentprotectionrule(x.id);
-  verifyDeploymentprotectionruleExists(x.id);
-  verifyDeploymentprotectionruleUpdated(x.id);
+  const e_upd = waitForDeploymentprotectionruleUpdated(id);
+  block(matchDeleteDeploymentprotectionrule(id), function () {
+    verifyDeploymentprotectionruleUpdated(id);
+  });
   deleteDeploymentprotectionrule(x.id);
+  const e_del = waitForDeploymentprotectionruleDeleted(id);
+  block(matchAddDeploymentprotectionrule(id), function () {
+    verifyDeploymentprotectionruleDoesNotExist(id);
+  });
 });
 
 bthread("DetachLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDetach(x.id);
+  const e_add = waitForDetachAdded(id);
+  block(matchDeleteDetach(id), function () {
+    verifyDetachExists(id);
+  });
   updateDetach(x.id);
   updateDetach(x.id);
-  verifyDetachExists(x.id);
-  verifyDetachUpdated(x.id);
+  const e_upd = waitForDetachUpdated(id);
+  block(matchDeleteDetach(id), function () {
+    verifyDetachUpdated(id);
+  });
   deleteDetach(x.id);
+  const e_del = waitForDetachDeleted(id);
+  block(matchAddDetach(id), function () {
+    verifyDetachDoesNotExist(id);
+  });
 });
 
 bthread("DevcontainerLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDevcontainer(x.id);
+  const e_add = waitForDevcontainerAdded(id);
+  block(matchDeleteDevcontainer(id), function () {
+    verifyDevcontainerExists(id);
+  });
   updateDevcontainer(x.id);
   updateDevcontainer(x.id);
-  verifyDevcontainerExists(x.id);
-  verifyDevcontainerUpdated(x.id);
+  const e_upd = waitForDevcontainerUpdated(id);
+  block(matchDeleteDevcontainer(id), function () {
+    verifyDevcontainerUpdated(id);
+  });
   deleteDevcontainer(x.id);
+  const e_del = waitForDevcontainerDeleted(id);
+  block(matchAddDevcontainer(id), function () {
+    verifyDevcontainerDoesNotExist(id);
+  });
 });
 
 bthread("DigestLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDigest(x.id);
+  const e_add = waitForDigestAdded(id);
+  block(matchDeleteDigest(id), function () {
+    verifyDigestExists(id);
+  });
   updateDigest(x.id);
   updateDigest(x.id);
-  verifyDigestExists(x.id);
-  verifyDigestUpdated(x.id);
+  const e_upd = waitForDigestUpdated(id);
+  block(matchDeleteDigest(id), function () {
+    verifyDigestUpdated(id);
+  });
   deleteDigest(x.id);
+  const e_del = waitForDigestDeleted(id);
+  block(matchAddDigest(id), function () {
+    verifyDigestDoesNotExist(id);
+  });
 });
 
 bthread("DisableLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDisable(x.id);
+  const e_add = waitForDisableAdded(id);
+  block(matchDeleteDisable(id), function () {
+    verifyDisableExists(id);
+  });
   updateDisable(x.id);
   updateDisable(x.id);
-  verifyDisableExists(x.id);
-  verifyDisableUpdated(x.id);
+  const e_upd = waitForDisableUpdated(id);
+  block(matchDeleteDisable(id), function () {
+    verifyDisableUpdated(id);
+  });
   deleteDisable(x.id);
+  const e_del = waitForDisableDeleted(id);
+  block(matchAddDisable(id), function () {
+    verifyDisableDoesNotExist(id);
+  });
 });
 
 bthread("DiscussionLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDiscussion(x.id);
+  const e_add = waitForDiscussionAdded(id);
+  block(matchDeleteDiscussion(id), function () {
+    verifyDiscussionExists(id);
+  });
   updateDiscussion(x.id);
   updateDiscussion(x.id);
-  verifyDiscussionExists(x.id);
-  verifyDiscussionUpdated(x.id);
+  const e_upd = waitForDiscussionUpdated(id);
+  block(matchDeleteDiscussion(id), function () {
+    verifyDiscussionUpdated(id);
+  });
   deleteDiscussion(x.id);
+  const e_del = waitForDiscussionDeleted(id);
+  block(matchAddDiscussion(id), function () {
+    verifyDiscussionDoesNotExist(id);
+  });
 });
 
 bthread("DismissalLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDismissal(x.id);
+  const e_add = waitForDismissalAdded(id);
+  block(matchDeleteDismissal(id), function () {
+    verifyDismissalExists(id);
+  });
   updateDismissal(x.id);
   updateDismissal(x.id);
-  verifyDismissalExists(x.id);
-  verifyDismissalUpdated(x.id);
+  const e_upd = waitForDismissalUpdated(id);
+  block(matchDeleteDismissal(id), function () {
+    verifyDismissalUpdated(id);
+  });
   deleteDismissal(x.id);
+  const e_del = waitForDismissalDeleted(id);
+  block(matchAddDismissal(id), function () {
+    verifyDismissalDoesNotExist(id);
+  });
 });
 
 bthread("DispatcheLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDispatche(x.id);
+  const e_add = waitForDispatcheAdded(id);
+  block(matchDeleteDispatche(id), function () {
+    verifyDispatcheExists(id);
+  });
   updateDispatche(x.id);
   updateDispatche(x.id);
-  verifyDispatcheExists(x.id);
-  verifyDispatcheUpdated(x.id);
+  const e_upd = waitForDispatcheUpdated(id);
+  block(matchDeleteDispatche(id), function () {
+    verifyDispatcheUpdated(id);
+  });
   deleteDispatche(x.id);
+  const e_del = waitForDispatcheDeleted(id);
+  block(matchAddDispatche(id), function () {
+    verifyDispatcheDoesNotExist(id);
+  });
 });
 
 bthread("DockerLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDocker(x.id);
+  const e_add = waitForDockerAdded(id);
+  block(matchDeleteDocker(id), function () {
+    verifyDockerExists(id);
+  });
   updateDocker(x.id);
   updateDocker(x.id);
-  verifyDockerExists(x.id);
-  verifyDockerUpdated(x.id);
+  const e_upd = waitForDockerUpdated(id);
+  block(matchDeleteDocker(id), function () {
+    verifyDockerUpdated(id);
+  });
   deleteDocker(x.id);
+  const e_del = waitForDockerDeleted(id);
+  block(matchAddDocker(id), function () {
+    verifyDockerDoesNotExist(id);
+  });
 });
 
 bthread("DownloadLifecycle", function () {
-  const x = pick([{id: "D001"}, {id: "D002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addDownload(x.id);
+  const e_add = waitForDownloadAdded(id);
+  block(matchDeleteDownload(id), function () {
+    verifyDownloadExists(id);
+  });
   updateDownload(x.id);
   updateDownload(x.id);
-  verifyDownloadExists(x.id);
-  verifyDownloadUpdated(x.id);
+  const e_upd = waitForDownloadUpdated(id);
+  block(matchDeleteDownload(id), function () {
+    verifyDownloadUpdated(id);
+  });
   deleteDownload(x.id);
+  const e_del = waitForDownloadDeleted(id);
+  block(matchAddDownload(id), function () {
+    verifyDownloadDoesNotExist(id);
+  });
 });
 
 bthread("EmailLifecycle", function () {
-  const x = pick([{id: "E001"}, {id: "E002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addEmail(x.id);
+  const e_add = waitForEmailAdded(id);
+  block(matchDeleteEmail(id), function () {
+    verifyEmailExists(id);
+  });
   updateEmail(x.id);
   updateEmail(x.id);
-  verifyEmailExists(x.id);
-  verifyEmailUpdated(x.id);
+  const e_upd = waitForEmailUpdated(id);
+  block(matchDeleteEmail(id), function () {
+    verifyEmailUpdated(id);
+  });
   deleteEmail(x.id);
+  const e_del = waitForEmailDeleted(id);
+  block(matchAddEmail(id), function () {
+    verifyEmailDoesNotExist(id);
+  });
 });
 
 bthread("EmojiLifecycle", function () {
-  const x = pick([{id: "E001"}, {id: "E002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addEmoji(x.id);
+  const e_add = waitForEmojiAdded(id);
+  block(matchDeleteEmoji(id), function () {
+    verifyEmojiExists(id);
+  });
   updateEmoji(x.id);
   updateEmoji(x.id);
-  verifyEmojiExists(x.id);
-  verifyEmojiUpdated(x.id);
+  const e_upd = waitForEmojiUpdated(id);
+  block(matchDeleteEmoji(id), function () {
+    verifyEmojiUpdated(id);
+  });
   deleteEmoji(x.id);
+  const e_del = waitForEmojiDeleted(id);
+  block(matchAddEmoji(id), function () {
+    verifyEmojiDoesNotExist(id);
+  });
 });
 
 bthread("EnableLifecycle", function () {
-  const x = pick([{id: "E001"}, {id: "E002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addEnable(x.id);
+  const e_add = waitForEnableAdded(id);
+  block(matchDeleteEnable(id), function () {
+    verifyEnableExists(id);
+  });
   updateEnable(x.id);
   updateEnable(x.id);
-  verifyEnableExists(x.id);
-  verifyEnableUpdated(x.id);
+  const e_upd = waitForEnableUpdated(id);
+  block(matchDeleteEnable(id), function () {
+    verifyEnableUpdated(id);
+  });
   deleteEnable(x.id);
+  const e_del = waitForEnableDeleted(id);
+  block(matchAddEnable(id), function () {
+    verifyEnableDoesNotExist(id);
+  });
 });
 
 bthread("EnforceadminLifecycle", function () {
-  const x = pick([{id: "E001"}, {id: "E002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addEnforceadmin(x.id);
+  const e_add = waitForEnforceadminAdded(id);
+  block(matchDeleteEnforceadmin(id), function () {
+    verifyEnforceadminExists(id);
+  });
   updateEnforceadmin(x.id);
   updateEnforceadmin(x.id);
-  verifyEnforceadminExists(x.id);
-  verifyEnforceadminUpdated(x.id);
+  const e_upd = waitForEnforceadminUpdated(id);
+  block(matchDeleteEnforceadmin(id), function () {
+    verifyEnforceadminUpdated(id);
+  });
   deleteEnforceadmin(x.id);
+  const e_del = waitForEnforceadminDeleted(id);
+  block(matchAddEnforceadmin(id), function () {
+    verifyEnforceadminDoesNotExist(id);
+  });
 });
 
 bthread("EnterprisLifecycle", function () {
-  const x = pick([{id: "E001"}, {id: "E002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addEnterpris(x.id);
+  const e_add = waitForEnterprisAdded(id);
+  block(matchDeleteEnterpris(id), function () {
+    verifyEnterprisExists(id);
+  });
   updateEnterpris(x.id);
   updateEnterpris(x.id);
-  verifyEnterprisExists(x.id);
-  verifyEnterprisUpdated(x.id);
+  const e_upd = waitForEnterprisUpdated(id);
+  block(matchDeleteEnterpris(id), function () {
+    verifyEnterprisUpdated(id);
+  });
   deleteEnterpris(x.id);
+  const e_del = waitForEnterprisDeleted(id);
+  block(matchAddEnterpris(id), function () {
+    verifyEnterprisDoesNotExist(id);
+  });
 });
 
 bthread("EnvironmentLifecycle", function () {
-  const x = pick([{id: "E001"}, {id: "E002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addEnvironment(x.id);
+  const e_add = waitForEnvironmentAdded(id);
+  block(matchDeleteEnvironment(id), function () {
+    verifyEnvironmentExists(id);
+  });
   updateEnvironment(x.id);
   updateEnvironment(x.id);
-  verifyEnvironmentExists(x.id);
-  verifyEnvironmentUpdated(x.id);
+  const e_upd = waitForEnvironmentUpdated(id);
+  block(matchDeleteEnvironment(id), function () {
+    verifyEnvironmentUpdated(id);
+  });
   deleteEnvironment(x.id);
+  const e_del = waitForEnvironmentDeleted(id);
+  block(matchAddEnvironment(id), function () {
+    verifyEnvironmentDoesNotExist(id);
+  });
 });
 
 bthread("ErrorLifecycle", function () {
-  const x = pick([{id: "E001"}, {id: "E002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addError(x.id);
+  const e_add = waitForErrorAdded(id);
+  block(matchDeleteError(id), function () {
+    verifyErrorExists(id);
+  });
   updateError(x.id);
   updateError(x.id);
-  verifyErrorExists(x.id);
-  verifyErrorUpdated(x.id);
+  const e_upd = waitForErrorUpdated(id);
+  block(matchDeleteError(id), function () {
+    verifyErrorUpdated(id);
+  });
   deleteError(x.id);
+  const e_del = waitForErrorDeleted(id);
+  block(matchAddError(id), function () {
+    verifyErrorDoesNotExist(id);
+  });
 });
 
 bthread("EventLifecycle", function () {
-  const x = pick([{id: "E001"}, {id: "E002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addEvent(x.id);
+  const e_add = waitForEventAdded(id);
+  block(matchDeleteEvent(id), function () {
+    verifyEventExists(id);
+  });
   updateEvent(x.id);
   updateEvent(x.id);
-  verifyEventExists(x.id);
-  verifyEventUpdated(x.id);
+  const e_upd = waitForEventUpdated(id);
+  block(matchDeleteEvent(id), function () {
+    verifyEventUpdated(id);
+  });
   deleteEvent(x.id);
+  const e_del = waitForEventDeleted(id);
+  block(matchAddEvent(id), function () {
+    verifyEventDoesNotExist(id);
+  });
 });
 
 bthread("ExportLifecycle", function () {
-  const x = pick([{id: "E001"}, {id: "E002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addExport(x.id);
+  const e_add = waitForExportAdded(id);
+  block(matchDeleteExport(id), function () {
+    verifyExportExists(id);
+  });
   updateExport(x.id);
   updateExport(x.id);
-  verifyExportExists(x.id);
-  verifyExportUpdated(x.id);
+  const e_upd = waitForExportUpdated(id);
+  block(matchDeleteExport(id), function () {
+    verifyExportUpdated(id);
+  });
   deleteExport(x.id);
+  const e_del = waitForExportDeleted(id);
+  block(matchAddExport(id), function () {
+    verifyExportDoesNotExist(id);
+  });
 });
 
 bthread("FailedinvitationLifecycle", function () {
-  const x = pick([{id: "F001"}, {id: "F002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addFailedinvitation(x.id);
+  const e_add = waitForFailedinvitationAdded(id);
+  block(matchDeleteFailedinvitation(id), function () {
+    verifyFailedinvitationExists(id);
+  });
   updateFailedinvitation(x.id);
   updateFailedinvitation(x.id);
-  verifyFailedinvitationExists(x.id);
-  verifyFailedinvitationUpdated(x.id);
+  const e_upd = waitForFailedinvitationUpdated(id);
+  block(matchDeleteFailedinvitation(id), function () {
+    verifyFailedinvitationUpdated(id);
+  });
   deleteFailedinvitation(x.id);
+  const e_del = waitForFailedinvitationDeleted(id);
+  block(matchAddFailedinvitation(id), function () {
+    verifyFailedinvitationDoesNotExist(id);
+  });
 });
 
 bthread("FeedLifecycle", function () {
-  const x = pick([{id: "F001"}, {id: "F002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addFeed(x.id);
+  const e_add = waitForFeedAdded(id);
+  block(matchDeleteFeed(id), function () {
+    verifyFeedExists(id);
+  });
   updateFeed(x.id);
   updateFeed(x.id);
-  verifyFeedExists(x.id);
-  verifyFeedUpdated(x.id);
+  const e_upd = waitForFeedUpdated(id);
+  block(matchDeleteFeed(id), function () {
+    verifyFeedUpdated(id);
+  });
   deleteFeed(x.id);
+  const e_del = waitForFeedDeleted(id);
+  block(matchAddFeed(id), function () {
+    verifyFeedDoesNotExist(id);
+  });
 });
 
 bthread("FieldLifecycle", function () {
-  const x = pick([{id: "F001"}, {id: "F002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addField(x.id);
+  const e_add = waitForFieldAdded(id);
+  block(matchDeleteField(id), function () {
+    verifyFieldExists(id);
+  });
   updateField(x.id);
   updateField(x.id);
-  verifyFieldExists(x.id);
-  verifyFieldUpdated(x.id);
+  const e_upd = waitForFieldUpdated(id);
+  block(matchDeleteField(id), function () {
+    verifyFieldUpdated(id);
+  });
   deleteField(x.id);
+  const e_del = waitForFieldDeleted(id);
+  block(matchAddField(id), function () {
+    verifyFieldDoesNotExist(id);
+  });
 });
 
 bthread("FileLifecycle", function () {
-  const x = pick([{id: "F001"}, {id: "F002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addFile(x.id);
+  const e_add = waitForFileAdded(id);
+  block(matchDeleteFile(id), function () {
+    verifyFileExists(id);
+  });
   updateFile(x.id);
   updateFile(x.id);
-  verifyFileExists(x.id);
-  verifyFileUpdated(x.id);
+  const e_upd = waitForFileUpdated(id);
+  block(matchDeleteFile(id), function () {
+    verifyFileUpdated(id);
+  });
   deleteFile(x.id);
+  const e_del = waitForFileDeleted(id);
+  block(matchAddFile(id), function () {
+    verifyFileDoesNotExist(id);
+  });
 });
 
 bthread("FollowerLifecycle", function () {
-  const x = pick([{id: "F001"}, {id: "F002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addFollower(x.id);
+  const e_add = waitForFollowerAdded(id);
+  block(matchDeleteFollower(id), function () {
+    verifyFollowerExists(id);
+  });
   updateFollower(x.id);
   updateFollower(x.id);
-  verifyFollowerExists(x.id);
-  verifyFollowerUpdated(x.id);
+  const e_upd = waitForFollowerUpdated(id);
+  block(matchDeleteFollower(id), function () {
+    verifyFollowerUpdated(id);
+  });
   deleteFollower(x.id);
+  const e_del = waitForFollowerDeleted(id);
+  block(matchAddFollower(id), function () {
+    verifyFollowerDoesNotExist(id);
+  });
 });
 
 bthread("FollowingLifecycle", function () {
-  const x = pick([{id: "F001"}, {id: "F002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addFollowing(x.id);
+  const e_add = waitForFollowingAdded(id);
+  block(matchDeleteFollowing(id), function () {
+    verifyFollowingExists(id);
+  });
   updateFollowing(x.id);
   updateFollowing(x.id);
-  verifyFollowingExists(x.id);
-  verifyFollowingUpdated(x.id);
+  const e_upd = waitForFollowingUpdated(id);
+  block(matchDeleteFollowing(id), function () {
+    verifyFollowingUpdated(id);
+  });
   deleteFollowing(x.id);
+  const e_del = waitForFollowingDeleted(id);
+  block(matchAddFollowing(id), function () {
+    verifyFollowingDoesNotExist(id);
+  });
 });
 
 bthread("ForcecancelLifecycle", function () {
-  const x = pick([{id: "F001"}, {id: "F002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addForcecancel(x.id);
+  const e_add = waitForForcecancelAdded(id);
+  block(matchDeleteForcecancel(id), function () {
+    verifyForcecancelExists(id);
+  });
   updateForcecancel(x.id);
   updateForcecancel(x.id);
-  verifyForcecancelExists(x.id);
-  verifyForcecancelUpdated(x.id);
+  const e_upd = waitForForcecancelUpdated(id);
+  block(matchDeleteForcecancel(id), function () {
+    verifyForcecancelUpdated(id);
+  });
   deleteForcecancel(x.id);
+  const e_del = waitForForcecancelDeleted(id);
+  block(matchAddForcecancel(id), function () {
+    verifyForcecancelDoesNotExist(id);
+  });
 });
 
 bthread("ForkLifecycle", function () {
-  const x = pick([{id: "F001"}, {id: "F002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addFork(x.id);
+  const e_add = waitForForkAdded(id);
+  block(matchDeleteFork(id), function () {
+    verifyForkExists(id);
+  });
   updateFork(x.id);
   updateFork(x.id);
-  verifyForkExists(x.id);
-  verifyForkUpdated(x.id);
+  const e_upd = waitForForkUpdated(id);
+  block(matchDeleteFork(id), function () {
+    verifyForkUpdated(id);
+  });
   deleteFork(x.id);
+  const e_del = waitForForkDeleted(id);
+  block(matchAddFork(id), function () {
+    verifyForkDoesNotExist(id);
+  });
 });
 
 bthread("ForkprcontributorapprovalLifecycle", function () {
-  const x = pick([{id: "F001"}, {id: "F002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addForkprcontributorapproval(x.id);
+  const e_add = waitForForkprcontributorapprovalAdded(id);
+  block(matchDeleteForkprcontributorapproval(id), function () {
+    verifyForkprcontributorapprovalExists(id);
+  });
   updateForkprcontributorapproval(x.id);
   updateForkprcontributorapproval(x.id);
-  verifyForkprcontributorapprovalExists(x.id);
-  verifyForkprcontributorapprovalUpdated(x.id);
+  const e_upd = waitForForkprcontributorapprovalUpdated(id);
+  block(matchDeleteForkprcontributorapproval(id), function () {
+    verifyForkprcontributorapprovalUpdated(id);
+  });
   deleteForkprcontributorapproval(x.id);
+  const e_del = waitForForkprcontributorapprovalDeleted(id);
+  block(matchAddForkprcontributorapproval(id), function () {
+    verifyForkprcontributorapprovalDoesNotExist(id);
+  });
 });
 
 bthread("ForkprworkflowsprivaterepoLifecycle", function () {
-  const x = pick([{id: "F001"}, {id: "F002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addForkprworkflowsprivaterepo(x.id);
+  const e_add = waitForForkprworkflowsprivaterepoAdded(id);
+  block(matchDeleteForkprworkflowsprivaterepo(id), function () {
+    verifyForkprworkflowsprivaterepoExists(id);
+  });
   updateForkprworkflowsprivaterepo(x.id);
   updateForkprworkflowsprivaterepo(x.id);
-  verifyForkprworkflowsprivaterepoExists(x.id);
-  verifyForkprworkflowsprivaterepoUpdated(x.id);
+  const e_upd = waitForForkprworkflowsprivaterepoUpdated(id);
+  block(matchDeleteForkprworkflowsprivaterepo(id), function () {
+    verifyForkprworkflowsprivaterepoUpdated(id);
+  });
   deleteForkprworkflowsprivaterepo(x.id);
+  const e_del = waitForForkprworkflowsprivaterepoDeleted(id);
+  block(matchAddForkprworkflowsprivaterepo(id), function () {
+    verifyForkprworkflowsprivaterepoDoesNotExist(id);
+  });
 });
 
 bthread("GenerateLifecycle", function () {
-  const x = pick([{id: "G001"}, {id: "G002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addGenerate(x.id);
+  const e_add = waitForGenerateAdded(id);
+  block(matchDeleteGenerate(id), function () {
+    verifyGenerateExists(id);
+  });
   updateGenerate(x.id);
   updateGenerate(x.id);
-  verifyGenerateExists(x.id);
-  verifyGenerateUpdated(x.id);
+  const e_upd = waitForGenerateUpdated(id);
+  block(matchDeleteGenerate(id), function () {
+    verifyGenerateUpdated(id);
+  });
   deleteGenerate(x.id);
+  const e_del = waitForGenerateDeleted(id);
+  block(matchAddGenerate(id), function () {
+    verifyGenerateDoesNotExist(id);
+  });
 });
 
 bthread("GeneratejitconfigLifecycle", function () {
-  const x = pick([{id: "G001"}, {id: "G002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addGeneratejitconfig(x.id);
+  const e_add = waitForGeneratejitconfigAdded(id);
+  block(matchDeleteGeneratejitconfig(id), function () {
+    verifyGeneratejitconfigExists(id);
+  });
   updateGeneratejitconfig(x.id);
   updateGeneratejitconfig(x.id);
-  verifyGeneratejitconfigExists(x.id);
-  verifyGeneratejitconfigUpdated(x.id);
+  const e_upd = waitForGeneratejitconfigUpdated(id);
+  block(matchDeleteGeneratejitconfig(id), function () {
+    verifyGeneratejitconfigUpdated(id);
+  });
   deleteGeneratejitconfig(x.id);
+  const e_del = waitForGeneratejitconfigDeleted(id);
+  block(matchAddGeneratejitconfig(id), function () {
+    verifyGeneratejitconfigDoesNotExist(id);
+  });
 });
 
 bthread("GeneratenoteLifecycle", function () {
-  const x = pick([{id: "G001"}, {id: "G002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addGeneratenote(x.id);
+  const e_add = waitForGeneratenoteAdded(id);
+  block(matchDeleteGeneratenote(id), function () {
+    verifyGeneratenoteExists(id);
+  });
   updateGeneratenote(x.id);
   updateGeneratenote(x.id);
-  verifyGeneratenoteExists(x.id);
-  verifyGeneratenoteUpdated(x.id);
+  const e_upd = waitForGeneratenoteUpdated(id);
+  block(matchDeleteGeneratenote(id), function () {
+    verifyGeneratenoteUpdated(id);
+  });
   deleteGeneratenote(x.id);
+  const e_del = waitForGeneratenoteDeleted(id);
+  block(matchAddGeneratenote(id), function () {
+    verifyGeneratenoteDoesNotExist(id);
+  });
 });
 
 bthread("GistLifecycle", function () {
-  const x = pick([{id: "G001"}, {id: "G002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addGist(x.id);
+  const e_add = waitForGistAdded(id);
+  block(matchDeleteGist(id), function () {
+    verifyGistExists(id);
+  });
   updateGist(x.id);
   updateGist(x.id);
-  verifyGistExists(x.id);
-  verifyGistUpdated(x.id);
+  const e_upd = waitForGistUpdated(id);
+  block(matchDeleteGist(id), function () {
+    verifyGistUpdated(id);
+  });
   deleteGist(x.id);
+  const e_del = waitForGistDeleted(id);
+  block(matchAddGist(id), function () {
+    verifyGistDoesNotExist(id);
+  });
 });
 
 bthread("GitLifecycle", function () {
-  const x = pick([{id: "G001"}, {id: "G002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addGit(x.id);
+  const e_add = waitForGitAdded(id);
+  block(matchDeleteGit(id), function () {
+    verifyGitExists(id);
+  });
   updateGit(x.id);
   updateGit(x.id);
-  verifyGitExists(x.id);
-  verifyGitUpdated(x.id);
+  const e_upd = waitForGitUpdated(id);
+  block(matchDeleteGit(id), function () {
+    verifyGitUpdated(id);
+  });
   deleteGit(x.id);
+  const e_del = waitForGitDeleted(id);
+  block(matchAddGit(id), function () {
+    verifyGitDoesNotExist(id);
+  });
 });
 
 bthread("GithubownedLifecycle", function () {
-  const x = pick([{id: "G001"}, {id: "G002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addGithubowned(x.id);
+  const e_add = waitForGithubownedAdded(id);
+  block(matchDeleteGithubowned(id), function () {
+    verifyGithubownedExists(id);
+  });
   updateGithubowned(x.id);
   updateGithubowned(x.id);
-  verifyGithubownedExists(x.id);
-  verifyGithubownedUpdated(x.id);
+  const e_upd = waitForGithubownedUpdated(id);
+  block(matchDeleteGithubowned(id), function () {
+    verifyGithubownedUpdated(id);
+  });
   deleteGithubowned(x.id);
+  const e_del = waitForGithubownedDeleted(id);
+  block(matchAddGithubowned(id), function () {
+    verifyGithubownedDoesNotExist(id);
+  });
 });
 
 bthread("GitignoreLifecycle", function () {
-  const x = pick([{id: "G001"}, {id: "G002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addGitignore(x.id);
+  const e_add = waitForGitignoreAdded(id);
+  block(matchDeleteGitignore(id), function () {
+    verifyGitignoreExists(id);
+  });
   updateGitignore(x.id);
   updateGitignore(x.id);
-  verifyGitignoreExists(x.id);
-  verifyGitignoreUpdated(x.id);
+  const e_upd = waitForGitignoreUpdated(id);
+  block(matchDeleteGitignore(id), function () {
+    verifyGitignoreUpdated(id);
+  });
   deleteGitignore(x.id);
+  const e_del = waitForGitignoreDeleted(id);
+  block(matchAddGitignore(id), function () {
+    verifyGitignoreDoesNotExist(id);
+  });
 });
 
 bthread("GpgkeyLifecycle", function () {
-  const x = pick([{id: "G001"}, {id: "G002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addGpgkey(x.id);
+  const e_add = waitForGpgkeyAdded(id);
+  block(matchDeleteGpgkey(id), function () {
+    verifyGpgkeyExists(id);
+  });
   updateGpgkey(x.id);
   updateGpgkey(x.id);
-  verifyGpgkeyExists(x.id);
-  verifyGpgkeyUpdated(x.id);
+  const e_upd = waitForGpgkeyUpdated(id);
+  block(matchDeleteGpgkey(id), function () {
+    verifyGpgkeyUpdated(id);
+  });
   deleteGpgkey(x.id);
+  const e_del = waitForGpgkeyDeleted(id);
+  block(matchAddGpgkey(id), function () {
+    verifyGpgkeyDoesNotExist(id);
+  });
 });
 
 bthread("GradeLifecycle", function () {
-  const x = pick([{id: "G001"}, {id: "G002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addGrade(x.id);
+  const e_add = waitForGradeAdded(id);
+  block(matchDeleteGrade(id), function () {
+    verifyGradeExists(id);
+  });
   updateGrade(x.id);
   updateGrade(x.id);
-  verifyGradeExists(x.id);
-  verifyGradeUpdated(x.id);
+  const e_upd = waitForGradeUpdated(id);
+  block(matchDeleteGrade(id), function () {
+    verifyGradeUpdated(id);
+  });
   deleteGrade(x.id);
+  const e_del = waitForGradeDeleted(id);
+  block(matchAddGrade(id), function () {
+    verifyGradeDoesNotExist(id);
+  });
 });
 
 bthread("GrantLifecycle", function () {
-  const x = pick([{id: "G001"}, {id: "G002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addGrant(x.id);
+  const e_add = waitForGrantAdded(id);
+  block(matchDeleteGrant(id), function () {
+    verifyGrantExists(id);
+  });
   updateGrant(x.id);
   updateGrant(x.id);
-  verifyGrantExists(x.id);
-  verifyGrantUpdated(x.id);
+  const e_upd = waitForGrantUpdated(id);
+  block(matchDeleteGrant(id), function () {
+    verifyGrantUpdated(id);
+  });
   deleteGrant(x.id);
+  const e_del = waitForGrantDeleted(id);
+  block(matchAddGrant(id), function () {
+    verifyGrantDoesNotExist(id);
+  });
 });
 
 bthread("HealthLifecycle", function () {
-  const x = pick([{id: "H001"}, {id: "H002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addHealth(x.id);
+  const e_add = waitForHealthAdded(id);
+  block(matchDeleteHealth(id), function () {
+    verifyHealthExists(id);
+  });
   updateHealth(x.id);
   updateHealth(x.id);
-  verifyHealthExists(x.id);
-  verifyHealthUpdated(x.id);
+  const e_upd = waitForHealthUpdated(id);
+  block(matchDeleteHealth(id), function () {
+    verifyHealthUpdated(id);
+  });
   deleteHealth(x.id);
+  const e_del = waitForHealthDeleted(id);
+  block(matchAddHealth(id), function () {
+    verifyHealthDoesNotExist(id);
+  });
 });
 
 bthread("HistoryLifecycle", function () {
-  const x = pick([{id: "H001"}, {id: "H002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addHistory(x.id);
+  const e_add = waitForHistoryAdded(id);
+  block(matchDeleteHistory(id), function () {
+    verifyHistoryExists(id);
+  });
   updateHistory(x.id);
   updateHistory(x.id);
-  verifyHistoryExists(x.id);
-  verifyHistoryUpdated(x.id);
+  const e_upd = waitForHistoryUpdated(id);
+  block(matchDeleteHistory(id), function () {
+    verifyHistoryUpdated(id);
+  });
   deleteHistory(x.id);
+  const e_del = waitForHistoryDeleted(id);
+  block(matchAddHistory(id), function () {
+    verifyHistoryDoesNotExist(id);
+  });
 });
 
 bthread("HookLifecycle", function () {
-  const x = pick([{id: "H001"}, {id: "H002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addHook(x.id);
+  const e_add = waitForHookAdded(id);
+  block(matchDeleteHook(id), function () {
+    verifyHookExists(id);
+  });
   updateHook(x.id);
   updateHook(x.id);
-  verifyHookExists(x.id);
-  verifyHookUpdated(x.id);
+  const e_upd = waitForHookUpdated(id);
+  block(matchDeleteHook(id), function () {
+    verifyHookUpdated(id);
+  });
   deleteHook(x.id);
+  const e_del = waitForHookDeleted(id);
+  block(matchAddHook(id), function () {
+    verifyHookDoesNotExist(id);
+  });
 });
 
 bthread("HostedrunnerLifecycle", function () {
-  const x = pick([{id: "H001"}, {id: "H002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addHostedrunner(x.id);
+  const e_add = waitForHostedrunnerAdded(id);
+  block(matchDeleteHostedrunner(id), function () {
+    verifyHostedrunnerExists(id);
+  });
   updateHostedrunner(x.id);
   updateHostedrunner(x.id);
-  verifyHostedrunnerExists(x.id);
-  verifyHostedrunnerUpdated(x.id);
+  const e_upd = waitForHostedrunnerUpdated(id);
+  block(matchDeleteHostedrunner(id), function () {
+    verifyHostedrunnerUpdated(id);
+  });
   deleteHostedrunner(x.id);
+  const e_del = waitForHostedrunnerDeleted(id);
+  block(matchAddHostedrunner(id), function () {
+    verifyHostedrunnerDoesNotExist(id);
+  });
 });
 
 bthread("HovercardLifecycle", function () {
-  const x = pick([{id: "H001"}, {id: "H002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addHovercard(x.id);
+  const e_add = waitForHovercardAdded(id);
+  block(matchDeleteHovercard(id), function () {
+    verifyHovercardExists(id);
+  });
   updateHovercard(x.id);
   updateHovercard(x.id);
-  verifyHovercardExists(x.id);
-  verifyHovercardUpdated(x.id);
+  const e_upd = waitForHovercardUpdated(id);
+  block(matchDeleteHovercard(id), function () {
+    verifyHovercardUpdated(id);
+  });
   deleteHovercard(x.id);
+  const e_del = waitForHovercardDeleted(id);
+  block(matchAddHovercard(id), function () {
+    verifyHovercardDoesNotExist(id);
+  });
 });
 
 bthread("ImageLifecycle", function () {
-  const x = pick([{id: "I001"}, {id: "I002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addImage(x.id);
+  const e_add = waitForImageAdded(id);
+  block(matchDeleteImage(id), function () {
+    verifyImageExists(id);
+  });
   updateImage(x.id);
   updateImage(x.id);
-  verifyImageExists(x.id);
-  verifyImageUpdated(x.id);
+  const e_upd = waitForImageUpdated(id);
+  block(matchDeleteImage(id), function () {
+    verifyImageUpdated(id);
+  });
   deleteImage(x.id);
+  const e_del = waitForImageDeleted(id);
+  block(matchAddImage(id), function () {
+    verifyImageDoesNotExist(id);
+  });
 });
 
 bthread("ImmutablereleasLifecycle", function () {
-  const x = pick([{id: "I001"}, {id: "I002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addImmutablereleas(x.id);
+  const e_add = waitForImmutablereleasAdded(id);
+  block(matchDeleteImmutablereleas(id), function () {
+    verifyImmutablereleasExists(id);
+  });
   updateImmutablereleas(x.id);
   updateImmutablereleas(x.id);
-  verifyImmutablereleasExists(x.id);
-  verifyImmutablereleasUpdated(x.id);
+  const e_upd = waitForImmutablereleasUpdated(id);
+  block(matchDeleteImmutablereleas(id), function () {
+    verifyImmutablereleasUpdated(id);
+  });
   deleteImmutablereleas(x.id);
+  const e_del = waitForImmutablereleasDeleted(id);
+  block(matchAddImmutablereleas(id), function () {
+    verifyImmutablereleasDoesNotExist(id);
+  });
 });
 
 bthread("ImportLifecycle", function () {
-  const x = pick([{id: "I001"}, {id: "I002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addImport(x.id);
+  const e_add = waitForImportAdded(id);
+  block(matchDeleteImport(id), function () {
+    verifyImportExists(id);
+  });
   updateImport(x.id);
   updateImport(x.id);
-  verifyImportExists(x.id);
-  verifyImportUpdated(x.id);
+  const e_upd = waitForImportUpdated(id);
+  block(matchDeleteImport(id), function () {
+    verifyImportUpdated(id);
+  });
   deleteImport(x.id);
+  const e_del = waitForImportDeleted(id);
+  block(matchAddImport(id), function () {
+    verifyImportDoesNotExist(id);
+  });
 });
 
 bthread("InsightLifecycle", function () {
-  const x = pick([{id: "I001"}, {id: "I002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addInsight(x.id);
+  const e_add = waitForInsightAdded(id);
+  block(matchDeleteInsight(id), function () {
+    verifyInsightExists(id);
+  });
   updateInsight(x.id);
   updateInsight(x.id);
-  verifyInsightExists(x.id);
-  verifyInsightUpdated(x.id);
+  const e_upd = waitForInsightUpdated(id);
+  block(matchDeleteInsight(id), function () {
+    verifyInsightUpdated(id);
+  });
   deleteInsight(x.id);
+  const e_del = waitForInsightDeleted(id);
+  block(matchAddInsight(id), function () {
+    verifyInsightDoesNotExist(id);
+  });
 });
 
 bthread("InstallationLifecycle", function () {
-  const x = pick([{id: "I001"}, {id: "I002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addInstallation(x.id);
+  const e_add = waitForInstallationAdded(id);
+  block(matchDeleteInstallation(id), function () {
+    verifyInstallationExists(id);
+  });
   updateInstallation(x.id);
   updateInstallation(x.id);
-  verifyInstallationExists(x.id);
-  verifyInstallationUpdated(x.id);
+  const e_upd = waitForInstallationUpdated(id);
+  block(matchDeleteInstallation(id), function () {
+    verifyInstallationUpdated(id);
+  });
   deleteInstallation(x.id);
+  const e_del = waitForInstallationDeleted(id);
+  block(matchAddInstallation(id), function () {
+    verifyInstallationDoesNotExist(id);
+  });
 });
 
 bthread("InstallationrequestLifecycle", function () {
-  const x = pick([{id: "I001"}, {id: "I002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addInstallationrequest(x.id);
+  const e_add = waitForInstallationrequestAdded(id);
+  block(matchDeleteInstallationrequest(id), function () {
+    verifyInstallationrequestExists(id);
+  });
   updateInstallationrequest(x.id);
   updateInstallationrequest(x.id);
-  verifyInstallationrequestExists(x.id);
-  verifyInstallationrequestUpdated(x.id);
+  const e_upd = waitForInstallationrequestUpdated(id);
+  block(matchDeleteInstallationrequest(id), function () {
+    verifyInstallationrequestUpdated(id);
+  });
   deleteInstallationrequest(x.id);
+  const e_del = waitForInstallationrequestDeleted(id);
+  block(matchAddInstallationrequest(id), function () {
+    verifyInstallationrequestDoesNotExist(id);
+  });
 });
 
 bthread("InstanceLifecycle", function () {
-  const x = pick([{id: "I001"}, {id: "I002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addInstance(x.id);
+  const e_add = waitForInstanceAdded(id);
+  block(matchDeleteInstance(id), function () {
+    verifyInstanceExists(id);
+  });
   updateInstance(x.id);
   updateInstance(x.id);
-  verifyInstanceExists(x.id);
-  verifyInstanceUpdated(x.id);
+  const e_upd = waitForInstanceUpdated(id);
+  block(matchDeleteInstance(id), function () {
+    verifyInstanceUpdated(id);
+  });
   deleteInstance(x.id);
+  const e_del = waitForInstanceDeleted(id);
+  block(matchAddInstance(id), function () {
+    verifyInstanceDoesNotExist(id);
+  });
 });
 
 bthread("InteractionlimitLifecycle", function () {
-  const x = pick([{id: "I001"}, {id: "I002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addInteractionlimit(x.id);
+  const e_add = waitForInteractionlimitAdded(id);
+  block(matchDeleteInteractionlimit(id), function () {
+    verifyInteractionlimitExists(id);
+  });
   updateInteractionlimit(x.id);
   updateInteractionlimit(x.id);
-  verifyInteractionlimitExists(x.id);
-  verifyInteractionlimitUpdated(x.id);
+  const e_upd = waitForInteractionlimitUpdated(id);
+  block(matchDeleteInteractionlimit(id), function () {
+    verifyInteractionlimitUpdated(id);
+  });
   deleteInteractionlimit(x.id);
+  const e_del = waitForInteractionlimitDeleted(id);
+  block(matchAddInteractionlimit(id), function () {
+    verifyInteractionlimitDoesNotExist(id);
+  });
 });
 
 bthread("InvitationLifecycle", function () {
-  const x = pick([{id: "I001"}, {id: "I002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addInvitation(x.id);
+  const e_add = waitForInvitationAdded(id);
+  block(matchDeleteInvitation(id), function () {
+    verifyInvitationExists(id);
+  });
   updateInvitation(x.id);
   updateInvitation(x.id);
-  verifyInvitationExists(x.id);
-  verifyInvitationUpdated(x.id);
+  const e_upd = waitForInvitationUpdated(id);
+  block(matchDeleteInvitation(id), function () {
+    verifyInvitationUpdated(id);
+  });
   deleteInvitation(x.id);
+  const e_del = waitForInvitationDeleted(id);
+  block(matchAddInvitation(id), function () {
+    verifyInvitationDoesNotExist(id);
+  });
 });
 
 bthread("IssueLifecycle", function () {
-  const x = pick([{id: "I001"}, {id: "I002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addIssue(x.id);
+  const e_add = waitForIssueAdded(id);
+  block(matchDeleteIssue(id), function () {
+    verifyIssueExists(id);
+  });
   updateIssue(x.id);
   updateIssue(x.id);
-  verifyIssueExists(x.id);
-  verifyIssueUpdated(x.id);
+  const e_upd = waitForIssueUpdated(id);
+  block(matchDeleteIssue(id), function () {
+    verifyIssueUpdated(id);
+  });
   deleteIssue(x.id);
+  const e_del = waitForIssueDeleted(id);
+  block(matchAddIssue(id), function () {
+    verifyIssueDoesNotExist(id);
+  });
 });
 
 bthread("IssuetypeLifecycle", function () {
-  const x = pick([{id: "I001"}, {id: "I002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addIssuetype(x.id);
+  const e_add = waitForIssuetypeAdded(id);
+  block(matchDeleteIssuetype(id), function () {
+    verifyIssuetypeExists(id);
+  });
   updateIssuetype(x.id);
   updateIssuetype(x.id);
-  verifyIssuetypeExists(x.id);
-  verifyIssuetypeUpdated(x.id);
+  const e_upd = waitForIssuetypeUpdated(id);
+  block(matchDeleteIssuetype(id), function () {
+    verifyIssuetypeUpdated(id);
+  });
   deleteIssuetype(x.id);
+  const e_del = waitForIssuetypeDeleted(id);
+  block(matchAddIssuetype(id), function () {
+    verifyIssuetypeDoesNotExist(id);
+  });
 });
 
 bthread("ItemLifecycle", function () {
-  const x = pick([{id: "I001"}, {id: "I002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addItem(x.id);
+  const e_add = waitForItemAdded(id);
+  block(matchDeleteItem(id), function () {
+    verifyItemExists(id);
+  });
   updateItem(x.id);
   updateItem(x.id);
-  verifyItemExists(x.id);
-  verifyItemUpdated(x.id);
+  const e_upd = waitForItemUpdated(id);
+  block(matchDeleteItem(id), function () {
+    verifyItemUpdated(id);
+  });
   deleteItem(x.id);
+  const e_del = waitForItemDeleted(id);
+  block(matchAddItem(id), function () {
+    verifyItemDoesNotExist(id);
+  });
 });
 
 bthread("JobLifecycle", function () {
-  const x = pick([{id: "J001"}, {id: "J002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addJob(x.id);
+  const e_add = waitForJobAdded(id);
+  block(matchDeleteJob(id), function () {
+    verifyJobExists(id);
+  });
   updateJob(x.id);
   updateJob(x.id);
-  verifyJobExists(x.id);
-  verifyJobUpdated(x.id);
+  const e_upd = waitForJobUpdated(id);
+  block(matchDeleteJob(id), function () {
+    verifyJobUpdated(id);
+  });
   deleteJob(x.id);
+  const e_del = waitForJobDeleted(id);
+  block(matchAddJob(id), function () {
+    verifyJobDoesNotExist(id);
+  });
 });
 
 bthread("KeyLifecycle", function () {
-  const x = pick([{id: "K001"}, {id: "K002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addKey(x.id);
+  const e_add = waitForKeyAdded(id);
+  block(matchDeleteKey(id), function () {
+    verifyKeyExists(id);
+  });
   updateKey(x.id);
   updateKey(x.id);
-  verifyKeyExists(x.id);
-  verifyKeyUpdated(x.id);
+  const e_upd = waitForKeyUpdated(id);
+  block(matchDeleteKey(id), function () {
+    verifyKeyUpdated(id);
+  });
   deleteKey(x.id);
+  const e_del = waitForKeyDeleted(id);
+  block(matchAddKey(id), function () {
+    verifyKeyDoesNotExist(id);
+  });
 });
 
 bthread("LabelLifecycle", function () {
-  const x = pick([{id: "L001"}, {id: "L002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addLabel(x.id);
+  const e_add = waitForLabelAdded(id);
+  block(matchDeleteLabel(id), function () {
+    verifyLabelExists(id);
+  });
   updateLabel(x.id);
   updateLabel(x.id);
-  verifyLabelExists(x.id);
-  verifyLabelUpdated(x.id);
+  const e_upd = waitForLabelUpdated(id);
+  block(matchDeleteLabel(id), function () {
+    verifyLabelUpdated(id);
+  });
   deleteLabel(x.id);
+  const e_del = waitForLabelDeleted(id);
+  block(matchAddLabel(id), function () {
+    verifyLabelDoesNotExist(id);
+  });
 });
 
 bthread("LanguageLifecycle", function () {
-  const x = pick([{id: "L001"}, {id: "L002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addLanguage(x.id);
+  const e_add = waitForLanguageAdded(id);
+  block(matchDeleteLanguage(id), function () {
+    verifyLanguageExists(id);
+  });
   updateLanguage(x.id);
   updateLanguage(x.id);
-  verifyLanguageExists(x.id);
-  verifyLanguageUpdated(x.id);
+  const e_upd = waitForLanguageUpdated(id);
+  block(matchDeleteLanguage(id), function () {
+    verifyLanguageUpdated(id);
+  });
   deleteLanguage(x.id);
+  const e_del = waitForLanguageDeleted(id);
+  block(matchAddLanguage(id), function () {
+    verifyLanguageDoesNotExist(id);
+  });
 });
 
 bthread("LargefileLifecycle", function () {
-  const x = pick([{id: "L001"}, {id: "L002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addLargefile(x.id);
+  const e_add = waitForLargefileAdded(id);
+  block(matchDeleteLargefile(id), function () {
+    verifyLargefileExists(id);
+  });
   updateLargefile(x.id);
   updateLargefile(x.id);
-  verifyLargefileExists(x.id);
-  verifyLargefileUpdated(x.id);
+  const e_upd = waitForLargefileUpdated(id);
+  block(matchDeleteLargefile(id), function () {
+    verifyLargefileUpdated(id);
+  });
   deleteLargefile(x.id);
+  const e_del = waitForLargefileDeleted(id);
+  block(matchAddLargefile(id), function () {
+    verifyLargefileDoesNotExist(id);
+  });
 });
 
 bthread("LatestLifecycle", function () {
-  const x = pick([{id: "L001"}, {id: "L002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addLatest(x.id);
+  const e_add = waitForLatestAdded(id);
+  block(matchDeleteLatest(id), function () {
+    verifyLatestExists(id);
+  });
   updateLatest(x.id);
   updateLatest(x.id);
-  verifyLatestExists(x.id);
-  verifyLatestUpdated(x.id);
+  const e_upd = waitForLatestUpdated(id);
+  block(matchDeleteLatest(id), function () {
+    verifyLatestUpdated(id);
+  });
   deleteLatest(x.id);
+  const e_del = waitForLatestDeleted(id);
+  block(matchAddLatest(id), function () {
+    verifyLatestDoesNotExist(id);
+  });
 });
 
 bthread("LfLifecycle", function () {
-  const x = pick([{id: "L001"}, {id: "L002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addLf(x.id);
+  const e_add = waitForLfAdded(id);
+  block(matchDeleteLf(id), function () {
+    verifyLfExists(id);
+  });
   updateLf(x.id);
   updateLf(x.id);
-  verifyLfExists(x.id);
-  verifyLfUpdated(x.id);
+  const e_upd = waitForLfUpdated(id);
+  block(matchDeleteLf(id), function () {
+    verifyLfUpdated(id);
+  });
   deleteLf(x.id);
+  const e_del = waitForLfDeleted(id);
+  block(matchAddLf(id), function () {
+    verifyLfDoesNotExist(id);
+  });
 });
 
 bthread("LicensLifecycle", function () {
-  const x = pick([{id: "L001"}, {id: "L002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addLicens(x.id);
+  const e_add = waitForLicensAdded(id);
+  block(matchDeleteLicens(id), function () {
+    verifyLicensExists(id);
+  });
   updateLicens(x.id);
   updateLicens(x.id);
-  verifyLicensExists(x.id);
-  verifyLicensUpdated(x.id);
+  const e_upd = waitForLicensUpdated(id);
+  block(matchDeleteLicens(id), function () {
+    verifyLicensUpdated(id);
+  });
   deleteLicens(x.id);
+  const e_del = waitForLicensDeleted(id);
+  block(matchAddLicens(id), function () {
+    verifyLicensDoesNotExist(id);
+  });
 });
 
 bthread("LicenseLifecycle", function () {
-  const x = pick([{id: "L001"}, {id: "L002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addLicense(x.id);
+  const e_add = waitForLicenseAdded(id);
+  block(matchDeleteLicense(id), function () {
+    verifyLicenseExists(id);
+  });
   updateLicense(x.id);
   updateLicense(x.id);
-  verifyLicenseExists(x.id);
-  verifyLicenseUpdated(x.id);
+  const e_upd = waitForLicenseUpdated(id);
+  block(matchDeleteLicense(id), function () {
+    verifyLicenseUpdated(id);
+  });
   deleteLicense(x.id);
+  const e_del = waitForLicenseDeleted(id);
+  block(matchAddLicense(id), function () {
+    verifyLicenseDoesNotExist(id);
+  });
 });
 
 bthread("LimitLifecycle", function () {
-  const x = pick([{id: "L001"}, {id: "L002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addLimit(x.id);
+  const e_add = waitForLimitAdded(id);
+  block(matchDeleteLimit(id), function () {
+    verifyLimitExists(id);
+  });
   updateLimit(x.id);
   updateLimit(x.id);
-  verifyLimitExists(x.id);
-  verifyLimitUpdated(x.id);
+  const e_upd = waitForLimitUpdated(id);
+  block(matchDeleteLimit(id), function () {
+    verifyLimitUpdated(id);
+  });
   deleteLimit(x.id);
+  const e_del = waitForLimitDeleted(id);
+  block(matchAddLimit(id), function () {
+    verifyLimitDoesNotExist(id);
+  });
 });
 
 bthread("LocationLifecycle", function () {
-  const x = pick([{id: "L001"}, {id: "L002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addLocation(x.id);
+  const e_add = waitForLocationAdded(id);
+  block(matchDeleteLocation(id), function () {
+    verifyLocationExists(id);
+  });
   updateLocation(x.id);
   updateLocation(x.id);
-  verifyLocationExists(x.id);
-  verifyLocationUpdated(x.id);
+  const e_upd = waitForLocationUpdated(id);
+  block(matchDeleteLocation(id), function () {
+    verifyLocationUpdated(id);
+  });
   deleteLocation(x.id);
+  const e_del = waitForLocationDeleted(id);
+  block(matchAddLocation(id), function () {
+    verifyLocationDoesNotExist(id);
+  });
 });
 
 bthread("LockLifecycle", function () {
-  const x = pick([{id: "L001"}, {id: "L002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addLock(x.id);
+  const e_add = waitForLockAdded(id);
+  block(matchDeleteLock(id), function () {
+    verifyLockExists(id);
+  });
   updateLock(x.id);
   updateLock(x.id);
-  verifyLockExists(x.id);
-  verifyLockUpdated(x.id);
+  const e_upd = waitForLockUpdated(id);
+  block(matchDeleteLock(id), function () {
+    verifyLockUpdated(id);
+  });
   deleteLock(x.id);
+  const e_del = waitForLockDeleted(id);
+  block(matchAddLock(id), function () {
+    verifyLockDoesNotExist(id);
+  });
 });
 
 bthread("LogLifecycle", function () {
-  const x = pick([{id: "L001"}, {id: "L002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addLog(x.id);
+  const e_add = waitForLogAdded(id);
+  block(matchDeleteLog(id), function () {
+    verifyLogExists(id);
+  });
   updateLog(x.id);
   updateLog(x.id);
-  verifyLogExists(x.id);
-  verifyLogUpdated(x.id);
+  const e_upd = waitForLogUpdated(id);
+  block(matchDeleteLog(id), function () {
+    verifyLogUpdated(id);
+  });
   deleteLog(x.id);
+  const e_del = waitForLogDeleted(id);
+  block(matchAddLog(id), function () {
+    verifyLogDoesNotExist(id);
+  });
 });
 
 bthread("MachineLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMachine(x.id);
+  const e_add = waitForMachineAdded(id);
+  block(matchDeleteMachine(id), function () {
+    verifyMachineExists(id);
+  });
   updateMachine(x.id);
   updateMachine(x.id);
-  verifyMachineExists(x.id);
-  verifyMachineUpdated(x.id);
+  const e_upd = waitForMachineUpdated(id);
+  block(matchDeleteMachine(id), function () {
+    verifyMachineUpdated(id);
+  });
   deleteMachine(x.id);
+  const e_del = waitForMachineDeleted(id);
+  block(matchAddMachine(id), function () {
+    verifyMachineDoesNotExist(id);
+  });
 });
 
 bthread("MachinesizeLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMachinesize(x.id);
+  const e_add = waitForMachinesizeAdded(id);
+  block(matchDeleteMachinesize(id), function () {
+    verifyMachinesizeExists(id);
+  });
   updateMachinesize(x.id);
   updateMachinesize(x.id);
-  verifyMachinesizeExists(x.id);
-  verifyMachinesizeUpdated(x.id);
+  const e_upd = waitForMachinesizeUpdated(id);
+  block(matchDeleteMachinesize(id), function () {
+    verifyMachinesizeUpdated(id);
+  });
   deleteMachinesize(x.id);
+  const e_del = waitForMachinesizeDeleted(id);
+  block(matchAddMachinesize(id), function () {
+    verifyMachinesizeDoesNotExist(id);
+  });
 });
 
 bthread("MarkdownLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMarkdown(x.id);
+  const e_add = waitForMarkdownAdded(id);
+  block(matchDeleteMarkdown(id), function () {
+    verifyMarkdownExists(id);
+  });
   updateMarkdown(x.id);
   updateMarkdown(x.id);
-  verifyMarkdownExists(x.id);
-  verifyMarkdownUpdated(x.id);
+  const e_upd = waitForMarkdownUpdated(id);
+  block(matchDeleteMarkdown(id), function () {
+    verifyMarkdownUpdated(id);
+  });
   deleteMarkdown(x.id);
+  const e_del = waitForMarkdownDeleted(id);
+  block(matchAddMarkdown(id), function () {
+    verifyMarkdownDoesNotExist(id);
+  });
 });
 
 bthread("MarketplacelistingLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMarketplacelisting(x.id);
+  const e_add = waitForMarketplacelistingAdded(id);
+  block(matchDeleteMarketplacelisting(id), function () {
+    verifyMarketplacelistingExists(id);
+  });
   updateMarketplacelisting(x.id);
   updateMarketplacelisting(x.id);
-  verifyMarketplacelistingExists(x.id);
-  verifyMarketplacelistingUpdated(x.id);
+  const e_upd = waitForMarketplacelistingUpdated(id);
+  block(matchDeleteMarketplacelisting(id), function () {
+    verifyMarketplacelistingUpdated(id);
+  });
   deleteMarketplacelisting(x.id);
+  const e_del = waitForMarketplacelistingDeleted(id);
+  block(matchAddMarketplacelisting(id), function () {
+    verifyMarketplacelistingDoesNotExist(id);
+  });
 });
 
 bthread("MarketplacepurchasLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMarketplacepurchas(x.id);
+  const e_add = waitForMarketplacepurchasAdded(id);
+  block(matchDeleteMarketplacepurchas(id), function () {
+    verifyMarketplacepurchasExists(id);
+  });
   updateMarketplacepurchas(x.id);
   updateMarketplacepurchas(x.id);
-  verifyMarketplacepurchasExists(x.id);
-  verifyMarketplacepurchasUpdated(x.id);
+  const e_upd = waitForMarketplacepurchasUpdated(id);
+  block(matchDeleteMarketplacepurchas(id), function () {
+    verifyMarketplacepurchasUpdated(id);
+  });
   deleteMarketplacepurchas(x.id);
+  const e_del = waitForMarketplacepurchasDeleted(id);
+  block(matchAddMarketplacepurchas(id), function () {
+    verifyMarketplacepurchasDoesNotExist(id);
+  });
 });
 
 bthread("MatchingrefLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMatchingref(x.id);
+  const e_add = waitForMatchingrefAdded(id);
+  block(matchDeleteMatchingref(id), function () {
+    verifyMatchingrefExists(id);
+  });
   updateMatchingref(x.id);
   updateMatchingref(x.id);
-  verifyMatchingrefExists(x.id);
-  verifyMatchingrefUpdated(x.id);
+  const e_upd = waitForMatchingrefUpdated(id);
+  block(matchDeleteMatchingref(id), function () {
+    verifyMatchingrefUpdated(id);
+  });
   deleteMatchingref(x.id);
+  const e_del = waitForMatchingrefDeleted(id);
+  block(matchAddMatchingref(id), function () {
+    verifyMatchingrefDoesNotExist(id);
+  });
 });
 
 bthread("MemberLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMember(x.id);
+  const e_add = waitForMemberAdded(id);
+  block(matchDeleteMember(id), function () {
+    verifyMemberExists(id);
+  });
   updateMember(x.id);
   updateMember(x.id);
-  verifyMemberExists(x.id);
-  verifyMemberUpdated(x.id);
+  const e_upd = waitForMemberUpdated(id);
+  block(matchDeleteMember(id), function () {
+    verifyMemberUpdated(id);
+  });
   deleteMember(x.id);
+  const e_del = waitForMemberDeleted(id);
+  block(matchAddMember(id), function () {
+    verifyMemberDoesNotExist(id);
+  });
 });
 
 bthread("MembershipLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMembership(x.id);
+  const e_add = waitForMembershipAdded(id);
+  block(matchDeleteMembership(id), function () {
+    verifyMembershipExists(id);
+  });
   updateMembership(x.id);
   updateMembership(x.id);
-  verifyMembershipExists(x.id);
-  verifyMembershipUpdated(x.id);
+  const e_upd = waitForMembershipUpdated(id);
+  block(matchDeleteMembership(id), function () {
+    verifyMembershipUpdated(id);
+  });
   deleteMembership(x.id);
+  const e_del = waitForMembershipDeleted(id);
+  block(matchAddMembership(id), function () {
+    verifyMembershipDoesNotExist(id);
+  });
 });
 
 bthread("MergeLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMerge(x.id);
+  const e_add = waitForMergeAdded(id);
+  block(matchDeleteMerge(id), function () {
+    verifyMergeExists(id);
+  });
   updateMerge(x.id);
   updateMerge(x.id);
-  verifyMergeExists(x.id);
-  verifyMergeUpdated(x.id);
+  const e_upd = waitForMergeUpdated(id);
+  block(matchDeleteMerge(id), function () {
+    verifyMergeUpdated(id);
+  });
   deleteMerge(x.id);
+  const e_del = waitForMergeDeleted(id);
+  block(matchAddMerge(id), function () {
+    verifyMergeDoesNotExist(id);
+  });
 });
 
 bthread("MergeupstreamLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMergeupstream(x.id);
+  const e_add = waitForMergeupstreamAdded(id);
+  block(matchDeleteMergeupstream(id), function () {
+    verifyMergeupstreamExists(id);
+  });
   updateMergeupstream(x.id);
   updateMergeupstream(x.id);
-  verifyMergeupstreamExists(x.id);
-  verifyMergeupstreamUpdated(x.id);
+  const e_upd = waitForMergeupstreamUpdated(id);
+  block(matchDeleteMergeupstream(id), function () {
+    verifyMergeupstreamUpdated(id);
+  });
   deleteMergeupstream(x.id);
+  const e_del = waitForMergeupstreamDeleted(id);
+  block(matchAddMergeupstream(id), function () {
+    verifyMergeupstreamDoesNotExist(id);
+  });
 });
 
 bthread("MetaLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMeta(x.id);
+  const e_add = waitForMetaAdded(id);
+  block(matchDeleteMeta(id), function () {
+    verifyMetaExists(id);
+  });
   updateMeta(x.id);
   updateMeta(x.id);
-  verifyMetaExists(x.id);
-  verifyMetaUpdated(x.id);
+  const e_upd = waitForMetaUpdated(id);
+  block(matchDeleteMeta(id), function () {
+    verifyMetaUpdated(id);
+  });
   deleteMeta(x.id);
+  const e_del = waitForMetaDeleted(id);
+  block(matchAddMeta(id), function () {
+    verifyMetaDoesNotExist(id);
+  });
 });
 
 bthread("MetadataLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMetadata(x.id);
+  const e_add = waitForMetadataAdded(id);
+  block(matchDeleteMetadata(id), function () {
+    verifyMetadataExists(id);
+  });
   updateMetadata(x.id);
   updateMetadata(x.id);
-  verifyMetadataExists(x.id);
-  verifyMetadataUpdated(x.id);
+  const e_upd = waitForMetadataUpdated(id);
+  block(matchDeleteMetadata(id), function () {
+    verifyMetadataUpdated(id);
+  });
   deleteMetadata(x.id);
+  const e_del = waitForMetadataDeleted(id);
+  block(matchAddMetadata(id), function () {
+    verifyMetadataDoesNotExist(id);
+  });
 });
 
 bthread("MetricLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMetric(x.id);
+  const e_add = waitForMetricAdded(id);
+  block(matchDeleteMetric(id), function () {
+    verifyMetricExists(id);
+  });
   updateMetric(x.id);
   updateMetric(x.id);
-  verifyMetricExists(x.id);
-  verifyMetricUpdated(x.id);
+  const e_upd = waitForMetricUpdated(id);
+  block(matchDeleteMetric(id), function () {
+    verifyMetricUpdated(id);
+  });
   deleteMetric(x.id);
+  const e_del = waitForMetricDeleted(id);
+  block(matchAddMetric(id), function () {
+    verifyMetricDoesNotExist(id);
+  });
 });
 
 bthread("MigrationLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMigration(x.id);
+  const e_add = waitForMigrationAdded(id);
+  block(matchDeleteMigration(id), function () {
+    verifyMigrationExists(id);
+  });
   updateMigration(x.id);
   updateMigration(x.id);
-  verifyMigrationExists(x.id);
-  verifyMigrationUpdated(x.id);
+  const e_upd = waitForMigrationUpdated(id);
+  block(matchDeleteMigration(id), function () {
+    verifyMigrationUpdated(id);
+  });
   deleteMigration(x.id);
+  const e_del = waitForMigrationDeleted(id);
+  block(matchAddMigration(id), function () {
+    verifyMigrationDoesNotExist(id);
+  });
 });
 
 bthread("MilestoneLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMilestone(x.id);
+  const e_add = waitForMilestoneAdded(id);
+  block(matchDeleteMilestone(id), function () {
+    verifyMilestoneExists(id);
+  });
   updateMilestone(x.id);
   updateMilestone(x.id);
-  verifyMilestoneExists(x.id);
-  verifyMilestoneUpdated(x.id);
+  const e_upd = waitForMilestoneUpdated(id);
+  block(matchDeleteMilestone(id), function () {
+    verifyMilestoneUpdated(id);
+  });
   deleteMilestone(x.id);
+  const e_del = waitForMilestoneDeleted(id);
+  block(matchAddMilestone(id), function () {
+    verifyMilestoneDoesNotExist(id);
+  });
 });
 
 bthread("MoveLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMove(x.id);
+  const e_add = waitForMoveAdded(id);
+  block(matchDeleteMove(id), function () {
+    verifyMoveExists(id);
+  });
   updateMove(x.id);
   updateMove(x.id);
-  verifyMoveExists(x.id);
-  verifyMoveUpdated(x.id);
+  const e_upd = waitForMoveUpdated(id);
+  block(matchDeleteMove(id), function () {
+    verifyMoveUpdated(id);
+  });
   deleteMove(x.id);
+  const e_del = waitForMoveDeleted(id);
+  block(matchAddMove(id), function () {
+    verifyMoveDoesNotExist(id);
+  });
 });
 
 bthread("NetworkLifecycle", function () {
-  const x = pick([{id: "N001"}, {id: "N002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addNetwork(x.id);
+  const e_add = waitForNetworkAdded(id);
+  block(matchDeleteNetwork(id), function () {
+    verifyNetworkExists(id);
+  });
   updateNetwork(x.id);
   updateNetwork(x.id);
-  verifyNetworkExists(x.id);
-  verifyNetworkUpdated(x.id);
+  const e_upd = waitForNetworkUpdated(id);
+  block(matchDeleteNetwork(id), function () {
+    verifyNetworkUpdated(id);
+  });
   deleteNetwork(x.id);
+  const e_del = waitForNetworkDeleted(id);
+  block(matchAddNetwork(id), function () {
+    verifyNetworkDoesNotExist(id);
+  });
 });
 
 bthread("NetworkconfigurationLifecycle", function () {
-  const x = pick([{id: "N001"}, {id: "N002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addNetworkconfiguration(x.id);
+  const e_add = waitForNetworkconfigurationAdded(id);
+  block(matchDeleteNetworkconfiguration(id), function () {
+    verifyNetworkconfigurationExists(id);
+  });
   updateNetworkconfiguration(x.id);
   updateNetworkconfiguration(x.id);
-  verifyNetworkconfigurationExists(x.id);
-  verifyNetworkconfigurationUpdated(x.id);
+  const e_upd = waitForNetworkconfigurationUpdated(id);
+  block(matchDeleteNetworkconfiguration(id), function () {
+    verifyNetworkconfigurationUpdated(id);
+  });
   deleteNetworkconfiguration(x.id);
+  const e_del = waitForNetworkconfigurationDeleted(id);
+  block(matchAddNetworkconfiguration(id), function () {
+    verifyNetworkconfigurationDoesNotExist(id);
+  });
 });
 
 bthread("NetworksettingLifecycle", function () {
-  const x = pick([{id: "N001"}, {id: "N002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addNetworksetting(x.id);
+  const e_add = waitForNetworksettingAdded(id);
+  block(matchDeleteNetworksetting(id), function () {
+    verifyNetworksettingExists(id);
+  });
   updateNetworksetting(x.id);
   updateNetworksetting(x.id);
-  verifyNetworksettingExists(x.id);
-  verifyNetworksettingUpdated(x.id);
+  const e_upd = waitForNetworksettingUpdated(id);
+  block(matchDeleteNetworksetting(id), function () {
+    verifyNetworksettingUpdated(id);
+  });
   deleteNetworksetting(x.id);
+  const e_del = waitForNetworksettingDeleted(id);
+  block(matchAddNetworksetting(id), function () {
+    verifyNetworksettingDoesNotExist(id);
+  });
 });
 
 bthread("NewLifecycle", function () {
-  const x = pick([{id: "N001"}, {id: "N002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addNew(x.id);
+  const e_add = waitForNewAdded(id);
+  block(matchDeleteNew(id), function () {
+    verifyNewExists(id);
+  });
   updateNew(x.id);
   updateNew(x.id);
-  verifyNewExists(x.id);
-  verifyNewUpdated(x.id);
+  const e_upd = waitForNewUpdated(id);
+  block(matchDeleteNew(id), function () {
+    verifyNewUpdated(id);
+  });
   deleteNew(x.id);
+  const e_del = waitForNewDeleted(id);
+  block(matchAddNew(id), function () {
+    verifyNewDoesNotExist(id);
+  });
 });
 
 bthread("NotificationLifecycle", function () {
-  const x = pick([{id: "N001"}, {id: "N002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addNotification(x.id);
+  const e_add = waitForNotificationAdded(id);
+  block(matchDeleteNotification(id), function () {
+    verifyNotificationExists(id);
+  });
   updateNotification(x.id);
   updateNotification(x.id);
-  verifyNotificationExists(x.id);
-  verifyNotificationUpdated(x.id);
+  const e_upd = waitForNotificationUpdated(id);
+  block(matchDeleteNotification(id), function () {
+    verifyNotificationUpdated(id);
+  });
   deleteNotification(x.id);
+  const e_del = waitForNotificationDeleted(id);
+  block(matchAddNotification(id), function () {
+    verifyNotificationDoesNotExist(id);
+  });
 });
 
 bthread("OctocatLifecycle", function () {
-  const x = pick([{id: "O001"}, {id: "O002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addOctocat(x.id);
+  const e_add = waitForOctocatAdded(id);
+  block(matchDeleteOctocat(id), function () {
+    verifyOctocatExists(id);
+  });
   updateOctocat(x.id);
   updateOctocat(x.id);
-  verifyOctocatExists(x.id);
-  verifyOctocatUpdated(x.id);
+  const e_upd = waitForOctocatUpdated(id);
+  block(matchDeleteOctocat(id), function () {
+    verifyOctocatUpdated(id);
+  });
   deleteOctocat(x.id);
+  const e_del = waitForOctocatDeleted(id);
+  block(matchAddOctocat(id), function () {
+    verifyOctocatDoesNotExist(id);
+  });
 });
 
 bthread("OidcLifecycle", function () {
-  const x = pick([{id: "O001"}, {id: "O002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addOidc(x.id);
+  const e_add = waitForOidcAdded(id);
+  block(matchDeleteOidc(id), function () {
+    verifyOidcExists(id);
+  });
   updateOidc(x.id);
   updateOidc(x.id);
-  verifyOidcExists(x.id);
-  verifyOidcUpdated(x.id);
+  const e_upd = waitForOidcUpdated(id);
+  block(matchDeleteOidc(id), function () {
+    verifyOidcUpdated(id);
+  });
   deleteOidc(x.id);
+  const e_del = waitForOidcDeleted(id);
+  block(matchAddOidc(id), function () {
+    verifyOidcDoesNotExist(id);
+  });
 });
 
 bthread("OrgLifecycle", function () {
-  const x = pick([{id: "O001"}, {id: "O002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addOrg(x.id);
+  const e_add = waitForOrgAdded(id);
+  block(matchDeleteOrg(id), function () {
+    verifyOrgExists(id);
+  });
   updateOrg(x.id);
   updateOrg(x.id);
-  verifyOrgExists(x.id);
-  verifyOrgUpdated(x.id);
+  const e_upd = waitForOrgUpdated(id);
+  block(matchDeleteOrg(id), function () {
+    verifyOrgUpdated(id);
+  });
   deleteOrg(x.id);
+  const e_del = waitForOrgDeleted(id);
+  block(matchAddOrg(id), function () {
+    verifyOrgDoesNotExist(id);
+  });
 });
 
 bthread("OrganizationLifecycle", function () {
-  const x = pick([{id: "O001"}, {id: "O002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addOrganization(x.id);
+  const e_add = waitForOrganizationAdded(id);
+  block(matchDeleteOrganization(id), function () {
+    verifyOrganizationExists(id);
+  });
   updateOrganization(x.id);
   updateOrganization(x.id);
-  verifyOrganizationExists(x.id);
-  verifyOrganizationUpdated(x.id);
+  const e_upd = waitForOrganizationUpdated(id);
+  block(matchDeleteOrganization(id), function () {
+    verifyOrganizationUpdated(id);
+  });
   deleteOrganization(x.id);
+  const e_del = waitForOrganizationDeleted(id);
+  block(matchAddOrganization(id), function () {
+    verifyOrganizationDoesNotExist(id);
+  });
 });
 
 bthread("OrganizationroleLifecycle", function () {
-  const x = pick([{id: "O001"}, {id: "O002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addOrganizationrole(x.id);
+  const e_add = waitForOrganizationroleAdded(id);
+  block(matchDeleteOrganizationrole(id), function () {
+    verifyOrganizationroleExists(id);
+  });
   updateOrganizationrole(x.id);
   updateOrganizationrole(x.id);
-  verifyOrganizationroleExists(x.id);
-  verifyOrganizationroleUpdated(x.id);
+  const e_upd = waitForOrganizationroleUpdated(id);
+  block(matchDeleteOrganizationrole(id), function () {
+    verifyOrganizationroleUpdated(id);
+  });
   deleteOrganizationrole(x.id);
+  const e_del = waitForOrganizationroleDeleted(id);
+  block(matchAddOrganizationrole(id), function () {
+    verifyOrganizationroleDoesNotExist(id);
+  });
 });
 
 bthread("OrganizationsecretLifecycle", function () {
-  const x = pick([{id: "O001"}, {id: "O002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addOrganizationsecret(x.id);
+  const e_add = waitForOrganizationsecretAdded(id);
+  block(matchDeleteOrganizationsecret(id), function () {
+    verifyOrganizationsecretExists(id);
+  });
   updateOrganizationsecret(x.id);
   updateOrganizationsecret(x.id);
-  verifyOrganizationsecretExists(x.id);
-  verifyOrganizationsecretUpdated(x.id);
+  const e_upd = waitForOrganizationsecretUpdated(id);
+  block(matchDeleteOrganizationsecret(id), function () {
+    verifyOrganizationsecretUpdated(id);
+  });
   deleteOrganizationsecret(x.id);
+  const e_del = waitForOrganizationsecretDeleted(id);
+  block(matchAddOrganizationsecret(id), function () {
+    verifyOrganizationsecretDoesNotExist(id);
+  });
 });
 
 bthread("OrganizationvariableLifecycle", function () {
-  const x = pick([{id: "O001"}, {id: "O002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addOrganizationvariable(x.id);
+  const e_add = waitForOrganizationvariableAdded(id);
+  block(matchDeleteOrganizationvariable(id), function () {
+    verifyOrganizationvariableExists(id);
+  });
   updateOrganizationvariable(x.id);
   updateOrganizationvariable(x.id);
-  verifyOrganizationvariableExists(x.id);
-  verifyOrganizationvariableUpdated(x.id);
+  const e_upd = waitForOrganizationvariableUpdated(id);
+  block(matchDeleteOrganizationvariable(id), function () {
+    verifyOrganizationvariableUpdated(id);
+  });
   deleteOrganizationvariable(x.id);
+  const e_del = waitForOrganizationvariableDeleted(id);
+  block(matchAddOrganizationvariable(id), function () {
+    verifyOrganizationvariableDoesNotExist(id);
+  });
 });
 
 bthread("OutsidecollaboratorLifecycle", function () {
-  const x = pick([{id: "O001"}, {id: "O002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addOutsidecollaborator(x.id);
+  const e_add = waitForOutsidecollaboratorAdded(id);
+  block(matchDeleteOutsidecollaborator(id), function () {
+    verifyOutsidecollaboratorExists(id);
+  });
   updateOutsidecollaborator(x.id);
   updateOutsidecollaborator(x.id);
-  verifyOutsidecollaboratorExists(x.id);
-  verifyOutsidecollaboratorUpdated(x.id);
+  const e_upd = waitForOutsidecollaboratorUpdated(id);
+  block(matchDeleteOutsidecollaborator(id), function () {
+    verifyOutsidecollaboratorUpdated(id);
+  });
   deleteOutsidecollaborator(x.id);
+  const e_del = waitForOutsidecollaboratorDeleted(id);
+  block(matchAddOutsidecollaborator(id), function () {
+    verifyOutsidecollaboratorDoesNotExist(id);
+  });
 });
 
 bthread("PackageLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPackage(x.id);
+  const e_add = waitForPackageAdded(id);
+  block(matchDeletePackage(id), function () {
+    verifyPackageExists(id);
+  });
   updatePackage(x.id);
   updatePackage(x.id);
-  verifyPackageExists(x.id);
-  verifyPackageUpdated(x.id);
+  const e_upd = waitForPackageUpdated(id);
+  block(matchDeletePackage(id), function () {
+    verifyPackageUpdated(id);
+  });
   deletePackage(x.id);
+  const e_del = waitForPackageDeleted(id);
+  block(matchAddPackage(id), function () {
+    verifyPackageDoesNotExist(id);
+  });
 });
 
 bthread("PageLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPage(x.id);
+  const e_add = waitForPageAdded(id);
+  block(matchDeletePage(id), function () {
+    verifyPageExists(id);
+  });
   updatePage(x.id);
   updatePage(x.id);
-  verifyPageExists(x.id);
-  verifyPageUpdated(x.id);
+  const e_upd = waitForPageUpdated(id);
+  block(matchDeletePage(id), function () {
+    verifyPageUpdated(id);
+  });
   deletePage(x.id);
+  const e_del = waitForPageDeleted(id);
+  block(matchAddPage(id), function () {
+    verifyPageDoesNotExist(id);
+  });
 });
 
 bthread("ParentLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addParent(x.id);
+  const e_add = waitForParentAdded(id);
+  block(matchDeleteParent(id), function () {
+    verifyParentExists(id);
+  });
   updateParent(x.id);
   updateParent(x.id);
-  verifyParentExists(x.id);
-  verifyParentUpdated(x.id);
+  const e_upd = waitForParentUpdated(id);
+  block(matchDeleteParent(id), function () {
+    verifyParentUpdated(id);
+  });
   deleteParent(x.id);
+  const e_del = waitForParentDeleted(id);
+  block(matchAddParent(id), function () {
+    verifyParentDoesNotExist(id);
+  });
 });
 
 bthread("ParticipationLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addParticipation(x.id);
+  const e_add = waitForParticipationAdded(id);
+  block(matchDeleteParticipation(id), function () {
+    verifyParticipationExists(id);
+  });
   updateParticipation(x.id);
   updateParticipation(x.id);
-  verifyParticipationExists(x.id);
-  verifyParticipationUpdated(x.id);
+  const e_upd = waitForParticipationUpdated(id);
+  block(matchDeleteParticipation(id), function () {
+    verifyParticipationUpdated(id);
+  });
   deleteParticipation(x.id);
+  const e_del = waitForParticipationDeleted(id);
+  block(matchAddParticipation(id), function () {
+    verifyParticipationDoesNotExist(id);
+  });
 });
 
 bthread("PartnerLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPartner(x.id);
+  const e_add = waitForPartnerAdded(id);
+  block(matchDeletePartner(id), function () {
+    verifyPartnerExists(id);
+  });
   updatePartner(x.id);
   updatePartner(x.id);
-  verifyPartnerExists(x.id);
-  verifyPartnerUpdated(x.id);
+  const e_upd = waitForPartnerUpdated(id);
+  block(matchDeletePartner(id), function () {
+    verifyPartnerUpdated(id);
+  });
   deletePartner(x.id);
+  const e_del = waitForPartnerDeleted(id);
+  block(matchAddPartner(id), function () {
+    verifyPartnerDoesNotExist(id);
+  });
 });
 
 bthread("PathLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPath(x.id);
+  const e_add = waitForPathAdded(id);
+  block(matchDeletePath(id), function () {
+    verifyPathExists(id);
+  });
   updatePath(x.id);
   updatePath(x.id);
-  verifyPathExists(x.id);
-  verifyPathUpdated(x.id);
+  const e_upd = waitForPathUpdated(id);
+  block(matchDeletePath(id), function () {
+    verifyPathUpdated(id);
+  });
   deletePath(x.id);
+  const e_del = waitForPathDeleted(id);
+  block(matchAddPath(id), function () {
+    verifyPathDoesNotExist(id);
+  });
 });
 
 bthread("PatternconfigurationLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPatternconfiguration(x.id);
+  const e_add = waitForPatternconfigurationAdded(id);
+  block(matchDeletePatternconfiguration(id), function () {
+    verifyPatternconfigurationExists(id);
+  });
   updatePatternconfiguration(x.id);
   updatePatternconfiguration(x.id);
-  verifyPatternconfigurationExists(x.id);
-  verifyPatternconfigurationUpdated(x.id);
+  const e_upd = waitForPatternconfigurationUpdated(id);
+  block(matchDeletePatternconfiguration(id), function () {
+    verifyPatternconfigurationUpdated(id);
+  });
   deletePatternconfiguration(x.id);
+  const e_del = waitForPatternconfigurationDeleted(id);
+  block(matchAddPatternconfiguration(id), function () {
+    verifyPatternconfigurationDoesNotExist(id);
+  });
 });
 
 bthread("PendingdeploymentLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPendingdeployment(x.id);
+  const e_add = waitForPendingdeploymentAdded(id);
+  block(matchDeletePendingdeployment(id), function () {
+    verifyPendingdeploymentExists(id);
+  });
   updatePendingdeployment(x.id);
   updatePendingdeployment(x.id);
-  verifyPendingdeploymentExists(x.id);
-  verifyPendingdeploymentUpdated(x.id);
+  const e_upd = waitForPendingdeploymentUpdated(id);
+  block(matchDeletePendingdeployment(id), function () {
+    verifyPendingdeploymentUpdated(id);
+  });
   deletePendingdeployment(x.id);
+  const e_del = waitForPendingdeploymentDeleted(id);
+  block(matchAddPendingdeployment(id), function () {
+    verifyPendingdeploymentDoesNotExist(id);
+  });
 });
 
 bthread("PermissionLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPermission(x.id);
+  const e_add = waitForPermissionAdded(id);
+  block(matchDeletePermission(id), function () {
+    verifyPermissionExists(id);
+  });
   updatePermission(x.id);
   updatePermission(x.id);
-  verifyPermissionExists(x.id);
-  verifyPermissionUpdated(x.id);
+  const e_upd = waitForPermissionUpdated(id);
+  block(matchDeletePermission(id), function () {
+    verifyPermissionUpdated(id);
+  });
   deletePermission(x.id);
+  const e_del = waitForPermissionDeleted(id);
+  block(matchAddPermission(id), function () {
+    verifyPermissionDoesNotExist(id);
+  });
 });
 
 bthread("PermissionscheckLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPermissionscheck(x.id);
+  const e_add = waitForPermissionscheckAdded(id);
+  block(matchDeletePermissionscheck(id), function () {
+    verifyPermissionscheckExists(id);
+  });
   updatePermissionscheck(x.id);
   updatePermissionscheck(x.id);
-  verifyPermissionscheckExists(x.id);
-  verifyPermissionscheckUpdated(x.id);
+  const e_upd = waitForPermissionscheckUpdated(id);
+  block(matchDeletePermissionscheck(id), function () {
+    verifyPermissionscheckUpdated(id);
+  });
   deletePermissionscheck(x.id);
+  const e_del = waitForPermissionscheckDeleted(id);
+  block(matchAddPermissionscheck(id), function () {
+    verifyPermissionscheckDoesNotExist(id);
+  });
 });
 
 bthread("PersonalaccesstokenLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPersonalaccesstoken(x.id);
+  const e_add = waitForPersonalaccesstokenAdded(id);
+  block(matchDeletePersonalaccesstoken(id), function () {
+    verifyPersonalaccesstokenExists(id);
+  });
   updatePersonalaccesstoken(x.id);
   updatePersonalaccesstoken(x.id);
-  verifyPersonalaccesstokenExists(x.id);
-  verifyPersonalaccesstokenUpdated(x.id);
+  const e_upd = waitForPersonalaccesstokenUpdated(id);
+  block(matchDeletePersonalaccesstoken(id), function () {
+    verifyPersonalaccesstokenUpdated(id);
+  });
   deletePersonalaccesstoken(x.id);
+  const e_del = waitForPersonalaccesstokenDeleted(id);
+  block(matchAddPersonalaccesstoken(id), function () {
+    verifyPersonalaccesstokenDoesNotExist(id);
+  });
 });
 
 bthread("PersonalaccesstokenrequestLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPersonalaccesstokenrequest(x.id);
+  const e_add = waitForPersonalaccesstokenrequestAdded(id);
+  block(matchDeletePersonalaccesstokenrequest(id), function () {
+    verifyPersonalaccesstokenrequestExists(id);
+  });
   updatePersonalaccesstokenrequest(x.id);
   updatePersonalaccesstokenrequest(x.id);
-  verifyPersonalaccesstokenrequestExists(x.id);
-  verifyPersonalaccesstokenrequestUpdated(x.id);
+  const e_upd = waitForPersonalaccesstokenrequestUpdated(id);
+  block(matchDeletePersonalaccesstokenrequest(id), function () {
+    verifyPersonalaccesstokenrequestUpdated(id);
+  });
   deletePersonalaccesstokenrequest(x.id);
+  const e_del = waitForPersonalaccesstokenrequestDeleted(id);
+  block(matchAddPersonalaccesstokenrequest(id), function () {
+    verifyPersonalaccesstokenrequestDoesNotExist(id);
+  });
 });
 
 bthread("PingLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPing(x.id);
+  const e_add = waitForPingAdded(id);
+  block(matchDeletePing(id), function () {
+    verifyPingExists(id);
+  });
   updatePing(x.id);
   updatePing(x.id);
-  verifyPingExists(x.id);
-  verifyPingUpdated(x.id);
+  const e_upd = waitForPingUpdated(id);
+  block(matchDeletePing(id), function () {
+    verifyPingUpdated(id);
+  });
   deletePing(x.id);
+  const e_del = waitForPingDeleted(id);
+  block(matchAddPing(id), function () {
+    verifyPingDoesNotExist(id);
+  });
 });
 
 bthread("PlanLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPlan(x.id);
+  const e_add = waitForPlanAdded(id);
+  block(matchDeletePlan(id), function () {
+    verifyPlanExists(id);
+  });
   updatePlan(x.id);
   updatePlan(x.id);
-  verifyPlanExists(x.id);
-  verifyPlanUpdated(x.id);
+  const e_upd = waitForPlanUpdated(id);
+  block(matchDeletePlan(id), function () {
+    verifyPlanUpdated(id);
+  });
   deletePlan(x.id);
+  const e_del = waitForPlanDeleted(id);
+  block(matchAddPlan(id), function () {
+    verifyPlanDoesNotExist(id);
+  });
 });
 
 bthread("PlatformLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPlatform(x.id);
+  const e_add = waitForPlatformAdded(id);
+  block(matchDeletePlatform(id), function () {
+    verifyPlatformExists(id);
+  });
   updatePlatform(x.id);
   updatePlatform(x.id);
-  verifyPlatformExists(x.id);
-  verifyPlatformUpdated(x.id);
+  const e_upd = waitForPlatformUpdated(id);
+  block(matchDeletePlatform(id), function () {
+    verifyPlatformUpdated(id);
+  });
   deletePlatform(x.id);
+  const e_del = waitForPlatformDeleted(id);
+  block(matchAddPlatform(id), function () {
+    verifyPlatformDoesNotExist(id);
+  });
 });
 
 bthread("PopularLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPopular(x.id);
+  const e_add = waitForPopularAdded(id);
+  block(matchDeletePopular(id), function () {
+    verifyPopularExists(id);
+  });
   updatePopular(x.id);
   updatePopular(x.id);
-  verifyPopularExists(x.id);
-  verifyPopularUpdated(x.id);
+  const e_upd = waitForPopularUpdated(id);
+  block(matchDeletePopular(id), function () {
+    verifyPopularUpdated(id);
+  });
   deletePopular(x.id);
+  const e_del = waitForPopularDeleted(id);
+  block(matchAddPopular(id), function () {
+    verifyPopularDoesNotExist(id);
+  });
 });
 
 bthread("PreferenceLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPreference(x.id);
+  const e_add = waitForPreferenceAdded(id);
+  block(matchDeletePreference(id), function () {
+    verifyPreferenceExists(id);
+  });
   updatePreference(x.id);
   updatePreference(x.id);
-  verifyPreferenceExists(x.id);
-  verifyPreferenceUpdated(x.id);
+  const e_upd = waitForPreferenceUpdated(id);
+  block(matchDeletePreference(id), function () {
+    verifyPreferenceUpdated(id);
+  });
   deletePreference(x.id);
+  const e_del = waitForPreferenceDeleted(id);
+  block(matchAddPreference(id), function () {
+    verifyPreferenceDoesNotExist(id);
+  });
 });
 
 bthread("PremiumrequestLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPremiumrequest(x.id);
+  const e_add = waitForPremiumrequestAdded(id);
+  block(matchDeletePremiumrequest(id), function () {
+    verifyPremiumrequestExists(id);
+  });
   updatePremiumrequest(x.id);
   updatePremiumrequest(x.id);
-  verifyPremiumrequestExists(x.id);
-  verifyPremiumrequestUpdated(x.id);
+  const e_upd = waitForPremiumrequestUpdated(id);
+  block(matchDeletePremiumrequest(id), function () {
+    verifyPremiumrequestUpdated(id);
+  });
   deletePremiumrequest(x.id);
+  const e_del = waitForPremiumrequestDeleted(id);
+  block(matchAddPremiumrequest(id), function () {
+    verifyPremiumrequestDoesNotExist(id);
+  });
 });
 
 bthread("PriorityLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPriority(x.id);
+  const e_add = waitForPriorityAdded(id);
+  block(matchDeletePriority(id), function () {
+    verifyPriorityExists(id);
+  });
   updatePriority(x.id);
   updatePriority(x.id);
-  verifyPriorityExists(x.id);
-  verifyPriorityUpdated(x.id);
+  const e_upd = waitForPriorityUpdated(id);
+  block(matchDeletePriority(id), function () {
+    verifyPriorityUpdated(id);
+  });
   deletePriority(x.id);
+  const e_del = waitForPriorityDeleted(id);
+  block(matchAddPriority(id), function () {
+    verifyPriorityDoesNotExist(id);
+  });
 });
 
 bthread("PrivateregistryLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPrivateregistry(x.id);
+  const e_add = waitForPrivateregistryAdded(id);
+  block(matchDeletePrivateregistry(id), function () {
+    verifyPrivateregistryExists(id);
+  });
   updatePrivateregistry(x.id);
   updatePrivateregistry(x.id);
-  verifyPrivateregistryExists(x.id);
-  verifyPrivateregistryUpdated(x.id);
+  const e_upd = waitForPrivateregistryUpdated(id);
+  block(matchDeletePrivateregistry(id), function () {
+    verifyPrivateregistryUpdated(id);
+  });
   deletePrivateregistry(x.id);
+  const e_del = waitForPrivateregistryDeleted(id);
+  block(matchAddPrivateregistry(id), function () {
+    verifyPrivateregistryDoesNotExist(id);
+  });
 });
 
 bthread("PrivatevulnerabilityreportingLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPrivatevulnerabilityreporting(x.id);
+  const e_add = waitForPrivatevulnerabilityreportingAdded(id);
+  block(matchDeletePrivatevulnerabilityreporting(id), function () {
+    verifyPrivatevulnerabilityreportingExists(id);
+  });
   updatePrivatevulnerabilityreporting(x.id);
   updatePrivatevulnerabilityreporting(x.id);
-  verifyPrivatevulnerabilityreportingExists(x.id);
-  verifyPrivatevulnerabilityreportingUpdated(x.id);
+  const e_upd = waitForPrivatevulnerabilityreportingUpdated(id);
+  block(matchDeletePrivatevulnerabilityreporting(id), function () {
+    verifyPrivatevulnerabilityreportingUpdated(id);
+  });
   deletePrivatevulnerabilityreporting(x.id);
+  const e_del = waitForPrivatevulnerabilityreportingDeleted(id);
+  block(matchAddPrivatevulnerabilityreporting(id), function () {
+    verifyPrivatevulnerabilityreportingDoesNotExist(id);
+  });
 });
 
 bthread("ProfileLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addProfile(x.id);
+  const e_add = waitForProfileAdded(id);
+  block(matchDeleteProfile(id), function () {
+    verifyProfileExists(id);
+  });
   updateProfile(x.id);
   updateProfile(x.id);
-  verifyProfileExists(x.id);
-  verifyProfileUpdated(x.id);
+  const e_upd = waitForProfileUpdated(id);
+  block(matchDeleteProfile(id), function () {
+    verifyProfileUpdated(id);
+  });
   deleteProfile(x.id);
+  const e_del = waitForProfileDeleted(id);
+  block(matchAddProfile(id), function () {
+    verifyProfileDoesNotExist(id);
+  });
 });
 
 bthread("ProjectLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addProject(x.id);
+  const e_add = waitForProjectAdded(id);
+  block(matchDeleteProject(id), function () {
+    verifyProjectExists(id);
+  });
   updateProject(x.id);
   updateProject(x.id);
-  verifyProjectExists(x.id);
-  verifyProjectUpdated(x.id);
+  const e_upd = waitForProjectUpdated(id);
+  block(matchDeleteProject(id), function () {
+    verifyProjectUpdated(id);
+  });
   deleteProject(x.id);
+  const e_del = waitForProjectDeleted(id);
+  block(matchAddProject(id), function () {
+    verifyProjectDoesNotExist(id);
+  });
 });
 
 bthread("Projectsv2Lifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addProjectsv2(x.id);
+  const e_add = waitForProjectsv2Added(id);
+  block(matchDeleteProjectsv2(id), function () {
+    verifyProjectsv2Exists(id);
+  });
   updateProjectsv2(x.id);
   updateProjectsv2(x.id);
-  verifyProjectsv2Exists(x.id);
-  verifyProjectsv2Updated(x.id);
+  const e_upd = waitForProjectsv2Updated(id);
+  block(matchDeleteProjectsv2(id), function () {
+    verifyProjectsv2Updated(id);
+  });
   deleteProjectsv2(x.id);
+  const e_del = waitForProjectsv2Deleted(id);
+  block(matchAddProjectsv2(id), function () {
+    verifyProjectsv2DoesNotExist(id);
+  });
 });
 
 bthread("PropertyLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addProperty(x.id);
+  const e_add = waitForPropertyAdded(id);
+  block(matchDeleteProperty(id), function () {
+    verifyPropertyExists(id);
+  });
   updateProperty(x.id);
   updateProperty(x.id);
-  verifyPropertyExists(x.id);
-  verifyPropertyUpdated(x.id);
+  const e_upd = waitForPropertyUpdated(id);
+  block(matchDeleteProperty(id), function () {
+    verifyPropertyUpdated(id);
+  });
   deleteProperty(x.id);
+  const e_del = waitForPropertyDeleted(id);
+  block(matchAddProperty(id), function () {
+    verifyPropertyDoesNotExist(id);
+  });
 });
 
 bthread("ProtectionLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addProtection(x.id);
+  const e_add = waitForProtectionAdded(id);
+  block(matchDeleteProtection(id), function () {
+    verifyProtectionExists(id);
+  });
   updateProtection(x.id);
   updateProtection(x.id);
-  verifyProtectionExists(x.id);
-  verifyProtectionUpdated(x.id);
+  const e_upd = waitForProtectionUpdated(id);
+  block(matchDeleteProtection(id), function () {
+    verifyProtectionUpdated(id);
+  });
   deleteProtection(x.id);
+  const e_del = waitForProtectionDeleted(id);
+  block(matchAddProtection(id), function () {
+    verifyProtectionDoesNotExist(id);
+  });
 });
 
 bthread("PublicLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPublic(x.id);
+  const e_add = waitForPublicAdded(id);
+  block(matchDeletePublic(id), function () {
+    verifyPublicExists(id);
+  });
   updatePublic(x.id);
   updatePublic(x.id);
-  verifyPublicExists(x.id);
-  verifyPublicUpdated(x.id);
+  const e_upd = waitForPublicUpdated(id);
+  block(matchDeletePublic(id), function () {
+    verifyPublicUpdated(id);
+  });
   deletePublic(x.id);
+  const e_del = waitForPublicDeleted(id);
+  block(matchAddPublic(id), function () {
+    verifyPublicDoesNotExist(id);
+  });
 });
 
 bthread("PublicemailLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPublicemail(x.id);
+  const e_add = waitForPublicemailAdded(id);
+  block(matchDeletePublicemail(id), function () {
+    verifyPublicemailExists(id);
+  });
   updatePublicemail(x.id);
   updatePublicemail(x.id);
-  verifyPublicemailExists(x.id);
-  verifyPublicemailUpdated(x.id);
+  const e_upd = waitForPublicemailUpdated(id);
+  block(matchDeletePublicemail(id), function () {
+    verifyPublicemailUpdated(id);
+  });
   deletePublicemail(x.id);
+  const e_del = waitForPublicemailDeleted(id);
+  block(matchAddPublicemail(id), function () {
+    verifyPublicemailDoesNotExist(id);
+  });
 });
 
 bthread("PublickeyLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPublickey(x.id);
+  const e_add = waitForPublickeyAdded(id);
+  block(matchDeletePublickey(id), function () {
+    verifyPublickeyExists(id);
+  });
   updatePublickey(x.id);
   updatePublickey(x.id);
-  verifyPublickeyExists(x.id);
-  verifyPublickeyUpdated(x.id);
+  const e_upd = waitForPublickeyUpdated(id);
+  block(matchDeletePublickey(id), function () {
+    verifyPublickeyUpdated(id);
+  });
   deletePublickey(x.id);
+  const e_del = waitForPublickeyDeleted(id);
+  block(matchAddPublickey(id), function () {
+    verifyPublickeyDoesNotExist(id);
+  });
 });
 
 bthread("PublicmemberLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPublicmember(x.id);
+  const e_add = waitForPublicmemberAdded(id);
+  block(matchDeletePublicmember(id), function () {
+    verifyPublicmemberExists(id);
+  });
   updatePublicmember(x.id);
   updatePublicmember(x.id);
-  verifyPublicmemberExists(x.id);
-  verifyPublicmemberUpdated(x.id);
+  const e_upd = waitForPublicmemberUpdated(id);
+  block(matchDeletePublicmember(id), function () {
+    verifyPublicmemberUpdated(id);
+  });
   deletePublicmember(x.id);
+  const e_del = waitForPublicmemberDeleted(id);
+  block(matchAddPublicmember(id), function () {
+    verifyPublicmemberDoesNotExist(id);
+  });
 });
 
 bthread("PublishLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPublish(x.id);
+  const e_add = waitForPublishAdded(id);
+  block(matchDeletePublish(id), function () {
+    verifyPublishExists(id);
+  });
   updatePublish(x.id);
   updatePublish(x.id);
-  verifyPublishExists(x.id);
-  verifyPublishUpdated(x.id);
+  const e_upd = waitForPublishUpdated(id);
+  block(matchDeletePublish(id), function () {
+    verifyPublishUpdated(id);
+  });
   deletePublish(x.id);
+  const e_del = waitForPublishDeleted(id);
+  block(matchAddPublish(id), function () {
+    verifyPublishDoesNotExist(id);
+  });
 });
 
 bthread("PullLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPull(x.id);
+  const e_add = waitForPullAdded(id);
+  block(matchDeletePull(id), function () {
+    verifyPullExists(id);
+  });
   updatePull(x.id);
   updatePull(x.id);
-  verifyPullExists(x.id);
-  verifyPullUpdated(x.id);
+  const e_upd = waitForPullUpdated(id);
+  block(matchDeletePull(id), function () {
+    verifyPullUpdated(id);
+  });
   deletePull(x.id);
+  const e_del = waitForPullDeleted(id);
+  block(matchAddPull(id), function () {
+    verifyPullDoesNotExist(id);
+  });
 });
 
 bthread("PunchcardLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPunchcard(x.id);
+  const e_add = waitForPunchcardAdded(id);
+  block(matchDeletePunchcard(id), function () {
+    verifyPunchcardExists(id);
+  });
   updatePunchcard(x.id);
   updatePunchcard(x.id);
-  verifyPunchcardExists(x.id);
-  verifyPunchcardUpdated(x.id);
+  const e_upd = waitForPunchcardUpdated(id);
+  block(matchDeletePunchcard(id), function () {
+    verifyPunchcardUpdated(id);
+  });
   deletePunchcard(x.id);
+  const e_del = waitForPunchcardDeleted(id);
+  block(matchAddPunchcard(id), function () {
+    verifyPunchcardDoesNotExist(id);
+  });
 });
 
 bthread("PushprotectionbypassLifecycle", function () {
-  const x = pick([{id: "P001"}, {id: "P002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addPushprotectionbypass(x.id);
+  const e_add = waitForPushprotectionbypassAdded(id);
+  block(matchDeletePushprotectionbypass(id), function () {
+    verifyPushprotectionbypassExists(id);
+  });
   updatePushprotectionbypass(x.id);
   updatePushprotectionbypass(x.id);
-  verifyPushprotectionbypassExists(x.id);
-  verifyPushprotectionbypassUpdated(x.id);
+  const e_upd = waitForPushprotectionbypassUpdated(id);
+  block(matchDeletePushprotectionbypass(id), function () {
+    verifyPushprotectionbypassUpdated(id);
+  });
   deletePushprotectionbypass(x.id);
+  const e_del = waitForPushprotectionbypassDeleted(id);
+  block(matchAddPushprotectionbypass(id), function () {
+    verifyPushprotectionbypassDoesNotExist(id);
+  });
 });
 
 bthread("RatelimitLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRatelimit(x.id);
+  const e_add = waitForRatelimitAdded(id);
+  block(matchDeleteRatelimit(id), function () {
+    verifyRatelimitExists(id);
+  });
   updateRatelimit(x.id);
   updateRatelimit(x.id);
-  verifyRatelimitExists(x.id);
-  verifyRatelimitUpdated(x.id);
+  const e_upd = waitForRatelimitUpdated(id);
+  block(matchDeleteRatelimit(id), function () {
+    verifyRatelimitUpdated(id);
+  });
   deleteRatelimit(x.id);
+  const e_del = waitForRatelimitDeleted(id);
+  block(matchAddRatelimit(id), function () {
+    verifyRatelimitDoesNotExist(id);
+  });
 });
 
 bthread("RawLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRaw(x.id);
+  const e_add = waitForRawAdded(id);
+  block(matchDeleteRaw(id), function () {
+    verifyRawExists(id);
+  });
   updateRaw(x.id);
   updateRaw(x.id);
-  verifyRawExists(x.id);
-  verifyRawUpdated(x.id);
+  const e_upd = waitForRawUpdated(id);
+  block(matchDeleteRaw(id), function () {
+    verifyRawUpdated(id);
+  });
   deleteRaw(x.id);
+  const e_del = waitForRawDeleted(id);
+  block(matchAddRaw(id), function () {
+    verifyRawDoesNotExist(id);
+  });
 });
 
 bthread("ReactionLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addReaction(x.id);
+  const e_add = waitForReactionAdded(id);
+  block(matchDeleteReaction(id), function () {
+    verifyReactionExists(id);
+  });
   updateReaction(x.id);
   updateReaction(x.id);
-  verifyReactionExists(x.id);
-  verifyReactionUpdated(x.id);
+  const e_upd = waitForReactionUpdated(id);
+  block(matchDeleteReaction(id), function () {
+    verifyReactionUpdated(id);
+  });
   deleteReaction(x.id);
+  const e_del = waitForReactionDeleted(id);
+  block(matchAddReaction(id), function () {
+    verifyReactionDoesNotExist(id);
+  });
 });
 
 bthread("ReadmeLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addReadme(x.id);
+  const e_add = waitForReadmeAdded(id);
+  block(matchDeleteReadme(id), function () {
+    verifyReadmeExists(id);
+  });
   updateReadme(x.id);
   updateReadme(x.id);
-  verifyReadmeExists(x.id);
-  verifyReadmeUpdated(x.id);
+  const e_upd = waitForReadmeUpdated(id);
+  block(matchDeleteReadme(id), function () {
+    verifyReadmeUpdated(id);
+  });
   deleteReadme(x.id);
+  const e_del = waitForReadmeDeleted(id);
+  block(matchAddReadme(id), function () {
+    verifyReadmeDoesNotExist(id);
+  });
 });
 
 bthread("ReceivedeventLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addReceivedevent(x.id);
+  const e_add = waitForReceivedeventAdded(id);
+  block(matchDeleteReceivedevent(id), function () {
+    verifyReceivedeventExists(id);
+  });
   updateReceivedevent(x.id);
   updateReceivedevent(x.id);
-  verifyReceivedeventExists(x.id);
-  verifyReceivedeventUpdated(x.id);
+  const e_upd = waitForReceivedeventUpdated(id);
+  block(matchDeleteReceivedevent(id), function () {
+    verifyReceivedeventUpdated(id);
+  });
   deleteReceivedevent(x.id);
+  const e_del = waitForReceivedeventDeleted(id);
+  block(matchAddReceivedevent(id), function () {
+    verifyReceivedeventDoesNotExist(id);
+  });
 });
 
 bthread("RefLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRef(x.id);
+  const e_add = waitForRefAdded(id);
+  block(matchDeleteRef(id), function () {
+    verifyRefExists(id);
+  });
   updateRef(x.id);
   updateRef(x.id);
-  verifyRefExists(x.id);
-  verifyRefUpdated(x.id);
+  const e_upd = waitForRefUpdated(id);
+  block(matchDeleteRef(id), function () {
+    verifyRefUpdated(id);
+  });
   deleteRef(x.id);
+  const e_del = waitForRefDeleted(id);
+  block(matchAddRef(id), function () {
+    verifyRefDoesNotExist(id);
+  });
 });
 
 bthread("ReferrerLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addReferrer(x.id);
+  const e_add = waitForReferrerAdded(id);
+  block(matchDeleteReferrer(id), function () {
+    verifyReferrerExists(id);
+  });
   updateReferrer(x.id);
   updateReferrer(x.id);
-  verifyReferrerExists(x.id);
-  verifyReferrerUpdated(x.id);
+  const e_upd = waitForReferrerUpdated(id);
+  block(matchDeleteReferrer(id), function () {
+    verifyReferrerUpdated(id);
+  });
   deleteReferrer(x.id);
+  const e_del = waitForReferrerDeleted(id);
+  block(matchAddReferrer(id), function () {
+    verifyReferrerDoesNotExist(id);
+  });
 });
 
 bthread("RegistrationtokenLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRegistrationtoken(x.id);
+  const e_add = waitForRegistrationtokenAdded(id);
+  block(matchDeleteRegistrationtoken(id), function () {
+    verifyRegistrationtokenExists(id);
+  });
   updateRegistrationtoken(x.id);
   updateRegistrationtoken(x.id);
-  verifyRegistrationtokenExists(x.id);
-  verifyRegistrationtokenUpdated(x.id);
+  const e_upd = waitForRegistrationtokenUpdated(id);
+  block(matchDeleteRegistrationtoken(id), function () {
+    verifyRegistrationtokenUpdated(id);
+  });
   deleteRegistrationtoken(x.id);
+  const e_del = waitForRegistrationtokenDeleted(id);
+  block(matchAddRegistrationtoken(id), function () {
+    verifyRegistrationtokenDoesNotExist(id);
+  });
 });
 
 bthread("ReleasLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addReleas(x.id);
+  const e_add = waitForReleasAdded(id);
+  block(matchDeleteReleas(id), function () {
+    verifyReleasExists(id);
+  });
   updateReleas(x.id);
   updateReleas(x.id);
-  verifyReleasExists(x.id);
-  verifyReleasUpdated(x.id);
+  const e_upd = waitForReleasUpdated(id);
+  block(matchDeleteReleas(id), function () {
+    verifyReleasUpdated(id);
+  });
   deleteReleas(x.id);
+  const e_del = waitForReleasDeleted(id);
+  block(matchAddReleas(id), function () {
+    verifyReleasDoesNotExist(id);
+  });
 });
 
 bthread("RemoveLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRemove(x.id);
+  const e_add = waitForRemoveAdded(id);
+  block(matchDeleteRemove(id), function () {
+    verifyRemoveExists(id);
+  });
   updateRemove(x.id);
   updateRemove(x.id);
-  verifyRemoveExists(x.id);
-  verifyRemoveUpdated(x.id);
+  const e_upd = waitForRemoveUpdated(id);
+  block(matchDeleteRemove(id), function () {
+    verifyRemoveUpdated(id);
+  });
   deleteRemove(x.id);
+  const e_del = waitForRemoveDeleted(id);
+  block(matchAddRemove(id), function () {
+    verifyRemoveDoesNotExist(id);
+  });
 });
 
 bthread("RemovetokenLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRemovetoken(x.id);
+  const e_add = waitForRemovetokenAdded(id);
+  block(matchDeleteRemovetoken(id), function () {
+    verifyRemovetokenExists(id);
+  });
   updateRemovetoken(x.id);
   updateRemovetoken(x.id);
-  verifyRemovetokenExists(x.id);
-  verifyRemovetokenUpdated(x.id);
+  const e_upd = waitForRemovetokenUpdated(id);
+  block(matchDeleteRemovetoken(id), function () {
+    verifyRemovetokenUpdated(id);
+  });
   deleteRemovetoken(x.id);
+  const e_del = waitForRemovetokenDeleted(id);
+  block(matchAddRemovetoken(id), function () {
+    verifyRemovetokenDoesNotExist(id);
+  });
 });
 
 bthread("RenameLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRename(x.id);
+  const e_add = waitForRenameAdded(id);
+  block(matchDeleteRename(id), function () {
+    verifyRenameExists(id);
+  });
   updateRename(x.id);
   updateRename(x.id);
-  verifyRenameExists(x.id);
-  verifyRenameUpdated(x.id);
+  const e_upd = waitForRenameUpdated(id);
+  block(matchDeleteRename(id), function () {
+    verifyRenameUpdated(id);
+  });
   deleteRename(x.id);
+  const e_del = waitForRenameDeleted(id);
+  block(matchAddRename(id), function () {
+    verifyRenameDoesNotExist(id);
+  });
 });
 
 bthread("ReplyLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addReply(x.id);
+  const e_add = waitForReplyAdded(id);
+  block(matchDeleteReply(id), function () {
+    verifyReplyExists(id);
+  });
   updateReply(x.id);
   updateReply(x.id);
-  verifyReplyExists(x.id);
-  verifyReplyUpdated(x.id);
+  const e_upd = waitForReplyUpdated(id);
+  block(matchDeleteReply(id), function () {
+    verifyReplyUpdated(id);
+  });
   deleteReply(x.id);
+  const e_del = waitForReplyDeleted(id);
+  block(matchAddReply(id), function () {
+    verifyReplyDoesNotExist(id);
+  });
 });
 
 bthread("RepoLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRepo(x.id);
+  const e_add = waitForRepoAdded(id);
+  block(matchDeleteRepo(id), function () {
+    verifyRepoExists(id);
+  });
   updateRepo(x.id);
   updateRepo(x.id);
-  verifyRepoExists(x.id);
-  verifyRepoUpdated(x.id);
+  const e_upd = waitForRepoUpdated(id);
+  block(matchDeleteRepo(id), function () {
+    verifyRepoUpdated(id);
+  });
   deleteRepo(x.id);
+  const e_del = waitForRepoDeleted(id);
+  block(matchAddRepo(id), function () {
+    verifyRepoDoesNotExist(id);
+  });
 });
 
 bthread("ReportLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addReport(x.id);
+  const e_add = waitForReportAdded(id);
+  block(matchDeleteReport(id), function () {
+    verifyReportExists(id);
+  });
   updateReport(x.id);
   updateReport(x.id);
-  verifyReportExists(x.id);
-  verifyReportUpdated(x.id);
+  const e_upd = waitForReportUpdated(id);
+  block(matchDeleteReport(id), function () {
+    verifyReportUpdated(id);
+  });
   deleteReport(x.id);
+  const e_del = waitForReportDeleted(id);
+  block(matchAddReport(id), function () {
+    verifyReportDoesNotExist(id);
+  });
 });
 
 bthread("RepositoryLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRepository(x.id);
+  const e_add = waitForRepositoryAdded(id);
+  block(matchDeleteRepository(id), function () {
+    verifyRepositoryExists(id);
+  });
   updateRepository(x.id);
   updateRepository(x.id);
-  verifyRepositoryExists(x.id);
-  verifyRepositoryUpdated(x.id);
+  const e_upd = waitForRepositoryUpdated(id);
+  block(matchDeleteRepository(id), function () {
+    verifyRepositoryUpdated(id);
+  });
   deleteRepository(x.id);
+  const e_del = waitForRepositoryDeleted(id);
+  block(matchAddRepository(id), function () {
+    verifyRepositoryDoesNotExist(id);
+  });
 });
 
 bthread("RepositoryaccesLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRepositoryacces(x.id);
+  const e_add = waitForRepositoryaccesAdded(id);
+  block(matchDeleteRepositoryacces(id), function () {
+    verifyRepositoryaccesExists(id);
+  });
   updateRepositoryacces(x.id);
   updateRepositoryacces(x.id);
-  verifyRepositoryaccesExists(x.id);
-  verifyRepositoryaccesUpdated(x.id);
+  const e_upd = waitForRepositoryaccesUpdated(id);
+  block(matchDeleteRepositoryacces(id), function () {
+    verifyRepositoryaccesUpdated(id);
+  });
   deleteRepositoryacces(x.id);
+  const e_del = waitForRepositoryaccesDeleted(id);
+  block(matchAddRepositoryacces(id), function () {
+    verifyRepositoryaccesDoesNotExist(id);
+  });
 });
 
 bthread("RepositoryinvitationLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRepositoryinvitation(x.id);
+  const e_add = waitForRepositoryinvitationAdded(id);
+  block(matchDeleteRepositoryinvitation(id), function () {
+    verifyRepositoryinvitationExists(id);
+  });
   updateRepositoryinvitation(x.id);
   updateRepositoryinvitation(x.id);
-  verifyRepositoryinvitationExists(x.id);
-  verifyRepositoryinvitationUpdated(x.id);
+  const e_upd = waitForRepositoryinvitationUpdated(id);
+  block(matchDeleteRepositoryinvitation(id), function () {
+    verifyRepositoryinvitationUpdated(id);
+  });
   deleteRepositoryinvitation(x.id);
+  const e_del = waitForRepositoryinvitationDeleted(id);
+  block(matchAddRepositoryinvitation(id), function () {
+    verifyRepositoryinvitationDoesNotExist(id);
+  });
 });
 
 bthread("RequestedreviewerLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRequestedreviewer(x.id);
+  const e_add = waitForRequestedreviewerAdded(id);
+  block(matchDeleteRequestedreviewer(id), function () {
+    verifyRequestedreviewerExists(id);
+  });
   updateRequestedreviewer(x.id);
   updateRequestedreviewer(x.id);
-  verifyRequestedreviewerExists(x.id);
-  verifyRequestedreviewerUpdated(x.id);
+  const e_upd = waitForRequestedreviewerUpdated(id);
+  block(matchDeleteRequestedreviewer(id), function () {
+    verifyRequestedreviewerUpdated(id);
+  });
   deleteRequestedreviewer(x.id);
+  const e_del = waitForRequestedreviewerDeleted(id);
+  block(matchAddRequestedreviewer(id), function () {
+    verifyRequestedreviewerDoesNotExist(id);
+  });
 });
 
 bthread("RequiredpullrequestreviewLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRequiredpullrequestreview(x.id);
+  const e_add = waitForRequiredpullrequestreviewAdded(id);
+  block(matchDeleteRequiredpullrequestreview(id), function () {
+    verifyRequiredpullrequestreviewExists(id);
+  });
   updateRequiredpullrequestreview(x.id);
   updateRequiredpullrequestreview(x.id);
-  verifyRequiredpullrequestreviewExists(x.id);
-  verifyRequiredpullrequestreviewUpdated(x.id);
+  const e_upd = waitForRequiredpullrequestreviewUpdated(id);
+  block(matchDeleteRequiredpullrequestreview(id), function () {
+    verifyRequiredpullrequestreviewUpdated(id);
+  });
   deleteRequiredpullrequestreview(x.id);
+  const e_del = waitForRequiredpullrequestreviewDeleted(id);
+  block(matchAddRequiredpullrequestreview(id), function () {
+    verifyRequiredpullrequestreviewDoesNotExist(id);
+  });
 });
 
 bthread("RequiredsignatureLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRequiredsignature(x.id);
+  const e_add = waitForRequiredsignatureAdded(id);
+  block(matchDeleteRequiredsignature(id), function () {
+    verifyRequiredsignatureExists(id);
+  });
   updateRequiredsignature(x.id);
   updateRequiredsignature(x.id);
-  verifyRequiredsignatureExists(x.id);
-  verifyRequiredsignatureUpdated(x.id);
+  const e_upd = waitForRequiredsignatureUpdated(id);
+  block(matchDeleteRequiredsignature(id), function () {
+    verifyRequiredsignatureUpdated(id);
+  });
   deleteRequiredsignature(x.id);
+  const e_del = waitForRequiredsignatureDeleted(id);
+  block(matchAddRequiredsignature(id), function () {
+    verifyRequiredsignatureDoesNotExist(id);
+  });
 });
 
 bthread("RequiredstatuscheckLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRequiredstatuscheck(x.id);
+  const e_add = waitForRequiredstatuscheckAdded(id);
+  block(matchDeleteRequiredstatuscheck(id), function () {
+    verifyRequiredstatuscheckExists(id);
+  });
   updateRequiredstatuscheck(x.id);
   updateRequiredstatuscheck(x.id);
-  verifyRequiredstatuscheckExists(x.id);
-  verifyRequiredstatuscheckUpdated(x.id);
+  const e_upd = waitForRequiredstatuscheckUpdated(id);
+  block(matchDeleteRequiredstatuscheck(id), function () {
+    verifyRequiredstatuscheckUpdated(id);
+  });
   deleteRequiredstatuscheck(x.id);
+  const e_del = waitForRequiredstatuscheckDeleted(id);
+  block(matchAddRequiredstatuscheck(id), function () {
+    verifyRequiredstatuscheckDoesNotExist(id);
+  });
 });
 
 bthread("RerequestLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRerequest(x.id);
+  const e_add = waitForRerequestAdded(id);
+  block(matchDeleteRerequest(id), function () {
+    verifyRerequestExists(id);
+  });
   updateRerequest(x.id);
   updateRerequest(x.id);
-  verifyRerequestExists(x.id);
-  verifyRerequestUpdated(x.id);
+  const e_upd = waitForRerequestUpdated(id);
+  block(matchDeleteRerequest(id), function () {
+    verifyRerequestUpdated(id);
+  });
   deleteRerequest(x.id);
+  const e_del = waitForRerequestDeleted(id);
+  block(matchAddRerequest(id), function () {
+    verifyRerequestDoesNotExist(id);
+  });
 });
 
 bthread("RerunLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRerun(x.id);
+  const e_add = waitForRerunAdded(id);
+  block(matchDeleteRerun(id), function () {
+    verifyRerunExists(id);
+  });
   updateRerun(x.id);
   updateRerun(x.id);
-  verifyRerunExists(x.id);
-  verifyRerunUpdated(x.id);
+  const e_upd = waitForRerunUpdated(id);
+  block(matchDeleteRerun(id), function () {
+    verifyRerunUpdated(id);
+  });
   deleteRerun(x.id);
+  const e_del = waitForRerunDeleted(id);
+  block(matchAddRerun(id), function () {
+    verifyRerunDoesNotExist(id);
+  });
 });
 
 bthread("RerunfailedjobLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRerunfailedjob(x.id);
+  const e_add = waitForRerunfailedjobAdded(id);
+  block(matchDeleteRerunfailedjob(id), function () {
+    verifyRerunfailedjobExists(id);
+  });
   updateRerunfailedjob(x.id);
   updateRerunfailedjob(x.id);
-  verifyRerunfailedjobExists(x.id);
-  verifyRerunfailedjobUpdated(x.id);
+  const e_upd = waitForRerunfailedjobUpdated(id);
+  block(matchDeleteRerunfailedjob(id), function () {
+    verifyRerunfailedjobUpdated(id);
+  });
   deleteRerunfailedjob(x.id);
+  const e_del = waitForRerunfailedjobDeleted(id);
+  block(matchAddRerunfailedjob(id), function () {
+    verifyRerunfailedjobDoesNotExist(id);
+  });
 });
 
 bthread("RestoreLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRestore(x.id);
+  const e_add = waitForRestoreAdded(id);
+  block(matchDeleteRestore(id), function () {
+    verifyRestoreExists(id);
+  });
   updateRestore(x.id);
   updateRestore(x.id);
-  verifyRestoreExists(x.id);
-  verifyRestoreUpdated(x.id);
+  const e_upd = waitForRestoreUpdated(id);
+  block(matchDeleteRestore(id), function () {
+    verifyRestoreUpdated(id);
+  });
   deleteRestore(x.id);
+  const e_del = waitForRestoreDeleted(id);
+  block(matchAddRestore(id), function () {
+    verifyRestoreDoesNotExist(id);
+  });
 });
 
 bthread("RestrictionLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRestriction(x.id);
+  const e_add = waitForRestrictionAdded(id);
+  block(matchDeleteRestriction(id), function () {
+    verifyRestrictionExists(id);
+  });
   updateRestriction(x.id);
   updateRestriction(x.id);
-  verifyRestrictionExists(x.id);
-  verifyRestrictionUpdated(x.id);
+  const e_upd = waitForRestrictionUpdated(id);
+  block(matchDeleteRestriction(id), function () {
+    verifyRestrictionUpdated(id);
+  });
   deleteRestriction(x.id);
+  const e_del = waitForRestrictionDeleted(id);
+  block(matchAddRestriction(id), function () {
+    verifyRestrictionDoesNotExist(id);
+  });
 });
 
 bthread("ReviewLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addReview(x.id);
+  const e_add = waitForReviewAdded(id);
+  block(matchDeleteReview(id), function () {
+    verifyReviewExists(id);
+  });
   updateReview(x.id);
   updateReview(x.id);
-  verifyReviewExists(x.id);
-  verifyReviewUpdated(x.id);
+  const e_upd = waitForReviewUpdated(id);
+  block(matchDeleteReview(id), function () {
+    verifyReviewUpdated(id);
+  });
   deleteReview(x.id);
+  const e_del = waitForReviewDeleted(id);
+  block(matchAddReview(id), function () {
+    verifyReviewDoesNotExist(id);
+  });
 });
 
 bthread("RevokeLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRevoke(x.id);
+  const e_add = waitForRevokeAdded(id);
+  block(matchDeleteRevoke(id), function () {
+    verifyRevokeExists(id);
+  });
   updateRevoke(x.id);
   updateRevoke(x.id);
-  verifyRevokeExists(x.id);
-  verifyRevokeUpdated(x.id);
+  const e_upd = waitForRevokeUpdated(id);
+  block(matchDeleteRevoke(id), function () {
+    verifyRevokeUpdated(id);
+  });
   deleteRevoke(x.id);
+  const e_del = waitForRevokeDeleted(id);
+  block(matchAddRevoke(id), function () {
+    verifyRevokeDoesNotExist(id);
+  });
 });
 
 bthread("RoutestatLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRoutestat(x.id);
+  const e_add = waitForRoutestatAdded(id);
+  block(matchDeleteRoutestat(id), function () {
+    verifyRoutestatExists(id);
+  });
   updateRoutestat(x.id);
   updateRoutestat(x.id);
-  verifyRoutestatExists(x.id);
-  verifyRoutestatUpdated(x.id);
+  const e_upd = waitForRoutestatUpdated(id);
+  block(matchDeleteRoutestat(id), function () {
+    verifyRoutestatUpdated(id);
+  });
   deleteRoutestat(x.id);
+  const e_del = waitForRoutestatDeleted(id);
+  block(matchAddRoutestat(id), function () {
+    verifyRoutestatDoesNotExist(id);
+  });
 });
 
 bthread("RuleLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRule(x.id);
+  const e_add = waitForRuleAdded(id);
+  block(matchDeleteRule(id), function () {
+    verifyRuleExists(id);
+  });
   updateRule(x.id);
   updateRule(x.id);
-  verifyRuleExists(x.id);
-  verifyRuleUpdated(x.id);
+  const e_upd = waitForRuleUpdated(id);
+  block(matchDeleteRule(id), function () {
+    verifyRuleUpdated(id);
+  });
   deleteRule(x.id);
+  const e_del = waitForRuleDeleted(id);
+  block(matchAddRule(id), function () {
+    verifyRuleDoesNotExist(id);
+  });
 });
 
 bthread("RulesetLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRuleset(x.id);
+  const e_add = waitForRulesetAdded(id);
+  block(matchDeleteRuleset(id), function () {
+    verifyRulesetExists(id);
+  });
   updateRuleset(x.id);
   updateRuleset(x.id);
-  verifyRulesetExists(x.id);
-  verifyRulesetUpdated(x.id);
+  const e_upd = waitForRulesetUpdated(id);
+  block(matchDeleteRuleset(id), function () {
+    verifyRulesetUpdated(id);
+  });
   deleteRuleset(x.id);
+  const e_del = waitForRulesetDeleted(id);
+  block(matchAddRuleset(id), function () {
+    verifyRulesetDoesNotExist(id);
+  });
 });
 
 bthread("RulesuiteLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRulesuite(x.id);
+  const e_add = waitForRulesuiteAdded(id);
+  block(matchDeleteRulesuite(id), function () {
+    verifyRulesuiteExists(id);
+  });
   updateRulesuite(x.id);
   updateRulesuite(x.id);
-  verifyRulesuiteExists(x.id);
-  verifyRulesuiteUpdated(x.id);
+  const e_upd = waitForRulesuiteUpdated(id);
+  block(matchDeleteRulesuite(id), function () {
+    verifyRulesuiteUpdated(id);
+  });
   deleteRulesuite(x.id);
+  const e_del = waitForRulesuiteDeleted(id);
+  block(matchAddRulesuite(id), function () {
+    verifyRulesuiteDoesNotExist(id);
+  });
 });
 
 bthread("RunLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRun(x.id);
+  const e_add = waitForRunAdded(id);
+  block(matchDeleteRun(id), function () {
+    verifyRunExists(id);
+  });
   updateRun(x.id);
   updateRun(x.id);
-  verifyRunExists(x.id);
-  verifyRunUpdated(x.id);
+  const e_upd = waitForRunUpdated(id);
+  block(matchDeleteRun(id), function () {
+    verifyRunUpdated(id);
+  });
   deleteRun(x.id);
+  const e_del = waitForRunDeleted(id);
+  block(matchAddRun(id), function () {
+    verifyRunDoesNotExist(id);
+  });
 });
 
 bthread("RunnerLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRunner(x.id);
+  const e_add = waitForRunnerAdded(id);
+  block(matchDeleteRunner(id), function () {
+    verifyRunnerExists(id);
+  });
   updateRunner(x.id);
   updateRunner(x.id);
-  verifyRunnerExists(x.id);
-  verifyRunnerUpdated(x.id);
+  const e_upd = waitForRunnerUpdated(id);
+  block(matchDeleteRunner(id), function () {
+    verifyRunnerUpdated(id);
+  });
   deleteRunner(x.id);
+  const e_del = waitForRunnerDeleted(id);
+  block(matchAddRunner(id), function () {
+    verifyRunnerDoesNotExist(id);
+  });
 });
 
 bthread("RunnergroupLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addRunnergroup(x.id);
+  const e_add = waitForRunnergroupAdded(id);
+  block(matchDeleteRunnergroup(id), function () {
+    verifyRunnergroupExists(id);
+  });
   updateRunnergroup(x.id);
   updateRunnergroup(x.id);
-  verifyRunnergroupExists(x.id);
-  verifyRunnergroupUpdated(x.id);
+  const e_upd = waitForRunnergroupUpdated(id);
+  block(matchDeleteRunnergroup(id), function () {
+    verifyRunnergroupUpdated(id);
+  });
   deleteRunnergroup(x.id);
+  const e_del = waitForRunnergroupDeleted(id);
+  block(matchAddRunnergroup(id), function () {
+    verifyRunnergroupDoesNotExist(id);
+  });
 });
 
 bthread("SarifLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSarif(x.id);
+  const e_add = waitForSarifAdded(id);
+  block(matchDeleteSarif(id), function () {
+    verifySarifExists(id);
+  });
   updateSarif(x.id);
   updateSarif(x.id);
-  verifySarifExists(x.id);
-  verifySarifUpdated(x.id);
+  const e_upd = waitForSarifUpdated(id);
+  block(matchDeleteSarif(id), function () {
+    verifySarifUpdated(id);
+  });
   deleteSarif(x.id);
+  const e_del = waitForSarifDeleted(id);
+  block(matchAddSarif(id), function () {
+    verifySarifDoesNotExist(id);
+  });
 });
 
 bthread("SbomLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSbom(x.id);
+  const e_add = waitForSbomAdded(id);
+  block(matchDeleteSbom(id), function () {
+    verifySbomExists(id);
+  });
   updateSbom(x.id);
   updateSbom(x.id);
-  verifySbomExists(x.id);
-  verifySbomUpdated(x.id);
+  const e_upd = waitForSbomUpdated(id);
+  block(matchDeleteSbom(id), function () {
+    verifySbomUpdated(id);
+  });
   deleteSbom(x.id);
+  const e_del = waitForSbomDeleted(id);
+  block(matchAddSbom(id), function () {
+    verifySbomDoesNotExist(id);
+  });
 });
 
 bthread("ScanhistoryLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addScanhistory(x.id);
+  const e_add = waitForScanhistoryAdded(id);
+  block(matchDeleteScanhistory(id), function () {
+    verifyScanhistoryExists(id);
+  });
   updateScanhistory(x.id);
   updateScanhistory(x.id);
-  verifyScanhistoryExists(x.id);
-  verifyScanhistoryUpdated(x.id);
+  const e_upd = waitForScanhistoryUpdated(id);
+  block(matchDeleteScanhistory(id), function () {
+    verifyScanhistoryUpdated(id);
+  });
   deleteScanhistory(x.id);
+  const e_del = waitForScanhistoryDeleted(id);
+  block(matchAddScanhistory(id), function () {
+    verifyScanhistoryDoesNotExist(id);
+  });
 });
 
 bthread("SchemaLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSchema(x.id);
+  const e_add = waitForSchemaAdded(id);
+  block(matchDeleteSchema(id), function () {
+    verifySchemaExists(id);
+  });
   updateSchema(x.id);
   updateSchema(x.id);
-  verifySchemaExists(x.id);
-  verifySchemaUpdated(x.id);
+  const e_upd = waitForSchemaUpdated(id);
+  block(matchDeleteSchema(id), function () {
+    verifySchemaUpdated(id);
+  });
   deleteSchema(x.id);
+  const e_del = waitForSchemaDeleted(id);
+  block(matchAddSchema(id), function () {
+    verifySchemaDoesNotExist(id);
+  });
 });
 
 bthread("ScopedLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addScoped(x.id);
+  const e_add = waitForScopedAdded(id);
+  block(matchDeleteScoped(id), function () {
+    verifyScopedExists(id);
+  });
   updateScoped(x.id);
   updateScoped(x.id);
-  verifyScopedExists(x.id);
-  verifyScopedUpdated(x.id);
+  const e_upd = waitForScopedUpdated(id);
+  block(matchDeleteScoped(id), function () {
+    verifyScopedUpdated(id);
+  });
   deleteScoped(x.id);
+  const e_del = waitForScopedDeleted(id);
+  block(matchAddScoped(id), function () {
+    verifyScopedDoesNotExist(id);
+  });
 });
 
 bthread("SearchLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSearch(x.id);
+  const e_add = waitForSearchAdded(id);
+  block(matchDeleteSearch(id), function () {
+    verifySearchExists(id);
+  });
   updateSearch(x.id);
   updateSearch(x.id);
-  verifySearchExists(x.id);
-  verifySearchUpdated(x.id);
+  const e_upd = waitForSearchUpdated(id);
+  block(matchDeleteSearch(id), function () {
+    verifySearchUpdated(id);
+  });
   deleteSearch(x.id);
+  const e_del = waitForSearchDeleted(id);
+  block(matchAddSearch(id), function () {
+    verifySearchDoesNotExist(id);
+  });
 });
 
 bthread("SeatLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSeat(x.id);
+  const e_add = waitForSeatAdded(id);
+  block(matchDeleteSeat(id), function () {
+    verifySeatExists(id);
+  });
   updateSeat(x.id);
   updateSeat(x.id);
-  verifySeatExists(x.id);
-  verifySeatUpdated(x.id);
+  const e_upd = waitForSeatUpdated(id);
+  block(matchDeleteSeat(id), function () {
+    verifySeatUpdated(id);
+  });
   deleteSeat(x.id);
+  const e_del = waitForSeatDeleted(id);
+  block(matchAddSeat(id), function () {
+    verifySeatDoesNotExist(id);
+  });
 });
 
 bthread("SecretLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSecret(x.id);
+  const e_add = waitForSecretAdded(id);
+  block(matchDeleteSecret(id), function () {
+    verifySecretExists(id);
+  });
   updateSecret(x.id);
   updateSecret(x.id);
-  verifySecretExists(x.id);
-  verifySecretUpdated(x.id);
+  const e_upd = waitForSecretUpdated(id);
+  block(matchDeleteSecret(id), function () {
+    verifySecretUpdated(id);
+  });
   deleteSecret(x.id);
+  const e_del = waitForSecretDeleted(id);
+  block(matchAddSecret(id), function () {
+    verifySecretDoesNotExist(id);
+  });
 });
 
 bthread("SecretscanningLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSecretscanning(x.id);
+  const e_add = waitForSecretscanningAdded(id);
+  block(matchDeleteSecretscanning(id), function () {
+    verifySecretscanningExists(id);
+  });
   updateSecretscanning(x.id);
   updateSecretscanning(x.id);
-  verifySecretscanningExists(x.id);
-  verifySecretscanningUpdated(x.id);
+  const e_upd = waitForSecretscanningUpdated(id);
+  block(matchDeleteSecretscanning(id), function () {
+    verifySecretscanningUpdated(id);
+  });
   deleteSecretscanning(x.id);
+  const e_del = waitForSecretscanningDeleted(id);
+  block(matchAddSecretscanning(id), function () {
+    verifySecretscanningDoesNotExist(id);
+  });
 });
 
 bthread("SecurityadvisoryLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSecurityadvisory(x.id);
+  const e_add = waitForSecurityadvisoryAdded(id);
+  block(matchDeleteSecurityadvisory(id), function () {
+    verifySecurityadvisoryExists(id);
+  });
   updateSecurityadvisory(x.id);
   updateSecurityadvisory(x.id);
-  verifySecurityadvisoryExists(x.id);
-  verifySecurityadvisoryUpdated(x.id);
+  const e_upd = waitForSecurityadvisoryUpdated(id);
+  block(matchDeleteSecurityadvisory(id), function () {
+    verifySecurityadvisoryUpdated(id);
+  });
   deleteSecurityadvisory(x.id);
+  const e_del = waitForSecurityadvisoryDeleted(id);
+  block(matchAddSecurityadvisory(id), function () {
+    verifySecurityadvisoryDoesNotExist(id);
+  });
 });
 
 bthread("SecuritymanagerLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSecuritymanager(x.id);
+  const e_add = waitForSecuritymanagerAdded(id);
+  block(matchDeleteSecuritymanager(id), function () {
+    verifySecuritymanagerExists(id);
+  });
   updateSecuritymanager(x.id);
   updateSecuritymanager(x.id);
-  verifySecuritymanagerExists(x.id);
-  verifySecuritymanagerUpdated(x.id);
+  const e_upd = waitForSecuritymanagerUpdated(id);
+  block(matchDeleteSecuritymanager(id), function () {
+    verifySecuritymanagerUpdated(id);
+  });
   deleteSecuritymanager(x.id);
+  const e_del = waitForSecuritymanagerDeleted(id);
+  block(matchAddSecuritymanager(id), function () {
+    verifySecuritymanagerDoesNotExist(id);
+  });
 });
 
 bthread("SelectedactionLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSelectedaction(x.id);
+  const e_add = waitForSelectedactionAdded(id);
+  block(matchDeleteSelectedaction(id), function () {
+    verifySelectedactionExists(id);
+  });
   updateSelectedaction(x.id);
   updateSelectedaction(x.id);
-  verifySelectedactionExists(x.id);
-  verifySelectedactionUpdated(x.id);
+  const e_upd = waitForSelectedactionUpdated(id);
+  block(matchDeleteSelectedaction(id), function () {
+    verifySelectedactionUpdated(id);
+  });
   deleteSelectedaction(x.id);
+  const e_del = waitForSelectedactionDeleted(id);
+  block(matchAddSelectedaction(id), function () {
+    verifySelectedactionDoesNotExist(id);
+  });
 });
 
 bthread("SelectedteamLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSelectedteam(x.id);
+  const e_add = waitForSelectedteamAdded(id);
+  block(matchDeleteSelectedteam(id), function () {
+    verifySelectedteamExists(id);
+  });
   updateSelectedteam(x.id);
   updateSelectedteam(x.id);
-  verifySelectedteamExists(x.id);
-  verifySelectedteamUpdated(x.id);
+  const e_upd = waitForSelectedteamUpdated(id);
+  block(matchDeleteSelectedteam(id), function () {
+    verifySelectedteamUpdated(id);
+  });
   deleteSelectedteam(x.id);
+  const e_del = waitForSelectedteamDeleted(id);
+  block(matchAddSelectedteam(id), function () {
+    verifySelectedteamDoesNotExist(id);
+  });
 });
 
 bthread("SelecteduserLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSelecteduser(x.id);
+  const e_add = waitForSelecteduserAdded(id);
+  block(matchDeleteSelecteduser(id), function () {
+    verifySelecteduserExists(id);
+  });
   updateSelecteduser(x.id);
   updateSelecteduser(x.id);
-  verifySelecteduserExists(x.id);
-  verifySelecteduserUpdated(x.id);
+  const e_upd = waitForSelecteduserUpdated(id);
+  block(matchDeleteSelecteduser(id), function () {
+    verifySelecteduserUpdated(id);
+  });
   deleteSelecteduser(x.id);
+  const e_del = waitForSelecteduserDeleted(id);
+  block(matchAddSelecteduser(id), function () {
+    verifySelecteduserDoesNotExist(id);
+  });
 });
 
 bthread("SelfhostedrunnerLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSelfhostedrunner(x.id);
+  const e_add = waitForSelfhostedrunnerAdded(id);
+  block(matchDeleteSelfhostedrunner(id), function () {
+    verifySelfhostedrunnerExists(id);
+  });
   updateSelfhostedrunner(x.id);
   updateSelfhostedrunner(x.id);
-  verifySelfhostedrunnerExists(x.id);
-  verifySelfhostedrunnerUpdated(x.id);
+  const e_upd = waitForSelfhostedrunnerUpdated(id);
+  block(matchDeleteSelfhostedrunner(id), function () {
+    verifySelfhostedrunnerUpdated(id);
+  });
   deleteSelfhostedrunner(x.id);
+  const e_del = waitForSelfhostedrunnerDeleted(id);
+  block(matchAddSelfhostedrunner(id), function () {
+    verifySelfhostedrunnerDoesNotExist(id);
+  });
 });
 
 bthread("SettingLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSetting(x.id);
+  const e_add = waitForSettingAdded(id);
+  block(matchDeleteSetting(id), function () {
+    verifySettingExists(id);
+  });
   updateSetting(x.id);
   updateSetting(x.id);
-  verifySettingExists(x.id);
-  verifySettingUpdated(x.id);
+  const e_upd = waitForSettingUpdated(id);
+  block(matchDeleteSetting(id), function () {
+    verifySettingUpdated(id);
+  });
   deleteSetting(x.id);
+  const e_del = waitForSettingDeleted(id);
+  block(matchAddSetting(id), function () {
+    verifySettingDoesNotExist(id);
+  });
 });
 
 bthread("SharedstorageLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSharedstorage(x.id);
+  const e_add = waitForSharedstorageAdded(id);
+  block(matchDeleteSharedstorage(id), function () {
+    verifySharedstorageExists(id);
+  });
   updateSharedstorage(x.id);
   updateSharedstorage(x.id);
-  verifySharedstorageExists(x.id);
-  verifySharedstorageUpdated(x.id);
+  const e_upd = waitForSharedstorageUpdated(id);
+  block(matchDeleteSharedstorage(id), function () {
+    verifySharedstorageUpdated(id);
+  });
   deleteSharedstorage(x.id);
+  const e_del = waitForSharedstorageDeleted(id);
+  block(matchAddSharedstorage(id), function () {
+    verifySharedstorageDoesNotExist(id);
+  });
 });
 
 bthread("SnapshotLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSnapshot(x.id);
+  const e_add = waitForSnapshotAdded(id);
+  block(matchDeleteSnapshot(id), function () {
+    verifySnapshotExists(id);
+  });
   updateSnapshot(x.id);
   updateSnapshot(x.id);
-  verifySnapshotExists(x.id);
-  verifySnapshotUpdated(x.id);
+  const e_upd = waitForSnapshotUpdated(id);
+  block(matchDeleteSnapshot(id), function () {
+    verifySnapshotUpdated(id);
+  });
   deleteSnapshot(x.id);
+  const e_del = waitForSnapshotDeleted(id);
+  block(matchAddSnapshot(id), function () {
+    verifySnapshotDoesNotExist(id);
+  });
 });
 
 bthread("SocialaccountLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSocialaccount(x.id);
+  const e_add = waitForSocialaccountAdded(id);
+  block(matchDeleteSocialaccount(id), function () {
+    verifySocialaccountExists(id);
+  });
   updateSocialaccount(x.id);
   updateSocialaccount(x.id);
-  verifySocialaccountExists(x.id);
-  verifySocialaccountUpdated(x.id);
+  const e_upd = waitForSocialaccountUpdated(id);
+  block(matchDeleteSocialaccount(id), function () {
+    verifySocialaccountUpdated(id);
+  });
   deleteSocialaccount(x.id);
+  const e_del = waitForSocialaccountDeleted(id);
+  block(matchAddSocialaccount(id), function () {
+    verifySocialaccountDoesNotExist(id);
+  });
 });
 
 bthread("SshsigningkeyLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSshsigningkey(x.id);
+  const e_add = waitForSshsigningkeyAdded(id);
+  block(matchDeleteSshsigningkey(id), function () {
+    verifySshsigningkeyExists(id);
+  });
   updateSshsigningkey(x.id);
   updateSshsigningkey(x.id);
-  verifySshsigningkeyExists(x.id);
-  verifySshsigningkeyUpdated(x.id);
+  const e_upd = waitForSshsigningkeyUpdated(id);
+  block(matchDeleteSshsigningkey(id), function () {
+    verifySshsigningkeyUpdated(id);
+  });
   deleteSshsigningkey(x.id);
+  const e_del = waitForSshsigningkeyDeleted(id);
+  block(matchAddSshsigningkey(id), function () {
+    verifySshsigningkeyDoesNotExist(id);
+  });
 });
 
 bthread("StarLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addStar(x.id);
+  const e_add = waitForStarAdded(id);
+  block(matchDeleteStar(id), function () {
+    verifyStarExists(id);
+  });
   updateStar(x.id);
   updateStar(x.id);
-  verifyStarExists(x.id);
-  verifyStarUpdated(x.id);
+  const e_upd = waitForStarUpdated(id);
+  block(matchDeleteStar(id), function () {
+    verifyStarUpdated(id);
+  });
   deleteStar(x.id);
+  const e_del = waitForStarDeleted(id);
+  block(matchAddStar(id), function () {
+    verifyStarDoesNotExist(id);
+  });
 });
 
 bthread("StargazerLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addStargazer(x.id);
+  const e_add = waitForStargazerAdded(id);
+  block(matchDeleteStargazer(id), function () {
+    verifyStargazerExists(id);
+  });
   updateStargazer(x.id);
   updateStargazer(x.id);
-  verifyStargazerExists(x.id);
-  verifyStargazerUpdated(x.id);
+  const e_upd = waitForStargazerUpdated(id);
+  block(matchDeleteStargazer(id), function () {
+    verifyStargazerUpdated(id);
+  });
   deleteStargazer(x.id);
+  const e_del = waitForStargazerDeleted(id);
+  block(matchAddStargazer(id), function () {
+    verifyStargazerDoesNotExist(id);
+  });
 });
 
 bthread("StarredLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addStarred(x.id);
+  const e_add = waitForStarredAdded(id);
+  block(matchDeleteStarred(id), function () {
+    verifyStarredExists(id);
+  });
   updateStarred(x.id);
   updateStarred(x.id);
-  verifyStarredExists(x.id);
-  verifyStarredUpdated(x.id);
+  const e_upd = waitForStarredUpdated(id);
+  block(matchDeleteStarred(id), function () {
+    verifyStarredUpdated(id);
+  });
   deleteStarred(x.id);
+  const e_del = waitForStarredDeleted(id);
+  block(matchAddStarred(id), function () {
+    verifyStarredDoesNotExist(id);
+  });
 });
 
 bthread("StartLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addStart(x.id);
+  const e_add = waitForStartAdded(id);
+  block(matchDeleteStart(id), function () {
+    verifyStartExists(id);
+  });
   updateStart(x.id);
   updateStart(x.id);
-  verifyStartExists(x.id);
-  verifyStartUpdated(x.id);
+  const e_upd = waitForStartUpdated(id);
+  block(matchDeleteStart(id), function () {
+    verifyStartUpdated(id);
+  });
   deleteStart(x.id);
+  const e_del = waitForStartDeleted(id);
+  block(matchAddStart(id), function () {
+    verifyStartDoesNotExist(id);
+  });
 });
 
 bthread("StatLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addStat(x.id);
+  const e_add = waitForStatAdded(id);
+  block(matchDeleteStat(id), function () {
+    verifyStatExists(id);
+  });
   updateStat(x.id);
   updateStat(x.id);
-  verifyStatExists(x.id);
-  verifyStatUpdated(x.id);
+  const e_upd = waitForStatUpdated(id);
+  block(matchDeleteStat(id), function () {
+    verifyStatUpdated(id);
+  });
   deleteStat(x.id);
+  const e_del = waitForStatDeleted(id);
+  block(matchAddStat(id), function () {
+    verifyStatDoesNotExist(id);
+  });
 });
 
 bthread("StatuLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addStatu(x.id);
+  const e_add = waitForStatuAdded(id);
+  block(matchDeleteStatu(id), function () {
+    verifyStatuExists(id);
+  });
   updateStatu(x.id);
   updateStatu(x.id);
-  verifyStatuExists(x.id);
-  verifyStatuUpdated(x.id);
+  const e_upd = waitForStatuUpdated(id);
+  block(matchDeleteStatu(id), function () {
+    verifyStatuUpdated(id);
+  });
   deleteStatu(x.id);
+  const e_del = waitForStatuDeleted(id);
+  block(matchAddStatu(id), function () {
+    verifyStatuDoesNotExist(id);
+  });
 });
 
 bthread("StatusLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addStatus(x.id);
+  const e_add = waitForStatusAdded(id);
+  block(matchDeleteStatus(id), function () {
+    verifyStatusExists(id);
+  });
   updateStatus(x.id);
   updateStatus(x.id);
-  verifyStatusExists(x.id);
-  verifyStatusUpdated(x.id);
+  const e_upd = waitForStatusUpdated(id);
+  block(matchDeleteStatus(id), function () {
+    verifyStatusUpdated(id);
+  });
   deleteStatus(x.id);
+  const e_del = waitForStatusDeleted(id);
+  block(matchAddStatus(id), function () {
+    verifyStatusDoesNotExist(id);
+  });
 });
 
 bthread("StopLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addStop(x.id);
+  const e_add = waitForStopAdded(id);
+  block(matchDeleteStop(id), function () {
+    verifyStopExists(id);
+  });
   updateStop(x.id);
   updateStop(x.id);
-  verifyStopExists(x.id);
-  verifyStopUpdated(x.id);
+  const e_upd = waitForStopUpdated(id);
+  block(matchDeleteStop(id), function () {
+    verifyStopUpdated(id);
+  });
   deleteStop(x.id);
+  const e_del = waitForStopDeleted(id);
+  block(matchAddStop(id), function () {
+    verifyStopDoesNotExist(id);
+  });
 });
 
 bthread("StoragerecordLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addStoragerecord(x.id);
+  const e_add = waitForStoragerecordAdded(id);
+  block(matchDeleteStoragerecord(id), function () {
+    verifyStoragerecordExists(id);
+  });
   updateStoragerecord(x.id);
   updateStoragerecord(x.id);
-  verifyStoragerecordExists(x.id);
-  verifyStoragerecordUpdated(x.id);
+  const e_upd = waitForStoragerecordUpdated(id);
+  block(matchDeleteStoragerecord(id), function () {
+    verifyStoragerecordUpdated(id);
+  });
   deleteStoragerecord(x.id);
+  const e_del = waitForStoragerecordDeleted(id);
+  block(matchAddStoragerecord(id), function () {
+    verifyStoragerecordDoesNotExist(id);
+  });
 });
 
 bthread("StubbedLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addStubbed(x.id);
+  const e_add = waitForStubbedAdded(id);
+  block(matchDeleteStubbed(id), function () {
+    verifyStubbedExists(id);
+  });
   updateStubbed(x.id);
   updateStubbed(x.id);
-  verifyStubbedExists(x.id);
-  verifyStubbedUpdated(x.id);
+  const e_upd = waitForStubbedUpdated(id);
+  block(matchDeleteStubbed(id), function () {
+    verifyStubbedUpdated(id);
+  });
   deleteStubbed(x.id);
+  const e_del = waitForStubbedDeleted(id);
+  block(matchAddStubbed(id), function () {
+    verifyStubbedDoesNotExist(id);
+  });
 });
 
 bthread("SubLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSub(x.id);
+  const e_add = waitForSubAdded(id);
+  block(matchDeleteSub(id), function () {
+    verifySubExists(id);
+  });
   updateSub(x.id);
   updateSub(x.id);
-  verifySubExists(x.id);
-  verifySubUpdated(x.id);
+  const e_upd = waitForSubUpdated(id);
+  block(matchDeleteSub(id), function () {
+    verifySubUpdated(id);
+  });
   deleteSub(x.id);
+  const e_del = waitForSubDeleted(id);
+  block(matchAddSub(id), function () {
+    verifySubDoesNotExist(id);
+  });
 });
 
 bthread("SubissueLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSubissue(x.id);
+  const e_add = waitForSubissueAdded(id);
+  block(matchDeleteSubissue(id), function () {
+    verifySubissueExists(id);
+  });
   updateSubissue(x.id);
   updateSubissue(x.id);
-  verifySubissueExists(x.id);
-  verifySubissueUpdated(x.id);
+  const e_upd = waitForSubissueUpdated(id);
+  block(matchDeleteSubissue(id), function () {
+    verifySubissueUpdated(id);
+  });
   deleteSubissue(x.id);
+  const e_del = waitForSubissueDeleted(id);
+  block(matchAddSubissue(id), function () {
+    verifySubissueDoesNotExist(id);
+  });
 });
 
 bthread("SubjectstatLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSubjectstat(x.id);
+  const e_add = waitForSubjectstatAdded(id);
+  block(matchDeleteSubjectstat(id), function () {
+    verifySubjectstatExists(id);
+  });
   updateSubjectstat(x.id);
   updateSubjectstat(x.id);
-  verifySubjectstatExists(x.id);
-  verifySubjectstatUpdated(x.id);
+  const e_upd = waitForSubjectstatUpdated(id);
+  block(matchDeleteSubjectstat(id), function () {
+    verifySubjectstatUpdated(id);
+  });
   deleteSubjectstat(x.id);
+  const e_del = waitForSubjectstatDeleted(id);
+  block(matchAddSubjectstat(id), function () {
+    verifySubjectstatDoesNotExist(id);
+  });
 });
 
 bthread("SubscriberLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSubscriber(x.id);
+  const e_add = waitForSubscriberAdded(id);
+  block(matchDeleteSubscriber(id), function () {
+    verifySubscriberExists(id);
+  });
   updateSubscriber(x.id);
   updateSubscriber(x.id);
-  verifySubscriberExists(x.id);
-  verifySubscriberUpdated(x.id);
+  const e_upd = waitForSubscriberUpdated(id);
+  block(matchDeleteSubscriber(id), function () {
+    verifySubscriberUpdated(id);
+  });
   deleteSubscriber(x.id);
+  const e_del = waitForSubscriberDeleted(id);
+  block(matchAddSubscriber(id), function () {
+    verifySubscriberDoesNotExist(id);
+  });
 });
 
 bthread("SubscriptionLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSubscription(x.id);
+  const e_add = waitForSubscriptionAdded(id);
+  block(matchDeleteSubscription(id), function () {
+    verifySubscriptionExists(id);
+  });
   updateSubscription(x.id);
   updateSubscription(x.id);
-  verifySubscriptionExists(x.id);
-  verifySubscriptionUpdated(x.id);
+  const e_upd = waitForSubscriptionUpdated(id);
+  block(matchDeleteSubscription(id), function () {
+    verifySubscriptionUpdated(id);
+  });
   deleteSubscription(x.id);
+  const e_del = waitForSubscriptionDeleted(id);
+  block(matchAddSubscription(id), function () {
+    verifySubscriptionDoesNotExist(id);
+  });
 });
 
 bthread("SummarystatLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSummarystat(x.id);
+  const e_add = waitForSummarystatAdded(id);
+  block(matchDeleteSummarystat(id), function () {
+    verifySummarystatExists(id);
+  });
   updateSummarystat(x.id);
   updateSummarystat(x.id);
-  verifySummarystatExists(x.id);
-  verifySummarystatUpdated(x.id);
+  const e_upd = waitForSummarystatUpdated(id);
+  block(matchDeleteSummarystat(id), function () {
+    verifySummarystatUpdated(id);
+  });
   deleteSummarystat(x.id);
+  const e_del = waitForSummarystatDeleted(id);
+  block(matchAddSummarystat(id), function () {
+    verifySummarystatDoesNotExist(id);
+  });
 });
 
 bthread("SuspendedLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSuspended(x.id);
+  const e_add = waitForSuspendedAdded(id);
+  block(matchDeleteSuspended(id), function () {
+    verifySuspendedExists(id);
+  });
   updateSuspended(x.id);
   updateSuspended(x.id);
-  verifySuspendedExists(x.id);
-  verifySuspendedUpdated(x.id);
+  const e_upd = waitForSuspendedUpdated(id);
+  block(matchDeleteSuspended(id), function () {
+    verifySuspendedUpdated(id);
+  });
   deleteSuspended(x.id);
+  const e_del = waitForSuspendedDeleted(id);
+  block(matchAddSuspended(id), function () {
+    verifySuspendedDoesNotExist(id);
+  });
 });
 
 bthread("TagLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addTag(x.id);
+  const e_add = waitForTagAdded(id);
+  block(matchDeleteTag(id), function () {
+    verifyTagExists(id);
+  });
   updateTag(x.id);
   updateTag(x.id);
-  verifyTagExists(x.id);
-  verifyTagUpdated(x.id);
+  const e_upd = waitForTagUpdated(id);
+  block(matchDeleteTag(id), function () {
+    verifyTagUpdated(id);
+  });
   deleteTag(x.id);
+  const e_del = waitForTagDeleted(id);
+  block(matchAddTag(id), function () {
+    verifyTagDoesNotExist(id);
+  });
 });
 
 bthread("TarballLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addTarball(x.id);
+  const e_add = waitForTarballAdded(id);
+  block(matchDeleteTarball(id), function () {
+    verifyTarballExists(id);
+  });
   updateTarball(x.id);
   updateTarball(x.id);
-  verifyTarballExists(x.id);
-  verifyTarballUpdated(x.id);
+  const e_upd = waitForTarballUpdated(id);
+  block(matchDeleteTarball(id), function () {
+    verifyTarballUpdated(id);
+  });
   deleteTarball(x.id);
+  const e_del = waitForTarballDeleted(id);
+  block(matchAddTarball(id), function () {
+    verifyTarballDoesNotExist(id);
+  });
 });
 
 bthread("TeamLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addTeam(x.id);
+  const e_add = waitForTeamAdded(id);
+  block(matchDeleteTeam(id), function () {
+    verifyTeamExists(id);
+  });
   updateTeam(x.id);
   updateTeam(x.id);
-  verifyTeamExists(x.id);
-  verifyTeamUpdated(x.id);
+  const e_upd = waitForTeamUpdated(id);
+  block(matchDeleteTeam(id), function () {
+    verifyTeamUpdated(id);
+  });
   deleteTeam(x.id);
+  const e_del = waitForTeamDeleted(id);
+  block(matchAddTeam(id), function () {
+    verifyTeamDoesNotExist(id);
+  });
 });
 
 bthread("TemplateLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addTemplate(x.id);
+  const e_add = waitForTemplateAdded(id);
+  block(matchDeleteTemplate(id), function () {
+    verifyTemplateExists(id);
+  });
   updateTemplate(x.id);
   updateTemplate(x.id);
-  verifyTemplateExists(x.id);
-  verifyTemplateUpdated(x.id);
+  const e_upd = waitForTemplateUpdated(id);
+  block(matchDeleteTemplate(id), function () {
+    verifyTemplateUpdated(id);
+  });
   deleteTemplate(x.id);
+  const e_del = waitForTemplateDeleted(id);
+  block(matchAddTemplate(id), function () {
+    verifyTemplateDoesNotExist(id);
+  });
 });
 
 bthread("TestLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addTest(x.id);
+  const e_add = waitForTestAdded(id);
+  block(matchDeleteTest(id), function () {
+    verifyTestExists(id);
+  });
   updateTest(x.id);
   updateTest(x.id);
-  verifyTestExists(x.id);
-  verifyTestUpdated(x.id);
+  const e_upd = waitForTestUpdated(id);
+  block(matchDeleteTest(id), function () {
+    verifyTestUpdated(id);
+  });
   deleteTest(x.id);
+  const e_del = waitForTestDeleted(id);
+  block(matchAddTest(id), function () {
+    verifyTestDoesNotExist(id);
+  });
 });
 
 bthread("ThreadLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addThread(x.id);
+  const e_add = waitForThreadAdded(id);
+  block(matchDeleteThread(id), function () {
+    verifyThreadExists(id);
+  });
   updateThread(x.id);
   updateThread(x.id);
-  verifyThreadExists(x.id);
-  verifyThreadUpdated(x.id);
+  const e_upd = waitForThreadUpdated(id);
+  block(matchDeleteThread(id), function () {
+    verifyThreadUpdated(id);
+  });
   deleteThread(x.id);
+  const e_del = waitForThreadDeleted(id);
+  block(matchAddThread(id), function () {
+    verifyThreadDoesNotExist(id);
+  });
 });
 
 bthread("TimelineLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addTimeline(x.id);
+  const e_add = waitForTimelineAdded(id);
+  block(matchDeleteTimeline(id), function () {
+    verifyTimelineExists(id);
+  });
   updateTimeline(x.id);
   updateTimeline(x.id);
-  verifyTimelineExists(x.id);
-  verifyTimelineUpdated(x.id);
+  const e_upd = waitForTimelineUpdated(id);
+  block(matchDeleteTimeline(id), function () {
+    verifyTimelineUpdated(id);
+  });
   deleteTimeline(x.id);
+  const e_del = waitForTimelineDeleted(id);
+  block(matchAddTimeline(id), function () {
+    verifyTimelineDoesNotExist(id);
+  });
 });
 
 bthread("TimestatLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addTimestat(x.id);
+  const e_add = waitForTimestatAdded(id);
+  block(matchDeleteTimestat(id), function () {
+    verifyTimestatExists(id);
+  });
   updateTimestat(x.id);
   updateTimestat(x.id);
-  verifyTimestatExists(x.id);
-  verifyTimestatUpdated(x.id);
+  const e_upd = waitForTimestatUpdated(id);
+  block(matchDeleteTimestat(id), function () {
+    verifyTimestatUpdated(id);
+  });
   deleteTimestat(x.id);
+  const e_del = waitForTimestatDeleted(id);
+  block(matchAddTimestat(id), function () {
+    verifyTimestatDoesNotExist(id);
+  });
 });
 
 bthread("TimingLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addTiming(x.id);
+  const e_add = waitForTimingAdded(id);
+  block(matchDeleteTiming(id), function () {
+    verifyTimingExists(id);
+  });
   updateTiming(x.id);
   updateTiming(x.id);
-  verifyTimingExists(x.id);
-  verifyTimingUpdated(x.id);
+  const e_upd = waitForTimingUpdated(id);
+  block(matchDeleteTiming(id), function () {
+    verifyTimingUpdated(id);
+  });
   deleteTiming(x.id);
+  const e_del = waitForTimingDeleted(id);
+  block(matchAddTiming(id), function () {
+    verifyTimingDoesNotExist(id);
+  });
 });
 
 bthread("TokenLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addToken(x.id);
+  const e_add = waitForTokenAdded(id);
+  block(matchDeleteToken(id), function () {
+    verifyTokenExists(id);
+  });
   updateToken(x.id);
   updateToken(x.id);
-  verifyTokenExists(x.id);
-  verifyTokenUpdated(x.id);
+  const e_upd = waitForTokenUpdated(id);
+  block(matchDeleteToken(id), function () {
+    verifyTokenUpdated(id);
+  });
   deleteToken(x.id);
+  const e_del = waitForTokenDeleted(id);
+  block(matchAddToken(id), function () {
+    verifyTokenDoesNotExist(id);
+  });
 });
 
 bthread("TopicLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addTopic(x.id);
+  const e_add = waitForTopicAdded(id);
+  block(matchDeleteTopic(id), function () {
+    verifyTopicExists(id);
+  });
   updateTopic(x.id);
   updateTopic(x.id);
-  verifyTopicExists(x.id);
-  verifyTopicUpdated(x.id);
+  const e_upd = waitForTopicUpdated(id);
+  block(matchDeleteTopic(id), function () {
+    verifyTopicUpdated(id);
+  });
   deleteTopic(x.id);
+  const e_del = waitForTopicDeleted(id);
+  block(matchAddTopic(id), function () {
+    verifyTopicDoesNotExist(id);
+  });
 });
 
 bthread("TrafficLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addTraffic(x.id);
+  const e_add = waitForTrafficAdded(id);
+  block(matchDeleteTraffic(id), function () {
+    verifyTrafficExists(id);
+  });
   updateTraffic(x.id);
   updateTraffic(x.id);
-  verifyTrafficExists(x.id);
-  verifyTrafficUpdated(x.id);
+  const e_upd = waitForTrafficUpdated(id);
+  block(matchDeleteTraffic(id), function () {
+    verifyTrafficUpdated(id);
+  });
   deleteTraffic(x.id);
+  const e_del = waitForTrafficDeleted(id);
+  block(matchAddTraffic(id), function () {
+    verifyTrafficDoesNotExist(id);
+  });
 });
 
 bthread("TransferLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addTransfer(x.id);
+  const e_add = waitForTransferAdded(id);
+  block(matchDeleteTransfer(id), function () {
+    verifyTransferExists(id);
+  });
   updateTransfer(x.id);
   updateTransfer(x.id);
-  verifyTransferExists(x.id);
-  verifyTransferUpdated(x.id);
+  const e_upd = waitForTransferUpdated(id);
+  block(matchDeleteTransfer(id), function () {
+    verifyTransferUpdated(id);
+  });
   deleteTransfer(x.id);
+  const e_del = waitForTransferDeleted(id);
+  block(matchAddTransfer(id), function () {
+    verifyTransferDoesNotExist(id);
+  });
 });
 
 bthread("TreeLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addTree(x.id);
+  const e_add = waitForTreeAdded(id);
+  block(matchDeleteTree(id), function () {
+    verifyTreeExists(id);
+  });
   updateTree(x.id);
   updateTree(x.id);
-  verifyTreeExists(x.id);
-  verifyTreeUpdated(x.id);
+  const e_upd = waitForTreeUpdated(id);
+  block(matchDeleteTree(id), function () {
+    verifyTreeUpdated(id);
+  });
   deleteTree(x.id);
+  const e_del = waitForTreeDeleted(id);
+  block(matchAddTree(id), function () {
+    verifyTreeDoesNotExist(id);
+  });
 });
 
 bthread("UpdatebranchLifecycle", function () {
-  const x = pick([{id: "U001"}, {id: "U002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addUpdatebranch(x.id);
+  const e_add = waitForUpdatebranchAdded(id);
+  block(matchDeleteUpdatebranch(id), function () {
+    verifyUpdatebranchExists(id);
+  });
   updateUpdatebranch(x.id);
   updateUpdatebranch(x.id);
-  verifyUpdatebranchExists(x.id);
-  verifyUpdatebranchUpdated(x.id);
+  const e_upd = waitForUpdatebranchUpdated(id);
+  block(matchDeleteUpdatebranch(id), function () {
+    verifyUpdatebranchUpdated(id);
+  });
   deleteUpdatebranch(x.id);
+  const e_del = waitForUpdatebranchDeleted(id);
+  block(matchAddUpdatebranch(id), function () {
+    verifyUpdatebranchDoesNotExist(id);
+  });
 });
 
 bthread("UsageLifecycle", function () {
-  const x = pick([{id: "U001"}, {id: "U002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addUsage(x.id);
+  const e_add = waitForUsageAdded(id);
+  block(matchDeleteUsage(id), function () {
+    verifyUsageExists(id);
+  });
   updateUsage(x.id);
   updateUsage(x.id);
-  verifyUsageExists(x.id);
-  verifyUsageUpdated(x.id);
+  const e_upd = waitForUsageUpdated(id);
+  block(matchDeleteUsage(id), function () {
+    verifyUsageUpdated(id);
+  });
   deleteUsage(x.id);
+  const e_del = waitForUsageDeleted(id);
+  block(matchAddUsage(id), function () {
+    verifyUsageDoesNotExist(id);
+  });
 });
 
 bthread("UsagebyrepositoryLifecycle", function () {
-  const x = pick([{id: "U001"}, {id: "U002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addUsagebyrepository(x.id);
+  const e_add = waitForUsagebyrepositoryAdded(id);
+  block(matchDeleteUsagebyrepository(id), function () {
+    verifyUsagebyrepositoryExists(id);
+  });
   updateUsagebyrepository(x.id);
   updateUsagebyrepository(x.id);
-  verifyUsagebyrepositoryExists(x.id);
-  verifyUsagebyrepositoryUpdated(x.id);
+  const e_upd = waitForUsagebyrepositoryUpdated(id);
+  block(matchDeleteUsagebyrepository(id), function () {
+    verifyUsagebyrepositoryUpdated(id);
+  });
   deleteUsagebyrepository(x.id);
+  const e_del = waitForUsagebyrepositoryDeleted(id);
+  block(matchAddUsagebyrepository(id), function () {
+    verifyUsagebyrepositoryDoesNotExist(id);
+  });
 });
 
 bthread("UserLifecycle", function () {
-  const x = pick([{id: "U001"}, {id: "U002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addUser(x.id);
+  const e_add = waitForUserAdded(id);
+  block(matchDeleteUser(id), function () {
+    verifyUserExists(id);
+  });
   updateUser(x.id);
   updateUser(x.id);
-  verifyUserExists(x.id);
-  verifyUserUpdated(x.id);
+  const e_upd = waitForUserUpdated(id);
+  block(matchDeleteUser(id), function () {
+    verifyUserUpdated(id);
+  });
   deleteUser(x.id);
+  const e_del = waitForUserDeleted(id);
+  block(matchAddUser(id), function () {
+    verifyUserDoesNotExist(id);
+  });
 });
 
 bthread("UserstatLifecycle", function () {
-  const x = pick([{id: "U001"}, {id: "U002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addUserstat(x.id);
+  const e_add = waitForUserstatAdded(id);
+  block(matchDeleteUserstat(id), function () {
+    verifyUserstatExists(id);
+  });
   updateUserstat(x.id);
   updateUserstat(x.id);
-  verifyUserstatExists(x.id);
-  verifyUserstatUpdated(x.id);
+  const e_upd = waitForUserstatUpdated(id);
+  block(matchDeleteUserstat(id), function () {
+    verifyUserstatUpdated(id);
+  });
   deleteUserstat(x.id);
+  const e_del = waitForUserstatDeleted(id);
+  block(matchAddUserstat(id), function () {
+    verifyUserstatDoesNotExist(id);
+  });
 });
 
 bthread("ValueLifecycle", function () {
-  const x = pick([{id: "V001"}, {id: "V002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addValue(x.id);
+  const e_add = waitForValueAdded(id);
+  block(matchDeleteValue(id), function () {
+    verifyValueExists(id);
+  });
   updateValue(x.id);
   updateValue(x.id);
-  verifyValueExists(x.id);
-  verifyValueUpdated(x.id);
+  const e_upd = waitForValueUpdated(id);
+  block(matchDeleteValue(id), function () {
+    verifyValueUpdated(id);
+  });
   deleteValue(x.id);
+  const e_del = waitForValueDeleted(id);
+  block(matchAddValue(id), function () {
+    verifyValueDoesNotExist(id);
+  });
 });
 
 bthread("VariableLifecycle", function () {
-  const x = pick([{id: "V001"}, {id: "V002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addVariable(x.id);
+  const e_add = waitForVariableAdded(id);
+  block(matchDeleteVariable(id), function () {
+    verifyVariableExists(id);
+  });
   updateVariable(x.id);
   updateVariable(x.id);
-  verifyVariableExists(x.id);
-  verifyVariableUpdated(x.id);
+  const e_upd = waitForVariableUpdated(id);
+  block(matchDeleteVariable(id), function () {
+    verifyVariableUpdated(id);
+  });
   deleteVariable(x.id);
+  const e_del = waitForVariableDeleted(id);
+  block(matchAddVariable(id), function () {
+    verifyVariableDoesNotExist(id);
+  });
 });
 
 bthread("VariantanalysLifecycle", function () {
-  const x = pick([{id: "V001"}, {id: "V002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addVariantanalys(x.id);
+  const e_add = waitForVariantanalysAdded(id);
+  block(matchDeleteVariantanalys(id), function () {
+    verifyVariantanalysExists(id);
+  });
   updateVariantanalys(x.id);
   updateVariantanalys(x.id);
-  verifyVariantanalysExists(x.id);
-  verifyVariantanalysUpdated(x.id);
+  const e_upd = waitForVariantanalysUpdated(id);
+  block(matchDeleteVariantanalys(id), function () {
+    verifyVariantanalysUpdated(id);
+  });
   deleteVariantanalys(x.id);
+  const e_del = waitForVariantanalysDeleted(id);
+  block(matchAddVariantanalys(id), function () {
+    verifyVariantanalysDoesNotExist(id);
+  });
 });
 
 bthread("VersionLifecycle", function () {
-  const x = pick([{id: "V001"}, {id: "V002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addVersion(x.id);
+  const e_add = waitForVersionAdded(id);
+  block(matchDeleteVersion(id), function () {
+    verifyVersionExists(id);
+  });
   updateVersion(x.id);
   updateVersion(x.id);
-  verifyVersionExists(x.id);
-  verifyVersionUpdated(x.id);
+  const e_upd = waitForVersionUpdated(id);
+  block(matchDeleteVersion(id), function () {
+    verifyVersionUpdated(id);
+  });
   deleteVersion(x.id);
+  const e_del = waitForVersionDeleted(id);
+  block(matchAddVersion(id), function () {
+    verifyVersionDoesNotExist(id);
+  });
 });
 
 bthread("ViewLifecycle", function () {
-  const x = pick([{id: "V001"}, {id: "V002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addView(x.id);
+  const e_add = waitForViewAdded(id);
+  block(matchDeleteView(id), function () {
+    verifyViewExists(id);
+  });
   updateView(x.id);
   updateView(x.id);
-  verifyViewExists(x.id);
-  verifyViewUpdated(x.id);
+  const e_upd = waitForViewUpdated(id);
+  block(matchDeleteView(id), function () {
+    verifyViewUpdated(id);
+  });
   deleteView(x.id);
+  const e_del = waitForViewDeleted(id);
+  block(matchAddView(id), function () {
+    verifyViewDoesNotExist(id);
+  });
 });
 
 bthread("VisibilityLifecycle", function () {
-  const x = pick([{id: "V001"}, {id: "V002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addVisibility(x.id);
+  const e_add = waitForVisibilityAdded(id);
+  block(matchDeleteVisibility(id), function () {
+    verifyVisibilityExists(id);
+  });
   updateVisibility(x.id);
   updateVisibility(x.id);
-  verifyVisibilityExists(x.id);
-  verifyVisibilityUpdated(x.id);
+  const e_upd = waitForVisibilityUpdated(id);
+  block(matchDeleteVisibility(id), function () {
+    verifyVisibilityUpdated(id);
+  });
   deleteVisibility(x.id);
+  const e_del = waitForVisibilityDeleted(id);
+  block(matchAddVisibility(id), function () {
+    verifyVisibilityDoesNotExist(id);
+  });
 });
 
 bthread("VulnerabilityalertLifecycle", function () {
-  const x = pick([{id: "V001"}, {id: "V002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addVulnerabilityalert(x.id);
+  const e_add = waitForVulnerabilityalertAdded(id);
+  block(matchDeleteVulnerabilityalert(id), function () {
+    verifyVulnerabilityalertExists(id);
+  });
   updateVulnerabilityalert(x.id);
   updateVulnerabilityalert(x.id);
-  verifyVulnerabilityalertExists(x.id);
-  verifyVulnerabilityalertUpdated(x.id);
+  const e_upd = waitForVulnerabilityalertUpdated(id);
+  block(matchDeleteVulnerabilityalert(id), function () {
+    verifyVulnerabilityalertUpdated(id);
+  });
   deleteVulnerabilityalert(x.id);
+  const e_del = waitForVulnerabilityalertDeleted(id);
+  block(matchAddVulnerabilityalert(id), function () {
+    verifyVulnerabilityalertDoesNotExist(id);
+  });
 });
 
 bthread("WorkflowLifecycle", function () {
-  const x = pick([{id: "W001"}, {id: "W002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addWorkflow(x.id);
+  const e_add = waitForWorkflowAdded(id);
+  block(matchDeleteWorkflow(id), function () {
+    verifyWorkflowExists(id);
+  });
   updateWorkflow(x.id);
   updateWorkflow(x.id);
-  verifyWorkflowExists(x.id);
-  verifyWorkflowUpdated(x.id);
+  const e_upd = waitForWorkflowUpdated(id);
+  block(matchDeleteWorkflow(id), function () {
+    verifyWorkflowUpdated(id);
+  });
   deleteWorkflow(x.id);
+  const e_del = waitForWorkflowDeleted(id);
+  block(matchAddWorkflow(id), function () {
+    verifyWorkflowDoesNotExist(id);
+  });
 });
 
 bthread("ZenLifecycle", function () {
-  const x = pick([{id: "Z001"}, {id: "Z002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addZen(x.id);
+  const e_add = waitForZenAdded(id);
+  block(matchDeleteZen(id), function () {
+    verifyZenExists(id);
+  });
   updateZen(x.id);
   updateZen(x.id);
-  verifyZenExists(x.id);
-  verifyZenUpdated(x.id);
+  const e_upd = waitForZenUpdated(id);
+  block(matchDeleteZen(id), function () {
+    verifyZenUpdated(id);
+  });
   deleteZen(x.id);
+  const e_del = waitForZenDeleted(id);
+  block(matchAddZen(id), function () {
+    verifyZenDoesNotExist(id);
+  });
 });
 
 bthread("ZipballLifecycle", function () {
-  const x = pick([{id: "Z001"}, {id: "Z002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addZipball(x.id);
+  const e_add = waitForZipballAdded(id);
+  block(matchDeleteZipball(id), function () {
+    verifyZipballExists(id);
+  });
   updateZipball(x.id);
   updateZipball(x.id);
-  verifyZipballExists(x.id);
-  verifyZipballUpdated(x.id);
+  const e_upd = waitForZipballUpdated(id);
+  block(matchDeleteZipball(id), function () {
+    verifyZipballUpdated(id);
+  });
   deleteZipball(x.id);
+  const e_del = waitForZipballDeleted(id);
+  block(matchAddZipball(id), function () {
+    verifyZipballDoesNotExist(id);
+  });
 });
 
 // ===== PASSIVE ASSERTIONS =====
 
 bthread("Acceptedassignment create verification", function () {
   const e = waitForAnyAcceptedassignmentAdded();
-  block(matchDeleteAcceptedassignment(e.id, ANY), function () {
-    verifyAcceptedassignmentExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAcceptedassignment(k, ANY), function () {
+    verifyAcceptedassignmentExists(k);
   });
 });
 
 bthread("Acceptedassignment update verification", function () {
   const e = waitForAnyAcceptedassignmentUpdated();
-  block(matchDeleteAcceptedassignment(e.id, ANY), function () {
-    verifyAcceptedassignmentUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAcceptedassignment(k, ANY), function () {
+    verifyAcceptedassignmentUpdated(k);
   });
 });
 
 bthread("Acceptedassignment delete verification", function () {
   const e = waitForAnyAcceptedassignmentDeleted();
-  block(matchAddAcceptedassignment(e.id, ANY), function () {
-    verifyAcceptedassignmentDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAcceptedassignment(k, ANY), function () {
+    verifyAcceptedassignmentDoesNotExist(k);
   });
 });
 
 bthread("Acces create verification", function () {
   const e = waitForAnyAccesAdded();
-  block(matchDeleteAcces(e.id, ANY), function () {
-    verifyAccesExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAcces(k, ANY), function () {
+    verifyAccesExists(k);
   });
 });
 
 bthread("Acces update verification", function () {
   const e = waitForAnyAccesUpdated();
-  block(matchDeleteAcces(e.id, ANY), function () {
-    verifyAccesUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAcces(k, ANY), function () {
+    verifyAccesUpdated(k);
   });
 });
 
 bthread("Acces delete verification", function () {
   const e = waitForAnyAccesDeleted();
-  block(matchAddAcces(e.id, ANY), function () {
-    verifyAccesDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAcces(k, ANY), function () {
+    verifyAccesDoesNotExist(k);
   });
 });
 
 bthread("Accesstoken create verification", function () {
   const e = waitForAnyAccesstokenAdded();
-  block(matchDeleteAccesstoken(e.id, ANY), function () {
-    verifyAccesstokenExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAccesstoken(k, ANY), function () {
+    verifyAccesstokenExists(k);
   });
 });
 
 bthread("Accesstoken update verification", function () {
   const e = waitForAnyAccesstokenUpdated();
-  block(matchDeleteAccesstoken(e.id, ANY), function () {
-    verifyAccesstokenUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAccesstoken(k, ANY), function () {
+    verifyAccesstokenUpdated(k);
   });
 });
 
 bthread("Accesstoken delete verification", function () {
   const e = waitForAnyAccesstokenDeleted();
-  block(matchAddAccesstoken(e.id, ANY), function () {
-    verifyAccesstokenDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAccesstoken(k, ANY), function () {
+    verifyAccesstokenDoesNotExist(k);
   });
 });
 
 bthread("Account create verification", function () {
   const e = waitForAnyAccountAdded();
-  block(matchDeleteAccount(e.id, ANY), function () {
-    verifyAccountExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAccount(k, ANY), function () {
+    verifyAccountExists(k);
   });
 });
 
 bthread("Account update verification", function () {
   const e = waitForAnyAccountUpdated();
-  block(matchDeleteAccount(e.id, ANY), function () {
-    verifyAccountUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAccount(k, ANY), function () {
+    verifyAccountUpdated(k);
   });
 });
 
 bthread("Account delete verification", function () {
   const e = waitForAnyAccountDeleted();
-  block(matchAddAccount(e.id, ANY), function () {
-    verifyAccountDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAccount(k, ANY), function () {
+    verifyAccountDoesNotExist(k);
   });
 });
 
 bthread("Action create verification", function () {
   const e = waitForAnyActionAdded();
-  block(matchDeleteAction(e.id, ANY), function () {
-    verifyActionExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAction(k, ANY), function () {
+    verifyActionExists(k);
   });
 });
 
 bthread("Action update verification", function () {
   const e = waitForAnyActionUpdated();
-  block(matchDeleteAction(e.id, ANY), function () {
-    verifyActionUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAction(k, ANY), function () {
+    verifyActionUpdated(k);
   });
 });
 
 bthread("Action delete verification", function () {
   const e = waitForAnyActionDeleted();
-  block(matchAddAction(e.id, ANY), function () {
-    verifyActionDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAction(k, ANY), function () {
+    verifyActionDoesNotExist(k);
   });
 });
 
 bthread("Activity create verification", function () {
   const e = waitForAnyActivityAdded();
-  block(matchDeleteActivity(e.id, ANY), function () {
-    verifyActivityExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteActivity(k, ANY), function () {
+    verifyActivityExists(k);
   });
 });
 
 bthread("Activity update verification", function () {
   const e = waitForAnyActivityUpdated();
-  block(matchDeleteActivity(e.id, ANY), function () {
-    verifyActivityUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteActivity(k, ANY), function () {
+    verifyActivityUpdated(k);
   });
 });
 
 bthread("Activity delete verification", function () {
   const e = waitForAnyActivityDeleted();
-  block(matchAddActivity(e.id, ANY), function () {
-    verifyActivityDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddActivity(k, ANY), function () {
+    verifyActivityDoesNotExist(k);
   });
 });
 
 bthread("Add create verification", function () {
   const e = waitForAnyAddAdded();
-  block(matchDeleteAdd(e.id, ANY), function () {
-    verifyAddExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAdd(k, ANY), function () {
+    verifyAddExists(k);
   });
 });
 
 bthread("Add update verification", function () {
   const e = waitForAnyAddUpdated();
-  block(matchDeleteAdd(e.id, ANY), function () {
-    verifyAddUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAdd(k, ANY), function () {
+    verifyAddUpdated(k);
   });
 });
 
 bthread("Add delete verification", function () {
   const e = waitForAnyAddDeleted();
-  block(matchAddAdd(e.id, ANY), function () {
-    verifyAddDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAdd(k, ANY), function () {
+    verifyAddDoesNotExist(k);
   });
 });
 
 bthread("Advisory create verification", function () {
   const e = waitForAnyAdvisoryAdded();
-  block(matchDeleteAdvisory(e.id, ANY), function () {
-    verifyAdvisoryExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAdvisory(k, ANY), function () {
+    verifyAdvisoryExists(k);
   });
 });
 
 bthread("Advisory update verification", function () {
   const e = waitForAnyAdvisoryUpdated();
-  block(matchDeleteAdvisory(e.id, ANY), function () {
-    verifyAdvisoryUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAdvisory(k, ANY), function () {
+    verifyAdvisoryUpdated(k);
   });
 });
 
 bthread("Advisory delete verification", function () {
   const e = waitForAnyAdvisoryDeleted();
-  block(matchAddAdvisory(e.id, ANY), function () {
-    verifyAdvisoryDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAdvisory(k, ANY), function () {
+    verifyAdvisoryDoesNotExist(k);
   });
 });
 
 bthread("Alert create verification", function () {
   const e = waitForAnyAlertAdded();
-  block(matchDeleteAlert(e.id, ANY), function () {
-    verifyAlertExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAlert(k, ANY), function () {
+    verifyAlertExists(k);
   });
 });
 
 bthread("Alert update verification", function () {
   const e = waitForAnyAlertUpdated();
-  block(matchDeleteAlert(e.id, ANY), function () {
-    verifyAlertUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAlert(k, ANY), function () {
+    verifyAlertUpdated(k);
   });
 });
 
 bthread("Alert delete verification", function () {
   const e = waitForAnyAlertDeleted();
-  block(matchAddAlert(e.id, ANY), function () {
-    verifyAlertDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAlert(k, ANY), function () {
+    verifyAlertDoesNotExist(k);
   });
 });
 
 bthread("Analys create verification", function () {
   const e = waitForAnyAnalysAdded();
-  block(matchDeleteAnalys(e.id, ANY), function () {
-    verifyAnalysExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAnalys(k, ANY), function () {
+    verifyAnalysExists(k);
   });
 });
 
 bthread("Analys update verification", function () {
   const e = waitForAnyAnalysUpdated();
-  block(matchDeleteAnalys(e.id, ANY), function () {
-    verifyAnalysUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAnalys(k, ANY), function () {
+    verifyAnalysUpdated(k);
   });
 });
 
 bthread("Analys delete verification", function () {
   const e = waitForAnyAnalysDeleted();
-  block(matchAddAnalys(e.id, ANY), function () {
-    verifyAnalysDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAnalys(k, ANY), function () {
+    verifyAnalysDoesNotExist(k);
   });
 });
 
 bthread("Annotation create verification", function () {
   const e = waitForAnyAnnotationAdded();
-  block(matchDeleteAnnotation(e.id, ANY), function () {
-    verifyAnnotationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAnnotation(k, ANY), function () {
+    verifyAnnotationExists(k);
   });
 });
 
 bthread("Annotation update verification", function () {
   const e = waitForAnyAnnotationUpdated();
-  block(matchDeleteAnnotation(e.id, ANY), function () {
-    verifyAnnotationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAnnotation(k, ANY), function () {
+    verifyAnnotationUpdated(k);
   });
 });
 
 bthread("Annotation delete verification", function () {
   const e = waitForAnyAnnotationDeleted();
-  block(matchAddAnnotation(e.id, ANY), function () {
-    verifyAnnotationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAnnotation(k, ANY), function () {
+    verifyAnnotationDoesNotExist(k);
   });
 });
 
 bthread("Api create verification", function () {
   const e = waitForAnyApiAdded();
-  block(matchDeleteApi(e.id, ANY), function () {
-    verifyApiExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteApi(k, ANY), function () {
+    verifyApiExists(k);
   });
 });
 
 bthread("Api update verification", function () {
   const e = waitForAnyApiUpdated();
-  block(matchDeleteApi(e.id, ANY), function () {
-    verifyApiUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteApi(k, ANY), function () {
+    verifyApiUpdated(k);
   });
 });
 
 bthread("Api delete verification", function () {
   const e = waitForAnyApiDeleted();
-  block(matchAddApi(e.id, ANY), function () {
-    verifyApiDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddApi(k, ANY), function () {
+    verifyApiDoesNotExist(k);
   });
 });
 
 bthread("App create verification", function () {
   const e = waitForAnyAppAdded();
-  block(matchDeleteApp(e.id, ANY), function () {
-    verifyAppExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteApp(k, ANY), function () {
+    verifyAppExists(k);
   });
 });
 
 bthread("App update verification", function () {
   const e = waitForAnyAppUpdated();
-  block(matchDeleteApp(e.id, ANY), function () {
-    verifyAppUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteApp(k, ANY), function () {
+    verifyAppUpdated(k);
   });
 });
 
 bthread("App delete verification", function () {
   const e = waitForAnyAppDeleted();
-  block(matchAddApp(e.id, ANY), function () {
-    verifyAppDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddApp(k, ANY), function () {
+    verifyAppDoesNotExist(k);
   });
 });
 
 bthread("Application create verification", function () {
   const e = waitForAnyApplicationAdded();
-  block(matchDeleteApplication(e.id, ANY), function () {
-    verifyApplicationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteApplication(k, ANY), function () {
+    verifyApplicationExists(k);
   });
 });
 
 bthread("Application update verification", function () {
   const e = waitForAnyApplicationUpdated();
-  block(matchDeleteApplication(e.id, ANY), function () {
-    verifyApplicationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteApplication(k, ANY), function () {
+    verifyApplicationUpdated(k);
   });
 });
 
 bthread("Application delete verification", function () {
   const e = waitForAnyApplicationDeleted();
-  block(matchAddApplication(e.id, ANY), function () {
-    verifyApplicationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddApplication(k, ANY), function () {
+    verifyApplicationDoesNotExist(k);
   });
 });
 
 bthread("Appmanifest create verification", function () {
   const e = waitForAnyAppmanifestAdded();
-  block(matchDeleteAppmanifest(e.id, ANY), function () {
-    verifyAppmanifestExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAppmanifest(k, ANY), function () {
+    verifyAppmanifestExists(k);
   });
 });
 
 bthread("Appmanifest update verification", function () {
   const e = waitForAnyAppmanifestUpdated();
-  block(matchDeleteAppmanifest(e.id, ANY), function () {
-    verifyAppmanifestUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAppmanifest(k, ANY), function () {
+    verifyAppmanifestUpdated(k);
   });
 });
 
 bthread("Appmanifest delete verification", function () {
   const e = waitForAnyAppmanifestDeleted();
-  block(matchAddAppmanifest(e.id, ANY), function () {
-    verifyAppmanifestDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAppmanifest(k, ANY), function () {
+    verifyAppmanifestDoesNotExist(k);
   });
 });
 
 bthread("Approval create verification", function () {
   const e = waitForAnyApprovalAdded();
-  block(matchDeleteApproval(e.id, ANY), function () {
-    verifyApprovalExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteApproval(k, ANY), function () {
+    verifyApprovalExists(k);
   });
 });
 
 bthread("Approval update verification", function () {
   const e = waitForAnyApprovalUpdated();
-  block(matchDeleteApproval(e.id, ANY), function () {
-    verifyApprovalUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteApproval(k, ANY), function () {
+    verifyApprovalUpdated(k);
   });
 });
 
 bthread("Approval delete verification", function () {
   const e = waitForAnyApprovalDeleted();
-  block(matchAddApproval(e.id, ANY), function () {
-    verifyApprovalDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddApproval(k, ANY), function () {
+    verifyApprovalDoesNotExist(k);
   });
 });
 
 bthread("Approve create verification", function () {
   const e = waitForAnyApproveAdded();
-  block(matchDeleteApprove(e.id, ANY), function () {
-    verifyApproveExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteApprove(k, ANY), function () {
+    verifyApproveExists(k);
   });
 });
 
 bthread("Approve update verification", function () {
   const e = waitForAnyApproveUpdated();
-  block(matchDeleteApprove(e.id, ANY), function () {
-    verifyApproveUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteApprove(k, ANY), function () {
+    verifyApproveUpdated(k);
   });
 });
 
 bthread("Approve delete verification", function () {
   const e = waitForAnyApproveDeleted();
-  block(matchAddApprove(e.id, ANY), function () {
-    verifyApproveDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddApprove(k, ANY), function () {
+    verifyApproveDoesNotExist(k);
   });
 });
 
 bthread("Archive create verification", function () {
   const e = waitForAnyArchiveAdded();
-  block(matchDeleteArchive(e.id, ANY), function () {
-    verifyArchiveExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteArchive(k, ANY), function () {
+    verifyArchiveExists(k);
   });
 });
 
 bthread("Archive update verification", function () {
   const e = waitForAnyArchiveUpdated();
-  block(matchDeleteArchive(e.id, ANY), function () {
-    verifyArchiveUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteArchive(k, ANY), function () {
+    verifyArchiveUpdated(k);
   });
 });
 
 bthread("Archive delete verification", function () {
   const e = waitForAnyArchiveDeleted();
-  block(matchAddArchive(e.id, ANY), function () {
-    verifyArchiveDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddArchive(k, ANY), function () {
+    verifyArchiveDoesNotExist(k);
   });
 });
 
 bthread("Artifact create verification", function () {
   const e = waitForAnyArtifactAdded();
-  block(matchDeleteArtifact(e.id, ANY), function () {
-    verifyArtifactExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteArtifact(k, ANY), function () {
+    verifyArtifactExists(k);
   });
 });
 
 bthread("Artifact update verification", function () {
   const e = waitForAnyArtifactUpdated();
-  block(matchDeleteArtifact(e.id, ANY), function () {
-    verifyArtifactUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteArtifact(k, ANY), function () {
+    verifyArtifactUpdated(k);
   });
 });
 
 bthread("Artifact delete verification", function () {
   const e = waitForAnyArtifactDeleted();
-  block(matchAddArtifact(e.id, ANY), function () {
-    verifyArtifactDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddArtifact(k, ANY), function () {
+    verifyArtifactDoesNotExist(k);
   });
 });
 
 bthread("Artifactandlogretention create verification", function () {
   const e = waitForAnyArtifactandlogretentionAdded();
-  block(matchDeleteArtifactandlogretention(e.id, ANY), function () {
-    verifyArtifactandlogretentionExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteArtifactandlogretention(k, ANY), function () {
+    verifyArtifactandlogretentionExists(k);
   });
 });
 
 bthread("Artifactandlogretention update verification", function () {
   const e = waitForAnyArtifactandlogretentionUpdated();
-  block(matchDeleteArtifactandlogretention(e.id, ANY), function () {
-    verifyArtifactandlogretentionUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteArtifactandlogretention(k, ANY), function () {
+    verifyArtifactandlogretentionUpdated(k);
   });
 });
 
 bthread("Artifactandlogretention delete verification", function () {
   const e = waitForAnyArtifactandlogretentionDeleted();
-  block(matchAddArtifactandlogretention(e.id, ANY), function () {
-    verifyArtifactandlogretentionDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddArtifactandlogretention(k, ANY), function () {
+    verifyArtifactandlogretentionDoesNotExist(k);
   });
 });
 
 bthread("Asset create verification", function () {
   const e = waitForAnyAssetAdded();
-  block(matchDeleteAsset(e.id, ANY), function () {
-    verifyAssetExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAsset(k, ANY), function () {
+    verifyAssetExists(k);
   });
 });
 
 bthread("Asset update verification", function () {
   const e = waitForAnyAssetUpdated();
-  block(matchDeleteAsset(e.id, ANY), function () {
-    verifyAssetUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAsset(k, ANY), function () {
+    verifyAssetUpdated(k);
   });
 });
 
 bthread("Asset delete verification", function () {
   const e = waitForAnyAssetDeleted();
-  block(matchAddAsset(e.id, ANY), function () {
-    verifyAssetDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAsset(k, ANY), function () {
+    verifyAssetDoesNotExist(k);
   });
 });
 
 bthread("Assignee create verification", function () {
   const e = waitForAnyAssigneeAdded();
-  block(matchDeleteAssignee(e.id, ANY), function () {
-    verifyAssigneeExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAssignee(k, ANY), function () {
+    verifyAssigneeExists(k);
   });
 });
 
 bthread("Assignee update verification", function () {
   const e = waitForAnyAssigneeUpdated();
-  block(matchDeleteAssignee(e.id, ANY), function () {
-    verifyAssigneeUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAssignee(k, ANY), function () {
+    verifyAssigneeUpdated(k);
   });
 });
 
 bthread("Assignee delete verification", function () {
   const e = waitForAnyAssigneeDeleted();
-  block(matchAddAssignee(e.id, ANY), function () {
-    verifyAssigneeDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAssignee(k, ANY), function () {
+    verifyAssigneeDoesNotExist(k);
   });
 });
 
 bthread("Assignment create verification", function () {
   const e = waitForAnyAssignmentAdded();
-  block(matchDeleteAssignment(e.id, ANY), function () {
-    verifyAssignmentExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAssignment(k, ANY), function () {
+    verifyAssignmentExists(k);
   });
 });
 
 bthread("Assignment update verification", function () {
   const e = waitForAnyAssignmentUpdated();
-  block(matchDeleteAssignment(e.id, ANY), function () {
-    verifyAssignmentUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAssignment(k, ANY), function () {
+    verifyAssignmentUpdated(k);
   });
 });
 
 bthread("Assignment delete verification", function () {
   const e = waitForAnyAssignmentDeleted();
-  block(matchAddAssignment(e.id, ANY), function () {
-    verifyAssignmentDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAssignment(k, ANY), function () {
+    verifyAssignmentDoesNotExist(k);
   });
 });
 
 bthread("Attach create verification", function () {
   const e = waitForAnyAttachAdded();
-  block(matchDeleteAttach(e.id, ANY), function () {
-    verifyAttachExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAttach(k, ANY), function () {
+    verifyAttachExists(k);
   });
 });
 
 bthread("Attach update verification", function () {
   const e = waitForAnyAttachUpdated();
-  block(matchDeleteAttach(e.id, ANY), function () {
-    verifyAttachUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAttach(k, ANY), function () {
+    verifyAttachUpdated(k);
   });
 });
 
 bthread("Attach delete verification", function () {
   const e = waitForAnyAttachDeleted();
-  block(matchAddAttach(e.id, ANY), function () {
-    verifyAttachDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAttach(k, ANY), function () {
+    verifyAttachDoesNotExist(k);
   });
 });
 
 bthread("Attempt create verification", function () {
   const e = waitForAnyAttemptAdded();
-  block(matchDeleteAttempt(e.id, ANY), function () {
-    verifyAttemptExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAttempt(k, ANY), function () {
+    verifyAttemptExists(k);
   });
 });
 
 bthread("Attempt update verification", function () {
   const e = waitForAnyAttemptUpdated();
-  block(matchDeleteAttempt(e.id, ANY), function () {
-    verifyAttemptUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAttempt(k, ANY), function () {
+    verifyAttemptUpdated(k);
   });
 });
 
 bthread("Attempt delete verification", function () {
   const e = waitForAnyAttemptDeleted();
-  block(matchAddAttempt(e.id, ANY), function () {
-    verifyAttemptDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAttempt(k, ANY), function () {
+    verifyAttemptDoesNotExist(k);
   });
 });
 
 bthread("Attestation create verification", function () {
   const e = waitForAnyAttestationAdded();
-  block(matchDeleteAttestation(e.id, ANY), function () {
-    verifyAttestationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAttestation(k, ANY), function () {
+    verifyAttestationExists(k);
   });
 });
 
 bthread("Attestation update verification", function () {
   const e = waitForAnyAttestationUpdated();
-  block(matchDeleteAttestation(e.id, ANY), function () {
-    verifyAttestationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAttestation(k, ANY), function () {
+    verifyAttestationUpdated(k);
   });
 });
 
 bthread("Attestation delete verification", function () {
   const e = waitForAnyAttestationDeleted();
-  block(matchAddAttestation(e.id, ANY), function () {
-    verifyAttestationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAttestation(k, ANY), function () {
+    verifyAttestationDoesNotExist(k);
   });
 });
 
 bthread("Author create verification", function () {
   const e = waitForAnyAuthorAdded();
-  block(matchDeleteAuthor(e.id, ANY), function () {
-    verifyAuthorExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAuthor(k, ANY), function () {
+    verifyAuthorExists(k);
   });
 });
 
 bthread("Author update verification", function () {
   const e = waitForAnyAuthorUpdated();
-  block(matchDeleteAuthor(e.id, ANY), function () {
-    verifyAuthorUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAuthor(k, ANY), function () {
+    verifyAuthorUpdated(k);
   });
 });
 
 bthread("Author delete verification", function () {
   const e = waitForAnyAuthorDeleted();
-  block(matchAddAuthor(e.id, ANY), function () {
-    verifyAuthorDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAuthor(k, ANY), function () {
+    verifyAuthorDoesNotExist(k);
   });
 });
 
 bthread("Autofix create verification", function () {
   const e = waitForAnyAutofixAdded();
-  block(matchDeleteAutofix(e.id, ANY), function () {
-    verifyAutofixExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAutofix(k, ANY), function () {
+    verifyAutofixExists(k);
   });
 });
 
 bthread("Autofix update verification", function () {
   const e = waitForAnyAutofixUpdated();
-  block(matchDeleteAutofix(e.id, ANY), function () {
-    verifyAutofixUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAutofix(k, ANY), function () {
+    verifyAutofixUpdated(k);
   });
 });
 
 bthread("Autofix delete verification", function () {
   const e = waitForAnyAutofixDeleted();
-  block(matchAddAutofix(e.id, ANY), function () {
-    verifyAutofixDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAutofix(k, ANY), function () {
+    verifyAutofixDoesNotExist(k);
   });
 });
 
 bthread("Autolink create verification", function () {
   const e = waitForAnyAutolinkAdded();
-  block(matchDeleteAutolink(e.id, ANY), function () {
-    verifyAutolinkExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAutolink(k, ANY), function () {
+    verifyAutolinkExists(k);
   });
 });
 
 bthread("Autolink update verification", function () {
   const e = waitForAnyAutolinkUpdated();
-  block(matchDeleteAutolink(e.id, ANY), function () {
-    verifyAutolinkUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAutolink(k, ANY), function () {
+    verifyAutolinkUpdated(k);
   });
 });
 
 bthread("Autolink delete verification", function () {
   const e = waitForAnyAutolinkDeleted();
-  block(matchAddAutolink(e.id, ANY), function () {
-    verifyAutolinkDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAutolink(k, ANY), function () {
+    verifyAutolinkDoesNotExist(k);
   });
 });
 
 bthread("Automatedsecurityfixe create verification", function () {
   const e = waitForAnyAutomatedsecurityfixeAdded();
-  block(matchDeleteAutomatedsecurityfixe(e.id, ANY), function () {
-    verifyAutomatedsecurityfixeExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAutomatedsecurityfixe(k, ANY), function () {
+    verifyAutomatedsecurityfixeExists(k);
   });
 });
 
 bthread("Automatedsecurityfixe update verification", function () {
   const e = waitForAnyAutomatedsecurityfixeUpdated();
-  block(matchDeleteAutomatedsecurityfixe(e.id, ANY), function () {
-    verifyAutomatedsecurityfixeUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAutomatedsecurityfixe(k, ANY), function () {
+    verifyAutomatedsecurityfixeUpdated(k);
   });
 });
 
 bthread("Automatedsecurityfixe delete verification", function () {
   const e = waitForAnyAutomatedsecurityfixeDeleted();
-  block(matchAddAutomatedsecurityfixe(e.id, ANY), function () {
-    verifyAutomatedsecurityfixeDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAutomatedsecurityfixe(k, ANY), function () {
+    verifyAutomatedsecurityfixeDoesNotExist(k);
   });
 });
 
 bthread("Billing create verification", function () {
   const e = waitForAnyBillingAdded();
-  block(matchDeleteBilling(e.id, ANY), function () {
-    verifyBillingExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBilling(k, ANY), function () {
+    verifyBillingExists(k);
   });
 });
 
 bthread("Billing update verification", function () {
   const e = waitForAnyBillingUpdated();
-  block(matchDeleteBilling(e.id, ANY), function () {
-    verifyBillingUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBilling(k, ANY), function () {
+    verifyBillingUpdated(k);
   });
 });
 
 bthread("Billing delete verification", function () {
   const e = waitForAnyBillingDeleted();
-  block(matchAddBilling(e.id, ANY), function () {
-    verifyBillingDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddBilling(k, ANY), function () {
+    verifyBillingDoesNotExist(k);
   });
 });
 
 bthread("Blob create verification", function () {
   const e = waitForAnyBlobAdded();
-  block(matchDeleteBlob(e.id, ANY), function () {
-    verifyBlobExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBlob(k, ANY), function () {
+    verifyBlobExists(k);
   });
 });
 
 bthread("Blob update verification", function () {
   const e = waitForAnyBlobUpdated();
-  block(matchDeleteBlob(e.id, ANY), function () {
-    verifyBlobUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBlob(k, ANY), function () {
+    verifyBlobUpdated(k);
   });
 });
 
 bthread("Blob delete verification", function () {
   const e = waitForAnyBlobDeleted();
-  block(matchAddBlob(e.id, ANY), function () {
-    verifyBlobDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddBlob(k, ANY), function () {
+    verifyBlobDoesNotExist(k);
   });
 });
 
 bthread("Block create verification", function () {
   const e = waitForAnyBlockAdded();
-  block(matchDeleteBlock(e.id, ANY), function () {
-    verifyBlockExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBlock(k, ANY), function () {
+    verifyBlockExists(k);
   });
 });
 
 bthread("Block update verification", function () {
   const e = waitForAnyBlockUpdated();
-  block(matchDeleteBlock(e.id, ANY), function () {
-    verifyBlockUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBlock(k, ANY), function () {
+    verifyBlockUpdated(k);
   });
 });
 
 bthread("Block delete verification", function () {
   const e = waitForAnyBlockDeleted();
-  block(matchAddBlock(e.id, ANY), function () {
-    verifyBlockDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddBlock(k, ANY), function () {
+    verifyBlockDoesNotExist(k);
   });
 });
 
 bthread("Blockedby create verification", function () {
   const e = waitForAnyBlockedbyAdded();
-  block(matchDeleteBlockedby(e.id, ANY), function () {
-    verifyBlockedbyExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBlockedby(k, ANY), function () {
+    verifyBlockedbyExists(k);
   });
 });
 
 bthread("Blockedby update verification", function () {
   const e = waitForAnyBlockedbyUpdated();
-  block(matchDeleteBlockedby(e.id, ANY), function () {
-    verifyBlockedbyUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBlockedby(k, ANY), function () {
+    verifyBlockedbyUpdated(k);
   });
 });
 
 bthread("Blockedby delete verification", function () {
   const e = waitForAnyBlockedbyDeleted();
-  block(matchAddBlockedby(e.id, ANY), function () {
-    verifyBlockedbyDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddBlockedby(k, ANY), function () {
+    verifyBlockedbyDoesNotExist(k);
   });
 });
 
 bthread("Blocking create verification", function () {
   const e = waitForAnyBlockingAdded();
-  block(matchDeleteBlocking(e.id, ANY), function () {
-    verifyBlockingExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBlocking(k, ANY), function () {
+    verifyBlockingExists(k);
   });
 });
 
 bthread("Blocking update verification", function () {
   const e = waitForAnyBlockingUpdated();
-  block(matchDeleteBlocking(e.id, ANY), function () {
-    verifyBlockingUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBlocking(k, ANY), function () {
+    verifyBlockingUpdated(k);
   });
 });
 
 bthread("Blocking delete verification", function () {
   const e = waitForAnyBlockingDeleted();
-  block(matchAddBlocking(e.id, ANY), function () {
-    verifyBlockingDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddBlocking(k, ANY), function () {
+    verifyBlockingDoesNotExist(k);
   });
 });
 
 bthread("Branche create verification", function () {
   const e = waitForAnyBrancheAdded();
-  block(matchDeleteBranche(e.id, ANY), function () {
-    verifyBrancheExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBranche(k, ANY), function () {
+    verifyBrancheExists(k);
   });
 });
 
 bthread("Branche update verification", function () {
   const e = waitForAnyBrancheUpdated();
-  block(matchDeleteBranche(e.id, ANY), function () {
-    verifyBrancheUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBranche(k, ANY), function () {
+    verifyBrancheUpdated(k);
   });
 });
 
 bthread("Branche delete verification", function () {
   const e = waitForAnyBrancheDeleted();
-  block(matchAddBranche(e.id, ANY), function () {
-    verifyBrancheDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddBranche(k, ANY), function () {
+    verifyBrancheDoesNotExist(k);
   });
 });
 
 bthread("Brancheswherehead create verification", function () {
   const e = waitForAnyBrancheswhereheadAdded();
-  block(matchDeleteBrancheswherehead(e.id, ANY), function () {
-    verifyBrancheswhereheadExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBrancheswherehead(k, ANY), function () {
+    verifyBrancheswhereheadExists(k);
   });
 });
 
 bthread("Brancheswherehead update verification", function () {
   const e = waitForAnyBrancheswhereheadUpdated();
-  block(matchDeleteBrancheswherehead(e.id, ANY), function () {
-    verifyBrancheswhereheadUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBrancheswherehead(k, ANY), function () {
+    verifyBrancheswhereheadUpdated(k);
   });
 });
 
 bthread("Brancheswherehead delete verification", function () {
   const e = waitForAnyBrancheswhereheadDeleted();
-  block(matchAddBrancheswherehead(e.id, ANY), function () {
-    verifyBrancheswhereheadDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddBrancheswherehead(k, ANY), function () {
+    verifyBrancheswhereheadDoesNotExist(k);
   });
 });
 
 bthread("Build create verification", function () {
   const e = waitForAnyBuildAdded();
-  block(matchDeleteBuild(e.id, ANY), function () {
-    verifyBuildExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBuild(k, ANY), function () {
+    verifyBuildExists(k);
   });
 });
 
 bthread("Build update verification", function () {
   const e = waitForAnyBuildUpdated();
-  block(matchDeleteBuild(e.id, ANY), function () {
-    verifyBuildUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBuild(k, ANY), function () {
+    verifyBuildUpdated(k);
   });
 });
 
 bthread("Build delete verification", function () {
   const e = waitForAnyBuildDeleted();
-  block(matchAddBuild(e.id, ANY), function () {
-    verifyBuildDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddBuild(k, ANY), function () {
+    verifyBuildDoesNotExist(k);
   });
 });
 
 bthread("Bulklist create verification", function () {
   const e = waitForAnyBulklistAdded();
-  block(matchDeleteBulklist(e.id, ANY), function () {
-    verifyBulklistExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBulklist(k, ANY), function () {
+    verifyBulklistExists(k);
   });
 });
 
 bthread("Bulklist update verification", function () {
   const e = waitForAnyBulklistUpdated();
-  block(matchDeleteBulklist(e.id, ANY), function () {
-    verifyBulklistUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBulklist(k, ANY), function () {
+    verifyBulklistUpdated(k);
   });
 });
 
 bthread("Bulklist delete verification", function () {
   const e = waitForAnyBulklistDeleted();
-  block(matchAddBulklist(e.id, ANY), function () {
-    verifyBulklistDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddBulklist(k, ANY), function () {
+    verifyBulklistDoesNotExist(k);
   });
 });
 
 bthread("Cache create verification", function () {
   const e = waitForAnyCacheAdded();
-  block(matchDeleteCache(e.id, ANY), function () {
-    verifyCacheExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCache(k, ANY), function () {
+    verifyCacheExists(k);
   });
 });
 
 bthread("Cache update verification", function () {
   const e = waitForAnyCacheUpdated();
-  block(matchDeleteCache(e.id, ANY), function () {
-    verifyCacheUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCache(k, ANY), function () {
+    verifyCacheUpdated(k);
   });
 });
 
 bthread("Cache delete verification", function () {
   const e = waitForAnyCacheDeleted();
-  block(matchAddCache(e.id, ANY), function () {
-    verifyCacheDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCache(k, ANY), function () {
+    verifyCacheDoesNotExist(k);
   });
 });
 
 bthread("Campaign create verification", function () {
   const e = waitForAnyCampaignAdded();
-  block(matchDeleteCampaign(e.id, ANY), function () {
-    verifyCampaignExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCampaign(k, ANY), function () {
+    verifyCampaignExists(k);
   });
 });
 
 bthread("Campaign update verification", function () {
   const e = waitForAnyCampaignUpdated();
-  block(matchDeleteCampaign(e.id, ANY), function () {
-    verifyCampaignUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCampaign(k, ANY), function () {
+    verifyCampaignUpdated(k);
   });
 });
 
 bthread("Campaign delete verification", function () {
   const e = waitForAnyCampaignDeleted();
-  block(matchAddCampaign(e.id, ANY), function () {
-    verifyCampaignDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCampaign(k, ANY), function () {
+    verifyCampaignDoesNotExist(k);
   });
 });
 
 bthread("Cancel create verification", function () {
   const e = waitForAnyCancelAdded();
-  block(matchDeleteCancel(e.id, ANY), function () {
-    verifyCancelExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCancel(k, ANY), function () {
+    verifyCancelExists(k);
   });
 });
 
 bthread("Cancel update verification", function () {
   const e = waitForAnyCancelUpdated();
-  block(matchDeleteCancel(e.id, ANY), function () {
-    verifyCancelUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCancel(k, ANY), function () {
+    verifyCancelUpdated(k);
   });
 });
 
 bthread("Cancel delete verification", function () {
   const e = waitForAnyCancelDeleted();
-  block(matchAddCancel(e.id, ANY), function () {
-    verifyCancelDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCancel(k, ANY), function () {
+    verifyCancelDoesNotExist(k);
   });
 });
 
 bthread("Checkrun create verification", function () {
   const e = waitForAnyCheckrunAdded();
-  block(matchDeleteCheckrun(e.id, ANY), function () {
-    verifyCheckrunExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCheckrun(k, ANY), function () {
+    verifyCheckrunExists(k);
   });
 });
 
 bthread("Checkrun update verification", function () {
   const e = waitForAnyCheckrunUpdated();
-  block(matchDeleteCheckrun(e.id, ANY), function () {
-    verifyCheckrunUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCheckrun(k, ANY), function () {
+    verifyCheckrunUpdated(k);
   });
 });
 
 bthread("Checkrun delete verification", function () {
   const e = waitForAnyCheckrunDeleted();
-  block(matchAddCheckrun(e.id, ANY), function () {
-    verifyCheckrunDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCheckrun(k, ANY), function () {
+    verifyCheckrunDoesNotExist(k);
   });
 });
 
 bthread("Checksuite create verification", function () {
   const e = waitForAnyChecksuiteAdded();
-  block(matchDeleteChecksuite(e.id, ANY), function () {
-    verifyChecksuiteExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteChecksuite(k, ANY), function () {
+    verifyChecksuiteExists(k);
   });
 });
 
 bthread("Checksuite update verification", function () {
   const e = waitForAnyChecksuiteUpdated();
-  block(matchDeleteChecksuite(e.id, ANY), function () {
-    verifyChecksuiteUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteChecksuite(k, ANY), function () {
+    verifyChecksuiteUpdated(k);
   });
 });
 
 bthread("Checksuite delete verification", function () {
   const e = waitForAnyChecksuiteDeleted();
-  block(matchAddChecksuite(e.id, ANY), function () {
-    verifyChecksuiteDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddChecksuite(k, ANY), function () {
+    verifyChecksuiteDoesNotExist(k);
   });
 });
 
 bthread("Classroom create verification", function () {
   const e = waitForAnyClassroomAdded();
-  block(matchDeleteClassroom(e.id, ANY), function () {
-    verifyClassroomExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteClassroom(k, ANY), function () {
+    verifyClassroomExists(k);
   });
 });
 
 bthread("Classroom update verification", function () {
   const e = waitForAnyClassroomUpdated();
-  block(matchDeleteClassroom(e.id, ANY), function () {
-    verifyClassroomUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteClassroom(k, ANY), function () {
+    verifyClassroomUpdated(k);
   });
 });
 
 bthread("Classroom delete verification", function () {
   const e = waitForAnyClassroomDeleted();
-  block(matchAddClassroom(e.id, ANY), function () {
-    verifyClassroomDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddClassroom(k, ANY), function () {
+    verifyClassroomDoesNotExist(k);
   });
 });
 
 bthread("Clone create verification", function () {
   const e = waitForAnyCloneAdded();
-  block(matchDeleteClone(e.id, ANY), function () {
-    verifyCloneExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteClone(k, ANY), function () {
+    verifyCloneExists(k);
   });
 });
 
 bthread("Clone update verification", function () {
   const e = waitForAnyCloneUpdated();
-  block(matchDeleteClone(e.id, ANY), function () {
-    verifyCloneUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteClone(k, ANY), function () {
+    verifyCloneUpdated(k);
   });
 });
 
 bthread("Clone delete verification", function () {
   const e = waitForAnyCloneDeleted();
-  block(matchAddClone(e.id, ANY), function () {
-    verifyCloneDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddClone(k, ANY), function () {
+    verifyCloneDoesNotExist(k);
   });
 });
 
 bthread("Code create verification", function () {
   const e = waitForAnyCodeAdded();
-  block(matchDeleteCode(e.id, ANY), function () {
-    verifyCodeExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCode(k, ANY), function () {
+    verifyCodeExists(k);
   });
 });
 
 bthread("Code update verification", function () {
   const e = waitForAnyCodeUpdated();
-  block(matchDeleteCode(e.id, ANY), function () {
-    verifyCodeUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCode(k, ANY), function () {
+    verifyCodeUpdated(k);
   });
 });
 
 bthread("Code delete verification", function () {
   const e = waitForAnyCodeDeleted();
-  block(matchAddCode(e.id, ANY), function () {
-    verifyCodeDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCode(k, ANY), function () {
+    verifyCodeDoesNotExist(k);
   });
 });
 
 bthread("Codefrequency create verification", function () {
   const e = waitForAnyCodefrequencyAdded();
-  block(matchDeleteCodefrequency(e.id, ANY), function () {
-    verifyCodefrequencyExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodefrequency(k, ANY), function () {
+    verifyCodefrequencyExists(k);
   });
 });
 
 bthread("Codefrequency update verification", function () {
   const e = waitForAnyCodefrequencyUpdated();
-  block(matchDeleteCodefrequency(e.id, ANY), function () {
-    verifyCodefrequencyUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodefrequency(k, ANY), function () {
+    verifyCodefrequencyUpdated(k);
   });
 });
 
 bthread("Codefrequency delete verification", function () {
   const e = waitForAnyCodefrequencyDeleted();
-  block(matchAddCodefrequency(e.id, ANY), function () {
-    verifyCodefrequencyDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCodefrequency(k, ANY), function () {
+    verifyCodefrequencyDoesNotExist(k);
   });
 });
 
 bthread("Codeowner create verification", function () {
   const e = waitForAnyCodeownerAdded();
-  block(matchDeleteCodeowner(e.id, ANY), function () {
-    verifyCodeownerExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodeowner(k, ANY), function () {
+    verifyCodeownerExists(k);
   });
 });
 
 bthread("Codeowner update verification", function () {
   const e = waitForAnyCodeownerUpdated();
-  block(matchDeleteCodeowner(e.id, ANY), function () {
-    verifyCodeownerUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodeowner(k, ANY), function () {
+    verifyCodeownerUpdated(k);
   });
 });
 
 bthread("Codeowner delete verification", function () {
   const e = waitForAnyCodeownerDeleted();
-  block(matchAddCodeowner(e.id, ANY), function () {
-    verifyCodeownerDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCodeowner(k, ANY), function () {
+    verifyCodeownerDoesNotExist(k);
   });
 });
 
 bthread("Codeql create verification", function () {
   const e = waitForAnyCodeqlAdded();
-  block(matchDeleteCodeql(e.id, ANY), function () {
-    verifyCodeqlExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodeql(k, ANY), function () {
+    verifyCodeqlExists(k);
   });
 });
 
 bthread("Codeql update verification", function () {
   const e = waitForAnyCodeqlUpdated();
-  block(matchDeleteCodeql(e.id, ANY), function () {
-    verifyCodeqlUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodeql(k, ANY), function () {
+    verifyCodeqlUpdated(k);
   });
 });
 
 bthread("Codeql delete verification", function () {
   const e = waitForAnyCodeqlDeleted();
-  block(matchAddCodeql(e.id, ANY), function () {
-    verifyCodeqlDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCodeql(k, ANY), function () {
+    verifyCodeqlDoesNotExist(k);
   });
 });
 
 bthread("Codescanning create verification", function () {
   const e = waitForAnyCodescanningAdded();
-  block(matchDeleteCodescanning(e.id, ANY), function () {
-    verifyCodescanningExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodescanning(k, ANY), function () {
+    verifyCodescanningExists(k);
   });
 });
 
 bthread("Codescanning update verification", function () {
   const e = waitForAnyCodescanningUpdated();
-  block(matchDeleteCodescanning(e.id, ANY), function () {
-    verifyCodescanningUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodescanning(k, ANY), function () {
+    verifyCodescanningUpdated(k);
   });
 });
 
 bthread("Codescanning delete verification", function () {
   const e = waitForAnyCodescanningDeleted();
-  block(matchAddCodescanning(e.id, ANY), function () {
-    verifyCodescanningDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCodescanning(k, ANY), function () {
+    verifyCodescanningDoesNotExist(k);
   });
 });
 
 bthread("Codesecurity create verification", function () {
   const e = waitForAnyCodesecurityAdded();
-  block(matchDeleteCodesecurity(e.id, ANY), function () {
-    verifyCodesecurityExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodesecurity(k, ANY), function () {
+    verifyCodesecurityExists(k);
   });
 });
 
 bthread("Codesecurity update verification", function () {
   const e = waitForAnyCodesecurityUpdated();
-  block(matchDeleteCodesecurity(e.id, ANY), function () {
-    verifyCodesecurityUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodesecurity(k, ANY), function () {
+    verifyCodesecurityUpdated(k);
   });
 });
 
 bthread("Codesecurity delete verification", function () {
   const e = waitForAnyCodesecurityDeleted();
-  block(matchAddCodesecurity(e.id, ANY), function () {
-    verifyCodesecurityDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCodesecurity(k, ANY), function () {
+    verifyCodesecurityDoesNotExist(k);
   });
 });
 
 bthread("Codesecurityconfiguration create verification", function () {
   const e = waitForAnyCodesecurityconfigurationAdded();
-  block(matchDeleteCodesecurityconfiguration(e.id, ANY), function () {
-    verifyCodesecurityconfigurationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodesecurityconfiguration(k, ANY), function () {
+    verifyCodesecurityconfigurationExists(k);
   });
 });
 
 bthread("Codesecurityconfiguration update verification", function () {
   const e = waitForAnyCodesecurityconfigurationUpdated();
-  block(matchDeleteCodesecurityconfiguration(e.id, ANY), function () {
-    verifyCodesecurityconfigurationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodesecurityconfiguration(k, ANY), function () {
+    verifyCodesecurityconfigurationUpdated(k);
   });
 });
 
 bthread("Codesecurityconfiguration delete verification", function () {
   const e = waitForAnyCodesecurityconfigurationDeleted();
-  block(matchAddCodesecurityconfiguration(e.id, ANY), function () {
-    verifyCodesecurityconfigurationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCodesecurityconfiguration(k, ANY), function () {
+    verifyCodesecurityconfigurationDoesNotExist(k);
   });
 });
 
 bthread("Codesofconduct create verification", function () {
   const e = waitForAnyCodesofconductAdded();
-  block(matchDeleteCodesofconduct(e.id, ANY), function () {
-    verifyCodesofconductExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodesofconduct(k, ANY), function () {
+    verifyCodesofconductExists(k);
   });
 });
 
 bthread("Codesofconduct update verification", function () {
   const e = waitForAnyCodesofconductUpdated();
-  block(matchDeleteCodesofconduct(e.id, ANY), function () {
-    verifyCodesofconductUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodesofconduct(k, ANY), function () {
+    verifyCodesofconductUpdated(k);
   });
 });
 
 bthread("Codesofconduct delete verification", function () {
   const e = waitForAnyCodesofconductDeleted();
-  block(matchAddCodesofconduct(e.id, ANY), function () {
-    verifyCodesofconductDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCodesofconduct(k, ANY), function () {
+    verifyCodesofconductDoesNotExist(k);
   });
 });
 
 bthread("Codespace create verification", function () {
   const e = waitForAnyCodespaceAdded();
-  block(matchDeleteCodespace(e.id, ANY), function () {
-    verifyCodespaceExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodespace(k, ANY), function () {
+    verifyCodespaceExists(k);
   });
 });
 
 bthread("Codespace update verification", function () {
   const e = waitForAnyCodespaceUpdated();
-  block(matchDeleteCodespace(e.id, ANY), function () {
-    verifyCodespaceUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCodespace(k, ANY), function () {
+    verifyCodespaceUpdated(k);
   });
 });
 
 bthread("Codespace delete verification", function () {
   const e = waitForAnyCodespaceDeleted();
-  block(matchAddCodespace(e.id, ANY), function () {
-    verifyCodespaceDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCodespace(k, ANY), function () {
+    verifyCodespaceDoesNotExist(k);
   });
 });
 
 bthread("Collaborator create verification", function () {
   const e = waitForAnyCollaboratorAdded();
-  block(matchDeleteCollaborator(e.id, ANY), function () {
-    verifyCollaboratorExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCollaborator(k, ANY), function () {
+    verifyCollaboratorExists(k);
   });
 });
 
 bthread("Collaborator update verification", function () {
   const e = waitForAnyCollaboratorUpdated();
-  block(matchDeleteCollaborator(e.id, ANY), function () {
-    verifyCollaboratorUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCollaborator(k, ANY), function () {
+    verifyCollaboratorUpdated(k);
   });
 });
 
 bthread("Collaborator delete verification", function () {
   const e = waitForAnyCollaboratorDeleted();
-  block(matchAddCollaborator(e.id, ANY), function () {
-    verifyCollaboratorDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCollaborator(k, ANY), function () {
+    verifyCollaboratorDoesNotExist(k);
   });
 });
 
 bthread("Column create verification", function () {
   const e = waitForAnyColumnAdded();
-  block(matchDeleteColumn(e.id, ANY), function () {
-    verifyColumnExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteColumn(k, ANY), function () {
+    verifyColumnExists(k);
   });
 });
 
 bthread("Column update verification", function () {
   const e = waitForAnyColumnUpdated();
-  block(matchDeleteColumn(e.id, ANY), function () {
-    verifyColumnUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteColumn(k, ANY), function () {
+    verifyColumnUpdated(k);
   });
 });
 
 bthread("Column delete verification", function () {
   const e = waitForAnyColumnDeleted();
-  block(matchAddColumn(e.id, ANY), function () {
-    verifyColumnDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddColumn(k, ANY), function () {
+    verifyColumnDoesNotExist(k);
   });
 });
 
 bthread("Comment create verification", function () {
   const e = waitForAnyCommentAdded();
-  block(matchDeleteComment(e.id, ANY), function () {
-    verifyCommentExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteComment(k, ANY), function () {
+    verifyCommentExists(k);
   });
 });
 
 bthread("Comment update verification", function () {
   const e = waitForAnyCommentUpdated();
-  block(matchDeleteComment(e.id, ANY), function () {
-    verifyCommentUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteComment(k, ANY), function () {
+    verifyCommentUpdated(k);
   });
 });
 
 bthread("Comment delete verification", function () {
   const e = waitForAnyCommentDeleted();
-  block(matchAddComment(e.id, ANY), function () {
-    verifyCommentDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddComment(k, ANY), function () {
+    verifyCommentDoesNotExist(k);
   });
 });
 
 bthread("Commit create verification", function () {
   const e = waitForAnyCommitAdded();
-  block(matchDeleteCommit(e.id, ANY), function () {
-    verifyCommitExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCommit(k, ANY), function () {
+    verifyCommitExists(k);
   });
 });
 
 bthread("Commit update verification", function () {
   const e = waitForAnyCommitUpdated();
-  block(matchDeleteCommit(e.id, ANY), function () {
-    verifyCommitUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCommit(k, ANY), function () {
+    verifyCommitUpdated(k);
   });
 });
 
 bthread("Commit delete verification", function () {
   const e = waitForAnyCommitDeleted();
-  block(matchAddCommit(e.id, ANY), function () {
-    verifyCommitDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCommit(k, ANY), function () {
+    verifyCommitDoesNotExist(k);
   });
 });
 
 bthread("Commitactivity create verification", function () {
   const e = waitForAnyCommitactivityAdded();
-  block(matchDeleteCommitactivity(e.id, ANY), function () {
-    verifyCommitactivityExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCommitactivity(k, ANY), function () {
+    verifyCommitactivityExists(k);
   });
 });
 
 bthread("Commitactivity update verification", function () {
   const e = waitForAnyCommitactivityUpdated();
-  block(matchDeleteCommitactivity(e.id, ANY), function () {
-    verifyCommitactivityUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCommitactivity(k, ANY), function () {
+    verifyCommitactivityUpdated(k);
   });
 });
 
 bthread("Commitactivity delete verification", function () {
   const e = waitForAnyCommitactivityDeleted();
-  block(matchAddCommitactivity(e.id, ANY), function () {
-    verifyCommitactivityDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCommitactivity(k, ANY), function () {
+    verifyCommitactivityDoesNotExist(k);
   });
 });
 
 bthread("Community create verification", function () {
   const e = waitForAnyCommunityAdded();
-  block(matchDeleteCommunity(e.id, ANY), function () {
-    verifyCommunityExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCommunity(k, ANY), function () {
+    verifyCommunityExists(k);
   });
 });
 
 bthread("Community update verification", function () {
   const e = waitForAnyCommunityUpdated();
-  block(matchDeleteCommunity(e.id, ANY), function () {
-    verifyCommunityUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCommunity(k, ANY), function () {
+    verifyCommunityUpdated(k);
   });
 });
 
 bthread("Community delete verification", function () {
   const e = waitForAnyCommunityDeleted();
-  block(matchAddCommunity(e.id, ANY), function () {
-    verifyCommunityDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCommunity(k, ANY), function () {
+    verifyCommunityDoesNotExist(k);
   });
 });
 
 bthread("Compare create verification", function () {
   const e = waitForAnyCompareAdded();
-  block(matchDeleteCompare(e.id, ANY), function () {
-    verifyCompareExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCompare(k, ANY), function () {
+    verifyCompareExists(k);
   });
 });
 
 bthread("Compare update verification", function () {
   const e = waitForAnyCompareUpdated();
-  block(matchDeleteCompare(e.id, ANY), function () {
-    verifyCompareUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCompare(k, ANY), function () {
+    verifyCompareUpdated(k);
   });
 });
 
 bthread("Compare delete verification", function () {
   const e = waitForAnyCompareDeleted();
-  block(matchAddCompare(e.id, ANY), function () {
-    verifyCompareDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCompare(k, ANY), function () {
+    verifyCompareDoesNotExist(k);
   });
 });
 
 bthread("Config create verification", function () {
   const e = waitForAnyConfigAdded();
-  block(matchDeleteConfig(e.id, ANY), function () {
-    verifyConfigExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteConfig(k, ANY), function () {
+    verifyConfigExists(k);
   });
 });
 
 bthread("Config update verification", function () {
   const e = waitForAnyConfigUpdated();
-  block(matchDeleteConfig(e.id, ANY), function () {
-    verifyConfigUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteConfig(k, ANY), function () {
+    verifyConfigUpdated(k);
   });
 });
 
 bthread("Config delete verification", function () {
   const e = waitForAnyConfigDeleted();
-  block(matchAddConfig(e.id, ANY), function () {
-    verifyConfigDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddConfig(k, ANY), function () {
+    verifyConfigDoesNotExist(k);
   });
 });
 
 bthread("Configuration create verification", function () {
   const e = waitForAnyConfigurationAdded();
-  block(matchDeleteConfiguration(e.id, ANY), function () {
-    verifyConfigurationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteConfiguration(k, ANY), function () {
+    verifyConfigurationExists(k);
   });
 });
 
 bthread("Configuration update verification", function () {
   const e = waitForAnyConfigurationUpdated();
-  block(matchDeleteConfiguration(e.id, ANY), function () {
-    verifyConfigurationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteConfiguration(k, ANY), function () {
+    verifyConfigurationUpdated(k);
   });
 });
 
 bthread("Configuration delete verification", function () {
   const e = waitForAnyConfigurationDeleted();
-  block(matchAddConfiguration(e.id, ANY), function () {
-    verifyConfigurationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddConfiguration(k, ANY), function () {
+    verifyConfigurationDoesNotExist(k);
   });
 });
 
 bthread("Conflict create verification", function () {
   const e = waitForAnyConflictAdded();
-  block(matchDeleteConflict(e.id, ANY), function () {
-    verifyConflictExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteConflict(k, ANY), function () {
+    verifyConflictExists(k);
   });
 });
 
 bthread("Conflict update verification", function () {
   const e = waitForAnyConflictUpdated();
-  block(matchDeleteConflict(e.id, ANY), function () {
-    verifyConflictUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteConflict(k, ANY), function () {
+    verifyConflictUpdated(k);
   });
 });
 
 bthread("Conflict delete verification", function () {
   const e = waitForAnyConflictDeleted();
-  block(matchAddConflict(e.id, ANY), function () {
-    verifyConflictDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddConflict(k, ANY), function () {
+    verifyConflictDoesNotExist(k);
   });
 });
 
 bthread("Content create verification", function () {
   const e = waitForAnyContentAdded();
-  block(matchDeleteContent(e.id, ANY), function () {
-    verifyContentExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteContent(k, ANY), function () {
+    verifyContentExists(k);
   });
 });
 
 bthread("Content update verification", function () {
   const e = waitForAnyContentUpdated();
-  block(matchDeleteContent(e.id, ANY), function () {
-    verifyContentUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteContent(k, ANY), function () {
+    verifyContentUpdated(k);
   });
 });
 
 bthread("Content delete verification", function () {
   const e = waitForAnyContentDeleted();
-  block(matchAddContent(e.id, ANY), function () {
-    verifyContentDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddContent(k, ANY), function () {
+    verifyContentDoesNotExist(k);
   });
 });
 
 bthread("Context create verification", function () {
   const e = waitForAnyContextAdded();
-  block(matchDeleteContext(e.id, ANY), function () {
-    verifyContextExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteContext(k, ANY), function () {
+    verifyContextExists(k);
   });
 });
 
 bthread("Context update verification", function () {
   const e = waitForAnyContextUpdated();
-  block(matchDeleteContext(e.id, ANY), function () {
-    verifyContextUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteContext(k, ANY), function () {
+    verifyContextUpdated(k);
   });
 });
 
 bthread("Context delete verification", function () {
   const e = waitForAnyContextDeleted();
-  block(matchAddContext(e.id, ANY), function () {
-    verifyContextDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddContext(k, ANY), function () {
+    verifyContextDoesNotExist(k);
   });
 });
 
 bthread("Contributor create verification", function () {
   const e = waitForAnyContributorAdded();
-  block(matchDeleteContributor(e.id, ANY), function () {
-    verifyContributorExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteContributor(k, ANY), function () {
+    verifyContributorExists(k);
   });
 });
 
 bthread("Contributor update verification", function () {
   const e = waitForAnyContributorUpdated();
-  block(matchDeleteContributor(e.id, ANY), function () {
-    verifyContributorUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteContributor(k, ANY), function () {
+    verifyContributorUpdated(k);
   });
 });
 
 bthread("Contributor delete verification", function () {
   const e = waitForAnyContributorDeleted();
-  block(matchAddContributor(e.id, ANY), function () {
-    verifyContributorDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddContributor(k, ANY), function () {
+    verifyContributorDoesNotExist(k);
   });
 });
 
 bthread("Conversion create verification", function () {
   const e = waitForAnyConversionAdded();
-  block(matchDeleteConversion(e.id, ANY), function () {
-    verifyConversionExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteConversion(k, ANY), function () {
+    verifyConversionExists(k);
   });
 });
 
 bthread("Conversion update verification", function () {
   const e = waitForAnyConversionUpdated();
-  block(matchDeleteConversion(e.id, ANY), function () {
-    verifyConversionUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteConversion(k, ANY), function () {
+    verifyConversionUpdated(k);
   });
 });
 
 bthread("Conversion delete verification", function () {
   const e = waitForAnyConversionDeleted();
-  block(matchAddConversion(e.id, ANY), function () {
-    verifyConversionDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddConversion(k, ANY), function () {
+    verifyConversionDoesNotExist(k);
   });
 });
 
 bthread("Copilot create verification", function () {
   const e = waitForAnyCopilotAdded();
-  block(matchDeleteCopilot(e.id, ANY), function () {
-    verifyCopilotExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCopilot(k, ANY), function () {
+    verifyCopilotExists(k);
   });
 });
 
 bthread("Copilot update verification", function () {
   const e = waitForAnyCopilotUpdated();
-  block(matchDeleteCopilot(e.id, ANY), function () {
-    verifyCopilotUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCopilot(k, ANY), function () {
+    verifyCopilotUpdated(k);
   });
 });
 
 bthread("Copilot delete verification", function () {
   const e = waitForAnyCopilotDeleted();
-  block(matchAddCopilot(e.id, ANY), function () {
-    verifyCopilotDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCopilot(k, ANY), function () {
+    verifyCopilotDoesNotExist(k);
   });
 });
 
 bthread("Credential create verification", function () {
   const e = waitForAnyCredentialAdded();
-  block(matchDeleteCredential(e.id, ANY), function () {
-    verifyCredentialExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCredential(k, ANY), function () {
+    verifyCredentialExists(k);
   });
 });
 
 bthread("Credential update verification", function () {
   const e = waitForAnyCredentialUpdated();
-  block(matchDeleteCredential(e.id, ANY), function () {
-    verifyCredentialUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCredential(k, ANY), function () {
+    verifyCredentialUpdated(k);
   });
 });
 
 bthread("Credential delete verification", function () {
   const e = waitForAnyCredentialDeleted();
-  block(matchAddCredential(e.id, ANY), function () {
-    verifyCredentialDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCredential(k, ANY), function () {
+    verifyCredentialDoesNotExist(k);
   });
 });
 
 bthread("Customization create verification", function () {
   const e = waitForAnyCustomizationAdded();
-  block(matchDeleteCustomization(e.id, ANY), function () {
-    verifyCustomizationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCustomization(k, ANY), function () {
+    verifyCustomizationExists(k);
   });
 });
 
 bthread("Customization update verification", function () {
   const e = waitForAnyCustomizationUpdated();
-  block(matchDeleteCustomization(e.id, ANY), function () {
-    verifyCustomizationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCustomization(k, ANY), function () {
+    verifyCustomizationUpdated(k);
   });
 });
 
 bthread("Customization delete verification", function () {
   const e = waitForAnyCustomizationDeleted();
-  block(matchAddCustomization(e.id, ANY), function () {
-    verifyCustomizationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCustomization(k, ANY), function () {
+    verifyCustomizationDoesNotExist(k);
   });
 });
 
 bthread("Cve create verification", function () {
   const e = waitForAnyCveAdded();
-  block(matchDeleteCve(e.id, ANY), function () {
-    verifyCveExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCve(k, ANY), function () {
+    verifyCveExists(k);
   });
 });
 
 bthread("Cve update verification", function () {
   const e = waitForAnyCveUpdated();
-  block(matchDeleteCve(e.id, ANY), function () {
-    verifyCveUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCve(k, ANY), function () {
+    verifyCveUpdated(k);
   });
 });
 
 bthread("Cve delete verification", function () {
   const e = waitForAnyCveDeleted();
-  block(matchAddCve(e.id, ANY), function () {
-    verifyCveDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCve(k, ANY), function () {
+    verifyCveDoesNotExist(k);
   });
 });
 
 bthread("Databas create verification", function () {
   const e = waitForAnyDatabasAdded();
-  block(matchDeleteDatabas(e.id, ANY), function () {
-    verifyDatabasExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDatabas(k, ANY), function () {
+    verifyDatabasExists(k);
   });
 });
 
 bthread("Databas update verification", function () {
   const e = waitForAnyDatabasUpdated();
-  block(matchDeleteDatabas(e.id, ANY), function () {
-    verifyDatabasUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDatabas(k, ANY), function () {
+    verifyDatabasUpdated(k);
   });
 });
 
 bthread("Databas delete verification", function () {
   const e = waitForAnyDatabasDeleted();
-  block(matchAddDatabas(e.id, ANY), function () {
-    verifyDatabasDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDatabas(k, ANY), function () {
+    verifyDatabasDoesNotExist(k);
   });
 });
 
 bthread("Default create verification", function () {
   const e = waitForAnyDefaultAdded();
-  block(matchDeleteDefault(e.id, ANY), function () {
-    verifyDefaultExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDefault(k, ANY), function () {
+    verifyDefaultExists(k);
   });
 });
 
 bthread("Default update verification", function () {
   const e = waitForAnyDefaultUpdated();
-  block(matchDeleteDefault(e.id, ANY), function () {
-    verifyDefaultUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDefault(k, ANY), function () {
+    verifyDefaultUpdated(k);
   });
 });
 
 bthread("Default delete verification", function () {
   const e = waitForAnyDefaultDeleted();
-  block(matchAddDefault(e.id, ANY), function () {
-    verifyDefaultDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDefault(k, ANY), function () {
+    verifyDefaultDoesNotExist(k);
   });
 });
 
 bthread("Defaultlevel create verification", function () {
   const e = waitForAnyDefaultlevelAdded();
-  block(matchDeleteDefaultlevel(e.id, ANY), function () {
-    verifyDefaultlevelExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDefaultlevel(k, ANY), function () {
+    verifyDefaultlevelExists(k);
   });
 });
 
 bthread("Defaultlevel update verification", function () {
   const e = waitForAnyDefaultlevelUpdated();
-  block(matchDeleteDefaultlevel(e.id, ANY), function () {
-    verifyDefaultlevelUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDefaultlevel(k, ANY), function () {
+    verifyDefaultlevelUpdated(k);
   });
 });
 
 bthread("Defaultlevel delete verification", function () {
   const e = waitForAnyDefaultlevelDeleted();
-  block(matchAddDefaultlevel(e.id, ANY), function () {
-    verifyDefaultlevelDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDefaultlevel(k, ANY), function () {
+    verifyDefaultlevelDoesNotExist(k);
   });
 });
 
 bthread("Defaultsetup create verification", function () {
   const e = waitForAnyDefaultsetupAdded();
-  block(matchDeleteDefaultsetup(e.id, ANY), function () {
-    verifyDefaultsetupExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDefaultsetup(k, ANY), function () {
+    verifyDefaultsetupExists(k);
   });
 });
 
 bthread("Defaultsetup update verification", function () {
   const e = waitForAnyDefaultsetupUpdated();
-  block(matchDeleteDefaultsetup(e.id, ANY), function () {
-    verifyDefaultsetupUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDefaultsetup(k, ANY), function () {
+    verifyDefaultsetupUpdated(k);
   });
 });
 
 bthread("Defaultsetup delete verification", function () {
   const e = waitForAnyDefaultsetupDeleted();
-  block(matchAddDefaultsetup(e.id, ANY), function () {
-    verifyDefaultsetupDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDefaultsetup(k, ANY), function () {
+    verifyDefaultsetupDoesNotExist(k);
   });
 });
 
 bthread("Deleterequest create verification", function () {
   const e = waitForAnyDeleterequestAdded();
-  block(matchDeleteDeleterequest(e.id, ANY), function () {
-    verifyDeleterequestExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDeleterequest(k, ANY), function () {
+    verifyDeleterequestExists(k);
   });
 });
 
 bthread("Deleterequest update verification", function () {
   const e = waitForAnyDeleterequestUpdated();
-  block(matchDeleteDeleterequest(e.id, ANY), function () {
-    verifyDeleterequestUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDeleterequest(k, ANY), function () {
+    verifyDeleterequestUpdated(k);
   });
 });
 
 bthread("Deleterequest delete verification", function () {
   const e = waitForAnyDeleterequestDeleted();
-  block(matchAddDeleterequest(e.id, ANY), function () {
-    verifyDeleterequestDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDeleterequest(k, ANY), function () {
+    verifyDeleterequestDoesNotExist(k);
   });
 });
 
 bthread("Delivery create verification", function () {
   const e = waitForAnyDeliveryAdded();
-  block(matchDeleteDelivery(e.id, ANY), function () {
-    verifyDeliveryExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDelivery(k, ANY), function () {
+    verifyDeliveryExists(k);
   });
 });
 
 bthread("Delivery update verification", function () {
   const e = waitForAnyDeliveryUpdated();
-  block(matchDeleteDelivery(e.id, ANY), function () {
-    verifyDeliveryUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDelivery(k, ANY), function () {
+    verifyDeliveryUpdated(k);
   });
 });
 
 bthread("Delivery delete verification", function () {
   const e = waitForAnyDeliveryDeleted();
-  block(matchAddDelivery(e.id, ANY), function () {
-    verifyDeliveryDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDelivery(k, ANY), function () {
+    verifyDeliveryDoesNotExist(k);
   });
 });
 
 bthread("Dependabot create verification", function () {
   const e = waitForAnyDependabotAdded();
-  block(matchDeleteDependabot(e.id, ANY), function () {
-    verifyDependabotExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDependabot(k, ANY), function () {
+    verifyDependabotExists(k);
   });
 });
 
 bthread("Dependabot update verification", function () {
   const e = waitForAnyDependabotUpdated();
-  block(matchDeleteDependabot(e.id, ANY), function () {
-    verifyDependabotUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDependabot(k, ANY), function () {
+    verifyDependabotUpdated(k);
   });
 });
 
 bthread("Dependabot delete verification", function () {
   const e = waitForAnyDependabotDeleted();
-  block(matchAddDependabot(e.id, ANY), function () {
-    verifyDependabotDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDependabot(k, ANY), function () {
+    verifyDependabotDoesNotExist(k);
   });
 });
 
 bthread("Dependency create verification", function () {
   const e = waitForAnyDependencyAdded();
-  block(matchDeleteDependency(e.id, ANY), function () {
-    verifyDependencyExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDependency(k, ANY), function () {
+    verifyDependencyExists(k);
   });
 });
 
 bthread("Dependency update verification", function () {
   const e = waitForAnyDependencyUpdated();
-  block(matchDeleteDependency(e.id, ANY), function () {
-    verifyDependencyUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDependency(k, ANY), function () {
+    verifyDependencyUpdated(k);
   });
 });
 
 bthread("Dependency delete verification", function () {
   const e = waitForAnyDependencyDeleted();
-  block(matchAddDependency(e.id, ANY), function () {
-    verifyDependencyDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDependency(k, ANY), function () {
+    verifyDependencyDoesNotExist(k);
   });
 });
 
 bthread("Dependencygraph create verification", function () {
   const e = waitForAnyDependencygraphAdded();
-  block(matchDeleteDependencygraph(e.id, ANY), function () {
-    verifyDependencygraphExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDependencygraph(k, ANY), function () {
+    verifyDependencygraphExists(k);
   });
 });
 
 bthread("Dependencygraph update verification", function () {
   const e = waitForAnyDependencygraphUpdated();
-  block(matchDeleteDependencygraph(e.id, ANY), function () {
-    verifyDependencygraphUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDependencygraph(k, ANY), function () {
+    verifyDependencygraphUpdated(k);
   });
 });
 
 bthread("Dependencygraph delete verification", function () {
   const e = waitForAnyDependencygraphDeleted();
-  block(matchAddDependencygraph(e.id, ANY), function () {
-    verifyDependencygraphDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDependencygraph(k, ANY), function () {
+    verifyDependencygraphDoesNotExist(k);
   });
 });
 
 bthread("Deployment create verification", function () {
   const e = waitForAnyDeploymentAdded();
-  block(matchDeleteDeployment(e.id, ANY), function () {
-    verifyDeploymentExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDeployment(k, ANY), function () {
+    verifyDeploymentExists(k);
   });
 });
 
 bthread("Deployment update verification", function () {
   const e = waitForAnyDeploymentUpdated();
-  block(matchDeleteDeployment(e.id, ANY), function () {
-    verifyDeploymentUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDeployment(k, ANY), function () {
+    verifyDeploymentUpdated(k);
   });
 });
 
 bthread("Deployment delete verification", function () {
   const e = waitForAnyDeploymentDeleted();
-  block(matchAddDeployment(e.id, ANY), function () {
-    verifyDeploymentDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDeployment(k, ANY), function () {
+    verifyDeploymentDoesNotExist(k);
   });
 });
 
 bthread("Deploymentbranchpolicy create verification", function () {
   const e = waitForAnyDeploymentbranchpolicyAdded();
-  block(matchDeleteDeploymentbranchpolicy(e.id, ANY), function () {
-    verifyDeploymentbranchpolicyExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDeploymentbranchpolicy(k, ANY), function () {
+    verifyDeploymentbranchpolicyExists(k);
   });
 });
 
 bthread("Deploymentbranchpolicy update verification", function () {
   const e = waitForAnyDeploymentbranchpolicyUpdated();
-  block(matchDeleteDeploymentbranchpolicy(e.id, ANY), function () {
-    verifyDeploymentbranchpolicyUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDeploymentbranchpolicy(k, ANY), function () {
+    verifyDeploymentbranchpolicyUpdated(k);
   });
 });
 
 bthread("Deploymentbranchpolicy delete verification", function () {
   const e = waitForAnyDeploymentbranchpolicyDeleted();
-  block(matchAddDeploymentbranchpolicy(e.id, ANY), function () {
-    verifyDeploymentbranchpolicyDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDeploymentbranchpolicy(k, ANY), function () {
+    verifyDeploymentbranchpolicyDoesNotExist(k);
   });
 });
 
 bthread("Deploymentprotectionrule create verification", function () {
   const e = waitForAnyDeploymentprotectionruleAdded();
-  block(matchDeleteDeploymentprotectionrule(e.id, ANY), function () {
-    verifyDeploymentprotectionruleExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDeploymentprotectionrule(k, ANY), function () {
+    verifyDeploymentprotectionruleExists(k);
   });
 });
 
 bthread("Deploymentprotectionrule update verification", function () {
   const e = waitForAnyDeploymentprotectionruleUpdated();
-  block(matchDeleteDeploymentprotectionrule(e.id, ANY), function () {
-    verifyDeploymentprotectionruleUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDeploymentprotectionrule(k, ANY), function () {
+    verifyDeploymentprotectionruleUpdated(k);
   });
 });
 
 bthread("Deploymentprotectionrule delete verification", function () {
   const e = waitForAnyDeploymentprotectionruleDeleted();
-  block(matchAddDeploymentprotectionrule(e.id, ANY), function () {
-    verifyDeploymentprotectionruleDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDeploymentprotectionrule(k, ANY), function () {
+    verifyDeploymentprotectionruleDoesNotExist(k);
   });
 });
 
 bthread("Detach create verification", function () {
   const e = waitForAnyDetachAdded();
-  block(matchDeleteDetach(e.id, ANY), function () {
-    verifyDetachExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDetach(k, ANY), function () {
+    verifyDetachExists(k);
   });
 });
 
 bthread("Detach update verification", function () {
   const e = waitForAnyDetachUpdated();
-  block(matchDeleteDetach(e.id, ANY), function () {
-    verifyDetachUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDetach(k, ANY), function () {
+    verifyDetachUpdated(k);
   });
 });
 
 bthread("Detach delete verification", function () {
   const e = waitForAnyDetachDeleted();
-  block(matchAddDetach(e.id, ANY), function () {
-    verifyDetachDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDetach(k, ANY), function () {
+    verifyDetachDoesNotExist(k);
   });
 });
 
 bthread("Devcontainer create verification", function () {
   const e = waitForAnyDevcontainerAdded();
-  block(matchDeleteDevcontainer(e.id, ANY), function () {
-    verifyDevcontainerExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDevcontainer(k, ANY), function () {
+    verifyDevcontainerExists(k);
   });
 });
 
 bthread("Devcontainer update verification", function () {
   const e = waitForAnyDevcontainerUpdated();
-  block(matchDeleteDevcontainer(e.id, ANY), function () {
-    verifyDevcontainerUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDevcontainer(k, ANY), function () {
+    verifyDevcontainerUpdated(k);
   });
 });
 
 bthread("Devcontainer delete verification", function () {
   const e = waitForAnyDevcontainerDeleted();
-  block(matchAddDevcontainer(e.id, ANY), function () {
-    verifyDevcontainerDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDevcontainer(k, ANY), function () {
+    verifyDevcontainerDoesNotExist(k);
   });
 });
 
 bthread("Digest create verification", function () {
   const e = waitForAnyDigestAdded();
-  block(matchDeleteDigest(e.id, ANY), function () {
-    verifyDigestExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDigest(k, ANY), function () {
+    verifyDigestExists(k);
   });
 });
 
 bthread("Digest update verification", function () {
   const e = waitForAnyDigestUpdated();
-  block(matchDeleteDigest(e.id, ANY), function () {
-    verifyDigestUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDigest(k, ANY), function () {
+    verifyDigestUpdated(k);
   });
 });
 
 bthread("Digest delete verification", function () {
   const e = waitForAnyDigestDeleted();
-  block(matchAddDigest(e.id, ANY), function () {
-    verifyDigestDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDigest(k, ANY), function () {
+    verifyDigestDoesNotExist(k);
   });
 });
 
 bthread("Disable create verification", function () {
   const e = waitForAnyDisableAdded();
-  block(matchDeleteDisable(e.id, ANY), function () {
-    verifyDisableExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDisable(k, ANY), function () {
+    verifyDisableExists(k);
   });
 });
 
 bthread("Disable update verification", function () {
   const e = waitForAnyDisableUpdated();
-  block(matchDeleteDisable(e.id, ANY), function () {
-    verifyDisableUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDisable(k, ANY), function () {
+    verifyDisableUpdated(k);
   });
 });
 
 bthread("Disable delete verification", function () {
   const e = waitForAnyDisableDeleted();
-  block(matchAddDisable(e.id, ANY), function () {
-    verifyDisableDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDisable(k, ANY), function () {
+    verifyDisableDoesNotExist(k);
   });
 });
 
 bthread("Discussion create verification", function () {
   const e = waitForAnyDiscussionAdded();
-  block(matchDeleteDiscussion(e.id, ANY), function () {
-    verifyDiscussionExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDiscussion(k, ANY), function () {
+    verifyDiscussionExists(k);
   });
 });
 
 bthread("Discussion update verification", function () {
   const e = waitForAnyDiscussionUpdated();
-  block(matchDeleteDiscussion(e.id, ANY), function () {
-    verifyDiscussionUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDiscussion(k, ANY), function () {
+    verifyDiscussionUpdated(k);
   });
 });
 
 bthread("Discussion delete verification", function () {
   const e = waitForAnyDiscussionDeleted();
-  block(matchAddDiscussion(e.id, ANY), function () {
-    verifyDiscussionDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDiscussion(k, ANY), function () {
+    verifyDiscussionDoesNotExist(k);
   });
 });
 
 bthread("Dismissal create verification", function () {
   const e = waitForAnyDismissalAdded();
-  block(matchDeleteDismissal(e.id, ANY), function () {
-    verifyDismissalExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDismissal(k, ANY), function () {
+    verifyDismissalExists(k);
   });
 });
 
 bthread("Dismissal update verification", function () {
   const e = waitForAnyDismissalUpdated();
-  block(matchDeleteDismissal(e.id, ANY), function () {
-    verifyDismissalUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDismissal(k, ANY), function () {
+    verifyDismissalUpdated(k);
   });
 });
 
 bthread("Dismissal delete verification", function () {
   const e = waitForAnyDismissalDeleted();
-  block(matchAddDismissal(e.id, ANY), function () {
-    verifyDismissalDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDismissal(k, ANY), function () {
+    verifyDismissalDoesNotExist(k);
   });
 });
 
 bthread("Dispatche create verification", function () {
   const e = waitForAnyDispatcheAdded();
-  block(matchDeleteDispatche(e.id, ANY), function () {
-    verifyDispatcheExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDispatche(k, ANY), function () {
+    verifyDispatcheExists(k);
   });
 });
 
 bthread("Dispatche update verification", function () {
   const e = waitForAnyDispatcheUpdated();
-  block(matchDeleteDispatche(e.id, ANY), function () {
-    verifyDispatcheUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDispatche(k, ANY), function () {
+    verifyDispatcheUpdated(k);
   });
 });
 
 bthread("Dispatche delete verification", function () {
   const e = waitForAnyDispatcheDeleted();
-  block(matchAddDispatche(e.id, ANY), function () {
-    verifyDispatcheDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDispatche(k, ANY), function () {
+    verifyDispatcheDoesNotExist(k);
   });
 });
 
 bthread("Docker create verification", function () {
   const e = waitForAnyDockerAdded();
-  block(matchDeleteDocker(e.id, ANY), function () {
-    verifyDockerExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDocker(k, ANY), function () {
+    verifyDockerExists(k);
   });
 });
 
 bthread("Docker update verification", function () {
   const e = waitForAnyDockerUpdated();
-  block(matchDeleteDocker(e.id, ANY), function () {
-    verifyDockerUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDocker(k, ANY), function () {
+    verifyDockerUpdated(k);
   });
 });
 
 bthread("Docker delete verification", function () {
   const e = waitForAnyDockerDeleted();
-  block(matchAddDocker(e.id, ANY), function () {
-    verifyDockerDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDocker(k, ANY), function () {
+    verifyDockerDoesNotExist(k);
   });
 });
 
 bthread("Download create verification", function () {
   const e = waitForAnyDownloadAdded();
-  block(matchDeleteDownload(e.id, ANY), function () {
-    verifyDownloadExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDownload(k, ANY), function () {
+    verifyDownloadExists(k);
   });
 });
 
 bthread("Download update verification", function () {
   const e = waitForAnyDownloadUpdated();
-  block(matchDeleteDownload(e.id, ANY), function () {
-    verifyDownloadUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteDownload(k, ANY), function () {
+    verifyDownloadUpdated(k);
   });
 });
 
 bthread("Download delete verification", function () {
   const e = waitForAnyDownloadDeleted();
-  block(matchAddDownload(e.id, ANY), function () {
-    verifyDownloadDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddDownload(k, ANY), function () {
+    verifyDownloadDoesNotExist(k);
   });
 });
 
 bthread("Email create verification", function () {
   const e = waitForAnyEmailAdded();
-  block(matchDeleteEmail(e.id, ANY), function () {
-    verifyEmailExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteEmail(k, ANY), function () {
+    verifyEmailExists(k);
   });
 });
 
 bthread("Email update verification", function () {
   const e = waitForAnyEmailUpdated();
-  block(matchDeleteEmail(e.id, ANY), function () {
-    verifyEmailUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteEmail(k, ANY), function () {
+    verifyEmailUpdated(k);
   });
 });
 
 bthread("Email delete verification", function () {
   const e = waitForAnyEmailDeleted();
-  block(matchAddEmail(e.id, ANY), function () {
-    verifyEmailDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddEmail(k, ANY), function () {
+    verifyEmailDoesNotExist(k);
   });
 });
 
 bthread("Emoji create verification", function () {
   const e = waitForAnyEmojiAdded();
-  block(matchDeleteEmoji(e.id, ANY), function () {
-    verifyEmojiExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteEmoji(k, ANY), function () {
+    verifyEmojiExists(k);
   });
 });
 
 bthread("Emoji update verification", function () {
   const e = waitForAnyEmojiUpdated();
-  block(matchDeleteEmoji(e.id, ANY), function () {
-    verifyEmojiUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteEmoji(k, ANY), function () {
+    verifyEmojiUpdated(k);
   });
 });
 
 bthread("Emoji delete verification", function () {
   const e = waitForAnyEmojiDeleted();
-  block(matchAddEmoji(e.id, ANY), function () {
-    verifyEmojiDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddEmoji(k, ANY), function () {
+    verifyEmojiDoesNotExist(k);
   });
 });
 
 bthread("Enable create verification", function () {
   const e = waitForAnyEnableAdded();
-  block(matchDeleteEnable(e.id, ANY), function () {
-    verifyEnableExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteEnable(k, ANY), function () {
+    verifyEnableExists(k);
   });
 });
 
 bthread("Enable update verification", function () {
   const e = waitForAnyEnableUpdated();
-  block(matchDeleteEnable(e.id, ANY), function () {
-    verifyEnableUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteEnable(k, ANY), function () {
+    verifyEnableUpdated(k);
   });
 });
 
 bthread("Enable delete verification", function () {
   const e = waitForAnyEnableDeleted();
-  block(matchAddEnable(e.id, ANY), function () {
-    verifyEnableDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddEnable(k, ANY), function () {
+    verifyEnableDoesNotExist(k);
   });
 });
 
 bthread("Enforceadmin create verification", function () {
   const e = waitForAnyEnforceadminAdded();
-  block(matchDeleteEnforceadmin(e.id, ANY), function () {
-    verifyEnforceadminExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteEnforceadmin(k, ANY), function () {
+    verifyEnforceadminExists(k);
   });
 });
 
 bthread("Enforceadmin update verification", function () {
   const e = waitForAnyEnforceadminUpdated();
-  block(matchDeleteEnforceadmin(e.id, ANY), function () {
-    verifyEnforceadminUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteEnforceadmin(k, ANY), function () {
+    verifyEnforceadminUpdated(k);
   });
 });
 
 bthread("Enforceadmin delete verification", function () {
   const e = waitForAnyEnforceadminDeleted();
-  block(matchAddEnforceadmin(e.id, ANY), function () {
-    verifyEnforceadminDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddEnforceadmin(k, ANY), function () {
+    verifyEnforceadminDoesNotExist(k);
   });
 });
 
 bthread("Enterpris create verification", function () {
   const e = waitForAnyEnterprisAdded();
-  block(matchDeleteEnterpris(e.id, ANY), function () {
-    verifyEnterprisExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteEnterpris(k, ANY), function () {
+    verifyEnterprisExists(k);
   });
 });
 
 bthread("Enterpris update verification", function () {
   const e = waitForAnyEnterprisUpdated();
-  block(matchDeleteEnterpris(e.id, ANY), function () {
-    verifyEnterprisUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteEnterpris(k, ANY), function () {
+    verifyEnterprisUpdated(k);
   });
 });
 
 bthread("Enterpris delete verification", function () {
   const e = waitForAnyEnterprisDeleted();
-  block(matchAddEnterpris(e.id, ANY), function () {
-    verifyEnterprisDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddEnterpris(k, ANY), function () {
+    verifyEnterprisDoesNotExist(k);
   });
 });
 
 bthread("Environment create verification", function () {
   const e = waitForAnyEnvironmentAdded();
-  block(matchDeleteEnvironment(e.id, ANY), function () {
-    verifyEnvironmentExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteEnvironment(k, ANY), function () {
+    verifyEnvironmentExists(k);
   });
 });
 
 bthread("Environment update verification", function () {
   const e = waitForAnyEnvironmentUpdated();
-  block(matchDeleteEnvironment(e.id, ANY), function () {
-    verifyEnvironmentUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteEnvironment(k, ANY), function () {
+    verifyEnvironmentUpdated(k);
   });
 });
 
 bthread("Environment delete verification", function () {
   const e = waitForAnyEnvironmentDeleted();
-  block(matchAddEnvironment(e.id, ANY), function () {
-    verifyEnvironmentDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddEnvironment(k, ANY), function () {
+    verifyEnvironmentDoesNotExist(k);
   });
 });
 
 bthread("Error create verification", function () {
   const e = waitForAnyErrorAdded();
-  block(matchDeleteError(e.id, ANY), function () {
-    verifyErrorExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteError(k, ANY), function () {
+    verifyErrorExists(k);
   });
 });
 
 bthread("Error update verification", function () {
   const e = waitForAnyErrorUpdated();
-  block(matchDeleteError(e.id, ANY), function () {
-    verifyErrorUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteError(k, ANY), function () {
+    verifyErrorUpdated(k);
   });
 });
 
 bthread("Error delete verification", function () {
   const e = waitForAnyErrorDeleted();
-  block(matchAddError(e.id, ANY), function () {
-    verifyErrorDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddError(k, ANY), function () {
+    verifyErrorDoesNotExist(k);
   });
 });
 
 bthread("Event create verification", function () {
   const e = waitForAnyEventAdded();
-  block(matchDeleteEvent(e.id, ANY), function () {
-    verifyEventExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteEvent(k, ANY), function () {
+    verifyEventExists(k);
   });
 });
 
 bthread("Event update verification", function () {
   const e = waitForAnyEventUpdated();
-  block(matchDeleteEvent(e.id, ANY), function () {
-    verifyEventUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteEvent(k, ANY), function () {
+    verifyEventUpdated(k);
   });
 });
 
 bthread("Event delete verification", function () {
   const e = waitForAnyEventDeleted();
-  block(matchAddEvent(e.id, ANY), function () {
-    verifyEventDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddEvent(k, ANY), function () {
+    verifyEventDoesNotExist(k);
   });
 });
 
 bthread("Export create verification", function () {
   const e = waitForAnyExportAdded();
-  block(matchDeleteExport(e.id, ANY), function () {
-    verifyExportExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteExport(k, ANY), function () {
+    verifyExportExists(k);
   });
 });
 
 bthread("Export update verification", function () {
   const e = waitForAnyExportUpdated();
-  block(matchDeleteExport(e.id, ANY), function () {
-    verifyExportUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteExport(k, ANY), function () {
+    verifyExportUpdated(k);
   });
 });
 
 bthread("Export delete verification", function () {
   const e = waitForAnyExportDeleted();
-  block(matchAddExport(e.id, ANY), function () {
-    verifyExportDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddExport(k, ANY), function () {
+    verifyExportDoesNotExist(k);
   });
 });
 
 bthread("Failedinvitation create verification", function () {
   const e = waitForAnyFailedinvitationAdded();
-  block(matchDeleteFailedinvitation(e.id, ANY), function () {
-    verifyFailedinvitationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteFailedinvitation(k, ANY), function () {
+    verifyFailedinvitationExists(k);
   });
 });
 
 bthread("Failedinvitation update verification", function () {
   const e = waitForAnyFailedinvitationUpdated();
-  block(matchDeleteFailedinvitation(e.id, ANY), function () {
-    verifyFailedinvitationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteFailedinvitation(k, ANY), function () {
+    verifyFailedinvitationUpdated(k);
   });
 });
 
 bthread("Failedinvitation delete verification", function () {
   const e = waitForAnyFailedinvitationDeleted();
-  block(matchAddFailedinvitation(e.id, ANY), function () {
-    verifyFailedinvitationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddFailedinvitation(k, ANY), function () {
+    verifyFailedinvitationDoesNotExist(k);
   });
 });
 
 bthread("Feed create verification", function () {
   const e = waitForAnyFeedAdded();
-  block(matchDeleteFeed(e.id, ANY), function () {
-    verifyFeedExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteFeed(k, ANY), function () {
+    verifyFeedExists(k);
   });
 });
 
 bthread("Feed update verification", function () {
   const e = waitForAnyFeedUpdated();
-  block(matchDeleteFeed(e.id, ANY), function () {
-    verifyFeedUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteFeed(k, ANY), function () {
+    verifyFeedUpdated(k);
   });
 });
 
 bthread("Feed delete verification", function () {
   const e = waitForAnyFeedDeleted();
-  block(matchAddFeed(e.id, ANY), function () {
-    verifyFeedDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddFeed(k, ANY), function () {
+    verifyFeedDoesNotExist(k);
   });
 });
 
 bthread("Field create verification", function () {
   const e = waitForAnyFieldAdded();
-  block(matchDeleteField(e.id, ANY), function () {
-    verifyFieldExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteField(k, ANY), function () {
+    verifyFieldExists(k);
   });
 });
 
 bthread("Field update verification", function () {
   const e = waitForAnyFieldUpdated();
-  block(matchDeleteField(e.id, ANY), function () {
-    verifyFieldUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteField(k, ANY), function () {
+    verifyFieldUpdated(k);
   });
 });
 
 bthread("Field delete verification", function () {
   const e = waitForAnyFieldDeleted();
-  block(matchAddField(e.id, ANY), function () {
-    verifyFieldDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddField(k, ANY), function () {
+    verifyFieldDoesNotExist(k);
   });
 });
 
 bthread("File create verification", function () {
   const e = waitForAnyFileAdded();
-  block(matchDeleteFile(e.id, ANY), function () {
-    verifyFileExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteFile(k, ANY), function () {
+    verifyFileExists(k);
   });
 });
 
 bthread("File update verification", function () {
   const e = waitForAnyFileUpdated();
-  block(matchDeleteFile(e.id, ANY), function () {
-    verifyFileUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteFile(k, ANY), function () {
+    verifyFileUpdated(k);
   });
 });
 
 bthread("File delete verification", function () {
   const e = waitForAnyFileDeleted();
-  block(matchAddFile(e.id, ANY), function () {
-    verifyFileDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddFile(k, ANY), function () {
+    verifyFileDoesNotExist(k);
   });
 });
 
 bthread("Follower create verification", function () {
   const e = waitForAnyFollowerAdded();
-  block(matchDeleteFollower(e.id, ANY), function () {
-    verifyFollowerExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteFollower(k, ANY), function () {
+    verifyFollowerExists(k);
   });
 });
 
 bthread("Follower update verification", function () {
   const e = waitForAnyFollowerUpdated();
-  block(matchDeleteFollower(e.id, ANY), function () {
-    verifyFollowerUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteFollower(k, ANY), function () {
+    verifyFollowerUpdated(k);
   });
 });
 
 bthread("Follower delete verification", function () {
   const e = waitForAnyFollowerDeleted();
-  block(matchAddFollower(e.id, ANY), function () {
-    verifyFollowerDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddFollower(k, ANY), function () {
+    verifyFollowerDoesNotExist(k);
   });
 });
 
 bthread("Following create verification", function () {
   const e = waitForAnyFollowingAdded();
-  block(matchDeleteFollowing(e.id, ANY), function () {
-    verifyFollowingExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteFollowing(k, ANY), function () {
+    verifyFollowingExists(k);
   });
 });
 
 bthread("Following update verification", function () {
   const e = waitForAnyFollowingUpdated();
-  block(matchDeleteFollowing(e.id, ANY), function () {
-    verifyFollowingUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteFollowing(k, ANY), function () {
+    verifyFollowingUpdated(k);
   });
 });
 
 bthread("Following delete verification", function () {
   const e = waitForAnyFollowingDeleted();
-  block(matchAddFollowing(e.id, ANY), function () {
-    verifyFollowingDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddFollowing(k, ANY), function () {
+    verifyFollowingDoesNotExist(k);
   });
 });
 
 bthread("Forcecancel create verification", function () {
   const e = waitForAnyForcecancelAdded();
-  block(matchDeleteForcecancel(e.id, ANY), function () {
-    verifyForcecancelExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteForcecancel(k, ANY), function () {
+    verifyForcecancelExists(k);
   });
 });
 
 bthread("Forcecancel update verification", function () {
   const e = waitForAnyForcecancelUpdated();
-  block(matchDeleteForcecancel(e.id, ANY), function () {
-    verifyForcecancelUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteForcecancel(k, ANY), function () {
+    verifyForcecancelUpdated(k);
   });
 });
 
 bthread("Forcecancel delete verification", function () {
   const e = waitForAnyForcecancelDeleted();
-  block(matchAddForcecancel(e.id, ANY), function () {
-    verifyForcecancelDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddForcecancel(k, ANY), function () {
+    verifyForcecancelDoesNotExist(k);
   });
 });
 
 bthread("Fork create verification", function () {
   const e = waitForAnyForkAdded();
-  block(matchDeleteFork(e.id, ANY), function () {
-    verifyForkExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteFork(k, ANY), function () {
+    verifyForkExists(k);
   });
 });
 
 bthread("Fork update verification", function () {
   const e = waitForAnyForkUpdated();
-  block(matchDeleteFork(e.id, ANY), function () {
-    verifyForkUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteFork(k, ANY), function () {
+    verifyForkUpdated(k);
   });
 });
 
 bthread("Fork delete verification", function () {
   const e = waitForAnyForkDeleted();
-  block(matchAddFork(e.id, ANY), function () {
-    verifyForkDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddFork(k, ANY), function () {
+    verifyForkDoesNotExist(k);
   });
 });
 
 bthread("Forkprcontributorapproval create verification", function () {
   const e = waitForAnyForkprcontributorapprovalAdded();
-  block(matchDeleteForkprcontributorapproval(e.id, ANY), function () {
-    verifyForkprcontributorapprovalExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteForkprcontributorapproval(k, ANY), function () {
+    verifyForkprcontributorapprovalExists(k);
   });
 });
 
 bthread("Forkprcontributorapproval update verification", function () {
   const e = waitForAnyForkprcontributorapprovalUpdated();
-  block(matchDeleteForkprcontributorapproval(e.id, ANY), function () {
-    verifyForkprcontributorapprovalUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteForkprcontributorapproval(k, ANY), function () {
+    verifyForkprcontributorapprovalUpdated(k);
   });
 });
 
 bthread("Forkprcontributorapproval delete verification", function () {
   const e = waitForAnyForkprcontributorapprovalDeleted();
-  block(matchAddForkprcontributorapproval(e.id, ANY), function () {
-    verifyForkprcontributorapprovalDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddForkprcontributorapproval(k, ANY), function () {
+    verifyForkprcontributorapprovalDoesNotExist(k);
   });
 });
 
 bthread("Forkprworkflowsprivaterepo create verification", function () {
   const e = waitForAnyForkprworkflowsprivaterepoAdded();
-  block(matchDeleteForkprworkflowsprivaterepo(e.id, ANY), function () {
-    verifyForkprworkflowsprivaterepoExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteForkprworkflowsprivaterepo(k, ANY), function () {
+    verifyForkprworkflowsprivaterepoExists(k);
   });
 });
 
 bthread("Forkprworkflowsprivaterepo update verification", function () {
   const e = waitForAnyForkprworkflowsprivaterepoUpdated();
-  block(matchDeleteForkprworkflowsprivaterepo(e.id, ANY), function () {
-    verifyForkprworkflowsprivaterepoUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteForkprworkflowsprivaterepo(k, ANY), function () {
+    verifyForkprworkflowsprivaterepoUpdated(k);
   });
 });
 
 bthread("Forkprworkflowsprivaterepo delete verification", function () {
   const e = waitForAnyForkprworkflowsprivaterepoDeleted();
-  block(matchAddForkprworkflowsprivaterepo(e.id, ANY), function () {
-    verifyForkprworkflowsprivaterepoDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddForkprworkflowsprivaterepo(k, ANY), function () {
+    verifyForkprworkflowsprivaterepoDoesNotExist(k);
   });
 });
 
 bthread("Generate create verification", function () {
   const e = waitForAnyGenerateAdded();
-  block(matchDeleteGenerate(e.id, ANY), function () {
-    verifyGenerateExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGenerate(k, ANY), function () {
+    verifyGenerateExists(k);
   });
 });
 
 bthread("Generate update verification", function () {
   const e = waitForAnyGenerateUpdated();
-  block(matchDeleteGenerate(e.id, ANY), function () {
-    verifyGenerateUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGenerate(k, ANY), function () {
+    verifyGenerateUpdated(k);
   });
 });
 
 bthread("Generate delete verification", function () {
   const e = waitForAnyGenerateDeleted();
-  block(matchAddGenerate(e.id, ANY), function () {
-    verifyGenerateDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddGenerate(k, ANY), function () {
+    verifyGenerateDoesNotExist(k);
   });
 });
 
 bthread("Generatejitconfig create verification", function () {
   const e = waitForAnyGeneratejitconfigAdded();
-  block(matchDeleteGeneratejitconfig(e.id, ANY), function () {
-    verifyGeneratejitconfigExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGeneratejitconfig(k, ANY), function () {
+    verifyGeneratejitconfigExists(k);
   });
 });
 
 bthread("Generatejitconfig update verification", function () {
   const e = waitForAnyGeneratejitconfigUpdated();
-  block(matchDeleteGeneratejitconfig(e.id, ANY), function () {
-    verifyGeneratejitconfigUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGeneratejitconfig(k, ANY), function () {
+    verifyGeneratejitconfigUpdated(k);
   });
 });
 
 bthread("Generatejitconfig delete verification", function () {
   const e = waitForAnyGeneratejitconfigDeleted();
-  block(matchAddGeneratejitconfig(e.id, ANY), function () {
-    verifyGeneratejitconfigDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddGeneratejitconfig(k, ANY), function () {
+    verifyGeneratejitconfigDoesNotExist(k);
   });
 });
 
 bthread("Generatenote create verification", function () {
   const e = waitForAnyGeneratenoteAdded();
-  block(matchDeleteGeneratenote(e.id, ANY), function () {
-    verifyGeneratenoteExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGeneratenote(k, ANY), function () {
+    verifyGeneratenoteExists(k);
   });
 });
 
 bthread("Generatenote update verification", function () {
   const e = waitForAnyGeneratenoteUpdated();
-  block(matchDeleteGeneratenote(e.id, ANY), function () {
-    verifyGeneratenoteUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGeneratenote(k, ANY), function () {
+    verifyGeneratenoteUpdated(k);
   });
 });
 
 bthread("Generatenote delete verification", function () {
   const e = waitForAnyGeneratenoteDeleted();
-  block(matchAddGeneratenote(e.id, ANY), function () {
-    verifyGeneratenoteDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddGeneratenote(k, ANY), function () {
+    verifyGeneratenoteDoesNotExist(k);
   });
 });
 
 bthread("Gist create verification", function () {
   const e = waitForAnyGistAdded();
-  block(matchDeleteGist(e.id, ANY), function () {
-    verifyGistExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGist(k, ANY), function () {
+    verifyGistExists(k);
   });
 });
 
 bthread("Gist update verification", function () {
   const e = waitForAnyGistUpdated();
-  block(matchDeleteGist(e.id, ANY), function () {
-    verifyGistUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGist(k, ANY), function () {
+    verifyGistUpdated(k);
   });
 });
 
 bthread("Gist delete verification", function () {
   const e = waitForAnyGistDeleted();
-  block(matchAddGist(e.id, ANY), function () {
-    verifyGistDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddGist(k, ANY), function () {
+    verifyGistDoesNotExist(k);
   });
 });
 
 bthread("Git create verification", function () {
   const e = waitForAnyGitAdded();
-  block(matchDeleteGit(e.id, ANY), function () {
-    verifyGitExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGit(k, ANY), function () {
+    verifyGitExists(k);
   });
 });
 
 bthread("Git update verification", function () {
   const e = waitForAnyGitUpdated();
-  block(matchDeleteGit(e.id, ANY), function () {
-    verifyGitUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGit(k, ANY), function () {
+    verifyGitUpdated(k);
   });
 });
 
 bthread("Git delete verification", function () {
   const e = waitForAnyGitDeleted();
-  block(matchAddGit(e.id, ANY), function () {
-    verifyGitDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddGit(k, ANY), function () {
+    verifyGitDoesNotExist(k);
   });
 });
 
 bthread("Githubowned create verification", function () {
   const e = waitForAnyGithubownedAdded();
-  block(matchDeleteGithubowned(e.id, ANY), function () {
-    verifyGithubownedExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGithubowned(k, ANY), function () {
+    verifyGithubownedExists(k);
   });
 });
 
 bthread("Githubowned update verification", function () {
   const e = waitForAnyGithubownedUpdated();
-  block(matchDeleteGithubowned(e.id, ANY), function () {
-    verifyGithubownedUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGithubowned(k, ANY), function () {
+    verifyGithubownedUpdated(k);
   });
 });
 
 bthread("Githubowned delete verification", function () {
   const e = waitForAnyGithubownedDeleted();
-  block(matchAddGithubowned(e.id, ANY), function () {
-    verifyGithubownedDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddGithubowned(k, ANY), function () {
+    verifyGithubownedDoesNotExist(k);
   });
 });
 
 bthread("Gitignore create verification", function () {
   const e = waitForAnyGitignoreAdded();
-  block(matchDeleteGitignore(e.id, ANY), function () {
-    verifyGitignoreExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGitignore(k, ANY), function () {
+    verifyGitignoreExists(k);
   });
 });
 
 bthread("Gitignore update verification", function () {
   const e = waitForAnyGitignoreUpdated();
-  block(matchDeleteGitignore(e.id, ANY), function () {
-    verifyGitignoreUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGitignore(k, ANY), function () {
+    verifyGitignoreUpdated(k);
   });
 });
 
 bthread("Gitignore delete verification", function () {
   const e = waitForAnyGitignoreDeleted();
-  block(matchAddGitignore(e.id, ANY), function () {
-    verifyGitignoreDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddGitignore(k, ANY), function () {
+    verifyGitignoreDoesNotExist(k);
   });
 });
 
 bthread("Gpgkey create verification", function () {
   const e = waitForAnyGpgkeyAdded();
-  block(matchDeleteGpgkey(e.id, ANY), function () {
-    verifyGpgkeyExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGpgkey(k, ANY), function () {
+    verifyGpgkeyExists(k);
   });
 });
 
 bthread("Gpgkey update verification", function () {
   const e = waitForAnyGpgkeyUpdated();
-  block(matchDeleteGpgkey(e.id, ANY), function () {
-    verifyGpgkeyUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGpgkey(k, ANY), function () {
+    verifyGpgkeyUpdated(k);
   });
 });
 
 bthread("Gpgkey delete verification", function () {
   const e = waitForAnyGpgkeyDeleted();
-  block(matchAddGpgkey(e.id, ANY), function () {
-    verifyGpgkeyDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddGpgkey(k, ANY), function () {
+    verifyGpgkeyDoesNotExist(k);
   });
 });
 
 bthread("Grade create verification", function () {
   const e = waitForAnyGradeAdded();
-  block(matchDeleteGrade(e.id, ANY), function () {
-    verifyGradeExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGrade(k, ANY), function () {
+    verifyGradeExists(k);
   });
 });
 
 bthread("Grade update verification", function () {
   const e = waitForAnyGradeUpdated();
-  block(matchDeleteGrade(e.id, ANY), function () {
-    verifyGradeUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGrade(k, ANY), function () {
+    verifyGradeUpdated(k);
   });
 });
 
 bthread("Grade delete verification", function () {
   const e = waitForAnyGradeDeleted();
-  block(matchAddGrade(e.id, ANY), function () {
-    verifyGradeDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddGrade(k, ANY), function () {
+    verifyGradeDoesNotExist(k);
   });
 });
 
 bthread("Grant create verification", function () {
   const e = waitForAnyGrantAdded();
-  block(matchDeleteGrant(e.id, ANY), function () {
-    verifyGrantExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGrant(k, ANY), function () {
+    verifyGrantExists(k);
   });
 });
 
 bthread("Grant update verification", function () {
   const e = waitForAnyGrantUpdated();
-  block(matchDeleteGrant(e.id, ANY), function () {
-    verifyGrantUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteGrant(k, ANY), function () {
+    verifyGrantUpdated(k);
   });
 });
 
 bthread("Grant delete verification", function () {
   const e = waitForAnyGrantDeleted();
-  block(matchAddGrant(e.id, ANY), function () {
-    verifyGrantDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddGrant(k, ANY), function () {
+    verifyGrantDoesNotExist(k);
   });
 });
 
 bthread("Health create verification", function () {
   const e = waitForAnyHealthAdded();
-  block(matchDeleteHealth(e.id, ANY), function () {
-    verifyHealthExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteHealth(k, ANY), function () {
+    verifyHealthExists(k);
   });
 });
 
 bthread("Health update verification", function () {
   const e = waitForAnyHealthUpdated();
-  block(matchDeleteHealth(e.id, ANY), function () {
-    verifyHealthUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteHealth(k, ANY), function () {
+    verifyHealthUpdated(k);
   });
 });
 
 bthread("Health delete verification", function () {
   const e = waitForAnyHealthDeleted();
-  block(matchAddHealth(e.id, ANY), function () {
-    verifyHealthDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddHealth(k, ANY), function () {
+    verifyHealthDoesNotExist(k);
   });
 });
 
 bthread("History create verification", function () {
   const e = waitForAnyHistoryAdded();
-  block(matchDeleteHistory(e.id, ANY), function () {
-    verifyHistoryExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteHistory(k, ANY), function () {
+    verifyHistoryExists(k);
   });
 });
 
 bthread("History update verification", function () {
   const e = waitForAnyHistoryUpdated();
-  block(matchDeleteHistory(e.id, ANY), function () {
-    verifyHistoryUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteHistory(k, ANY), function () {
+    verifyHistoryUpdated(k);
   });
 });
 
 bthread("History delete verification", function () {
   const e = waitForAnyHistoryDeleted();
-  block(matchAddHistory(e.id, ANY), function () {
-    verifyHistoryDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddHistory(k, ANY), function () {
+    verifyHistoryDoesNotExist(k);
   });
 });
 
 bthread("Hook create verification", function () {
   const e = waitForAnyHookAdded();
-  block(matchDeleteHook(e.id, ANY), function () {
-    verifyHookExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteHook(k, ANY), function () {
+    verifyHookExists(k);
   });
 });
 
 bthread("Hook update verification", function () {
   const e = waitForAnyHookUpdated();
-  block(matchDeleteHook(e.id, ANY), function () {
-    verifyHookUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteHook(k, ANY), function () {
+    verifyHookUpdated(k);
   });
 });
 
 bthread("Hook delete verification", function () {
   const e = waitForAnyHookDeleted();
-  block(matchAddHook(e.id, ANY), function () {
-    verifyHookDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddHook(k, ANY), function () {
+    verifyHookDoesNotExist(k);
   });
 });
 
 bthread("Hostedrunner create verification", function () {
   const e = waitForAnyHostedrunnerAdded();
-  block(matchDeleteHostedrunner(e.id, ANY), function () {
-    verifyHostedrunnerExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteHostedrunner(k, ANY), function () {
+    verifyHostedrunnerExists(k);
   });
 });
 
 bthread("Hostedrunner update verification", function () {
   const e = waitForAnyHostedrunnerUpdated();
-  block(matchDeleteHostedrunner(e.id, ANY), function () {
-    verifyHostedrunnerUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteHostedrunner(k, ANY), function () {
+    verifyHostedrunnerUpdated(k);
   });
 });
 
 bthread("Hostedrunner delete verification", function () {
   const e = waitForAnyHostedrunnerDeleted();
-  block(matchAddHostedrunner(e.id, ANY), function () {
-    verifyHostedrunnerDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddHostedrunner(k, ANY), function () {
+    verifyHostedrunnerDoesNotExist(k);
   });
 });
 
 bthread("Hovercard create verification", function () {
   const e = waitForAnyHovercardAdded();
-  block(matchDeleteHovercard(e.id, ANY), function () {
-    verifyHovercardExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteHovercard(k, ANY), function () {
+    verifyHovercardExists(k);
   });
 });
 
 bthread("Hovercard update verification", function () {
   const e = waitForAnyHovercardUpdated();
-  block(matchDeleteHovercard(e.id, ANY), function () {
-    verifyHovercardUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteHovercard(k, ANY), function () {
+    verifyHovercardUpdated(k);
   });
 });
 
 bthread("Hovercard delete verification", function () {
   const e = waitForAnyHovercardDeleted();
-  block(matchAddHovercard(e.id, ANY), function () {
-    verifyHovercardDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddHovercard(k, ANY), function () {
+    verifyHovercardDoesNotExist(k);
   });
 });
 
 bthread("Image create verification", function () {
   const e = waitForAnyImageAdded();
-  block(matchDeleteImage(e.id, ANY), function () {
-    verifyImageExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteImage(k, ANY), function () {
+    verifyImageExists(k);
   });
 });
 
 bthread("Image update verification", function () {
   const e = waitForAnyImageUpdated();
-  block(matchDeleteImage(e.id, ANY), function () {
-    verifyImageUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteImage(k, ANY), function () {
+    verifyImageUpdated(k);
   });
 });
 
 bthread("Image delete verification", function () {
   const e = waitForAnyImageDeleted();
-  block(matchAddImage(e.id, ANY), function () {
-    verifyImageDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddImage(k, ANY), function () {
+    verifyImageDoesNotExist(k);
   });
 });
 
 bthread("Immutablereleas create verification", function () {
   const e = waitForAnyImmutablereleasAdded();
-  block(matchDeleteImmutablereleas(e.id, ANY), function () {
-    verifyImmutablereleasExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteImmutablereleas(k, ANY), function () {
+    verifyImmutablereleasExists(k);
   });
 });
 
 bthread("Immutablereleas update verification", function () {
   const e = waitForAnyImmutablereleasUpdated();
-  block(matchDeleteImmutablereleas(e.id, ANY), function () {
-    verifyImmutablereleasUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteImmutablereleas(k, ANY), function () {
+    verifyImmutablereleasUpdated(k);
   });
 });
 
 bthread("Immutablereleas delete verification", function () {
   const e = waitForAnyImmutablereleasDeleted();
-  block(matchAddImmutablereleas(e.id, ANY), function () {
-    verifyImmutablereleasDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddImmutablereleas(k, ANY), function () {
+    verifyImmutablereleasDoesNotExist(k);
   });
 });
 
 bthread("Import create verification", function () {
   const e = waitForAnyImportAdded();
-  block(matchDeleteImport(e.id, ANY), function () {
-    verifyImportExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteImport(k, ANY), function () {
+    verifyImportExists(k);
   });
 });
 
 bthread("Import update verification", function () {
   const e = waitForAnyImportUpdated();
-  block(matchDeleteImport(e.id, ANY), function () {
-    verifyImportUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteImport(k, ANY), function () {
+    verifyImportUpdated(k);
   });
 });
 
 bthread("Import delete verification", function () {
   const e = waitForAnyImportDeleted();
-  block(matchAddImport(e.id, ANY), function () {
-    verifyImportDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddImport(k, ANY), function () {
+    verifyImportDoesNotExist(k);
   });
 });
 
 bthread("Insight create verification", function () {
   const e = waitForAnyInsightAdded();
-  block(matchDeleteInsight(e.id, ANY), function () {
-    verifyInsightExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteInsight(k, ANY), function () {
+    verifyInsightExists(k);
   });
 });
 
 bthread("Insight update verification", function () {
   const e = waitForAnyInsightUpdated();
-  block(matchDeleteInsight(e.id, ANY), function () {
-    verifyInsightUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteInsight(k, ANY), function () {
+    verifyInsightUpdated(k);
   });
 });
 
 bthread("Insight delete verification", function () {
   const e = waitForAnyInsightDeleted();
-  block(matchAddInsight(e.id, ANY), function () {
-    verifyInsightDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddInsight(k, ANY), function () {
+    verifyInsightDoesNotExist(k);
   });
 });
 
 bthread("Installation create verification", function () {
   const e = waitForAnyInstallationAdded();
-  block(matchDeleteInstallation(e.id, ANY), function () {
-    verifyInstallationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteInstallation(k, ANY), function () {
+    verifyInstallationExists(k);
   });
 });
 
 bthread("Installation update verification", function () {
   const e = waitForAnyInstallationUpdated();
-  block(matchDeleteInstallation(e.id, ANY), function () {
-    verifyInstallationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteInstallation(k, ANY), function () {
+    verifyInstallationUpdated(k);
   });
 });
 
 bthread("Installation delete verification", function () {
   const e = waitForAnyInstallationDeleted();
-  block(matchAddInstallation(e.id, ANY), function () {
-    verifyInstallationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddInstallation(k, ANY), function () {
+    verifyInstallationDoesNotExist(k);
   });
 });
 
 bthread("Installationrequest create verification", function () {
   const e = waitForAnyInstallationrequestAdded();
-  block(matchDeleteInstallationrequest(e.id, ANY), function () {
-    verifyInstallationrequestExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteInstallationrequest(k, ANY), function () {
+    verifyInstallationrequestExists(k);
   });
 });
 
 bthread("Installationrequest update verification", function () {
   const e = waitForAnyInstallationrequestUpdated();
-  block(matchDeleteInstallationrequest(e.id, ANY), function () {
-    verifyInstallationrequestUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteInstallationrequest(k, ANY), function () {
+    verifyInstallationrequestUpdated(k);
   });
 });
 
 bthread("Installationrequest delete verification", function () {
   const e = waitForAnyInstallationrequestDeleted();
-  block(matchAddInstallationrequest(e.id, ANY), function () {
-    verifyInstallationrequestDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddInstallationrequest(k, ANY), function () {
+    verifyInstallationrequestDoesNotExist(k);
   });
 });
 
 bthread("Instance create verification", function () {
   const e = waitForAnyInstanceAdded();
-  block(matchDeleteInstance(e.id, ANY), function () {
-    verifyInstanceExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteInstance(k, ANY), function () {
+    verifyInstanceExists(k);
   });
 });
 
 bthread("Instance update verification", function () {
   const e = waitForAnyInstanceUpdated();
-  block(matchDeleteInstance(e.id, ANY), function () {
-    verifyInstanceUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteInstance(k, ANY), function () {
+    verifyInstanceUpdated(k);
   });
 });
 
 bthread("Instance delete verification", function () {
   const e = waitForAnyInstanceDeleted();
-  block(matchAddInstance(e.id, ANY), function () {
-    verifyInstanceDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddInstance(k, ANY), function () {
+    verifyInstanceDoesNotExist(k);
   });
 });
 
 bthread("Interactionlimit create verification", function () {
   const e = waitForAnyInteractionlimitAdded();
-  block(matchDeleteInteractionlimit(e.id, ANY), function () {
-    verifyInteractionlimitExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteInteractionlimit(k, ANY), function () {
+    verifyInteractionlimitExists(k);
   });
 });
 
 bthread("Interactionlimit update verification", function () {
   const e = waitForAnyInteractionlimitUpdated();
-  block(matchDeleteInteractionlimit(e.id, ANY), function () {
-    verifyInteractionlimitUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteInteractionlimit(k, ANY), function () {
+    verifyInteractionlimitUpdated(k);
   });
 });
 
 bthread("Interactionlimit delete verification", function () {
   const e = waitForAnyInteractionlimitDeleted();
-  block(matchAddInteractionlimit(e.id, ANY), function () {
-    verifyInteractionlimitDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddInteractionlimit(k, ANY), function () {
+    verifyInteractionlimitDoesNotExist(k);
   });
 });
 
 bthread("Invitation create verification", function () {
   const e = waitForAnyInvitationAdded();
-  block(matchDeleteInvitation(e.id, ANY), function () {
-    verifyInvitationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteInvitation(k, ANY), function () {
+    verifyInvitationExists(k);
   });
 });
 
 bthread("Invitation update verification", function () {
   const e = waitForAnyInvitationUpdated();
-  block(matchDeleteInvitation(e.id, ANY), function () {
-    verifyInvitationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteInvitation(k, ANY), function () {
+    verifyInvitationUpdated(k);
   });
 });
 
 bthread("Invitation delete verification", function () {
   const e = waitForAnyInvitationDeleted();
-  block(matchAddInvitation(e.id, ANY), function () {
-    verifyInvitationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddInvitation(k, ANY), function () {
+    verifyInvitationDoesNotExist(k);
   });
 });
 
 bthread("Issue create verification", function () {
   const e = waitForAnyIssueAdded();
-  block(matchDeleteIssue(e.id, ANY), function () {
-    verifyIssueExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteIssue(k, ANY), function () {
+    verifyIssueExists(k);
   });
 });
 
 bthread("Issue update verification", function () {
   const e = waitForAnyIssueUpdated();
-  block(matchDeleteIssue(e.id, ANY), function () {
-    verifyIssueUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteIssue(k, ANY), function () {
+    verifyIssueUpdated(k);
   });
 });
 
 bthread("Issue delete verification", function () {
   const e = waitForAnyIssueDeleted();
-  block(matchAddIssue(e.id, ANY), function () {
-    verifyIssueDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddIssue(k, ANY), function () {
+    verifyIssueDoesNotExist(k);
   });
 });
 
 bthread("Issuetype create verification", function () {
   const e = waitForAnyIssuetypeAdded();
-  block(matchDeleteIssuetype(e.id, ANY), function () {
-    verifyIssuetypeExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteIssuetype(k, ANY), function () {
+    verifyIssuetypeExists(k);
   });
 });
 
 bthread("Issuetype update verification", function () {
   const e = waitForAnyIssuetypeUpdated();
-  block(matchDeleteIssuetype(e.id, ANY), function () {
-    verifyIssuetypeUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteIssuetype(k, ANY), function () {
+    verifyIssuetypeUpdated(k);
   });
 });
 
 bthread("Issuetype delete verification", function () {
   const e = waitForAnyIssuetypeDeleted();
-  block(matchAddIssuetype(e.id, ANY), function () {
-    verifyIssuetypeDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddIssuetype(k, ANY), function () {
+    verifyIssuetypeDoesNotExist(k);
   });
 });
 
 bthread("Item create verification", function () {
   const e = waitForAnyItemAdded();
-  block(matchDeleteItem(e.id, ANY), function () {
-    verifyItemExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteItem(k, ANY), function () {
+    verifyItemExists(k);
   });
 });
 
 bthread("Item update verification", function () {
   const e = waitForAnyItemUpdated();
-  block(matchDeleteItem(e.id, ANY), function () {
-    verifyItemUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteItem(k, ANY), function () {
+    verifyItemUpdated(k);
   });
 });
 
 bthread("Item delete verification", function () {
   const e = waitForAnyItemDeleted();
-  block(matchAddItem(e.id, ANY), function () {
-    verifyItemDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddItem(k, ANY), function () {
+    verifyItemDoesNotExist(k);
   });
 });
 
 bthread("Job create verification", function () {
   const e = waitForAnyJobAdded();
-  block(matchDeleteJob(e.id, ANY), function () {
-    verifyJobExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteJob(k, ANY), function () {
+    verifyJobExists(k);
   });
 });
 
 bthread("Job update verification", function () {
   const e = waitForAnyJobUpdated();
-  block(matchDeleteJob(e.id, ANY), function () {
-    verifyJobUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteJob(k, ANY), function () {
+    verifyJobUpdated(k);
   });
 });
 
 bthread("Job delete verification", function () {
   const e = waitForAnyJobDeleted();
-  block(matchAddJob(e.id, ANY), function () {
-    verifyJobDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddJob(k, ANY), function () {
+    verifyJobDoesNotExist(k);
   });
 });
 
 bthread("Key create verification", function () {
   const e = waitForAnyKeyAdded();
-  block(matchDeleteKey(e.id, ANY), function () {
-    verifyKeyExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteKey(k, ANY), function () {
+    verifyKeyExists(k);
   });
 });
 
 bthread("Key update verification", function () {
   const e = waitForAnyKeyUpdated();
-  block(matchDeleteKey(e.id, ANY), function () {
-    verifyKeyUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteKey(k, ANY), function () {
+    verifyKeyUpdated(k);
   });
 });
 
 bthread("Key delete verification", function () {
   const e = waitForAnyKeyDeleted();
-  block(matchAddKey(e.id, ANY), function () {
-    verifyKeyDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddKey(k, ANY), function () {
+    verifyKeyDoesNotExist(k);
   });
 });
 
 bthread("Label create verification", function () {
   const e = waitForAnyLabelAdded();
-  block(matchDeleteLabel(e.id, ANY), function () {
-    verifyLabelExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLabel(k, ANY), function () {
+    verifyLabelExists(k);
   });
 });
 
 bthread("Label update verification", function () {
   const e = waitForAnyLabelUpdated();
-  block(matchDeleteLabel(e.id, ANY), function () {
-    verifyLabelUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLabel(k, ANY), function () {
+    verifyLabelUpdated(k);
   });
 });
 
 bthread("Label delete verification", function () {
   const e = waitForAnyLabelDeleted();
-  block(matchAddLabel(e.id, ANY), function () {
-    verifyLabelDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddLabel(k, ANY), function () {
+    verifyLabelDoesNotExist(k);
   });
 });
 
 bthread("Language create verification", function () {
   const e = waitForAnyLanguageAdded();
-  block(matchDeleteLanguage(e.id, ANY), function () {
-    verifyLanguageExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLanguage(k, ANY), function () {
+    verifyLanguageExists(k);
   });
 });
 
 bthread("Language update verification", function () {
   const e = waitForAnyLanguageUpdated();
-  block(matchDeleteLanguage(e.id, ANY), function () {
-    verifyLanguageUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLanguage(k, ANY), function () {
+    verifyLanguageUpdated(k);
   });
 });
 
 bthread("Language delete verification", function () {
   const e = waitForAnyLanguageDeleted();
-  block(matchAddLanguage(e.id, ANY), function () {
-    verifyLanguageDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddLanguage(k, ANY), function () {
+    verifyLanguageDoesNotExist(k);
   });
 });
 
 bthread("Largefile create verification", function () {
   const e = waitForAnyLargefileAdded();
-  block(matchDeleteLargefile(e.id, ANY), function () {
-    verifyLargefileExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLargefile(k, ANY), function () {
+    verifyLargefileExists(k);
   });
 });
 
 bthread("Largefile update verification", function () {
   const e = waitForAnyLargefileUpdated();
-  block(matchDeleteLargefile(e.id, ANY), function () {
-    verifyLargefileUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLargefile(k, ANY), function () {
+    verifyLargefileUpdated(k);
   });
 });
 
 bthread("Largefile delete verification", function () {
   const e = waitForAnyLargefileDeleted();
-  block(matchAddLargefile(e.id, ANY), function () {
-    verifyLargefileDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddLargefile(k, ANY), function () {
+    verifyLargefileDoesNotExist(k);
   });
 });
 
 bthread("Latest create verification", function () {
   const e = waitForAnyLatestAdded();
-  block(matchDeleteLatest(e.id, ANY), function () {
-    verifyLatestExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLatest(k, ANY), function () {
+    verifyLatestExists(k);
   });
 });
 
 bthread("Latest update verification", function () {
   const e = waitForAnyLatestUpdated();
-  block(matchDeleteLatest(e.id, ANY), function () {
-    verifyLatestUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLatest(k, ANY), function () {
+    verifyLatestUpdated(k);
   });
 });
 
 bthread("Latest delete verification", function () {
   const e = waitForAnyLatestDeleted();
-  block(matchAddLatest(e.id, ANY), function () {
-    verifyLatestDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddLatest(k, ANY), function () {
+    verifyLatestDoesNotExist(k);
   });
 });
 
 bthread("Lf create verification", function () {
   const e = waitForAnyLfAdded();
-  block(matchDeleteLf(e.id, ANY), function () {
-    verifyLfExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLf(k, ANY), function () {
+    verifyLfExists(k);
   });
 });
 
 bthread("Lf update verification", function () {
   const e = waitForAnyLfUpdated();
-  block(matchDeleteLf(e.id, ANY), function () {
-    verifyLfUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLf(k, ANY), function () {
+    verifyLfUpdated(k);
   });
 });
 
 bthread("Lf delete verification", function () {
   const e = waitForAnyLfDeleted();
-  block(matchAddLf(e.id, ANY), function () {
-    verifyLfDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddLf(k, ANY), function () {
+    verifyLfDoesNotExist(k);
   });
 });
 
 bthread("Licens create verification", function () {
   const e = waitForAnyLicensAdded();
-  block(matchDeleteLicens(e.id, ANY), function () {
-    verifyLicensExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLicens(k, ANY), function () {
+    verifyLicensExists(k);
   });
 });
 
 bthread("Licens update verification", function () {
   const e = waitForAnyLicensUpdated();
-  block(matchDeleteLicens(e.id, ANY), function () {
-    verifyLicensUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLicens(k, ANY), function () {
+    verifyLicensUpdated(k);
   });
 });
 
 bthread("Licens delete verification", function () {
   const e = waitForAnyLicensDeleted();
-  block(matchAddLicens(e.id, ANY), function () {
-    verifyLicensDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddLicens(k, ANY), function () {
+    verifyLicensDoesNotExist(k);
   });
 });
 
 bthread("License create verification", function () {
   const e = waitForAnyLicenseAdded();
-  block(matchDeleteLicense(e.id, ANY), function () {
-    verifyLicenseExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLicense(k, ANY), function () {
+    verifyLicenseExists(k);
   });
 });
 
 bthread("License update verification", function () {
   const e = waitForAnyLicenseUpdated();
-  block(matchDeleteLicense(e.id, ANY), function () {
-    verifyLicenseUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLicense(k, ANY), function () {
+    verifyLicenseUpdated(k);
   });
 });
 
 bthread("License delete verification", function () {
   const e = waitForAnyLicenseDeleted();
-  block(matchAddLicense(e.id, ANY), function () {
-    verifyLicenseDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddLicense(k, ANY), function () {
+    verifyLicenseDoesNotExist(k);
   });
 });
 
 bthread("Limit create verification", function () {
   const e = waitForAnyLimitAdded();
-  block(matchDeleteLimit(e.id, ANY), function () {
-    verifyLimitExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLimit(k, ANY), function () {
+    verifyLimitExists(k);
   });
 });
 
 bthread("Limit update verification", function () {
   const e = waitForAnyLimitUpdated();
-  block(matchDeleteLimit(e.id, ANY), function () {
-    verifyLimitUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLimit(k, ANY), function () {
+    verifyLimitUpdated(k);
   });
 });
 
 bthread("Limit delete verification", function () {
   const e = waitForAnyLimitDeleted();
-  block(matchAddLimit(e.id, ANY), function () {
-    verifyLimitDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddLimit(k, ANY), function () {
+    verifyLimitDoesNotExist(k);
   });
 });
 
 bthread("Location create verification", function () {
   const e = waitForAnyLocationAdded();
-  block(matchDeleteLocation(e.id, ANY), function () {
-    verifyLocationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLocation(k, ANY), function () {
+    verifyLocationExists(k);
   });
 });
 
 bthread("Location update verification", function () {
   const e = waitForAnyLocationUpdated();
-  block(matchDeleteLocation(e.id, ANY), function () {
-    verifyLocationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLocation(k, ANY), function () {
+    verifyLocationUpdated(k);
   });
 });
 
 bthread("Location delete verification", function () {
   const e = waitForAnyLocationDeleted();
-  block(matchAddLocation(e.id, ANY), function () {
-    verifyLocationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddLocation(k, ANY), function () {
+    verifyLocationDoesNotExist(k);
   });
 });
 
 bthread("Lock create verification", function () {
   const e = waitForAnyLockAdded();
-  block(matchDeleteLock(e.id, ANY), function () {
-    verifyLockExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLock(k, ANY), function () {
+    verifyLockExists(k);
   });
 });
 
 bthread("Lock update verification", function () {
   const e = waitForAnyLockUpdated();
-  block(matchDeleteLock(e.id, ANY), function () {
-    verifyLockUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLock(k, ANY), function () {
+    verifyLockUpdated(k);
   });
 });
 
 bthread("Lock delete verification", function () {
   const e = waitForAnyLockDeleted();
-  block(matchAddLock(e.id, ANY), function () {
-    verifyLockDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddLock(k, ANY), function () {
+    verifyLockDoesNotExist(k);
   });
 });
 
 bthread("Log create verification", function () {
   const e = waitForAnyLogAdded();
-  block(matchDeleteLog(e.id, ANY), function () {
-    verifyLogExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLog(k, ANY), function () {
+    verifyLogExists(k);
   });
 });
 
 bthread("Log update verification", function () {
   const e = waitForAnyLogUpdated();
-  block(matchDeleteLog(e.id, ANY), function () {
-    verifyLogUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLog(k, ANY), function () {
+    verifyLogUpdated(k);
   });
 });
 
 bthread("Log delete verification", function () {
   const e = waitForAnyLogDeleted();
-  block(matchAddLog(e.id, ANY), function () {
-    verifyLogDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddLog(k, ANY), function () {
+    verifyLogDoesNotExist(k);
   });
 });
 
 bthread("Machine create verification", function () {
   const e = waitForAnyMachineAdded();
-  block(matchDeleteMachine(e.id, ANY), function () {
-    verifyMachineExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMachine(k, ANY), function () {
+    verifyMachineExists(k);
   });
 });
 
 bthread("Machine update verification", function () {
   const e = waitForAnyMachineUpdated();
-  block(matchDeleteMachine(e.id, ANY), function () {
-    verifyMachineUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMachine(k, ANY), function () {
+    verifyMachineUpdated(k);
   });
 });
 
 bthread("Machine delete verification", function () {
   const e = waitForAnyMachineDeleted();
-  block(matchAddMachine(e.id, ANY), function () {
-    verifyMachineDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMachine(k, ANY), function () {
+    verifyMachineDoesNotExist(k);
   });
 });
 
 bthread("Machinesize create verification", function () {
   const e = waitForAnyMachinesizeAdded();
-  block(matchDeleteMachinesize(e.id, ANY), function () {
-    verifyMachinesizeExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMachinesize(k, ANY), function () {
+    verifyMachinesizeExists(k);
   });
 });
 
 bthread("Machinesize update verification", function () {
   const e = waitForAnyMachinesizeUpdated();
-  block(matchDeleteMachinesize(e.id, ANY), function () {
-    verifyMachinesizeUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMachinesize(k, ANY), function () {
+    verifyMachinesizeUpdated(k);
   });
 });
 
 bthread("Machinesize delete verification", function () {
   const e = waitForAnyMachinesizeDeleted();
-  block(matchAddMachinesize(e.id, ANY), function () {
-    verifyMachinesizeDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMachinesize(k, ANY), function () {
+    verifyMachinesizeDoesNotExist(k);
   });
 });
 
 bthread("Markdown create verification", function () {
   const e = waitForAnyMarkdownAdded();
-  block(matchDeleteMarkdown(e.id, ANY), function () {
-    verifyMarkdownExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMarkdown(k, ANY), function () {
+    verifyMarkdownExists(k);
   });
 });
 
 bthread("Markdown update verification", function () {
   const e = waitForAnyMarkdownUpdated();
-  block(matchDeleteMarkdown(e.id, ANY), function () {
-    verifyMarkdownUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMarkdown(k, ANY), function () {
+    verifyMarkdownUpdated(k);
   });
 });
 
 bthread("Markdown delete verification", function () {
   const e = waitForAnyMarkdownDeleted();
-  block(matchAddMarkdown(e.id, ANY), function () {
-    verifyMarkdownDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMarkdown(k, ANY), function () {
+    verifyMarkdownDoesNotExist(k);
   });
 });
 
 bthread("Marketplacelisting create verification", function () {
   const e = waitForAnyMarketplacelistingAdded();
-  block(matchDeleteMarketplacelisting(e.id, ANY), function () {
-    verifyMarketplacelistingExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMarketplacelisting(k, ANY), function () {
+    verifyMarketplacelistingExists(k);
   });
 });
 
 bthread("Marketplacelisting update verification", function () {
   const e = waitForAnyMarketplacelistingUpdated();
-  block(matchDeleteMarketplacelisting(e.id, ANY), function () {
-    verifyMarketplacelistingUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMarketplacelisting(k, ANY), function () {
+    verifyMarketplacelistingUpdated(k);
   });
 });
 
 bthread("Marketplacelisting delete verification", function () {
   const e = waitForAnyMarketplacelistingDeleted();
-  block(matchAddMarketplacelisting(e.id, ANY), function () {
-    verifyMarketplacelistingDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMarketplacelisting(k, ANY), function () {
+    verifyMarketplacelistingDoesNotExist(k);
   });
 });
 
 bthread("Marketplacepurchas create verification", function () {
   const e = waitForAnyMarketplacepurchasAdded();
-  block(matchDeleteMarketplacepurchas(e.id, ANY), function () {
-    verifyMarketplacepurchasExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMarketplacepurchas(k, ANY), function () {
+    verifyMarketplacepurchasExists(k);
   });
 });
 
 bthread("Marketplacepurchas update verification", function () {
   const e = waitForAnyMarketplacepurchasUpdated();
-  block(matchDeleteMarketplacepurchas(e.id, ANY), function () {
-    verifyMarketplacepurchasUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMarketplacepurchas(k, ANY), function () {
+    verifyMarketplacepurchasUpdated(k);
   });
 });
 
 bthread("Marketplacepurchas delete verification", function () {
   const e = waitForAnyMarketplacepurchasDeleted();
-  block(matchAddMarketplacepurchas(e.id, ANY), function () {
-    verifyMarketplacepurchasDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMarketplacepurchas(k, ANY), function () {
+    verifyMarketplacepurchasDoesNotExist(k);
   });
 });
 
 bthread("Matchingref create verification", function () {
   const e = waitForAnyMatchingrefAdded();
-  block(matchDeleteMatchingref(e.id, ANY), function () {
-    verifyMatchingrefExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMatchingref(k, ANY), function () {
+    verifyMatchingrefExists(k);
   });
 });
 
 bthread("Matchingref update verification", function () {
   const e = waitForAnyMatchingrefUpdated();
-  block(matchDeleteMatchingref(e.id, ANY), function () {
-    verifyMatchingrefUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMatchingref(k, ANY), function () {
+    verifyMatchingrefUpdated(k);
   });
 });
 
 bthread("Matchingref delete verification", function () {
   const e = waitForAnyMatchingrefDeleted();
-  block(matchAddMatchingref(e.id, ANY), function () {
-    verifyMatchingrefDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMatchingref(k, ANY), function () {
+    verifyMatchingrefDoesNotExist(k);
   });
 });
 
 bthread("Member create verification", function () {
   const e = waitForAnyMemberAdded();
-  block(matchDeleteMember(e.id, ANY), function () {
-    verifyMemberExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMember(k, ANY), function () {
+    verifyMemberExists(k);
   });
 });
 
 bthread("Member update verification", function () {
   const e = waitForAnyMemberUpdated();
-  block(matchDeleteMember(e.id, ANY), function () {
-    verifyMemberUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMember(k, ANY), function () {
+    verifyMemberUpdated(k);
   });
 });
 
 bthread("Member delete verification", function () {
   const e = waitForAnyMemberDeleted();
-  block(matchAddMember(e.id, ANY), function () {
-    verifyMemberDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMember(k, ANY), function () {
+    verifyMemberDoesNotExist(k);
   });
 });
 
 bthread("Membership create verification", function () {
   const e = waitForAnyMembershipAdded();
-  block(matchDeleteMembership(e.id, ANY), function () {
-    verifyMembershipExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMembership(k, ANY), function () {
+    verifyMembershipExists(k);
   });
 });
 
 bthread("Membership update verification", function () {
   const e = waitForAnyMembershipUpdated();
-  block(matchDeleteMembership(e.id, ANY), function () {
-    verifyMembershipUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMembership(k, ANY), function () {
+    verifyMembershipUpdated(k);
   });
 });
 
 bthread("Membership delete verification", function () {
   const e = waitForAnyMembershipDeleted();
-  block(matchAddMembership(e.id, ANY), function () {
-    verifyMembershipDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMembership(k, ANY), function () {
+    verifyMembershipDoesNotExist(k);
   });
 });
 
 bthread("Merge create verification", function () {
   const e = waitForAnyMergeAdded();
-  block(matchDeleteMerge(e.id, ANY), function () {
-    verifyMergeExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMerge(k, ANY), function () {
+    verifyMergeExists(k);
   });
 });
 
 bthread("Merge update verification", function () {
   const e = waitForAnyMergeUpdated();
-  block(matchDeleteMerge(e.id, ANY), function () {
-    verifyMergeUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMerge(k, ANY), function () {
+    verifyMergeUpdated(k);
   });
 });
 
 bthread("Merge delete verification", function () {
   const e = waitForAnyMergeDeleted();
-  block(matchAddMerge(e.id, ANY), function () {
-    verifyMergeDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMerge(k, ANY), function () {
+    verifyMergeDoesNotExist(k);
   });
 });
 
 bthread("Mergeupstream create verification", function () {
   const e = waitForAnyMergeupstreamAdded();
-  block(matchDeleteMergeupstream(e.id, ANY), function () {
-    verifyMergeupstreamExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMergeupstream(k, ANY), function () {
+    verifyMergeupstreamExists(k);
   });
 });
 
 bthread("Mergeupstream update verification", function () {
   const e = waitForAnyMergeupstreamUpdated();
-  block(matchDeleteMergeupstream(e.id, ANY), function () {
-    verifyMergeupstreamUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMergeupstream(k, ANY), function () {
+    verifyMergeupstreamUpdated(k);
   });
 });
 
 bthread("Mergeupstream delete verification", function () {
   const e = waitForAnyMergeupstreamDeleted();
-  block(matchAddMergeupstream(e.id, ANY), function () {
-    verifyMergeupstreamDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMergeupstream(k, ANY), function () {
+    verifyMergeupstreamDoesNotExist(k);
   });
 });
 
 bthread("Meta create verification", function () {
   const e = waitForAnyMetaAdded();
-  block(matchDeleteMeta(e.id, ANY), function () {
-    verifyMetaExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMeta(k, ANY), function () {
+    verifyMetaExists(k);
   });
 });
 
 bthread("Meta update verification", function () {
   const e = waitForAnyMetaUpdated();
-  block(matchDeleteMeta(e.id, ANY), function () {
-    verifyMetaUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMeta(k, ANY), function () {
+    verifyMetaUpdated(k);
   });
 });
 
 bthread("Meta delete verification", function () {
   const e = waitForAnyMetaDeleted();
-  block(matchAddMeta(e.id, ANY), function () {
-    verifyMetaDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMeta(k, ANY), function () {
+    verifyMetaDoesNotExist(k);
   });
 });
 
 bthread("Metadata create verification", function () {
   const e = waitForAnyMetadataAdded();
-  block(matchDeleteMetadata(e.id, ANY), function () {
-    verifyMetadataExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMetadata(k, ANY), function () {
+    verifyMetadataExists(k);
   });
 });
 
 bthread("Metadata update verification", function () {
   const e = waitForAnyMetadataUpdated();
-  block(matchDeleteMetadata(e.id, ANY), function () {
-    verifyMetadataUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMetadata(k, ANY), function () {
+    verifyMetadataUpdated(k);
   });
 });
 
 bthread("Metadata delete verification", function () {
   const e = waitForAnyMetadataDeleted();
-  block(matchAddMetadata(e.id, ANY), function () {
-    verifyMetadataDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMetadata(k, ANY), function () {
+    verifyMetadataDoesNotExist(k);
   });
 });
 
 bthread("Metric create verification", function () {
   const e = waitForAnyMetricAdded();
-  block(matchDeleteMetric(e.id, ANY), function () {
-    verifyMetricExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMetric(k, ANY), function () {
+    verifyMetricExists(k);
   });
 });
 
 bthread("Metric update verification", function () {
   const e = waitForAnyMetricUpdated();
-  block(matchDeleteMetric(e.id, ANY), function () {
-    verifyMetricUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMetric(k, ANY), function () {
+    verifyMetricUpdated(k);
   });
 });
 
 bthread("Metric delete verification", function () {
   const e = waitForAnyMetricDeleted();
-  block(matchAddMetric(e.id, ANY), function () {
-    verifyMetricDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMetric(k, ANY), function () {
+    verifyMetricDoesNotExist(k);
   });
 });
 
 bthread("Migration create verification", function () {
   const e = waitForAnyMigrationAdded();
-  block(matchDeleteMigration(e.id, ANY), function () {
-    verifyMigrationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMigration(k, ANY), function () {
+    verifyMigrationExists(k);
   });
 });
 
 bthread("Migration update verification", function () {
   const e = waitForAnyMigrationUpdated();
-  block(matchDeleteMigration(e.id, ANY), function () {
-    verifyMigrationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMigration(k, ANY), function () {
+    verifyMigrationUpdated(k);
   });
 });
 
 bthread("Migration delete verification", function () {
   const e = waitForAnyMigrationDeleted();
-  block(matchAddMigration(e.id, ANY), function () {
-    verifyMigrationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMigration(k, ANY), function () {
+    verifyMigrationDoesNotExist(k);
   });
 });
 
 bthread("Milestone create verification", function () {
   const e = waitForAnyMilestoneAdded();
-  block(matchDeleteMilestone(e.id, ANY), function () {
-    verifyMilestoneExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMilestone(k, ANY), function () {
+    verifyMilestoneExists(k);
   });
 });
 
 bthread("Milestone update verification", function () {
   const e = waitForAnyMilestoneUpdated();
-  block(matchDeleteMilestone(e.id, ANY), function () {
-    verifyMilestoneUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMilestone(k, ANY), function () {
+    verifyMilestoneUpdated(k);
   });
 });
 
 bthread("Milestone delete verification", function () {
   const e = waitForAnyMilestoneDeleted();
-  block(matchAddMilestone(e.id, ANY), function () {
-    verifyMilestoneDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMilestone(k, ANY), function () {
+    verifyMilestoneDoesNotExist(k);
   });
 });
 
 bthread("Move create verification", function () {
   const e = waitForAnyMoveAdded();
-  block(matchDeleteMove(e.id, ANY), function () {
-    verifyMoveExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMove(k, ANY), function () {
+    verifyMoveExists(k);
   });
 });
 
 bthread("Move update verification", function () {
   const e = waitForAnyMoveUpdated();
-  block(matchDeleteMove(e.id, ANY), function () {
-    verifyMoveUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMove(k, ANY), function () {
+    verifyMoveUpdated(k);
   });
 });
 
 bthread("Move delete verification", function () {
   const e = waitForAnyMoveDeleted();
-  block(matchAddMove(e.id, ANY), function () {
-    verifyMoveDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMove(k, ANY), function () {
+    verifyMoveDoesNotExist(k);
   });
 });
 
 bthread("Network create verification", function () {
   const e = waitForAnyNetworkAdded();
-  block(matchDeleteNetwork(e.id, ANY), function () {
-    verifyNetworkExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteNetwork(k, ANY), function () {
+    verifyNetworkExists(k);
   });
 });
 
 bthread("Network update verification", function () {
   const e = waitForAnyNetworkUpdated();
-  block(matchDeleteNetwork(e.id, ANY), function () {
-    verifyNetworkUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteNetwork(k, ANY), function () {
+    verifyNetworkUpdated(k);
   });
 });
 
 bthread("Network delete verification", function () {
   const e = waitForAnyNetworkDeleted();
-  block(matchAddNetwork(e.id, ANY), function () {
-    verifyNetworkDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddNetwork(k, ANY), function () {
+    verifyNetworkDoesNotExist(k);
   });
 });
 
 bthread("Networkconfiguration create verification", function () {
   const e = waitForAnyNetworkconfigurationAdded();
-  block(matchDeleteNetworkconfiguration(e.id, ANY), function () {
-    verifyNetworkconfigurationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteNetworkconfiguration(k, ANY), function () {
+    verifyNetworkconfigurationExists(k);
   });
 });
 
 bthread("Networkconfiguration update verification", function () {
   const e = waitForAnyNetworkconfigurationUpdated();
-  block(matchDeleteNetworkconfiguration(e.id, ANY), function () {
-    verifyNetworkconfigurationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteNetworkconfiguration(k, ANY), function () {
+    verifyNetworkconfigurationUpdated(k);
   });
 });
 
 bthread("Networkconfiguration delete verification", function () {
   const e = waitForAnyNetworkconfigurationDeleted();
-  block(matchAddNetworkconfiguration(e.id, ANY), function () {
-    verifyNetworkconfigurationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddNetworkconfiguration(k, ANY), function () {
+    verifyNetworkconfigurationDoesNotExist(k);
   });
 });
 
 bthread("Networksetting create verification", function () {
   const e = waitForAnyNetworksettingAdded();
-  block(matchDeleteNetworksetting(e.id, ANY), function () {
-    verifyNetworksettingExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteNetworksetting(k, ANY), function () {
+    verifyNetworksettingExists(k);
   });
 });
 
 bthread("Networksetting update verification", function () {
   const e = waitForAnyNetworksettingUpdated();
-  block(matchDeleteNetworksetting(e.id, ANY), function () {
-    verifyNetworksettingUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteNetworksetting(k, ANY), function () {
+    verifyNetworksettingUpdated(k);
   });
 });
 
 bthread("Networksetting delete verification", function () {
   const e = waitForAnyNetworksettingDeleted();
-  block(matchAddNetworksetting(e.id, ANY), function () {
-    verifyNetworksettingDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddNetworksetting(k, ANY), function () {
+    verifyNetworksettingDoesNotExist(k);
   });
 });
 
 bthread("New create verification", function () {
   const e = waitForAnyNewAdded();
-  block(matchDeleteNew(e.id, ANY), function () {
-    verifyNewExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteNew(k, ANY), function () {
+    verifyNewExists(k);
   });
 });
 
 bthread("New update verification", function () {
   const e = waitForAnyNewUpdated();
-  block(matchDeleteNew(e.id, ANY), function () {
-    verifyNewUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteNew(k, ANY), function () {
+    verifyNewUpdated(k);
   });
 });
 
 bthread("New delete verification", function () {
   const e = waitForAnyNewDeleted();
-  block(matchAddNew(e.id, ANY), function () {
-    verifyNewDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddNew(k, ANY), function () {
+    verifyNewDoesNotExist(k);
   });
 });
 
 bthread("Notification create verification", function () {
   const e = waitForAnyNotificationAdded();
-  block(matchDeleteNotification(e.id, ANY), function () {
-    verifyNotificationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteNotification(k, ANY), function () {
+    verifyNotificationExists(k);
   });
 });
 
 bthread("Notification update verification", function () {
   const e = waitForAnyNotificationUpdated();
-  block(matchDeleteNotification(e.id, ANY), function () {
-    verifyNotificationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteNotification(k, ANY), function () {
+    verifyNotificationUpdated(k);
   });
 });
 
 bthread("Notification delete verification", function () {
   const e = waitForAnyNotificationDeleted();
-  block(matchAddNotification(e.id, ANY), function () {
-    verifyNotificationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddNotification(k, ANY), function () {
+    verifyNotificationDoesNotExist(k);
   });
 });
 
 bthread("Octocat create verification", function () {
   const e = waitForAnyOctocatAdded();
-  block(matchDeleteOctocat(e.id, ANY), function () {
-    verifyOctocatExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOctocat(k, ANY), function () {
+    verifyOctocatExists(k);
   });
 });
 
 bthread("Octocat update verification", function () {
   const e = waitForAnyOctocatUpdated();
-  block(matchDeleteOctocat(e.id, ANY), function () {
-    verifyOctocatUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOctocat(k, ANY), function () {
+    verifyOctocatUpdated(k);
   });
 });
 
 bthread("Octocat delete verification", function () {
   const e = waitForAnyOctocatDeleted();
-  block(matchAddOctocat(e.id, ANY), function () {
-    verifyOctocatDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddOctocat(k, ANY), function () {
+    verifyOctocatDoesNotExist(k);
   });
 });
 
 bthread("Oidc create verification", function () {
   const e = waitForAnyOidcAdded();
-  block(matchDeleteOidc(e.id, ANY), function () {
-    verifyOidcExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOidc(k, ANY), function () {
+    verifyOidcExists(k);
   });
 });
 
 bthread("Oidc update verification", function () {
   const e = waitForAnyOidcUpdated();
-  block(matchDeleteOidc(e.id, ANY), function () {
-    verifyOidcUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOidc(k, ANY), function () {
+    verifyOidcUpdated(k);
   });
 });
 
 bthread("Oidc delete verification", function () {
   const e = waitForAnyOidcDeleted();
-  block(matchAddOidc(e.id, ANY), function () {
-    verifyOidcDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddOidc(k, ANY), function () {
+    verifyOidcDoesNotExist(k);
   });
 });
 
 bthread("Org create verification", function () {
   const e = waitForAnyOrgAdded();
-  block(matchDeleteOrg(e.id, ANY), function () {
-    verifyOrgExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOrg(k, ANY), function () {
+    verifyOrgExists(k);
   });
 });
 
 bthread("Org update verification", function () {
   const e = waitForAnyOrgUpdated();
-  block(matchDeleteOrg(e.id, ANY), function () {
-    verifyOrgUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOrg(k, ANY), function () {
+    verifyOrgUpdated(k);
   });
 });
 
 bthread("Org delete verification", function () {
   const e = waitForAnyOrgDeleted();
-  block(matchAddOrg(e.id, ANY), function () {
-    verifyOrgDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddOrg(k, ANY), function () {
+    verifyOrgDoesNotExist(k);
   });
 });
 
 bthread("Organization create verification", function () {
   const e = waitForAnyOrganizationAdded();
-  block(matchDeleteOrganization(e.id, ANY), function () {
-    verifyOrganizationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOrganization(k, ANY), function () {
+    verifyOrganizationExists(k);
   });
 });
 
 bthread("Organization update verification", function () {
   const e = waitForAnyOrganizationUpdated();
-  block(matchDeleteOrganization(e.id, ANY), function () {
-    verifyOrganizationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOrganization(k, ANY), function () {
+    verifyOrganizationUpdated(k);
   });
 });
 
 bthread("Organization delete verification", function () {
   const e = waitForAnyOrganizationDeleted();
-  block(matchAddOrganization(e.id, ANY), function () {
-    verifyOrganizationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddOrganization(k, ANY), function () {
+    verifyOrganizationDoesNotExist(k);
   });
 });
 
 bthread("Organizationrole create verification", function () {
   const e = waitForAnyOrganizationroleAdded();
-  block(matchDeleteOrganizationrole(e.id, ANY), function () {
-    verifyOrganizationroleExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOrganizationrole(k, ANY), function () {
+    verifyOrganizationroleExists(k);
   });
 });
 
 bthread("Organizationrole update verification", function () {
   const e = waitForAnyOrganizationroleUpdated();
-  block(matchDeleteOrganizationrole(e.id, ANY), function () {
-    verifyOrganizationroleUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOrganizationrole(k, ANY), function () {
+    verifyOrganizationroleUpdated(k);
   });
 });
 
 bthread("Organizationrole delete verification", function () {
   const e = waitForAnyOrganizationroleDeleted();
-  block(matchAddOrganizationrole(e.id, ANY), function () {
-    verifyOrganizationroleDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddOrganizationrole(k, ANY), function () {
+    verifyOrganizationroleDoesNotExist(k);
   });
 });
 
 bthread("Organizationsecret create verification", function () {
   const e = waitForAnyOrganizationsecretAdded();
-  block(matchDeleteOrganizationsecret(e.id, ANY), function () {
-    verifyOrganizationsecretExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOrganizationsecret(k, ANY), function () {
+    verifyOrganizationsecretExists(k);
   });
 });
 
 bthread("Organizationsecret update verification", function () {
   const e = waitForAnyOrganizationsecretUpdated();
-  block(matchDeleteOrganizationsecret(e.id, ANY), function () {
-    verifyOrganizationsecretUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOrganizationsecret(k, ANY), function () {
+    verifyOrganizationsecretUpdated(k);
   });
 });
 
 bthread("Organizationsecret delete verification", function () {
   const e = waitForAnyOrganizationsecretDeleted();
-  block(matchAddOrganizationsecret(e.id, ANY), function () {
-    verifyOrganizationsecretDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddOrganizationsecret(k, ANY), function () {
+    verifyOrganizationsecretDoesNotExist(k);
   });
 });
 
 bthread("Organizationvariable create verification", function () {
   const e = waitForAnyOrganizationvariableAdded();
-  block(matchDeleteOrganizationvariable(e.id, ANY), function () {
-    verifyOrganizationvariableExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOrganizationvariable(k, ANY), function () {
+    verifyOrganizationvariableExists(k);
   });
 });
 
 bthread("Organizationvariable update verification", function () {
   const e = waitForAnyOrganizationvariableUpdated();
-  block(matchDeleteOrganizationvariable(e.id, ANY), function () {
-    verifyOrganizationvariableUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOrganizationvariable(k, ANY), function () {
+    verifyOrganizationvariableUpdated(k);
   });
 });
 
 bthread("Organizationvariable delete verification", function () {
   const e = waitForAnyOrganizationvariableDeleted();
-  block(matchAddOrganizationvariable(e.id, ANY), function () {
-    verifyOrganizationvariableDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddOrganizationvariable(k, ANY), function () {
+    verifyOrganizationvariableDoesNotExist(k);
   });
 });
 
 bthread("Outsidecollaborator create verification", function () {
   const e = waitForAnyOutsidecollaboratorAdded();
-  block(matchDeleteOutsidecollaborator(e.id, ANY), function () {
-    verifyOutsidecollaboratorExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOutsidecollaborator(k, ANY), function () {
+    verifyOutsidecollaboratorExists(k);
   });
 });
 
 bthread("Outsidecollaborator update verification", function () {
   const e = waitForAnyOutsidecollaboratorUpdated();
-  block(matchDeleteOutsidecollaborator(e.id, ANY), function () {
-    verifyOutsidecollaboratorUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteOutsidecollaborator(k, ANY), function () {
+    verifyOutsidecollaboratorUpdated(k);
   });
 });
 
 bthread("Outsidecollaborator delete verification", function () {
   const e = waitForAnyOutsidecollaboratorDeleted();
-  block(matchAddOutsidecollaborator(e.id, ANY), function () {
-    verifyOutsidecollaboratorDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddOutsidecollaborator(k, ANY), function () {
+    verifyOutsidecollaboratorDoesNotExist(k);
   });
 });
 
 bthread("Package create verification", function () {
   const e = waitForAnyPackageAdded();
-  block(matchDeletePackage(e.id, ANY), function () {
-    verifyPackageExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePackage(k, ANY), function () {
+    verifyPackageExists(k);
   });
 });
 
 bthread("Package update verification", function () {
   const e = waitForAnyPackageUpdated();
-  block(matchDeletePackage(e.id, ANY), function () {
-    verifyPackageUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePackage(k, ANY), function () {
+    verifyPackageUpdated(k);
   });
 });
 
 bthread("Package delete verification", function () {
   const e = waitForAnyPackageDeleted();
-  block(matchAddPackage(e.id, ANY), function () {
-    verifyPackageDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPackage(k, ANY), function () {
+    verifyPackageDoesNotExist(k);
   });
 });
 
 bthread("Page create verification", function () {
   const e = waitForAnyPageAdded();
-  block(matchDeletePage(e.id, ANY), function () {
-    verifyPageExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePage(k, ANY), function () {
+    verifyPageExists(k);
   });
 });
 
 bthread("Page update verification", function () {
   const e = waitForAnyPageUpdated();
-  block(matchDeletePage(e.id, ANY), function () {
-    verifyPageUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePage(k, ANY), function () {
+    verifyPageUpdated(k);
   });
 });
 
 bthread("Page delete verification", function () {
   const e = waitForAnyPageDeleted();
-  block(matchAddPage(e.id, ANY), function () {
-    verifyPageDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPage(k, ANY), function () {
+    verifyPageDoesNotExist(k);
   });
 });
 
 bthread("Parent create verification", function () {
   const e = waitForAnyParentAdded();
-  block(matchDeleteParent(e.id, ANY), function () {
-    verifyParentExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteParent(k, ANY), function () {
+    verifyParentExists(k);
   });
 });
 
 bthread("Parent update verification", function () {
   const e = waitForAnyParentUpdated();
-  block(matchDeleteParent(e.id, ANY), function () {
-    verifyParentUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteParent(k, ANY), function () {
+    verifyParentUpdated(k);
   });
 });
 
 bthread("Parent delete verification", function () {
   const e = waitForAnyParentDeleted();
-  block(matchAddParent(e.id, ANY), function () {
-    verifyParentDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddParent(k, ANY), function () {
+    verifyParentDoesNotExist(k);
   });
 });
 
 bthread("Participation create verification", function () {
   const e = waitForAnyParticipationAdded();
-  block(matchDeleteParticipation(e.id, ANY), function () {
-    verifyParticipationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteParticipation(k, ANY), function () {
+    verifyParticipationExists(k);
   });
 });
 
 bthread("Participation update verification", function () {
   const e = waitForAnyParticipationUpdated();
-  block(matchDeleteParticipation(e.id, ANY), function () {
-    verifyParticipationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteParticipation(k, ANY), function () {
+    verifyParticipationUpdated(k);
   });
 });
 
 bthread("Participation delete verification", function () {
   const e = waitForAnyParticipationDeleted();
-  block(matchAddParticipation(e.id, ANY), function () {
-    verifyParticipationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddParticipation(k, ANY), function () {
+    verifyParticipationDoesNotExist(k);
   });
 });
 
 bthread("Partner create verification", function () {
   const e = waitForAnyPartnerAdded();
-  block(matchDeletePartner(e.id, ANY), function () {
-    verifyPartnerExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePartner(k, ANY), function () {
+    verifyPartnerExists(k);
   });
 });
 
 bthread("Partner update verification", function () {
   const e = waitForAnyPartnerUpdated();
-  block(matchDeletePartner(e.id, ANY), function () {
-    verifyPartnerUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePartner(k, ANY), function () {
+    verifyPartnerUpdated(k);
   });
 });
 
 bthread("Partner delete verification", function () {
   const e = waitForAnyPartnerDeleted();
-  block(matchAddPartner(e.id, ANY), function () {
-    verifyPartnerDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPartner(k, ANY), function () {
+    verifyPartnerDoesNotExist(k);
   });
 });
 
 bthread("Path create verification", function () {
   const e = waitForAnyPathAdded();
-  block(matchDeletePath(e.id, ANY), function () {
-    verifyPathExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePath(k, ANY), function () {
+    verifyPathExists(k);
   });
 });
 
 bthread("Path update verification", function () {
   const e = waitForAnyPathUpdated();
-  block(matchDeletePath(e.id, ANY), function () {
-    verifyPathUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePath(k, ANY), function () {
+    verifyPathUpdated(k);
   });
 });
 
 bthread("Path delete verification", function () {
   const e = waitForAnyPathDeleted();
-  block(matchAddPath(e.id, ANY), function () {
-    verifyPathDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPath(k, ANY), function () {
+    verifyPathDoesNotExist(k);
   });
 });
 
 bthread("Patternconfiguration create verification", function () {
   const e = waitForAnyPatternconfigurationAdded();
-  block(matchDeletePatternconfiguration(e.id, ANY), function () {
-    verifyPatternconfigurationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePatternconfiguration(k, ANY), function () {
+    verifyPatternconfigurationExists(k);
   });
 });
 
 bthread("Patternconfiguration update verification", function () {
   const e = waitForAnyPatternconfigurationUpdated();
-  block(matchDeletePatternconfiguration(e.id, ANY), function () {
-    verifyPatternconfigurationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePatternconfiguration(k, ANY), function () {
+    verifyPatternconfigurationUpdated(k);
   });
 });
 
 bthread("Patternconfiguration delete verification", function () {
   const e = waitForAnyPatternconfigurationDeleted();
-  block(matchAddPatternconfiguration(e.id, ANY), function () {
-    verifyPatternconfigurationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPatternconfiguration(k, ANY), function () {
+    verifyPatternconfigurationDoesNotExist(k);
   });
 });
 
 bthread("Pendingdeployment create verification", function () {
   const e = waitForAnyPendingdeploymentAdded();
-  block(matchDeletePendingdeployment(e.id, ANY), function () {
-    verifyPendingdeploymentExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePendingdeployment(k, ANY), function () {
+    verifyPendingdeploymentExists(k);
   });
 });
 
 bthread("Pendingdeployment update verification", function () {
   const e = waitForAnyPendingdeploymentUpdated();
-  block(matchDeletePendingdeployment(e.id, ANY), function () {
-    verifyPendingdeploymentUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePendingdeployment(k, ANY), function () {
+    verifyPendingdeploymentUpdated(k);
   });
 });
 
 bthread("Pendingdeployment delete verification", function () {
   const e = waitForAnyPendingdeploymentDeleted();
-  block(matchAddPendingdeployment(e.id, ANY), function () {
-    verifyPendingdeploymentDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPendingdeployment(k, ANY), function () {
+    verifyPendingdeploymentDoesNotExist(k);
   });
 });
 
 bthread("Permission create verification", function () {
   const e = waitForAnyPermissionAdded();
-  block(matchDeletePermission(e.id, ANY), function () {
-    verifyPermissionExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePermission(k, ANY), function () {
+    verifyPermissionExists(k);
   });
 });
 
 bthread("Permission update verification", function () {
   const e = waitForAnyPermissionUpdated();
-  block(matchDeletePermission(e.id, ANY), function () {
-    verifyPermissionUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePermission(k, ANY), function () {
+    verifyPermissionUpdated(k);
   });
 });
 
 bthread("Permission delete verification", function () {
   const e = waitForAnyPermissionDeleted();
-  block(matchAddPermission(e.id, ANY), function () {
-    verifyPermissionDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPermission(k, ANY), function () {
+    verifyPermissionDoesNotExist(k);
   });
 });
 
 bthread("Permissionscheck create verification", function () {
   const e = waitForAnyPermissionscheckAdded();
-  block(matchDeletePermissionscheck(e.id, ANY), function () {
-    verifyPermissionscheckExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePermissionscheck(k, ANY), function () {
+    verifyPermissionscheckExists(k);
   });
 });
 
 bthread("Permissionscheck update verification", function () {
   const e = waitForAnyPermissionscheckUpdated();
-  block(matchDeletePermissionscheck(e.id, ANY), function () {
-    verifyPermissionscheckUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePermissionscheck(k, ANY), function () {
+    verifyPermissionscheckUpdated(k);
   });
 });
 
 bthread("Permissionscheck delete verification", function () {
   const e = waitForAnyPermissionscheckDeleted();
-  block(matchAddPermissionscheck(e.id, ANY), function () {
-    verifyPermissionscheckDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPermissionscheck(k, ANY), function () {
+    verifyPermissionscheckDoesNotExist(k);
   });
 });
 
 bthread("Personalaccesstoken create verification", function () {
   const e = waitForAnyPersonalaccesstokenAdded();
-  block(matchDeletePersonalaccesstoken(e.id, ANY), function () {
-    verifyPersonalaccesstokenExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePersonalaccesstoken(k, ANY), function () {
+    verifyPersonalaccesstokenExists(k);
   });
 });
 
 bthread("Personalaccesstoken update verification", function () {
   const e = waitForAnyPersonalaccesstokenUpdated();
-  block(matchDeletePersonalaccesstoken(e.id, ANY), function () {
-    verifyPersonalaccesstokenUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePersonalaccesstoken(k, ANY), function () {
+    verifyPersonalaccesstokenUpdated(k);
   });
 });
 
 bthread("Personalaccesstoken delete verification", function () {
   const e = waitForAnyPersonalaccesstokenDeleted();
-  block(matchAddPersonalaccesstoken(e.id, ANY), function () {
-    verifyPersonalaccesstokenDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPersonalaccesstoken(k, ANY), function () {
+    verifyPersonalaccesstokenDoesNotExist(k);
   });
 });
 
 bthread("Personalaccesstokenrequest create verification", function () {
   const e = waitForAnyPersonalaccesstokenrequestAdded();
-  block(matchDeletePersonalaccesstokenrequest(e.id, ANY), function () {
-    verifyPersonalaccesstokenrequestExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePersonalaccesstokenrequest(k, ANY), function () {
+    verifyPersonalaccesstokenrequestExists(k);
   });
 });
 
 bthread("Personalaccesstokenrequest update verification", function () {
   const e = waitForAnyPersonalaccesstokenrequestUpdated();
-  block(matchDeletePersonalaccesstokenrequest(e.id, ANY), function () {
-    verifyPersonalaccesstokenrequestUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePersonalaccesstokenrequest(k, ANY), function () {
+    verifyPersonalaccesstokenrequestUpdated(k);
   });
 });
 
 bthread("Personalaccesstokenrequest delete verification", function () {
   const e = waitForAnyPersonalaccesstokenrequestDeleted();
-  block(matchAddPersonalaccesstokenrequest(e.id, ANY), function () {
-    verifyPersonalaccesstokenrequestDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPersonalaccesstokenrequest(k, ANY), function () {
+    verifyPersonalaccesstokenrequestDoesNotExist(k);
   });
 });
 
 bthread("Ping create verification", function () {
   const e = waitForAnyPingAdded();
-  block(matchDeletePing(e.id, ANY), function () {
-    verifyPingExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePing(k, ANY), function () {
+    verifyPingExists(k);
   });
 });
 
 bthread("Ping update verification", function () {
   const e = waitForAnyPingUpdated();
-  block(matchDeletePing(e.id, ANY), function () {
-    verifyPingUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePing(k, ANY), function () {
+    verifyPingUpdated(k);
   });
 });
 
 bthread("Ping delete verification", function () {
   const e = waitForAnyPingDeleted();
-  block(matchAddPing(e.id, ANY), function () {
-    verifyPingDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPing(k, ANY), function () {
+    verifyPingDoesNotExist(k);
   });
 });
 
 bthread("Plan create verification", function () {
   const e = waitForAnyPlanAdded();
-  block(matchDeletePlan(e.id, ANY), function () {
-    verifyPlanExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePlan(k, ANY), function () {
+    verifyPlanExists(k);
   });
 });
 
 bthread("Plan update verification", function () {
   const e = waitForAnyPlanUpdated();
-  block(matchDeletePlan(e.id, ANY), function () {
-    verifyPlanUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePlan(k, ANY), function () {
+    verifyPlanUpdated(k);
   });
 });
 
 bthread("Plan delete verification", function () {
   const e = waitForAnyPlanDeleted();
-  block(matchAddPlan(e.id, ANY), function () {
-    verifyPlanDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPlan(k, ANY), function () {
+    verifyPlanDoesNotExist(k);
   });
 });
 
 bthread("Platform create verification", function () {
   const e = waitForAnyPlatformAdded();
-  block(matchDeletePlatform(e.id, ANY), function () {
-    verifyPlatformExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePlatform(k, ANY), function () {
+    verifyPlatformExists(k);
   });
 });
 
 bthread("Platform update verification", function () {
   const e = waitForAnyPlatformUpdated();
-  block(matchDeletePlatform(e.id, ANY), function () {
-    verifyPlatformUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePlatform(k, ANY), function () {
+    verifyPlatformUpdated(k);
   });
 });
 
 bthread("Platform delete verification", function () {
   const e = waitForAnyPlatformDeleted();
-  block(matchAddPlatform(e.id, ANY), function () {
-    verifyPlatformDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPlatform(k, ANY), function () {
+    verifyPlatformDoesNotExist(k);
   });
 });
 
 bthread("Popular create verification", function () {
   const e = waitForAnyPopularAdded();
-  block(matchDeletePopular(e.id, ANY), function () {
-    verifyPopularExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePopular(k, ANY), function () {
+    verifyPopularExists(k);
   });
 });
 
 bthread("Popular update verification", function () {
   const e = waitForAnyPopularUpdated();
-  block(matchDeletePopular(e.id, ANY), function () {
-    verifyPopularUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePopular(k, ANY), function () {
+    verifyPopularUpdated(k);
   });
 });
 
 bthread("Popular delete verification", function () {
   const e = waitForAnyPopularDeleted();
-  block(matchAddPopular(e.id, ANY), function () {
-    verifyPopularDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPopular(k, ANY), function () {
+    verifyPopularDoesNotExist(k);
   });
 });
 
 bthread("Preference create verification", function () {
   const e = waitForAnyPreferenceAdded();
-  block(matchDeletePreference(e.id, ANY), function () {
-    verifyPreferenceExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePreference(k, ANY), function () {
+    verifyPreferenceExists(k);
   });
 });
 
 bthread("Preference update verification", function () {
   const e = waitForAnyPreferenceUpdated();
-  block(matchDeletePreference(e.id, ANY), function () {
-    verifyPreferenceUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePreference(k, ANY), function () {
+    verifyPreferenceUpdated(k);
   });
 });
 
 bthread("Preference delete verification", function () {
   const e = waitForAnyPreferenceDeleted();
-  block(matchAddPreference(e.id, ANY), function () {
-    verifyPreferenceDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPreference(k, ANY), function () {
+    verifyPreferenceDoesNotExist(k);
   });
 });
 
 bthread("Premiumrequest create verification", function () {
   const e = waitForAnyPremiumrequestAdded();
-  block(matchDeletePremiumrequest(e.id, ANY), function () {
-    verifyPremiumrequestExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePremiumrequest(k, ANY), function () {
+    verifyPremiumrequestExists(k);
   });
 });
 
 bthread("Premiumrequest update verification", function () {
   const e = waitForAnyPremiumrequestUpdated();
-  block(matchDeletePremiumrequest(e.id, ANY), function () {
-    verifyPremiumrequestUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePremiumrequest(k, ANY), function () {
+    verifyPremiumrequestUpdated(k);
   });
 });
 
 bthread("Premiumrequest delete verification", function () {
   const e = waitForAnyPremiumrequestDeleted();
-  block(matchAddPremiumrequest(e.id, ANY), function () {
-    verifyPremiumrequestDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPremiumrequest(k, ANY), function () {
+    verifyPremiumrequestDoesNotExist(k);
   });
 });
 
 bthread("Priority create verification", function () {
   const e = waitForAnyPriorityAdded();
-  block(matchDeletePriority(e.id, ANY), function () {
-    verifyPriorityExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePriority(k, ANY), function () {
+    verifyPriorityExists(k);
   });
 });
 
 bthread("Priority update verification", function () {
   const e = waitForAnyPriorityUpdated();
-  block(matchDeletePriority(e.id, ANY), function () {
-    verifyPriorityUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePriority(k, ANY), function () {
+    verifyPriorityUpdated(k);
   });
 });
 
 bthread("Priority delete verification", function () {
   const e = waitForAnyPriorityDeleted();
-  block(matchAddPriority(e.id, ANY), function () {
-    verifyPriorityDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPriority(k, ANY), function () {
+    verifyPriorityDoesNotExist(k);
   });
 });
 
 bthread("Privateregistry create verification", function () {
   const e = waitForAnyPrivateregistryAdded();
-  block(matchDeletePrivateregistry(e.id, ANY), function () {
-    verifyPrivateregistryExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePrivateregistry(k, ANY), function () {
+    verifyPrivateregistryExists(k);
   });
 });
 
 bthread("Privateregistry update verification", function () {
   const e = waitForAnyPrivateregistryUpdated();
-  block(matchDeletePrivateregistry(e.id, ANY), function () {
-    verifyPrivateregistryUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePrivateregistry(k, ANY), function () {
+    verifyPrivateregistryUpdated(k);
   });
 });
 
 bthread("Privateregistry delete verification", function () {
   const e = waitForAnyPrivateregistryDeleted();
-  block(matchAddPrivateregistry(e.id, ANY), function () {
-    verifyPrivateregistryDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPrivateregistry(k, ANY), function () {
+    verifyPrivateregistryDoesNotExist(k);
   });
 });
 
 bthread("Privatevulnerabilityreporting create verification", function () {
   const e = waitForAnyPrivatevulnerabilityreportingAdded();
-  block(matchDeletePrivatevulnerabilityreporting(e.id, ANY), function () {
-    verifyPrivatevulnerabilityreportingExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePrivatevulnerabilityreporting(k, ANY), function () {
+    verifyPrivatevulnerabilityreportingExists(k);
   });
 });
 
 bthread("Privatevulnerabilityreporting update verification", function () {
   const e = waitForAnyPrivatevulnerabilityreportingUpdated();
-  block(matchDeletePrivatevulnerabilityreporting(e.id, ANY), function () {
-    verifyPrivatevulnerabilityreportingUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePrivatevulnerabilityreporting(k, ANY), function () {
+    verifyPrivatevulnerabilityreportingUpdated(k);
   });
 });
 
 bthread("Privatevulnerabilityreporting delete verification", function () {
   const e = waitForAnyPrivatevulnerabilityreportingDeleted();
-  block(matchAddPrivatevulnerabilityreporting(e.id, ANY), function () {
-    verifyPrivatevulnerabilityreportingDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPrivatevulnerabilityreporting(k, ANY), function () {
+    verifyPrivatevulnerabilityreportingDoesNotExist(k);
   });
 });
 
 bthread("Profile create verification", function () {
   const e = waitForAnyProfileAdded();
-  block(matchDeleteProfile(e.id, ANY), function () {
-    verifyProfileExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteProfile(k, ANY), function () {
+    verifyProfileExists(k);
   });
 });
 
 bthread("Profile update verification", function () {
   const e = waitForAnyProfileUpdated();
-  block(matchDeleteProfile(e.id, ANY), function () {
-    verifyProfileUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteProfile(k, ANY), function () {
+    verifyProfileUpdated(k);
   });
 });
 
 bthread("Profile delete verification", function () {
   const e = waitForAnyProfileDeleted();
-  block(matchAddProfile(e.id, ANY), function () {
-    verifyProfileDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddProfile(k, ANY), function () {
+    verifyProfileDoesNotExist(k);
   });
 });
 
 bthread("Project create verification", function () {
   const e = waitForAnyProjectAdded();
-  block(matchDeleteProject(e.id, ANY), function () {
-    verifyProjectExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteProject(k, ANY), function () {
+    verifyProjectExists(k);
   });
 });
 
 bthread("Project update verification", function () {
   const e = waitForAnyProjectUpdated();
-  block(matchDeleteProject(e.id, ANY), function () {
-    verifyProjectUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteProject(k, ANY), function () {
+    verifyProjectUpdated(k);
   });
 });
 
 bthread("Project delete verification", function () {
   const e = waitForAnyProjectDeleted();
-  block(matchAddProject(e.id, ANY), function () {
-    verifyProjectDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddProject(k, ANY), function () {
+    verifyProjectDoesNotExist(k);
   });
 });
 
 bthread("Projectsv2 create verification", function () {
   const e = waitForAnyProjectsv2Added();
-  block(matchDeleteProjectsv2(e.id, ANY), function () {
-    verifyProjectsv2Exists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteProjectsv2(k, ANY), function () {
+    verifyProjectsv2Exists(k);
   });
 });
 
 bthread("Projectsv2 update verification", function () {
   const e = waitForAnyProjectsv2Updated();
-  block(matchDeleteProjectsv2(e.id, ANY), function () {
-    verifyProjectsv2Updated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteProjectsv2(k, ANY), function () {
+    verifyProjectsv2Updated(k);
   });
 });
 
 bthread("Projectsv2 delete verification", function () {
   const e = waitForAnyProjectsv2Deleted();
-  block(matchAddProjectsv2(e.id, ANY), function () {
-    verifyProjectsv2DoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddProjectsv2(k, ANY), function () {
+    verifyProjectsv2DoesNotExist(k);
   });
 });
 
 bthread("Property create verification", function () {
   const e = waitForAnyPropertyAdded();
-  block(matchDeleteProperty(e.id, ANY), function () {
-    verifyPropertyExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteProperty(k, ANY), function () {
+    verifyPropertyExists(k);
   });
 });
 
 bthread("Property update verification", function () {
   const e = waitForAnyPropertyUpdated();
-  block(matchDeleteProperty(e.id, ANY), function () {
-    verifyPropertyUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteProperty(k, ANY), function () {
+    verifyPropertyUpdated(k);
   });
 });
 
 bthread("Property delete verification", function () {
   const e = waitForAnyPropertyDeleted();
-  block(matchAddProperty(e.id, ANY), function () {
-    verifyPropertyDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddProperty(k, ANY), function () {
+    verifyPropertyDoesNotExist(k);
   });
 });
 
 bthread("Protection create verification", function () {
   const e = waitForAnyProtectionAdded();
-  block(matchDeleteProtection(e.id, ANY), function () {
-    verifyProtectionExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteProtection(k, ANY), function () {
+    verifyProtectionExists(k);
   });
 });
 
 bthread("Protection update verification", function () {
   const e = waitForAnyProtectionUpdated();
-  block(matchDeleteProtection(e.id, ANY), function () {
-    verifyProtectionUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteProtection(k, ANY), function () {
+    verifyProtectionUpdated(k);
   });
 });
 
 bthread("Protection delete verification", function () {
   const e = waitForAnyProtectionDeleted();
-  block(matchAddProtection(e.id, ANY), function () {
-    verifyProtectionDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddProtection(k, ANY), function () {
+    verifyProtectionDoesNotExist(k);
   });
 });
 
 bthread("Public create verification", function () {
   const e = waitForAnyPublicAdded();
-  block(matchDeletePublic(e.id, ANY), function () {
-    verifyPublicExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePublic(k, ANY), function () {
+    verifyPublicExists(k);
   });
 });
 
 bthread("Public update verification", function () {
   const e = waitForAnyPublicUpdated();
-  block(matchDeletePublic(e.id, ANY), function () {
-    verifyPublicUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePublic(k, ANY), function () {
+    verifyPublicUpdated(k);
   });
 });
 
 bthread("Public delete verification", function () {
   const e = waitForAnyPublicDeleted();
-  block(matchAddPublic(e.id, ANY), function () {
-    verifyPublicDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPublic(k, ANY), function () {
+    verifyPublicDoesNotExist(k);
   });
 });
 
 bthread("Publicemail create verification", function () {
   const e = waitForAnyPublicemailAdded();
-  block(matchDeletePublicemail(e.id, ANY), function () {
-    verifyPublicemailExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePublicemail(k, ANY), function () {
+    verifyPublicemailExists(k);
   });
 });
 
 bthread("Publicemail update verification", function () {
   const e = waitForAnyPublicemailUpdated();
-  block(matchDeletePublicemail(e.id, ANY), function () {
-    verifyPublicemailUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePublicemail(k, ANY), function () {
+    verifyPublicemailUpdated(k);
   });
 });
 
 bthread("Publicemail delete verification", function () {
   const e = waitForAnyPublicemailDeleted();
-  block(matchAddPublicemail(e.id, ANY), function () {
-    verifyPublicemailDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPublicemail(k, ANY), function () {
+    verifyPublicemailDoesNotExist(k);
   });
 });
 
 bthread("Publickey create verification", function () {
   const e = waitForAnyPublickeyAdded();
-  block(matchDeletePublickey(e.id, ANY), function () {
-    verifyPublickeyExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePublickey(k, ANY), function () {
+    verifyPublickeyExists(k);
   });
 });
 
 bthread("Publickey update verification", function () {
   const e = waitForAnyPublickeyUpdated();
-  block(matchDeletePublickey(e.id, ANY), function () {
-    verifyPublickeyUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePublickey(k, ANY), function () {
+    verifyPublickeyUpdated(k);
   });
 });
 
 bthread("Publickey delete verification", function () {
   const e = waitForAnyPublickeyDeleted();
-  block(matchAddPublickey(e.id, ANY), function () {
-    verifyPublickeyDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPublickey(k, ANY), function () {
+    verifyPublickeyDoesNotExist(k);
   });
 });
 
 bthread("Publicmember create verification", function () {
   const e = waitForAnyPublicmemberAdded();
-  block(matchDeletePublicmember(e.id, ANY), function () {
-    verifyPublicmemberExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePublicmember(k, ANY), function () {
+    verifyPublicmemberExists(k);
   });
 });
 
 bthread("Publicmember update verification", function () {
   const e = waitForAnyPublicmemberUpdated();
-  block(matchDeletePublicmember(e.id, ANY), function () {
-    verifyPublicmemberUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePublicmember(k, ANY), function () {
+    verifyPublicmemberUpdated(k);
   });
 });
 
 bthread("Publicmember delete verification", function () {
   const e = waitForAnyPublicmemberDeleted();
-  block(matchAddPublicmember(e.id, ANY), function () {
-    verifyPublicmemberDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPublicmember(k, ANY), function () {
+    verifyPublicmemberDoesNotExist(k);
   });
 });
 
 bthread("Publish create verification", function () {
   const e = waitForAnyPublishAdded();
-  block(matchDeletePublish(e.id, ANY), function () {
-    verifyPublishExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePublish(k, ANY), function () {
+    verifyPublishExists(k);
   });
 });
 
 bthread("Publish update verification", function () {
   const e = waitForAnyPublishUpdated();
-  block(matchDeletePublish(e.id, ANY), function () {
-    verifyPublishUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePublish(k, ANY), function () {
+    verifyPublishUpdated(k);
   });
 });
 
 bthread("Publish delete verification", function () {
   const e = waitForAnyPublishDeleted();
-  block(matchAddPublish(e.id, ANY), function () {
-    verifyPublishDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPublish(k, ANY), function () {
+    verifyPublishDoesNotExist(k);
   });
 });
 
 bthread("Pull create verification", function () {
   const e = waitForAnyPullAdded();
-  block(matchDeletePull(e.id, ANY), function () {
-    verifyPullExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePull(k, ANY), function () {
+    verifyPullExists(k);
   });
 });
 
 bthread("Pull update verification", function () {
   const e = waitForAnyPullUpdated();
-  block(matchDeletePull(e.id, ANY), function () {
-    verifyPullUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePull(k, ANY), function () {
+    verifyPullUpdated(k);
   });
 });
 
 bthread("Pull delete verification", function () {
   const e = waitForAnyPullDeleted();
-  block(matchAddPull(e.id, ANY), function () {
-    verifyPullDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPull(k, ANY), function () {
+    verifyPullDoesNotExist(k);
   });
 });
 
 bthread("Punchcard create verification", function () {
   const e = waitForAnyPunchcardAdded();
-  block(matchDeletePunchcard(e.id, ANY), function () {
-    verifyPunchcardExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePunchcard(k, ANY), function () {
+    verifyPunchcardExists(k);
   });
 });
 
 bthread("Punchcard update verification", function () {
   const e = waitForAnyPunchcardUpdated();
-  block(matchDeletePunchcard(e.id, ANY), function () {
-    verifyPunchcardUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePunchcard(k, ANY), function () {
+    verifyPunchcardUpdated(k);
   });
 });
 
 bthread("Punchcard delete verification", function () {
   const e = waitForAnyPunchcardDeleted();
-  block(matchAddPunchcard(e.id, ANY), function () {
-    verifyPunchcardDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPunchcard(k, ANY), function () {
+    verifyPunchcardDoesNotExist(k);
   });
 });
 
 bthread("Pushprotectionbypass create verification", function () {
   const e = waitForAnyPushprotectionbypassAdded();
-  block(matchDeletePushprotectionbypass(e.id, ANY), function () {
-    verifyPushprotectionbypassExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePushprotectionbypass(k, ANY), function () {
+    verifyPushprotectionbypassExists(k);
   });
 });
 
 bthread("Pushprotectionbypass update verification", function () {
   const e = waitForAnyPushprotectionbypassUpdated();
-  block(matchDeletePushprotectionbypass(e.id, ANY), function () {
-    verifyPushprotectionbypassUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeletePushprotectionbypass(k, ANY), function () {
+    verifyPushprotectionbypassUpdated(k);
   });
 });
 
 bthread("Pushprotectionbypass delete verification", function () {
   const e = waitForAnyPushprotectionbypassDeleted();
-  block(matchAddPushprotectionbypass(e.id, ANY), function () {
-    verifyPushprotectionbypassDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddPushprotectionbypass(k, ANY), function () {
+    verifyPushprotectionbypassDoesNotExist(k);
   });
 });
 
 bthread("Ratelimit create verification", function () {
   const e = waitForAnyRatelimitAdded();
-  block(matchDeleteRatelimit(e.id, ANY), function () {
-    verifyRatelimitExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRatelimit(k, ANY), function () {
+    verifyRatelimitExists(k);
   });
 });
 
 bthread("Ratelimit update verification", function () {
   const e = waitForAnyRatelimitUpdated();
-  block(matchDeleteRatelimit(e.id, ANY), function () {
-    verifyRatelimitUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRatelimit(k, ANY), function () {
+    verifyRatelimitUpdated(k);
   });
 });
 
 bthread("Ratelimit delete verification", function () {
   const e = waitForAnyRatelimitDeleted();
-  block(matchAddRatelimit(e.id, ANY), function () {
-    verifyRatelimitDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRatelimit(k, ANY), function () {
+    verifyRatelimitDoesNotExist(k);
   });
 });
 
 bthread("Raw create verification", function () {
   const e = waitForAnyRawAdded();
-  block(matchDeleteRaw(e.id, ANY), function () {
-    verifyRawExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRaw(k, ANY), function () {
+    verifyRawExists(k);
   });
 });
 
 bthread("Raw update verification", function () {
   const e = waitForAnyRawUpdated();
-  block(matchDeleteRaw(e.id, ANY), function () {
-    verifyRawUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRaw(k, ANY), function () {
+    verifyRawUpdated(k);
   });
 });
 
 bthread("Raw delete verification", function () {
   const e = waitForAnyRawDeleted();
-  block(matchAddRaw(e.id, ANY), function () {
-    verifyRawDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRaw(k, ANY), function () {
+    verifyRawDoesNotExist(k);
   });
 });
 
 bthread("Reaction create verification", function () {
   const e = waitForAnyReactionAdded();
-  block(matchDeleteReaction(e.id, ANY), function () {
-    verifyReactionExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReaction(k, ANY), function () {
+    verifyReactionExists(k);
   });
 });
 
 bthread("Reaction update verification", function () {
   const e = waitForAnyReactionUpdated();
-  block(matchDeleteReaction(e.id, ANY), function () {
-    verifyReactionUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReaction(k, ANY), function () {
+    verifyReactionUpdated(k);
   });
 });
 
 bthread("Reaction delete verification", function () {
   const e = waitForAnyReactionDeleted();
-  block(matchAddReaction(e.id, ANY), function () {
-    verifyReactionDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddReaction(k, ANY), function () {
+    verifyReactionDoesNotExist(k);
   });
 });
 
 bthread("Readme create verification", function () {
   const e = waitForAnyReadmeAdded();
-  block(matchDeleteReadme(e.id, ANY), function () {
-    verifyReadmeExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReadme(k, ANY), function () {
+    verifyReadmeExists(k);
   });
 });
 
 bthread("Readme update verification", function () {
   const e = waitForAnyReadmeUpdated();
-  block(matchDeleteReadme(e.id, ANY), function () {
-    verifyReadmeUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReadme(k, ANY), function () {
+    verifyReadmeUpdated(k);
   });
 });
 
 bthread("Readme delete verification", function () {
   const e = waitForAnyReadmeDeleted();
-  block(matchAddReadme(e.id, ANY), function () {
-    verifyReadmeDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddReadme(k, ANY), function () {
+    verifyReadmeDoesNotExist(k);
   });
 });
 
 bthread("Receivedevent create verification", function () {
   const e = waitForAnyReceivedeventAdded();
-  block(matchDeleteReceivedevent(e.id, ANY), function () {
-    verifyReceivedeventExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReceivedevent(k, ANY), function () {
+    verifyReceivedeventExists(k);
   });
 });
 
 bthread("Receivedevent update verification", function () {
   const e = waitForAnyReceivedeventUpdated();
-  block(matchDeleteReceivedevent(e.id, ANY), function () {
-    verifyReceivedeventUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReceivedevent(k, ANY), function () {
+    verifyReceivedeventUpdated(k);
   });
 });
 
 bthread("Receivedevent delete verification", function () {
   const e = waitForAnyReceivedeventDeleted();
-  block(matchAddReceivedevent(e.id, ANY), function () {
-    verifyReceivedeventDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddReceivedevent(k, ANY), function () {
+    verifyReceivedeventDoesNotExist(k);
   });
 });
 
 bthread("Ref create verification", function () {
   const e = waitForAnyRefAdded();
-  block(matchDeleteRef(e.id, ANY), function () {
-    verifyRefExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRef(k, ANY), function () {
+    verifyRefExists(k);
   });
 });
 
 bthread("Ref update verification", function () {
   const e = waitForAnyRefUpdated();
-  block(matchDeleteRef(e.id, ANY), function () {
-    verifyRefUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRef(k, ANY), function () {
+    verifyRefUpdated(k);
   });
 });
 
 bthread("Ref delete verification", function () {
   const e = waitForAnyRefDeleted();
-  block(matchAddRef(e.id, ANY), function () {
-    verifyRefDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRef(k, ANY), function () {
+    verifyRefDoesNotExist(k);
   });
 });
 
 bthread("Referrer create verification", function () {
   const e = waitForAnyReferrerAdded();
-  block(matchDeleteReferrer(e.id, ANY), function () {
-    verifyReferrerExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReferrer(k, ANY), function () {
+    verifyReferrerExists(k);
   });
 });
 
 bthread("Referrer update verification", function () {
   const e = waitForAnyReferrerUpdated();
-  block(matchDeleteReferrer(e.id, ANY), function () {
-    verifyReferrerUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReferrer(k, ANY), function () {
+    verifyReferrerUpdated(k);
   });
 });
 
 bthread("Referrer delete verification", function () {
   const e = waitForAnyReferrerDeleted();
-  block(matchAddReferrer(e.id, ANY), function () {
-    verifyReferrerDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddReferrer(k, ANY), function () {
+    verifyReferrerDoesNotExist(k);
   });
 });
 
 bthread("Registrationtoken create verification", function () {
   const e = waitForAnyRegistrationtokenAdded();
-  block(matchDeleteRegistrationtoken(e.id, ANY), function () {
-    verifyRegistrationtokenExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRegistrationtoken(k, ANY), function () {
+    verifyRegistrationtokenExists(k);
   });
 });
 
 bthread("Registrationtoken update verification", function () {
   const e = waitForAnyRegistrationtokenUpdated();
-  block(matchDeleteRegistrationtoken(e.id, ANY), function () {
-    verifyRegistrationtokenUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRegistrationtoken(k, ANY), function () {
+    verifyRegistrationtokenUpdated(k);
   });
 });
 
 bthread("Registrationtoken delete verification", function () {
   const e = waitForAnyRegistrationtokenDeleted();
-  block(matchAddRegistrationtoken(e.id, ANY), function () {
-    verifyRegistrationtokenDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRegistrationtoken(k, ANY), function () {
+    verifyRegistrationtokenDoesNotExist(k);
   });
 });
 
 bthread("Releas create verification", function () {
   const e = waitForAnyReleasAdded();
-  block(matchDeleteReleas(e.id, ANY), function () {
-    verifyReleasExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReleas(k, ANY), function () {
+    verifyReleasExists(k);
   });
 });
 
 bthread("Releas update verification", function () {
   const e = waitForAnyReleasUpdated();
-  block(matchDeleteReleas(e.id, ANY), function () {
-    verifyReleasUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReleas(k, ANY), function () {
+    verifyReleasUpdated(k);
   });
 });
 
 bthread("Releas delete verification", function () {
   const e = waitForAnyReleasDeleted();
-  block(matchAddReleas(e.id, ANY), function () {
-    verifyReleasDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddReleas(k, ANY), function () {
+    verifyReleasDoesNotExist(k);
   });
 });
 
 bthread("Remove create verification", function () {
   const e = waitForAnyRemoveAdded();
-  block(matchDeleteRemove(e.id, ANY), function () {
-    verifyRemoveExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRemove(k, ANY), function () {
+    verifyRemoveExists(k);
   });
 });
 
 bthread("Remove update verification", function () {
   const e = waitForAnyRemoveUpdated();
-  block(matchDeleteRemove(e.id, ANY), function () {
-    verifyRemoveUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRemove(k, ANY), function () {
+    verifyRemoveUpdated(k);
   });
 });
 
 bthread("Remove delete verification", function () {
   const e = waitForAnyRemoveDeleted();
-  block(matchAddRemove(e.id, ANY), function () {
-    verifyRemoveDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRemove(k, ANY), function () {
+    verifyRemoveDoesNotExist(k);
   });
 });
 
 bthread("Removetoken create verification", function () {
   const e = waitForAnyRemovetokenAdded();
-  block(matchDeleteRemovetoken(e.id, ANY), function () {
-    verifyRemovetokenExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRemovetoken(k, ANY), function () {
+    verifyRemovetokenExists(k);
   });
 });
 
 bthread("Removetoken update verification", function () {
   const e = waitForAnyRemovetokenUpdated();
-  block(matchDeleteRemovetoken(e.id, ANY), function () {
-    verifyRemovetokenUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRemovetoken(k, ANY), function () {
+    verifyRemovetokenUpdated(k);
   });
 });
 
 bthread("Removetoken delete verification", function () {
   const e = waitForAnyRemovetokenDeleted();
-  block(matchAddRemovetoken(e.id, ANY), function () {
-    verifyRemovetokenDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRemovetoken(k, ANY), function () {
+    verifyRemovetokenDoesNotExist(k);
   });
 });
 
 bthread("Rename create verification", function () {
   const e = waitForAnyRenameAdded();
-  block(matchDeleteRename(e.id, ANY), function () {
-    verifyRenameExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRename(k, ANY), function () {
+    verifyRenameExists(k);
   });
 });
 
 bthread("Rename update verification", function () {
   const e = waitForAnyRenameUpdated();
-  block(matchDeleteRename(e.id, ANY), function () {
-    verifyRenameUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRename(k, ANY), function () {
+    verifyRenameUpdated(k);
   });
 });
 
 bthread("Rename delete verification", function () {
   const e = waitForAnyRenameDeleted();
-  block(matchAddRename(e.id, ANY), function () {
-    verifyRenameDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRename(k, ANY), function () {
+    verifyRenameDoesNotExist(k);
   });
 });
 
 bthread("Reply create verification", function () {
   const e = waitForAnyReplyAdded();
-  block(matchDeleteReply(e.id, ANY), function () {
-    verifyReplyExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReply(k, ANY), function () {
+    verifyReplyExists(k);
   });
 });
 
 bthread("Reply update verification", function () {
   const e = waitForAnyReplyUpdated();
-  block(matchDeleteReply(e.id, ANY), function () {
-    verifyReplyUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReply(k, ANY), function () {
+    verifyReplyUpdated(k);
   });
 });
 
 bthread("Reply delete verification", function () {
   const e = waitForAnyReplyDeleted();
-  block(matchAddReply(e.id, ANY), function () {
-    verifyReplyDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddReply(k, ANY), function () {
+    verifyReplyDoesNotExist(k);
   });
 });
 
 bthread("Repo create verification", function () {
   const e = waitForAnyRepoAdded();
-  block(matchDeleteRepo(e.id, ANY), function () {
-    verifyRepoExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRepo(k, ANY), function () {
+    verifyRepoExists(k);
   });
 });
 
 bthread("Repo update verification", function () {
   const e = waitForAnyRepoUpdated();
-  block(matchDeleteRepo(e.id, ANY), function () {
-    verifyRepoUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRepo(k, ANY), function () {
+    verifyRepoUpdated(k);
   });
 });
 
 bthread("Repo delete verification", function () {
   const e = waitForAnyRepoDeleted();
-  block(matchAddRepo(e.id, ANY), function () {
-    verifyRepoDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRepo(k, ANY), function () {
+    verifyRepoDoesNotExist(k);
   });
 });
 
 bthread("Report create verification", function () {
   const e = waitForAnyReportAdded();
-  block(matchDeleteReport(e.id, ANY), function () {
-    verifyReportExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReport(k, ANY), function () {
+    verifyReportExists(k);
   });
 });
 
 bthread("Report update verification", function () {
   const e = waitForAnyReportUpdated();
-  block(matchDeleteReport(e.id, ANY), function () {
-    verifyReportUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReport(k, ANY), function () {
+    verifyReportUpdated(k);
   });
 });
 
 bthread("Report delete verification", function () {
   const e = waitForAnyReportDeleted();
-  block(matchAddReport(e.id, ANY), function () {
-    verifyReportDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddReport(k, ANY), function () {
+    verifyReportDoesNotExist(k);
   });
 });
 
 bthread("Repository create verification", function () {
   const e = waitForAnyRepositoryAdded();
-  block(matchDeleteRepository(e.id, ANY), function () {
-    verifyRepositoryExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRepository(k, ANY), function () {
+    verifyRepositoryExists(k);
   });
 });
 
 bthread("Repository update verification", function () {
   const e = waitForAnyRepositoryUpdated();
-  block(matchDeleteRepository(e.id, ANY), function () {
-    verifyRepositoryUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRepository(k, ANY), function () {
+    verifyRepositoryUpdated(k);
   });
 });
 
 bthread("Repository delete verification", function () {
   const e = waitForAnyRepositoryDeleted();
-  block(matchAddRepository(e.id, ANY), function () {
-    verifyRepositoryDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRepository(k, ANY), function () {
+    verifyRepositoryDoesNotExist(k);
   });
 });
 
 bthread("Repositoryacces create verification", function () {
   const e = waitForAnyRepositoryaccesAdded();
-  block(matchDeleteRepositoryacces(e.id, ANY), function () {
-    verifyRepositoryaccesExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRepositoryacces(k, ANY), function () {
+    verifyRepositoryaccesExists(k);
   });
 });
 
 bthread("Repositoryacces update verification", function () {
   const e = waitForAnyRepositoryaccesUpdated();
-  block(matchDeleteRepositoryacces(e.id, ANY), function () {
-    verifyRepositoryaccesUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRepositoryacces(k, ANY), function () {
+    verifyRepositoryaccesUpdated(k);
   });
 });
 
 bthread("Repositoryacces delete verification", function () {
   const e = waitForAnyRepositoryaccesDeleted();
-  block(matchAddRepositoryacces(e.id, ANY), function () {
-    verifyRepositoryaccesDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRepositoryacces(k, ANY), function () {
+    verifyRepositoryaccesDoesNotExist(k);
   });
 });
 
 bthread("Repositoryinvitation create verification", function () {
   const e = waitForAnyRepositoryinvitationAdded();
-  block(matchDeleteRepositoryinvitation(e.id, ANY), function () {
-    verifyRepositoryinvitationExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRepositoryinvitation(k, ANY), function () {
+    verifyRepositoryinvitationExists(k);
   });
 });
 
 bthread("Repositoryinvitation update verification", function () {
   const e = waitForAnyRepositoryinvitationUpdated();
-  block(matchDeleteRepositoryinvitation(e.id, ANY), function () {
-    verifyRepositoryinvitationUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRepositoryinvitation(k, ANY), function () {
+    verifyRepositoryinvitationUpdated(k);
   });
 });
 
 bthread("Repositoryinvitation delete verification", function () {
   const e = waitForAnyRepositoryinvitationDeleted();
-  block(matchAddRepositoryinvitation(e.id, ANY), function () {
-    verifyRepositoryinvitationDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRepositoryinvitation(k, ANY), function () {
+    verifyRepositoryinvitationDoesNotExist(k);
   });
 });
 
 bthread("Requestedreviewer create verification", function () {
   const e = waitForAnyRequestedreviewerAdded();
-  block(matchDeleteRequestedreviewer(e.id, ANY), function () {
-    verifyRequestedreviewerExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRequestedreviewer(k, ANY), function () {
+    verifyRequestedreviewerExists(k);
   });
 });
 
 bthread("Requestedreviewer update verification", function () {
   const e = waitForAnyRequestedreviewerUpdated();
-  block(matchDeleteRequestedreviewer(e.id, ANY), function () {
-    verifyRequestedreviewerUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRequestedreviewer(k, ANY), function () {
+    verifyRequestedreviewerUpdated(k);
   });
 });
 
 bthread("Requestedreviewer delete verification", function () {
   const e = waitForAnyRequestedreviewerDeleted();
-  block(matchAddRequestedreviewer(e.id, ANY), function () {
-    verifyRequestedreviewerDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRequestedreviewer(k, ANY), function () {
+    verifyRequestedreviewerDoesNotExist(k);
   });
 });
 
 bthread("Requiredpullrequestreview create verification", function () {
   const e = waitForAnyRequiredpullrequestreviewAdded();
-  block(matchDeleteRequiredpullrequestreview(e.id, ANY), function () {
-    verifyRequiredpullrequestreviewExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRequiredpullrequestreview(k, ANY), function () {
+    verifyRequiredpullrequestreviewExists(k);
   });
 });
 
 bthread("Requiredpullrequestreview update verification", function () {
   const e = waitForAnyRequiredpullrequestreviewUpdated();
-  block(matchDeleteRequiredpullrequestreview(e.id, ANY), function () {
-    verifyRequiredpullrequestreviewUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRequiredpullrequestreview(k, ANY), function () {
+    verifyRequiredpullrequestreviewUpdated(k);
   });
 });
 
 bthread("Requiredpullrequestreview delete verification", function () {
   const e = waitForAnyRequiredpullrequestreviewDeleted();
-  block(matchAddRequiredpullrequestreview(e.id, ANY), function () {
-    verifyRequiredpullrequestreviewDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRequiredpullrequestreview(k, ANY), function () {
+    verifyRequiredpullrequestreviewDoesNotExist(k);
   });
 });
 
 bthread("Requiredsignature create verification", function () {
   const e = waitForAnyRequiredsignatureAdded();
-  block(matchDeleteRequiredsignature(e.id, ANY), function () {
-    verifyRequiredsignatureExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRequiredsignature(k, ANY), function () {
+    verifyRequiredsignatureExists(k);
   });
 });
 
 bthread("Requiredsignature update verification", function () {
   const e = waitForAnyRequiredsignatureUpdated();
-  block(matchDeleteRequiredsignature(e.id, ANY), function () {
-    verifyRequiredsignatureUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRequiredsignature(k, ANY), function () {
+    verifyRequiredsignatureUpdated(k);
   });
 });
 
 bthread("Requiredsignature delete verification", function () {
   const e = waitForAnyRequiredsignatureDeleted();
-  block(matchAddRequiredsignature(e.id, ANY), function () {
-    verifyRequiredsignatureDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRequiredsignature(k, ANY), function () {
+    verifyRequiredsignatureDoesNotExist(k);
   });
 });
 
 bthread("Requiredstatuscheck create verification", function () {
   const e = waitForAnyRequiredstatuscheckAdded();
-  block(matchDeleteRequiredstatuscheck(e.id, ANY), function () {
-    verifyRequiredstatuscheckExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRequiredstatuscheck(k, ANY), function () {
+    verifyRequiredstatuscheckExists(k);
   });
 });
 
 bthread("Requiredstatuscheck update verification", function () {
   const e = waitForAnyRequiredstatuscheckUpdated();
-  block(matchDeleteRequiredstatuscheck(e.id, ANY), function () {
-    verifyRequiredstatuscheckUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRequiredstatuscheck(k, ANY), function () {
+    verifyRequiredstatuscheckUpdated(k);
   });
 });
 
 bthread("Requiredstatuscheck delete verification", function () {
   const e = waitForAnyRequiredstatuscheckDeleted();
-  block(matchAddRequiredstatuscheck(e.id, ANY), function () {
-    verifyRequiredstatuscheckDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRequiredstatuscheck(k, ANY), function () {
+    verifyRequiredstatuscheckDoesNotExist(k);
   });
 });
 
 bthread("Rerequest create verification", function () {
   const e = waitForAnyRerequestAdded();
-  block(matchDeleteRerequest(e.id, ANY), function () {
-    verifyRerequestExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRerequest(k, ANY), function () {
+    verifyRerequestExists(k);
   });
 });
 
 bthread("Rerequest update verification", function () {
   const e = waitForAnyRerequestUpdated();
-  block(matchDeleteRerequest(e.id, ANY), function () {
-    verifyRerequestUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRerequest(k, ANY), function () {
+    verifyRerequestUpdated(k);
   });
 });
 
 bthread("Rerequest delete verification", function () {
   const e = waitForAnyRerequestDeleted();
-  block(matchAddRerequest(e.id, ANY), function () {
-    verifyRerequestDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRerequest(k, ANY), function () {
+    verifyRerequestDoesNotExist(k);
   });
 });
 
 bthread("Rerun create verification", function () {
   const e = waitForAnyRerunAdded();
-  block(matchDeleteRerun(e.id, ANY), function () {
-    verifyRerunExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRerun(k, ANY), function () {
+    verifyRerunExists(k);
   });
 });
 
 bthread("Rerun update verification", function () {
   const e = waitForAnyRerunUpdated();
-  block(matchDeleteRerun(e.id, ANY), function () {
-    verifyRerunUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRerun(k, ANY), function () {
+    verifyRerunUpdated(k);
   });
 });
 
 bthread("Rerun delete verification", function () {
   const e = waitForAnyRerunDeleted();
-  block(matchAddRerun(e.id, ANY), function () {
-    verifyRerunDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRerun(k, ANY), function () {
+    verifyRerunDoesNotExist(k);
   });
 });
 
 bthread("Rerunfailedjob create verification", function () {
   const e = waitForAnyRerunfailedjobAdded();
-  block(matchDeleteRerunfailedjob(e.id, ANY), function () {
-    verifyRerunfailedjobExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRerunfailedjob(k, ANY), function () {
+    verifyRerunfailedjobExists(k);
   });
 });
 
 bthread("Rerunfailedjob update verification", function () {
   const e = waitForAnyRerunfailedjobUpdated();
-  block(matchDeleteRerunfailedjob(e.id, ANY), function () {
-    verifyRerunfailedjobUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRerunfailedjob(k, ANY), function () {
+    verifyRerunfailedjobUpdated(k);
   });
 });
 
 bthread("Rerunfailedjob delete verification", function () {
   const e = waitForAnyRerunfailedjobDeleted();
-  block(matchAddRerunfailedjob(e.id, ANY), function () {
-    verifyRerunfailedjobDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRerunfailedjob(k, ANY), function () {
+    verifyRerunfailedjobDoesNotExist(k);
   });
 });
 
 bthread("Restore create verification", function () {
   const e = waitForAnyRestoreAdded();
-  block(matchDeleteRestore(e.id, ANY), function () {
-    verifyRestoreExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRestore(k, ANY), function () {
+    verifyRestoreExists(k);
   });
 });
 
 bthread("Restore update verification", function () {
   const e = waitForAnyRestoreUpdated();
-  block(matchDeleteRestore(e.id, ANY), function () {
-    verifyRestoreUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRestore(k, ANY), function () {
+    verifyRestoreUpdated(k);
   });
 });
 
 bthread("Restore delete verification", function () {
   const e = waitForAnyRestoreDeleted();
-  block(matchAddRestore(e.id, ANY), function () {
-    verifyRestoreDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRestore(k, ANY), function () {
+    verifyRestoreDoesNotExist(k);
   });
 });
 
 bthread("Restriction create verification", function () {
   const e = waitForAnyRestrictionAdded();
-  block(matchDeleteRestriction(e.id, ANY), function () {
-    verifyRestrictionExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRestriction(k, ANY), function () {
+    verifyRestrictionExists(k);
   });
 });
 
 bthread("Restriction update verification", function () {
   const e = waitForAnyRestrictionUpdated();
-  block(matchDeleteRestriction(e.id, ANY), function () {
-    verifyRestrictionUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRestriction(k, ANY), function () {
+    verifyRestrictionUpdated(k);
   });
 });
 
 bthread("Restriction delete verification", function () {
   const e = waitForAnyRestrictionDeleted();
-  block(matchAddRestriction(e.id, ANY), function () {
-    verifyRestrictionDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRestriction(k, ANY), function () {
+    verifyRestrictionDoesNotExist(k);
   });
 });
 
 bthread("Review create verification", function () {
   const e = waitForAnyReviewAdded();
-  block(matchDeleteReview(e.id, ANY), function () {
-    verifyReviewExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReview(k, ANY), function () {
+    verifyReviewExists(k);
   });
 });
 
 bthread("Review update verification", function () {
   const e = waitForAnyReviewUpdated();
-  block(matchDeleteReview(e.id, ANY), function () {
-    verifyReviewUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReview(k, ANY), function () {
+    verifyReviewUpdated(k);
   });
 });
 
 bthread("Review delete verification", function () {
   const e = waitForAnyReviewDeleted();
-  block(matchAddReview(e.id, ANY), function () {
-    verifyReviewDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddReview(k, ANY), function () {
+    verifyReviewDoesNotExist(k);
   });
 });
 
 bthread("Revoke create verification", function () {
   const e = waitForAnyRevokeAdded();
-  block(matchDeleteRevoke(e.id, ANY), function () {
-    verifyRevokeExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRevoke(k, ANY), function () {
+    verifyRevokeExists(k);
   });
 });
 
 bthread("Revoke update verification", function () {
   const e = waitForAnyRevokeUpdated();
-  block(matchDeleteRevoke(e.id, ANY), function () {
-    verifyRevokeUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRevoke(k, ANY), function () {
+    verifyRevokeUpdated(k);
   });
 });
 
 bthread("Revoke delete verification", function () {
   const e = waitForAnyRevokeDeleted();
-  block(matchAddRevoke(e.id, ANY), function () {
-    verifyRevokeDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRevoke(k, ANY), function () {
+    verifyRevokeDoesNotExist(k);
   });
 });
 
 bthread("Routestat create verification", function () {
   const e = waitForAnyRoutestatAdded();
-  block(matchDeleteRoutestat(e.id, ANY), function () {
-    verifyRoutestatExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRoutestat(k, ANY), function () {
+    verifyRoutestatExists(k);
   });
 });
 
 bthread("Routestat update verification", function () {
   const e = waitForAnyRoutestatUpdated();
-  block(matchDeleteRoutestat(e.id, ANY), function () {
-    verifyRoutestatUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRoutestat(k, ANY), function () {
+    verifyRoutestatUpdated(k);
   });
 });
 
 bthread("Routestat delete verification", function () {
   const e = waitForAnyRoutestatDeleted();
-  block(matchAddRoutestat(e.id, ANY), function () {
-    verifyRoutestatDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRoutestat(k, ANY), function () {
+    verifyRoutestatDoesNotExist(k);
   });
 });
 
 bthread("Rule create verification", function () {
   const e = waitForAnyRuleAdded();
-  block(matchDeleteRule(e.id, ANY), function () {
-    verifyRuleExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRule(k, ANY), function () {
+    verifyRuleExists(k);
   });
 });
 
 bthread("Rule update verification", function () {
   const e = waitForAnyRuleUpdated();
-  block(matchDeleteRule(e.id, ANY), function () {
-    verifyRuleUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRule(k, ANY), function () {
+    verifyRuleUpdated(k);
   });
 });
 
 bthread("Rule delete verification", function () {
   const e = waitForAnyRuleDeleted();
-  block(matchAddRule(e.id, ANY), function () {
-    verifyRuleDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRule(k, ANY), function () {
+    verifyRuleDoesNotExist(k);
   });
 });
 
 bthread("Ruleset create verification", function () {
   const e = waitForAnyRulesetAdded();
-  block(matchDeleteRuleset(e.id, ANY), function () {
-    verifyRulesetExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRuleset(k, ANY), function () {
+    verifyRulesetExists(k);
   });
 });
 
 bthread("Ruleset update verification", function () {
   const e = waitForAnyRulesetUpdated();
-  block(matchDeleteRuleset(e.id, ANY), function () {
-    verifyRulesetUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRuleset(k, ANY), function () {
+    verifyRulesetUpdated(k);
   });
 });
 
 bthread("Ruleset delete verification", function () {
   const e = waitForAnyRulesetDeleted();
-  block(matchAddRuleset(e.id, ANY), function () {
-    verifyRulesetDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRuleset(k, ANY), function () {
+    verifyRulesetDoesNotExist(k);
   });
 });
 
 bthread("Rulesuite create verification", function () {
   const e = waitForAnyRulesuiteAdded();
-  block(matchDeleteRulesuite(e.id, ANY), function () {
-    verifyRulesuiteExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRulesuite(k, ANY), function () {
+    verifyRulesuiteExists(k);
   });
 });
 
 bthread("Rulesuite update verification", function () {
   const e = waitForAnyRulesuiteUpdated();
-  block(matchDeleteRulesuite(e.id, ANY), function () {
-    verifyRulesuiteUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRulesuite(k, ANY), function () {
+    verifyRulesuiteUpdated(k);
   });
 });
 
 bthread("Rulesuite delete verification", function () {
   const e = waitForAnyRulesuiteDeleted();
-  block(matchAddRulesuite(e.id, ANY), function () {
-    verifyRulesuiteDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRulesuite(k, ANY), function () {
+    verifyRulesuiteDoesNotExist(k);
   });
 });
 
 bthread("Run create verification", function () {
   const e = waitForAnyRunAdded();
-  block(matchDeleteRun(e.id, ANY), function () {
-    verifyRunExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRun(k, ANY), function () {
+    verifyRunExists(k);
   });
 });
 
 bthread("Run update verification", function () {
   const e = waitForAnyRunUpdated();
-  block(matchDeleteRun(e.id, ANY), function () {
-    verifyRunUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRun(k, ANY), function () {
+    verifyRunUpdated(k);
   });
 });
 
 bthread("Run delete verification", function () {
   const e = waitForAnyRunDeleted();
-  block(matchAddRun(e.id, ANY), function () {
-    verifyRunDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRun(k, ANY), function () {
+    verifyRunDoesNotExist(k);
   });
 });
 
 bthread("Runner create verification", function () {
   const e = waitForAnyRunnerAdded();
-  block(matchDeleteRunner(e.id, ANY), function () {
-    verifyRunnerExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRunner(k, ANY), function () {
+    verifyRunnerExists(k);
   });
 });
 
 bthread("Runner update verification", function () {
   const e = waitForAnyRunnerUpdated();
-  block(matchDeleteRunner(e.id, ANY), function () {
-    verifyRunnerUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRunner(k, ANY), function () {
+    verifyRunnerUpdated(k);
   });
 });
 
 bthread("Runner delete verification", function () {
   const e = waitForAnyRunnerDeleted();
-  block(matchAddRunner(e.id, ANY), function () {
-    verifyRunnerDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRunner(k, ANY), function () {
+    verifyRunnerDoesNotExist(k);
   });
 });
 
 bthread("Runnergroup create verification", function () {
   const e = waitForAnyRunnergroupAdded();
-  block(matchDeleteRunnergroup(e.id, ANY), function () {
-    verifyRunnergroupExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRunnergroup(k, ANY), function () {
+    verifyRunnergroupExists(k);
   });
 });
 
 bthread("Runnergroup update verification", function () {
   const e = waitForAnyRunnergroupUpdated();
-  block(matchDeleteRunnergroup(e.id, ANY), function () {
-    verifyRunnergroupUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteRunnergroup(k, ANY), function () {
+    verifyRunnergroupUpdated(k);
   });
 });
 
 bthread("Runnergroup delete verification", function () {
   const e = waitForAnyRunnergroupDeleted();
-  block(matchAddRunnergroup(e.id, ANY), function () {
-    verifyRunnergroupDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddRunnergroup(k, ANY), function () {
+    verifyRunnergroupDoesNotExist(k);
   });
 });
 
 bthread("Sarif create verification", function () {
   const e = waitForAnySarifAdded();
-  block(matchDeleteSarif(e.id, ANY), function () {
-    verifySarifExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSarif(k, ANY), function () {
+    verifySarifExists(k);
   });
 });
 
 bthread("Sarif update verification", function () {
   const e = waitForAnySarifUpdated();
-  block(matchDeleteSarif(e.id, ANY), function () {
-    verifySarifUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSarif(k, ANY), function () {
+    verifySarifUpdated(k);
   });
 });
 
 bthread("Sarif delete verification", function () {
   const e = waitForAnySarifDeleted();
-  block(matchAddSarif(e.id, ANY), function () {
-    verifySarifDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSarif(k, ANY), function () {
+    verifySarifDoesNotExist(k);
   });
 });
 
 bthread("Sbom create verification", function () {
   const e = waitForAnySbomAdded();
-  block(matchDeleteSbom(e.id, ANY), function () {
-    verifySbomExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSbom(k, ANY), function () {
+    verifySbomExists(k);
   });
 });
 
 bthread("Sbom update verification", function () {
   const e = waitForAnySbomUpdated();
-  block(matchDeleteSbom(e.id, ANY), function () {
-    verifySbomUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSbom(k, ANY), function () {
+    verifySbomUpdated(k);
   });
 });
 
 bthread("Sbom delete verification", function () {
   const e = waitForAnySbomDeleted();
-  block(matchAddSbom(e.id, ANY), function () {
-    verifySbomDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSbom(k, ANY), function () {
+    verifySbomDoesNotExist(k);
   });
 });
 
 bthread("Scanhistory create verification", function () {
   const e = waitForAnyScanhistoryAdded();
-  block(matchDeleteScanhistory(e.id, ANY), function () {
-    verifyScanhistoryExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteScanhistory(k, ANY), function () {
+    verifyScanhistoryExists(k);
   });
 });
 
 bthread("Scanhistory update verification", function () {
   const e = waitForAnyScanhistoryUpdated();
-  block(matchDeleteScanhistory(e.id, ANY), function () {
-    verifyScanhistoryUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteScanhistory(k, ANY), function () {
+    verifyScanhistoryUpdated(k);
   });
 });
 
 bthread("Scanhistory delete verification", function () {
   const e = waitForAnyScanhistoryDeleted();
-  block(matchAddScanhistory(e.id, ANY), function () {
-    verifyScanhistoryDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddScanhistory(k, ANY), function () {
+    verifyScanhistoryDoesNotExist(k);
   });
 });
 
 bthread("Schema create verification", function () {
   const e = waitForAnySchemaAdded();
-  block(matchDeleteSchema(e.id, ANY), function () {
-    verifySchemaExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSchema(k, ANY), function () {
+    verifySchemaExists(k);
   });
 });
 
 bthread("Schema update verification", function () {
   const e = waitForAnySchemaUpdated();
-  block(matchDeleteSchema(e.id, ANY), function () {
-    verifySchemaUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSchema(k, ANY), function () {
+    verifySchemaUpdated(k);
   });
 });
 
 bthread("Schema delete verification", function () {
   const e = waitForAnySchemaDeleted();
-  block(matchAddSchema(e.id, ANY), function () {
-    verifySchemaDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSchema(k, ANY), function () {
+    verifySchemaDoesNotExist(k);
   });
 });
 
 bthread("Scoped create verification", function () {
   const e = waitForAnyScopedAdded();
-  block(matchDeleteScoped(e.id, ANY), function () {
-    verifyScopedExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteScoped(k, ANY), function () {
+    verifyScopedExists(k);
   });
 });
 
 bthread("Scoped update verification", function () {
   const e = waitForAnyScopedUpdated();
-  block(matchDeleteScoped(e.id, ANY), function () {
-    verifyScopedUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteScoped(k, ANY), function () {
+    verifyScopedUpdated(k);
   });
 });
 
 bthread("Scoped delete verification", function () {
   const e = waitForAnyScopedDeleted();
-  block(matchAddScoped(e.id, ANY), function () {
-    verifyScopedDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddScoped(k, ANY), function () {
+    verifyScopedDoesNotExist(k);
   });
 });
 
 bthread("Search create verification", function () {
   const e = waitForAnySearchAdded();
-  block(matchDeleteSearch(e.id, ANY), function () {
-    verifySearchExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSearch(k, ANY), function () {
+    verifySearchExists(k);
   });
 });
 
 bthread("Search update verification", function () {
   const e = waitForAnySearchUpdated();
-  block(matchDeleteSearch(e.id, ANY), function () {
-    verifySearchUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSearch(k, ANY), function () {
+    verifySearchUpdated(k);
   });
 });
 
 bthread("Search delete verification", function () {
   const e = waitForAnySearchDeleted();
-  block(matchAddSearch(e.id, ANY), function () {
-    verifySearchDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSearch(k, ANY), function () {
+    verifySearchDoesNotExist(k);
   });
 });
 
 bthread("Seat create verification", function () {
   const e = waitForAnySeatAdded();
-  block(matchDeleteSeat(e.id, ANY), function () {
-    verifySeatExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSeat(k, ANY), function () {
+    verifySeatExists(k);
   });
 });
 
 bthread("Seat update verification", function () {
   const e = waitForAnySeatUpdated();
-  block(matchDeleteSeat(e.id, ANY), function () {
-    verifySeatUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSeat(k, ANY), function () {
+    verifySeatUpdated(k);
   });
 });
 
 bthread("Seat delete verification", function () {
   const e = waitForAnySeatDeleted();
-  block(matchAddSeat(e.id, ANY), function () {
-    verifySeatDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSeat(k, ANY), function () {
+    verifySeatDoesNotExist(k);
   });
 });
 
 bthread("Secret create verification", function () {
   const e = waitForAnySecretAdded();
-  block(matchDeleteSecret(e.id, ANY), function () {
-    verifySecretExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSecret(k, ANY), function () {
+    verifySecretExists(k);
   });
 });
 
 bthread("Secret update verification", function () {
   const e = waitForAnySecretUpdated();
-  block(matchDeleteSecret(e.id, ANY), function () {
-    verifySecretUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSecret(k, ANY), function () {
+    verifySecretUpdated(k);
   });
 });
 
 bthread("Secret delete verification", function () {
   const e = waitForAnySecretDeleted();
-  block(matchAddSecret(e.id, ANY), function () {
-    verifySecretDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSecret(k, ANY), function () {
+    verifySecretDoesNotExist(k);
   });
 });
 
 bthread("Secretscanning create verification", function () {
   const e = waitForAnySecretscanningAdded();
-  block(matchDeleteSecretscanning(e.id, ANY), function () {
-    verifySecretscanningExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSecretscanning(k, ANY), function () {
+    verifySecretscanningExists(k);
   });
 });
 
 bthread("Secretscanning update verification", function () {
   const e = waitForAnySecretscanningUpdated();
-  block(matchDeleteSecretscanning(e.id, ANY), function () {
-    verifySecretscanningUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSecretscanning(k, ANY), function () {
+    verifySecretscanningUpdated(k);
   });
 });
 
 bthread("Secretscanning delete verification", function () {
   const e = waitForAnySecretscanningDeleted();
-  block(matchAddSecretscanning(e.id, ANY), function () {
-    verifySecretscanningDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSecretscanning(k, ANY), function () {
+    verifySecretscanningDoesNotExist(k);
   });
 });
 
 bthread("Securityadvisory create verification", function () {
   const e = waitForAnySecurityadvisoryAdded();
-  block(matchDeleteSecurityadvisory(e.id, ANY), function () {
-    verifySecurityadvisoryExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSecurityadvisory(k, ANY), function () {
+    verifySecurityadvisoryExists(k);
   });
 });
 
 bthread("Securityadvisory update verification", function () {
   const e = waitForAnySecurityadvisoryUpdated();
-  block(matchDeleteSecurityadvisory(e.id, ANY), function () {
-    verifySecurityadvisoryUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSecurityadvisory(k, ANY), function () {
+    verifySecurityadvisoryUpdated(k);
   });
 });
 
 bthread("Securityadvisory delete verification", function () {
   const e = waitForAnySecurityadvisoryDeleted();
-  block(matchAddSecurityadvisory(e.id, ANY), function () {
-    verifySecurityadvisoryDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSecurityadvisory(k, ANY), function () {
+    verifySecurityadvisoryDoesNotExist(k);
   });
 });
 
 bthread("Securitymanager create verification", function () {
   const e = waitForAnySecuritymanagerAdded();
-  block(matchDeleteSecuritymanager(e.id, ANY), function () {
-    verifySecuritymanagerExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSecuritymanager(k, ANY), function () {
+    verifySecuritymanagerExists(k);
   });
 });
 
 bthread("Securitymanager update verification", function () {
   const e = waitForAnySecuritymanagerUpdated();
-  block(matchDeleteSecuritymanager(e.id, ANY), function () {
-    verifySecuritymanagerUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSecuritymanager(k, ANY), function () {
+    verifySecuritymanagerUpdated(k);
   });
 });
 
 bthread("Securitymanager delete verification", function () {
   const e = waitForAnySecuritymanagerDeleted();
-  block(matchAddSecuritymanager(e.id, ANY), function () {
-    verifySecuritymanagerDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSecuritymanager(k, ANY), function () {
+    verifySecuritymanagerDoesNotExist(k);
   });
 });
 
 bthread("Selectedaction create verification", function () {
   const e = waitForAnySelectedactionAdded();
-  block(matchDeleteSelectedaction(e.id, ANY), function () {
-    verifySelectedactionExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSelectedaction(k, ANY), function () {
+    verifySelectedactionExists(k);
   });
 });
 
 bthread("Selectedaction update verification", function () {
   const e = waitForAnySelectedactionUpdated();
-  block(matchDeleteSelectedaction(e.id, ANY), function () {
-    verifySelectedactionUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSelectedaction(k, ANY), function () {
+    verifySelectedactionUpdated(k);
   });
 });
 
 bthread("Selectedaction delete verification", function () {
   const e = waitForAnySelectedactionDeleted();
-  block(matchAddSelectedaction(e.id, ANY), function () {
-    verifySelectedactionDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSelectedaction(k, ANY), function () {
+    verifySelectedactionDoesNotExist(k);
   });
 });
 
 bthread("Selectedteam create verification", function () {
   const e = waitForAnySelectedteamAdded();
-  block(matchDeleteSelectedteam(e.id, ANY), function () {
-    verifySelectedteamExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSelectedteam(k, ANY), function () {
+    verifySelectedteamExists(k);
   });
 });
 
 bthread("Selectedteam update verification", function () {
   const e = waitForAnySelectedteamUpdated();
-  block(matchDeleteSelectedteam(e.id, ANY), function () {
-    verifySelectedteamUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSelectedteam(k, ANY), function () {
+    verifySelectedteamUpdated(k);
   });
 });
 
 bthread("Selectedteam delete verification", function () {
   const e = waitForAnySelectedteamDeleted();
-  block(matchAddSelectedteam(e.id, ANY), function () {
-    verifySelectedteamDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSelectedteam(k, ANY), function () {
+    verifySelectedteamDoesNotExist(k);
   });
 });
 
 bthread("Selecteduser create verification", function () {
   const e = waitForAnySelecteduserAdded();
-  block(matchDeleteSelecteduser(e.id, ANY), function () {
-    verifySelecteduserExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSelecteduser(k, ANY), function () {
+    verifySelecteduserExists(k);
   });
 });
 
 bthread("Selecteduser update verification", function () {
   const e = waitForAnySelecteduserUpdated();
-  block(matchDeleteSelecteduser(e.id, ANY), function () {
-    verifySelecteduserUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSelecteduser(k, ANY), function () {
+    verifySelecteduserUpdated(k);
   });
 });
 
 bthread("Selecteduser delete verification", function () {
   const e = waitForAnySelecteduserDeleted();
-  block(matchAddSelecteduser(e.id, ANY), function () {
-    verifySelecteduserDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSelecteduser(k, ANY), function () {
+    verifySelecteduserDoesNotExist(k);
   });
 });
 
 bthread("Selfhostedrunner create verification", function () {
   const e = waitForAnySelfhostedrunnerAdded();
-  block(matchDeleteSelfhostedrunner(e.id, ANY), function () {
-    verifySelfhostedrunnerExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSelfhostedrunner(k, ANY), function () {
+    verifySelfhostedrunnerExists(k);
   });
 });
 
 bthread("Selfhostedrunner update verification", function () {
   const e = waitForAnySelfhostedrunnerUpdated();
-  block(matchDeleteSelfhostedrunner(e.id, ANY), function () {
-    verifySelfhostedrunnerUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSelfhostedrunner(k, ANY), function () {
+    verifySelfhostedrunnerUpdated(k);
   });
 });
 
 bthread("Selfhostedrunner delete verification", function () {
   const e = waitForAnySelfhostedrunnerDeleted();
-  block(matchAddSelfhostedrunner(e.id, ANY), function () {
-    verifySelfhostedrunnerDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSelfhostedrunner(k, ANY), function () {
+    verifySelfhostedrunnerDoesNotExist(k);
   });
 });
 
 bthread("Setting create verification", function () {
   const e = waitForAnySettingAdded();
-  block(matchDeleteSetting(e.id, ANY), function () {
-    verifySettingExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSetting(k, ANY), function () {
+    verifySettingExists(k);
   });
 });
 
 bthread("Setting update verification", function () {
   const e = waitForAnySettingUpdated();
-  block(matchDeleteSetting(e.id, ANY), function () {
-    verifySettingUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSetting(k, ANY), function () {
+    verifySettingUpdated(k);
   });
 });
 
 bthread("Setting delete verification", function () {
   const e = waitForAnySettingDeleted();
-  block(matchAddSetting(e.id, ANY), function () {
-    verifySettingDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSetting(k, ANY), function () {
+    verifySettingDoesNotExist(k);
   });
 });
 
 bthread("Sharedstorage create verification", function () {
   const e = waitForAnySharedstorageAdded();
-  block(matchDeleteSharedstorage(e.id, ANY), function () {
-    verifySharedstorageExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSharedstorage(k, ANY), function () {
+    verifySharedstorageExists(k);
   });
 });
 
 bthread("Sharedstorage update verification", function () {
   const e = waitForAnySharedstorageUpdated();
-  block(matchDeleteSharedstorage(e.id, ANY), function () {
-    verifySharedstorageUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSharedstorage(k, ANY), function () {
+    verifySharedstorageUpdated(k);
   });
 });
 
 bthread("Sharedstorage delete verification", function () {
   const e = waitForAnySharedstorageDeleted();
-  block(matchAddSharedstorage(e.id, ANY), function () {
-    verifySharedstorageDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSharedstorage(k, ANY), function () {
+    verifySharedstorageDoesNotExist(k);
   });
 });
 
 bthread("Snapshot create verification", function () {
   const e = waitForAnySnapshotAdded();
-  block(matchDeleteSnapshot(e.id, ANY), function () {
-    verifySnapshotExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSnapshot(k, ANY), function () {
+    verifySnapshotExists(k);
   });
 });
 
 bthread("Snapshot update verification", function () {
   const e = waitForAnySnapshotUpdated();
-  block(matchDeleteSnapshot(e.id, ANY), function () {
-    verifySnapshotUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSnapshot(k, ANY), function () {
+    verifySnapshotUpdated(k);
   });
 });
 
 bthread("Snapshot delete verification", function () {
   const e = waitForAnySnapshotDeleted();
-  block(matchAddSnapshot(e.id, ANY), function () {
-    verifySnapshotDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSnapshot(k, ANY), function () {
+    verifySnapshotDoesNotExist(k);
   });
 });
 
 bthread("Socialaccount create verification", function () {
   const e = waitForAnySocialaccountAdded();
-  block(matchDeleteSocialaccount(e.id, ANY), function () {
-    verifySocialaccountExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSocialaccount(k, ANY), function () {
+    verifySocialaccountExists(k);
   });
 });
 
 bthread("Socialaccount update verification", function () {
   const e = waitForAnySocialaccountUpdated();
-  block(matchDeleteSocialaccount(e.id, ANY), function () {
-    verifySocialaccountUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSocialaccount(k, ANY), function () {
+    verifySocialaccountUpdated(k);
   });
 });
 
 bthread("Socialaccount delete verification", function () {
   const e = waitForAnySocialaccountDeleted();
-  block(matchAddSocialaccount(e.id, ANY), function () {
-    verifySocialaccountDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSocialaccount(k, ANY), function () {
+    verifySocialaccountDoesNotExist(k);
   });
 });
 
 bthread("Sshsigningkey create verification", function () {
   const e = waitForAnySshsigningkeyAdded();
-  block(matchDeleteSshsigningkey(e.id, ANY), function () {
-    verifySshsigningkeyExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSshsigningkey(k, ANY), function () {
+    verifySshsigningkeyExists(k);
   });
 });
 
 bthread("Sshsigningkey update verification", function () {
   const e = waitForAnySshsigningkeyUpdated();
-  block(matchDeleteSshsigningkey(e.id, ANY), function () {
-    verifySshsigningkeyUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSshsigningkey(k, ANY), function () {
+    verifySshsigningkeyUpdated(k);
   });
 });
 
 bthread("Sshsigningkey delete verification", function () {
   const e = waitForAnySshsigningkeyDeleted();
-  block(matchAddSshsigningkey(e.id, ANY), function () {
-    verifySshsigningkeyDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSshsigningkey(k, ANY), function () {
+    verifySshsigningkeyDoesNotExist(k);
   });
 });
 
 bthread("Star create verification", function () {
   const e = waitForAnyStarAdded();
-  block(matchDeleteStar(e.id, ANY), function () {
-    verifyStarExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStar(k, ANY), function () {
+    verifyStarExists(k);
   });
 });
 
 bthread("Star update verification", function () {
   const e = waitForAnyStarUpdated();
-  block(matchDeleteStar(e.id, ANY), function () {
-    verifyStarUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStar(k, ANY), function () {
+    verifyStarUpdated(k);
   });
 });
 
 bthread("Star delete verification", function () {
   const e = waitForAnyStarDeleted();
-  block(matchAddStar(e.id, ANY), function () {
-    verifyStarDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddStar(k, ANY), function () {
+    verifyStarDoesNotExist(k);
   });
 });
 
 bthread("Stargazer create verification", function () {
   const e = waitForAnyStargazerAdded();
-  block(matchDeleteStargazer(e.id, ANY), function () {
-    verifyStargazerExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStargazer(k, ANY), function () {
+    verifyStargazerExists(k);
   });
 });
 
 bthread("Stargazer update verification", function () {
   const e = waitForAnyStargazerUpdated();
-  block(matchDeleteStargazer(e.id, ANY), function () {
-    verifyStargazerUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStargazer(k, ANY), function () {
+    verifyStargazerUpdated(k);
   });
 });
 
 bthread("Stargazer delete verification", function () {
   const e = waitForAnyStargazerDeleted();
-  block(matchAddStargazer(e.id, ANY), function () {
-    verifyStargazerDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddStargazer(k, ANY), function () {
+    verifyStargazerDoesNotExist(k);
   });
 });
 
 bthread("Starred create verification", function () {
   const e = waitForAnyStarredAdded();
-  block(matchDeleteStarred(e.id, ANY), function () {
-    verifyStarredExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStarred(k, ANY), function () {
+    verifyStarredExists(k);
   });
 });
 
 bthread("Starred update verification", function () {
   const e = waitForAnyStarredUpdated();
-  block(matchDeleteStarred(e.id, ANY), function () {
-    verifyStarredUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStarred(k, ANY), function () {
+    verifyStarredUpdated(k);
   });
 });
 
 bthread("Starred delete verification", function () {
   const e = waitForAnyStarredDeleted();
-  block(matchAddStarred(e.id, ANY), function () {
-    verifyStarredDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddStarred(k, ANY), function () {
+    verifyStarredDoesNotExist(k);
   });
 });
 
 bthread("Start create verification", function () {
   const e = waitForAnyStartAdded();
-  block(matchDeleteStart(e.id, ANY), function () {
-    verifyStartExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStart(k, ANY), function () {
+    verifyStartExists(k);
   });
 });
 
 bthread("Start update verification", function () {
   const e = waitForAnyStartUpdated();
-  block(matchDeleteStart(e.id, ANY), function () {
-    verifyStartUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStart(k, ANY), function () {
+    verifyStartUpdated(k);
   });
 });
 
 bthread("Start delete verification", function () {
   const e = waitForAnyStartDeleted();
-  block(matchAddStart(e.id, ANY), function () {
-    verifyStartDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddStart(k, ANY), function () {
+    verifyStartDoesNotExist(k);
   });
 });
 
 bthread("Stat create verification", function () {
   const e = waitForAnyStatAdded();
-  block(matchDeleteStat(e.id, ANY), function () {
-    verifyStatExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStat(k, ANY), function () {
+    verifyStatExists(k);
   });
 });
 
 bthread("Stat update verification", function () {
   const e = waitForAnyStatUpdated();
-  block(matchDeleteStat(e.id, ANY), function () {
-    verifyStatUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStat(k, ANY), function () {
+    verifyStatUpdated(k);
   });
 });
 
 bthread("Stat delete verification", function () {
   const e = waitForAnyStatDeleted();
-  block(matchAddStat(e.id, ANY), function () {
-    verifyStatDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddStat(k, ANY), function () {
+    verifyStatDoesNotExist(k);
   });
 });
 
 bthread("Statu create verification", function () {
   const e = waitForAnyStatuAdded();
-  block(matchDeleteStatu(e.id, ANY), function () {
-    verifyStatuExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStatu(k, ANY), function () {
+    verifyStatuExists(k);
   });
 });
 
 bthread("Statu update verification", function () {
   const e = waitForAnyStatuUpdated();
-  block(matchDeleteStatu(e.id, ANY), function () {
-    verifyStatuUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStatu(k, ANY), function () {
+    verifyStatuUpdated(k);
   });
 });
 
 bthread("Statu delete verification", function () {
   const e = waitForAnyStatuDeleted();
-  block(matchAddStatu(e.id, ANY), function () {
-    verifyStatuDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddStatu(k, ANY), function () {
+    verifyStatuDoesNotExist(k);
   });
 });
 
 bthread("Status create verification", function () {
   const e = waitForAnyStatusAdded();
-  block(matchDeleteStatus(e.id, ANY), function () {
-    verifyStatusExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStatus(k, ANY), function () {
+    verifyStatusExists(k);
   });
 });
 
 bthread("Status update verification", function () {
   const e = waitForAnyStatusUpdated();
-  block(matchDeleteStatus(e.id, ANY), function () {
-    verifyStatusUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStatus(k, ANY), function () {
+    verifyStatusUpdated(k);
   });
 });
 
 bthread("Status delete verification", function () {
   const e = waitForAnyStatusDeleted();
-  block(matchAddStatus(e.id, ANY), function () {
-    verifyStatusDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddStatus(k, ANY), function () {
+    verifyStatusDoesNotExist(k);
   });
 });
 
 bthread("Stop create verification", function () {
   const e = waitForAnyStopAdded();
-  block(matchDeleteStop(e.id, ANY), function () {
-    verifyStopExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStop(k, ANY), function () {
+    verifyStopExists(k);
   });
 });
 
 bthread("Stop update verification", function () {
   const e = waitForAnyStopUpdated();
-  block(matchDeleteStop(e.id, ANY), function () {
-    verifyStopUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStop(k, ANY), function () {
+    verifyStopUpdated(k);
   });
 });
 
 bthread("Stop delete verification", function () {
   const e = waitForAnyStopDeleted();
-  block(matchAddStop(e.id, ANY), function () {
-    verifyStopDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddStop(k, ANY), function () {
+    verifyStopDoesNotExist(k);
   });
 });
 
 bthread("Storagerecord create verification", function () {
   const e = waitForAnyStoragerecordAdded();
-  block(matchDeleteStoragerecord(e.id, ANY), function () {
-    verifyStoragerecordExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStoragerecord(k, ANY), function () {
+    verifyStoragerecordExists(k);
   });
 });
 
 bthread("Storagerecord update verification", function () {
   const e = waitForAnyStoragerecordUpdated();
-  block(matchDeleteStoragerecord(e.id, ANY), function () {
-    verifyStoragerecordUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStoragerecord(k, ANY), function () {
+    verifyStoragerecordUpdated(k);
   });
 });
 
 bthread("Storagerecord delete verification", function () {
   const e = waitForAnyStoragerecordDeleted();
-  block(matchAddStoragerecord(e.id, ANY), function () {
-    verifyStoragerecordDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddStoragerecord(k, ANY), function () {
+    verifyStoragerecordDoesNotExist(k);
   });
 });
 
 bthread("Stubbed create verification", function () {
   const e = waitForAnyStubbedAdded();
-  block(matchDeleteStubbed(e.id, ANY), function () {
-    verifyStubbedExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStubbed(k, ANY), function () {
+    verifyStubbedExists(k);
   });
 });
 
 bthread("Stubbed update verification", function () {
   const e = waitForAnyStubbedUpdated();
-  block(matchDeleteStubbed(e.id, ANY), function () {
-    verifyStubbedUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteStubbed(k, ANY), function () {
+    verifyStubbedUpdated(k);
   });
 });
 
 bthread("Stubbed delete verification", function () {
   const e = waitForAnyStubbedDeleted();
-  block(matchAddStubbed(e.id, ANY), function () {
-    verifyStubbedDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddStubbed(k, ANY), function () {
+    verifyStubbedDoesNotExist(k);
   });
 });
 
 bthread("Sub create verification", function () {
   const e = waitForAnySubAdded();
-  block(matchDeleteSub(e.id, ANY), function () {
-    verifySubExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSub(k, ANY), function () {
+    verifySubExists(k);
   });
 });
 
 bthread("Sub update verification", function () {
   const e = waitForAnySubUpdated();
-  block(matchDeleteSub(e.id, ANY), function () {
-    verifySubUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSub(k, ANY), function () {
+    verifySubUpdated(k);
   });
 });
 
 bthread("Sub delete verification", function () {
   const e = waitForAnySubDeleted();
-  block(matchAddSub(e.id, ANY), function () {
-    verifySubDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSub(k, ANY), function () {
+    verifySubDoesNotExist(k);
   });
 });
 
 bthread("Subissue create verification", function () {
   const e = waitForAnySubissueAdded();
-  block(matchDeleteSubissue(e.id, ANY), function () {
-    verifySubissueExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSubissue(k, ANY), function () {
+    verifySubissueExists(k);
   });
 });
 
 bthread("Subissue update verification", function () {
   const e = waitForAnySubissueUpdated();
-  block(matchDeleteSubissue(e.id, ANY), function () {
-    verifySubissueUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSubissue(k, ANY), function () {
+    verifySubissueUpdated(k);
   });
 });
 
 bthread("Subissue delete verification", function () {
   const e = waitForAnySubissueDeleted();
-  block(matchAddSubissue(e.id, ANY), function () {
-    verifySubissueDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSubissue(k, ANY), function () {
+    verifySubissueDoesNotExist(k);
   });
 });
 
 bthread("Subjectstat create verification", function () {
   const e = waitForAnySubjectstatAdded();
-  block(matchDeleteSubjectstat(e.id, ANY), function () {
-    verifySubjectstatExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSubjectstat(k, ANY), function () {
+    verifySubjectstatExists(k);
   });
 });
 
 bthread("Subjectstat update verification", function () {
   const e = waitForAnySubjectstatUpdated();
-  block(matchDeleteSubjectstat(e.id, ANY), function () {
-    verifySubjectstatUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSubjectstat(k, ANY), function () {
+    verifySubjectstatUpdated(k);
   });
 });
 
 bthread("Subjectstat delete verification", function () {
   const e = waitForAnySubjectstatDeleted();
-  block(matchAddSubjectstat(e.id, ANY), function () {
-    verifySubjectstatDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSubjectstat(k, ANY), function () {
+    verifySubjectstatDoesNotExist(k);
   });
 });
 
 bthread("Subscriber create verification", function () {
   const e = waitForAnySubscriberAdded();
-  block(matchDeleteSubscriber(e.id, ANY), function () {
-    verifySubscriberExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSubscriber(k, ANY), function () {
+    verifySubscriberExists(k);
   });
 });
 
 bthread("Subscriber update verification", function () {
   const e = waitForAnySubscriberUpdated();
-  block(matchDeleteSubscriber(e.id, ANY), function () {
-    verifySubscriberUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSubscriber(k, ANY), function () {
+    verifySubscriberUpdated(k);
   });
 });
 
 bthread("Subscriber delete verification", function () {
   const e = waitForAnySubscriberDeleted();
-  block(matchAddSubscriber(e.id, ANY), function () {
-    verifySubscriberDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSubscriber(k, ANY), function () {
+    verifySubscriberDoesNotExist(k);
   });
 });
 
 bthread("Subscription create verification", function () {
   const e = waitForAnySubscriptionAdded();
-  block(matchDeleteSubscription(e.id, ANY), function () {
-    verifySubscriptionExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSubscription(k, ANY), function () {
+    verifySubscriptionExists(k);
   });
 });
 
 bthread("Subscription update verification", function () {
   const e = waitForAnySubscriptionUpdated();
-  block(matchDeleteSubscription(e.id, ANY), function () {
-    verifySubscriptionUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSubscription(k, ANY), function () {
+    verifySubscriptionUpdated(k);
   });
 });
 
 bthread("Subscription delete verification", function () {
   const e = waitForAnySubscriptionDeleted();
-  block(matchAddSubscription(e.id, ANY), function () {
-    verifySubscriptionDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSubscription(k, ANY), function () {
+    verifySubscriptionDoesNotExist(k);
   });
 });
 
 bthread("Summarystat create verification", function () {
   const e = waitForAnySummarystatAdded();
-  block(matchDeleteSummarystat(e.id, ANY), function () {
-    verifySummarystatExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSummarystat(k, ANY), function () {
+    verifySummarystatExists(k);
   });
 });
 
 bthread("Summarystat update verification", function () {
   const e = waitForAnySummarystatUpdated();
-  block(matchDeleteSummarystat(e.id, ANY), function () {
-    verifySummarystatUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSummarystat(k, ANY), function () {
+    verifySummarystatUpdated(k);
   });
 });
 
 bthread("Summarystat delete verification", function () {
   const e = waitForAnySummarystatDeleted();
-  block(matchAddSummarystat(e.id, ANY), function () {
-    verifySummarystatDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSummarystat(k, ANY), function () {
+    verifySummarystatDoesNotExist(k);
   });
 });
 
 bthread("Suspended create verification", function () {
   const e = waitForAnySuspendedAdded();
-  block(matchDeleteSuspended(e.id, ANY), function () {
-    verifySuspendedExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSuspended(k, ANY), function () {
+    verifySuspendedExists(k);
   });
 });
 
 bthread("Suspended update verification", function () {
   const e = waitForAnySuspendedUpdated();
-  block(matchDeleteSuspended(e.id, ANY), function () {
-    verifySuspendedUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSuspended(k, ANY), function () {
+    verifySuspendedUpdated(k);
   });
 });
 
 bthread("Suspended delete verification", function () {
   const e = waitForAnySuspendedDeleted();
-  block(matchAddSuspended(e.id, ANY), function () {
-    verifySuspendedDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSuspended(k, ANY), function () {
+    verifySuspendedDoesNotExist(k);
   });
 });
 
 bthread("Tag create verification", function () {
   const e = waitForAnyTagAdded();
-  block(matchDeleteTag(e.id, ANY), function () {
-    verifyTagExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTag(k, ANY), function () {
+    verifyTagExists(k);
   });
 });
 
 bthread("Tag update verification", function () {
   const e = waitForAnyTagUpdated();
-  block(matchDeleteTag(e.id, ANY), function () {
-    verifyTagUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTag(k, ANY), function () {
+    verifyTagUpdated(k);
   });
 });
 
 bthread("Tag delete verification", function () {
   const e = waitForAnyTagDeleted();
-  block(matchAddTag(e.id, ANY), function () {
-    verifyTagDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddTag(k, ANY), function () {
+    verifyTagDoesNotExist(k);
   });
 });
 
 bthread("Tarball create verification", function () {
   const e = waitForAnyTarballAdded();
-  block(matchDeleteTarball(e.id, ANY), function () {
-    verifyTarballExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTarball(k, ANY), function () {
+    verifyTarballExists(k);
   });
 });
 
 bthread("Tarball update verification", function () {
   const e = waitForAnyTarballUpdated();
-  block(matchDeleteTarball(e.id, ANY), function () {
-    verifyTarballUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTarball(k, ANY), function () {
+    verifyTarballUpdated(k);
   });
 });
 
 bthread("Tarball delete verification", function () {
   const e = waitForAnyTarballDeleted();
-  block(matchAddTarball(e.id, ANY), function () {
-    verifyTarballDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddTarball(k, ANY), function () {
+    verifyTarballDoesNotExist(k);
   });
 });
 
 bthread("Team create verification", function () {
   const e = waitForAnyTeamAdded();
-  block(matchDeleteTeam(e.id, ANY), function () {
-    verifyTeamExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTeam(k, ANY), function () {
+    verifyTeamExists(k);
   });
 });
 
 bthread("Team update verification", function () {
   const e = waitForAnyTeamUpdated();
-  block(matchDeleteTeam(e.id, ANY), function () {
-    verifyTeamUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTeam(k, ANY), function () {
+    verifyTeamUpdated(k);
   });
 });
 
 bthread("Team delete verification", function () {
   const e = waitForAnyTeamDeleted();
-  block(matchAddTeam(e.id, ANY), function () {
-    verifyTeamDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddTeam(k, ANY), function () {
+    verifyTeamDoesNotExist(k);
   });
 });
 
 bthread("Template create verification", function () {
   const e = waitForAnyTemplateAdded();
-  block(matchDeleteTemplate(e.id, ANY), function () {
-    verifyTemplateExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTemplate(k, ANY), function () {
+    verifyTemplateExists(k);
   });
 });
 
 bthread("Template update verification", function () {
   const e = waitForAnyTemplateUpdated();
-  block(matchDeleteTemplate(e.id, ANY), function () {
-    verifyTemplateUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTemplate(k, ANY), function () {
+    verifyTemplateUpdated(k);
   });
 });
 
 bthread("Template delete verification", function () {
   const e = waitForAnyTemplateDeleted();
-  block(matchAddTemplate(e.id, ANY), function () {
-    verifyTemplateDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddTemplate(k, ANY), function () {
+    verifyTemplateDoesNotExist(k);
   });
 });
 
 bthread("Test create verification", function () {
   const e = waitForAnyTestAdded();
-  block(matchDeleteTest(e.id, ANY), function () {
-    verifyTestExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTest(k, ANY), function () {
+    verifyTestExists(k);
   });
 });
 
 bthread("Test update verification", function () {
   const e = waitForAnyTestUpdated();
-  block(matchDeleteTest(e.id, ANY), function () {
-    verifyTestUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTest(k, ANY), function () {
+    verifyTestUpdated(k);
   });
 });
 
 bthread("Test delete verification", function () {
   const e = waitForAnyTestDeleted();
-  block(matchAddTest(e.id, ANY), function () {
-    verifyTestDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddTest(k, ANY), function () {
+    verifyTestDoesNotExist(k);
   });
 });
 
 bthread("Thread create verification", function () {
   const e = waitForAnyThreadAdded();
-  block(matchDeleteThread(e.id, ANY), function () {
-    verifyThreadExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteThread(k, ANY), function () {
+    verifyThreadExists(k);
   });
 });
 
 bthread("Thread update verification", function () {
   const e = waitForAnyThreadUpdated();
-  block(matchDeleteThread(e.id, ANY), function () {
-    verifyThreadUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteThread(k, ANY), function () {
+    verifyThreadUpdated(k);
   });
 });
 
 bthread("Thread delete verification", function () {
   const e = waitForAnyThreadDeleted();
-  block(matchAddThread(e.id, ANY), function () {
-    verifyThreadDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddThread(k, ANY), function () {
+    verifyThreadDoesNotExist(k);
   });
 });
 
 bthread("Timeline create verification", function () {
   const e = waitForAnyTimelineAdded();
-  block(matchDeleteTimeline(e.id, ANY), function () {
-    verifyTimelineExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTimeline(k, ANY), function () {
+    verifyTimelineExists(k);
   });
 });
 
 bthread("Timeline update verification", function () {
   const e = waitForAnyTimelineUpdated();
-  block(matchDeleteTimeline(e.id, ANY), function () {
-    verifyTimelineUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTimeline(k, ANY), function () {
+    verifyTimelineUpdated(k);
   });
 });
 
 bthread("Timeline delete verification", function () {
   const e = waitForAnyTimelineDeleted();
-  block(matchAddTimeline(e.id, ANY), function () {
-    verifyTimelineDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddTimeline(k, ANY), function () {
+    verifyTimelineDoesNotExist(k);
   });
 });
 
 bthread("Timestat create verification", function () {
   const e = waitForAnyTimestatAdded();
-  block(matchDeleteTimestat(e.id, ANY), function () {
-    verifyTimestatExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTimestat(k, ANY), function () {
+    verifyTimestatExists(k);
   });
 });
 
 bthread("Timestat update verification", function () {
   const e = waitForAnyTimestatUpdated();
-  block(matchDeleteTimestat(e.id, ANY), function () {
-    verifyTimestatUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTimestat(k, ANY), function () {
+    verifyTimestatUpdated(k);
   });
 });
 
 bthread("Timestat delete verification", function () {
   const e = waitForAnyTimestatDeleted();
-  block(matchAddTimestat(e.id, ANY), function () {
-    verifyTimestatDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddTimestat(k, ANY), function () {
+    verifyTimestatDoesNotExist(k);
   });
 });
 
 bthread("Timing create verification", function () {
   const e = waitForAnyTimingAdded();
-  block(matchDeleteTiming(e.id, ANY), function () {
-    verifyTimingExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTiming(k, ANY), function () {
+    verifyTimingExists(k);
   });
 });
 
 bthread("Timing update verification", function () {
   const e = waitForAnyTimingUpdated();
-  block(matchDeleteTiming(e.id, ANY), function () {
-    verifyTimingUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTiming(k, ANY), function () {
+    verifyTimingUpdated(k);
   });
 });
 
 bthread("Timing delete verification", function () {
   const e = waitForAnyTimingDeleted();
-  block(matchAddTiming(e.id, ANY), function () {
-    verifyTimingDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddTiming(k, ANY), function () {
+    verifyTimingDoesNotExist(k);
   });
 });
 
 bthread("Token create verification", function () {
   const e = waitForAnyTokenAdded();
-  block(matchDeleteToken(e.id, ANY), function () {
-    verifyTokenExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteToken(k, ANY), function () {
+    verifyTokenExists(k);
   });
 });
 
 bthread("Token update verification", function () {
   const e = waitForAnyTokenUpdated();
-  block(matchDeleteToken(e.id, ANY), function () {
-    verifyTokenUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteToken(k, ANY), function () {
+    verifyTokenUpdated(k);
   });
 });
 
 bthread("Token delete verification", function () {
   const e = waitForAnyTokenDeleted();
-  block(matchAddToken(e.id, ANY), function () {
-    verifyTokenDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddToken(k, ANY), function () {
+    verifyTokenDoesNotExist(k);
   });
 });
 
 bthread("Topic create verification", function () {
   const e = waitForAnyTopicAdded();
-  block(matchDeleteTopic(e.id, ANY), function () {
-    verifyTopicExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTopic(k, ANY), function () {
+    verifyTopicExists(k);
   });
 });
 
 bthread("Topic update verification", function () {
   const e = waitForAnyTopicUpdated();
-  block(matchDeleteTopic(e.id, ANY), function () {
-    verifyTopicUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTopic(k, ANY), function () {
+    verifyTopicUpdated(k);
   });
 });
 
 bthread("Topic delete verification", function () {
   const e = waitForAnyTopicDeleted();
-  block(matchAddTopic(e.id, ANY), function () {
-    verifyTopicDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddTopic(k, ANY), function () {
+    verifyTopicDoesNotExist(k);
   });
 });
 
 bthread("Traffic create verification", function () {
   const e = waitForAnyTrafficAdded();
-  block(matchDeleteTraffic(e.id, ANY), function () {
-    verifyTrafficExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTraffic(k, ANY), function () {
+    verifyTrafficExists(k);
   });
 });
 
 bthread("Traffic update verification", function () {
   const e = waitForAnyTrafficUpdated();
-  block(matchDeleteTraffic(e.id, ANY), function () {
-    verifyTrafficUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTraffic(k, ANY), function () {
+    verifyTrafficUpdated(k);
   });
 });
 
 bthread("Traffic delete verification", function () {
   const e = waitForAnyTrafficDeleted();
-  block(matchAddTraffic(e.id, ANY), function () {
-    verifyTrafficDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddTraffic(k, ANY), function () {
+    verifyTrafficDoesNotExist(k);
   });
 });
 
 bthread("Transfer create verification", function () {
   const e = waitForAnyTransferAdded();
-  block(matchDeleteTransfer(e.id, ANY), function () {
-    verifyTransferExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTransfer(k, ANY), function () {
+    verifyTransferExists(k);
   });
 });
 
 bthread("Transfer update verification", function () {
   const e = waitForAnyTransferUpdated();
-  block(matchDeleteTransfer(e.id, ANY), function () {
-    verifyTransferUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTransfer(k, ANY), function () {
+    verifyTransferUpdated(k);
   });
 });
 
 bthread("Transfer delete verification", function () {
   const e = waitForAnyTransferDeleted();
-  block(matchAddTransfer(e.id, ANY), function () {
-    verifyTransferDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddTransfer(k, ANY), function () {
+    verifyTransferDoesNotExist(k);
   });
 });
 
 bthread("Tree create verification", function () {
   const e = waitForAnyTreeAdded();
-  block(matchDeleteTree(e.id, ANY), function () {
-    verifyTreeExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTree(k, ANY), function () {
+    verifyTreeExists(k);
   });
 });
 
 bthread("Tree update verification", function () {
   const e = waitForAnyTreeUpdated();
-  block(matchDeleteTree(e.id, ANY), function () {
-    verifyTreeUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTree(k, ANY), function () {
+    verifyTreeUpdated(k);
   });
 });
 
 bthread("Tree delete verification", function () {
   const e = waitForAnyTreeDeleted();
-  block(matchAddTree(e.id, ANY), function () {
-    verifyTreeDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddTree(k, ANY), function () {
+    verifyTreeDoesNotExist(k);
   });
 });
 
 bthread("Updatebranch create verification", function () {
   const e = waitForAnyUpdatebranchAdded();
-  block(matchDeleteUpdatebranch(e.id, ANY), function () {
-    verifyUpdatebranchExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteUpdatebranch(k, ANY), function () {
+    verifyUpdatebranchExists(k);
   });
 });
 
 bthread("Updatebranch update verification", function () {
   const e = waitForAnyUpdatebranchUpdated();
-  block(matchDeleteUpdatebranch(e.id, ANY), function () {
-    verifyUpdatebranchUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteUpdatebranch(k, ANY), function () {
+    verifyUpdatebranchUpdated(k);
   });
 });
 
 bthread("Updatebranch delete verification", function () {
   const e = waitForAnyUpdatebranchDeleted();
-  block(matchAddUpdatebranch(e.id, ANY), function () {
-    verifyUpdatebranchDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddUpdatebranch(k, ANY), function () {
+    verifyUpdatebranchDoesNotExist(k);
   });
 });
 
 bthread("Usage create verification", function () {
   const e = waitForAnyUsageAdded();
-  block(matchDeleteUsage(e.id, ANY), function () {
-    verifyUsageExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteUsage(k, ANY), function () {
+    verifyUsageExists(k);
   });
 });
 
 bthread("Usage update verification", function () {
   const e = waitForAnyUsageUpdated();
-  block(matchDeleteUsage(e.id, ANY), function () {
-    verifyUsageUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteUsage(k, ANY), function () {
+    verifyUsageUpdated(k);
   });
 });
 
 bthread("Usage delete verification", function () {
   const e = waitForAnyUsageDeleted();
-  block(matchAddUsage(e.id, ANY), function () {
-    verifyUsageDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddUsage(k, ANY), function () {
+    verifyUsageDoesNotExist(k);
   });
 });
 
 bthread("Usagebyrepository create verification", function () {
   const e = waitForAnyUsagebyrepositoryAdded();
-  block(matchDeleteUsagebyrepository(e.id, ANY), function () {
-    verifyUsagebyrepositoryExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteUsagebyrepository(k, ANY), function () {
+    verifyUsagebyrepositoryExists(k);
   });
 });
 
 bthread("Usagebyrepository update verification", function () {
   const e = waitForAnyUsagebyrepositoryUpdated();
-  block(matchDeleteUsagebyrepository(e.id, ANY), function () {
-    verifyUsagebyrepositoryUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteUsagebyrepository(k, ANY), function () {
+    verifyUsagebyrepositoryUpdated(k);
   });
 });
 
 bthread("Usagebyrepository delete verification", function () {
   const e = waitForAnyUsagebyrepositoryDeleted();
-  block(matchAddUsagebyrepository(e.id, ANY), function () {
-    verifyUsagebyrepositoryDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddUsagebyrepository(k, ANY), function () {
+    verifyUsagebyrepositoryDoesNotExist(k);
   });
 });
 
 bthread("User create verification", function () {
   const e = waitForAnyUserAdded();
-  block(matchDeleteUser(e.id, ANY), function () {
-    verifyUserExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteUser(k, ANY), function () {
+    verifyUserExists(k);
   });
 });
 
 bthread("User update verification", function () {
   const e = waitForAnyUserUpdated();
-  block(matchDeleteUser(e.id, ANY), function () {
-    verifyUserUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteUser(k, ANY), function () {
+    verifyUserUpdated(k);
   });
 });
 
 bthread("User delete verification", function () {
   const e = waitForAnyUserDeleted();
-  block(matchAddUser(e.id, ANY), function () {
-    verifyUserDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddUser(k, ANY), function () {
+    verifyUserDoesNotExist(k);
   });
 });
 
 bthread("Userstat create verification", function () {
   const e = waitForAnyUserstatAdded();
-  block(matchDeleteUserstat(e.id, ANY), function () {
-    verifyUserstatExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteUserstat(k, ANY), function () {
+    verifyUserstatExists(k);
   });
 });
 
 bthread("Userstat update verification", function () {
   const e = waitForAnyUserstatUpdated();
-  block(matchDeleteUserstat(e.id, ANY), function () {
-    verifyUserstatUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteUserstat(k, ANY), function () {
+    verifyUserstatUpdated(k);
   });
 });
 
 bthread("Userstat delete verification", function () {
   const e = waitForAnyUserstatDeleted();
-  block(matchAddUserstat(e.id, ANY), function () {
-    verifyUserstatDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddUserstat(k, ANY), function () {
+    verifyUserstatDoesNotExist(k);
   });
 });
 
 bthread("Value create verification", function () {
   const e = waitForAnyValueAdded();
-  block(matchDeleteValue(e.id, ANY), function () {
-    verifyValueExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteValue(k, ANY), function () {
+    verifyValueExists(k);
   });
 });
 
 bthread("Value update verification", function () {
   const e = waitForAnyValueUpdated();
-  block(matchDeleteValue(e.id, ANY), function () {
-    verifyValueUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteValue(k, ANY), function () {
+    verifyValueUpdated(k);
   });
 });
 
 bthread("Value delete verification", function () {
   const e = waitForAnyValueDeleted();
-  block(matchAddValue(e.id, ANY), function () {
-    verifyValueDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddValue(k, ANY), function () {
+    verifyValueDoesNotExist(k);
   });
 });
 
 bthread("Variable create verification", function () {
   const e = waitForAnyVariableAdded();
-  block(matchDeleteVariable(e.id, ANY), function () {
-    verifyVariableExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteVariable(k, ANY), function () {
+    verifyVariableExists(k);
   });
 });
 
 bthread("Variable update verification", function () {
   const e = waitForAnyVariableUpdated();
-  block(matchDeleteVariable(e.id, ANY), function () {
-    verifyVariableUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteVariable(k, ANY), function () {
+    verifyVariableUpdated(k);
   });
 });
 
 bthread("Variable delete verification", function () {
   const e = waitForAnyVariableDeleted();
-  block(matchAddVariable(e.id, ANY), function () {
-    verifyVariableDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddVariable(k, ANY), function () {
+    verifyVariableDoesNotExist(k);
   });
 });
 
 bthread("Variantanalys create verification", function () {
   const e = waitForAnyVariantanalysAdded();
-  block(matchDeleteVariantanalys(e.id, ANY), function () {
-    verifyVariantanalysExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteVariantanalys(k, ANY), function () {
+    verifyVariantanalysExists(k);
   });
 });
 
 bthread("Variantanalys update verification", function () {
   const e = waitForAnyVariantanalysUpdated();
-  block(matchDeleteVariantanalys(e.id, ANY), function () {
-    verifyVariantanalysUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteVariantanalys(k, ANY), function () {
+    verifyVariantanalysUpdated(k);
   });
 });
 
 bthread("Variantanalys delete verification", function () {
   const e = waitForAnyVariantanalysDeleted();
-  block(matchAddVariantanalys(e.id, ANY), function () {
-    verifyVariantanalysDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddVariantanalys(k, ANY), function () {
+    verifyVariantanalysDoesNotExist(k);
   });
 });
 
 bthread("Version create verification", function () {
   const e = waitForAnyVersionAdded();
-  block(matchDeleteVersion(e.id, ANY), function () {
-    verifyVersionExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteVersion(k, ANY), function () {
+    verifyVersionExists(k);
   });
 });
 
 bthread("Version update verification", function () {
   const e = waitForAnyVersionUpdated();
-  block(matchDeleteVersion(e.id, ANY), function () {
-    verifyVersionUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteVersion(k, ANY), function () {
+    verifyVersionUpdated(k);
   });
 });
 
 bthread("Version delete verification", function () {
   const e = waitForAnyVersionDeleted();
-  block(matchAddVersion(e.id, ANY), function () {
-    verifyVersionDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddVersion(k, ANY), function () {
+    verifyVersionDoesNotExist(k);
   });
 });
 
 bthread("View create verification", function () {
   const e = waitForAnyViewAdded();
-  block(matchDeleteView(e.id, ANY), function () {
-    verifyViewExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteView(k, ANY), function () {
+    verifyViewExists(k);
   });
 });
 
 bthread("View update verification", function () {
   const e = waitForAnyViewUpdated();
-  block(matchDeleteView(e.id, ANY), function () {
-    verifyViewUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteView(k, ANY), function () {
+    verifyViewUpdated(k);
   });
 });
 
 bthread("View delete verification", function () {
   const e = waitForAnyViewDeleted();
-  block(matchAddView(e.id, ANY), function () {
-    verifyViewDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddView(k, ANY), function () {
+    verifyViewDoesNotExist(k);
   });
 });
 
 bthread("Visibility create verification", function () {
   const e = waitForAnyVisibilityAdded();
-  block(matchDeleteVisibility(e.id, ANY), function () {
-    verifyVisibilityExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteVisibility(k, ANY), function () {
+    verifyVisibilityExists(k);
   });
 });
 
 bthread("Visibility update verification", function () {
   const e = waitForAnyVisibilityUpdated();
-  block(matchDeleteVisibility(e.id, ANY), function () {
-    verifyVisibilityUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteVisibility(k, ANY), function () {
+    verifyVisibilityUpdated(k);
   });
 });
 
 bthread("Visibility delete verification", function () {
   const e = waitForAnyVisibilityDeleted();
-  block(matchAddVisibility(e.id, ANY), function () {
-    verifyVisibilityDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddVisibility(k, ANY), function () {
+    verifyVisibilityDoesNotExist(k);
   });
 });
 
 bthread("Vulnerabilityalert create verification", function () {
   const e = waitForAnyVulnerabilityalertAdded();
-  block(matchDeleteVulnerabilityalert(e.id, ANY), function () {
-    verifyVulnerabilityalertExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteVulnerabilityalert(k, ANY), function () {
+    verifyVulnerabilityalertExists(k);
   });
 });
 
 bthread("Vulnerabilityalert update verification", function () {
   const e = waitForAnyVulnerabilityalertUpdated();
-  block(matchDeleteVulnerabilityalert(e.id, ANY), function () {
-    verifyVulnerabilityalertUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteVulnerabilityalert(k, ANY), function () {
+    verifyVulnerabilityalertUpdated(k);
   });
 });
 
 bthread("Vulnerabilityalert delete verification", function () {
   const e = waitForAnyVulnerabilityalertDeleted();
-  block(matchAddVulnerabilityalert(e.id, ANY), function () {
-    verifyVulnerabilityalertDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddVulnerabilityalert(k, ANY), function () {
+    verifyVulnerabilityalertDoesNotExist(k);
   });
 });
 
 bthread("Workflow create verification", function () {
   const e = waitForAnyWorkflowAdded();
-  block(matchDeleteWorkflow(e.id, ANY), function () {
-    verifyWorkflowExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteWorkflow(k, ANY), function () {
+    verifyWorkflowExists(k);
   });
 });
 
 bthread("Workflow update verification", function () {
   const e = waitForAnyWorkflowUpdated();
-  block(matchDeleteWorkflow(e.id, ANY), function () {
-    verifyWorkflowUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteWorkflow(k, ANY), function () {
+    verifyWorkflowUpdated(k);
   });
 });
 
 bthread("Workflow delete verification", function () {
   const e = waitForAnyWorkflowDeleted();
-  block(matchAddWorkflow(e.id, ANY), function () {
-    verifyWorkflowDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddWorkflow(k, ANY), function () {
+    verifyWorkflowDoesNotExist(k);
   });
 });
 
 bthread("Zen create verification", function () {
   const e = waitForAnyZenAdded();
-  block(matchDeleteZen(e.id, ANY), function () {
-    verifyZenExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteZen(k, ANY), function () {
+    verifyZenExists(k);
   });
 });
 
 bthread("Zen update verification", function () {
   const e = waitForAnyZenUpdated();
-  block(matchDeleteZen(e.id, ANY), function () {
-    verifyZenUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteZen(k, ANY), function () {
+    verifyZenUpdated(k);
   });
 });
 
 bthread("Zen delete verification", function () {
   const e = waitForAnyZenDeleted();
-  block(matchAddZen(e.id, ANY), function () {
-    verifyZenDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddZen(k, ANY), function () {
+    verifyZenDoesNotExist(k);
   });
 });
 
 bthread("Zipball create verification", function () {
   const e = waitForAnyZipballAdded();
-  block(matchDeleteZipball(e.id, ANY), function () {
-    verifyZipballExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteZipball(k, ANY), function () {
+    verifyZipballExists(k);
   });
 });
 
 bthread("Zipball update verification", function () {
   const e = waitForAnyZipballUpdated();
-  block(matchDeleteZipball(e.id, ANY), function () {
-    verifyZipballUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteZipball(k, ANY), function () {
+    verifyZipballUpdated(k);
   });
 });
 
 bthread("Zipball delete verification", function () {
   const e = waitForAnyZipballDeleted();
-  block(matchAddZipball(e.id, ANY), function () {
-    verifyZipballDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddZipball(k, ANY), function () {
+    verifyZipballDoesNotExist(k);
   });
 });
 

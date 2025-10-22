@@ -16,83 +16,187 @@ if (typeof pick === 'undefined') {
   }
 }
 
+// --- _pk(e,key): robust primary-key extractor for wait/match events ---
+function _pk(e, key) {
+  if (e == null) return undefined;
+  if (typeof e === 'object') {
+    if (Object.prototype.hasOwnProperty.call(e, key)) return e[key];
+    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key)) return e.data[key];
+    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key)) return e.payload[key];
+    if (Object.prototype.hasOwnProperty.call(e, 'id')) return e['id'];
+    // minimal extra fallback for Inventory-like entities
+    if (Object.prototype.hasOwnProperty.call(e, 'ndc')) return e['ndc'];
+  }
+  return (typeof e === 'string' || typeof e === 'number') ? e : undefined;
+}
+
+// --- canonKey(v): normalize any key-like value to a scalar string ---
+function canonKey(v) {
+  if (v == null) return '1001';
+  if (typeof v === 'object') {
+    if ('id' in v) return String(v.id);
+    if ('ndc' in v) return String(v.ndc);
+    const ks = Object.keys(v);
+    if (ks.length) return String(v[ks[0]]);
+    return '1001';
+  }
+  return String(v);
+}
+
 // ===== ACTIVE LIFECYCLES =====
 
 
 bthread("AccountLifecycle", function () {
-  const x = pick([{id: "A001"}, {id: "A002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addAccount(x.id);
+  const e_add = waitForAccountAdded(id);
+  block(matchDeleteAccount(id), function () {
+    verifyAccountExists(id);
+  });
   updateAccount(x.id);
   updateAccount(x.id);
-  verifyAccountExists(x.id);
-  verifyAccountUpdated(x.id);
+  const e_upd = waitForAccountUpdated(id);
+  block(matchDeleteAccount(id), function () {
+    verifyAccountUpdated(id);
+  });
   deleteAccount(x.id);
+  const e_del = waitForAccountDeleted(id);
+  block(matchAddAccount(id), function () {
+    verifyAccountDoesNotExist(id);
+  });
 });
 
 bthread("CardLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCard(x.id);
+  const e_add = waitForCardAdded(id);
+  block(matchDeleteCard(id), function () {
+    verifyCardExists(id);
+  });
   updateCard(x.id);
   updateCard(x.id);
-  verifyCardExists(x.id);
-  verifyCardUpdated(x.id);
+  const e_upd = waitForCardUpdated(id);
+  block(matchDeleteCard(id), function () {
+    verifyCardUpdated(id);
+  });
   deleteCard(x.id);
+  const e_del = waitForCardDeleted(id);
+  block(matchAddCard(id), function () {
+    verifyCardDoesNotExist(id);
+  });
 });
 
 bthread("CustomerLifecycle", function () {
-  const x = pick([{id: "C001"}, {id: "C002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addCustomer(x.id);
+  const e_add = waitForCustomerAdded(id);
+  block(matchDeleteCustomer(id), function () {
+    verifyCustomerExists(id);
+  });
   updateCustomer(x.id);
   updateCustomer(x.id);
-  verifyCustomerExists(x.id);
-  verifyCustomerUpdated(x.id);
+  const e_upd = waitForCustomerUpdated(id);
+  block(matchDeleteCustomer(id), function () {
+    verifyCustomerUpdated(id);
+  });
   deleteCustomer(x.id);
+  const e_del = waitForCustomerDeleted(id);
+  block(matchAddCustomer(id), function () {
+    verifyCustomerDoesNotExist(id);
+  });
 });
 
 bthread("LoanLifecycle", function () {
-  const x = pick([{id: "L001"}, {id: "L002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addLoan(x.id);
+  const e_add = waitForLoanAdded(id);
+  block(matchDeleteLoan(id), function () {
+    verifyLoanExists(id);
+  });
   updateLoan(x.id);
   updateLoan(x.id);
-  verifyLoanExists(x.id);
-  verifyLoanUpdated(x.id);
+  const e_upd = waitForLoanUpdated(id);
+  block(matchDeleteLoan(id), function () {
+    verifyLoanUpdated(id);
+  });
   deleteLoan(x.id);
+  const e_del = waitForLoanDeleted(id);
+  block(matchAddLoan(id), function () {
+    verifyLoanDoesNotExist(id);
+  });
 });
 
 bthread("ResetLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addReset(x.id);
+  const e_add = waitForResetAdded(id);
+  block(matchDeleteReset(id), function () {
+    verifyResetExists(id);
+  });
   updateReset(x.id);
   updateReset(x.id);
-  verifyResetExists(x.id);
-  verifyResetUpdated(x.id);
+  const e_upd = waitForResetUpdated(id);
+  block(matchDeleteReset(id), function () {
+    verifyResetUpdated(id);
+  });
   deleteReset(x.id);
+  const e_del = waitForResetDeleted(id);
+  block(matchAddReset(id), function () {
+    verifyResetDoesNotExist(id);
+  });
 });
 
 bthread("TransactionLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addTransaction(x.id);
+  const e_add = waitForTransactionAdded(id);
+  block(matchDeleteTransaction(id), function () {
+    verifyTransactionExists(id);
+  });
   updateTransaction(x.id);
   updateTransaction(x.id);
-  verifyTransactionExists(x.id);
-  verifyTransactionUpdated(x.id);
+  const e_upd = waitForTransactionUpdated(id);
+  block(matchDeleteTransaction(id), function () {
+    verifyTransactionUpdated(id);
+  });
   deleteTransaction(x.id);
+  const e_del = waitForTransactionDeleted(id);
+  block(matchAddTransaction(id), function () {
+    verifyTransactionDoesNotExist(id);
+  });
 });
 
 bthread("TransferLifecycle", function () {
-  const x = pick([{id: "T001"}, {id: "T002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addTransfer(x.id);
+  const e_add = waitForTransferAdded(id);
+  block(matchDeleteTransfer(id), function () {
+    verifyTransferExists(id);
+  });
   updateTransfer(x.id);
   updateTransfer(x.id);
-  verifyTransferExists(x.id);
-  verifyTransferUpdated(x.id);
+  const e_upd = waitForTransferUpdated(id);
+  block(matchDeleteTransfer(id), function () {
+    verifyTransferUpdated(id);
+  });
   deleteTransfer(x.id);
+  const e_del = waitForTransferDeleted(id);
+  block(matchAddTransfer(id), function () {
+    verifyTransferDoesNotExist(id);
+  });
 });
 
 // ===== NONDET VARIANTS =====
 
 bthread("Account nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Account_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addAccount(x.id);
   for (var i=0; i<steps; i++) {
@@ -113,7 +217,7 @@ bthread("Account nondet variant – uniqueness during parallel adds", function (
 });
 
 bthread("Card nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Card_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addCard(x.id);
   for (var i=0; i<steps; i++) {
@@ -134,7 +238,7 @@ bthread("Card nondet variant – uniqueness during parallel adds", function () {
 });
 
 bthread("Customer nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Customer_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addCustomer(x.id);
   for (var i=0; i<steps; i++) {
@@ -155,7 +259,7 @@ bthread("Customer nondet variant – uniqueness during parallel adds", function 
 });
 
 bthread("Loan nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Loan_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addLoan(x.id);
   for (var i=0; i<steps; i++) {
@@ -176,7 +280,7 @@ bthread("Loan nondet variant – uniqueness during parallel adds", function () {
 });
 
 bthread("Reset nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Reset_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addReset(x.id);
   for (var i=0; i<steps; i++) {
@@ -197,7 +301,7 @@ bthread("Reset nondet variant – uniqueness during parallel adds", function () 
 });
 
 bthread("Transaction nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Transaction_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addTransaction(x.id);
   for (var i=0; i<steps; i++) {
@@ -218,7 +322,7 @@ bthread("Transaction nondet variant – uniqueness during parallel adds", functi
 });
 
 bthread("Transfer nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Transfer_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addTransfer(x.id);
   for (var i=0; i<steps; i++) {
@@ -242,148 +346,169 @@ bthread("Transfer nondet variant – uniqueness during parallel adds", function 
 
 bthread("Account create verification", function () {
   const e = waitForAnyAccountAdded();
-  block(matchDeleteAccount(e.id, ANY), function () {
-    verifyAccountExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAccount(k, ANY), function () {
+    verifyAccountExists(k);
   });
 });
 
 bthread("Account update verification", function () {
   const e = waitForAnyAccountUpdated();
-  block(matchDeleteAccount(e.id, ANY), function () {
-    verifyAccountUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteAccount(k, ANY), function () {
+    verifyAccountUpdated(k);
   });
 });
 
 bthread("Account delete verification", function () {
   const e = waitForAnyAccountDeleted();
-  block(matchAddAccount(e.id, ANY), function () {
-    verifyAccountDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddAccount(k, ANY), function () {
+    verifyAccountDoesNotExist(k);
   });
 });
 
 bthread("Card create verification", function () {
   const e = waitForAnyCardAdded();
-  block(matchDeleteCard(e.id, ANY), function () {
-    verifyCardExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCard(k, ANY), function () {
+    verifyCardExists(k);
   });
 });
 
 bthread("Card update verification", function () {
   const e = waitForAnyCardUpdated();
-  block(matchDeleteCard(e.id, ANY), function () {
-    verifyCardUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCard(k, ANY), function () {
+    verifyCardUpdated(k);
   });
 });
 
 bthread("Card delete verification", function () {
   const e = waitForAnyCardDeleted();
-  block(matchAddCard(e.id, ANY), function () {
-    verifyCardDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCard(k, ANY), function () {
+    verifyCardDoesNotExist(k);
   });
 });
 
 bthread("Customer create verification", function () {
   const e = waitForAnyCustomerAdded();
-  block(matchDeleteCustomer(e.id, ANY), function () {
-    verifyCustomerExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCustomer(k, ANY), function () {
+    verifyCustomerExists(k);
   });
 });
 
 bthread("Customer update verification", function () {
   const e = waitForAnyCustomerUpdated();
-  block(matchDeleteCustomer(e.id, ANY), function () {
-    verifyCustomerUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteCustomer(k, ANY), function () {
+    verifyCustomerUpdated(k);
   });
 });
 
 bthread("Customer delete verification", function () {
   const e = waitForAnyCustomerDeleted();
-  block(matchAddCustomer(e.id, ANY), function () {
-    verifyCustomerDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddCustomer(k, ANY), function () {
+    verifyCustomerDoesNotExist(k);
   });
 });
 
 bthread("Loan create verification", function () {
   const e = waitForAnyLoanAdded();
-  block(matchDeleteLoan(e.id, ANY), function () {
-    verifyLoanExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLoan(k, ANY), function () {
+    verifyLoanExists(k);
   });
 });
 
 bthread("Loan update verification", function () {
   const e = waitForAnyLoanUpdated();
-  block(matchDeleteLoan(e.id, ANY), function () {
-    verifyLoanUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLoan(k, ANY), function () {
+    verifyLoanUpdated(k);
   });
 });
 
 bthread("Loan delete verification", function () {
   const e = waitForAnyLoanDeleted();
-  block(matchAddLoan(e.id, ANY), function () {
-    verifyLoanDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddLoan(k, ANY), function () {
+    verifyLoanDoesNotExist(k);
   });
 });
 
 bthread("Reset create verification", function () {
   const e = waitForAnyResetAdded();
-  block(matchDeleteReset(e.id, ANY), function () {
-    verifyResetExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReset(k, ANY), function () {
+    verifyResetExists(k);
   });
 });
 
 bthread("Reset update verification", function () {
   const e = waitForAnyResetUpdated();
-  block(matchDeleteReset(e.id, ANY), function () {
-    verifyResetUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReset(k, ANY), function () {
+    verifyResetUpdated(k);
   });
 });
 
 bthread("Reset delete verification", function () {
   const e = waitForAnyResetDeleted();
-  block(matchAddReset(e.id, ANY), function () {
-    verifyResetDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddReset(k, ANY), function () {
+    verifyResetDoesNotExist(k);
   });
 });
 
 bthread("Transaction create verification", function () {
   const e = waitForAnyTransactionAdded();
-  block(matchDeleteTransaction(e.id, ANY), function () {
-    verifyTransactionExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTransaction(k, ANY), function () {
+    verifyTransactionExists(k);
   });
 });
 
 bthread("Transaction update verification", function () {
   const e = waitForAnyTransactionUpdated();
-  block(matchDeleteTransaction(e.id, ANY), function () {
-    verifyTransactionUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTransaction(k, ANY), function () {
+    verifyTransactionUpdated(k);
   });
 });
 
 bthread("Transaction delete verification", function () {
   const e = waitForAnyTransactionDeleted();
-  block(matchAddTransaction(e.id, ANY), function () {
-    verifyTransactionDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddTransaction(k, ANY), function () {
+    verifyTransactionDoesNotExist(k);
   });
 });
 
 bthread("Transfer create verification", function () {
   const e = waitForAnyTransferAdded();
-  block(matchDeleteTransfer(e.id, ANY), function () {
-    verifyTransferExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTransfer(k, ANY), function () {
+    verifyTransferExists(k);
   });
 });
 
 bthread("Transfer update verification", function () {
   const e = waitForAnyTransferUpdated();
-  block(matchDeleteTransfer(e.id, ANY), function () {
-    verifyTransferUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteTransfer(k, ANY), function () {
+    verifyTransferUpdated(k);
   });
 });
 
 bthread("Transfer delete verification", function () {
   const e = waitForAnyTransferDeleted();
-  block(matchAddTransfer(e.id, ANY), function () {
-    verifyTransferDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddTransfer(k, ANY), function () {
+    verifyTransferDoesNotExist(k);
   });
 });
 

@@ -16,63 +16,145 @@ if (typeof pick === 'undefined') {
   }
 }
 
+// --- _pk(e,key): robust primary-key extractor for wait/match events ---
+function _pk(e, key) {
+  if (e == null) return undefined;
+  if (typeof e === 'object') {
+    if (Object.prototype.hasOwnProperty.call(e, key)) return e[key];
+    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key)) return e.data[key];
+    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key)) return e.payload[key];
+    if (Object.prototype.hasOwnProperty.call(e, 'id')) return e['id'];
+    // minimal extra fallback for Inventory-like entities
+    if (Object.prototype.hasOwnProperty.call(e, 'ndc')) return e['ndc'];
+  }
+  return (typeof e === 'string' || typeof e === 'number') ? e : undefined;
+}
+
+// --- canonKey(v): normalize any key-like value to a scalar string ---
+function canonKey(v) {
+  if (v == null) return '1001';
+  if (typeof v === 'object') {
+    if ('id' in v) return String(v.id);
+    if ('ndc' in v) return String(v.ndc);
+    const ks = Object.keys(v);
+    if (ks.length) return String(v[ks[0]]);
+    return '1001';
+  }
+  return String(v);
+}
+
 // ===== ACTIVE LIFECYCLES =====
 
 
 bthread("MachineLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMachine(x.id);
+  const e_add = waitForMachineAdded(id);
+  block(matchDeleteMachine(id), function () {
+    verifyMachineExists(id);
+  });
   updateMachine(x.id);
   updateMachine(x.id);
-  verifyMachineExists(x.id);
-  verifyMachineUpdated(x.id);
+  const e_upd = waitForMachineUpdated(id);
+  block(matchDeleteMachine(id), function () {
+    verifyMachineUpdated(id);
+  });
   deleteMachine(x.id);
+  const e_del = waitForMachineDeleted(id);
+  block(matchAddMachine(id), function () {
+    verifyMachineDoesNotExist(id);
+  });
 });
 
 bthread("MaintenanceticketLifecycle", function () {
-  const x = pick([{id: "M001"}, {id: "M002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addMaintenanceticket(x.id);
+  const e_add = waitForMaintenanceticketAdded(id);
+  block(matchDeleteMaintenanceticket(id), function () {
+    verifyMaintenanceticketExists(id);
+  });
   updateMaintenanceticket(x.id);
   updateMaintenanceticket(x.id);
-  verifyMaintenanceticketExists(x.id);
-  verifyMaintenanceticketUpdated(x.id);
+  const e_upd = waitForMaintenanceticketUpdated(id);
+  block(matchDeleteMaintenanceticket(id), function () {
+    verifyMaintenanceticketUpdated(id);
+  });
   deleteMaintenanceticket(x.id);
+  const e_del = waitForMaintenanceticketDeleted(id);
+  block(matchAddMaintenanceticket(id), function () {
+    verifyMaintenanceticketDoesNotExist(id);
+  });
 });
 
 bthread("ResetLifecycle", function () {
-  const x = pick([{id: "R001"}, {id: "R002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addReset(x.id);
+  const e_add = waitForResetAdded(id);
+  block(matchDeleteReset(id), function () {
+    verifyResetExists(id);
+  });
   updateReset(x.id);
   updateReset(x.id);
-  verifyResetExists(x.id);
-  verifyResetUpdated(x.id);
+  const e_upd = waitForResetUpdated(id);
+  block(matchDeleteReset(id), function () {
+    verifyResetUpdated(id);
+  });
   deleteReset(x.id);
+  const e_del = waitForResetDeleted(id);
+  block(matchAddReset(id), function () {
+    verifyResetDoesNotExist(id);
+  });
 });
 
 bthread("SensorreadingLifecycle", function () {
-  const x = pick([{id: "S001"}, {id: "S002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addSensorreading(x.id);
+  const e_add = waitForSensorreadingAdded(id);
+  block(matchDeleteSensorreading(id), function () {
+    verifySensorreadingExists(id);
+  });
   updateSensorreading(x.id);
   updateSensorreading(x.id);
-  verifySensorreadingExists(x.id);
-  verifySensorreadingUpdated(x.id);
+  const e_upd = waitForSensorreadingUpdated(id);
+  block(matchDeleteSensorreading(id), function () {
+    verifySensorreadingUpdated(id);
+  });
   deleteSensorreading(x.id);
+  const e_del = waitForSensorreadingDeleted(id);
+  block(matchAddSensorreading(id), function () {
+    verifySensorreadingDoesNotExist(id);
+  });
 });
 
 bthread("WorkorderLifecycle", function () {
-  const x = pick([{id: "W001"}, {id: "W002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addWorkorder(x.id);
+  const e_add = waitForWorkorderAdded(id);
+  block(matchDeleteWorkorder(id), function () {
+    verifyWorkorderExists(id);
+  });
   updateWorkorder(x.id);
   updateWorkorder(x.id);
-  verifyWorkorderExists(x.id);
-  verifyWorkorderUpdated(x.id);
+  const e_upd = waitForWorkorderUpdated(id);
+  block(matchDeleteWorkorder(id), function () {
+    verifyWorkorderUpdated(id);
+  });
   deleteWorkorder(x.id);
+  const e_del = waitForWorkorderDeleted(id);
+  block(matchAddWorkorder(id), function () {
+    verifyWorkorderDoesNotExist(id);
+  });
 });
 
 // ===== NONDET VARIANTS =====
 
 bthread("Machine nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Machine_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addMachine(x.id);
   for (var i=0; i<steps; i++) {
@@ -93,7 +175,7 @@ bthread("Machine nondet variant – uniqueness during parallel adds", function (
 });
 
 bthread("Maintenanceticket nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Maintenanceticket_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addMaintenanceticket(x.id);
   for (var i=0; i<steps; i++) {
@@ -114,7 +196,7 @@ bthread("Maintenanceticket nondet variant – uniqueness during parallel adds", 
 });
 
 bthread("Reset nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Reset_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addReset(x.id);
   for (var i=0; i<steps; i++) {
@@ -135,7 +217,7 @@ bthread("Reset nondet variant – uniqueness during parallel adds", function () 
 });
 
 bthread("Sensorreading nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Sensorreading_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addSensorreading(x.id);
   for (var i=0; i<steps; i++) {
@@ -156,7 +238,7 @@ bthread("Sensorreading nondet variant – uniqueness during parallel adds", func
 });
 
 bthread("Workorder nondet variant – burst updates & optional delete", function () {
-  const x = pick([{id: "Workorder_id_N"}]);
+  const x = pick([{id: "1001"}]);
   const steps = pick([0,1,2,10]);
   addWorkorder(x.id);
   for (var i=0; i<steps; i++) {
@@ -180,106 +262,121 @@ bthread("Workorder nondet variant – uniqueness during parallel adds", function
 
 bthread("Machine create verification", function () {
   const e = waitForAnyMachineAdded();
-  block(matchDeleteMachine(e.id, ANY), function () {
-    verifyMachineExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMachine(k, ANY), function () {
+    verifyMachineExists(k);
   });
 });
 
 bthread("Machine update verification", function () {
   const e = waitForAnyMachineUpdated();
-  block(matchDeleteMachine(e.id, ANY), function () {
-    verifyMachineUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMachine(k, ANY), function () {
+    verifyMachineUpdated(k);
   });
 });
 
 bthread("Machine delete verification", function () {
   const e = waitForAnyMachineDeleted();
-  block(matchAddMachine(e.id, ANY), function () {
-    verifyMachineDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMachine(k, ANY), function () {
+    verifyMachineDoesNotExist(k);
   });
 });
 
 bthread("Maintenanceticket create verification", function () {
   const e = waitForAnyMaintenanceticketAdded();
-  block(matchDeleteMaintenanceticket(e.id, ANY), function () {
-    verifyMaintenanceticketExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMaintenanceticket(k, ANY), function () {
+    verifyMaintenanceticketExists(k);
   });
 });
 
 bthread("Maintenanceticket update verification", function () {
   const e = waitForAnyMaintenanceticketUpdated();
-  block(matchDeleteMaintenanceticket(e.id, ANY), function () {
-    verifyMaintenanceticketUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteMaintenanceticket(k, ANY), function () {
+    verifyMaintenanceticketUpdated(k);
   });
 });
 
 bthread("Maintenanceticket delete verification", function () {
   const e = waitForAnyMaintenanceticketDeleted();
-  block(matchAddMaintenanceticket(e.id, ANY), function () {
-    verifyMaintenanceticketDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddMaintenanceticket(k, ANY), function () {
+    verifyMaintenanceticketDoesNotExist(k);
   });
 });
 
 bthread("Reset create verification", function () {
   const e = waitForAnyResetAdded();
-  block(matchDeleteReset(e.id, ANY), function () {
-    verifyResetExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReset(k, ANY), function () {
+    verifyResetExists(k);
   });
 });
 
 bthread("Reset update verification", function () {
   const e = waitForAnyResetUpdated();
-  block(matchDeleteReset(e.id, ANY), function () {
-    verifyResetUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteReset(k, ANY), function () {
+    verifyResetUpdated(k);
   });
 });
 
 bthread("Reset delete verification", function () {
   const e = waitForAnyResetDeleted();
-  block(matchAddReset(e.id, ANY), function () {
-    verifyResetDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddReset(k, ANY), function () {
+    verifyResetDoesNotExist(k);
   });
 });
 
 bthread("Sensorreading create verification", function () {
   const e = waitForAnySensorreadingAdded();
-  block(matchDeleteSensorreading(e.id, ANY), function () {
-    verifySensorreadingExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSensorreading(k, ANY), function () {
+    verifySensorreadingExists(k);
   });
 });
 
 bthread("Sensorreading update verification", function () {
   const e = waitForAnySensorreadingUpdated();
-  block(matchDeleteSensorreading(e.id, ANY), function () {
-    verifySensorreadingUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteSensorreading(k, ANY), function () {
+    verifySensorreadingUpdated(k);
   });
 });
 
 bthread("Sensorreading delete verification", function () {
   const e = waitForAnySensorreadingDeleted();
-  block(matchAddSensorreading(e.id, ANY), function () {
-    verifySensorreadingDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddSensorreading(k, ANY), function () {
+    verifySensorreadingDoesNotExist(k);
   });
 });
 
 bthread("Workorder create verification", function () {
   const e = waitForAnyWorkorderAdded();
-  block(matchDeleteWorkorder(e.id, ANY), function () {
-    verifyWorkorderExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteWorkorder(k, ANY), function () {
+    verifyWorkorderExists(k);
   });
 });
 
 bthread("Workorder update verification", function () {
   const e = waitForAnyWorkorderUpdated();
-  block(matchDeleteWorkorder(e.id, ANY), function () {
-    verifyWorkorderUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteWorkorder(k, ANY), function () {
+    verifyWorkorderUpdated(k);
   });
 });
 
 bthread("Workorder delete verification", function () {
   const e = waitForAnyWorkorderDeleted();
-  block(matchAddWorkorder(e.id, ANY), function () {
-    verifyWorkorderDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddWorkorder(k, ANY), function () {
+    verifyWorkorderDoesNotExist(k);
   });
 });
 

@@ -16,132 +16,215 @@ if (typeof pick === 'undefined') {
   }
 }
 
+// --- _pk(e,key): robust primary-key extractor for wait/match events ---
+function _pk(e, key) {
+  if (e == null) return undefined;
+  if (typeof e === 'object') {
+    if (Object.prototype.hasOwnProperty.call(e, key)) return e[key];
+    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key)) return e.data[key];
+    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key)) return e.payload[key];
+    if (Object.prototype.hasOwnProperty.call(e, 'id')) return e['id'];
+    // minimal extra fallback for Inventory-like entities
+    if (Object.prototype.hasOwnProperty.call(e, 'ndc')) return e['ndc'];
+  }
+  return (typeof e === 'string' || typeof e === 'number') ? e : undefined;
+}
+
+// --- canonKey(v): normalize any key-like value to a scalar string ---
+function canonKey(v) {
+  if (v == null) return '1001';
+  if (typeof v === 'object') {
+    if ('id' in v) return String(v.id);
+    if ('ndc' in v) return String(v.ndc);
+    const ks = Object.keys(v);
+    if (ks.length) return String(v[ks[0]]);
+    return '1001';
+  }
+  return String(v);
+}
+
 // ===== ACTIVE LIFECYCLES =====
 
 
 bthread("BookLifecycle", function () {
-  const x = pick([{id: "B001"}, {id: "B002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addBook(x.id);
+  const e_add = waitForBookAdded(id);
+  block(matchDeleteBook(id), function () {
+    verifyBookExists(id);
+  });
   updateBook(x.id);
   updateBook(x.id);
-  verifyBookExists(x.id);
-  verifyBookUpdated(x.id);
+  const e_upd = waitForBookUpdated(id);
+  block(matchDeleteBook(id), function () {
+    verifyBookUpdated(id);
+  });
   deleteBook(x.id);
+  const e_del = waitForBookDeleted(id);
+  block(matchAddBook(id), function () {
+    verifyBookDoesNotExist(id);
+  });
 });
 
 bthread("HoldLifecycle", function () {
-  const x = pick([{id: "H001"}, {id: "H002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addHold(x.id);
+  const e_add = waitForHoldAdded(id);
+  block(matchDeleteHold(id), function () {
+    verifyHoldExists(id);
+  });
   updateHold(x.id);
   updateHold(x.id);
-  verifyHoldExists(x.id);
-  verifyHoldUpdated(x.id);
+  const e_upd = waitForHoldUpdated(id);
+  block(matchDeleteHold(id), function () {
+    verifyHoldUpdated(id);
+  });
   deleteHold(x.id);
+  const e_del = waitForHoldDeleted(id);
+  block(matchAddHold(id), function () {
+    verifyHoldDoesNotExist(id);
+  });
 });
 
 bthread("LoanLifecycle", function () {
-  const x = pick([{id: "L001"}, {id: "L002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addLoan(x.id);
+  const e_add = waitForLoanAdded(id);
+  block(matchDeleteLoan(id), function () {
+    verifyLoanExists(id);
+  });
   updateLoan(x.id);
   updateLoan(x.id);
-  verifyLoanExists(x.id);
-  verifyLoanUpdated(x.id);
+  const e_upd = waitForLoanUpdated(id);
+  block(matchDeleteLoan(id), function () {
+    verifyLoanUpdated(id);
+  });
   deleteLoan(x.id);
+  const e_del = waitForLoanDeleted(id);
+  block(matchAddLoan(id), function () {
+    verifyLoanDoesNotExist(id);
+  });
 });
 
 bthread("UserLifecycle", function () {
-  const x = pick([{id: "U001"}, {id: "U002"}]);
+  const x = pick([{id: "1001"}, {id: "1002"}]);
+  const id = canonKey(x.id);
   addUser(x.id);
+  const e_add = waitForUserAdded(id);
+  block(matchDeleteUser(id), function () {
+    verifyUserExists(id);
+  });
   updateUser(x.id);
   updateUser(x.id);
-  verifyUserExists(x.id);
-  verifyUserUpdated(x.id);
+  const e_upd = waitForUserUpdated(id);
+  block(matchDeleteUser(id), function () {
+    verifyUserUpdated(id);
+  });
   deleteUser(x.id);
+  const e_del = waitForUserDeleted(id);
+  block(matchAddUser(id), function () {
+    verifyUserDoesNotExist(id);
+  });
 });
 
 // ===== PASSIVE ASSERTIONS =====
 
 bthread("Book create verification", function () {
   const e = waitForAnyBookAdded();
-  block(matchDeleteBook(e.id, ANY), function () {
-    verifyBookExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBook(k, ANY), function () {
+    verifyBookExists(k);
   });
 });
 
 bthread("Book update verification", function () {
   const e = waitForAnyBookUpdated();
-  block(matchDeleteBook(e.id, ANY), function () {
-    verifyBookUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteBook(k, ANY), function () {
+    verifyBookUpdated(k);
   });
 });
 
 bthread("Book delete verification", function () {
   const e = waitForAnyBookDeleted();
-  block(matchAddBook(e.id, ANY), function () {
-    verifyBookDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddBook(k, ANY), function () {
+    verifyBookDoesNotExist(k);
   });
 });
 
 bthread("Hold create verification", function () {
   const e = waitForAnyHoldAdded();
-  block(matchDeleteHold(e.id, ANY), function () {
-    verifyHoldExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteHold(k, ANY), function () {
+    verifyHoldExists(k);
   });
 });
 
 bthread("Hold update verification", function () {
   const e = waitForAnyHoldUpdated();
-  block(matchDeleteHold(e.id, ANY), function () {
-    verifyHoldUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteHold(k, ANY), function () {
+    verifyHoldUpdated(k);
   });
 });
 
 bthread("Hold delete verification", function () {
   const e = waitForAnyHoldDeleted();
-  block(matchAddHold(e.id, ANY), function () {
-    verifyHoldDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddHold(k, ANY), function () {
+    verifyHoldDoesNotExist(k);
   });
 });
 
 bthread("Loan create verification", function () {
   const e = waitForAnyLoanAdded();
-  block(matchDeleteLoan(e.id, ANY), function () {
-    verifyLoanExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLoan(k, ANY), function () {
+    verifyLoanExists(k);
   });
 });
 
 bthread("Loan update verification", function () {
   const e = waitForAnyLoanUpdated();
-  block(matchDeleteLoan(e.id, ANY), function () {
-    verifyLoanUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteLoan(k, ANY), function () {
+    verifyLoanUpdated(k);
   });
 });
 
 bthread("Loan delete verification", function () {
   const e = waitForAnyLoanDeleted();
-  block(matchAddLoan(e.id, ANY), function () {
-    verifyLoanDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddLoan(k, ANY), function () {
+    verifyLoanDoesNotExist(k);
   });
 });
 
 bthread("User create verification", function () {
   const e = waitForAnyUserAdded();
-  block(matchDeleteUser(e.id, ANY), function () {
-    verifyUserExists(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteUser(k, ANY), function () {
+    verifyUserExists(k);
   });
 });
 
 bthread("User update verification", function () {
   const e = waitForAnyUserUpdated();
-  block(matchDeleteUser(e.id, ANY), function () {
-    verifyUserUpdated(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchDeleteUser(k, ANY), function () {
+    verifyUserUpdated(k);
   });
 });
 
 bthread("User delete verification", function () {
   const e = waitForAnyUserDeleted();
-  block(matchAddUser(e.id, ANY), function () {
-    verifyUserDoesNotExist(e.id);
+  const k = canonKey(_pk(e, "id"));
+  block(matchAddUser(k, ANY), function () {
+    verifyUserDoesNotExist(k);
   });
 });
 

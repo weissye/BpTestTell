@@ -5,10 +5,55 @@ emit_hls_all_in_one.py
 ----------------------
 Generate "garage-style" BPjs High-Level Stories (HLS) from an OpenAPI-derived graph.json
 and a DSL mapping (interface.js function names + shapes).
+
+Highlights
+- Garage-style bthreads (active lifecycles, passive verifications, guards)
+- Uses interface.js-style DSL function names from a dsl_map.json
+- Negative & edge-path guards using status codes (best-effort)
+- Cross-entity guard stories from relationships
+- Passive guards derived from DSL wait/match helpers
+- Coverage gate: prints a quick coverage line and notes "FAIL" if below threshold
+- **NEW**: nondet mode actually adds extra nondeterministic variants
+- **NEW**: normalize entity names (strip trailing verbs) against DSL to avoid "Carcreate"/"Rocreate"
+- **NEW**: ops fallback from DSL when graph lacks operations
+
+CLI
+----
+python emit_hls_all_in_one.py --sut_dir 7_suts_llm_provider\banking ^
+  --mode det --profile rich --per_entity_max 3 --fail_under_stories 10 ^
+  --graph artifacts\analysis\7_suts_llm_provider\banking\graph.json ^
+  --dsl_map models\hls\banking\dsl_map.json
+
+Defaults (if --graph / --dsl_map omitted):
+  graph:   artifacts/analysis/<provider>/<sut>/graph.json
+  dsl_map: models/hls/<sut>/dsl_map.json
+
+Output (if --out omitted):
+  artifacts/hls_<mode>/<provider>/<sut>/readable/stories_hls.js
+
+DSL map minimal shape:
+
+{
+  "entities": {
+    "Customer": {
+      "args": ["id","name"],
+      "do":    {"add":"addCustomer","update":"updateCustomer","delete":"deleteCustomer"},
+      "match": {"add":"matchAddCustomer","update":"matchUpdateCustomer","delete":"matchDeleteCustomer"},
+      "wait":  {"added":"waitForAnyCustomerAdded","updated":"waitForAnyCustomerUpdated","deleted":"waitForAnyCustomerDeleted"},
+      "verify":{"exists":"verifyCustomerExists","updated":"verifyCustomerUpdated","notExists":"verifyCustomerDoesNotExist"}
+    }
+  },
+  "consts": {"ANY":"ANY"}
+}
 """
+
 import argparse, json, os, sys, re
 from pathlib import Path
 from typing import Dict, List, Tuple, Any, Optional
+
+# ------------------------------
+# Utilities
+# ------------------------------
 
 def normp(p: Path) -> str:
     return os.path.normpath(str(p))
@@ -30,6 +75,10 @@ def safe_get(d: dict, *keys, default=None):
         cur = cur[k]
     return cur
 
+# ------------------------------
+# Default path logic
+# ------------------------------
+
 def split_provider_and_sut(sut_dir: str) -> Tuple[str, str]:
     p = Path(sut_dir)
     if len(p.parts) >= 2:
@@ -50,6 +99,10 @@ def default_out_path(sut_dir: str, mode: str) -> Path:
     provider, sut = split_provider_and_sut(sut_dir)
     base = Path("artifacts") / f"hls_{mode}" / provider / sut / "readable"
     return base / "stories_hls.js"
+
+# ------------------------------
+# DSL helpers (build names if missing)
+# ------------------------------
 
 def titlecase(name: str) -> str:
     if not name:
@@ -145,12 +198,17 @@ def derive_entities_from_dsl(dsl: dict) -> Dict[str, dict]:
 
     return out
 
+# ------------------------------
+# Graph parsing (very forgiving)
+# ------------------------------
+
 def parse_graph(graph: Optional[Dict[str, Any]]) -> Dict[str, Any]:
     if not graph:
         return {"entities": [], "operations": {}, "relationships": [], "negative": [], "kinds": []}
 
     out = {"entities": set(), "operations": {}, "relationships": [], "negative": [], "kinds": []}
 
+    # explicit entities/operations
     if isinstance(graph.get("entities"), list):
         for e in graph["entities"]:
             nm = e.get("name") or e.get("entity") or e.get("id")
@@ -174,6 +232,7 @@ def parse_graph(graph: Optional[Dict[str, Any]]) -> Dict[str, Any]:
                             "status": icode, "desc": op.get("summary") or ""
                         })
 
+    # OpenAPI-ish paths (RPC or REST-ish)
     verb_map = {
         "create": "add", "add": "add", "approve": "update", "close": "update", "reset": "update",
         "update": "update", "delete": "delete", "remove": "delete"
@@ -242,15 +301,27 @@ def parse_graph(graph: Optional[Dict[str, Any]]) -> Dict[str, Any]:
     out["operations"] = {k: list(v) for k, v in out["operations"].items()}
     return out
 
+# ------------------------------
+# Name cleanup against DSL (fix Carcreate/Rocreate)
+# ------------------------------
+
 _TRAILING_VERBS = ("create","add","update","delete","approve","close","reset","remove")
 
 def cleanup_entity_against_dsl(raw_name: str, dsl_names: List[str]) -> Optional[str]:
+    """
+    Try to map a raw graph 'entity' to a canonical DSL entity name.
+    - Exact (case-insensitive) match wins.
+    - Else, if raw_name ends with a known verb, strip it and check again.
+    - Else, drop it (return None).
+    """
     if not raw_name:
         return None
     dsl_lower = {n.lower(): n for n in dsl_names}
     rn = raw_name.strip()
     if rn.lower() in dsl_lower:
         return dsl_lower[rn.lower()]
+
+    # strip trailing verbs (e.g., "carcreate" -> "car")
     low = rn.lower()
     for vb in _TRAILING_VERBS:
         if low.endswith(vb):
@@ -258,10 +329,15 @@ def cleanup_entity_against_dsl(raw_name: str, dsl_names: List[str]) -> Optional[
             stem = stem.rstrip("_-/ ")
             if stem in dsl_lower:
                 return dsl_lower[stem]
+            # try titlecase after strip
             tc = titlecase(stem)
             if tc.lower() in dsl_lower:
                 return dsl_lower[tc.lower()]
     return None
+
+# ------------------------------
+# JS builders (garage-style bthreads)
+# ------------------------------
 
 def js_header(sut_name: str) -> str:
     hdr = []
@@ -272,6 +348,7 @@ def js_header(sut_name: str) -> str:
     hdr.append("")
     hdr.append("var ANY = (typeof H !== 'undefined' && H.ANY) ? H.ANY : (typeof ANY !== 'undefined' ? ANY : '*');")
     hdr.append("")
+    # NEW: pick shim (prefers BPjs nondet; otherwise uses Math.random)
     hdr.append("// --- pick() shim: prefer BPjs nondet, else random fallback ---")
     hdr.append("if (typeof pick === 'undefined') {")
     hdr.append("  function pick(options) {")
@@ -282,35 +359,6 @@ def js_header(sut_name: str) -> str:
     hdr.append("    return options[Math.floor(Math.random() * options.length)];")
     hdr.append("  }")
     hdr.append("}")
-    hdr.append("")
-    hdr.append("// --- _pk(e,key): robust primary-key extractor for wait/match events ---")
-    hdr.append("function _pk(e, key) {")
-    hdr.append("  if (e == null) return undefined;")
-    hdr.append("  if (typeof e === 'object') {")
-    hdr.append("    if (Object.prototype.hasOwnProperty.call(e, key)) return e[key];")
-    hdr.append("    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key)) return e.data[key];")
-    hdr.append("    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key)) return e.payload[key];")
-    hdr.append("    if (Object.prototype.hasOwnProperty.call(e, 'id')) return e['id'];")
-    hdr.append("    // minimal extra fallback for Inventory-like entities")
-    hdr.append("    if (Object.prototype.hasOwnProperty.call(e, 'ndc')) return e['ndc'];")
-    hdr.append("  }")
-    hdr.append("  return (typeof e === 'string' || typeof e === 'number') ? e : undefined;")
-    hdr.append("}")
-    hdr.append("")
-    # >>>>>> MINIMAL FIX: normalize keys so verify(...) never gets NaN/undefined/object
-    hdr.append("// --- canonKey(v): normalize any key-like value to a scalar string ---")
-    hdr.append("function canonKey(v) {")
-    hdr.append("  if (v == null) return '1001';")
-    hdr.append("  if (typeof v === 'object') {")
-    hdr.append("    if ('id' in v) return String(v.id);")
-    hdr.append("    if ('ndc' in v) return String(v.ndc);")
-    hdr.append("    const ks = Object.keys(v);")
-    hdr.append("    if (ks.length) return String(v[ks[0]]);")
-    hdr.append("    return '1001';")
-    hdr.append("  }")
-    hdr.append("  return String(v);")
-    hdr.append("}")
-    # <<<<<< MINIMAL FIX
     hdr.append("")
     hdr.append("// ===== ACTIVE LIFECYCLES =====")
     hdr.append("")
@@ -338,6 +386,7 @@ def js_pick_samples(var_name: str, sample_objs: List[dict]) -> List[str]:
     line = f"const {var_name} = pick([{', '.join(arr_items)}]);"
     return [line]
 
+
 def build_active_lifecycle(entity: str, edsl: Dict[str, Any], per_entity_max: int) -> List[str]:
     name = f"{entity} lifecycle"
     args = edsl["args"]
@@ -346,6 +395,7 @@ def build_active_lifecycle(entity: str, edsl: Dict[str, Any], per_entity_max: in
     match = edsl.get("match", {})
     wait  = edsl.get("wait", {})
 
+    # helper to turn 'waitForAnyFooAdded' -> 'waitForFooAdded'
     def _specific_wait(fn: str) -> str:
         if not fn:
             return fn
@@ -355,7 +405,7 @@ def build_active_lifecycle(entity: str, edsl: Dict[str, Any], per_entity_max: in
         kl = k.lower()
         # numeric-like samples for id-like keys (kept as strings to avoid churn elsewhere)
         if kl.endswith("id") or kl == "id":
-            return str(1000 + i)  # "1001", "1002", ...
+            return f"{entity[:1].upper()}{i:03d}"
         if "name" in kl:
             return ["Alpha","Bravo","Charlie","Delta"][i % 4]
         if any(x in kl for x in ["amount","price","total"]):
@@ -372,10 +422,11 @@ def build_active_lifecycle(entity: str, edsl: Dict[str, Any], per_entity_max: in
     arg0 = args[0] if args else "id"
 
     body += js_pick_samples("x", samples)
-    # >>>>>> MINIMAL FIX: canonicalize the key used in waits/verifiers
-    body.append(concat("const id = canonKey(", "x.", arg0, ");"))
-    # <<<<<< MINIMAL FIX
 
+    # Use the specific ID for waits and verifies
+    body.append(concat("const id = ", "x.", arg0, ";"))
+
+    # ADD
     body.append(concat(do["add"], "(", arglist, ");"))
     w_add = _specific_wait(wait.get("added", ""))
     if w_add:
@@ -387,6 +438,7 @@ def build_active_lifecycle(entity: str, edsl: Dict[str, Any], per_entity_max: in
         else:
             body.append(concat(ver["exists"], "(id);"))
 
+    # UPDATE(s)
     up_count = min(2, max(1, per_entity_max-1))
     for _ in range(up_count):
         body.append(concat(do["update"], "(", arglist, ");"))
@@ -400,6 +452,7 @@ def build_active_lifecycle(entity: str, edsl: Dict[str, Any], per_entity_max: in
         else:
             body.append(concat(ver["updated"], "(id);"))
 
+    # DELETE
     body.append(concat(do["delete"], "(", arglist, ");"))
     w_del = _specific_wait(wait.get("deleted", ""))
     if w_del:
@@ -413,20 +466,15 @@ def build_active_lifecycle(entity: str, edsl: Dict[str, Any], per_entity_max: in
 
     return [ bthread(titlecase(name), body) ]
 
+
 def build_nondet_variants(entity: str, edsl: Dict[str, Any], per_entity_max: int) -> List[str]:
+    """Extra variants only for nondet mode (more stories)."""
     args = edsl["args"]; do = edsl["do"]; ver = edsl["verify"]
     arglist = ", ".join([f"x.{a}" for a in args])
 
-    # use numeric sample for id-like primary key to avoid NaN in verifiers
-    sample_obj = {}
-    for a in args:
-        if a.lower().endswith("id") or a.lower() == "id":
-            sample_obj[a] = "1001"
-        else:
-            sample_obj[a] = f"{entity}_{a}_N"
-
+    # variant 1: maybe many updates (0..per_entity_max), maybe delete
     body = []
-    body += js_pick_samples("x", [sample_obj])
+    body += js_pick_samples("x", [{a: f"{entity}_{a}_N" for a in args}])
     body.append("const steps = pick([0,1,2," + str(max(3, per_entity_max)) + "]);")
     body.append(concat(do["add"], "(", arglist, ");"))
     body.append("for (var i=0; i<steps; i++) {")
@@ -437,6 +485,7 @@ def build_nondet_variants(entity: str, edsl: Dict[str, Any], per_entity_max: int
     body.append(concat(ver["updated"], "(", f"x.{args[0]}", ");"))
     v1 = bthread(f"{entity} nondet variant – burst updates & optional delete", body)
 
+    # variant 2: two concurrent lifecycles guarded against duplicates
     body = []
     body.append("const ids = pick([[1,2],[10,11],[100,101]]);")
     body.append(f"const a = {{ {args[0]}: '{entity[:1].upper()}' + ids[0] }};")
@@ -456,31 +505,22 @@ def build_passive_verifications(entity: str, edsl: Dict[str, Any]) -> List[str]:
 
     body = []
     body.append(concat("const e = ", wait["added"], "();"))
-    # >>>>>> MINIMAL FIX: canonicalize key derived from event
-    body.append(concat("const k = canonKey(_pk(e, \"", arg0, "\"));"))
-    # <<<<<< MINIMAL FIX
-    body.append(concat("block(", match["delete"], "(k, ANY), function () {"))
-    body.extend(indent([concat(ver["exists"], "(k);")]))
+    body.append(concat("block(", match["delete"], "(e.", arg0, ", ANY), function () {"))
+    body.extend(indent([concat(ver["exists"], "(e.", arg0, ");")]))
     body.append("});")
     stories.append(bthread(f"{entity} create verification", body))
 
     body = []
     body.append(concat("const e = ", wait["updated"], "();"))
-    # >>>>>> MINIMAL FIX: canonicalize key derived from event
-    body.append(concat("const k = canonKey(_pk(e, \"", arg0, "\"));"))
-    # <<<<<< MINIMAL FIX
-    body.append(concat("block(", match["delete"], "(k, ANY), function () {"))
-    body.extend(indent([concat(ver["updated"], "(k);")]))
+    body.append(concat("block(", match["delete"], "(e.", arg0, ", ANY), function () {"))
+    body.extend(indent([concat(ver["updated"], "(e.", arg0, ");")]))
     body.append("});")
     stories.append(bthread(f"{entity} update verification", body))
 
     body = []
     body.append(concat("const e = ", wait["deleted"], "();"))
-    # >>>>>> MINIMAL FIX: canonicalize key derived from event
-    body.append(concat("const k = canonKey(_pk(e, \"", arg0, "\"));"))
-    # <<<<<< MINIMAL FIX
-    body.append(concat("block(", match["add"], "(k, ANY), function () {"))
-    body.extend(indent([concat(ver["notExists"], "(k);")]))
+    body.append(concat("block(", match["add"], "(e.", arg0, ", ANY), function () {"))
+    body.extend(indent([concat(ver["notExists"], "(e.", arg0, ");")]))
     body.append("});")
     stories.append(bthread(f"{entity} delete verification", body))
 
@@ -535,27 +575,38 @@ def build_negative_status_guards(graph_info: Dict[str, Any], dsl: Dict[str, Any]
         out.append(bthread(label, body))
     return out
 
+# ------------------------------
+# Main story builder
+# ------------------------------
+
 def build_stories(graph: Optional[Dict[str, Any]], dsl: Dict[str, Any], profile: str, per_entity_max: int, mode: str):
     graph_info = parse_graph(graph)
+
+    # Normalize DSL entities -> dict
     dsl_entities: Dict[str, dict] = derive_entities_from_dsl(dsl)
     dsl_names = sorted(dsl_entities.keys())
 
+    # Merge entity names: prefer DSL; add graph names only if they map to DSL after cleanup
     name_set = set(dsl_names)
     for raw in graph_info.get("entities", []):
         mapped = cleanup_entity_against_dsl(raw, dsl_names)
         if mapped:
             name_set.add(mapped)
 
+    # --- Fallback: if no entities resolved, use graph entities as-is ---
     if not name_set:
         name_set.update(titlecase(raw) for raw in graph_info.get("entities", []))
 
     entities: List[str] = sorted(name_set)
+
+    # Finalize edsl for entities
     edsl_map: Dict[str, dict] = {}
     for e in entities:
         edsl_map[e] = build_entity_dsl(e, dsl_entities.get(e, {}))
 
     kinds = graph_info.get("kinds") or []
     operations = graph_info.get("operations") or {}
+    # fallback ops from DSL if graph gave none
     by_entity_ops = {}
     for e in entities:
         ops_from_graph = operations.get(e, [])
@@ -570,24 +621,30 @@ def build_stories(graph: Optional[Dict[str, Any]], dsl: Dict[str, Any], profile:
     if entities:
         stories.append(js_header(safe_get(dsl, "sut_name", default="unknown") or "unknown"))
 
+    # Active lifecycles
     for e in entities:
         stories.extend(build_active_lifecycle(e, edsl_map[e], per_entity_max))
 
+    # Nondet extras
     if mode == "nondet":
         stories.append("// ===== NONDET VARIANTS =====\n")
         for e in entities:
             stories.extend(build_nondet_variants(e, edsl_map[e], per_entity_max))
 
+    # Passive verifications
     stories.append("// ===== PASSIVE ASSERTIONS =====\n")
     for e in entities:
         stories.extend(build_passive_verifications(e, edsl_map[e]))
 
+    # Relationship guards
     stories.append("// ===== RELATIONSHIP GUARDS =====\n")
     stories.extend(build_relationship_guards(graph_info.get("relationships", []), {"entities": edsl_map}))
 
+    # Uniqueness guards
     stories.append("// ===== UNIQUENESS GUARDS =====\n")
     stories.extend(build_unique_guards(entities, {"entities": edsl_map}))
 
+    # Negative/edge status guards
     stories.append("// ===== NEGATIVE/EDGE STATUS GUARDS =====\n")
     stories.extend(build_negative_status_guards(graph_info, {"entities": edsl_map}))
 
@@ -598,6 +655,10 @@ def build_stories(graph: Optional[Dict[str, Any]], dsl: Dict[str, Any], profile:
         "rels": graph_info.get("relationships", []),
     }
     return stories, cov
+
+# ------------------------------
+# File writer & CLI
+# ------------------------------
 
 def write_stories(out_path: Path, stories: List[str]) -> None:
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -634,6 +695,7 @@ def main() -> int:
     graph = load_json(graph_path) or {}
     dsl   = load_json(dsl_map_path) or {}
 
+    # set SUT name for header
     _, sut = split_provider_and_sut(args.sut_dir)
     dsl.setdefault("sut_name", sut)
 
