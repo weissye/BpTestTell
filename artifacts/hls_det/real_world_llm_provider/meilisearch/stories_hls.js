@@ -20,12 +20,12 @@ if (typeof pick === 'undefined') {
 function _pk(e, key) {
   if (e == null) return undefined;
   if (typeof e === 'object') {
-    if (Object.prototype.hasOwnProperty.call(e, key)) return e[key];
-    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key)) return e.data[key];
-    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key)) return e.payload[key];
-    if (Object.prototype.hasOwnProperty.call(e, 'id')) return e['id'];
+    if (Object.prototype.hasOwnProperty.call(e, key) && typeof e[key] !== 'function') return e[key];
+    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key) && typeof e.data[key] !== 'function') return e.data[key];
+    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key) && typeof e.payload[key] !== 'function') return e.payload[key];
+    if (Object.prototype.hasOwnProperty.call(e, 'id') && typeof e['id'] !== 'function') return e['id'];
     // minimal extra fallback for Inventory-like entities
-    if (Object.prototype.hasOwnProperty.call(e, 'ndc')) return e['ndc'];
+    if (Object.prototype.hasOwnProperty.call(e, 'ndc') && typeof e['ndc'] !== 'function') return e['ndc'];
   }
   return (typeof e === 'string' || typeof e === 'number') ? e : undefined;
 }
@@ -33,6 +33,7 @@ function _pk(e, key) {
 // --- canonKey(v): normalize any key-like value to a scalar string ---
 function canonKey(v) {
   if (v == null) return '1001';
+  if (typeof v === 'function') return '1001';
   if (typeof v === 'object') {
     if ('id' in v) return String(v.id);
     if ('ndc' in v) return String(v.ndc);
@@ -722,768 +723,864 @@ bthread("VersionLifecycle", function () {
 
 bthread("Cancel create verification", function () {
   const e = waitForAnyCancelAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteCancel(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteCancel(k), function () {
     verifyCancelExists(k);
   });
 });
 
 bthread("Cancel update verification", function () {
   const e = waitForAnyCancelUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteCancel(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteCancel(k), function () {
     verifyCancelUpdated(k);
   });
 });
 
 bthread("Cancel delete verification", function () {
   const e = waitForAnyCancelDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddCancel(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddCancel(k), function () {
     verifyCancelDoesNotExist(k);
   });
 });
 
 bthread("Delete create verification", function () {
   const e = waitForAnyDeleteAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteDelete(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteDelete(k), function () {
     verifyDeleteExists(k);
   });
 });
 
 bthread("Delete update verification", function () {
   const e = waitForAnyDeleteUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteDelete(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteDelete(k), function () {
     verifyDeleteUpdated(k);
   });
 });
 
 bthread("Delete delete verification", function () {
   const e = waitForAnyDeleteDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddDelete(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddDelete(k), function () {
     verifyDeleteDoesNotExist(k);
   });
 });
 
 bthread("Deletebatch create verification", function () {
   const e = waitForAnyDeletebatchAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteDeletebatch(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteDeletebatch(k), function () {
     verifyDeletebatchExists(k);
   });
 });
 
 bthread("Deletebatch update verification", function () {
   const e = waitForAnyDeletebatchUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteDeletebatch(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteDeletebatch(k), function () {
     verifyDeletebatchUpdated(k);
   });
 });
 
 bthread("Deletebatch delete verification", function () {
   const e = waitForAnyDeletebatchDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddDeletebatch(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddDeletebatch(k), function () {
     verifyDeletebatchDoesNotExist(k);
   });
 });
 
 bthread("Displayedattribute create verification", function () {
   const e = waitForAnyDisplayedattributeAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteDisplayedattribute(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteDisplayedattribute(k), function () {
     verifyDisplayedattributeExists(k);
   });
 });
 
 bthread("Displayedattribute update verification", function () {
   const e = waitForAnyDisplayedattributeUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteDisplayedattribute(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteDisplayedattribute(k), function () {
     verifyDisplayedattributeUpdated(k);
   });
 });
 
 bthread("Displayedattribute delete verification", function () {
   const e = waitForAnyDisplayedattributeDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddDisplayedattribute(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddDisplayedattribute(k), function () {
     verifyDisplayedattributeDoesNotExist(k);
   });
 });
 
 bthread("Distinctattribute create verification", function () {
   const e = waitForAnyDistinctattributeAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteDistinctattribute(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteDistinctattribute(k), function () {
     verifyDistinctattributeExists(k);
   });
 });
 
 bthread("Distinctattribute update verification", function () {
   const e = waitForAnyDistinctattributeUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteDistinctattribute(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteDistinctattribute(k), function () {
     verifyDistinctattributeUpdated(k);
   });
 });
 
 bthread("Distinctattribute delete verification", function () {
   const e = waitForAnyDistinctattributeDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddDistinctattribute(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddDistinctattribute(k), function () {
     verifyDistinctattributeDoesNotExist(k);
   });
 });
 
 bthread("Document create verification", function () {
   const e = waitForAnyDocumentAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteDocument(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteDocument(k), function () {
     verifyDocumentExists(k);
   });
 });
 
 bthread("Document update verification", function () {
   const e = waitForAnyDocumentUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteDocument(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteDocument(k), function () {
     verifyDocumentUpdated(k);
   });
 });
 
 bthread("Document delete verification", function () {
   const e = waitForAnyDocumentDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddDocument(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddDocument(k), function () {
     verifyDocumentDoesNotExist(k);
   });
 });
 
 bthread("Dump create verification", function () {
   const e = waitForAnyDumpAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteDump(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteDump(k), function () {
     verifyDumpExists(k);
   });
 });
 
 bthread("Dump update verification", function () {
   const e = waitForAnyDumpUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteDump(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteDump(k), function () {
     verifyDumpUpdated(k);
   });
 });
 
 bthread("Dump delete verification", function () {
   const e = waitForAnyDumpDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddDump(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddDump(k), function () {
     verifyDumpDoesNotExist(k);
   });
 });
 
 bthread("Experimentalfeature create verification", function () {
   const e = waitForAnyExperimentalfeatureAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteExperimentalfeature(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteExperimentalfeature(k), function () {
     verifyExperimentalfeatureExists(k);
   });
 });
 
 bthread("Experimentalfeature update verification", function () {
   const e = waitForAnyExperimentalfeatureUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteExperimentalfeature(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteExperimentalfeature(k), function () {
     verifyExperimentalfeatureUpdated(k);
   });
 });
 
 bthread("Experimentalfeature delete verification", function () {
   const e = waitForAnyExperimentalfeatureDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddExperimentalfeature(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddExperimentalfeature(k), function () {
     verifyExperimentalfeatureDoesNotExist(k);
   });
 });
 
 bthread("Faceting create verification", function () {
   const e = waitForAnyFacetingAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteFaceting(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteFaceting(k), function () {
     verifyFacetingExists(k);
   });
 });
 
 bthread("Faceting update verification", function () {
   const e = waitForAnyFacetingUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteFaceting(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteFaceting(k), function () {
     verifyFacetingUpdated(k);
   });
 });
 
 bthread("Faceting delete verification", function () {
   const e = waitForAnyFacetingDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddFaceting(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddFaceting(k), function () {
     verifyFacetingDoesNotExist(k);
   });
 });
 
 bthread("Facetsearch create verification", function () {
   const e = waitForAnyFacetsearchAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteFacetsearch(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteFacetsearch(k), function () {
     verifyFacetsearchExists(k);
   });
 });
 
 bthread("Facetsearch update verification", function () {
   const e = waitForAnyFacetsearchUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteFacetsearch(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteFacetsearch(k), function () {
     verifyFacetsearchUpdated(k);
   });
 });
 
 bthread("Facetsearch delete verification", function () {
   const e = waitForAnyFacetsearchDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddFacetsearch(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddFacetsearch(k), function () {
     verifyFacetsearchDoesNotExist(k);
   });
 });
 
 bthread("Fetch create verification", function () {
   const e = waitForAnyFetchAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteFetch(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteFetch(k), function () {
     verifyFetchExists(k);
   });
 });
 
 bthread("Fetch update verification", function () {
   const e = waitForAnyFetchUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteFetch(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteFetch(k), function () {
     verifyFetchUpdated(k);
   });
 });
 
 bthread("Fetch delete verification", function () {
   const e = waitForAnyFetchDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddFetch(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddFetch(k), function () {
     verifyFetchDoesNotExist(k);
   });
 });
 
 bthread("Filterableattribute create verification", function () {
   const e = waitForAnyFilterableattributeAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteFilterableattribute(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteFilterableattribute(k), function () {
     verifyFilterableattributeExists(k);
   });
 });
 
 bthread("Filterableattribute update verification", function () {
   const e = waitForAnyFilterableattributeUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteFilterableattribute(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteFilterableattribute(k), function () {
     verifyFilterableattributeUpdated(k);
   });
 });
 
 bthread("Filterableattribute delete verification", function () {
   const e = waitForAnyFilterableattributeDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddFilterableattribute(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddFilterableattribute(k), function () {
     verifyFilterableattributeDoesNotExist(k);
   });
 });
 
 bthread("Health create verification", function () {
   const e = waitForAnyHealthAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteHealth(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteHealth(k), function () {
     verifyHealthExists(k);
   });
 });
 
 bthread("Health update verification", function () {
   const e = waitForAnyHealthUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteHealth(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteHealth(k), function () {
     verifyHealthUpdated(k);
   });
 });
 
 bthread("Health delete verification", function () {
   const e = waitForAnyHealthDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddHealth(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddHealth(k), function () {
     verifyHealthDoesNotExist(k);
   });
 });
 
 bthread("Indexe create verification", function () {
   const e = waitForAnyIndexeAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteIndexe(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteIndexe(k), function () {
     verifyIndexeExists(k);
   });
 });
 
 bthread("Indexe update verification", function () {
   const e = waitForAnyIndexeUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteIndexe(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteIndexe(k), function () {
     verifyIndexeUpdated(k);
   });
 });
 
 bthread("Indexe delete verification", function () {
   const e = waitForAnyIndexeDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddIndexe(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddIndexe(k), function () {
     verifyIndexeDoesNotExist(k);
   });
 });
 
 bthread("Key create verification", function () {
   const e = waitForAnyKeyAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteKey(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteKey(k), function () {
     verifyKeyExists(k);
   });
 });
 
 bthread("Key update verification", function () {
   const e = waitForAnyKeyUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteKey(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteKey(k), function () {
     verifyKeyUpdated(k);
   });
 });
 
 bthread("Key delete verification", function () {
   const e = waitForAnyKeyDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddKey(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddKey(k), function () {
     verifyKeyDoesNotExist(k);
   });
 });
 
 bthread("Metric create verification", function () {
   const e = waitForAnyMetricAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteMetric(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteMetric(k), function () {
     verifyMetricExists(k);
   });
 });
 
 bthread("Metric update verification", function () {
   const e = waitForAnyMetricUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteMetric(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteMetric(k), function () {
     verifyMetricUpdated(k);
   });
 });
 
 bthread("Metric delete verification", function () {
   const e = waitForAnyMetricDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddMetric(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddMetric(k), function () {
     verifyMetricDoesNotExist(k);
   });
 });
 
 bthread("Multisearch create verification", function () {
   const e = waitForAnyMultisearchAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteMultisearch(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteMultisearch(k), function () {
     verifyMultisearchExists(k);
   });
 });
 
 bthread("Multisearch update verification", function () {
   const e = waitForAnyMultisearchUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteMultisearch(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteMultisearch(k), function () {
     verifyMultisearchUpdated(k);
   });
 });
 
 bthread("Multisearch delete verification", function () {
   const e = waitForAnyMultisearchDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddMultisearch(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddMultisearch(k), function () {
     verifyMultisearchDoesNotExist(k);
   });
 });
 
 bthread("Pagination create verification", function () {
   const e = waitForAnyPaginationAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeletePagination(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeletePagination(k), function () {
     verifyPaginationExists(k);
   });
 });
 
 bthread("Pagination update verification", function () {
   const e = waitForAnyPaginationUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeletePagination(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeletePagination(k), function () {
     verifyPaginationUpdated(k);
   });
 });
 
 bthread("Pagination delete verification", function () {
   const e = waitForAnyPaginationDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddPagination(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddPagination(k), function () {
     verifyPaginationDoesNotExist(k);
   });
 });
 
 bthread("Rankingrule create verification", function () {
   const e = waitForAnyRankingruleAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteRankingrule(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteRankingrule(k), function () {
     verifyRankingruleExists(k);
   });
 });
 
 bthread("Rankingrule update verification", function () {
   const e = waitForAnyRankingruleUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteRankingrule(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteRankingrule(k), function () {
     verifyRankingruleUpdated(k);
   });
 });
 
 bthread("Rankingrule delete verification", function () {
   const e = waitForAnyRankingruleDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddRankingrule(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddRankingrule(k), function () {
     verifyRankingruleDoesNotExist(k);
   });
 });
 
 bthread("Search create verification", function () {
   const e = waitForAnySearchAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSearch(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSearch(k), function () {
     verifySearchExists(k);
   });
 });
 
 bthread("Search update verification", function () {
   const e = waitForAnySearchUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSearch(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSearch(k), function () {
     verifySearchUpdated(k);
   });
 });
 
 bthread("Search delete verification", function () {
   const e = waitForAnySearchDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddSearch(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddSearch(k), function () {
     verifySearchDoesNotExist(k);
   });
 });
 
 bthread("Searchableattribute create verification", function () {
   const e = waitForAnySearchableattributeAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSearchableattribute(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSearchableattribute(k), function () {
     verifySearchableattributeExists(k);
   });
 });
 
 bthread("Searchableattribute update verification", function () {
   const e = waitForAnySearchableattributeUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSearchableattribute(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSearchableattribute(k), function () {
     verifySearchableattributeUpdated(k);
   });
 });
 
 bthread("Searchableattribute delete verification", function () {
   const e = waitForAnySearchableattributeDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddSearchableattribute(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddSearchableattribute(k), function () {
     verifySearchableattributeDoesNotExist(k);
   });
 });
 
 bthread("Setting create verification", function () {
   const e = waitForAnySettingAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSetting(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSetting(k), function () {
     verifySettingExists(k);
   });
 });
 
 bthread("Setting update verification", function () {
   const e = waitForAnySettingUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSetting(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSetting(k), function () {
     verifySettingUpdated(k);
   });
 });
 
 bthread("Setting delete verification", function () {
   const e = waitForAnySettingDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddSetting(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddSetting(k), function () {
     verifySettingDoesNotExist(k);
   });
 });
 
 bthread("Snapshot create verification", function () {
   const e = waitForAnySnapshotAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSnapshot(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSnapshot(k), function () {
     verifySnapshotExists(k);
   });
 });
 
 bthread("Snapshot update verification", function () {
   const e = waitForAnySnapshotUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSnapshot(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSnapshot(k), function () {
     verifySnapshotUpdated(k);
   });
 });
 
 bthread("Snapshot delete verification", function () {
   const e = waitForAnySnapshotDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddSnapshot(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddSnapshot(k), function () {
     verifySnapshotDoesNotExist(k);
   });
 });
 
 bthread("Sortableattribute create verification", function () {
   const e = waitForAnySortableattributeAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSortableattribute(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSortableattribute(k), function () {
     verifySortableattributeExists(k);
   });
 });
 
 bthread("Sortableattribute update verification", function () {
   const e = waitForAnySortableattributeUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSortableattribute(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSortableattribute(k), function () {
     verifySortableattributeUpdated(k);
   });
 });
 
 bthread("Sortableattribute delete verification", function () {
   const e = waitForAnySortableattributeDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddSortableattribute(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddSortableattribute(k), function () {
     verifySortableattributeDoesNotExist(k);
   });
 });
 
 bthread("Stat create verification", function () {
   const e = waitForAnyStatAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteStat(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteStat(k), function () {
     verifyStatExists(k);
   });
 });
 
 bthread("Stat update verification", function () {
   const e = waitForAnyStatUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteStat(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteStat(k), function () {
     verifyStatUpdated(k);
   });
 });
 
 bthread("Stat delete verification", function () {
   const e = waitForAnyStatDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddStat(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddStat(k), function () {
     verifyStatDoesNotExist(k);
   });
 });
 
 bthread("Stopword create verification", function () {
   const e = waitForAnyStopwordAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteStopword(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteStopword(k), function () {
     verifyStopwordExists(k);
   });
 });
 
 bthread("Stopword update verification", function () {
   const e = waitForAnyStopwordUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteStopword(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteStopword(k), function () {
     verifyStopwordUpdated(k);
   });
 });
 
 bthread("Stopword delete verification", function () {
   const e = waitForAnyStopwordDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddStopword(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddStopword(k), function () {
     verifyStopwordDoesNotExist(k);
   });
 });
 
 bthread("Swapindexe create verification", function () {
   const e = waitForAnySwapindexeAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSwapindexe(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSwapindexe(k), function () {
     verifySwapindexeExists(k);
   });
 });
 
 bthread("Swapindexe update verification", function () {
   const e = waitForAnySwapindexeUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSwapindexe(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSwapindexe(k), function () {
     verifySwapindexeUpdated(k);
   });
 });
 
 bthread("Swapindexe delete verification", function () {
   const e = waitForAnySwapindexeDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddSwapindexe(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddSwapindexe(k), function () {
     verifySwapindexeDoesNotExist(k);
   });
 });
 
 bthread("Synonym create verification", function () {
   const e = waitForAnySynonymAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSynonym(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSynonym(k), function () {
     verifySynonymExists(k);
   });
 });
 
 bthread("Synonym update verification", function () {
   const e = waitForAnySynonymUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSynonym(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSynonym(k), function () {
     verifySynonymUpdated(k);
   });
 });
 
 bthread("Synonym delete verification", function () {
   const e = waitForAnySynonymDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddSynonym(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddSynonym(k), function () {
     verifySynonymDoesNotExist(k);
   });
 });
 
 bthread("Task create verification", function () {
   const e = waitForAnyTaskAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteTask(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteTask(k), function () {
     verifyTaskExists(k);
   });
 });
 
 bthread("Task update verification", function () {
   const e = waitForAnyTaskUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteTask(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteTask(k), function () {
     verifyTaskUpdated(k);
   });
 });
 
 bthread("Task delete verification", function () {
   const e = waitForAnyTaskDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddTask(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddTask(k), function () {
     verifyTaskDoesNotExist(k);
   });
 });
 
 bthread("Taskuid create verification", function () {
   const e = waitForAnyTaskuidAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteTaskuid(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteTaskuid(k), function () {
     verifyTaskuidExists(k);
   });
 });
 
 bthread("Taskuid update verification", function () {
   const e = waitForAnyTaskuidUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteTaskuid(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteTaskuid(k), function () {
     verifyTaskuidUpdated(k);
   });
 });
 
 bthread("Taskuid delete verification", function () {
   const e = waitForAnyTaskuidDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddTaskuid(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddTaskuid(k), function () {
     verifyTaskuidDoesNotExist(k);
   });
 });
 
 bthread("Typotolerance create verification", function () {
   const e = waitForAnyTypotoleranceAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteTypotolerance(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteTypotolerance(k), function () {
     verifyTypotoleranceExists(k);
   });
 });
 
 bthread("Typotolerance update verification", function () {
   const e = waitForAnyTypotoleranceUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteTypotolerance(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteTypotolerance(k), function () {
     verifyTypotoleranceUpdated(k);
   });
 });
 
 bthread("Typotolerance delete verification", function () {
   const e = waitForAnyTypotoleranceDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddTypotolerance(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddTypotolerance(k), function () {
     verifyTypotoleranceDoesNotExist(k);
   });
 });
 
 bthread("Version create verification", function () {
   const e = waitForAnyVersionAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteVersion(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteVersion(k), function () {
     verifyVersionExists(k);
   });
 });
 
 bthread("Version update verification", function () {
   const e = waitForAnyVersionUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteVersion(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteVersion(k), function () {
     verifyVersionUpdated(k);
   });
 });
 
 bthread("Version delete verification", function () {
   const e = waitForAnyVersionDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddVersion(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddVersion(k), function () {
     verifyVersionDoesNotExist(k);
   });
 });
@@ -1494,162 +1591,226 @@ bthread("Version delete verification", function () {
 
 bthread("Guard: Unique Cancel", function () {
   const x = waitForAnyCancelAdded();
-  block(matchAddCancel(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddCancel(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Delete", function () {
   const x = waitForAnyDeleteAdded();
-  block(matchAddDelete(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddDelete(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Deletebatch", function () {
   const x = waitForAnyDeletebatchAdded();
-  block(matchAddDeletebatch(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddDeletebatch(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Displayedattribute", function () {
   const x = waitForAnyDisplayedattributeAdded();
-  block(matchAddDisplayedattribute(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddDisplayedattribute(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Distinctattribute", function () {
   const x = waitForAnyDistinctattributeAdded();
-  block(matchAddDistinctattribute(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddDistinctattribute(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Document", function () {
   const x = waitForAnyDocumentAdded();
-  block(matchAddDocument(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddDocument(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Dump", function () {
   const x = waitForAnyDumpAdded();
-  block(matchAddDump(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddDump(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Experimentalfeature", function () {
   const x = waitForAnyExperimentalfeatureAdded();
-  block(matchAddExperimentalfeature(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddExperimentalfeature(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Faceting", function () {
   const x = waitForAnyFacetingAdded();
-  block(matchAddFaceting(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddFaceting(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Facetsearch", function () {
   const x = waitForAnyFacetsearchAdded();
-  block(matchAddFacetsearch(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddFacetsearch(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Fetch", function () {
   const x = waitForAnyFetchAdded();
-  block(matchAddFetch(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddFetch(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Filterableattribute", function () {
   const x = waitForAnyFilterableattributeAdded();
-  block(matchAddFilterableattribute(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddFilterableattribute(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Health", function () {
   const x = waitForAnyHealthAdded();
-  block(matchAddHealth(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddHealth(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Indexe", function () {
   const x = waitForAnyIndexeAdded();
-  block(matchAddIndexe(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddIndexe(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Key", function () {
   const x = waitForAnyKeyAdded();
-  block(matchAddKey(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddKey(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Metric", function () {
   const x = waitForAnyMetricAdded();
-  block(matchAddMetric(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddMetric(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Multisearch", function () {
   const x = waitForAnyMultisearchAdded();
-  block(matchAddMultisearch(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddMultisearch(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Pagination", function () {
   const x = waitForAnyPaginationAdded();
-  block(matchAddPagination(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddPagination(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Rankingrule", function () {
   const x = waitForAnyRankingruleAdded();
-  block(matchAddRankingrule(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddRankingrule(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Search", function () {
   const x = waitForAnySearchAdded();
-  block(matchAddSearch(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddSearch(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Searchableattribute", function () {
   const x = waitForAnySearchableattributeAdded();
-  block(matchAddSearchableattribute(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddSearchableattribute(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Setting", function () {
   const x = waitForAnySettingAdded();
-  block(matchAddSetting(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddSetting(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Snapshot", function () {
   const x = waitForAnySnapshotAdded();
-  block(matchAddSnapshot(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddSnapshot(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Sortableattribute", function () {
   const x = waitForAnySortableattributeAdded();
-  block(matchAddSortableattribute(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddSortableattribute(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Stat", function () {
   const x = waitForAnyStatAdded();
-  block(matchAddStat(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddStat(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Stopword", function () {
   const x = waitForAnyStopwordAdded();
-  block(matchAddStopword(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddStopword(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Swapindexe", function () {
   const x = waitForAnySwapindexeAdded();
-  block(matchAddSwapindexe(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddSwapindexe(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Synonym", function () {
   const x = waitForAnySynonymAdded();
-  block(matchAddSynonym(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddSynonym(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Task", function () {
   const x = waitForAnyTaskAdded();
-  block(matchAddTask(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddTask(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Taskuid", function () {
   const x = waitForAnyTaskuidAdded();
-  block(matchAddTaskuid(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddTaskuid(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Typotolerance", function () {
   const x = waitForAnyTypotoleranceAdded();
-  block(matchAddTypotolerance(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddTypotolerance(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Version", function () {
   const x = waitForAnyVersionAdded();
-  block(matchAddVersion(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddVersion(k, ANY), function () {});
 });
 
 // ===== NEGATIVE/EDGE STATUS GUARDS =====

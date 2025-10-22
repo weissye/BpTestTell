@@ -20,12 +20,12 @@ if (typeof pick === 'undefined') {
 function _pk(e, key) {
   if (e == null) return undefined;
   if (typeof e === 'object') {
-    if (Object.prototype.hasOwnProperty.call(e, key)) return e[key];
-    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key)) return e.data[key];
-    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key)) return e.payload[key];
-    if (Object.prototype.hasOwnProperty.call(e, 'id')) return e['id'];
+    if (Object.prototype.hasOwnProperty.call(e, key) && typeof e[key] !== 'function') return e[key];
+    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key) && typeof e.data[key] !== 'function') return e.data[key];
+    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key) && typeof e.payload[key] !== 'function') return e.payload[key];
+    if (Object.prototype.hasOwnProperty.call(e, 'id') && typeof e['id'] !== 'function') return e['id'];
     // minimal extra fallback for Inventory-like entities
-    if (Object.prototype.hasOwnProperty.call(e, 'ndc')) return e['ndc'];
+    if (Object.prototype.hasOwnProperty.call(e, 'ndc') && typeof e['ndc'] !== 'function') return e['ndc'];
   }
   return (typeof e === 'string' || typeof e === 'number') ? e : undefined;
 }
@@ -33,6 +33,7 @@ function _pk(e, key) {
 // --- canonKey(v): normalize any key-like value to a scalar string ---
 function canonKey(v) {
   if (v == null) return '1001';
+  if (typeof v === 'function') return '1001';
   if (typeof v === 'object') {
     if ('id' in v) return String(v.id);
     if ('ndc' in v) return String(v.ndc);
@@ -197,168 +198,189 @@ bthread("TransferLifecycle", function () {
 
 bthread("Account create verification", function () {
   const e = waitForAnyAccountAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteAccount(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteAccount(k), function () {
     verifyAccountExists(k);
   });
 });
 
 bthread("Account update verification", function () {
   const e = waitForAnyAccountUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteAccount(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteAccount(k), function () {
     verifyAccountUpdated(k);
   });
 });
 
 bthread("Account delete verification", function () {
   const e = waitForAnyAccountDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddAccount(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddAccount(k), function () {
     verifyAccountDoesNotExist(k);
   });
 });
 
 bthread("Card create verification", function () {
   const e = waitForAnyCardAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteCard(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteCard(k), function () {
     verifyCardExists(k);
   });
 });
 
 bthread("Card update verification", function () {
   const e = waitForAnyCardUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteCard(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteCard(k), function () {
     verifyCardUpdated(k);
   });
 });
 
 bthread("Card delete verification", function () {
   const e = waitForAnyCardDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddCard(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddCard(k), function () {
     verifyCardDoesNotExist(k);
   });
 });
 
 bthread("Customer create verification", function () {
   const e = waitForAnyCustomerAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteCustomer(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteCustomer(k), function () {
     verifyCustomerExists(k);
   });
 });
 
 bthread("Customer update verification", function () {
   const e = waitForAnyCustomerUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteCustomer(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteCustomer(k), function () {
     verifyCustomerUpdated(k);
   });
 });
 
 bthread("Customer delete verification", function () {
   const e = waitForAnyCustomerDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddCustomer(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddCustomer(k), function () {
     verifyCustomerDoesNotExist(k);
   });
 });
 
 bthread("Loan create verification", function () {
   const e = waitForAnyLoanAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteLoan(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteLoan(k), function () {
     verifyLoanExists(k);
   });
 });
 
 bthread("Loan update verification", function () {
   const e = waitForAnyLoanUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteLoan(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteLoan(k), function () {
     verifyLoanUpdated(k);
   });
 });
 
 bthread("Loan delete verification", function () {
   const e = waitForAnyLoanDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddLoan(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddLoan(k), function () {
     verifyLoanDoesNotExist(k);
   });
 });
 
 bthread("Reset create verification", function () {
   const e = waitForAnyResetAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteReset(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteReset(k), function () {
     verifyResetExists(k);
   });
 });
 
 bthread("Reset update verification", function () {
   const e = waitForAnyResetUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteReset(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteReset(k), function () {
     verifyResetUpdated(k);
   });
 });
 
 bthread("Reset delete verification", function () {
   const e = waitForAnyResetDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddReset(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddReset(k), function () {
     verifyResetDoesNotExist(k);
   });
 });
 
 bthread("Transaction create verification", function () {
   const e = waitForAnyTransactionAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteTransaction(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteTransaction(k), function () {
     verifyTransactionExists(k);
   });
 });
 
 bthread("Transaction update verification", function () {
   const e = waitForAnyTransactionUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteTransaction(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteTransaction(k), function () {
     verifyTransactionUpdated(k);
   });
 });
 
 bthread("Transaction delete verification", function () {
   const e = waitForAnyTransactionDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddTransaction(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddTransaction(k), function () {
     verifyTransactionDoesNotExist(k);
   });
 });
 
 bthread("Transfer create verification", function () {
   const e = waitForAnyTransferAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteTransfer(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteTransfer(k), function () {
     verifyTransferExists(k);
   });
 });
 
 bthread("Transfer update verification", function () {
   const e = waitForAnyTransferUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteTransfer(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteTransfer(k), function () {
     verifyTransferUpdated(k);
   });
 });
 
 bthread("Transfer delete verification", function () {
   const e = waitForAnyTransferDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddTransfer(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddTransfer(k), function () {
     verifyTransferDoesNotExist(k);
   });
 });
@@ -369,37 +391,51 @@ bthread("Transfer delete verification", function () {
 
 bthread("Guard: Unique Account", function () {
   const x = waitForAnyAccountAdded();
-  block(matchAddAccount(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddAccount(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Card", function () {
   const x = waitForAnyCardAdded();
-  block(matchAddCard(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddCard(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Customer", function () {
   const x = waitForAnyCustomerAdded();
-  block(matchAddCustomer(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddCustomer(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Loan", function () {
   const x = waitForAnyLoanAdded();
-  block(matchAddLoan(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddLoan(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Reset", function () {
   const x = waitForAnyResetAdded();
-  block(matchAddReset(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddReset(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Transaction", function () {
   const x = waitForAnyTransactionAdded();
-  block(matchAddTransaction(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddTransaction(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Transfer", function () {
   const x = waitForAnyTransferAdded();
-  block(matchAddTransfer(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddTransfer(k, ANY), function () {});
 });
 
 // ===== NEGATIVE/EDGE STATUS GUARDS =====

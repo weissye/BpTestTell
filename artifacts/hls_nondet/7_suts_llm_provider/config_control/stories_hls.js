@@ -20,12 +20,12 @@ if (typeof pick === 'undefined') {
 function _pk(e, key) {
   if (e == null) return undefined;
   if (typeof e === 'object') {
-    if (Object.prototype.hasOwnProperty.call(e, key)) return e[key];
-    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key)) return e.data[key];
-    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key)) return e.payload[key];
-    if (Object.prototype.hasOwnProperty.call(e, 'id')) return e['id'];
+    if (Object.prototype.hasOwnProperty.call(e, key) && typeof e[key] !== 'function') return e[key];
+    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key) && typeof e.data[key] !== 'function') return e.data[key];
+    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key) && typeof e.payload[key] !== 'function') return e.payload[key];
+    if (Object.prototype.hasOwnProperty.call(e, 'id') && typeof e['id'] !== 'function') return e['id'];
     // minimal extra fallback for Inventory-like entities
-    if (Object.prototype.hasOwnProperty.call(e, 'ndc')) return e['ndc'];
+    if (Object.prototype.hasOwnProperty.call(e, 'ndc') && typeof e['ndc'] !== 'function') return e['ndc'];
   }
   return (typeof e === 'string' || typeof e === 'number') ? e : undefined;
 }
@@ -33,6 +33,7 @@ function _pk(e, key) {
 // --- canonKey(v): normalize any key-like value to a scalar string ---
 function canonKey(v) {
   if (v == null) return '1001';
+  if (typeof v === 'function') return '1001';
   if (typeof v === 'object') {
     if ('id' in v) return String(v.id);
     if ('ndc' in v) return String(v.ndc);
@@ -188,8 +189,8 @@ bthread("App nondet variant – burst updates & optional delete", function () {
 
 bthread("App nondet variant – uniqueness during parallel adds", function () {
   const ids = pick([[1,2],[10,11],[100,101]]);
-  const a = { id: 'A' + ids[0] };
-  const b = { id: 'A' + ids[1] };
+  const a = { id: ids[0] };
+  const b = { id: ids[1] };
   addApp(a.id);
   block(matchAddApp(a.id, ANY), function () {});
   addApp(b.id);
@@ -209,8 +210,8 @@ bthread("Config nondet variant – burst updates & optional delete", function ()
 
 bthread("Config nondet variant – uniqueness during parallel adds", function () {
   const ids = pick([[1,2],[10,11],[100,101]]);
-  const a = { id: 'C' + ids[0] };
-  const b = { id: 'C' + ids[1] };
+  const a = { id: ids[0] };
+  const b = { id: ids[1] };
   addConfig(a.id);
   block(matchAddConfig(a.id, ANY), function () {});
   addConfig(b.id);
@@ -230,8 +231,8 @@ bthread("Env nondet variant – burst updates & optional delete", function () {
 
 bthread("Env nondet variant – uniqueness during parallel adds", function () {
   const ids = pick([[1,2],[10,11],[100,101]]);
-  const a = { id: 'E' + ids[0] };
-  const b = { id: 'E' + ids[1] };
+  const a = { id: ids[0] };
+  const b = { id: ids[1] };
   addEnv(a.id);
   block(matchAddEnv(a.id, ANY), function () {});
   addEnv(b.id);
@@ -251,8 +252,8 @@ bthread("Policy nondet variant – burst updates & optional delete", function ()
 
 bthread("Policy nondet variant – uniqueness during parallel adds", function () {
   const ids = pick([[1,2],[10,11],[100,101]]);
-  const a = { id: 'P' + ids[0] };
-  const b = { id: 'P' + ids[1] };
+  const a = { id: ids[0] };
+  const b = { id: ids[1] };
   addPolicy(a.id);
   block(matchAddPolicy(a.id, ANY), function () {});
   addPolicy(b.id);
@@ -272,8 +273,8 @@ bthread("Releas nondet variant – burst updates & optional delete", function ()
 
 bthread("Releas nondet variant – uniqueness during parallel adds", function () {
   const ids = pick([[1,2],[10,11],[100,101]]);
-  const a = { id: 'R' + ids[0] };
-  const b = { id: 'R' + ids[1] };
+  const a = { id: ids[0] };
+  const b = { id: ids[1] };
   addReleas(a.id);
   block(matchAddReleas(a.id, ANY), function () {});
   addReleas(b.id);
@@ -293,8 +294,8 @@ bthread("Reset nondet variant – burst updates & optional delete", function () 
 
 bthread("Reset nondet variant – uniqueness during parallel adds", function () {
   const ids = pick([[1,2],[10,11],[100,101]]);
-  const a = { id: 'R' + ids[0] };
-  const b = { id: 'R' + ids[1] };
+  const a = { id: ids[0] };
+  const b = { id: ids[1] };
   addReset(a.id);
   block(matchAddReset(a.id, ANY), function () {});
   addReset(b.id);
@@ -304,144 +305,162 @@ bthread("Reset nondet variant – uniqueness during parallel adds", function () 
 
 bthread("App create verification", function () {
   const e = waitForAnyAppAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteApp(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteApp(k), function () {
     verifyAppExists(k);
   });
 });
 
 bthread("App update verification", function () {
   const e = waitForAnyAppUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteApp(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteApp(k), function () {
     verifyAppUpdated(k);
   });
 });
 
 bthread("App delete verification", function () {
   const e = waitForAnyAppDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddApp(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddApp(k), function () {
     verifyAppDoesNotExist(k);
   });
 });
 
 bthread("Config create verification", function () {
   const e = waitForAnyConfigAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteConfig(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteConfig(k), function () {
     verifyConfigExists(k);
   });
 });
 
 bthread("Config update verification", function () {
   const e = waitForAnyConfigUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteConfig(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteConfig(k), function () {
     verifyConfigUpdated(k);
   });
 });
 
 bthread("Config delete verification", function () {
   const e = waitForAnyConfigDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddConfig(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddConfig(k), function () {
     verifyConfigDoesNotExist(k);
   });
 });
 
 bthread("Env create verification", function () {
   const e = waitForAnyEnvAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteEnv(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteEnv(k), function () {
     verifyEnvExists(k);
   });
 });
 
 bthread("Env update verification", function () {
   const e = waitForAnyEnvUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteEnv(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteEnv(k), function () {
     verifyEnvUpdated(k);
   });
 });
 
 bthread("Env delete verification", function () {
   const e = waitForAnyEnvDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddEnv(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddEnv(k), function () {
     verifyEnvDoesNotExist(k);
   });
 });
 
 bthread("Policy create verification", function () {
   const e = waitForAnyPolicyAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeletePolicy(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeletePolicy(k), function () {
     verifyPolicyExists(k);
   });
 });
 
 bthread("Policy update verification", function () {
   const e = waitForAnyPolicyUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeletePolicy(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeletePolicy(k), function () {
     verifyPolicyUpdated(k);
   });
 });
 
 bthread("Policy delete verification", function () {
   const e = waitForAnyPolicyDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddPolicy(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddPolicy(k), function () {
     verifyPolicyDoesNotExist(k);
   });
 });
 
 bthread("Releas create verification", function () {
   const e = waitForAnyReleasAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteReleas(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteReleas(k), function () {
     verifyReleasExists(k);
   });
 });
 
 bthread("Releas update verification", function () {
   const e = waitForAnyReleasUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteReleas(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteReleas(k), function () {
     verifyReleasUpdated(k);
   });
 });
 
 bthread("Releas delete verification", function () {
   const e = waitForAnyReleasDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddReleas(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddReleas(k), function () {
     verifyReleasDoesNotExist(k);
   });
 });
 
 bthread("Reset create verification", function () {
   const e = waitForAnyResetAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteReset(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteReset(k), function () {
     verifyResetExists(k);
   });
 });
 
 bthread("Reset update verification", function () {
   const e = waitForAnyResetUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteReset(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteReset(k), function () {
     verifyResetUpdated(k);
   });
 });
 
 bthread("Reset delete verification", function () {
   const e = waitForAnyResetDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddReset(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddReset(k), function () {
     verifyResetDoesNotExist(k);
   });
 });
@@ -452,32 +471,44 @@ bthread("Reset delete verification", function () {
 
 bthread("Guard: Unique App", function () {
   const x = waitForAnyAppAdded();
-  block(matchAddApp(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddApp(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Config", function () {
   const x = waitForAnyConfigAdded();
-  block(matchAddConfig(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddConfig(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Env", function () {
   const x = waitForAnyEnvAdded();
-  block(matchAddEnv(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddEnv(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Policy", function () {
   const x = waitForAnyPolicyAdded();
-  block(matchAddPolicy(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddPolicy(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Releas", function () {
   const x = waitForAnyReleasAdded();
-  block(matchAddReleas(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddReleas(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Reset", function () {
   const x = waitForAnyResetAdded();
-  block(matchAddReset(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddReset(k, ANY), function () {});
 });
 
 // ===== NEGATIVE/EDGE STATUS GUARDS =====

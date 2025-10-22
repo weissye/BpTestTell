@@ -20,12 +20,12 @@ if (typeof pick === 'undefined') {
 function _pk(e, key) {
   if (e == null) return undefined;
   if (typeof e === 'object') {
-    if (Object.prototype.hasOwnProperty.call(e, key)) return e[key];
-    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key)) return e.data[key];
-    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key)) return e.payload[key];
-    if (Object.prototype.hasOwnProperty.call(e, 'id')) return e['id'];
+    if (Object.prototype.hasOwnProperty.call(e, key) && typeof e[key] !== 'function') return e[key];
+    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key) && typeof e.data[key] !== 'function') return e.data[key];
+    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key) && typeof e.payload[key] !== 'function') return e.payload[key];
+    if (Object.prototype.hasOwnProperty.call(e, 'id') && typeof e['id'] !== 'function') return e['id'];
     // minimal extra fallback for Inventory-like entities
-    if (Object.prototype.hasOwnProperty.call(e, 'ndc')) return e['ndc'];
+    if (Object.prototype.hasOwnProperty.call(e, 'ndc') && typeof e['ndc'] !== 'function') return e['ndc'];
   }
   return (typeof e === 'string' || typeof e === 'number') ? e : undefined;
 }
@@ -33,6 +33,7 @@ function _pk(e, key) {
 // --- canonKey(v): normalize any key-like value to a scalar string ---
 function canonKey(v) {
   if (v == null) return '1001';
+  if (typeof v === 'function') return '1001';
   if (typeof v === 'object') {
     if ('id' in v) return String(v.id);
     if ('ndc' in v) return String(v.ndc);
@@ -176,144 +177,162 @@ bthread("ResetLifecycle", function () {
 
 bthread("Drug create verification", function () {
   const e = waitForAnyDrugAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteDrug(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteDrug(k), function () {
     verifyDrugExists(k);
   });
 });
 
 bthread("Drug update verification", function () {
   const e = waitForAnyDrugUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteDrug(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteDrug(k), function () {
     verifyDrugUpdated(k);
   });
 });
 
 bthread("Drug delete verification", function () {
   const e = waitForAnyDrugDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddDrug(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddDrug(k), function () {
     verifyDrugDoesNotExist(k);
   });
 });
 
 bthread("Inventory create verification", function () {
   const e = waitForAnyInventoryAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteInventory(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteInventory(k), function () {
     verifyInventoryExists(k);
   });
 });
 
 bthread("Inventory update verification", function () {
   const e = waitForAnyInventoryUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteInventory(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteInventory(k), function () {
     verifyInventoryUpdated(k);
   });
 });
 
 bthread("Inventory delete verification", function () {
   const e = waitForAnyInventoryDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddInventory(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddInventory(k), function () {
     verifyInventoryDoesNotExist(k);
   });
 });
 
 bthread("Order create verification", function () {
   const e = waitForAnyOrderAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteOrder(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteOrder(k), function () {
     verifyOrderExists(k);
   });
 });
 
 bthread("Order update verification", function () {
   const e = waitForAnyOrderUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteOrder(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteOrder(k), function () {
     verifyOrderUpdated(k);
   });
 });
 
 bthread("Order delete verification", function () {
   const e = waitForAnyOrderDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddOrder(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddOrder(k), function () {
     verifyOrderDoesNotExist(k);
   });
 });
 
 bthread("Patient create verification", function () {
   const e = waitForAnyPatientAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeletePatient(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeletePatient(k), function () {
     verifyPatientExists(k);
   });
 });
 
 bthread("Patient update verification", function () {
   const e = waitForAnyPatientUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeletePatient(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeletePatient(k), function () {
     verifyPatientUpdated(k);
   });
 });
 
 bthread("Patient delete verification", function () {
   const e = waitForAnyPatientDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddPatient(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddPatient(k), function () {
     verifyPatientDoesNotExist(k);
   });
 });
 
 bthread("Prescription create verification", function () {
   const e = waitForAnyPrescriptionAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeletePrescription(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeletePrescription(k), function () {
     verifyPrescriptionExists(k);
   });
 });
 
 bthread("Prescription update verification", function () {
   const e = waitForAnyPrescriptionUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeletePrescription(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeletePrescription(k), function () {
     verifyPrescriptionUpdated(k);
   });
 });
 
 bthread("Prescription delete verification", function () {
   const e = waitForAnyPrescriptionDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddPrescription(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddPrescription(k), function () {
     verifyPrescriptionDoesNotExist(k);
   });
 });
 
 bthread("Reset create verification", function () {
   const e = waitForAnyResetAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteReset(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteReset(k), function () {
     verifyResetExists(k);
   });
 });
 
 bthread("Reset update verification", function () {
   const e = waitForAnyResetUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteReset(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteReset(k), function () {
     verifyResetUpdated(k);
   });
 });
 
 bthread("Reset delete verification", function () {
   const e = waitForAnyResetDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddReset(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddReset(k), function () {
     verifyResetDoesNotExist(k);
   });
 });
@@ -324,32 +343,44 @@ bthread("Reset delete verification", function () {
 
 bthread("Guard: Unique Drug", function () {
   const x = waitForAnyDrugAdded();
-  block(matchAddDrug(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddDrug(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Inventory", function () {
   const x = waitForAnyInventoryAdded();
-  block(matchAddInventory(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddInventory(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Order", function () {
   const x = waitForAnyOrderAdded();
-  block(matchAddOrder(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddOrder(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Patient", function () {
   const x = waitForAnyPatientAdded();
-  block(matchAddPatient(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddPatient(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Prescription", function () {
   const x = waitForAnyPrescriptionAdded();
-  block(matchAddPrescription(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddPrescription(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Reset", function () {
   const x = waitForAnyResetAdded();
-  block(matchAddReset(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddReset(k, ANY), function () {});
 });
 
 // ===== NEGATIVE/EDGE STATUS GUARDS =====

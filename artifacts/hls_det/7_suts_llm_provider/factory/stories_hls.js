@@ -20,12 +20,12 @@ if (typeof pick === 'undefined') {
 function _pk(e, key) {
   if (e == null) return undefined;
   if (typeof e === 'object') {
-    if (Object.prototype.hasOwnProperty.call(e, key)) return e[key];
-    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key)) return e.data[key];
-    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key)) return e.payload[key];
-    if (Object.prototype.hasOwnProperty.call(e, 'id')) return e['id'];
+    if (Object.prototype.hasOwnProperty.call(e, key) && typeof e[key] !== 'function') return e[key];
+    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key) && typeof e.data[key] !== 'function') return e.data[key];
+    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key) && typeof e.payload[key] !== 'function') return e.payload[key];
+    if (Object.prototype.hasOwnProperty.call(e, 'id') && typeof e['id'] !== 'function') return e['id'];
     // minimal extra fallback for Inventory-like entities
-    if (Object.prototype.hasOwnProperty.call(e, 'ndc')) return e['ndc'];
+    if (Object.prototype.hasOwnProperty.call(e, 'ndc') && typeof e['ndc'] !== 'function') return e['ndc'];
   }
   return (typeof e === 'string' || typeof e === 'number') ? e : undefined;
 }
@@ -33,6 +33,7 @@ function _pk(e, key) {
 // --- canonKey(v): normalize any key-like value to a scalar string ---
 function canonKey(v) {
   if (v == null) return '1001';
+  if (typeof v === 'function') return '1001';
   if (typeof v === 'object') {
     if ('id' in v) return String(v.id);
     if ('ndc' in v) return String(v.ndc);
@@ -155,120 +156,135 @@ bthread("WorkorderLifecycle", function () {
 
 bthread("Machine create verification", function () {
   const e = waitForAnyMachineAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteMachine(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteMachine(k), function () {
     verifyMachineExists(k);
   });
 });
 
 bthread("Machine update verification", function () {
   const e = waitForAnyMachineUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteMachine(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteMachine(k), function () {
     verifyMachineUpdated(k);
   });
 });
 
 bthread("Machine delete verification", function () {
   const e = waitForAnyMachineDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddMachine(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddMachine(k), function () {
     verifyMachineDoesNotExist(k);
   });
 });
 
 bthread("Maintenanceticket create verification", function () {
   const e = waitForAnyMaintenanceticketAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteMaintenanceticket(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteMaintenanceticket(k), function () {
     verifyMaintenanceticketExists(k);
   });
 });
 
 bthread("Maintenanceticket update verification", function () {
   const e = waitForAnyMaintenanceticketUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteMaintenanceticket(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteMaintenanceticket(k), function () {
     verifyMaintenanceticketUpdated(k);
   });
 });
 
 bthread("Maintenanceticket delete verification", function () {
   const e = waitForAnyMaintenanceticketDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddMaintenanceticket(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddMaintenanceticket(k), function () {
     verifyMaintenanceticketDoesNotExist(k);
   });
 });
 
 bthread("Reset create verification", function () {
   const e = waitForAnyResetAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteReset(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteReset(k), function () {
     verifyResetExists(k);
   });
 });
 
 bthread("Reset update verification", function () {
   const e = waitForAnyResetUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteReset(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteReset(k), function () {
     verifyResetUpdated(k);
   });
 });
 
 bthread("Reset delete verification", function () {
   const e = waitForAnyResetDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddReset(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddReset(k), function () {
     verifyResetDoesNotExist(k);
   });
 });
 
 bthread("Sensorreading create verification", function () {
   const e = waitForAnySensorreadingAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSensorreading(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSensorreading(k), function () {
     verifySensorreadingExists(k);
   });
 });
 
 bthread("Sensorreading update verification", function () {
   const e = waitForAnySensorreadingUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteSensorreading(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteSensorreading(k), function () {
     verifySensorreadingUpdated(k);
   });
 });
 
 bthread("Sensorreading delete verification", function () {
   const e = waitForAnySensorreadingDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddSensorreading(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddSensorreading(k), function () {
     verifySensorreadingDoesNotExist(k);
   });
 });
 
 bthread("Workorder create verification", function () {
   const e = waitForAnyWorkorderAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteWorkorder(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteWorkorder(k), function () {
     verifyWorkorderExists(k);
   });
 });
 
 bthread("Workorder update verification", function () {
   const e = waitForAnyWorkorderUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteWorkorder(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteWorkorder(k), function () {
     verifyWorkorderUpdated(k);
   });
 });
 
 bthread("Workorder delete verification", function () {
   const e = waitForAnyWorkorderDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddWorkorder(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddWorkorder(k), function () {
     verifyWorkorderDoesNotExist(k);
   });
 });
@@ -279,27 +295,37 @@ bthread("Workorder delete verification", function () {
 
 bthread("Guard: Unique Machine", function () {
   const x = waitForAnyMachineAdded();
-  block(matchAddMachine(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddMachine(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Maintenanceticket", function () {
   const x = waitForAnyMaintenanceticketAdded();
-  block(matchAddMaintenanceticket(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddMaintenanceticket(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Reset", function () {
   const x = waitForAnyResetAdded();
-  block(matchAddReset(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddReset(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Sensorreading", function () {
   const x = waitForAnySensorreadingAdded();
-  block(matchAddSensorreading(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddSensorreading(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Workorder", function () {
   const x = waitForAnyWorkorderAdded();
-  block(matchAddWorkorder(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddWorkorder(k, ANY), function () {});
 });
 
 // ===== NEGATIVE/EDGE STATUS GUARDS =====

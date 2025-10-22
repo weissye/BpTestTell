@@ -287,20 +287,20 @@ def js_header(sut_name: str) -> str:
     hdr.append("function _pk(e, key) {")
     hdr.append("  if (e == null) return undefined;")
     hdr.append("  if (typeof e === 'object') {")
-    hdr.append("    if (Object.prototype.hasOwnProperty.call(e, key)) return e[key];")
-    hdr.append("    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key)) return e.data[key];")
-    hdr.append("    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key)) return e.payload[key];")
-    hdr.append("    if (Object.prototype.hasOwnProperty.call(e, 'id')) return e['id'];")
+    hdr.append("    if (Object.prototype.hasOwnProperty.call(e, key) && typeof e[key] !== 'function') return e[key];")
+    hdr.append("    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key) && typeof e.data[key] !== 'function') return e.data[key];")
+    hdr.append("    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key) && typeof e.payload[key] !== 'function') return e.payload[key];")
+    hdr.append("    if (Object.prototype.hasOwnProperty.call(e, 'id') && typeof e['id'] !== 'function') return e['id'];")
     hdr.append("    // minimal extra fallback for Inventory-like entities")
-    hdr.append("    if (Object.prototype.hasOwnProperty.call(e, 'ndc')) return e['ndc'];")
+    hdr.append("    if (Object.prototype.hasOwnProperty.call(e, 'ndc') && typeof e['ndc'] !== 'function') return e['ndc'];")
     hdr.append("  }")
     hdr.append("  return (typeof e === 'string' || typeof e === 'number') ? e : undefined;")
     hdr.append("}")
     hdr.append("")
-    # >>>>>> MINIMAL FIX: normalize keys so verify(...) never gets NaN/undefined/object
     hdr.append("// --- canonKey(v): normalize any key-like value to a scalar string ---")
     hdr.append("function canonKey(v) {")
     hdr.append("  if (v == null) return '1001';")
+    hdr.append("  if (typeof v === 'function') return '1001';")
     hdr.append("  if (typeof v === 'object') {")
     hdr.append("    if ('id' in v) return String(v.id);")
     hdr.append("    if ('ndc' in v) return String(v.ndc);")
@@ -310,7 +310,6 @@ def js_header(sut_name: str) -> str:
     hdr.append("  }")
     hdr.append("  return String(v);")
     hdr.append("}")
-    # <<<<<< MINIMAL FIX
     hdr.append("")
     hdr.append("// ===== ACTIVE LIFECYCLES =====")
     hdr.append("")
@@ -353,9 +352,8 @@ def build_active_lifecycle(entity: str, edsl: Dict[str, Any], per_entity_max: in
 
     def sample_val(i, k):
         kl = k.lower()
-        # numeric-like samples for id-like keys (kept as strings to avoid churn elsewhere)
         if kl.endswith("id") or kl == "id":
-            return str(1000 + i)  # "1001", "1002", ...
+            return str(1000 + i)
         if "name" in kl:
             return ["Alpha","Bravo","Charlie","Delta"][i % 4]
         if any(x in kl for x in ["amount","price","total"]):
@@ -372,9 +370,7 @@ def build_active_lifecycle(entity: str, edsl: Dict[str, Any], per_entity_max: in
     arg0 = args[0] if args else "id"
 
     body += js_pick_samples("x", samples)
-    # >>>>>> MINIMAL FIX: canonicalize the key used in waits/verifiers
     body.append(concat("const id = canonKey(", "x.", arg0, ");"))
-    # <<<<<< MINIMAL FIX
 
     body.append(concat(do["add"], "(", arglist, ");"))
     w_add = _specific_wait(wait.get("added", ""))
@@ -417,7 +413,6 @@ def build_nondet_variants(entity: str, edsl: Dict[str, Any], per_entity_max: int
     args = edsl["args"]; do = edsl["do"]; ver = edsl["verify"]
     arglist = ", ".join([f"x.{a}" for a in args])
 
-    # use numeric sample for id-like primary key to avoid NaN in verifiers
     sample_obj = {}
     for a in args:
         if a.lower().endswith("id") or a.lower() == "id":
@@ -439,8 +434,8 @@ def build_nondet_variants(entity: str, edsl: Dict[str, Any], per_entity_max: int
 
     body = []
     body.append("const ids = pick([[1,2],[10,11],[100,101]]);")
-    body.append(f"const a = {{ {args[0]}: '{entity[:1].upper()}' + ids[0] }};")
-    body.append(f"const b = {{ {args[0]}: '{entity[:1].upper()}' + ids[1] }};")
+    body.append(f"const a = {{ {args[0]}: ids[0] }};")
+    body.append(f"const b = {{ {args[0]}: ids[1] }};")
     body.append(concat(do["add"], "(a.", args[0], ");"))
     body.append(concat("block(", edsl["match"]["add"], "(a.", args[0], ", ANY), function () {});"))
     body.append(concat(do["add"], "(b.", args[0], ");"))
@@ -454,32 +449,32 @@ def build_passive_verifications(entity: str, edsl: Dict[str, Any]) -> List[str]:
 
     stories = []
 
+    # create
     body = []
     body.append(concat("const e = ", wait["added"], "();"))
-    # >>>>>> MINIMAL FIX: canonicalize key derived from event
-    body.append(concat("const k = canonKey(_pk(e, \"", arg0, "\"));"))
-    # <<<<<< MINIMAL FIX
-    body.append(concat("block(", match["delete"], "(k, ANY), function () {"))
+    body.append('if (typeof e === "function") { return; }')
+    body.append(concat("const k = canonKey(_pk(e, '", arg0, "'));"))
+    body.append(concat("block(", match["delete"], "(k), function () {"))
     body.extend(indent([concat(ver["exists"], "(k);")]))
     body.append("});")
     stories.append(bthread(f"{entity} create verification", body))
 
+    # update
     body = []
     body.append(concat("const e = ", wait["updated"], "();"))
-    # >>>>>> MINIMAL FIX: canonicalize key derived from event
-    body.append(concat("const k = canonKey(_pk(e, \"", arg0, "\"));"))
-    # <<<<<< MINIMAL FIX
-    body.append(concat("block(", match["delete"], "(k, ANY), function () {"))
+    body.append('if (typeof e === "function") { return; }')
+    body.append(concat("const k = canonKey(_pk(e, '", arg0, "'));"))
+    body.append(concat("block(", match["delete"], "(k), function () {"))
     body.extend(indent([concat(ver["updated"], "(k);")]))
     body.append("});")
     stories.append(bthread(f"{entity} update verification", body))
 
+    # delete
     body = []
     body.append(concat("const e = ", wait["deleted"], "();"))
-    # >>>>>> MINIMAL FIX: canonicalize key derived from event
-    body.append(concat("const k = canonKey(_pk(e, \"", arg0, "\"));"))
-    # <<<<<< MINIMAL FIX
-    body.append(concat("block(", match["add"], "(k, ANY), function () {"))
+    body.append('if (typeof e === "function") { return; }')
+    body.append(concat("const k = canonKey(_pk(e, '", arg0, "'));"))
+    body.append(concat("block(", match["add"], "(k), function () {"))
     body.extend(indent([concat(ver["notExists"], "(k);")]))
     body.append("});")
     stories.append(bthread(f"{entity} delete verification", body))
@@ -507,7 +502,9 @@ def build_unique_guards(entities: List[str], dsl: Dict[str, Any]) -> List[str]:
         key = edsl["args"][0] if edsl["args"] else "id"
         body = []
         body.append(concat("const x = ", edsl["wait"]["added"], "();"))
-        body.append(concat("block(", edsl["match"]["add"], "(x.", key, ", ANY), function () {});"))
+        body.append('if (typeof x === "function") { return; }')
+        body.append(concat("const k = canonKey(_pk(x, '", key, "'));"))
+        body.append(concat("block(", edsl["match"]["add"], "(k, ANY), function () {});"))
         out.append(bthread(f"Guard: Unique {e}", body))
     return out
 

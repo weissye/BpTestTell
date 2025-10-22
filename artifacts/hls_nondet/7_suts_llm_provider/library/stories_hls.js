@@ -20,12 +20,12 @@ if (typeof pick === 'undefined') {
 function _pk(e, key) {
   if (e == null) return undefined;
   if (typeof e === 'object') {
-    if (Object.prototype.hasOwnProperty.call(e, key)) return e[key];
-    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key)) return e.data[key];
-    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key)) return e.payload[key];
-    if (Object.prototype.hasOwnProperty.call(e, 'id')) return e['id'];
+    if (Object.prototype.hasOwnProperty.call(e, key) && typeof e[key] !== 'function') return e[key];
+    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key) && typeof e.data[key] !== 'function') return e.data[key];
+    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key) && typeof e.payload[key] !== 'function') return e.payload[key];
+    if (Object.prototype.hasOwnProperty.call(e, 'id') && typeof e['id'] !== 'function') return e['id'];
     // minimal extra fallback for Inventory-like entities
-    if (Object.prototype.hasOwnProperty.call(e, 'ndc')) return e['ndc'];
+    if (Object.prototype.hasOwnProperty.call(e, 'ndc') && typeof e['ndc'] !== 'function') return e['ndc'];
   }
   return (typeof e === 'string' || typeof e === 'number') ? e : undefined;
 }
@@ -33,6 +33,7 @@ function _pk(e, key) {
 // --- canonKey(v): normalize any key-like value to a scalar string ---
 function canonKey(v) {
   if (v == null) return '1001';
+  if (typeof v === 'function') return '1001';
   if (typeof v === 'object') {
     if ('id' in v) return String(v.id);
     if ('ndc' in v) return String(v.ndc);
@@ -146,8 +147,8 @@ bthread("Book nondet variant – burst updates & optional delete", function () {
 
 bthread("Book nondet variant – uniqueness during parallel adds", function () {
   const ids = pick([[1,2],[10,11],[100,101]]);
-  const a = { id: 'B' + ids[0] };
-  const b = { id: 'B' + ids[1] };
+  const a = { id: ids[0] };
+  const b = { id: ids[1] };
   addBook(a.id);
   block(matchAddBook(a.id, ANY), function () {});
   addBook(b.id);
@@ -167,8 +168,8 @@ bthread("Hold nondet variant – burst updates & optional delete", function () {
 
 bthread("Hold nondet variant – uniqueness during parallel adds", function () {
   const ids = pick([[1,2],[10,11],[100,101]]);
-  const a = { id: 'H' + ids[0] };
-  const b = { id: 'H' + ids[1] };
+  const a = { id: ids[0] };
+  const b = { id: ids[1] };
   addHold(a.id);
   block(matchAddHold(a.id, ANY), function () {});
   addHold(b.id);
@@ -188,8 +189,8 @@ bthread("Loan nondet variant – burst updates & optional delete", function () {
 
 bthread("Loan nondet variant – uniqueness during parallel adds", function () {
   const ids = pick([[1,2],[10,11],[100,101]]);
-  const a = { id: 'L' + ids[0] };
-  const b = { id: 'L' + ids[1] };
+  const a = { id: ids[0] };
+  const b = { id: ids[1] };
   addLoan(a.id);
   block(matchAddLoan(a.id, ANY), function () {});
   addLoan(b.id);
@@ -209,8 +210,8 @@ bthread("User nondet variant – burst updates & optional delete", function () {
 
 bthread("User nondet variant – uniqueness during parallel adds", function () {
   const ids = pick([[1,2],[10,11],[100,101]]);
-  const a = { id: 'U' + ids[0] };
-  const b = { id: 'U' + ids[1] };
+  const a = { id: ids[0] };
+  const b = { id: ids[1] };
   addUser(a.id);
   block(matchAddUser(a.id, ANY), function () {});
   addUser(b.id);
@@ -220,96 +221,108 @@ bthread("User nondet variant – uniqueness during parallel adds", function () {
 
 bthread("Book create verification", function () {
   const e = waitForAnyBookAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteBook(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteBook(k), function () {
     verifyBookExists(k);
   });
 });
 
 bthread("Book update verification", function () {
   const e = waitForAnyBookUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteBook(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteBook(k), function () {
     verifyBookUpdated(k);
   });
 });
 
 bthread("Book delete verification", function () {
   const e = waitForAnyBookDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddBook(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddBook(k), function () {
     verifyBookDoesNotExist(k);
   });
 });
 
 bthread("Hold create verification", function () {
   const e = waitForAnyHoldAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteHold(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteHold(k), function () {
     verifyHoldExists(k);
   });
 });
 
 bthread("Hold update verification", function () {
   const e = waitForAnyHoldUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteHold(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteHold(k), function () {
     verifyHoldUpdated(k);
   });
 });
 
 bthread("Hold delete verification", function () {
   const e = waitForAnyHoldDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddHold(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddHold(k), function () {
     verifyHoldDoesNotExist(k);
   });
 });
 
 bthread("Loan create verification", function () {
   const e = waitForAnyLoanAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteLoan(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteLoan(k), function () {
     verifyLoanExists(k);
   });
 });
 
 bthread("Loan update verification", function () {
   const e = waitForAnyLoanUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteLoan(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteLoan(k), function () {
     verifyLoanUpdated(k);
   });
 });
 
 bthread("Loan delete verification", function () {
   const e = waitForAnyLoanDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddLoan(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddLoan(k), function () {
     verifyLoanDoesNotExist(k);
   });
 });
 
 bthread("User create verification", function () {
   const e = waitForAnyUserAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteUser(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteUser(k), function () {
     verifyUserExists(k);
   });
 });
 
 bthread("User update verification", function () {
   const e = waitForAnyUserUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteUser(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteUser(k), function () {
     verifyUserUpdated(k);
   });
 });
 
 bthread("User delete verification", function () {
   const e = waitForAnyUserDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddUser(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddUser(k), function () {
     verifyUserDoesNotExist(k);
   });
 });
@@ -320,22 +333,30 @@ bthread("User delete verification", function () {
 
 bthread("Guard: Unique Book", function () {
   const x = waitForAnyBookAdded();
-  block(matchAddBook(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddBook(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Hold", function () {
   const x = waitForAnyHoldAdded();
-  block(matchAddHold(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddHold(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Loan", function () {
   const x = waitForAnyLoanAdded();
-  block(matchAddLoan(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddLoan(k, ANY), function () {});
 });
 
 bthread("Guard: Unique User", function () {
   const x = waitForAnyUserAdded();
-  block(matchAddUser(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddUser(k, ANY), function () {});
 });
 
 // ===== NEGATIVE/EDGE STATUS GUARDS =====

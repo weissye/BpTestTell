@@ -20,12 +20,12 @@ if (typeof pick === 'undefined') {
 function _pk(e, key) {
   if (e == null) return undefined;
   if (typeof e === 'object') {
-    if (Object.prototype.hasOwnProperty.call(e, key)) return e[key];
-    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key)) return e.data[key];
-    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key)) return e.payload[key];
-    if (Object.prototype.hasOwnProperty.call(e, 'id')) return e['id'];
+    if (Object.prototype.hasOwnProperty.call(e, key) && typeof e[key] !== 'function') return e[key];
+    if (e.data && Object.prototype.hasOwnProperty.call(e.data, key) && typeof e.data[key] !== 'function') return e.data[key];
+    if (e.payload && Object.prototype.hasOwnProperty.call(e.payload, key) && typeof e.payload[key] !== 'function') return e.payload[key];
+    if (Object.prototype.hasOwnProperty.call(e, 'id') && typeof e['id'] !== 'function') return e['id'];
     // minimal extra fallback for Inventory-like entities
-    if (Object.prototype.hasOwnProperty.call(e, 'ndc')) return e['ndc'];
+    if (Object.prototype.hasOwnProperty.call(e, 'ndc') && typeof e['ndc'] !== 'function') return e['ndc'];
   }
   return (typeof e === 'string' || typeof e === 'number') ? e : undefined;
 }
@@ -33,6 +33,7 @@ function _pk(e, key) {
 // --- canonKey(v): normalize any key-like value to a scalar string ---
 function canonKey(v) {
   if (v == null) return '1001';
+  if (typeof v === 'function') return '1001';
   if (typeof v === 'object') {
     if ('id' in v) return String(v.id);
     if ('ndc' in v) return String(v.ndc);
@@ -239,216 +240,243 @@ bthread("ResetLifecycle", function () {
 
 bthread("Approve create verification", function () {
   const e = waitForAnyApproveAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteApprove(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteApprove(k), function () {
     verifyApproveExists(k);
   });
 });
 
 bthread("Approve update verification", function () {
   const e = waitForAnyApproveUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteApprove(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteApprove(k), function () {
     verifyApproveUpdated(k);
   });
 });
 
 bthread("Approve delete verification", function () {
   const e = waitForAnyApproveDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddApprove(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddApprove(k), function () {
     verifyApproveDoesNotExist(k);
   });
 });
 
 bthread("Car create verification", function () {
   const e = waitForAnyCarAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteCar(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteCar(k), function () {
     verifyCarExists(k);
   });
 });
 
 bthread("Car update verification", function () {
   const e = waitForAnyCarUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteCar(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteCar(k), function () {
     verifyCarUpdated(k);
   });
 });
 
 bthread("Car delete verification", function () {
   const e = waitForAnyCarDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddCar(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddCar(k), function () {
     verifyCarDoesNotExist(k);
   });
 });
 
 bthread("Chain create verification", function () {
   const e = waitForAnyChainAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteChain(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteChain(k), function () {
     verifyChainExists(k);
   });
 });
 
 bthread("Chain update verification", function () {
   const e = waitForAnyChainUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteChain(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteChain(k), function () {
     verifyChainUpdated(k);
   });
 });
 
 bthread("Chain delete verification", function () {
   const e = waitForAnyChainDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddChain(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddChain(k), function () {
     verifyChainDoesNotExist(k);
   });
 });
 
 bthread("Close create verification", function () {
   const e = waitForAnyCloseAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteClose(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteClose(k), function () {
     verifyCloseExists(k);
   });
 });
 
 bthread("Close update verification", function () {
   const e = waitForAnyCloseUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteClose(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteClose(k), function () {
     verifyCloseUpdated(k);
   });
 });
 
 bthread("Close delete verification", function () {
   const e = waitForAnyCloseDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddClose(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddClose(k), function () {
     verifyCloseDoesNotExist(k);
   });
 });
 
 bthread("Customer create verification", function () {
   const e = waitForAnyCustomerAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteCustomer(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteCustomer(k), function () {
     verifyCustomerExists(k);
   });
 });
 
 bthread("Customer update verification", function () {
   const e = waitForAnyCustomerUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteCustomer(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteCustomer(k), function () {
     verifyCustomerUpdated(k);
   });
 });
 
 bthread("Customer delete verification", function () {
   const e = waitForAnyCustomerDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddCustomer(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddCustomer(k), function () {
     verifyCustomerDoesNotExist(k);
   });
 });
 
 bthread("Garage create verification", function () {
   const e = waitForAnyGarageAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteGarage(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteGarage(k), function () {
     verifyGarageExists(k);
   });
 });
 
 bthread("Garage update verification", function () {
   const e = waitForAnyGarageUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteGarage(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteGarage(k), function () {
     verifyGarageUpdated(k);
   });
 });
 
 bthread("Garage delete verification", function () {
   const e = waitForAnyGarageDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddGarage(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddGarage(k), function () {
     verifyGarageDoesNotExist(k);
   });
 });
 
 bthread("Periodicmaintenance create verification", function () {
   const e = waitForAnyPeriodicmaintenanceAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeletePeriodicmaintenance(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeletePeriodicmaintenance(k), function () {
     verifyPeriodicmaintenanceExists(k);
   });
 });
 
 bthread("Periodicmaintenance update verification", function () {
   const e = waitForAnyPeriodicmaintenanceUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeletePeriodicmaintenance(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeletePeriodicmaintenance(k), function () {
     verifyPeriodicmaintenanceUpdated(k);
   });
 });
 
 bthread("Periodicmaintenance delete verification", function () {
   const e = waitForAnyPeriodicmaintenanceDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddPeriodicmaintenance(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddPeriodicmaintenance(k), function () {
     verifyPeriodicmaintenanceDoesNotExist(k);
   });
 });
 
 bthread("Repairorder create verification", function () {
   const e = waitForAnyRepairorderAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteRepairorder(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteRepairorder(k), function () {
     verifyRepairorderExists(k);
   });
 });
 
 bthread("Repairorder update verification", function () {
   const e = waitForAnyRepairorderUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteRepairorder(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteRepairorder(k), function () {
     verifyRepairorderUpdated(k);
   });
 });
 
 bthread("Repairorder delete verification", function () {
   const e = waitForAnyRepairorderDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddRepairorder(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddRepairorder(k), function () {
     verifyRepairorderDoesNotExist(k);
   });
 });
 
 bthread("Reset create verification", function () {
   const e = waitForAnyResetAdded();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteReset(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteReset(k), function () {
     verifyResetExists(k);
   });
 });
 
 bthread("Reset update verification", function () {
   const e = waitForAnyResetUpdated();
-  const k = canonKey(_pk(e, "id"));
-  block(matchDeleteReset(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchDeleteReset(k), function () {
     verifyResetUpdated(k);
   });
 });
 
 bthread("Reset delete verification", function () {
   const e = waitForAnyResetDeleted();
-  const k = canonKey(_pk(e, "id"));
-  block(matchAddReset(k, ANY), function () {
+  if (typeof e === "function") { return; }
+  const k = canonKey(_pk(e, 'id'));
+  block(matchAddReset(k), function () {
     verifyResetDoesNotExist(k);
   });
 });
@@ -459,47 +487,65 @@ bthread("Reset delete verification", function () {
 
 bthread("Guard: Unique Approve", function () {
   const x = waitForAnyApproveAdded();
-  block(matchAddApprove(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddApprove(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Car", function () {
   const x = waitForAnyCarAdded();
-  block(matchAddCar(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddCar(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Chain", function () {
   const x = waitForAnyChainAdded();
-  block(matchAddChain(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddChain(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Close", function () {
   const x = waitForAnyCloseAdded();
-  block(matchAddClose(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddClose(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Customer", function () {
   const x = waitForAnyCustomerAdded();
-  block(matchAddCustomer(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddCustomer(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Garage", function () {
   const x = waitForAnyGarageAdded();
-  block(matchAddGarage(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddGarage(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Periodicmaintenance", function () {
   const x = waitForAnyPeriodicmaintenanceAdded();
-  block(matchAddPeriodicmaintenance(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddPeriodicmaintenance(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Repairorder", function () {
   const x = waitForAnyRepairorderAdded();
-  block(matchAddRepairorder(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddRepairorder(k, ANY), function () {});
 });
 
 bthread("Guard: Unique Reset", function () {
   const x = waitForAnyResetAdded();
-  block(matchAddReset(x.id, ANY), function () {});
+  if (typeof x === "function") { return; }
+  const k = canonKey(_pk(x, 'id'));
+  block(matchAddReset(k, ANY), function () {});
 });
 
 // ===== NEGATIVE/EDGE STATUS GUARDS =====
