@@ -33,14 +33,14 @@ function matchesDescriptionRegex(rx) {
 function addApi(id, name) {
   svc.post("/api", {
       body: JSON.stringify({ id: id, name: name }),
-      parameters: { description: "Add a api with id " + id + " and name " + name + "" }
+      parameters: { description: "Add a api with " + "id " + id + " and " + "name " + name }
     });
 }
 
 // DELETE
 function deleteApi(id, name) {
   svc.delete("/api/" + id + "/"+ name, {
-    parameters: { description: "Delete a api with id " + id + " and name " + name + "" }
+    parameters: { description: "Delete a api with " + "id " + id + " and " + "name " + name }
   });
 }
 
@@ -48,7 +48,7 @@ function deleteApi(id, name) {
 function tryToDeleteANonExistingApi(id, name) {
   svc.delete("/api/" + id + "/"+ name, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a api with id " + id + " and name " + name + "" }
+    parameters: { description: "Delete a api with " + "id " + id + " and " + "name " + name }
   });
 }
 
@@ -56,25 +56,25 @@ function tryToDeleteANonExistingApi(id, name) {
 function tryToAddExistingApi(id, name) {
   svc.post("/api", {
       body: JSON.stringify({ id: id, name: name }),
-      parameters: { description: "Add a api with id " + id + " and name " + name + "" }
+      parameters: { description: "Add a api with " + "id " + id + " and " + "name " + name }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a api with id " + id + " and name " + name + "" }
+    parameters: { description: "Add a api with " + "id " + id + " and " + "name " + name }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateApi(id, name) {
   svc.put("/api/" + id + "/"+ name, {
       body: JSON.stringify({ id: id, name: name }),
-      parameters: { description: "Update a api with id " + id + " and name " + name + "" }
+      parameters: { description: "Update a api with " + "id " + id + " and " + "name " + name }
     });
 }
 
 // GET one
 function getApi(id, name) {
   svc.get("/api/" + id + "/"+ name, {
-    parameters: { description: "Get a api with id " + id + " and name " + name + "" }
+    parameters: { description: "Get a api with " + "id " + id + " and " + "name " + name }
   });
 }
 
@@ -97,7 +97,7 @@ function verifyApiExists(id, name) {
       }
       return pvg.fail("Expected a api to exist but it does not");
     },
-    parameters: { description: "Verify api with id " + id + " and name " + name + " exists" }
+    parameters: { description: "Verify api with " + "id " + id + " and " + "name " + name + " exists" }
   });
 }
 
@@ -113,7 +113,7 @@ function verifyApiDoesNotExist(id, name) {
       }
       return pvg.success("Api does not exist");
     },
-    parameters: { description: "Verify api with id " + id + " and name " + name + " does not exist" }
+    parameters: { description: "Verify api with " + "id " + id + " and " + "name " + name + " does not exist" }
   });
 }
 
@@ -127,7 +127,7 @@ function matchAnyAddApi() {
 function matchAddApi(id, name) {
   return bp.EventSet("add-api", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a api with id " + id + " and name " + name + "";
+    return e.data.parameters.description === "Add a api with " + "id " + id + " and " + "name " + name;
   });
 }
 function matchAnyDeleteApi() {
@@ -139,11 +139,11 @@ function matchAnyDeleteApi() {
 function matchDeleteApi(id, name) {
   return bp.EventSet("del-api", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a api with id " + id + " and name " + name + "";
+    return e.data.parameters.description === "Delete a api with " + "id " + id + " and " + "name " + name;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateApi() {
   return bp.EventSet("any-update-api", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -153,7 +153,7 @@ function matchAnyUpdateApi() {
 function matchUpdateApi(id, name) {
   return bp.EventSet("update-api", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a api with id " + id + " and name " + name + "";
+    return e.data.parameters.description === "Update a api with " + "id " + id + " and " + "name " + name;
   });
 }
 
@@ -161,7 +161,7 @@ function matchUpdateApi(id, name) {
 function waitForAnyApiAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ api\ with\ id\ (.+) and name\ (.+)$/));
     let m = e.data.parameters.description.match(/^Add\ a\ api\ with\ id\ (.+) and name\ (.+)$/);
-    return { id: parseInt(m[1]), name: (x)=>x(m[2]) };
+    return { id: parseInt(m[1]), name: m[2] };
 }
 function waitForApiAdded(id, name) {
   waitFor(matchAddApi(id, name));
@@ -172,7 +172,7 @@ function waitForApiDeleted(id, name) {
 function waitForAnyApiDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ api\ with\ id\ (.+) and name\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ api\ with\ id\ (.+) and name\ (.+)$/);
-    return { id: parseInt(m[1]), name: (x)=>x(m[2]) };
+    return { id: parseInt(m[1]), name: m[2] };
 }
 function waitForApiUpdated(id, name) {
   waitFor(matchUpdateApi(id, name));
@@ -180,7 +180,7 @@ function waitForApiUpdated(id, name) {
 function waitForAnyApiUpdated() {
   let e = waitFor(matchesDescriptionRegex(/^Update\ a\ api\ with\ id\ (.+) and name\ (.+)$/));
     let m = e.data.parameters.description.match(/^Update\ a\ api\ with\ id\ (.+) and name\ (.+)$/);
-    return { id: parseInt(m[1]), name: (x)=>x(m[2]) };
+    return { id: parseInt(m[1]), name: m[2] };
 }
 
 // Verify updated (presence-by-list)
@@ -195,7 +195,7 @@ function verifyApiUpdated(id, name) {
       }
       return pvg.fail("Expected a api to be present after update, but it is not");
     },
-    parameters: { description: "Verify api with id " + id + " and name " + name + " exists" }
+    parameters: { description: "Verify api with " + "id " + id + " and " + "name " + name + " exists" }
   });
 }
 

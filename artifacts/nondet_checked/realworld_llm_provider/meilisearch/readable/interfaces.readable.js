@@ -33,14 +33,14 @@ function matchesDescriptionRegex(rx) {
 function addDump(id) {
   svc.post("/dumps", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a dump with id " + id + "" }
+      parameters: { description: "Add a dump with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteDump(id) {
   svc.delete("/dumps/" + id, {
-    parameters: { description: "Delete a dump with id " + id + "" }
+    parameters: { description: "Delete a dump with " + "id " + id }
   });
 }
 
@@ -48,7 +48,7 @@ function deleteDump(id) {
 function tryToDeleteANonExistingDump(id) {
   svc.delete("/dumps/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a dump with id " + id + "" }
+    parameters: { description: "Delete a dump with " + "id " + id }
   });
 }
 
@@ -56,25 +56,25 @@ function tryToDeleteANonExistingDump(id) {
 function tryToAddExistingDump(id) {
   svc.post("/dumps", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a dump with id " + id + "" }
+      parameters: { description: "Add a dump with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a dump with id " + id + "" }
+    parameters: { description: "Add a dump with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateDump(id) {
   svc.put("/dumps/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a dump with id " + id + "" }
+      parameters: { description: "Update a dump with " + "id " + id }
     });
 }
 
 // GET one
 function getDump(id) {
   svc.get("/dumps/" + id, {
-    parameters: { description: "Get a dump with id " + id + "" }
+    parameters: { description: "Get a dump with " + "id " + id }
   });
 }
 
@@ -97,7 +97,7 @@ function verifyDumpExists(id) {
       }
       return pvg.fail("Expected a dump to exist but it does not");
     },
-    parameters: { description: "Verify dump with id " + id + " exists" }
+    parameters: { description: "Verify dump with " + "id " + id + " exists" }
   });
 }
 
@@ -113,7 +113,7 @@ function verifyDumpDoesNotExist(id) {
       }
       return pvg.success("Dump does not exist");
     },
-    parameters: { description: "Verify dump with id " + id + " does not exist" }
+    parameters: { description: "Verify dump with " + "id " + id + " does not exist" }
   });
 }
 
@@ -127,7 +127,7 @@ function matchAnyAddDump() {
 function matchAddDump(id) {
   return bp.EventSet("add-dump", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a dump with id " + id + "";
+    return e.data.parameters.description === "Add a dump with " + "id " + id;
   });
 }
 function matchAnyDeleteDump() {
@@ -139,11 +139,11 @@ function matchAnyDeleteDump() {
 function matchDeleteDump(id) {
   return bp.EventSet("del-dump", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a dump with id " + id + "";
+    return e.data.parameters.description === "Delete a dump with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateDump() {
   return bp.EventSet("any-update-dump", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -153,7 +153,7 @@ function matchAnyUpdateDump() {
 function matchUpdateDump(id) {
   return bp.EventSet("update-dump", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a dump with id " + id + "";
+    return e.data.parameters.description === "Update a dump with " + "id " + id;
   });
 }
 
@@ -195,7 +195,7 @@ function verifyDumpUpdated(id) {
       }
       return pvg.fail("Expected a dump to be present after update, but it is not");
     },
-    parameters: { description: "Verify dump with id " + id + " exists" }
+    parameters: { description: "Verify dump with " + "id " + id + " exists" }
   });
 }
 
@@ -206,14 +206,14 @@ function verifyDumpUpdated(id) {
 function addExperimental_feature(id) {
   svc.post("/experimental_features", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a experimental_feature with id " + id + "" }
+      parameters: { description: "Add a experimental_feature with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteExperimental_feature(id) {
   svc.delete("/experimental_features/" + id, {
-    parameters: { description: "Delete a experimental_feature with id " + id + "" }
+    parameters: { description: "Delete a experimental_feature with " + "id " + id }
   });
 }
 
@@ -221,7 +221,7 @@ function deleteExperimental_feature(id) {
 function tryToDeleteANonExistingExperimental_feature(id) {
   svc.delete("/experimental_features/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a experimental_feature with id " + id + "" }
+    parameters: { description: "Delete a experimental_feature with " + "id " + id }
   });
 }
 
@@ -229,25 +229,25 @@ function tryToDeleteANonExistingExperimental_feature(id) {
 function tryToAddExistingExperimental_feature(id) {
   svc.post("/experimental_features", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a experimental_feature with id " + id + "" }
+      parameters: { description: "Add a experimental_feature with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a experimental_feature with id " + id + "" }
+    parameters: { description: "Add a experimental_feature with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateExperimental_feature(id) {
   svc.put("/experimental_features/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a experimental_feature with id " + id + "" }
+      parameters: { description: "Update a experimental_feature with " + "id " + id }
     });
 }
 
 // GET one
 function getExperimental_feature(id) {
   svc.get("/experimental_features/" + id, {
-    parameters: { description: "Get a experimental_feature with id " + id + "" }
+    parameters: { description: "Get a experimental_feature with " + "id " + id }
   });
 }
 
@@ -270,7 +270,7 @@ function verifyExperimental_featureExists(id) {
       }
       return pvg.fail("Expected a experimental_feature to exist but it does not");
     },
-    parameters: { description: "Verify experimental_feature with id " + id + " exists" }
+    parameters: { description: "Verify experimental_feature with " + "id " + id + " exists" }
   });
 }
 
@@ -286,7 +286,7 @@ function verifyExperimental_featureDoesNotExist(id) {
       }
       return pvg.success("Experimental_feature does not exist");
     },
-    parameters: { description: "Verify experimental_feature with id " + id + " does not exist" }
+    parameters: { description: "Verify experimental_feature with " + "id " + id + " does not exist" }
   });
 }
 
@@ -300,7 +300,7 @@ function matchAnyAddExperimental_feature() {
 function matchAddExperimental_feature(id) {
   return bp.EventSet("add-experimental_feature", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a experimental_feature with id " + id + "";
+    return e.data.parameters.description === "Add a experimental_feature with " + "id " + id;
   });
 }
 function matchAnyDeleteExperimental_feature() {
@@ -312,11 +312,11 @@ function matchAnyDeleteExperimental_feature() {
 function matchDeleteExperimental_feature(id) {
   return bp.EventSet("del-experimental_feature", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a experimental_feature with id " + id + "";
+    return e.data.parameters.description === "Delete a experimental_feature with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateExperimental_feature() {
   return bp.EventSet("any-update-experimental_feature", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -326,7 +326,7 @@ function matchAnyUpdateExperimental_feature() {
 function matchUpdateExperimental_feature(id) {
   return bp.EventSet("update-experimental_feature", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a experimental_feature with id " + id + "";
+    return e.data.parameters.description === "Update a experimental_feature with " + "id " + id;
   });
 }
 
@@ -368,7 +368,7 @@ function verifyExperimental_featureUpdated(id) {
       }
       return pvg.fail("Expected a experimental_feature to be present after update, but it is not");
     },
-    parameters: { description: "Verify experimental_feature with id " + id + " exists" }
+    parameters: { description: "Verify experimental_feature with " + "id " + id + " exists" }
   });
 }
 
@@ -379,14 +379,14 @@ function verifyExperimental_featureUpdated(id) {
 function addHealth(id) {
   svc.post("/health", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a health with id " + id + "" }
+      parameters: { description: "Add a health with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteHealth(id) {
   svc.delete("/health/" + id, {
-    parameters: { description: "Delete a health with id " + id + "" }
+    parameters: { description: "Delete a health with " + "id " + id }
   });
 }
 
@@ -394,7 +394,7 @@ function deleteHealth(id) {
 function tryToDeleteANonExistingHealth(id) {
   svc.delete("/health/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a health with id " + id + "" }
+    parameters: { description: "Delete a health with " + "id " + id }
   });
 }
 
@@ -402,25 +402,25 @@ function tryToDeleteANonExistingHealth(id) {
 function tryToAddExistingHealth(id) {
   svc.post("/health", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a health with id " + id + "" }
+      parameters: { description: "Add a health with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a health with id " + id + "" }
+    parameters: { description: "Add a health with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateHealth(id) {
   svc.put("/health/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a health with id " + id + "" }
+      parameters: { description: "Update a health with " + "id " + id }
     });
 }
 
 // GET one
 function getHealth(id) {
   svc.get("/health/" + id, {
-    parameters: { description: "Get a health with id " + id + "" }
+    parameters: { description: "Get a health with " + "id " + id }
   });
 }
 
@@ -443,7 +443,7 @@ function verifyHealthExists(id) {
       }
       return pvg.fail("Expected a health to exist but it does not");
     },
-    parameters: { description: "Verify health with id " + id + " exists" }
+    parameters: { description: "Verify health with " + "id " + id + " exists" }
   });
 }
 
@@ -459,7 +459,7 @@ function verifyHealthDoesNotExist(id) {
       }
       return pvg.success("Health does not exist");
     },
-    parameters: { description: "Verify health with id " + id + " does not exist" }
+    parameters: { description: "Verify health with " + "id " + id + " does not exist" }
   });
 }
 
@@ -473,7 +473,7 @@ function matchAnyAddHealth() {
 function matchAddHealth(id) {
   return bp.EventSet("add-health", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a health with id " + id + "";
+    return e.data.parameters.description === "Add a health with " + "id " + id;
   });
 }
 function matchAnyDeleteHealth() {
@@ -485,11 +485,11 @@ function matchAnyDeleteHealth() {
 function matchDeleteHealth(id) {
   return bp.EventSet("del-health", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a health with id " + id + "";
+    return e.data.parameters.description === "Delete a health with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateHealth() {
   return bp.EventSet("any-update-health", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -499,7 +499,7 @@ function matchAnyUpdateHealth() {
 function matchUpdateHealth(id) {
   return bp.EventSet("update-health", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a health with id " + id + "";
+    return e.data.parameters.description === "Update a health with " + "id " + id;
   });
 }
 
@@ -541,7 +541,7 @@ function verifyHealthUpdated(id) {
       }
       return pvg.fail("Expected a health to be present after update, but it is not");
     },
-    parameters: { description: "Verify health with id " + id + " exists" }
+    parameters: { description: "Verify health with " + "id " + id + " exists" }
   });
 }
 
@@ -552,14 +552,14 @@ function verifyHealthUpdated(id) {
 function addIndexe(id) {
   svc.post("/indexes", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a indexe with id " + id + "" }
+      parameters: { description: "Add a indexe with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteIndexe(id) {
   svc.delete("/indexes/" + id, {
-    parameters: { description: "Delete a indexe with id " + id + "" }
+    parameters: { description: "Delete a indexe with " + "id " + id }
   });
 }
 
@@ -567,7 +567,7 @@ function deleteIndexe(id) {
 function tryToDeleteANonExistingIndexe(id) {
   svc.delete("/indexes/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a indexe with id " + id + "" }
+    parameters: { description: "Delete a indexe with " + "id " + id }
   });
 }
 
@@ -575,25 +575,25 @@ function tryToDeleteANonExistingIndexe(id) {
 function tryToAddExistingIndexe(id) {
   svc.post("/indexes", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a indexe with id " + id + "" }
+      parameters: { description: "Add a indexe with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a indexe with id " + id + "" }
+    parameters: { description: "Add a indexe with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateIndexe(id) {
   svc.put("/indexes/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a indexe with id " + id + "" }
+      parameters: { description: "Update a indexe with " + "id " + id }
     });
 }
 
 // GET one
 function getIndexe(id) {
   svc.get("/indexes/" + id, {
-    parameters: { description: "Get a indexe with id " + id + "" }
+    parameters: { description: "Get a indexe with " + "id " + id }
   });
 }
 
@@ -616,7 +616,7 @@ function verifyIndexeExists(id) {
       }
       return pvg.fail("Expected a indexe to exist but it does not");
     },
-    parameters: { description: "Verify indexe with id " + id + " exists" }
+    parameters: { description: "Verify indexe with " + "id " + id + " exists" }
   });
 }
 
@@ -632,7 +632,7 @@ function verifyIndexeDoesNotExist(id) {
       }
       return pvg.success("Indexe does not exist");
     },
-    parameters: { description: "Verify indexe with id " + id + " does not exist" }
+    parameters: { description: "Verify indexe with " + "id " + id + " does not exist" }
   });
 }
 
@@ -646,7 +646,7 @@ function matchAnyAddIndexe() {
 function matchAddIndexe(id) {
   return bp.EventSet("add-indexe", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a indexe with id " + id + "";
+    return e.data.parameters.description === "Add a indexe with " + "id " + id;
   });
 }
 function matchAnyDeleteIndexe() {
@@ -658,11 +658,11 @@ function matchAnyDeleteIndexe() {
 function matchDeleteIndexe(id) {
   return bp.EventSet("del-indexe", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a indexe with id " + id + "";
+    return e.data.parameters.description === "Delete a indexe with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateIndexe() {
   return bp.EventSet("any-update-indexe", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -672,7 +672,7 @@ function matchAnyUpdateIndexe() {
 function matchUpdateIndexe(id) {
   return bp.EventSet("update-indexe", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a indexe with id " + id + "";
+    return e.data.parameters.description === "Update a indexe with " + "id " + id;
   });
 }
 
@@ -714,7 +714,7 @@ function verifyIndexeUpdated(id) {
       }
       return pvg.fail("Expected a indexe to be present after update, but it is not");
     },
-    parameters: { description: "Verify indexe with id " + id + " exists" }
+    parameters: { description: "Verify indexe with " + "id " + id + " exists" }
   });
 }
 
@@ -725,14 +725,14 @@ function verifyIndexeUpdated(id) {
 function addKey(uid_or_key) {
   svc.post("/keys", {
       body: JSON.stringify({ uid_or_key: uid_or_key }),
-      parameters: { description: "Add a key with uid_or_key " + uid_or_key + "" }
+      parameters: { description: "Add a key with " + "uid_or_key " + uid_or_key }
     });
 }
 
 // DELETE
 function deleteKey(uid_or_key) {
   svc.delete("/keys/" + uid_or_key, {
-    parameters: { description: "Delete a key with uid_or_key " + uid_or_key + "" }
+    parameters: { description: "Delete a key with " + "uid_or_key " + uid_or_key }
   });
 }
 
@@ -740,7 +740,7 @@ function deleteKey(uid_or_key) {
 function tryToDeleteANonExistingKey(uid_or_key) {
   svc.delete("/keys/" + uid_or_key, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a key with uid_or_key " + uid_or_key + "" }
+    parameters: { description: "Delete a key with " + "uid_or_key " + uid_or_key }
   });
 }
 
@@ -748,25 +748,25 @@ function tryToDeleteANonExistingKey(uid_or_key) {
 function tryToAddExistingKey(uid_or_key) {
   svc.post("/keys", {
       body: JSON.stringify({ uid_or_key: uid_or_key }),
-      parameters: { description: "Add a key with uid_or_key " + uid_or_key + "" }
+      parameters: { description: "Add a key with " + "uid_or_key " + uid_or_key }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a key with uid_or_key " + uid_or_key + "" }
+    parameters: { description: "Add a key with " + "uid_or_key " + uid_or_key }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateKey(uid_or_key) {
   svc.put("/keys/" + uid_or_key, {
       body: JSON.stringify({ uid_or_key: uid_or_key }),
-      parameters: { description: "Update a key with uid_or_key " + uid_or_key + "" }
+      parameters: { description: "Update a key with " + "uid_or_key " + uid_or_key }
     });
 }
 
 // GET one
 function getKey(uid_or_key) {
   svc.get("/keys/" + uid_or_key, {
-    parameters: { description: "Get a key with uid_or_key " + uid_or_key + "" }
+    parameters: { description: "Get a key with " + "uid_or_key " + uid_or_key }
   });
 }
 
@@ -789,7 +789,7 @@ function verifyKeyExists(uid_or_key) {
       }
       return pvg.fail("Expected a key to exist but it does not");
     },
-    parameters: { description: "Verify key with uid_or_key " + uid_or_key + " exists" }
+    parameters: { description: "Verify key with " + "uid_or_key " + uid_or_key + " exists" }
   });
 }
 
@@ -805,7 +805,7 @@ function verifyKeyDoesNotExist(uid_or_key) {
       }
       return pvg.success("Key does not exist");
     },
-    parameters: { description: "Verify key with uid_or_key " + uid_or_key + " does not exist" }
+    parameters: { description: "Verify key with " + "uid_or_key " + uid_or_key + " does not exist" }
   });
 }
 
@@ -819,7 +819,7 @@ function matchAnyAddKey() {
 function matchAddKey(uid_or_key) {
   return bp.EventSet("add-key", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a key with uid_or_key " + uid_or_key + "";
+    return e.data.parameters.description === "Add a key with " + "uid_or_key " + uid_or_key;
   });
 }
 function matchAnyDeleteKey() {
@@ -831,11 +831,11 @@ function matchAnyDeleteKey() {
 function matchDeleteKey(uid_or_key) {
   return bp.EventSet("del-key", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a key with uid_or_key " + uid_or_key + "";
+    return e.data.parameters.description === "Delete a key with " + "uid_or_key " + uid_or_key;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateKey() {
   return bp.EventSet("any-update-key", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -845,7 +845,7 @@ function matchAnyUpdateKey() {
 function matchUpdateKey(uid_or_key) {
   return bp.EventSet("update-key", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a key with uid_or_key " + uid_or_key + "";
+    return e.data.parameters.description === "Update a key with " + "uid_or_key " + uid_or_key;
   });
 }
 
@@ -853,7 +853,7 @@ function matchUpdateKey(uid_or_key) {
 function waitForAnyKeyAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ key\ with\ uid_or_key\ (.+)$/));
     let m = e.data.parameters.description.match(/^Add\ a\ key\ with\ uid_or_key\ (.+)$/);
-    return { uid_or_key: (x)=>x(m[1]) };
+    return { uid_or_key: m[1] };
 }
 function waitForKeyAdded(uid_or_key) {
   waitFor(matchAddKey(uid_or_key));
@@ -864,7 +864,7 @@ function waitForKeyDeleted(uid_or_key) {
 function waitForAnyKeyDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ key\ with\ uid_or_key\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ key\ with\ uid_or_key\ (.+)$/);
-    return { uid_or_key: (x)=>x(m[1]) };
+    return { uid_or_key: m[1] };
 }
 function waitForKeyUpdated(uid_or_key) {
   waitFor(matchUpdateKey(uid_or_key));
@@ -872,7 +872,7 @@ function waitForKeyUpdated(uid_or_key) {
 function waitForAnyKeyUpdated() {
   let e = waitFor(matchesDescriptionRegex(/^Update\ a\ key\ with\ uid_or_key\ (.+)$/));
     let m = e.data.parameters.description.match(/^Update\ a\ key\ with\ uid_or_key\ (.+)$/);
-    return { uid_or_key: (x)=>x(m[1]) };
+    return { uid_or_key: m[1] };
 }
 
 // Verify updated (presence-by-list)
@@ -887,7 +887,7 @@ function verifyKeyUpdated(uid_or_key) {
       }
       return pvg.fail("Expected a key to be present after update, but it is not");
     },
-    parameters: { description: "Verify key with uid_or_key " + uid_or_key + " exists" }
+    parameters: { description: "Verify key with " + "uid_or_key " + uid_or_key + " exists" }
   });
 }
 
@@ -898,14 +898,14 @@ function verifyKeyUpdated(uid_or_key) {
 function addMetric(id) {
   svc.post("/metrics", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a metric with id " + id + "" }
+      parameters: { description: "Add a metric with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteMetric(id) {
   svc.delete("/metrics/" + id, {
-    parameters: { description: "Delete a metric with id " + id + "" }
+    parameters: { description: "Delete a metric with " + "id " + id }
   });
 }
 
@@ -913,7 +913,7 @@ function deleteMetric(id) {
 function tryToDeleteANonExistingMetric(id) {
   svc.delete("/metrics/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a metric with id " + id + "" }
+    parameters: { description: "Delete a metric with " + "id " + id }
   });
 }
 
@@ -921,25 +921,25 @@ function tryToDeleteANonExistingMetric(id) {
 function tryToAddExistingMetric(id) {
   svc.post("/metrics", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a metric with id " + id + "" }
+      parameters: { description: "Add a metric with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a metric with id " + id + "" }
+    parameters: { description: "Add a metric with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateMetric(id) {
   svc.put("/metrics/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a metric with id " + id + "" }
+      parameters: { description: "Update a metric with " + "id " + id }
     });
 }
 
 // GET one
 function getMetric(id) {
   svc.get("/metrics/" + id, {
-    parameters: { description: "Get a metric with id " + id + "" }
+    parameters: { description: "Get a metric with " + "id " + id }
   });
 }
 
@@ -962,7 +962,7 @@ function verifyMetricExists(id) {
       }
       return pvg.fail("Expected a metric to exist but it does not");
     },
-    parameters: { description: "Verify metric with id " + id + " exists" }
+    parameters: { description: "Verify metric with " + "id " + id + " exists" }
   });
 }
 
@@ -978,7 +978,7 @@ function verifyMetricDoesNotExist(id) {
       }
       return pvg.success("Metric does not exist");
     },
-    parameters: { description: "Verify metric with id " + id + " does not exist" }
+    parameters: { description: "Verify metric with " + "id " + id + " does not exist" }
   });
 }
 
@@ -992,7 +992,7 @@ function matchAnyAddMetric() {
 function matchAddMetric(id) {
   return bp.EventSet("add-metric", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a metric with id " + id + "";
+    return e.data.parameters.description === "Add a metric with " + "id " + id;
   });
 }
 function matchAnyDeleteMetric() {
@@ -1004,11 +1004,11 @@ function matchAnyDeleteMetric() {
 function matchDeleteMetric(id) {
   return bp.EventSet("del-metric", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a metric with id " + id + "";
+    return e.data.parameters.description === "Delete a metric with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateMetric() {
   return bp.EventSet("any-update-metric", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -1018,7 +1018,7 @@ function matchAnyUpdateMetric() {
 function matchUpdateMetric(id) {
   return bp.EventSet("update-metric", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a metric with id " + id + "";
+    return e.data.parameters.description === "Update a metric with " + "id " + id;
   });
 }
 
@@ -1060,7 +1060,7 @@ function verifyMetricUpdated(id) {
       }
       return pvg.fail("Expected a metric to be present after update, but it is not");
     },
-    parameters: { description: "Verify metric with id " + id + " exists" }
+    parameters: { description: "Verify metric with " + "id " + id + " exists" }
   });
 }
 
@@ -1071,14 +1071,14 @@ function verifyMetricUpdated(id) {
 function addMulti_search(id) {
   svc.post("/multi_search", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a multi_search with id " + id + "" }
+      parameters: { description: "Add a multi_search with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteMulti_search(id) {
   svc.delete("/multi_search/" + id, {
-    parameters: { description: "Delete a multi_search with id " + id + "" }
+    parameters: { description: "Delete a multi_search with " + "id " + id }
   });
 }
 
@@ -1086,7 +1086,7 @@ function deleteMulti_search(id) {
 function tryToDeleteANonExistingMulti_search(id) {
   svc.delete("/multi_search/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a multi_search with id " + id + "" }
+    parameters: { description: "Delete a multi_search with " + "id " + id }
   });
 }
 
@@ -1094,25 +1094,25 @@ function tryToDeleteANonExistingMulti_search(id) {
 function tryToAddExistingMulti_search(id) {
   svc.post("/multi_search", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a multi_search with id " + id + "" }
+      parameters: { description: "Add a multi_search with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a multi_search with id " + id + "" }
+    parameters: { description: "Add a multi_search with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateMulti_search(id) {
   svc.put("/multi_search/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a multi_search with id " + id + "" }
+      parameters: { description: "Update a multi_search with " + "id " + id }
     });
 }
 
 // GET one
 function getMulti_search(id) {
   svc.get("/multi_search/" + id, {
-    parameters: { description: "Get a multi_search with id " + id + "" }
+    parameters: { description: "Get a multi_search with " + "id " + id }
   });
 }
 
@@ -1135,7 +1135,7 @@ function verifyMulti_searchExists(id) {
       }
       return pvg.fail("Expected a multi_search to exist but it does not");
     },
-    parameters: { description: "Verify multi_search with id " + id + " exists" }
+    parameters: { description: "Verify multi_search with " + "id " + id + " exists" }
   });
 }
 
@@ -1151,7 +1151,7 @@ function verifyMulti_searchDoesNotExist(id) {
       }
       return pvg.success("Multi_search does not exist");
     },
-    parameters: { description: "Verify multi_search with id " + id + " does not exist" }
+    parameters: { description: "Verify multi_search with " + "id " + id + " does not exist" }
   });
 }
 
@@ -1165,7 +1165,7 @@ function matchAnyAddMulti_search() {
 function matchAddMulti_search(id) {
   return bp.EventSet("add-multi_search", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a multi_search with id " + id + "";
+    return e.data.parameters.description === "Add a multi_search with " + "id " + id;
   });
 }
 function matchAnyDeleteMulti_search() {
@@ -1177,11 +1177,11 @@ function matchAnyDeleteMulti_search() {
 function matchDeleteMulti_search(id) {
   return bp.EventSet("del-multi_search", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a multi_search with id " + id + "";
+    return e.data.parameters.description === "Delete a multi_search with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateMulti_search() {
   return bp.EventSet("any-update-multi_search", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -1191,7 +1191,7 @@ function matchAnyUpdateMulti_search() {
 function matchUpdateMulti_search(id) {
   return bp.EventSet("update-multi_search", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a multi_search with id " + id + "";
+    return e.data.parameters.description === "Update a multi_search with " + "id " + id;
   });
 }
 
@@ -1233,7 +1233,7 @@ function verifyMulti_searchUpdated(id) {
       }
       return pvg.fail("Expected a multi_search to be present after update, but it is not");
     },
-    parameters: { description: "Verify multi_search with id " + id + " exists" }
+    parameters: { description: "Verify multi_search with " + "id " + id + " exists" }
   });
 }
 
@@ -1244,14 +1244,14 @@ function verifyMulti_searchUpdated(id) {
 function addSnapshot(id) {
   svc.post("/snapshots", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a snapshot with id " + id + "" }
+      parameters: { description: "Add a snapshot with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteSnapshot(id) {
   svc.delete("/snapshots/" + id, {
-    parameters: { description: "Delete a snapshot with id " + id + "" }
+    parameters: { description: "Delete a snapshot with " + "id " + id }
   });
 }
 
@@ -1259,7 +1259,7 @@ function deleteSnapshot(id) {
 function tryToDeleteANonExistingSnapshot(id) {
   svc.delete("/snapshots/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a snapshot with id " + id + "" }
+    parameters: { description: "Delete a snapshot with " + "id " + id }
   });
 }
 
@@ -1267,25 +1267,25 @@ function tryToDeleteANonExistingSnapshot(id) {
 function tryToAddExistingSnapshot(id) {
   svc.post("/snapshots", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a snapshot with id " + id + "" }
+      parameters: { description: "Add a snapshot with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a snapshot with id " + id + "" }
+    parameters: { description: "Add a snapshot with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateSnapshot(id) {
   svc.put("/snapshots/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a snapshot with id " + id + "" }
+      parameters: { description: "Update a snapshot with " + "id " + id }
     });
 }
 
 // GET one
 function getSnapshot(id) {
   svc.get("/snapshots/" + id, {
-    parameters: { description: "Get a snapshot with id " + id + "" }
+    parameters: { description: "Get a snapshot with " + "id " + id }
   });
 }
 
@@ -1308,7 +1308,7 @@ function verifySnapshotExists(id) {
       }
       return pvg.fail("Expected a snapshot to exist but it does not");
     },
-    parameters: { description: "Verify snapshot with id " + id + " exists" }
+    parameters: { description: "Verify snapshot with " + "id " + id + " exists" }
   });
 }
 
@@ -1324,7 +1324,7 @@ function verifySnapshotDoesNotExist(id) {
       }
       return pvg.success("Snapshot does not exist");
     },
-    parameters: { description: "Verify snapshot with id " + id + " does not exist" }
+    parameters: { description: "Verify snapshot with " + "id " + id + " does not exist" }
   });
 }
 
@@ -1338,7 +1338,7 @@ function matchAnyAddSnapshot() {
 function matchAddSnapshot(id) {
   return bp.EventSet("add-snapshot", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a snapshot with id " + id + "";
+    return e.data.parameters.description === "Add a snapshot with " + "id " + id;
   });
 }
 function matchAnyDeleteSnapshot() {
@@ -1350,11 +1350,11 @@ function matchAnyDeleteSnapshot() {
 function matchDeleteSnapshot(id) {
   return bp.EventSet("del-snapshot", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a snapshot with id " + id + "";
+    return e.data.parameters.description === "Delete a snapshot with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateSnapshot() {
   return bp.EventSet("any-update-snapshot", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -1364,7 +1364,7 @@ function matchAnyUpdateSnapshot() {
 function matchUpdateSnapshot(id) {
   return bp.EventSet("update-snapshot", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a snapshot with id " + id + "";
+    return e.data.parameters.description === "Update a snapshot with " + "id " + id;
   });
 }
 
@@ -1406,7 +1406,7 @@ function verifySnapshotUpdated(id) {
       }
       return pvg.fail("Expected a snapshot to be present after update, but it is not");
     },
-    parameters: { description: "Verify snapshot with id " + id + " exists" }
+    parameters: { description: "Verify snapshot with " + "id " + id + " exists" }
   });
 }
 
@@ -1417,14 +1417,14 @@ function verifySnapshotUpdated(id) {
 function addStat(id) {
   svc.post("/stats", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a stat with id " + id + "" }
+      parameters: { description: "Add a stat with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteStat(id) {
   svc.delete("/stats/" + id, {
-    parameters: { description: "Delete a stat with id " + id + "" }
+    parameters: { description: "Delete a stat with " + "id " + id }
   });
 }
 
@@ -1432,7 +1432,7 @@ function deleteStat(id) {
 function tryToDeleteANonExistingStat(id) {
   svc.delete("/stats/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a stat with id " + id + "" }
+    parameters: { description: "Delete a stat with " + "id " + id }
   });
 }
 
@@ -1440,25 +1440,25 @@ function tryToDeleteANonExistingStat(id) {
 function tryToAddExistingStat(id) {
   svc.post("/stats", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a stat with id " + id + "" }
+      parameters: { description: "Add a stat with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a stat with id " + id + "" }
+    parameters: { description: "Add a stat with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateStat(id) {
   svc.put("/stats/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a stat with id " + id + "" }
+      parameters: { description: "Update a stat with " + "id " + id }
     });
 }
 
 // GET one
 function getStat(id) {
   svc.get("/stats/" + id, {
-    parameters: { description: "Get a stat with id " + id + "" }
+    parameters: { description: "Get a stat with " + "id " + id }
   });
 }
 
@@ -1481,7 +1481,7 @@ function verifyStatExists(id) {
       }
       return pvg.fail("Expected a stat to exist but it does not");
     },
-    parameters: { description: "Verify stat with id " + id + " exists" }
+    parameters: { description: "Verify stat with " + "id " + id + " exists" }
   });
 }
 
@@ -1497,7 +1497,7 @@ function verifyStatDoesNotExist(id) {
       }
       return pvg.success("Stat does not exist");
     },
-    parameters: { description: "Verify stat with id " + id + " does not exist" }
+    parameters: { description: "Verify stat with " + "id " + id + " does not exist" }
   });
 }
 
@@ -1511,7 +1511,7 @@ function matchAnyAddStat() {
 function matchAddStat(id) {
   return bp.EventSet("add-stat", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a stat with id " + id + "";
+    return e.data.parameters.description === "Add a stat with " + "id " + id;
   });
 }
 function matchAnyDeleteStat() {
@@ -1523,11 +1523,11 @@ function matchAnyDeleteStat() {
 function matchDeleteStat(id) {
   return bp.EventSet("del-stat", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a stat with id " + id + "";
+    return e.data.parameters.description === "Delete a stat with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateStat() {
   return bp.EventSet("any-update-stat", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -1537,7 +1537,7 @@ function matchAnyUpdateStat() {
 function matchUpdateStat(id) {
   return bp.EventSet("update-stat", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a stat with id " + id + "";
+    return e.data.parameters.description === "Update a stat with " + "id " + id;
   });
 }
 
@@ -1579,7 +1579,7 @@ function verifyStatUpdated(id) {
       }
       return pvg.fail("Expected a stat to be present after update, but it is not");
     },
-    parameters: { description: "Verify stat with id " + id + " exists" }
+    parameters: { description: "Verify stat with " + "id " + id + " exists" }
   });
 }
 
@@ -1590,14 +1590,14 @@ function verifyStatUpdated(id) {
 function addSwap_indexe(id) {
   svc.post("/swap_indexes", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a swap_indexe with id " + id + "" }
+      parameters: { description: "Add a swap_indexe with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteSwap_indexe(id) {
   svc.delete("/swap_indexes/" + id, {
-    parameters: { description: "Delete a swap_indexe with id " + id + "" }
+    parameters: { description: "Delete a swap_indexe with " + "id " + id }
   });
 }
 
@@ -1605,7 +1605,7 @@ function deleteSwap_indexe(id) {
 function tryToDeleteANonExistingSwap_indexe(id) {
   svc.delete("/swap_indexes/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a swap_indexe with id " + id + "" }
+    parameters: { description: "Delete a swap_indexe with " + "id " + id }
   });
 }
 
@@ -1613,25 +1613,25 @@ function tryToDeleteANonExistingSwap_indexe(id) {
 function tryToAddExistingSwap_indexe(id) {
   svc.post("/swap_indexes", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a swap_indexe with id " + id + "" }
+      parameters: { description: "Add a swap_indexe with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a swap_indexe with id " + id + "" }
+    parameters: { description: "Add a swap_indexe with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateSwap_indexe(id) {
   svc.put("/swap_indexes/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a swap_indexe with id " + id + "" }
+      parameters: { description: "Update a swap_indexe with " + "id " + id }
     });
 }
 
 // GET one
 function getSwap_indexe(id) {
   svc.get("/swap_indexes/" + id, {
-    parameters: { description: "Get a swap_indexe with id " + id + "" }
+    parameters: { description: "Get a swap_indexe with " + "id " + id }
   });
 }
 
@@ -1654,7 +1654,7 @@ function verifySwap_indexeExists(id) {
       }
       return pvg.fail("Expected a swap_indexe to exist but it does not");
     },
-    parameters: { description: "Verify swap_indexe with id " + id + " exists" }
+    parameters: { description: "Verify swap_indexe with " + "id " + id + " exists" }
   });
 }
 
@@ -1670,7 +1670,7 @@ function verifySwap_indexeDoesNotExist(id) {
       }
       return pvg.success("Swap_indexe does not exist");
     },
-    parameters: { description: "Verify swap_indexe with id " + id + " does not exist" }
+    parameters: { description: "Verify swap_indexe with " + "id " + id + " does not exist" }
   });
 }
 
@@ -1684,7 +1684,7 @@ function matchAnyAddSwap_indexe() {
 function matchAddSwap_indexe(id) {
   return bp.EventSet("add-swap_indexe", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a swap_indexe with id " + id + "";
+    return e.data.parameters.description === "Add a swap_indexe with " + "id " + id;
   });
 }
 function matchAnyDeleteSwap_indexe() {
@@ -1696,11 +1696,11 @@ function matchAnyDeleteSwap_indexe() {
 function matchDeleteSwap_indexe(id) {
   return bp.EventSet("del-swap_indexe", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a swap_indexe with id " + id + "";
+    return e.data.parameters.description === "Delete a swap_indexe with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateSwap_indexe() {
   return bp.EventSet("any-update-swap_indexe", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -1710,7 +1710,7 @@ function matchAnyUpdateSwap_indexe() {
 function matchUpdateSwap_indexe(id) {
   return bp.EventSet("update-swap_indexe", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a swap_indexe with id " + id + "";
+    return e.data.parameters.description === "Update a swap_indexe with " + "id " + id;
   });
 }
 
@@ -1752,7 +1752,7 @@ function verifySwap_indexeUpdated(id) {
       }
       return pvg.fail("Expected a swap_indexe to be present after update, but it is not");
     },
-    parameters: { description: "Verify swap_indexe with id " + id + " exists" }
+    parameters: { description: "Verify swap_indexe with " + "id " + id + " exists" }
   });
 }
 
@@ -1763,14 +1763,14 @@ function verifySwap_indexeUpdated(id) {
 function addTask(id) {
   svc.post("/tasks", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a task with id " + id + "" }
+      parameters: { description: "Add a task with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteTask(id) {
   svc.delete("/tasks/" + id, {
-    parameters: { description: "Delete a task with id " + id + "" }
+    parameters: { description: "Delete a task with " + "id " + id }
   });
 }
 
@@ -1778,7 +1778,7 @@ function deleteTask(id) {
 function tryToDeleteANonExistingTask(id) {
   svc.delete("/tasks/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a task with id " + id + "" }
+    parameters: { description: "Delete a task with " + "id " + id }
   });
 }
 
@@ -1786,25 +1786,25 @@ function tryToDeleteANonExistingTask(id) {
 function tryToAddExistingTask(id) {
   svc.post("/tasks", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a task with id " + id + "" }
+      parameters: { description: "Add a task with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a task with id " + id + "" }
+    parameters: { description: "Add a task with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateTask(id) {
   svc.put("/tasks/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a task with id " + id + "" }
+      parameters: { description: "Update a task with " + "id " + id }
     });
 }
 
 // GET one
 function getTask(id) {
   svc.get("/tasks/" + id, {
-    parameters: { description: "Get a task with id " + id + "" }
+    parameters: { description: "Get a task with " + "id " + id }
   });
 }
 
@@ -1827,7 +1827,7 @@ function verifyTaskExists(id) {
       }
       return pvg.fail("Expected a task to exist but it does not");
     },
-    parameters: { description: "Verify task with id " + id + " exists" }
+    parameters: { description: "Verify task with " + "id " + id + " exists" }
   });
 }
 
@@ -1843,7 +1843,7 @@ function verifyTaskDoesNotExist(id) {
       }
       return pvg.success("Task does not exist");
     },
-    parameters: { description: "Verify task with id " + id + " does not exist" }
+    parameters: { description: "Verify task with " + "id " + id + " does not exist" }
   });
 }
 
@@ -1857,7 +1857,7 @@ function matchAnyAddTask() {
 function matchAddTask(id) {
   return bp.EventSet("add-task", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a task with id " + id + "";
+    return e.data.parameters.description === "Add a task with " + "id " + id;
   });
 }
 function matchAnyDeleteTask() {
@@ -1869,11 +1869,11 @@ function matchAnyDeleteTask() {
 function matchDeleteTask(id) {
   return bp.EventSet("del-task", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a task with id " + id + "";
+    return e.data.parameters.description === "Delete a task with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateTask() {
   return bp.EventSet("any-update-task", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -1883,7 +1883,7 @@ function matchAnyUpdateTask() {
 function matchUpdateTask(id) {
   return bp.EventSet("update-task", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a task with id " + id + "";
+    return e.data.parameters.description === "Update a task with " + "id " + id;
   });
 }
 
@@ -1925,7 +1925,7 @@ function verifyTaskUpdated(id) {
       }
       return pvg.fail("Expected a task to be present after update, but it is not");
     },
-    parameters: { description: "Verify task with id " + id + " exists" }
+    parameters: { description: "Verify task with " + "id " + id + " exists" }
   });
 }
 
@@ -1936,14 +1936,14 @@ function verifyTaskUpdated(id) {
 function addVersion(id) {
   svc.post("/version", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a version with id " + id + "" }
+      parameters: { description: "Add a version with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteVersion(id) {
   svc.delete("/version/" + id, {
-    parameters: { description: "Delete a version with id " + id + "" }
+    parameters: { description: "Delete a version with " + "id " + id }
   });
 }
 
@@ -1951,7 +1951,7 @@ function deleteVersion(id) {
 function tryToDeleteANonExistingVersion(id) {
   svc.delete("/version/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a version with id " + id + "" }
+    parameters: { description: "Delete a version with " + "id " + id }
   });
 }
 
@@ -1959,25 +1959,25 @@ function tryToDeleteANonExistingVersion(id) {
 function tryToAddExistingVersion(id) {
   svc.post("/version", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a version with id " + id + "" }
+      parameters: { description: "Add a version with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a version with id " + id + "" }
+    parameters: { description: "Add a version with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateVersion(id) {
   svc.put("/version/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a version with id " + id + "" }
+      parameters: { description: "Update a version with " + "id " + id }
     });
 }
 
 // GET one
 function getVersion(id) {
   svc.get("/version/" + id, {
-    parameters: { description: "Get a version with id " + id + "" }
+    parameters: { description: "Get a version with " + "id " + id }
   });
 }
 
@@ -2000,7 +2000,7 @@ function verifyVersionExists(id) {
       }
       return pvg.fail("Expected a version to exist but it does not");
     },
-    parameters: { description: "Verify version with id " + id + " exists" }
+    parameters: { description: "Verify version with " + "id " + id + " exists" }
   });
 }
 
@@ -2016,7 +2016,7 @@ function verifyVersionDoesNotExist(id) {
       }
       return pvg.success("Version does not exist");
     },
-    parameters: { description: "Verify version with id " + id + " does not exist" }
+    parameters: { description: "Verify version with " + "id " + id + " does not exist" }
   });
 }
 
@@ -2030,7 +2030,7 @@ function matchAnyAddVersion() {
 function matchAddVersion(id) {
   return bp.EventSet("add-version", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a version with id " + id + "";
+    return e.data.parameters.description === "Add a version with " + "id " + id;
   });
 }
 function matchAnyDeleteVersion() {
@@ -2042,11 +2042,11 @@ function matchAnyDeleteVersion() {
 function matchDeleteVersion(id) {
   return bp.EventSet("del-version", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a version with id " + id + "";
+    return e.data.parameters.description === "Delete a version with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateVersion() {
   return bp.EventSet("any-update-version", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -2056,7 +2056,7 @@ function matchAnyUpdateVersion() {
 function matchUpdateVersion(id) {
   return bp.EventSet("update-version", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a version with id " + id + "";
+    return e.data.parameters.description === "Update a version with " + "id " + id;
   });
 }
 
@@ -2098,7 +2098,7 @@ function verifyVersionUpdated(id) {
       }
       return pvg.fail("Expected a version to be present after update, but it is not");
     },
-    parameters: { description: "Verify version with id " + id + " exists" }
+    parameters: { description: "Verify version with " + "id " + id + " exists" }
   });
 }
 

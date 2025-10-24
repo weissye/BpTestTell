@@ -1,7 +1,6 @@
 /** === Lifecycle smoke per entity (add→verify→tryAddExisting→delete→verifyNotExist) === */
 
 function lifecycle_dump(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingDump(id); } catch (_e) {}
   addDump(id);
   verifyDumpExists(id);
@@ -11,7 +10,6 @@ function lifecycle_dump(id) {
 }
 
 function lifecycle_experimental_feature(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingExperimental_feature(id); } catch (_e) {}
   addExperimental_feature(id);
   verifyExperimental_featureExists(id);
@@ -21,7 +19,6 @@ function lifecycle_experimental_feature(id) {
 }
 
 function lifecycle_health(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingHealth(id); } catch (_e) {}
   addHealth(id);
   verifyHealthExists(id);
@@ -31,7 +28,6 @@ function lifecycle_health(id) {
 }
 
 function lifecycle_indexe(indexUid) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingIndexe(indexUid); } catch (_e) {}
   addIndexe(indexUid);
   verifyIndexeExists(indexUid);
@@ -41,7 +37,6 @@ function lifecycle_indexe(indexUid) {
 }
 
 function lifecycle_key(uid_or_key) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingKey(uid_or_key); } catch (_e) {}
   addKey(uid_or_key);
   verifyKeyExists(uid_or_key);
@@ -51,7 +46,6 @@ function lifecycle_key(uid_or_key) {
 }
 
 function lifecycle_metric(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingMetric(id); } catch (_e) {}
   addMetric(id);
   verifyMetricExists(id);
@@ -61,7 +55,6 @@ function lifecycle_metric(id) {
 }
 
 function lifecycle_multi_search(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingMulti_search(id); } catch (_e) {}
   addMulti_search(id);
   verifyMulti_searchExists(id);
@@ -71,7 +64,6 @@ function lifecycle_multi_search(id) {
 }
 
 function lifecycle_snapshot(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingSnapshot(id); } catch (_e) {}
   addSnapshot(id);
   verifySnapshotExists(id);
@@ -81,7 +73,6 @@ function lifecycle_snapshot(id) {
 }
 
 function lifecycle_stat(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingStat(id); } catch (_e) {}
   addStat(id);
   verifyStatExists(id);
@@ -91,7 +82,6 @@ function lifecycle_stat(id) {
 }
 
 function lifecycle_swap_indexe(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingSwap_indexe(id); } catch (_e) {}
   addSwap_indexe(id);
   verifySwap_indexeExists(id);
@@ -101,7 +91,6 @@ function lifecycle_swap_indexe(id) {
 }
 
 function lifecycle_task(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingTask(id); } catch (_e) {}
   addTask(id);
   verifyTaskExists(id);
@@ -111,7 +100,6 @@ function lifecycle_task(id) {
 }
 
 function lifecycle_version(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingVersion(id); } catch (_e) {}
   addVersion(id);
   verifyVersionExists(id);

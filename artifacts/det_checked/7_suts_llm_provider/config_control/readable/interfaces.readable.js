@@ -33,14 +33,14 @@ function matchesDescriptionRegex(rx) {
 function addApp(id) {
   svc.post("/apps", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a app with id " + id + "" }
+      parameters: { description: "Add a app with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteApp(id) {
   svc.delete("/apps/" + id, {
-    parameters: { description: "Delete a app with id " + id + "" }
+    parameters: { description: "Delete a app with " + "id " + id }
   });
 }
 
@@ -48,7 +48,7 @@ function deleteApp(id) {
 function tryToDeleteANonExistingApp(id) {
   svc.delete("/apps/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a app with id " + id + "" }
+    parameters: { description: "Delete a app with " + "id " + id }
   });
 }
 
@@ -56,25 +56,25 @@ function tryToDeleteANonExistingApp(id) {
 function tryToAddExistingApp(id) {
   svc.post("/apps", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a app with id " + id + "" }
+      parameters: { description: "Add a app with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a app with id " + id + "" }
+    parameters: { description: "Add a app with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateApp(id) {
   svc.put("/apps/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a app with id " + id + "" }
+      parameters: { description: "Update a app with " + "id " + id }
     });
 }
 
 // GET one
 function getApp(id) {
   svc.get("/apps/" + id, {
-    parameters: { description: "Get a app with id " + id + "" }
+    parameters: { description: "Get a app with " + "id " + id }
   });
 }
 
@@ -97,7 +97,7 @@ function verifyAppExists(id) {
       }
       return pvg.fail("Expected a app to exist but it does not");
     },
-    parameters: { description: "Verify app with id " + id + " exists" }
+    parameters: { description: "Verify app with " + "id " + id + " exists" }
   });
 }
 
@@ -113,7 +113,7 @@ function verifyAppDoesNotExist(id) {
       }
       return pvg.success("App does not exist");
     },
-    parameters: { description: "Verify app with id " + id + " does not exist" }
+    parameters: { description: "Verify app with " + "id " + id + " does not exist" }
   });
 }
 
@@ -127,7 +127,7 @@ function matchAnyAddApp() {
 function matchAddApp(id) {
   return bp.EventSet("add-app", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a app with id " + id + "";
+    return e.data.parameters.description === "Add a app with " + "id " + id;
   });
 }
 function matchAnyDeleteApp() {
@@ -139,11 +139,11 @@ function matchAnyDeleteApp() {
 function matchDeleteApp(id) {
   return bp.EventSet("del-app", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a app with id " + id + "";
+    return e.data.parameters.description === "Delete a app with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateApp() {
   return bp.EventSet("any-update-app", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -153,7 +153,7 @@ function matchAnyUpdateApp() {
 function matchUpdateApp(id) {
   return bp.EventSet("update-app", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a app with id " + id + "";
+    return e.data.parameters.description === "Update a app with " + "id " + id;
   });
 }
 
@@ -195,7 +195,7 @@ function verifyAppUpdated(id) {
       }
       return pvg.fail("Expected a app to be present after update, but it is not");
     },
-    parameters: { description: "Verify app with id " + id + " exists" }
+    parameters: { description: "Verify app with " + "id " + id + " exists" }
   });
 }
 
@@ -206,14 +206,14 @@ function verifyAppUpdated(id) {
 function addConfig(id) {
   svc.post("/configs", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a config with id " + id + "" }
+      parameters: { description: "Add a config with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteConfig(id) {
   svc.delete("/configs/" + id, {
-    parameters: { description: "Delete a config with id " + id + "" }
+    parameters: { description: "Delete a config with " + "id " + id }
   });
 }
 
@@ -221,7 +221,7 @@ function deleteConfig(id) {
 function tryToDeleteANonExistingConfig(id) {
   svc.delete("/configs/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a config with id " + id + "" }
+    parameters: { description: "Delete a config with " + "id " + id }
   });
 }
 
@@ -229,25 +229,25 @@ function tryToDeleteANonExistingConfig(id) {
 function tryToAddExistingConfig(id) {
   svc.post("/configs", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a config with id " + id + "" }
+      parameters: { description: "Add a config with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a config with id " + id + "" }
+    parameters: { description: "Add a config with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateConfig(id) {
   svc.put("/configs/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a config with id " + id + "" }
+      parameters: { description: "Update a config with " + "id " + id }
     });
 }
 
 // GET one
 function getConfig(id) {
   svc.get("/configs/" + id, {
-    parameters: { description: "Get a config with id " + id + "" }
+    parameters: { description: "Get a config with " + "id " + id }
   });
 }
 
@@ -270,7 +270,7 @@ function verifyConfigExists(id) {
       }
       return pvg.fail("Expected a config to exist but it does not");
     },
-    parameters: { description: "Verify config with id " + id + " exists" }
+    parameters: { description: "Verify config with " + "id " + id + " exists" }
   });
 }
 
@@ -286,7 +286,7 @@ function verifyConfigDoesNotExist(id) {
       }
       return pvg.success("Config does not exist");
     },
-    parameters: { description: "Verify config with id " + id + " does not exist" }
+    parameters: { description: "Verify config with " + "id " + id + " does not exist" }
   });
 }
 
@@ -300,7 +300,7 @@ function matchAnyAddConfig() {
 function matchAddConfig(id) {
   return bp.EventSet("add-config", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a config with id " + id + "";
+    return e.data.parameters.description === "Add a config with " + "id " + id;
   });
 }
 function matchAnyDeleteConfig() {
@@ -312,11 +312,11 @@ function matchAnyDeleteConfig() {
 function matchDeleteConfig(id) {
   return bp.EventSet("del-config", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a config with id " + id + "";
+    return e.data.parameters.description === "Delete a config with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateConfig() {
   return bp.EventSet("any-update-config", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -326,7 +326,7 @@ function matchAnyUpdateConfig() {
 function matchUpdateConfig(id) {
   return bp.EventSet("update-config", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a config with id " + id + "";
+    return e.data.parameters.description === "Update a config with " + "id " + id;
   });
 }
 
@@ -368,7 +368,7 @@ function verifyConfigUpdated(id) {
       }
       return pvg.fail("Expected a config to be present after update, but it is not");
     },
-    parameters: { description: "Verify config with id " + id + " exists" }
+    parameters: { description: "Verify config with " + "id " + id + " exists" }
   });
 }
 
@@ -379,14 +379,14 @@ function verifyConfigUpdated(id) {
 function addEnv(id) {
   svc.post("/envs", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a env with id " + id + "" }
+      parameters: { description: "Add a env with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteEnv(id) {
   svc.delete("/envs/" + id, {
-    parameters: { description: "Delete a env with id " + id + "" }
+    parameters: { description: "Delete a env with " + "id " + id }
   });
 }
 
@@ -394,7 +394,7 @@ function deleteEnv(id) {
 function tryToDeleteANonExistingEnv(id) {
   svc.delete("/envs/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a env with id " + id + "" }
+    parameters: { description: "Delete a env with " + "id " + id }
   });
 }
 
@@ -402,25 +402,25 @@ function tryToDeleteANonExistingEnv(id) {
 function tryToAddExistingEnv(id) {
   svc.post("/envs", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a env with id " + id + "" }
+      parameters: { description: "Add a env with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a env with id " + id + "" }
+    parameters: { description: "Add a env with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateEnv(id) {
   svc.put("/envs/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a env with id " + id + "" }
+      parameters: { description: "Update a env with " + "id " + id }
     });
 }
 
 // GET one
 function getEnv(id) {
   svc.get("/envs/" + id, {
-    parameters: { description: "Get a env with id " + id + "" }
+    parameters: { description: "Get a env with " + "id " + id }
   });
 }
 
@@ -443,7 +443,7 @@ function verifyEnvExists(id) {
       }
       return pvg.fail("Expected a env to exist but it does not");
     },
-    parameters: { description: "Verify env with id " + id + " exists" }
+    parameters: { description: "Verify env with " + "id " + id + " exists" }
   });
 }
 
@@ -459,7 +459,7 @@ function verifyEnvDoesNotExist(id) {
       }
       return pvg.success("Env does not exist");
     },
-    parameters: { description: "Verify env with id " + id + " does not exist" }
+    parameters: { description: "Verify env with " + "id " + id + " does not exist" }
   });
 }
 
@@ -473,7 +473,7 @@ function matchAnyAddEnv() {
 function matchAddEnv(id) {
   return bp.EventSet("add-env", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a env with id " + id + "";
+    return e.data.parameters.description === "Add a env with " + "id " + id;
   });
 }
 function matchAnyDeleteEnv() {
@@ -485,11 +485,11 @@ function matchAnyDeleteEnv() {
 function matchDeleteEnv(id) {
   return bp.EventSet("del-env", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a env with id " + id + "";
+    return e.data.parameters.description === "Delete a env with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateEnv() {
   return bp.EventSet("any-update-env", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -499,7 +499,7 @@ function matchAnyUpdateEnv() {
 function matchUpdateEnv(id) {
   return bp.EventSet("update-env", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a env with id " + id + "";
+    return e.data.parameters.description === "Update a env with " + "id " + id;
   });
 }
 
@@ -541,7 +541,7 @@ function verifyEnvUpdated(id) {
       }
       return pvg.fail("Expected a env to be present after update, but it is not");
     },
-    parameters: { description: "Verify env with id " + id + " exists" }
+    parameters: { description: "Verify env with " + "id " + id + " exists" }
   });
 }
 
@@ -552,14 +552,14 @@ function verifyEnvUpdated(id) {
 function addPolicie(id) {
   svc.post("/policies", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a policie with id " + id + "" }
+      parameters: { description: "Add a policie with " + "id " + id }
     });
 }
 
 // DELETE
 function deletePolicie(id) {
   svc.delete("/policies/" + id, {
-    parameters: { description: "Delete a policie with id " + id + "" }
+    parameters: { description: "Delete a policie with " + "id " + id }
   });
 }
 
@@ -567,7 +567,7 @@ function deletePolicie(id) {
 function tryToDeleteANonExistingPolicie(id) {
   svc.delete("/policies/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a policie with id " + id + "" }
+    parameters: { description: "Delete a policie with " + "id " + id }
   });
 }
 
@@ -575,25 +575,25 @@ function tryToDeleteANonExistingPolicie(id) {
 function tryToAddExistingPolicie(id) {
   svc.post("/policies", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a policie with id " + id + "" }
+      parameters: { description: "Add a policie with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a policie with id " + id + "" }
+    parameters: { description: "Add a policie with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updatePolicie(id) {
   svc.put("/policies/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a policie with id " + id + "" }
+      parameters: { description: "Update a policie with " + "id " + id }
     });
 }
 
 // GET one
 function getPolicie(id) {
   svc.get("/policies/" + id, {
-    parameters: { description: "Get a policie with id " + id + "" }
+    parameters: { description: "Get a policie with " + "id " + id }
   });
 }
 
@@ -616,7 +616,7 @@ function verifyPolicieExists(id) {
       }
       return pvg.fail("Expected a policie to exist but it does not");
     },
-    parameters: { description: "Verify policie with id " + id + " exists" }
+    parameters: { description: "Verify policie with " + "id " + id + " exists" }
   });
 }
 
@@ -632,7 +632,7 @@ function verifyPolicieDoesNotExist(id) {
       }
       return pvg.success("Policie does not exist");
     },
-    parameters: { description: "Verify policie with id " + id + " does not exist" }
+    parameters: { description: "Verify policie with " + "id " + id + " does not exist" }
   });
 }
 
@@ -646,7 +646,7 @@ function matchAnyAddPolicie() {
 function matchAddPolicie(id) {
   return bp.EventSet("add-policie", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a policie with id " + id + "";
+    return e.data.parameters.description === "Add a policie with " + "id " + id;
   });
 }
 function matchAnyDeletePolicie() {
@@ -658,11 +658,11 @@ function matchAnyDeletePolicie() {
 function matchDeletePolicie(id) {
   return bp.EventSet("del-policie", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a policie with id " + id + "";
+    return e.data.parameters.description === "Delete a policie with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdatePolicie() {
   return bp.EventSet("any-update-policie", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -672,7 +672,7 @@ function matchAnyUpdatePolicie() {
 function matchUpdatePolicie(id) {
   return bp.EventSet("update-policie", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a policie with id " + id + "";
+    return e.data.parameters.description === "Update a policie with " + "id " + id;
   });
 }
 
@@ -714,7 +714,7 @@ function verifyPolicieUpdated(id) {
       }
       return pvg.fail("Expected a policie to be present after update, but it is not");
     },
-    parameters: { description: "Verify policie with id " + id + " exists" }
+    parameters: { description: "Verify policie with " + "id " + id + " exists" }
   });
 }
 
@@ -725,14 +725,14 @@ function verifyPolicieUpdated(id) {
 function addRelease(id) {
   svc.post("/releases", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a release with id " + id + "" }
+      parameters: { description: "Add a release with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteRelease(id) {
   svc.delete("/releases/" + id, {
-    parameters: { description: "Delete a release with id " + id + "" }
+    parameters: { description: "Delete a release with " + "id " + id }
   });
 }
 
@@ -740,7 +740,7 @@ function deleteRelease(id) {
 function tryToDeleteANonExistingRelease(id) {
   svc.delete("/releases/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a release with id " + id + "" }
+    parameters: { description: "Delete a release with " + "id " + id }
   });
 }
 
@@ -748,25 +748,25 @@ function tryToDeleteANonExistingRelease(id) {
 function tryToAddExistingRelease(id) {
   svc.post("/releases", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a release with id " + id + "" }
+      parameters: { description: "Add a release with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a release with id " + id + "" }
+    parameters: { description: "Add a release with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateRelease(id) {
   svc.put("/releases/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a release with id " + id + "" }
+      parameters: { description: "Update a release with " + "id " + id }
     });
 }
 
 // GET one
 function getRelease(id) {
   svc.get("/releases/" + id, {
-    parameters: { description: "Get a release with id " + id + "" }
+    parameters: { description: "Get a release with " + "id " + id }
   });
 }
 
@@ -789,7 +789,7 @@ function verifyReleaseExists(id) {
       }
       return pvg.fail("Expected a release to exist but it does not");
     },
-    parameters: { description: "Verify release with id " + id + " exists" }
+    parameters: { description: "Verify release with " + "id " + id + " exists" }
   });
 }
 
@@ -805,7 +805,7 @@ function verifyReleaseDoesNotExist(id) {
       }
       return pvg.success("Release does not exist");
     },
-    parameters: { description: "Verify release with id " + id + " does not exist" }
+    parameters: { description: "Verify release with " + "id " + id + " does not exist" }
   });
 }
 
@@ -819,7 +819,7 @@ function matchAnyAddRelease() {
 function matchAddRelease(id) {
   return bp.EventSet("add-release", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a release with id " + id + "";
+    return e.data.parameters.description === "Add a release with " + "id " + id;
   });
 }
 function matchAnyDeleteRelease() {
@@ -831,11 +831,11 @@ function matchAnyDeleteRelease() {
 function matchDeleteRelease(id) {
   return bp.EventSet("del-release", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a release with id " + id + "";
+    return e.data.parameters.description === "Delete a release with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateRelease() {
   return bp.EventSet("any-update-release", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -845,7 +845,7 @@ function matchAnyUpdateRelease() {
 function matchUpdateRelease(id) {
   return bp.EventSet("update-release", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a release with id " + id + "";
+    return e.data.parameters.description === "Update a release with " + "id " + id;
   });
 }
 
@@ -887,7 +887,7 @@ function verifyReleaseUpdated(id) {
       }
       return pvg.fail("Expected a release to be present after update, but it is not");
     },
-    parameters: { description: "Verify release with id " + id + " exists" }
+    parameters: { description: "Verify release with " + "id " + id + " exists" }
   });
 }
 
@@ -898,14 +898,14 @@ function verifyReleaseUpdated(id) {
 function addReset(id) {
   svc.post("/reset", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a reset with id " + id + "" }
+      parameters: { description: "Add a reset with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteReset(id) {
   svc.delete("/reset/" + id, {
-    parameters: { description: "Delete a reset with id " + id + "" }
+    parameters: { description: "Delete a reset with " + "id " + id }
   });
 }
 
@@ -913,7 +913,7 @@ function deleteReset(id) {
 function tryToDeleteANonExistingReset(id) {
   svc.delete("/reset/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a reset with id " + id + "" }
+    parameters: { description: "Delete a reset with " + "id " + id }
   });
 }
 
@@ -921,25 +921,25 @@ function tryToDeleteANonExistingReset(id) {
 function tryToAddExistingReset(id) {
   svc.post("/reset", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a reset with id " + id + "" }
+      parameters: { description: "Add a reset with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a reset with id " + id + "" }
+    parameters: { description: "Add a reset with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateReset(id) {
   svc.put("/reset/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a reset with id " + id + "" }
+      parameters: { description: "Update a reset with " + "id " + id }
     });
 }
 
 // GET one
 function getReset(id) {
   svc.get("/reset/" + id, {
-    parameters: { description: "Get a reset with id " + id + "" }
+    parameters: { description: "Get a reset with " + "id " + id }
   });
 }
 
@@ -962,7 +962,7 @@ function verifyResetExists(id) {
       }
       return pvg.fail("Expected a reset to exist but it does not");
     },
-    parameters: { description: "Verify reset with id " + id + " exists" }
+    parameters: { description: "Verify reset with " + "id " + id + " exists" }
   });
 }
 
@@ -978,7 +978,7 @@ function verifyResetDoesNotExist(id) {
       }
       return pvg.success("Reset does not exist");
     },
-    parameters: { description: "Verify reset with id " + id + " does not exist" }
+    parameters: { description: "Verify reset with " + "id " + id + " does not exist" }
   });
 }
 
@@ -992,7 +992,7 @@ function matchAnyAddReset() {
 function matchAddReset(id) {
   return bp.EventSet("add-reset", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a reset with id " + id + "";
+    return e.data.parameters.description === "Add a reset with " + "id " + id;
   });
 }
 function matchAnyDeleteReset() {
@@ -1004,11 +1004,11 @@ function matchAnyDeleteReset() {
 function matchDeleteReset(id) {
   return bp.EventSet("del-reset", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a reset with id " + id + "";
+    return e.data.parameters.description === "Delete a reset with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateReset() {
   return bp.EventSet("any-update-reset", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -1018,7 +1018,7 @@ function matchAnyUpdateReset() {
 function matchUpdateReset(id) {
   return bp.EventSet("update-reset", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a reset with id " + id + "";
+    return e.data.parameters.description === "Update a reset with " + "id " + id;
   });
 }
 
@@ -1060,7 +1060,7 @@ function verifyResetUpdated(id) {
       }
       return pvg.fail("Expected a reset to be present after update, but it is not");
     },
-    parameters: { description: "Verify reset with id " + id + " exists" }
+    parameters: { description: "Verify reset with " + "id " + id + " exists" }
   });
 }
 

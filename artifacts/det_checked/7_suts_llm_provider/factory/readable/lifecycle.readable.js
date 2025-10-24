@@ -1,7 +1,6 @@
 /** === Lifecycle smoke per entity (add→verify→tryAddExisting→delete→verifyNotExist) === */
 
 function lifecycle_machine(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingMachine(id); } catch (_e) {}
   addMachine(id);
   verifyMachineExists(id);
@@ -11,7 +10,6 @@ function lifecycle_machine(id) {
 }
 
 function lifecycle_maintenance_ticket(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingMaintenance_ticket(id); } catch (_e) {}
   addMaintenance_ticket(id);
   verifyMaintenance_ticketExists(id);
@@ -21,7 +19,6 @@ function lifecycle_maintenance_ticket(id) {
 }
 
 function lifecycle_reset(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingReset(id); } catch (_e) {}
   addReset(id);
   verifyResetExists(id);
@@ -31,7 +28,6 @@ function lifecycle_reset(id) {
 }
 
 function lifecycle_sensor_reading(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingSensor_reading(id); } catch (_e) {}
   addSensor_reading(id);
   verifySensor_readingExists(id);
@@ -41,7 +37,6 @@ function lifecycle_sensor_reading(id) {
 }
 
 function lifecycle_workorder(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingWorkorder(id); } catch (_e) {}
   addWorkorder(id);
   verifyWorkorderExists(id);

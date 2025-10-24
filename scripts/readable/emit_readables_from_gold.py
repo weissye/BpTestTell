@@ -18,9 +18,9 @@ def is_http_op(d):
 def walk_ops_anywhere(obj, sink):
     if isinstance(obj, dict):
         if is_http_op(obj):
-            sink.append({"method": obj.get("method", obj.get("http_method")).upper(),
-                         "path": obj.get("path") or obj.get("http_path") or obj.get("endpoint"),
-                         "body": obj.get("body") or obj.get("requestBody") or obj.get("payload") or None})
+            sink.append({"method": (obj.get("method") or obj.get("http_method")).upper(),
+                         "path":   obj.get("path") or obj.get("http_path") or obj.get("endpoint"),
+                         "body":   obj.get("body") or obj.get("requestBody") or obj.get("payload") or None})
         for v in obj.values():
             walk_ops_anywhere(v, sink)
     elif isinstance(obj, list):
@@ -28,7 +28,6 @@ def walk_ops_anywhere(obj, sink):
             walk_ops_anywhere(v, sink)
 
 def singularize(n):
-    # very light singularization
     return n[:-1] if n.endswith("s") and len(n) > 1 else n
 
 def guess_entity(path):
@@ -48,12 +47,10 @@ def body_keys_from_payload(payload):
     return keys
 
 def prefer_keys(path_keys, body_keys):
-    # prefer path keys; if none, choose common identity-like keys from body
-    if path_keys: 
+    if path_keys:
         return path_keys
-    if not body_keys: 
+    if not body_keys:
         return []
-    # favor id / *Id first, keep stable order
     scored = []
     for k in body_keys:
         score = 0
@@ -61,46 +58,41 @@ def prefer_keys(path_keys, body_keys):
         if k.lower().endswith("id"): score += 4
         if "name" in k.lower(): score += 2
         scored.append((score, k))
-    scored.sort(key=lambda t:(-t[0], body_keys.index(t[1])))
-    # take up to 2 to allow composite keys
+    scored.sort(key=lambda t: (-t[0], body_keys.index(t[1])))
     return [k for _, k in scored[:2]]
 
-def js_desc_phrase(entity, keys):
-    # "Add a user with id " + id + " and name " + name
-    if not keys:
-        return f"\"{entity.capitalize()} action\""
-    parts = []
-    for i, k in enumerate(keys):
-        join = " and " if i>0 else " with "
-        parts.append(join + k + " \" + " + k + " + \"")
-    return f"\"Add a {entity}"+ "".join(parts) + "\""
+# --- CLEAN string builders for JS description expressions --------------------
 
-def js_del_desc_phrase(entity, keys):
+def desc_expr(prefix: str, ent: str, keys):
+    """
+    Returns a JS expression (as a string) that evaluates to the exact
+    description we set in 'parameters.description'.
+    Example (with keys ['id','code']):
+      "Add a drug with " + "id " + id + " and " + "code " + code
+    """
     if not keys:
-        return f"\"Delete a {entity}\""
-    parts=[]
-    for i,k in enumerate(keys):
-        join = " and " if i>0 else " with "
-        parts.append(join + k + " \" + " + k + " + \"")
-    return f"\"Delete a {entity}\"" + " + \"" + "".join(parts) + "\""
+        return f"\"{prefix} a {ent}\""
+    parts = ' + " and " + '.join([f"\"{k} \" + {k}" for k in keys])
+    return f"\"{prefix} a {ent} with \" + {parts}"
 
-def js_verify_desc(entity, keys, exists=True):
+def delete_desc_expr(ent: str, keys):
+    return desc_expr("Delete", ent, keys)
+
+def verify_desc_expr(ent: str, keys, exists=True):
     what = "exists" if exists else "does not exist"
-    # "Verify user with id " + id + " and name " + name + " exists"
     if not keys:
-        return f"\"Verify {entity} {what}\""
-    parts=[]
-    for i,k in enumerate(keys):
-        join = " and " if i>0 else " with "
-        parts.append(join + k + " \" + " + k + " + \"")
-    return f"\"Verify {entity}" + "".join(parts) + f" {what}\""
+        return f"\"Verify {ent} {what}\""
+    parts = ' + " and " + '.join([f"\"{k} \" + {k}" for k in keys])
+    return f"\"Verify {ent} with \" + {parts} + \" {what}\""
+
+# ---------------------------------------------------------------------------
 
 def js_match_equals_desc(prefix, entity, keys):
-    # "Add a user ..." OR "Delete a user ..." (also used for "Update a user ...")
+    # Compare to the exact expression we constructed for parameters.description
     if not keys:
-        return f"return e.data.parameters.description.startsWith(\"{prefix} {entity}\");"
-    want = f"{prefix} {entity} with " + " and ".join([f"{k} \" + {k} + \"" for k in keys])
-    return "return e.data.parameters.description === \"" + want + "\";"
+        return f'return e.data.parameters.description === "{prefix} a {entity}";'
+    wanted = desc_expr(prefix, entity, keys)
+    return f"return e.data.parameters.description === {wanted};"
 
 def param_is_numeric(name):
     return bool(NUMERIC_KEY_RX.search(name))
@@ -117,13 +109,15 @@ def render_extract_from_desc(prefix, entity, keys):
     out.append("let m = e.data.parameters.description.match(/" + rx + "/);")
     assigns = []
     for i, k in enumerate(keys, start=1):
-        cast = "parseInt" if param_is_numeric(k) else "(x)=>x"
-        assigns.append(f"{k}: {cast}(m[{i}])")
+        # Emit a concrete value, not a function
+        if param_is_numeric(k):
+            assigns.append(f"{k}: parseInt(m[{i}])")
+        else:
+            assigns.append(f"{k}: m[{i}]")
     out.append("return { " + ", ".join(assigns) + " };")
     return "\n    ".join(out)
 
 def make_path(plural, keys):
-    # /plural/{k1}/{k2} style
     if not keys:
         return f'"/{plural}"'
     return '"/' + plural + '/" + ' + ' + "/"+ '.join(keys)
@@ -139,7 +133,6 @@ def collect_ops_from_gold(golds):
     ops=[]
     for g in golds:
         walk_ops_anywhere(g, ops)
-    # dedupe by (method,path)
     dedup={}
     for o in ops:
         k = (o["method"], o["path"])
@@ -148,7 +141,6 @@ def collect_ops_from_gold(golds):
     return list(dedup.values())
 
 def group_entities(ops):
-    # build entity map: entity -> info {plural, singular, keys, seen_methods, bodies}
     by_ent = defaultdict(lambda: {"paths":set(), "methods":set(), "path_keys":Counter(), "bodies":[]})
     for o in ops:
         ent = guess_entity(o["path"])
@@ -160,16 +152,13 @@ def group_entities(ops):
     entities=[]
     for plural, info in by_ent.items():
         singular = singularize(plural)
-        # choose path keys by popularity
         path_keys = [k for k,_ in info["path_keys"].most_common()]
-        # fallback to body keys (from any POST body example)
         body_keys = []
         for b in info["bodies"]:
             body_keys += body_keys_from_payload(b)
         body_keys = unique_preserve(body_keys)
         keys = prefer_keys(path_keys, body_keys)
         if not keys:
-            # absolute last resort: 'id'
             keys = ["id"]
         entities.append({
             "plural": plural,
@@ -220,40 +209,31 @@ def render_entity_block(e):
     Plural = e["Plural"]
     keys = e["keys"]
 
-    # parameter list: id, name, etc (ordered)
-    params = ", ".join(keys)
-    if not params: params = ""
+    params = ", ".join(keys) if keys else ""
 
-    # body for POST/PUT: include the keys if present
     body_fields = ", ".join([f"{k}: {k}" for k in keys]) if keys else ""
 
-    add_desc = f"\"Add a {ent} with " + " and ".join([f"{k} \" + {k} + \"" for k in keys]) + "\"" if keys else f"\"Add a {ent}\""
-    del_desc = f"\"Delete a {ent} with " + " and ".join([f"{k} \" + {k} + \"" for k in keys]) + "\"" if keys else f"\"Delete a {ent}\""
+    add_desc = desc_expr("Add", ent, keys)
+    del_desc = delete_desc_expr(ent, keys)
+    upd_desc = desc_expr("Update", ent, keys)
+    get_desc = desc_expr("Get", ent, keys)
 
-    # CHANGE (2): identifier-aware Update & Get descriptions, same style as Add/Delete
-    upd_desc = f"\"Update a {ent} with " + " and ".join([f"{k} \" + {k} + \"" for k in keys]) + "\"" if keys else f"\"Update a {ent}\""
-    get_desc = f"\"Get a {ent} with " + " and ".join([f"{k} \" + {k} + \"" for k in keys]) + "\"" if keys else f"\"Get a {ent}\""
-
-    # JS snippets
     post_body = ("{\n      body: JSON.stringify({ " + body_fields + " }),\n" if body_fields else "{\n") + \
                 f"      parameters: {{ description: {add_desc} }}\n    }}"
 
     put_body = ("{\n      body: JSON.stringify({ " + body_fields + " }),\n" if body_fields else "{\n") + \
                f"      parameters: {{ description: {upd_desc} }}\n    }}"
 
-    # path composition
     path_add   = f'"/{plural}"'
     path_list  = f'"/{plural}"'
     path_item  = make_path(plural, keys)
 
-    # verify callbacks
-    arr_var = ent  # array variable name in callback
+    arr_var = ent
     cmp_chain = " && ".join([f'{ent}[i].{k} === {k}' for k in keys]) if keys else "true"
 
-    # regex extraction in waits
     extract_add   = render_extract_from_desc("Add a", ent, keys)
     extract_del   = render_extract_from_desc("Delete a", ent, keys)
-    extract_upd   = render_extract_from_desc("Update a", ent, keys)  # CHANGE (3) helper will use this
+    extract_upd   = render_extract_from_desc("Update a", ent, keys)
 
     return f'''
 /** === {Ent} Operations === */
@@ -286,7 +266,7 @@ function tryToAddExisting{Ent}({params}) {{
   }});
 }}
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function update{Ent}({params}) {{
   svc.put({path_item}, {put_body});
 }}
@@ -317,7 +297,7 @@ function verify{Ent}Exists({params}) {{
       }}
       return pvg.fail("Expected a {ent} to exist but it does not");
     }},
-    parameters: {{ description: {js_verify_desc(ent, keys, exists=True)} }}
+    parameters: {{ description: {verify_desc_expr(ent, keys, exists=True)} }}
   }});
 }}
 
@@ -333,7 +313,7 @@ function verify{Ent}DoesNotExist({params}) {{
       }}
       return pvg.success("{Ent} does not exist");
     }},
-    parameters: {{ description: {js_verify_desc(ent, keys, exists=False)} }}
+    parameters: {{ description: {verify_desc_expr(ent, keys, exists=False)} }}
   }});
 }}
 
@@ -347,7 +327,7 @@ function matchAnyAdd{Ent}() {{
 function matchAdd{Ent}({params}) {{
   return bp.EventSet("add-{ent}", function (e) {{
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    {js_match_equals_desc("Add a", ent, keys)}
+    {js_match_equals_desc("Add", ent, keys)}
   }});
 }}
 function matchAnyDelete{Ent}() {{
@@ -359,11 +339,11 @@ function matchAnyDelete{Ent}() {{
 function matchDelete{Ent}({params}) {{
   return bp.EventSet("del-{ent}", function (e) {{
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    {js_match_equals_desc("Delete a", ent, keys)}
+    {js_match_equals_desc("Delete", ent, keys)}
   }});
 }}
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdate{Ent}() {{
   return bp.EventSet("any-update-{ent}", function (e) {{
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -373,7 +353,7 @@ function matchAnyUpdate{Ent}() {{
 function matchUpdate{Ent}({params}) {{
   return bp.EventSet("update-{ent}", function (e) {{
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    {js_match_equals_desc("Update a", ent, keys)}
+    {js_match_equals_desc("Update", ent, keys)}
   }});
 }}
 
@@ -409,7 +389,7 @@ function verify{Ent}Updated({params}) {{
       }}
       return pvg.fail("Expected a {ent} to be present after update, but it is not");
     }},
-    parameters: {{ description: {js_verify_desc(ent, keys, exists=True)} }}
+    parameters: {{ description: {verify_desc_expr(ent, keys, exists=True)} }}
   }});
 }}
 '''
@@ -422,7 +402,6 @@ def build_lifecycle(entities):
         args = ", ".join(keys) if keys else ""
         lines.append(f'''
 function lifecycle_{ent}({params}) {{
-  // try delete first (stale cleanup)
   try {{ tryToDeleteANonExisting{Ent}({args}); }} catch (_e) {{}}
   add{Ent}({args});
   verify{Ent}Exists({args});
@@ -446,7 +425,7 @@ def main():
     ap.add_argument("--gold", nargs="+", required=True, help="One or more GOLD json files")
     ap.add_argument("--out-dir", required=True, help="Where to write readables")
     ap.add_argument("--force-crud", action="store_true", help="Always emit full CRUD shells")
-    ap.add_argument("--entity-map", help="Optional JSON overrides: {{ plural: {{ 'keys': ['id','name'] }} }}")
+    ap.add_argument("--entity-map", help="Optional JSON overrides: { plural: { 'keys': ['id','name'] } }")
     ap.add_argument("--style", default="library", choices=["library","readable"], help="Kept for compatibility")
     args = ap.parse_args()
 
@@ -458,7 +437,6 @@ def main():
 
     entities = group_entities(ops)
 
-    # Apply overrides
     if args.entity_map and Path(args.entity_map).is_file():
         em = load_json(args.entity_map)
         for e in entities:
@@ -469,13 +447,11 @@ def main():
 
     out = Path(args.out_dir); out.mkdir(parents=True, exist_ok=True)
 
-    # interfaces.readable.js
     js = [js_head()]
     for e in entities:
         js.append(render_entity_block(e))
     (out / "interfaces.readable.js").write_text("\n".join(js)+"\n", encoding="utf-8")
 
-    # lifecycle.readable.js
     (out / "lifecycle.readable.js").write_text(build_lifecycle(entities)+"\n", encoding="utf-8")
 
     print(f"[OK] Wrote: {out/'interfaces.readable.js'} and {out/'lifecycle.readable.js'}")

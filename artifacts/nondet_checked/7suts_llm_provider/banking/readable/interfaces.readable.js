@@ -33,14 +33,14 @@ function matchesDescriptionRegex(rx) {
 function addAccount(accountId) {
   svc.post("/accounts", {
       body: JSON.stringify({ accountId: accountId }),
-      parameters: { description: "Add a account with accountId " + accountId + "" }
+      parameters: { description: "Add a account with " + "accountId " + accountId }
     });
 }
 
 // DELETE
 function deleteAccount(accountId) {
   svc.delete("/accounts/" + accountId, {
-    parameters: { description: "Delete a account with accountId " + accountId + "" }
+    parameters: { description: "Delete a account with " + "accountId " + accountId }
   });
 }
 
@@ -48,7 +48,7 @@ function deleteAccount(accountId) {
 function tryToDeleteANonExistingAccount(accountId) {
   svc.delete("/accounts/" + accountId, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a account with accountId " + accountId + "" }
+    parameters: { description: "Delete a account with " + "accountId " + accountId }
   });
 }
 
@@ -56,25 +56,25 @@ function tryToDeleteANonExistingAccount(accountId) {
 function tryToAddExistingAccount(accountId) {
   svc.post("/accounts", {
       body: JSON.stringify({ accountId: accountId }),
-      parameters: { description: "Add a account with accountId " + accountId + "" }
+      parameters: { description: "Add a account with " + "accountId " + accountId }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a account with accountId " + accountId + "" }
+    parameters: { description: "Add a account with " + "accountId " + accountId }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateAccount(accountId) {
   svc.put("/accounts/" + accountId, {
       body: JSON.stringify({ accountId: accountId }),
-      parameters: { description: "Update a account with accountId " + accountId + "" }
+      parameters: { description: "Update a account with " + "accountId " + accountId }
     });
 }
 
 // GET one
 function getAccount(accountId) {
   svc.get("/accounts/" + accountId, {
-    parameters: { description: "Get a account with accountId " + accountId + "" }
+    parameters: { description: "Get a account with " + "accountId " + accountId }
   });
 }
 
@@ -97,7 +97,7 @@ function verifyAccountExists(accountId) {
       }
       return pvg.fail("Expected a account to exist but it does not");
     },
-    parameters: { description: "Verify account with accountId " + accountId + " exists" }
+    parameters: { description: "Verify account with " + "accountId " + accountId + " exists" }
   });
 }
 
@@ -113,7 +113,7 @@ function verifyAccountDoesNotExist(accountId) {
       }
       return pvg.success("Account does not exist");
     },
-    parameters: { description: "Verify account with accountId " + accountId + " does not exist" }
+    parameters: { description: "Verify account with " + "accountId " + accountId + " does not exist" }
   });
 }
 
@@ -127,7 +127,7 @@ function matchAnyAddAccount() {
 function matchAddAccount(accountId) {
   return bp.EventSet("add-account", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a account with accountId " + accountId + "";
+    return e.data.parameters.description === "Add a account with " + "accountId " + accountId;
   });
 }
 function matchAnyDeleteAccount() {
@@ -139,11 +139,11 @@ function matchAnyDeleteAccount() {
 function matchDeleteAccount(accountId) {
   return bp.EventSet("del-account", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a account with accountId " + accountId + "";
+    return e.data.parameters.description === "Delete a account with " + "accountId " + accountId;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateAccount() {
   return bp.EventSet("any-update-account", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -153,7 +153,7 @@ function matchAnyUpdateAccount() {
 function matchUpdateAccount(accountId) {
   return bp.EventSet("update-account", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a account with accountId " + accountId + "";
+    return e.data.parameters.description === "Update a account with " + "accountId " + accountId;
   });
 }
 
@@ -161,7 +161,7 @@ function matchUpdateAccount(accountId) {
 function waitForAnyAccountAdded() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ account\ with\ accountId\ (.+)$/));
     let m = e.data.parameters.description.match(/^Add\ a\ account\ with\ accountId\ (.+)$/);
-    return { accountId: (x)=>x(m[1]) };
+    return { accountId: m[1] };
 }
 function waitForAccountAdded(accountId) {
   waitFor(matchAddAccount(accountId));
@@ -172,7 +172,7 @@ function waitForAccountDeleted(accountId) {
 function waitForAnyAccountDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ account\ with\ accountId\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ account\ with\ accountId\ (.+)$/);
-    return { accountId: (x)=>x(m[1]) };
+    return { accountId: m[1] };
 }
 function waitForAccountUpdated(accountId) {
   waitFor(matchUpdateAccount(accountId));
@@ -180,7 +180,7 @@ function waitForAccountUpdated(accountId) {
 function waitForAnyAccountUpdated() {
   let e = waitFor(matchesDescriptionRegex(/^Update\ a\ account\ with\ accountId\ (.+)$/));
     let m = e.data.parameters.description.match(/^Update\ a\ account\ with\ accountId\ (.+)$/);
-    return { accountId: (x)=>x(m[1]) };
+    return { accountId: m[1] };
 }
 
 // Verify updated (presence-by-list)
@@ -195,7 +195,7 @@ function verifyAccountUpdated(accountId) {
       }
       return pvg.fail("Expected a account to be present after update, but it is not");
     },
-    parameters: { description: "Verify account with accountId " + accountId + " exists" }
+    parameters: { description: "Verify account with " + "accountId " + accountId + " exists" }
   });
 }
 
@@ -206,14 +206,14 @@ function verifyAccountUpdated(accountId) {
 function addCard(id) {
   svc.post("/cards", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a card with id " + id + "" }
+      parameters: { description: "Add a card with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteCard(id) {
   svc.delete("/cards/" + id, {
-    parameters: { description: "Delete a card with id " + id + "" }
+    parameters: { description: "Delete a card with " + "id " + id }
   });
 }
 
@@ -221,7 +221,7 @@ function deleteCard(id) {
 function tryToDeleteANonExistingCard(id) {
   svc.delete("/cards/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a card with id " + id + "" }
+    parameters: { description: "Delete a card with " + "id " + id }
   });
 }
 
@@ -229,25 +229,25 @@ function tryToDeleteANonExistingCard(id) {
 function tryToAddExistingCard(id) {
   svc.post("/cards", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a card with id " + id + "" }
+      parameters: { description: "Add a card with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a card with id " + id + "" }
+    parameters: { description: "Add a card with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateCard(id) {
   svc.put("/cards/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a card with id " + id + "" }
+      parameters: { description: "Update a card with " + "id " + id }
     });
 }
 
 // GET one
 function getCard(id) {
   svc.get("/cards/" + id, {
-    parameters: { description: "Get a card with id " + id + "" }
+    parameters: { description: "Get a card with " + "id " + id }
   });
 }
 
@@ -270,7 +270,7 @@ function verifyCardExists(id) {
       }
       return pvg.fail("Expected a card to exist but it does not");
     },
-    parameters: { description: "Verify card with id " + id + " exists" }
+    parameters: { description: "Verify card with " + "id " + id + " exists" }
   });
 }
 
@@ -286,7 +286,7 @@ function verifyCardDoesNotExist(id) {
       }
       return pvg.success("Card does not exist");
     },
-    parameters: { description: "Verify card with id " + id + " does not exist" }
+    parameters: { description: "Verify card with " + "id " + id + " does not exist" }
   });
 }
 
@@ -300,7 +300,7 @@ function matchAnyAddCard() {
 function matchAddCard(id) {
   return bp.EventSet("add-card", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a card with id " + id + "";
+    return e.data.parameters.description === "Add a card with " + "id " + id;
   });
 }
 function matchAnyDeleteCard() {
@@ -312,11 +312,11 @@ function matchAnyDeleteCard() {
 function matchDeleteCard(id) {
   return bp.EventSet("del-card", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a card with id " + id + "";
+    return e.data.parameters.description === "Delete a card with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateCard() {
   return bp.EventSet("any-update-card", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -326,7 +326,7 @@ function matchAnyUpdateCard() {
 function matchUpdateCard(id) {
   return bp.EventSet("update-card", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a card with id " + id + "";
+    return e.data.parameters.description === "Update a card with " + "id " + id;
   });
 }
 
@@ -368,7 +368,7 @@ function verifyCardUpdated(id) {
       }
       return pvg.fail("Expected a card to be present after update, but it is not");
     },
-    parameters: { description: "Verify card with id " + id + " exists" }
+    parameters: { description: "Verify card with " + "id " + id + " exists" }
   });
 }
 
@@ -379,14 +379,14 @@ function verifyCardUpdated(id) {
 function addCustomer(id) {
   svc.post("/customers", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a customer with id " + id + "" }
+      parameters: { description: "Add a customer with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteCustomer(id) {
   svc.delete("/customers/" + id, {
-    parameters: { description: "Delete a customer with id " + id + "" }
+    parameters: { description: "Delete a customer with " + "id " + id }
   });
 }
 
@@ -394,7 +394,7 @@ function deleteCustomer(id) {
 function tryToDeleteANonExistingCustomer(id) {
   svc.delete("/customers/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a customer with id " + id + "" }
+    parameters: { description: "Delete a customer with " + "id " + id }
   });
 }
 
@@ -402,25 +402,25 @@ function tryToDeleteANonExistingCustomer(id) {
 function tryToAddExistingCustomer(id) {
   svc.post("/customers", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a customer with id " + id + "" }
+      parameters: { description: "Add a customer with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a customer with id " + id + "" }
+    parameters: { description: "Add a customer with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateCustomer(id) {
   svc.put("/customers/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a customer with id " + id + "" }
+      parameters: { description: "Update a customer with " + "id " + id }
     });
 }
 
 // GET one
 function getCustomer(id) {
   svc.get("/customers/" + id, {
-    parameters: { description: "Get a customer with id " + id + "" }
+    parameters: { description: "Get a customer with " + "id " + id }
   });
 }
 
@@ -443,7 +443,7 @@ function verifyCustomerExists(id) {
       }
       return pvg.fail("Expected a customer to exist but it does not");
     },
-    parameters: { description: "Verify customer with id " + id + " exists" }
+    parameters: { description: "Verify customer with " + "id " + id + " exists" }
   });
 }
 
@@ -459,7 +459,7 @@ function verifyCustomerDoesNotExist(id) {
       }
       return pvg.success("Customer does not exist");
     },
-    parameters: { description: "Verify customer with id " + id + " does not exist" }
+    parameters: { description: "Verify customer with " + "id " + id + " does not exist" }
   });
 }
 
@@ -473,7 +473,7 @@ function matchAnyAddCustomer() {
 function matchAddCustomer(id) {
   return bp.EventSet("add-customer", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a customer with id " + id + "";
+    return e.data.parameters.description === "Add a customer with " + "id " + id;
   });
 }
 function matchAnyDeleteCustomer() {
@@ -485,11 +485,11 @@ function matchAnyDeleteCustomer() {
 function matchDeleteCustomer(id) {
   return bp.EventSet("del-customer", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a customer with id " + id + "";
+    return e.data.parameters.description === "Delete a customer with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateCustomer() {
   return bp.EventSet("any-update-customer", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -499,7 +499,7 @@ function matchAnyUpdateCustomer() {
 function matchUpdateCustomer(id) {
   return bp.EventSet("update-customer", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a customer with id " + id + "";
+    return e.data.parameters.description === "Update a customer with " + "id " + id;
   });
 }
 
@@ -541,7 +541,7 @@ function verifyCustomerUpdated(id) {
       }
       return pvg.fail("Expected a customer to be present after update, but it is not");
     },
-    parameters: { description: "Verify customer with id " + id + " exists" }
+    parameters: { description: "Verify customer with " + "id " + id + " exists" }
   });
 }
 
@@ -552,14 +552,14 @@ function verifyCustomerUpdated(id) {
 function addLoan(id) {
   svc.post("/loans", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a loan with id " + id + "" }
+      parameters: { description: "Add a loan with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteLoan(id) {
   svc.delete("/loans/" + id, {
-    parameters: { description: "Delete a loan with id " + id + "" }
+    parameters: { description: "Delete a loan with " + "id " + id }
   });
 }
 
@@ -567,7 +567,7 @@ function deleteLoan(id) {
 function tryToDeleteANonExistingLoan(id) {
   svc.delete("/loans/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a loan with id " + id + "" }
+    parameters: { description: "Delete a loan with " + "id " + id }
   });
 }
 
@@ -575,25 +575,25 @@ function tryToDeleteANonExistingLoan(id) {
 function tryToAddExistingLoan(id) {
   svc.post("/loans", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a loan with id " + id + "" }
+      parameters: { description: "Add a loan with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a loan with id " + id + "" }
+    parameters: { description: "Add a loan with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateLoan(id) {
   svc.put("/loans/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a loan with id " + id + "" }
+      parameters: { description: "Update a loan with " + "id " + id }
     });
 }
 
 // GET one
 function getLoan(id) {
   svc.get("/loans/" + id, {
-    parameters: { description: "Get a loan with id " + id + "" }
+    parameters: { description: "Get a loan with " + "id " + id }
   });
 }
 
@@ -616,7 +616,7 @@ function verifyLoanExists(id) {
       }
       return pvg.fail("Expected a loan to exist but it does not");
     },
-    parameters: { description: "Verify loan with id " + id + " exists" }
+    parameters: { description: "Verify loan with " + "id " + id + " exists" }
   });
 }
 
@@ -632,7 +632,7 @@ function verifyLoanDoesNotExist(id) {
       }
       return pvg.success("Loan does not exist");
     },
-    parameters: { description: "Verify loan with id " + id + " does not exist" }
+    parameters: { description: "Verify loan with " + "id " + id + " does not exist" }
   });
 }
 
@@ -646,7 +646,7 @@ function matchAnyAddLoan() {
 function matchAddLoan(id) {
   return bp.EventSet("add-loan", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a loan with id " + id + "";
+    return e.data.parameters.description === "Add a loan with " + "id " + id;
   });
 }
 function matchAnyDeleteLoan() {
@@ -658,11 +658,11 @@ function matchAnyDeleteLoan() {
 function matchDeleteLoan(id) {
   return bp.EventSet("del-loan", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a loan with id " + id + "";
+    return e.data.parameters.description === "Delete a loan with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateLoan() {
   return bp.EventSet("any-update-loan", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -672,7 +672,7 @@ function matchAnyUpdateLoan() {
 function matchUpdateLoan(id) {
   return bp.EventSet("update-loan", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a loan with id " + id + "";
+    return e.data.parameters.description === "Update a loan with " + "id " + id;
   });
 }
 
@@ -714,7 +714,7 @@ function verifyLoanUpdated(id) {
       }
       return pvg.fail("Expected a loan to be present after update, but it is not");
     },
-    parameters: { description: "Verify loan with id " + id + " exists" }
+    parameters: { description: "Verify loan with " + "id " + id + " exists" }
   });
 }
 
@@ -725,14 +725,14 @@ function verifyLoanUpdated(id) {
 function addReset(id) {
   svc.post("/reset", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a reset with id " + id + "" }
+      parameters: { description: "Add a reset with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteReset(id) {
   svc.delete("/reset/" + id, {
-    parameters: { description: "Delete a reset with id " + id + "" }
+    parameters: { description: "Delete a reset with " + "id " + id }
   });
 }
 
@@ -740,7 +740,7 @@ function deleteReset(id) {
 function tryToDeleteANonExistingReset(id) {
   svc.delete("/reset/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a reset with id " + id + "" }
+    parameters: { description: "Delete a reset with " + "id " + id }
   });
 }
 
@@ -748,25 +748,25 @@ function tryToDeleteANonExistingReset(id) {
 function tryToAddExistingReset(id) {
   svc.post("/reset", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a reset with id " + id + "" }
+      parameters: { description: "Add a reset with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a reset with id " + id + "" }
+    parameters: { description: "Add a reset with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateReset(id) {
   svc.put("/reset/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a reset with id " + id + "" }
+      parameters: { description: "Update a reset with " + "id " + id }
     });
 }
 
 // GET one
 function getReset(id) {
   svc.get("/reset/" + id, {
-    parameters: { description: "Get a reset with id " + id + "" }
+    parameters: { description: "Get a reset with " + "id " + id }
   });
 }
 
@@ -789,7 +789,7 @@ function verifyResetExists(id) {
       }
       return pvg.fail("Expected a reset to exist but it does not");
     },
-    parameters: { description: "Verify reset with id " + id + " exists" }
+    parameters: { description: "Verify reset with " + "id " + id + " exists" }
   });
 }
 
@@ -805,7 +805,7 @@ function verifyResetDoesNotExist(id) {
       }
       return pvg.success("Reset does not exist");
     },
-    parameters: { description: "Verify reset with id " + id + " does not exist" }
+    parameters: { description: "Verify reset with " + "id " + id + " does not exist" }
   });
 }
 
@@ -819,7 +819,7 @@ function matchAnyAddReset() {
 function matchAddReset(id) {
   return bp.EventSet("add-reset", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a reset with id " + id + "";
+    return e.data.parameters.description === "Add a reset with " + "id " + id;
   });
 }
 function matchAnyDeleteReset() {
@@ -831,11 +831,11 @@ function matchAnyDeleteReset() {
 function matchDeleteReset(id) {
   return bp.EventSet("del-reset", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a reset with id " + id + "";
+    return e.data.parameters.description === "Delete a reset with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateReset() {
   return bp.EventSet("any-update-reset", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -845,7 +845,7 @@ function matchAnyUpdateReset() {
 function matchUpdateReset(id) {
   return bp.EventSet("update-reset", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a reset with id " + id + "";
+    return e.data.parameters.description === "Update a reset with " + "id " + id;
   });
 }
 
@@ -887,7 +887,7 @@ function verifyResetUpdated(id) {
       }
       return pvg.fail("Expected a reset to be present after update, but it is not");
     },
-    parameters: { description: "Verify reset with id " + id + " exists" }
+    parameters: { description: "Verify reset with " + "id " + id + " exists" }
   });
 }
 
@@ -898,14 +898,14 @@ function verifyResetUpdated(id) {
 function addTransfer(id) {
   svc.post("/transfers", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a transfer with id " + id + "" }
+      parameters: { description: "Add a transfer with " + "id " + id }
     });
 }
 
 // DELETE
 function deleteTransfer(id) {
   svc.delete("/transfers/" + id, {
-    parameters: { description: "Delete a transfer with id " + id + "" }
+    parameters: { description: "Delete a transfer with " + "id " + id }
   });
 }
 
@@ -913,7 +913,7 @@ function deleteTransfer(id) {
 function tryToDeleteANonExistingTransfer(id) {
   svc.delete("/transfers/" + id, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a transfer with id " + id + "" }
+    parameters: { description: "Delete a transfer with " + "id " + id }
   });
 }
 
@@ -921,25 +921,25 @@ function tryToDeleteANonExistingTransfer(id) {
 function tryToAddExistingTransfer(id) {
   svc.post("/transfers", {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a transfer with id " + id + "" }
+      parameters: { description: "Add a transfer with " + "id " + id }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a transfer with id " + id + "" }
+    parameters: { description: "Add a transfer with " + "id " + id }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateTransfer(id) {
   svc.put("/transfers/" + id, {
       body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a transfer with id " + id + "" }
+      parameters: { description: "Update a transfer with " + "id " + id }
     });
 }
 
 // GET one
 function getTransfer(id) {
   svc.get("/transfers/" + id, {
-    parameters: { description: "Get a transfer with id " + id + "" }
+    parameters: { description: "Get a transfer with " + "id " + id }
   });
 }
 
@@ -962,7 +962,7 @@ function verifyTransferExists(id) {
       }
       return pvg.fail("Expected a transfer to exist but it does not");
     },
-    parameters: { description: "Verify transfer with id " + id + " exists" }
+    parameters: { description: "Verify transfer with " + "id " + id + " exists" }
   });
 }
 
@@ -978,7 +978,7 @@ function verifyTransferDoesNotExist(id) {
       }
       return pvg.success("Transfer does not exist");
     },
-    parameters: { description: "Verify transfer with id " + id + " does not exist" }
+    parameters: { description: "Verify transfer with " + "id " + id + " does not exist" }
   });
 }
 
@@ -992,7 +992,7 @@ function matchAnyAddTransfer() {
 function matchAddTransfer(id) {
   return bp.EventSet("add-transfer", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a transfer with id " + id + "";
+    return e.data.parameters.description === "Add a transfer with " + "id " + id;
   });
 }
 function matchAnyDeleteTransfer() {
@@ -1004,11 +1004,11 @@ function matchAnyDeleteTransfer() {
 function matchDeleteTransfer(id) {
   return bp.EventSet("del-transfer", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a transfer with id " + id + "";
+    return e.data.parameters.description === "Delete a transfer with " + "id " + id;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateTransfer() {
   return bp.EventSet("any-update-transfer", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -1018,7 +1018,7 @@ function matchAnyUpdateTransfer() {
 function matchUpdateTransfer(id) {
   return bp.EventSet("update-transfer", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a transfer with id " + id + "";
+    return e.data.parameters.description === "Update a transfer with " + "id " + id;
   });
 }
 
@@ -1060,7 +1060,7 @@ function verifyTransferUpdated(id) {
       }
       return pvg.fail("Expected a transfer to be present after update, but it is not");
     },
-    parameters: { description: "Verify transfer with id " + id + " exists" }
+    parameters: { description: "Verify transfer with " + "id " + id + " exists" }
   });
 }
 

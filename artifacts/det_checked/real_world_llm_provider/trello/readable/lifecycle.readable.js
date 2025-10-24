@@ -1,7 +1,6 @@
 /** === Lifecycle smoke per entity (add→verify→tryAddExisting→delete→verifyNotExist) === */
 
 function lifecycle_batch(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingBatch(id); } catch (_e) {}
   addBatch(id);
   verifyBatchExists(id);
@@ -11,7 +10,6 @@ function lifecycle_batch(id) {
 }
 
 function lifecycle_checklist(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingChecklist(id); } catch (_e) {}
   addChecklist(id);
   verifyChecklistExists(id);
@@ -21,7 +19,6 @@ function lifecycle_checklist(id) {
 }
 
 function lifecycle_label(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingLabel(id); } catch (_e) {}
   addLabel(id);
   verifyLabelExists(id);
@@ -31,7 +28,6 @@ function lifecycle_label(id) {
 }
 
 function lifecycle_list(idList, field, filter) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingList(idList, field, filter); } catch (_e) {}
   addList(idList, field, filter);
   verifyListExists(idList, field, filter);
@@ -41,7 +37,6 @@ function lifecycle_list(idList, field, filter) {
 }
 
 function lifecycle_member(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingMember(id); } catch (_e) {}
   addMember(id);
   verifyMemberExists(id);
@@ -51,7 +46,6 @@ function lifecycle_member(id) {
 }
 
 function lifecycle_notification(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingNotification(id); } catch (_e) {}
   addNotification(id);
   verifyNotificationExists(id);
@@ -61,7 +55,6 @@ function lifecycle_notification(id) {
 }
 
 function lifecycle_organization(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingOrganization(id); } catch (_e) {}
   addOrganization(id);
   verifyOrganizationExists(id);
@@ -71,7 +64,6 @@ function lifecycle_organization(id) {
 }
 
 function lifecycle_search(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingSearch(id); } catch (_e) {}
   addSearch(id);
   verifySearchExists(id);
@@ -81,7 +73,6 @@ function lifecycle_search(id) {
 }
 
 function lifecycle_session(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingSession(id); } catch (_e) {}
   addSession(id);
   verifySessionExists(id);
@@ -91,7 +82,6 @@ function lifecycle_session(id) {
 }
 
 function lifecycle_type(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingType(id); } catch (_e) {}
   addType(id);
   verifyTypeExists(id);
@@ -101,7 +91,6 @@ function lifecycle_type(id) {
 }
 
 function lifecycle_v1(idBoard) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingV1(idBoard); } catch (_e) {}
   addV1(idBoard);
   verifyV1Exists(idBoard);
@@ -111,7 +100,6 @@ function lifecycle_v1(idBoard) {
 }
 
 function lifecycle_webhook(idWebhook, field) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingWebhook(idWebhook, field); } catch (_e) {}
   addWebhook(idWebhook, field);
   verifyWebhookExists(idWebhook, field);

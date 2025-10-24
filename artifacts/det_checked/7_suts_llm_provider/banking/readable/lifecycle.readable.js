@@ -1,7 +1,6 @@
 /** === Lifecycle smoke per entity (add→verify→tryAddExisting→delete→verifyNotExist) === */
 
 function lifecycle_account(accountId) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingAccount(accountId); } catch (_e) {}
   addAccount(accountId);
   verifyAccountExists(accountId);
@@ -11,7 +10,6 @@ function lifecycle_account(accountId) {
 }
 
 function lifecycle_card(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingCard(id); } catch (_e) {}
   addCard(id);
   verifyCardExists(id);
@@ -21,7 +19,6 @@ function lifecycle_card(id) {
 }
 
 function lifecycle_customer(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingCustomer(id); } catch (_e) {}
   addCustomer(id);
   verifyCustomerExists(id);
@@ -31,7 +28,6 @@ function lifecycle_customer(id) {
 }
 
 function lifecycle_loan(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingLoan(id); } catch (_e) {}
   addLoan(id);
   verifyLoanExists(id);
@@ -41,7 +37,6 @@ function lifecycle_loan(id) {
 }
 
 function lifecycle_reset(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingReset(id); } catch (_e) {}
   addReset(id);
   verifyResetExists(id);
@@ -51,7 +46,6 @@ function lifecycle_reset(id) {
 }
 
 function lifecycle_transfer(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingTransfer(id); } catch (_e) {}
   addTransfer(id);
   verifyTransferExists(id);

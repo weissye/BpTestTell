@@ -65,8 +65,9 @@ def _normalize_entity(e: dict, fallback_name: Optional[str] = None) -> dict:
     nm = e.get("name") or fallback_name or ""
     nm = titlecase(re.sub(r"[^A-Za-z0-9]", "", nm)) if nm else ""
     e["name"] = nm or e.get("name") or fallback_name or ""
-    if "args" not in e or not isinstance(e.get("args"), list):
-        e["args"] = ["id"]
+    # EDIT: default primary key is 'id', except Inventory which uses 'ndc'
+    if "args" not in e or not isinstance(e.get("args"), list) or not e.get("args"):
+        e["args"] = ["ndc"] if ((nm or "").lower() == "inventory") else ["id"]
     e["do"] = dict(e.get("do") or {})
     e["match"] = dict(e.get("match") or {})
     e["wait"] = dict(e.get("wait") or {})

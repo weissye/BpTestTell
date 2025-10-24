@@ -1,7 +1,6 @@
 /** === Lifecycle smoke per entity (add→verify→tryAddExisting→delete→verifyNotExist) === */
 
 function lifecycle_app(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingApp(id); } catch (_e) {}
   addApp(id);
   verifyAppExists(id);
@@ -11,7 +10,6 @@ function lifecycle_app(id) {
 }
 
 function lifecycle_config(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingConfig(id); } catch (_e) {}
   addConfig(id);
   verifyConfigExists(id);
@@ -21,7 +19,6 @@ function lifecycle_config(id) {
 }
 
 function lifecycle_env(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingEnv(id); } catch (_e) {}
   addEnv(id);
   verifyEnvExists(id);
@@ -31,7 +28,6 @@ function lifecycle_env(id) {
 }
 
 function lifecycle_policie(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingPolicie(id); } catch (_e) {}
   addPolicie(id);
   verifyPolicieExists(id);
@@ -41,7 +37,6 @@ function lifecycle_policie(id) {
 }
 
 function lifecycle_release(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingRelease(id); } catch (_e) {}
   addRelease(id);
   verifyReleaseExists(id);
@@ -51,7 +46,6 @@ function lifecycle_release(id) {
 }
 
 function lifecycle_reset(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingReset(id); } catch (_e) {}
   addReset(id);
   verifyResetExists(id);

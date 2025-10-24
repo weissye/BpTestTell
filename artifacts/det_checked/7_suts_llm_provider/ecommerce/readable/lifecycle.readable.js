@@ -1,7 +1,6 @@
 /** === Lifecycle smoke per entity (add→verify→tryAddExisting→delete→verifyNotExist) === */
 
 function lifecycle_drug(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingDrug(id); } catch (_e) {}
   addDrug(id);
   verifyDrugExists(id);
@@ -11,7 +10,6 @@ function lifecycle_drug(id) {
 }
 
 function lifecycle_inventory(ndc) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingInventory(ndc); } catch (_e) {}
   addInventory(ndc);
   verifyInventoryExists(ndc);
@@ -21,7 +19,6 @@ function lifecycle_inventory(ndc) {
 }
 
 function lifecycle_order(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingOrder(id); } catch (_e) {}
   addOrder(id);
   verifyOrderExists(id);
@@ -31,7 +28,6 @@ function lifecycle_order(id) {
 }
 
 function lifecycle_patient(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingPatient(id); } catch (_e) {}
   addPatient(id);
   verifyPatientExists(id);
@@ -41,7 +37,6 @@ function lifecycle_patient(id) {
 }
 
 function lifecycle_prescription(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingPrescription(id); } catch (_e) {}
   addPrescription(id);
   verifyPrescriptionExists(id);
@@ -51,7 +46,6 @@ function lifecycle_prescription(id) {
 }
 
 function lifecycle_reset(id) {
-  // try delete first (stale cleanup)
   try { tryToDeleteANonExistingReset(id); } catch (_e) {}
   addReset(id);
   verifyResetExists(id);

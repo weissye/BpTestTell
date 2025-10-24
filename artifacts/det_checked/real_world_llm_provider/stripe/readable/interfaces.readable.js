@@ -33,14 +33,14 @@ function matchesDescriptionRegex(rx) {
 function addV1(account, customer, invoice, charge) {
   svc.post("/v1", {
       body: JSON.stringify({ account: account, customer: customer, invoice: invoice, charge: charge }),
-      parameters: { description: "Add a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "" }
+      parameters: { description: "Add a v1 with " + "account " + account + " and " + "customer " + customer + " and " + "invoice " + invoice + " and " + "charge " + charge }
     });
 }
 
 // DELETE
 function deleteV1(account, customer, invoice, charge) {
   svc.delete("/v1/" + account + "/"+ customer + "/"+ invoice + "/"+ charge, {
-    parameters: { description: "Delete a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "" }
+    parameters: { description: "Delete a v1 with " + "account " + account + " and " + "customer " + customer + " and " + "invoice " + invoice + " and " + "charge " + charge }
   });
 }
 
@@ -48,7 +48,7 @@ function deleteV1(account, customer, invoice, charge) {
 function tryToDeleteANonExistingV1(account, customer, invoice, charge) {
   svc.delete("/v1/" + account + "/"+ customer + "/"+ invoice + "/"+ charge, {
     expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "" }
+    parameters: { description: "Delete a v1 with " + "account " + account + " and " + "customer " + customer + " and " + "invoice " + invoice + " and " + "charge " + charge }
   });
 }
 
@@ -56,25 +56,25 @@ function tryToDeleteANonExistingV1(account, customer, invoice, charge) {
 function tryToAddExistingV1(account, customer, invoice, charge) {
   svc.post("/v1", {
       body: JSON.stringify({ account: account, customer: customer, invoice: invoice, charge: charge }),
-      parameters: { description: "Add a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "" }
+      parameters: { description: "Add a v1 with " + "account " + account + " and " + "customer " + customer + " and " + "invoice " + invoice + " and " + "charge " + charge }
     , 
     expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "" }
+    parameters: { description: "Add a v1 with " + "account " + account + " and " + "customer " + customer + " and " + "invoice " + invoice + " and " + "charge " + charge }
   });
 }
 
-// UPDATE (if your SUT supports it; path heuristic)
+// UPDATE
 function updateV1(account, customer, invoice, charge) {
   svc.put("/v1/" + account + "/"+ customer + "/"+ invoice + "/"+ charge, {
       body: JSON.stringify({ account: account, customer: customer, invoice: invoice, charge: charge }),
-      parameters: { description: "Update a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "" }
+      parameters: { description: "Update a v1 with " + "account " + account + " and " + "customer " + customer + " and " + "invoice " + invoice + " and " + "charge " + charge }
     });
 }
 
 // GET one
 function getV1(account, customer, invoice, charge) {
   svc.get("/v1/" + account + "/"+ customer + "/"+ invoice + "/"+ charge, {
-    parameters: { description: "Get a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "" }
+    parameters: { description: "Get a v1 with " + "account " + account + " and " + "customer " + customer + " and " + "invoice " + invoice + " and " + "charge " + charge }
   });
 }
 
@@ -97,7 +97,7 @@ function verifyV1Exists(account, customer, invoice, charge) {
       }
       return pvg.fail("Expected a v1 to exist but it does not");
     },
-    parameters: { description: "Verify v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + " exists" }
+    parameters: { description: "Verify v1 with " + "account " + account + " and " + "customer " + customer + " and " + "invoice " + invoice + " and " + "charge " + charge + " exists" }
   });
 }
 
@@ -113,7 +113,7 @@ function verifyV1DoesNotExist(account, customer, invoice, charge) {
       }
       return pvg.success("V1 does not exist");
     },
-    parameters: { description: "Verify v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + " does not exist" }
+    parameters: { description: "Verify v1 with " + "account " + account + " and " + "customer " + customer + " and " + "invoice " + invoice + " and " + "charge " + charge + " does not exist" }
   });
 }
 
@@ -127,7 +127,7 @@ function matchAnyAddV1() {
 function matchAddV1(account, customer, invoice, charge) {
   return bp.EventSet("add-v1", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "";
+    return e.data.parameters.description === "Add a v1 with " + "account " + account + " and " + "customer " + customer + " and " + "invoice " + invoice + " and " + "charge " + charge;
   });
 }
 function matchAnyDeleteV1() {
@@ -139,11 +139,11 @@ function matchAnyDeleteV1() {
 function matchDeleteV1(account, customer, invoice, charge) {
   return bp.EventSet("del-v1", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "";
+    return e.data.parameters.description === "Delete a v1 with " + "account " + account + " and " + "customer " + customer + " and " + "invoice " + invoice + " and " + "charge " + charge;
   });
 }
 
-// CHANGE (3): UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers (matchers, waits, verify)
 function matchAnyUpdateV1() {
   return bp.EventSet("any-update-v1", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -153,7 +153,7 @@ function matchAnyUpdateV1() {
 function matchUpdateV1(account, customer, invoice, charge) {
   return bp.EventSet("update-v1", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + "";
+    return e.data.parameters.description === "Update a v1 with " + "account " + account + " and " + "customer " + customer + " and " + "invoice " + invoice + " and " + "charge " + charge;
   });
 }
 
@@ -161,7 +161,7 @@ function matchUpdateV1(account, customer, invoice, charge) {
 function waitForAnyV1Added() {
   let e = waitFor(matchesDescriptionRegex(/^Add\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+)$/));
     let m = e.data.parameters.description.match(/^Add\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+)$/);
-    return { account: (x)=>x(m[1]), customer: (x)=>x(m[2]), invoice: (x)=>x(m[3]), charge: (x)=>x(m[4]) };
+    return { account: m[1], customer: m[2], invoice: m[3], charge: m[4] };
 }
 function waitForV1Added(account, customer, invoice, charge) {
   waitFor(matchAddV1(account, customer, invoice, charge));
@@ -172,7 +172,7 @@ function waitForV1Deleted(account, customer, invoice, charge) {
 function waitForAnyV1Deleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+)$/);
-    return { account: (x)=>x(m[1]), customer: (x)=>x(m[2]), invoice: (x)=>x(m[3]), charge: (x)=>x(m[4]) };
+    return { account: m[1], customer: m[2], invoice: m[3], charge: m[4] };
 }
 function waitForV1Updated(account, customer, invoice, charge) {
   waitFor(matchUpdateV1(account, customer, invoice, charge));
@@ -180,7 +180,7 @@ function waitForV1Updated(account, customer, invoice, charge) {
 function waitForAnyV1Updated() {
   let e = waitFor(matchesDescriptionRegex(/^Update\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+)$/));
     let m = e.data.parameters.description.match(/^Update\ a\ v1\ with\ account\ (.+) and customer\ (.+) and invoice\ (.+) and charge\ (.+)$/);
-    return { account: (x)=>x(m[1]), customer: (x)=>x(m[2]), invoice: (x)=>x(m[3]), charge: (x)=>x(m[4]) };
+    return { account: m[1], customer: m[2], invoice: m[3], charge: m[4] };
 }
 
 // Verify updated (presence-by-list)
@@ -195,7 +195,7 @@ function verifyV1Updated(account, customer, invoice, charge) {
       }
       return pvg.fail("Expected a v1 to be present after update, but it is not");
     },
-    parameters: { description: "Verify v1 with account " + account + " and customer " + customer + " and invoice " + invoice + " and charge " + charge + " exists" }
+    parameters: { description: "Verify v1 with " + "account " + account + " and " + "customer " + customer + " and " + "invoice " + invoice + " and " + "charge " + charge + " exists" }
   });
 }
 
