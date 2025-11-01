@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberSharedCost",
+      "summary": "",
+      "user": "User wants to find available shared cost phone numbers in the US for their Twilio account to expand their business communication options.",
+      "ideal": "Returns a list of available shared cost phone numbers in the specified country, including details such as phone number, friendly name, and capabilities."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/data-policy",
+      "method": "GET",
+      "operationId": "getPolicy",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve the data policy for my project to ensure compliance with data protection regulations.",
+      "ideal": "The response should include the data policy details such as the policy ID, name, description, and any applicable regulations."
+    },
+    {
+      "path": "/rest/api/3/data-policy/project",
+      "method": "GET",
+      "operationId": "getPolicies",
+      "summary": "",
+      "user": "As a compliance officer, I need to access all data policies associated with different projects to audit our data handling practices.",
+      "ideal": "The response should return a list of data policies, including project IDs, policy names, and descriptions for each project."
+    }
+  ]
+}

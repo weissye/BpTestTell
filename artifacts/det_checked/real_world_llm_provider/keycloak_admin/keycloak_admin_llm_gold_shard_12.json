@@ -6,7 +6,7 @@
       "operationId": "getKeys",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve the public and private keys used for signing and encrypting tokens in the specified realm."
+      "ideal": "Retrieve the public and private keys for the specified realm in Keycloak."
     }
   ]
 }

@@ -5,7 +5,7 @@
       "method": "POST",
       "operationId": "updateMultipleCustomFieldValues",
       "summary": "",
-      "user": "user123",
+      "user": "User123",
       "ideal": "Update multiple custom field values for a specific issue in Jira."
     },
     {
@@ -13,7 +13,7 @@
       "method": "PUT",
       "operationId": "updateCustomFieldValue",
       "summary": "",
-      "user": "user456",
+      "user": "User456",
       "ideal": "Update a specific custom field value for an issue using its field ID or key."
     }
   ]

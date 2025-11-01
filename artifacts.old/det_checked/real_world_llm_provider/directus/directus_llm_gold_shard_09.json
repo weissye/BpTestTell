@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/flows",
+      "method": "GET",
+      "operationId": "getFlows",
+      "summary": "",
+      "user": "Admin user requesting all available flows to review current automation processes.",
+      "ideal": "A list of all flows with their details including IDs, names, and statuses."
+    },
+    {
+      "path": "/flows",
+      "method": "POST",
+      "operationId": "createFlow",
+      "summary": "",
+      "user": "User creating a new flow to automate data import from external sources.",
+      "ideal": "Confirmation of flow creation with the new flow's ID and details."
+    },
+    {
+      "path": "/flows",
+      "method": "PATCH",
+      "operationId": "updateFlows",
+      "summary": "",
+      "user": "Admin user updating multiple flows to change their execution schedules.",
+      "ideal": "Confirmation of successful updates for the specified flows."
+    },
+    {
+      "path": "/flows",
+      "method": "DELETE",
+      "operationId": "deleteFlows",
+      "summary": "",
+      "user": "User deleting obsolete flows that are no longer needed.",
+      "ideal": "Confirmation of deletion for the specified flows."
+    },
+    {
+      "path": "/flows/{id}",
+      "method": "GET",
+      "operationId": "getFlow",
+      "summary": "",
+      "user": "User retrieving details of a specific flow to troubleshoot an issue.",
+      "ideal": "Detailed information about the specified flow including its configuration and status."
+    },
+    {
+      "path": "/flows/{id}",
+      "method": "PATCH",
+      "operationId": "updateFlow",
+      "summary": "",
+      "user": "Admin updating a specific flow to modify its parameters for better performance.",
+      "ideal": "Confirmation of successful update for the specified flow."
+    },
+    {
+      "path": "/flows/{id}",
+      "method": "DELETE",
+      "operationId": "deleteFlow",
+      "summary": "",
+      "user": "User deleting a specific flow that is no longer relevant to current operations.",
+      "ideal": "Confirmation of deletion for the specified flow."
+    }
+  ]
+}

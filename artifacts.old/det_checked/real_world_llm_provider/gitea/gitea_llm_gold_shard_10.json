@@ -1,0 +1,132 @@
+{
+  "gold": [
+    {
+      "path": "/user",
+      "method": "GET",
+      "operationId": "userGetCurrent",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Retrieve the current authenticated user's information."
+    },
+    {
+      "path": "/user/actions/runners/registration-token",
+      "method": "GET",
+      "operationId": "userGetRunnerRegistrationToken",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Get a registration token for GitHub Actions runners."
+    },
+    {
+      "path": "/user/actions/secrets/my_secret",
+      "method": "PUT",
+      "operationId": "updateUserSecret",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Update the secret named 'my_secret' for the user."
+    },
+    {
+      "path": "/user/actions/secrets/my_secret",
+      "method": "DELETE",
+      "operationId": "deleteUserSecret",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Delete the secret named 'my_secret' for the user."
+    },
+    {
+      "path": "/user/actions/variables",
+      "method": "GET",
+      "operationId": "getUserVariablesList",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all action variables for the user."
+    },
+    {
+      "path": "/user/applications/oauth2",
+      "method": "POST",
+      "operationId": "userCreateOAuth2Application",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Create a new OAuth2 application for the user."
+    },
+    {
+      "path": "/user/applications/oauth2/123",
+      "method": "DELETE",
+      "operationId": "userDeleteOAuth2Application",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Delete the OAuth2 application with ID 123."
+    },
+    {
+      "path": "/user/emails",
+      "method": "GET",
+      "operationId": "userListEmails",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Retrieve a list of email addresses associated with the user."
+    },
+    {
+      "path": "/user/following/jane_doe",
+      "method": "PUT",
+      "operationId": "userCurrentPutFollow",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Follow the user 'jane_doe'."
+    },
+    {
+      "path": "/user/gpg_keys",
+      "method": "POST",
+      "operationId": "userCurrentPostGPGKey",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Add a new GPG key for the user."
+    },
+    {
+      "path": "/user/hooks",
+      "method": "POST",
+      "operationId": "userCreateHook",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Create a new webhook for the user."
+    },
+    {
+      "path": "/user/repos",
+      "method": "POST",
+      "operationId": "createCurrentUserRepo",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Create a new repository for the current user."
+    },
+    {
+      "path": "/user/settings",
+      "method": "PATCH",
+      "operationId": "updateUserSettings",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Update the settings for the current user."
+    },
+    {
+      "path": "/user/starred",
+      "method": "GET",
+      "operationId": "userCurrentListStarred",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all repositories starred by the user."
+    },
+    {
+      "path": "/users/jane_doe",
+      "method": "GET",
+      "operationId": "userGet",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Retrieve information about the user 'jane_doe'."
+    },
+    {
+      "path": "/users/jane_doe/repos",
+      "method": "GET",
+      "operationId": "userListRepos",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all repositories owned by 'jane_doe'."
+    }
+  ]
+}

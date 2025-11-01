@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "dependency-graph/diff-range",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Retrieve the differences in the dependency graph between the main branch and the feature branch."
+      "user": "Developer A wants to compare the dependency graph between the main branch and the feature branch of the Hello-World repository to see what changes have been made in dependencies.",
+      "ideal": "The response should provide a detailed comparison of the dependencies between the two branches, highlighting any additions, removals, or updates."
     },
     {
       "path": "/repos/octocat/Hello-World/dependency-graph/sbom",
       "method": "GET",
       "operationId": "dependency-graph/export-sbom",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Export the Software Bill of Materials (SBOM) for the repository to understand its dependencies."
+      "user": "Security Analyst B needs to export the Software Bill of Materials (SBOM) for the Hello-World repository to assess its dependencies for compliance and security vulnerabilities.",
+      "ideal": "The response should return a structured SBOM in a standard format (like SPDX or CycloneDX) that lists all dependencies used in the repository along with their versions."
     },
     {
       "path": "/repos/octocat/Hello-World/dependency-graph/snapshots",
       "method": "POST",
       "operationId": "dependency-graph/create-repository-snapshot",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Create a snapshot of the current state of the dependency graph for the repository."
+      "user": "DevOps Engineer C is looking to create a snapshot of the current dependency graph for the Hello-World repository to ensure they have a record of the dependencies at this point in time before making major changes.",
+      "ideal": "The response should confirm the creation of the snapshot and provide details such as the snapshot ID and timestamp."
     }
   ]
 }

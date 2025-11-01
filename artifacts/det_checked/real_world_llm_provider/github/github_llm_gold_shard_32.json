@@ -14,7 +14,7 @@
       "operationId": "private-registries/create-org-private-registry",
       "summary": "",
       "user": "user123",
-      "ideal": "Create a new private registry for the organization 'my-org' with the specified details."
+      "ideal": "Create a new private registry for the organization 'my-org' with specified parameters."
     },
     {
       "path": "/orgs/my-org/private-registries/public-key",
@@ -22,7 +22,7 @@
       "operationId": "private-registries/get-org-public-key",
       "summary": "",
       "user": "user123",
-      "ideal": "Fetch the public key for the organization 'my-org' to use for encrypting secrets."
+      "ideal": "Fetch the public key for the organization 'my-org' to use for secure operations."
     },
     {
       "path": "/orgs/my-org/private-registries/my-secret",
@@ -30,7 +30,7 @@
       "operationId": "private-registries/get-org-private-registry",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve the details of the private registry named 'my-secret' for the organization 'my-org'."
+      "ideal": "Retrieve details of the private registry named 'my-secret' for the organization 'my-org'."
     },
     {
       "path": "/orgs/my-org/private-registries/my-secret",
@@ -38,7 +38,7 @@
       "operationId": "private-registries/update-org-private-registry",
       "summary": "",
       "user": "user123",
-      "ideal": "Update the private registry 'my-secret' for the organization 'my-org' with new configuration settings."
+      "ideal": "Update the configuration of the private registry 'my-secret' for the organization 'my-org'."
     },
     {
       "path": "/orgs/my-org/private-registries/my-secret",
@@ -46,7 +46,7 @@
       "operationId": "private-registries/delete-org-private-registry",
       "summary": "",
       "user": "user123",
-      "ideal": "Delete the private registry 'my-secret' from the organization 'my-org'."
+      "ideal": "Delete the private registry named 'my-secret' from the organization 'my-org'."
     }
   ]
 }

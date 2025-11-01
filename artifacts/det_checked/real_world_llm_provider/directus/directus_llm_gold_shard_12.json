@@ -6,7 +6,7 @@
       "operationId": "getOperations",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve a list of all operations available in the system."
+      "ideal": "Retrieve a list of all operations."
     },
     {
       "path": "/operations",
@@ -14,7 +14,7 @@
       "operationId": "createOperation",
       "summary": "",
       "user": "admin",
-      "ideal": "Create a new operation with the specified parameters."
+      "ideal": "Create a new operation with specified parameters."
     },
     {
       "path": "/operations",
@@ -22,7 +22,7 @@
       "operationId": "updateOperations",
       "summary": "",
       "user": "admin",
-      "ideal": "Update multiple operations based on the provided data."
+      "ideal": "Update multiple operations based on provided criteria."
     },
     {
       "path": "/operations",
@@ -30,7 +30,7 @@
       "operationId": "deleteOperations",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete multiple operations from the system."
+      "ideal": "Delete multiple operations based on specified filters."
     },
     {
       "path": "/operations/{id}",

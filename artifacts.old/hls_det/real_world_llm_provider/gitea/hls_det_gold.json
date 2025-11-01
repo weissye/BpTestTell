@@ -1,0 +1,47 @@
+{
+  "sut": "gitea",
+  "source": "artifacts\\det_checked\\real_world_llm_provider\\gitea\\gitea_llm_gold_ops.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "Gitea",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists"
+      ]
+    },
+    {
+      "entity": "Gitea",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGitea"
+      ],
+      "checks": [
+        "verifyGiteaNotExists"
+      ]
+    },
+    {
+      "entity": "Gitea",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists",
+        "verifyGiteaUpdated"
+      ]
+    }
+  ]
+}

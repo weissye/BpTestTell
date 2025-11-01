@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/comments",
+      "method": "GET",
+      "operationId": "getComments",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all comments."
+    },
+    {
+      "path": "/comments",
+      "method": "POST",
+      "operationId": "createComment",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Create a new comment with the provided content."
+    },
+    {
+      "path": "/comments",
+      "method": "PATCH",
+      "operationId": "updateComments",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Update multiple comments based on the provided data."
+    },
+    {
+      "path": "/comments",
+      "method": "DELETE",
+      "operationId": "deleteComments",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Delete all comments from the database."
+    },
+    {
+      "path": "/comments/{id}",
+      "method": "GET",
+      "operationId": "getComment",
+      "summary": "",
+      "user": "user112",
+      "ideal": "Retrieve a specific comment by its ID."
+    },
+    {
+      "path": "/comments/{id}",
+      "method": "PATCH",
+      "operationId": "updateComment",
+      "summary": "",
+      "user": "user131",
+      "ideal": "Update a specific comment identified by its ID."
+    },
+    {
+      "path": "/comments/{id}",
+      "method": "DELETE",
+      "operationId": "deleteComment",
+      "summary": "",
+      "user": "user415",
+      "ideal": "Delete a specific comment using its ID."
+    }
+  ]
+}

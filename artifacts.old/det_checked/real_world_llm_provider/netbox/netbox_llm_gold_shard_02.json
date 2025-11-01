@@ -1,0 +1,228 @@
+{
+  "gold": [
+    {
+      "path": "/api/core/background-queues/",
+      "method": "GET",
+      "operationId": "core_background_queues_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all background queues in the system."
+    },
+    {
+      "path": "/api/core/background-queues/{name}/",
+      "method": "GET",
+      "operationId": "core_background_queues_retrieve_by_name",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific background queue by its name."
+    },
+    {
+      "path": "/api/core/background-tasks/",
+      "method": "GET",
+      "operationId": "core_background_tasks_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all background tasks currently in the system."
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/",
+      "method": "GET",
+      "operationId": "core_background_tasks_retrieve_by_id",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific background task by its ID."
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/delete/",
+      "method": "POST",
+      "operationId": "core_background_tasks_delete_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific background task by its ID."
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/enqueue/",
+      "method": "POST",
+      "operationId": "core_background_tasks_enqueue_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Enqueue a specific background task for processing."
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/requeue/",
+      "method": "POST",
+      "operationId": "core_background_tasks_requeue_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Requeue a specific background task that has failed."
+    },
+    {
+      "path": "/api/core/background-tasks/{id}/stop/",
+      "method": "POST",
+      "operationId": "core_background_tasks_stop_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Stop a specific background task that is currently running."
+    },
+    {
+      "path": "/api/core/background-workers/",
+      "method": "GET",
+      "operationId": "core_background_workers_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all background workers in the system."
+    },
+    {
+      "path": "/api/core/background-workers/{name}/",
+      "method": "GET",
+      "operationId": "core_background_workers_retrieve_by_name",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific background worker by its name."
+    },
+    {
+      "path": "/api/core/data-files/",
+      "method": "GET",
+      "operationId": "core_data_files_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all data files available in the system."
+    },
+    {
+      "path": "/api/core/data-files/{id}/",
+      "method": "GET",
+      "operationId": "core_data_files_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific data file by its ID."
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "GET",
+      "operationId": "core_data_sources_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all data sources configured in the system."
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "POST",
+      "operationId": "core_data_sources_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new data source in the system."
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "PUT",
+      "operationId": "core_data_sources_bulk_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Bulk update multiple data sources in the system."
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "PATCH",
+      "operationId": "core_data_sources_bulk_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Bulk partially update multiple data sources in the system."
+    },
+    {
+      "path": "/api/core/data-sources/",
+      "method": "DELETE",
+      "operationId": "core_data_sources_bulk_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Bulk delete multiple data sources from the system."
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "GET",
+      "operationId": "core_data_sources_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific data source by its ID."
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "PUT",
+      "operationId": "core_data_sources_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update a specific data source by its ID."
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "PATCH",
+      "operationId": "core_data_sources_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update a specific data source by its ID."
+    },
+    {
+      "path": "/api/core/data-sources/{id}/",
+      "method": "DELETE",
+      "operationId": "core_data_sources_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific data source by its ID."
+    },
+    {
+      "path": "/api/core/data-sources/{id}/sync/",
+      "method": "POST",
+      "operationId": "core_data_sources_sync_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Synchronize a specific data source by its ID."
+    },
+    {
+      "path": "/api/core/jobs/",
+      "method": "GET",
+      "operationId": "core_jobs_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all jobs in the system."
+    },
+    {
+      "path": "/api/core/jobs/{id}/",
+      "method": "GET",
+      "operationId": "core_jobs_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific job by its ID."
+    },
+    {
+      "path": "/api/core/object-changes/",
+      "method": "GET",
+      "operationId": "core_object_changes_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all object changes in the system."
+    },
+    {
+      "path": "/api/core/object-changes/{id}/",
+      "method": "GET",
+      "operationId": "core_object_changes_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific object change by its ID."
+    },
+    {
+      "path": "/api/core/object-types/",
+      "method": "GET",
+      "operationId": "core_object_types_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all object types in the system."
+    },
+    {
+      "path": "/api/core/object-types/{id}/",
+      "method": "GET",
+      "operationId": "core_object_types_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific object type by its ID."
+    }
+  ]
+}

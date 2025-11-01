@@ -5,55 +5,71 @@
       "method": "GET",
       "operationId": "virtualization_cluster_groups_list",
       "summary": "",
-      "user": "Admin user requesting a list of all cluster groups to manage virtualization resources.",
-      "ideal": "Returns a list of cluster groups with details such as name, description, and associated clusters."
+      "user": "Admin user requesting a list of all cluster groups for monitoring purposes.",
+      "ideal": "Returns a list of cluster groups with their details."
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/",
+      "method": "POST",
+      "operationId": "virtualization_cluster_groups_create",
+      "summary": "",
+      "user": "Network engineer creating a new cluster group for better organization.",
+      "ideal": "Creates a new cluster group and returns the created object's details."
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/{id}/",
+      "method": "PUT",
+      "operationId": "virtualization_cluster_groups_update",
+      "summary": "",
+      "user": "Admin updating the details of an existing cluster group.",
+      "ideal": "Updates the specified cluster group and returns the updated details."
     },
     {
       "path": "/api/virtualization/cluster-types/",
-      "method": "POST",
-      "operationId": "virtualization_cluster_types_create",
+      "method": "GET",
+      "operationId": "virtualization_cluster_types_list",
       "summary": "",
-      "user": "Network engineer creating a new cluster type for better organization of virtual resources.",
-      "ideal": "Creates a new cluster type and returns the created object with its ID and details."
+      "user": "User looking to retrieve all available cluster types for configuration.",
+      "ideal": "Returns a list of all cluster types with their specifications."
     },
     {
-      "path": "/api/virtualization/clusters/{id}/",
-      "method": "PUT",
-      "operationId": "virtualization_clusters_update",
+      "path": "/api/virtualization/clusters/",
+      "method": "POST",
+      "operationId": "virtualization_clusters_create",
       "summary": "",
-      "user": "System administrator updating the configuration of a specific cluster to optimize performance.",
-      "ideal": "Updates the specified cluster and returns the updated cluster object."
+      "user": "System administrator creating a new virtual cluster for application deployment.",
+      "ideal": "Creates a new virtual cluster and returns the details of the created cluster."
     },
     {
       "path": "/api/virtualization/interfaces/{id}/",
       "method": "PATCH",
       "operationId": "virtualization_interfaces_partial_update",
       "summary": "",
-      "user": "DevOps engineer making minor adjustments to a network interface for a virtual machine.",
-      "ideal": "Partially updates the specified interface and returns the updated interface object."
+      "user": "Network admin updating specific attributes of a virtual interface.",
+      "ideal": "Partially updates the specified interface and returns the updated details."
     },
     {
-      "path": "/api/virtualization/virtual-machines/",
+      "path": "/api/virtualization/virtual-disks/",
       "method": "DELETE",
-      "operationId": "virtualization_virtual_machines_bulk_destroy",
+      "operationId": "virtualization_virtual_disks_bulk_destroy",
       "summary": "",
-      "user": "IT manager performing cleanup by deleting multiple virtual machines that are no longer in use.",
-      "ideal": "Deletes the specified virtual machines and returns a confirmation of the deletion."
+      "user": "Admin removing multiple virtual disks that are no longer needed.",
+      "ideal": "Deletes the specified virtual disks and confirms the deletion."
     },
     {
-      "path": "/api/virtualization/virtual-disks/{id}/",
+      "path": "/api/virtualization/virtual-machines/{id}/",
       "method": "GET",
-      "operationId": "virtualization_virtual_disks_retrieve",
+      "operationId": "virtualization_virtual_machines_retrieve",
       "summary": "",
-      "user": "Storage administrator retrieving details of a specific virtual disk for auditing purposes.",
-      "ideal": "Returns the details of the specified virtual disk including size, type, and associated virtual machine."
+      "user": "Support technician retrieving details of a specific virtual machine for troubleshooting.",
+      "ideal": "Returns the details of the specified virtual machine."
     },
     {
       "path": "/api/virtualization/virtual-machines/{id}/render-config/",
       "method": "POST",
       "operationId": "virtualization_virtual_machines_render_config_create",
       "summary": "",
-      "user": "Cloud architect generating a render configuration for a virtual machine to optimize resource allocation.",
+      "user": "DevOps engineer generating a render configuration for a virtual machine.",
       "ideal": "Creates a render configuration for the specified virtual machine and returns the configuration details."
     }
   ]

@@ -5,15 +5,15 @@
       "method": "GET",
       "operationId": "FetchSipIpAccessControlListMapping",
       "summary": "",
-      "user": "User wants to retrieve the specific IP Access Control List mapping for a given DomainSid and Sid to check its configuration.",
-      "ideal": "The API should return the details of the specified IP Access Control List mapping, including the associated IP address and any relevant metadata."
+      "user": "As a developer, I want to retrieve the details of a specific IP Access Control List mapping for a SIP domain so that I can verify its configuration.",
+      "ideal": "The API should return the details of the specified IP Access Control List mapping, including the mapping SID, domain SID, and account SID."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
       "method": "DELETE",
       "operationId": "DeleteSipIpAccessControlListMapping",
       "summary": "",
-      "user": "User intends to remove a specific IP Access Control List mapping from a SIP domain to manage access control more effectively.",
+      "user": "As an administrator, I want to delete an existing IP Access Control List mapping from a SIP domain to ensure that no unauthorized IP addresses can access the service.",
       "ideal": "The API should confirm the deletion of the specified IP Access Control List mapping and return a success message."
     },
     {
@@ -21,16 +21,16 @@
       "method": "POST",
       "operationId": "CreateSipIpAccessControlListMapping",
       "summary": "",
-      "user": "User wants to create a new IP Access Control List mapping for a SIP domain to allow specific IP addresses access.",
-      "ideal": "The API should create the new mapping and return the details of the created mapping, including its Sid and associated IP address."
+      "user": "As a network engineer, I want to create a new IP Access Control List mapping for a SIP domain to allow specific IP addresses to access the service.",
+      "ideal": "The API should create the new mapping and return the SID of the newly created IP Access Control List mapping along with its details."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
       "method": "GET",
       "operationId": "ListSipIpAccessControlListMapping",
       "summary": "",
-      "user": "User needs to list all IP Access Control List mappings for a specific SIP domain to review current access settings.",
-      "ideal": "The API should return a list of all IP Access Control List mappings associated with the specified SIP domain, including their Sids and IP addresses."
+      "user": "As a system administrator, I want to list all IP Access Control List mappings for a SIP domain to review which IP addresses are allowed access.",
+      "ideal": "The API should return a list of all IP Access Control List mappings associated with the specified SIP domain, including their SIDs and associated IP addresses."
     }
   ]
 }

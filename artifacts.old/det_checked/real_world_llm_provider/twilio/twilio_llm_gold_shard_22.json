@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json",
+      "method": "GET",
+      "operationId": "ListSipCredentialList",
+      "summary": "",
+      "user": "User wants to retrieve a list of all SIP Credential Lists associated with their Twilio account.",
+      "ideal": "Response should include an array of Credential Lists with details such as SID, friendly name, and date created."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json",
+      "method": "POST",
+      "operationId": "CreateSipCredentialList",
+      "summary": "",
+      "user": "User wants to create a new SIP Credential List with a specific friendly name.",
+      "ideal": "Response should confirm the creation of the Credential List, returning its SID and other relevant details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchSipCredentialList",
+      "summary": "",
+      "user": "User wants to fetch details of a specific SIP Credential List using its SID.",
+      "ideal": "Response should include the details of the specified Credential List, such as its SID, friendly name, and associated credentials."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateSipCredentialList",
+      "summary": "",
+      "user": "User wants to update the friendly name of an existing SIP Credential List.",
+      "ideal": "Response should confirm the update and return the updated details of the Credential List."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipCredentialList",
+      "summary": "",
+      "user": "User wants to delete a specific SIP Credential List by its SID.",
+      "ideal": "Response should confirm the deletion of the Credential List and indicate that it can no longer be accessed."
+    }
+  ]
+}

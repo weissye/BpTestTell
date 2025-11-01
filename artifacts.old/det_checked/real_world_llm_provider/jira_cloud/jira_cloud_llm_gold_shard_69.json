@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/TEST/role",
+      "method": "GET",
+      "operationId": "getProjectRoles",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all roles associated with the project identified by 'TEST' so that I can manage team permissions effectively.",
+      "ideal": "Returns a list of roles for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/TEST/role/10000",
+      "method": "GET",
+      "operationId": "getProjectRole",
+      "summary": "",
+      "user": "As a developer, I need to get details about the specific role with ID '10000' in the 'TEST' project to understand its permissions.",
+      "ideal": "Returns the details of the specified project role."
+    },
+    {
+      "path": "/rest/api/3/project/TEST/roledetails",
+      "method": "GET",
+      "operationId": "getProjectRoleDetails",
+      "summary": "",
+      "user": "As a team lead, I want to see detailed information about the roles in the 'TEST' project to ensure all team members have the correct access.",
+      "ideal": "Returns detailed information about all roles in the specified project."
+    },
+    {
+      "path": "/rest/api/3/role",
+      "method": "GET",
+      "operationId": "getAllProjectRoles",
+      "summary": "",
+      "user": "As an administrator, I want to retrieve all project roles available in the system to manage role assignments across projects.",
+      "ideal": "Returns a list of all project roles in the system."
+    },
+    {
+      "path": "/rest/api/3/role",
+      "method": "POST",
+      "operationId": "createProjectRole",
+      "summary": "",
+      "user": "As a project manager, I need to create a new project role named 'QA Tester' to facilitate the testing process in our projects.",
+      "ideal": "Creates a new project role and returns its details."
+    },
+    {
+      "path": "/rest/api/3/role/10000",
+      "method": "DELETE",
+      "operationId": "deleteProjectRole",
+      "summary": "",
+      "user": "As an administrator, I want to delete the project role with ID '10000' as it is no longer needed in any projects.",
+      "ideal": "Deletes the specified project role."
+    },
+    {
+      "path": "/rest/api/3/role/10000",
+      "method": "GET",
+      "operationId": "getProjectRoleById",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve the role with ID '10000' to review its permissions before making changes.",
+      "ideal": "Returns the details of the specified project role by ID."
+    },
+    {
+      "path": "/rest/api/3/role/10000",
+      "method": "POST",
+      "operationId": "partialUpdateProjectRole",
+      "summary": "",
+      "user": "As a project lead, I need to update the description of the role with ID '10000' to better reflect its responsibilities.",
+      "ideal": "Partially updates the specified project role and returns the updated details."
+    },
+    {
+      "path": "/rest/api/3/role/10000",
+      "method": "PUT",
+      "operationId": "fullyUpdateProjectRole",
+      "summary": "",
+      "user": "As an administrator, I want to fully update the role with ID '10000' to change its name and permissions for better clarity.",
+      "ideal": "Fully updates the specified project role and returns the updated role details."
+    }
+  ]
+}

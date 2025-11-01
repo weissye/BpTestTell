@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "ListUsageRecordAllTime",
       "summary": "",
-      "user": "user_12345",
-      "ideal": "Retrieve all-time usage records for the specified account."
+      "user": "User wants to retrieve all-time usage records for their Twilio account to analyze their communication costs and usage patterns over time.",
+      "ideal": "The API should return a JSON object containing an array of usage records, including details such as the type of usage, the amount used, and the cost associated with each record."
     }
   ]
 }

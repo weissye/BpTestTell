@@ -1,6 +1,1 @@
-{
-  "sut": "netbox",
-  "trained_on": "artifacts\\hls_det\\real_world_llm_provider\\netbox\\hls_det_gold.json",
-  "num_stories": 3,
-  "version": 1
-}
+{ "system": "netbox", "model": "ref", "timestamp": "Tue 10/28/2025 16:29:05.11" }

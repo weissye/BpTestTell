@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "getBanner",
       "summary": "",
-      "user": "As a project manager, I want to retrieve the current announcement banner settings to ensure that the information displayed to users is accurate and up-to-date.",
-      "ideal": "The response should include the current announcement banner details, such as its visibility status, message content, and any associated links."
+      "user": "As a project manager, I want to retrieve the current announcement banner to ensure that the information displayed to users is up-to-date and relevant.",
+      "ideal": "The API should return the current announcement banner details, including its content, visibility settings, and any associated metadata."
     },
     {
       "path": "/rest/api/3/announcementBanner",
       "method": "PUT",
       "operationId": "setBanner",
       "summary": "",
-      "user": "As a system administrator, I need to update the announcement banner to inform users about the upcoming maintenance window, so they are aware of potential downtime.",
-      "ideal": "The request should successfully update the announcement banner with the new message and visibility settings, and the response should confirm the update."
+      "user": "As an admin, I want to update the announcement banner to communicate important updates to all users, ensuring they are aware of changes in the project.",
+      "ideal": "The API should successfully update the announcement banner with the new content and settings, returning a confirmation of the update."
     }
   ]
 }

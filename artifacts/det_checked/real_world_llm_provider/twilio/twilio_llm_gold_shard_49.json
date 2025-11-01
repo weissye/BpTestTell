@@ -1,20 +1,20 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Notifications/NXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json",
       "method": "GET",
       "operationId": "FetchNotification",
       "summary": "",
-      "user": "User wants to retrieve details about a specific notification sent to their Twilio account. They have the Account SID and the Notification SID and are looking for information such as the message body, status, and date sent.",
-      "ideal": "The API should return a JSON object containing the details of the specified notification, including fields like 'sid', 'date_created', 'date_updated', 'message_text', and 'status'."
+      "user": "User wants to retrieve a specific notification using the Account SID and the notification SID. They need to check the status and details of a notification sent to a user.",
+      "ideal": "GET /2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json"
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Notifications.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Notifications.json",
       "method": "GET",
       "operationId": "ListNotification",
       "summary": "",
-      "user": "User needs to list all notifications for their Twilio account to monitor the messages sent and their statuses. They want to see a summary of notifications including their SIDs and statuses.",
-      "ideal": "The API should return a JSON array of notification objects, each containing fields like 'sid', 'date_created', 'message_text', and 'status', allowing the user to review all notifications at once."
+      "user": "User is looking to list all notifications for a specific account. They want to see the history of notifications sent, including timestamps and statuses.",
+      "ideal": "GET /2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications.json"
     }
   ]
 }

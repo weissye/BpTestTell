@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "ListIncomingPhoneNumberTollFree",
       "summary": "",
-      "user": "A developer wants to retrieve a list of all toll-free phone numbers associated with their Twilio account. They need this information to manage their customer support lines more effectively.",
+      "user": "A user wants to retrieve a list of all toll-free phone numbers associated with their Twilio account to manage their communication channels effectively.",
       "ideal": "The API should return a JSON array of toll-free phone numbers, including details such as the phone number, friendly name, and status."
     },
     {
@@ -13,8 +13,8 @@
       "method": "POST",
       "operationId": "CreateIncomingPhoneNumberTollFree",
       "summary": "",
-      "user": "A business owner is looking to add a new toll-free number to their Twilio account for a marketing campaign. They want to ensure the number is set up with a specific friendly name and voice settings.",
-      "ideal": "The API should accept parameters for the new toll-free number, friendly name, and any additional settings, and return a confirmation response with the details of the newly created number."
+      "user": "A user is looking to add a new toll-free phone number to their Twilio account for a new marketing campaign and needs to specify the phone number and a friendly name.",
+      "ideal": "The API should accept the toll-free number and friendly name in the request body and return a confirmation with the details of the newly created phone number."
     }
   ]
 }

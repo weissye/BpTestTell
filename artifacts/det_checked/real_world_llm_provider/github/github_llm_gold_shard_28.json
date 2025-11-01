@@ -1,124 +1,124 @@
 {
   "gold": [
     {
-      "path": "/orgs/example-org/migrations",
+      "path": "/orgs/my-org/migrations",
       "method": "GET",
       "operationId": "migrations/list-for-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve a list of migrations for the specified organization."
+      "ideal": "Retrieve a list of migrations for the organization 'my-org'."
     },
     {
-      "path": "/orgs/example-org/migrations",
+      "path": "/orgs/my-org/migrations",
       "method": "POST",
       "operationId": "migrations/start-for-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Initiate a migration for the specified organization."
+      "ideal": "Start a new migration for the organization 'my-org'."
     },
     {
-      "path": "/orgs/example-org/migrations/12345",
+      "path": "/orgs/my-org/migrations/12345",
       "method": "GET",
       "operationId": "migrations/get-status-for-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Get the status of a specific migration for the organization."
+      "ideal": "Get the status of the migration with ID '12345' for the organization 'my-org'."
     },
     {
-      "path": "/orgs/example-org/migrations/12345/archive",
+      "path": "/orgs/my-org/migrations/12345/archive",
       "method": "GET",
       "operationId": "migrations/download-archive-for-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Download the archive of a completed migration for the organization."
+      "ideal": "Download the archive of the migration with ID '12345' for the organization 'my-org'."
     },
     {
-      "path": "/orgs/example-org/migrations/12345/archive",
+      "path": "/orgs/my-org/migrations/12345/archive",
       "method": "DELETE",
       "operationId": "migrations/delete-archive-for-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Delete the archive of a migration for the organization."
+      "ideal": "Delete the archive of the migration with ID '12345' for the organization 'my-org'."
     },
     {
-      "path": "/orgs/example-org/migrations/12345/repos/example-repo/lock",
+      "path": "/orgs/my-org/migrations/12345/repos/my-repo/lock",
       "method": "DELETE",
       "operationId": "migrations/unlock-repo-for-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Unlock a repository that was locked during migration for the organization."
+      "ideal": "Unlock the repository 'my-repo' for the migration with ID '12345' for the organization 'my-org'."
     },
     {
-      "path": "/orgs/example-org/migrations/12345/repositories",
+      "path": "/orgs/my-org/migrations/12345/repositories",
       "method": "GET",
       "operationId": "migrations/list-repos-for-org",
       "summary": "",
       "user": "user123",
-      "ideal": "List all repositories involved in a specific migration for the organization."
+      "ideal": "List all repositories involved in the migration with ID '12345' for the organization 'my-org'."
     },
     {
-      "path": "/repos/example-owner/example-repo/import",
+      "path": "/repos/my-repo/import",
       "method": "GET",
       "operationId": "migrations/get-import-status",
       "summary": "",
       "user": "user123",
-      "ideal": "Get the import status of a specific repository."
+      "ideal": "Get the import status for the repository 'my-repo'."
     },
     {
-      "path": "/repos/example-owner/example-repo/import",
+      "path": "/repos/my-repo/import",
       "method": "PUT",
       "operationId": "migrations/start-import",
       "summary": "",
       "user": "user123",
-      "ideal": "Start the import process for a specific repository."
+      "ideal": "Start the import process for the repository 'my-repo'."
     },
     {
-      "path": "/repos/example-owner/example-repo/import",
+      "path": "/repos/my-repo/import",
       "method": "PATCH",
       "operationId": "migrations/update-import",
       "summary": "",
       "user": "user123",
-      "ideal": "Update the import settings for a specific repository."
+      "ideal": "Update the import settings for the repository 'my-repo'."
     },
     {
-      "path": "/repos/example-owner/example-repo/import",
+      "path": "/repos/my-repo/import",
       "method": "DELETE",
       "operationId": "migrations/cancel-import",
       "summary": "",
       "user": "user123",
-      "ideal": "Cancel the ongoing import for a specific repository."
+      "ideal": "Cancel the import process for the repository 'my-repo'."
     },
     {
-      "path": "/repos/example-owner/example-repo/import/authors",
+      "path": "/repos/my-repo/import/authors",
       "method": "GET",
       "operationId": "migrations/get-commit-authors",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve the commit authors for the import process of a specific repository."
+      "ideal": "Retrieve the commit authors for the repository 'my-repo' import."
     },
     {
-      "path": "/repos/example-owner/example-repo/import/authors/1",
+      "path": "/repos/my-repo/import/authors/author_id",
       "method": "PATCH",
       "operationId": "migrations/map-commit-author",
       "summary": "",
       "user": "user123",
-      "ideal": "Map a commit author to a new identity during the import process."
+      "ideal": "Map a commit author for the repository 'my-repo' import."
     },
     {
-      "path": "/repos/example-owner/example-repo/import/large_files",
+      "path": "/repos/my-repo/import/large_files",
       "method": "GET",
       "operationId": "migrations/get-large-files",
       "summary": "",
       "user": "user123",
-      "ideal": "Get a list of large files that will be imported for the repository."
+      "ideal": "Get a list of large files for the repository 'my-repo' import."
     },
     {
-      "path": "/repos/example-owner/example-repo/import/lfs",
+      "path": "/repos/my-repo/import/lfs",
       "method": "PATCH",
       "operationId": "migrations/set-lfs-preference",
       "summary": "",
       "user": "user123",
-      "ideal": "Set the preference for handling large files during the import process."
+      "ideal": "Set LFS preference for the repository 'my-repo' import."
     },
     {
       "path": "/user/migrations",
@@ -126,7 +126,7 @@
       "operationId": "migrations/list-for-authenticated-user",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve a list of migrations for the authenticated user."
+      "ideal": "List all migrations for the authenticated user."
     },
     {
       "path": "/user/migrations",
@@ -134,47 +134,47 @@
       "operationId": "migrations/start-for-authenticated-user",
       "summary": "",
       "user": "user123",
-      "ideal": "Initiate a migration for the authenticated user."
+      "ideal": "Start a new migration for the authenticated user."
     },
     {
-      "path": "/user/migrations/12345",
+      "path": "/user/migrations/67890",
       "method": "GET",
       "operationId": "migrations/get-status-for-authenticated-user",
       "summary": "",
       "user": "user123",
-      "ideal": "Get the status of a specific migration for the authenticated user."
+      "ideal": "Get the status of the migration with ID '67890' for the authenticated user."
     },
     {
-      "path": "/user/migrations/12345/archive",
+      "path": "/user/migrations/67890/archive",
       "method": "GET",
       "operationId": "migrations/get-archive-for-authenticated-user",
       "summary": "",
       "user": "user123",
-      "ideal": "Download the archive of a completed migration for the authenticated user."
+      "ideal": "Get the archive of the migration with ID '67890' for the authenticated user."
     },
     {
-      "path": "/user/migrations/12345/archive",
+      "path": "/user/migrations/67890/archive",
       "method": "DELETE",
       "operationId": "migrations/delete-archive-for-authenticated-user",
       "summary": "",
       "user": "user123",
-      "ideal": "Delete the archive of a migration for the authenticated user."
+      "ideal": "Delete the archive of the migration with ID '67890' for the authenticated user."
     },
     {
-      "path": "/user/migrations/12345/repos/example-repo/lock",
+      "path": "/user/migrations/67890/repos/my-repo/lock",
       "method": "DELETE",
       "operationId": "migrations/unlock-repo-for-authenticated-user",
       "summary": "",
       "user": "user123",
-      "ideal": "Unlock a repository that was locked during migration for the authenticated user."
+      "ideal": "Unlock the repository 'my-repo' for the migration with ID '67890' for the authenticated user."
     },
     {
-      "path": "/user/migrations/12345/repositories",
+      "path": "/user/migrations/67890/repositories",
       "method": "GET",
       "operationId": "migrations/list-repos-for-authenticated-user",
       "summary": "",
       "user": "user123",
-      "ideal": "List all repositories involved in a specific migration for the authenticated user."
+      "ideal": "List all repositories involved in the migration with ID '67890' for the authenticated user."
     }
   ]
 }

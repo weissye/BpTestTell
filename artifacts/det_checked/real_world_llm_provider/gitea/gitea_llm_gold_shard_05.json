@@ -22,7 +22,7 @@
       "operationId": "notifyNewAvailable",
       "summary": "",
       "user": "user123",
-      "ideal": "Check if there are any new notifications for the authenticated user."
+      "ideal": "Check if there are new notifications available for the authenticated user."
     },
     {
       "path": "/notifications/threads/{id}",

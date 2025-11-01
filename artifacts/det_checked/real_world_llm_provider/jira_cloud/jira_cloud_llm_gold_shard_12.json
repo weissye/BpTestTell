@@ -70,7 +70,7 @@
       "operationId": "getColumns",
       "summary": "",
       "user": "user606",
-      "ideal": "Get the columns of a specific filter."
+      "ideal": "Get the columns configuration of a specific filter."
     },
     {
       "path": "/rest/api/3/filter/{id}/columns",

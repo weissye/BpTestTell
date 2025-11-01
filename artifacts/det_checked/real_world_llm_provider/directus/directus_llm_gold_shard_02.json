@@ -1,44 +1,12 @@
 {
   "gold": [
     {
-      "path": "/assets/123",
+      "path": "/assets/12345",
       "method": "GET",
       "operationId": "getAsset",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve the asset with ID 123, including its metadata such as title, description, and file type."
-    },
-    {
-      "path": "/assets/456",
-      "method": "GET",
-      "operationId": "getAsset",
-      "summary": "",
-      "user": "editor",
-      "ideal": "Fetch the asset with ID 456 to display it in the content management interface, ensuring all relevant details are included."
-    },
-    {
-      "path": "/assets/789",
-      "method": "GET",
-      "operationId": "getAsset",
-      "summary": "",
-      "user": "viewer",
-      "ideal": "Access the asset with ID 789 for viewing purposes, ensuring that only public information is returned."
-    },
-    {
-      "path": "/assets/101112",
-      "method": "GET",
-      "operationId": "getAsset",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Get the asset with ID 101112, along with its associated tags and categories for better organization."
-    },
-    {
-      "path": "/assets/131415",
-      "method": "GET",
-      "operationId": "getAsset",
-      "summary": "",
-      "user": "editor",
-      "ideal": "Retrieve the asset with ID 131415 to edit its details, including updating the title and description."
+      "user": "user123",
+      "ideal": "Retrieve the asset with ID 12345, including its metadata such as title, description, and file type."
     }
   ]
 }

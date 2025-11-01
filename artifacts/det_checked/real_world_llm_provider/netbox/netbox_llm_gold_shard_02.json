@@ -5,224 +5,224 @@
       "method": "GET",
       "operationId": "core_background_queues_retrieve",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve a list of all background queues in the system."
+      "user": "Admin user requesting the list of background queues to monitor system tasks.",
+      "ideal": "Returns a list of all background queues with their current status and task counts."
     },
     {
       "path": "/api/core/background-queues/{name}/",
       "method": "GET",
       "operationId": "core_background_queues_retrieve_by_name",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve details of a specific background queue by its name."
+      "user": "System operator checking the status of a specific background queue named 'queue1'.",
+      "ideal": "Returns detailed information about the specified background queue, including task details."
     },
     {
       "path": "/api/core/background-tasks/",
       "method": "GET",
       "operationId": "core_background_tasks_retrieve",
       "summary": "",
-      "user": "admin",
-      "ideal": "Get a list of all background tasks currently in the system."
+      "user": "Developer looking to retrieve a list of all background tasks for debugging purposes.",
+      "ideal": "Returns a list of all background tasks with their statuses and execution times."
     },
     {
       "path": "/api/core/background-tasks/{id}/",
       "method": "GET",
       "operationId": "core_background_tasks_retrieve_by_id",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve details of a specific background task by its ID."
+      "user": "Support engineer investigating a specific background task with ID 123.",
+      "ideal": "Returns detailed information about the specified background task, including logs and results."
     },
     {
       "path": "/api/core/background-tasks/{id}/delete/",
       "method": "POST",
       "operationId": "core_background_tasks_delete_create",
       "summary": "",
-      "user": "admin",
-      "ideal": "Delete a specific background task by its ID."
+      "user": "Admin user wanting to delete a failed background task with ID 456.",
+      "ideal": "Successfully deletes the specified background task and returns a confirmation message."
     },
     {
       "path": "/api/core/background-tasks/{id}/enqueue/",
       "method": "POST",
       "operationId": "core_background_tasks_enqueue_create",
       "summary": "",
-      "user": "admin",
-      "ideal": "Enqueue a specific background task for processing."
+      "user": "User re-enqueuing a background task with ID 789 for immediate execution.",
+      "ideal": "Returns a success message indicating the task has been re-enqueued."
     },
     {
       "path": "/api/core/background-tasks/{id}/requeue/",
       "method": "POST",
       "operationId": "core_background_tasks_requeue_create",
       "summary": "",
-      "user": "admin",
-      "ideal": "Requeue a specific background task that has failed."
+      "user": "Scheduler requeuing a background task with ID 321 that failed previously.",
+      "ideal": "Returns a success message confirming the task has been requeued."
     },
     {
       "path": "/api/core/background-tasks/{id}/stop/",
       "method": "POST",
       "operationId": "core_background_tasks_stop_create",
       "summary": "",
-      "user": "admin",
-      "ideal": "Stop a specific background task that is currently running."
+      "user": "Admin user stopping a long-running background task with ID 654.",
+      "ideal": "Returns a success message confirming the task has been stopped."
     },
     {
       "path": "/api/core/background-workers/",
       "method": "GET",
       "operationId": "core_background_workers_retrieve",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve a list of all background workers in the system."
+      "user": "System administrator checking the status of all background workers.",
+      "ideal": "Returns a list of all background workers with their current status and task assignments."
     },
     {
       "path": "/api/core/background-workers/{name}/",
       "method": "GET",
       "operationId": "core_background_workers_retrieve_by_name",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve details of a specific background worker by its name."
+      "user": "DevOps engineer monitoring a specific background worker named 'worker1'.",
+      "ideal": "Returns detailed information about the specified background worker, including task history."
     },
     {
       "path": "/api/core/data-files/",
       "method": "GET",
       "operationId": "core_data_files_list",
       "summary": "",
-      "user": "admin",
-      "ideal": "Get a list of all data files available in the system."
+      "user": "Data analyst retrieving a list of all uploaded data files for analysis.",
+      "ideal": "Returns a list of all data files with their metadata and upload dates."
     },
     {
       "path": "/api/core/data-files/{id}/",
       "method": "GET",
       "operationId": "core_data_files_retrieve",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve details of a specific data file by its ID."
+      "user": "User accessing a specific data file with ID 987 for review.",
+      "ideal": "Returns detailed information about the specified data file, including its content type."
     },
     {
       "path": "/api/core/data-sources/",
       "method": "GET",
       "operationId": "core_data_sources_list",
       "summary": "",
-      "user": "admin",
-      "ideal": "Get a list of all data sources configured in the system."
+      "user": "Data engineer listing all configured data sources for integration.",
+      "ideal": "Returns a list of all data sources with their connection details and statuses."
     },
     {
       "path": "/api/core/data-sources/",
       "method": "POST",
       "operationId": "core_data_sources_create",
       "summary": "",
-      "user": "admin",
-      "ideal": "Create a new data source in the system."
+      "user": "Admin user creating a new data source for a new database.",
+      "ideal": "Returns a success message with the details of the newly created data source."
     },
     {
       "path": "/api/core/data-sources/",
       "method": "PUT",
       "operationId": "core_data_sources_bulk_update",
       "summary": "",
-      "user": "admin",
-      "ideal": "Bulk update multiple data sources in the system."
+      "user": "Data manager updating multiple data sources' configurations in bulk.",
+      "ideal": "Returns a success message indicating the number of data sources updated."
     },
     {
       "path": "/api/core/data-sources/",
       "method": "PATCH",
       "operationId": "core_data_sources_bulk_partial_update",
       "summary": "",
-      "user": "admin",
-      "ideal": "Bulk partially update multiple data sources in the system."
+      "user": "User making partial updates to several data sources.",
+      "ideal": "Returns a success message confirming the partial updates made."
     },
     {
       "path": "/api/core/data-sources/",
       "method": "DELETE",
       "operationId": "core_data_sources_bulk_destroy",
       "summary": "",
-      "user": "admin",
-      "ideal": "Bulk delete multiple data sources from the system."
+      "user": "Admin user deleting multiple obsolete data sources.",
+      "ideal": "Returns a success message indicating the number of data sources deleted."
     },
     {
       "path": "/api/core/data-sources/{id}/",
       "method": "GET",
       "operationId": "core_data_sources_retrieve",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve details of a specific data source by its ID."
+      "user": "User retrieving details of a specific data source with ID 111.",
+      "ideal": "Returns detailed information about the specified data source, including its configuration."
     },
     {
       "path": "/api/core/data-sources/{id}/",
       "method": "PUT",
       "operationId": "core_data_sources_update",
       "summary": "",
-      "user": "admin",
-      "ideal": "Update a specific data source by its ID."
+      "user": "Admin user updating the configuration of a data source with ID 222.",
+      "ideal": "Returns a success message confirming the data source has been updated."
     },
     {
       "path": "/api/core/data-sources/{id}/",
       "method": "PATCH",
       "operationId": "core_data_sources_partial_update",
       "summary": "",
-      "user": "admin",
-      "ideal": "Partially update a specific data source by its ID."
+      "user": "User making minor adjustments to a data source with ID 333.",
+      "ideal": "Returns a success message confirming the partial update made."
     },
     {
       "path": "/api/core/data-sources/{id}/",
       "method": "DELETE",
       "operationId": "core_data_sources_destroy",
       "summary": "",
-      "user": "admin",
-      "ideal": "Delete a specific data source by its ID."
+      "user": "Admin user deleting a data source with ID 444 that is no longer needed.",
+      "ideal": "Returns a success message confirming the data source has been deleted."
     },
     {
       "path": "/api/core/data-sources/{id}/sync/",
       "method": "POST",
       "operationId": "core_data_sources_sync_create",
       "summary": "",
-      "user": "admin",
-      "ideal": "Synchronize a specific data source by its ID."
+      "user": "Data engineer syncing a data source with ID 555 to ensure data is up-to-date.",
+      "ideal": "Returns a success message indicating the sync operation was successful."
     },
     {
       "path": "/api/core/jobs/",
       "method": "GET",
       "operationId": "core_jobs_list",
       "summary": "",
-      "user": "admin",
-      "ideal": "Get a list of all jobs in the system."
+      "user": "User retrieving a list of all scheduled jobs for monitoring.",
+      "ideal": "Returns a list of all jobs with their statuses and next run times."
     },
     {
       "path": "/api/core/jobs/{id}/",
       "method": "GET",
       "operationId": "core_jobs_retrieve",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve details of a specific job by its ID."
+      "user": "Admin checking the details of a specific job with ID 666.",
+      "ideal": "Returns detailed information about the specified job, including its execution history."
     },
     {
       "path": "/api/core/object-changes/",
       "method": "GET",
       "operationId": "core_object_changes_list",
       "summary": "",
-      "user": "admin",
-      "ideal": "Get a list of all object changes in the system."
+      "user": "User reviewing all object changes for auditing purposes.",
+      "ideal": "Returns a list of all object changes with timestamps and user details."
     },
     {
       "path": "/api/core/object-changes/{id}/",
       "method": "GET",
       "operationId": "core_object_changes_retrieve",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve details of a specific object change by its ID."
+      "user": "Auditor examining a specific object change with ID 777.",
+      "ideal": "Returns detailed information about the specified object change, including before and after states."
     },
     {
       "path": "/api/core/object-types/",
       "method": "GET",
       "operationId": "core_object_types_list",
       "summary": "",
-      "user": "admin",
-      "ideal": "Get a list of all object types in the system."
+      "user": "Developer listing all object types for API integration.",
+      "ideal": "Returns a list of all object types with their definitions and attributes."
     },
     {
       "path": "/api/core/object-types/{id}/",
       "method": "GET",
       "operationId": "core_object_types_retrieve",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve details of a specific object type by its ID."
+      "user": "User retrieving details of a specific object type with ID 888.",
+      "ideal": "Returns detailed information about the specified object type, including its schema."
     }
   ]
 }

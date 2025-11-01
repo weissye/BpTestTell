@@ -6,7 +6,7 @@
       "operationId": "snapshots.create",
       "summary": "",
       "user": "admin",
-      "ideal": "Create a new snapshot of the current state of the Meilisearch index."
+      "ideal": "Create a new snapshot of the current state of the Meilisearch instance."
     }
   ]
 }

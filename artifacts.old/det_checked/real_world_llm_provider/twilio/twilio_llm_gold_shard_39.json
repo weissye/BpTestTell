@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/MachineToMachine.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberMachineToMachine",
+      "summary": "",
+      "user": "User is a developer working on a telecommunications application that requires machine-to-machine communication capabilities. They need to find available phone numbers in the US that can be used for automated messaging services.",
+      "ideal": "The API should return a list of available phone numbers in the specified country that are suitable for machine-to-machine communication, including details such as the phone number, friendly name, and capabilities."
+    }
+  ]
+}

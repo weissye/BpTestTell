@@ -6,7 +6,7 @@
       "operationId": "updateProjectAvatar",
       "summary": "",
       "user": "user123",
-      "ideal": "Update the avatar for the project with ID 'PROJ-1' using a new image."
+      "ideal": "Update the avatar for the project with ID 'PROJ-1' using a new image URL."
     },
     {
       "path": "/rest/api/3/project/{projectIdOrKey}/avatar/{id}",
@@ -22,7 +22,7 @@
       "operationId": "createProjectAvatar",
       "summary": "",
       "user": "user789",
-      "ideal": "Create a new avatar for the project 'PROJ-3' using the provided image file."
+      "ideal": "Create a new avatar for the project 'PROJ-3' by uploading an image file."
     },
     {
       "path": "/rest/api/3/project/{projectIdOrKey}/avatars",

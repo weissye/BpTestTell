@@ -6,31 +6,31 @@
       "operationId": "CreateAccount",
       "summary": "",
       "user": "A user wants to create a new Twilio account to start sending SMS messages. They provide their email, password, and account type.",
-      "ideal": "The API should return a success response with the account SID and a confirmation message."
+      "ideal": "The API should return a success message with the newly created account's SID and a confirmation of the account details."
     },
     {
       "path": "/2010-04-01/Accounts.json",
       "method": "GET",
       "operationId": "ListAccount",
       "summary": "",
-      "user": "An admin user needs to retrieve a list of all Twilio accounts associated with their organization to manage billing and usage.",
-      "ideal": "The API should return a list of accounts with their SIDs, names, and status."
+      "user": "An administrator needs to retrieve a list of all Twilio accounts associated with their organization for management purposes.",
+      "ideal": "The API should return a list of accounts with details such as SID, friendly name, and status."
     },
     {
       "path": "/2010-04-01/Accounts/{Sid}.json",
       "method": "GET",
       "operationId": "FetchAccount",
       "summary": "",
-      "user": "A user wants to fetch details of their specific Twilio account using the account SID to check its status and settings.",
-      "ideal": "The API should return the account details including the SID, friendly name, and balance."
+      "user": "A user wants to fetch the details of a specific Twilio account using its SID to verify its status and settings.",
+      "ideal": "The API should return the account details including SID, friendly name, and any associated phone numbers."
     },
     {
       "path": "/2010-04-01/Accounts/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateAccount",
       "summary": "",
-      "user": "A user needs to update their Twilio account's friendly name and email address for better identification and communication.",
-      "ideal": "The API should return a success message confirming the updates along with the updated account details."
+      "user": "A user needs to update the friendly name of their Twilio account to reflect a recent rebranding effort.",
+      "ideal": "The API should return a success message confirming the update and the new account details."
     }
   ]
 }

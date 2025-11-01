@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings",
+      "method": "GET",
+      "operationId": "getClientScopeScopeMappings",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve all scope mappings for the specified client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient",
+      "method": "GET",
+      "operationId": "getClientScopeScopeMappingsClient",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get scope mappings for a specific client within the client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient",
+      "method": "POST",
+      "operationId": "postClientScopeScopeMappingsClient",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add scope mappings for a specific client within the client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient",
+      "method": "DELETE",
+      "operationId": "deleteClientScopeScopeMappingsClient",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove scope mappings for a specific client within the client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient/available",
+      "method": "GET",
+      "operationId": "getClientScopeScopeMappingsClientAvailable",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve available scope mappings for a specific client."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient/composite",
+      "method": "GET",
+      "operationId": "getClientScopeScopeMappingsClientComposite",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get composite scope mappings for a specific client."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm",
+      "method": "GET",
+      "operationId": "getClientScopeScopeMappingsRealm",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve all realm scope mappings for the specified client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm",
+      "method": "POST",
+      "operationId": "postClientScopeScopeMappingsRealm",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add realm scope mappings for the specified client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm",
+      "method": "DELETE",
+      "operationId": "deleteClientScopeScopeMappingsRealm",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove realm scope mappings for the specified client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm/available",
+      "method": "GET",
+      "operationId": "getClientScopeScopeMappingsRealmAvailable",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve available realm scope mappings for the specified client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm/composite",
+      "method": "GET",
+      "operationId": "getClientScopeScopeMappingsRealmComposite",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get composite realm scope mappings for the specified client scope."
+    }
+  ]
+}

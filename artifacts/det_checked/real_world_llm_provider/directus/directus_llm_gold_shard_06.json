@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "listExtensions",
       "summary": "",
-      "user": "Admin user requesting a list of all available extensions to review their functionalities and compatibility with the current system setup.",
-      "ideal": "A JSON array containing details of all extensions including their names, versions, and descriptions."
+      "user": "admin",
+      "ideal": "Retrieve a list of all available extensions in the Directus system."
     },
     {
       "path": "/extensions/my-extension",
       "method": "PATCH",
       "operationId": "updateExtensions",
       "summary": "",
-      "user": "Developer updating the configuration of 'my-extension' to fix a bug and improve performance based on user feedback.",
-      "ideal": "A success message confirming that 'my-extension' has been updated successfully with the new configuration."
+      "user": "developer",
+      "ideal": "Update the configuration of the specified extension 'my-extension' with new settings."
     },
     {
-      "path": "/extensions/my-bundle/my-extension",
+      "path": "/extensions/bundle1/my-extension",
       "method": "PATCH",
       "operationId": "updateExtensionBundle",
       "summary": "",
-      "user": "Team lead updating the 'my-extension' within 'my-bundle' to include new features and enhancements for the upcoming release.",
-      "ideal": "A success message indicating that 'my-extension' in 'my-bundle' has been updated with the new features."
+      "user": "admin",
+      "ideal": "Update the extension 'my-extension' within the 'bundle1' to include new features and fixes."
     }
   ]
 }

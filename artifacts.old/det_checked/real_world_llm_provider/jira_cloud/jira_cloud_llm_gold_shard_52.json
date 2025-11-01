@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/label",
+      "method": "GET",
+      "operationId": "getAllLabels",
+      "summary": "",
+      "user": "A project manager looking to retrieve all labels used in the Jira Cloud project to ensure proper categorization of issues and streamline the workflow.",
+      "ideal": "Returns a list of all labels available in the Jira Cloud project, allowing the user to manage and utilize labels effectively for issue tracking."
+    }
+  ]
+}

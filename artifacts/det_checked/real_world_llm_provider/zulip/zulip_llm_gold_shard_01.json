@@ -1,20 +1,3 @@
 {
-  "gold": [
-    {
-      "path": "/fetch_api_key",
-      "method": "POST",
-      "operationId": "fetch-api-key",
-      "summary": "",
-      "user": "{\"email\":\"user@example.com\",\"password\":\"securepassword123\"}",
-      "ideal": "{\"api_key\":\"abcdef1234567890\"}"
-    },
-    {
-      "path": "/dev_fetch_api_key",
-      "method": "POST",
-      "operationId": "dev-fetch-api-key",
-      "summary": "",
-      "user": "{\"email\":\"dev@example.com\",\"password\":\"devpassword456\"}",
-      "ideal": "{\"api_key\":\"devkey0987654321\"}"
-    }
-  ]
+  "gold": []
 }

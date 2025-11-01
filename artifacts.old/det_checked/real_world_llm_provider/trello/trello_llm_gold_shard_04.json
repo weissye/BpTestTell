@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/v1/cards/12345",
+      "method": "GET",
+      "operationId": "getCardsByIdCard",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Retrieve the details of the card with ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345",
+      "method": "PUT",
+      "operationId": "updateCardsByIdCard",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Update the card with ID 12345 to change its name and description."
+    },
+    {
+      "path": "/v1/cards/12345/actions",
+      "method": "GET",
+      "operationId": "getCardsActionsByIdCard",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Fetch all actions related to the card with ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345/checklists",
+      "method": "POST",
+      "operationId": "addCardsChecklistsByIdCard",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Add a new checklist to the card with ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345/attachments",
+      "method": "POST",
+      "operationId": "addCardsAttachmentsByIdCard",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Attach a file to the card with ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345/members",
+      "method": "GET",
+      "operationId": "getCardsMembersByIdCard",
+      "summary": "",
+      "user": "User123",
+      "ideal": "List all members associated with the card ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345/labels",
+      "method": "DELETE",
+      "operationId": "deleteCardsLabelsByIdCardByColor",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Remove a label of a specific color from the card with ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345/checklist/67890/checkItem/11111",
+      "method": "PUT",
+      "operationId": "updateCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItem",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Update the state of a checklist item in the checklist with ID 67890 on card 12345."
+    },
+    {
+      "path": "/v1/cards/12345/stickers",
+      "method": "POST",
+      "operationId": "addCardsStickersByIdCard",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Add a sticker to the card with ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345/membersVoted",
+      "method": "DELETE",
+      "operationId": "deleteCardsMembersVotedByIdCardByIdMember",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Remove a member's vote from the card with ID 12345."
+    }
+  ]
+}

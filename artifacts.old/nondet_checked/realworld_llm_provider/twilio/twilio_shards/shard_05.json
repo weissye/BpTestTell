@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Application"
+      ],
+      "summary": "Create a new application within your account",
+      "operationId": "CreateApplication"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Application"
+      ],
+      "summary": "Retrieve a list of applications representing an application within the requesting account",
+      "operationId": "ListApplication"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Application"
+      ],
+      "summary": "Delete the application by the specified application sid",
+      "operationId": "DeleteApplication"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Application"
+      ],
+      "summary": "Fetch the application specified by the provided sid",
+      "operationId": "FetchApplication"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Application"
+      ],
+      "summary": "Updates the application's properties",
+      "operationId": "UpdateApplication"
+    }
+  ]
+}

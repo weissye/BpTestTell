@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/emojis",
+      "method": "GET",
+      "operationId": "getEmojis",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Returns a list of all the emojis available on GitHub."
+    }
+  ]
+}

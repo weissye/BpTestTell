@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/mypermissions",
+      "method": "GET",
+      "operationId": "getMyPermissions",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the permissions of the current user to ensure they have the necessary access rights for various operations."
+    },
+    {
+      "path": "/rest/api/3/permissions",
+      "method": "GET",
+      "operationId": "getAllPermissions",
+      "summary": "",
+      "user": "adminUser",
+      "ideal": "Fetch a comprehensive list of all permissions available in the Jira instance to manage user roles effectively."
+    },
+    {
+      "path": "/rest/api/3/permissions/check",
+      "method": "POST",
+      "operationId": "getBulkPermissions",
+      "summary": "",
+      "user": "projectManager",
+      "ideal": "Check multiple permissions for a list of users to ensure they have the required access for a specific project."
+    },
+    {
+      "path": "/rest/api/3/permissions/project",
+      "method": "POST",
+      "operationId": "getPermittedProjects",
+      "summary": "",
+      "user": "teamLead",
+      "ideal": "Retrieve a list of projects that a user has permissions to access, aiding in project management and resource allocation."
+    }
+  ]
+}

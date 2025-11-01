@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "getAuditRecords",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve a list of audit records for the Jira Cloud platform, including details such as the action performed, the user who performed it, and the timestamp of the action."
+      "user": "As a project manager, I want to retrieve the audit records for my Jira project to ensure compliance and track changes made by team members.",
+      "ideal": "The response should include a list of audit records with details such as the action performed, the user who performed it, and the timestamp of the action."
     }
   ]
 }

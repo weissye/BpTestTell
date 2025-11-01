@@ -5,64 +5,64 @@
       "method": "GET",
       "operationId": "getAttachmentContent",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve the content of the attachment with ID 12345."
+      "user": "User requests the content of an attachment with ID 12345 to review the document.",
+      "ideal": "Returns the binary content of the attachment."
     },
     {
       "path": "/rest/api/3/attachment/meta",
       "method": "GET",
       "operationId": "getAttachmentMeta",
       "summary": "",
-      "user": "user456",
-      "ideal": "Fetch metadata for all attachments."
+      "user": "User wants to retrieve metadata for all attachments to analyze their details.",
+      "ideal": "Returns a list of metadata for all attachments."
     },
     {
-      "path": "/rest/api/3/attachment/thumbnail/12345",
+      "path": "/rest/api/3/attachment/thumbnail/67890",
       "method": "GET",
       "operationId": "getAttachmentThumbnail",
       "summary": "",
-      "user": "user789",
-      "ideal": "Get the thumbnail image for the attachment with ID 12345."
+      "user": "User requests a thumbnail for an attachment with ID 67890 to quickly view its content.",
+      "ideal": "Returns the thumbnail image of the specified attachment."
     },
     {
       "path": "/rest/api/3/attachment/12345",
       "method": "DELETE",
       "operationId": "removeAttachment",
       "summary": "",
-      "user": "user101",
-      "ideal": "Delete the attachment with ID 12345."
+      "user": "User wants to delete an attachment with ID 12345 that is no longer needed.",
+      "ideal": "Confirms the successful deletion of the attachment."
     },
     {
       "path": "/rest/api/3/attachment/12345",
       "method": "GET",
       "operationId": "getAttachment",
       "summary": "",
-      "user": "user202",
-      "ideal": "Retrieve details of the attachment with ID 12345."
+      "user": "User retrieves an attachment with ID 12345 to check its details.",
+      "ideal": "Returns the details of the specified attachment."
     },
     {
       "path": "/rest/api/3/attachment/12345/expand/human",
       "method": "GET",
       "operationId": "expandAttachmentForHumans",
       "summary": "",
-      "user": "user303",
-      "ideal": "Expand the attachment with ID 12345 for human-readable format."
+      "user": "User wants a human-readable version of the attachment with ID 12345.",
+      "ideal": "Returns a human-friendly representation of the attachment."
     },
     {
       "path": "/rest/api/3/attachment/12345/expand/raw",
       "method": "GET",
       "operationId": "expandAttachmentForMachines",
       "summary": "",
-      "user": "user404",
-      "ideal": "Expand the attachment with ID 12345 for machine-readable format."
+      "user": "User requests a raw version of the attachment with ID 12345 for processing.",
+      "ideal": "Returns the raw data of the attachment for machine processing."
     },
     {
       "path": "/rest/api/3/issue/ISSUE-123/attachments",
       "method": "POST",
       "operationId": "addAttachment",
       "summary": "",
-      "user": "user505",
-      "ideal": "Add a new attachment to the issue with key ISSUE-123."
+      "user": "User uploads a new attachment to issue ISSUE-123 for further documentation.",
+      "ideal": "Confirms the successful upload of the attachment to the specified issue."
     }
   ]
 }

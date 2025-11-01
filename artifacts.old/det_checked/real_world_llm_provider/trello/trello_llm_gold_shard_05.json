@@ -1,0 +1,132 @@
+{
+  "gold": [
+    {
+      "path": "/checklists",
+      "method": "POST",
+      "operationId": "addChecklists",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Create a new checklist with the title 'To Do' for the project board."
+    },
+    {
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i",
+      "method": "DELETE",
+      "operationId": "deleteChecklistsByIdChecklist",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Remove the checklist with ID 5f1a2b3c4d5e6f7g8h9i from the board."
+    },
+    {
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i",
+      "method": "GET",
+      "operationId": "getChecklistsByIdChecklist",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Retrieve details of the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
+    },
+    {
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i",
+      "method": "PUT",
+      "operationId": "updateChecklistsByIdChecklist",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Update the checklist with ID 5f1a2b3c4d5e6f7g8h9i to change its title to 'In Progress'."
+    },
+    {
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/board",
+      "method": "GET",
+      "operationId": "getChecklistsBoardByIdChecklist",
+      "summary": "",
+      "user": "User202",
+      "ideal": "Get the board information associated with the checklist ID 5f1a2b3c4d5e6f7g8h9i."
+    },
+    {
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/board/name",
+      "method": "GET",
+      "operationId": "getChecklistsBoardByIdChecklistByField",
+      "summary": "",
+      "user": "User303",
+      "ideal": "Retrieve the name of the board associated with checklist ID 5f1a2b3c4d5e6f7g8h9i."
+    },
+    {
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/cards",
+      "method": "GET",
+      "operationId": "getChecklistsCardsByIdChecklist",
+      "summary": "",
+      "user": "User404",
+      "ideal": "Fetch all cards linked to the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
+    },
+    {
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/cards/active",
+      "method": "GET",
+      "operationId": "getChecklistsCardsByIdChecklistByFilter",
+      "summary": "",
+      "user": "User505",
+      "ideal": "Get all active cards from the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
+    },
+    {
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems",
+      "method": "GET",
+      "operationId": "getChecklistsCheckItemsByIdChecklist",
+      "summary": "",
+      "user": "User606",
+      "ideal": "Retrieve all check items from the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
+    },
+    {
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems",
+      "method": "POST",
+      "operationId": "addChecklistsCheckItemsByIdChecklist",
+      "summary": "",
+      "user": "User707",
+      "ideal": "Add a new check item 'Review Code' to the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
+    },
+    {
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems/1a2b3c4d",
+      "method": "DELETE",
+      "operationId": "deleteChecklistsCheckItemsByIdChecklistByIdCheckItem",
+      "summary": "",
+      "user": "User808",
+      "ideal": "Delete the check item with ID 1a2b3c4d from the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
+    },
+    {
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems/1a2b3c4d",
+      "method": "GET",
+      "operationId": "getChecklistsCheckItemsByIdChecklistByIdCheckItem",
+      "summary": "",
+      "user": "User909",
+      "ideal": "Get details of the check item with ID 1a2b3c4d from the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
+    },
+    {
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/idCard",
+      "method": "PUT",
+      "operationId": "updateChecklistsIdCardByIdChecklist",
+      "summary": "",
+      "user": "User1010",
+      "ideal": "Update the card ID associated with checklist ID 5f1a2b3c4d5e6f7g8h9i to a new card ID."
+    },
+    {
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/name",
+      "method": "PUT",
+      "operationId": "updateChecklistsNameByIdChecklist",
+      "summary": "",
+      "user": "User1111",
+      "ideal": "Change the name of the checklist with ID 5f1a2b3c4d5e6f7g8h9i to 'Completed Tasks'."
+    },
+    {
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/pos",
+      "method": "PUT",
+      "operationId": "updateChecklistsPosByIdChecklist",
+      "summary": "",
+      "user": "User1212",
+      "ideal": "Update the position of the checklist with ID 5f1a2b3c4d5e6f7g8h9i to be the first in the list."
+    },
+    {
+      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/description",
+      "method": "GET",
+      "operationId": "getChecklistsByIdChecklistByField",
+      "summary": "",
+      "user": "User1313",
+      "ideal": "Retrieve the description field of the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/groups/123/role-mappings",
+      "method": "GET",
+      "operationId": "getGroupRoleMappings",
+      "summary": "",
+      "user": "Admin user requesting role mappings for group with ID 123 in realm 'myrealm'.",
+      "ideal": "Returns the role mappings associated with the specified group."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings/realm",
+      "method": "GET",
+      "operationId": "getGroupRoleMappingsRealm",
+      "summary": "",
+      "user": "Admin user checking realm-specific role mappings for group ID 123.",
+      "ideal": "Returns realm-specific role mappings for the specified group."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings/realm",
+      "method": "POST",
+      "operationId": "postGroupRoleMappingsRealm",
+      "summary": "",
+      "user": "Admin user adding new realm role mappings to group ID 123.",
+      "ideal": "Successfully adds the specified realm role mappings to the group."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings/realm",
+      "method": "DELETE",
+      "operationId": "deleteGroupRoleMappingsRealm",
+      "summary": "",
+      "user": "Admin user removing realm role mappings from group ID 123.",
+      "ideal": "Successfully removes the specified realm role mappings from the group."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings/realm/available",
+      "method": "GET",
+      "operationId": "getGroupRoleMappingsRealmAvailable",
+      "summary": "",
+      "user": "Admin user retrieving available realm role mappings for group ID 123.",
+      "ideal": "Returns a list of available realm role mappings for the specified group."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings/realm/composite",
+      "method": "GET",
+      "operationId": "getGroupRoleMappingsRealmComposite",
+      "summary": "",
+      "user": "Admin user checking composite realm role mappings for group ID 123.",
+      "ideal": "Returns composite realm role mappings for the specified group."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings",
+      "method": "GET",
+      "operationId": "getUserRoleMappings",
+      "summary": "",
+      "user": "Admin user requesting role mappings for user with ID 456 in realm 'myrealm'.",
+      "ideal": "Returns the role mappings associated with the specified user."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings/realm",
+      "method": "GET",
+      "operationId": "getUserRoleMappingsRealm",
+      "summary": "",
+      "user": "Admin user checking realm-specific role mappings for user ID 456.",
+      "ideal": "Returns realm-specific role mappings for the specified user."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings/realm",
+      "method": "POST",
+      "operationId": "postUserRoleMappingsRealm",
+      "summary": "",
+      "user": "Admin user adding new realm role mappings to user ID 456.",
+      "ideal": "Successfully adds the specified realm role mappings to the user."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings/realm",
+      "method": "DELETE",
+      "operationId": "deleteUserRoleMappingsRealm",
+      "summary": "",
+      "user": "Admin user removing realm role mappings from user ID 456.",
+      "ideal": "Successfully removes the specified realm role mappings from the user."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings/realm/available",
+      "method": "GET",
+      "operationId": "getUserRoleMappingsRealmAvailable",
+      "summary": "",
+      "user": "Admin user retrieving available realm role mappings for user ID 456.",
+      "ideal": "Returns a list of available realm role mappings for the specified user."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings/realm/composite",
+      "method": "GET",
+      "operationId": "getUserRoleMappingsRealmComposite",
+      "summary": "",
+      "user": "Admin user checking composite realm role mappings for user ID 456.",
+      "ideal": "Returns composite realm role mappings for the specified user."
+    }
+  ]
+}

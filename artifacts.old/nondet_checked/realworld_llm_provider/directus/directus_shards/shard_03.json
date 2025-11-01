@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/auth/login",
+      "method": "POST",
+      "tags": [
+        "Authentication"
+      ],
+      "summary": "Retrieve a Temporary Access Token",
+      "operationId": "login"
+    },
+    {
+      "path": "/auth/refresh",
+      "method": "POST",
+      "tags": [
+        "Authentication"
+      ],
+      "summary": "Refresh Token",
+      "operationId": "refresh"
+    },
+    {
+      "path": "/auth/logout",
+      "method": "POST",
+      "tags": [
+        "Authentication"
+      ],
+      "summary": "Log Out",
+      "operationId": "logout"
+    },
+    {
+      "path": "/auth/password/request",
+      "method": "POST",
+      "tags": [
+        "Authentication"
+      ],
+      "summary": "Request a Password Reset",
+      "operationId": "passwordRequest"
+    },
+    {
+      "path": "/auth/password/reset",
+      "method": "POST",
+      "tags": [
+        "Authentication"
+      ],
+      "summary": "Reset a Password",
+      "operationId": "passwordReset"
+    },
+    {
+      "path": "/auth/oauth",
+      "method": "GET",
+      "tags": [
+        "Authentication"
+      ],
+      "summary": "List OAuth Providers",
+      "operationId": "oauth"
+    },
+    {
+      "path": "/auth/oauth/{provider}",
+      "method": "GET",
+      "tags": [
+        "Authentication"
+      ],
+      "summary": "Authenticated using an OAuth provider",
+      "operationId": "oauthProvider"
+    }
+  ]
+}

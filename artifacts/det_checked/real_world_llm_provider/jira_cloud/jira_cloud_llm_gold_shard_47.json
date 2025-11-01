@@ -5,104 +5,80 @@
       "method": "POST",
       "operationId": "createIssue",
       "summary": "",
-      "user": "User A creates a new issue for the project.",
-      "ideal": "The issue is successfully created with a unique ID."
+      "user": "User123",
+      "ideal": "Create a new issue in the Jira project."
     },
     {
       "path": "/rest/api/3/issue/{issueIdOrKey}",
       "method": "GET",
       "operationId": "getIssue",
       "summary": "",
-      "user": "User B retrieves the details of an existing issue.",
-      "ideal": "The issue details are returned with all relevant fields."
+      "user": "User456",
+      "ideal": "Retrieve details of a specific issue using its ID or key."
     },
     {
       "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
       "method": "GET",
       "operationId": "getTransitions",
       "summary": "",
-      "user": "User C checks the available transitions for an issue.",
-      "ideal": "A list of possible transitions is returned."
+      "user": "User789",
+      "ideal": "Fetch available transitions for a specific issue."
     },
     {
       "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
       "method": "POST",
       "operationId": "doTransition",
       "summary": "",
-      "user": "User D transitions an issue to the next status.",
-      "ideal": "The issue status is updated successfully."
+      "user": "User101",
+      "ideal": "Transition a specific issue to a new status."
     },
     {
       "path": "/rest/api/3/issue/{issueIdOrKey}/changelog",
       "method": "GET",
       "operationId": "getChangeLogs",
       "summary": "",
-      "user": "User E wants to see the changelog of an issue.",
-      "ideal": "The changelog is returned with all changes made."
+      "user": "User112",
+      "ideal": "Get the changelog for a specific issue."
     },
     {
       "path": "/rest/api/3/issue/{issueIdOrKey}/editmeta",
       "method": "GET",
       "operationId": "getEditIssueMeta",
       "summary": "",
-      "user": "User F retrieves metadata for editing an issue.",
-      "ideal": "The edit metadata is returned with valid fields."
-    },
-    {
-      "path": "/rest/api/3/issue/{issueIdOrKey}/notify",
-      "method": "POST",
-      "operationId": "notify",
-      "summary": "",
-      "user": "User G sends notifications about an issue.",
-      "ideal": "Notifications are sent successfully to the specified users."
+      "user": "User131",
+      "ideal": "Retrieve metadata for editing a specific issue."
     },
     {
       "path": "/rest/api/3/issue/{issueIdOrKey}/assignee",
       "method": "PUT",
       "operationId": "assignIssue",
       "summary": "",
-      "user": "User H assigns an issue to a team member.",
-      "ideal": "The issue is successfully assigned to the new assignee."
-    },
-    {
-      "path": "/rest/api/3/issue/archive",
-      "method": "PUT",
-      "operationId": "archiveIssues",
-      "summary": "",
-      "user": "User I archives completed issues.",
-      "ideal": "The issues are archived successfully."
+      "user": "User415",
+      "ideal": "Assign a specific issue to a user."
     },
     {
       "path": "/rest/api/3/issue/{issueIdOrKey}",
       "method": "PUT",
       "operationId": "editIssue",
       "summary": "",
-      "user": "User J updates the details of an existing issue.",
-      "ideal": "The issue is updated successfully with new details."
+      "user": "User161",
+      "ideal": "Edit the details of a specific issue."
     },
     {
       "path": "/rest/api/3/issue/{issueIdOrKey}",
       "method": "DELETE",
       "operationId": "deleteIssue",
       "summary": "",
-      "user": "User K deletes an issue that is no longer needed.",
-      "ideal": "The issue is deleted successfully."
+      "user": "User718",
+      "ideal": "Delete a specific issue from the Jira project."
     },
     {
       "path": "/rest/api/3/issue/createmeta",
       "method": "GET",
       "operationId": "getCreateIssueMeta",
       "summary": "",
-      "user": "User L retrieves metadata for creating issues.",
-      "ideal": "The create issue metadata is returned with valid fields."
-    },
-    {
-      "path": "/rest/api/3/issue/limit/report",
-      "method": "GET",
-      "operationId": "getIssueLimitReport",
-      "summary": "",
-      "user": "User M checks the issue limit report for the project.",
-      "ideal": "The issue limit report is returned with current limits."
+      "user": "User192",
+      "ideal": "Get metadata for creating new issues."
     }
   ]
 }

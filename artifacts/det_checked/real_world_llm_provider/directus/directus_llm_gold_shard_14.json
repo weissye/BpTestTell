@@ -5,56 +5,56 @@
       "method": "GET",
       "operationId": "getPresets",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve a list of all presets available in the system."
+      "user": "Admin user fetching all presets to review the available configurations for the application.",
+      "ideal": "Returns a list of all presets with their details."
     },
     {
       "path": "/presets",
       "method": "POST",
       "operationId": "createPreset",
       "summary": "",
-      "user": "editor",
-      "ideal": "Create a new preset with the specified parameters."
+      "user": "User creating a new preset for a specific reporting format needed for the upcoming project.",
+      "ideal": "Creates a new preset and returns the created preset's details."
     },
     {
       "path": "/presets",
       "method": "PATCH",
       "operationId": "updatePresets",
       "summary": "",
-      "user": "editor",
-      "ideal": "Update multiple presets with new values."
+      "user": "Admin updating multiple presets to align with the new branding guidelines.",
+      "ideal": "Updates the specified presets and returns the updated presets' details."
     },
     {
       "path": "/presets",
       "method": "DELETE",
       "operationId": "deletePresets",
       "summary": "",
-      "user": "admin",
-      "ideal": "Delete all presets from the system."
+      "user": "User removing outdated presets that are no longer relevant to the current application needs.",
+      "ideal": "Deletes the specified presets and confirms the deletion."
     },
     {
       "path": "/presets/{id}",
       "method": "GET",
       "operationId": "getPreset",
       "summary": "",
-      "user": "viewer",
-      "ideal": "Retrieve a specific preset by its ID."
+      "user": "User retrieving a specific preset to check its configuration before applying it.",
+      "ideal": "Returns the details of the specified preset."
     },
     {
       "path": "/presets/{id}",
       "method": "PATCH",
       "operationId": "updatePreset",
       "summary": "",
-      "user": "editor",
-      "ideal": "Update a specific preset identified by its ID."
+      "user": "Admin modifying a specific preset to include new features requested by the team.",
+      "ideal": "Updates the specified preset and returns the updated preset's details."
     },
     {
       "path": "/presets/{id}",
       "method": "DELETE",
       "operationId": "deletePreset",
       "summary": "",
-      "user": "admin",
-      "ideal": "Delete a specific preset identified by its ID."
+      "user": "User deleting a specific preset that is no longer used in the application.",
+      "ideal": "Deletes the specified preset and confirms the deletion."
     }
   ]
 }

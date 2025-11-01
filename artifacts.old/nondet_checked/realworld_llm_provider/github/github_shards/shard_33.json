@@ -1,0 +1,171 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/orgs/{org}/projectsV2",
+      "method": "GET",
+      "tags": [
+        "projects"
+      ],
+      "summary": "List projects for organization",
+      "operationId": "projects/list-for-org"
+    },
+    {
+      "path": "/orgs/{org}/projectsV2/{project_number}",
+      "method": "GET",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Get project for organization",
+      "operationId": "projects/get-for-org"
+    },
+    {
+      "path": "/orgs/{org}/projectsV2/{project_number}/fields",
+      "method": "GET",
+      "tags": [
+        "projects"
+      ],
+      "summary": "List project fields for organization",
+      "operationId": "projects/list-fields-for-org"
+    },
+    {
+      "path": "/orgs/{org}/projectsV2/{project_number}/fields/{field_id}",
+      "method": "GET",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Get project field for organization",
+      "operationId": "projects/get-field-for-org"
+    },
+    {
+      "path": "/orgs/{org}/projectsV2/{project_number}/items",
+      "method": "GET",
+      "tags": [
+        "projects"
+      ],
+      "summary": "List items for an organization owned project",
+      "operationId": "projects/list-items-for-org"
+    },
+    {
+      "path": "/orgs/{org}/projectsV2/{project_number}/items",
+      "method": "POST",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Add item to organization owned project",
+      "operationId": "projects/add-item-for-org"
+    },
+    {
+      "path": "/orgs/{org}/projectsV2/{project_number}/items/{item_id}",
+      "method": "GET",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Get an item for an organization owned project",
+      "operationId": "projects/get-org-item"
+    },
+    {
+      "path": "/orgs/{org}/projectsV2/{project_number}/items/{item_id}",
+      "method": "PATCH",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Update project item for organization",
+      "operationId": "projects/update-item-for-org"
+    },
+    {
+      "path": "/orgs/{org}/projectsV2/{project_number}/items/{item_id}",
+      "method": "DELETE",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Delete project item for organization",
+      "operationId": "projects/delete-item-for-org"
+    },
+    {
+      "path": "/users/{username}/projectsV2",
+      "method": "GET",
+      "tags": [
+        "projects"
+      ],
+      "summary": "List projects for user",
+      "operationId": "projects/list-for-user"
+    },
+    {
+      "path": "/users/{username}/projectsV2/{project_number}",
+      "method": "GET",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Get project for user",
+      "operationId": "projects/get-for-user"
+    },
+    {
+      "path": "/users/{username}/projectsV2/{project_number}/fields",
+      "method": "GET",
+      "tags": [
+        "projects"
+      ],
+      "summary": "List project fields for user",
+      "operationId": "projects/list-fields-for-user"
+    },
+    {
+      "path": "/users/{username}/projectsV2/{project_number}/fields/{field_id}",
+      "method": "GET",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Get project field for user",
+      "operationId": "projects/get-field-for-user"
+    },
+    {
+      "path": "/users/{username}/projectsV2/{project_number}/items",
+      "method": "GET",
+      "tags": [
+        "projects"
+      ],
+      "summary": "List items for a user owned project",
+      "operationId": "projects/list-items-for-user"
+    },
+    {
+      "path": "/users/{username}/projectsV2/{project_number}/items",
+      "method": "POST",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Add item to user owned project",
+      "operationId": "projects/add-item-for-user"
+    },
+    {
+      "path": "/users/{username}/projectsV2/{project_number}/items/{item_id}",
+      "method": "GET",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Get an item for a user owned project",
+      "operationId": "projects/get-user-item"
+    },
+    {
+      "path": "/users/{username}/projectsV2/{project_number}/items/{item_id}",
+      "method": "PATCH",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Update project item for user",
+      "operationId": "projects/update-item-for-user"
+    },
+    {
+      "path": "/users/{username}/projectsV2/{project_number}/items/{item_id}",
+      "method": "DELETE",
+      "tags": [
+        "projects"
+      ],
+      "summary": "Delete project item for user",
+      "operationId": "projects/delete-item-for-user"
+    }
+  ]
+}

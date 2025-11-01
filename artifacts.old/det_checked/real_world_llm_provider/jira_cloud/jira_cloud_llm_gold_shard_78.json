@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/serverInfo",
+      "method": "GET",
+      "operationId": "getServerInfo",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve server information including version, build number, and other relevant details."
+    }
+  ]
+}

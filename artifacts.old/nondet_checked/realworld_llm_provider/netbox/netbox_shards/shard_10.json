@@ -1,0 +1,504 @@
+{
+  "openapi_meta": {
+    "title": "NetBox REST API",
+    "version": "4.4.2 (4.4)"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/api/virtualization/cluster-groups/",
+      "method": "GET",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_groups_list"
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/",
+      "method": "POST",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_groups_create"
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/",
+      "method": "PUT",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_groups_bulk_update"
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/",
+      "method": "PATCH",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_groups_bulk_partial_update"
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/",
+      "method": "DELETE",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_groups_bulk_destroy"
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/{id}/",
+      "method": "GET",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_groups_retrieve"
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/{id}/",
+      "method": "PUT",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_groups_update"
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_groups_partial_update"
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_groups_destroy"
+    },
+    {
+      "path": "/api/virtualization/cluster-types/",
+      "method": "GET",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_types_list"
+    },
+    {
+      "path": "/api/virtualization/cluster-types/",
+      "method": "POST",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_types_create"
+    },
+    {
+      "path": "/api/virtualization/cluster-types/",
+      "method": "PUT",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_types_bulk_update"
+    },
+    {
+      "path": "/api/virtualization/cluster-types/",
+      "method": "PATCH",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_types_bulk_partial_update"
+    },
+    {
+      "path": "/api/virtualization/cluster-types/",
+      "method": "DELETE",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_types_bulk_destroy"
+    },
+    {
+      "path": "/api/virtualization/cluster-types/{id}/",
+      "method": "GET",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_types_retrieve"
+    },
+    {
+      "path": "/api/virtualization/cluster-types/{id}/",
+      "method": "PUT",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_types_update"
+    },
+    {
+      "path": "/api/virtualization/cluster-types/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_types_partial_update"
+    },
+    {
+      "path": "/api/virtualization/cluster-types/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_cluster_types_destroy"
+    },
+    {
+      "path": "/api/virtualization/clusters/",
+      "method": "GET",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_clusters_list"
+    },
+    {
+      "path": "/api/virtualization/clusters/",
+      "method": "POST",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_clusters_create"
+    },
+    {
+      "path": "/api/virtualization/clusters/",
+      "method": "PUT",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_clusters_bulk_update"
+    },
+    {
+      "path": "/api/virtualization/clusters/",
+      "method": "PATCH",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_clusters_bulk_partial_update"
+    },
+    {
+      "path": "/api/virtualization/clusters/",
+      "method": "DELETE",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_clusters_bulk_destroy"
+    },
+    {
+      "path": "/api/virtualization/clusters/{id}/",
+      "method": "GET",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_clusters_retrieve"
+    },
+    {
+      "path": "/api/virtualization/clusters/{id}/",
+      "method": "PUT",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_clusters_update"
+    },
+    {
+      "path": "/api/virtualization/clusters/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_clusters_partial_update"
+    },
+    {
+      "path": "/api/virtualization/clusters/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_clusters_destroy"
+    },
+    {
+      "path": "/api/virtualization/interfaces/",
+      "method": "GET",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_interfaces_list"
+    },
+    {
+      "path": "/api/virtualization/interfaces/",
+      "method": "POST",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_interfaces_create"
+    },
+    {
+      "path": "/api/virtualization/interfaces/",
+      "method": "PUT",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_interfaces_bulk_update"
+    },
+    {
+      "path": "/api/virtualization/interfaces/",
+      "method": "PATCH",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_interfaces_bulk_partial_update"
+    },
+    {
+      "path": "/api/virtualization/interfaces/",
+      "method": "DELETE",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_interfaces_bulk_destroy"
+    },
+    {
+      "path": "/api/virtualization/interfaces/{id}/",
+      "method": "GET",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_interfaces_retrieve"
+    },
+    {
+      "path": "/api/virtualization/interfaces/{id}/",
+      "method": "PUT",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_interfaces_update"
+    },
+    {
+      "path": "/api/virtualization/interfaces/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_interfaces_partial_update"
+    },
+    {
+      "path": "/api/virtualization/interfaces/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_interfaces_destroy"
+    },
+    {
+      "path": "/api/virtualization/virtual-disks/",
+      "method": "GET",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_disks_list"
+    },
+    {
+      "path": "/api/virtualization/virtual-disks/",
+      "method": "POST",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_disks_create"
+    },
+    {
+      "path": "/api/virtualization/virtual-disks/",
+      "method": "PUT",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_disks_bulk_update"
+    },
+    {
+      "path": "/api/virtualization/virtual-disks/",
+      "method": "PATCH",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_disks_bulk_partial_update"
+    },
+    {
+      "path": "/api/virtualization/virtual-disks/",
+      "method": "DELETE",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_disks_bulk_destroy"
+    },
+    {
+      "path": "/api/virtualization/virtual-disks/{id}/",
+      "method": "GET",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_disks_retrieve"
+    },
+    {
+      "path": "/api/virtualization/virtual-disks/{id}/",
+      "method": "PUT",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_disks_update"
+    },
+    {
+      "path": "/api/virtualization/virtual-disks/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_disks_partial_update"
+    },
+    {
+      "path": "/api/virtualization/virtual-disks/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_disks_destroy"
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/",
+      "method": "GET",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_machines_list"
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/",
+      "method": "POST",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_machines_create"
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/",
+      "method": "PUT",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_machines_bulk_update"
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/",
+      "method": "PATCH",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_machines_bulk_partial_update"
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/",
+      "method": "DELETE",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_machines_bulk_destroy"
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/{id}/",
+      "method": "GET",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_machines_retrieve"
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/{id}/",
+      "method": "PUT",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_machines_update"
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_machines_partial_update"
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_machines_destroy"
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/{id}/render-config/",
+      "method": "POST",
+      "tags": [
+        "virtualization"
+      ],
+      "summary": "",
+      "operationId": "virtualization_virtual_machines_render_config_create"
+    }
+  ]
+}

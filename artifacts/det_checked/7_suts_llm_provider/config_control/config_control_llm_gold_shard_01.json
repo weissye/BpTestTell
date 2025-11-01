@@ -6,7 +6,7 @@
       "operationId": "resetSystem",
       "summary": "",
       "user": "admin",
-      "ideal": "Resets the entire system to its default state."
+      "ideal": "Resets the entire configuration control system to its default state."
     },
     {
       "path": "/apps",
@@ -14,39 +14,39 @@
       "operationId": "createApp",
       "summary": "",
       "user": "developer",
-      "ideal": "Creates a new application with the provided configuration."
+      "ideal": "Creates a new application entry in the configuration control system."
     },
     {
       "path": "/apps",
       "method": "GET",
       "operationId": "listApps",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieves a list of all applications in the system."
+      "user": "developer",
+      "ideal": "Retrieves a list of all applications managed by the configuration control system."
     },
     {
       "path": "/envs",
       "method": "POST",
       "operationId": "createEnv",
       "summary": "",
-      "user": "developer",
-      "ideal": "Creates a new environment for the application."
+      "user": "devops",
+      "ideal": "Creates a new environment for application deployment."
     },
     {
       "path": "/envs",
       "method": "GET",
       "operationId": "listEnvs",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieves a list of all environments available."
+      "user": "devops",
+      "ideal": "Retrieves a list of all environments configured in the system."
     },
     {
       "path": "/configs",
       "method": "POST",
       "operationId": "createConfig",
       "summary": "",
-      "user": "developer",
-      "ideal": "Creates a new configuration for the specified application."
+      "user": "admin",
+      "ideal": "Creates a new configuration setting for an application."
     },
     {
       "path": "/configs",
@@ -54,39 +54,39 @@
       "operationId": "listConfigs",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieves a list of all configurations for applications."
+      "ideal": "Retrieves a list of all configuration settings in the system."
     },
     {
       "path": "/releases",
       "method": "POST",
       "operationId": "createRelease",
       "summary": "",
-      "user": "developer",
-      "ideal": "Creates a new release for the specified application."
+      "user": "release_manager",
+      "ideal": "Creates a new release version for an application."
     },
     {
       "path": "/releases",
       "method": "GET",
       "operationId": "listReleases",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieves a list of all releases for applications."
+      "user": "release_manager",
+      "ideal": "Retrieves a list of all releases for applications managed in the system."
     },
     {
       "path": "/policies",
       "method": "POST",
       "operationId": "createPolicy",
       "summary": "",
-      "user": "admin",
-      "ideal": "Creates a new policy for application management."
+      "user": "security_officer",
+      "ideal": "Creates a new security policy for application configurations."
     },
     {
       "path": "/policies",
       "method": "GET",
       "operationId": "listPolicies",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieves a list of all policies in the system."
+      "user": "security_officer",
+      "ideal": "Retrieves a list of all security policies applied in the system."
     }
   ]
 }

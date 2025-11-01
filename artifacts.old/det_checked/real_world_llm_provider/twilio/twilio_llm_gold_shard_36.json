@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Keys/KSXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchKey",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Fetches the details of a specific key identified by Sid."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Keys/KSXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateKey",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Updates the properties of a specific key identified by Sid."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Keys/KSXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteKey",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Deletes a specific key identified by Sid."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Keys.json",
+      "method": "GET",
+      "operationId": "ListKey",
+      "summary": "",
+      "user": "user101112",
+      "ideal": "Lists all keys associated with the account."
+    }
+  ]
+}

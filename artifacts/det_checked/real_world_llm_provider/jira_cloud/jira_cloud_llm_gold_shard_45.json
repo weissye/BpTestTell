@@ -1,36 +1,36 @@
 {
   "gold": [
     {
-      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties",
       "method": "GET",
       "operationId": "getWorklogPropertyKeys",
       "summary": "",
-      "user": "User wants to retrieve all property keys associated with a specific worklog for issue ABC-123.",
+      "user": "User requests to retrieve all property keys associated with a specific worklog entry for issue PROJ-123.",
       "ideal": "Returns a list of property keys for the specified worklog."
     },
     {
-      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/priority",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties/customProperty",
       "method": "DELETE",
       "operationId": "deleteWorklogProperty",
       "summary": "",
-      "user": "User wants to delete the 'priority' property from the worklog of issue ABC-123.",
+      "user": "User wants to delete a specific property 'customProperty' from the worklog of issue PROJ-123.",
       "ideal": "Successfully deletes the specified property from the worklog."
     },
     {
-      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/priority",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties/customProperty",
       "method": "GET",
       "operationId": "getWorklogProperty",
       "summary": "",
-      "user": "User wants to fetch the value of the 'priority' property for the worklog of issue ABC-123.",
-      "ideal": "Returns the value of the 'priority' property for the specified worklog."
+      "user": "User queries to get the value of 'customProperty' for the worklog entry of issue PROJ-123.",
+      "ideal": "Returns the value of 'customProperty' for the specified worklog."
     },
     {
-      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/priority",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties/customProperty",
       "method": "PUT",
       "operationId": "setWorklogProperty",
       "summary": "",
-      "user": "User wants to set the 'priority' property to 'high' for the worklog of issue ABC-123.",
-      "ideal": "Successfully updates the 'priority' property for the specified worklog."
+      "user": "User wishes to set the value of 'customProperty' to 'New Value' for the worklog of issue PROJ-123.",
+      "ideal": "Successfully updates 'customProperty' with the new value for the worklog."
     }
   ]
 }

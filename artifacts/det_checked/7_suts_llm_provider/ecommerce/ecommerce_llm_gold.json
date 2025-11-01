@@ -19,7 +19,7 @@
     {
       "path": "/drugs",
       "method": "GET",
-      "operationId": "getDrugs",
+      "operationId": "listDrugs",
       "summary": "",
       "user": "pharmacist",
       "ideal": "Retrieves a list of all available drugs in the pharmacy."
@@ -43,7 +43,7 @@
     {
       "path": "/orders",
       "method": "GET",
-      "operationId": "getOrders",
+      "operationId": "listOrders",
       "summary": "",
       "user": "pharmacist",
       "ideal": "Retrieves a list of all orders placed in the pharmacy."
@@ -59,10 +59,10 @@
     {
       "path": "/inventory/{ndc}",
       "method": "GET",
-      "operationId": "getInventoryItem",
+      "operationId": "getInventoryByNDC",
       "summary": "",
       "user": "pharmacist",
-      "ideal": "Retrieves detailed information about a specific drug in inventory using its NDC."
+      "ideal": "Retrieves inventory details for a specific drug by its NDC."
     }
   ]
 }

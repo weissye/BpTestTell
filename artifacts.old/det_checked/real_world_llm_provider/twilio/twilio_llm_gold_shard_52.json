@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX/Payloads/PYXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchRecordingAddOnResultPayload",
+      "summary": "",
+      "user": "User1234",
+      "ideal": "Fetches the payload for the specified Add-On result of a recording, returning detailed information about the processing of the recording."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX/Payloads/PYXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteRecordingAddOnResultPayload",
+      "summary": "",
+      "user": "User5678",
+      "ideal": "Deletes the specified payload associated with the Add-On result of a recording, ensuring that the data is no longer accessible."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX/Payloads.json",
+      "method": "GET",
+      "operationId": "ListRecordingAddOnResultPayload",
+      "summary": "",
+      "user": "User91011",
+      "ideal": "Lists all payloads associated with the specified Add-On result of a recording, providing an overview of the data processed."
+    }
+  ]
+}

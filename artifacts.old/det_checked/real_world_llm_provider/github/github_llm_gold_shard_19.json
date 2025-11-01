@@ -1,0 +1,164 @@
+{
+  "gold": [
+    {
+      "path": "/gists",
+      "method": "GET",
+      "operationId": "gists/list",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all gists for the authenticated user."
+    },
+    {
+      "path": "/gists",
+      "method": "POST",
+      "operationId": "gists/create",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Create a new gist with the provided content and description."
+    },
+    {
+      "path": "/gists/public",
+      "method": "GET",
+      "operationId": "gists/list-public",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Fetch a list of all public gists."
+    },
+    {
+      "path": "/gists/starred",
+      "method": "GET",
+      "operationId": "gists/list-starred",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Get a list of gists that the authenticated user has starred."
+    },
+    {
+      "path": "/gists/{gist_id}",
+      "method": "GET",
+      "operationId": "gists/get",
+      "summary": "",
+      "user": "user112",
+      "ideal": "Retrieve a specific gist by its ID."
+    },
+    {
+      "path": "/gists/{gist_id}",
+      "method": "PATCH",
+      "operationId": "gists/update",
+      "summary": "",
+      "user": "user113",
+      "ideal": "Update the content or description of an existing gist."
+    },
+    {
+      "path": "/gists/{gist_id}",
+      "method": "DELETE",
+      "operationId": "gists/delete",
+      "summary": "",
+      "user": "user114",
+      "ideal": "Delete a specific gist by its ID."
+    },
+    {
+      "path": "/gists/{gist_id}/comments",
+      "method": "GET",
+      "operationId": "gists/list-comments",
+      "summary": "",
+      "user": "user115",
+      "ideal": "List all comments for a specific gist."
+    },
+    {
+      "path": "/gists/{gist_id}/comments",
+      "method": "POST",
+      "operationId": "gists/create-comment",
+      "summary": "",
+      "user": "user116",
+      "ideal": "Add a new comment to a specific gist."
+    },
+    {
+      "path": "/gists/{gist_id}/comments/{comment_id}",
+      "method": "GET",
+      "operationId": "gists/get-comment",
+      "summary": "",
+      "user": "user117",
+      "ideal": "Retrieve a specific comment by its ID for a gist."
+    },
+    {
+      "path": "/gists/{gist_id}/comments/{comment_id}",
+      "method": "PATCH",
+      "operationId": "gists/update-comment",
+      "summary": "",
+      "user": "user118",
+      "ideal": "Update a specific comment on a gist."
+    },
+    {
+      "path": "/gists/{gist_id}/comments/{comment_id}",
+      "method": "DELETE",
+      "operationId": "gists/delete-comment",
+      "summary": "",
+      "user": "user119",
+      "ideal": "Delete a specific comment from a gist."
+    },
+    {
+      "path": "/gists/{gist_id}/commits",
+      "method": "GET",
+      "operationId": "gists/list-commits",
+      "summary": "",
+      "user": "user120",
+      "ideal": "List all commits for a specific gist."
+    },
+    {
+      "path": "/gists/{gist_id}/forks",
+      "method": "GET",
+      "operationId": "gists/list-forks",
+      "summary": "",
+      "user": "user121",
+      "ideal": "Get a list of forks for a specific gist."
+    },
+    {
+      "path": "/gists/{gist_id}/forks",
+      "method": "POST",
+      "operationId": "gists/fork",
+      "summary": "",
+      "user": "user122",
+      "ideal": "Create a fork of a specific gist."
+    },
+    {
+      "path": "/gists/{gist_id}/star",
+      "method": "GET",
+      "operationId": "gists/check-is-starred",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Check if a specific gist is starred by the authenticated user."
+    },
+    {
+      "path": "/gists/{gist_id}/star",
+      "method": "PUT",
+      "operationId": "gists/star",
+      "summary": "",
+      "user": "user124",
+      "ideal": "Star a specific gist."
+    },
+    {
+      "path": "/gists/{gist_id}/star",
+      "method": "DELETE",
+      "operationId": "gists/unstar",
+      "summary": "",
+      "user": "user125",
+      "ideal": "Unstar a specific gist."
+    },
+    {
+      "path": "/gists/{gist_id}/{sha}",
+      "method": "GET",
+      "operationId": "gists/get-revision",
+      "summary": "",
+      "user": "user126",
+      "ideal": "Retrieve a specific revision of a gist."
+    },
+    {
+      "path": "/users/{username}/gists",
+      "method": "GET",
+      "operationId": "gists/list-for-user",
+      "summary": "",
+      "user": "user127",
+      "ideal": "List all gists for a specific user."
+    }
+  ]
+}

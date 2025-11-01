@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "getPrecomputations",
       "summary": "",
-      "user": "As a project manager, I want to retrieve all precomputations available in the Jira system to analyze their performance and usage across different projects.",
-      "ideal": "The API should return a list of all precomputations with their details, including IDs, names, and associated projects."
+      "user": "As a project manager, I want to retrieve all precomputations available in Jira to analyze the performance of my team's queries.",
+      "ideal": "The API should return a list of all precomputations with their details, including IDs, names, and associated queries."
     },
     {
       "path": "/rest/api/3/jql/function/computation",
       "method": "POST",
       "operationId": "updatePrecomputations",
       "summary": "",
-      "user": "As a data analyst, I need to update existing precomputations to reflect the latest changes in our data model and ensure accurate reporting.",
-      "ideal": "The API should accept a payload with updated precomputation details and return a success message along with the updated precomputation object."
+      "user": "As a developer, I need to update the precomputation settings for a specific query to improve its execution time.",
+      "ideal": "The API should accept the updated settings and return a confirmation message along with the updated precomputation details."
     },
     {
       "path": "/rest/api/3/jql/function/computation/search",
       "method": "POST",
       "operationId": "getPrecomputationsByID",
       "summary": "",
-      "user": "As a developer, I want to search for specific precomputations by their IDs to quickly access their configurations and make necessary adjustments.",
-      "ideal": "The API should return the precomputation details for the specified ID, including its parameters and any associated metadata."
+      "user": "As a data analyst, I want to fetch a specific precomputation by its ID to review its configuration and performance metrics.",
+      "ideal": "The API should return the details of the requested precomputation, including its ID, name, and performance statistics."
     }
   ]
 }

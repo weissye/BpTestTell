@@ -13,7 +13,7 @@
       "method": "PATCH",
       "operationId": "updateSetting",
       "summary": "",
-      "user": "admin",
+      "user": "editor",
       "ideal": "Update a specific setting in the Directus application."
     }
   ]

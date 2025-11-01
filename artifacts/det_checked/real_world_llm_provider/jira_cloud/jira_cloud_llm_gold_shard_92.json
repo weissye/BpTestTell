@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "getStatusCategories",
       "summary": "",
-      "user": "As a project manager, I want to retrieve all status categories in Jira to understand the different stages my tasks can be in.",
-      "ideal": "The response should include a list of all status categories with their IDs and names, allowing me to categorize my tasks effectively."
+      "user": "As a project manager, I want to retrieve all status categories in Jira so that I can understand the different stages of issues in my projects.",
+      "ideal": "The API should return a list of all status categories, including their IDs and names, allowing me to categorize issues effectively."
     },
     {
       "path": "/rest/api/3/statuscategory/{idOrKey}",
       "method": "GET",
       "operationId": "getStatusCategory",
       "summary": "",
-      "user": "As a developer, I need to get detailed information about a specific status category by its ID or key to ensure I'm using the correct category in my workflow.",
-      "ideal": "The response should provide detailed information about the specified status category, including its ID, name, and any associated metadata."
+      "user": "As a developer, I need to get details of a specific status category by its ID or key to ensure I am using the correct category in my API requests.",
+      "ideal": "The API should return the details of the specified status category, including its name and description, so I can confirm its properties."
     }
   ]
 }

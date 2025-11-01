@@ -6,7 +6,7 @@
       "operationId": "getBatch",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve a batch of data from Trello, including cards, lists, and boards for the specified user."
+      "ideal": "Retrieve a batch of data from Trello, including boards, lists, and cards for the specified user."
     }
   ]
 }

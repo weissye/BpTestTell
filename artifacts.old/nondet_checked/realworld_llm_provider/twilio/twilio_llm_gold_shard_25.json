@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json",
+      "method": "GET",
+      "operationId": "FetchRecordingAddOnResultPayloadData",
+      "summary": "",
+      "user": "user_12345",
+      "ideal": "Fetches the payload data for a specific add-on result associated with a recording."
+    }
+  ]
+}

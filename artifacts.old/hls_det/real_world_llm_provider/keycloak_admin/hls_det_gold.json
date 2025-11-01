@@ -1,0 +1,47 @@
+{
+  "sut": "keycloak_admin",
+  "source": "artifacts\\det_checked\\real_world_llm_provider\\keycloak_admin\\keycloak_admin_llm_gold_ops.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "Keycloak_admin",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists"
+      ]
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminNotExists"
+      ]
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists",
+        "verifyKeycloak_adminUpdated"
+      ]
+    }
+  ]
+}

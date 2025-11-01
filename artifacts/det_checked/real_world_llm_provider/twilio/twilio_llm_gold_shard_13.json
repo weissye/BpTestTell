@@ -6,7 +6,7 @@
       "operationId": "FetchBalance",
       "summary": "",
       "user": "User wants to check the current balance of their Twilio account to ensure they have enough funds for upcoming messaging campaigns.",
-      "ideal": "The API should return the current balance in a JSON format, including the amount and the currency."
+      "ideal": "The API should return the current balance of the account in a JSON format, including the amount available and the currency."
     }
   ]
 }

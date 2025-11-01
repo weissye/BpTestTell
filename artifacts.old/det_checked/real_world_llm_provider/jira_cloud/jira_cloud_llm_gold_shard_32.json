@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue/properties",
+      "method": "POST",
+      "operationId": "bulkSetIssuesPropertiesList",
+      "summary": "",
+      "user": "As a project manager, I want to set properties for multiple issues at once to streamline the process of updating issue metadata.",
+      "ideal": "Successfully sets properties for the specified list of issues."
+    },
+    {
+      "path": "/rest/api/3/issue/properties/multi",
+      "method": "POST",
+      "operationId": "bulkSetIssuePropertiesByIssue",
+      "summary": "",
+      "user": "As a developer, I need to update properties for several issues simultaneously to ensure consistency across related tasks.",
+      "ideal": "Updates the properties for the specified issues in bulk."
+    },
+    {
+      "path": "/rest/api/3/issue/properties/{propertyKey}",
+      "method": "DELETE",
+      "operationId": "bulkDeleteIssueProperty",
+      "summary": "",
+      "user": "As a team lead, I want to remove a specific property from all issues to clean up outdated metadata.",
+      "ideal": "Successfully deletes the specified property from all issues."
+    },
+    {
+      "path": "/rest/api/3/issue/properties/{propertyKey}",
+      "method": "PUT",
+      "operationId": "bulkSetIssueProperty",
+      "summary": "",
+      "user": "As a product owner, I want to set a new property for all issues in a project to reflect a new business requirement.",
+      "ideal": "Successfully sets the specified property for all issues."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties",
+      "method": "GET",
+      "operationId": "getIssuePropertyKeys",
+      "summary": "",
+      "user": "As a QA engineer, I need to retrieve all property keys for an issue to understand its current metadata.",
+      "ideal": "Returns a list of all property keys associated with the specified issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "method": "DELETE",
+      "operationId": "deleteIssueProperty",
+      "summary": "",
+      "user": "As a scrum master, I want to delete a specific property from an issue to remove irrelevant information.",
+      "ideal": "Successfully deletes the specified property from the issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "method": "GET",
+      "operationId": "getIssueProperty",
+      "summary": "",
+      "user": "As a business analyst, I want to retrieve the value of a specific property for an issue to analyze its context.",
+      "ideal": "Returns the value of the specified property for the issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}",
+      "method": "PUT",
+      "operationId": "setIssueProperty",
+      "summary": "",
+      "user": "As a developer, I need to set a property for an issue to track additional information relevant to the task.",
+      "ideal": "Successfully sets the specified property for the issue."
+    }
+  ]
+}

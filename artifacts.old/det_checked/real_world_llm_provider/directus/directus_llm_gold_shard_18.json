@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/schema/snapshot",
+      "method": "GET",
+      "operationId": "schemaSnapshot",
+      "summary": "",
+      "user": "Admin user requesting the current schema snapshot to review the database structure and ensure it aligns with the application requirements.",
+      "ideal": "Returns the current schema snapshot in JSON format, including tables, fields, and relationships."
+    },
+    {
+      "path": "/schema/apply",
+      "method": "POST",
+      "operationId": "schemaApply",
+      "summary": "",
+      "user": "Database administrator applying the latest schema changes to the production database after thorough testing in the staging environment.",
+      "ideal": "Successfully applies the new schema changes and returns a confirmation message with the updated schema version."
+    },
+    {
+      "path": "/schema/diff",
+      "method": "POST",
+      "operationId": "schemaDiff",
+      "summary": "",
+      "user": "Developer comparing the current schema with a previous version to identify changes made during the last development cycle.",
+      "ideal": "Returns a detailed comparison of the current schema against the specified previous version, highlighting added, removed, and modified fields."
+    }
+  ]
+}

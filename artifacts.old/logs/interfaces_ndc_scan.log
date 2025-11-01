@@ -1,0 +1,234 @@
+=== interfaces.readable.js scan (legacy ndc lambda / parseInt) ===
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\7suts_llm_provider\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\7suts_llm_provider\banking\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\7suts_llm_provider\banking\readable\interfaces.readable.js
+281:    return { id: parseInt(m[1]) };
+292:    return { id: parseInt(m[1]) };
+416:    return { id: parseInt(m[1]) };
+427:    return { id: parseInt(m[1]) };
+551:    return { id: parseInt(m[1]) };
+562:    return { id: parseInt(m[1]) };
+686:    return { id: parseInt(m[1]) };
+697:    return { id: parseInt(m[1]) };
+821:    return { id: parseInt(m[1]) };
+832:    return { id: parseInt(m[1]) };
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\7suts_llm_provider\config_control\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\7suts_llm_provider\config_control\readable\interfaces.readable.js
+146:    return { id: parseInt(m[1]) };
+157:    return { id: parseInt(m[1]) };
+281:    return { id: parseInt(m[1]) };
+292:    return { id: parseInt(m[1]) };
+416:    return { id: parseInt(m[1]) };
+427:    return { id: parseInt(m[1]) };
+551:    return { id: parseInt(m[1]) };
+562:    return { id: parseInt(m[1]) };
+686:    return { id: parseInt(m[1]) };
+697:    return { id: parseInt(m[1]) };
+821:    return { id: parseInt(m[1]) };
+832:    return { id: parseInt(m[1]) };
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\7suts_llm_provider\ecommerce\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\7suts_llm_provider\ecommerce\readable\interfaces.readable.js
+281:    return { ndc: (x)=>x(m[1]) };
+292:    return { ndc: (x)=>x(m[1]) };
+146:    return { id: parseInt(m[1]) };
+157:    return { id: parseInt(m[1]) };
+416:    return { id: parseInt(m[1]) };
+427:    return { id: parseInt(m[1]) };
+551:    return { id: parseInt(m[1]) };
+562:    return { id: parseInt(m[1]) };
+686:    return { id: parseInt(m[1]) };
+697:    return { id: parseInt(m[1]) };
+821:    return { id: parseInt(m[1]) };
+832:    return { id: parseInt(m[1]) };
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\7suts_llm_provider\factory\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\7suts_llm_provider\factory\readable\interfaces.readable.js
+146:    return { id: parseInt(m[1]) };
+157:    return { id: parseInt(m[1]) };
+281:    return { id: parseInt(m[1]) };
+292:    return { id: parseInt(m[1]) };
+416:    return { id: parseInt(m[1]) };
+427:    return { id: parseInt(m[1]) };
+551:    return { id: parseInt(m[1]) };
+562:    return { id: parseInt(m[1]) };
+686:    return { id: parseInt(m[1]) };
+697:    return { id: parseInt(m[1]) };
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\7suts_llm_provider\garage\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\7suts_llm_provider\garage\readable\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\7suts_llm_provider\library\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\7suts_llm_provider\library\readable\interfaces.readable.js
+146:    return { id: parseInt(m[1]) };
+157:    return { id: parseInt(m[1]) };
+281:    return { id: parseInt(m[1]) };
+292:    return { id: parseInt(m[1]) };
+416:    return { id: parseInt(m[1]) };
+427:    return { id: parseInt(m[1]) };
+551:    return { id: parseInt(m[1]) };
+562:    return { id: parseInt(m[1]) };
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\7suts_llm_provider\pharmacy\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\7suts_llm_provider\pharmacy\readable\interfaces.readable.js
+281:    return { ndc: (x)=>x(m[1]) };
+292:    return { ndc: (x)=>x(m[1]) };
+146:    return { id: parseInt(m[1]) };
+157:    return { id: parseInt(m[1]) };
+416:    return { id: parseInt(m[1]) };
+427:    return { id: parseInt(m[1]) };
+551:    return { id: parseInt(m[1]) };
+562:    return { id: parseInt(m[1]) };
+686:    return { id: parseInt(m[1]) };
+697:    return { id: parseInt(m[1]) };
+821:    return { id: parseInt(m[1]) };
+832:    return { id: parseInt(m[1]) };
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\realworld_llm_provider\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\realworld_llm_provider\github\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\realworld_llm_provider\github\readable\interfaces.readable.js
+146:    return { ghsa_id: parseInt(m[1]) };
+157:    return { ghsa_id: parseInt(m[1]) };
+281:    return { id: parseInt(m[1]) };
+292:    return { id: parseInt(m[1]) };
+416:    return { id: parseInt(m[1]) };
+427:    return { id: parseInt(m[1]) };
+551:    return { id: parseInt(m[1]) };
+562:    return { id: parseInt(m[1]) };
+686:    return { id: parseInt(m[1]) };
+697:    return { id: parseInt(m[1]) };
+821:    return { id: parseInt(m[1]) };
+832:    return { id: parseInt(m[1]) };
+956:    return { id: parseInt(m[1]) };
+967:    return { id: parseInt(m[1]) };
+1226:    return { id: parseInt(m[1]) };
+1237:    return { id: parseInt(m[1]) };
+1361:    return { id: parseInt(m[1]) };
+1372:    return { id: parseInt(m[1]) };
+1631:    return { id: parseInt(m[1]) };
+1642:    return { id: parseInt(m[1]) };
+1766:    return { id: parseInt(m[1]) };
+1777:    return { id: parseInt(m[1]) };
+1901:    return { gist_id: parseInt(m[1]), comment_id: parseInt(m[2]), sha: (x)=>x(m[3]) };
+1912:    return { gist_id: parseInt(m[1]), comment_id: parseInt(m[2]), sha: (x)=>x(m[3]) };
+2036:    return { id: parseInt(m[1]) };
+2047:    return { id: parseInt(m[1]) };
+2171:    return { id: parseInt(m[1]) };
+2182:    return { id: parseInt(m[1]) };
+2306:    return { id: parseInt(m[1]) };
+2317:    return { id: parseInt(m[1]) };
+2441:    return { id: parseInt(m[1]) };
+2452:    return { id: parseInt(m[1]) };
+2576:    return { id: parseInt(m[1]) };
+2587:    return { id: parseInt(m[1]) };
+2711:    return { id: parseInt(m[1]) };
+2722:    return { id: parseInt(m[1]) };
+2846:    return { id: parseInt(m[1]) };
+2857:    return { id: parseInt(m[1]) };
+2981:    return { id: parseInt(m[1]) };
+2992:    return { id: parseInt(m[1]) };
+3116:    return { id: parseInt(m[1]) };
+3127:    return { id: parseInt(m[1]) };
+3251:    return { org: (x)=>x(m[1]), network_configuration_id: parseInt(m[2]), repository_id: parseInt(m[3]), secret_name: (x)=>x(m[4]), network_settings_id: parseInt(m[5]), username: (x)=>x(m[6]), subject_digest: (x)=>x(m[7]) };
+3262:    return { org: (x)=>x(m[1]), network_configuration_id: parseInt(m[2]), repository_id: parseInt(m[3]), secret_name: (x)=>x(m[4]), network_settings_id: parseInt(m[5]), username: (x)=>x(m[6]), subject_digest: (x)=>x(m[7]) };
+3386:    return { id: parseInt(m[1]) };
+3397:    return { id: parseInt(m[1]) };
+3521:    return { id: parseInt(m[1]) };
+3532:    return { id: parseInt(m[1]) };
+3656:    return { owner: (x)=>x(m[1]), repo: (x)=>x(m[2]), alert_number: (x)=>x(m[3]), ghsa_id: parseInt(m[4]), secret_name: (x)=>x(m[5]), runner_id: parseInt(m[6]) };
+3667:    return { owner: (x)=>x(m[1]), repo: (x)=>x(m[2]), alert_number: (x)=>x(m[3]), ghsa_id: parseInt(m[4]), secret_name: (x)=>x(m[5]), runner_id: parseInt(m[6]) };
+3791:    return { id: parseInt(m[1]) };
+3802:    return { id: parseInt(m[1]) };
+3926:    return { id: parseInt(m[1]) };
+3937:    return { id: parseInt(m[1]) };
+4061:    return { username: (x)=>x(m[1]), gpg_key_id: parseInt(m[2]), key_id: parseInt(m[3]) };
+4072:    return { username: (x)=>x(m[1]), gpg_key_id: parseInt(m[2]), key_id: parseInt(m[3]) };
+4331:    return { id: parseInt(m[1]) };
+4342:    return { id: parseInt(m[1]) };
+4466:    return { id: parseInt(m[1]) };
+4477:    return { id: parseInt(m[1]) };
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\realworld_llm_provider\stripe\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\realworld_llm_provider\stripe\readable\interfaces.readable.js
+146:    return { account: (x)=>x(m[1]), id: parseInt(m[2]), customer: (x)=>x(m[3]), intent: (x)=>x(m[4]), charge: (x)=>x(m[5]), invoice: (x)=>x(m[6]), webhook_endpoint: (x)=>x(m[7]), reader: (x)=>x(m[8]), subscription_exposed_id: parseInt(m[9]), person: (x)=>x(m[10]), transaction: (x)=>x(m[11]), capability: (x)=>x(m[12]), payment_method: (x)=>x(m[13]), domain: (x)=>x(m[14]), refund: (x)=>x(m[15]), card: (x)=>x(m[16]) };
+157:    return { account: (x)=>x(m[1]), id: parseInt(m[2]), customer: (x)=>x(m[3]), intent: (x)=>x(m[4]), charge: (x)=>x(m[5]), invoice: (x)=>x(m[6]), webhook_endpoint: (x)=>x(m[7]), reader: (x)=>x(m[8]), subscription_exposed_id: parseInt(m[9]), person: (x)=>x(m[10]), transaction: (x)=>x(m[11]), capability: (x)=>x(m[12]), payment_method: (x)=>x(m[13]), domain: (x)=>x(m[14]), refund: (x)=>x(m[15]), card: (x)=>x(m[16]) };
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\realworld_llm_provider\twilio\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\10.nondet_checked\realworld_llm_provider\twilio\readable\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\old.nondet_checked\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\old.nondet_checked\7_suts_llm_provider\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\old.nondet_checked\7_suts_llm_provider\banking\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\old.nondet_checked\7_suts_llm_provider\banking\readable\interfaces.readable.js
+146:    return { id: parseInt(m[1]) };
+157:    return { id: parseInt(m[1]) };
+281:    return { id: parseInt(m[1]) };
+292:    return { id: parseInt(m[1]) };
+416:    return { id: parseInt(m[1]) };
+427:    return { id: parseInt(m[1]) };
+551:    return { id: parseInt(m[1]) };
+562:    return { id: parseInt(m[1]) };
+686:    return { id: parseInt(m[1]) };
+697:    return { id: parseInt(m[1]) };
+821:    return { id: parseInt(m[1]) };
+832:    return { id: parseInt(m[1]) };
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\old.nondet_checked\7_suts_llm_provider\config_control\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\old.nondet_checked\7_suts_llm_provider\config_control\readable\interfaces.readable.js
+146:    return { id: parseInt(m[1]) };
+157:    return { id: parseInt(m[1]) };
+281:    return { id: parseInt(m[1]) };
+292:    return { id: parseInt(m[1]) };
+416:    return { id: parseInt(m[1]) };
+427:    return { id: parseInt(m[1]) };
+551:    return { id: parseInt(m[1]) };
+562:    return { id: parseInt(m[1]) };
+686:    return { id: parseInt(m[1]) };
+697:    return { id: parseInt(m[1]) };
+821:    return { id: parseInt(m[1]) };
+832:    return { id: parseInt(m[1]) };
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\old.nondet_checked\7_suts_llm_provider\ecommerce\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\old.nondet_checked\7_suts_llm_provider\ecommerce\readable\interfaces.readable.js
+146:    return { id: parseInt(m[1]) };
+157:    return { id: parseInt(m[1]) };
+281:    return { id: parseInt(m[1]) };
+292:    return { id: parseInt(m[1]) };
+416:    return { id: parseInt(m[1]) };
+427:    return { id: parseInt(m[1]) };
+551:    return { id: parseInt(m[1]) };
+562:    return { id: parseInt(m[1]) };
+686:    return { id: parseInt(m[1]) };
+697:    return { id: parseInt(m[1]) };
+821:    return { id: parseInt(m[1]) };
+832:    return { id: parseInt(m[1]) };
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\old.nondet_checked\7_suts_llm_provider\factory\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\old.nondet_checked\7_suts_llm_provider\factory\readable\interfaces.readable.js
+146:    return { id: parseInt(m[1]) };
+157:    return { id: parseInt(m[1]) };
+281:    return { id: parseInt(m[1]) };
+292:    return { id: parseInt(m[1]) };
+416:    return { id: parseInt(m[1]) };
+427:    return { id: parseInt(m[1]) };
+551:    return { id: parseInt(m[1]) };
+562:    return { id: parseInt(m[1]) };
+686:    return { id: parseInt(m[1]) };
+697:    return { id: parseInt(m[1]) };
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\old.nondet_checked\7_suts_llm_provider\garage\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\old.nondet_checked\7_suts_llm_provider\garage\readable\interfaces.readable.js
+146:    return { id: parseInt(m[1]) };
+157:    return { id: parseInt(m[1]) };
+281:    return { id: parseInt(m[1]) };
+292:    return { id: parseInt(m[1]) };
+416:    return { id: parseInt(m[1]) };
+427:    return { id: parseInt(m[1]) };
+551:    return { id: parseInt(m[1]) };
+562:    return { id: parseInt(m[1]) };
+686:    return { id: parseInt(m[1]) };
+697:    return { id: parseInt(m[1]) };
+821:    return { id: parseInt(m[1]) };
+832:    return { id: parseInt(m[1]) };
+956:    return { id: parseInt(m[1]) };
+967:    return { id: parseInt(m[1]) };
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\old.nondet_checked\7_suts_llm_provider\library\interfaces.readable.js
+[FILE] C:\work\Yeshayahu\BpTestTell\artifacts\.old\old.nondet_checked\7_suts_llm_provider\library\readable\interfaces.readable.js
+146:    return { id: parseInt(m[1]) };
+157:    return { id: parseInt(m[1]) };
+281:    return { id: parseInt(m[1]) };
+292:    return { id: parseInt(m[1]) };
+416:    return { id: parseInt(m[1]) };
+427:    return { id: parseInt(m[1]) };
+551:    return { id: parseInt(m[1]) };
+562:    return { id: parseInt(m[1]) };

@@ -6,7 +6,7 @@
       "operationId": "getIssueSecurityLevelMembers",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve the members associated with the specified issue security scheme."
+      "ideal": "Retrieve the members associated with a specific issue security scheme identified by issueSecuritySchemeId."
     },
     {
       "path": "/rest/api/3/securitylevel/{id}",
@@ -14,7 +14,7 @@
       "operationId": "getIssueSecurityLevel",
       "summary": "",
       "user": "user456",
-      "ideal": "Fetch details about a specific issue security level using its ID."
+      "ideal": "Fetch the details of a specific security level using its unique identifier."
     }
   ]
 }

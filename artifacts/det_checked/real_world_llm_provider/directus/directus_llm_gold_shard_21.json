@@ -22,7 +22,7 @@
       "operationId": "updateUsers",
       "summary": "",
       "user": "admin",
-      "ideal": "Update multiple users' information based on the provided data."
+      "ideal": "Update details for multiple users."
     },
     {
       "path": "/users",
@@ -38,7 +38,7 @@
       "operationId": "getUser",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve detailed information about a specific user by ID."
+      "ideal": "Retrieve details of a specific user by ID."
     },
     {
       "path": "/users/{id}",
@@ -46,7 +46,7 @@
       "operationId": "updateUser",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the information of a specific user by ID."
+      "ideal": "Update details of a specific user by ID."
     },
     {
       "path": "/users/{id}",
@@ -54,7 +54,7 @@
       "operationId": "deleteUser",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete a specific user from the system by ID."
+      "ideal": "Delete a specific user by ID."
     },
     {
       "path": "/users/invite",
@@ -62,7 +62,7 @@
       "operationId": "invite",
       "summary": "",
       "user": "admin",
-      "ideal": "Send an invitation to a new user to join the platform."
+      "ideal": "Send an invitation to a new user."
     },
     {
       "path": "/users/invite/accept",
@@ -78,7 +78,7 @@
       "operationId": "getMe",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve the current user's profile information."
+      "ideal": "Retrieve details of the currently authenticated user."
     },
     {
       "path": "/users/me",
@@ -86,7 +86,7 @@
       "operationId": "updateMe",
       "summary": "",
       "user": "user123",
-      "ideal": "Update the current user's profile information."
+      "ideal": "Update details of the currently authenticated user."
     },
     {
       "path": "/users/me/track/page",
@@ -94,7 +94,7 @@
       "operationId": "updateLastUsedPageMe",
       "summary": "",
       "user": "user123",
-      "ideal": "Update the last used page for the current user."
+      "ideal": "Update the last used page for the currently authenticated user."
     },
     {
       "path": "/users/me/tfa/enable",
@@ -102,7 +102,7 @@
       "operationId": "meTfaEnable",
       "summary": "",
       "user": "user123",
-      "ideal": "Enable two-factor authentication for the current user."
+      "ideal": "Enable two-factor authentication for the currently authenticated user."
     },
     {
       "path": "/users/me/tfa/disable",
@@ -110,7 +110,7 @@
       "operationId": "meTfaDisable",
       "summary": "",
       "user": "user123",
-      "ideal": "Disable two-factor authentication for the current user."
+      "ideal": "Disable two-factor authentication for the currently authenticated user."
     }
   ]
 }

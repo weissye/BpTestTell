@@ -6,7 +6,7 @@
       "operationId": "meta/root",
       "summary": "",
       "user": "user123",
-      "ideal": "Returns the root URL for the GitHub API."
+      "ideal": "Returns the root URL of the GitHub API."
     },
     {
       "path": "/meta",
@@ -22,7 +22,7 @@
       "operationId": "meta/get-octocat",
       "summary": "",
       "user": "user789",
-      "ideal": "Returns a JSON representation of the Octocat mascot."
+      "ideal": "Fetches the Octocat avatar image."
     },
     {
       "path": "/versions",
@@ -30,7 +30,7 @@
       "operationId": "meta/get-all-versions",
       "summary": "",
       "user": "user101",
-      "ideal": "Lists all the versions of the GitHub API."
+      "ideal": "Lists all available versions of the GitHub API."
     },
     {
       "path": "/zen",
@@ -38,7 +38,7 @@
       "operationId": "meta/get-zen",
       "summary": "",
       "user": "user202",
-      "ideal": "Returns a random quote from the Zen of GitHub."
+      "ideal": "Returns a random piece of wisdom from GitHub."
     }
   ]
 }

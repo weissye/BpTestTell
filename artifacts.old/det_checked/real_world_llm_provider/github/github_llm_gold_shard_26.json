@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/markdown",
+      "method": "POST",
+      "operationId": "markdown/render",
+      "summary": "",
+      "user": "User wants to convert markdown text into HTML format for display on a web page. They provide a simple markdown string like '# Hello World' and expect the API to return the corresponding HTML output.",
+      "ideal": "<h1>Hello World</h1>"
+    },
+    {
+      "path": "/markdown/raw",
+      "method": "POST",
+      "operationId": "markdown/render-raw",
+      "summary": "",
+      "user": "User needs to render markdown from a raw text input without any additional processing. They send a markdown string directly in the request body and expect the API to return the HTML output as is.",
+      "ideal": "<h1>Hello World</h1>"
+    }
+  ]
+}

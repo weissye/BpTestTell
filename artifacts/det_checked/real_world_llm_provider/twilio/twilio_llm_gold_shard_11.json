@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "FetchAuthorizedConnectApp",
       "summary": "",
-      "user": "user_12345",
-      "ideal": "Fetch the details of a specific authorized connect app using its ConnectAppSid."
+      "user": "User requests details of a specific authorized connect app using its ConnectAppSid and their AccountSid to verify access.",
+      "ideal": "Returns the details of the specified authorized connect app, including its name, description, and permissions."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json",
       "method": "GET",
       "operationId": "ListAuthorizedConnectApp",
       "summary": "",
-      "user": "user_67890",
-      "ideal": "Retrieve a list of all authorized connect apps associated with the specified AccountSid."
+      "user": "User wants to retrieve a list of all authorized connect apps associated with their account to manage integrations.",
+      "ideal": "Returns a list of all authorized connect apps for the specified AccountSid, including their names and statuses."
     }
   ]
 }

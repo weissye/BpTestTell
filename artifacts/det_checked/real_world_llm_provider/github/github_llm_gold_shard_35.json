@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "pulls/list",
       "summary": "",
-      "user": "octocat",
+      "user": "user123",
       "ideal": "Retrieve a list of pull requests for the specified repository."
     },
     {
@@ -13,7 +13,7 @@
       "method": "POST",
       "operationId": "pulls/create",
       "summary": "",
-      "user": "octocat",
+      "user": "user456",
       "ideal": "Create a new pull request in the specified repository."
     },
     {
@@ -21,15 +21,15 @@
       "method": "GET",
       "operationId": "pulls/list-review-comments-for-repo",
       "summary": "",
-      "user": "octocat",
-      "ideal": "List all review comments for the specified repository."
+      "user": "user789",
+      "ideal": "List all review comments for the specified repository's pull requests."
     },
     {
       "path": "/repos/octocat/Hello-World/pulls/comments/12345",
       "method": "GET",
       "operationId": "pulls/get-review-comment",
       "summary": "",
-      "user": "octocat",
+      "user": "user101",
       "ideal": "Retrieve a specific review comment by its ID."
     },
     {
@@ -37,31 +37,31 @@
       "method": "PATCH",
       "operationId": "pulls/update-review-comment",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Update a specific review comment by its ID."
+      "user": "user202",
+      "ideal": "Update a specific review comment."
     },
     {
       "path": "/repos/octocat/Hello-World/pulls/comments/12345",
       "method": "DELETE",
       "operationId": "pulls/delete-review-comment",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Delete a specific review comment by its ID."
+      "user": "user303",
+      "ideal": "Delete a specific review comment."
     },
     {
       "path": "/repos/octocat/Hello-World/pulls/1",
       "method": "GET",
       "operationId": "pulls/get",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Retrieve details of a specific pull request."
+      "user": "user404",
+      "ideal": "Get detailed information about a specific pull request."
     },
     {
       "path": "/repos/octocat/Hello-World/pulls/1",
       "method": "PATCH",
       "operationId": "pulls/update",
       "summary": "",
-      "user": "octocat",
+      "user": "user505",
       "ideal": "Update a specific pull request."
     },
     {
@@ -69,7 +69,7 @@
       "method": "GET",
       "operationId": "pulls/list-review-comments",
       "summary": "",
-      "user": "octocat",
+      "user": "user606",
       "ideal": "List all review comments for a specific pull request."
     },
     {
@@ -77,7 +77,7 @@
       "method": "POST",
       "operationId": "pulls/create-review-comment",
       "summary": "",
-      "user": "octocat",
+      "user": "user707",
       "ideal": "Create a new review comment for a specific pull request."
     },
     {
@@ -85,7 +85,7 @@
       "method": "POST",
       "operationId": "pulls/create-reply-for-review-comment",
       "summary": "",
-      "user": "octocat",
+      "user": "user808",
       "ideal": "Create a reply to a specific review comment."
     },
     {
@@ -93,7 +93,7 @@
       "method": "GET",
       "operationId": "pulls/list-commits",
       "summary": "",
-      "user": "octocat",
+      "user": "user909",
       "ideal": "List all commits associated with a specific pull request."
     },
     {
@@ -101,7 +101,7 @@
       "method": "GET",
       "operationId": "pulls/list-files",
       "summary": "",
-      "user": "octocat",
+      "user": "user1010",
       "ideal": "List all files changed in a specific pull request."
     },
     {
@@ -109,7 +109,7 @@
       "method": "GET",
       "operationId": "pulls/check-if-merged",
       "summary": "",
-      "user": "octocat",
+      "user": "user1111",
       "ideal": "Check if a specific pull request has been merged."
     },
     {
@@ -117,7 +117,7 @@
       "method": "PUT",
       "operationId": "pulls/merge",
       "summary": "",
-      "user": "octocat",
+      "user": "user1212",
       "ideal": "Merge a specific pull request."
     },
     {
@@ -125,7 +125,7 @@
       "method": "GET",
       "operationId": "pulls/list-requested-reviewers",
       "summary": "",
-      "user": "octocat",
+      "user": "user1313",
       "ideal": "List all reviewers requested for a specific pull request."
     },
     {
@@ -133,7 +133,7 @@
       "method": "POST",
       "operationId": "pulls/request-reviewers",
       "summary": "",
-      "user": "octocat",
+      "user": "user1414",
       "ideal": "Request reviewers for a specific pull request."
     },
     {
@@ -141,7 +141,7 @@
       "method": "DELETE",
       "operationId": "pulls/remove-requested-reviewers",
       "summary": "",
-      "user": "octocat",
+      "user": "user1515",
       "ideal": "Remove requested reviewers from a specific pull request."
     },
     {
@@ -149,7 +149,7 @@
       "method": "GET",
       "operationId": "pulls/list-reviews",
       "summary": "",
-      "user": "octocat",
+      "user": "user1616",
       "ideal": "List all reviews for a specific pull request."
     },
     {
@@ -157,55 +157,55 @@
       "method": "POST",
       "operationId": "pulls/create-review",
       "summary": "",
-      "user": "octocat",
+      "user": "user1717",
       "ideal": "Create a new review for a specific pull request."
     },
     {
-      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/123",
       "method": "GET",
       "operationId": "pulls/get-review",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Retrieve a specific review by its ID."
+      "user": "user1818",
+      "ideal": "Get details of a specific review."
     },
     {
-      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/123",
       "method": "PUT",
       "operationId": "pulls/update-review",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Update a specific review by its ID."
+      "user": "user1919",
+      "ideal": "Update a specific review."
     },
     {
-      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/123",
       "method": "DELETE",
       "operationId": "pulls/delete-pending-review",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Delete a pending review by its ID."
+      "user": "user2020",
+      "ideal": "Delete a pending review."
     },
     {
-      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345/comments",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/123/comments",
       "method": "GET",
       "operationId": "pulls/list-comments-for-review",
       "summary": "",
-      "user": "octocat",
+      "user": "user2121",
       "ideal": "List all comments for a specific review."
     },
     {
-      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345/dismissals",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/123/dismissals",
       "method": "PUT",
       "operationId": "pulls/dismiss-review",
       "summary": "",
-      "user": "octocat",
+      "user": "user2222",
       "ideal": "Dismiss a specific review."
     },
     {
-      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345/events",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/123/events",
       "method": "POST",
       "operationId": "pulls/submit-review",
       "summary": "",
-      "user": "octocat",
+      "user": "user2323",
       "ideal": "Submit a specific review."
     },
     {
@@ -213,8 +213,8 @@
       "method": "PUT",
       "operationId": "pulls/update-branch",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Update the branch of a specific pull request."
+      "user": "user2424",
+      "ideal": "Update the branch for a specific pull request."
     }
   ]
 }

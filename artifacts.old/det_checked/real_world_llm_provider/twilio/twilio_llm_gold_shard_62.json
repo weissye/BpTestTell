@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json",
+      "method": "POST",
+      "operationId": "CreateSiprec",
+      "summary": "",
+      "user": "User wants to create a new SIP recording for a specific call using their Twilio account. They provide the Account SID and Call SID to identify the call and specify the necessary parameters for the SIP recording.",
+      "ideal": "The API should return a success response with the details of the created SIP recording, including the SID of the new recording and any relevant metadata."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateSiprec",
+      "summary": "",
+      "user": "User needs to update an existing SIP recording for a call. They have the Account SID, Call SID, and the SID of the SIP recording they wish to update. They provide the new parameters that need to be changed.",
+      "ideal": "The API should return a success response confirming that the SIP recording has been updated, along with the updated details of the recording."
+    }
+  ]
+}

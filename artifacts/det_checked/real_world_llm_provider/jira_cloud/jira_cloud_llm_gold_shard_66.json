@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "getProjectIssueSecurityScheme",
       "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve the issue security level scheme for project ABC."
+      "user": "Project Manager seeking to understand the issue security levels applied to project ABC.",
+      "ideal": "Returns the issue security level scheme associated with the specified project."
     },
     {
       "path": "/rest/api/3/project/XYZ/permissionscheme",
       "method": "GET",
       "operationId": "getAssignedPermissionScheme",
       "summary": "",
-      "user": "User456",
-      "ideal": "Get the permission scheme assigned to project XYZ."
+      "user": "Team Lead wanting to review the permission scheme assigned to project XYZ to ensure proper access controls.",
+      "ideal": "Provides the permission scheme currently assigned to the specified project."
     },
     {
-      "path": "/rest/api/3/project/DEF/permissionscheme",
+      "path": "/rest/api/3/project/XYZ/permissionscheme",
       "method": "PUT",
       "operationId": "assignPermissionScheme",
       "summary": "",
-      "user": "User789",
-      "ideal": "Assign a new permission scheme to project DEF."
+      "user": "Administrator updating the permission scheme for project XYZ to align with new organizational policies.",
+      "ideal": "Successfully assigns a new permission scheme to the specified project."
     },
     {
-      "path": "/rest/api/3/project/GHI/securitylevel",
+      "path": "/rest/api/3/project/ABC/securitylevel",
       "method": "GET",
       "operationId": "getSecurityLevelsForProject",
       "summary": "",
-      "user": "User101",
-      "ideal": "Fetch the security levels configured for project GHI."
+      "user": "Security Officer needing to retrieve the security levels defined for project ABC to assess compliance.",
+      "ideal": "Returns a list of security levels defined for the specified project."
     }
   ]
 }

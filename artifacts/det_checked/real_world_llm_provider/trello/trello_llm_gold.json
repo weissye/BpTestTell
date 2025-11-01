@@ -1,7 +1,7 @@
 {
   "gold": [
     {
-      "path": "/v1/actions/12345",
+      "path": "/actions/12345",
       "method": "GET",
       "operationId": "getActionsByIdAction",
       "summary": "",
@@ -9,76 +9,76 @@
       "ideal": "Retrieve the action details for the action with ID 12345."
     },
     {
-      "path": "/v1/actions/12345/board",
-      "method": "GET",
-      "operationId": "getActionsBoardByIdAction",
-      "summary": "",
-      "user": "User456",
-      "ideal": "Get the board information associated with the action ID 12345."
-    },
-    {
-      "path": "/v1/actions/12345/card",
-      "method": "GET",
-      "operationId": "getActionsCardByIdAction",
-      "summary": "",
-      "user": "User789",
-      "ideal": "Fetch the card details related to action ID 12345."
-    },
-    {
-      "path": "/v1/actions/12345/member",
-      "method": "GET",
-      "operationId": "getActionsMemberByIdAction",
-      "summary": "",
-      "user": "User101",
-      "ideal": "Retrieve the member information for the action with ID 12345."
-    },
-    {
-      "path": "/v1/actions/12345/memberCreator",
-      "method": "GET",
-      "operationId": "getActionsMemberCreatorByIdAction",
-      "summary": "",
-      "user": "User202",
-      "ideal": "Get the creator's member details for action ID 12345."
-    },
-    {
-      "path": "/v1/actions/12345/organization",
-      "method": "GET",
-      "operationId": "getActionsOrganizationByIdAction",
-      "summary": "",
-      "user": "User303",
-      "ideal": "Fetch the organization details linked to action ID 12345."
-    },
-    {
-      "path": "/v1/actions/12345/text",
-      "method": "PUT",
-      "operationId": "updateActionsTextByIdAction",
-      "summary": "",
-      "user": "User404",
-      "ideal": "Update the text content of the action with ID 12345."
-    },
-    {
-      "path": "/v1/actions/12345",
+      "path": "/actions/12345",
       "method": "DELETE",
       "operationId": "deleteActionsByIdAction",
       "summary": "",
-      "user": "User505",
-      "ideal": "Delete the action with ID 12345 from the system."
+      "user": "User456",
+      "ideal": "Delete the action with ID 12345 from the board."
     },
     {
-      "path": "/v1/actions/12345/list",
+      "path": "/actions/12345",
+      "method": "PUT",
+      "operationId": "updateActionsByIdAction",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Update the action with ID 12345 with new details."
+    },
+    {
+      "path": "/actions/12345/board",
       "method": "GET",
-      "operationId": "getActionsListByIdAction",
+      "operationId": "getActionsBoardByIdAction",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Get the board information associated with action ID 12345."
+    },
+    {
+      "path": "/actions/12345/card",
+      "method": "GET",
+      "operationId": "getActionsCardByIdAction",
+      "summary": "",
+      "user": "User202",
+      "ideal": "Retrieve the card information linked to action ID 12345."
+    },
+    {
+      "path": "/actions/12345/member",
+      "method": "GET",
+      "operationId": "getActionsMemberByIdAction",
+      "summary": "",
+      "user": "User303",
+      "ideal": "Get the member information associated with action ID 12345."
+    },
+    {
+      "path": "/actions/12345/memberCreator",
+      "method": "GET",
+      "operationId": "getActionsMemberCreatorByIdAction",
+      "summary": "",
+      "user": "User404",
+      "ideal": "Retrieve the creator's member information for action ID 12345."
+    },
+    {
+      "path": "/actions/12345/organization",
+      "method": "GET",
+      "operationId": "getActionsOrganizationByIdAction",
+      "summary": "",
+      "user": "User505",
+      "ideal": "Get the organization details related to action ID 12345."
+    },
+    {
+      "path": "/actions/12345/text",
+      "method": "PUT",
+      "operationId": "updateActionsTextByIdAction",
       "summary": "",
       "user": "User606",
-      "ideal": "Retrieve the list information for action ID 12345."
+      "ideal": "Update the text content of action ID 12345."
     },
     {
-      "path": "/v1/actions/12345/display",
+      "path": "/actions/12345/display",
       "method": "GET",
       "operationId": "getActionsDisplayByIdAction",
       "summary": "",
       "user": "User707",
-      "ideal": "Get the display information for action ID 12345."
+      "ideal": "Retrieve the display information for action ID 12345."
     },
     {
       "path": "/batch",
@@ -86,102 +86,102 @@
       "operationId": "getBatch",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve a batch of data from Trello, including cards, lists, and boards for the specified user."
+      "ideal": "Retrieve a batch of data from Trello, including boards, lists, and cards for the specified user."
     },
     {
-      "path": "/v1/boards",
+      "path": "/boards",
       "method": "POST",
       "operationId": "addBoards",
       "summary": "",
-      "user": "user123",
-      "ideal": "Create a new board with the title 'Project Plan' and description 'Planning for the upcoming project.'"
+      "user": "User123",
+      "ideal": "Create a new board with the title 'Project Plan' and a description."
     },
     {
-      "path": "/v1/boards/{idBoard}",
+      "path": "/boards/{idBoard}",
       "method": "GET",
       "operationId": "getBoardsByIdBoard",
       "summary": "",
-      "user": "user456",
-      "ideal": "Retrieve the board details for the board with ID 'abc123'."
+      "user": "User456",
+      "ideal": "Retrieve details of the board with ID 'abc123'."
     },
     {
-      "path": "/v1/boards/{idBoard}",
+      "path": "/boards/{idBoard}",
       "method": "PUT",
       "operationId": "updateBoardsByIdBoard",
       "summary": "",
-      "user": "user789",
+      "user": "User789",
       "ideal": "Update the board with ID 'xyz789' to change its name to 'Updated Project Plan'."
     },
     {
-      "path": "/v1/boards/{idBoard}/actions",
+      "path": "/boards/{idBoard}/actions",
       "method": "GET",
       "operationId": "getBoardsActionsByIdBoard",
       "summary": "",
-      "user": "user101",
-      "ideal": "Get all actions performed on the board with ID 'abc123'."
+      "user": "User321",
+      "ideal": "Fetch all actions taken on the board with ID 'def456'."
     },
     {
-      "path": "/v1/boards/{idBoard}/cards",
+      "path": "/boards/{idBoard}/cards",
       "method": "GET",
       "operationId": "getBoardsCardsByIdBoard",
       "summary": "",
-      "user": "user202",
-      "ideal": "Fetch all cards associated with the board ID 'def456'."
+      "user": "User654",
+      "ideal": "Get all cards from the board with ID 'ghi789'."
     },
     {
-      "path": "/v1/boards/{idBoard}/checklists",
+      "path": "/boards/{idBoard}/checklists",
       "method": "POST",
       "operationId": "addBoardsChecklistsByIdBoard",
       "summary": "",
-      "user": "user303",
-      "ideal": "Add a new checklist titled 'To Do' to the board with ID 'ghi789'."
+      "user": "User987",
+      "ideal": "Add a new checklist titled 'To Do' to the board with ID 'jkl012'."
     },
     {
-      "path": "/v1/boards/{idBoard}/members",
+      "path": "/boards/{idBoard}/members",
       "method": "PUT",
       "operationId": "updateBoardsMembersByIdBoard",
       "summary": "",
-      "user": "user404",
-      "ideal": "Add a new member with ID 'member123' to the board with ID 'jkl012'."
+      "user": "User234",
+      "ideal": "Update members of the board with ID 'mno345' to include 'UserABC'."
     },
     {
-      "path": "/v1/boards/{idBoard}/labels",
+      "path": "/boards/{idBoard}/labels",
       "method": "GET",
       "operationId": "getBoardsLabelsByIdBoard",
       "summary": "",
-      "user": "user505",
-      "ideal": "Retrieve all labels associated with the board ID 'mno345'."
+      "user": "User567",
+      "ideal": "Retrieve all labels associated with the board ID 'pqr678'."
     },
     {
-      "path": "/v1/boards/{idBoard}/lists",
+      "path": "/boards/{idBoard}/lists",
       "method": "POST",
       "operationId": "addBoardsListsByIdBoard",
       "summary": "",
-      "user": "user606",
-      "ideal": "Create a new list named 'In Progress' on the board with ID 'pqr678'."
+      "user": "User890",
+      "ideal": "Create a new list named 'In Progress' on the board with ID 'stu901'."
     },
     {
-      "path": "/v1/boards/{idBoard}/prefs/background",
+      "path": "/boards/{idBoard}/prefs/background",
       "method": "PUT",
       "operationId": "updateBoardsPrefsBackgroundByIdBoard",
       "summary": "",
-      "user": "user707",
-      "ideal": "Change the background of the board with ID 'stu901' to a blue color."
+      "user": "User135",
+      "ideal": "Change the background of the board with ID 'vwx234' to a blue color."
     },
     {
       "path": "/v1/cards/12345",
       "method": "GET",
       "operationId": "getCardsByIdCard",
       "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve the details of the card with ID 12345."
+      "user": "user123",
+      "ideal": "Retrieve the card with ID 12345 successfully."
     },
     {
       "path": "/v1/cards/12345",
       "method": "PUT",
       "operationId": "updateCardsByIdCard",
       "summary": "",
-      "user": "User123",
+      "user": "user123",
       "ideal": "Update the card with ID 12345 to change its name and description."
     },
     {
@@ -189,7 +189,7 @@
       "method": "GET",
       "operationId": "getCardsActionsByIdCard",
       "summary": "",
-      "user": "User123",
+      "user": "user123",
       "ideal": "Fetch all actions related to the card with ID 12345."
     },
     {
@@ -197,7 +197,7 @@
       "method": "POST",
       "operationId": "addCardsChecklistsByIdCard",
       "summary": "",
-      "user": "User123",
+      "user": "user123",
       "ideal": "Add a new checklist to the card with ID 12345."
     },
     {
@@ -205,7 +205,7 @@
       "method": "POST",
       "operationId": "addCardsAttachmentsByIdCard",
       "summary": "",
-      "user": "User123",
+      "user": "user123",
       "ideal": "Attach a file to the card with ID 12345."
     },
     {
@@ -213,168 +213,152 @@
       "method": "GET",
       "operationId": "getCardsMembersByIdCard",
       "summary": "",
-      "user": "User123",
-      "ideal": "List all members associated with the card ID 12345."
+      "user": "user123",
+      "ideal": "Retrieve all members associated with the card with ID 12345."
     },
     {
       "path": "/v1/cards/12345/labels",
       "method": "DELETE",
       "operationId": "deleteCardsLabelsByIdCardByColor",
       "summary": "",
-      "user": "User123",
-      "ideal": "Remove a label of a specific color from the card with ID 12345."
+      "user": "user123",
+      "ideal": "Remove the label of a specific color from the card with ID 12345."
     },
     {
       "path": "/v1/cards/12345/checklist/67890/checkItem/11111",
       "method": "PUT",
-      "operationId": "updateCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItem",
+      "operationId": "updateCardsChecklistCheckItemNameByIdCardByIdChecklistCurrentByIdCheckItem",
       "summary": "",
-      "user": "User123",
-      "ideal": "Update the state of a checklist item in the checklist with ID 67890 on card 12345."
+      "user": "user123",
+      "ideal": "Update the name of a checklist item in the card with ID 12345."
     },
     {
       "path": "/v1/cards/12345/stickers",
       "method": "POST",
       "operationId": "addCardsStickersByIdCard",
       "summary": "",
-      "user": "User123",
+      "user": "user123",
       "ideal": "Add a sticker to the card with ID 12345."
     },
     {
       "path": "/v1/cards/12345/membersVoted",
-      "method": "DELETE",
-      "operationId": "deleteCardsMembersVotedByIdCardByIdMember",
+      "method": "POST",
+      "operationId": "addCardsMembersVotedByIdCard",
       "summary": "",
-      "user": "User123",
-      "ideal": "Remove a member's vote from the card with ID 12345."
+      "user": "user123",
+      "ideal": "Add a member to the list of voters for the card with ID 12345."
     },
     {
       "path": "/checklists",
       "method": "POST",
       "operationId": "addChecklists",
       "summary": "",
-      "user": "User123",
-      "ideal": "Create a new checklist with the title 'To Do' for the project board."
+      "user": "User wants to create a new checklist for their project.",
+      "ideal": "A new checklist is successfully created with a unique ID."
     },
     {
-      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i",
+      "path": "/checklists/{idChecklist}",
       "method": "DELETE",
       "operationId": "deleteChecklistsByIdChecklist",
       "summary": "",
-      "user": "User456",
-      "ideal": "Remove the checklist with ID 5f1a2b3c4d5e6f7g8h9i from the board."
+      "user": "User wants to remove an existing checklist that is no longer needed.",
+      "ideal": "The checklist is deleted and a confirmation message is returned."
     },
     {
-      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i",
+      "path": "/checklists/{idChecklist}",
       "method": "GET",
       "operationId": "getChecklistsByIdChecklist",
       "summary": "",
-      "user": "User789",
-      "ideal": "Retrieve details of the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
+      "user": "User wants to retrieve details of a specific checklist.",
+      "ideal": "The checklist details are returned, including its name and items."
     },
     {
-      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i",
+      "path": "/checklists/{idChecklist}",
       "method": "PUT",
       "operationId": "updateChecklistsByIdChecklist",
       "summary": "",
-      "user": "User101",
-      "ideal": "Update the checklist with ID 5f1a2b3c4d5e6f7g8h9i to change its title to 'In Progress'."
+      "user": "User wants to update the name of an existing checklist.",
+      "ideal": "The checklist is updated successfully with the new name."
     },
     {
-      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/board",
+      "path": "/checklists/{idChecklist}/board",
       "method": "GET",
       "operationId": "getChecklistsBoardByIdChecklist",
       "summary": "",
-      "user": "User202",
-      "ideal": "Get the board information associated with the checklist ID 5f1a2b3c4d5e6f7g8h9i."
+      "user": "User wants to find out which board a checklist belongs to.",
+      "ideal": "The board details associated with the checklist are returned."
     },
     {
-      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/board/name",
-      "method": "GET",
-      "operationId": "getChecklistsBoardByIdChecklistByField",
-      "summary": "",
-      "user": "User303",
-      "ideal": "Retrieve the name of the board associated with checklist ID 5f1a2b3c4d5e6f7g8h9i."
-    },
-    {
-      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/cards",
+      "path": "/checklists/{idChecklist}/cards",
       "method": "GET",
       "operationId": "getChecklistsCardsByIdChecklist",
       "summary": "",
-      "user": "User404",
-      "ideal": "Fetch all cards linked to the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
+      "user": "User wants to see all cards associated with a specific checklist.",
+      "ideal": "A list of cards linked to the checklist is returned."
     },
     {
-      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/cards/active",
-      "method": "GET",
-      "operationId": "getChecklistsCardsByIdChecklistByFilter",
-      "summary": "",
-      "user": "User505",
-      "ideal": "Get all active cards from the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
-    },
-    {
-      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems",
+      "path": "/checklists/{idChecklist}/checkItems",
       "method": "GET",
       "operationId": "getChecklistsCheckItemsByIdChecklist",
       "summary": "",
-      "user": "User606",
-      "ideal": "Retrieve all check items from the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
+      "user": "User wants to view all check items in a checklist.",
+      "ideal": "All check items of the checklist are returned with their statuses."
     },
     {
-      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems",
+      "path": "/checklists/{idChecklist}/checkItems",
       "method": "POST",
       "operationId": "addChecklistsCheckItemsByIdChecklist",
       "summary": "",
-      "user": "User707",
-      "ideal": "Add a new check item 'Review Code' to the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
+      "user": "User wants to add a new check item to a checklist.",
+      "ideal": "The new check item is added successfully and returned."
     },
     {
-      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems/1a2b3c4d",
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
       "method": "DELETE",
       "operationId": "deleteChecklistsCheckItemsByIdChecklistByIdCheckItem",
       "summary": "",
-      "user": "User808",
-      "ideal": "Delete the check item with ID 1a2b3c4d from the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
+      "user": "User wants to delete a specific check item from a checklist.",
+      "ideal": "The check item is deleted and a confirmation message is returned."
     },
     {
-      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/checkItems/1a2b3c4d",
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
       "method": "GET",
       "operationId": "getChecklistsCheckItemsByIdChecklistByIdCheckItem",
       "summary": "",
-      "user": "User909",
-      "ideal": "Get details of the check item with ID 1a2b3c4d from the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
+      "user": "User wants to retrieve details of a specific check item.",
+      "ideal": "The details of the check item are returned, including its status."
     },
     {
-      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/idCard",
+      "path": "/checklists/{idChecklist}/idCard",
       "method": "PUT",
       "operationId": "updateChecklistsIdCardByIdChecklist",
       "summary": "",
-      "user": "User1010",
-      "ideal": "Update the card ID associated with checklist ID 5f1a2b3c4d5e6f7g8h9i to a new card ID."
+      "user": "User wants to associate a checklist with a specific card.",
+      "ideal": "The checklist is successfully linked to the specified card."
     },
     {
-      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/name",
+      "path": "/checklists/{idChecklist}/name",
       "method": "PUT",
       "operationId": "updateChecklistsNameByIdChecklist",
       "summary": "",
-      "user": "User1111",
-      "ideal": "Change the name of the checklist with ID 5f1a2b3c4d5e6f7g8h9i to 'Completed Tasks'."
+      "user": "User wants to change the name of a checklist.",
+      "ideal": "The checklist name is updated successfully."
     },
     {
-      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/pos",
+      "path": "/checklists/{idChecklist}/pos",
       "method": "PUT",
       "operationId": "updateChecklistsPosByIdChecklist",
       "summary": "",
-      "user": "User1212",
-      "ideal": "Update the position of the checklist with ID 5f1a2b3c4d5e6f7g8h9i to be the first in the list."
+      "user": "User wants to change the position of a checklist.",
+      "ideal": "The position of the checklist is updated successfully."
     },
     {
-      "path": "/checklists/5f1a2b3c4d5e6f7g8h9i/description",
+      "path": "/checklists/{idChecklist}/{field}",
       "method": "GET",
       "operationId": "getChecklistsByIdChecklistByField",
       "summary": "",
-      "user": "User1313",
-      "ideal": "Retrieve the description field of the checklist with ID 5f1a2b3c4d5e6f7g8h9i."
+      "user": "User wants to retrieve a specific field of a checklist.",
+      "ideal": "The requested field value of the checklist is returned."
     },
     {
       "path": "/labels",
@@ -413,143 +397,143 @@
       "method": "POST",
       "operationId": "addLists",
       "summary": "",
-      "user": "User wants to create a new list in Trello for organizing tasks related to a project.",
-      "ideal": "Successfully adds a new list with the specified name and returns the list details."
+      "user": "User wants to create a new list in Trello for organizing tasks.",
+      "ideal": "A new list is successfully created with a unique ID and default properties."
     },
     {
       "path": "/lists/{idList}",
       "method": "GET",
       "operationId": "getListsByIdList",
       "summary": "",
-      "user": "User needs to retrieve details of a specific list by its ID to check its contents.",
-      "ideal": "Returns the details of the list including its name, cards, and other attributes."
+      "user": "User retrieves a specific list by its ID to check its details.",
+      "ideal": "The list details are returned, including its name, ID, and cards."
     },
     {
       "path": "/lists/{idList}",
       "method": "PUT",
       "operationId": "updateListsByIdList",
       "summary": "",
-      "user": "User wants to update the name of an existing list to better reflect its purpose.",
-      "ideal": "Successfully updates the list name and returns the updated list details."
+      "user": "User wants to update the name of an existing list.",
+      "ideal": "The list is updated successfully with the new name."
     },
     {
       "path": "/lists/{idList}/actions",
       "method": "GET",
       "operationId": "getListsActionsByIdList",
       "summary": "",
-      "user": "User is looking to see the activity history of a specific list to track changes.",
-      "ideal": "Returns a list of actions performed on the specified list, including timestamps and action types."
+      "user": "User wants to see the action history of a specific list.",
+      "ideal": "A list of actions performed on the list is returned."
     },
     {
       "path": "/lists/{idList}/archiveAllCards",
       "method": "POST",
       "operationId": "addListsArchiveAllCardsByIdList",
       "summary": "",
-      "user": "User wants to archive all cards in a list to declutter their workspace.",
-      "ideal": "Successfully archives all cards in the list and confirms the action."
+      "user": "User wants to archive all cards in a list to declutter.",
+      "ideal": "All cards in the list are archived successfully."
     },
     {
       "path": "/lists/{idList}/board",
       "method": "GET",
       "operationId": "getListsBoardByIdList",
       "summary": "",
-      "user": "User needs to find out which board a specific list belongs to for better organization.",
-      "ideal": "Returns the board details associated with the specified list."
+      "user": "User retrieves the board associated with a specific list.",
+      "ideal": "The board details are returned, including its ID and name."
     },
     {
       "path": "/lists/{idList}/board/{field}",
       "method": "GET",
       "operationId": "getListsBoardByIdListByField",
       "summary": "",
-      "user": "User wants to retrieve a specific field of the board associated with a list.",
-      "ideal": "Returns the requested field value of the board related to the specified list."
+      "user": "User wants to get a specific field of the board associated with a list.",
+      "ideal": "The requested field value is returned successfully."
     },
     {
       "path": "/lists/{idList}/cards",
       "method": "GET",
       "operationId": "getListsCardsByIdList",
       "summary": "",
-      "user": "User wants to see all cards in a specific list to review tasks.",
-      "ideal": "Returns a list of all cards contained in the specified list."
+      "user": "User wants to see all cards in a specific list.",
+      "ideal": "A list of all cards in the specified list is returned."
     },
     {
       "path": "/lists/{idList}/cards",
       "method": "POST",
       "operationId": "addListsCardsByIdList",
       "summary": "",
-      "user": "User wants to add a new card to a specific list to track a new task.",
-      "ideal": "Successfully adds a new card to the list and returns the card details."
+      "user": "User wants to add a new card to a specific list.",
+      "ideal": "The new card is added to the list successfully with a unique ID."
     },
     {
       "path": "/lists/{idList}/cards/{filter}",
       "method": "GET",
       "operationId": "getListsCardsByIdListByFilter",
       "summary": "",
-      "user": "User wants to filter cards in a list by a specific criterion to find relevant tasks.",
-      "ideal": "Returns a list of cards that match the specified filter criteria."
+      "user": "User wants to filter cards in a list based on a specific criterion.",
+      "ideal": "Filtered cards based on the specified criterion are returned."
     },
     {
       "path": "/lists/{idList}/closed",
       "method": "PUT",
       "operationId": "updateListsClosedByIdList",
       "summary": "",
-      "user": "User wants to close a list to indicate that it is no longer active.",
-      "ideal": "Successfully closes the list and returns the updated status."
+      "user": "User wants to close a specific list.",
+      "ideal": "The list is marked as closed successfully."
     },
     {
       "path": "/lists/{idList}/idBoard",
       "method": "PUT",
       "operationId": "updateListsIdBoardByIdList",
       "summary": "",
-      "user": "User wants to move a list to a different board for better organization.",
-      "ideal": "Successfully updates the board association of the list and returns the updated list details."
+      "user": "User wants to change the board associated with a list.",
+      "ideal": "The list is successfully moved to the new board."
     },
     {
       "path": "/lists/{idList}/moveAllCards",
       "method": "POST",
       "operationId": "addListsMoveAllCardsByIdList",
       "summary": "",
-      "user": "User wants to move all cards from one list to another to reorganize tasks.",
-      "ideal": "Successfully moves all cards to the specified list and confirms the action."
+      "user": "User wants to move all cards from one list to another.",
+      "ideal": "All cards are successfully moved to the target list."
     },
     {
       "path": "/lists/{idList}/name",
       "method": "PUT",
       "operationId": "updateListsNameByIdList",
       "summary": "",
-      "user": "User wants to rename a list to better reflect its current purpose.",
-      "ideal": "Successfully updates the list name and returns the updated list details."
+      "user": "User wants to rename a specific list.",
+      "ideal": "The list is renamed successfully."
     },
     {
       "path": "/lists/{idList}/pos",
       "method": "PUT",
       "operationId": "updateListsPosByIdList",
       "summary": "",
-      "user": "User wants to change the position of a list to reorder it among other lists.",
-      "ideal": "Successfully updates the position of the list and returns the updated list details."
+      "user": "User wants to change the position of a list.",
+      "ideal": "The position of the list is updated successfully."
     },
     {
       "path": "/lists/{idList}/subscribed",
       "method": "PUT",
       "operationId": "updateListsSubscribedByIdList",
       "summary": "",
-      "user": "User wants to subscribe to a list to receive notifications about changes.",
-      "ideal": "Successfully updates the subscription status of the list and returns the updated details."
+      "user": "User wants to subscribe or unsubscribe from a list's updates.",
+      "ideal": "The subscription status is updated successfully."
     },
     {
       "path": "/lists/{idList}/{field}",
       "method": "GET",
       "operationId": "getListsByIdListByField",
       "summary": "",
-      "user": "User wants to retrieve a specific field of a list to check its details.",
-      "ideal": "Returns the requested field value of the specified list."
+      "user": "User wants to retrieve a specific field of a list.",
+      "ideal": "The requested field value of the list is returned."
     },
     {
       "path": "/members/12345",
       "method": "GET",
       "operationId": "getMembersByIdMember",
       "summary": "",
-      "user": "User requests member details for member ID 12345.",
+      "user": "User requests details of member with ID 12345.",
       "ideal": "Returns member information including name, email, and avatar."
     },
     {
@@ -557,72 +541,72 @@
       "method": "PUT",
       "operationId": "updateMembersByIdMember",
       "summary": "",
-      "user": "User updates member details for member ID 12345 with new email and name.",
-      "ideal": "Successfully updates member information and returns updated details."
+      "user": "User updates the full name of member 12345 to 'John Doe'.",
+      "ideal": "Successfully updates member's information and returns updated details."
     },
     {
       "path": "/members/12345/actions",
       "method": "GET",
       "operationId": "getMembersActionsByIdMember",
       "summary": "",
-      "user": "User retrieves actions performed by member ID 12345.",
-      "ideal": "Returns a list of actions with timestamps and descriptions."
+      "user": "User wants to see all actions performed by member 12345.",
+      "ideal": "Returns a list of actions including timestamps and descriptions."
     },
     {
       "path": "/members/12345/avatar",
       "method": "POST",
       "operationId": "addMembersAvatarByIdMember",
       "summary": "",
-      "user": "User uploads a new avatar for member ID 12345.",
-      "ideal": "Successfully uploads the avatar and returns the new avatar URL."
+      "user": "User uploads a new avatar for member 12345.",
+      "ideal": "Successfully uploads the avatar and returns the updated avatar URL."
     },
     {
       "path": "/members/12345/bio",
       "method": "PUT",
       "operationId": "updateMembersBioByIdMember",
       "summary": "",
-      "user": "User updates the bio for member ID 12345.",
-      "ideal": "Successfully updates the bio and returns the updated bio text."
+      "user": "User updates the bio of member 12345 to 'Loves coding and coffee'.",
+      "ideal": "Successfully updates the bio and returns the updated bio."
     },
     {
-      "path": "/members/12345/boardBackgrounds",
+      "path": "/members/12345/boards",
       "method": "GET",
-      "operationId": "getMembersBoardBackgroundsByIdMember",
+      "operationId": "getMembersBoardsByIdMember",
       "summary": "",
-      "user": "User retrieves board backgrounds for member ID 12345.",
-      "ideal": "Returns a list of board backgrounds associated with the member."
+      "user": "User retrieves all boards associated with member 12345.",
+      "ideal": "Returns a list of boards with their names and IDs."
     },
     {
-      "path": "/members/12345/boardBackgrounds",
+      "path": "/members/12345/boardsInvited",
+      "method": "GET",
+      "operationId": "getMembersBoardsInvitedByIdMember",
+      "summary": "",
+      "user": "User checks boards where member 12345 has been invited.",
+      "ideal": "Returns a list of boards with invitation status."
+    },
+    {
+      "path": "/members/12345/customEmoji",
+      "method": "GET",
+      "operationId": "getMembersCustomEmojiByIdMember",
+      "summary": "",
+      "user": "User wants to see custom emojis created by member 12345.",
+      "ideal": "Returns a list of custom emojis with their IDs and names."
+    },
+    {
+      "path": "/members/12345/savedSearches",
       "method": "POST",
-      "operationId": "addMembersBoardBackgroundsByIdMember",
+      "operationId": "addMembersSavedSearchesByIdMember",
       "summary": "",
-      "user": "User adds a new board background for member ID 12345.",
-      "ideal": "Successfully adds the background and returns the new background details."
-    },
-    {
-      "path": "/members/12345/boardStars",
-      "method": "GET",
-      "operationId": "getMembersBoardStarsByIdMember",
-      "summary": "",
-      "user": "User retrieves board stars for member ID 12345.",
-      "ideal": "Returns a list of starred boards for the member."
-    },
-    {
-      "path": "/members/12345/cards",
-      "method": "GET",
-      "operationId": "getMembersCardsByIdMember",
-      "summary": "",
-      "user": "User retrieves cards associated with member ID 12345.",
-      "ideal": "Returns a list of cards with details such as title and status."
+      "user": "User saves a new search query for member 12345.",
+      "ideal": "Successfully saves the search and returns the saved search details."
     },
     {
       "path": "/members/12345/notifications",
       "method": "GET",
       "operationId": "getMembersNotificationsByIdMember",
       "summary": "",
-      "user": "User checks notifications for member ID 12345.",
-      "ideal": "Returns a list of notifications with types and timestamps."
+      "user": "User retrieves notifications for member 12345.",
+      "ideal": "Returns a list of notifications with timestamps and messages."
     },
     {
       "path": "/notifications/all/read",
@@ -646,7 +630,7 @@
       "operationId": "updateNotificationsByIdNotification",
       "summary": "",
       "user": "user789",
-      "ideal": "Update the notification with ID 789 with new details."
+      "ideal": "Update notification ID 789 with new details."
     },
     {
       "path": "/notifications/123/board",
@@ -686,126 +670,126 @@
       "operationId": "getNotificationsDisplayByIdNotification",
       "summary": "",
       "user": "user234",
-      "ideal": "Retrieve display information for notification ID 234."
+      "ideal": "Display the notification details for ID 234."
     },
     {
-      "path": "/notifications/567/entities",
+      "path": "/notifications/345/entities",
       "method": "GET",
       "operationId": "getNotificationsEntitiesByIdNotification",
       "summary": "",
-      "user": "user567",
-      "ideal": "Get the entities related to notification ID 567."
+      "user": "user345",
+      "ideal": "List entities related to notification ID 345."
     },
     {
-      "path": "/notifications/890/list",
+      "path": "/notifications/456/list",
       "method": "GET",
       "operationId": "getNotificationsListByIdNotification",
       "summary": "",
-      "user": "user890",
-      "ideal": "Fetch the list associated with notification ID 890."
+      "user": "user456",
+      "ideal": "Retrieve the list associated with notification ID 456."
     },
     {
-      "path": "/notifications/135/list/name",
+      "path": "/notifications/567/list/name",
       "method": "GET",
       "operationId": "getNotificationsListByIdNotificationByField",
       "summary": "",
-      "user": "user135",
-      "ideal": "Retrieve the name of the list for notification ID 135."
+      "user": "user567",
+      "ideal": "Get the name of the list for notification ID 567."
     },
     {
-      "path": "/notifications/246/member",
+      "path": "/notifications/678/member",
       "method": "GET",
       "operationId": "getNotificationsMemberByIdNotification",
       "summary": "",
-      "user": "user246",
-      "ideal": "Get the member associated with notification ID 246."
+      "user": "user678",
+      "ideal": "Fetch the member associated with notification ID 678."
     },
     {
-      "path": "/notifications/357/member/email",
+      "path": "/notifications/789/member/email",
       "method": "GET",
       "operationId": "getNotificationsMemberByIdNotificationByField",
       "summary": "",
-      "user": "user357",
-      "ideal": "Retrieve the email of the member for notification ID 357."
+      "user": "user789",
+      "ideal": "Get the email of the member for notification ID 789."
     },
     {
-      "path": "/notifications/468/memberCreator",
+      "path": "/notifications/890/memberCreator",
       "method": "GET",
       "operationId": "getNotificationsMemberCreatorByIdNotification",
       "summary": "",
-      "user": "user468",
-      "ideal": "Get the creator of the notification with ID 468."
+      "user": "user890",
+      "ideal": "Retrieve the creator of notification ID 890."
     },
     {
-      "path": "/notifications/579/memberCreator/username",
+      "path": "/notifications/901/memberCreator/name",
       "method": "GET",
       "operationId": "getNotificationsMemberCreatorByIdNotificationByField",
       "summary": "",
-      "user": "user579",
-      "ideal": "Retrieve the username of the creator for notification ID 579."
+      "user": "user901",
+      "ideal": "Get the name of the member creator for notification ID 901."
     },
     {
-      "path": "/notifications/680/organization",
+      "path": "/notifications/123/organization",
       "method": "GET",
       "operationId": "getNotificationsOrganizationByIdNotification",
       "summary": "",
-      "user": "user680",
-      "ideal": "Get the organization linked to notification ID 680."
+      "user": "user123",
+      "ideal": "Fetch the organization linked to notification ID 123."
     },
     {
-      "path": "/notifications/791/organization/name",
+      "path": "/notifications/234/organization/id",
       "method": "GET",
       "operationId": "getNotificationsOrganizationByIdNotificationByField",
       "summary": "",
-      "user": "user791",
-      "ideal": "Retrieve the name of the organization for notification ID 791."
+      "user": "user234",
+      "ideal": "Get the organization ID for notification ID 234."
     },
     {
-      "path": "/notifications/902/unread",
+      "path": "/notifications/345/unread",
       "method": "PUT",
       "operationId": "updateNotificationsUnreadByIdNotification",
       "summary": "",
-      "user": "user902",
-      "ideal": "Mark notification ID 902 as unread."
+      "user": "user345",
+      "ideal": "Mark notification ID 345 as unread."
     },
     {
-      "path": "/notifications/123/type",
+      "path": "/notifications/456/createdAt",
       "method": "GET",
       "operationId": "getNotificationsByIdNotificationByField",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve the type of notification for ID 123."
+      "user": "user456",
+      "ideal": "Retrieve the creation date of notification ID 456."
     },
     {
       "path": "/organizations/12345",
       "method": "GET",
       "operationId": "getOrganizationsByIdOrg",
       "summary": "",
-      "user": "User requested details for organization with ID 12345 to check its current status and members.",
-      "ideal": "Returns the organization details including name, description, and members."
-    },
-    {
-      "path": "/organizations/12345/boards",
-      "method": "GET",
-      "operationId": "getOrganizationsBoardsByIdOrg",
-      "summary": "",
-      "user": "User wants to retrieve all boards associated with organization ID 12345 for project management.",
-      "ideal": "Returns a list of boards belonging to the specified organization."
+      "user": "User requests details of the organization with ID 12345 to check its current status and members.",
+      "ideal": "Returns the organization details including name, description, and member count."
     },
     {
       "path": "/organizations/12345/members",
       "method": "GET",
       "operationId": "getOrganizationsMembersByIdOrg",
       "summary": "",
-      "user": "User is checking the members of organization ID 12345 to see who has access.",
-      "ideal": "Returns a list of members in the specified organization."
+      "user": "User wants to see all members of the organization with ID 12345 for collaboration purposes.",
+      "ideal": "Returns a list of members associated with the organization."
+    },
+    {
+      "path": "/organizations/12345/boards",
+      "method": "GET",
+      "operationId": "getOrganizationsBoardsByIdOrg",
+      "summary": "",
+      "user": "User is looking to view all boards associated with organization ID 12345 to manage projects.",
+      "ideal": "Returns a list of boards linked to the specified organization."
     },
     {
       "path": "/organizations/12345/members/67890",
       "method": "DELETE",
       "operationId": "deleteOrganizationsMembersByIdOrgByIdMember",
       "summary": "",
-      "user": "User wants to remove member with ID 67890 from organization ID 12345 due to inactivity.",
+      "user": "User needs to remove member with ID 67890 from organization 12345 due to inactivity.",
       "ideal": "Successfully removes the specified member from the organization."
     },
     {
@@ -813,48 +797,48 @@
       "method": "PUT",
       "operationId": "updateOrganizationsNameByIdOrg",
       "summary": "",
-      "user": "User is updating the name of organization ID 12345 to reflect recent changes.",
-      "ideal": "Updates the organization's name to the new specified value."
+      "user": "User wants to update the name of organization 12345 to reflect a recent rebranding.",
+      "ideal": "Updates the organization's name to the new specified name."
     },
     {
       "path": "/organizations/12345/prefs/associatedDomain",
       "method": "DELETE",
       "operationId": "deleteOrganizationsPrefsAssociatedDomainByIdOrg",
       "summary": "",
-      "user": "User wants to remove the associated domain for organization ID 12345 as it is no longer valid.",
+      "user": "User is removing the associated domain for organization 12345 as it is no longer in use.",
       "ideal": "Successfully deletes the associated domain preference for the organization."
-    },
-    {
-      "path": "/organizations/12345/membersInvited",
-      "method": "GET",
-      "operationId": "getOrganizationsMembersInvitedByIdOrg",
-      "summary": "",
-      "user": "User is checking the list of invited members to organization ID 12345 to follow up.",
-      "ideal": "Returns a list of members who have been invited to join the organization."
     },
     {
       "path": "/organizations/12345/logo",
       "method": "POST",
       "operationId": "addOrganizationsLogoByIdOrg",
       "summary": "",
-      "user": "User wants to upload a new logo for organization ID 12345 to enhance branding.",
+      "user": "User wants to upload a new logo for organization 12345 to enhance branding.",
       "ideal": "Successfully uploads and sets the new logo for the organization."
     },
     {
-      "path": "/organizations/12345/desc",
-      "method": "PUT",
-      "operationId": "updateOrganizationsDescByIdOrg",
+      "path": "/organizations/12345/membersInvited",
+      "method": "GET",
+      "operationId": "getOrganizationsMembersInvitedByIdOrg",
       "summary": "",
-      "user": "User is updating the description of organization ID 12345 to better reflect its mission.",
-      "ideal": "Updates the organization's description with the new provided text."
+      "user": "User checks the list of invited members to organization 12345 to follow up on pending invitations.",
+      "ideal": "Returns a list of members who have been invited but have not yet joined."
     },
     {
-      "path": "/organizations/12345/members/67890/cards",
-      "method": "GET",
-      "operationId": "getOrganizationsMembersCardsByIdOrgByIdMember",
+      "path": "/organizations/12345/prefs/permissionLevel",
+      "method": "PUT",
+      "operationId": "updateOrganizationsPrefsPermissionLevelByIdOrg",
       "summary": "",
-      "user": "User wants to view the cards assigned to member ID 67890 in organization ID 12345.",
-      "ideal": "Returns a list of cards assigned to the specified member within the organization."
+      "user": "User needs to update the permission level for organization 12345 to allow more access to members.",
+      "ideal": "Successfully updates the permission level settings for the organization."
+    },
+    {
+      "path": "/organizations/12345/boards/active",
+      "method": "GET",
+      "operationId": "getOrganizationsBoardsByIdOrgByFilter",
+      "summary": "",
+      "user": "User wants to filter and view only active boards for organization 12345 to focus on current projects.",
+      "ideal": "Returns a list of active boards associated with the organization."
     },
     {
       "path": "/search",
@@ -877,112 +861,112 @@
       "method": "POST",
       "operationId": "addSessions",
       "summary": "",
-      "user": "{\"username\":\"john_doe\",\"email\":\"john@example.com\",\"password\":\"securepassword123\"}",
-      "ideal": "{\"success\":true,\"sessionId\":\"abc123\"}"
+      "user": "User123 is creating a new session for a team meeting to discuss project updates and deadlines.",
+      "ideal": "Session created successfully with ID: 456"
     },
     {
       "path": "/sessions/socket",
       "method": "GET",
       "operationId": "getSessionsSocket",
       "summary": "",
-      "user": "{\"sessionId\":\"abc123\"}",
-      "ideal": "{\"status\":\"connected\",\"data\":{\"sessionId\":\"abc123\",\"user\":\"john_doe\"}}"
+      "user": "User456 wants to retrieve real-time updates for active sessions to stay informed about ongoing discussions.",
+      "ideal": "Real-time updates received for active sessions."
     },
     {
-      "path": "/sessions/abc123",
+      "path": "/sessions/456",
       "method": "PUT",
       "operationId": "updateSessionsByIdSession",
       "summary": "",
-      "user": "{\"sessionId\":\"abc123\",\"newData\":{\"title\":\"Updated Session Title\",\"description\":\"This is an updated description.\"}}",
-      "ideal": "{\"success\":true,\"sessionId\":\"abc123\",\"message\":\"Session updated successfully.\"}"
+      "user": "User123 is updating the session with ID 456 to include new agenda items and participants.",
+      "ideal": "Session with ID 456 updated successfully."
     },
     {
-      "path": "/sessions/abc123/status",
+      "path": "/sessions/456/status",
       "method": "PUT",
       "operationId": "updateSessionsStatusByIdSession",
       "summary": "",
-      "user": "{\"sessionId\":\"abc123\",\"status\":\"completed\"}",
-      "ideal": "{\"success\":true,\"sessionId\":\"abc123\",\"status\":\"completed\",\"message\":\"Session status updated successfully.\"}"
+      "user": "User789 is changing the status of session ID 456 to 'completed' after the meeting has ended.",
+      "ideal": "Status of session ID 456 updated to 'completed'."
     },
     {
-      "path": "/v1/tokens/abc123",
+      "path": "/tokens/abc123",
       "method": "DELETE",
       "operationId": "deleteTokensByToken",
       "summary": "",
-      "user": "User requested to delete their token for security reasons.",
-      "ideal": "Token abc123 has been successfully deleted."
+      "user": "User requested to delete their API token for security reasons.",
+      "ideal": "Successfully deleted the token."
     },
     {
-      "path": "/v1/tokens/abc123",
+      "path": "/tokens/abc123",
       "method": "GET",
       "operationId": "getTokensByToken",
       "summary": "",
-      "user": "User wants to retrieve details of their token to check its status.",
-      "ideal": "Token details retrieved successfully: {\"token\":\"abc123\",\"status\":\"active\"}."
+      "user": "User wants to retrieve details about their API token.",
+      "ideal": "Returned token details including permissions and expiration."
     },
     {
-      "path": "/v1/tokens/abc123/member",
+      "path": "/tokens/abc123/member",
       "method": "GET",
       "operationId": "getTokensMemberByToken",
       "summary": "",
-      "user": "User is looking for the member associated with their token.",
-      "ideal": "Member details retrieved: {\"id\":\"user456\",\"name\":\"John Doe\"}."
+      "user": "User is checking which member is associated with their API token.",
+      "ideal": "Returned member information linked to the token."
     },
     {
-      "path": "/v1/tokens/abc123/member/email",
+      "path": "/tokens/abc123/member/email",
       "method": "GET",
       "operationId": "getTokensMemberByTokenByField",
       "summary": "",
-      "user": "User wants to get the email of the member linked to their token.",
-      "ideal": "Member email retrieved: {\"email\":\"john.doe@example.com\"}."
+      "user": "User wants to get the email of the member associated with their token.",
+      "ideal": "Returned the email address of the associated member."
     },
     {
-      "path": "/v1/tokens/abc123/webhooks",
+      "path": "/tokens/abc123/webhooks",
       "method": "GET",
       "operationId": "getTokensWebhooksByToken",
       "summary": "",
-      "user": "User wants to see all webhooks associated with their token.",
-      "ideal": "Webhooks retrieved: [{\"id\":\"webhook1\",\"url\":\"https://example.com/hook1\"}, {\"id\":\"webhook2\",\"url\":\"https://example.com/hook2\"}]."
+      "user": "User is retrieving all webhooks associated with their API token.",
+      "ideal": "Returned a list of webhooks linked to the token."
     },
     {
-      "path": "/v1/tokens/abc123/webhooks",
+      "path": "/tokens/abc123/webhooks",
       "method": "POST",
       "operationId": "addTokensWebhooksByToken",
       "summary": "",
-      "user": "User is adding a new webhook to their token for notifications.",
-      "ideal": "Webhook added successfully: {\"id\":\"webhook3\",\"url\":\"https://example.com/hook3\"}."
+      "user": "User wants to add a new webhook for their API token.",
+      "ideal": "Successfully created a new webhook and returned its details."
     },
     {
-      "path": "/v1/tokens/abc123/webhooks",
+      "path": "/tokens/abc123/webhooks",
       "method": "PUT",
       "operationId": "updateTokensWebhooksByToken",
       "summary": "",
-      "user": "User wants to update an existing webhook URL.",
-      "ideal": "Webhook updated successfully: {\"id\":\"webhook1\",\"url\":\"https://example.com/updated_hook1\"}."
+      "user": "User is updating the configuration of an existing webhook.",
+      "ideal": "Successfully updated the webhook configuration."
     },
     {
-      "path": "/v1/tokens/abc123/webhooks/webhook1",
+      "path": "/tokens/abc123/webhooks/456",
       "method": "DELETE",
       "operationId": "deleteTokensWebhooksByTokenByIdWebhook",
       "summary": "",
-      "user": "User requested to delete a specific webhook they no longer need.",
-      "ideal": "Webhook webhook1 has been successfully deleted."
+      "user": "User requested to delete a specific webhook by its ID.",
+      "ideal": "Successfully deleted the specified webhook."
     },
     {
-      "path": "/v1/tokens/abc123/webhooks/webhook1",
+      "path": "/tokens/abc123/webhooks/456",
       "method": "GET",
       "operationId": "getTokensWebhooksByTokenByIdWebhook",
       "summary": "",
-      "user": "User wants to retrieve details of a specific webhook.",
-      "ideal": "Webhook details retrieved: {\"id\":\"webhook1\",\"url\":\"https://example.com/hook1\"}."
+      "user": "User wants to retrieve details about a specific webhook.",
+      "ideal": "Returned details of the specified webhook."
     },
     {
-      "path": "/v1/tokens/abc123/permissions",
+      "path": "/tokens/abc123/permissions",
       "method": "GET",
       "operationId": "getTokensByTokenByField",
       "summary": "",
-      "user": "User is checking the permissions associated with their token.",
-      "ideal": "Token permissions retrieved: {\"permissions\":[\"read\",\"write\"]}."
+      "user": "User is checking the permissions associated with their API token.",
+      "ideal": "Returned the permissions granted to the token."
     },
     {
       "path": "/types/{id}",
@@ -997,16 +981,16 @@
       "method": "POST",
       "operationId": "addWebhooks",
       "summary": "",
-      "user": "User wants to add a new webhook to receive updates from Trello whenever a card is moved.",
-      "ideal": "Webhook added successfully with the specified callback URL."
+      "user": "User wants to set up a webhook to receive updates on their Trello board activities.",
+      "ideal": "Webhook successfully created and returns the webhook ID."
     },
     {
       "path": "/webhooks/",
       "method": "PUT",
       "operationId": "updateWebhooks",
       "summary": "",
-      "user": "User needs to update the settings of existing webhooks to change the callback URL.",
-      "ideal": "Webhooks updated successfully with the new callback URL."
+      "user": "User needs to update the settings of their existing webhooks to change the callback URL.",
+      "ideal": "Webhook settings updated successfully."
     },
     {
       "path": "/webhooks/{idWebhook}",
@@ -1021,15 +1005,15 @@
       "method": "GET",
       "operationId": "getWebhooksByIdWebhook",
       "summary": "",
-      "user": "User wants to retrieve details of a specific webhook to check its status.",
-      "ideal": "Webhook details retrieved successfully."
+      "user": "User wants to retrieve details of a specific webhook to check its configuration.",
+      "ideal": "Returns the details of the specified webhook."
     },
     {
       "path": "/webhooks/{idWebhook}",
       "method": "PUT",
       "operationId": "updateWebhooksByIdWebhook",
       "summary": "",
-      "user": "User wants to update the description of a specific webhook for better clarity.",
+      "user": "User wants to update the description of a specific webhook.",
       "ideal": "Webhook description updated successfully."
     },
     {
@@ -1045,15 +1029,15 @@
       "method": "PUT",
       "operationId": "updateWebhooksCallbackURLByIdWebhook",
       "summary": "",
-      "user": "User needs to change the callback URL of an existing webhook to a new endpoint.",
-      "ideal": "Webhook callback URL updated successfully."
+      "user": "User needs to change the callback URL for a specific webhook.",
+      "ideal": "Callback URL updated successfully."
     },
     {
       "path": "/webhooks/{idWebhook}/description",
       "method": "PUT",
       "operationId": "updateWebhooksDescriptionByIdWebhook",
       "summary": "",
-      "user": "User wants to provide a more detailed description for a webhook to help team members understand its purpose.",
+      "user": "User wants to provide a more detailed description for a webhook.",
       "ideal": "Webhook description updated successfully."
     },
     {
@@ -1061,16 +1045,16 @@
       "method": "PUT",
       "operationId": "updateWebhooksIdModelByIdWebhook",
       "summary": "",
-      "user": "User wants to associate a different model ID with an existing webhook.",
-      "ideal": "Webhook model ID updated successfully."
+      "user": "User wants to change the model ID associated with a specific webhook.",
+      "ideal": "Model ID updated successfully."
     },
     {
       "path": "/webhooks/{idWebhook}/{field}",
       "method": "GET",
       "operationId": "getWebhooksByIdWebhookByField",
       "summary": "",
-      "user": "User wants to retrieve a specific field from the webhook details for analysis.",
-      "ideal": "Specified field retrieved successfully."
+      "user": "User wants to retrieve a specific field of a webhook for quick reference.",
+      "ideal": "Returns the requested field of the specified webhook."
     }
   ]
 }

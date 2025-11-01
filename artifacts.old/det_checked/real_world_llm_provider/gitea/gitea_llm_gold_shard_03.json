@@ -1,0 +1,124 @@
+{
+  "gold": [
+    {
+      "path": "/repos/issues/search",
+      "method": "GET",
+      "operationId": "issueSearchIssues",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Search for issues in the repository using specific keywords."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues",
+      "method": "GET",
+      "operationId": "issueListIssues",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Retrieve a list of all issues in the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues",
+      "method": "POST",
+      "operationId": "issueCreateIssue",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Create a new issue in the specified repository with a title and body."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/comments",
+      "method": "GET",
+      "operationId": "issueGetRepoComments",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Fetch all comments for issues in the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+      "method": "GET",
+      "operationId": "issueGetComment",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Retrieve a specific comment by its ID."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+      "method": "DELETE",
+      "operationId": "issueDeleteComment",
+      "summary": "",
+      "user": "user303",
+      "ideal": "Delete a specific comment from an issue."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+      "method": "PATCH",
+      "operationId": "issueEditComment",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Edit an existing comment on an issue."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{index}/comments",
+      "method": "POST",
+      "operationId": "issueCreateComment",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Add a new comment to a specific issue."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{index}/labels",
+      "method": "POST",
+      "operationId": "issueAddLabel",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Add a label to a specific issue."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{index}/labels/{id}",
+      "method": "DELETE",
+      "operationId": "issueRemoveLabel",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Remove a specific label from an issue."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{index}/reactions",
+      "method": "POST",
+      "operationId": "issuePostIssueReaction",
+      "summary": "",
+      "user": "user808",
+      "ideal": "React to a specific issue with a reaction emoji."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/start",
+      "method": "POST",
+      "operationId": "issueStartStopWatch",
+      "summary": "",
+      "user": "user909",
+      "ideal": "Start tracking time for a specific issue."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/stop",
+      "method": "POST",
+      "operationId": "issueStopStopWatch",
+      "summary": "",
+      "user": "user010",
+      "ideal": "Stop tracking time for a specific issue."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/milestones",
+      "method": "POST",
+      "operationId": "issueCreateMilestone",
+      "summary": "",
+      "user": "user111",
+      "ideal": "Create a new milestone for the repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/milestones/{id}",
+      "method": "DELETE",
+      "operationId": "issueDeleteMilestone",
+      "summary": "",
+      "user": "user222",
+      "ideal": "Delete a specific milestone from the repository."
+    }
+  ]
+}

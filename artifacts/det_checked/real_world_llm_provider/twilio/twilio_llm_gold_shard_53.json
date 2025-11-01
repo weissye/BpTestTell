@@ -1,20 +1,20 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Payments.json",
       "method": "POST",
       "operationId": "CreatePayments",
       "summary": "",
-      "user": "User wants to create a payment for a specific call made through Twilio. They provide the Account SID, Call SID, and payment details such as amount and currency.",
-      "ideal": "Create a payment for the call with the specified details."
+      "user": "User wants to create a payment for a specific call using Twilio's API. They have the Account SID and Call SID ready and need to specify the payment amount and currency.",
+      "ideal": "{\"amount\": \"10.00\", \"currency\": \"USD\"}"
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Payments/PMXXXXXXXXXXXXXXXXX.json",
       "method": "POST",
       "operationId": "UpdatePayments",
       "summary": "",
-      "user": "User needs to update an existing payment for a call. They provide the Account SID, Call SID, Payment SID, and the new payment details.",
-      "ideal": "Update the payment information for the specified payment SID."
+      "user": "User needs to update an existing payment for a call. They have the Account SID, Call SID, and Payment SID, and want to change the amount of the payment.",
+      "ideal": "{\"amount\": \"15.00\"}"
     }
   ]
 }

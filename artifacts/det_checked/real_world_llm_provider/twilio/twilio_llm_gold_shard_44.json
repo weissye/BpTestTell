@@ -1,12 +1,12 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Mobile.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json",
       "method": "GET",
       "operationId": "ListAvailablePhoneNumberMobile",
       "summary": "",
-      "user": "A small business owner looking to expand their services in the US and needs to find available mobile phone numbers for their new marketing campaign.",
-      "ideal": "Returns a list of available mobile phone numbers in the specified country (US) for the given account."
+      "user": "A user wants to find available mobile phone numbers in the US for their Twilio account. They have their Account SID and want to specify 'US' as the country code to retrieve a list of mobile numbers that they can purchase.",
+      "ideal": "The API should return a JSON response containing a list of available mobile phone numbers in the US, along with relevant details such as the phone number, friendly name, and capabilities."
     }
   ]
 }

@@ -5,48 +5,48 @@
       "method": "GET",
       "operationId": "getAutoComplete",
       "summary": "",
-      "user": "User wants to retrieve autocomplete suggestions for JQL queries to enhance their search experience in Jira.",
-      "ideal": "The API should return a list of possible JQL keywords and fields based on the user's input."
+      "user": "A project manager looking to quickly find issues related to a specific project using JQL.",
+      "ideal": "Returns a list of possible JQL keywords and field names based on the input provided."
     },
     {
       "path": "/rest/api/3/jql/autocompletedata",
       "method": "POST",
       "operationId": "getAutoCompletePost",
       "summary": "",
-      "user": "User submits a JQL query string to get autocomplete suggestions for fields and values.",
-      "ideal": "The API should return relevant autocomplete suggestions based on the provided JQL query."
+      "user": "A developer trying to get autocomplete suggestions for JQL queries while coding.",
+      "ideal": "Provides a JSON response with relevant JQL suggestions based on the user's input."
     },
     {
       "path": "/rest/api/3/jql/autocompletedata/suggestions",
       "method": "GET",
       "operationId": "getFieldAutoCompleteForQueryString",
       "summary": "",
-      "user": "User is looking for specific field suggestions to complete their JQL query.",
-      "ideal": "The API should return a list of field suggestions that match the user's query string."
+      "user": "A business analyst who needs to refine a JQL query to filter issues more effectively.",
+      "ideal": "Returns a list of suggestions for fields and values that can be used in the JQL query."
     },
     {
       "path": "/rest/api/3/jql/parse",
       "method": "POST",
       "operationId": "parseJqlQueries",
       "summary": "",
-      "user": "User wants to parse a complex JQL query to understand its structure and components.",
-      "ideal": "The API should return a structured representation of the parsed JQL query."
+      "user": "A QA engineer who wants to validate and parse complex JQL queries before executing them.",
+      "ideal": "Returns a structured representation of the parsed JQL query, indicating any errors or warnings."
     },
     {
       "path": "/rest/api/3/jql/pdcleaner",
       "method": "POST",
       "operationId": "migrateQueries",
       "summary": "",
-      "user": "User needs to migrate legacy JQL queries to the new format supported by Jira.",
-      "ideal": "The API should return the migrated queries in the new format without losing any information."
+      "user": "An administrator tasked with migrating legacy JQL queries to a new format.",
+      "ideal": "Processes the provided JQL queries and returns a list of migrated queries with any necessary adjustments."
     },
     {
       "path": "/rest/api/3/jql/sanitize",
       "method": "POST",
       "operationId": "sanitiseJqlQueries",
       "summary": "",
-      "user": "User wants to sanitize their JQL queries to ensure they are safe and free from errors.",
-      "ideal": "The API should return sanitized JQL queries that are safe to execute."
+      "user": "A security officer ensuring that JQL queries are safe and do not expose sensitive data.",
+      "ideal": "Returns sanitized JQL queries that are safe for execution, removing any potentially harmful elements."
     }
   ]
 }

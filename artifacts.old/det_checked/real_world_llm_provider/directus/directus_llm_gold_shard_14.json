@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/presets",
+      "method": "GET",
+      "operationId": "getPresets",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all presets available in the system."
+    },
+    {
+      "path": "/presets",
+      "method": "POST",
+      "operationId": "createPreset",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Create a new preset with the specified parameters."
+    },
+    {
+      "path": "/presets",
+      "method": "PATCH",
+      "operationId": "updatePresets",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update multiple presets with new values."
+    },
+    {
+      "path": "/presets",
+      "method": "DELETE",
+      "operationId": "deletePresets",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete all presets from the system."
+    },
+    {
+      "path": "/presets/{id}",
+      "method": "GET",
+      "operationId": "getPreset",
+      "summary": "",
+      "user": "viewer",
+      "ideal": "Retrieve a specific preset by its ID."
+    },
+    {
+      "path": "/presets/{id}",
+      "method": "PATCH",
+      "operationId": "updatePreset",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update a specific preset identified by its ID."
+    },
+    {
+      "path": "/presets/{id}",
+      "method": "DELETE",
+      "operationId": "deletePreset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific preset identified by its ID."
+    }
+  ]
+}

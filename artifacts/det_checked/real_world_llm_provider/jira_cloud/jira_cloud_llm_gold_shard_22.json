@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "getCustomFieldOption",
       "summary": "",
-      "user": "User requests details of a specific custom field option using its ID.",
+      "user": "User requests details of a specific custom field option by its ID.",
       "ideal": "Returns the details of the custom field option with ID 12345."
     },
     {
@@ -14,7 +14,7 @@
       "operationId": "getOptionsForContext",
       "summary": "",
       "user": "User wants to retrieve all options for a specific field context.",
-      "ideal": "Returns a list of options available for the field with ID 10000 in context 20000."
+      "ideal": "Returns a list of options available for the field with ID 10000 in the context with ID 20000."
     },
     {
       "path": "/rest/api/3/field/10000/context/20000/option",
@@ -22,7 +22,7 @@
       "operationId": "createCustomFieldOption",
       "summary": "",
       "user": "User is creating a new custom field option for a specific field context.",
-      "ideal": "Creates a new custom field option in the context of field 10000 and context 20000."
+      "ideal": "Creates a new custom field option in the context with ID 20000 for the field with ID 10000."
     },
     {
       "path": "/rest/api/3/field/10000/context/20000/option",
@@ -30,15 +30,15 @@
       "operationId": "updateCustomFieldOption",
       "summary": "",
       "user": "User wants to update an existing custom field option in a specific context.",
-      "ideal": "Updates the custom field option in the context of field 10000 and context 20000."
+      "ideal": "Updates the custom field option in the context with ID 20000 for the field with ID 10000."
     },
     {
       "path": "/rest/api/3/field/10000/context/20000/option/move",
       "method": "PUT",
       "operationId": "reorderCustomFieldOptions",
       "summary": "",
-      "user": "User is reordering custom field options for a specific field context.",
-      "ideal": "Reorders the custom field options for field 10000 in context 20000."
+      "user": "User is reordering the options for a custom field in a specific context.",
+      "ideal": "Reorders the custom field options in the context with ID 20000 for the field with ID 10000."
     },
     {
       "path": "/rest/api/3/field/10000/context/20000/option/12345",
@@ -46,15 +46,15 @@
       "operationId": "deleteCustomFieldOption",
       "summary": "",
       "user": "User wants to delete a specific custom field option.",
-      "ideal": "Deletes the custom field option with ID 12345 from field 10000 in context 20000."
+      "ideal": "Deletes the custom field option with ID 12345 from the context with ID 20000 for the field with ID 10000."
     },
     {
       "path": "/rest/api/3/field/10000/context/20000/option/12345/issue",
       "method": "DELETE",
       "operationId": "replaceCustomFieldOption",
       "summary": "",
-      "user": "User is replacing a custom field option for issues in a specific context.",
-      "ideal": "Replaces the custom field option with ID 12345 for issues in field 10000 and context 20000."
+      "user": "User is replacing a custom field option associated with issues.",
+      "ideal": "Replaces the custom field option with ID 12345 in the context with ID 20000 for the field with ID 10000."
     }
   ]
 }

@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "ListSigningKey",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve a list of all signing keys associated with the specified Account SID."
+      "user": "A developer looking to retrieve a list of all signing keys associated with their Twilio account to manage access and security.",
+      "ideal": "Returns a JSON array of signing keys with details such as Sid, friendly name, and creation date."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
       "method": "GET",
       "operationId": "FetchSigningKey",
       "summary": "",
-      "user": "user456",
-      "ideal": "Fetch details of a specific signing key using its SID."
+      "user": "A security engineer needing to fetch details of a specific signing key to verify its configuration and usage.",
+      "ideal": "Returns a JSON object containing the details of the specified signing key, including its Sid, friendly name, and associated account."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateSigningKey",
       "summary": "",
-      "user": "user789",
-      "ideal": "Update the properties of a specific signing key identified by its SID."
+      "user": "An administrator wanting to update the friendly name of a signing key for better identification in the dashboard.",
+      "ideal": "Returns a JSON object with the updated signing key details, confirming the changes made."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
       "method": "DELETE",
       "operationId": "DeleteSigningKey",
       "summary": "",
-      "user": "user101",
-      "ideal": "Delete a specific signing key using its SID from the account."
+      "user": "A compliance officer needing to remove an unused signing key to ensure that only necessary keys are active for security reasons.",
+      "ideal": "Returns a success message confirming the deletion of the signing key."
     }
   ]
 }

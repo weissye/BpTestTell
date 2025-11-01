@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/avatar/system",
+      "method": "GET",
+      "operationId": "getAllSystemAvatars",
+      "summary": "",
+      "user": "As a user, I want to retrieve all available system avatars so that I can choose one for my profile.",
+      "ideal": "The response should include a list of all system avatars with their respective IDs and URLs."
+    },
+    {
+      "path": "/rest/api/3/universal_avatar/type/user/owner/12345",
+      "method": "GET",
+      "operationId": "getAvatars",
+      "summary": "",
+      "user": "As a user, I want to fetch my avatars by providing my user ID so that I can see which avatars I have.",
+      "ideal": "The response should return a list of avatars associated with the user ID, including their types and URLs."
+    },
+    {
+      "path": "/rest/api/3/universal_avatar/type/user/owner/12345",
+      "method": "POST",
+      "operationId": "storeAvatar",
+      "summary": "",
+      "user": "As a user, I want to upload a new avatar for my profile so that I can personalize my account.",
+      "ideal": "The response should confirm that the avatar has been successfully uploaded and provide the new avatar's ID."
+    },
+    {
+      "path": "/rest/api/3/universal_avatar/type/user/owner/12345/avatar/67890",
+      "method": "DELETE",
+      "operationId": "deleteAvatar",
+      "summary": "",
+      "user": "As a user, I want to delete an avatar from my profile so that I can remove unwanted images.",
+      "ideal": "The response should confirm that the avatar has been successfully deleted."
+    },
+    {
+      "path": "/rest/api/3/universal_avatar/view/type/user",
+      "method": "GET",
+      "operationId": "getAvatarImageByType",
+      "summary": "",
+      "user": "As a user, I want to view all available user avatars so that I can select one for my profile.",
+      "ideal": "The response should return a list of user avatars with their images and IDs."
+    },
+    {
+      "path": "/rest/api/3/universal_avatar/view/type/user/avatar/67890",
+      "method": "GET",
+      "operationId": "getAvatarImageByID",
+      "summary": "",
+      "user": "As a user, I want to view a specific avatar by its ID so that I can see how it looks before using it.",
+      "ideal": "The response should return the image of the avatar along with its details."
+    },
+    {
+      "path": "/rest/api/3/universal_avatar/view/type/user/owner/12345",
+      "method": "GET",
+      "operationId": "getAvatarImageByOwner",
+      "summary": "",
+      "user": "As a user, I want to see the avatar I have set for my profile so that I can confirm it's correct.",
+      "ideal": "The response should return the current avatar image for the specified user ID."
+    }
+  ]
+}

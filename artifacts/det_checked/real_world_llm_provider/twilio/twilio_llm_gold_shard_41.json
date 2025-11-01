@@ -5,16 +5,16 @@
       "method": "DELETE",
       "operationId": "DeleteMedia",
       "summary": "",
-      "user": "user_12345",
-      "ideal": "Successfully deleted the media associated with the specified MessageSid."
+      "user": "User wants to delete a specific media attachment from a message sent through Twilio. They have the Account SID, Message SID, and Media SID ready to make the request.",
+      "ideal": "Successfully deletes the specified media attachment and returns a 204 No Content response."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
       "method": "GET",
       "operationId": "FetchMedia",
       "summary": "",
-      "user": "user_67890",
-      "ideal": "Retrieved the media details associated with the specified MessageSid."
+      "user": "User needs to retrieve details about a specific media attachment associated with a message. They have the necessary Account SID, Message SID, and Media SID to fetch the data.",
+      "ideal": "Returns the media details including content type, size, and URL for the specified media attachment."
     }
   ]
 }

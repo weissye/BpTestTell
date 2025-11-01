@@ -1,84 +1,84 @@
 {
   "gold": [
     {
-      "path": "/{realm}/roles-by-id/{role-id}",
+      "path": "/myrealm/roles-by-id/12345",
       "method": "GET",
       "operationId": "getRolesById",
       "summary": "",
-      "user": "Admin user querying the role details for 'admin' role in the 'myrealm' realm.",
-      "ideal": "Retrieve the details of the role with ID '12345' in the 'myrealm' realm."
+      "user": "admin_user",
+      "ideal": "Retrieve the role details for the role with ID 12345 in the realm 'myrealm'."
     },
     {
-      "path": "/{realm}/roles-by-id/{role-id}",
+      "path": "/myrealm/roles-by-id/12345",
       "method": "PUT",
       "operationId": "putRolesById",
       "summary": "",
-      "user": "Admin user updating the 'admin' role to add a new description in the 'myrealm' realm.",
-      "ideal": "Update the role with ID '12345' to change its description to 'Administrator role with full access'."
+      "user": "admin_user",
+      "ideal": "Update the role with ID 12345 in the realm 'myrealm' with new attributes."
     },
     {
-      "path": "/{realm}/roles-by-id/{role-id}",
+      "path": "/myrealm/roles-by-id/12345",
       "method": "DELETE",
       "operationId": "deleteRolesById",
       "summary": "",
-      "user": "Admin user removing the 'admin' role from the 'myrealm' realm.",
-      "ideal": "Delete the role with ID '12345' from the 'myrealm' realm."
+      "user": "admin_user",
+      "ideal": "Delete the role with ID 12345 from the realm 'myrealm'."
     },
     {
-      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "path": "/myrealm/roles-by-id/12345/composites",
       "method": "GET",
       "operationId": "getRolesByIdComposites",
       "summary": "",
-      "user": "Admin user checking which roles are composite roles for 'admin' role in 'myrealm'.",
-      "ideal": "Retrieve composite roles for the role with ID '12345' in the 'myrealm' realm."
+      "user": "admin_user",
+      "ideal": "Fetch the composite roles associated with the role ID 12345 in the realm 'myrealm'."
     },
     {
-      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "path": "/myrealm/roles-by-id/12345/composites",
       "method": "POST",
       "operationId": "postRolesByIdComposites",
       "summary": "",
-      "user": "Admin user adding a composite role to the 'admin' role in 'myrealm'.",
-      "ideal": "Add the composite role with ID '67890' to the role with ID '12345' in the 'myrealm' realm."
+      "user": "admin_user",
+      "ideal": "Add composite roles to the role with ID 12345 in the realm 'myrealm'."
     },
     {
-      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "path": "/myrealm/roles-by-id/12345/composites",
       "method": "DELETE",
       "operationId": "deleteRolesByIdComposites",
       "summary": "",
-      "user": "Admin user removing a composite role from the 'admin' role in 'myrealm'.",
-      "ideal": "Remove the composite role with ID '67890' from the role with ID '12345' in the 'myrealm' realm."
+      "user": "admin_user",
+      "ideal": "Remove composite roles from the role with ID 12345 in the realm 'myrealm'."
     },
     {
-      "path": "/{realm}/roles-by-id/{role-id}/composites/clients/{clientUuid}",
+      "path": "/myrealm/roles-by-id/12345/composites/clients/67890",
       "method": "GET",
       "operationId": "getRolesByIdCompositesClient",
       "summary": "",
-      "user": "Admin user checking composite roles for 'admin' role related to a specific client in 'myrealm'.",
-      "ideal": "Retrieve composite roles for the role with ID '12345' associated with client UUID 'abc-def-123' in the 'myrealm' realm."
+      "user": "admin_user",
+      "ideal": "Retrieve composite roles for the role ID 12345 specific to the client with UUID 67890 in the realm 'myrealm'."
     },
     {
-      "path": "/{realm}/roles-by-id/{role-id}/composites/realm",
+      "path": "/myrealm/roles-by-id/12345/composites/realm",
       "method": "GET",
       "operationId": "getRolesByIdCompositesRealm",
       "summary": "",
-      "user": "Admin user checking realm-level composite roles for 'admin' role in 'myrealm'.",
-      "ideal": "Retrieve realm-level composite roles for the role with ID '12345' in the 'myrealm' realm."
+      "user": "admin_user",
+      "ideal": "Get all composite roles for the role ID 12345 at the realm level in 'myrealm'."
     },
     {
-      "path": "/{realm}/roles-by-id/{role-id}/management/permissions",
+      "path": "/myrealm/roles-by-id/12345/management/permissions",
       "method": "GET",
       "operationId": "getRolesByIdManagementPermissions",
       "summary": "",
-      "user": "Admin user reviewing management permissions for 'admin' role in 'myrealm'.",
-      "ideal": "Retrieve management permissions for the role with ID '12345' in the 'myrealm' realm."
+      "user": "admin_user",
+      "ideal": "Fetch management permissions for the role with ID 12345 in the realm 'myrealm'."
     },
     {
-      "path": "/{realm}/roles-by-id/{role-id}/management/permissions",
+      "path": "/myrealm/roles-by-id/12345/management/permissions",
       "method": "PUT",
       "operationId": "putRolesByIdManagementPermissions",
       "summary": "",
-      "user": "Admin user updating management permissions for 'admin' role in 'myrealm'.",
-      "ideal": "Update management permissions for the role with ID '12345' to include 'manage-users' in the 'myrealm' realm."
+      "user": "admin_user",
+      "ideal": "Update management permissions for the role with ID 12345 in the realm 'myrealm'."
     }
   ]
 }

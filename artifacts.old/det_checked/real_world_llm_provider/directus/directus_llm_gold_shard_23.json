@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/versions",
+      "method": "GET",
+      "operationId": "getContentVersions",
+      "summary": "",
+      "user": "Admin user querying all content versions for review.",
+      "ideal": "Returns a list of all content versions available in the system."
+    },
+    {
+      "path": "/versions",
+      "method": "POST",
+      "operationId": "createContentVersion",
+      "summary": "",
+      "user": "Content creator adding a new version for a specific content item.",
+      "ideal": "Creates a new content version and returns the details of the created version."
+    },
+    {
+      "path": "/versions",
+      "method": "PATCH",
+      "operationId": "updateContentVersions",
+      "summary": "",
+      "user": "Editor updating multiple content versions to correct errors.",
+      "ideal": "Updates specified content versions and returns the updated versions."
+    },
+    {
+      "path": "/versions",
+      "method": "DELETE",
+      "operationId": "deleteContentVersions",
+      "summary": "",
+      "user": "Admin user removing outdated content versions from the system.",
+      "ideal": "Deletes specified content versions and confirms the deletion."
+    },
+    {
+      "path": "/versions/{id}",
+      "method": "GET",
+      "operationId": "getContentVersion",
+      "summary": "",
+      "user": "User retrieving a specific content version for detailed review.",
+      "ideal": "Returns the details of the specified content version."
+    },
+    {
+      "path": "/versions/{id}",
+      "method": "PATCH",
+      "operationId": "updateContentVersion",
+      "summary": "",
+      "user": "Editor making minor adjustments to a specific content version.",
+      "ideal": "Updates the specified content version and returns the updated version."
+    },
+    {
+      "path": "/versions/{id}",
+      "method": "DELETE",
+      "operationId": "deleteContentVersion",
+      "summary": "",
+      "user": "Admin user deleting a specific content version that is no longer needed.",
+      "ideal": "Deletes the specified content version and confirms the deletion."
+    },
+    {
+      "path": "/versions/{id}/save",
+      "method": "POST",
+      "operationId": "saveContentVersion",
+      "summary": "",
+      "user": "User saving changes made to a specific content version.",
+      "ideal": "Saves the current state of the specified content version and returns the saved version."
+    },
+    {
+      "path": "/versions/{id}/compare",
+      "method": "GET",
+      "operationId": "compareContentVersion",
+      "summary": "",
+      "user": "User comparing two versions of content to identify changes.",
+      "ideal": "Returns a comparison of the specified content version against another version."
+    },
+    {
+      "path": "/versions/{id}/promote",
+      "method": "POST",
+      "operationId": "promoteContentVersion",
+      "summary": "",
+      "user": "Admin promoting a specific content version to be the current version.",
+      "ideal": "Promotes the specified content version and returns the new current version."
+    }
+  ]
+}

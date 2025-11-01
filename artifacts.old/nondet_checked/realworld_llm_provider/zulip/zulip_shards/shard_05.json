@@ -1,0 +1,180 @@
+{
+  "openapi_meta": {
+    "title": "Zulip REST API",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/mark_all_as_read",
+      "method": "POST",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Mark all messages as read",
+      "operationId": "mark-all-as-read"
+    },
+    {
+      "path": "/mark_stream_as_read",
+      "method": "POST",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Mark messages in a channel as read",
+      "operationId": "mark-stream-as-read"
+    },
+    {
+      "path": "/mark_topic_as_read",
+      "method": "POST",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Mark messages in a topic as read",
+      "operationId": "mark-topic-as-read"
+    },
+    {
+      "path": "/messages",
+      "method": "GET",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Get messages",
+      "operationId": "get-messages"
+    },
+    {
+      "path": "/messages",
+      "method": "POST",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Send a message",
+      "operationId": "send-message"
+    },
+    {
+      "path": "/messages/{message_id}/history",
+      "method": "GET",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Get a message's edit history",
+      "operationId": "get-message-history"
+    },
+    {
+      "path": "/messages/flags",
+      "method": "POST",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Update personal message flags",
+      "operationId": "update-message-flags"
+    },
+    {
+      "path": "/messages/flags/narrow",
+      "method": "POST",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Update personal message flags for narrow",
+      "operationId": "update-message-flags-for-narrow"
+    },
+    {
+      "path": "/messages/render",
+      "method": "POST",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Render a message",
+      "operationId": "render-message"
+    },
+    {
+      "path": "/messages/{message_id}/reactions",
+      "method": "POST",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Add an emoji reaction",
+      "operationId": "add-reaction"
+    },
+    {
+      "path": "/messages/{message_id}/reactions",
+      "method": "DELETE",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Remove an emoji reaction",
+      "operationId": "remove-reaction"
+    },
+    {
+      "path": "/messages/{message_id}/read_receipts",
+      "method": "GET",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Get a message's read receipts",
+      "operationId": "get-read-receipts"
+    },
+    {
+      "path": "/messages/matches_narrow",
+      "method": "GET",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Check if messages match a narrow",
+      "operationId": "check-messages-match-narrow"
+    },
+    {
+      "path": "/messages/{message_id}",
+      "method": "GET",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Fetch a single message",
+      "operationId": "get-message"
+    },
+    {
+      "path": "/messages/{message_id}",
+      "method": "PATCH",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Edit a message",
+      "operationId": "update-message"
+    },
+    {
+      "path": "/messages/{message_id}",
+      "method": "DELETE",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Delete a message",
+      "operationId": "delete-message"
+    },
+    {
+      "path": "/messages/{message_id}/report",
+      "method": "POST",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Report a message",
+      "operationId": "report-message"
+    },
+    {
+      "path": "/user_uploads",
+      "method": "POST",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Upload a file",
+      "operationId": "upload-file"
+    },
+    {
+      "path": "/user_uploads/{realm_id_str}/{filename}",
+      "method": "GET",
+      "tags": [
+        "messages"
+      ],
+      "summary": "Get public temporary URL for an uploaded file",
+      "operationId": "get-file-temporary-url"
+    }
+  ]
+}

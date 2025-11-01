@@ -38,7 +38,7 @@
       "operationId": "getComment",
       "summary": "",
       "user": "user654",
-      "ideal": "Retrieve the details of the comment with ID 10001 from the issue PROJECT-1."
+      "ideal": "Retrieve the details of comment ID 10001 for issue PROJECT-1."
     },
     {
       "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
@@ -46,7 +46,7 @@
       "operationId": "updateComment",
       "summary": "",
       "user": "user987",
-      "ideal": "Update the comment with ID 10001 on the issue PROJECT-1."
+      "ideal": "Update the content of comment ID 10001 for issue PROJECT-1."
     }
   ]
 }

@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/extensions",
+      "method": "GET",
+      "operationId": "listExtensions",
+      "summary": "",
+      "user": "Admin user requesting a list of all available extensions to review their functionalities and compatibility with the current system setup.",
+      "ideal": "A JSON array containing details of all extensions including their names, versions, and descriptions."
+    },
+    {
+      "path": "/extensions/my-extension",
+      "method": "PATCH",
+      "operationId": "updateExtensions",
+      "summary": "",
+      "user": "Developer updating the configuration of 'my-extension' to fix a bug and improve performance based on user feedback.",
+      "ideal": "A success message confirming that 'my-extension' has been updated successfully with the new configuration."
+    },
+    {
+      "path": "/extensions/my-bundle/my-extension",
+      "method": "PATCH",
+      "operationId": "updateExtensionBundle",
+      "summary": "",
+      "user": "Team lead updating the 'my-extension' within 'my-bundle' to include new features and enhancements for the upcoming release.",
+      "ideal": "A success message indicating that 'my-extension' in 'my-bundle' has been updated with the new features."
+    }
+  ]
+}

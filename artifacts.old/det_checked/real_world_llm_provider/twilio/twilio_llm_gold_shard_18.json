@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchConference",
+      "summary": "",
+      "user": "user_12345",
+      "ideal": "Fetches details of a specific conference using the Account SID and Conference SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateConference",
+      "summary": "",
+      "user": "user_67890",
+      "ideal": "Updates the details of a specific conference identified by Account SID and Conference SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences.json",
+      "method": "GET",
+      "operationId": "ListConference",
+      "summary": "",
+      "user": "user_54321",
+      "ideal": "Retrieves a list of all conferences associated with the specified Account SID."
+    }
+  ]
+}

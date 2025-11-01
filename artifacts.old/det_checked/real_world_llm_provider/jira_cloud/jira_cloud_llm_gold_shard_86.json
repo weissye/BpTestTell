@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/user/assignable/multiProjectSearch",
+      "method": "GET",
+      "operationId": "findBulkAssignableUsers",
+      "summary": "",
+      "user": "projectManager",
+      "ideal": "Retrieve a list of users who can be assigned issues across multiple projects."
+    },
+    {
+      "path": "/rest/api/3/user/assignable/search",
+      "method": "GET",
+      "operationId": "findAssignableUsers",
+      "summary": "",
+      "user": "teamLead",
+      "ideal": "Get a list of users that can be assigned issues in a specific project."
+    },
+    {
+      "path": "/rest/api/3/user/permission/search",
+      "method": "GET",
+      "operationId": "findUsersWithAllPermissions",
+      "summary": "",
+      "user": "adminUser",
+      "ideal": "Find users who have all permissions in the Jira instance."
+    },
+    {
+      "path": "/rest/api/3/user/picker",
+      "method": "GET",
+      "operationId": "findUsersForPicker",
+      "summary": "",
+      "user": "issueReporter",
+      "ideal": "Fetch a list of users for the user picker dropdown in issue creation."
+    },
+    {
+      "path": "/rest/api/3/user/search",
+      "method": "GET",
+      "operationId": "findUsers",
+      "summary": "",
+      "user": "hrManager",
+      "ideal": "Search for users in the Jira system based on various criteria."
+    },
+    {
+      "path": "/rest/api/3/user/search/query",
+      "method": "GET",
+      "operationId": "findUsersByQuery",
+      "summary": "",
+      "user": "devTeam",
+      "ideal": "Execute a search query to find users matching specific parameters."
+    },
+    {
+      "path": "/rest/api/3/user/search/query/key",
+      "method": "GET",
+      "operationId": "findUserKeysByQuery",
+      "summary": "",
+      "user": "qaTester",
+      "ideal": "Retrieve user keys based on a search query for integration purposes."
+    },
+    {
+      "path": "/rest/api/3/user/viewissue/search",
+      "method": "GET",
+      "operationId": "findUsersWithBrowsePermission",
+      "summary": "",
+      "user": "projectOwner",
+      "ideal": "Identify users who have permission to view issues in a project."
+    }
+  ]
+}

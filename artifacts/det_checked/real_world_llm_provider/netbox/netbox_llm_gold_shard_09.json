@@ -22,7 +22,7 @@
       "operationId": "users_groups_create",
       "summary": "",
       "user": "admin",
-      "ideal": "Create a new user group with specified attributes."
+      "ideal": "Create a new user group with specified parameters."
     },
     {
       "path": "/api/users/groups/{id}/",
@@ -38,7 +38,7 @@
       "operationId": "users_groups_update",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the details of a specific user group."
+      "ideal": "Update the details of a specific user group by ID."
     },
     {
       "path": "/api/users/groups/{id}/",
@@ -70,15 +70,15 @@
       "operationId": "users_tokens_list",
       "summary": "",
       "user": "admin",
-      "ideal": "List all user tokens issued in the system."
+      "ideal": "List all user tokens for authentication."
     },
     {
       "path": "/api/users/tokens/{id}/",
-      "method": "GET",
-      "operationId": "users_tokens_retrieve",
+      "method": "DELETE",
+      "operationId": "users_tokens_destroy",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve details of a specific user token by ID."
+      "ideal": "Delete a specific user token by ID."
     },
     {
       "path": "/api/users/users/",
@@ -90,35 +90,11 @@
     },
     {
       "path": "/api/users/users/{id}/",
-      "method": "GET",
-      "operationId": "users_users_retrieve",
+      "method": "PATCH",
+      "operationId": "users_users_partial_update",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve details of a specific user by ID."
-    },
-    {
-      "path": "/api/users/users/",
-      "method": "POST",
-      "operationId": "users_users_create",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Create a new user with specified attributes."
-    },
-    {
-      "path": "/api/users/users/{id}/",
-      "method": "PUT",
-      "operationId": "users_users_update",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Update the details of a specific user."
-    },
-    {
-      "path": "/api/users/users/{id}/",
-      "method": "DELETE",
-      "operationId": "users_users_destroy",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Delete a specific user by ID."
+      "ideal": "Partially update the details of a specific user by ID."
     }
   ]
 }

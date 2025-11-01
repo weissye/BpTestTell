@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/expression/analyse",
+      "method": "POST",
+      "operationId": "analyseExpression",
+      "summary": "",
+      "user": "{\"expression\": \"issue.key == 'JRA-123'\"}",
+      "ideal": "{\"valid\": true, \"errors\": [], \"warnings\": []}"
+    },
+    {
+      "path": "/rest/api/3/expression/eval",
+      "method": "POST",
+      "operationId": "evaluateJiraExpression",
+      "summary": "",
+      "user": "{\"expression\": \"issue.status.name == 'Done'\"}",
+      "ideal": "{\"result\": true}"
+    },
+    {
+      "path": "/rest/api/3/expression/evaluate",
+      "method": "POST",
+      "operationId": "evaluateJSISJiraExpression",
+      "summary": "",
+      "user": "{\"expression\": \"project = 'MYPROJECT' AND status = 'In Progress'\"}",
+      "ideal": "{\"result\": [{\"key\": \"JRA-456\", \"fields\": {\"status\": \"In Progress\"}}]}"
+    }
+  ]
+}

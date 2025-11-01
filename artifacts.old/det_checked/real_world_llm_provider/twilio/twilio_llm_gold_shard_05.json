@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+      "method": "POST",
+      "operationId": "CreateApplication",
+      "summary": "",
+      "user": "A developer wants to create a new Twilio application to handle incoming calls and SMS messages. They provide the necessary parameters such as the application name, voice URL, and messaging URL.",
+      "ideal": "The application is successfully created, and the API returns the application details including the unique Sid."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+      "method": "GET",
+      "operationId": "ListApplication",
+      "summary": "",
+      "user": "A system administrator needs to retrieve a list of all Twilio applications associated with their account to manage them effectively.",
+      "ideal": "The API returns a list of applications with their details including Sids, names, and URLs."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteApplication",
+      "summary": "",
+      "user": "A developer has decided to remove an obsolete Twilio application that is no longer in use. They provide the application's Sid to delete it.",
+      "ideal": "The application is successfully deleted, and the API confirms the deletion with a success message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchApplication",
+      "summary": "",
+      "user": "A support engineer needs to fetch the details of a specific Twilio application to troubleshoot an issue reported by a user.",
+      "ideal": "The API returns the details of the specified application, including its configuration and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateApplication",
+      "summary": "",
+      "user": "A developer wants to update the voice URL of an existing Twilio application to point to a new endpoint after a recent deployment.",
+      "ideal": "The application is successfully updated, and the API returns the updated application details."
+    }
+  ]
+}

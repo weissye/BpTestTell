@@ -1,36 +1,36 @@
 {
   "gold": [
     {
-      "path": "/rest/api/3/comment/{commentId}/properties",
+      "path": "/rest/api/3/comment/12345/properties",
       "method": "GET",
       "operationId": "getCommentPropertyKeys",
       "summary": "",
-      "user": "As a project manager, I want to retrieve all property keys associated with a specific comment to understand its metadata and context.",
-      "ideal": "The API should return a list of property keys for the specified comment, allowing me to see all custom data associated with it."
+      "user": "User wants to retrieve all property keys associated with a specific comment to understand its metadata.",
+      "ideal": "Returns a list of property keys for the comment with ID 12345."
     },
     {
-      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
-      "method": "GET",
-      "operationId": "getCommentProperty",
-      "summary": "",
-      "user": "As a developer, I need to fetch a specific property value for a comment to utilize it in my application logic.",
-      "ideal": "The API should return the value of the specified property key for the comment, enabling me to access the necessary data."
-    },
-    {
-      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
-      "method": "PUT",
-      "operationId": "setCommentProperty",
-      "summary": "",
-      "user": "As a team lead, I want to set a custom property for a comment to track additional information relevant to our workflow.",
-      "ideal": "The API should successfully update or create the specified property for the comment, confirming the action with a success message."
-    },
-    {
-      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
+      "path": "/rest/api/3/comment/12345/properties/priority",
       "method": "DELETE",
       "operationId": "deleteCommentProperty",
       "summary": "",
-      "user": "As a product owner, I need to remove unnecessary properties from comments to keep our data clean and relevant.",
-      "ideal": "The API should delete the specified property from the comment and return a confirmation that the property has been removed."
+      "user": "User wants to remove the 'priority' property from a comment to clean up unnecessary metadata.",
+      "ideal": "Successfully deletes the 'priority' property from the comment with ID 12345."
+    },
+    {
+      "path": "/rest/api/3/comment/12345/properties/priority",
+      "method": "GET",
+      "operationId": "getCommentProperty",
+      "summary": "",
+      "user": "User wants to check the value of the 'priority' property for a specific comment to assess its importance.",
+      "ideal": "Returns the value of the 'priority' property for the comment with ID 12345."
+    },
+    {
+      "path": "/rest/api/3/comment/12345/properties/priority",
+      "method": "PUT",
+      "operationId": "setCommentProperty",
+      "summary": "",
+      "user": "User wants to update the 'priority' property of a comment to reflect its current status.",
+      "ideal": "Successfully sets the 'priority' property for the comment with ID 12345 to the new value."
     }
   ]
 }

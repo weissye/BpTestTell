@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "getLicense",
       "summary": "",
-      "user": "User requests the current license information for their Jira Cloud instance to verify the active subscription and its details.",
-      "ideal": "Returns the license information including the type of license, the number of users allowed, and the expiration date."
+      "user": "User A is an admin who needs to verify the current license status of the Jira Cloud instance to ensure compliance with the subscription terms.",
+      "ideal": "Returns the current license information for the Jira Cloud instance, including the type of license and its status."
     },
     {
       "path": "/rest/api/3/license/approximateLicenseCount",
       "method": "GET",
       "operationId": "getApproximateLicenseCount",
       "summary": "",
-      "user": "User wants to know the approximate number of licenses currently in use across the Jira Cloud instance for planning purposes.",
-      "ideal": "Returns an approximate count of the licenses in use, helping the user assess their current usage against their license limits."
+      "user": "User B is a project manager who wants to estimate the number of users that can be added to the Jira instance before hitting the license limit.",
+      "ideal": "Provides an approximate count of the total number of users that can be accommodated under the current license."
     },
     {
       "path": "/rest/api/3/license/approximateLicenseCount/product/{applicationKey}",
       "method": "GET",
       "operationId": "getApproximateApplicationLicenseCount",
       "summary": "",
-      "user": "User queries the approximate license count for a specific application within their Jira Cloud instance to ensure compliance with licensing agreements.",
-      "ideal": "Returns the approximate number of licenses in use for the specified application, allowing the user to manage their application usage effectively."
+      "user": "User C is a product owner who needs to check the user capacity for a specific application integrated with Jira to plan for future growth.",
+      "ideal": "Returns the approximate license count for a specific application, helping the product owner understand user limits."
     }
   ]
 }

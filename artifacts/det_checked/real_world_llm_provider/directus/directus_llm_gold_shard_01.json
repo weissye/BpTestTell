@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "getActivities",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve a list of all activities in the system."
+      "user": "admin",
+      "ideal": "Retrieve a list of all activities logged in the system."
     },
     {
       "path": "/activity/{id}",
       "method": "GET",
       "operationId": "getActivity",
       "summary": "",
-      "user": "user456",
-      "ideal": "Fetch details of a specific activity by its ID."
+      "user": "admin",
+      "ideal": "Fetch detailed information about a specific activity by its ID."
     }
   ]
 }

@@ -6,7 +6,7 @@
       "operationId": "keys.list",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve a list of all API keys."
+      "ideal": "Retrieve a list of all API keys available in the Meilisearch instance."
     },
     {
       "path": "/keys",
@@ -14,7 +14,7 @@
       "operationId": "keys.create",
       "summary": "",
       "user": "admin",
-      "ideal": "Create a new API key with specified permissions."
+      "ideal": "Create a new API key with specific permissions for accessing the Meilisearch instance."
     },
     {
       "path": "/keys/{uid_or_key}",
@@ -22,7 +22,7 @@
       "operationId": "keys.get",
       "summary": "",
       "user": "admin",
-      "ideal": "Fetch details of a specific API key using its UID or key."
+      "ideal": "Fetch details of a specific API key using its unique identifier."
     },
     {
       "path": "/keys/{uid_or_key}",
@@ -30,7 +30,7 @@
       "operationId": "keys.delete",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete a specific API key using its UID or key."
+      "ideal": "Delete a specific API key from the Meilisearch instance."
     },
     {
       "path": "/keys/{uid_or_key}",
@@ -38,7 +38,7 @@
       "operationId": "keys.update",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the permissions of a specific API key using its UID or key."
+      "ideal": "Update the permissions or details of an existing API key."
     }
   ]
 }

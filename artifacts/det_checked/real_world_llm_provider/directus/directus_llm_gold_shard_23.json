@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "getContentVersions",
       "summary": "",
-      "user": "Admin user querying all content versions for review.",
+      "user": "Admin user requesting all content versions to review changes.",
       "ideal": "Returns a list of all content versions available in the system."
     },
     {
@@ -13,7 +13,7 @@
       "method": "POST",
       "operationId": "createContentVersion",
       "summary": "",
-      "user": "Content creator adding a new version for a specific content item.",
+      "user": "Content manager creating a new version of an article after edits.",
       "ideal": "Creates a new content version and returns the details of the created version."
     },
     {
@@ -21,7 +21,7 @@
       "method": "PATCH",
       "operationId": "updateContentVersions",
       "summary": "",
-      "user": "Editor updating multiple content versions to correct errors.",
+      "user": "Admin updating multiple content versions for consistency.",
       "ideal": "Updates specified content versions and returns the updated versions."
     },
     {
@@ -29,15 +29,15 @@
       "method": "DELETE",
       "operationId": "deleteContentVersions",
       "summary": "",
-      "user": "Admin user removing outdated content versions from the system.",
-      "ideal": "Deletes specified content versions and confirms the deletion."
+      "user": "Content manager deleting outdated content versions.",
+      "ideal": "Deletes specified content versions and confirms deletion."
     },
     {
       "path": "/versions/{id}",
       "method": "GET",
       "operationId": "getContentVersion",
       "summary": "",
-      "user": "User retrieving a specific content version for detailed review.",
+      "user": "Editor retrieving a specific content version to review.",
       "ideal": "Returns the details of the specified content version."
     },
     {
@@ -45,7 +45,7 @@
       "method": "PATCH",
       "operationId": "updateContentVersion",
       "summary": "",
-      "user": "Editor making minor adjustments to a specific content version.",
+      "user": "Admin updating a specific content version with new information.",
       "ideal": "Updates the specified content version and returns the updated version."
     },
     {
@@ -53,32 +53,32 @@
       "method": "DELETE",
       "operationId": "deleteContentVersion",
       "summary": "",
-      "user": "Admin user deleting a specific content version that is no longer needed.",
-      "ideal": "Deletes the specified content version and confirms the deletion."
+      "user": "Content manager removing a specific version that is no longer needed.",
+      "ideal": "Deletes the specified content version and confirms deletion."
     },
     {
       "path": "/versions/{id}/save",
       "method": "POST",
       "operationId": "saveContentVersion",
       "summary": "",
-      "user": "User saving changes made to a specific content version.",
-      "ideal": "Saves the current state of the specified content version and returns the saved version."
+      "user": "Editor saving changes made to a specific content version.",
+      "ideal": "Saves the current state of the specified content version and returns confirmation."
     },
     {
       "path": "/versions/{id}/compare",
       "method": "GET",
       "operationId": "compareContentVersion",
       "summary": "",
-      "user": "User comparing two versions of content to identify changes.",
-      "ideal": "Returns a comparison of the specified content version against another version."
+      "user": "Admin comparing two versions of a document to see changes.",
+      "ideal": "Returns the differences between the specified content version and its previous version."
     },
     {
       "path": "/versions/{id}/promote",
       "method": "POST",
       "operationId": "promoteContentVersion",
       "summary": "",
-      "user": "Admin promoting a specific content version to be the current version.",
-      "ideal": "Promotes the specified content version and returns the new current version."
+      "user": "Content manager promoting a version to be the current live version.",
+      "ideal": "Promotes the specified content version to live and returns the promoted version details."
     }
   ]
 }

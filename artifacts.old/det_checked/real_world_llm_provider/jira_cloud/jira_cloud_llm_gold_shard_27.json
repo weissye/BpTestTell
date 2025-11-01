@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issueLinkType",
+      "method": "GET",
+      "operationId": "getIssueLinkTypes",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all available issue link types in Jira to understand how issues can be related to each other.",
+      "ideal": "The response should return a list of issue link types, including their IDs, names, and descriptions."
+    },
+    {
+      "path": "/rest/api/3/issueLinkType",
+      "method": "POST",
+      "operationId": "createIssueLinkType",
+      "summary": "",
+      "user": "As a Jira administrator, I want to create a new issue link type to represent a specific relationship between issues in my project.",
+      "ideal": "The response should confirm the creation of the new issue link type and return its ID, name, and description."
+    },
+    {
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
+      "method": "DELETE",
+      "operationId": "deleteIssueLinkType",
+      "summary": "",
+      "user": "As a project administrator, I want to delete an existing issue link type that is no longer needed to keep the issue linking clean.",
+      "ideal": "The response should confirm the deletion of the issue link type and return a success message."
+    },
+    {
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
+      "method": "GET",
+      "operationId": "getIssueLinkType",
+      "summary": "",
+      "user": "As a developer, I want to retrieve details of a specific issue link type to understand its purpose and usage in the project.",
+      "ideal": "The response should return the details of the specified issue link type, including its ID, name, and description."
+    },
+    {
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
+      "method": "PUT",
+      "operationId": "updateIssueLinkType",
+      "summary": "",
+      "user": "As a project lead, I want to update an existing issue link type to better reflect the relationship it represents after feedback from the team.",
+      "ideal": "The response should confirm the update of the issue link type and return the updated details."
+    }
+  ]
+}

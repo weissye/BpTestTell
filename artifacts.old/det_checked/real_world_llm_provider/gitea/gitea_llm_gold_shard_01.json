@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/activitypub/user-id/12345",
+      "method": "GET",
+      "operationId": "activitypubPerson",
+      "summary": "",
+      "user": "{\"id\":\"12345\",\"name\":\"John Doe\",\"url\":\"https://gitea.example.com/users/johndoe\"}",
+      "ideal": "{\"@context\":\"https://www.w3.org/ns/activitystreams\",\"id\":\"https://gitea.example.com/users/johndoe\",\"type\":\"Person\",\"name\":\"John Doe\",\"preferredUsername\":\"johndoe\",\"inbox\":\"https://gitea.example.com/users/johndoe/inbox\",\"outbox\":\"https://gitea.example.com/users/johndoe/outbox\",\"followers\":\"https://gitea.example.com/users/johndoe/followers\",\"following\":\"https://gitea.example.com/users/johndoe/following\"}"
+    },
+    {
+      "path": "/activitypub/user-id/12345/inbox",
+      "method": "POST",
+      "operationId": "activitypubPersonInbox",
+      "summary": "",
+      "user": "{\"type\":\"Create\",\"actor\":\"https://gitea.example.com/users/johndoe\",\"object\":{\"type\":\"Note\",\"content\":\"Hello, world!\"}}",
+      "ideal": "{\"type\":\"Accept\",\"actor\":\"https://gitea.example.com/users/johndoe\",\"object\":{\"type\":\"Note\",\"content\":\"Hello, world!\"},\"to\":[\"https://gitea.example.com/users/johndoe\"]}"
+    }
+  ]
+}

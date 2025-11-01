@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/my-org/private-registries",
+      "method": "GET",
+      "operationId": "private-registries/list-org-private-registries",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all private registries associated with the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/private-registries",
+      "method": "POST",
+      "operationId": "private-registries/create-org-private-registry",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new private registry for the organization 'my-org' with the specified details."
+    },
+    {
+      "path": "/orgs/my-org/private-registries/public-key",
+      "method": "GET",
+      "operationId": "private-registries/get-org-public-key",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Fetch the public key for the organization 'my-org' to use for encrypting secrets."
+    },
+    {
+      "path": "/orgs/my-org/private-registries/my-secret",
+      "method": "GET",
+      "operationId": "private-registries/get-org-private-registry",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the details of the private registry named 'my-secret' for the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/private-registries/my-secret",
+      "method": "PATCH",
+      "operationId": "private-registries/update-org-private-registry",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the private registry 'my-secret' for the organization 'my-org' with new configuration settings."
+    },
+    {
+      "path": "/orgs/my-org/private-registries/my-secret",
+      "method": "DELETE",
+      "operationId": "private-registries/delete-org-private-registry",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Delete the private registry 'my-secret' from the organization 'my-org'."
+    }
+  ]
+}

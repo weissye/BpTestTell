@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/folders",
+      "method": "GET",
+      "operationId": "getFolders",
+      "summary": "",
+      "user": "Admin user requesting a list of all folders to manage content organization.",
+      "ideal": "Returns a list of folders with their details, including IDs, names, and creation dates."
+    },
+    {
+      "path": "/folders",
+      "method": "POST",
+      "operationId": "createFolder",
+      "summary": "",
+      "user": "Content manager creating a new folder to categorize uploaded assets.",
+      "ideal": "Creates a new folder and returns the folder's ID and details upon successful creation."
+    },
+    {
+      "path": "/folders",
+      "method": "PATCH",
+      "operationId": "updateFolders",
+      "summary": "",
+      "user": "Admin user updating multiple folders to reflect new naming conventions.",
+      "ideal": "Updates specified folders and returns the updated folder details."
+    },
+    {
+      "path": "/folders",
+      "method": "DELETE",
+      "operationId": "deleteFolders",
+      "summary": "",
+      "user": "Admin user deleting obsolete folders to clean up the content structure.",
+      "ideal": "Deletes specified folders and returns a confirmation of deletion."
+    },
+    {
+      "path": "/folders/{id}",
+      "method": "GET",
+      "operationId": "getFolder",
+      "summary": "",
+      "user": "User looking for details of a specific folder to retrieve its contents.",
+      "ideal": "Returns the details of the specified folder, including its ID, name, and contents."
+    },
+    {
+      "path": "/folders/{id}",
+      "method": "PATCH",
+      "operationId": "updateFolder",
+      "summary": "",
+      "user": "Content manager updating a folder's name to better reflect its contents.",
+      "ideal": "Updates the specified folder and returns the updated folder details."
+    },
+    {
+      "path": "/folders/{id}",
+      "method": "DELETE",
+      "operationId": "deleteFolder",
+      "summary": "",
+      "user": "Admin user removing a specific folder that is no longer needed.",
+      "ideal": "Deletes the specified folder and returns a confirmation of deletion."
+    }
+  ]
+}

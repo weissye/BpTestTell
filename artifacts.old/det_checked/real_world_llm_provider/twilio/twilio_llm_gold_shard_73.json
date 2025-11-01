@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberVoip",
+      "summary": "",
+      "user": "A developer looking to integrate Twilio's VoIP phone number capabilities into their application. They want to retrieve a list of available VoIP numbers for a specific country to allow users to select a number for their communication needs.",
+      "ideal": "Retrieve a JSON response containing a list of available VoIP phone numbers in the specified country, including details such as the phone number, friendly name, and any additional metadata."
+    }
+  ]
+}

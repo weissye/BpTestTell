@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/tasks",
+      "method": "GET",
+      "operationId": "tasks.list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all tasks currently in the system."
+    },
+    {
+      "path": "/tasks/12345",
+      "method": "GET",
+      "operationId": "tasks.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get details of the task with UID 12345."
+    },
+    {
+      "path": "/tasks",
+      "method": "DELETE",
+      "operationId": "tasks.delete",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific task from the system."
+    },
+    {
+      "path": "/tasks/cancel",
+      "method": "POST",
+      "operationId": "tasks.cancel",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Cancel a task that is currently in progress."
+    }
+  ]
+}

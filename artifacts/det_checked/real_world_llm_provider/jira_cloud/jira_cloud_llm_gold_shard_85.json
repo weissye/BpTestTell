@@ -6,31 +6,31 @@
       "operationId": "getUserPropertyKeys",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve all property keys associated with the user."
+      "ideal": "Retrieve all user property keys for the specified user."
     },
     {
-      "path": "/rest/api/3/user/properties/notifications",
+      "path": "/rest/api/3/user/properties/notificationPreference",
       "method": "DELETE",
       "operationId": "deleteUserProperty",
       "summary": "",
       "user": "user123",
-      "ideal": "Delete the user property 'notifications' for user123."
+      "ideal": "Delete the user's notification preference property."
     },
     {
-      "path": "/rest/api/3/user/properties/theme",
+      "path": "/rest/api/3/user/properties/notificationPreference",
       "method": "GET",
       "operationId": "getUserProperty",
       "summary": "",
       "user": "user123",
-      "ideal": "Fetch the value of the user property 'theme' for user123."
+      "ideal": "Fetch the user's current notification preference property."
     },
     {
-      "path": "/rest/api/3/user/properties/language",
+      "path": "/rest/api/3/user/properties/notificationPreference",
       "method": "PUT",
       "operationId": "setUserProperty",
       "summary": "",
       "user": "user123",
-      "ideal": "Set the user property 'language' to 'en-US' for user123."
+      "ideal": "Set the user's notification preference property to 'email'."
     }
   ]
 }

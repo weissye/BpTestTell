@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/files",
+      "method": "GET",
+      "operationId": "getFiles",
+      "summary": "",
+      "user": "Admin user requesting a list of all files in the system to manage storage and access.",
+      "ideal": "A successful response with a list of files including metadata such as file name, size, and upload date."
+    },
+    {
+      "path": "/files",
+      "method": "POST",
+      "operationId": "createFile",
+      "summary": "",
+      "user": "Content creator uploading a new image file for a blog post.",
+      "ideal": "A successful response confirming the file has been uploaded, along with the file ID and URL."
+    },
+    {
+      "path": "/files",
+      "method": "PATCH",
+      "operationId": "updateFiles",
+      "summary": "",
+      "user": "Admin user updating the metadata of multiple files to correct descriptions.",
+      "ideal": "A successful response indicating the number of files updated and their new metadata."
+    },
+    {
+      "path": "/files",
+      "method": "DELETE",
+      "operationId": "deleteFiles",
+      "summary": "",
+      "user": "Admin user deleting obsolete files to free up storage space.",
+      "ideal": "A successful response confirming the deletion of the specified files."
+    },
+    {
+      "path": "/files/{id}",
+      "method": "GET",
+      "operationId": "getFile",
+      "summary": "",
+      "user": "User requesting details of a specific file to check its properties before using it.",
+      "ideal": "A successful response with detailed information about the requested file, including its URL."
+    },
+    {
+      "path": "/files/{id}",
+      "method": "PATCH",
+      "operationId": "updateFile",
+      "summary": "",
+      "user": "Content manager updating the title and description of a specific file.",
+      "ideal": "A successful response confirming the file has been updated with the new title and description."
+    },
+    {
+      "path": "/files/{id}",
+      "method": "DELETE",
+      "operationId": "deleteFile",
+      "summary": "",
+      "user": "User deleting a specific file that is no longer needed.",
+      "ideal": "A successful response confirming the deletion of the specific file."
+    }
+  ]
+}

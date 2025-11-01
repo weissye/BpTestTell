@@ -1,0 +1,47 @@
+{
+  "sut": "library",
+  "source": "artifacts\\det_checked\\7_suts_llm_provider\\library\\library_llm_gold_ops.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "Library",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteLibrary"
+      ],
+      "checks": [
+        "verifyLibraryExists"
+      ]
+    },
+    {
+      "entity": "Library",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addLibrary"
+      ],
+      "checks": [
+        "verifyLibraryNotExists"
+      ]
+    },
+    {
+      "entity": "Library",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateLibrary"
+      ],
+      "checks": [
+        "verifyLibraryExists",
+        "verifyLibraryUpdated"
+      ]
+    }
+  ]
+}

@@ -6,7 +6,7 @@
       "operationId": "getGroupsByRealm",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve a list of all groups in the specified realm."
+      "ideal": "Retrieve all groups in the specified realm."
     },
     {
       "path": "/myrealm/groups",
@@ -14,7 +14,7 @@
       "operationId": "postGroups",
       "summary": "",
       "user": "admin",
-      "ideal": "Create a new group in the specified realm with the provided details."
+      "ideal": "Create a new group in the specified realm."
     },
     {
       "path": "/myrealm/groups/count",
@@ -25,60 +25,60 @@
       "ideal": "Get the total count of groups in the specified realm."
     },
     {
-      "path": "/myrealm/groups/12345",
+      "path": "/myrealm/groups/123",
       "method": "GET",
       "operationId": "getGroup",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve details of the group with the specified ID."
+      "ideal": "Retrieve details of the group with ID 123."
     },
     {
-      "path": "/myrealm/groups/12345",
+      "path": "/myrealm/groups/123",
       "method": "PUT",
       "operationId": "putGroupByRealmById",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the details of the group with the specified ID."
+      "ideal": "Update the group with ID 123 in the specified realm."
     },
     {
-      "path": "/myrealm/groups/12345",
+      "path": "/myrealm/groups/123",
       "method": "DELETE",
       "operationId": "deleteGroupByRealmById",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete the group with the specified ID from the realm."
+      "ideal": "Delete the group with ID 123 from the specified realm."
     },
     {
-      "path": "/myrealm/groups/12345/children",
+      "path": "/myrealm/groups/123/children",
       "method": "POST",
       "operationId": "postChildren",
       "summary": "",
       "user": "admin",
-      "ideal": "Add child groups to the specified group."
+      "ideal": "Add child groups to the group with ID 123."
     },
     {
-      "path": "/myrealm/groups/12345/management/permissions",
+      "path": "/myrealm/groups/123/management/permissions",
       "method": "GET",
       "operationId": "getGroupManagementPermissions",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve management permissions for the specified group."
+      "ideal": "Retrieve management permissions for the group with ID 123."
     },
     {
-      "path": "/myrealm/groups/12345/management/permissions",
+      "path": "/myrealm/groups/123/management/permissions",
       "method": "PUT",
       "operationId": "putGroupManagementPermissions",
       "summary": "",
       "user": "admin",
-      "ideal": "Update management permissions for the specified group."
+      "ideal": "Update management permissions for the group with ID 123."
     },
     {
-      "path": "/myrealm/groups/12345/members",
+      "path": "/myrealm/groups/123/members",
       "method": "GET",
       "operationId": "getMembers",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve a list of members belonging to the specified group."
+      "ideal": "Retrieve all members of the group with ID 123."
     }
   ]
 }

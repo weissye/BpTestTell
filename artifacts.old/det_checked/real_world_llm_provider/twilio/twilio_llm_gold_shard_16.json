@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "method": "POST",
+      "operationId": "CreateCallRecording",
+      "summary": "",
+      "user": "User wants to create a new recording for a specific call using the Twilio API.",
+      "ideal": "The API should return a success message with the details of the created recording."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "method": "GET",
+      "operationId": "ListCallRecording",
+      "summary": "",
+      "user": "User needs to retrieve all recordings associated with a specific call to review them.",
+      "ideal": "The API should return a list of recordings with their details for the specified call."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateCallRecording",
+      "summary": "",
+      "user": "User wants to update the metadata of a specific recording for better organization.",
+      "ideal": "The API should confirm the update and return the updated recording details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchCallRecording",
+      "summary": "",
+      "user": "User is looking to fetch details of a specific recording to check its duration and quality.",
+      "ideal": "The API should return the details of the requested recording including duration and format."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteCallRecording",
+      "summary": "",
+      "user": "User wants to delete a specific recording that is no longer needed to free up storage.",
+      "ideal": "The API should confirm the deletion and return a success message."
+    }
+  ]
+}

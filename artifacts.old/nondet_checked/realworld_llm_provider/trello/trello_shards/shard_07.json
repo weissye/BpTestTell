@@ -1,0 +1,162 @@
+{
+  "openapi_meta": {
+    "title": "Trello",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/lists",
+      "method": "POST",
+      "tags": [
+        "list"
+      ],
+      "summary": "addLists()",
+      "operationId": "addLists"
+    },
+    {
+      "path": "/lists/{idList}",
+      "method": "GET",
+      "tags": [
+        "list"
+      ],
+      "summary": "getListsByIdList()",
+      "operationId": "getListsByIdList"
+    },
+    {
+      "path": "/lists/{idList}",
+      "method": "PUT",
+      "tags": [
+        "list"
+      ],
+      "summary": "updateListsByIdList()",
+      "operationId": "updateListsByIdList"
+    },
+    {
+      "path": "/lists/{idList}/actions",
+      "method": "GET",
+      "tags": [
+        "list"
+      ],
+      "summary": "getListsActionsByIdList()",
+      "operationId": "getListsActionsByIdList"
+    },
+    {
+      "path": "/lists/{idList}/archiveAllCards",
+      "method": "POST",
+      "tags": [
+        "list"
+      ],
+      "summary": "addListsArchiveAllCardsByIdList()",
+      "operationId": "addListsArchiveAllCardsByIdList"
+    },
+    {
+      "path": "/lists/{idList}/board",
+      "method": "GET",
+      "tags": [
+        "list"
+      ],
+      "summary": "getListsBoardByIdList()",
+      "operationId": "getListsBoardByIdList"
+    },
+    {
+      "path": "/lists/{idList}/board/{field}",
+      "method": "GET",
+      "tags": [
+        "list"
+      ],
+      "summary": "getListsBoardByIdListByField()",
+      "operationId": "getListsBoardByIdListByField"
+    },
+    {
+      "path": "/lists/{idList}/cards",
+      "method": "GET",
+      "tags": [
+        "list"
+      ],
+      "summary": "getListsCardsByIdList()",
+      "operationId": "getListsCardsByIdList"
+    },
+    {
+      "path": "/lists/{idList}/cards",
+      "method": "POST",
+      "tags": [
+        "list"
+      ],
+      "summary": "addListsCardsByIdList()",
+      "operationId": "addListsCardsByIdList"
+    },
+    {
+      "path": "/lists/{idList}/cards/{filter}",
+      "method": "GET",
+      "tags": [
+        "list"
+      ],
+      "summary": "getListsCardsByIdListByFilter()",
+      "operationId": "getListsCardsByIdListByFilter"
+    },
+    {
+      "path": "/lists/{idList}/closed",
+      "method": "PUT",
+      "tags": [
+        "list"
+      ],
+      "summary": "updateListsClosedByIdList()",
+      "operationId": "updateListsClosedByIdList"
+    },
+    {
+      "path": "/lists/{idList}/idBoard",
+      "method": "PUT",
+      "tags": [
+        "list"
+      ],
+      "summary": "updateListsIdBoardByIdList()",
+      "operationId": "updateListsIdBoardByIdList"
+    },
+    {
+      "path": "/lists/{idList}/moveAllCards",
+      "method": "POST",
+      "tags": [
+        "list"
+      ],
+      "summary": "addListsMoveAllCardsByIdList()",
+      "operationId": "addListsMoveAllCardsByIdList"
+    },
+    {
+      "path": "/lists/{idList}/name",
+      "method": "PUT",
+      "tags": [
+        "list"
+      ],
+      "summary": "updateListsNameByIdList()",
+      "operationId": "updateListsNameByIdList"
+    },
+    {
+      "path": "/lists/{idList}/pos",
+      "method": "PUT",
+      "tags": [
+        "list"
+      ],
+      "summary": "updateListsPosByIdList()",
+      "operationId": "updateListsPosByIdList"
+    },
+    {
+      "path": "/lists/{idList}/subscribed",
+      "method": "PUT",
+      "tags": [
+        "list"
+      ],
+      "summary": "updateListsSubscribedByIdList()",
+      "operationId": "updateListsSubscribedByIdList"
+    },
+    {
+      "path": "/lists/{idList}/{field}",
+      "method": "GET",
+      "tags": [
+        "list"
+      ],
+      "summary": "getListsByIdListByField()",
+      "operationId": "getListsByIdListByField"
+    }
+  ]
+}

@@ -5,32 +5,32 @@
       "method": "POST",
       "operationId": "addSessions",
       "summary": "",
-      "user": "{\"username\":\"john_doe\",\"email\":\"john@example.com\",\"password\":\"securepassword123\"}",
-      "ideal": "{\"success\":true,\"sessionId\":\"abc123\"}"
+      "user": "User123 is creating a new session for a team meeting to discuss project updates and deadlines.",
+      "ideal": "Session created successfully with ID: 456"
     },
     {
       "path": "/sessions/socket",
       "method": "GET",
       "operationId": "getSessionsSocket",
       "summary": "",
-      "user": "{\"sessionId\":\"abc123\"}",
-      "ideal": "{\"status\":\"connected\",\"data\":{\"sessionId\":\"abc123\",\"user\":\"john_doe\"}}"
+      "user": "User456 wants to retrieve real-time updates for active sessions to stay informed about ongoing discussions.",
+      "ideal": "Real-time updates received for active sessions."
     },
     {
-      "path": "/sessions/abc123",
+      "path": "/sessions/456",
       "method": "PUT",
       "operationId": "updateSessionsByIdSession",
       "summary": "",
-      "user": "{\"sessionId\":\"abc123\",\"newData\":{\"title\":\"Updated Session Title\",\"description\":\"This is an updated description.\"}}",
-      "ideal": "{\"success\":true,\"sessionId\":\"abc123\",\"message\":\"Session updated successfully.\"}"
+      "user": "User123 is updating the session with ID 456 to include new agenda items and participants.",
+      "ideal": "Session with ID 456 updated successfully."
     },
     {
-      "path": "/sessions/abc123/status",
+      "path": "/sessions/456/status",
       "method": "PUT",
       "operationId": "updateSessionsStatusByIdSession",
       "summary": "",
-      "user": "{\"sessionId\":\"abc123\",\"status\":\"completed\"}",
-      "ideal": "{\"success\":true,\"sessionId\":\"abc123\",\"status\":\"completed\",\"message\":\"Session status updated successfully.\"}"
+      "user": "User789 is changing the status of session ID 456 to 'completed' after the meeting has ended.",
+      "ideal": "Status of session ID 456 updated to 'completed'."
     }
   ]
 }

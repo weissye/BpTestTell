@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "getFeaturesForProject",
       "summary": "",
-      "user": "Project Manager",
-      "ideal": "Retrieve the list of features available for a specific project identified by its ID or key."
+      "user": "A project manager wants to retrieve the features associated with a specific project in Jira to assess the current capabilities and plan future enhancements.",
+      "ideal": "The API should return a list of features for the specified project, including details such as feature name, status, and any associated metadata."
     },
     {
       "path": "/rest/api/3/project/{projectIdOrKey}/features/{featureKey}",
       "method": "PUT",
       "operationId": "toggleFeatureForProject",
       "summary": "",
-      "user": "Developer",
-      "ideal": "Enable or disable a specific feature for a project using its ID or key and the feature's key."
+      "user": "A developer needs to enable or disable a specific feature for a project in Jira to test its functionality during the development phase.",
+      "ideal": "The API should successfully toggle the specified feature's status, returning a confirmation message and the updated feature details."
     }
   ]
 }

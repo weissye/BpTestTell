@@ -1,84 +1,84 @@
 {
   "gold": [
     {
-      "path": "/v1/boards",
+      "path": "/boards",
       "method": "POST",
       "operationId": "addBoards",
       "summary": "",
-      "user": "user123",
-      "ideal": "Create a new board with the title 'Project Plan' and description 'Planning for the upcoming project.'"
+      "user": "User123",
+      "ideal": "Create a new board with the title 'Project Plan' and a description."
     },
     {
-      "path": "/v1/boards/{idBoard}",
+      "path": "/boards/{idBoard}",
       "method": "GET",
       "operationId": "getBoardsByIdBoard",
       "summary": "",
-      "user": "user456",
-      "ideal": "Retrieve the board details for the board with ID 'abc123'."
+      "user": "User456",
+      "ideal": "Retrieve details of the board with ID 'abc123'."
     },
     {
-      "path": "/v1/boards/{idBoard}",
+      "path": "/boards/{idBoard}",
       "method": "PUT",
       "operationId": "updateBoardsByIdBoard",
       "summary": "",
-      "user": "user789",
+      "user": "User789",
       "ideal": "Update the board with ID 'xyz789' to change its name to 'Updated Project Plan'."
     },
     {
-      "path": "/v1/boards/{idBoard}/actions",
+      "path": "/boards/{idBoard}/actions",
       "method": "GET",
       "operationId": "getBoardsActionsByIdBoard",
       "summary": "",
-      "user": "user101",
-      "ideal": "Get all actions performed on the board with ID 'abc123'."
+      "user": "User321",
+      "ideal": "Fetch all actions taken on the board with ID 'def456'."
     },
     {
-      "path": "/v1/boards/{idBoard}/cards",
+      "path": "/boards/{idBoard}/cards",
       "method": "GET",
       "operationId": "getBoardsCardsByIdBoard",
       "summary": "",
-      "user": "user202",
-      "ideal": "Fetch all cards associated with the board ID 'def456'."
+      "user": "User654",
+      "ideal": "Get all cards from the board with ID 'ghi789'."
     },
     {
-      "path": "/v1/boards/{idBoard}/checklists",
+      "path": "/boards/{idBoard}/checklists",
       "method": "POST",
       "operationId": "addBoardsChecklistsByIdBoard",
       "summary": "",
-      "user": "user303",
-      "ideal": "Add a new checklist titled 'To Do' to the board with ID 'ghi789'."
+      "user": "User987",
+      "ideal": "Add a new checklist titled 'To Do' to the board with ID 'jkl012'."
     },
     {
-      "path": "/v1/boards/{idBoard}/members",
+      "path": "/boards/{idBoard}/members",
       "method": "PUT",
       "operationId": "updateBoardsMembersByIdBoard",
       "summary": "",
-      "user": "user404",
-      "ideal": "Add a new member with ID 'member123' to the board with ID 'jkl012'."
+      "user": "User234",
+      "ideal": "Update members of the board with ID 'mno345' to include 'UserABC'."
     },
     {
-      "path": "/v1/boards/{idBoard}/labels",
+      "path": "/boards/{idBoard}/labels",
       "method": "GET",
       "operationId": "getBoardsLabelsByIdBoard",
       "summary": "",
-      "user": "user505",
-      "ideal": "Retrieve all labels associated with the board ID 'mno345'."
+      "user": "User567",
+      "ideal": "Retrieve all labels associated with the board ID 'pqr678'."
     },
     {
-      "path": "/v1/boards/{idBoard}/lists",
+      "path": "/boards/{idBoard}/lists",
       "method": "POST",
       "operationId": "addBoardsListsByIdBoard",
       "summary": "",
-      "user": "user606",
-      "ideal": "Create a new list named 'In Progress' on the board with ID 'pqr678'."
+      "user": "User890",
+      "ideal": "Create a new list named 'In Progress' on the board with ID 'stu901'."
     },
     {
-      "path": "/v1/boards/{idBoard}/prefs/background",
+      "path": "/boards/{idBoard}/prefs/background",
       "method": "PUT",
       "operationId": "updateBoardsPrefsBackgroundByIdBoard",
       "summary": "",
-      "user": "user707",
-      "ideal": "Change the background of the board with ID 'stu901' to a blue color."
+      "user": "User135",
+      "ideal": "Change the background of the board with ID 'vwx234' to a blue color."
     }
   ]
 }

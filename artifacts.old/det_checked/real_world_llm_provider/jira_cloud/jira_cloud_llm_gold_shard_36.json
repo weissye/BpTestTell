@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue/picker",
+      "method": "GET",
+      "operationId": "getIssuePickerResource",
+      "summary": "",
+      "user": "A user looking to quickly find and select issues from a dropdown for a new task assignment.",
+      "ideal": "Returns a list of issues that match the user's input for easy selection."
+    },
+    {
+      "path": "/rest/api/3/jql/match",
+      "method": "POST",
+      "operationId": "matchIssues",
+      "summary": "",
+      "user": "A project manager wanting to match specific issues based on a JQL query to review their status.",
+      "ideal": "Returns a list of issues that match the provided JQL criteria."
+    },
+    {
+      "path": "/rest/api/3/search",
+      "method": "GET",
+      "operationId": "searchForIssuesUsingJql",
+      "summary": "",
+      "user": "A developer searching for all open bugs in a project to prioritize their work.",
+      "ideal": "Returns a paginated list of issues that match the JQL query for open bugs."
+    },
+    {
+      "path": "/rest/api/3/search",
+      "method": "POST",
+      "operationId": "searchForIssuesUsingJqlPost",
+      "summary": "",
+      "user": "A QA engineer submitting a complex JQL query to find issues related to a specific release.",
+      "ideal": "Returns a detailed list of issues that match the submitted JQL query."
+    },
+    {
+      "path": "/rest/api/3/search/approximate-count",
+      "method": "POST",
+      "operationId": "countIssues",
+      "summary": "",
+      "user": "A product owner wanting to quickly estimate the number of issues in a backlog without fetching all data.",
+      "ideal": "Returns an approximate count of issues that match the given JQL query."
+    },
+    {
+      "path": "/rest/api/3/search/jql",
+      "method": "GET",
+      "operationId": "searchAndReconsileIssuesUsingJql",
+      "summary": "",
+      "user": "A team lead reconciling issues from multiple projects to ensure no duplicates exist.",
+      "ideal": "Returns a reconciled list of issues based on the provided JQL query."
+    },
+    {
+      "path": "/rest/api/3/search/jql",
+      "method": "POST",
+      "operationId": "searchAndReconsileIssuesUsingJqlPost",
+      "summary": "",
+      "user": "An analyst wanting to run a JQL query to find issues across different projects and reconcile them.",
+      "ideal": "Returns a consolidated view of issues that match the JQL query for analysis."
+    }
+  ]
+}

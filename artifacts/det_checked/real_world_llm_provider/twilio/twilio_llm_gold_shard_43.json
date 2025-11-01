@@ -1,44 +1,44 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages.json",
       "method": "POST",
       "operationId": "CreateMessage",
       "summary": "",
-      "user": "User wants to send a new SMS message to a recipient using Twilio's API. They provide the necessary parameters such as 'To', 'From', and 'Body' to create the message.",
-      "ideal": "The API should return a success response with the details of the created message, including its SID."
+      "user": "User123",
+      "ideal": "Create a new message with the specified parameters."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages.json",
       "method": "GET",
       "operationId": "ListMessage",
       "summary": "",
-      "user": "User wants to retrieve a list of all messages sent from their Twilio account. They may want to filter by date or status.",
-      "ideal": "The API should return a list of messages with their details, such as SID, status, and timestamps."
+      "user": "User456",
+      "ideal": "Retrieve a list of messages sent from the account."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXX.json",
       "method": "DELETE",
       "operationId": "DeleteMessage",
       "summary": "",
-      "user": "User wants to delete a specific SMS message identified by its SID from their Twilio account.",
-      "ideal": "The API should confirm the deletion with a success message and status code."
+      "user": "User789",
+      "ideal": "Delete a specific message by its SID."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXX.json",
       "method": "GET",
       "operationId": "FetchMessage",
       "summary": "",
-      "user": "User wants to fetch the details of a specific SMS message using its SID to check its status and content.",
-      "ideal": "The API should return the details of the message, including its status, body, and timestamps."
+      "user": "User101",
+      "ideal": "Fetch details of a specific message using its SID."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXX.json",
       "method": "POST",
       "operationId": "UpdateMessage",
       "summary": "",
-      "user": "User wants to update the content of an existing SMS message identified by its SID. They provide the new 'Body' for the message.",
-      "ideal": "The API should return the updated message details, confirming the changes made."
+      "user": "User202",
+      "ideal": "Update the status or content of a specific message."
     }
   ]
 }

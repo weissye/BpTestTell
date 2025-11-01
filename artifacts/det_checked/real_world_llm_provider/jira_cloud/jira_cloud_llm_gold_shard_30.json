@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "getNotificationSchemes",
       "summary": "",
-      "user": "As a project manager, I want to retrieve all notification schemes to understand how notifications are currently configured across projects.",
+      "user": "As a project manager, I want to retrieve all notification schemes to understand how notifications are configured across different projects.",
       "ideal": "Returns a list of all notification schemes available in the Jira instance."
     },
     {
@@ -13,7 +13,7 @@
       "method": "POST",
       "operationId": "createNotificationScheme",
       "summary": "",
-      "user": "As a Jira administrator, I want to create a new notification scheme to customize notifications for a new project.",
+      "user": "As an admin, I want to create a new notification scheme so that I can customize notifications for my team.",
       "ideal": "Creates a new notification scheme and returns the details of the created scheme."
     },
     {
@@ -21,7 +21,7 @@
       "method": "GET",
       "operationId": "getNotificationSchemeToProjectMappings",
       "summary": "",
-      "user": "As a project lead, I want to see which notification schemes are mapped to my projects to ensure proper notifications are sent.",
+      "user": "As a developer, I want to see which notification schemes are mapped to my projects to ensure proper notifications are sent.",
       "ideal": "Returns a mapping of notification schemes to projects."
     },
     {
@@ -29,7 +29,7 @@
       "method": "GET",
       "operationId": "getNotificationScheme",
       "summary": "",
-      "user": "As a developer, I want to view the details of a specific notification scheme to understand its configuration.",
+      "user": "As a team lead, I want to view the details of a specific notification scheme to verify its configuration.",
       "ideal": "Returns the details of the specified notification scheme."
     },
     {
@@ -37,7 +37,7 @@
       "method": "PUT",
       "operationId": "updateNotificationScheme",
       "summary": "",
-      "user": "As a project administrator, I want to update an existing notification scheme to modify the recipients of notifications.",
+      "user": "As an admin, I want to update an existing notification scheme to reflect changes in team structure.",
       "ideal": "Updates the specified notification scheme and returns the updated details."
     },
     {
@@ -45,7 +45,7 @@
       "method": "PUT",
       "operationId": "addNotifications",
       "summary": "",
-      "user": "As a project manager, I want to add new notifications to an existing scheme to ensure that all relevant stakeholders are informed.",
+      "user": "As a project manager, I want to add new notifications to a scheme to ensure all relevant team members are informed.",
       "ideal": "Adds notifications to the specified notification scheme and returns the updated scheme."
     },
     {
@@ -53,7 +53,7 @@
       "method": "DELETE",
       "operationId": "deleteNotificationScheme",
       "summary": "",
-      "user": "As a Jira administrator, I want to delete an obsolete notification scheme to clean up the system.",
+      "user": "As an admin, I want to delete an obsolete notification scheme to keep our configurations clean.",
       "ideal": "Deletes the specified notification scheme and confirms the deletion."
     },
     {
@@ -61,8 +61,8 @@
       "method": "DELETE",
       "operationId": "removeNotificationFromNotificationScheme",
       "summary": "",
-      "user": "As a project lead, I want to remove a specific notification from a scheme to prevent unnecessary alerts.",
-      "ideal": "Removes the specified notification from the notification scheme and confirms the removal."
+      "user": "As a team lead, I want to remove a specific notification from a scheme to reduce unnecessary alerts.",
+      "ideal": "Removes the specified notification from the notification scheme and returns the updated scheme."
     }
   ]
 }

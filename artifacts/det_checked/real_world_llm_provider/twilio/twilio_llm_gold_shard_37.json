@@ -1,12 +1,12 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/LastMonth.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Usage/Records/LastMonth.json",
       "method": "GET",
       "operationId": "ListUsageRecordLastMonth",
       "summary": "",
-      "user": "User with Account SID ACXXXXXXXXXXXXXXXXX wants to retrieve the usage records for the last month to analyze their Twilio service consumption and costs.",
-      "ideal": "Returns a JSON object containing the usage records for the last month, including details such as the total number of messages sent, calls made, and any other relevant usage metrics."
+      "user": "As a Twilio account holder, I want to retrieve my usage records for the last month to analyze my spending on SMS and voice services.",
+      "ideal": "The API should return a JSON response containing an array of usage records for the last month, including details such as the type of usage, the amount used, and the cost."
     }
   ]
 }

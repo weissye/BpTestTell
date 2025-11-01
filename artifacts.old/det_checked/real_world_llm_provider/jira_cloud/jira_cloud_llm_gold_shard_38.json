@@ -1,0 +1,132 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issuesecurityschemes",
+      "method": "GET",
+      "operationId": "getIssueSecuritySchemes",
+      "summary": "",
+      "user": "User requests to retrieve all issue security schemes available in the Jira Cloud platform.",
+      "ideal": "Returns a list of issue security schemes with their details."
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes",
+      "method": "POST",
+      "operationId": "createIssueSecurityScheme",
+      "summary": "",
+      "user": "User wants to create a new issue security scheme with specific configurations.",
+      "ideal": "Creates a new issue security scheme and returns its details."
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/level",
+      "method": "GET",
+      "operationId": "getSecurityLevels",
+      "summary": "",
+      "user": "User requests to get all available security levels for issue security schemes.",
+      "ideal": "Returns a list of security levels with their descriptions."
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/level/default",
+      "method": "PUT",
+      "operationId": "setDefaultLevels",
+      "summary": "",
+      "user": "User wants to set default security levels for issue security schemes.",
+      "ideal": "Updates the default security levels and confirms the changes."
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/level/member",
+      "method": "GET",
+      "operationId": "getSecurityLevelMembers",
+      "summary": "",
+      "user": "User requests to retrieve members associated with specific security levels.",
+      "ideal": "Returns a list of members for the specified security levels."
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/project",
+      "method": "GET",
+      "operationId": "searchProjectsUsingSecuritySchemes",
+      "summary": "",
+      "user": "User wants to find projects that are using specific issue security schemes.",
+      "ideal": "Returns a list of projects associated with the specified security schemes."
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/project",
+      "method": "PUT",
+      "operationId": "associateSchemesToProjects",
+      "summary": "",
+      "user": "User wants to associate existing security schemes with specific projects.",
+      "ideal": "Associates the specified security schemes to the projects and confirms the action."
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/search",
+      "method": "GET",
+      "operationId": "searchSecuritySchemes",
+      "summary": "",
+      "user": "User requests to search for specific issue security schemes based on criteria.",
+      "ideal": "Returns a filtered list of issue security schemes matching the search criteria."
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{id}",
+      "method": "GET",
+      "operationId": "getIssueSecurityScheme",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific issue security scheme by its ID.",
+      "ideal": "Returns the details of the specified issue security scheme."
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{id}",
+      "method": "PUT",
+      "operationId": "updateIssueSecurityScheme",
+      "summary": "",
+      "user": "User wants to update the details of an existing issue security scheme.",
+      "ideal": "Updates the specified issue security scheme and returns the updated details."
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}",
+      "method": "DELETE",
+      "operationId": "deleteSecurityScheme",
+      "summary": "",
+      "user": "User requests to delete a specific issue security scheme by its ID.",
+      "ideal": "Deletes the specified issue security scheme and confirms the deletion."
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level",
+      "method": "PUT",
+      "operationId": "addSecurityLevel",
+      "summary": "",
+      "user": "User wants to add a new security level to an existing issue security scheme.",
+      "ideal": "Adds the new security level to the specified scheme and returns the updated scheme."
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}",
+      "method": "DELETE",
+      "operationId": "removeLevel",
+      "summary": "",
+      "user": "User requests to remove a specific security level from an issue security scheme.",
+      "ideal": "Removes the specified security level and confirms the action."
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}",
+      "method": "PUT",
+      "operationId": "updateSecurityLevel",
+      "summary": "",
+      "user": "User wants to update the details of a specific security level.",
+      "ideal": "Updates the specified security level and returns the updated details."
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}/member",
+      "method": "PUT",
+      "operationId": "addSecurityLevelMembers",
+      "summary": "",
+      "user": "User wants to add members to a specific security level in an issue security scheme.",
+      "ideal": "Adds the specified members to the security level and confirms the addition."
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}/member/{memberId}",
+      "method": "DELETE",
+      "operationId": "removeMemberFromSecurityLevel",
+      "summary": "",
+      "user": "User requests to remove a specific member from a security level.",
+      "ideal": "Removes the specified member from the security level and confirms the removal."
+    }
+  ]
+}

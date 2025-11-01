@@ -1,0 +1,124 @@
+{
+  "gold": [
+    {
+      "path": "/api/circuits/circuit-groups/",
+      "method": "GET",
+      "operationId": "circuits_circuit_groups_list",
+      "summary": "",
+      "user": "Admin user requesting a list of all circuit groups.",
+      "ideal": "Returns a list of circuit groups with their details."
+    },
+    {
+      "path": "/api/circuits/circuit-groups/",
+      "method": "POST",
+      "operationId": "circuits_circuit_groups_create",
+      "summary": "",
+      "user": "Network engineer creating a new circuit group.",
+      "ideal": "Creates a new circuit group and returns its details."
+    },
+    {
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "method": "GET",
+      "operationId": "circuits_circuit_groups_retrieve",
+      "summary": "",
+      "user": "Support staff retrieving details of a specific circuit group.",
+      "ideal": "Returns the details of the specified circuit group."
+    },
+    {
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "method": "PUT",
+      "operationId": "circuits_circuit_groups_update",
+      "summary": "",
+      "user": "Admin updating the details of a circuit group.",
+      "ideal": "Updates the circuit group and returns the updated details."
+    },
+    {
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "method": "DELETE",
+      "operationId": "circuits_circuit_groups_destroy",
+      "summary": "",
+      "user": "Admin deleting an obsolete circuit group.",
+      "ideal": "Deletes the specified circuit group and confirms deletion."
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/",
+      "method": "GET",
+      "operationId": "circuits_circuit_terminations_list",
+      "summary": "",
+      "user": "Network administrator checking all circuit terminations.",
+      "ideal": "Returns a list of all circuit terminations."
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/",
+      "method": "POST",
+      "operationId": "circuits_circuit_terminations_create",
+      "summary": "",
+      "user": "Technician adding a new circuit termination.",
+      "ideal": "Creates a new circuit termination and returns its details."
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "method": "GET",
+      "operationId": "circuits_circuit_terminations_retrieve",
+      "summary": "",
+      "user": "Engineer retrieving a specific circuit termination.",
+      "ideal": "Returns the details of the specified circuit termination."
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "method": "PATCH",
+      "operationId": "circuits_circuit_terminations_partial_update",
+      "summary": "",
+      "user": "Admin updating specific fields of a circuit termination.",
+      "ideal": "Partially updates the circuit termination and returns updated details."
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "method": "DELETE",
+      "operationId": "circuits_circuit_terminations_destroy",
+      "summary": "",
+      "user": "Admin removing an outdated circuit termination.",
+      "ideal": "Deletes the specified circuit termination and confirms deletion."
+    },
+    {
+      "path": "/api/circuits/circuit-types/",
+      "method": "GET",
+      "operationId": "circuits_circuit_types_list",
+      "summary": "",
+      "user": "Network planner reviewing all circuit types.",
+      "ideal": "Returns a list of all circuit types available."
+    },
+    {
+      "path": "/api/circuits/circuit-types/",
+      "method": "POST",
+      "operationId": "circuits_circuit_types_create",
+      "summary": "",
+      "user": "Admin creating a new circuit type.",
+      "ideal": "Creates a new circuit type and returns its details."
+    },
+    {
+      "path": "/api/circuits/circuit-types/{id}/",
+      "method": "GET",
+      "operationId": "circuits_circuit_types_retrieve",
+      "summary": "",
+      "user": "Support staff checking details of a specific circuit type.",
+      "ideal": "Returns the details of the specified circuit type."
+    },
+    {
+      "path": "/api/circuits/circuit-types/{id}/",
+      "method": "PUT",
+      "operationId": "circuits_circuit_types_update",
+      "summary": "",
+      "user": "Admin updating a circuit type's details.",
+      "ideal": "Updates the circuit type and returns the updated details."
+    },
+    {
+      "path": "/api/circuits/circuit-types/{id}/",
+      "method": "DELETE",
+      "operationId": "circuits_circuit_types_destroy",
+      "summary": "",
+      "user": "Admin deleting an obsolete circuit type.",
+      "ideal": "Deletes the specified circuit type and confirms deletion."
+    }
+  ]
+}

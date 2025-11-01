@@ -1,44 +1,44 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
       "method": "GET",
       "operationId": "ListSipCredentialList",
       "summary": "",
-      "user": "User wants to retrieve a list of all SIP Credential Lists associated with their Twilio account.",
-      "ideal": "Response should include an array of Credential Lists with details such as SID, friendly name, and date created."
+      "user": "User wants to retrieve a list of all SIP Credential Lists associated with their Twilio account to manage access control for SIP endpoints.",
+      "ideal": "A successful response containing an array of SIP Credential Lists with their details."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
       "method": "POST",
       "operationId": "CreateSipCredentialList",
       "summary": "",
-      "user": "User wants to create a new SIP Credential List with a specific friendly name.",
-      "ideal": "Response should confirm the creation of the Credential List, returning its SID and other relevant details."
+      "user": "User needs to create a new SIP Credential List to manage authentication for a new SIP application they are deploying.",
+      "ideal": "A successful response indicating the creation of the SIP Credential List with its unique SID."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
       "method": "GET",
       "operationId": "FetchSipCredentialList",
       "summary": "",
-      "user": "User wants to fetch details of a specific SIP Credential List using its SID.",
-      "ideal": "Response should include the details of the specified Credential List, such as its SID, friendly name, and associated credentials."
+      "user": "User wants to fetch details of a specific SIP Credential List to review its configuration and credentials.",
+      "ideal": "A successful response containing the details of the specified SIP Credential List."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateSipCredentialList",
       "summary": "",
-      "user": "User wants to update the friendly name of an existing SIP Credential List.",
-      "ideal": "Response should confirm the update and return the updated details of the Credential List."
+      "user": "User needs to update an existing SIP Credential List to add new credentials for a recently onboarded user.",
+      "ideal": "A successful response confirming the update of the SIP Credential List with the new credentials."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
       "method": "DELETE",
       "operationId": "DeleteSipCredentialList",
       "summary": "",
-      "user": "User wants to delete a specific SIP Credential List by its SID.",
-      "ideal": "Response should confirm the deletion of the Credential List and indicate that it can no longer be accessed."
+      "user": "User wants to delete a SIP Credential List that is no longer needed to clean up their account.",
+      "ideal": "A successful response confirming the deletion of the specified SIP Credential List."
     }
   ]
 }

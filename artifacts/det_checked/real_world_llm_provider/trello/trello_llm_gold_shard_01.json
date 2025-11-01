@@ -1,7 +1,7 @@
 {
   "gold": [
     {
-      "path": "/v1/actions/12345",
+      "path": "/actions/12345",
       "method": "GET",
       "operationId": "getActionsByIdAction",
       "summary": "",
@@ -9,76 +9,76 @@
       "ideal": "Retrieve the action details for the action with ID 12345."
     },
     {
-      "path": "/v1/actions/12345/board",
-      "method": "GET",
-      "operationId": "getActionsBoardByIdAction",
-      "summary": "",
-      "user": "User456",
-      "ideal": "Get the board information associated with the action ID 12345."
-    },
-    {
-      "path": "/v1/actions/12345/card",
-      "method": "GET",
-      "operationId": "getActionsCardByIdAction",
-      "summary": "",
-      "user": "User789",
-      "ideal": "Fetch the card details related to action ID 12345."
-    },
-    {
-      "path": "/v1/actions/12345/member",
-      "method": "GET",
-      "operationId": "getActionsMemberByIdAction",
-      "summary": "",
-      "user": "User101",
-      "ideal": "Retrieve the member information for the action with ID 12345."
-    },
-    {
-      "path": "/v1/actions/12345/memberCreator",
-      "method": "GET",
-      "operationId": "getActionsMemberCreatorByIdAction",
-      "summary": "",
-      "user": "User202",
-      "ideal": "Get the creator's member details for action ID 12345."
-    },
-    {
-      "path": "/v1/actions/12345/organization",
-      "method": "GET",
-      "operationId": "getActionsOrganizationByIdAction",
-      "summary": "",
-      "user": "User303",
-      "ideal": "Fetch the organization details linked to action ID 12345."
-    },
-    {
-      "path": "/v1/actions/12345/text",
-      "method": "PUT",
-      "operationId": "updateActionsTextByIdAction",
-      "summary": "",
-      "user": "User404",
-      "ideal": "Update the text content of the action with ID 12345."
-    },
-    {
-      "path": "/v1/actions/12345",
+      "path": "/actions/12345",
       "method": "DELETE",
       "operationId": "deleteActionsByIdAction",
       "summary": "",
-      "user": "User505",
-      "ideal": "Delete the action with ID 12345 from the system."
+      "user": "User456",
+      "ideal": "Delete the action with ID 12345 from the board."
     },
     {
-      "path": "/v1/actions/12345/list",
+      "path": "/actions/12345",
+      "method": "PUT",
+      "operationId": "updateActionsByIdAction",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Update the action with ID 12345 with new details."
+    },
+    {
+      "path": "/actions/12345/board",
       "method": "GET",
-      "operationId": "getActionsListByIdAction",
+      "operationId": "getActionsBoardByIdAction",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Get the board information associated with action ID 12345."
+    },
+    {
+      "path": "/actions/12345/card",
+      "method": "GET",
+      "operationId": "getActionsCardByIdAction",
+      "summary": "",
+      "user": "User202",
+      "ideal": "Retrieve the card information linked to action ID 12345."
+    },
+    {
+      "path": "/actions/12345/member",
+      "method": "GET",
+      "operationId": "getActionsMemberByIdAction",
+      "summary": "",
+      "user": "User303",
+      "ideal": "Get the member information associated with action ID 12345."
+    },
+    {
+      "path": "/actions/12345/memberCreator",
+      "method": "GET",
+      "operationId": "getActionsMemberCreatorByIdAction",
+      "summary": "",
+      "user": "User404",
+      "ideal": "Retrieve the creator's member information for action ID 12345."
+    },
+    {
+      "path": "/actions/12345/organization",
+      "method": "GET",
+      "operationId": "getActionsOrganizationByIdAction",
+      "summary": "",
+      "user": "User505",
+      "ideal": "Get the organization details related to action ID 12345."
+    },
+    {
+      "path": "/actions/12345/text",
+      "method": "PUT",
+      "operationId": "updateActionsTextByIdAction",
       "summary": "",
       "user": "User606",
-      "ideal": "Retrieve the list information for action ID 12345."
+      "ideal": "Update the text content of action ID 12345."
     },
     {
-      "path": "/v1/actions/12345/display",
+      "path": "/actions/12345/display",
       "method": "GET",
       "operationId": "getActionsDisplayByIdAction",
       "summary": "",
       "user": "User707",
-      "ideal": "Get the display information for action ID 12345."
+      "ideal": "Retrieve the display information for action ID 12345."
     }
   ]
 }

@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchRecording",
+      "summary": "",
+      "user": "User requests a specific recording using the unique recording SID to retrieve details such as duration, date created, and the recording URL.",
+      "ideal": "The API should return a JSON object containing the recording details, including the SID, duration, and URL."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteRecording",
+      "summary": "",
+      "user": "User wants to delete a specific recording identified by its SID to free up storage space and manage recordings effectively.",
+      "ideal": "The API should return a success message confirming the deletion of the recording."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings.json",
+      "method": "GET",
+      "operationId": "ListRecording",
+      "summary": "",
+      "user": "User wants to list all recordings associated with their account to review or manage them, filtering by date or other parameters if needed.",
+      "ideal": "The API should return a JSON array of recordings, each with details like SID, duration, and date created."
+    }
+  ]
+}

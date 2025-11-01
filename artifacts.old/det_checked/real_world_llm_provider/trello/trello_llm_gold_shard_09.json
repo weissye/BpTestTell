@@ -1,0 +1,156 @@
+{
+  "gold": [
+    {
+      "path": "/notifications/all/read",
+      "method": "POST",
+      "operationId": "addNotificationsAllRead",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Mark all notifications as read successfully."
+    },
+    {
+      "path": "/notifications/456",
+      "method": "GET",
+      "operationId": "getNotificationsByIdNotification",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Retrieve notification details for notification ID 456."
+    },
+    {
+      "path": "/notifications/789",
+      "method": "PUT",
+      "operationId": "updateNotificationsByIdNotification",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Update the notification with ID 789 with new details."
+    },
+    {
+      "path": "/notifications/123/board",
+      "method": "GET",
+      "operationId": "getNotificationsBoardByIdNotification",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get the board associated with notification ID 123."
+    },
+    {
+      "path": "/notifications/321/board/name",
+      "method": "GET",
+      "operationId": "getNotificationsBoardByIdNotificationByField",
+      "summary": "",
+      "user": "user321",
+      "ideal": "Retrieve the name of the board for notification ID 321."
+    },
+    {
+      "path": "/notifications/654/card",
+      "method": "GET",
+      "operationId": "getNotificationsCardByIdNotification",
+      "summary": "",
+      "user": "user654",
+      "ideal": "Fetch the card linked to notification ID 654."
+    },
+    {
+      "path": "/notifications/987/card/title",
+      "method": "GET",
+      "operationId": "getNotificationsCardByIdNotificationByField",
+      "summary": "",
+      "user": "user987",
+      "ideal": "Get the title of the card for notification ID 987."
+    },
+    {
+      "path": "/notifications/234/display",
+      "method": "GET",
+      "operationId": "getNotificationsDisplayByIdNotification",
+      "summary": "",
+      "user": "user234",
+      "ideal": "Retrieve display information for notification ID 234."
+    },
+    {
+      "path": "/notifications/567/entities",
+      "method": "GET",
+      "operationId": "getNotificationsEntitiesByIdNotification",
+      "summary": "",
+      "user": "user567",
+      "ideal": "Get the entities related to notification ID 567."
+    },
+    {
+      "path": "/notifications/890/list",
+      "method": "GET",
+      "operationId": "getNotificationsListByIdNotification",
+      "summary": "",
+      "user": "user890",
+      "ideal": "Fetch the list associated with notification ID 890."
+    },
+    {
+      "path": "/notifications/135/list/name",
+      "method": "GET",
+      "operationId": "getNotificationsListByIdNotificationByField",
+      "summary": "",
+      "user": "user135",
+      "ideal": "Retrieve the name of the list for notification ID 135."
+    },
+    {
+      "path": "/notifications/246/member",
+      "method": "GET",
+      "operationId": "getNotificationsMemberByIdNotification",
+      "summary": "",
+      "user": "user246",
+      "ideal": "Get the member associated with notification ID 246."
+    },
+    {
+      "path": "/notifications/357/member/email",
+      "method": "GET",
+      "operationId": "getNotificationsMemberByIdNotificationByField",
+      "summary": "",
+      "user": "user357",
+      "ideal": "Retrieve the email of the member for notification ID 357."
+    },
+    {
+      "path": "/notifications/468/memberCreator",
+      "method": "GET",
+      "operationId": "getNotificationsMemberCreatorByIdNotification",
+      "summary": "",
+      "user": "user468",
+      "ideal": "Get the creator of the notification with ID 468."
+    },
+    {
+      "path": "/notifications/579/memberCreator/username",
+      "method": "GET",
+      "operationId": "getNotificationsMemberCreatorByIdNotificationByField",
+      "summary": "",
+      "user": "user579",
+      "ideal": "Retrieve the username of the creator for notification ID 579."
+    },
+    {
+      "path": "/notifications/680/organization",
+      "method": "GET",
+      "operationId": "getNotificationsOrganizationByIdNotification",
+      "summary": "",
+      "user": "user680",
+      "ideal": "Get the organization linked to notification ID 680."
+    },
+    {
+      "path": "/notifications/791/organization/name",
+      "method": "GET",
+      "operationId": "getNotificationsOrganizationByIdNotificationByField",
+      "summary": "",
+      "user": "user791",
+      "ideal": "Retrieve the name of the organization for notification ID 791."
+    },
+    {
+      "path": "/notifications/902/unread",
+      "method": "PUT",
+      "operationId": "updateNotificationsUnreadByIdNotification",
+      "summary": "",
+      "user": "user902",
+      "ideal": "Mark notification ID 902 as unread."
+    },
+    {
+      "path": "/notifications/123/type",
+      "method": "GET",
+      "operationId": "getNotificationsByIdNotificationByField",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the type of notification for ID 123."
+    }
+  ]
+}

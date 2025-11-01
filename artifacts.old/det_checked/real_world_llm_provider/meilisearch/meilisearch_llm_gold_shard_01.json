@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/indexes/myIndex/documents",
+      "method": "GET",
+      "operationId": "indexes.documents.list",
+      "summary": "",
+      "user": "User wants to retrieve all documents from the 'myIndex' index to display them on the dashboard.",
+      "ideal": "The API should return a list of documents in JSON format, including their IDs and content."
+    },
+    {
+      "path": "/indexes/myIndex/documents",
+      "method": "POST",
+      "operationId": "indexes.documents.create",
+      "summary": "",
+      "user": "User needs to add a new document to 'myIndex' with specific fields such as title and description.",
+      "ideal": "The API should accept a JSON object representing the new document and return the created document with its ID."
+    },
+    {
+      "path": "/indexes/myIndex/documents",
+      "method": "PUT",
+      "operationId": "indexes.documents.upsert",
+      "summary": "",
+      "user": "User wants to update an existing document or create it if it doesn't exist in 'myIndex'.",
+      "ideal": "The API should accept a JSON object and return the updated or created document with its ID."
+    },
+    {
+      "path": "/indexes/myIndex/documents",
+      "method": "DELETE",
+      "operationId": "indexes.documents.removeAll",
+      "summary": "",
+      "user": "User intends to remove all documents from 'myIndex' to reset the index for new data.",
+      "ideal": "The API should confirm the deletion of all documents and return a success message."
+    },
+    {
+      "path": "/indexes/myIndex/documents/fetch",
+      "method": "POST",
+      "operationId": "indexes.documents.fetch",
+      "summary": "",
+      "user": "User wants to fetch documents from an external source and add them to 'myIndex'.",
+      "ideal": "The API should accept a source URL and return the fetched documents in JSON format."
+    },
+    {
+      "path": "/indexes/myIndex/documents/delete-batch",
+      "method": "POST",
+      "operationId": "indexes.documents.removeBatch",
+      "summary": "",
+      "user": "User needs to delete multiple documents from 'myIndex' using their IDs.",
+      "ideal": "The API should accept an array of document IDs and return a confirmation of the deleted documents."
+    },
+    {
+      "path": "/indexes/myIndex/documents/delete",
+      "method": "POST",
+      "operationId": "indexes.documents.remove",
+      "summary": "",
+      "user": "User wants to delete a specific document from 'myIndex' by providing its ID.",
+      "ideal": "The API should confirm the deletion of the document and return a success message."
+    },
+    {
+      "path": "/indexes/myIndex/documents/123",
+      "method": "GET",
+      "operationId": "indexes.documents.get",
+      "summary": "",
+      "user": "User needs to retrieve a specific document with ID '123' from 'myIndex' for review.",
+      "ideal": "The API should return the document with ID '123' in JSON format, including all its fields."
+    },
+    {
+      "path": "/indexes/myIndex/documents/123",
+      "method": "DELETE",
+      "operationId": "indexes.documents.removeOne",
+      "summary": "",
+      "user": "User wants to delete the document with ID '123' from 'myIndex' as it is no longer needed.",
+      "ideal": "The API should confirm the deletion of the document with ID '123' and return a success message."
+    }
+  ]
+}

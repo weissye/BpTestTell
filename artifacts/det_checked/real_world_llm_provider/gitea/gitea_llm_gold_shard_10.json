@@ -58,11 +58,11 @@
     },
     {
       "path": "/user/emails",
-      "method": "GET",
-      "operationId": "userListEmails",
+      "method": "POST",
+      "operationId": "userAddEmail",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Retrieve a list of email addresses associated with the user."
+      "ideal": "Add a new email address to the user's account."
     },
     {
       "path": "/user/following/jane_doe",
@@ -73,20 +73,12 @@
       "ideal": "Follow the user 'jane_doe'."
     },
     {
-      "path": "/user/gpg_keys",
-      "method": "POST",
-      "operationId": "userCurrentPostGPGKey",
-      "summary": "",
-      "user": "john_doe",
-      "ideal": "Add a new GPG key for the user."
-    },
-    {
       "path": "/user/hooks",
       "method": "POST",
       "operationId": "userCreateHook",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Create a new webhook for the user."
+      "ideal": "Create a new webhook for the user's repository."
     },
     {
       "path": "/user/repos",
@@ -95,22 +87,6 @@
       "summary": "",
       "user": "john_doe",
       "ideal": "Create a new repository for the current user."
-    },
-    {
-      "path": "/user/settings",
-      "method": "PATCH",
-      "operationId": "updateUserSettings",
-      "summary": "",
-      "user": "john_doe",
-      "ideal": "Update the settings for the current user."
-    },
-    {
-      "path": "/user/starred",
-      "method": "GET",
-      "operationId": "userCurrentListStarred",
-      "summary": "",
-      "user": "john_doe",
-      "ideal": "List all repositories starred by the user."
     },
     {
       "path": "/users/jane_doe",
@@ -127,6 +103,22 @@
       "summary": "",
       "user": "john_doe",
       "ideal": "List all repositories owned by 'jane_doe'."
+    },
+    {
+      "path": "/users/jane_doe/followers",
+      "method": "GET",
+      "operationId": "userListFollowers",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Get a list of followers for 'jane_doe'."
+    },
+    {
+      "path": "/users/jane_doe/starred",
+      "method": "GET",
+      "operationId": "userListStarred",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all repositories starred by 'jane_doe'."
     }
   ]
 }

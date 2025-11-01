@@ -22,7 +22,7 @@
       "operationId": "updateComments",
       "summary": "",
       "user": "user789",
-      "ideal": "Update multiple comments based on the provided data."
+      "ideal": "Update multiple comments based on the provided criteria."
     },
     {
       "path": "/comments",
@@ -30,7 +30,7 @@
       "operationId": "deleteComments",
       "summary": "",
       "user": "user101",
-      "ideal": "Delete all comments from the database."
+      "ideal": "Delete all comments that match the specified conditions."
     },
     {
       "path": "/comments/{id}",
@@ -46,7 +46,7 @@
       "operationId": "updateComment",
       "summary": "",
       "user": "user131",
-      "ideal": "Update a specific comment identified by its ID."
+      "ideal": "Update the content of a specific comment identified by its ID."
     },
     {
       "path": "/comments/{id}",
@@ -54,7 +54,7 @@
       "operationId": "deleteComment",
       "summary": "",
       "user": "user415",
-      "ideal": "Delete a specific comment using its ID."
+      "ideal": "Delete a specific comment by its ID."
     }
   ]
 }

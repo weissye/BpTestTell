@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/collections",
+      "method": "GET",
+      "operationId": "getCollections",
+      "summary": "",
+      "user": "As a developer, I want to retrieve a list of all collections in the Directus API so that I can understand the available data structures.",
+      "ideal": "The response should include an array of collection objects, each containing details such as id, name, and schema."
+    },
+    {
+      "path": "/collections",
+      "method": "POST",
+      "operationId": "createCollection",
+      "summary": "",
+      "user": "As an admin, I want to create a new collection in the Directus API so that I can store custom data relevant to my application.",
+      "ideal": "The response should return the newly created collection object with its id and other relevant details."
+    },
+    {
+      "path": "/collections/{id}",
+      "method": "GET",
+      "operationId": "getCollection",
+      "summary": "",
+      "user": "As a user, I want to fetch a specific collection by its ID so that I can view its structure and data.",
+      "ideal": "The response should include the collection object with its properties such as id, name, and fields."
+    },
+    {
+      "path": "/collections/{id}",
+      "method": "PATCH",
+      "operationId": "updateCollection",
+      "summary": "",
+      "user": "As a developer, I want to update the properties of an existing collection so that I can modify its schema to better fit my needs.",
+      "ideal": "The response should return the updated collection object reflecting the changes made."
+    },
+    {
+      "path": "/collections/{id}",
+      "method": "DELETE",
+      "operationId": "deleteCollection",
+      "summary": "",
+      "user": "As an admin, I want to delete a collection that is no longer needed so that I can keep the API clean and organized.",
+      "ideal": "The response should confirm the deletion of the collection and may return a success message."
+    }
+  ]
+}

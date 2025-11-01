@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink",
+      "method": "GET",
+      "operationId": "getRemoteIssueLinks",
+      "summary": "",
+      "user": "User A wants to retrieve all remote issue links associated with the Jira issue PROJECT-123 to understand its connections with external resources.",
+      "ideal": "The API should return a list of remote issue links for the specified issue, including details such as the global ID, title, and URL of each link."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink",
+      "method": "POST",
+      "operationId": "createOrUpdateRemoteIssueLink",
+      "summary": "",
+      "user": "User B needs to create a new remote issue link for issue PROJECT-123 to link it to an external tracking system.",
+      "ideal": "The API should successfully create a new remote issue link and return the details of the created link, including its ID and the associated issue."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink/456",
+      "method": "DELETE",
+      "operationId": "deleteRemoteIssueLinkById",
+      "summary": "",
+      "user": "User C wants to remove a specific remote issue link with ID 456 from issue PROJECT-123 as it is no longer relevant.",
+      "ideal": "The API should delete the specified remote issue link and confirm the deletion with a success message."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink/456",
+      "method": "GET",
+      "operationId": "getRemoteIssueLinkById",
+      "summary": "",
+      "user": "User D needs to retrieve details of the remote issue link with ID 456 for issue PROJECT-123 to verify its information.",
+      "ideal": "The API should return the details of the specified remote issue link, including its title, URL, and any other relevant metadata."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink/456",
+      "method": "PUT",
+      "operationId": "updateRemoteIssueLink",
+      "summary": "",
+      "user": "User E wants to update the title and URL of the remote issue link with ID 456 for issue PROJECT-123 to reflect recent changes.",
+      "ideal": "The API should successfully update the remote issue link and return the updated details, confirming the changes made."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJECT-123/remotelink/{globalId}",
+      "method": "DELETE",
+      "operationId": "deleteRemoteIssueLinkByGlobalId",
+      "summary": "",
+      "user": "User F needs to delete a remote issue link identified by its global ID for issue PROJECT-123 as it is outdated.",
+      "ideal": "The API should remove the remote issue link associated with the specified global ID and return a confirmation of the deletion."
+    }
+  ]
+}

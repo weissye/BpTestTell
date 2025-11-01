@@ -6,7 +6,7 @@
       "operationId": "experimental.get",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve the current experimental features available in Meilisearch."
+      "ideal": "Retrieve the current experimental features enabled in the Meilisearch instance."
     },
     {
       "path": "/experimental-features",
@@ -14,15 +14,15 @@
       "operationId": "experimental.update",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the settings for experimental features in Meilisearch."
+      "ideal": "Update the experimental features in the Meilisearch instance with the provided configuration."
     },
     {
       "path": "/metrics",
       "method": "GET",
       "operationId": "metrics.get",
       "summary": "",
-      "user": "admin",
-      "ideal": "Fetch the current metrics for Meilisearch performance monitoring."
+      "user": "monitoring_service",
+      "ideal": "Fetch the current metrics of the Meilisearch instance for monitoring and analysis."
     }
   ]
 }

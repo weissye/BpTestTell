@@ -5,64 +5,64 @@
       "method": "GET",
       "operationId": "getPriorities",
       "summary": "",
-      "user": "As a project manager, I want to retrieve all priority levels available in Jira to ensure that my team can categorize tasks effectively.",
-      "ideal": "Returns a list of all priority levels with their details."
+      "user": "As a project manager, I want to retrieve all priority levels available in Jira so that I can understand how to categorize tasks effectively.",
+      "ideal": "The API should return a list of all priority levels, including their IDs and names."
     },
     {
       "path": "/rest/api/3/priority",
       "method": "POST",
       "operationId": "createPriority",
       "summary": "",
-      "user": "As a Jira administrator, I want to create a new priority level for urgent tasks so that my team can prioritize them accordingly.",
-      "ideal": "Creates a new priority level and returns the created priority details."
+      "user": "As a Jira administrator, I want to create a new priority level called 'Critical' to ensure that urgent tasks are easily identifiable.",
+      "ideal": "The API should create a new priority and return the created priority's details, including its ID."
     },
     {
       "path": "/rest/api/3/priority/default",
       "method": "PUT",
       "operationId": "setDefaultPriority",
       "summary": "",
-      "user": "As a project lead, I want to set a default priority for new issues to streamline the issue creation process.",
-      "ideal": "Sets the specified priority as the default and returns the updated priority details."
+      "user": "As a project lead, I want to set 'High' as the default priority for new issues to streamline the issue creation process.",
+      "ideal": "The API should update the default priority and confirm the change with a success message."
     },
     {
       "path": "/rest/api/3/priority/move",
       "method": "PUT",
       "operationId": "movePriorities",
       "summary": "",
-      "user": "As a Jira administrator, I want to reorder the priority levels to reflect the new workflow of my team.",
-      "ideal": "Reorders the priority levels and returns the updated list of priorities."
+      "user": "As a project manager, I want to reorder the priority levels to reflect our team's workflow better.",
+      "ideal": "The API should accept a new order for the priorities and return the updated list of priorities in the new order."
     },
     {
       "path": "/rest/api/3/priority/search",
       "method": "GET",
       "operationId": "searchPriorities",
       "summary": "",
-      "user": "As a developer, I want to search for specific priority levels to find the one that matches my task requirements.",
-      "ideal": "Returns a list of priority levels that match the search criteria."
+      "user": "As a developer, I want to search for a specific priority by name to quickly find its ID for use in issue creation.",
+      "ideal": "The API should return the priority details that match the search criteria, including ID and name."
     },
     {
       "path": "/rest/api/3/priority/{id}",
       "method": "DELETE",
       "operationId": "deletePriority",
       "summary": "",
-      "user": "As a project manager, I want to delete an obsolete priority level that is no longer relevant to our projects.",
-      "ideal": "Deletes the specified priority level and confirms the deletion."
+      "user": "As a Jira administrator, I want to delete an outdated priority level to keep the priority list clean and relevant.",
+      "ideal": "The API should delete the specified priority and return a confirmation message indicating successful deletion."
     },
     {
       "path": "/rest/api/3/priority/{id}",
       "method": "GET",
       "operationId": "getPriority",
       "summary": "",
-      "user": "As a team member, I want to retrieve details of a specific priority level to understand its significance in our workflow.",
-      "ideal": "Returns the details of the specified priority level."
+      "user": "As a team member, I want to retrieve the details of a specific priority to understand its significance in our project.",
+      "ideal": "The API should return the details of the specified priority, including its name and description."
     },
     {
       "path": "/rest/api/3/priority/{id}",
       "method": "PUT",
       "operationId": "updatePriority",
       "summary": "",
-      "user": "As a Jira administrator, I want to update the details of an existing priority level to better reflect its importance.",
-      "ideal": "Updates the specified priority level and returns the updated details."
+      "user": "As a project manager, I want to update the description of an existing priority to provide better context for my team.",
+      "ideal": "The API should update the specified priority and return the updated priority details."
     }
   ]
 }

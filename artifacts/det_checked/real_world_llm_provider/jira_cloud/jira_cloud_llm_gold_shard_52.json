@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "getAllLabels",
       "summary": "",
-      "user": "A project manager looking to retrieve all labels used in the Jira Cloud project to ensure proper categorization of issues and streamline the workflow.",
-      "ideal": "Returns a list of all labels available in the Jira Cloud project, allowing the user to manage and utilize labels effectively for issue tracking."
+      "user": "As a project manager, I want to retrieve all labels in the Jira Cloud platform so that I can effectively categorize and manage issues across different projects.",
+      "ideal": "The API should return a list of all labels, including their names and associated metadata, in a structured JSON format."
     }
   ]
 }

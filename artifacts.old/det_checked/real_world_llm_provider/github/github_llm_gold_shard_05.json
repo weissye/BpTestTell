@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/my-org/campaigns",
+      "method": "GET",
+      "operationId": "campaigns/list-org-campaigns",
+      "summary": "",
+      "user": "As a marketing manager, I want to retrieve all campaigns for my organization to analyze their performance and plan future strategies.",
+      "ideal": "Returns a list of campaigns associated with the specified organization."
+    },
+    {
+      "path": "/orgs/my-org/campaigns",
+      "method": "POST",
+      "operationId": "campaigns/create-campaign",
+      "summary": "",
+      "user": "As a marketing manager, I want to create a new campaign for my organization to promote our latest product launch.",
+      "ideal": "Creates a new campaign and returns the details of the created campaign."
+    },
+    {
+      "path": "/orgs/my-org/campaigns/123",
+      "method": "GET",
+      "operationId": "campaigns/get-campaign-summary",
+      "summary": "",
+      "user": "As a marketing analyst, I want to get the summary of a specific campaign to evaluate its effectiveness.",
+      "ideal": "Returns the summary details of the specified campaign."
+    },
+    {
+      "path": "/orgs/my-org/campaigns/123",
+      "method": "PATCH",
+      "operationId": "campaigns/update-campaign",
+      "summary": "",
+      "user": "As a marketing manager, I want to update the details of an existing campaign to reflect new changes in our strategy.",
+      "ideal": "Updates the specified campaign and returns the updated campaign details."
+    },
+    {
+      "path": "/orgs/my-org/campaigns/123",
+      "method": "DELETE",
+      "operationId": "campaigns/delete-campaign",
+      "summary": "",
+      "user": "As a marketing manager, I want to delete an outdated campaign that is no longer relevant to our current marketing efforts.",
+      "ideal": "Deletes the specified campaign and confirms the deletion."
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/roles",
+      "method": "GET",
+      "operationId": "getRoles",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all roles available in the system."
+    },
+    {
+      "path": "/roles",
+      "method": "POST",
+      "operationId": "createRole",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new role with specified permissions and attributes."
+    },
+    {
+      "path": "/roles",
+      "method": "PATCH",
+      "operationId": "updateRoles",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update multiple roles with new attributes or permissions."
+    },
+    {
+      "path": "/roles",
+      "method": "DELETE",
+      "operationId": "deleteRoles",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete specified roles from the system."
+    },
+    {
+      "path": "/roles/{id}",
+      "method": "GET",
+      "operationId": "getRole",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve detailed information about a specific role by its ID."
+    },
+    {
+      "path": "/roles/{id}",
+      "method": "PATCH",
+      "operationId": "updateRole",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update a specific role's attributes or permissions by its ID."
+    },
+    {
+      "path": "/roles/{id}",
+      "method": "DELETE",
+      "operationId": "deleteRole",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific role by its ID."
+    }
+  ]
+}

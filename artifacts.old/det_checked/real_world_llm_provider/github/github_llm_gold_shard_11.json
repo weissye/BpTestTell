@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/my-org/codespaces",
+      "method": "GET",
+      "operationId": "codespaces/list-in-organization",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all codespaces in the organization 'my-org'."
+    },
+    {
+      "path": "/repos/my-user/my-repo/codespaces",
+      "method": "POST",
+      "operationId": "codespaces/create-with-repo-for-authenticated-user",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Create a new codespace for the repository 'my-repo' under the authenticated user."
+    },
+    {
+      "path": "/user/codespaces/secrets",
+      "method": "GET",
+      "operationId": "codespaces/list-secrets-for-authenticated-user",
+      "summary": "",
+      "user": "user789",
+      "ideal": "List all secrets available for the authenticated user's codespaces."
+    },
+    {
+      "path": "/orgs/my-org/codespaces/secrets/my-secret",
+      "method": "GET",
+      "operationId": "codespaces/get-org-secret",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the secret 'my-secret' for the organization 'my-org'."
+    },
+    {
+      "path": "/user/codespaces/my-codespace",
+      "method": "DELETE",
+      "operationId": "codespaces/delete-for-authenticated-user",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Delete the codespace named 'my-codespace' for the authenticated user."
+    },
+    {
+      "path": "/repos/my-user/my-repo/codespaces/secrets/my-repo-secret",
+      "method": "PUT",
+      "operationId": "codespaces/create-or-update-repo-secret",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Create or update the repository secret 'my-repo-secret' for 'my-repo'."
+    },
+    {
+      "path": "/orgs/my-org/codespaces/secrets/my-secret/repositories",
+      "method": "GET",
+      "operationId": "codespaces/list-selected-repos-for-org-secret",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all repositories associated with the organization secret 'my-secret'."
+    },
+    {
+      "path": "/user/codespaces/my-codespace/exports",
+      "method": "POST",
+      "operationId": "codespaces/export-for-authenticated-user",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Export the codespace 'my-codespace' for the authenticated user."
+    },
+    {
+      "path": "/repos/my-user/my-repo/codespaces/machines",
+      "method": "GET",
+      "operationId": "codespaces/repo-machines-for-authenticated-user",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Get a list of available machines for the repository 'my-repo' codespaces."
+    },
+    {
+      "path": "/user/codespaces/my-codespace/start",
+      "method": "POST",
+      "operationId": "codespaces/start-for-authenticated-user",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Start the codespace named 'my-codespace' for the authenticated user."
+    }
+  ]
+}

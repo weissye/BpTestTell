@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/DXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings.json",
+      "method": "POST",
+      "operationId": "CreateSipAuthCallsCredentialListMapping",
+      "summary": "",
+      "user": "User wants to create a new SIP authentication call credential list mapping for their Twilio account.",
+      "ideal": "Successfully creates a new credential list mapping with the provided details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/DXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings.json",
+      "method": "GET",
+      "operationId": "ListSipAuthCallsCredentialListMapping",
+      "summary": "",
+      "user": "User needs to retrieve all SIP authentication call credential list mappings associated with their Twilio account.",
+      "ideal": "Returns a list of all credential list mappings for the specified domain."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/DXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings/CRXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchSipAuthCallsCredentialListMapping",
+      "summary": "",
+      "user": "User wants to fetch details of a specific SIP authentication call credential list mapping using its SID.",
+      "ideal": "Returns the details of the specified credential list mapping."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/DXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings/CRXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipAuthCallsCredentialListMapping",
+      "summary": "",
+      "user": "User intends to delete a specific SIP authentication call credential list mapping from their Twilio account.",
+      "ideal": "Successfully deletes the specified credential list mapping."
+    }
+  ]
+}

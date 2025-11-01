@@ -1,0 +1,90 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/role",
+      "method": "GET",
+      "tags": [
+        "Project roles"
+      ],
+      "summary": "Get project roles for project",
+      "operationId": "getProjectRoles"
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}",
+      "method": "GET",
+      "tags": [
+        "Project roles"
+      ],
+      "summary": "Get project role for project",
+      "operationId": "getProjectRole"
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/roledetails",
+      "method": "GET",
+      "tags": [
+        "Project roles"
+      ],
+      "summary": "Get project role details",
+      "operationId": "getProjectRoleDetails"
+    },
+    {
+      "path": "/rest/api/3/role",
+      "method": "GET",
+      "tags": [
+        "Project roles"
+      ],
+      "summary": "Get all project roles",
+      "operationId": "getAllProjectRoles"
+    },
+    {
+      "path": "/rest/api/3/role",
+      "method": "POST",
+      "tags": [
+        "Project roles"
+      ],
+      "summary": "Create project role",
+      "operationId": "createProjectRole"
+    },
+    {
+      "path": "/rest/api/3/role/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Project roles"
+      ],
+      "summary": "Delete project role",
+      "operationId": "deleteProjectRole"
+    },
+    {
+      "path": "/rest/api/3/role/{id}",
+      "method": "GET",
+      "tags": [
+        "Project roles"
+      ],
+      "summary": "Get project role by ID",
+      "operationId": "getProjectRoleById"
+    },
+    {
+      "path": "/rest/api/3/role/{id}",
+      "method": "POST",
+      "tags": [
+        "Project roles"
+      ],
+      "summary": "Partial update project role",
+      "operationId": "partialUpdateProjectRole"
+    },
+    {
+      "path": "/rest/api/3/role/{id}",
+      "method": "PUT",
+      "tags": [
+        "Project roles"
+      ],
+      "summary": "Fully update project role",
+      "operationId": "fullyUpdateProjectRole"
+    }
+  ]
+}

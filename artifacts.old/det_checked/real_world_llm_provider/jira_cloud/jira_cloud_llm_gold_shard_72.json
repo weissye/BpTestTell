@@ -1,0 +1,124 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/PROJ-123/version",
+      "method": "GET",
+      "operationId": "getProjectVersionsPaginated",
+      "summary": "",
+      "user": "User requests to retrieve all versions associated with project PROJ-123 to check the progress of ongoing releases.",
+      "ideal": "Returns a paginated list of versions for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/PROJ-123/versions",
+      "method": "GET",
+      "operationId": "getProjectVersions",
+      "summary": "",
+      "user": "User wants to see all versions of project PROJ-123 to plan for upcoming releases.",
+      "ideal": "Returns a complete list of versions for the specified project."
+    },
+    {
+      "path": "/rest/api/3/version",
+      "method": "POST",
+      "operationId": "createVersion",
+      "summary": "",
+      "user": "User creates a new version '1.0.0' for project PROJ-123 to mark the first stable release.",
+      "ideal": "Successfully creates a new version and returns the version details."
+    },
+    {
+      "path": "/rest/api/3/version/456",
+      "method": "DELETE",
+      "operationId": "deleteVersion",
+      "summary": "",
+      "user": "User deletes version with ID 456 as it is no longer needed for project PROJ-123.",
+      "ideal": "Successfully deletes the specified version."
+    },
+    {
+      "path": "/rest/api/3/version/456",
+      "method": "GET",
+      "operationId": "getVersion",
+      "summary": "",
+      "user": "User retrieves details of version with ID 456 to review its attributes before making changes.",
+      "ideal": "Returns the details of the specified version."
+    },
+    {
+      "path": "/rest/api/3/version/456",
+      "method": "PUT",
+      "operationId": "updateVersion",
+      "summary": "",
+      "user": "User updates version 456 to change its name to '1.0.1' and adjust the release date.",
+      "ideal": "Successfully updates the version and returns the updated details."
+    },
+    {
+      "path": "/rest/api/3/version/456/mergeto/789",
+      "method": "PUT",
+      "operationId": "mergeVersions",
+      "summary": "",
+      "user": "User merges version 456 into version 789 to consolidate releases.",
+      "ideal": "Successfully merges the specified versions."
+    },
+    {
+      "path": "/rest/api/3/version/456/move",
+      "method": "POST",
+      "operationId": "moveVersion",
+      "summary": "",
+      "user": "User moves version 456 to a different project to better organize releases.",
+      "ideal": "Successfully moves the version to the specified project."
+    },
+    {
+      "path": "/rest/api/3/version/456/relatedIssueCounts",
+      "method": "GET",
+      "operationId": "getVersionRelatedIssues",
+      "summary": "",
+      "user": "User checks how many issues are related to version 456 to assess its impact.",
+      "ideal": "Returns the count of issues related to the specified version."
+    },
+    {
+      "path": "/rest/api/3/version/456/relatedwork",
+      "method": "GET",
+      "operationId": "getRelatedWork",
+      "summary": "",
+      "user": "User retrieves related work items for version 456 to understand dependencies.",
+      "ideal": "Returns a list of related work for the specified version."
+    },
+    {
+      "path": "/rest/api/3/version/456/relatedwork",
+      "method": "POST",
+      "operationId": "createRelatedWork",
+      "summary": "",
+      "user": "User adds a new related work item to version 456 to track additional tasks.",
+      "ideal": "Successfully creates a related work item for the specified version."
+    },
+    {
+      "path": "/rest/api/3/version/456/relatedwork",
+      "method": "PUT",
+      "operationId": "updateRelatedWork",
+      "summary": "",
+      "user": "User updates a related work item for version 456 to reflect changes in task status.",
+      "ideal": "Successfully updates the related work item."
+    },
+    {
+      "path": "/rest/api/3/version/456/removeAndSwap",
+      "method": "POST",
+      "operationId": "deleteAndReplaceVersion",
+      "summary": "",
+      "user": "User deletes version 456 and replaces it with a new version to streamline releases.",
+      "ideal": "Successfully deletes the old version and replaces it with the new one."
+    },
+    {
+      "path": "/rest/api/3/version/456/unresolvedIssueCount",
+      "method": "GET",
+      "operationId": "getVersionUnresolvedIssues",
+      "summary": "",
+      "user": "User checks the count of unresolved issues for version 456 to prioritize fixes.",
+      "ideal": "Returns the count of unresolved issues for the specified version."
+    },
+    {
+      "path": "/rest/api/3/version/456/relatedwork/789",
+      "method": "DELETE",
+      "operationId": "deleteRelatedWork",
+      "summary": "",
+      "user": "User deletes related work item with ID 789 from version 456 as it is no longer relevant.",
+      "ideal": "Successfully deletes the specified related work item."
+    }
+  ]
+}

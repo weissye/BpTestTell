@@ -1,0 +1,47 @@
+{
+  "sut": "directus",
+  "source": "artifacts\\det_checked\\real_world_llm_provider\\directus\\directus_llm_gold_ops.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "Directus",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteDirectus"
+      ],
+      "checks": [
+        "verifyDirectusExists"
+      ]
+    },
+    {
+      "entity": "Directus",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addDirectus"
+      ],
+      "checks": [
+        "verifyDirectusNotExists"
+      ]
+    },
+    {
+      "entity": "Directus",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateDirectus"
+      ],
+      "checks": [
+        "verifyDirectusExists",
+        "verifyDirectusUpdated"
+      ]
+    }
+  ]
+}

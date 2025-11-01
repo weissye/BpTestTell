@@ -14,7 +14,7 @@
       "operationId": "getStatus",
       "summary": "",
       "user": "As a developer, I need to fetch the details of a specific status by its ID or name to ensure I am using the correct status in my API calls.",
-      "ideal": "The API should return the details of the specified status, including its ID, name, and description, so I can confirm its attributes."
+      "ideal": "The API should return the details of the specified status, including its ID, name, and description, enabling me to validate my implementation."
     }
   ]
 }

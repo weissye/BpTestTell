@@ -1,0 +1,108 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project",
+      "method": "GET",
+      "operationId": "getAllProjects",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve a list of all projects in the Jira Cloud platform so that I can review their statuses and manage resources effectively.",
+      "ideal": "The API should return a JSON array of all projects, including their IDs, names, and statuses."
+    },
+    {
+      "path": "/rest/api/3/project",
+      "method": "POST",
+      "operationId": "createProject",
+      "summary": "",
+      "user": "As a team lead, I want to create a new project in Jira so that my team can start tracking tasks and issues.",
+      "ideal": "The API should accept a JSON object with project details and return the created project's ID and status."
+    },
+    {
+      "path": "/rest/api/3/project/recent",
+      "method": "GET",
+      "operationId": "getRecent",
+      "summary": "",
+      "user": "As a user, I want to see the most recently accessed projects so that I can quickly navigate to them.",
+      "ideal": "The API should return a list of recently accessed projects with their IDs and names."
+    },
+    {
+      "path": "/rest/api/3/project/search",
+      "method": "GET",
+      "operationId": "searchProjects",
+      "summary": "",
+      "user": "As a developer, I want to search for specific projects by name or key so that I can find the project I need to work on.",
+      "ideal": "The API should return a filtered list of projects matching the search criteria."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "method": "DELETE",
+      "operationId": "deleteProject",
+      "summary": "",
+      "user": "As an administrator, I want to delete a project that is no longer needed to keep the Jira environment clean.",
+      "ideal": "The API should confirm the deletion of the project and return a success message."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "method": "GET",
+      "operationId": "getProject",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve detailed information about a specific project to assess its progress.",
+      "ideal": "The API should return a JSON object with all relevant details of the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "method": "PUT",
+      "operationId": "updateProject",
+      "summary": "",
+      "user": "As a project owner, I want to update the details of my project to reflect changes in scope or team members.",
+      "ideal": "The API should accept updated project details and return the updated project's information."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/archive",
+      "method": "POST",
+      "operationId": "archiveProject",
+      "summary": "",
+      "user": "As a project manager, I want to archive a completed project to keep my project list organized.",
+      "ideal": "The API should confirm the archiving of the project and return a success message."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/delete",
+      "method": "POST",
+      "operationId": "deleteProjectAsynchronously",
+      "summary": "",
+      "user": "As an administrator, I want to delete a project asynchronously to avoid blocking the UI while the operation completes.",
+      "ideal": "The API should initiate the deletion process and return a job ID for tracking the status."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/restore",
+      "method": "POST",
+      "operationId": "restore",
+      "summary": "",
+      "user": "As a project manager, I want to restore a previously archived project in case it is needed again.",
+      "ideal": "The API should confirm the restoration of the project and return the project's current status."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/statuses",
+      "method": "GET",
+      "operationId": "getAllStatuses",
+      "summary": "",
+      "user": "As a developer, I want to retrieve all statuses associated with a project to understand its workflow.",
+      "ideal": "The API should return a list of statuses with their IDs and names."
+    },
+    {
+      "path": "/rest/api/3/project/{projectId}/hierarchy",
+      "method": "GET",
+      "operationId": "getHierarchy",
+      "summary": "",
+      "user": "As a project manager, I want to view the hierarchy of tasks within a project to better manage dependencies.",
+      "ideal": "The API should return a structured representation of the project's task hierarchy."
+    },
+    {
+      "path": "/rest/api/3/project/{projectKeyOrId}/notificationscheme",
+      "method": "GET",
+      "operationId": "getNotificationSchemeForProject",
+      "summary": "",
+      "user": "As an administrator, I want to check the notification scheme for a project to ensure the right stakeholders are informed.",
+      "ideal": "The API should return the notification scheme details associated with the specified project."
+    }
+  ]
+}

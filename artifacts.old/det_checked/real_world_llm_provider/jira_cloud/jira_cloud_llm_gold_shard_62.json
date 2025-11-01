@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/component",
+      "method": "GET",
+      "operationId": "findComponentsForProjects",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all components associated with my projects to ensure that I have a clear understanding of the project's structure and dependencies.",
+      "ideal": "The API should return a list of components, including their IDs, names, and descriptions, for the specified projects."
+    },
+    {
+      "path": "/rest/api/3/component",
+      "method": "POST",
+      "operationId": "createComponent",
+      "summary": "",
+      "user": "As a developer, I want to create a new component for my project so that I can organize my work and track issues related to that component.",
+      "ideal": "The API should accept the component details (name, description, etc.) and return the newly created component's ID and details."
+    },
+    {
+      "path": "/rest/api/3/component/{id}",
+      "method": "DELETE",
+      "operationId": "deleteComponent",
+      "summary": "",
+      "user": "As a project administrator, I want to delete a component that is no longer needed to keep the project clean and organized.",
+      "ideal": "The API should confirm the deletion of the component and return a success message."
+    },
+    {
+      "path": "/rest/api/3/component/{id}",
+      "method": "GET",
+      "operationId": "getComponent",
+      "summary": "",
+      "user": "As a team lead, I want to retrieve detailed information about a specific component to understand its purpose and usage within the project.",
+      "ideal": "The API should return the component's details, including its name, description, and associated issues."
+    },
+    {
+      "path": "/rest/api/3/component/{id}",
+      "method": "PUT",
+      "operationId": "updateComponent",
+      "summary": "",
+      "user": "As a developer, I want to update the details of an existing component to reflect changes in its functionality or ownership.",
+      "ideal": "The API should accept the updated component details and return the updated component's information."
+    },
+    {
+      "path": "/rest/api/3/component/{id}/relatedIssueCounts",
+      "method": "GET",
+      "operationId": "getComponentRelatedIssues",
+      "summary": "",
+      "user": "As a project manager, I want to see how many issues are related to a specific component to prioritize our work effectively.",
+      "ideal": "The API should return a count of issues related to the specified component, categorized by their status."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/component",
+      "method": "GET",
+      "operationId": "getProjectComponentsPaginated",
+      "summary": "",
+      "user": "As a scrum master, I want to retrieve components for a project in a paginated format to manage large sets of data efficiently.",
+      "ideal": "The API should return a paginated list of components for the specified project, including metadata for pagination."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/components",
+      "method": "GET",
+      "operationId": "getProjectComponents",
+      "summary": "",
+      "user": "As a developer, I want to get all components of a project in one request to quickly assess the project's structure.",
+      "ideal": "The API should return a complete list of components for the specified project, including their IDs and names."
+    }
+  ]
+}

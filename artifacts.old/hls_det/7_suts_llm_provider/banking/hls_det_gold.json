@@ -1,0 +1,47 @@
+{
+  "sut": "banking",
+  "source": "artifacts\\det_checked\\7_suts_llm_provider\\banking\\banking_llm_gold_ops.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "Banking",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteBanking"
+      ],
+      "checks": [
+        "verifyBankingExists"
+      ]
+    },
+    {
+      "entity": "Banking",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addBanking"
+      ],
+      "checks": [
+        "verifyBankingNotExists"
+      ]
+    },
+    {
+      "entity": "Banking",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateBanking"
+      ],
+      "checks": [
+        "verifyBankingExists",
+        "verifyBankingUpdated"
+      ]
+    }
+  ]
+}

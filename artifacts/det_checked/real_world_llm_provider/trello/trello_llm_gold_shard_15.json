@@ -5,16 +5,16 @@
       "method": "POST",
       "operationId": "addWebhooks",
       "summary": "",
-      "user": "User wants to add a new webhook to receive updates from Trello whenever a card is moved.",
-      "ideal": "Webhook added successfully with the specified callback URL."
+      "user": "User wants to set up a webhook to receive updates on their Trello board activities.",
+      "ideal": "Webhook successfully created and returns the webhook ID."
     },
     {
       "path": "/webhooks/",
       "method": "PUT",
       "operationId": "updateWebhooks",
       "summary": "",
-      "user": "User needs to update the settings of existing webhooks to change the callback URL.",
-      "ideal": "Webhooks updated successfully with the new callback URL."
+      "user": "User needs to update the settings of their existing webhooks to change the callback URL.",
+      "ideal": "Webhook settings updated successfully."
     },
     {
       "path": "/webhooks/{idWebhook}",
@@ -29,15 +29,15 @@
       "method": "GET",
       "operationId": "getWebhooksByIdWebhook",
       "summary": "",
-      "user": "User wants to retrieve details of a specific webhook to check its status.",
-      "ideal": "Webhook details retrieved successfully."
+      "user": "User wants to retrieve details of a specific webhook to check its configuration.",
+      "ideal": "Returns the details of the specified webhook."
     },
     {
       "path": "/webhooks/{idWebhook}",
       "method": "PUT",
       "operationId": "updateWebhooksByIdWebhook",
       "summary": "",
-      "user": "User wants to update the description of a specific webhook for better clarity.",
+      "user": "User wants to update the description of a specific webhook.",
       "ideal": "Webhook description updated successfully."
     },
     {
@@ -53,15 +53,15 @@
       "method": "PUT",
       "operationId": "updateWebhooksCallbackURLByIdWebhook",
       "summary": "",
-      "user": "User needs to change the callback URL of an existing webhook to a new endpoint.",
-      "ideal": "Webhook callback URL updated successfully."
+      "user": "User needs to change the callback URL for a specific webhook.",
+      "ideal": "Callback URL updated successfully."
     },
     {
       "path": "/webhooks/{idWebhook}/description",
       "method": "PUT",
       "operationId": "updateWebhooksDescriptionByIdWebhook",
       "summary": "",
-      "user": "User wants to provide a more detailed description for a webhook to help team members understand its purpose.",
+      "user": "User wants to provide a more detailed description for a webhook.",
       "ideal": "Webhook description updated successfully."
     },
     {
@@ -69,16 +69,16 @@
       "method": "PUT",
       "operationId": "updateWebhooksIdModelByIdWebhook",
       "summary": "",
-      "user": "User wants to associate a different model ID with an existing webhook.",
-      "ideal": "Webhook model ID updated successfully."
+      "user": "User wants to change the model ID associated with a specific webhook.",
+      "ideal": "Model ID updated successfully."
     },
     {
       "path": "/webhooks/{idWebhook}/{field}",
       "method": "GET",
       "operationId": "getWebhooksByIdWebhookByField",
       "summary": "",
-      "user": "User wants to retrieve a specific field from the webhook details for analysis.",
-      "ideal": "Specified field retrieved successfully."
+      "user": "User wants to retrieve a specific field of a webhook for quick reference.",
+      "ideal": "Returns the requested field of the specified webhook."
     }
   ]
 }

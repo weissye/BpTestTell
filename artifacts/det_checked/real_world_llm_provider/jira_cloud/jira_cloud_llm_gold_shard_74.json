@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "getScreenSchemes",
       "summary": "",
-      "user": "As a project manager, I want to retrieve all screen schemes in order to understand how issues are displayed across different projects.",
-      "ideal": "The API should return a list of all screen schemes with their respective IDs, names, and descriptions."
+      "user": "As a project manager, I want to retrieve all screen schemes in order to understand how screens are organized across different projects.",
+      "ideal": "The API should return a list of all screen schemes, including their IDs, names, and descriptions."
     },
     {
       "path": "/rest/api/3/screenscheme",
       "method": "POST",
       "operationId": "createScreenScheme",
       "summary": "",
-      "user": "As a Jira administrator, I want to create a new screen scheme to customize how issues are presented in my project.",
-      "ideal": "The API should successfully create a new screen scheme and return the ID, name, and details of the created scheme."
+      "user": "As a Jira administrator, I want to create a new screen scheme so that I can customize the screens used in my projects.",
+      "ideal": "The API should accept a JSON payload with the screen scheme details and return the created screen scheme's ID and other relevant information."
     },
     {
       "path": "/rest/api/3/screenscheme/{screenSchemeId}",
       "method": "DELETE",
       "operationId": "deleteScreenScheme",
       "summary": "",
-      "user": "As a project administrator, I want to delete an obsolete screen scheme to keep the project clean and organized.",
-      "ideal": "The API should confirm the deletion of the specified screen scheme and return a success message."
+      "user": "As a project administrator, I want to delete an existing screen scheme that is no longer needed to keep the project clean.",
+      "ideal": "The API should confirm the deletion of the screen scheme and return a success message."
     },
     {
       "path": "/rest/api/3/screenscheme/{screenSchemeId}",
       "method": "PUT",
       "operationId": "updateScreenScheme",
       "summary": "",
-      "user": "As a team lead, I want to update an existing screen scheme to reflect the new workflow requirements of my team.",
-      "ideal": "The API should successfully update the screen scheme and return the updated details including the new configuration."
+      "user": "As a project manager, I want to update an existing screen scheme to reflect changes in project requirements.",
+      "ideal": "The API should accept a JSON payload with the updated screen scheme details and return the updated screen scheme's information."
     }
   ]
 }

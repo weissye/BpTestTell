@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "method": "POST",
+      "operationId": "CreateCall",
+      "summary": "",
+      "user": "User wants to initiate a new call to a specified phone number using Twilio's API.",
+      "ideal": "The API should return a success response with the details of the created call."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "method": "GET",
+      "operationId": "ListCall",
+      "summary": "",
+      "user": "User needs to retrieve a list of all calls made from their Twilio account for monitoring purposes.",
+      "ideal": "The API should return a list of calls with relevant details such as status, duration, and timestamps."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteCall",
+      "summary": "",
+      "user": "User wants to delete a specific call record from their Twilio account to keep their data clean.",
+      "ideal": "The API should confirm the deletion of the call and return a success message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchCall",
+      "summary": "",
+      "user": "User needs to fetch details of a specific call using its unique SID for auditing purposes.",
+      "ideal": "The API should return detailed information about the specified call, including its status and metadata."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateCall",
+      "summary": "",
+      "user": "User wants to update the status of a specific call, such as marking it as completed or failed.",
+      "ideal": "The API should return the updated call details confirming the changes made."
+    }
+  ]
+}

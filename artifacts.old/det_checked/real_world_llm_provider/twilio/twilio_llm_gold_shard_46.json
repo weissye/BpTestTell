@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/National.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberNational",
+      "summary": "",
+      "user": "user_12345",
+      "ideal": "Retrieve a list of available national phone numbers in the US for the specified account."
+    }
+  ]
+}

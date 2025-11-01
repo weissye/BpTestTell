@@ -6,7 +6,7 @@
       "operationId": "indexes.documents.facet.search",
       "summary": "",
       "user": "user123",
-      "ideal": "Search for facets in the 'myIndex' index using specific criteria."
+      "ideal": "Search for facets in the 'myIndex' index based on the provided criteria."
     }
   ]
 }

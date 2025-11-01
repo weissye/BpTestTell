@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/group",
+      "method": "GET",
+      "operationId": "getGroup",
+      "summary": "",
+      "user": "Retrieve the details of a specific group in Jira.",
+      "ideal": "Returns the group information including its name, description, and members."
+    },
+    {
+      "path": "/rest/api/3/group",
+      "method": "POST",
+      "operationId": "createGroup",
+      "summary": "",
+      "user": "Create a new group in Jira with the specified name.",
+      "ideal": "Successfully creates the group and returns its details."
+    },
+    {
+      "path": "/rest/api/3/group",
+      "method": "DELETE",
+      "operationId": "removeGroup",
+      "summary": "",
+      "user": "Delete an existing group from Jira by its ID.",
+      "ideal": "Confirms the group has been removed successfully."
+    },
+    {
+      "path": "/rest/api/3/group/bulk",
+      "method": "GET",
+      "operationId": "bulkGetGroups",
+      "summary": "",
+      "user": "Fetch details of multiple groups in a single request.",
+      "ideal": "Returns an array of group details."
+    },
+    {
+      "path": "/rest/api/3/group/member",
+      "method": "GET",
+      "operationId": "getUsersFromGroup",
+      "summary": "",
+      "user": "List all users that belong to a specific group.",
+      "ideal": "Returns a list of user details associated with the group."
+    },
+    {
+      "path": "/rest/api/3/group/user",
+      "method": "POST",
+      "operationId": "addUserToGroup",
+      "summary": "",
+      "user": "Add a user to a specified group in Jira.",
+      "ideal": "Confirms the user has been added to the group successfully."
+    },
+    {
+      "path": "/rest/api/3/group/user",
+      "method": "DELETE",
+      "operationId": "removeUserFromGroup",
+      "summary": "",
+      "user": "Remove a user from a specific group in Jira.",
+      "ideal": "Confirms the user has been removed from the group successfully."
+    },
+    {
+      "path": "/rest/api/3/groups/picker",
+      "method": "GET",
+      "operationId": "findGroups",
+      "summary": "",
+      "user": "Search for groups based on a query string.",
+      "ideal": "Returns a list of groups that match the search criteria."
+    }
+  ]
+}

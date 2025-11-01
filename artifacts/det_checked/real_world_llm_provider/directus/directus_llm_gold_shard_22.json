@@ -6,7 +6,7 @@
       "operationId": "hash-generate",
       "summary": "",
       "user": "admin",
-      "ideal": "Generate a secure hash for the given input."
+      "ideal": "Generate a secure hash for the password 'mySecurePassword123'."
     },
     {
       "path": "/utils/hash/verify",
@@ -14,7 +14,7 @@
       "operationId": "hash-verify",
       "summary": "",
       "user": "admin",
-      "ideal": "Verify if the provided input matches the stored hash."
+      "ideal": "Verify the hash for the password 'mySecurePassword123' against the stored hash."
     },
     {
       "path": "/utils/sort/users",
@@ -22,7 +22,7 @@
       "operationId": "sort",
       "summary": "",
       "user": "admin",
-      "ideal": "Sort the users collection based on specified criteria."
+      "ideal": "Sort the users collection by 'last_name' in ascending order."
     },
     {
       "path": "/utils/import/products",
@@ -30,7 +30,7 @@
       "operationId": "import",
       "summary": "",
       "user": "admin",
-      "ideal": "Import a list of products into the products collection."
+      "ideal": "Import a CSV file containing product data into the products collection."
     },
     {
       "path": "/utils/export/orders",
@@ -38,7 +38,7 @@
       "operationId": "export",
       "summary": "",
       "user": "admin",
-      "ideal": "Export the orders collection to a CSV file."
+      "ideal": "Export the orders collection to a JSON file."
     },
     {
       "path": "/utils/cache/clear",
@@ -46,15 +46,15 @@
       "operationId": "clear-cache",
       "summary": "",
       "user": "admin",
-      "ideal": "Clear the application cache to free up resources."
+      "ideal": "Clear the application cache to ensure fresh data is served."
     },
     {
       "path": "/utils/random/string",
       "method": "GET",
       "operationId": "random",
       "summary": "",
-      "user": "guest",
-      "ideal": "Generate a random string for use in testing."
+      "user": "admin",
+      "ideal": "Generate a random string of 16 characters for use as a temporary token."
     }
   ]
 }

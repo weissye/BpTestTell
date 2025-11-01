@@ -6,7 +6,7 @@
       "operationId": "findUsersAndGroups",
       "summary": "",
       "user": "john.doe@example.com",
-      "ideal": "Retrieve a list of users and groups based on the provided query."
+      "ideal": "Returns a list of users and groups based on the provided query."
     }
   ]
 }

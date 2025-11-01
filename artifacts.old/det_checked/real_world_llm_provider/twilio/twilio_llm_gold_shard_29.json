@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json",
+      "method": "POST",
+      "operationId": "CreateMessageFeedback",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Submit feedback for a specific message to indicate whether it was spam or not."
+    }
+  ]
+}

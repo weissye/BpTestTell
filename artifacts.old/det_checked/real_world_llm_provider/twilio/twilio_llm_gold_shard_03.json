@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "method": "POST",
+      "operationId": "CreateAddress",
+      "summary": "",
+      "user": "User wants to create a new address for their Twilio account, providing necessary details like street, city, state, and postal code.",
+      "ideal": "Successfully creates a new address and returns the address details with a unique Sid."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "method": "GET",
+      "operationId": "ListAddress",
+      "summary": "",
+      "user": "User wants to retrieve a list of all addresses associated with their Twilio account to manage them effectively.",
+      "ideal": "Returns a list of addresses with details such as Sid, street, city, state, and postal code."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteAddress",
+      "summary": "",
+      "user": "User wants to delete a specific address from their Twilio account using the address Sid.",
+      "ideal": "Successfully deletes the address and returns a confirmation message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchAddress",
+      "summary": "",
+      "user": "User wants to fetch details of a specific address using its Sid to verify the information.",
+      "ideal": "Returns the details of the specified address including street, city, state, and postal code."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateAddress",
+      "summary": "",
+      "user": "User wants to update the details of an existing address, providing new information for fields like street and city.",
+      "ideal": "Successfully updates the address and returns the updated address details."
+    }
+  ]
+}

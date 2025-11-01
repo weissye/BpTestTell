@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchIncomingPhoneNumberAssignedAddOnExtension",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Fetch the details of a specific extension associated with an assigned add-on for a given incoming phone number."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumberAssignedAddOnExtension",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Retrieve a list of all extensions associated with a specific assigned add-on for an incoming phone number."
+    }
+  ]
+}

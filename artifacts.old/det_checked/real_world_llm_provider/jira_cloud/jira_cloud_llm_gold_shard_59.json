@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar",
+      "method": "PUT",
+      "operationId": "updateProjectAvatar",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the avatar for the project with ID 'PROJ-1' using a new image."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar/{id}",
+      "method": "DELETE",
+      "operationId": "deleteProjectAvatar",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Delete the avatar with ID '12345' for the project 'PROJ-2'."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar2",
+      "method": "POST",
+      "operationId": "createProjectAvatar",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Create a new avatar for the project 'PROJ-3' using the provided image file."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatars",
+      "method": "GET",
+      "operationId": "getAllProjectAvatars",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Retrieve all avatars associated with the project 'PROJ-4'."
+    }
+  ]
+}

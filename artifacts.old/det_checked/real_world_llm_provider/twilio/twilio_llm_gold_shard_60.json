@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+      "method": "GET",
+      "operationId": "ListSigningKey",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all signing keys associated with the specified Account SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchSigningKey",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Fetch details of a specific signing key using its SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateSigningKey",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Update the properties of a specific signing key identified by its SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteSigningKey",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Delete a specific signing key using its SID from the account."
+    }
+  ]
+}

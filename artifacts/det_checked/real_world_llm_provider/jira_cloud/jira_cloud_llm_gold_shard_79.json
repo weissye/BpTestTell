@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "ServiceRegistryResource.services_get",
       "summary": "",
-      "user": "As a Jira administrator, I want to retrieve the list of services registered with the Atlassian Connect framework so that I can manage integrations effectively.",
-      "ideal": "The API should return a JSON array of services, including their IDs, names, and statuses, allowing me to see which services are currently active and available for use."
+      "user": "A project manager looking to retrieve a list of all registered services in the Jira Cloud platform to ensure that all necessary integrations are functioning correctly.",
+      "ideal": "A successful response containing a JSON array of registered services, including their names, statuses, and endpoints."
     }
   ]
 }

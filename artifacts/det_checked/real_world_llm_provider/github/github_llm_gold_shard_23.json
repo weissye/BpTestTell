@@ -54,7 +54,7 @@
       "operationId": "interactions/get-restrictions-for-authenticated-user",
       "summary": "",
       "user": "authenticated_user",
-      "ideal": "Fetch the interaction limits for the authenticated user."
+      "ideal": "Retrieve the interaction limits set for the authenticated user."
     },
     {
       "path": "/user/interaction-limits",
@@ -62,7 +62,7 @@
       "operationId": "interactions/set-restrictions-for-authenticated-user",
       "summary": "",
       "user": "authenticated_user",
-      "ideal": "Set interaction limits for the authenticated user."
+      "ideal": "Set new interaction limits for the authenticated user."
     },
     {
       "path": "/user/interaction-limits",
@@ -70,7 +70,7 @@
       "operationId": "interactions/remove-restrictions-for-authenticated-user",
       "summary": "",
       "user": "authenticated_user",
-      "ideal": "Remove interaction limits for the authenticated user."
+      "ideal": "Remove all interaction limits for the authenticated user."
     }
   ]
 }

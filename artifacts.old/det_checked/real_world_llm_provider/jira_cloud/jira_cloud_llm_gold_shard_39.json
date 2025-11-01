@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties",
+      "method": "GET",
+      "operationId": "getIssueTypePropertyKeys",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all custom properties associated with a specific issue type to understand its configuration and ensure it meets our project requirements.",
+      "ideal": "The API should return a list of property keys associated with the specified issue type, allowing me to see all customizations made."
+    },
+    {
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "method": "GET",
+      "operationId": "getIssueTypeProperty",
+      "summary": "",
+      "user": "As a developer, I need to fetch the value of a specific property for an issue type to verify its settings before implementing new features that depend on it.",
+      "ideal": "The API should return the value of the specified property key for the given issue type, enabling me to confirm its current state."
+    },
+    {
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "method": "PUT",
+      "operationId": "setIssueTypeProperty",
+      "summary": "",
+      "user": "As a system administrator, I want to update a property for an issue type to reflect new organizational policies regarding issue tracking.",
+      "ideal": "The API should successfully update the specified property key with the new value, confirming the change was applied."
+    },
+    {
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "method": "DELETE",
+      "operationId": "deleteIssueTypeProperty",
+      "summary": "",
+      "user": "As a product owner, I need to remove an outdated property from an issue type to clean up our issue tracking system and avoid confusion.",
+      "ideal": "The API should successfully delete the specified property key from the issue type, ensuring it is no longer accessible."
+    }
+  ]
+}

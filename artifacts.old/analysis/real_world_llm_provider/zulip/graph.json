@@ -1,0 +1,3419 @@
+{
+  "entities": [
+    {
+      "name": "IgnoredParametersUnsupported",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "EventIdSchema",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "EventTypeSchema",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "Anchor",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "Attachment",
+      "required": [],
+      "properties": [
+        "id",
+        "name",
+        "path_id",
+        "size",
+        "create_time",
+        "messages"
+      ]
+    },
+    {
+      "name": "BasicChannel",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "BasicChannelBase",
+      "required": [],
+      "properties": [
+        "stream_id",
+        "name",
+        "is_archived",
+        "description",
+        "date_created",
+        "creator_id",
+        "invite_only",
+        "rendered_description",
+        "is_web_public",
+        "stream_post_policy",
+        "message_retention_days",
+        "history_public_to_subscribers",
+        "topics_policy",
+        "first_message_id",
+        "folder_id",
+        "is_recently_active",
+        "is_announcement_only",
+        "can_add_subscribers_group",
+        "can_remove_subscribers_group",
+        "can_administer_channel_group",
+        "can_delete_any_message_group",
+        "can_delete_own_message_group",
+        "can_move_messages_out_of_channel_group",
+        "can_move_messages_within_channel_group",
+        "can_send_message_group",
+        "can_subscribe_group",
+        "can_resolve_topics_group",
+        "subscriber_count"
+      ]
+    },
+    {
+      "name": "BasicBot",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "BasicBotBase",
+      "required": [],
+      "properties": [
+        "user_id",
+        "full_name",
+        "api_key",
+        "default_sending_stream",
+        "default_events_register_stream",
+        "default_all_public_streams",
+        "avatar_url",
+        "owner_id",
+        "services"
+      ]
+    },
+    {
+      "name": "Bot",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "BotConfiguration",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "WebhookConfigOption",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "WebhookUrlOption",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "CustomProfileField",
+      "required": [
+        "id",
+        "type",
+        "order",
+        "name",
+        "hint",
+        "required",
+        "editable_by_user"
+      ],
+      "properties": [
+        "id",
+        "type",
+        "order",
+        "name",
+        "hint",
+        "field_data",
+        "display_in_profile_summary",
+        "required",
+        "editable_by_user"
+      ]
+    },
+    {
+      "name": "OnboardingStep",
+      "required": [],
+      "properties": [
+        "type",
+        "name"
+      ]
+    },
+    {
+      "name": "RealmAuthenticationMethod",
+      "required": [],
+      "properties": [
+        "enabled",
+        "available",
+        "unavailable_reason"
+      ]
+    },
+    {
+      "name": "RealmEmoji",
+      "required": [],
+      "properties": [
+        "id",
+        "name",
+        "source_url",
+        "still_url",
+        "deactivated",
+        "author_id"
+      ]
+    },
+    {
+      "name": "RealmDomain",
+      "required": [],
+      "properties": [
+        "domain",
+        "allow_subdomains"
+      ]
+    },
+    {
+      "name": "RealmPlayground",
+      "required": [],
+      "properties": [
+        "id",
+        "name",
+        "pygments_language",
+        "url_template"
+      ]
+    },
+    {
+      "name": "RealmExport",
+      "required": [],
+      "properties": [
+        "id",
+        "acting_user_id",
+        "export_time",
+        "deleted_timestamp",
+        "failed_timestamp",
+        "export_url",
+        "pending",
+        "export_type"
+      ]
+    },
+    {
+      "name": "UserGroup",
+      "required": [],
+      "properties": [
+        "name",
+        "date_created",
+        "creator_id",
+        "description",
+        "members",
+        "direct_subgroup_ids",
+        "id",
+        "is_system_group",
+        "can_add_members_group",
+        "can_join_group",
+        "can_leave_group",
+        "can_manage_group",
+        "can_mention_group",
+        "can_remove_members_group",
+        "deactivated"
+      ]
+    },
+    {
+      "name": "GroupSettingValue",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "GroupSettingValueUpdate",
+      "required": [
+        "new"
+      ],
+      "properties": [
+        "new",
+        "old"
+      ]
+    },
+    {
+      "name": "Invite",
+      "required": [],
+      "properties": [
+        "id",
+        "invited_by_user_id",
+        "invited",
+        "expiry_date",
+        "invited_as",
+        "email",
+        "notify_referrer_on_join",
+        "link_url",
+        "is_multiuse"
+      ]
+    },
+    {
+      "name": "InviteExpirationParameter",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "InviteRoleParameter",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "Subscription",
+      "required": [],
+      "properties": [
+        "stream_id",
+        "name",
+        "description",
+        "rendered_description",
+        "date_created",
+        "creator_id",
+        "invite_only",
+        "subscribers",
+        "partial_subscribers",
+        "desktop_notifications",
+        "email_notifications",
+        "wildcard_mentions_notify",
+        "push_notifications",
+        "audible_notifications",
+        "pin_to_top",
+        "is_muted",
+        "in_home_view",
+        "is_announcement_only",
+        "is_web_public",
+        "color",
+        "stream_post_policy",
+        "message_retention_days",
+        "history_public_to_subscribers",
+        "first_message_id",
+        "folder_id",
+        "topics_policy",
+        "is_recently_active",
+        "stream_weekly_traffic",
+        "can_add_subscribers_group",
+        "can_remove_subscribers_group",
+        "can_administer_channel_group",
+        "can_delete_any_message_group",
+        "can_delete_own_message_group",
+        "can_move_messages_out_of_channel_group",
+        "can_move_messages_within_channel_group",
+        "can_send_message_group",
+        "can_subscribe_group",
+        "can_resolve_topics_group",
+        "is_archived",
+        "subscriber_count"
+      ]
+    },
+    {
+      "name": "DefaultChannelGroup",
+      "required": [],
+      "properties": [
+        "name",
+        "description",
+        "id",
+        "streams"
+      ]
+    },
+    {
+      "name": "EmailAddressVisibility",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "EmojiReaction",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "EmojiBase",
+      "required": [],
+      "properties": [
+        "emoji_name",
+        "emoji_code",
+        "reaction_type"
+      ]
+    },
+    {
+      "name": "EmojiReactionEvent",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "MessagesEvent",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "MessagesBase",
+      "required": [],
+      "properties": [
+        "avatar_url",
+        "client",
+        "content",
+        "content_type",
+        "display_recipient",
+        "edit_history",
+        "id",
+        "is_me_message",
+        "last_edit_timestamp",
+        "last_moved_timestamp",
+        "reactions",
+        "recipient_id",
+        "sender_email",
+        "sender_full_name",
+        "sender_id",
+        "sender_realm_str",
+        "stream_id",
+        "subject",
+        "submessages",
+        "timestamp",
+        "topic_links",
+        "type"
+      ]
+    },
+    {
+      "name": "ModernPresenceFormat",
+      "required": [],
+      "properties": [
+        "active_timestamp",
+        "idle_timestamp"
+      ]
+    },
+    {
+      "name": "LegacyPresenceFormat",
+      "required": [],
+      "properties": [
+        "client",
+        "status",
+        "timestamp",
+        "pushable"
+      ]
+    },
+    {
+      "name": "UserStatus",
+      "required": [],
+      "properties": [
+        "away",
+        "status_text",
+        "emoji_name",
+        "emoji_code",
+        "reaction_type"
+      ]
+    },
+    {
+      "name": "Draft",
+      "required": [
+        "type",
+        "to",
+        "topic",
+        "content"
+      ],
+      "properties": [
+        "id",
+        "type",
+        "to",
+        "topic",
+        "content",
+        "timestamp"
+      ]
+    },
+    {
+      "name": "NavigationView",
+      "required": [
+        "fragment",
+        "is_pinned"
+      ],
+      "properties": [
+        "fragment",
+        "is_pinned",
+        "name"
+      ]
+    },
+    {
+      "name": "SavedSnippet",
+      "required": [],
+      "properties": [
+        "id",
+        "title",
+        "content",
+        "date_created"
+      ]
+    },
+    {
+      "name": "ScheduledMessageBase",
+      "required": [
+        "scheduled_message_id",
+        "type",
+        "to",
+        "content",
+        "rendered_content",
+        "scheduled_delivery_timestamp",
+        "failed"
+      ],
+      "properties": [
+        "scheduled_message_id",
+        "type",
+        "to",
+        "topic",
+        "content",
+        "rendered_content",
+        "scheduled_delivery_timestamp",
+        "failed"
+      ]
+    },
+    {
+      "name": "ScheduledMessage",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "Reminder",
+      "required": [
+        "reminder_id",
+        "type",
+        "to",
+        "content",
+        "rendered_content",
+        "scheduled_delivery_timestamp",
+        "failed",
+        "reminder_target_message_id"
+      ],
+      "properties": [
+        "reminder_id",
+        "type",
+        "to",
+        "content",
+        "rendered_content",
+        "scheduled_delivery_timestamp",
+        "failed",
+        "reminder_target_message_id"
+      ]
+    },
+    {
+      "name": "GroupPermissionSetting",
+      "required": [],
+      "properties": [
+        "require_system_group",
+        "allow_internet_group",
+        "allow_nobody_group",
+        "allow_everyone_group",
+        "default_group_name",
+        "default_for_system_groups",
+        "allowed_system_groups"
+      ]
+    },
+    {
+      "name": "User",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "UserBase",
+      "required": [],
+      "properties": [
+        "user_id",
+        "delivery_email",
+        "email",
+        "full_name",
+        "date_joined",
+        "is_active",
+        "is_owner",
+        "is_admin",
+        "is_guest",
+        "is_bot",
+        "bot_type",
+        "bot_owner_id",
+        "role",
+        "timezone",
+        "avatar_url",
+        "avatar_version",
+        "profile_data"
+      ]
+    },
+    {
+      "name": "profile_data",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "ChannelFolder",
+      "required": [],
+      "properties": [
+        "id",
+        "name",
+        "order",
+        "date_created",
+        "creator_id",
+        "description",
+        "rendered_description",
+        "is_archived"
+      ]
+    },
+    {
+      "name": "JsonResponseBase",
+      "required": [],
+      "properties": [
+        "result"
+      ]
+    },
+    {
+      "name": "JsonSuccess",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "JsonSuccessBase",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "IgnoredParametersSuccess",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "IgnoredParametersBase",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "ApiKeyResponse",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "CodedError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "CodedErrorBase",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "BadEventQueueIdError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "InvalidMessageError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "InvalidChannelError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "NonExistingChannelNameError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "NonExistingChannelIdError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "InvalidApiKeyError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "InvitationFailedError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "MissingArgumentError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "IncompatibleParametersError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "UserNotAuthorizedError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "UserDeactivatedError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "RateLimitedError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "RealmDeactivatedError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "InvalidPushDeviceTokenError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "InvalidRemotePushDeviceTokenError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "NoActivePushDeviceError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "FailedToConnectBouncerError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "InternalBouncerServerError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "PushNotificationAdminActionRequiredError",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "Event_types",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "Narrow",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "AllPublicChannels",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "RequiredContent",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "OptionalContent",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "HistoryPublicToSubscribers",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "Principals",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "ReactionType",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "EmojiCode",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "MessageRetentionDays",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "TopicsPolicy",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "SendNewSubscriptionMessages",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "ChannelCanAddSubscribersGroup",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "CanRemoveSubscribersGroup",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "CanAdministerChannelGroup",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "CanDeleteAnyMessageGroup",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "CanDeleteOwnMessageGroup",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "CanMoveMessagesOutOfChannelGroup",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "CanMoveMessagesWithinChannelGroup",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "CanSendMessageGroup",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "CanSubscribeGroup",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "CanResolveTopicsGroup",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "LinkifierPattern",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "LinkifierURLTemplate",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "FolderId",
+      "required": [],
+      "properties": []
+    }
+  ],
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/fetch_api_key",
+      "operationId": "fetch-api-key",
+      "tags": [
+        "authentication"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dev_fetch_api_key",
+      "operationId": "dev-fetch-api-key",
+      "tags": [
+        "authentication"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/events",
+      "operationId": "get-events",
+      "tags": [
+        "real_time_events"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": "last_event_id",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "dont_block",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/events",
+      "operationId": "delete-queue",
+      "tags": [
+        "real_time_events"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/get_stream_id",
+      "operationId": "get-stream-id",
+      "tags": [
+        "channels"
+      ],
+      "params": [
+        {
+          "name": "stream",
+          "in": "query",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/mark_all_as_read",
+      "operationId": "mark-all-as-read",
+      "tags": [
+        "messages"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/mark_stream_as_read",
+      "operationId": "mark-stream-as-read",
+      "tags": [
+        "messages"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/mark_topic_as_read",
+      "operationId": "mark-topic-as-read",
+      "tags": [
+        "messages"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/attachments",
+      "operationId": "get-attachments",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/attachments/{attachment_id}",
+      "operationId": "remove-attachment",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": "attachment_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400",
+        "401"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/drafts",
+      "operationId": "get-drafts",
+      "tags": [
+        "drafts"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/drafts",
+      "operationId": "create-drafts",
+      "tags": [
+        "drafts"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/drafts/{draft_id}",
+      "operationId": "edit-draft",
+      "tags": [
+        "drafts"
+      ],
+      "params": [
+        {
+          "name": "draft_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/drafts/{draft_id}",
+      "operationId": "delete-draft",
+      "tags": [
+        "drafts"
+      ],
+      "params": [
+        {
+          "name": "draft_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/navigation_views",
+      "operationId": "get-navigation-views",
+      "tags": [
+        "navigation_views"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/navigation_views",
+      "operationId": "add-navigation-view",
+      "tags": [
+        "navigation_views"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/navigation_views/{fragment}",
+      "operationId": "edit-navigation-view",
+      "tags": [
+        "navigation_views"
+      ],
+      "params": [
+        {
+          "name": "fragment",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/navigation_views/{fragment}",
+      "operationId": "remove-navigation-view",
+      "tags": [
+        "navigation_views"
+      ],
+      "params": [
+        {
+          "name": "fragment",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/saved_snippets",
+      "operationId": "get-saved-snippets",
+      "tags": [
+        "drafts"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/saved_snippets",
+      "operationId": "create-saved-snippet",
+      "tags": [
+        "drafts"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/saved_snippets/{saved_snippet_id}",
+      "operationId": "edit-saved-snippet",
+      "tags": [
+        "drafts"
+      ],
+      "params": [
+        {
+          "name": "saved_snippet_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/saved_snippets/{saved_snippet_id}",
+      "operationId": "delete-saved-snippet",
+      "tags": [
+        "drafts"
+      ],
+      "params": [
+        {
+          "name": "saved_snippet_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reminders",
+      "operationId": "get-reminders",
+      "tags": [
+        "reminders"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reminders",
+      "operationId": "create-message-reminder",
+      "tags": [
+        "reminders"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/reminders/{reminder_id}",
+      "operationId": "delete-reminder",
+      "tags": [
+        "reminders"
+      ],
+      "params": [
+        {
+          "name": "reminder_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/scheduled_messages",
+      "operationId": "get-scheduled-messages",
+      "tags": [
+        "scheduled_messages"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/scheduled_messages",
+      "operationId": "create-scheduled-message",
+      "tags": [
+        "scheduled_messages"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/scheduled_messages/{scheduled_message_id}",
+      "operationId": "update-scheduled-message",
+      "tags": [
+        "scheduled_messages"
+      ],
+      "params": [
+        {
+          "name": "scheduled_message_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/scheduled_messages/{scheduled_message_id}",
+      "operationId": "delete-scheduled-message",
+      "tags": [
+        "scheduled_messages"
+      ],
+      "params": [
+        {
+          "name": "scheduled_message_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/default_streams",
+      "operationId": "add-default-stream",
+      "tags": [
+        "channels"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/default_streams",
+      "operationId": "remove-default-stream",
+      "tags": [
+        "channels"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/messages",
+      "operationId": "get-messages",
+      "tags": [
+        "messages"
+      ],
+      "params": [
+        {
+          "name": "anchor",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "include_anchor",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "num_before",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "num_after",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "narrow",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": "apply_markdown",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "use_first_unread_anchor",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "message_ids",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "allow_empty_topic_name",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/messages",
+      "operationId": "send-message",
+      "tags": [
+        "messages"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/messages/{message_id}/history",
+      "operationId": "get-message-history",
+      "tags": [
+        "messages"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": "allow_empty_topic_name",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/messages/flags",
+      "operationId": "update-message-flags",
+      "tags": [
+        "messages"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/messages/flags/narrow",
+      "operationId": "update-message-flags-for-narrow",
+      "tags": [
+        "messages"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/messages/render",
+      "operationId": "render-message",
+      "tags": [
+        "messages"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/messages/{message_id}/reactions",
+      "operationId": "add-reaction",
+      "tags": [
+        "messages"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/messages/{message_id}/reactions",
+      "operationId": "remove-reaction",
+      "tags": [
+        "messages"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/messages/{message_id}/read_receipts",
+      "operationId": "get-read-receipts",
+      "tags": [
+        "messages"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/messages/matches_narrow",
+      "operationId": "check-messages-match-narrow",
+      "tags": [
+        "messages"
+      ],
+      "params": [
+        {
+          "name": "msg_ids",
+          "in": "query",
+          "required": true
+        },
+        {
+          "name": "narrow",
+          "in": "query",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/messages/{message_id}",
+      "operationId": "get-message",
+      "tags": [
+        "messages"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": "apply_markdown",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "allow_empty_topic_name",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/messages/{message_id}",
+      "operationId": "update-message",
+      "tags": [
+        "messages"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/messages/{message_id}",
+      "operationId": "delete-message",
+      "tags": [
+        "messages"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/messages/{message_id}/report",
+      "operationId": "report-message",
+      "tags": [
+        "messages"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/user_uploads",
+      "operationId": "upload-file",
+      "tags": [
+        "messages"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "multipart/form-data"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/user_uploads/{realm_id_str}/{filename}",
+      "operationId": "get-file-temporary-url",
+      "tags": [
+        "messages"
+      ],
+      "params": [
+        {
+          "name": "realm_id_str",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "filename",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users",
+      "operationId": "get-users",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": "user_ids",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users",
+      "operationId": "create-user",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users/{user_id}/reactivate",
+      "operationId": "reactivate-user",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users/{user_id}/status",
+      "operationId": "update-status-for-user",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/{user_id}/status",
+      "operationId": "get-user-status",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/{user_id_or_email}/presence",
+      "operationId": "get-user-presence",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": "user_id_or_email",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/me",
+      "operationId": "get-own-user",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me",
+      "operationId": "deactivate-own-user",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/alert_words",
+      "operationId": "get-alert-words",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/alert_words",
+      "operationId": "add-alert-words",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/alert_words",
+      "operationId": "remove-alert-words",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/presence",
+      "operationId": "update-presence",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/status",
+      "operationId": "update-status",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/{stream_id}/topics",
+      "operationId": "get-stream-topics",
+      "tags": [
+        "channels"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": "allow_empty_topic_name",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/subscriptions",
+      "operationId": "get-subscriptions",
+      "tags": [
+        "channels"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/subscriptions",
+      "operationId": "subscribe",
+      "tags": [
+        "channels"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/me/subscriptions",
+      "operationId": "update-subscriptions",
+      "tags": [
+        "channels"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/subscriptions",
+      "operationId": "unsubscribe",
+      "tags": [
+        "channels"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/me/subscriptions/muted_topics",
+      "operationId": "mute-topic",
+      "tags": [
+        "channels"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/mobile_push/test_notification",
+      "operationId": "test-notify",
+      "tags": [
+        "mobile"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/mobile_push/e2ee/test_notification",
+      "operationId": "e2ee-test-notify",
+      "tags": [
+        "mobile"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400",
+        "403",
+        "502"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/mobile_push/register",
+      "operationId": "register-push-device",
+      "tags": [
+        "mobile"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/remotes/push/e2ee/register",
+      "operationId": "register-remote-push-device",
+      "tags": [
+        "mobile"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400",
+        "403"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/user_topics",
+      "operationId": "update-user-topic",
+      "tags": [
+        "channels"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/muted_users/{muted_user_id}",
+      "operationId": "mute-user",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/muted_users/{muted_user_id}",
+      "operationId": "unmute-user",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/apns_device_token",
+      "operationId": "add-apns-token",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/apns_device_token",
+      "operationId": "remove-apns-token",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/android_gcm_reg_id",
+      "operationId": "add-fcm-token",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/android_gcm_reg_id",
+      "operationId": "remove-fcm-token",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/{user_id}/subscriptions/{stream_id}",
+      "operationId": "get-subscription-status",
+      "tags": [
+        "channels"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/realm/emoji/{emoji_name}",
+      "operationId": "upload-custom-emoji",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [
+        {
+          "name": "emoji_name",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "multipart/form-data"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/realm/emoji/{emoji_name}",
+      "operationId": "deactivate-custom-emoji",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [
+        {
+          "name": "emoji_name",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/realm/emoji",
+      "operationId": "get-custom-emoji",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/realm/presence",
+      "operationId": "get-presence",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/realm/profile_fields",
+      "operationId": "get-custom-profile-fields",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/profile_fields",
+      "operationId": "reorder-custom-profile-fields",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/realm/profile_fields",
+      "operationId": "create-custom-profile-field",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/user_settings_defaults",
+      "operationId": "update-realm-user-settings-defaults",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/subscriptions/properties",
+      "operationId": "update-subscription-settings",
+      "tags": [
+        "channels"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/{email}",
+      "operationId": "get-user-by-email",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": "email",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/{email}",
+      "operationId": "update-user-by-email",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": "email",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/{user_id}",
+      "operationId": "get-user",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/{user_id}",
+      "operationId": "update-user",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/{user_id}",
+      "operationId": "deactivate-user",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/realm/linkifiers",
+      "operationId": "get-linkifiers",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/linkifiers",
+      "operationId": "reorder-linkifiers",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/realm/filters",
+      "operationId": "add-linkifier",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/realm/filters/{filter_id}",
+      "operationId": "remove-linkifier",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [
+        {
+          "name": "filter_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/filters/{filter_id}",
+      "operationId": "update-linkifier",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [
+        {
+          "name": "filter_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/realm/playgrounds",
+      "operationId": "add-code-playground",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/realm/playgrounds/{playground_id}",
+      "operationId": "remove-code-playground",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [
+        {
+          "name": "playground_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/export/realm",
+      "operationId": "get-realm-exports",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/export/realm",
+      "operationId": "export-realm",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/export/realm/consents",
+      "operationId": "get-realm-export-consents",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/invites",
+      "operationId": "get-invites",
+      "tags": [
+        "invites"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/invites",
+      "operationId": "send-invites",
+      "tags": [
+        "invites"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/invites/multiuse",
+      "operationId": "create-invite-link",
+      "tags": [
+        "invites"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/invites/{invite_id}",
+      "operationId": "revoke-email-invite",
+      "tags": [
+        "invites"
+      ],
+      "params": [
+        {
+          "name": "invite_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/invites/multiuse/{invite_id}",
+      "operationId": "revoke-invite-link",
+      "tags": [
+        "invites"
+      ],
+      "params": [
+        {
+          "name": "invite_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/invites/{invite_id}/resend",
+      "operationId": "resend-email-invite",
+      "tags": [
+        "invites"
+      ],
+      "params": [
+        {
+          "name": "invite_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/realm/test_welcome_bot_custom_message",
+      "operationId": "test-welcome-bot-custom-message",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/register",
+      "operationId": "register-queue",
+      "tags": [
+        "real_time_events"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/server_settings",
+      "operationId": "get-server-settings",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/settings",
+      "operationId": "update-settings",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/streams/{stream_id}/members",
+      "operationId": "get-subscribers",
+      "tags": [
+        "channels"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/streams",
+      "operationId": "get-streams",
+      "tags": [
+        "channels"
+      ],
+      "params": [
+        {
+          "name": "include_public",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "include_web_public",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "include_subscribed",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "exclude_archived",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "include_all_active",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "include_all",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "include_default",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "include_owner_subscribed",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "include_can_access_content",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/streams/{stream_id}",
+      "operationId": "get-stream-by-id",
+      "tags": [
+        "channels"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/streams/{stream_id}",
+      "operationId": "archive-stream",
+      "tags": [
+        "channels"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/streams/{stream_id}",
+      "operationId": "update-stream",
+      "tags": [
+        "channels"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/streams/{stream_id}/email_address",
+      "operationId": "get-stream-email-address",
+      "tags": [
+        "channels"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": "sender_id",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/streams/{stream_id}/delete_topic",
+      "operationId": "delete-topic",
+      "tags": [
+        "channels"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/typing",
+      "operationId": "set-typing-status",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/messages/{message_id}/typing",
+      "operationId": "set-typing-status-for-message-edit",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": "message_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/channels/create",
+      "operationId": "create-channel",
+      "tags": [
+        "channels"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "409"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/user_groups/create",
+      "operationId": "create-user-group",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/user_groups/{user_group_id}/members",
+      "operationId": "update-user-group-members",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/user_groups/{user_group_id}/members",
+      "operationId": "get-user-group-members",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/user_groups/{user_group_id}",
+      "operationId": "update-user-group",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/user_groups",
+      "operationId": "get-user-groups",
+      "tags": [
+        "users"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/user_groups/{user_group_id}/subgroups",
+      "operationId": "update-user-group-subgroups",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/user_groups/{user_group_id}/subgroups",
+      "operationId": "get-user-group-subgroups",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": "direct_subgroup_only",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/user_groups/{user_group_id}/members/{user_id}",
+      "operationId": "get-is-user-group-member",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/user_groups/{user_group_id}/deactivate",
+      "operationId": "deactivate-user-group",
+      "tags": [
+        "users"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/channel_folders/create",
+      "operationId": "create-channel-folder",
+      "tags": [
+        "channels"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/channel_folders",
+      "operationId": "get-channel-folders",
+      "tags": [
+        "channels"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/channel_folders",
+      "operationId": "patch-channel-folders",
+      "tags": [
+        "channels"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/channel_folders/{channel_folder_id}",
+      "operationId": "update-channel-folder",
+      "tags": [
+        "channels"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "400"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/real-time",
+      "operationId": null,
+      "tags": [
+        "real_time_events"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/rest-error-handling",
+      "operationId": "rest-error-handling",
+      "tags": [
+        "real_time_events"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "400",
+        "401",
+        "429"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/zulip-outgoing-webhook",
+      "operationId": "zulip-outgoing-webhooks",
+      "tags": [
+        "webhooks"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/calls/bigbluebutton/create",
+      "operationId": "create-big-blue-button-video-call",
+      "tags": [
+        "channels"
+      ],
+      "params": [
+        {
+          "name": "meeting_name",
+          "in": "query",
+          "required": true
+        },
+        {
+          "name": "voice_only",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    }
+  ]
+}

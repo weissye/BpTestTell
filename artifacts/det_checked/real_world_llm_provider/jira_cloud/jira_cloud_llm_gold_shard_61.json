@@ -2,27 +2,27 @@
   "gold": [
     {
       "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
-      "method": "DELETE",
-      "operationId": "removeDefaultProjectClassification",
-      "summary": "",
-      "user": "admin_user",
-      "ideal": "Successfully removed the default classification level for the specified project."
-    },
-    {
-      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
       "method": "GET",
       "operationId": "getDefaultProjectClassification",
       "summary": "",
-      "user": "project_manager",
-      "ideal": "Retrieved the current default classification level for the specified project."
+      "user": "As a project manager, I want to retrieve the default classification level for my project so that I can ensure it aligns with our organizational standards.",
+      "ideal": "The API should return the current default classification level for the specified project, including details such as the classification name and description."
     },
     {
       "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
       "method": "PUT",
       "operationId": "updateDefaultProjectClassification",
       "summary": "",
-      "user": "project_admin",
-      "ideal": "Successfully updated the default classification level for the specified project."
+      "user": "As a compliance officer, I need to update the default classification level for a project to reflect new regulatory requirements, ensuring that all project data is properly classified.",
+      "ideal": "The API should accept the new classification level details and return a success message confirming the update, along with the updated classification information."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
+      "method": "DELETE",
+      "operationId": "removeDefaultProjectClassification",
+      "summary": "",
+      "user": "As an administrator, I want to remove the default classification level for a project that is no longer applicable, to prevent confusion among team members.",
+      "ideal": "The API should successfully delete the default classification level and return a confirmation message indicating that the classification has been removed."
     }
   ]
 }

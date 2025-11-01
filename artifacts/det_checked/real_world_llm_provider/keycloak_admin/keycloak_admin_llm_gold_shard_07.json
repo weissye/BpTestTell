@@ -5,80 +5,80 @@
       "method": "GET",
       "operationId": "getClientScopes",
       "summary": "",
-      "user": "Admin user requesting all client scopes for the realm 'myrealm'.",
-      "ideal": "Returns a list of all client scopes defined in the realm 'myrealm'."
+      "user": "As an admin, I want to retrieve all client scopes in my realm to manage their configurations effectively.",
+      "ideal": "A successful response with a list of client scopes, including their IDs and names."
     },
     {
       "path": "/myrealm/client-scopes",
       "method": "POST",
       "operationId": "postClientScopes",
       "summary": "",
-      "user": "Admin user creating a new client scope for 'myrealm'.",
-      "ideal": "Creates a new client scope in the realm 'myrealm' and returns the created scope details."
+      "user": "As an admin, I want to create a new client scope to provide specific access to my applications.",
+      "ideal": "A successful response indicating the client scope was created, along with its ID."
     },
     {
       "path": "/myrealm/client-scopes/12345",
       "method": "GET",
       "operationId": "getClientScope",
       "summary": "",
-      "user": "Admin user retrieving details of client scope with ID '12345' in 'myrealm'.",
-      "ideal": "Returns the details of the client scope with ID '12345' in the realm 'myrealm'."
+      "user": "As an admin, I want to view the details of a specific client scope to understand its configuration.",
+      "ideal": "A successful response with the details of the client scope, including its attributes."
     },
     {
       "path": "/myrealm/client-scopes/12345",
       "method": "PUT",
       "operationId": "putClientScope",
       "summary": "",
-      "user": "Admin user updating client scope with ID '12345' in 'myrealm'.",
-      "ideal": "Updates the client scope with ID '12345' in the realm 'myrealm' and returns the updated scope details."
+      "user": "As an admin, I want to update an existing client scope to modify its settings.",
+      "ideal": "A successful response confirming the client scope has been updated."
     },
     {
       "path": "/myrealm/client-scopes/12345",
       "method": "DELETE",
       "operationId": "deleteClientScope",
       "summary": "",
-      "user": "Admin user deleting client scope with ID '12345' from 'myrealm'.",
-      "ideal": "Deletes the client scope with ID '12345' from the realm 'myrealm' and confirms deletion."
+      "user": "As an admin, I want to delete a client scope that is no longer needed to keep my realm clean.",
+      "ideal": "A successful response indicating the client scope has been deleted."
     },
     {
       "path": "/myrealm/client-templates",
       "method": "GET",
       "operationId": "getClientTemplates",
       "summary": "",
-      "user": "Admin user requesting all client templates for the realm 'myrealm'.",
-      "ideal": "Returns a list of all client templates defined in the realm 'myrealm'."
+      "user": "As an admin, I want to retrieve all client templates to streamline the client creation process.",
+      "ideal": "A successful response with a list of client templates, including their IDs and names."
     },
     {
       "path": "/myrealm/client-templates",
       "method": "POST",
       "operationId": "postClientTemplates",
       "summary": "",
-      "user": "Admin user creating a new client template for 'myrealm'.",
-      "ideal": "Creates a new client template in the realm 'myrealm' and returns the created template details."
+      "user": "As an admin, I want to create a new client template to standardize client configurations.",
+      "ideal": "A successful response indicating the client template was created, along with its ID."
     },
     {
       "path": "/myrealm/client-templates/67890",
       "method": "GET",
       "operationId": "getClientTemplate",
       "summary": "",
-      "user": "Admin user retrieving details of client template with ID '67890' in 'myrealm'.",
-      "ideal": "Returns the details of the client template with ID '67890' in the realm 'myrealm'."
+      "user": "As an admin, I want to view the details of a specific client template to ensure it meets my requirements.",
+      "ideal": "A successful response with the details of the client template, including its attributes."
     },
     {
       "path": "/myrealm/client-templates/67890",
       "method": "PUT",
       "operationId": "putClientTemplate",
       "summary": "",
-      "user": "Admin user updating client template with ID '67890' in 'myrealm'.",
-      "ideal": "Updates the client template with ID '67890' in the realm 'myrealm' and returns the updated template details."
+      "user": "As an admin, I want to update an existing client template to reflect changes in my client configuration standards.",
+      "ideal": "A successful response confirming the client template has been updated."
     },
     {
       "path": "/myrealm/client-templates/67890",
       "method": "DELETE",
       "operationId": "deleteClientTemplate",
       "summary": "",
-      "user": "Admin user deleting client template with ID '67890' from 'myrealm'.",
-      "ideal": "Deletes the client template with ID '67890' from the realm 'myrealm' and confirms deletion."
+      "user": "As an admin, I want to delete a client template that is outdated to avoid confusion.",
+      "ideal": "A successful response indicating the client template has been deleted."
     }
   ]
 }

@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/indexes",
+      "method": "GET",
+      "operationId": "indexes.list",
+      "summary": "",
+      "user": "As a developer, I want to retrieve a list of all indexes in my Meilisearch instance so that I can manage them effectively.",
+      "ideal": "The response should include an array of index objects, each containing the indexUid, name, and other relevant metadata."
+    },
+    {
+      "path": "/indexes",
+      "method": "POST",
+      "operationId": "indexes.create",
+      "summary": "",
+      "user": "As a developer, I want to create a new index in Meilisearch to store my documents for efficient searching.",
+      "ideal": "The response should confirm the creation of the index with its unique indexUid and any default settings applied."
+    },
+    {
+      "path": "/indexes/{indexUid}",
+      "method": "GET",
+      "operationId": "indexes.get",
+      "summary": "",
+      "user": "As a developer, I want to retrieve details about a specific index by its UID to understand its configuration and status.",
+      "ideal": "The response should provide detailed information about the index, including its uid, name, and settings."
+    },
+    {
+      "path": "/indexes/{indexUid}",
+      "method": "PATCH",
+      "operationId": "indexes.update",
+      "summary": "",
+      "user": "As a developer, I want to update the settings of an existing index to optimize its performance for my search queries.",
+      "ideal": "The response should confirm the successful update of the index settings and return the updated index object."
+    },
+    {
+      "path": "/indexes/{indexUid}",
+      "method": "DELETE",
+      "operationId": "indexes.remove",
+      "summary": "",
+      "user": "As a developer, I want to delete an index that is no longer needed to keep my Meilisearch instance clean and organized.",
+      "ideal": "The response should confirm the deletion of the index and ensure that it is no longer accessible."
+    },
+    {
+      "path": "/swap-indexes",
+      "method": "POST",
+      "operationId": "indexes.swap",
+      "summary": "",
+      "user": "As a developer, I want to swap two indexes to quickly change the active index for my search queries without downtime.",
+      "ideal": "The response should confirm the successful swap of the indexes and provide the new active index information."
+    }
+  ]
+}

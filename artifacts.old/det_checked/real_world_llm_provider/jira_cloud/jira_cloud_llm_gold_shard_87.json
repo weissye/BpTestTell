@@ -1,0 +1,108 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/user",
+      "method": "GET",
+      "operationId": "getUser",
+      "summary": "",
+      "user": "john.doe@example.com",
+      "ideal": "Retrieve user details for John Doe."
+    },
+    {
+      "path": "/rest/api/3/user",
+      "method": "POST",
+      "operationId": "createUser",
+      "summary": "",
+      "user": "jane.smith@example.com",
+      "ideal": "Create a new user with the email jane.smith@example.com."
+    },
+    {
+      "path": "/rest/api/3/user/columns",
+      "method": "GET",
+      "operationId": "getUserDefaultColumns",
+      "summary": "",
+      "user": "alice.brown@example.com",
+      "ideal": "Fetch default columns for user Alice Brown."
+    },
+    {
+      "path": "/rest/api/3/user/columns",
+      "method": "PUT",
+      "operationId": "setUserColumns",
+      "summary": "",
+      "user": "bob.johnson@example.com",
+      "ideal": "Update column settings for Bob Johnson."
+    },
+    {
+      "path": "/rest/api/3/user/groups",
+      "method": "GET",
+      "operationId": "getUserGroups",
+      "summary": "",
+      "user": "charlie.white@example.com",
+      "ideal": "List all groups for user Charlie White."
+    },
+    {
+      "path": "/rest/api/3/user/bulk",
+      "method": "GET",
+      "operationId": "bulkGetUsers",
+      "summary": "",
+      "user": "team@example.com",
+      "ideal": "Retrieve details for multiple users in bulk."
+    },
+    {
+      "path": "/rest/api/3/user/email",
+      "method": "GET",
+      "operationId": "getUserEmail",
+      "summary": "",
+      "user": "david.green@example.com",
+      "ideal": "Get the email address for David Green."
+    },
+    {
+      "path": "/rest/api/3/user/email/bulk",
+      "method": "GET",
+      "operationId": "getUserEmailBulk",
+      "summary": "",
+      "user": "support@example.com",
+      "ideal": "Fetch email addresses for a list of users in bulk."
+    },
+    {
+      "path": "/rest/api/3/users",
+      "method": "GET",
+      "operationId": "getAllUsersDefault",
+      "summary": "",
+      "user": "admin@example.com",
+      "ideal": "Retrieve all users with default settings."
+    },
+    {
+      "path": "/rest/api/3/users/search",
+      "method": "GET",
+      "operationId": "getAllUsers",
+      "summary": "",
+      "user": "manager@example.com",
+      "ideal": "Search for users based on specific criteria."
+    },
+    {
+      "path": "/rest/api/3/user/columns",
+      "method": "DELETE",
+      "operationId": "resetUserColumns",
+      "summary": "",
+      "user": "emily.jones@example.com",
+      "ideal": "Reset column settings for Emily Jones."
+    },
+    {
+      "path": "/rest/api/3/user/bulk/migration",
+      "method": "GET",
+      "operationId": "bulkGetUsersMigration",
+      "summary": "",
+      "user": "migration_team@example.com",
+      "ideal": "Retrieve users for migration purposes."
+    },
+    {
+      "path": "/rest/api/3/user",
+      "method": "DELETE",
+      "operationId": "removeUser",
+      "summary": "",
+      "user": "mark.taylor@example.com",
+      "ideal": "Remove user Mark Taylor from the system."
+    }
+  ]
+}

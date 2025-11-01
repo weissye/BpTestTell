@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "ListAvailablePhoneNumberTollFree",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve a list of available toll-free phone numbers in the specified country."
+      "user": "User wants to find available toll-free phone numbers in the US for their Twilio account to enhance their customer service capabilities.",
+      "ideal": "Returns a list of available toll-free phone numbers in the specified country, including details such as the phone number, friendly name, and capabilities."
     }
   ]
 }

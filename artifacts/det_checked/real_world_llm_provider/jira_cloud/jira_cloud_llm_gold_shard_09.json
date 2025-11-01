@@ -14,7 +14,7 @@
       "operationId": "createDashboard",
       "summary": "",
       "user": "project_manager",
-      "ideal": "Create a new dashboard with specified parameters."
+      "ideal": "Create a new dashboard with the specified configuration."
     },
     {
       "path": "/rest/api/3/dashboard/bulk/edit",
@@ -30,7 +30,7 @@
       "operationId": "getAllAvailableDashboardGadgets",
       "summary": "",
       "user": "developer",
-      "ideal": "Fetch a list of all available gadgets for dashboards."
+      "ideal": "Fetch all available gadgets that can be added to dashboards."
     },
     {
       "path": "/rest/api/3/dashboard/search",
@@ -38,7 +38,7 @@
       "operationId": "getDashboardsPaginated",
       "summary": "",
       "user": "user",
-      "ideal": "Retrieve a paginated list of dashboards based on search criteria."
+      "ideal": "Search for dashboards with pagination support."
     },
     {
       "path": "/rest/api/3/dashboard/{dashboardId}/gadget",
@@ -46,7 +46,7 @@
       "operationId": "getAllGadgets",
       "summary": "",
       "user": "user",
-      "ideal": "Get all gadgets associated with a specific dashboard."
+      "ideal": "Retrieve all gadgets associated with a specific dashboard."
     },
     {
       "path": "/rest/api/3/dashboard/{dashboardId}/gadget",
@@ -62,14 +62,14 @@
       "operationId": "removeGadget",
       "summary": "",
       "user": "project_manager",
-      "ideal": "Remove a specific gadget from the dashboard."
+      "ideal": "Remove a gadget from the specified dashboard."
     },
     {
       "path": "/rest/api/3/dashboard/{dashboardId}/gadget/{gadgetId}",
       "method": "PUT",
       "operationId": "updateGadget",
       "summary": "",
-      "user": "project_manager",
+      "user": "developer",
       "ideal": "Update the configuration of a specific gadget on the dashboard."
     },
     {
@@ -94,7 +94,7 @@
       "operationId": "getDashboardItemProperty",
       "summary": "",
       "user": "user",
-      "ideal": "Get the value of a specific property for a dashboard item."
+      "ideal": "Retrieve the value of a specific property for a dashboard item."
     },
     {
       "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}",
@@ -110,7 +110,7 @@
       "operationId": "deleteDashboard",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete a specific dashboard by its ID."
+      "ideal": "Delete a specific dashboard."
     },
     {
       "path": "/rest/api/3/dashboard/{id}",
@@ -118,7 +118,7 @@
       "operationId": "getDashboard",
       "summary": "",
       "user": "user",
-      "ideal": "Retrieve details of a specific dashboard by its ID."
+      "ideal": "Retrieve details of a specific dashboard."
     },
     {
       "path": "/rest/api/3/dashboard/{id}",
@@ -126,7 +126,7 @@
       "operationId": "updateDashboard",
       "summary": "",
       "user": "project_manager",
-      "ideal": "Update the details of a specific dashboard."
+      "ideal": "Update the configuration of a specific dashboard."
     },
     {
       "path": "/rest/api/3/dashboard/{id}/copy",

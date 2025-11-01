@@ -6,7 +6,7 @@
       "operationId": "createUser",
       "summary": "",
       "user": "john_doe",
-      "ideal": "User 'john_doe' created successfully."
+      "ideal": "User john_doe created successfully."
     },
     {
       "path": "/users",
@@ -22,7 +22,7 @@
       "operationId": "deleteUser",
       "summary": "",
       "user": "admin",
-      "ideal": "User with ID '123' deleted successfully."
+      "ideal": "User with ID 123 deleted successfully."
     },
     {
       "path": "/books",
@@ -37,7 +37,7 @@
       "method": "GET",
       "operationId": "listBooks",
       "summary": "",
-      "user": "visitor",
+      "user": "guest",
       "ideal": "List of books retrieved successfully."
     },
     {
@@ -45,8 +45,8 @@
       "method": "GET",
       "operationId": "getBook",
       "summary": "",
-      "user": "visitor",
-      "ideal": "Details of book with ID '456' retrieved successfully."
+      "user": "guest",
+      "ideal": "Details of book with ID 456 retrieved successfully."
     },
     {
       "path": "/books/{book_id}",
@@ -54,7 +54,7 @@
       "operationId": "deleteBook",
       "summary": "",
       "user": "librarian",
-      "ideal": "Book with ID '456' deleted successfully."
+      "ideal": "Book with ID 456 deleted successfully."
     },
     {
       "path": "/loans",
@@ -62,7 +62,7 @@
       "operationId": "createLoan",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Loan for book 'The Great Gatsby' created successfully."
+      "ideal": "Loan for book ID 456 created successfully."
     },
     {
       "path": "/loans",
@@ -78,7 +78,7 @@
       "operationId": "deleteLoan",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Loan for book with ID '456' deleted successfully."
+      "ideal": "Loan for book ID 456 deleted successfully."
     },
     {
       "path": "/holds",
@@ -86,7 +86,7 @@
       "operationId": "createHold",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Hold for book '1984' created successfully."
+      "ideal": "Hold for book ID 789 created successfully."
     },
     {
       "path": "/holds",
@@ -102,7 +102,7 @@
       "operationId": "deleteHold",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Hold with ID '789' deleted successfully."
+      "ideal": "Hold with ID 101 deleted successfully."
     }
   ]
 }

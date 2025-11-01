@@ -6,15 +6,15 @@
       "operationId": "serverInfo",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve the current server information including version, environment, and other relevant details."
+      "ideal": "Returns detailed information about the Directus server, including version, environment, and other metadata."
     },
     {
       "path": "/server/ping",
       "method": "GET",
       "operationId": "ping",
       "summary": "",
-      "user": "admin",
-      "ideal": "Check the server's availability and responsiveness."
+      "user": "guest",
+      "ideal": "Checks the server's availability and responsiveness, returning a simple 'pong' response if the server is up."
     }
   ]
 }

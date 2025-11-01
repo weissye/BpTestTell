@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchShortCode",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Fetches the details of a specific short code using the provided Account SID and short code SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateShortCode",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Updates the details of a specific short code for the given Account SID and short code SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json",
+      "method": "GET",
+      "operationId": "ListShortCode",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Retrieves a list of all short codes associated with the specified Account SID."
+    }
+  ]
+}

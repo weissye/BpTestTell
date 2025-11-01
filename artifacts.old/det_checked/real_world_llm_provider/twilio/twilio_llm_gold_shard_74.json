@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/Yearly.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordYearly",
+      "summary": "",
+      "user": "user_12345",
+      "ideal": "Retrieve yearly usage records for the specified account."
+    }
+  ]
+}

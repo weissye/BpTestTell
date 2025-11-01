@@ -14,7 +14,7 @@
       "operationId": "getRevision",
       "summary": "",
       "user": "editor",
-      "ideal": "Fetch details of a specific revision by its ID."
+      "ideal": "Fetch the details of a specific revision by its ID."
     }
   ]
 }

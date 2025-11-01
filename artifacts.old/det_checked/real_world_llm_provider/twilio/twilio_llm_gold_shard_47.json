@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys.json",
+      "method": "POST",
+      "operationId": "CreateNewKey",
+      "summary": "",
+      "user": "A developer working on a messaging application that requires secure access to Twilio's API for sending SMS messages. They need to create a new API key to manage access for different parts of their application.",
+      "ideal": "This request should create a new API key for the specified AccountSid, returning the key details including the SID and secret."
+    }
+  ]
+}

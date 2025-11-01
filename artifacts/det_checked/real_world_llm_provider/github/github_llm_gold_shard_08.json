@@ -78,7 +78,7 @@
       "operationId": "code-scanning/get-analysis",
       "summary": "",
       "user": "user707",
-      "ideal": "Retrieve details of a specific code scanning analysis by its ID."
+      "ideal": "Retrieve details of a specific code scanning analysis."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}",
@@ -94,7 +94,7 @@
       "operationId": "code-scanning/list-codeql-databases",
       "summary": "",
       "user": "user909",
-      "ideal": "List all CodeQL databases available for a repository."
+      "ideal": "List all CodeQL databases for a specific repository."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/codeql/databases/{language}",
@@ -102,7 +102,7 @@
       "operationId": "code-scanning/get-codeql-database",
       "summary": "",
       "user": "user1010",
-      "ideal": "Retrieve a specific CodeQL database for a given programming language."
+      "ideal": "Get details of a specific CodeQL database for a given language."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/codeql/databases/{language}",
@@ -110,7 +110,7 @@
       "operationId": "code-scanning/delete-codeql-database",
       "summary": "",
       "user": "user1111",
-      "ideal": "Delete a specific CodeQL database for a given programming language."
+      "ideal": "Delete a specific CodeQL database for a given language."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses",
@@ -126,7 +126,7 @@
       "operationId": "code-scanning/get-variant-analysis",
       "summary": "",
       "user": "user1313",
-      "ideal": "Fetch details of a specific variant analysis by its ID."
+      "ideal": "Retrieve details of a specific CodeQL variant analysis."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses/{codeql_variant_analysis_id}/repos/{repo_owner}/{repo_name}",
@@ -134,7 +134,7 @@
       "operationId": "code-scanning/get-variant-analysis-repo-task",
       "summary": "",
       "user": "user1414",
-      "ideal": "Get the repository task associated with a specific variant analysis."
+      "ideal": "Get the repository task for a specific CodeQL variant analysis."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/default-setup",
@@ -150,7 +150,7 @@
       "operationId": "code-scanning/update-default-setup",
       "summary": "",
       "user": "user1616",
-      "ideal": "Update the default setup configuration for code scanning."
+      "ideal": "Update the default setup for code scanning in a repository."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/sarifs",

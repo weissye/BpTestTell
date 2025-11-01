@@ -1,0 +1,1140 @@
+{
+  "gold": [
+    {
+      "path": "/activity",
+      "method": "GET",
+      "operationId": "getActivities",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all activities in the system."
+    },
+    {
+      "path": "/activity/{id}",
+      "method": "GET",
+      "operationId": "getActivity",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Fetch details of a specific activity by its ID."
+    },
+    {
+      "path": "/assets/123",
+      "method": "GET",
+      "operationId": "getAsset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the asset with ID 123, including its metadata such as title, description, and file type."
+    },
+    {
+      "path": "/assets/456",
+      "method": "GET",
+      "operationId": "getAsset",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Fetch the asset with ID 456 to display it in the content management interface, ensuring all relevant details are included."
+    },
+    {
+      "path": "/assets/789",
+      "method": "GET",
+      "operationId": "getAsset",
+      "summary": "",
+      "user": "viewer",
+      "ideal": "Access the asset with ID 789 for viewing purposes, ensuring that only public information is returned."
+    },
+    {
+      "path": "/assets/101112",
+      "method": "GET",
+      "operationId": "getAsset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get the asset with ID 101112, along with its associated tags and categories for better organization."
+    },
+    {
+      "path": "/assets/131415",
+      "method": "GET",
+      "operationId": "getAsset",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Retrieve the asset with ID 131415 to edit its details, including updating the title and description."
+    },
+    {
+      "path": "/auth/login",
+      "method": "POST",
+      "operationId": "login",
+      "summary": "",
+      "user": "{\"email\":\"user@example.com\",\"password\":\"securePassword123\"}",
+      "ideal": "{\"access_token\":\"abc123xyz\",\"refresh_token\":\"def456uvw\"}"
+    },
+    {
+      "path": "/auth/refresh",
+      "method": "POST",
+      "operationId": "refresh",
+      "summary": "",
+      "user": "{\"refresh_token\":\"def456uvw\"}",
+      "ideal": "{\"access_token\":\"ghi789rst\"}"
+    },
+    {
+      "path": "/auth/logout",
+      "method": "POST",
+      "operationId": "logout",
+      "summary": "",
+      "user": "{\"access_token\":\"abc123xyz\"}",
+      "ideal": "{\"message\":\"Successfully logged out\"}"
+    },
+    {
+      "path": "/auth/password/request",
+      "method": "POST",
+      "operationId": "passwordRequest",
+      "summary": "",
+      "user": "{\"email\":\"user@example.com\"}",
+      "ideal": "{\"message\":\"Password reset link sent\"}"
+    },
+    {
+      "path": "/auth/password/reset",
+      "method": "POST",
+      "operationId": "passwordReset",
+      "summary": "",
+      "user": "{\"token\":\"resetToken123\",\"new_password\":\"newSecurePassword456\"}",
+      "ideal": "{\"message\":\"Password has been reset successfully\"}"
+    },
+    {
+      "path": "/collections",
+      "method": "GET",
+      "operationId": "getCollections",
+      "summary": "",
+      "user": "As a developer, I want to retrieve a list of all collections in the Directus API so that I can understand the available data structures.",
+      "ideal": "The response should include an array of collection objects, each containing details such as id, name, and schema."
+    },
+    {
+      "path": "/collections",
+      "method": "POST",
+      "operationId": "createCollection",
+      "summary": "",
+      "user": "As an admin, I want to create a new collection in the Directus API so that I can store custom data relevant to my application.",
+      "ideal": "The response should return the newly created collection object with its id and other relevant details."
+    },
+    {
+      "path": "/collections/{id}",
+      "method": "GET",
+      "operationId": "getCollection",
+      "summary": "",
+      "user": "As a user, I want to fetch a specific collection by its ID so that I can view its structure and data.",
+      "ideal": "The response should include the collection object with its properties such as id, name, and fields."
+    },
+    {
+      "path": "/collections/{id}",
+      "method": "PATCH",
+      "operationId": "updateCollection",
+      "summary": "",
+      "user": "As a developer, I want to update the properties of an existing collection so that I can modify its schema to better fit my needs.",
+      "ideal": "The response should return the updated collection object reflecting the changes made."
+    },
+    {
+      "path": "/collections/{id}",
+      "method": "DELETE",
+      "operationId": "deleteCollection",
+      "summary": "",
+      "user": "As an admin, I want to delete a collection that is no longer needed so that I can keep the API clean and organized.",
+      "ideal": "The response should confirm the deletion of the collection and may return a success message."
+    },
+    {
+      "path": "/comments",
+      "method": "GET",
+      "operationId": "getComments",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of all comments."
+    },
+    {
+      "path": "/comments",
+      "method": "POST",
+      "operationId": "createComment",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Create a new comment with the provided content."
+    },
+    {
+      "path": "/comments",
+      "method": "PATCH",
+      "operationId": "updateComments",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Update multiple comments based on the provided data."
+    },
+    {
+      "path": "/comments",
+      "method": "DELETE",
+      "operationId": "deleteComments",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Delete all comments from the database."
+    },
+    {
+      "path": "/comments/{id}",
+      "method": "GET",
+      "operationId": "getComment",
+      "summary": "",
+      "user": "user112",
+      "ideal": "Retrieve a specific comment by its ID."
+    },
+    {
+      "path": "/comments/{id}",
+      "method": "PATCH",
+      "operationId": "updateComment",
+      "summary": "",
+      "user": "user131",
+      "ideal": "Update a specific comment identified by its ID."
+    },
+    {
+      "path": "/comments/{id}",
+      "method": "DELETE",
+      "operationId": "deleteComment",
+      "summary": "",
+      "user": "user415",
+      "ideal": "Delete a specific comment using its ID."
+    },
+    {
+      "path": "/extensions",
+      "method": "GET",
+      "operationId": "listExtensions",
+      "summary": "",
+      "user": "Admin user requesting a list of all available extensions to review their functionalities and compatibility with the current system setup.",
+      "ideal": "A JSON array containing details of all extensions including their names, versions, and descriptions."
+    },
+    {
+      "path": "/extensions/my-extension",
+      "method": "PATCH",
+      "operationId": "updateExtensions",
+      "summary": "",
+      "user": "Developer updating the configuration of 'my-extension' to fix a bug and improve performance based on user feedback.",
+      "ideal": "A success message confirming that 'my-extension' has been updated successfully with the new configuration."
+    },
+    {
+      "path": "/extensions/my-bundle/my-extension",
+      "method": "PATCH",
+      "operationId": "updateExtensionBundle",
+      "summary": "",
+      "user": "Team lead updating the 'my-extension' within 'my-bundle' to include new features and enhancements for the upcoming release.",
+      "ideal": "A success message indicating that 'my-extension' in 'my-bundle' has been updated with the new features."
+    },
+    {
+      "path": "/fields",
+      "method": "GET",
+      "operationId": "getFields",
+      "summary": "",
+      "user": "Admin user requesting all available fields in the system to review the schema.",
+      "ideal": "Returns a list of all fields with their metadata."
+    },
+    {
+      "path": "/fields/users",
+      "method": "GET",
+      "operationId": "getCollectionFields",
+      "summary": "",
+      "user": "Developer looking to fetch all fields for the 'users' collection to understand its structure.",
+      "ideal": "Returns a list of fields specific to the 'users' collection."
+    },
+    {
+      "path": "/fields/posts",
+      "method": "POST",
+      "operationId": "createField",
+      "summary": "",
+      "user": "Content manager creating a new field for the 'posts' collection to add a 'summary' field.",
+      "ideal": "Successfully creates a new field in the 'posts' collection and returns the created field's details."
+    },
+    {
+      "path": "/fields/posts/123",
+      "method": "GET",
+      "operationId": "getCollectionField",
+      "summary": "",
+      "user": "Developer retrieving details of a specific field with ID 123 in the 'posts' collection.",
+      "ideal": "Returns the details of the field with ID 123 in the 'posts' collection."
+    },
+    {
+      "path": "/fields/posts/123",
+      "method": "PATCH",
+      "operationId": "updateField",
+      "summary": "",
+      "user": "Admin updating the field with ID 123 in the 'posts' collection to change its type to 'text'.",
+      "ideal": "Successfully updates the field and returns the updated field's details."
+    },
+    {
+      "path": "/fields/posts/123",
+      "method": "DELETE",
+      "operationId": "deleteField",
+      "summary": "",
+      "user": "Admin deleting the field with ID 123 in the 'posts' collection as it is no longer needed.",
+      "ideal": "Successfully deletes the field and confirms the deletion."
+    },
+    {
+      "path": "/files",
+      "method": "GET",
+      "operationId": "getFiles",
+      "summary": "",
+      "user": "Admin user requesting a list of all files in the system to manage storage and access.",
+      "ideal": "A successful response with a list of files including metadata such as file name, size, and upload date."
+    },
+    {
+      "path": "/files",
+      "method": "POST",
+      "operationId": "createFile",
+      "summary": "",
+      "user": "Content creator uploading a new image file for a blog post.",
+      "ideal": "A successful response confirming the file has been uploaded, along with the file ID and URL."
+    },
+    {
+      "path": "/files",
+      "method": "PATCH",
+      "operationId": "updateFiles",
+      "summary": "",
+      "user": "Admin user updating the metadata of multiple files to correct descriptions.",
+      "ideal": "A successful response indicating the number of files updated and their new metadata."
+    },
+    {
+      "path": "/files",
+      "method": "DELETE",
+      "operationId": "deleteFiles",
+      "summary": "",
+      "user": "Admin user deleting obsolete files to free up storage space.",
+      "ideal": "A successful response confirming the deletion of the specified files."
+    },
+    {
+      "path": "/files/{id}",
+      "method": "GET",
+      "operationId": "getFile",
+      "summary": "",
+      "user": "User requesting details of a specific file to check its properties before using it.",
+      "ideal": "A successful response with detailed information about the requested file, including its URL."
+    },
+    {
+      "path": "/files/{id}",
+      "method": "PATCH",
+      "operationId": "updateFile",
+      "summary": "",
+      "user": "Content manager updating the title and description of a specific file.",
+      "ideal": "A successful response confirming the file has been updated with the new title and description."
+    },
+    {
+      "path": "/files/{id}",
+      "method": "DELETE",
+      "operationId": "deleteFile",
+      "summary": "",
+      "user": "User deleting a specific file that is no longer needed.",
+      "ideal": "A successful response confirming the deletion of the specific file."
+    },
+    {
+      "path": "/flows",
+      "method": "GET",
+      "operationId": "getFlows",
+      "summary": "",
+      "user": "Admin user requesting all available flows to review current automation processes.",
+      "ideal": "A list of all flows with their details including IDs, names, and statuses."
+    },
+    {
+      "path": "/flows",
+      "method": "POST",
+      "operationId": "createFlow",
+      "summary": "",
+      "user": "User creating a new flow to automate data import from external sources.",
+      "ideal": "Confirmation of flow creation with the new flow's ID and details."
+    },
+    {
+      "path": "/flows",
+      "method": "PATCH",
+      "operationId": "updateFlows",
+      "summary": "",
+      "user": "Admin user updating multiple flows to change their execution schedules.",
+      "ideal": "Confirmation of successful updates for the specified flows."
+    },
+    {
+      "path": "/flows",
+      "method": "DELETE",
+      "operationId": "deleteFlows",
+      "summary": "",
+      "user": "User deleting obsolete flows that are no longer needed.",
+      "ideal": "Confirmation of deletion for the specified flows."
+    },
+    {
+      "path": "/flows/{id}",
+      "method": "GET",
+      "operationId": "getFlow",
+      "summary": "",
+      "user": "User retrieving details of a specific flow to troubleshoot an issue.",
+      "ideal": "Detailed information about the specified flow including its configuration and status."
+    },
+    {
+      "path": "/flows/{id}",
+      "method": "PATCH",
+      "operationId": "updateFlow",
+      "summary": "",
+      "user": "Admin updating a specific flow to modify its parameters for better performance.",
+      "ideal": "Confirmation of successful update for the specified flow."
+    },
+    {
+      "path": "/flows/{id}",
+      "method": "DELETE",
+      "operationId": "deleteFlow",
+      "summary": "",
+      "user": "User deleting a specific flow that is no longer relevant to current operations.",
+      "ideal": "Confirmation of deletion for the specified flow."
+    },
+    {
+      "path": "/folders",
+      "method": "GET",
+      "operationId": "getFolders",
+      "summary": "",
+      "user": "Admin user requesting a list of all folders to manage content organization.",
+      "ideal": "Returns a list of folders with their details, including IDs, names, and creation dates."
+    },
+    {
+      "path": "/folders",
+      "method": "POST",
+      "operationId": "createFolder",
+      "summary": "",
+      "user": "Content manager creating a new folder to categorize uploaded assets.",
+      "ideal": "Creates a new folder and returns the folder's ID and details upon successful creation."
+    },
+    {
+      "path": "/folders",
+      "method": "PATCH",
+      "operationId": "updateFolders",
+      "summary": "",
+      "user": "Admin user updating multiple folders to reflect new naming conventions.",
+      "ideal": "Updates specified folders and returns the updated folder details."
+    },
+    {
+      "path": "/folders",
+      "method": "DELETE",
+      "operationId": "deleteFolders",
+      "summary": "",
+      "user": "Admin user deleting obsolete folders to clean up the content structure.",
+      "ideal": "Deletes specified folders and returns a confirmation of deletion."
+    },
+    {
+      "path": "/folders/{id}",
+      "method": "GET",
+      "operationId": "getFolder",
+      "summary": "",
+      "user": "User looking for details of a specific folder to retrieve its contents.",
+      "ideal": "Returns the details of the specified folder, including its ID, name, and contents."
+    },
+    {
+      "path": "/folders/{id}",
+      "method": "PATCH",
+      "operationId": "updateFolder",
+      "summary": "",
+      "user": "Content manager updating a folder's name to better reflect its contents.",
+      "ideal": "Updates the specified folder and returns the updated folder details."
+    },
+    {
+      "path": "/folders/{id}",
+      "method": "DELETE",
+      "operationId": "deleteFolder",
+      "summary": "",
+      "user": "Admin user removing a specific folder that is no longer needed.",
+      "ideal": "Deletes the specified folder and returns a confirmation of deletion."
+    },
+    {
+      "path": "/items/posts",
+      "method": "GET",
+      "operationId": "getItems",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve all posts from the posts collection."
+    },
+    {
+      "path": "/items/posts",
+      "method": "POST",
+      "operationId": "createItem",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Create a new post in the posts collection with the title and content provided."
+    },
+    {
+      "path": "/items/posts",
+      "method": "PATCH",
+      "operationId": "updateItems",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update multiple posts in the posts collection based on the provided criteria."
+    },
+    {
+      "path": "/items/posts",
+      "method": "DELETE",
+      "operationId": "deleteItems",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete all posts from the posts collection that match the specified criteria."
+    },
+    {
+      "path": "/items/posts/123",
+      "method": "GET",
+      "operationId": "getItem",
+      "summary": "",
+      "user": "viewer",
+      "ideal": "Retrieve the post with ID 123 from the posts collection."
+    },
+    {
+      "path": "/items/posts/123",
+      "method": "PATCH",
+      "operationId": "updateItem",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update the post with ID 123 in the posts collection with new title and content."
+    },
+    {
+      "path": "/items/posts/123",
+      "method": "DELETE",
+      "operationId": "deleteItem",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the post with ID 123 from the posts collection."
+    },
+    {
+      "path": "/operations",
+      "method": "GET",
+      "operationId": "getOperations",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all operations available in the system."
+    },
+    {
+      "path": "/operations",
+      "method": "POST",
+      "operationId": "createOperation",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new operation with the specified parameters."
+    },
+    {
+      "path": "/operations",
+      "method": "PATCH",
+      "operationId": "updateOperations",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update multiple operations based on the provided data."
+    },
+    {
+      "path": "/operations",
+      "method": "DELETE",
+      "operationId": "deleteOperations",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete multiple operations from the system."
+    },
+    {
+      "path": "/operations/{id}",
+      "method": "GET",
+      "operationId": "getOperation",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific operation by its ID."
+    },
+    {
+      "path": "/operations/{id}",
+      "method": "PATCH",
+      "operationId": "updateOperation",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update a specific operation identified by its ID."
+    },
+    {
+      "path": "/operations/{id}",
+      "method": "DELETE",
+      "operationId": "deleteOperation",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific operation identified by its ID."
+    },
+    {
+      "path": "/permissions",
+      "method": "GET",
+      "operationId": "getPermissions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve all permissions available in the system."
+    },
+    {
+      "path": "/permissions",
+      "method": "POST",
+      "operationId": "createPermission",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new permission for users."
+    },
+    {
+      "path": "/permissions",
+      "method": "PATCH",
+      "operationId": "updatePermissions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update existing permissions in the system."
+    },
+    {
+      "path": "/permissions",
+      "method": "DELETE",
+      "operationId": "deletePermissions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete specified permissions from the system."
+    },
+    {
+      "path": "/permissions/me",
+      "method": "GET",
+      "operationId": "getMyPermissions",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the permissions assigned to the current user."
+    },
+    {
+      "path": "/permissions/{id}",
+      "method": "GET",
+      "operationId": "getPermission",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get details of a specific permission by its ID."
+    },
+    {
+      "path": "/permissions/{id}",
+      "method": "PATCH",
+      "operationId": "updatePermission",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update a specific permission by its ID."
+    },
+    {
+      "path": "/permissions/{id}",
+      "method": "DELETE",
+      "operationId": "deletePermission",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific permission by its ID."
+    },
+    {
+      "path": "/presets",
+      "method": "GET",
+      "operationId": "getPresets",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all presets available in the system."
+    },
+    {
+      "path": "/presets",
+      "method": "POST",
+      "operationId": "createPreset",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Create a new preset with the specified parameters."
+    },
+    {
+      "path": "/presets",
+      "method": "PATCH",
+      "operationId": "updatePresets",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update multiple presets with new values."
+    },
+    {
+      "path": "/presets",
+      "method": "DELETE",
+      "operationId": "deletePresets",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete all presets from the system."
+    },
+    {
+      "path": "/presets/{id}",
+      "method": "GET",
+      "operationId": "getPreset",
+      "summary": "",
+      "user": "viewer",
+      "ideal": "Retrieve a specific preset by its ID."
+    },
+    {
+      "path": "/presets/{id}",
+      "method": "PATCH",
+      "operationId": "updatePreset",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update a specific preset identified by its ID."
+    },
+    {
+      "path": "/presets/{id}",
+      "method": "DELETE",
+      "operationId": "deletePreset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific preset identified by its ID."
+    },
+    {
+      "path": "/relations",
+      "method": "GET",
+      "operationId": "getRelations",
+      "summary": "",
+      "user": "As a developer, I want to retrieve all existing relations in the Directus database to understand how different collections are linked.",
+      "ideal": "A successful response containing a list of all relations with their details, including source and target collections."
+    },
+    {
+      "path": "/relations",
+      "method": "POST",
+      "operationId": "createRelation",
+      "summary": "",
+      "user": "As a database administrator, I want to create a new relation between the 'users' and 'posts' collections to establish a connection between user accounts and their posts.",
+      "ideal": "A successful response confirming the creation of the relation, including the relation ID and details of the new relation."
+    },
+    {
+      "path": "/relations/{id}",
+      "method": "GET",
+      "operationId": "getRelation",
+      "summary": "",
+      "user": "As a data analyst, I want to fetch details of a specific relation by its ID to analyze how two collections interact with each other.",
+      "ideal": "A successful response containing the details of the specified relation, including its source and target collections."
+    },
+    {
+      "path": "/relations/{id}",
+      "method": "PATCH",
+      "operationId": "updateRelation",
+      "summary": "",
+      "user": "As a project manager, I want to update an existing relation to modify its properties, such as changing the target collection, to better reflect our data model.",
+      "ideal": "A successful response confirming the update of the relation, including the updated relation details."
+    },
+    {
+      "path": "/relations/{id}",
+      "method": "DELETE",
+      "operationId": "deleteRelation",
+      "summary": "",
+      "user": "As a system administrator, I want to delete a relation that is no longer needed to clean up the database and avoid confusion.",
+      "ideal": "A successful response confirming the deletion of the relation, ensuring it is no longer present in the database."
+    },
+    {
+      "path": "/revisions",
+      "method": "GET",
+      "operationId": "getRevisions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all revisions in the system."
+    },
+    {
+      "path": "/revisions/{id}",
+      "method": "GET",
+      "operationId": "getRevision",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Fetch details of a specific revision by its ID."
+    },
+    {
+      "path": "/roles",
+      "method": "GET",
+      "operationId": "getRoles",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all roles available in the system."
+    },
+    {
+      "path": "/roles",
+      "method": "POST",
+      "operationId": "createRole",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new role with specified permissions and attributes."
+    },
+    {
+      "path": "/roles",
+      "method": "PATCH",
+      "operationId": "updateRoles",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update multiple roles with new attributes or permissions."
+    },
+    {
+      "path": "/roles",
+      "method": "DELETE",
+      "operationId": "deleteRoles",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete specified roles from the system."
+    },
+    {
+      "path": "/roles/{id}",
+      "method": "GET",
+      "operationId": "getRole",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve detailed information about a specific role by its ID."
+    },
+    {
+      "path": "/roles/{id}",
+      "method": "PATCH",
+      "operationId": "updateRole",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update a specific role's attributes or permissions by its ID."
+    },
+    {
+      "path": "/roles/{id}",
+      "method": "DELETE",
+      "operationId": "deleteRole",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific role by its ID."
+    },
+    {
+      "path": "/schema/snapshot",
+      "method": "GET",
+      "operationId": "schemaSnapshot",
+      "summary": "",
+      "user": "Admin user requesting the current schema snapshot to review the database structure and ensure it aligns with the application requirements.",
+      "ideal": "Returns the current schema snapshot in JSON format, including tables, fields, and relationships."
+    },
+    {
+      "path": "/schema/apply",
+      "method": "POST",
+      "operationId": "schemaApply",
+      "summary": "",
+      "user": "Database administrator applying the latest schema changes to the production database after thorough testing in the staging environment.",
+      "ideal": "Successfully applies the new schema changes and returns a confirmation message with the updated schema version."
+    },
+    {
+      "path": "/schema/diff",
+      "method": "POST",
+      "operationId": "schemaDiff",
+      "summary": "",
+      "user": "Developer comparing the current schema with a previous version to identify changes made during the last development cycle.",
+      "ideal": "Returns a detailed comparison of the current schema against the specified previous version, highlighting added, removed, and modified fields."
+    },
+    {
+      "path": "/server/info",
+      "method": "GET",
+      "operationId": "serverInfo",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the current server information including version, environment, and other relevant details."
+    },
+    {
+      "path": "/server/ping",
+      "method": "GET",
+      "operationId": "ping",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Check the server's availability and responsiveness."
+    },
+    {
+      "path": "/settings",
+      "method": "GET",
+      "operationId": "getSettings",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the current settings of the Directus application."
+    },
+    {
+      "path": "/settings",
+      "method": "PATCH",
+      "operationId": "updateSetting",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update a specific setting in the Directus application."
+    },
+    {
+      "path": "/users",
+      "method": "GET",
+      "operationId": "getUsers",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all users in the system."
+    },
+    {
+      "path": "/users",
+      "method": "POST",
+      "operationId": "createUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new user with the provided details."
+    },
+    {
+      "path": "/users",
+      "method": "PATCH",
+      "operationId": "updateUsers",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update multiple users' information based on the provided data."
+    },
+    {
+      "path": "/users",
+      "method": "DELETE",
+      "operationId": "deleteUsers",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete specified users from the system."
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET",
+      "operationId": "getUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve detailed information about a specific user by ID."
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PATCH",
+      "operationId": "updateUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the information of a specific user by ID."
+    },
+    {
+      "path": "/users/{id}",
+      "method": "DELETE",
+      "operationId": "deleteUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific user from the system by ID."
+    },
+    {
+      "path": "/users/invite",
+      "method": "POST",
+      "operationId": "invite",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Send an invitation to a new user to join the platform."
+    },
+    {
+      "path": "/users/invite/accept",
+      "method": "POST",
+      "operationId": "acceptInvite",
+      "summary": "",
+      "user": "new_user",
+      "ideal": "Accept an invitation to join the platform."
+    },
+    {
+      "path": "/users/me",
+      "method": "GET",
+      "operationId": "getMe",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the current user's profile information."
+    },
+    {
+      "path": "/users/me",
+      "method": "PATCH",
+      "operationId": "updateMe",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the current user's profile information."
+    },
+    {
+      "path": "/users/me/track/page",
+      "method": "PATCH",
+      "operationId": "updateLastUsedPageMe",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the last used page for the current user."
+    },
+    {
+      "path": "/users/me/tfa/enable",
+      "method": "POST",
+      "operationId": "meTfaEnable",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Enable two-factor authentication for the current user."
+    },
+    {
+      "path": "/users/me/tfa/disable",
+      "method": "POST",
+      "operationId": "meTfaDisable",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Disable two-factor authentication for the current user."
+    },
+    {
+      "path": "/utils/hash/generate",
+      "method": "POST",
+      "operationId": "hash-generate",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Generate a secure hash for the given input."
+    },
+    {
+      "path": "/utils/hash/verify",
+      "method": "POST",
+      "operationId": "hash-verify",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Verify if the provided input matches the stored hash."
+    },
+    {
+      "path": "/utils/sort/users",
+      "method": "POST",
+      "operationId": "sort",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Sort the users collection based on specified criteria."
+    },
+    {
+      "path": "/utils/import/products",
+      "method": "POST",
+      "operationId": "import",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Import a list of products into the products collection."
+    },
+    {
+      "path": "/utils/export/orders",
+      "method": "POST",
+      "operationId": "export",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Export the orders collection to a CSV file."
+    },
+    {
+      "path": "/utils/cache/clear",
+      "method": "POST",
+      "operationId": "clear-cache",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Clear the application cache to free up resources."
+    },
+    {
+      "path": "/utils/random/string",
+      "method": "GET",
+      "operationId": "random",
+      "summary": "",
+      "user": "guest",
+      "ideal": "Generate a random string for use in testing."
+    },
+    {
+      "path": "/versions",
+      "method": "GET",
+      "operationId": "getContentVersions",
+      "summary": "",
+      "user": "Admin user querying all content versions for review.",
+      "ideal": "Returns a list of all content versions available in the system."
+    },
+    {
+      "path": "/versions",
+      "method": "POST",
+      "operationId": "createContentVersion",
+      "summary": "",
+      "user": "Content creator adding a new version for a specific content item.",
+      "ideal": "Creates a new content version and returns the details of the created version."
+    },
+    {
+      "path": "/versions",
+      "method": "PATCH",
+      "operationId": "updateContentVersions",
+      "summary": "",
+      "user": "Editor updating multiple content versions to correct errors.",
+      "ideal": "Updates specified content versions and returns the updated versions."
+    },
+    {
+      "path": "/versions",
+      "method": "DELETE",
+      "operationId": "deleteContentVersions",
+      "summary": "",
+      "user": "Admin user removing outdated content versions from the system.",
+      "ideal": "Deletes specified content versions and confirms the deletion."
+    },
+    {
+      "path": "/versions/{id}",
+      "method": "GET",
+      "operationId": "getContentVersion",
+      "summary": "",
+      "user": "User retrieving a specific content version for detailed review.",
+      "ideal": "Returns the details of the specified content version."
+    },
+    {
+      "path": "/versions/{id}",
+      "method": "PATCH",
+      "operationId": "updateContentVersion",
+      "summary": "",
+      "user": "Editor making minor adjustments to a specific content version.",
+      "ideal": "Updates the specified content version and returns the updated version."
+    },
+    {
+      "path": "/versions/{id}",
+      "method": "DELETE",
+      "operationId": "deleteContentVersion",
+      "summary": "",
+      "user": "Admin user deleting a specific content version that is no longer needed.",
+      "ideal": "Deletes the specified content version and confirms the deletion."
+    },
+    {
+      "path": "/versions/{id}/save",
+      "method": "POST",
+      "operationId": "saveContentVersion",
+      "summary": "",
+      "user": "User saving changes made to a specific content version.",
+      "ideal": "Saves the current state of the specified content version and returns the saved version."
+    },
+    {
+      "path": "/versions/{id}/compare",
+      "method": "GET",
+      "operationId": "compareContentVersion",
+      "summary": "",
+      "user": "User comparing two versions of content to identify changes.",
+      "ideal": "Returns a comparison of the specified content version against another version."
+    },
+    {
+      "path": "/versions/{id}/promote",
+      "method": "POST",
+      "operationId": "promoteContentVersion",
+      "summary": "",
+      "user": "Admin promoting a specific content version to be the current version.",
+      "ideal": "Promotes the specified content version and returns the new current version."
+    },
+    {
+      "path": "/webhooks",
+      "method": "GET",
+      "operationId": "getWebhooks",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all webhooks configured in the system."
+    },
+    {
+      "path": "/webhooks",
+      "method": "POST",
+      "operationId": "createWebhook",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new webhook with the specified configuration."
+    },
+    {
+      "path": "/webhooks",
+      "method": "PATCH",
+      "operationId": "updateWebhooks",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the configuration of existing webhooks."
+    },
+    {
+      "path": "/webhooks",
+      "method": "DELETE",
+      "operationId": "deleteWebhooks",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete all webhooks from the system."
+    },
+    {
+      "path": "/webhooks/{id}",
+      "method": "GET",
+      "operationId": "getWebhook",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific webhook by its ID."
+    },
+    {
+      "path": "/webhooks/{id}",
+      "method": "PATCH",
+      "operationId": "updateWebhook",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the configuration of a specific webhook identified by its ID."
+    },
+    {
+      "path": "/webhooks/{id}",
+      "method": "DELETE",
+      "operationId": "deleteWebhook",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific webhook identified by its ID."
+    }
+  ]
+}

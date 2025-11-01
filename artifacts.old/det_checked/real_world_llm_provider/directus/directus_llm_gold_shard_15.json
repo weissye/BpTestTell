@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/relations",
+      "method": "GET",
+      "operationId": "getRelations",
+      "summary": "",
+      "user": "As a developer, I want to retrieve all existing relations in the Directus database to understand how different collections are linked.",
+      "ideal": "A successful response containing a list of all relations with their details, including source and target collections."
+    },
+    {
+      "path": "/relations",
+      "method": "POST",
+      "operationId": "createRelation",
+      "summary": "",
+      "user": "As a database administrator, I want to create a new relation between the 'users' and 'posts' collections to establish a connection between user accounts and their posts.",
+      "ideal": "A successful response confirming the creation of the relation, including the relation ID and details of the new relation."
+    },
+    {
+      "path": "/relations/{id}",
+      "method": "GET",
+      "operationId": "getRelation",
+      "summary": "",
+      "user": "As a data analyst, I want to fetch details of a specific relation by its ID to analyze how two collections interact with each other.",
+      "ideal": "A successful response containing the details of the specified relation, including its source and target collections."
+    },
+    {
+      "path": "/relations/{id}",
+      "method": "PATCH",
+      "operationId": "updateRelation",
+      "summary": "",
+      "user": "As a project manager, I want to update an existing relation to modify its properties, such as changing the target collection, to better reflect our data model.",
+      "ideal": "A successful response confirming the update of the relation, including the updated relation details."
+    },
+    {
+      "path": "/relations/{id}",
+      "method": "DELETE",
+      "operationId": "deleteRelation",
+      "summary": "",
+      "user": "As a system administrator, I want to delete a relation that is no longer needed to clean up the database and avoid confusion.",
+      "ideal": "A successful response confirming the deletion of the relation, ensuring it is no longer present in the database."
+    }
+  ]
+}

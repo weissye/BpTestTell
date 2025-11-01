@@ -14,7 +14,7 @@
       "operationId": "getPackage",
       "summary": "",
       "user": "johndoe",
-      "ideal": "Get details of the package 'my-package' version '1.0.0' owned by johndoe."
+      "ideal": "Fetch details of the package 'my-package' version '1.0.0' owned by johndoe."
     },
     {
       "path": "/packages/johndoe/npm/my-package/1.0.0",

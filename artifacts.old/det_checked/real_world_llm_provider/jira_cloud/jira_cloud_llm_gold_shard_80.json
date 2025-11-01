@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/statuses",
+      "method": "GET",
+      "operationId": "getStatusesById",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve the current statuses available in Jira to understand the workflow stages.",
+      "ideal": "Retrieve a list of all statuses in the system."
+    },
+    {
+      "path": "/rest/api/3/statuses",
+      "method": "POST",
+      "operationId": "createStatuses",
+      "summary": "",
+      "user": "As a Jira administrator, I want to create a new status called 'In Review' to enhance our workflow.",
+      "ideal": "Create a new status in the Jira system."
+    },
+    {
+      "path": "/rest/api/3/statuses/{statusId}",
+      "method": "PUT",
+      "operationId": "updateStatuses",
+      "summary": "",
+      "user": "As a team lead, I want to update the status 'In Progress' to 'In Development' to better reflect our workflow.",
+      "ideal": "Update the existing status with the new name."
+    },
+    {
+      "path": "/rest/api/3/statuses/{statusId}/project/{projectId}/issueTypeUsages",
+      "method": "GET",
+      "operationId": "getProjectIssueTypeUsagesForStatus",
+      "summary": "",
+      "user": "As a product owner, I want to see which issue types are associated with the 'Done' status in my project.",
+      "ideal": "Retrieve issue type usages for a specific status in a project."
+    },
+    {
+      "path": "/rest/api/3/statuses/byNames",
+      "method": "GET",
+      "operationId": "getStatusesByName",
+      "summary": "",
+      "user": "As a developer, I want to fetch statuses by their names to ensure I am using the correct identifiers in my API calls.",
+      "ideal": "Retrieve statuses based on their names."
+    },
+    {
+      "path": "/rest/api/3/statuses/search",
+      "method": "GET",
+      "operationId": "search",
+      "summary": "",
+      "user": "As a QA engineer, I want to search for statuses that contain the word 'Test' to find relevant statuses for my testing process.",
+      "ideal": "Search for statuses based on a query."
+    },
+    {
+      "path": "/rest/api/3/statuses/{statusId}/projectUsages",
+      "method": "GET",
+      "operationId": "getProjectUsagesForStatus",
+      "summary": "",
+      "user": "As an operations manager, I want to know which projects are using the 'Blocked' status to assess its impact.",
+      "ideal": "Retrieve all projects that utilize a specific status."
+    },
+    {
+      "path": "/rest/api/3/statuses/{statusId}/workflowUsages",
+      "method": "GET",
+      "operationId": "getWorkflowUsagesForStatus",
+      "summary": "",
+      "user": "As a business analyst, I want to find out which workflows include the 'In Progress' status to analyze our process flows.",
+      "ideal": "Retrieve workflows that include a specific status."
+    },
+    {
+      "path": "/rest/api/3/statuses/{statusId}",
+      "method": "DELETE",
+      "operationId": "deleteStatusesById",
+      "summary": "",
+      "user": "As a system administrator, I want to delete the obsolete status 'Archived' to clean up our status list.",
+      "ideal": "Remove a specific status from the system."
+    }
+  ]
+}

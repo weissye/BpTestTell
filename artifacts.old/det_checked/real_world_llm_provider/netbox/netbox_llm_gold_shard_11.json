@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/api/vpn/ike-policies/",
+      "method": "GET",
+      "operationId": "vpn_ike_policies_list",
+      "summary": "",
+      "user": "Admin user requesting a list of all IKE policies for review.",
+      "ideal": "A JSON array of IKE policies with their details."
+    },
+    {
+      "path": "/api/vpn/ike-policies/",
+      "method": "POST",
+      "operationId": "vpn_ike_policies_create",
+      "summary": "",
+      "user": "Network engineer creating a new IKE policy for site-to-site VPN.",
+      "ideal": "Confirmation of the newly created IKE policy with its ID."
+    },
+    {
+      "path": "/api/vpn/ike-policies/{id}/",
+      "method": "PUT",
+      "operationId": "vpn_ike_policies_update",
+      "summary": "",
+      "user": "Admin updating an existing IKE policy to enhance security settings.",
+      "ideal": "Confirmation of the updated IKE policy with the new settings."
+    },
+    {
+      "path": "/api/vpn/ike-policies/{id}/",
+      "method": "DELETE",
+      "operationId": "vpn_ike_policies_destroy",
+      "summary": "",
+      "user": "Network administrator removing an obsolete IKE policy.",
+      "ideal": "Confirmation that the IKE policy has been successfully deleted."
+    },
+    {
+      "path": "/api/vpn/ike-proposals/",
+      "method": "GET",
+      "operationId": "vpn_ike_proposals_list",
+      "summary": "",
+      "user": "Security analyst retrieving all IKE proposals for compliance checks.",
+      "ideal": "A JSON array of IKE proposals with their configurations."
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/",
+      "method": "POST",
+      "operationId": "vpn_ipsec_policies_create",
+      "summary": "",
+      "user": "Network engineer creating a new IPSec policy for a VPN.",
+      "ideal": "Confirmation of the newly created IPSec policy with its ID."
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/{id}/",
+      "method": "PATCH",
+      "operationId": "vpn_ipsec_policies_partial_update",
+      "summary": "",
+      "user": "Admin making minor adjustments to an existing IPSec policy.",
+      "ideal": "Confirmation of the partial update with the modified fields."
+    },
+    {
+      "path": "/api/vpn/ipsec-proposals/{id}/",
+      "method": "DELETE",
+      "operationId": "vpn_ipsec_proposals_destroy",
+      "summary": "",
+      "user": "Network administrator deleting an outdated IPSec proposal.",
+      "ideal": "Confirmation that the IPSec proposal has been successfully deleted."
+    },
+    {
+      "path": "/api/vpn/tunnels/",
+      "method": "GET",
+      "operationId": "vpn_tunnels_list",
+      "summary": "",
+      "user": "Network operator checking the status of all active tunnels.",
+      "ideal": "A JSON array of tunnels with their current status and configurations."
+    },
+    {
+      "path": "/api/vpn/tunnels/{id}/",
+      "method": "PUT",
+      "operationId": "vpn_tunnels_update",
+      "summary": "",
+      "user": "Admin updating the configuration of a specific tunnel.",
+      "ideal": "Confirmation of the updated tunnel configuration."
+    },
+    {
+      "path": "/api/vpn/tunnels/{id}/",
+      "method": "DELETE",
+      "operationId": "vpn_tunnels_destroy",
+      "summary": "",
+      "user": "Network engineer removing a tunnel that is no longer needed.",
+      "ideal": "Confirmation that the tunnel has been successfully deleted."
+    }
+  ]
+}

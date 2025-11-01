@@ -1,28 +1,28 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXX/Members/CAXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
       "method": "GET",
       "operationId": "FetchMember",
       "summary": "",
-      "user": "User wants to retrieve the details of a specific member in a queue using their CallSid.",
-      "ideal": "The response should include the member's status, position in the queue, and any other relevant details."
+      "user": "As a call center manager, I want to retrieve the details of a specific member in a queue using their CallSid so that I can monitor their status and activity.",
+      "ideal": "The API should return a JSON object containing the member's details, including their CallSid, position in the queue, and status."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXX/Members/CAXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
       "method": "POST",
       "operationId": "UpdateMember",
       "summary": "",
-      "user": "User needs to update the status of a member in a queue, changing it from 'waiting' to 'completed'.",
-      "ideal": "The response should confirm the update and return the updated member details."
+      "user": "As a call center supervisor, I need to update the status of a member in the queue to 'completed' after their call ends, ensuring accurate tracking of call outcomes.",
+      "ideal": "The API should accept a JSON payload with the updated status and return a confirmation of the update along with the member's current details."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXX/Members.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json",
       "method": "GET",
       "operationId": "ListMember",
       "summary": "",
-      "user": "User wants to list all members currently in a specific queue to monitor their statuses and positions.",
-      "ideal": "The response should include an array of members with their CallSids, statuses, and positions."
+      "user": "As a system administrator, I want to list all members currently in a specific queue to analyze the queue's performance and manage resources effectively.",
+      "ideal": "The API should return a JSON array of members in the queue, including their CallSid, position, and status, allowing for easy analysis."
     }
   ]
 }

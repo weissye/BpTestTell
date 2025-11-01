@@ -1,44 +1,44 @@
 {
   "gold": [
     {
-      "path": "/orgs/my-org/campaigns",
+      "path": "/orgs/example-org/campaigns",
       "method": "GET",
       "operationId": "campaigns/list-org-campaigns",
       "summary": "",
-      "user": "As a marketing manager, I want to retrieve all campaigns for my organization to analyze their performance and plan future strategies.",
-      "ideal": "Returns a list of campaigns associated with the specified organization."
+      "user": "user123",
+      "ideal": "Retrieve a list of campaigns for the specified organization."
     },
     {
-      "path": "/orgs/my-org/campaigns",
+      "path": "/orgs/example-org/campaigns",
       "method": "POST",
       "operationId": "campaigns/create-campaign",
       "summary": "",
-      "user": "As a marketing manager, I want to create a new campaign for my organization to promote our latest product launch.",
-      "ideal": "Creates a new campaign and returns the details of the created campaign."
+      "user": "user456",
+      "ideal": "Create a new campaign for the specified organization."
     },
     {
-      "path": "/orgs/my-org/campaigns/123",
+      "path": "/orgs/example-org/campaigns/1",
       "method": "GET",
       "operationId": "campaigns/get-campaign-summary",
       "summary": "",
-      "user": "As a marketing analyst, I want to get the summary of a specific campaign to evaluate its effectiveness.",
-      "ideal": "Returns the summary details of the specified campaign."
+      "user": "user789",
+      "ideal": "Get the summary of the campaign with the specified campaign number."
     },
     {
-      "path": "/orgs/my-org/campaigns/123",
+      "path": "/orgs/example-org/campaigns/1",
       "method": "PATCH",
       "operationId": "campaigns/update-campaign",
       "summary": "",
-      "user": "As a marketing manager, I want to update the details of an existing campaign to reflect new changes in our strategy.",
-      "ideal": "Updates the specified campaign and returns the updated campaign details."
+      "user": "user101",
+      "ideal": "Update the details of the campaign with the specified campaign number."
     },
     {
-      "path": "/orgs/my-org/campaigns/123",
+      "path": "/orgs/example-org/campaigns/1",
       "method": "DELETE",
       "operationId": "campaigns/delete-campaign",
       "summary": "",
-      "user": "As a marketing manager, I want to delete an outdated campaign that is no longer relevant to our current marketing efforts.",
-      "ideal": "Deletes the specified campaign and confirms the deletion."
+      "user": "user202",
+      "ideal": "Delete the campaign with the specified campaign number."
     }
   ]
 }

@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/v1/chains",
+      "method": "POST",
+      "operationId": "createChain",
+      "summary": "",
+      "user": "Admin user creating a new chain for garage management.",
+      "ideal": "Successfully creates a new chain with a unique identifier and returns the chain details."
+    },
+    {
+      "path": "/v1/chains/{chainId}",
+      "method": "GET",
+      "operationId": "getChainById",
+      "summary": "",
+      "user": "User retrieving details of a specific chain using its ID.",
+      "ideal": "Returns the details of the specified chain including name, location, and associated garages."
+    },
+    {
+      "path": "/v1/garages",
+      "method": "GET",
+      "operationId": "listGarages",
+      "summary": "",
+      "user": "User looking to view all garages associated with their account.",
+      "ideal": "Returns a list of all garages with their basic information such as name and address."
+    },
+    {
+      "path": "/v1/garages/{garageId}",
+      "method": "PUT",
+      "operationId": "updateGarage",
+      "summary": "",
+      "user": "Manager updating the details of a specific garage.",
+      "ideal": "Successfully updates the garage information and returns the updated details."
+    },
+    {
+      "path": "/v1/customers",
+      "method": "POST",
+      "operationId": "createCustomer",
+      "summary": "",
+      "user": "Admin adding a new customer to the system.",
+      "ideal": "Successfully creates a new customer profile and returns the customer's details."
+    },
+    {
+      "path": "/v1/customers/{customerId}",
+      "method": "GET",
+      "operationId": "getCustomerById",
+      "summary": "",
+      "user": "User retrieving information about a specific customer.",
+      "ideal": "Returns the details of the specified customer including contact information and vehicle history."
+    },
+    {
+      "path": "/v1/cars",
+      "method": "POST",
+      "operationId": "addCar",
+      "summary": "",
+      "user": "User adding a new car to their profile.",
+      "ideal": "Successfully adds a new car and returns the car details including VIN and model."
+    },
+    {
+      "path": "/v1/cars/{vin}",
+      "method": "GET",
+      "operationId": "getCarByVin",
+      "summary": "",
+      "user": "User looking to retrieve details of their car using the VIN.",
+      "ideal": "Returns the details of the specified car including maintenance records and owner information."
+    },
+    {
+      "path": "/v1/periodic-maintenance",
+      "method": "POST",
+      "operationId": "scheduleMaintenance",
+      "summary": "",
+      "user": "User scheduling a periodic maintenance for their car.",
+      "ideal": "Successfully schedules maintenance and returns the maintenance details including date and service type."
+    },
+    {
+      "path": "/v1/repair-orders/{roId}/approve",
+      "method": "POST",
+      "operationId": "approveRepairOrder",
+      "summary": "",
+      "user": "Manager approving a repair order for a customer's vehicle.",
+      "ideal": "Successfully approves the repair order and returns the updated status."
+    }
+  ]
+}

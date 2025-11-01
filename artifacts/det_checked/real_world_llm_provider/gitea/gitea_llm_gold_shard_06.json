@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "orgGetAll",
       "summary": "",
-      "user": "admin_user",
+      "user": "user123",
       "ideal": "Retrieve a list of all organizations."
     },
     {
@@ -13,7 +13,7 @@
       "method": "GET",
       "operationId": "orgGet",
       "summary": "",
-      "user": "org_member",
+      "user": "user456",
       "ideal": "Get details of a specific organization."
     },
     {
@@ -21,64 +21,64 @@
       "method": "GET",
       "operationId": "orgListRepos",
       "summary": "",
-      "user": "repo_viewer",
+      "user": "user789",
       "ideal": "List all repositories for the specified organization."
-    },
-    {
-      "path": "/orgs/{org}/teams",
-      "method": "GET",
-      "operationId": "orgListTeams",
-      "summary": "",
-      "user": "team_manager",
-      "ideal": "Retrieve a list of all teams in the organization."
     },
     {
       "path": "/orgs/{org}/members",
       "method": "GET",
       "operationId": "orgListMembers",
       "summary": "",
-      "user": "org_admin",
-      "ideal": "Get a list of all members in the organization."
+      "user": "user101",
+      "ideal": "Retrieve a list of all members in the organization."
+    },
+    {
+      "path": "/orgs/{org}/teams",
+      "method": "GET",
+      "operationId": "orgListTeams",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Get a list of all teams within the organization."
     },
     {
       "path": "/orgs/{org}/hooks",
       "method": "GET",
       "operationId": "orgListHooks",
       "summary": "",
-      "user": "hook_manager",
-      "ideal": "List all webhooks configured for the organization."
+      "user": "user303",
+      "ideal": "Retrieve a list of all webhooks for the organization."
     },
     {
       "path": "/orgs/{org}/actions/secrets",
       "method": "GET",
       "operationId": "orgListActionsSecrets",
       "summary": "",
-      "user": "secret_manager",
-      "ideal": "Retrieve a list of all secrets for the organization."
+      "user": "user404",
+      "ideal": "List all action secrets for the organization."
     },
     {
-      "path": "/orgs/{org}/actions/variables",
+      "path": "/orgs/{org}/blocks",
       "method": "GET",
-      "operationId": "getOrgVariablesList",
+      "operationId": "organizationListBlocks",
       "summary": "",
-      "user": "variable_manager",
-      "ideal": "List all action variables for the organization."
+      "user": "user505",
+      "ideal": "Get a list of users blocked by the organization."
     },
     {
-      "path": "/orgs/{org}/avatar",
-      "method": "POST",
-      "operationId": "orgUpdateAvatar",
+      "path": "/orgs/{org}/labels",
+      "method": "GET",
+      "operationId": "orgListLabels",
       "summary": "",
-      "user": "avatar_editor",
-      "ideal": "Update the avatar for the organization."
+      "user": "user606",
+      "ideal": "Retrieve a list of labels for the organization."
     },
     {
-      "path": "/orgs/{org}/blocks/{username}",
-      "method": "PUT",
-      "operationId": "organizationBlockUser",
+      "path": "/orgs/{org}/public_members",
+      "method": "GET",
+      "operationId": "orgListPublicMembers",
       "summary": "",
-      "user": "org_admin",
-      "ideal": "Block a user from the organization."
+      "user": "user707",
+      "ideal": "List all public members of the organization."
     }
   ]
 }

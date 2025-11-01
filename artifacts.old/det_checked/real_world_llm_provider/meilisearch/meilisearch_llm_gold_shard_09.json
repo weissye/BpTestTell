@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/indexes/myIndex/settings",
+      "method": "GET",
+      "operationId": "indexes.settings.get",
+      "summary": "",
+      "user": "User requests the current settings for the index 'myIndex' to review its configuration.",
+      "ideal": "Returns the current settings of the index including sortable attributes, ranking rules, and more."
+    },
+    {
+      "path": "/indexes/myIndex/settings/synonyms",
+      "method": "GET",
+      "operationId": "indexes.settings.synonyms.get",
+      "summary": "",
+      "user": "User wants to check the synonyms configured for the index 'myIndex'.",
+      "ideal": "Returns a list of synonyms currently set for the index."
+    },
+    {
+      "path": "/indexes/myIndex/settings/sortable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.sortable-attributes.get",
+      "summary": "",
+      "user": "User checks which attributes are sortable in the index 'myIndex'.",
+      "ideal": "Returns the attributes that can be used for sorting in search queries."
+    },
+    {
+      "path": "/indexes/myIndex/settings/ranking-rules",
+      "method": "GET",
+      "operationId": "indexes.settings.rankingRules.get",
+      "summary": "",
+      "user": "User wants to understand how results are ranked for the index 'myIndex'.",
+      "ideal": "Returns the ranking rules applied to the index for search results."
+    },
+    {
+      "path": "/indexes/myIndex/settings/typo-tolerance",
+      "method": "GET",
+      "operationId": "indexes.settings.typoTolerance.get",
+      "summary": "",
+      "user": "User is interested in the typo tolerance settings for the index 'myIndex'.",
+      "ideal": "Returns the current typo tolerance settings for the index."
+    },
+    {
+      "path": "/indexes/myIndex/settings/pagination",
+      "method": "GET",
+      "operationId": "indexes.settings.pagination.get",
+      "summary": "",
+      "user": "User checks the pagination settings for the index 'myIndex'.",
+      "ideal": "Returns the pagination settings, including the number of results per page."
+    },
+    {
+      "path": "/indexes/myIndex/settings/faceting",
+      "method": "GET",
+      "operationId": "indexes.settings.faceting.get",
+      "summary": "",
+      "user": "User wants to see if faceting is enabled for the index 'myIndex'.",
+      "ideal": "Returns the current faceting settings for the index."
+    },
+    {
+      "path": "/indexes/myIndex/settings/filterable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.filterableAttributes.get",
+      "summary": "",
+      "user": "User checks which attributes can be used for filtering in the index 'myIndex'.",
+      "ideal": "Returns the list of filterable attributes for the index."
+    },
+    {
+      "path": "/indexes/myIndex/settings/distinct-attribute",
+      "method": "GET",
+      "operationId": "indexes.settings.distinctAttribute.get",
+      "summary": "",
+      "user": "User wants to know the distinct attribute setting for the index 'myIndex'.",
+      "ideal": "Returns the distinct attribute currently set for the index."
+    },
+    {
+      "path": "/indexes/myIndex/settings/searchable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.searchableAttributes.get",
+      "summary": "",
+      "user": "User checks which attributes are searchable in the index 'myIndex'.",
+      "ideal": "Returns the list of searchable attributes for the index."
+    }
+  ]
+}

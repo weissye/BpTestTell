@@ -1,44 +1,44 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
       "method": "GET",
       "operationId": "ListSipDomain",
       "summary": "",
-      "user": "User requests to list all SIP domains associated with their Twilio account.",
-      "ideal": "A JSON response containing an array of SIP domains with their details."
+      "user": "A user wants to retrieve a list of all SIP domains associated with their Twilio account to manage their VoIP services effectively.",
+      "ideal": "The API should return a JSON array containing details of all SIP domains, including their SID, friendly name, and status."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
       "method": "POST",
       "operationId": "CreateSipDomain",
       "summary": "",
-      "user": "User wants to create a new SIP domain for handling VoIP calls.",
-      "ideal": "A JSON response confirming the creation of the SIP domain with its SID and details."
+      "user": "A user needs to create a new SIP domain for their application to enable VoIP communication.",
+      "ideal": "The API should accept parameters for the domain name and return the SID of the newly created SIP domain along with its details."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
       "method": "GET",
       "operationId": "FetchSipDomain",
       "summary": "",
-      "user": "User needs to fetch details of a specific SIP domain using its SID.",
-      "ideal": "A JSON response containing the details of the specified SIP domain."
+      "user": "A user wants to fetch details of a specific SIP domain to check its configuration and status.",
+      "ideal": "The API should return a JSON object with all relevant details of the specified SIP domain, including its SID, friendly name, and current status."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateSipDomain",
       "summary": "",
-      "user": "User wants to update the configuration of an existing SIP domain.",
-      "ideal": "A JSON response confirming the update of the SIP domain with the new details."
+      "user": "A user needs to update the configuration of an existing SIP domain to change its friendly name or other settings.",
+      "ideal": "The API should accept updated parameters and return the updated details of the SIP domain, confirming the changes were successful."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
       "method": "DELETE",
       "operationId": "DeleteSipDomain",
       "summary": "",
-      "user": "User intends to delete a specific SIP domain that is no longer needed.",
-      "ideal": "A JSON response confirming the deletion of the SIP domain."
+      "user": "A user wants to delete a SIP domain that is no longer needed to clean up their account.",
+      "ideal": "The API should confirm the deletion of the specified SIP domain and return a success message."
     }
   ]
 }

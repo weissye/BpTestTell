@@ -5,8 +5,8 @@
       "method": "POST",
       "operationId": "CreateToken",
       "summary": "",
-      "user": "{\"username\":\"user123\",\"password\":\"securepassword\",\"account_sid\":\"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"}",
-      "ideal": "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMTIzIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\"}"
+      "user": "{\"identity\":\"user123\",\"scope\":\"scope1 scope2\"}",
+      "ideal": "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMTIzIiwiaWF0IjoxNjEyMzQ1NjAwLCJleHBpcmF0aW9uIjoxNjEyMzQ5MjAwfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\"}"
     }
   ]
 }

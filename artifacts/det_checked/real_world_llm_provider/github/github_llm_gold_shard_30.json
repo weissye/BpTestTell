@@ -1,84 +1,84 @@
 {
   "gold": [
     {
-      "path": "/orgs/octocat",
-      "method": "GET",
-      "operationId": "orgs/get",
-      "summary": "",
-      "user": "octocat",
-      "ideal": "Retrieve details about the organization 'octocat'."
-    },
-    {
-      "path": "/orgs/octocat/members",
+      "path": "/orgs/example-org/members",
       "method": "GET",
       "operationId": "orgs/list-members",
       "summary": "",
-      "user": "octocat",
-      "ideal": "List all members of the organization 'octocat'."
+      "user": "user123",
+      "ideal": "Retrieve a list of all members in the organization 'example-org'."
     },
     {
-      "path": "/orgs/octocat/hooks",
-      "method": "GET",
-      "operationId": "orgs/list-webhooks",
-      "summary": "",
-      "user": "octocat",
-      "ideal": "Get all webhooks configured for the organization 'octocat'."
-    },
-    {
-      "path": "/orgs/octocat/hooks",
+      "path": "/orgs/example-org/hooks",
       "method": "POST",
       "operationId": "orgs/create-webhook",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Create a new webhook for the organization 'octocat'."
+      "user": "user456",
+      "ideal": "Create a new webhook for the organization 'example-org' with specified configuration."
     },
     {
-      "path": "/orgs/octocat/memberships/johndoe",
+      "path": "/orgs/example-org/invitations",
+      "method": "GET",
+      "operationId": "orgs/list-pending-invitations",
+      "summary": "",
+      "user": "user789",
+      "ideal": "List all pending invitations for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/artifacts/metadata/storage-record",
+      "method": "POST",
+      "operationId": "orgs/create-artifact-storage-record",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Create a storage record for an artifact in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/blocks",
+      "method": "GET",
+      "operationId": "orgs/list-blocked-users",
+      "summary": "",
+      "user": "user202",
+      "ideal": "Retrieve a list of users blocked in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/memberships/user123",
       "method": "PUT",
       "operationId": "orgs/set-membership-for-user",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Set membership for user 'johndoe' in the organization 'octocat'."
+      "user": "user303",
+      "ideal": "Set the membership status for user 'user123' in the organization 'example-org'."
     },
     {
-      "path": "/orgs/octocat/blocks/johndoe",
-      "method": "PUT",
-      "operationId": "orgs/block-user",
-      "summary": "",
-      "user": "octocat",
-      "ideal": "Block user 'johndoe' from the organization 'octocat'."
-    },
-    {
-      "path": "/orgs/octocat/invitations",
-      "method": "POST",
-      "operationId": "orgs/create-invitation",
-      "summary": "",
-      "user": "octocat",
-      "ideal": "Send an invitation to join the organization 'octocat'."
-    },
-    {
-      "path": "/orgs/octocat/invitations/123",
-      "method": "DELETE",
-      "operationId": "orgs/cancel-invitation",
-      "summary": "",
-      "user": "octocat",
-      "ideal": "Cancel the invitation with ID 123 for the organization 'octocat'."
-    },
-    {
-      "path": "/orgs/octocat/issue-types",
+      "path": "/orgs/example-org/issue-types",
       "method": "GET",
       "operationId": "orgs/list-issue-types",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Retrieve all issue types for the organization 'octocat'."
+      "user": "user404",
+      "ideal": "List all issue types available in the organization 'example-org'."
     },
     {
-      "path": "/orgs/octocat/personal-access-tokens",
+      "path": "/orgs/example-org/settings/immutable-releases",
+      "method": "GET",
+      "operationId": "orgs/get-immutable-releases-settings",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Get the settings for immutable releases in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/personal-access-tokens",
       "method": "GET",
       "operationId": "orgs/list-pat-grants",
       "summary": "",
-      "user": "octocat",
-      "ideal": "List all personal access tokens for the organization 'octocat'."
+      "user": "user606",
+      "ideal": "Retrieve a list of personal access tokens granted for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/outside_collaborators",
+      "method": "GET",
+      "operationId": "orgs/list-outside-collaborators",
+      "summary": "",
+      "user": "user707",
+      "ideal": "List all outside collaborators for the organization 'example-org'."
     }
   ]
 }

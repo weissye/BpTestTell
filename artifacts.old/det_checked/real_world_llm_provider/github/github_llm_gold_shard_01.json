@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/{org}/actions/cache/usage",
+      "method": "GET",
+      "operationId": "actions/get-actions-cache-usage-for-org",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Retrieve the cache usage statistics for the specified organization."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/artifacts",
+      "method": "GET",
+      "operationId": "actions/list-artifacts-for-repo",
+      "summary": "",
+      "user": "User456",
+      "ideal": "List all artifacts available for the specified repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}/logs",
+      "method": "GET",
+      "operationId": "actions/download-workflow-run-logs",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Download the logs for the specified workflow run."
+    },
+    {
+      "path": "/orgs/{org}/actions/permissions",
+      "method": "GET",
+      "operationId": "actions/get-github-actions-permissions-organization",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Get the GitHub Actions permissions for the specified organization."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/secrets/{secret_name}",
+      "method": "GET",
+      "operationId": "actions/get-repo-secret",
+      "summary": "",
+      "user": "User202",
+      "ideal": "Retrieve the specified secret for the repository."
+    },
+    {
+      "path": "/orgs/{org}/actions/runner-groups",
+      "method": "GET",
+      "operationId": "actions/list-self-hosted-runner-groups-for-org",
+      "summary": "",
+      "user": "User303",
+      "ideal": "List all self-hosted runner groups for the specified organization."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/permissions/access",
+      "method": "GET",
+      "operationId": "actions/get-workflow-access-to-repository",
+      "summary": "",
+      "user": "User404",
+      "ideal": "Check the workflow access permissions for the specified repository."
+    },
+    {
+      "path": "/orgs/{org}/actions/secrets",
+      "method": "GET",
+      "operationId": "actions/list-org-secrets",
+      "summary": "",
+      "user": "User505",
+      "ideal": "List all secrets for the specified organization."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/variables/{name}",
+      "method": "GET",
+      "operationId": "actions/get-repo-variable",
+      "summary": "",
+      "user": "User606",
+      "ideal": "Retrieve the specified variable for the repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/actions/workflows",
+      "method": "GET",
+      "operationId": "actions/list-repo-workflows",
+      "summary": "",
+      "user": "User707",
+      "ideal": "List all workflows for the specified repository."
+    },
+    {
+      "path": "/orgs/{org}/actions/permissions/self-hosted-runners",
+      "method": "GET",
+      "operationId": "actions/get-self-hosted-runners-permissions-organization",
+      "summary": "",
+      "user": "User808",
+      "ideal": "Get the permissions for self-hosted runners in the specified organization."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/health",
+      "method": "GET",
+      "operationId": "health.check",
+      "summary": "",
+      "user": "As a developer, I want to check the health status of the Meilisearch server to ensure that it is running properly before I start making queries.",
+      "ideal": "The response should indicate whether the server is healthy, typically returning a status code of 200 with a message like 'Healthy'."
+    }
+  ]
+}

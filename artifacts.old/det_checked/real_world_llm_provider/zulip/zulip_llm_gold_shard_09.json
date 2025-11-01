@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/reminders",
+      "method": "GET",
+      "operationId": "get-reminders",
+      "summary": "",
+      "user": "User wants to retrieve a list of all reminders they have set in Zulip to manage their tasks effectively.",
+      "ideal": "A successful response containing an array of reminders with details such as reminder ID, content, and due date."
+    },
+    {
+      "path": "/reminders",
+      "method": "POST",
+      "operationId": "create-message-reminder",
+      "summary": "",
+      "user": "User needs to create a reminder for an important meeting scheduled for next week, ensuring they don't forget it.",
+      "ideal": "A successful response confirming the creation of the reminder, including the reminder ID and the details of the reminder."
+    },
+    {
+      "path": "/reminders/{reminder_id}",
+      "method": "DELETE",
+      "operationId": "delete-reminder",
+      "summary": "",
+      "user": "User wants to delete a reminder that is no longer needed, as the meeting has been canceled.",
+      "ideal": "A successful response indicating that the reminder has been deleted, with a confirmation message."
+    }
+  ]
+}

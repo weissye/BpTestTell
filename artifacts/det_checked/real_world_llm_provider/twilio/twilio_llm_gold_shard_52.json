@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "FetchRecordingAddOnResultPayload",
       "summary": "",
-      "user": "User1234",
-      "ideal": "Fetches the payload for the specified Add-On result of a recording, returning detailed information about the processing of the recording."
+      "user": "User requested to fetch the payload for a specific add-on result associated with a recording.",
+      "ideal": "The response should include the detailed payload data for the specified add-on result."
     },
     {
       "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX/Payloads/PYXXXXXXXXXXXXXXXXX.json",
       "method": "DELETE",
       "operationId": "DeleteRecordingAddOnResultPayload",
       "summary": "",
-      "user": "User5678",
-      "ideal": "Deletes the specified payload associated with the Add-On result of a recording, ensuring that the data is no longer accessible."
+      "user": "User wants to delete a specific payload from the add-on results of a recording.",
+      "ideal": "The response should confirm the successful deletion of the specified payload."
     },
     {
       "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX/Payloads.json",
       "method": "GET",
       "operationId": "ListRecordingAddOnResultPayload",
       "summary": "",
-      "user": "User91011",
-      "ideal": "Lists all payloads associated with the specified Add-On result of a recording, providing an overview of the data processed."
+      "user": "User is looking to list all payloads associated with a specific add-on result for a recording.",
+      "ideal": "The response should return a list of all payloads related to the specified add-on result."
     }
   ]
 }

@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "codes-of-conduct/get-all-codes-of-conduct",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve a list of all available codes of conduct from the GitHub API."
+      "user": "A developer looking to understand the various codes of conduct available for open source projects. They want to ensure their project adheres to community standards.",
+      "ideal": "Returns a list of all available codes of conduct in a structured format, including titles and descriptions."
     },
     {
       "path": "/codes_of_conduct/{key}",
       "method": "GET",
       "operationId": "codes-of-conduct/get-conduct-code",
       "summary": "",
-      "user": "user456",
-      "ideal": "Fetch the specific code of conduct associated with the provided key."
+      "user": "A project maintainer who needs to retrieve a specific code of conduct by its key to implement it in their repository. They want to ensure they are using the correct version.",
+      "ideal": "Returns the detailed content of the specified code of conduct, including its key, title, and full text."
     }
   ]
 }

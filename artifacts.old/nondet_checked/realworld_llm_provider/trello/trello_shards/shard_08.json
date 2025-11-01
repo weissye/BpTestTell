@@ -1,0 +1,549 @@
+{
+  "openapi_meta": {
+    "title": "Trello",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/members/{idMember}",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersByIdMember()",
+      "operationId": "getMembersByIdMember"
+    },
+    {
+      "path": "/members/{idMember}",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersByIdMember()",
+      "operationId": "updateMembersByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/actions",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersActionsByIdMember()",
+      "operationId": "getMembersActionsByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/avatar",
+      "method": "POST",
+      "tags": [
+        "member"
+      ],
+      "summary": "addMembersAvatarByIdMember()",
+      "operationId": "addMembersAvatarByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/avatarSource",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersAvatarSourceByIdMember()",
+      "operationId": "updateMembersAvatarSourceByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/bio",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersBioByIdMember()",
+      "operationId": "updateMembersBioByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/boardBackgrounds",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersBoardBackgroundsByIdMember()",
+      "operationId": "getMembersBoardBackgroundsByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/boardBackgrounds",
+      "method": "POST",
+      "tags": [
+        "member"
+      ],
+      "summary": "addMembersBoardBackgroundsByIdMember()",
+      "operationId": "addMembersBoardBackgroundsByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+      "method": "DELETE",
+      "tags": [
+        "member"
+      ],
+      "summary": "deleteMembersBoardBackgroundsByIdMemberByIdBoardBackground()",
+      "operationId": "deleteMembersBoardBackgroundsByIdMemberByIdBoardBackground"
+    },
+    {
+      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersBoardBackgroundsByIdMemberByIdBoardBackground()",
+      "operationId": "getMembersBoardBackgroundsByIdMemberByIdBoardBackground"
+    },
+    {
+      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersBoardBackgroundsByIdMemberByIdBoardBackground()",
+      "operationId": "updateMembersBoardBackgroundsByIdMemberByIdBoardBackground"
+    },
+    {
+      "path": "/members/{idMember}/boardStars",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersBoardStarsByIdMember()",
+      "operationId": "getMembersBoardStarsByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/boardStars",
+      "method": "POST",
+      "tags": [
+        "member"
+      ],
+      "summary": "addMembersBoardStarsByIdMember()",
+      "operationId": "addMembersBoardStarsByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/boardStars/{idBoardStar}",
+      "method": "DELETE",
+      "tags": [
+        "member"
+      ],
+      "summary": "deleteMembersBoardStarsByIdMemberByIdBoardStar()",
+      "operationId": "deleteMembersBoardStarsByIdMemberByIdBoardStar"
+    },
+    {
+      "path": "/members/{idMember}/boardStars/{idBoardStar}",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersBoardStarsByIdMemberByIdBoardStar()",
+      "operationId": "getMembersBoardStarsByIdMemberByIdBoardStar"
+    },
+    {
+      "path": "/members/{idMember}/boardStars/{idBoardStar}",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersBoardStarsByIdMemberByIdBoardStar()",
+      "operationId": "updateMembersBoardStarsByIdMemberByIdBoardStar"
+    },
+    {
+      "path": "/members/{idMember}/boardStars/{idBoardStar}/idBoard",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersBoardStarsIdBoardByIdMemberByIdBoardStar()",
+      "operationId": "updateMembersBoardStarsIdBoardByIdMemberByIdBoardStar"
+    },
+    {
+      "path": "/members/{idMember}/boardStars/{idBoardStar}/pos",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersBoardStarsPosByIdMemberByIdBoardStar()",
+      "operationId": "updateMembersBoardStarsPosByIdMemberByIdBoardStar"
+    },
+    {
+      "path": "/members/{idMember}/boards",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersBoardsByIdMember()",
+      "operationId": "getMembersBoardsByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/boards/{filter}",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersBoardsByIdMemberByFilter()",
+      "operationId": "getMembersBoardsByIdMemberByFilter"
+    },
+    {
+      "path": "/members/{idMember}/boardsInvited",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersBoardsInvitedByIdMember()",
+      "operationId": "getMembersBoardsInvitedByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/boardsInvited/{field}",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersBoardsInvitedByIdMemberByField()",
+      "operationId": "getMembersBoardsInvitedByIdMemberByField"
+    },
+    {
+      "path": "/members/{idMember}/cards",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersCardsByIdMember()",
+      "operationId": "getMembersCardsByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/cards/{filter}",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersCardsByIdMemberByFilter()",
+      "operationId": "getMembersCardsByIdMemberByFilter"
+    },
+    {
+      "path": "/members/{idMember}/customBoardBackgrounds",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersCustomBoardBackgroundsByIdMember()",
+      "operationId": "getMembersCustomBoardBackgroundsByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/customBoardBackgrounds",
+      "method": "POST",
+      "tags": [
+        "member"
+      ],
+      "summary": "addMembersCustomBoardBackgroundsByIdMember()",
+      "operationId": "addMembersCustomBoardBackgroundsByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+      "method": "DELETE",
+      "tags": [
+        "member"
+      ],
+      "summary": "deleteMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground()",
+      "operationId": "deleteMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground"
+    },
+    {
+      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground()",
+      "operationId": "getMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground"
+    },
+    {
+      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground()",
+      "operationId": "updateMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground"
+    },
+    {
+      "path": "/members/{idMember}/customEmoji",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersCustomEmojiByIdMember()",
+      "operationId": "getMembersCustomEmojiByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/customEmoji",
+      "method": "POST",
+      "tags": [
+        "member"
+      ],
+      "summary": "addMembersCustomEmojiByIdMember()",
+      "operationId": "addMembersCustomEmojiByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/customEmoji/{idCustomEmoji}",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersCustomEmojiByIdMemberByIdCustomEmoji()",
+      "operationId": "getMembersCustomEmojiByIdMemberByIdCustomEmoji"
+    },
+    {
+      "path": "/members/{idMember}/customStickers",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersCustomStickersByIdMember()",
+      "operationId": "getMembersCustomStickersByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/customStickers",
+      "method": "POST",
+      "tags": [
+        "member"
+      ],
+      "summary": "addMembersCustomStickersByIdMember()",
+      "operationId": "addMembersCustomStickersByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/customStickers/{idCustomSticker}",
+      "method": "DELETE",
+      "tags": [
+        "member"
+      ],
+      "summary": "deleteMembersCustomStickersByIdMemberByIdCustomSticker()",
+      "operationId": "deleteMembersCustomStickersByIdMemberByIdCustomSticker"
+    },
+    {
+      "path": "/members/{idMember}/customStickers/{idCustomSticker}",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersCustomStickersByIdMemberByIdCustomSticker()",
+      "operationId": "getMembersCustomStickersByIdMemberByIdCustomSticker"
+    },
+    {
+      "path": "/members/{idMember}/deltas",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersDeltasByIdMember()",
+      "operationId": "getMembersDeltasByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/fullName",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersFullNameByIdMember()",
+      "operationId": "updateMembersFullNameByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/initials",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersInitialsByIdMember()",
+      "operationId": "updateMembersInitialsByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/notifications",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersNotificationsByIdMember()",
+      "operationId": "getMembersNotificationsByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/notifications/{filter}",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersNotificationsByIdMemberByFilter()",
+      "operationId": "getMembersNotificationsByIdMemberByFilter"
+    },
+    {
+      "path": "/members/{idMember}/oneTimeMessagesDismissed",
+      "method": "POST",
+      "tags": [
+        "member"
+      ],
+      "summary": "addMembersOneTimeMessagesDismissedByIdMember()",
+      "operationId": "addMembersOneTimeMessagesDismissedByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/organizations",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersOrganizationsByIdMember()",
+      "operationId": "getMembersOrganizationsByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/organizations/{filter}",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersOrganizationsByIdMemberByFilter()",
+      "operationId": "getMembersOrganizationsByIdMemberByFilter"
+    },
+    {
+      "path": "/members/{idMember}/organizationsInvited",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersOrganizationsInvitedByIdMember()",
+      "operationId": "getMembersOrganizationsInvitedByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/organizationsInvited/{field}",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersOrganizationsInvitedByIdMemberByField()",
+      "operationId": "getMembersOrganizationsInvitedByIdMemberByField"
+    },
+    {
+      "path": "/members/{idMember}/prefs/colorBlind",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersPrefsColorBlindByIdMember()",
+      "operationId": "updateMembersPrefsColorBlindByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/prefs/locale",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersPrefsLocaleByIdMember()",
+      "operationId": "updateMembersPrefsLocaleByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/prefs/minutesBetweenSummaries",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersPrefsMinutesBetweenSummariesByIdMember()",
+      "operationId": "updateMembersPrefsMinutesBetweenSummariesByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/savedSearches",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersSavedSearchesByIdMember()",
+      "operationId": "getMembersSavedSearchesByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/savedSearches",
+      "method": "POST",
+      "tags": [
+        "member"
+      ],
+      "summary": "addMembersSavedSearchesByIdMember()",
+      "operationId": "addMembersSavedSearchesByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
+      "method": "DELETE",
+      "tags": [
+        "member"
+      ],
+      "summary": "deleteMembersSavedSearchesByIdMemberByIdSavedSearch()",
+      "operationId": "deleteMembersSavedSearchesByIdMemberByIdSavedSearch"
+    },
+    {
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersSavedSearchesByIdMemberByIdSavedSearch()",
+      "operationId": "getMembersSavedSearchesByIdMemberByIdSavedSearch"
+    },
+    {
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersSavedSearchesByIdMemberByIdSavedSearch()",
+      "operationId": "updateMembersSavedSearchesByIdMemberByIdSavedSearch"
+    },
+    {
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/name",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersSavedSearchesNameByIdMemberByIdSavedSearch()",
+      "operationId": "updateMembersSavedSearchesNameByIdMemberByIdSavedSearch"
+    },
+    {
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/pos",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersSavedSearchesPosByIdMemberByIdSavedSearch()",
+      "operationId": "updateMembersSavedSearchesPosByIdMemberByIdSavedSearch"
+    },
+    {
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/query",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersSavedSearchesQueryByIdMemberByIdSavedSearch()",
+      "operationId": "updateMembersSavedSearchesQueryByIdMemberByIdSavedSearch"
+    },
+    {
+      "path": "/members/{idMember}/tokens",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersTokensByIdMember()",
+      "operationId": "getMembersTokensByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/username",
+      "method": "PUT",
+      "tags": [
+        "member"
+      ],
+      "summary": "updateMembersUsernameByIdMember()",
+      "operationId": "updateMembersUsernameByIdMember"
+    },
+    {
+      "path": "/members/{idMember}/{field}",
+      "method": "GET",
+      "tags": [
+        "member"
+      ],
+      "summary": "getMembersByIdMemberByField()",
+      "operationId": "getMembersByIdMemberByField"
+    }
+  ]
+}

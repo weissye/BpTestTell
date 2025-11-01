@@ -1,84 +1,84 @@
 {
   "gold": [
     {
-      "path": "/orgs/example-org/repos",
+      "path": "/orgs/octocat/repos",
       "method": "GET",
       "operationId": "repos/list-for-org",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve a list of repositories for the specified organization."
+      "user": "octocat",
+      "ideal": "Retrieve a list of repositories for the organization 'octocat'."
     },
     {
-      "path": "/orgs/example-org/repos",
-      "method": "POST",
-      "operationId": "repos/create-in-org",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Create a new repository in the specified organization."
-    },
-    {
-      "path": "/repos/example-owner/example-repo",
+      "path": "/repos/octocat/Hello-World",
       "method": "GET",
       "operationId": "repos/get",
       "summary": "",
-      "user": "user456",
-      "ideal": "Get detailed information about a specific repository."
+      "user": "octocat",
+      "ideal": "Get details about the repository 'Hello-World' owned by 'octocat'."
     },
     {
-      "path": "/repos/example-owner/example-repo",
-      "method": "PATCH",
-      "operationId": "repos/update",
-      "summary": "",
-      "user": "user456",
-      "ideal": "Update the details of a specific repository."
-    },
-    {
-      "path": "/repos/example-owner/example-repo/branches",
+      "path": "/repos/octocat/Hello-World/branches",
       "method": "GET",
       "operationId": "repos/list-branches",
       "summary": "",
-      "user": "user789",
-      "ideal": "List all branches for the specified repository."
+      "user": "octocat",
+      "ideal": "List all branches for the repository 'Hello-World'."
     },
     {
-      "path": "/repos/example-owner/example-repo/branches/main/protection",
-      "method": "GET",
-      "operationId": "repos/get-branch-protection",
-      "summary": "",
-      "user": "user789",
-      "ideal": "Get the protection settings for the main branch of the repository."
-    },
-    {
-      "path": "/repos/example-owner/example-repo/releases",
+      "path": "/repos/octocat/Hello-World/releases",
       "method": "GET",
       "operationId": "repos/list-releases",
       "summary": "",
-      "user": "user101",
-      "ideal": "List all releases for the specified repository."
+      "user": "octocat",
+      "ideal": "Get a list of releases for the repository 'Hello-World'."
     },
     {
-      "path": "/repos/example-owner/example-repo/releases",
-      "method": "POST",
-      "operationId": "repos/create-release",
+      "path": "/repos/octocat/Hello-World/issues",
+      "method": "GET",
+      "operationId": "repos/list-issues",
       "summary": "",
-      "user": "user101",
-      "ideal": "Create a new release for the specified repository."
+      "user": "octocat",
+      "ideal": "List all issues for the repository 'Hello-World'."
     },
     {
-      "path": "/repos/example-owner/example-repo/commits",
+      "path": "/repos/octocat/Hello-World/collaborators",
+      "method": "GET",
+      "operationId": "repos/list-collaborators",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve a list of collaborators for the repository 'Hello-World'."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/commits",
       "method": "GET",
       "operationId": "repos/list-commits",
       "summary": "",
-      "user": "user202",
-      "ideal": "Retrieve a list of commits for the specified repository."
+      "user": "octocat",
+      "ideal": "Get a list of commits for the repository 'Hello-World'."
     },
     {
-      "path": "/repos/example-owner/example-repo/keys",
-      "method": "POST",
-      "operationId": "repos/create-deploy-key",
+      "path": "/repos/octocat/Hello-World/forks",
+      "method": "GET",
+      "operationId": "repos/list-forks",
       "summary": "",
-      "user": "user303",
-      "ideal": "Create a new deploy key for the specified repository."
+      "user": "octocat",
+      "ideal": "List all forks of the repository 'Hello-World'."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/topics",
+      "method": "GET",
+      "operationId": "repos/get-all-topics",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Get all topics for the repository 'Hello-World'."
+    },
+    {
+      "path": "/user/repos",
+      "method": "GET",
+      "operationId": "repos/list-for-authenticated-user",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Retrieve a list of repositories for the authenticated user 'octocat'."
     }
   ]
 }

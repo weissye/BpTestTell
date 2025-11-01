@@ -46,7 +46,7 @@
       "operationId": "updateWebhook",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the configuration of a specific webhook identified by its ID."
+      "ideal": "Update the configuration of a specific webhook by its ID."
     },
     {
       "path": "/webhooks/{id}",
@@ -54,7 +54,7 @@
       "operationId": "deleteWebhook",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete a specific webhook identified by its ID."
+      "ideal": "Delete a specific webhook by its ID."
     }
   ]
 }

@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/navigation_views",
+      "method": "GET",
+      "operationId": "get-navigation-views",
+      "summary": "",
+      "user": "As a user, I want to retrieve the list of all navigation views available in the Zulip application so that I can understand the different navigation options.",
+      "ideal": "The response should return a JSON array of navigation views, each containing an id, name, and description."
+    },
+    {
+      "path": "/navigation_views",
+      "method": "POST",
+      "operationId": "add-navigation-view",
+      "summary": "",
+      "user": "As an admin, I want to add a new navigation view to the Zulip application so that users can access new features easily.",
+      "ideal": "The response should confirm the successful creation of the navigation view and return the created view's details."
+    },
+    {
+      "path": "/navigation_views/{fragment}",
+      "method": "PATCH",
+      "operationId": "edit-navigation-view",
+      "summary": "",
+      "user": "As a user, I want to edit an existing navigation view to update its name or description to better reflect its purpose.",
+      "ideal": "The response should indicate success and return the updated navigation view details."
+    },
+    {
+      "path": "/navigation_views/{fragment}",
+      "method": "DELETE",
+      "operationId": "remove-navigation-view",
+      "summary": "",
+      "user": "As a user, I want to remove a navigation view that is no longer relevant to keep the interface clean and user-friendly.",
+      "ideal": "The response should confirm the successful deletion of the navigation view."
+    }
+  ]
+}

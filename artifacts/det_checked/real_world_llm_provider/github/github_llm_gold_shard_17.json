@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "enterprise-team-memberships/list",
       "summary": "",
-      "user": "admin_user",
+      "user": "user123",
       "ideal": "Retrieve a list of all team memberships for the specified team in the enterprise."
     },
     {
@@ -13,7 +13,7 @@
       "method": "POST",
       "operationId": "enterprise-team-memberships/bulk-add",
       "summary": "",
-      "user": "admin_user",
+      "user": "user456",
       "ideal": "Add multiple users to the specified team in the enterprise."
     },
     {
@@ -21,31 +21,31 @@
       "method": "POST",
       "operationId": "enterprise-team-memberships/bulk-remove",
       "summary": "",
-      "user": "admin_user",
+      "user": "user789",
       "ideal": "Remove multiple users from the specified team in the enterprise."
     },
     {
-      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/user1",
       "method": "GET",
       "operationId": "enterprise-team-memberships/get",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Get the membership details of a specific user in the specified team."
+      "user": "user101",
+      "ideal": "Retrieve the membership details for a specific user in the specified team."
     },
     {
-      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/user2",
       "method": "PUT",
       "operationId": "enterprise-team-memberships/add",
       "summary": "",
-      "user": "admin_user",
+      "user": "user202",
       "ideal": "Add a specific user to the specified team in the enterprise."
     },
     {
-      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/user3",
       "method": "DELETE",
       "operationId": "enterprise-team-memberships/remove",
       "summary": "",
-      "user": "admin_user",
+      "user": "user303",
       "ideal": "Remove a specific user from the specified team in the enterprise."
     }
   ]

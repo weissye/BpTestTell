@@ -5,56 +5,56 @@
       "method": "GET",
       "operationId": "getFlows",
       "summary": "",
-      "user": "Admin user requesting all available flows to review current automation processes.",
-      "ideal": "A list of all flows with their details including IDs, names, and statuses."
+      "user": "Admin user requesting to retrieve all available flows in the system for monitoring and management purposes.",
+      "ideal": "Returns a list of all flows with their details, including IDs, names, and statuses."
     },
     {
       "path": "/flows",
       "method": "POST",
       "operationId": "createFlow",
       "summary": "",
-      "user": "User creating a new flow to automate data import from external sources.",
-      "ideal": "Confirmation of flow creation with the new flow's ID and details."
+      "user": "User creating a new flow to automate data processing tasks in the application.",
+      "ideal": "Creates a new flow and returns the details of the created flow, including its ID and initial configuration."
     },
     {
       "path": "/flows",
       "method": "PATCH",
       "operationId": "updateFlows",
       "summary": "",
-      "user": "Admin user updating multiple flows to change their execution schedules.",
-      "ideal": "Confirmation of successful updates for the specified flows."
+      "user": "User updating multiple flows to adjust their configurations based on new requirements.",
+      "ideal": "Updates the specified flows and returns the updated details of each flow."
     },
     {
       "path": "/flows",
       "method": "DELETE",
       "operationId": "deleteFlows",
       "summary": "",
-      "user": "User deleting obsolete flows that are no longer needed.",
-      "ideal": "Confirmation of deletion for the specified flows."
+      "user": "Admin user deleting obsolete flows that are no longer needed in the system.",
+      "ideal": "Deletes the specified flows and returns a confirmation of the deletion."
     },
     {
       "path": "/flows/{id}",
       "method": "GET",
       "operationId": "getFlow",
       "summary": "",
-      "user": "User retrieving details of a specific flow to troubleshoot an issue.",
-      "ideal": "Detailed information about the specified flow including its configuration and status."
+      "user": "User retrieving details of a specific flow to analyze its configuration and performance.",
+      "ideal": "Returns detailed information about the specified flow, including its current status and execution history."
     },
     {
       "path": "/flows/{id}",
       "method": "PATCH",
       "operationId": "updateFlow",
       "summary": "",
-      "user": "Admin updating a specific flow to modify its parameters for better performance.",
-      "ideal": "Confirmation of successful update for the specified flow."
+      "user": "User updating a specific flow to enhance its functionality or fix issues.",
+      "ideal": "Updates the specified flow and returns the updated details of that flow."
     },
     {
       "path": "/flows/{id}",
       "method": "DELETE",
       "operationId": "deleteFlow",
       "summary": "",
-      "user": "User deleting a specific flow that is no longer relevant to current operations.",
-      "ideal": "Confirmation of deletion for the specified flow."
+      "user": "Admin user removing a specific flow that is no longer relevant to the business processes.",
+      "ideal": "Deletes the specified flow and returns a confirmation of the deletion."
     }
   ]
 }

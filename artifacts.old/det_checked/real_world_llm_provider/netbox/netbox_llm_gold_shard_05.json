@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/api/ipam/aggregates/",
+      "method": "GET",
+      "operationId": "ipam_aggregates_list",
+      "summary": "",
+      "user": "Admin user requesting a list of all IP address aggregates.",
+      "ideal": "A JSON array of aggregate objects with details such as id, prefix, and description."
+    },
+    {
+      "path": "/api/ipam/aggregates/",
+      "method": "POST",
+      "operationId": "ipam_aggregates_create",
+      "summary": "",
+      "user": "Network engineer creating a new IP address aggregate.",
+      "ideal": "A JSON object confirming the creation of the aggregate with its id and details."
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "GET",
+      "operationId": "ipam_aggregates_retrieve",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific aggregate by ID.",
+      "ideal": "A JSON object containing the details of the specified aggregate."
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "PUT",
+      "operationId": "ipam_aggregates_update",
+      "summary": "",
+      "user": "Network engineer updating an existing IP address aggregate.",
+      "ideal": "A JSON object confirming the update with the updated details of the aggregate."
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "DELETE",
+      "operationId": "ipam_aggregates_destroy",
+      "summary": "",
+      "user": "Admin user deleting an IP address aggregate.",
+      "ideal": "A JSON object confirming the deletion of the aggregate."
+    },
+    {
+      "path": "/api/ipam/asn-ranges/",
+      "method": "GET",
+      "operationId": "ipam_asn_ranges_list",
+      "summary": "",
+      "user": "Network administrator listing all ASN ranges.",
+      "ideal": "A JSON array of ASN range objects with details such as id, range, and description."
+    },
+    {
+      "path": "/api/ipam/asn-ranges/{id}/available-asns/",
+      "method": "GET",
+      "operationId": "ipam_asn_ranges_available_asns_list",
+      "summary": "",
+      "user": "Network engineer checking available ASNs for a specific range.",
+      "ideal": "A JSON array of available ASNs for the specified range."
+    },
+    {
+      "path": "/api/ipam/vlans/",
+      "method": "POST",
+      "operationId": "ipam_vlans_create",
+      "summary": "",
+      "user": "Network engineer creating a new VLAN.",
+      "ideal": "A JSON object confirming the creation of the VLAN with its id and details."
+    },
+    {
+      "path": "/api/ipam/vlans/{id}/",
+      "method": "PATCH",
+      "operationId": "ipam_vlans_partial_update",
+      "summary": "",
+      "user": "Admin user partially updating VLAN details.",
+      "ideal": "A JSON object confirming the partial update with the updated fields."
+    },
+    {
+      "path": "/api/ipam/vrfs/",
+      "method": "GET",
+      "operationId": "ipam_vrfs_list",
+      "summary": "",
+      "user": "Network administrator listing all VRFs.",
+      "ideal": "A JSON array of VRF objects with details such as id, name, and description."
+    },
+    {
+      "path": "/api/ipam/roles/",
+      "method": "DELETE",
+      "operationId": "ipam_roles_bulk_destroy",
+      "summary": "",
+      "user": "Admin user deleting multiple roles.",
+      "ideal": "A JSON object confirming the bulk deletion of roles."
+    }
+  ]
+}
