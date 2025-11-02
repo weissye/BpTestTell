@@ -1,3 +1,20 @@
 {
-  "gold": []
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/UserDefinedMessageSubscriptions.json",
+      "method": "POST",
+      "operationId": "CreateUserDefinedMessageSubscription",
+      "summary": "",
+      "user": "A user wants to subscribe to user-defined messages for a specific call in their Twilio account. They provide the necessary parameters including AccountSid and CallSid to create the subscription.",
+      "ideal": "The API should successfully create a user-defined message subscription and return a confirmation response with the subscription details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/UserDefinedMessageSubscriptions/USXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteUserDefinedMessageSubscription",
+      "summary": "",
+      "user": "A user wishes to remove an existing user-defined message subscription for a specific call. They specify the AccountSid, CallSid, and the Sid of the subscription to be deleted.",
+      "ideal": "The API should successfully delete the specified user-defined message subscription and return a success message confirming the deletion."
+    }
+  ]
 }
