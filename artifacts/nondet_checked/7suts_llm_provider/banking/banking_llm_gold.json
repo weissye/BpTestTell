@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "resetSystem",
+      "summary": "",
+      "user": "Admin user resets the banking system to clear all data for testing purposes.",
+      "ideal": "The system should respond with a success message indicating that the reset was successful."
+    },
+    {
+      "path": "/customers",
+      "method": "POST",
+      "operationId": "createCustomer",
+      "summary": "",
+      "user": "A bank employee creates a new customer profile with personal details.",
+      "ideal": "The system should return the created customer object with a unique customer ID."
+    },
+    {
+      "path": "/accounts",
+      "method": "POST",
+      "operationId": "createAccount",
+      "summary": "",
+      "user": "A customer service representative creates a new bank account for an existing customer.",
+      "ideal": "The system should return the account details including account number and type."
+    },
+    {
+      "path": "/accounts",
+      "method": "GET",
+      "operationId": "getAllAccounts",
+      "summary": "",
+      "user": "A bank manager retrieves a list of all accounts to review account statuses.",
+      "ideal": "The system should return a list of all accounts with their details."
+    },
+    {
+      "path": "/accounts/{accountId}/transactions",
+      "method": "GET",
+      "operationId": "getAccountTransactions",
+      "summary": "",
+      "user": "A customer checks the transaction history for their specific account.",
+      "ideal": "The system should return a list of transactions for the specified account ID."
+    },
+    {
+      "path": "/transfers",
+      "method": "POST",
+      "operationId": "createTransfer",
+      "summary": "",
+      "user": "A customer initiates a transfer from their account to another account.",
+      "ideal": "The system should confirm the transfer and return a transaction ID."
+    },
+    {
+      "path": "/cards",
+      "method": "POST",
+      "operationId": "issueCard",
+      "summary": "",
+      "user": "A bank employee issues a new debit card to a customer.",
+      "ideal": "The system should return the card details including card number and expiration date."
+    },
+    {
+      "path": "/loans",
+      "method": "POST",
+      "operationId": "applyForLoan",
+      "summary": "",
+      "user": "A customer applies for a personal loan through the online banking portal.",
+      "ideal": "The system should return the loan application status and details."
+    },
+    {
+      "path": "/loans",
+      "method": "GET",
+      "operationId": "getAllLoans",
+      "summary": "",
+      "user": "A loan officer reviews all active loans for compliance checks.",
+      "ideal": "The system should return a list of all active loans with their details."
+    }
+  ]
+}

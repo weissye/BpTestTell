@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/webhooks",
+      "method": "POST",
+      "operationId": "addWebhooks",
+      "summary": "",
+      "user": "User wants to create a new webhook to receive updates about specific events in their Trello boards.",
+      "ideal": "Successfully adds a new webhook and returns the webhook details."
+    },
+    {
+      "path": "/webhooks/",
+      "method": "PUT",
+      "operationId": "updateWebhooks",
+      "summary": "",
+      "user": "User needs to update the settings of their existing webhooks to change the events they are subscribed to.",
+      "ideal": "Successfully updates the webhook settings and returns the updated webhook details."
+    },
+    {
+      "path": "/webhooks/{idWebhook}",
+      "method": "DELETE",
+      "operationId": "deleteWebhooksByIdWebhook",
+      "summary": "",
+      "user": "User wants to remove an old webhook that is no longer needed.",
+      "ideal": "Successfully deletes the specified webhook and confirms the deletion."
+    },
+    {
+      "path": "/webhooks/{idWebhook}",
+      "method": "GET",
+      "operationId": "getWebhooksByIdWebhook",
+      "summary": "",
+      "user": "User wants to retrieve the details of a specific webhook to check its configuration.",
+      "ideal": "Successfully returns the details of the specified webhook."
+    },
+    {
+      "path": "/webhooks/{idWebhook}",
+      "method": "PUT",
+      "operationId": "updateWebhooksByIdWebhook",
+      "summary": "",
+      "user": "User needs to modify the configuration of a specific webhook to change its target URL.",
+      "ideal": "Successfully updates the webhook configuration and returns the updated details."
+    },
+    {
+      "path": "/webhooks/{idWebhook}/active",
+      "method": "PUT",
+      "operationId": "updateWebhooksActiveByIdWebhook",
+      "summary": "",
+      "user": "User wants to activate or deactivate a specific webhook based on their current needs.",
+      "ideal": "Successfully updates the active status of the webhook and confirms the change."
+    },
+    {
+      "path": "/webhooks/{idWebhook}/callbackURL",
+      "method": "PUT",
+      "operationId": "updateWebhooksCallbackURLByIdWebhook",
+      "summary": "",
+      "user": "User needs to change the callback URL for a webhook to point to a new endpoint.",
+      "ideal": "Successfully updates the callback URL and returns the updated webhook details."
+    },
+    {
+      "path": "/webhooks/{idWebhook}/description",
+      "method": "PUT",
+      "operationId": "updateWebhooksDescriptionByIdWebhook",
+      "summary": "",
+      "user": "User wants to add a description to a webhook for better identification.",
+      "ideal": "Successfully updates the webhook description and returns the updated details."
+    },
+    {
+      "path": "/webhooks/{idWebhook}/idModel",
+      "method": "PUT",
+      "operationId": "updateWebhooksIdModelByIdWebhook",
+      "summary": "",
+      "user": "User needs to change the model ID associated with a specific webhook.",
+      "ideal": "Successfully updates the model ID and returns the updated webhook details."
+    },
+    {
+      "path": "/webhooks/{idWebhook}/{field}",
+      "method": "GET",
+      "operationId": "getWebhooksByIdWebhookByField",
+      "summary": "",
+      "user": "User wants to retrieve a specific field of a webhook to check its current value.",
+      "ideal": "Successfully returns the value of the specified field for the webhook."
+    }
+  ]
+}

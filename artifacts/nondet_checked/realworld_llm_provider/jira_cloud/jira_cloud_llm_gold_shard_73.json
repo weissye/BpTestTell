@@ -1,0 +1,108 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project",
+      "method": "GET",
+      "operationId": "getAllProjects",
+      "summary": "",
+      "user": "User requests to retrieve all projects to view their details and statuses.",
+      "ideal": "Returns a list of all projects in the Jira instance."
+    },
+    {
+      "path": "/rest/api/3/project",
+      "method": "POST",
+      "operationId": "createProject",
+      "summary": "",
+      "user": "User wants to create a new project for managing tasks related to a new product launch.",
+      "ideal": "Creates a new project and returns the project details."
+    },
+    {
+      "path": "/rest/api/3/project/recent",
+      "method": "GET",
+      "operationId": "getRecent",
+      "summary": "",
+      "user": "User checks the recently accessed projects to quickly navigate back to them.",
+      "ideal": "Returns a list of recently accessed projects."
+    },
+    {
+      "path": "/rest/api/3/project/search",
+      "method": "GET",
+      "operationId": "searchProjects",
+      "summary": "",
+      "user": "User searches for projects related to 'marketing' to find relevant tasks.",
+      "ideal": "Returns a list of projects matching the search criteria."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "method": "DELETE",
+      "operationId": "deleteProject",
+      "summary": "",
+      "user": "User wants to delete an obsolete project that is no longer needed.",
+      "ideal": "Deletes the specified project and returns a confirmation message."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "method": "GET",
+      "operationId": "getProject",
+      "summary": "",
+      "user": "User retrieves details of a specific project to review its configuration.",
+      "ideal": "Returns the details of the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "method": "PUT",
+      "operationId": "updateProject",
+      "summary": "",
+      "user": "User updates the project settings to reflect new team members and deadlines.",
+      "ideal": "Updates the specified project and returns the updated project details."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/archive",
+      "method": "POST",
+      "operationId": "archiveProject",
+      "summary": "",
+      "user": "User archives a completed project to keep the workspace organized.",
+      "ideal": "Archives the specified project and returns a confirmation message."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/delete",
+      "method": "POST",
+      "operationId": "deleteProjectAsynchronously",
+      "summary": "",
+      "user": "User initiates an asynchronous deletion of a project that is no longer active.",
+      "ideal": "Starts the asynchronous deletion process and returns a task ID."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/restore",
+      "method": "POST",
+      "operationId": "restore",
+      "summary": "",
+      "user": "User wants to restore a previously archived project for further work.",
+      "ideal": "Restores the specified project and returns the project details."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/statuses",
+      "method": "GET",
+      "operationId": "getAllStatuses",
+      "summary": "",
+      "user": "User checks the statuses of a project to understand its current progress.",
+      "ideal": "Returns a list of all statuses associated with the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectId}/hierarchy",
+      "method": "GET",
+      "operationId": "getHierarchy",
+      "summary": "",
+      "user": "User wants to view the hierarchy of tasks within a project for better management.",
+      "ideal": "Returns the hierarchy of tasks and sub-tasks for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectKeyOrId}/notificationscheme",
+      "method": "GET",
+      "operationId": "getNotificationSchemeForProject",
+      "summary": "",
+      "user": "User retrieves the notification scheme for a project to adjust alert settings.",
+      "ideal": "Returns the notification scheme associated with the specified project."
+    }
+  ]
+}

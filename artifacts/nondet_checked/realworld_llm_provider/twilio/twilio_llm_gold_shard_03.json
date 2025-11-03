@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "method": "POST",
+      "operationId": "CreateAddress",
+      "summary": "",
+      "user": "A user wants to create a new address for their Twilio account to manage their communication services more effectively.",
+      "ideal": "The user sends a POST request with the necessary address details, including street, city, state, and postal code."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "method": "GET",
+      "operationId": "ListAddress",
+      "summary": "",
+      "user": "A user needs to retrieve a list of all addresses associated with their Twilio account for record-keeping and management.",
+      "ideal": "The user sends a GET request to fetch all addresses, receiving a list in response."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteAddress",
+      "summary": "",
+      "user": "A user wants to remove an outdated address from their Twilio account to keep their address book current.",
+      "ideal": "The user sends a DELETE request with the specific address SID to remove it from their account."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchAddress",
+      "summary": "",
+      "user": "A user needs to fetch the details of a specific address to verify its accuracy before using it in communications.",
+      "ideal": "The user sends a GET request with the address SID to retrieve its details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateAddress",
+      "summary": "",
+      "user": "A user wants to update an existing address with new information to ensure their records are up-to-date.",
+      "ideal": "The user sends a POST request with the updated address details and the address SID to modify the existing entry."
+    }
+  ]
+}

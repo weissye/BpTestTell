@@ -1,0 +1,474 @@
+{
+  "sut": "keycloak_admin",
+  "model_id": "gpt-4o-mini",
+  "trained_model_dir": "models/hls/keycloak_admin",
+  "source_det": "artifacts/hls_det/real_world_llm_provider/keycloak_admin/hls_det_gold.json",
+  "stories_js": "artifacts/hls_nondet/real_world_llm_provider/keycloak_admin/readable/stories_hls.js",
+  "generated_at": "2025-11-03T16:55:30.531419+00:00",
+  "stories": [
+    {
+      "entity": "Keycloak_admin",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 0,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 1,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 2,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 3,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 4,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 5,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 6,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 7,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 0,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 1,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 2,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 3,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 4,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 5,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 6,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 7,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists",
+        "verifyKeycloak_adminUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 0,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists",
+        "verifyKeycloak_adminUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 1,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists",
+        "verifyKeycloak_adminUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 2,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists",
+        "verifyKeycloak_adminUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 3,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists",
+        "verifyKeycloak_adminUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 4,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists",
+        "verifyKeycloak_adminUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 5,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists",
+        "verifyKeycloak_adminUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 6,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Keycloak_admin",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateKeycloak_admin"
+      ],
+      "checks": [
+        "verifyKeycloak_adminExists",
+        "verifyKeycloak_adminUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 7,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    }
+  ]
+}

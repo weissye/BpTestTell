@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/PROJ-123/properties",
+      "method": "GET",
+      "operationId": "getProjectPropertyKeys",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all property keys associated with the project 'PROJ-123' to understand the custom configurations applied.",
+      "ideal": "The response should return a list of property keys for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/PROJ-123/properties/customProperty",
+      "method": "DELETE",
+      "operationId": "deleteProjectProperty",
+      "summary": "",
+      "user": "As a developer, I need to delete the 'customProperty' from project 'PROJ-123' because it is no longer needed.",
+      "ideal": "The response should confirm the successful deletion of the property."
+    },
+    {
+      "path": "/rest/api/3/project/PROJ-123/properties/customProperty",
+      "method": "GET",
+      "operationId": "getProjectProperty",
+      "summary": "",
+      "user": "As a team lead, I want to check the value of 'customProperty' for project 'PROJ-123' to ensure it is set correctly.",
+      "ideal": "The response should return the value of 'customProperty' for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/PROJ-123/properties/customProperty",
+      "method": "PUT",
+      "operationId": "setProjectProperty",
+      "summary": "",
+      "user": "As a product owner, I want to set the 'customProperty' for project 'PROJ-123' to 'newValue' to reflect the latest requirements.",
+      "ideal": "The response should confirm that 'customProperty' has been updated to 'newValue' for the project."
+    }
+  ]
+}

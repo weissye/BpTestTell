@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchRecordingTranscription",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Fetches the transcription for a specific recording using the provided AccountSid, RecordingSid, and Sid."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteRecordingTranscription",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Deletes the specified transcription for a recording identified by AccountSid, RecordingSid, and Sid."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json",
+      "method": "GET",
+      "operationId": "ListRecordingTranscription",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Lists all transcriptions for a specific recording using the provided AccountSid and RecordingSid."
+    }
+  ]
+}

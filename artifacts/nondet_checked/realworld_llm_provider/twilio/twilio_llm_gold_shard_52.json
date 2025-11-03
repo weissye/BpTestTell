@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX/Payloads/PYXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchRecordingAddOnResultPayload",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Successfully fetch the payload for the specified Add-On result."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX/Payloads/PYXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteRecordingAddOnResultPayload",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Successfully delete the specified payload for the Add-On result."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX/Payloads.json",
+      "method": "GET",
+      "operationId": "ListRecordingAddOnResultPayload",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Successfully list all payloads for the specified Add-On result."
+    }
+  ]
+}

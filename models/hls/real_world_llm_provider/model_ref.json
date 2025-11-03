@@ -1,0 +1,8 @@
+{
+  "sut": "real_world_llm_provider",
+  "provider": "openai",
+  "trained": false,
+  "model_id": "gpt-4o-mini",
+  "created": "2025-11-03T14:41:51.640205Z",
+  "source_det": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\hls_det\\real_world_llm_provider\\hls_det_gold.json"
+}

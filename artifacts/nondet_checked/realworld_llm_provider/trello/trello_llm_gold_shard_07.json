@@ -1,0 +1,140 @@
+{
+  "gold": [
+    {
+      "path": "/lists",
+      "method": "POST",
+      "operationId": "addLists",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Create a new list with a name and position."
+    },
+    {
+      "path": "/lists/{idList}",
+      "method": "GET",
+      "operationId": "getListsByIdList",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Retrieve details of a specific list by its ID."
+    },
+    {
+      "path": "/lists/{idList}",
+      "method": "PUT",
+      "operationId": "updateListsByIdList",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Update the name or position of an existing list."
+    },
+    {
+      "path": "/lists/{idList}/actions",
+      "method": "GET",
+      "operationId": "getListsActionsByIdList",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Fetch all actions performed on a specific list."
+    },
+    {
+      "path": "/lists/{idList}/archiveAllCards",
+      "method": "POST",
+      "operationId": "addListsArchiveAllCardsByIdList",
+      "summary": "",
+      "user": "User202",
+      "ideal": "Archive all cards in the specified list."
+    },
+    {
+      "path": "/lists/{idList}/board",
+      "method": "GET",
+      "operationId": "getListsBoardByIdList",
+      "summary": "",
+      "user": "User303",
+      "ideal": "Get the board associated with a specific list."
+    },
+    {
+      "path": "/lists/{idList}/board/{field}",
+      "method": "GET",
+      "operationId": "getListsBoardByIdListByField",
+      "summary": "",
+      "user": "User404",
+      "ideal": "Retrieve a specific field from the board of a list."
+    },
+    {
+      "path": "/lists/{idList}/cards",
+      "method": "GET",
+      "operationId": "getListsCardsByIdList",
+      "summary": "",
+      "user": "User505",
+      "ideal": "Get all cards in a specific list."
+    },
+    {
+      "path": "/lists/{idList}/cards",
+      "method": "POST",
+      "operationId": "addListsCardsByIdList",
+      "summary": "",
+      "user": "User606",
+      "ideal": "Add a new card to the specified list."
+    },
+    {
+      "path": "/lists/{idList}/cards/{filter}",
+      "method": "GET",
+      "operationId": "getListsCardsByIdListByFilter",
+      "summary": "",
+      "user": "User707",
+      "ideal": "Retrieve cards from a list based on a specific filter."
+    },
+    {
+      "path": "/lists/{idList}/closed",
+      "method": "PUT",
+      "operationId": "updateListsClosedByIdList",
+      "summary": "",
+      "user": "User808",
+      "ideal": "Close or reopen a specific list."
+    },
+    {
+      "path": "/lists/{idList}/idBoard",
+      "method": "PUT",
+      "operationId": "updateListsIdBoardByIdList",
+      "summary": "",
+      "user": "User909",
+      "ideal": "Change the board associated with a specific list."
+    },
+    {
+      "path": "/lists/{idList}/moveAllCards",
+      "method": "POST",
+      "operationId": "addListsMoveAllCardsByIdList",
+      "summary": "",
+      "user": "User1010",
+      "ideal": "Move all cards from the specified list to another list."
+    },
+    {
+      "path": "/lists/{idList}/name",
+      "method": "PUT",
+      "operationId": "updateListsNameByIdList",
+      "summary": "",
+      "user": "User1111",
+      "ideal": "Update the name of a specific list."
+    },
+    {
+      "path": "/lists/{idList}/pos",
+      "method": "PUT",
+      "operationId": "updateListsPosByIdList",
+      "summary": "",
+      "user": "User1212",
+      "ideal": "Change the position of a specific list."
+    },
+    {
+      "path": "/lists/{idList}/subscribed",
+      "method": "PUT",
+      "operationId": "updateListsSubscribedByIdList",
+      "summary": "",
+      "user": "User1313",
+      "ideal": "Subscribe or unsubscribe to a specific list."
+    },
+    {
+      "path": "/lists/{idList}/{field}",
+      "method": "GET",
+      "operationId": "getListsByIdListByField",
+      "summary": "",
+      "user": "User1414",
+      "ideal": "Retrieve a specific field from a list by its ID."
+    }
+  ]
+}

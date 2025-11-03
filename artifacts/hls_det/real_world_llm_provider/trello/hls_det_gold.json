@@ -1,0 +1,47 @@
+{
+  "sut": "trello",
+  "source": "artifacts\\det_checked\\real_world_llm_provider\\trello\\trello_llm_gold_ops.json",
+  "seed": 1234,
+  "stories": [
+    {
+      "entity": "Trello",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteTrello"
+      ],
+      "checks": [
+        "verifyTrelloExists"
+      ]
+    },
+    {
+      "entity": "Trello",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addTrello"
+      ],
+      "checks": [
+        "verifyTrelloNotExists"
+      ]
+    },
+    {
+      "entity": "Trello",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateTrello"
+      ],
+      "checks": [
+        "verifyTrelloExists",
+        "verifyTrelloUpdated"
+      ]
+    }
+  ]
+}

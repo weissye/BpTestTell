@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchParticipant",
+      "summary": "",
+      "user": "User requested details for participant with CallSid CAXXXXXXXXXXXXXXXXX in conference CAXXXXXXXXXXXXXXXXXX.",
+      "ideal": "Retrieve participant information including status and call details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateParticipant",
+      "summary": "",
+      "user": "User wants to update the status of participant CAXXXXXXXXXXXXXXXXX in conference CAXXXXXXXXXXXXXXXXXX to 'hold'.",
+      "ideal": "Update participant's status to 'hold' successfully."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteParticipant",
+      "summary": "",
+      "user": "User needs to remove participant CAXXXXXXXXXXXXXXXXX from conference CAXXXXXXXXXXXXXXXXXX.",
+      "ideal": "Successfully delete participant from the conference."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants.json",
+      "method": "POST",
+      "operationId": "CreateParticipant",
+      "summary": "",
+      "user": "User wants to add a new participant with CallSid CAXXXXXXXXXXXXXXXXX to conference CAXXXXXXXXXXXXXXXXXX.",
+      "ideal": "Successfully create a new participant in the conference."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants.json",
+      "method": "GET",
+      "operationId": "ListParticipant",
+      "summary": "",
+      "user": "User requests a list of all participants in conference CAXXXXXXXXXXXXXXXXXX.",
+      "ideal": "Retrieve a list of all participants currently in the conference."
+    }
+  ]
+}

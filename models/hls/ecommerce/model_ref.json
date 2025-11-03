@@ -1,1 +1,8 @@
-{ "system": "ecommerce", "model": "ref", "timestamp": "Tue 10/28/2025 16:29:02.64" }
+{
+  "sut": "ecommerce",
+  "provider": "openai",
+  "trained": false,
+  "model_id": "gpt-4o-mini",
+  "created": "2025-11-03T15:26:06.220749Z",
+  "source_det": "artifacts\\hls_det\\7_suts_llm_provider\\ecommerce\\hls_det_gold.json"
+}

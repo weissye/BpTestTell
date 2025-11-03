@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401UserDefinedMessageSubscription"
+      ],
+      "summary": "Subscribe to User Defined Messages for a given Call SID.",
+      "operationId": "CreateUserDefinedMessageSubscription"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401UserDefinedMessageSubscription"
+      ],
+      "summary": "Delete a specific User Defined Message Subscription.",
+      "operationId": "DeleteUserDefinedMessageSubscription"
+    }
+  ]
+}

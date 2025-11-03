@@ -1,0 +1,474 @@
+{
+  "sut": "gitea",
+  "model_id": "gpt-4o-mini",
+  "trained_model_dir": "models/hls/gitea",
+  "source_det": "artifacts/hls_det/real_world_llm_provider/gitea/hls_det_gold.json",
+  "stories_js": "artifacts/hls_nondet/real_world_llm_provider/gitea/readable/stories_hls.js",
+  "generated_at": "2025-11-03T16:55:28.823149+00:00",
+  "stories": [
+    {
+      "entity": "Gitea",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 0,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 1,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 2,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 3,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 4,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 5,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 6,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 7,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGitea"
+      ],
+      "checks": [
+        "verifyGiteaNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 0,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGitea"
+      ],
+      "checks": [
+        "verifyGiteaNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 1,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGitea"
+      ],
+      "checks": [
+        "verifyGiteaNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 2,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGitea"
+      ],
+      "checks": [
+        "verifyGiteaNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 3,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGitea"
+      ],
+      "checks": [
+        "verifyGiteaNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 4,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGitea"
+      ],
+      "checks": [
+        "verifyGiteaNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 5,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGitea"
+      ],
+      "checks": [
+        "verifyGiteaNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 6,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGitea"
+      ],
+      "checks": [
+        "verifyGiteaNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 7,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists",
+        "verifyGiteaUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 0,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists",
+        "verifyGiteaUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 1,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists",
+        "verifyGiteaUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 2,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists",
+        "verifyGiteaUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 3,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists",
+        "verifyGiteaUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 4,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists",
+        "verifyGiteaUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 5,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists",
+        "verifyGiteaUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 6,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gitea",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGitea"
+      ],
+      "checks": [
+        "verifyGiteaExists",
+        "verifyGiteaUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 7,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    }
+  ]
+}

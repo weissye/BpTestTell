@@ -1,0 +1,297 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/events",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List public events",
+      "operationId": "activity/list-public-events"
+    },
+    {
+      "path": "/feeds",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "Get feeds",
+      "operationId": "activity/get-feeds"
+    },
+    {
+      "path": "/networks/{owner}/{repo}/events",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List public events for a network of repositories",
+      "operationId": "activity/list-public-events-for-repo-network"
+    },
+    {
+      "path": "/notifications",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List notifications for the authenticated user",
+      "operationId": "activity/list-notifications-for-authenticated-user"
+    },
+    {
+      "path": "/notifications",
+      "method": "PUT",
+      "tags": [
+        "activity"
+      ],
+      "summary": "Mark notifications as read",
+      "operationId": "activity/mark-notifications-as-read"
+    },
+    {
+      "path": "/notifications/threads/{thread_id}",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "Get a thread",
+      "operationId": "activity/get-thread"
+    },
+    {
+      "path": "/notifications/threads/{thread_id}",
+      "method": "PATCH",
+      "tags": [
+        "activity"
+      ],
+      "summary": "Mark a thread as read",
+      "operationId": "activity/mark-thread-as-read"
+    },
+    {
+      "path": "/notifications/threads/{thread_id}",
+      "method": "DELETE",
+      "tags": [
+        "activity"
+      ],
+      "summary": "Mark a thread as done",
+      "operationId": "activity/mark-thread-as-done"
+    },
+    {
+      "path": "/notifications/threads/{thread_id}/subscription",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "Get a thread subscription for the authenticated user",
+      "operationId": "activity/get-thread-subscription-for-authenticated-user"
+    },
+    {
+      "path": "/notifications/threads/{thread_id}/subscription",
+      "method": "PUT",
+      "tags": [
+        "activity"
+      ],
+      "summary": "Set a thread subscription",
+      "operationId": "activity/set-thread-subscription"
+    },
+    {
+      "path": "/notifications/threads/{thread_id}/subscription",
+      "method": "DELETE",
+      "tags": [
+        "activity"
+      ],
+      "summary": "Delete a thread subscription",
+      "operationId": "activity/delete-thread-subscription"
+    },
+    {
+      "path": "/orgs/{org}/events",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List public organization events",
+      "operationId": "activity/list-public-org-events"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/events",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List repository events",
+      "operationId": "activity/list-repo-events"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/notifications",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List repository notifications for the authenticated user",
+      "operationId": "activity/list-repo-notifications-for-authenticated-user"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/notifications",
+      "method": "PUT",
+      "tags": [
+        "activity"
+      ],
+      "summary": "Mark repository notifications as read",
+      "operationId": "activity/mark-repo-notifications-as-read"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/stargazers",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List stargazers",
+      "operationId": "activity/list-stargazers-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/subscribers",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List watchers",
+      "operationId": "activity/list-watchers-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/subscription",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "Get a repository subscription",
+      "operationId": "activity/get-repo-subscription"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/subscription",
+      "method": "PUT",
+      "tags": [
+        "activity"
+      ],
+      "summary": "Set a repository subscription",
+      "operationId": "activity/set-repo-subscription"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/subscription",
+      "method": "DELETE",
+      "tags": [
+        "activity"
+      ],
+      "summary": "Delete a repository subscription",
+      "operationId": "activity/delete-repo-subscription"
+    },
+    {
+      "path": "/user/starred",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List repositories starred by the authenticated user",
+      "operationId": "activity/list-repos-starred-by-authenticated-user"
+    },
+    {
+      "path": "/user/starred/{owner}/{repo}",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "Check if a repository is starred by the authenticated user",
+      "operationId": "activity/check-repo-is-starred-by-authenticated-user"
+    },
+    {
+      "path": "/user/starred/{owner}/{repo}",
+      "method": "PUT",
+      "tags": [
+        "activity"
+      ],
+      "summary": "Star a repository for the authenticated user",
+      "operationId": "activity/star-repo-for-authenticated-user"
+    },
+    {
+      "path": "/user/starred/{owner}/{repo}",
+      "method": "DELETE",
+      "tags": [
+        "activity"
+      ],
+      "summary": "Unstar a repository for the authenticated user",
+      "operationId": "activity/unstar-repo-for-authenticated-user"
+    },
+    {
+      "path": "/user/subscriptions",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List repositories watched by the authenticated user",
+      "operationId": "activity/list-watched-repos-for-authenticated-user"
+    },
+    {
+      "path": "/users/{username}/events",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List events for the authenticated user",
+      "operationId": "activity/list-events-for-authenticated-user"
+    },
+    {
+      "path": "/users/{username}/events/orgs/{org}",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List organization events for the authenticated user",
+      "operationId": "activity/list-org-events-for-authenticated-user"
+    },
+    {
+      "path": "/users/{username}/events/public",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List public events for a user",
+      "operationId": "activity/list-public-events-for-user"
+    },
+    {
+      "path": "/users/{username}/received_events",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List events received by the authenticated user",
+      "operationId": "activity/list-received-events-for-user"
+    },
+    {
+      "path": "/users/{username}/received_events/public",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List public events received by a user",
+      "operationId": "activity/list-received-public-events-for-user"
+    },
+    {
+      "path": "/users/{username}/starred",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List repositories starred by a user",
+      "operationId": "activity/list-repos-starred-by-user"
+    },
+    {
+      "path": "/users/{username}/subscriptions",
+      "method": "GET",
+      "tags": [
+        "activity"
+      ],
+      "summary": "List repositories watched by a user",
+      "operationId": "activity/list-repos-watched-by-user"
+    }
+  ]
+}

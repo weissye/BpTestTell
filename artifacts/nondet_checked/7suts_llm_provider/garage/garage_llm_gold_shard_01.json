@@ -1,0 +1,268 @@
+{
+  "gold": [
+    {
+      "path": "/v1/reset",
+      "method": "POST",
+      "operationId": "resetSystem",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Resets the entire system to its initial state."
+    },
+    {
+      "path": "/v1/chains",
+      "method": "POST",
+      "operationId": "createChain",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Creates a new chain with specified details."
+    },
+    {
+      "path": "/v1/chains",
+      "method": "GET",
+      "operationId": "getChains",
+      "summary": "",
+      "user": "user",
+      "ideal": "Retrieves a list of all chains."
+    },
+    {
+      "path": "/v1/chains/{chainId}",
+      "method": "GET",
+      "operationId": "getChainById",
+      "summary": "",
+      "user": "user",
+      "ideal": "Fetches details of a specific chain by its ID."
+    },
+    {
+      "path": "/v1/chains/{chainId}",
+      "method": "PUT",
+      "operationId": "updateChain",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Updates the details of an existing chain."
+    },
+    {
+      "path": "/v1/chains/{chainId}",
+      "method": "DELETE",
+      "operationId": "deleteChain",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Deletes a specific chain by its ID."
+    },
+    {
+      "path": "/v1/garages",
+      "method": "POST",
+      "operationId": "createGarage",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Creates a new garage with specified information."
+    },
+    {
+      "path": "/v1/garages",
+      "method": "GET",
+      "operationId": "getGarages",
+      "summary": "",
+      "user": "user",
+      "ideal": "Retrieves a list of all garages."
+    },
+    {
+      "path": "/v1/garages/{garageId}",
+      "method": "GET",
+      "operationId": "getGarageById",
+      "summary": "",
+      "user": "user",
+      "ideal": "Fetches details of a specific garage by its ID."
+    },
+    {
+      "path": "/v1/garages/{garageId}",
+      "method": "PUT",
+      "operationId": "updateGarage",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Updates the details of an existing garage."
+    },
+    {
+      "path": "/v1/garages/{garageId}",
+      "method": "DELETE",
+      "operationId": "deleteGarage",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Deletes a specific garage by its ID."
+    },
+    {
+      "path": "/v1/customers",
+      "method": "POST",
+      "operationId": "createCustomer",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Creates a new customer profile."
+    },
+    {
+      "path": "/v1/customers",
+      "method": "GET",
+      "operationId": "getCustomers",
+      "summary": "",
+      "user": "user",
+      "ideal": "Retrieves a list of all customers."
+    },
+    {
+      "path": "/v1/customers/{customerId}",
+      "method": "GET",
+      "operationId": "getCustomerById",
+      "summary": "",
+      "user": "user",
+      "ideal": "Fetches details of a specific customer by their ID."
+    },
+    {
+      "path": "/v1/customers/{customerId}",
+      "method": "PUT",
+      "operationId": "updateCustomer",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Updates the details of an existing customer."
+    },
+    {
+      "path": "/v1/customers/{customerId}",
+      "method": "DELETE",
+      "operationId": "deleteCustomer",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Deletes a specific customer by their ID."
+    },
+    {
+      "path": "/v1/cars",
+      "method": "POST",
+      "operationId": "createCar",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Adds a new car to the inventory."
+    },
+    {
+      "path": "/v1/cars",
+      "method": "GET",
+      "operationId": "getCars",
+      "summary": "",
+      "user": "user",
+      "ideal": "Retrieves a list of all cars."
+    },
+    {
+      "path": "/v1/cars/{vin}",
+      "method": "GET",
+      "operationId": "getCarByVin",
+      "summary": "",
+      "user": "user",
+      "ideal": "Fetches details of a specific car using its VIN."
+    },
+    {
+      "path": "/v1/cars/{vin}",
+      "method": "PUT",
+      "operationId": "updateCar",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Updates the details of an existing car."
+    },
+    {
+      "path": "/v1/cars/{vin}",
+      "method": "DELETE",
+      "operationId": "deleteCar",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Deletes a specific car using its VIN."
+    },
+    {
+      "path": "/v1/periodic-maintenance",
+      "method": "POST",
+      "operationId": "createMaintenance",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Schedules a new periodic maintenance."
+    },
+    {
+      "path": "/v1/periodic-maintenance",
+      "method": "GET",
+      "operationId": "getMaintenanceRecords",
+      "summary": "",
+      "user": "user",
+      "ideal": "Retrieves a list of all periodic maintenance records."
+    },
+    {
+      "path": "/v1/periodic-maintenance/{pmId}",
+      "method": "GET",
+      "operationId": "getMaintenanceById",
+      "summary": "",
+      "user": "user",
+      "ideal": "Fetches details of a specific maintenance record by its ID."
+    },
+    {
+      "path": "/v1/periodic-maintenance/{pmId}",
+      "method": "PUT",
+      "operationId": "updateMaintenance",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Updates the details of an existing maintenance record."
+    },
+    {
+      "path": "/v1/periodic-maintenance/{pmId}",
+      "method": "DELETE",
+      "operationId": "deleteMaintenance",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Deletes a specific maintenance record by its ID."
+    },
+    {
+      "path": "/v1/repair-orders",
+      "method": "POST",
+      "operationId": "createRepairOrder",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Creates a new repair order."
+    },
+    {
+      "path": "/v1/repair-orders",
+      "method": "GET",
+      "operationId": "getRepairOrders",
+      "summary": "",
+      "user": "user",
+      "ideal": "Retrieves a list of all repair orders."
+    },
+    {
+      "path": "/v1/repair-orders/{roId}",
+      "method": "GET",
+      "operationId": "getRepairOrderById",
+      "summary": "",
+      "user": "user",
+      "ideal": "Fetches details of a specific repair order by its ID."
+    },
+    {
+      "path": "/v1/repair-orders/{roId}",
+      "method": "PUT",
+      "operationId": "updateRepairOrder",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Updates the details of an existing repair order."
+    },
+    {
+      "path": "/v1/repair-orders/{roId}",
+      "method": "DELETE",
+      "operationId": "deleteRepairOrder",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Deletes a specific repair order by its ID."
+    },
+    {
+      "path": "/v1/repair-orders/{roId}/approve",
+      "method": "POST",
+      "operationId": "approveRepairOrder",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Approves a specific repair order."
+    },
+    {
+      "path": "/v1/repair-orders/{roId}/close",
+      "method": "POST",
+      "operationId": "closeRepairOrder",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Closes a specific repair order."
+    }
+  ]
+}

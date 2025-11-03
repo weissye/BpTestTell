@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/v1/{realm}",
+      "method": "GET",
+      "operationId": "get",
+      "summary": "",
+      "user": "Admin user retrieves the realm configuration to verify settings.",
+      "ideal": "Successful retrieval of realm configuration."
+    },
+    {
+      "path": "/v1/{realm}",
+      "method": "POST",
+      "operationId": "post",
+      "summary": "",
+      "user": "A new admin creates a realm for a new application.",
+      "ideal": "Realm created successfully with the provided configuration."
+    },
+    {
+      "path": "/v1/{realm}/admin-events",
+      "method": "GET",
+      "operationId": "getAdminEvents",
+      "summary": "",
+      "user": "Security officer checks admin events for auditing purposes.",
+      "ideal": "List of admin events retrieved successfully."
+    },
+    {
+      "path": "/v1/{realm}/client-policies/policies",
+      "method": "GET",
+      "operationId": "getPolicies",
+      "summary": "",
+      "user": "Policy manager reviews existing client policies.",
+      "ideal": "List of client policies retrieved successfully."
+    },
+    {
+      "path": "/v1/{realm}/default-groups",
+      "method": "GET",
+      "operationId": "getDefaultGroups",
+      "summary": "",
+      "user": "User manager wants to see the default groups in the realm.",
+      "ideal": "List of default groups retrieved successfully."
+    },
+    {
+      "path": "/v1/{realm}/localization/en",
+      "method": "GET",
+      "operationId": "getLocalizationByRealmByLocale",
+      "summary": "",
+      "user": "Localization manager checks English localization settings.",
+      "ideal": "English localization settings retrieved successfully."
+    },
+    {
+      "path": "/v1/{realm}/localization/en/welcome",
+      "method": "GET",
+      "operationId": "getLocalizationByRealmByLocaleByKey",
+      "summary": "",
+      "user": "Localization specialist retrieves the welcome message key.",
+      "ideal": "Welcome message localization retrieved successfully."
+    },
+    {
+      "path": "/v1/{realm}/logout-all",
+      "method": "POST",
+      "operationId": "postLogoutAll",
+      "summary": "",
+      "user": "Admin needs to log out all users for security reasons.",
+      "ideal": "All users logged out successfully."
+    },
+    {
+      "path": "/v1/{realm}/partial-export",
+      "method": "POST",
+      "operationId": "postPartialExport",
+      "summary": "",
+      "user": "Data analyst exports specific user data for reporting.",
+      "ideal": "Partial export completed successfully."
+    },
+    {
+      "path": "/v1/{realm}/sessions/{session}",
+      "method": "DELETE",
+      "operationId": "deleteSession",
+      "summary": "",
+      "user": "Admin terminates a specific user session due to suspicious activity.",
+      "ideal": "Session deleted successfully."
+    }
+  ]
+}

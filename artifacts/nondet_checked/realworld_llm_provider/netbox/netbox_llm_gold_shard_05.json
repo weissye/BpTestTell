@@ -1,0 +1,164 @@
+{
+  "gold": [
+    {
+      "path": "/api/ipam/aggregates/",
+      "method": "GET",
+      "operationId": "ipam_aggregates_list",
+      "summary": "",
+      "user": "User requests a list of all IP address aggregates in the system.",
+      "ideal": "Returns a JSON array of aggregates with their details."
+    },
+    {
+      "path": "/api/ipam/aggregates/",
+      "method": "POST",
+      "operationId": "ipam_aggregates_create",
+      "summary": "",
+      "user": "User submits a new IP address aggregate with CIDR notation.",
+      "ideal": "Returns the created aggregate object with a 201 status code."
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "GET",
+      "operationId": "ipam_aggregates_retrieve",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific aggregate by ID.",
+      "ideal": "Returns the aggregate object with the specified ID."
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "PUT",
+      "operationId": "ipam_aggregates_update",
+      "summary": "",
+      "user": "User updates the details of an existing aggregate.",
+      "ideal": "Returns the updated aggregate object."
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "DELETE",
+      "operationId": "ipam_aggregates_destroy",
+      "summary": "",
+      "user": "User deletes an aggregate by its ID.",
+      "ideal": "Returns a 204 status code indicating successful deletion."
+    },
+    {
+      "path": "/api/ipam/asn-ranges/",
+      "method": "GET",
+      "operationId": "ipam_asn_ranges_list",
+      "summary": "",
+      "user": "User requests a list of all ASN ranges.",
+      "ideal": "Returns a JSON array of ASN ranges."
+    },
+    {
+      "path": "/api/ipam/asn-ranges/",
+      "method": "POST",
+      "operationId": "ipam_asn_ranges_create",
+      "summary": "",
+      "user": "User submits a new ASN range to be created.",
+      "ideal": "Returns the created ASN range object with a 201 status code."
+    },
+    {
+      "path": "/api/ipam/asn-ranges/{id}/",
+      "method": "GET",
+      "operationId": "ipam_asn_ranges_retrieve",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific ASN range by ID.",
+      "ideal": "Returns the ASN range object with the specified ID."
+    },
+    {
+      "path": "/api/ipam/asn-ranges/{id}/",
+      "method": "PUT",
+      "operationId": "ipam_asn_ranges_update",
+      "summary": "",
+      "user": "User updates the details of an existing ASN range.",
+      "ideal": "Returns the updated ASN range object."
+    },
+    {
+      "path": "/api/ipam/asn-ranges/{id}/",
+      "method": "DELETE",
+      "operationId": "ipam_asn_ranges_destroy",
+      "summary": "",
+      "user": "User deletes an ASN range by its ID.",
+      "ideal": "Returns a 204 status code indicating successful deletion."
+    },
+    {
+      "path": "/api/ipam/ip-addresses/",
+      "method": "GET",
+      "operationId": "ipam_ip_addresses_list",
+      "summary": "",
+      "user": "User requests a list of all IP addresses in the system.",
+      "ideal": "Returns a JSON array of IP addresses."
+    },
+    {
+      "path": "/api/ipam/ip-addresses/",
+      "method": "POST",
+      "operationId": "ipam_ip_addresses_create",
+      "summary": "",
+      "user": "User submits a new IP address to be created.",
+      "ideal": "Returns the created IP address object with a 201 status code."
+    },
+    {
+      "path": "/api/ipam/ip-addresses/{id}/",
+      "method": "GET",
+      "operationId": "ipam_ip_addresses_retrieve",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific IP address by ID.",
+      "ideal": "Returns the IP address object with the specified ID."
+    },
+    {
+      "path": "/api/ipam/ip-addresses/{id}/",
+      "method": "PUT",
+      "operationId": "ipam_ip_addresses_update",
+      "summary": "",
+      "user": "User updates the details of an existing IP address.",
+      "ideal": "Returns the updated IP address object."
+    },
+    {
+      "path": "/api/ipam/ip-addresses/{id}/",
+      "method": "DELETE",
+      "operationId": "ipam_ip_addresses_destroy",
+      "summary": "",
+      "user": "User deletes an IP address by its ID.",
+      "ideal": "Returns a 204 status code indicating successful deletion."
+    },
+    {
+      "path": "/api/ipam/vlans/",
+      "method": "GET",
+      "operationId": "ipam_vlans_list",
+      "summary": "",
+      "user": "User requests a list of all VLANs in the system.",
+      "ideal": "Returns a JSON array of VLANs."
+    },
+    {
+      "path": "/api/ipam/vlans/",
+      "method": "POST",
+      "operationId": "ipam_vlans_create",
+      "summary": "",
+      "user": "User submits a new VLAN to be created.",
+      "ideal": "Returns the created VLAN object with a 201 status code."
+    },
+    {
+      "path": "/api/ipam/vlans/{id}/",
+      "method": "GET",
+      "operationId": "ipam_vlans_retrieve",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific VLAN by ID.",
+      "ideal": "Returns the VLAN object with the specified ID."
+    },
+    {
+      "path": "/api/ipam/vlans/{id}/",
+      "method": "PUT",
+      "operationId": "ipam_vlans_update",
+      "summary": "",
+      "user": "User updates the details of an existing VLAN.",
+      "ideal": "Returns the updated VLAN object."
+    },
+    {
+      "path": "/api/ipam/vlans/{id}/",
+      "method": "DELETE",
+      "operationId": "ipam_vlans_destroy",
+      "summary": "",
+      "user": "User deletes a VLAN by its ID.",
+      "ideal": "Returns a 204 status code indicating successful deletion."
+    }
+  ]
+}

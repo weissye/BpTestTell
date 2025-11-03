@@ -1,268 +1,268 @@
 {
   "gold": [
     {
-      "path": "/v1/reset",
+      "path": "/reset",
       "method": "POST",
       "operationId": "resetSystem",
       "summary": "",
-      "user": "Admin user resets the system to clear all data.",
-      "ideal": "System reset successfully."
+      "user": "admin",
+      "ideal": "Resets the entire system to its initial state."
     },
     {
-      "path": "/v1/chains",
+      "path": "/chains",
       "method": "POST",
       "operationId": "createChain",
       "summary": "",
-      "user": "User creates a new garage chain with name and location.",
-      "ideal": "Chain created successfully with ID: 123."
+      "user": "admin",
+      "ideal": "Creates a new chain with the specified details."
     },
     {
-      "path": "/v1/chains",
+      "path": "/chains",
       "method": "GET",
       "operationId": "getChains",
       "summary": "",
-      "user": "User retrieves a list of all garage chains.",
-      "ideal": "List of chains returned successfully."
+      "user": "user1",
+      "ideal": "Retrieves a list of all chains available in the system."
     },
     {
-      "path": "/v1/chains/123",
+      "path": "/chains/{chainId}",
       "method": "GET",
       "operationId": "getChainById",
       "summary": "",
-      "user": "User requests details for chain with ID 123.",
-      "ideal": "Chain details returned successfully."
+      "user": "user2",
+      "ideal": "Fetches details of a specific chain by its ID."
     },
     {
-      "path": "/v1/chains/123",
+      "path": "/chains/{chainId}",
       "method": "PUT",
       "operationId": "updateChain",
       "summary": "",
-      "user": "User updates the name and location of chain ID 123.",
-      "ideal": "Chain updated successfully."
+      "user": "admin",
+      "ideal": "Updates the information of an existing chain."
     },
     {
-      "path": "/v1/chains/123",
+      "path": "/chains/{chainId}",
       "method": "DELETE",
       "operationId": "deleteChain",
       "summary": "",
-      "user": "User deletes chain with ID 123.",
-      "ideal": "Chain deleted successfully."
+      "user": "admin",
+      "ideal": "Deletes a specific chain from the system."
     },
     {
-      "path": "/v1/garages",
+      "path": "/garages",
       "method": "POST",
       "operationId": "createGarage",
       "summary": "",
-      "user": "User creates a new garage with details.",
-      "ideal": "Garage created successfully with ID: 456."
+      "user": "admin",
+      "ideal": "Adds a new garage to the system."
     },
     {
-      "path": "/v1/garages",
+      "path": "/garages",
       "method": "GET",
       "operationId": "getGarages",
       "summary": "",
-      "user": "User retrieves a list of all garages.",
-      "ideal": "List of garages returned successfully."
+      "user": "user1",
+      "ideal": "Retrieves a list of all garages in the system."
     },
     {
-      "path": "/v1/garages/456",
+      "path": "/garages/{garageId}",
       "method": "GET",
       "operationId": "getGarageById",
       "summary": "",
-      "user": "User requests details for garage with ID 456.",
-      "ideal": "Garage details returned successfully."
+      "user": "user2",
+      "ideal": "Fetches details of a specific garage by its ID."
     },
     {
-      "path": "/v1/garages/456",
+      "path": "/garages/{garageId}",
       "method": "PUT",
       "operationId": "updateGarage",
       "summary": "",
-      "user": "User updates the garage details for ID 456.",
-      "ideal": "Garage updated successfully."
+      "user": "admin",
+      "ideal": "Updates the information of an existing garage."
     },
     {
-      "path": "/v1/garages/456",
+      "path": "/garages/{garageId}",
       "method": "DELETE",
       "operationId": "deleteGarage",
       "summary": "",
-      "user": "User deletes garage with ID 456.",
-      "ideal": "Garage deleted successfully."
+      "user": "admin",
+      "ideal": "Removes a specific garage from the system."
     },
     {
-      "path": "/v1/customers",
+      "path": "/customers",
       "method": "POST",
       "operationId": "createCustomer",
       "summary": "",
-      "user": "User adds a new customer with contact information.",
-      "ideal": "Customer created successfully with ID: 789."
+      "user": "admin",
+      "ideal": "Adds a new customer to the system."
     },
     {
-      "path": "/v1/customers",
+      "path": "/customers",
       "method": "GET",
       "operationId": "getCustomers",
       "summary": "",
-      "user": "User retrieves a list of all customers.",
-      "ideal": "List of customers returned successfully."
+      "user": "user1",
+      "ideal": "Retrieves a list of all customers in the system."
     },
     {
-      "path": "/v1/customers/789",
+      "path": "/customers/{customerId}",
       "method": "GET",
       "operationId": "getCustomerById",
       "summary": "",
-      "user": "User requests details for customer with ID 789.",
-      "ideal": "Customer details returned successfully."
+      "user": "user2",
+      "ideal": "Fetches details of a specific customer by their ID."
     },
     {
-      "path": "/v1/customers/789",
+      "path": "/customers/{customerId}",
       "method": "PUT",
       "operationId": "updateCustomer",
       "summary": "",
-      "user": "User updates the customer information for ID 789.",
-      "ideal": "Customer updated successfully."
+      "user": "admin",
+      "ideal": "Updates the information of an existing customer."
     },
     {
-      "path": "/v1/customers/789",
+      "path": "/customers/{customerId}",
       "method": "DELETE",
       "operationId": "deleteCustomer",
       "summary": "",
-      "user": "User deletes customer with ID 789.",
-      "ideal": "Customer deleted successfully."
+      "user": "admin",
+      "ideal": "Removes a specific customer from the system."
     },
     {
-      "path": "/v1/cars",
+      "path": "/cars",
       "method": "POST",
       "operationId": "createCar",
       "summary": "",
-      "user": "User adds a new car with VIN and details.",
-      "ideal": "Car created successfully with VIN: 1HGCM82633A123456."
+      "user": "admin",
+      "ideal": "Adds a new car to the system."
     },
     {
-      "path": "/v1/cars",
+      "path": "/cars",
       "method": "GET",
       "operationId": "getCars",
       "summary": "",
-      "user": "User retrieves a list of all cars.",
-      "ideal": "List of cars returned successfully."
+      "user": "user1",
+      "ideal": "Retrieves a list of all cars in the system."
     },
     {
-      "path": "/v1/cars/1HGCM82633A123456",
+      "path": "/cars/{vin}",
       "method": "GET",
       "operationId": "getCarByVin",
       "summary": "",
-      "user": "User requests details for car with VIN 1HGCM82633A123456.",
-      "ideal": "Car details returned successfully."
+      "user": "user2",
+      "ideal": "Fetches details of a specific car by its VIN."
     },
     {
-      "path": "/v1/cars/1HGCM82633A123456",
+      "path": "/cars/{vin}",
       "method": "PUT",
       "operationId": "updateCar",
       "summary": "",
-      "user": "User updates the car information for VIN 1HGCM82633A123456.",
-      "ideal": "Car updated successfully."
+      "user": "admin",
+      "ideal": "Updates the information of an existing car."
     },
     {
-      "path": "/v1/cars/1HGCM82633A123456",
+      "path": "/cars/{vin}",
       "method": "DELETE",
       "operationId": "deleteCar",
       "summary": "",
-      "user": "User deletes car with VIN 1HGCM82633A123456.",
-      "ideal": "Car deleted successfully."
+      "user": "admin",
+      "ideal": "Removes a specific car from the system."
     },
     {
-      "path": "/v1/periodic-maintenance",
+      "path": "/periodic-maintenance",
       "method": "POST",
       "operationId": "createMaintenance",
       "summary": "",
-      "user": "User schedules a new periodic maintenance.",
-      "ideal": "Periodic maintenance created successfully with ID: 101."
+      "user": "admin",
+      "ideal": "Schedules a new periodic maintenance."
     },
     {
-      "path": "/v1/periodic-maintenance",
+      "path": "/periodic-maintenance",
       "method": "GET",
       "operationId": "getMaintenance",
       "summary": "",
-      "user": "User retrieves a list of all periodic maintenance records.",
-      "ideal": "List of maintenance records returned successfully."
+      "user": "user1",
+      "ideal": "Retrieves a list of all periodic maintenance records."
     },
     {
-      "path": "/v1/periodic-maintenance/101",
+      "path": "/periodic-maintenance/{pmId}",
       "method": "GET",
       "operationId": "getMaintenanceById",
       "summary": "",
-      "user": "User requests details for maintenance ID 101.",
-      "ideal": "Maintenance details returned successfully."
+      "user": "user2",
+      "ideal": "Fetches details of a specific maintenance record by its ID."
     },
     {
-      "path": "/v1/periodic-maintenance/101",
+      "path": "/periodic-maintenance/{pmId}",
       "method": "PUT",
       "operationId": "updateMaintenance",
       "summary": "",
-      "user": "User updates the periodic maintenance details for ID 101.",
-      "ideal": "Maintenance updated successfully."
+      "user": "admin",
+      "ideal": "Updates the information of an existing maintenance record."
     },
     {
-      "path": "/v1/periodic-maintenance/101",
+      "path": "/periodic-maintenance/{pmId}",
       "method": "DELETE",
       "operationId": "deleteMaintenance",
       "summary": "",
-      "user": "User deletes periodic maintenance with ID 101.",
-      "ideal": "Maintenance deleted successfully."
+      "user": "admin",
+      "ideal": "Removes a specific maintenance record from the system."
     },
     {
-      "path": "/v1/repair-orders",
+      "path": "/repair-orders",
       "method": "POST",
       "operationId": "createRepairOrder",
       "summary": "",
-      "user": "User creates a new repair order for a car.",
-      "ideal": "Repair order created successfully with ID: 202."
+      "user": "admin",
+      "ideal": "Creates a new repair order."
     },
     {
-      "path": "/v1/repair-orders",
+      "path": "/repair-orders",
       "method": "GET",
       "operationId": "getRepairOrders",
       "summary": "",
-      "user": "User retrieves a list of all repair orders.",
-      "ideal": "List of repair orders returned successfully."
+      "user": "user1",
+      "ideal": "Retrieves a list of all repair orders."
     },
     {
-      "path": "/v1/repair-orders/202",
+      "path": "/repair-orders/{roId}",
       "method": "GET",
       "operationId": "getRepairOrderById",
       "summary": "",
-      "user": "User requests details for repair order ID 202.",
-      "ideal": "Repair order details returned successfully."
+      "user": "user2",
+      "ideal": "Fetches details of a specific repair order by its ID."
     },
     {
-      "path": "/v1/repair-orders/202",
+      "path": "/repair-orders/{roId}",
       "method": "PUT",
       "operationId": "updateRepairOrder",
       "summary": "",
-      "user": "User updates the repair order details for ID 202.",
-      "ideal": "Repair order updated successfully."
+      "user": "admin",
+      "ideal": "Updates the information of an existing repair order."
     },
     {
-      "path": "/v1/repair-orders/202",
+      "path": "/repair-orders/{roId}",
       "method": "DELETE",
       "operationId": "deleteRepairOrder",
       "summary": "",
-      "user": "User deletes repair order with ID 202.",
-      "ideal": "Repair order deleted successfully."
+      "user": "admin",
+      "ideal": "Removes a specific repair order from the system."
     },
     {
-      "path": "/v1/repair-orders/202/approve",
+      "path": "/repair-orders/{roId}/approve",
       "method": "POST",
       "operationId": "approveRepairOrder",
       "summary": "",
-      "user": "User approves the repair order with ID 202.",
-      "ideal": "Repair order approved successfully."
+      "user": "admin",
+      "ideal": "Approves a specific repair order."
     },
     {
-      "path": "/v1/repair-orders/202/close",
+      "path": "/repair-orders/{roId}/close",
       "method": "POST",
       "operationId": "closeRepairOrder",
       "summary": "",
-      "user": "User closes the repair order with ID 202.",
-      "ideal": "Repair order closed successfully."
+      "user": "admin",
+      "ideal": "Closes a specific repair order."
     }
   ]
 }

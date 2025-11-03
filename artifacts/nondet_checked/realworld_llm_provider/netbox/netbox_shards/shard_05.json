@@ -1,0 +1,1557 @@
+{
+  "openapi_meta": {
+    "title": "NetBox REST API",
+    "version": "4.4.2 (4.4)"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/api/ipam/aggregates/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_aggregates_list"
+    },
+    {
+      "path": "/api/ipam/aggregates/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_aggregates_create"
+    },
+    {
+      "path": "/api/ipam/aggregates/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_aggregates_bulk_update"
+    },
+    {
+      "path": "/api/ipam/aggregates/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_aggregates_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/aggregates/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_aggregates_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_aggregates_retrieve"
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_aggregates_update"
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_aggregates_partial_update"
+    },
+    {
+      "path": "/api/ipam/aggregates/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_aggregates_destroy"
+    },
+    {
+      "path": "/api/ipam/asn-ranges/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asn_ranges_list"
+    },
+    {
+      "path": "/api/ipam/asn-ranges/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asn_ranges_create"
+    },
+    {
+      "path": "/api/ipam/asn-ranges/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asn_ranges_bulk_update"
+    },
+    {
+      "path": "/api/ipam/asn-ranges/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asn_ranges_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/asn-ranges/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asn_ranges_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/asn-ranges/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asn_ranges_retrieve"
+    },
+    {
+      "path": "/api/ipam/asn-ranges/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asn_ranges_update"
+    },
+    {
+      "path": "/api/ipam/asn-ranges/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asn_ranges_partial_update"
+    },
+    {
+      "path": "/api/ipam/asn-ranges/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asn_ranges_destroy"
+    },
+    {
+      "path": "/api/ipam/asn-ranges/{id}/available-asns/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asn_ranges_available_asns_list"
+    },
+    {
+      "path": "/api/ipam/asn-ranges/{id}/available-asns/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asn_ranges_available_asns_create"
+    },
+    {
+      "path": "/api/ipam/asns/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asns_list"
+    },
+    {
+      "path": "/api/ipam/asns/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asns_create"
+    },
+    {
+      "path": "/api/ipam/asns/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asns_bulk_update"
+    },
+    {
+      "path": "/api/ipam/asns/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asns_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/asns/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asns_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/asns/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asns_retrieve"
+    },
+    {
+      "path": "/api/ipam/asns/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asns_update"
+    },
+    {
+      "path": "/api/ipam/asns/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asns_partial_update"
+    },
+    {
+      "path": "/api/ipam/asns/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_asns_destroy"
+    },
+    {
+      "path": "/api/ipam/fhrp-group-assignments/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_group_assignments_list"
+    },
+    {
+      "path": "/api/ipam/fhrp-group-assignments/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_group_assignments_create"
+    },
+    {
+      "path": "/api/ipam/fhrp-group-assignments/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_group_assignments_bulk_update"
+    },
+    {
+      "path": "/api/ipam/fhrp-group-assignments/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_group_assignments_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/fhrp-group-assignments/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_group_assignments_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/fhrp-group-assignments/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_group_assignments_retrieve"
+    },
+    {
+      "path": "/api/ipam/fhrp-group-assignments/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_group_assignments_update"
+    },
+    {
+      "path": "/api/ipam/fhrp-group-assignments/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_group_assignments_partial_update"
+    },
+    {
+      "path": "/api/ipam/fhrp-group-assignments/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_group_assignments_destroy"
+    },
+    {
+      "path": "/api/ipam/fhrp-groups/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_groups_list"
+    },
+    {
+      "path": "/api/ipam/fhrp-groups/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_groups_create"
+    },
+    {
+      "path": "/api/ipam/fhrp-groups/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_groups_bulk_update"
+    },
+    {
+      "path": "/api/ipam/fhrp-groups/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_groups_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/fhrp-groups/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_groups_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/fhrp-groups/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_groups_retrieve"
+    },
+    {
+      "path": "/api/ipam/fhrp-groups/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_groups_update"
+    },
+    {
+      "path": "/api/ipam/fhrp-groups/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_groups_partial_update"
+    },
+    {
+      "path": "/api/ipam/fhrp-groups/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_fhrp_groups_destroy"
+    },
+    {
+      "path": "/api/ipam/ip-addresses/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_addresses_list"
+    },
+    {
+      "path": "/api/ipam/ip-addresses/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_addresses_create"
+    },
+    {
+      "path": "/api/ipam/ip-addresses/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_addresses_bulk_update"
+    },
+    {
+      "path": "/api/ipam/ip-addresses/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_addresses_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/ip-addresses/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_addresses_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/ip-addresses/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_addresses_retrieve"
+    },
+    {
+      "path": "/api/ipam/ip-addresses/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_addresses_update"
+    },
+    {
+      "path": "/api/ipam/ip-addresses/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_addresses_partial_update"
+    },
+    {
+      "path": "/api/ipam/ip-addresses/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_addresses_destroy"
+    },
+    {
+      "path": "/api/ipam/ip-ranges/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_ranges_list"
+    },
+    {
+      "path": "/api/ipam/ip-ranges/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_ranges_create"
+    },
+    {
+      "path": "/api/ipam/ip-ranges/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_ranges_bulk_update"
+    },
+    {
+      "path": "/api/ipam/ip-ranges/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_ranges_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/ip-ranges/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_ranges_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/ip-ranges/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_ranges_retrieve"
+    },
+    {
+      "path": "/api/ipam/ip-ranges/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_ranges_update"
+    },
+    {
+      "path": "/api/ipam/ip-ranges/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_ranges_partial_update"
+    },
+    {
+      "path": "/api/ipam/ip-ranges/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_ranges_destroy"
+    },
+    {
+      "path": "/api/ipam/ip-ranges/{id}/available-ips/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_ranges_available_ips_list"
+    },
+    {
+      "path": "/api/ipam/ip-ranges/{id}/available-ips/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_ip_ranges_available_ips_create"
+    },
+    {
+      "path": "/api/ipam/prefixes/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_prefixes_list"
+    },
+    {
+      "path": "/api/ipam/prefixes/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_prefixes_create"
+    },
+    {
+      "path": "/api/ipam/prefixes/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_prefixes_bulk_update"
+    },
+    {
+      "path": "/api/ipam/prefixes/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_prefixes_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/prefixes/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_prefixes_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/prefixes/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_prefixes_retrieve"
+    },
+    {
+      "path": "/api/ipam/prefixes/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_prefixes_update"
+    },
+    {
+      "path": "/api/ipam/prefixes/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_prefixes_partial_update"
+    },
+    {
+      "path": "/api/ipam/prefixes/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_prefixes_destroy"
+    },
+    {
+      "path": "/api/ipam/prefixes/{id}/available-ips/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_prefixes_available_ips_list"
+    },
+    {
+      "path": "/api/ipam/prefixes/{id}/available-ips/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_prefixes_available_ips_create"
+    },
+    {
+      "path": "/api/ipam/prefixes/{id}/available-prefixes/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_prefixes_available_prefixes_list"
+    },
+    {
+      "path": "/api/ipam/prefixes/{id}/available-prefixes/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_prefixes_available_prefixes_create"
+    },
+    {
+      "path": "/api/ipam/rirs/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_rirs_list"
+    },
+    {
+      "path": "/api/ipam/rirs/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_rirs_create"
+    },
+    {
+      "path": "/api/ipam/rirs/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_rirs_bulk_update"
+    },
+    {
+      "path": "/api/ipam/rirs/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_rirs_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/rirs/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_rirs_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/rirs/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_rirs_retrieve"
+    },
+    {
+      "path": "/api/ipam/rirs/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_rirs_update"
+    },
+    {
+      "path": "/api/ipam/rirs/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_rirs_partial_update"
+    },
+    {
+      "path": "/api/ipam/rirs/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_rirs_destroy"
+    },
+    {
+      "path": "/api/ipam/roles/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_roles_list"
+    },
+    {
+      "path": "/api/ipam/roles/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_roles_create"
+    },
+    {
+      "path": "/api/ipam/roles/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_roles_bulk_update"
+    },
+    {
+      "path": "/api/ipam/roles/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_roles_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/roles/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_roles_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/roles/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_roles_retrieve"
+    },
+    {
+      "path": "/api/ipam/roles/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_roles_update"
+    },
+    {
+      "path": "/api/ipam/roles/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_roles_partial_update"
+    },
+    {
+      "path": "/api/ipam/roles/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_roles_destroy"
+    },
+    {
+      "path": "/api/ipam/route-targets/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_route_targets_list"
+    },
+    {
+      "path": "/api/ipam/route-targets/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_route_targets_create"
+    },
+    {
+      "path": "/api/ipam/route-targets/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_route_targets_bulk_update"
+    },
+    {
+      "path": "/api/ipam/route-targets/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_route_targets_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/route-targets/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_route_targets_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/route-targets/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_route_targets_retrieve"
+    },
+    {
+      "path": "/api/ipam/route-targets/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_route_targets_update"
+    },
+    {
+      "path": "/api/ipam/route-targets/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_route_targets_partial_update"
+    },
+    {
+      "path": "/api/ipam/route-targets/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_route_targets_destroy"
+    },
+    {
+      "path": "/api/ipam/service-templates/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_service_templates_list"
+    },
+    {
+      "path": "/api/ipam/service-templates/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_service_templates_create"
+    },
+    {
+      "path": "/api/ipam/service-templates/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_service_templates_bulk_update"
+    },
+    {
+      "path": "/api/ipam/service-templates/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_service_templates_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/service-templates/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_service_templates_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/service-templates/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_service_templates_retrieve"
+    },
+    {
+      "path": "/api/ipam/service-templates/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_service_templates_update"
+    },
+    {
+      "path": "/api/ipam/service-templates/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_service_templates_partial_update"
+    },
+    {
+      "path": "/api/ipam/service-templates/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_service_templates_destroy"
+    },
+    {
+      "path": "/api/ipam/services/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_services_list"
+    },
+    {
+      "path": "/api/ipam/services/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_services_create"
+    },
+    {
+      "path": "/api/ipam/services/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_services_bulk_update"
+    },
+    {
+      "path": "/api/ipam/services/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_services_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/services/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_services_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/services/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_services_retrieve"
+    },
+    {
+      "path": "/api/ipam/services/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_services_update"
+    },
+    {
+      "path": "/api/ipam/services/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_services_partial_update"
+    },
+    {
+      "path": "/api/ipam/services/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_services_destroy"
+    },
+    {
+      "path": "/api/ipam/vlan-groups/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_groups_list"
+    },
+    {
+      "path": "/api/ipam/vlan-groups/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_groups_create"
+    },
+    {
+      "path": "/api/ipam/vlan-groups/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_groups_bulk_update"
+    },
+    {
+      "path": "/api/ipam/vlan-groups/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_groups_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/vlan-groups/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_groups_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/vlan-groups/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_groups_retrieve"
+    },
+    {
+      "path": "/api/ipam/vlan-groups/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_groups_update"
+    },
+    {
+      "path": "/api/ipam/vlan-groups/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_groups_partial_update"
+    },
+    {
+      "path": "/api/ipam/vlan-groups/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_groups_destroy"
+    },
+    {
+      "path": "/api/ipam/vlan-groups/{id}/available-vlans/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_groups_available_vlans_list"
+    },
+    {
+      "path": "/api/ipam/vlan-groups/{id}/available-vlans/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_groups_available_vlans_create"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-policies/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_policies_list"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-policies/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_policies_create"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-policies/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_policies_bulk_update"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-policies/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_policies_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-policies/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_policies_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-policies/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_policies_retrieve"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-policies/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_policies_update"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-policies/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_policies_partial_update"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-policies/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_policies_destroy"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-rules/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_rules_list"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-rules/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_rules_create"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-rules/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_rules_bulk_update"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-rules/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_rules_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-rules/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_rules_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-rules/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_rules_retrieve"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-rules/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_rules_update"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-rules/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_rules_partial_update"
+    },
+    {
+      "path": "/api/ipam/vlan-translation-rules/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlan_translation_rules_destroy"
+    },
+    {
+      "path": "/api/ipam/vlans/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlans_list"
+    },
+    {
+      "path": "/api/ipam/vlans/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlans_create"
+    },
+    {
+      "path": "/api/ipam/vlans/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlans_bulk_update"
+    },
+    {
+      "path": "/api/ipam/vlans/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlans_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/vlans/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlans_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/vlans/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlans_retrieve"
+    },
+    {
+      "path": "/api/ipam/vlans/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlans_update"
+    },
+    {
+      "path": "/api/ipam/vlans/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlans_partial_update"
+    },
+    {
+      "path": "/api/ipam/vlans/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vlans_destroy"
+    },
+    {
+      "path": "/api/ipam/vrfs/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vrfs_list"
+    },
+    {
+      "path": "/api/ipam/vrfs/",
+      "method": "POST",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vrfs_create"
+    },
+    {
+      "path": "/api/ipam/vrfs/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vrfs_bulk_update"
+    },
+    {
+      "path": "/api/ipam/vrfs/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vrfs_bulk_partial_update"
+    },
+    {
+      "path": "/api/ipam/vrfs/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vrfs_bulk_destroy"
+    },
+    {
+      "path": "/api/ipam/vrfs/{id}/",
+      "method": "GET",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vrfs_retrieve"
+    },
+    {
+      "path": "/api/ipam/vrfs/{id}/",
+      "method": "PUT",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vrfs_update"
+    },
+    {
+      "path": "/api/ipam/vrfs/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vrfs_partial_update"
+    },
+    {
+      "path": "/api/ipam/vrfs/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "ipam"
+      ],
+      "summary": "",
+      "operationId": "ipam_vrfs_destroy"
+    }
+  ]
+}

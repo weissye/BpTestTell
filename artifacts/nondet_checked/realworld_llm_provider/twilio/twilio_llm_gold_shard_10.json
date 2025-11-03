@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Registrations/CredentialListMappings.json",
+      "method": "POST",
+      "operationId": "CreateSipAuthRegistrationsCredentialListMapping",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Successfully creates a new Credential List Mapping for SIP Auth Registrations."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Registrations/CredentialListMappings.json",
+      "method": "GET",
+      "operationId": "ListSipAuthRegistrationsCredentialListMapping",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Retrieves a list of all Credential List Mappings for the specified SIP Domain."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Registrations/CredentialListMappings/CLXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchSipAuthRegistrationsCredentialListMapping",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Fetches details of a specific Credential List Mapping by its SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Registrations/CredentialListMappings/CLXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipAuthRegistrationsCredentialListMapping",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Successfully deletes the specified Credential List Mapping from the SIP Domain."
+    }
+  ]
+}

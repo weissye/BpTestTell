@@ -11,10 +11,10 @@
     {
       "path": "/patients",
       "method": "POST",
-      "operationId": "createPatient",
+      "operationId": "addPatient",
       "summary": "",
       "user": "nurse",
-      "ideal": "Adds a new patient to the pharmacy system."
+      "ideal": "Adds a new patient to the system with required details."
     },
     {
       "path": "/drugs",
@@ -29,7 +29,7 @@
       "method": "POST",
       "operationId": "addDrug",
       "summary": "",
-      "user": "admin",
+      "user": "pharmacist",
       "ideal": "Adds a new drug to the pharmacy inventory."
     },
     {
@@ -46,20 +46,20 @@
       "operationId": "getOrders",
       "summary": "",
       "user": "pharmacist",
-      "ideal": "Retrieves a list of all current orders."
+      "ideal": "Retrieves a list of all orders placed in the pharmacy."
     },
     {
       "path": "/orders",
       "method": "POST",
-      "operationId": "createOrder",
+      "operationId": "placeOrder",
       "summary": "",
       "user": "pharmacist",
-      "ideal": "Places a new order for drugs."
+      "ideal": "Places a new order for drugs from suppliers."
     },
     {
       "path": "/inventory/{ndc}",
       "method": "GET",
-      "operationId": "getInventoryByNDC",
+      "operationId": "getInventoryItem",
       "summary": "",
       "user": "pharmacist",
       "ideal": "Retrieves inventory details for a specific drug using its NDC."

@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/api/circuits/circuit-groups/",
+      "method": "GET",
+      "operationId": "circuits_circuit_groups_list",
+      "summary": "",
+      "user": "Admin user requesting a list of all circuit groups.",
+      "ideal": "Returns a list of circuit groups with their details."
+    },
+    {
+      "path": "/api/circuits/circuit-groups/",
+      "method": "POST",
+      "operationId": "circuits_circuit_groups_create",
+      "summary": "",
+      "user": "Network engineer creating a new circuit group.",
+      "ideal": "Creates a new circuit group and returns its details."
+    },
+    {
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "method": "PUT",
+      "operationId": "circuits_circuit_groups_update",
+      "summary": "",
+      "user": "Admin user updating an existing circuit group.",
+      "ideal": "Updates the specified circuit group and returns the updated details."
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/",
+      "method": "GET",
+      "operationId": "circuits_circuit_terminations_list",
+      "summary": "",
+      "user": "Support staff retrieving all circuit terminations.",
+      "ideal": "Returns a list of all circuit terminations."
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "method": "DELETE",
+      "operationId": "circuits_circuit_terminations_destroy",
+      "summary": "",
+      "user": "Network administrator deleting a specific circuit termination.",
+      "ideal": "Deletes the specified circuit termination and confirms deletion."
+    },
+    {
+      "path": "/api/circuits/circuit-types/",
+      "method": "POST",
+      "operationId": "circuits_circuit_types_create",
+      "summary": "",
+      "user": "Network designer adding a new circuit type.",
+      "ideal": "Creates a new circuit type and returns its details."
+    },
+    {
+      "path": "/api/circuits/circuits/",
+      "method": "GET",
+      "operationId": "circuits_circuits_list",
+      "summary": "",
+      "user": "User querying all circuits in the system.",
+      "ideal": "Returns a list of all circuits with their configurations."
+    },
+    {
+      "path": "/api/circuits/providers/{id}/",
+      "method": "PATCH",
+      "operationId": "circuits_providers_partial_update",
+      "summary": "",
+      "user": "Admin updating partial details of a provider.",
+      "ideal": "Partially updates the specified provider and returns the updated details."
+    },
+    {
+      "path": "/api/circuits/virtual-circuits/",
+      "method": "DELETE",
+      "operationId": "circuits_virtual_circuits_bulk_destroy",
+      "summary": "",
+      "user": "Network manager removing multiple virtual circuits.",
+      "ideal": "Deletes multiple virtual circuits and confirms the deletions."
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-types/{id}/",
+      "method": "GET",
+      "operationId": "circuits_virtual_circuit_types_retrieve",
+      "summary": "",
+      "user": "User retrieving details of a specific virtual circuit type.",
+      "ideal": "Returns the details of the specified virtual circuit type."
+    }
+  ]
+}

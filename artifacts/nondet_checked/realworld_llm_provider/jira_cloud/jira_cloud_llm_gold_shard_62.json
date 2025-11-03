@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/component",
+      "method": "GET",
+      "operationId": "findComponentsForProjects",
+      "summary": "",
+      "user": "A project manager looking to retrieve all components associated with their projects to ensure proper organization and management.",
+      "ideal": "Returns a list of components for the specified projects, including details like name, description, and lead."
+    },
+    {
+      "path": "/rest/api/3/component",
+      "method": "POST",
+      "operationId": "createComponent",
+      "summary": "",
+      "user": "A developer who needs to create a new component for a project to better categorize issues and tasks.",
+      "ideal": "Creates a new component and returns the created component's details, including its ID and configuration."
+    },
+    {
+      "path": "/rest/api/3/component/{id}",
+      "method": "DELETE",
+      "operationId": "deleteComponent",
+      "summary": "",
+      "user": "An administrator who wants to remove an obsolete component from the system to keep the project clean.",
+      "ideal": "Successfully deletes the specified component and returns a confirmation message."
+    },
+    {
+      "path": "/rest/api/3/component/{id}",
+      "method": "GET",
+      "operationId": "getComponent",
+      "summary": "",
+      "user": "A team member who needs to view the details of a specific component to understand its purpose and usage.",
+      "ideal": "Returns detailed information about the specified component, including its name, description, and associated issues."
+    },
+    {
+      "path": "/rest/api/3/component/{id}",
+      "method": "PUT",
+      "operationId": "updateComponent",
+      "summary": "",
+      "user": "A project lead who needs to update the details of a component to reflect recent changes in the project structure.",
+      "ideal": "Updates the specified component's details and returns the updated component information."
+    },
+    {
+      "path": "/rest/api/3/component/{id}/relatedIssueCounts",
+      "method": "GET",
+      "operationId": "getComponentRelatedIssues",
+      "summary": "",
+      "user": "A quality assurance engineer who wants to check how many issues are related to a specific component before making changes.",
+      "ideal": "Returns the count of issues related to the specified component, helping in assessing the impact of modifications."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/component",
+      "method": "GET",
+      "operationId": "getProjectComponentsPaginated",
+      "summary": "",
+      "user": "A product owner who needs to review components for a specific project in a paginated format for better navigation.",
+      "ideal": "Returns a paginated list of components for the specified project, including metadata for pagination."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/components",
+      "method": "GET",
+      "operationId": "getProjectComponents",
+      "summary": "",
+      "user": "A scrum master who wants to quickly access all components of a project to facilitate sprint planning.",
+      "ideal": "Returns a complete list of components for the specified project, aiding in project management and planning."
+    }
+  ]
+}

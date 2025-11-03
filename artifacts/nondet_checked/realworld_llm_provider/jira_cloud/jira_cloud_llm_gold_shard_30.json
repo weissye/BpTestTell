@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/notificationscheme",
+      "method": "GET",
+      "operationId": "getNotificationSchemes",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all notification schemes to understand how notifications are configured across different projects.",
+      "ideal": "A successful response containing a list of all notification schemes with their details."
+    },
+    {
+      "path": "/rest/api/3/notificationscheme",
+      "method": "POST",
+      "operationId": "createNotificationScheme",
+      "summary": "",
+      "user": "As an admin, I want to create a new notification scheme to customize how users are notified about issues.",
+      "ideal": "A successful response indicating that the notification scheme has been created, along with its ID."
+    },
+    {
+      "path": "/rest/api/3/notificationscheme/project",
+      "method": "GET",
+      "operationId": "getNotificationSchemeToProjectMappings",
+      "summary": "",
+      "user": "As a developer, I want to see which notification schemes are mapped to specific projects to ensure proper notifications are sent.",
+      "ideal": "A successful response containing a mapping of projects to their respective notification schemes."
+    },
+    {
+      "path": "/rest/api/3/notificationscheme/{id}",
+      "method": "GET",
+      "operationId": "getNotificationScheme",
+      "summary": "",
+      "user": "As a team lead, I want to view the details of a specific notification scheme to verify its settings.",
+      "ideal": "A successful response with the details of the specified notification scheme."
+    },
+    {
+      "path": "/rest/api/3/notificationscheme/{id}",
+      "method": "PUT",
+      "operationId": "updateNotificationScheme",
+      "summary": "",
+      "user": "As an admin, I want to update an existing notification scheme to modify the notification settings for my team.",
+      "ideal": "A successful response confirming that the notification scheme has been updated."
+    },
+    {
+      "path": "/rest/api/3/notificationscheme/{id}/notification",
+      "method": "PUT",
+      "operationId": "addNotifications",
+      "summary": "",
+      "user": "As a project manager, I want to add new notification types to an existing scheme to enhance communication.",
+      "ideal": "A successful response indicating that the notifications have been added to the scheme."
+    },
+    {
+      "path": "/rest/api/3/notificationscheme/{notificationSchemeId}",
+      "method": "DELETE",
+      "operationId": "deleteNotificationScheme",
+      "summary": "",
+      "user": "As an admin, I want to delete an outdated notification scheme to keep the system clean and organized.",
+      "ideal": "A successful response confirming that the notification scheme has been deleted."
+    },
+    {
+      "path": "/rest/api/3/notificationscheme/{notificationSchemeId}/notification/{notificationId}",
+      "method": "DELETE",
+      "operationId": "removeNotificationFromNotificationScheme",
+      "summary": "",
+      "user": "As a team lead, I want to remove a specific notification from a scheme to reduce unnecessary alerts for my team.",
+      "ideal": "A successful response confirming that the notification has been removed from the scheme."
+    }
+  ]
+}

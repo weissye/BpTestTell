@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "banking SUT",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /reset"
+    },
+    {
+      "path": "/customers",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /customers"
+    },
+    {
+      "path": "/accounts",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /accounts"
+    },
+    {
+      "path": "/accounts",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /accounts"
+    },
+    {
+      "path": "/accounts/{accountId}/transactions",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /accounts/{accountId}/transactions"
+    },
+    {
+      "path": "/transfers",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /transfers"
+    },
+    {
+      "path": "/cards",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /cards"
+    },
+    {
+      "path": "/loans",
+      "method": "POST",
+      "tags": [],
+      "summary": "",
+      "operationId": "POST /loans"
+    },
+    {
+      "path": "/loans",
+      "method": "GET",
+      "tags": [],
+      "summary": "",
+      "operationId": "GET /loans"
+    }
+  ]
+}

@@ -1,3 +1,12 @@
 {
-  "gold": []
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Voip.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberVoip",
+      "summary": "",
+      "user": "A small business owner looking to expand their communication capabilities by acquiring VoIP numbers for their team. They want to ensure they can reach customers effectively while keeping costs low.",
+      "ideal": "Returns a list of available VoIP phone numbers in the specified country, along with details such as area code, phone number, and pricing."
+    }
+  ]
 }

@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/client-scopes",
+      "method": "GET",
+      "operationId": "getClientScopes",
+      "summary": "",
+      "user": "Admin user requesting all client scopes in the realm.",
+      "ideal": "Returns a list of all client scopes available in the specified realm."
+    },
+    {
+      "path": "/myrealm/client-scopes",
+      "method": "POST",
+      "operationId": "postClientScopes",
+      "summary": "",
+      "user": "Admin user creating a new client scope for the realm.",
+      "ideal": "Creates a new client scope and returns the created scope details."
+    },
+    {
+      "path": "/myrealm/client-scopes/12345",
+      "method": "GET",
+      "operationId": "getClientScope",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific client scope by ID.",
+      "ideal": "Returns the details of the client scope with the specified ID."
+    },
+    {
+      "path": "/myrealm/client-scopes/12345",
+      "method": "PUT",
+      "operationId": "putClientScope",
+      "summary": "",
+      "user": "Admin user updating an existing client scope.",
+      "ideal": "Updates the client scope with the specified ID and returns the updated details."
+    },
+    {
+      "path": "/myrealm/client-scopes/12345",
+      "method": "DELETE",
+      "operationId": "deleteClientScope",
+      "summary": "",
+      "user": "Admin user deleting a specific client scope by ID.",
+      "ideal": "Deletes the client scope with the specified ID and confirms deletion."
+    },
+    {
+      "path": "/myrealm/client-templates",
+      "method": "GET",
+      "operationId": "getClientTemplates",
+      "summary": "",
+      "user": "Admin user requesting all client templates in the realm.",
+      "ideal": "Returns a list of all client templates available in the specified realm."
+    },
+    {
+      "path": "/myrealm/client-templates",
+      "method": "POST",
+      "operationId": "postClientTemplates",
+      "summary": "",
+      "user": "Admin user creating a new client template for the realm.",
+      "ideal": "Creates a new client template and returns the created template details."
+    },
+    {
+      "path": "/myrealm/client-templates/67890",
+      "method": "GET",
+      "operationId": "getClientTemplate",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific client template by ID.",
+      "ideal": "Returns the details of the client template with the specified ID."
+    },
+    {
+      "path": "/myrealm/client-templates/67890",
+      "method": "PUT",
+      "operationId": "putClientTemplate",
+      "summary": "",
+      "user": "Admin user updating an existing client template.",
+      "ideal": "Updates the client template with the specified ID and returns the updated details."
+    },
+    {
+      "path": "/myrealm/client-templates/67890",
+      "method": "DELETE",
+      "operationId": "deleteClientTemplate",
+      "summary": "",
+      "user": "Admin user deleting a specific client template by ID.",
+      "ideal": "Deletes the client template with the specified ID and confirms deletion."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/version",
+      "method": "GET",
+      "operationId": "version.get",
+      "summary": "",
+      "user": "As a developer, I want to check the current version of the Meilisearch API to ensure compatibility with my application.",
+      "ideal": "The response should return the current version of the Meilisearch API in a JSON format, such as {\"version\":\"1.7.0\"}."
+    }
+  ]
+}

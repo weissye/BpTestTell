@@ -1,0 +1,132 @@
+{
+  "gold": [
+    {
+      "path": "/users",
+      "method": "GET",
+      "operationId": "get-users",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all users in the organization."
+    },
+    {
+      "path": "/users",
+      "method": "POST",
+      "operationId": "create-user",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new user with the provided details."
+    },
+    {
+      "path": "/users/me",
+      "method": "GET",
+      "operationId": "get-own-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Get the details of the currently authenticated user."
+    },
+    {
+      "path": "/users/me/alert_words",
+      "method": "POST",
+      "operationId": "add-alert-words",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Add alert words to the user's alert word list."
+    },
+    {
+      "path": "/users/me/alert_words",
+      "method": "DELETE",
+      "operationId": "remove-alert-words",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Remove alert words from the user's alert word list."
+    },
+    {
+      "path": "/users/{user_id}/status",
+      "method": "POST",
+      "operationId": "update-status-for-user",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the status message for a specific user."
+    },
+    {
+      "path": "/users/{user_id}/presence",
+      "method": "GET",
+      "operationId": "get-user-presence",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Check the presence status of a specific user."
+    },
+    {
+      "path": "/users/me/presence",
+      "method": "POST",
+      "operationId": "update-presence",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Update the presence status of the currently authenticated user."
+    },
+    {
+      "path": "/user_groups",
+      "method": "GET",
+      "operationId": "get-user-groups",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all user groups in the organization."
+    },
+    {
+      "path": "/user_groups/{user_group_id}/members",
+      "method": "GET",
+      "operationId": "get-user-group-members",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get the members of a specific user group."
+    },
+    {
+      "path": "/user_groups/{user_group_id}/members",
+      "method": "POST",
+      "operationId": "update-user-group-members",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add or remove members from a specific user group."
+    },
+    {
+      "path": "/attachments",
+      "method": "GET",
+      "operationId": "get-attachments",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Retrieve a list of all attachments uploaded by the user."
+    },
+    {
+      "path": "/attachments/{attachment_id}",
+      "method": "DELETE",
+      "operationId": "remove-attachment",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Delete a specific attachment uploaded by the user."
+    },
+    {
+      "path": "/users/{user_id}/reactivate",
+      "method": "POST",
+      "operationId": "reactivate-user",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Reactivate a previously deactivated user."
+    },
+    {
+      "path": "/users/{user_id}",
+      "method": "PATCH",
+      "operationId": "update-user",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the details of a specific user."
+    },
+    {
+      "path": "/users/{user_id}",
+      "method": "DELETE",
+      "operationId": "deactivate-user",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Deactivate a specific user."
+    }
+  ]
+}

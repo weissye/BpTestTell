@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue",
+      "method": "POST",
+      "operationId": "createIssue",
+      "summary": "",
+      "user": "User wants to create a new issue in the project management system.",
+      "ideal": "The issue is created successfully with a unique ID and relevant details."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "method": "GET",
+      "operationId": "getIssue",
+      "summary": "",
+      "user": "User needs to retrieve details of a specific issue using its ID.",
+      "ideal": "The issue details are returned, including status, assignee, and comments."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "method": "PUT",
+      "operationId": "editIssue",
+      "summary": "",
+      "user": "User wants to update the details of an existing issue.",
+      "ideal": "The issue is updated successfully with the new information provided."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "method": "GET",
+      "operationId": "getTransitions",
+      "summary": "",
+      "user": "User wants to see the available transitions for a specific issue.",
+      "ideal": "A list of possible transitions for the issue is returned."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "method": "POST",
+      "operationId": "doTransition",
+      "summary": "",
+      "user": "User wants to change the status of an issue to 'In Progress'.",
+      "ideal": "The issue status is successfully updated to 'In Progress'."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/changelog",
+      "method": "GET",
+      "operationId": "getChangeLogs",
+      "summary": "",
+      "user": "User wants to view the change history of a specific issue.",
+      "ideal": "The changelog is returned, showing all modifications made to the issue."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/editmeta",
+      "method": "GET",
+      "operationId": "getEditIssueMeta",
+      "summary": "",
+      "user": "User needs metadata for editing a specific issue.",
+      "ideal": "The metadata required for editing the issue is returned."
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/notify",
+      "method": "POST",
+      "operationId": "notify",
+      "summary": "",
+      "user": "User wants to notify team members about updates to an issue.",
+      "ideal": "Notifications are sent successfully to the specified team members."
+    },
+    {
+      "path": "/rest/api/3/issue/createmeta",
+      "method": "GET",
+      "operationId": "getCreateIssueMeta",
+      "summary": "",
+      "user": "User wants to retrieve metadata for creating a new issue.",
+      "ideal": "The metadata for creating a new issue is returned, including fields and options."
+    },
+    {
+      "path": "/rest/api/3/issue/limit/report",
+      "method": "GET",
+      "operationId": "getIssueLimitReport",
+      "summary": "",
+      "user": "User wants to check the limits on issues for their project.",
+      "ideal": "The report on issue limits is returned, showing current usage and limits."
+    }
+  ]
+}

@@ -1,0 +1,234 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions",
+      "method": "GET",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "List reactions for a team discussion comment",
+      "operationId": "reactions/list-for-team-discussion-comment-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions",
+      "method": "POST",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Create reaction for a team discussion comment",
+      "operationId": "reactions/create-for-team-discussion-comment-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}",
+      "method": "DELETE",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Delete team discussion comment reaction",
+      "operationId": "reactions/delete-for-team-discussion-comment"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions",
+      "method": "GET",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "List reactions for a team discussion",
+      "operationId": "reactions/list-for-team-discussion-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions",
+      "method": "POST",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Create reaction for a team discussion",
+      "operationId": "reactions/create-for-team-discussion-in-org"
+    },
+    {
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}",
+      "method": "DELETE",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Delete team discussion reaction",
+      "operationId": "reactions/delete-for-team-discussion"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/comments/{comment_id}/reactions",
+      "method": "GET",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "List reactions for a commit comment",
+      "operationId": "reactions/list-for-commit-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/comments/{comment_id}/reactions",
+      "method": "POST",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Create reaction for a commit comment",
+      "operationId": "reactions/create-for-commit-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}",
+      "method": "DELETE",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Delete a commit comment reaction",
+      "operationId": "reactions/delete-for-commit-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions",
+      "method": "GET",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "List reactions for an issue comment",
+      "operationId": "reactions/list-for-issue-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions",
+      "method": "POST",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Create reaction for an issue comment",
+      "operationId": "reactions/create-for-issue-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}",
+      "method": "DELETE",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Delete an issue comment reaction",
+      "operationId": "reactions/delete-for-issue-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/reactions",
+      "method": "GET",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "List reactions for an issue",
+      "operationId": "reactions/list-for-issue"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/reactions",
+      "method": "POST",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Create reaction for an issue",
+      "operationId": "reactions/create-for-issue"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}",
+      "method": "DELETE",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Delete an issue reaction",
+      "operationId": "reactions/delete-for-issue"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions",
+      "method": "GET",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "List reactions for a pull request review comment",
+      "operationId": "reactions/list-for-pull-request-review-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions",
+      "method": "POST",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Create reaction for a pull request review comment",
+      "operationId": "reactions/create-for-pull-request-review-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}",
+      "method": "DELETE",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Delete a pull request comment reaction",
+      "operationId": "reactions/delete-for-pull-request-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases/{release_id}/reactions",
+      "method": "GET",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "List reactions for a release",
+      "operationId": "reactions/list-for-release"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases/{release_id}/reactions",
+      "method": "POST",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Create reaction for a release",
+      "operationId": "reactions/create-for-release"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases/{release_id}/reactions/{reaction_id}",
+      "method": "DELETE",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Delete a release reaction",
+      "operationId": "reactions/delete-for-release"
+    },
+    {
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions",
+      "method": "GET",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "List reactions for a team discussion comment (Legacy)",
+      "operationId": "reactions/list-for-team-discussion-comment-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions",
+      "method": "POST",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Create reaction for a team discussion comment (Legacy)",
+      "operationId": "reactions/create-for-team-discussion-comment-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/discussions/{discussion_number}/reactions",
+      "method": "GET",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "List reactions for a team discussion (Legacy)",
+      "operationId": "reactions/list-for-team-discussion-legacy"
+    },
+    {
+      "path": "/teams/{team_id}/discussions/{discussion_number}/reactions",
+      "method": "POST",
+      "tags": [
+        "reactions"
+      ],
+      "summary": "Create reaction for a team discussion (Legacy)",
+      "operationId": "reactions/create-for-team-discussion-legacy"
+    }
+  ]
+}

@@ -1,0 +1,292 @@
+{
+  "gold": [
+    {
+      "path": "/indexes/myIndex/settings",
+      "method": "GET",
+      "operationId": "indexes.settings.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the current settings for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings",
+      "method": "PATCH",
+      "operationId": "indexes.settings.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the settings for the index 'myIndex' with new parameters."
+    },
+    {
+      "path": "/indexes/myIndex/settings",
+      "method": "DELETE",
+      "operationId": "indexes.settings.reset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Reset the settings for the index 'myIndex' to default values."
+    },
+    {
+      "path": "/indexes/myIndex/settings/synonyms",
+      "method": "GET",
+      "operationId": "indexes.settings.synonyms.get",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Fetch the synonyms settings for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/synonyms",
+      "method": "PUT",
+      "operationId": "indexes.settings.synonyms.update",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update the synonyms settings for the index 'myIndex' with new synonyms."
+    },
+    {
+      "path": "/indexes/myIndex/settings/synonyms",
+      "method": "DELETE",
+      "operationId": "indexes.settings.synonyms.reset",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Reset the synonyms settings for the index 'myIndex' to default."
+    },
+    {
+      "path": "/indexes/myIndex/settings/sortable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.sortable-attributes.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the sortable attributes for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/sortable-attributes",
+      "method": "PUT",
+      "operationId": "indexes.settings.sortable-attributes.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the sortable attributes for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/sortable-attributes",
+      "method": "DELETE",
+      "operationId": "indexes.settings.sortable-attributes.reset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Reset the sortable attributes for the index 'myIndex' to default."
+    },
+    {
+      "path": "/indexes/myIndex/settings/stop-words",
+      "method": "GET",
+      "operationId": "indexes.settings.stopWords.get",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Get the stop words settings for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/stop-words",
+      "method": "PUT",
+      "operationId": "indexes.settings.stopWords.update",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update the stop words for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/stop-words",
+      "method": "DELETE",
+      "operationId": "indexes.settings.stopWords.reset",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Reset the stop words settings for the index 'myIndex' to default."
+    },
+    {
+      "path": "/indexes/myIndex/settings/ranking-rules",
+      "method": "GET",
+      "operationId": "indexes.settings.rankingRules.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the ranking rules for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/ranking-rules",
+      "method": "PUT",
+      "operationId": "indexes.settings.rankingRules.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the ranking rules for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/ranking-rules",
+      "method": "DELETE",
+      "operationId": "indexes.settings.rankingRules.reset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Reset the ranking rules for the index 'myIndex' to default."
+    },
+    {
+      "path": "/indexes/myIndex/settings/typo-tolerance",
+      "method": "GET",
+      "operationId": "indexes.settings.typoTolerance.get",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Get the typo tolerance settings for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/typo-tolerance",
+      "method": "PATCH",
+      "operationId": "indexes.settings.typoTolerance.update",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update the typo tolerance settings for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/typo-tolerance",
+      "method": "DELETE",
+      "operationId": "indexes.settings.typoTolerance.reset",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Reset the typo tolerance settings for the index 'myIndex' to default."
+    },
+    {
+      "path": "/indexes/myIndex/settings/pagination",
+      "method": "GET",
+      "operationId": "indexes.settings.pagination.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the pagination settings for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/pagination",
+      "method": "PATCH",
+      "operationId": "indexes.settings.pagination.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the pagination settings for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/pagination",
+      "method": "DELETE",
+      "operationId": "indexes.settings.pagination.reset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Reset the pagination settings for the index 'myIndex' to default."
+    },
+    {
+      "path": "/indexes/myIndex/settings/faceting",
+      "method": "GET",
+      "operationId": "indexes.settings.faceting.get",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Get the faceting settings for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/faceting",
+      "method": "PATCH",
+      "operationId": "indexes.settings.faceting.update",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update the faceting settings for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/faceting",
+      "method": "DELETE",
+      "operationId": "indexes.settings.faceting.reset",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Reset the faceting settings for the index 'myIndex' to default."
+    },
+    {
+      "path": "/indexes/myIndex/settings/filterable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.filterableAttributes.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the filterable attributes for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/filterable-attributes",
+      "method": "PUT",
+      "operationId": "indexes.settings.filterableAttributes.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the filterable attributes for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/filterable-attributes",
+      "method": "DELETE",
+      "operationId": "indexes.settings.filterableAttributes.reset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Reset the filterable attributes for the index 'myIndex' to default."
+    },
+    {
+      "path": "/indexes/myIndex/settings/distinct-attribute",
+      "method": "GET",
+      "operationId": "indexes.settings.distinctAttribute.get",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Get the distinct attribute settings for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/distinct-attribute",
+      "method": "PUT",
+      "operationId": "indexes.settings.distinctAttribute.update",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update the distinct attribute for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/distinct-attribute",
+      "method": "DELETE",
+      "operationId": "indexes.settings.distinctAttribute.reset",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Reset the distinct attribute settings for the index 'myIndex' to default."
+    },
+    {
+      "path": "/indexes/myIndex/settings/searchable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.searchableAttributes.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the searchable attributes for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/searchable-attributes",
+      "method": "PUT",
+      "operationId": "indexes.settings.searchableAttributes.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the searchable attributes for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/searchable-attributes",
+      "method": "DELETE",
+      "operationId": "indexes.settings.searchableAttributes.reset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Reset the searchable attributes for the index 'myIndex' to default."
+    },
+    {
+      "path": "/indexes/myIndex/settings/displayed-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.displayedAttributes.get",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Get the displayed attributes settings for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/displayed-attributes",
+      "method": "PUT",
+      "operationId": "indexes.settings.displayedAttributes.update",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update the displayed attributes for the index 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/settings/displayed-attributes",
+      "method": "DELETE",
+      "operationId": "indexes.settings.displayedAttributes.reset",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Reset the displayed attributes settings for the index 'myIndex' to default."
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/workflowscheme/123/createdraft",
+      "method": "POST",
+      "operationId": "createWorkflowSchemeDraftFromParent",
+      "summary": "",
+      "user": "User A is creating a draft workflow scheme based on an existing one to make modifications before publishing.",
+      "ideal": "A new workflow scheme draft is created successfully."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/123/draft",
+      "method": "DELETE",
+      "operationId": "deleteWorkflowSchemeDraft",
+      "summary": "",
+      "user": "User B wants to delete a draft workflow scheme that is no longer needed.",
+      "ideal": "The draft workflow scheme is deleted successfully."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/123/draft",
+      "method": "GET",
+      "operationId": "getWorkflowSchemeDraft",
+      "summary": "",
+      "user": "User C is retrieving the current draft of a workflow scheme to review its settings.",
+      "ideal": "The draft workflow scheme details are returned successfully."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/123/draft",
+      "method": "PUT",
+      "operationId": "updateWorkflowSchemeDraft",
+      "summary": "",
+      "user": "User D is updating the draft workflow scheme with new configurations.",
+      "ideal": "The draft workflow scheme is updated successfully."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/123/draft/default",
+      "method": "DELETE",
+      "operationId": "deleteDraftDefaultWorkflow",
+      "summary": "",
+      "user": "User E wants to remove the default workflow from the draft scheme.",
+      "ideal": "The default workflow in the draft is deleted successfully."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/123/draft/default",
+      "method": "GET",
+      "operationId": "getDraftDefaultWorkflow",
+      "summary": "",
+      "user": "User F is checking which default workflow is set in the draft workflow scheme.",
+      "ideal": "The default workflow details are returned successfully."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/123/draft/default",
+      "method": "PUT",
+      "operationId": "updateDraftDefaultWorkflow",
+      "summary": "",
+      "user": "User G is updating the default workflow for the draft workflow scheme.",
+      "ideal": "The default workflow in the draft is updated successfully."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/123/draft/issuetype/bug",
+      "method": "DELETE",
+      "operationId": "deleteWorkflowSchemeDraftIssueType",
+      "summary": "",
+      "user": "User H is removing the issue type 'bug' from the draft workflow scheme.",
+      "ideal": "The issue type 'bug' is removed from the draft workflow scheme successfully."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/123/draft/issuetype/bug",
+      "method": "GET",
+      "operationId": "getWorkflowSchemeDraftIssueType",
+      "summary": "",
+      "user": "User I is retrieving the details of the 'bug' issue type in the draft workflow scheme.",
+      "ideal": "The details of the 'bug' issue type are returned successfully."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/123/draft/issuetype/bug",
+      "method": "PUT",
+      "operationId": "setWorkflowSchemeDraftIssueType",
+      "summary": "",
+      "user": "User J is setting the 'bug' issue type to a specific workflow in the draft scheme.",
+      "ideal": "The 'bug' issue type is successfully mapped to the specified workflow."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/123/draft/publish",
+      "method": "POST",
+      "operationId": "publishDraftWorkflowScheme",
+      "summary": "",
+      "user": "User K is publishing the draft workflow scheme after final review.",
+      "ideal": "The draft workflow scheme is published successfully."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/123/draft/workflow",
+      "method": "DELETE",
+      "operationId": "deleteDraftWorkflowMapping",
+      "summary": "",
+      "user": "User L wants to delete a specific workflow mapping from the draft workflow scheme.",
+      "ideal": "The workflow mapping is deleted from the draft successfully."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/123/draft/workflow",
+      "method": "GET",
+      "operationId": "getDraftWorkflow",
+      "summary": "",
+      "user": "User M is checking the workflows mapped in the draft workflow scheme.",
+      "ideal": "The list of workflows in the draft is returned successfully."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/123/draft/workflow",
+      "method": "PUT",
+      "operationId": "updateDraftWorkflowMapping",
+      "summary": "",
+      "user": "User N is updating the workflow mappings in the draft workflow scheme.",
+      "ideal": "The workflow mappings in the draft are updated successfully."
+    }
+  ]
+}

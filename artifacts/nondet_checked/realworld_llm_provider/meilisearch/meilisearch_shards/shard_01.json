@@ -1,0 +1,90 @@
+{
+  "openapi_meta": {
+    "title": "Meilisearch Core API",
+    "version": "1.7.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/indexes/{indexUid}/documents",
+      "method": "GET",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Get Documents",
+      "operationId": "indexes.documents.list"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents",
+      "method": "POST",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Add or replace documents",
+      "operationId": "indexes.documents.create"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents",
+      "method": "PUT",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Add or update documents",
+      "operationId": "indexes.documents.upsert"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents",
+      "method": "DELETE",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Delete all documents",
+      "operationId": "indexes.documents.removeAll"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents/fetch",
+      "method": "POST",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Get Documents",
+      "operationId": "indexes.documents.fetch"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents/delete-batch",
+      "method": "POST",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Delete documents",
+      "operationId": "indexes.documents.removeBatch"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents/delete",
+      "method": "POST",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Delete documents",
+      "operationId": "indexes.documents.remove"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "method": "GET",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Get one document",
+      "operationId": "indexes.documents.get"
+    },
+    {
+      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "method": "DELETE",
+      "tags": [
+        "Documents"
+      ],
+      "summary": "Delete one document",
+      "operationId": "indexes.documents.removeOne"
+    }
+  ]
+}

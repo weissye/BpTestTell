@@ -1,0 +1,909 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/organizations",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List organizations",
+      "operationId": "orgs/list"
+    },
+    {
+      "path": "/orgs/{org}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get an organization",
+      "operationId": "orgs/get"
+    },
+    {
+      "path": "/orgs/{org}",
+      "method": "PATCH",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Update an organization",
+      "operationId": "orgs/update"
+    },
+    {
+      "path": "/orgs/{org}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Delete an organization",
+      "operationId": "orgs/delete"
+    },
+    {
+      "path": "/orgs/{org}/artifacts/metadata/storage-record",
+      "method": "POST",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Create artifact metadata storage record",
+      "operationId": "orgs/create-artifact-storage-record"
+    },
+    {
+      "path": "/orgs/{org}/artifacts/{subject_digest}/metadata/storage-records",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List artifact storage records",
+      "operationId": "orgs/list-artifact-storage-records"
+    },
+    {
+      "path": "/orgs/{org}/attestations/bulk-list",
+      "method": "POST",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List attestations by bulk subject digests",
+      "operationId": "orgs/list-attestations-bulk"
+    },
+    {
+      "path": "/orgs/{org}/attestations/delete-request",
+      "method": "POST",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Delete attestations in bulk",
+      "operationId": "orgs/delete-attestations-bulk"
+    },
+    {
+      "path": "/orgs/{org}/attestations/digest/{subject_digest}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Delete attestations by subject digest",
+      "operationId": "orgs/delete-attestations-by-subject-digest"
+    },
+    {
+      "path": "/orgs/{org}/attestations/{attestation_id}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Delete attestations by ID",
+      "operationId": "orgs/delete-attestations-by-id"
+    },
+    {
+      "path": "/orgs/{org}/attestations/{subject_digest}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List attestations",
+      "operationId": "orgs/list-attestations"
+    },
+    {
+      "path": "/orgs/{org}/blocks",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List users blocked by an organization",
+      "operationId": "orgs/list-blocked-users"
+    },
+    {
+      "path": "/orgs/{org}/blocks/{username}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Check if a user is blocked by an organization",
+      "operationId": "orgs/check-blocked-user"
+    },
+    {
+      "path": "/orgs/{org}/blocks/{username}",
+      "method": "PUT",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Block a user from an organization",
+      "operationId": "orgs/block-user"
+    },
+    {
+      "path": "/orgs/{org}/blocks/{username}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Unblock a user from an organization",
+      "operationId": "orgs/unblock-user"
+    },
+    {
+      "path": "/orgs/{org}/failed_invitations",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List failed organization invitations",
+      "operationId": "orgs/list-failed-invitations"
+    },
+    {
+      "path": "/orgs/{org}/hooks",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List organization webhooks",
+      "operationId": "orgs/list-webhooks"
+    },
+    {
+      "path": "/orgs/{org}/hooks",
+      "method": "POST",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Create an organization webhook",
+      "operationId": "orgs/create-webhook"
+    },
+    {
+      "path": "/orgs/{org}/hooks/{hook_id}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get an organization webhook",
+      "operationId": "orgs/get-webhook"
+    },
+    {
+      "path": "/orgs/{org}/hooks/{hook_id}",
+      "method": "PATCH",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Update an organization webhook",
+      "operationId": "orgs/update-webhook"
+    },
+    {
+      "path": "/orgs/{org}/hooks/{hook_id}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Delete an organization webhook",
+      "operationId": "orgs/delete-webhook"
+    },
+    {
+      "path": "/orgs/{org}/hooks/{hook_id}/config",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get a webhook configuration for an organization",
+      "operationId": "orgs/get-webhook-config-for-org"
+    },
+    {
+      "path": "/orgs/{org}/hooks/{hook_id}/config",
+      "method": "PATCH",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Update a webhook configuration for an organization",
+      "operationId": "orgs/update-webhook-config-for-org"
+    },
+    {
+      "path": "/orgs/{org}/hooks/{hook_id}/deliveries",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List deliveries for an organization webhook",
+      "operationId": "orgs/list-webhook-deliveries"
+    },
+    {
+      "path": "/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get a webhook delivery for an organization webhook",
+      "operationId": "orgs/get-webhook-delivery"
+    },
+    {
+      "path": "/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts",
+      "method": "POST",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Redeliver a delivery for an organization webhook",
+      "operationId": "orgs/redeliver-webhook-delivery"
+    },
+    {
+      "path": "/orgs/{org}/hooks/{hook_id}/pings",
+      "method": "POST",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Ping an organization webhook",
+      "operationId": "orgs/ping-webhook"
+    },
+    {
+      "path": "/orgs/{org}/insights/api/route-stats/{actor_type}/{actor_id}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get route stats by actor",
+      "operationId": "api-insights/get-route-stats-by-actor"
+    },
+    {
+      "path": "/orgs/{org}/insights/api/subject-stats",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get subject stats",
+      "operationId": "api-insights/get-subject-stats"
+    },
+    {
+      "path": "/orgs/{org}/insights/api/summary-stats",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get summary stats",
+      "operationId": "api-insights/get-summary-stats"
+    },
+    {
+      "path": "/orgs/{org}/insights/api/summary-stats/users/{user_id}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get summary stats by user",
+      "operationId": "api-insights/get-summary-stats-by-user"
+    },
+    {
+      "path": "/orgs/{org}/insights/api/summary-stats/{actor_type}/{actor_id}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get summary stats by actor",
+      "operationId": "api-insights/get-summary-stats-by-actor"
+    },
+    {
+      "path": "/orgs/{org}/insights/api/time-stats",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get time stats",
+      "operationId": "api-insights/get-time-stats"
+    },
+    {
+      "path": "/orgs/{org}/insights/api/time-stats/users/{user_id}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get time stats by user",
+      "operationId": "api-insights/get-time-stats-by-user"
+    },
+    {
+      "path": "/orgs/{org}/insights/api/time-stats/{actor_type}/{actor_id}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get time stats by actor",
+      "operationId": "api-insights/get-time-stats-by-actor"
+    },
+    {
+      "path": "/orgs/{org}/insights/api/user-stats/{user_id}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get user stats",
+      "operationId": "api-insights/get-user-stats"
+    },
+    {
+      "path": "/orgs/{org}/installations",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List app installations for an organization",
+      "operationId": "orgs/list-app-installations"
+    },
+    {
+      "path": "/orgs/{org}/invitations",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List pending organization invitations",
+      "operationId": "orgs/list-pending-invitations"
+    },
+    {
+      "path": "/orgs/{org}/invitations",
+      "method": "POST",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Create an organization invitation",
+      "operationId": "orgs/create-invitation"
+    },
+    {
+      "path": "/orgs/{org}/invitations/{invitation_id}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Cancel an organization invitation",
+      "operationId": "orgs/cancel-invitation"
+    },
+    {
+      "path": "/orgs/{org}/invitations/{invitation_id}/teams",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List organization invitation teams",
+      "operationId": "orgs/list-invitation-teams"
+    },
+    {
+      "path": "/orgs/{org}/issue-types",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List issue types for an organization",
+      "operationId": "orgs/list-issue-types"
+    },
+    {
+      "path": "/orgs/{org}/issue-types",
+      "method": "POST",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Create issue type for an organization",
+      "operationId": "orgs/create-issue-type"
+    },
+    {
+      "path": "/orgs/{org}/issue-types/{issue_type_id}",
+      "method": "PUT",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Update issue type for an organization",
+      "operationId": "orgs/update-issue-type"
+    },
+    {
+      "path": "/orgs/{org}/issue-types/{issue_type_id}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Delete issue type for an organization",
+      "operationId": "orgs/delete-issue-type"
+    },
+    {
+      "path": "/orgs/{org}/members",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List organization members",
+      "operationId": "orgs/list-members"
+    },
+    {
+      "path": "/orgs/{org}/members/{username}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Check organization membership for a user",
+      "operationId": "orgs/check-membership-for-user"
+    },
+    {
+      "path": "/orgs/{org}/members/{username}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Remove an organization member",
+      "operationId": "orgs/remove-member"
+    },
+    {
+      "path": "/orgs/{org}/memberships/{username}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get organization membership for a user",
+      "operationId": "orgs/get-membership-for-user"
+    },
+    {
+      "path": "/orgs/{org}/memberships/{username}",
+      "method": "PUT",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Set organization membership for a user",
+      "operationId": "orgs/set-membership-for-user"
+    },
+    {
+      "path": "/orgs/{org}/memberships/{username}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Remove organization membership for a user",
+      "operationId": "orgs/remove-membership-for-user"
+    },
+    {
+      "path": "/orgs/{org}/organization-roles",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get all organization roles for an organization",
+      "operationId": "orgs/list-org-roles"
+    },
+    {
+      "path": "/orgs/{org}/organization-roles/teams/{team_slug}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Remove all organization roles for a team",
+      "operationId": "orgs/revoke-all-org-roles-team"
+    },
+    {
+      "path": "/orgs/{org}/organization-roles/teams/{team_slug}/{role_id}",
+      "method": "PUT",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Assign an organization role to a team",
+      "operationId": "orgs/assign-team-to-org-role"
+    },
+    {
+      "path": "/orgs/{org}/organization-roles/teams/{team_slug}/{role_id}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Remove an organization role from a team",
+      "operationId": "orgs/revoke-org-role-team"
+    },
+    {
+      "path": "/orgs/{org}/organization-roles/users/{username}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Remove all organization roles for a user",
+      "operationId": "orgs/revoke-all-org-roles-user"
+    },
+    {
+      "path": "/orgs/{org}/organization-roles/users/{username}/{role_id}",
+      "method": "PUT",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Assign an organization role to a user",
+      "operationId": "orgs/assign-user-to-org-role"
+    },
+    {
+      "path": "/orgs/{org}/organization-roles/users/{username}/{role_id}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Remove an organization role from a user",
+      "operationId": "orgs/revoke-org-role-user"
+    },
+    {
+      "path": "/orgs/{org}/organization-roles/{role_id}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get an organization role",
+      "operationId": "orgs/get-org-role"
+    },
+    {
+      "path": "/orgs/{org}/organization-roles/{role_id}/teams",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List teams that are assigned to an organization role",
+      "operationId": "orgs/list-org-role-teams"
+    },
+    {
+      "path": "/orgs/{org}/organization-roles/{role_id}/users",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List users that are assigned to an organization role",
+      "operationId": "orgs/list-org-role-users"
+    },
+    {
+      "path": "/orgs/{org}/outside_collaborators",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List outside collaborators for an organization",
+      "operationId": "orgs/list-outside-collaborators"
+    },
+    {
+      "path": "/orgs/{org}/outside_collaborators/{username}",
+      "method": "PUT",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Convert an organization member to outside collaborator",
+      "operationId": "orgs/convert-member-to-outside-collaborator"
+    },
+    {
+      "path": "/orgs/{org}/outside_collaborators/{username}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Remove outside collaborator from an organization",
+      "operationId": "orgs/remove-outside-collaborator"
+    },
+    {
+      "path": "/orgs/{org}/personal-access-token-requests",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List requests to access organization resources with fine-grained personal access tokens",
+      "operationId": "orgs/list-pat-grant-requests"
+    },
+    {
+      "path": "/orgs/{org}/personal-access-token-requests",
+      "method": "POST",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Review requests to access organization resources with fine-grained personal access tokens",
+      "operationId": "orgs/review-pat-grant-requests-in-bulk"
+    },
+    {
+      "path": "/orgs/{org}/personal-access-token-requests/{pat_request_id}",
+      "method": "POST",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Review a request to access organization resources with a fine-grained personal access token",
+      "operationId": "orgs/review-pat-grant-request"
+    },
+    {
+      "path": "/orgs/{org}/personal-access-token-requests/{pat_request_id}/repositories",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List repositories requested to be accessed by a fine-grained personal access token",
+      "operationId": "orgs/list-pat-grant-request-repositories"
+    },
+    {
+      "path": "/orgs/{org}/personal-access-tokens",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List fine-grained personal access tokens with access to organization resources",
+      "operationId": "orgs/list-pat-grants"
+    },
+    {
+      "path": "/orgs/{org}/personal-access-tokens",
+      "method": "POST",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Update the access to organization resources via fine-grained personal access tokens",
+      "operationId": "orgs/update-pat-accesses"
+    },
+    {
+      "path": "/orgs/{org}/personal-access-tokens/{pat_id}",
+      "method": "POST",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Update the access a fine-grained personal access token has to organization resources",
+      "operationId": "orgs/update-pat-access"
+    },
+    {
+      "path": "/orgs/{org}/personal-access-tokens/{pat_id}/repositories",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List repositories a fine-grained personal access token has access to",
+      "operationId": "orgs/list-pat-grant-repositories"
+    },
+    {
+      "path": "/orgs/{org}/properties/schema",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get all custom properties for an organization",
+      "operationId": "orgs/custom-properties-for-repos-get-organization-definitions"
+    },
+    {
+      "path": "/orgs/{org}/properties/schema",
+      "method": "PATCH",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Create or update custom properties for an organization",
+      "operationId": "orgs/custom-properties-for-repos-create-or-update-organization-definitions"
+    },
+    {
+      "path": "/orgs/{org}/properties/schema/{custom_property_name}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get a custom property for an organization",
+      "operationId": "orgs/custom-properties-for-repos-get-organization-definition"
+    },
+    {
+      "path": "/orgs/{org}/properties/schema/{custom_property_name}",
+      "method": "PUT",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Create or update a custom property for an organization",
+      "operationId": "orgs/custom-properties-for-repos-create-or-update-organization-definition"
+    },
+    {
+      "path": "/orgs/{org}/properties/schema/{custom_property_name}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Remove a custom property for an organization",
+      "operationId": "orgs/custom-properties-for-repos-delete-organization-definition"
+    },
+    {
+      "path": "/orgs/{org}/properties/values",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List custom property values for organization repositories",
+      "operationId": "orgs/custom-properties-for-repos-get-organization-values"
+    },
+    {
+      "path": "/orgs/{org}/properties/values",
+      "method": "PATCH",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Create or update custom property values for organization repositories",
+      "operationId": "orgs/custom-properties-for-repos-create-or-update-organization-values"
+    },
+    {
+      "path": "/orgs/{org}/public_members",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List public organization members",
+      "operationId": "orgs/list-public-members"
+    },
+    {
+      "path": "/orgs/{org}/public_members/{username}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Check public organization membership for a user",
+      "operationId": "orgs/check-public-membership-for-user"
+    },
+    {
+      "path": "/orgs/{org}/public_members/{username}",
+      "method": "PUT",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Set public organization membership for the authenticated user",
+      "operationId": "orgs/set-public-membership-for-authenticated-user"
+    },
+    {
+      "path": "/orgs/{org}/public_members/{username}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Remove public organization membership for the authenticated user",
+      "operationId": "orgs/remove-public-membership-for-authenticated-user"
+    },
+    {
+      "path": "/orgs/{org}/rulesets/{ruleset_id}/history",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get organization ruleset history",
+      "operationId": "orgs/get-org-ruleset-history"
+    },
+    {
+      "path": "/orgs/{org}/rulesets/{ruleset_id}/history/{version_id}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get organization ruleset version",
+      "operationId": "orgs/get-org-ruleset-version"
+    },
+    {
+      "path": "/orgs/{org}/security-managers",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List security manager teams",
+      "operationId": "orgs/list-security-manager-teams"
+    },
+    {
+      "path": "/orgs/{org}/security-managers/teams/{team_slug}",
+      "method": "PUT",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Add a security manager team",
+      "operationId": "orgs/add-security-manager-team"
+    },
+    {
+      "path": "/orgs/{org}/security-managers/teams/{team_slug}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Remove a security manager team",
+      "operationId": "orgs/remove-security-manager-team"
+    },
+    {
+      "path": "/orgs/{org}/settings/immutable-releases",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get immutable releases settings for an organization",
+      "operationId": "orgs/get-immutable-releases-settings"
+    },
+    {
+      "path": "/orgs/{org}/settings/immutable-releases",
+      "method": "PUT",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Set immutable releases settings for an organization",
+      "operationId": "orgs/set-immutable-releases-settings"
+    },
+    {
+      "path": "/orgs/{org}/settings/immutable-releases/repositories",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List selected repositories for immutable releases enforcement",
+      "operationId": "orgs/get-immutable-releases-settings-repositories"
+    },
+    {
+      "path": "/orgs/{org}/settings/immutable-releases/repositories",
+      "method": "PUT",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Set selected repositories for immutable releases enforcement",
+      "operationId": "orgs/set-immutable-releases-settings-repositories"
+    },
+    {
+      "path": "/orgs/{org}/settings/immutable-releases/repositories/{repository_id}",
+      "method": "PUT",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Enable a selected repository for immutable releases in an organization",
+      "operationId": "orgs/enable-selected-repository-immutable-releases-organization"
+    },
+    {
+      "path": "/orgs/{org}/settings/immutable-releases/repositories/{repository_id}",
+      "method": "DELETE",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Disable a selected repository for immutable releases in an organization",
+      "operationId": "orgs/disable-selected-repository-immutable-releases-organization"
+    },
+    {
+      "path": "/orgs/{org}/{security_product}/{enablement}",
+      "method": "POST",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Enable or disable a security feature for an organization",
+      "operationId": "orgs/enable-or-disable-security-product-on-all-org-repos"
+    },
+    {
+      "path": "/user/memberships/orgs",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List organization memberships for the authenticated user",
+      "operationId": "orgs/list-memberships-for-authenticated-user"
+    },
+    {
+      "path": "/user/memberships/orgs/{org}",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Get an organization membership for the authenticated user",
+      "operationId": "orgs/get-membership-for-authenticated-user"
+    },
+    {
+      "path": "/user/memberships/orgs/{org}",
+      "method": "PATCH",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "Update an organization membership for the authenticated user",
+      "operationId": "orgs/update-membership-for-authenticated-user"
+    },
+    {
+      "path": "/user/orgs",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List organizations for the authenticated user",
+      "operationId": "orgs/list-for-authenticated-user"
+    },
+    {
+      "path": "/users/{username}/orgs",
+      "method": "GET",
+      "tags": [
+        "orgs"
+      ],
+      "summary": "List organizations for a user",
+      "operationId": "orgs/list-for-user"
+    }
+  ]
+}

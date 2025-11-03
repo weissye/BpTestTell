@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/atlassian-connect/1/migration/field",
+      "method": "PUT",
+      "operationId": "AppIssueFieldValueUpdateResource.updateIssueFields_put",
+      "summary": "",
+      "user": "User A is a project manager who needs to update the issue fields for a specific project in Jira. They want to ensure that all relevant fields are correctly populated to reflect the current status of the project.",
+      "ideal": "The request should successfully update the specified issue fields in the Jira project, returning a confirmation of the updated fields."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/migration/properties/{entityType}",
+      "method": "PUT",
+      "operationId": "MigrationResource.updateEntityPropertiesValue_put",
+      "summary": "",
+      "user": "User B is a developer working on migrating project data to a new system. They need to update properties for various entities to ensure compatibility with the new platform.",
+      "ideal": "The request should update the properties for the specified entity type, returning a success message along with the updated properties."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/migration/workflow/rule/search",
+      "method": "POST",
+      "operationId": "MigrationResource.workflowRuleSearch_post",
+      "summary": "",
+      "user": "User C is a business analyst who needs to search for existing workflow rules in Jira to analyze their effectiveness before migrating to a new workflow system.",
+      "ideal": "The request should return a list of workflow rules that match the search criteria, including details about each rule for further analysis."
+    }
+  ]
+}

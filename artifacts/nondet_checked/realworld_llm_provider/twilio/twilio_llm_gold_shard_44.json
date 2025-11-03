@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Mobile.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberMobile",
+      "summary": "",
+      "user": "User wants to find available mobile phone numbers in the US for their Twilio account.",
+      "ideal": "Returns a list of available mobile phone numbers in the specified country."
+    }
+  ]
+}

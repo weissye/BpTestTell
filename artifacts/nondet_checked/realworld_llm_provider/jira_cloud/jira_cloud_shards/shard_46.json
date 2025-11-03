@@ -1,0 +1,99 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+      "method": "DELETE",
+      "tags": [
+        "Issue worklogs"
+      ],
+      "summary": "Bulk delete worklogs",
+      "operationId": "bulkDeleteWorklogs"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+      "method": "GET",
+      "tags": [
+        "Issue worklogs"
+      ],
+      "summary": "Get issue worklogs",
+      "operationId": "getIssueWorklog"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog",
+      "method": "POST",
+      "tags": [
+        "Issue worklogs"
+      ],
+      "summary": "Add worklog",
+      "operationId": "addWorklog"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/move",
+      "method": "POST",
+      "tags": [
+        "Issue worklogs"
+      ],
+      "summary": "Bulk move worklogs",
+      "operationId": "bulkMoveWorklogs"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Issue worklogs"
+      ],
+      "summary": "Delete worklog",
+      "operationId": "deleteWorklog"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/{id}",
+      "method": "GET",
+      "tags": [
+        "Issue worklogs"
+      ],
+      "summary": "Get worklog",
+      "operationId": "getWorklog"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/{id}",
+      "method": "PUT",
+      "tags": [
+        "Issue worklogs"
+      ],
+      "summary": "Update worklog",
+      "operationId": "updateWorklog"
+    },
+    {
+      "path": "/rest/api/3/worklog/deleted",
+      "method": "GET",
+      "tags": [
+        "Issue worklogs"
+      ],
+      "summary": "Get IDs of deleted worklogs",
+      "operationId": "getIdsOfWorklogsDeletedSince"
+    },
+    {
+      "path": "/rest/api/3/worklog/list",
+      "method": "POST",
+      "tags": [
+        "Issue worklogs"
+      ],
+      "summary": "Get worklogs",
+      "operationId": "getWorklogsForIds"
+    },
+    {
+      "path": "/rest/api/3/worklog/updated",
+      "method": "GET",
+      "tags": [
+        "Issue worklogs"
+      ],
+      "summary": "Get IDs of updated worklogs",
+      "operationId": "getIdsOfWorklogsModifiedSince"
+    }
+  ]
+}

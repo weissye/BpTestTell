@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401AuthRegistrationsCredentialListMapping"
+      ],
+      "summary": "Create a new credential list mapping resource",
+      "operationId": "CreateSipAuthRegistrationsCredentialListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401AuthRegistrationsCredentialListMapping"
+      ],
+      "summary": "Retrieve a list of credential list mappings belonging to the domain used in the request",
+      "operationId": "ListSipAuthRegistrationsCredentialListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401AuthRegistrationsCredentialListMapping"
+      ],
+      "summary": "Fetch a specific instance of a credential list mapping",
+      "operationId": "FetchSipAuthRegistrationsCredentialListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401AuthRegistrationsCredentialListMapping"
+      ],
+      "summary": "Delete a credential list mapping from the requested domain",
+      "operationId": "DeleteSipAuthRegistrationsCredentialListMapping"
+    }
+  ]
+}

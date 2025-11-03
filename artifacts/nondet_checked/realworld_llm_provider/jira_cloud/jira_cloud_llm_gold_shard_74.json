@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/screenscheme",
+      "method": "GET",
+      "operationId": "getScreenSchemes",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all screen schemes to understand how screens are organized in the Jira projects.",
+      "ideal": "The response should return a list of all screen schemes with their IDs, names, and descriptions."
+    },
+    {
+      "path": "/rest/api/3/screenscheme",
+      "method": "POST",
+      "operationId": "createScreenScheme",
+      "summary": "",
+      "user": "As a Jira administrator, I want to create a new screen scheme to customize the issue view for my team.",
+      "ideal": "The response should confirm the creation of the screen scheme and return the new screen scheme ID and details."
+    },
+    {
+      "path": "/rest/api/3/screenscheme/{screenSchemeId}",
+      "method": "DELETE",
+      "operationId": "deleteScreenScheme",
+      "summary": "",
+      "user": "As a Jira administrator, I want to delete an obsolete screen scheme to keep the system organized.",
+      "ideal": "The response should confirm the successful deletion of the screen scheme."
+    },
+    {
+      "path": "/rest/api/3/screenscheme/{screenSchemeId}",
+      "method": "PUT",
+      "operationId": "updateScreenScheme",
+      "summary": "",
+      "user": "As a project lead, I want to update an existing screen scheme to reflect changes in our project workflow.",
+      "ideal": "The response should confirm the update and return the updated screen scheme details."
+    }
+  ]
+}

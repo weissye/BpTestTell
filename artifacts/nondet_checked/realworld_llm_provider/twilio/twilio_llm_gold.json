@@ -1,0 +1,1580 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts.json",
+      "method": "POST",
+      "operationId": "CreateAccount",
+      "summary": "",
+      "user": "A user wants to create a new Twilio account to start sending SMS messages. They provide their email, password, and account type as part of the request.",
+      "ideal": "The account is created successfully, and the response includes the account SID and other relevant details."
+    },
+    {
+      "path": "/2010-04-01/Accounts.json",
+      "method": "GET",
+      "operationId": "ListAccount",
+      "summary": "",
+      "user": "An admin user needs to retrieve a list of all Twilio accounts associated with their organization for management purposes.",
+      "ideal": "The response returns a list of accounts with their SIDs, friendly names, and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchAccount",
+      "summary": "",
+      "user": "A user wants to fetch the details of a specific Twilio account using its SID to check its current status and settings.",
+      "ideal": "The response includes detailed information about the account, such as its SID, friendly name, and balance."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateAccount",
+      "summary": "",
+      "user": "A user needs to update their Twilio account's friendly name and status to reflect recent changes in their business operations.",
+      "ideal": "The account is updated successfully, and the response confirms the changes with the updated account details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchRecordingAddOnResult",
+      "summary": "",
+      "user": "User wants to retrieve the add-on results for a specific recording identified by ReferenceSid and Sid.",
+      "ideal": "The response should include detailed information about the add-on results for the specified recording."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteRecordingAddOnResult",
+      "summary": "",
+      "user": "User intends to delete a specific add-on result associated with a recording using ReferenceSid and Sid.",
+      "ideal": "The response should confirm the successful deletion of the add-on result."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json",
+      "method": "GET",
+      "operationId": "ListRecordingAddOnResult",
+      "summary": "",
+      "user": "User is looking to list all add-on results for a particular recording identified by ReferenceSid.",
+      "ideal": "The response should provide a list of all add-on results related to the specified recording."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "method": "POST",
+      "operationId": "CreateAddress",
+      "summary": "",
+      "user": "A user wants to create a new address for their Twilio account to manage their communication services more effectively.",
+      "ideal": "The user sends a POST request with the necessary address details, including street, city, state, and postal code."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "method": "GET",
+      "operationId": "ListAddress",
+      "summary": "",
+      "user": "A user needs to retrieve a list of all addresses associated with their Twilio account for record-keeping and management.",
+      "ideal": "The user sends a GET request to fetch all addresses, receiving a list in response."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteAddress",
+      "summary": "",
+      "user": "A user wants to remove an outdated address from their Twilio account to keep their address book current.",
+      "ideal": "The user sends a DELETE request with the specific address SID to remove it from their account."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchAddress",
+      "summary": "",
+      "user": "A user needs to fetch the details of a specific address to verify its accuracy before using it in communications.",
+      "ideal": "The user sends a GET request with the address SID to retrieve its details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateAddress",
+      "summary": "",
+      "user": "A user wants to update an existing address with new information to ensure their records are up-to-date.",
+      "ideal": "The user sends a POST request with the updated address details and the address SID to modify the existing entry."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordAllTime",
+      "summary": "",
+      "user": "User wants to retrieve all-time usage records for their Twilio account to analyze their communication costs and usage patterns over time.",
+      "ideal": "Returns a list of all-time usage records for the specified account, including details such as the type of usage, the amount used, and the cost associated with each usage type."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Applications.json",
+      "method": "POST",
+      "operationId": "CreateApplication",
+      "summary": "",
+      "user": "User wants to create a new Twilio application to handle incoming calls and SMS messages.",
+      "ideal": "The application is created successfully with a unique SID and the response includes the application details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Applications.json",
+      "method": "GET",
+      "operationId": "ListApplication",
+      "summary": "",
+      "user": "User needs to retrieve a list of all applications associated with their Twilio account to manage them effectively.",
+      "ideal": "The response contains a list of applications with their SIDs and configuration details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteApplication",
+      "summary": "",
+      "user": "User wants to delete an outdated Twilio application that is no longer in use.",
+      "ideal": "The application is deleted successfully, and the response confirms the deletion."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchApplication",
+      "summary": "",
+      "user": "User needs to fetch details of a specific Twilio application to review its settings.",
+      "ideal": "The response includes all details of the specified application, including its SID and configuration."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateApplication",
+      "summary": "",
+      "user": "User wants to update the configuration of an existing Twilio application to change its webhook URL.",
+      "ideal": "The application is updated successfully, and the response includes the updated application details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/ADXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchIncomingPhoneNumberAssignedAddOn",
+      "summary": "",
+      "user": "User requests details of a specific assigned add-on for their incoming phone number.",
+      "ideal": "Returns the details of the assigned add-on including its configuration and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/ADXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteIncomingPhoneNumberAssignedAddOn",
+      "summary": "",
+      "user": "User wants to remove an assigned add-on from their incoming phone number.",
+      "ideal": "Confirms the successful deletion of the assigned add-on."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumberAssignedAddOn",
+      "summary": "",
+      "user": "User needs to see all assigned add-ons for their incoming phone number.",
+      "ideal": "Returns a list of all assigned add-ons with their details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns.json",
+      "method": "POST",
+      "operationId": "CreateIncomingPhoneNumberAssignedAddOn",
+      "summary": "",
+      "user": "User wants to assign a new add-on to their incoming phone number.",
+      "ideal": "Returns confirmation of the newly assigned add-on with its configuration."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/AddonSid/Extensions/ExtSid.json",
+      "method": "GET",
+      "operationId": "FetchIncomingPhoneNumberAssignedAddOnExtension",
+      "summary": "",
+      "user": "User requested details for a specific extension associated with an assigned add-on for their Twilio phone number.",
+      "ideal": "Successfully retrieved the extension details, including its SID, friendly name, and configuration."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/AddonSid/Extensions.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumberAssignedAddOnExtension",
+      "summary": "",
+      "user": "User wants to list all extensions for a specific assigned add-on linked to their Twilio phone number.",
+      "ideal": "Successfully retrieved a list of all extensions, including their SIDs and friendly names, for the specified add-on."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/DXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings.json",
+      "method": "POST",
+      "operationId": "CreateSipAuthCallsCredentialListMapping",
+      "summary": "",
+      "user": "User wants to create a new mapping for SIP authentication calls using a specific Credential List.",
+      "ideal": "Successfully creates a new Credential List mapping for SIP authentication calls."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/DXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings.json",
+      "method": "GET",
+      "operationId": "ListSipAuthCallsCredentialListMapping",
+      "summary": "",
+      "user": "User needs to retrieve all existing Credential List mappings for SIP authentication calls.",
+      "ideal": "Returns a list of all Credential List mappings for the specified SIP domain."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/DXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings/CLXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchSipAuthCallsCredentialListMapping",
+      "summary": "",
+      "user": "User wants to fetch details of a specific Credential List mapping by its SID.",
+      "ideal": "Returns the details of the specified Credential List mapping."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/DXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings/CLXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipAuthCallsCredentialListMapping",
+      "summary": "",
+      "user": "User intends to delete a specific Credential List mapping that is no longer needed.",
+      "ideal": "Successfully deletes the specified Credential List mapping."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/DXXXXXXXXXXXXXXXXXX/Auth/Calls/IpAccessControlListMappings.json",
+      "method": "POST",
+      "operationId": "CreateSipAuthCallsIpAccessControlListMapping",
+      "summary": "",
+      "user": "User wants to create a new IP Access Control List mapping for SIP calls to enhance security.",
+      "ideal": "Successfully created a new IP Access Control List mapping."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/DXXXXXXXXXXXXXXXXXX/Auth/Calls/IpAccessControlListMappings.json",
+      "method": "GET",
+      "operationId": "ListSipAuthCallsIpAccessControlListMapping",
+      "summary": "",
+      "user": "User wants to retrieve all IP Access Control List mappings for a specific SIP domain to review current configurations.",
+      "ideal": "List of all IP Access Control List mappings returned successfully."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/DXXXXXXXXXXXXXXXXXX/Auth/Calls/IpAccessControlListMappings/ALXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchSipAuthCallsIpAccessControlListMapping",
+      "summary": "",
+      "user": "User wants to fetch details of a specific IP Access Control List mapping to verify its settings.",
+      "ideal": "Details of the specified IP Access Control List mapping returned successfully."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/DXXXXXXXXXXXXXXXXXX/Auth/Calls/IpAccessControlListMappings/ALXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipAuthCallsIpAccessControlListMapping",
+      "summary": "",
+      "user": "User wants to delete an existing IP Access Control List mapping that is no longer needed.",
+      "ideal": "Successfully deleted the specified IP Access Control List mapping."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Registrations/CredentialListMappings.json",
+      "method": "POST",
+      "operationId": "CreateSipAuthRegistrationsCredentialListMapping",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Successfully creates a new Credential List Mapping for SIP Auth Registrations."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Registrations/CredentialListMappings.json",
+      "method": "GET",
+      "operationId": "ListSipAuthRegistrationsCredentialListMapping",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Retrieves a list of all Credential List Mappings for the specified SIP Domain."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Registrations/CredentialListMappings/CLXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchSipAuthRegistrationsCredentialListMapping",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Fetches details of a specific Credential List Mapping by its SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Registrations/CredentialListMappings/CLXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipAuthRegistrationsCredentialListMapping",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Successfully deletes the specified Credential List Mapping from the SIP Domain."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json",
+      "method": "GET",
+      "operationId": "FetchAuthorizedConnectApp",
+      "summary": "",
+      "user": "As a developer, I want to retrieve details of a specific authorized connect app using its ConnectAppSid so that I can manage its settings and permissions.",
+      "ideal": "The response should include the details of the authorized connect app, such as its name, description, and permissions granted."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json",
+      "method": "GET",
+      "operationId": "ListAuthorizedConnectApp",
+      "summary": "",
+      "user": "As a system administrator, I need to list all authorized connect apps associated with my Twilio account to review their access and ensure compliance with our security policies.",
+      "ideal": "The response should return a list of all authorized connect apps, including their names, ConnectAppSids, and the permissions they have."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberCountry",
+      "summary": "",
+      "user": "A user wants to retrieve a list of available phone numbers across different countries for their Twilio account. They provide their Account SID and expect a JSON response containing the available phone numbers.",
+      "ideal": "The API should return a list of available phone numbers, including details such as the phone number, country, and type of number (local, toll-free, etc.)."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json",
+      "method": "GET",
+      "operationId": "FetchAvailablePhoneNumberCountry",
+      "summary": "",
+      "user": "A user needs to fetch available phone numbers specifically for a given country code (e.g., 'US'). They provide their Account SID and the country code to get a filtered list of available numbers.",
+      "ideal": "The API should return a list of available phone numbers for the specified country, including relevant details such as area codes and number types."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Balance.json",
+      "method": "GET",
+      "operationId": "FetchBalance",
+      "summary": "",
+      "user": "User wants to check the current balance of their Twilio account to ensure they have enough funds for upcoming SMS campaigns.",
+      "ideal": "The API should return the current balance in a JSON format, including the amount available and the currency."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "method": "POST",
+      "operationId": "CreateCall",
+      "summary": "",
+      "user": "A user wants to initiate a new call using Twilio's API. They provide the necessary parameters such as the 'to' number, 'from' number, and any additional options like 'url' for TwiML instructions.",
+      "ideal": "The API should successfully create a call and return a response containing the call SID and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "method": "GET",
+      "operationId": "ListCall",
+      "summary": "",
+      "user": "A user needs to retrieve a list of all calls made from their Twilio account. They want to see details like call duration, status, and timestamps.",
+      "ideal": "The API should return a paginated list of calls with relevant details for each call."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteCall",
+      "summary": "",
+      "user": "A user wants to delete a specific call from their Twilio account using the call SID. They want to ensure that the call is removed and will not be billed.",
+      "ideal": "The API should confirm the deletion of the call and return a success message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchCall",
+      "summary": "",
+      "user": "A user needs to fetch details about a specific call by its SID. They want to know the call's status, duration, and any other relevant information.",
+      "ideal": "The API should return the details of the specified call, including its current status and metadata."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateCall",
+      "summary": "",
+      "user": "A user wants to update the status of an ongoing call using its SID. They may want to change the status to 'completed' or 'busy'.",
+      "ideal": "The API should successfully update the call's status and return the updated call information."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchCallNotification",
+      "summary": "",
+      "user": "User wants to retrieve a specific notification related to a call identified by CallSid and Sid for their account.",
+      "ideal": "The API should return the details of the notification, including its status, timestamp, and any relevant message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json",
+      "method": "GET",
+      "operationId": "ListCallNotification",
+      "summary": "",
+      "user": "User needs to list all notifications for a specific call identified by CallSid under their account.",
+      "ideal": "The API should return a list of notifications associated with the call, including each notification's Sid, status, and timestamp."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "method": "POST",
+      "operationId": "CreateCallRecording",
+      "summary": "",
+      "user": "User wants to create a new recording for a specific call using the Twilio API.",
+      "ideal": "Successfully creates a new call recording and returns the recording details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "method": "GET",
+      "operationId": "ListCallRecording",
+      "summary": "",
+      "user": "User needs to retrieve all recordings associated with a specific call to review them.",
+      "ideal": "Returns a list of all recordings for the specified call."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateCallRecording",
+      "summary": "",
+      "user": "User wants to update the metadata of a specific recording to include additional notes.",
+      "ideal": "Successfully updates the recording metadata and returns the updated recording details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchCallRecording",
+      "summary": "",
+      "user": "User needs to fetch details of a specific recording to analyze its content.",
+      "ideal": "Returns the details of the specified recording."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteCallRecording",
+      "summary": "",
+      "user": "User wants to delete a specific recording that is no longer needed.",
+      "ideal": "Successfully deletes the specified recording and confirms the deletion."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json",
+      "method": "POST",
+      "operationId": "CreateRealtimeTranscription",
+      "summary": "",
+      "user": "A user wants to create a transcription for a specific call using Twilio's API. They have the Account SID and Call SID ready and want to send a request to start the transcription process.",
+      "ideal": "The API should return a success response with the details of the created transcription, including the SID of the transcription."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateRealtimeTranscription",
+      "summary": "",
+      "user": "A user needs to update an existing transcription for a call. They have the Account SID, Call SID, and the transcription SID. They want to modify the transcription settings or content.",
+      "ideal": "The API should return a success response confirming the update of the transcription, along with the updated details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchConference",
+      "summary": "",
+      "user": "user_12345",
+      "ideal": "Retrieve details of a specific conference using the Account SID and Conference SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateConference",
+      "summary": "",
+      "user": "user_67890",
+      "ideal": "Update the properties of a specific conference identified by Account SID and Conference SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences.json",
+      "method": "GET",
+      "operationId": "ListConference",
+      "summary": "",
+      "user": "user_54321",
+      "ideal": "List all conferences associated with a specific Account SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json",
+      "method": "GET",
+      "operationId": "ListConferenceRecording",
+      "summary": "",
+      "user": "User wants to retrieve a list of all recordings associated with a specific conference to review the content and manage the recordings effectively.",
+      "ideal": "The response should include a JSON array of recordings with details such as SID, duration, and date created."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateConferenceRecording",
+      "summary": "",
+      "user": "User needs to update the metadata of a specific recording, such as its status or tags, to keep the recordings organized and relevant.",
+      "ideal": "The response should confirm the update and return the updated recording details in JSON format."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchConferenceRecording",
+      "summary": "",
+      "user": "User wants to fetch details of a specific recording to check its content and duration for compliance and quality assurance.",
+      "ideal": "The response should provide detailed information about the recording, including its SID, duration, and URL for playback."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteConferenceRecording",
+      "summary": "",
+      "user": "User intends to delete a specific recording that is no longer needed to free up storage space and maintain organization.",
+      "ideal": "The response should confirm the deletion of the recording and return a success message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps/CAXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchConnectApp",
+      "summary": "",
+      "user": "User requested details for a specific Connect App to verify its configuration and status.",
+      "ideal": "Successfully retrieved the Connect App details including its name, description, and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps/CAXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateConnectApp",
+      "summary": "",
+      "user": "User wants to update the settings of an existing Connect App to change its name and callback URL.",
+      "ideal": "Successfully updated the Connect App with the new name and callback URL."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps/CAXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteConnectApp",
+      "summary": "",
+      "user": "User intends to remove an obsolete Connect App that is no longer in use.",
+      "ideal": "Successfully deleted the Connect App and confirmed its removal."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps.json",
+      "method": "GET",
+      "operationId": "ListConnectApp",
+      "summary": "",
+      "user": "User needs to retrieve a list of all Connect Apps associated with their account for management purposes.",
+      "ideal": "Successfully retrieved a list of all Connect Apps with their respective details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials.json",
+      "method": "GET",
+      "operationId": "ListSipCredential",
+      "summary": "",
+      "user": "User requests to list all SIP credentials associated with a specific Credential List.",
+      "ideal": "Returns a list of SIP credentials in JSON format."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials.json",
+      "method": "POST",
+      "operationId": "CreateSipCredential",
+      "summary": "",
+      "user": "User wants to create a new SIP credential with a username and password.",
+      "ideal": "Creates a new SIP credential and returns the details of the created credential."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchSipCredential",
+      "summary": "",
+      "user": "User requests to fetch details of a specific SIP credential using its SID.",
+      "ideal": "Returns the details of the specified SIP credential in JSON format."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateSipCredential",
+      "summary": "",
+      "user": "User wants to update an existing SIP credential's password.",
+      "ideal": "Updates the specified SIP credential and returns the updated details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipCredential",
+      "summary": "",
+      "user": "User requests to delete a specific SIP credential by its SID.",
+      "ideal": "Deletes the specified SIP credential and confirms the deletion."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "method": "GET",
+      "operationId": "ListSipCredentialList",
+      "summary": "",
+      "user": "User wants to retrieve a list of all SIP Credential Lists associated with their Twilio account to manage their SIP configurations.",
+      "ideal": "A successful response with a JSON array of SIP Credential Lists, including details like SID, friendly name, and date created."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "method": "POST",
+      "operationId": "CreateSipCredentialList",
+      "summary": "",
+      "user": "User needs to create a new SIP Credential List to manage access for a new set of SIP endpoints.",
+      "ideal": "A successful response indicating the creation of the SIP Credential List, including the new SID and confirmation message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchSipCredentialList",
+      "summary": "",
+      "user": "User wants to fetch details of a specific SIP Credential List to review its configuration and credentials.",
+      "ideal": "A successful response with the details of the specified SIP Credential List, including its SID, friendly name, and associated credentials."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateSipCredentialList",
+      "summary": "",
+      "user": "User needs to update an existing SIP Credential List to add new credentials for additional SIP endpoints.",
+      "ideal": "A successful response confirming the update of the SIP Credential List, including the updated details and SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipCredentialList",
+      "summary": "",
+      "user": "User wants to delete a SIP Credential List that is no longer needed to clean up their account.",
+      "ideal": "A successful response confirming the deletion of the SIP Credential List, with a message indicating the operation was completed."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json",
+      "method": "POST",
+      "operationId": "CreateSipCredentialListMapping",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Create a new SIP credential list mapping for the specified domain."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json",
+      "method": "GET",
+      "operationId": "ListSipCredentialListMapping",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Retrieve a list of all SIP credential list mappings for the specified domain."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchSipCredentialListMapping",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Fetch details of a specific SIP credential list mapping using its SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipCredentialListMapping",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Delete a specific SIP credential list mapping using its SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/Daily.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordDaily",
+      "summary": "",
+      "user": "User wants to retrieve daily usage records for their Twilio account to analyze SMS and call usage trends over the past month.",
+      "ideal": "The API should return a JSON array of daily usage records, including fields such as date, SMS usage, call usage, and any other relevant metrics."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json",
+      "method": "GET",
+      "operationId": "FetchRecordingAddOnResultPayloadData",
+      "summary": "",
+      "user": "user_12345",
+      "ideal": "Retrieve the payload data for a specific add-on result associated with a recording."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Addresses/ADXXXXXXXXXXXXXXXXX/DependentPhoneNumbers.json",
+      "method": "GET",
+      "operationId": "ListDependentPhoneNumber",
+      "summary": "",
+      "user": "User wants to retrieve a list of dependent phone numbers associated with a specific address in their Twilio account. They have the Account SID and Address SID ready and are looking for a straightforward way to get this information for managing their contacts.",
+      "ideal": "Retrieve a JSON response containing an array of dependent phone numbers linked to the specified address, including details like phone number, friendly name, and SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+      "method": "GET",
+      "operationId": "ListSipDomain",
+      "summary": "",
+      "user": "As a developer, I want to retrieve a list of all SIP domains associated with my Twilio account so that I can manage them effectively.",
+      "ideal": "The response should include an array of SIP domains with their details such as SID, friendly name, and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+      "method": "POST",
+      "operationId": "CreateSipDomain",
+      "summary": "",
+      "user": "As a developer, I need to create a new SIP domain for my application to enable SIP communication through Twilio.",
+      "ideal": "The response should return the SID of the newly created SIP domain along with its configuration details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchSipDomain",
+      "summary": "",
+      "user": "As a developer, I want to fetch the details of a specific SIP domain using its SID to verify its configuration.",
+      "ideal": "The response should provide detailed information about the specified SIP domain, including its status and settings."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateSipDomain",
+      "summary": "",
+      "user": "As a developer, I need to update the settings of an existing SIP domain to change its friendly name and other configurations.",
+      "ideal": "The response should confirm the successful update and return the updated details of the SIP domain."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipDomain",
+      "summary": "",
+      "user": "As a developer, I want to delete a SIP domain that is no longer needed to keep my account organized.",
+      "ideal": "The response should confirm the deletion of the SIP domain and indicate that it has been removed successfully."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json",
+      "method": "GET",
+      "operationId": "ListCallEvent",
+      "summary": "",
+      "user": "user_12345",
+      "ideal": "Retrieve a list of events for a specific call identified by CallSid under the given AccountSid."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json",
+      "method": "POST",
+      "operationId": "CreateMessageFeedback",
+      "summary": "",
+      "user": "User123: I want to provide feedback on a message I received. The message was unsolicited and I believe it was spam. Please take this into account for future communications.",
+      "ideal": "{\"feedback\":\"spam\"}"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateIncomingPhoneNumber",
+      "summary": "",
+      "user": "User wants to update the settings of an existing incoming phone number to redirect calls to a new URL.",
+      "ideal": "Successfully updated the incoming phone number with the new settings."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchIncomingPhoneNumber",
+      "summary": "",
+      "user": "User needs to retrieve the details of a specific incoming phone number to verify its configuration.",
+      "ideal": "Returned the details of the specified incoming phone number."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteIncomingPhoneNumber",
+      "summary": "",
+      "user": "User wants to delete an incoming phone number that is no longer needed for their application.",
+      "ideal": "Successfully deleted the incoming phone number."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumber",
+      "summary": "",
+      "user": "User wants to list all incoming phone numbers associated with their account to manage them effectively.",
+      "ideal": "Returned a list of all incoming phone numbers for the account."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "method": "POST",
+      "operationId": "CreateIncomingPhoneNumber",
+      "summary": "",
+      "user": "User is looking to create a new incoming phone number for their application to handle customer calls.",
+      "ideal": "Successfully created a new incoming phone number and returned its details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumberLocal",
+      "summary": "",
+      "user": "User requests a list of local incoming phone numbers associated with their Twilio account to manage and review their phone number inventory.",
+      "ideal": "Returns a JSON array of local incoming phone numbers with details such as SID, phone number, friendly name, and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json",
+      "method": "POST",
+      "operationId": "CreateIncomingPhoneNumberLocal",
+      "summary": "",
+      "user": "User wants to purchase a new local phone number for their Twilio account to use for a new marketing campaign.",
+      "ideal": "Returns the details of the newly created local incoming phone number including its SID, phone number, and any associated metadata."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumberMobile",
+      "summary": "",
+      "user": "User wants to retrieve a list of mobile incoming phone numbers associated with their Twilio account to manage and review them.",
+      "ideal": "A successful response containing an array of mobile phone numbers with details such as SID, friendly name, and phone number."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json",
+      "method": "POST",
+      "operationId": "CreateIncomingPhoneNumberMobile",
+      "summary": "",
+      "user": "User needs to create a new mobile incoming phone number for their Twilio account to use for SMS and voice communications.",
+      "ideal": "A successful response with the details of the newly created mobile phone number, including its SID and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumberTollFree",
+      "summary": "",
+      "user": "As a Twilio account manager, I want to retrieve a list of all toll-free phone numbers associated with my account so that I can manage them effectively.",
+      "ideal": "The API should return a JSON array of toll-free phone numbers, including details such as the phone number, friendly name, and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json",
+      "method": "POST",
+      "operationId": "CreateIncomingPhoneNumberTollFree",
+      "summary": "",
+      "user": "As a developer, I need to create a new toll-free phone number for my application to handle customer inquiries, ensuring it is properly configured for SMS and voice.",
+      "ideal": "The API should accept parameters for the new toll-free number and return a JSON object with the details of the created phone number, including its SID and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json",
+      "method": "GET",
+      "operationId": "ListSipIpAccessControlList",
+      "summary": "",
+      "user": "User requests to list all SIP IP Access Control Lists associated with their Twilio account.",
+      "ideal": "Returns a list of SIP IP Access Control Lists in JSON format."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json",
+      "method": "POST",
+      "operationId": "CreateSipIpAccessControlList",
+      "summary": "",
+      "user": "User wants to create a new SIP IP Access Control List with a specific friendly name and IP addresses.",
+      "ideal": "Creates a new SIP IP Access Control List and returns its details in JSON format."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchSipIpAccessControlList",
+      "summary": "",
+      "user": "User needs to fetch details of a specific SIP IP Access Control List using its SID.",
+      "ideal": "Returns the details of the specified SIP IP Access Control List in JSON format."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateSipIpAccessControlList",
+      "summary": "",
+      "user": "User wants to update the friendly name and IP addresses of an existing SIP IP Access Control List.",
+      "ideal": "Updates the specified SIP IP Access Control List and returns the updated details in JSON format."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipIpAccessControlList",
+      "summary": "",
+      "user": "User intends to delete a specific SIP IP Access Control List that is no longer needed.",
+      "ideal": "Successfully deletes the specified SIP IP Access Control List and returns a confirmation message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "User requests to fetch a specific SIP IP Access Control List mapping using the Account SID, Domain SID, and the specific mapping SID.",
+      "ideal": "Returns the details of the specified SIP IP Access Control List mapping."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "User wants to delete a specific SIP IP Access Control List mapping identified by its SID.",
+      "ideal": "Successfully deletes the specified SIP IP Access Control List mapping and returns a confirmation."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+      "method": "POST",
+      "operationId": "CreateSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "User is creating a new SIP IP Access Control List mapping by providing necessary details such as Account SID and Domain SID.",
+      "ideal": "Creates a new SIP IP Access Control List mapping and returns the details of the created mapping."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+      "method": "GET",
+      "operationId": "ListSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "User wants to retrieve a list of all SIP IP Access Control List mappings associated with a specific Account SID and Domain SID.",
+      "ideal": "Returns a list of all SIP IP Access Control List mappings for the specified domain."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchKey",
+      "summary": "",
+      "user": "A developer wants to retrieve the details of a specific API key associated with their Twilio account to check its permissions and usage.",
+      "ideal": "The response should include the key's SID, friendly name, date created, and any associated permissions."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateKey",
+      "summary": "",
+      "user": "A developer needs to update the friendly name of an existing API key to better reflect its purpose in their application.",
+      "ideal": "The response should confirm the update and return the updated key details including the new friendly name."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteKey",
+      "summary": "",
+      "user": "A developer wants to delete an unused API key to enhance security and prevent unauthorized access to their Twilio account.",
+      "ideal": "The response should confirm the successful deletion of the key and return a success message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys.json",
+      "method": "GET",
+      "operationId": "ListKey",
+      "summary": "",
+      "user": "A developer is looking to list all API keys associated with their Twilio account to manage them effectively and identify any that are no longer needed.",
+      "ideal": "The response should include an array of keys with their respective SIDs, friendly names, and creation dates."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/LastMonth.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordLastMonth",
+      "summary": "",
+      "user": "User with Account SID ACXXXXXXXXXXXXXXXXX requests the last month's usage records to analyze their SMS and call usage for budgeting purposes.",
+      "ideal": "Returns a JSON object containing usage records for the last month, including details such as the total number of messages sent, total call minutes used, and any associated costs."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Local.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberLocal",
+      "summary": "",
+      "user": "User wants to find local phone numbers available in the US for their Twilio account with SID ACXXXXXXXXXXXXXXXXX.",
+      "ideal": "Returns a list of available local phone numbers in the specified country."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/MachineToMachine.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberMachineToMachine",
+      "summary": "",
+      "user": "User wants to find available machine-to-machine phone numbers in the US for their Twilio account.",
+      "ideal": "A list of available machine-to-machine phone numbers in the US, including details such as phone number, friendly name, and capabilities."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/MMXXXXXXXXXXXXXXXXX/Media.json",
+      "method": "GET",
+      "operationId": "ListMedia",
+      "summary": "",
+      "user": "User wants to retrieve all media associated with a specific message sent through Twilio's messaging service.",
+      "ideal": "The response should include a list of media objects with details such as content type, URL, and SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteMedia",
+      "summary": "",
+      "user": "As a developer, I want to delete a specific media attachment from a message in my Twilio account to ensure that unnecessary files are removed and storage is optimized.",
+      "ideal": "The media attachment should be successfully deleted, and a confirmation response should be returned indicating the deletion was successful."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchMedia",
+      "summary": "",
+      "user": "As a user of the Twilio API, I need to retrieve a specific media attachment associated with a message to display it in my application, ensuring that users can view the content of the media.",
+      "ideal": "The media attachment should be fetched successfully, and the response should include the media content along with its metadata."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "method": "GET",
+      "operationId": "FetchMember",
+      "summary": "",
+      "user": "A user wants to retrieve details about a specific member in a queue using their CallSid.",
+      "ideal": "The API should return the member's details including their position in the queue, status, and any other relevant information."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "method": "POST",
+      "operationId": "UpdateMember",
+      "summary": "",
+      "user": "A user needs to update the status of a member in a queue, such as changing their hold status or position.",
+      "ideal": "The API should successfully update the member's information and return the updated details confirming the changes."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json",
+      "method": "GET",
+      "operationId": "ListMember",
+      "summary": "",
+      "user": "A user wants to list all members currently in a specific queue to monitor their statuses and positions.",
+      "ideal": "The API should return a list of all members in the queue, including their CallSid, position, and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "method": "POST",
+      "operationId": "CreateMessage",
+      "summary": "",
+      "user": "User wants to send a new SMS message to a recipient using Twilio's API. They provide the necessary parameters such as 'To', 'From', and 'Body' to create the message.",
+      "ideal": "The API should return a success response with the message SID and status indicating that the message has been queued for sending."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "method": "GET",
+      "operationId": "ListMessage",
+      "summary": "",
+      "user": "User needs to retrieve a list of all messages sent from their Twilio account. They want to filter messages based on date and status to analyze their messaging activity.",
+      "ideal": "The API should return a list of messages with details such as SID, status, date sent, and recipient number."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteMessage",
+      "summary": "",
+      "user": "User wants to delete a specific SMS message from their Twilio account using the message SID. They are cleaning up their message history and want to remove unwanted messages.",
+      "ideal": "The API should return a success response confirming that the message has been deleted."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchMessage",
+      "summary": "",
+      "user": "User needs to fetch details of a specific SMS message using its SID. They want to review the message content and status for a particular transaction.",
+      "ideal": "The API should return the message details including SID, status, date sent, and content."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateMessage",
+      "summary": "",
+      "user": "User wants to update the status of a previously sent SMS message. They are changing the status to 'read' for better tracking of message interactions.",
+      "ideal": "The API should return a success response indicating that the message status has been updated."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Mobile.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberMobile",
+      "summary": "",
+      "user": "User wants to find available mobile phone numbers in the US for their Twilio account.",
+      "ideal": "Returns a list of available mobile phone numbers in the specified country."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordMonthly",
+      "summary": "",
+      "user": "User wants to retrieve monthly usage records for their Twilio account to analyze SMS and voice call usage over the past month.",
+      "ideal": "The API should return a JSON object containing an array of monthly usage records, including details such as the total number of messages sent, total call minutes used, and any associated costs."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/National.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberNational",
+      "summary": "",
+      "user": "A small business owner looking to expand their communication options by acquiring a local phone number in the United States for customer support.",
+      "ideal": "Returns a list of available national phone numbers in the US, including details such as the phone number, friendly name, and pricing information."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys.json",
+      "method": "POST",
+      "operationId": "CreateNewKey",
+      "summary": "",
+      "user": "A developer working on a messaging application that requires secure access to Twilio's API for sending SMS messages. They need to create a new API key to manage permissions for different parts of their application.",
+      "ideal": "The API should return a success response with the newly created key details, including the key SID and secret."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+      "method": "POST",
+      "operationId": "CreateNewSigningKey",
+      "summary": "",
+      "user": "User wants to create a new signing key for their Twilio account to enhance security for API requests. They have their Account SID ready and are looking to generate a new key that can be used for signing requests to Twilio services.",
+      "ideal": "The API should return a success response with the details of the newly created signing key, including the key SID and any relevant metadata."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchNotification",
+      "summary": "",
+      "user": "User wants to retrieve a specific notification using its Sid to check the status and details of a message sent via Twilio.",
+      "ideal": "The response should include the notification details such as the message, status, and date created."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Notifications.json",
+      "method": "GET",
+      "operationId": "ListNotification",
+      "summary": "",
+      "user": "User needs to list all notifications for their Twilio account to monitor message delivery and status updates.",
+      "ideal": "The response should provide a list of notifications with relevant details like Sid, message body, and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/OutgoingCallerIds/PNXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchOutgoingCallerId",
+      "summary": "",
+      "user": "User requests to fetch details of a specific outgoing caller ID using the Account SID and the Caller ID SID.",
+      "ideal": "Successful response with details of the outgoing caller ID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/OutgoingCallerIds/PNXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateOutgoingCallerId",
+      "summary": "",
+      "user": "User wants to update the friendly name of an existing outgoing caller ID for their account.",
+      "ideal": "Successful response confirming the update of the outgoing caller ID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/OutgoingCallerIds/PNXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteOutgoingCallerId",
+      "summary": "",
+      "user": "User intends to delete a specific outgoing caller ID from their account.",
+      "ideal": "Successful response indicating that the outgoing caller ID has been deleted."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/OutgoingCallerIds.json",
+      "method": "GET",
+      "operationId": "ListOutgoingCallerId",
+      "summary": "",
+      "user": "User requests to list all outgoing caller IDs associated with their Twilio account.",
+      "ideal": "Successful response with a list of all outgoing caller IDs."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchParticipant",
+      "summary": "",
+      "user": "User requested details for participant with CallSid CAXXXXXXXXXXXXXXXXX in conference CAXXXXXXXXXXXXXXXXXX.",
+      "ideal": "Retrieve participant information including status and call details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateParticipant",
+      "summary": "",
+      "user": "User wants to update the status of participant CAXXXXXXXXXXXXXXXXX in conference CAXXXXXXXXXXXXXXXXXX to 'hold'.",
+      "ideal": "Update participant's status to 'hold' successfully."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteParticipant",
+      "summary": "",
+      "user": "User needs to remove participant CAXXXXXXXXXXXXXXXXX from conference CAXXXXXXXXXXXXXXXXXX.",
+      "ideal": "Successfully delete participant from the conference."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants.json",
+      "method": "POST",
+      "operationId": "CreateParticipant",
+      "summary": "",
+      "user": "User wants to add a new participant with CallSid CAXXXXXXXXXXXXXXXXX to conference CAXXXXXXXXXXXXXXXXXX.",
+      "ideal": "Successfully create a new participant in the conference."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants.json",
+      "method": "GET",
+      "operationId": "ListParticipant",
+      "summary": "",
+      "user": "User requests a list of all participants in conference CAXXXXXXXXXXXXXXXXXX.",
+      "ideal": "Retrieve a list of all participants currently in the conference."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX/Payloads/PYXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchRecordingAddOnResultPayload",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Successfully fetch the payload for the specified Add-On result."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX/Payloads/PYXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteRecordingAddOnResultPayload",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Successfully delete the specified payload for the Add-On result."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX/Payloads.json",
+      "method": "GET",
+      "operationId": "ListRecordingAddOnResultPayload",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Successfully list all payloads for the specified Add-On result."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json",
+      "method": "POST",
+      "operationId": "CreatePayments",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Create a new payment for a specific call using the provided AccountSid and CallSid."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdatePayments",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Update an existing payment for a specific call using the provided AccountSid, CallSid, and payment Sid."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchQueue",
+      "summary": "",
+      "user": "User requests to fetch details of a specific queue using the Account SID and Queue SID.",
+      "ideal": "Returns the details of the specified queue in JSON format."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateQueue",
+      "summary": "",
+      "user": "User wants to update the properties of an existing queue, providing the necessary parameters in the request body.",
+      "ideal": "Successfully updates the queue and returns the updated queue details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteQueue",
+      "summary": "",
+      "user": "User intends to delete a specific queue identified by its SID.",
+      "ideal": "Confirms the deletion of the queue and returns a success message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "method": "GET",
+      "operationId": "ListQueue",
+      "summary": "",
+      "user": "User requests to list all queues associated with their account to manage them effectively.",
+      "ideal": "Returns a list of all queues in JSON format, including their properties."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "method": "POST",
+      "operationId": "CreateQueue",
+      "summary": "",
+      "user": "User wants to create a new queue by providing the necessary parameters such as name and max size.",
+      "ideal": "Successfully creates the new queue and returns the details of the created queue."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json",
+      "method": "GET",
+      "operationId": "ListUsageRecord",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of usage records for the specified account."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchRecording",
+      "summary": "",
+      "user": "User requests a specific recording using the Account SID and the recording SID to retrieve details such as duration, date created, and the recording URL.",
+      "ideal": "Returns the details of the specified recording in JSON format."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteRecording",
+      "summary": "",
+      "user": "User wants to delete a specific recording identified by its SID to free up storage space and manage recordings effectively.",
+      "ideal": "Confirms the deletion of the specified recording and returns a success message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings.json",
+      "method": "GET",
+      "operationId": "ListRecording",
+      "summary": "",
+      "user": "User wants to list all recordings associated with their account to review or manage them, filtering by date or other parameters if needed.",
+      "ideal": "Returns a list of recordings in JSON format, including metadata for each recording."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchRecordingTranscription",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Fetches the transcription for a specific recording using the provided AccountSid, RecordingSid, and Sid."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteRecordingTranscription",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Deletes the specified transcription for a recording identified by AccountSid, RecordingSid, and Sid."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json",
+      "method": "GET",
+      "operationId": "ListRecordingTranscription",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Lists all transcriptions for a specific recording using the provided AccountSid and RecordingSid."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/SharedCost.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberSharedCost",
+      "summary": "",
+      "user": "User wants to retrieve a list of available shared cost phone numbers in the United States for their Twilio account.",
+      "ideal": "A JSON response containing an array of available shared cost phone numbers along with their details such as phone number, friendly name, and pricing information."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchShortCode",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve details of a specific short code associated with the account."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateShortCode",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Update the configuration of a specific short code for the account."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json",
+      "method": "GET",
+      "operationId": "ListShortCode",
+      "summary": "",
+      "user": "user789",
+      "ideal": "List all short codes associated with the account."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+      "method": "GET",
+      "operationId": "ListSigningKey",
+      "summary": "",
+      "user": "User requests to list all signing keys associated with their Twilio account to manage authentication.",
+      "ideal": "Returns a list of signing keys in JSON format, including details like Sid, friendly name, and date created."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchSigningKey",
+      "summary": "",
+      "user": "User wants to fetch details of a specific signing key using its Sid to verify its properties.",
+      "ideal": "Returns the details of the specified signing key, including its Sid, friendly name, and associated account."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateSigningKey",
+      "summary": "",
+      "user": "User needs to update the friendly name of a signing key to better reflect its purpose.",
+      "ideal": "Returns the updated signing key details in JSON format, confirming the changes made."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteSigningKey",
+      "summary": "",
+      "user": "User decides to delete an unused signing key to maintain account security and organization.",
+      "ideal": "Returns a success message confirming the deletion of the signing key."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX/IpAddresses.json",
+      "method": "GET",
+      "operationId": "ListSipIpAddress",
+      "summary": "",
+      "user": "User requests to list all IP addresses associated with a specific SIP IP Access Control List.",
+      "ideal": "Returns a list of IP addresses in JSON format."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX/IpAddresses.json",
+      "method": "POST",
+      "operationId": "CreateSipIpAddress",
+      "summary": "",
+      "user": "User wants to add a new IP address to the specified SIP IP Access Control List.",
+      "ideal": "Successfully creates a new IP address entry and returns the details of the created IP address."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX/IpAddresses/ISXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchSipIpAddress",
+      "summary": "",
+      "user": "User needs to fetch details of a specific IP address using its SID.",
+      "ideal": "Returns the details of the specified IP address in JSON format."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX/IpAddresses/ISXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateSipIpAddress",
+      "summary": "",
+      "user": "User wants to update the details of an existing IP address in the SIP IP Access Control List.",
+      "ideal": "Successfully updates the IP address and returns the updated details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX/IpAddresses/ISXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipIpAddress",
+      "summary": "",
+      "user": "User intends to remove a specific IP address from the SIP IP Access Control List.",
+      "ideal": "Successfully deletes the IP address and confirms the deletion."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json",
+      "method": "POST",
+      "operationId": "CreateSiprec",
+      "summary": "",
+      "user": "User wants to initiate a SIP recording for a specific call using their Twilio account. They provide the AccountSid and CallSid to identify the call and specify any additional parameters needed for the SIP recording.",
+      "ideal": "The API should successfully create a SIP recording for the specified call and return a confirmation response with the details of the recording."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateSiprec",
+      "summary": "",
+      "user": "User needs to update the settings of an existing SIP recording for a call. They have the AccountSid, CallSid, and the Sid of the SIP recording they want to modify, along with the new settings they wish to apply.",
+      "ideal": "The API should successfully update the SIP recording with the new settings and return a response confirming the update along with the updated details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Streams.json",
+      "method": "POST",
+      "operationId": "CreateStream",
+      "summary": "",
+      "user": "User wants to create a new stream for a specific call to enable audio processing.",
+      "ideal": "{\"stream\":{\"status\":\"active\",\"url\":\"https://example.com/stream\"}}"
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Streams/SMXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateStream",
+      "summary": "",
+      "user": "User needs to update the stream settings for an ongoing call to change the audio format.",
+      "ideal": "{\"stream\":{\"status\":\"paused\",\"audio_format\":\"mp3\"}}"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordThisMonth",
+      "summary": "",
+      "user": "User wants to retrieve the usage records for the current month to analyze SMS and call usage for their Twilio account.",
+      "ideal": "The API should return a JSON object containing an array of usage records for the current month, including details such as the type of usage, the amount used, and the cost."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Today.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordToday",
+      "summary": "",
+      "user": "User requests today's usage records for their Twilio account to monitor SMS and call usage for budgeting purposes.",
+      "ideal": "Returns a JSON object containing today's usage records, including SMS, voice, and other service usage details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tokens.json",
+      "method": "POST",
+      "operationId": "CreateToken",
+      "summary": "",
+      "user": "User wants to generate a new access token for a specific account in Twilio to enable secure communication with Twilio services.",
+      "ideal": "The API should return a JSON object containing the generated token and its expiration time."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberTollFree",
+      "summary": "",
+      "user": "user_12345",
+      "ideal": "Retrieve a list of available toll-free phone numbers in the specified country."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Transcriptions/TRXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchTranscription",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Fetch the transcription details for a specific transcription SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Transcriptions/TRXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteTranscription",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Delete the specified transcription from the account."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Transcriptions.json",
+      "method": "GET",
+      "operationId": "ListTranscription",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Retrieve a list of all transcriptions associated with the account."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers/UTXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchUsageTrigger",
+      "summary": "",
+      "user": "User requested details for a specific usage trigger to monitor their account's usage patterns.",
+      "ideal": "Returns the details of the specified usage trigger including its SID, friendly name, and current status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers/UTXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateUsageTrigger",
+      "summary": "",
+      "user": "User wants to update the threshold for a usage trigger to better manage their account limits.",
+      "ideal": "Successfully updates the specified usage trigger with new parameters and returns the updated trigger details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers/UTXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteUsageTrigger",
+      "summary": "",
+      "user": "User decided to delete an unused usage trigger to clean up their account settings.",
+      "ideal": "Confirms the deletion of the specified usage trigger and returns a success message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers.json",
+      "method": "POST",
+      "operationId": "CreateUsageTrigger",
+      "summary": "",
+      "user": "User wants to create a new usage trigger to alert them when their usage reaches a certain threshold.",
+      "ideal": "Creates a new usage trigger and returns the details of the created trigger including its SID and settings."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers.json",
+      "method": "GET",
+      "operationId": "ListUsageTrigger",
+      "summary": "",
+      "user": "User needs to list all usage triggers to review their current monitoring setup.",
+      "ideal": "Returns a list of all usage triggers associated with the account, including their SIDs and statuses."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessages.json",
+      "method": "POST",
+      "operationId": "CreateUserDefinedMessage",
+      "summary": "",
+      "user": "As a developer, I want to send a user-defined message to a specific call in my Twilio account, so that I can customize the communication experience for the caller.",
+      "ideal": "The API should accept a JSON payload containing the message details and return a success response with the message ID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json",
+      "method": "POST",
+      "operationId": "CreateUserDefinedMessageSubscription",
+      "summary": "",
+      "user": "As a developer, I want to create a user-defined message subscription for a specific call to receive notifications about its status changes.",
+      "ideal": "The API should return a success response with the details of the created subscription, including the subscription SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteUserDefinedMessageSubscription",
+      "summary": "",
+      "user": "As a developer, I want to delete a specific user-defined message subscription for a call to stop receiving notifications about its status changes.",
+      "ideal": "The API should return a success response indicating that the subscription has been deleted."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
+      "method": "POST",
+      "operationId": "CreateValidationRequest",
+      "summary": "",
+      "user": "User wants to validate a new outgoing caller ID for their Twilio account to ensure it can be used for making calls. They provide the necessary AccountSid and the caller ID number they wish to validate.",
+      "ideal": "The API should respond with a success message indicating that the validation request has been created successfully, along with details of the validation process."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberVoip",
+      "summary": "",
+      "user": "user_12345",
+      "ideal": "Retrieve a list of available VoIP phone numbers in the specified country."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/Yearly.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordYearly",
+      "summary": "",
+      "user": "As a Twilio account holder, I want to retrieve my yearly usage records to analyze my spending and usage patterns over the year.",
+      "ideal": "The API should return a JSON object containing an array of usage records for the specified account, including details such as the year, usage type, and total amount used."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/Yesterday.json",
+      "method": "GET",
+      "operationId": "ListUsageRecordYesterday",
+      "summary": "",
+      "user": "User requested yesterday's usage records for their Twilio account to analyze SMS and call usage patterns.",
+      "ideal": "Returns a JSON object containing usage records for the previous day, including details like the number of SMS sent, calls made, and any other relevant usage metrics."
+    }
+  ]
+}

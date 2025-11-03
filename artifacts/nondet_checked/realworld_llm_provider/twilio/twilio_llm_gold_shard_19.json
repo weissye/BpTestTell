@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json",
+      "method": "GET",
+      "operationId": "ListConferenceRecording",
+      "summary": "",
+      "user": "User wants to retrieve a list of all recordings associated with a specific conference to review the content and manage the recordings effectively.",
+      "ideal": "The response should include a JSON array of recordings with details such as SID, duration, and date created."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateConferenceRecording",
+      "summary": "",
+      "user": "User needs to update the metadata of a specific recording, such as its status or tags, to keep the recordings organized and relevant.",
+      "ideal": "The response should confirm the update and return the updated recording details in JSON format."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchConferenceRecording",
+      "summary": "",
+      "user": "User wants to fetch details of a specific recording to check its content and duration for compliance and quality assurance.",
+      "ideal": "The response should provide detailed information about the recording, including its SID, duration, and URL for playback."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteConferenceRecording",
+      "summary": "",
+      "user": "User intends to delete a specific recording that is no longer needed to free up storage space and maintain organization.",
+      "ideal": "The response should confirm the deletion of the recording and return a success message."
+    }
+  ]
+}

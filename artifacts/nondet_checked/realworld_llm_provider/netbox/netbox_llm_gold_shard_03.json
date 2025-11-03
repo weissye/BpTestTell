@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/api/dcim/cable-terminations/",
+      "method": "GET",
+      "operationId": "dcim_cable_terminations_list",
+      "summary": "",
+      "user": "User requests a list of all cable terminations in the system.",
+      "ideal": "Returns a JSON array of cable termination objects."
+    },
+    {
+      "path": "/api/dcim/cable-terminations/",
+      "method": "POST",
+      "operationId": "dcim_cable_terminations_create",
+      "summary": "",
+      "user": "User submits a new cable termination with required fields.",
+      "ideal": "Returns the created cable termination object with a 201 status."
+    },
+    {
+      "path": "/api/dcim/cable-terminations/{id}/",
+      "method": "GET",
+      "operationId": "dcim_cable_terminations_retrieve",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific cable termination by ID.",
+      "ideal": "Returns the cable termination object with the specified ID."
+    },
+    {
+      "path": "/api/dcim/cables/",
+      "method": "GET",
+      "operationId": "dcim_cables_list",
+      "summary": "",
+      "user": "User requests a list of all cables in the system.",
+      "ideal": "Returns a JSON array of cable objects."
+    },
+    {
+      "path": "/api/dcim/cables/{id}/",
+      "method": "DELETE",
+      "operationId": "dcim_cables_destroy",
+      "summary": "",
+      "user": "User wants to delete a specific cable by ID.",
+      "ideal": "Returns a 204 status indicating the cable was successfully deleted."
+    },
+    {
+      "path": "/api/dcim/devices/",
+      "method": "POST",
+      "operationId": "dcim_devices_create",
+      "summary": "",
+      "user": "User submits a new device with necessary attributes.",
+      "ideal": "Returns the created device object with a 201 status."
+    },
+    {
+      "path": "/api/dcim/devices/{id}/",
+      "method": "PATCH",
+      "operationId": "dcim_devices_partial_update",
+      "summary": "",
+      "user": "User wants to update specific fields of a device by ID.",
+      "ideal": "Returns the updated device object."
+    },
+    {
+      "path": "/api/dcim/locations/",
+      "method": "GET",
+      "operationId": "dcim_locations_list",
+      "summary": "",
+      "user": "User requests a list of all locations in the system.",
+      "ideal": "Returns a JSON array of location objects."
+    },
+    {
+      "path": "/api/dcim/locations/{id}/",
+      "method": "PUT",
+      "operationId": "dcim_locations_update",
+      "summary": "",
+      "user": "User wants to update a location's details by ID.",
+      "ideal": "Returns the updated location object."
+    },
+    {
+      "path": "/api/dcim/manufacturers/",
+      "method": "POST",
+      "operationId": "dcim_manufacturers_create",
+      "summary": "",
+      "user": "User submits a new manufacturer with required fields.",
+      "ideal": "Returns the created manufacturer object with a 201 status."
+    },
+    {
+      "path": "/api/dcim/power-feeds/{id}/",
+      "method": "GET",
+      "operationId": "dcim_power_feeds_retrieve",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific power feed by ID.",
+      "ideal": "Returns the power feed object with the specified ID."
+    }
+  ]
+}

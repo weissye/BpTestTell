@@ -1,1 +1,8 @@
-{ "system": "meilisearch", "model": "ref", "timestamp": "Tue 10/28/2025 16:29:04.90" }
+{
+  "sut": "meilisearch",
+  "provider": "openai",
+  "trained": false,
+  "model_id": "gpt-4o-mini",
+  "created": "2025-11-03T15:26:17.796254Z",
+  "source_det": "artifacts\\hls_det\\real_world_llm_provider\\meilisearch\\hls_det_gold.json"
+}

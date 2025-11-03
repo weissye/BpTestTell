@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/folders",
+      "method": "GET",
+      "tags": [
+        "Folders"
+      ],
+      "summary": "List Folders",
+      "operationId": "getFolders"
+    },
+    {
+      "path": "/folders",
+      "method": "POST",
+      "tags": [
+        "Folders"
+      ],
+      "summary": "Create a Folder",
+      "operationId": "createFolder"
+    },
+    {
+      "path": "/folders",
+      "method": "PATCH",
+      "tags": [
+        "Folders"
+      ],
+      "summary": "Update Multiple Folders",
+      "operationId": "updateFolders"
+    },
+    {
+      "path": "/folders",
+      "method": "DELETE",
+      "tags": [
+        "Folders"
+      ],
+      "summary": "Delete Multiple Folders",
+      "operationId": "deleteFolders"
+    },
+    {
+      "path": "/folders/{id}",
+      "method": "GET",
+      "tags": [
+        "Folders"
+      ],
+      "summary": "Retrieve a Folder",
+      "operationId": "getFolder"
+    },
+    {
+      "path": "/folders/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Folders"
+      ],
+      "summary": "Update a Folder",
+      "operationId": "updateFolder"
+    },
+    {
+      "path": "/folders/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Folders"
+      ],
+      "summary": "Delete a Folder",
+      "operationId": "deleteFolder"
+    }
+  ]
+}

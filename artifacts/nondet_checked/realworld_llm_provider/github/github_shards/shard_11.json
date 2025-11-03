@@ -1,0 +1,441 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/orgs/{org}/codespaces",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "List codespaces for the organization",
+      "operationId": "codespaces/list-in-organization"
+    },
+    {
+      "path": "/orgs/{org}/codespaces/access",
+      "method": "PUT",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Manage access control for organization codespaces",
+      "operationId": "codespaces/set-codespaces-access"
+    },
+    {
+      "path": "/orgs/{org}/codespaces/access/selected_users",
+      "method": "POST",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Add users to Codespaces access for an organization",
+      "operationId": "codespaces/set-codespaces-access-users"
+    },
+    {
+      "path": "/orgs/{org}/codespaces/access/selected_users",
+      "method": "DELETE",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Remove users from Codespaces access for an organization",
+      "operationId": "codespaces/delete-codespaces-access-users"
+    },
+    {
+      "path": "/orgs/{org}/codespaces/secrets",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "List organization secrets",
+      "operationId": "codespaces/list-org-secrets"
+    },
+    {
+      "path": "/orgs/{org}/codespaces/secrets/public-key",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Get an organization public key",
+      "operationId": "codespaces/get-org-public-key"
+    },
+    {
+      "path": "/orgs/{org}/codespaces/secrets/{secret_name}",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Get an organization secret",
+      "operationId": "codespaces/get-org-secret"
+    },
+    {
+      "path": "/orgs/{org}/codespaces/secrets/{secret_name}",
+      "method": "PUT",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Create or update an organization secret",
+      "operationId": "codespaces/create-or-update-org-secret"
+    },
+    {
+      "path": "/orgs/{org}/codespaces/secrets/{secret_name}",
+      "method": "DELETE",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Delete an organization secret",
+      "operationId": "codespaces/delete-org-secret"
+    },
+    {
+      "path": "/orgs/{org}/codespaces/secrets/{secret_name}/repositories",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "List selected repositories for an organization secret",
+      "operationId": "codespaces/list-selected-repos-for-org-secret"
+    },
+    {
+      "path": "/orgs/{org}/codespaces/secrets/{secret_name}/repositories",
+      "method": "PUT",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Set selected repositories for an organization secret",
+      "operationId": "codespaces/set-selected-repos-for-org-secret"
+    },
+    {
+      "path": "/orgs/{org}/codespaces/secrets/{secret_name}/repositories/{repository_id}",
+      "method": "PUT",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Add selected repository to an organization secret",
+      "operationId": "codespaces/add-selected-repo-to-org-secret"
+    },
+    {
+      "path": "/orgs/{org}/codespaces/secrets/{secret_name}/repositories/{repository_id}",
+      "method": "DELETE",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Remove selected repository from an organization secret",
+      "operationId": "codespaces/remove-selected-repo-from-org-secret"
+    },
+    {
+      "path": "/orgs/{org}/members/{username}/codespaces",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "List codespaces for a user in organization",
+      "operationId": "codespaces/get-codespaces-for-user-in-org"
+    },
+    {
+      "path": "/orgs/{org}/members/{username}/codespaces/{codespace_name}",
+      "method": "DELETE",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Delete a codespace from the organization",
+      "operationId": "codespaces/delete-from-organization"
+    },
+    {
+      "path": "/orgs/{org}/members/{username}/codespaces/{codespace_name}/stop",
+      "method": "POST",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Stop a codespace for an organization user",
+      "operationId": "codespaces/stop-in-organization"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/codespaces",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "List codespaces in a repository for the authenticated user",
+      "operationId": "codespaces/list-in-repository-for-authenticated-user"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/codespaces",
+      "method": "POST",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Create a codespace in a repository",
+      "operationId": "codespaces/create-with-repo-for-authenticated-user"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/codespaces/devcontainers",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "List devcontainer configurations in a repository for the authenticated user",
+      "operationId": "codespaces/list-devcontainers-in-repository-for-authenticated-user"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/codespaces/machines",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "List available machine types for a repository",
+      "operationId": "codespaces/repo-machines-for-authenticated-user"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/codespaces/new",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Get default attributes for a codespace",
+      "operationId": "codespaces/pre-flight-with-repo-for-authenticated-user"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/codespaces/permissions_check",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Check if permissions defined by a devcontainer have been accepted by the authenticated user",
+      "operationId": "codespaces/check-permissions-for-devcontainer"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/codespaces/secrets",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "List repository secrets",
+      "operationId": "codespaces/list-repo-secrets"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/codespaces/secrets/public-key",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Get a repository public key",
+      "operationId": "codespaces/get-repo-public-key"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/codespaces/secrets/{secret_name}",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Get a repository secret",
+      "operationId": "codespaces/get-repo-secret"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/codespaces/secrets/{secret_name}",
+      "method": "PUT",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Create or update a repository secret",
+      "operationId": "codespaces/create-or-update-repo-secret"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/codespaces/secrets/{secret_name}",
+      "method": "DELETE",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Delete a repository secret",
+      "operationId": "codespaces/delete-repo-secret"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/codespaces",
+      "method": "POST",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Create a codespace from a pull request",
+      "operationId": "codespaces/create-with-pr-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "List codespaces for the authenticated user",
+      "operationId": "codespaces/list-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces",
+      "method": "POST",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Create a codespace for the authenticated user",
+      "operationId": "codespaces/create-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/secrets",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "List secrets for the authenticated user",
+      "operationId": "codespaces/list-secrets-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/secrets/public-key",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Get public key for the authenticated user",
+      "operationId": "codespaces/get-public-key-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/secrets/{secret_name}",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Get a secret for the authenticated user",
+      "operationId": "codespaces/get-secret-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/secrets/{secret_name}",
+      "method": "PUT",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Create or update a secret for the authenticated user",
+      "operationId": "codespaces/create-or-update-secret-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/secrets/{secret_name}",
+      "method": "DELETE",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Delete a secret for the authenticated user",
+      "operationId": "codespaces/delete-secret-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/secrets/{secret_name}/repositories",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "List selected repositories for a user secret",
+      "operationId": "codespaces/list-repositories-for-secret-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/secrets/{secret_name}/repositories",
+      "method": "PUT",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Set selected repositories for a user secret",
+      "operationId": "codespaces/set-repositories-for-secret-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/secrets/{secret_name}/repositories/{repository_id}",
+      "method": "PUT",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Add a selected repository to a user secret",
+      "operationId": "codespaces/add-repository-for-secret-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/secrets/{secret_name}/repositories/{repository_id}",
+      "method": "DELETE",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Remove a selected repository from a user secret",
+      "operationId": "codespaces/remove-repository-for-secret-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/{codespace_name}",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Get a codespace for the authenticated user",
+      "operationId": "codespaces/get-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/{codespace_name}",
+      "method": "PATCH",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Update a codespace for the authenticated user",
+      "operationId": "codespaces/update-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/{codespace_name}",
+      "method": "DELETE",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Delete a codespace for the authenticated user",
+      "operationId": "codespaces/delete-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/{codespace_name}/exports",
+      "method": "POST",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Export a codespace for the authenticated user",
+      "operationId": "codespaces/export-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/{codespace_name}/exports/{export_id}",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Get details about a codespace export",
+      "operationId": "codespaces/get-export-details-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/{codespace_name}/machines",
+      "method": "GET",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "List machine types for a codespace",
+      "operationId": "codespaces/codespace-machines-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/{codespace_name}/publish",
+      "method": "POST",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Create a repository from an unpublished codespace",
+      "operationId": "codespaces/publish-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/{codespace_name}/start",
+      "method": "POST",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Start a codespace for the authenticated user",
+      "operationId": "codespaces/start-for-authenticated-user"
+    },
+    {
+      "path": "/user/codespaces/{codespace_name}/stop",
+      "method": "POST",
+      "tags": [
+        "codespaces"
+      ],
+      "summary": "Stop a codespace for the authenticated user",
+      "operationId": "codespaces/stop-for-authenticated-user"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/TEST/versions",
+      "method": "GET",
+      "operationId": "getProjectVersions",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all versions associated with the project 'TEST' to review their statuses and plan releases.",
+      "ideal": "The API should return a list of versions for the specified project, including details like version name, description, and release date."
+    },
+    {
+      "path": "/rest/api/3/version/10000",
+      "method": "GET",
+      "operationId": "getVersion",
+      "summary": "",
+      "user": "As a developer, I need to get detailed information about version '10000' to understand its features and issues before the release.",
+      "ideal": "The API should return the details of the specified version, including its name, description, and associated issues."
+    },
+    {
+      "path": "/rest/api/3/version",
+      "method": "POST",
+      "operationId": "createVersion",
+      "summary": "",
+      "user": "As a product owner, I want to create a new version in the system to track upcoming features and fixes.",
+      "ideal": "The API should create a new version and return the created version's details, including its ID and status."
+    },
+    {
+      "path": "/rest/api/3/version/10000",
+      "method": "PUT",
+      "operationId": "updateVersion",
+      "summary": "",
+      "user": "As a project lead, I want to update the details of version '10000' to reflect the latest changes and improvements.",
+      "ideal": "The API should update the specified version and return the updated version's details."
+    },
+    {
+      "path": "/rest/api/3/version/10000/relatedIssueCounts",
+      "method": "GET",
+      "operationId": "getVersionRelatedIssues",
+      "summary": "",
+      "user": "As a QA engineer, I need to know how many issues are related to version '10000' to prioritize testing efforts.",
+      "ideal": "The API should return the count of issues related to the specified version."
+    },
+    {
+      "path": "/rest/api/3/version/10000/relatedwork",
+      "method": "GET",
+      "operationId": "getRelatedWork",
+      "summary": "",
+      "user": "As a team member, I want to see the related work for version '10000' to understand dependencies and tasks.",
+      "ideal": "The API should return a list of related work items for the specified version."
+    },
+    {
+      "path": "/rest/api/3/version/10000/relatedwork",
+      "method": "POST",
+      "operationId": "createRelatedWork",
+      "summary": "",
+      "user": "As a project coordinator, I want to add related work to version '10000' to ensure all tasks are tracked.",
+      "ideal": "The API should create a new related work item for the specified version and return its details."
+    },
+    {
+      "path": "/rest/api/3/version/10000/relatedwork/20000",
+      "method": "DELETE",
+      "operationId": "deleteRelatedWork",
+      "summary": "",
+      "user": "As a project manager, I want to remove outdated related work from version '10000' to keep the project organized.",
+      "ideal": "The API should delete the specified related work item and confirm the deletion."
+    },
+    {
+      "path": "/rest/api/3/version/10000/mergeto/20000",
+      "method": "PUT",
+      "operationId": "mergeVersions",
+      "summary": "",
+      "user": "As a release manager, I need to merge version '10000' into version '20000' to consolidate features and fixes.",
+      "ideal": "The API should merge the specified versions and return the updated version details."
+    },
+    {
+      "path": "/rest/api/3/version/10000/unresolvedIssueCount",
+      "method": "GET",
+      "operationId": "getVersionUnresolvedIssues",
+      "summary": "",
+      "user": "As a developer, I want to check the unresolved issue count for version '10000' to assess its readiness for release.",
+      "ideal": "The API should return the count of unresolved issues for the specified version."
+    }
+  ]
+}

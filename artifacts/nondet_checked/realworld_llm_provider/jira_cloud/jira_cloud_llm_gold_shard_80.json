@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/statuses",
+      "method": "GET",
+      "operationId": "getStatusesById",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve the list of all statuses in the Jira system to understand the current workflow states available for my projects.",
+      "ideal": "The API should return a list of all statuses with their IDs, names, and descriptions."
+    },
+    {
+      "path": "/rest/api/3/statuses",
+      "method": "POST",
+      "operationId": "createStatuses",
+      "summary": "",
+      "user": "As a Jira administrator, I want to create a new status called 'In Review' to better reflect our workflow process.",
+      "ideal": "The API should create a new status and return the created status object with its ID and details."
+    },
+    {
+      "path": "/rest/api/3/statuses/{statusId}",
+      "method": "PUT",
+      "operationId": "updateStatuses",
+      "summary": "",
+      "user": "As a team lead, I want to update the status 'In Progress' to 'In Development' to align with our new terminology.",
+      "ideal": "The API should update the specified status and return the updated status object."
+    },
+    {
+      "path": "/rest/api/3/statuses/{statusId}/projectUsages",
+      "method": "GET",
+      "operationId": "getProjectUsagesForStatus",
+      "summary": "",
+      "user": "As a product owner, I want to see which projects are using the 'Done' status to assess its relevance across our projects.",
+      "ideal": "The API should return a list of projects that are currently using the specified status."
+    },
+    {
+      "path": "/rest/api/3/statuses/search",
+      "method": "GET",
+      "operationId": "search",
+      "summary": "",
+      "user": "As a developer, I want to search for statuses that contain the word 'Open' to quickly find relevant statuses for my tasks.",
+      "ideal": "The API should return a list of statuses that match the search criteria."
+    },
+    {
+      "path": "/rest/api/3/statuses/byNames",
+      "method": "GET",
+      "operationId": "getStatusesByName",
+      "summary": "",
+      "user": "As a QA engineer, I want to retrieve the status details for 'Blocked' to understand its implications on our testing process.",
+      "ideal": "The API should return the status object for 'Blocked' with its ID and description."
+    },
+    {
+      "path": "/rest/api/3/statuses/{statusId}/project/{projectId}/issueTypeUsages",
+      "method": "GET",
+      "operationId": "getProjectIssueTypeUsagesForStatus",
+      "summary": "",
+      "user": "As a project coordinator, I want to know which issue types are associated with the 'In Progress' status for a specific project.",
+      "ideal": "The API should return a list of issue types that are currently using the specified status in the given project."
+    },
+    {
+      "path": "/rest/api/3/statuses/{statusId}/workflowUsages",
+      "method": "GET",
+      "operationId": "getWorkflowUsagesForStatus",
+      "summary": "",
+      "user": "As a systems analyst, I want to find out which workflows include the 'To Do' status to evaluate its usage across different processes.",
+      "ideal": "The API should return a list of workflows that include the specified status."
+    },
+    {
+      "path": "/rest/api/3/statuses/{statusId}",
+      "method": "DELETE",
+      "operationId": "deleteStatusesById",
+      "summary": "",
+      "user": "As a Jira administrator, I want to delete the 'Obsolete' status as it is no longer relevant to our current workflows.",
+      "ideal": "The API should successfully delete the specified status and return a confirmation message."
+    }
+  ]
+}

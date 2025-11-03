@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/indexes/myIndex/search",
+      "method": "GET",
+      "operationId": "indexes.documents.searchGet",
+      "summary": "",
+      "user": "User wants to retrieve documents from 'myIndex' based on a search query to find relevant results quickly.",
+      "ideal": "The API should return a list of documents matching the search criteria, including relevant metadata such as score and highlights."
+    },
+    {
+      "path": "/indexes/myIndex/search",
+      "method": "POST",
+      "operationId": "indexes.documents.search",
+      "summary": "",
+      "user": "User submits a search request to 'myIndex' with specific filters and sorting options to refine the results.",
+      "ideal": "The API should process the search request and return a structured response with the filtered documents, total results count, and any applied sorting."
+    },
+    {
+      "path": "/indexes/myIndex/facet-search",
+      "method": "POST",
+      "operationId": "indexes.documents.facet.search",
+      "summary": "",
+      "user": "User is looking to perform a facet search on 'myIndex' to get counts of documents grouped by specific attributes.",
+      "ideal": "The API should return the facet counts along with the documents that match the search criteria, allowing the user to understand the distribution of results."
+    },
+    {
+      "path": "/multi-search",
+      "method": "POST",
+      "operationId": "multi_search",
+      "summary": "",
+      "user": "User wants to execute multiple search queries across different indexes in a single request to save time and effort.",
+      "ideal": "The API should return a consolidated response with results for each search query, maintaining the order of the requests and providing relevant data for each index."
+    }
+  ]
+}

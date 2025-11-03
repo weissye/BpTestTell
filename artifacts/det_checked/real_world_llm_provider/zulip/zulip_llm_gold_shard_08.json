@@ -1,3 +1,44 @@
 {
-  "gold": []
+  "gold": [
+    {
+      "path": "/events",
+      "method": "GET",
+      "operationId": "get-events",
+      "summary": "",
+      "user": "User requests to retrieve the latest events from the Zulip server to stay updated on conversations and notifications.",
+      "ideal": "Returns a list of events including messages, streams, and user presence updates."
+    },
+    {
+      "path": "/events",
+      "method": "DELETE",
+      "operationId": "delete-queue",
+      "summary": "",
+      "user": "User wants to clear the event queue to reset their event processing state.",
+      "ideal": "Confirms that the event queue has been successfully deleted."
+    },
+    {
+      "path": "/register",
+      "method": "POST",
+      "operationId": "register-queue",
+      "summary": "",
+      "user": "User registers their client to receive real-time updates from the Zulip server.",
+      "ideal": "Returns a success message with the registration details and a unique client ID."
+    },
+    {
+      "path": "/real-time",
+      "method": "POST",
+      "operationId": "POST /real-time",
+      "summary": "",
+      "user": "User initiates a real-time connection to receive live updates and messages.",
+      "ideal": "Establishes a connection and starts streaming events in real-time."
+    },
+    {
+      "path": "/rest-error-handling",
+      "method": "POST",
+      "operationId": "rest-error-handling",
+      "summary": "",
+      "user": "User tests the error handling mechanism of the API to ensure proper responses for invalid requests.",
+      "ideal": "Returns an error response with a clear message indicating the nature of the error."
+    }
+  ]
 }

@@ -1,1 +1,8 @@
-{ "system": "gitea", "model": "ref", "timestamp": "Tue 10/28/2025 16:29:03.99" }
+{
+  "sut": "gitea",
+  "provider": "openai",
+  "trained": false,
+  "model_id": "gpt-4o-mini",
+  "created": "2025-11-03T15:26:13.120314Z",
+  "source_det": "artifacts\\hls_det\\real_world_llm_provider\\gitea\\hls_det_gold.json"
+}

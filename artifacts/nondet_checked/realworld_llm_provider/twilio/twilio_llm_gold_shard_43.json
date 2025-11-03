@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "method": "POST",
+      "operationId": "CreateMessage",
+      "summary": "",
+      "user": "User wants to send a new SMS message to a recipient using Twilio's API. They provide the necessary parameters such as 'To', 'From', and 'Body' to create the message.",
+      "ideal": "The API should return a success response with the message SID and status indicating that the message has been queued for sending."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "method": "GET",
+      "operationId": "ListMessage",
+      "summary": "",
+      "user": "User needs to retrieve a list of all messages sent from their Twilio account. They want to filter messages based on date and status to analyze their messaging activity.",
+      "ideal": "The API should return a list of messages with details such as SID, status, date sent, and recipient number."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteMessage",
+      "summary": "",
+      "user": "User wants to delete a specific SMS message from their Twilio account using the message SID. They are cleaning up their message history and want to remove unwanted messages.",
+      "ideal": "The API should return a success response confirming that the message has been deleted."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchMessage",
+      "summary": "",
+      "user": "User needs to fetch details of a specific SMS message using its SID. They want to review the message content and status for a particular transaction.",
+      "ideal": "The API should return the message details including SID, status, date sent, and content."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateMessage",
+      "summary": "",
+      "user": "User wants to update the status of a previously sent SMS message. They are changing the status to 'read' for better tracking of message interactions.",
+      "ideal": "The API should return a success response indicating that the message status has been updated."
+    }
+  ]
+}

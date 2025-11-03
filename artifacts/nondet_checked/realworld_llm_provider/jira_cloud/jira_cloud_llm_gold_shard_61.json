@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
+      "method": "DELETE",
+      "operationId": "removeDefaultProjectClassification",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Successfully removed the default project classification for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
+      "method": "GET",
+      "operationId": "getDefaultProjectClassification",
+      "summary": "",
+      "user": "project_manager",
+      "ideal": "Retrieved the default project classification for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
+      "method": "PUT",
+      "operationId": "updateDefaultProjectClassification",
+      "summary": "",
+      "user": "team_lead",
+      "ideal": "Successfully updated the default project classification for the specified project."
+    }
+  ]
+}

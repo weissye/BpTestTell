@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "Zulip REST API",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/fetch_api_key",
+      "method": "POST",
+      "tags": [
+        "authentication"
+      ],
+      "summary": "Fetch an API key (production)",
+      "operationId": "fetch-api-key"
+    },
+    {
+      "path": "/dev_fetch_api_key",
+      "method": "POST",
+      "tags": [
+        "authentication"
+      ],
+      "summary": "Fetch an API key (development only)",
+      "operationId": "dev-fetch-api-key"
+    }
+  ]
+}

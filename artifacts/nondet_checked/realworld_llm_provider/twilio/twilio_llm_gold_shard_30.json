@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateIncomingPhoneNumber",
+      "summary": "",
+      "user": "User wants to update the settings of an existing incoming phone number to redirect calls to a new URL.",
+      "ideal": "Successfully updated the incoming phone number with the new settings."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchIncomingPhoneNumber",
+      "summary": "",
+      "user": "User needs to retrieve the details of a specific incoming phone number to verify its configuration.",
+      "ideal": "Returned the details of the specified incoming phone number."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteIncomingPhoneNumber",
+      "summary": "",
+      "user": "User wants to delete an incoming phone number that is no longer needed for their application.",
+      "ideal": "Successfully deleted the incoming phone number."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumber",
+      "summary": "",
+      "user": "User wants to list all incoming phone numbers associated with their account to manage them effectively.",
+      "ideal": "Returned a list of all incoming phone numbers for the account."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "method": "POST",
+      "operationId": "CreateIncomingPhoneNumber",
+      "summary": "",
+      "user": "User is looking to create a new incoming phone number for their application to handle customer calls.",
+      "ideal": "Successfully created a new incoming phone number and returned its details."
+    }
+  ]
+}

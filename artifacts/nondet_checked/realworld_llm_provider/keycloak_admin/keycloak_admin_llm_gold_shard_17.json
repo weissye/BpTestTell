@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/{realm}/roles-by-id/{role-id}",
+      "method": "GET",
+      "operationId": "getRolesById",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the details of a specific role by its ID in the specified realm."
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}",
+      "method": "PUT",
+      "operationId": "putRolesById",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the details of a specific role by its ID in the specified realm."
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}",
+      "method": "DELETE",
+      "operationId": "deleteRolesById",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific role by its ID in the specified realm."
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "method": "GET",
+      "operationId": "getRolesByIdComposites",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the composite roles associated with a specific role by its ID in the specified realm."
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "method": "POST",
+      "operationId": "postRolesByIdComposites",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add composite roles to a specific role by its ID in the specified realm."
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "method": "DELETE",
+      "operationId": "deleteRolesByIdComposites",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove composite roles from a specific role by its ID in the specified realm."
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/composites/clients/{clientUuid}",
+      "method": "GET",
+      "operationId": "getRolesByIdCompositesClient",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the composite roles associated with a specific role by its ID for a specific client in the specified realm."
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/composites/realm",
+      "method": "GET",
+      "operationId": "getRolesByIdCompositesRealm",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the composite roles associated with a specific role by its ID at the realm level."
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/management/permissions",
+      "method": "GET",
+      "operationId": "getRolesByIdManagementPermissions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the management permissions associated with a specific role by its ID in the specified realm."
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/management/permissions",
+      "method": "PUT",
+      "operationId": "putRolesByIdManagementPermissions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the management permissions associated with a specific role by its ID in the specified realm."
+    }
+  ]
+}

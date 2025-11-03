@@ -1,1 +1,8 @@
-{ "system": "zulip", "model": "ref", "timestamp": "Tue 10/28/2025 16:29:05.78" }
+{
+  "sut": "zulip",
+  "provider": "openai",
+  "trained": false,
+  "model_id": "gpt-4o-mini",
+  "created": "2025-11-03T15:26:02.083743Z",
+  "source_det": "artifacts\\hls_det\\real_world_llm_provider\\zulip\\hls_det_gold.json"
+}

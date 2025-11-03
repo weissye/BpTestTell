@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json",
+      "method": "GET",
+      "operationId": "ListUsageRecord",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of usage records for the specified account."
+    }
+  ]
+}

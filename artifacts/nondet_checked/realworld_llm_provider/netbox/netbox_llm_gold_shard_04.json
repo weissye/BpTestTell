@@ -1,0 +1,164 @@
+{
+  "gold": [
+    {
+      "path": "/api/extras/bookmarks/",
+      "method": "GET",
+      "operationId": "extras_bookmarks_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all bookmarks."
+    },
+    {
+      "path": "/api/extras/bookmarks/",
+      "method": "POST",
+      "operationId": "extras_bookmarks_create",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new bookmark with the provided details."
+    },
+    {
+      "path": "/api/extras/bookmarks/{id}/",
+      "method": "GET",
+      "operationId": "extras_bookmarks_retrieve",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve details of a specific bookmark by ID."
+    },
+    {
+      "path": "/api/extras/bookmarks/{id}/",
+      "method": "PUT",
+      "operationId": "extras_bookmarks_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the details of a specific bookmark."
+    },
+    {
+      "path": "/api/extras/bookmarks/{id}/",
+      "method": "DELETE",
+      "operationId": "extras_bookmarks_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific bookmark by ID."
+    },
+    {
+      "path": "/api/extras/config-contexts/",
+      "method": "GET",
+      "operationId": "extras_config_contexts_list",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Retrieve a list of all configuration contexts."
+    },
+    {
+      "path": "/api/extras/config-contexts/",
+      "method": "POST",
+      "operationId": "extras_config_contexts_create",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Create a new configuration context."
+    },
+    {
+      "path": "/api/extras/config-contexts/{id}/",
+      "method": "GET",
+      "operationId": "extras_config_contexts_retrieve",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Retrieve details of a specific configuration context."
+    },
+    {
+      "path": "/api/extras/config-contexts/{id}/",
+      "method": "PATCH",
+      "operationId": "extras_config_contexts_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update a specific configuration context."
+    },
+    {
+      "path": "/api/extras/config-contexts/{id}/",
+      "method": "DELETE",
+      "operationId": "extras_config_contexts_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific configuration context by ID."
+    },
+    {
+      "path": "/api/extras/custom-fields/",
+      "method": "GET",
+      "operationId": "extras_custom_fields_list",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Retrieve a list of all custom fields."
+    },
+    {
+      "path": "/api/extras/custom-fields/",
+      "method": "POST",
+      "operationId": "extras_custom_fields_create",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Create a new custom field."
+    },
+    {
+      "path": "/api/extras/custom-fields/{id}/",
+      "method": "GET",
+      "operationId": "extras_custom_fields_retrieve",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Retrieve details of a specific custom field."
+    },
+    {
+      "path": "/api/extras/custom-fields/{id}/",
+      "method": "PUT",
+      "operationId": "extras_custom_fields_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the details of a specific custom field."
+    },
+    {
+      "path": "/api/extras/custom-fields/{id}/",
+      "method": "DELETE",
+      "operationId": "extras_custom_fields_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific custom field by ID."
+    },
+    {
+      "path": "/api/extras/webhooks/",
+      "method": "GET",
+      "operationId": "extras_webhooks_list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all webhooks."
+    },
+    {
+      "path": "/api/extras/webhooks/",
+      "method": "POST",
+      "operationId": "extras_webhooks_create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new webhook."
+    },
+    {
+      "path": "/api/extras/webhooks/{id}/",
+      "method": "GET",
+      "operationId": "extras_webhooks_retrieve",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific webhook."
+    },
+    {
+      "path": "/api/extras/webhooks/{id}/",
+      "method": "PATCH",
+      "operationId": "extras_webhooks_partial_update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Partially update a specific webhook."
+    },
+    {
+      "path": "/api/extras/webhooks/{id}/",
+      "method": "DELETE",
+      "operationId": "extras_webhooks_destroy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific webhook by ID."
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/createdraft",
+      "method": "POST",
+      "tags": [
+        "Workflow scheme drafts"
+      ],
+      "summary": "Create draft workflow scheme",
+      "operationId": "createWorkflowSchemeDraftFromParent"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/draft",
+      "method": "DELETE",
+      "tags": [
+        "Workflow scheme drafts"
+      ],
+      "summary": "Delete draft workflow scheme",
+      "operationId": "deleteWorkflowSchemeDraft"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/draft",
+      "method": "GET",
+      "tags": [
+        "Workflow scheme drafts"
+      ],
+      "summary": "Get draft workflow scheme",
+      "operationId": "getWorkflowSchemeDraft"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/draft",
+      "method": "PUT",
+      "tags": [
+        "Workflow scheme drafts"
+      ],
+      "summary": "Update draft workflow scheme",
+      "operationId": "updateWorkflowSchemeDraft"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/draft/default",
+      "method": "DELETE",
+      "tags": [
+        "Workflow scheme drafts"
+      ],
+      "summary": "Delete draft default workflow",
+      "operationId": "deleteDraftDefaultWorkflow"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/draft/default",
+      "method": "GET",
+      "tags": [
+        "Workflow scheme drafts"
+      ],
+      "summary": "Get draft default workflow",
+      "operationId": "getDraftDefaultWorkflow"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/draft/default",
+      "method": "PUT",
+      "tags": [
+        "Workflow scheme drafts"
+      ],
+      "summary": "Update draft default workflow",
+      "operationId": "updateDraftDefaultWorkflow"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/draft/issuetype/{issueType}",
+      "method": "DELETE",
+      "tags": [
+        "Workflow scheme drafts"
+      ],
+      "summary": "Delete workflow for issue type in draft workflow scheme",
+      "operationId": "deleteWorkflowSchemeDraftIssueType"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/draft/issuetype/{issueType}",
+      "method": "GET",
+      "tags": [
+        "Workflow scheme drafts"
+      ],
+      "summary": "Get workflow for issue type in draft workflow scheme",
+      "operationId": "getWorkflowSchemeDraftIssueType"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/draft/issuetype/{issueType}",
+      "method": "PUT",
+      "tags": [
+        "Workflow scheme drafts"
+      ],
+      "summary": "Set workflow for issue type in draft workflow scheme",
+      "operationId": "setWorkflowSchemeDraftIssueType"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/draft/publish",
+      "method": "POST",
+      "tags": [
+        "Workflow scheme drafts"
+      ],
+      "summary": "Publish draft workflow scheme",
+      "operationId": "publishDraftWorkflowScheme"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/draft/workflow",
+      "method": "DELETE",
+      "tags": [
+        "Workflow scheme drafts"
+      ],
+      "summary": "Delete issue types for workflow in draft workflow scheme",
+      "operationId": "deleteDraftWorkflowMapping"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/draft/workflow",
+      "method": "GET",
+      "tags": [
+        "Workflow scheme drafts"
+      ],
+      "summary": "Get issue types for workflows in draft workflow scheme",
+      "operationId": "getDraftWorkflow"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/draft/workflow",
+      "method": "PUT",
+      "tags": [
+        "Workflow scheme drafts"
+      ],
+      "summary": "Set issue types for workflow in workflow scheme",
+      "operationId": "updateDraftWorkflowMapping"
+    }
+  ]
+}

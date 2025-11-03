@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Applications.json",
+      "method": "POST",
+      "operationId": "CreateApplication",
+      "summary": "",
+      "user": "User wants to create a new Twilio application to handle incoming calls and SMS messages.",
+      "ideal": "The application is created successfully with a unique SID and the response includes the application details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Applications.json",
+      "method": "GET",
+      "operationId": "ListApplication",
+      "summary": "",
+      "user": "User needs to retrieve a list of all applications associated with their Twilio account to manage them effectively.",
+      "ideal": "The response contains a list of applications with their SIDs and configuration details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteApplication",
+      "summary": "",
+      "user": "User wants to delete an outdated Twilio application that is no longer in use.",
+      "ideal": "The application is deleted successfully, and the response confirms the deletion."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchApplication",
+      "summary": "",
+      "user": "User needs to fetch details of a specific Twilio application to review its settings.",
+      "ideal": "The response includes all details of the specified application, including its SID and configuration."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateApplication",
+      "summary": "",
+      "user": "User wants to update the configuration of an existing Twilio application to change its webhook URL.",
+      "ideal": "The application is updated successfully, and the response includes the updated application details."
+    }
+  ]
+}

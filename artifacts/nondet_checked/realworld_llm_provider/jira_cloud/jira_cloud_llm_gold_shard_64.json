@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/features",
+      "method": "GET",
+      "operationId": "getFeaturesForProject",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve the features associated with a specific project using its ID or key so that I can assess the project's capabilities and plan accordingly.",
+      "ideal": "The response should include a list of features with their statuses, descriptions, and any relevant metadata for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/features/{featureKey}",
+      "method": "PUT",
+      "operationId": "toggleFeatureForProject",
+      "summary": "",
+      "user": "As a developer, I want to enable or disable a specific feature for a project by providing the project ID and feature key so that I can manage the project's functionality based on current needs.",
+      "ideal": "The response should confirm the successful toggling of the feature and return the updated status of the feature for the specified project."
+    }
+  ]
+}

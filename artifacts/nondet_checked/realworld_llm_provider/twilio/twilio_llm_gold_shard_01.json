@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts.json",
+      "method": "POST",
+      "operationId": "CreateAccount",
+      "summary": "",
+      "user": "A user wants to create a new Twilio account to start sending SMS messages. They provide their email, password, and account type as part of the request.",
+      "ideal": "The account is created successfully, and the response includes the account SID and other relevant details."
+    },
+    {
+      "path": "/2010-04-01/Accounts.json",
+      "method": "GET",
+      "operationId": "ListAccount",
+      "summary": "",
+      "user": "An admin user needs to retrieve a list of all Twilio accounts associated with their organization for management purposes.",
+      "ideal": "The response returns a list of accounts with their SIDs, friendly names, and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchAccount",
+      "summary": "",
+      "user": "A user wants to fetch the details of a specific Twilio account using its SID to check its current status and settings.",
+      "ideal": "The response includes detailed information about the account, such as its SID, friendly name, and balance."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateAccount",
+      "summary": "",
+      "user": "A user needs to update their Twilio account's friendly name and status to reflect recent changes in their business operations.",
+      "ideal": "The account is updated successfully, and the response confirms the changes with the updated account details."
+    }
+  ]
+}

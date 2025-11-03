@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/AddonSid/Extensions/ExtSid.json",
+      "method": "GET",
+      "operationId": "FetchIncomingPhoneNumberAssignedAddOnExtension",
+      "summary": "",
+      "user": "User requested details for a specific extension associated with an assigned add-on for their Twilio phone number.",
+      "ideal": "Successfully retrieved the extension details, including its SID, friendly name, and configuration."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/AddonSid/Extensions.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumberAssignedAddOnExtension",
+      "summary": "",
+      "user": "User wants to list all extensions for a specific assigned add-on linked to their Twilio phone number.",
+      "ideal": "Successfully retrieved a list of all extensions, including their SIDs and friendly names, for the specified add-on."
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/members/12345",
+      "method": "GET",
+      "operationId": "getMembersByIdMember",
+      "summary": "",
+      "user": "User requests member details by ID.",
+      "ideal": "Returns member details including name, email, and avatar."
+    },
+    {
+      "path": "/members/12345",
+      "method": "PUT",
+      "operationId": "updateMembersByIdMember",
+      "summary": "",
+      "user": "User updates member information with new name and email.",
+      "ideal": "Successfully updates member details and returns updated member object."
+    },
+    {
+      "path": "/members/12345/actions",
+      "method": "GET",
+      "operationId": "getMembersActionsByIdMember",
+      "summary": "",
+      "user": "User retrieves all actions performed by the member.",
+      "ideal": "Returns a list of actions including timestamps and action types."
+    },
+    {
+      "path": "/members/12345/avatar",
+      "method": "POST",
+      "operationId": "addMembersAvatarByIdMember",
+      "summary": "",
+      "user": "User uploads a new avatar for the member.",
+      "ideal": "Successfully uploads avatar and returns the updated avatar URL."
+    },
+    {
+      "path": "/members/12345/avatarSource",
+      "method": "PUT",
+      "operationId": "updateMembersAvatarSourceByIdMember",
+      "summary": "",
+      "user": "User updates the source of the member's avatar.",
+      "ideal": "Successfully updates avatar source and returns confirmation."
+    },
+    {
+      "path": "/members/12345/bio",
+      "method": "PUT",
+      "operationId": "updateMembersBioByIdMember",
+      "summary": "",
+      "user": "User updates the member's bio.",
+      "ideal": "Successfully updates bio and returns updated member object."
+    },
+    {
+      "path": "/members/12345/boards",
+      "method": "GET",
+      "operationId": "getMembersBoardsByIdMember",
+      "summary": "",
+      "user": "User retrieves all boards associated with the member.",
+      "ideal": "Returns a list of boards with details such as title and ID."
+    },
+    {
+      "path": "/members/12345/boardsInvited",
+      "method": "GET",
+      "operationId": "getMembersBoardsInvitedByIdMember",
+      "summary": "",
+      "user": "User checks boards the member has been invited to.",
+      "ideal": "Returns a list of invited boards with relevant details."
+    },
+    {
+      "path": "/members/12345/cards",
+      "method": "GET",
+      "operationId": "getMembersCardsByIdMember",
+      "summary": "",
+      "user": "User retrieves all cards assigned to the member.",
+      "ideal": "Returns a list of cards with details such as title and status."
+    },
+    {
+      "path": "/members/12345/notifications",
+      "method": "GET",
+      "operationId": "getMembersNotificationsByIdMember",
+      "summary": "",
+      "user": "User checks notifications for the member.",
+      "ideal": "Returns a list of notifications with timestamps and types."
+    }
+  ]
+}

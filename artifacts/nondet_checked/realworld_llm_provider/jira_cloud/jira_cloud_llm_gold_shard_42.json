@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issuetype",
+      "method": "GET",
+      "operationId": "getIssueAllTypes",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all issue types available in Jira so that I can understand the different categories of work items.",
+      "ideal": "Retrieve a list of all issue types with their details including name, description, and icon."
+    },
+    {
+      "path": "/rest/api/3/issuetype",
+      "method": "POST",
+      "operationId": "createIssueType",
+      "summary": "",
+      "user": "As a product owner, I want to create a new issue type for feature requests so that my team can categorize these requests separately.",
+      "ideal": "Create a new issue type with the specified name, description, and icon."
+    },
+    {
+      "path": "/rest/api/3/issuetype/project",
+      "method": "GET",
+      "operationId": "getIssueTypesForProject",
+      "summary": "",
+      "user": "As a team lead, I want to get the issue types specific to my project so that I can ensure we are using the correct categories for our tasks.",
+      "ideal": "Retrieve a list of issue types that are available for the specified project."
+    },
+    {
+      "path": "/rest/api/3/issuetype/{id}",
+      "method": "DELETE",
+      "operationId": "deleteIssueType",
+      "summary": "",
+      "user": "As an admin, I want to delete an obsolete issue type from the system to keep our project clean and organized.",
+      "ideal": "Delete the specified issue type from the Jira instance."
+    },
+    {
+      "path": "/rest/api/3/issuetype/{id}",
+      "method": "GET",
+      "operationId": "getIssueType",
+      "summary": "",
+      "user": "As a developer, I want to retrieve details of a specific issue type to understand its configuration and usage.",
+      "ideal": "Get detailed information about the specified issue type including its fields and settings."
+    },
+    {
+      "path": "/rest/api/3/issuetype/{id}",
+      "method": "PUT",
+      "operationId": "updateIssueType",
+      "summary": "",
+      "user": "As a project manager, I want to update the description of an existing issue type to reflect recent changes in our workflow.",
+      "ideal": "Update the specified issue type with new information such as name, description, or icon."
+    },
+    {
+      "path": "/rest/api/3/issuetype/{id}/alternatives",
+      "method": "GET",
+      "operationId": "getAlternativeIssueTypes",
+      "summary": "",
+      "user": "As a business analyst, I want to find alternative issue types for a specific issue type to suggest better categorization options.",
+      "ideal": "Retrieve a list of alternative issue types that can be used instead of the specified issue type."
+    },
+    {
+      "path": "/rest/api/3/issuetype/{id}/avatar2",
+      "method": "POST",
+      "operationId": "createIssueTypeAvatar",
+      "summary": "",
+      "user": "As a designer, I want to upload a new avatar for an issue type to enhance its visual representation in the project.",
+      "ideal": "Upload a new avatar image for the specified issue type."
+    }
+  ]
+}

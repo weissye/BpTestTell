@@ -1,0 +1,47 @@
+{
+  "sut": "ecommerce",
+  "source": "artifacts\\det_checked\\7_suts_llm_provider\\ecommerce\\ecommerce_llm_gold_ops.json",
+  "seed": 1234,
+  "stories": [
+    {
+      "entity": "Ecommerce",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteEcommerce"
+      ],
+      "checks": [
+        "verifyEcommerceExists"
+      ]
+    },
+    {
+      "entity": "Ecommerce",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addEcommerce"
+      ],
+      "checks": [
+        "verifyEcommerceNotExists"
+      ]
+    },
+    {
+      "entity": "Ecommerce",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateEcommerce"
+      ],
+      "checks": [
+        "verifyEcommerceExists",
+        "verifyEcommerceUpdated"
+      ]
+    }
+  ]
+}

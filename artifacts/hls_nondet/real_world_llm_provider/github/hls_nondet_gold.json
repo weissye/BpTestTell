@@ -1,0 +1,474 @@
+{
+  "sut": "github",
+  "model_id": "gpt-4o-mini",
+  "trained_model_dir": "models/hls/github",
+  "source_det": "artifacts/hls_det/real_world_llm_provider/github/hls_det_gold.json",
+  "stories_js": "artifacts/hls_nondet/real_world_llm_provider/github/readable/stories_hls.js",
+  "generated_at": "2025-11-03T16:55:29.399747+00:00",
+  "stories": [
+    {
+      "entity": "Github",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGithub"
+      ],
+      "checks": [
+        "verifyGithubExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 0,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGithub"
+      ],
+      "checks": [
+        "verifyGithubExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 1,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGithub"
+      ],
+      "checks": [
+        "verifyGithubExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 2,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGithub"
+      ],
+      "checks": [
+        "verifyGithubExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 3,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGithub"
+      ],
+      "checks": [
+        "verifyGithubExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 4,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGithub"
+      ],
+      "checks": [
+        "verifyGithubExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 5,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGithub"
+      ],
+      "checks": [
+        "verifyGithubExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 6,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGithub"
+      ],
+      "checks": [
+        "verifyGithubExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 7,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGithub"
+      ],
+      "checks": [
+        "verifyGithubNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 0,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGithub"
+      ],
+      "checks": [
+        "verifyGithubNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 1,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGithub"
+      ],
+      "checks": [
+        "verifyGithubNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 2,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGithub"
+      ],
+      "checks": [
+        "verifyGithubNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 3,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGithub"
+      ],
+      "checks": [
+        "verifyGithubNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 4,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGithub"
+      ],
+      "checks": [
+        "verifyGithubNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 5,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGithub"
+      ],
+      "checks": [
+        "verifyGithubNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 6,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGithub"
+      ],
+      "checks": [
+        "verifyGithubNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 7,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGithub"
+      ],
+      "checks": [
+        "verifyGithubExists",
+        "verifyGithubUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 0,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGithub"
+      ],
+      "checks": [
+        "verifyGithubExists",
+        "verifyGithubUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 1,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGithub"
+      ],
+      "checks": [
+        "verifyGithubExists",
+        "verifyGithubUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 2,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGithub"
+      ],
+      "checks": [
+        "verifyGithubExists",
+        "verifyGithubUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 3,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGithub"
+      ],
+      "checks": [
+        "verifyGithubExists",
+        "verifyGithubUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 4,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGithub"
+      ],
+      "checks": [
+        "verifyGithubExists",
+        "verifyGithubUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 5,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGithub"
+      ],
+      "checks": [
+        "verifyGithubExists",
+        "verifyGithubUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 6,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Github",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGithub"
+      ],
+      "checks": [
+        "verifyGithubExists",
+        "verifyGithubUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 7,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    }
+  ]
+}

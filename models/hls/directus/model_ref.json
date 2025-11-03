@@ -1,1 +1,8 @@
-{ "system": "directus", "model": "ref", "timestamp": "Tue 10/28/2025 16:29:03.76" }
+{
+  "sut": "directus",
+  "provider": "openai",
+  "trained": false,
+  "model_id": "gpt-4o-mini",
+  "created": "2025-11-03T15:26:11.981616Z",
+  "source_det": "artifacts\\hls_det\\real_world_llm_provider\\directus\\hls_det_gold.json"
+}

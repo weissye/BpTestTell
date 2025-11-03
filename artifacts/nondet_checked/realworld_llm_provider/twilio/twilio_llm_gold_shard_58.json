@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/SharedCost.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberSharedCost",
+      "summary": "",
+      "user": "User wants to retrieve a list of available shared cost phone numbers in the United States for their Twilio account.",
+      "ideal": "A JSON response containing an array of available shared cost phone numbers along with their details such as phone number, friendly name, and pricing information."
+    }
+  ]
+}

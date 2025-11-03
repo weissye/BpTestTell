@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchRecordingAddOnResult",
+      "summary": "",
+      "user": "User wants to retrieve the add-on results for a specific recording identified by ReferenceSid and Sid.",
+      "ideal": "The response should include detailed information about the add-on results for the specified recording."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteRecordingAddOnResult",
+      "summary": "",
+      "user": "User intends to delete a specific add-on result associated with a recording using ReferenceSid and Sid.",
+      "ideal": "The response should confirm the successful deletion of the add-on result."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json",
+      "method": "GET",
+      "operationId": "ListRecordingAddOnResult",
+      "summary": "",
+      "user": "User is looking to list all add-on results for a particular recording identified by ReferenceSid.",
+      "ideal": "The response should provide a list of all add-on results related to the specified recording."
+    }
+  ]
+}

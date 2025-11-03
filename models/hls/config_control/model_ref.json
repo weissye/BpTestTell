@@ -1,1 +1,8 @@
-{ "system": "config_control", "model": "ref", "timestamp": "Tue 10/28/2025 16:29:02.42" }
+{
+  "sut": "config_control",
+  "provider": "openai",
+  "trained": false,
+  "model_id": "gpt-4o-mini",
+  "created": "2025-11-03T15:26:05.073173Z",
+  "source_det": "artifacts\\hls_det\\7_suts_llm_provider\\config_control\\hls_det_gold.json"
+}

@@ -1,1 +1,8 @@
-{ "system": "trello", "model": "ref", "timestamp": "Tue 10/28/2025 16:29:05.33" }
+{
+  "sut": "trello",
+  "provider": "openai",
+  "trained": false,
+  "model_id": "gpt-4o-mini",
+  "created": "2025-11-03T15:25:59.679150Z",
+  "source_det": "artifacts\\hls_det\\real_world_llm_provider\\trello\\hls_det_gold.json"
+}

@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/app/field/value",
+      "method": "POST",
+      "operationId": "updateMultipleCustomFieldValues",
+      "summary": "",
+      "user": "User A is a project manager who needs to update multiple custom field values for a set of issues in Jira. They want to ensure that all relevant issues reflect the latest project requirements and stakeholder feedback. By using this API, User A can efficiently update the custom fields in bulk, saving time and reducing the risk of errors that might occur if updating each issue individually.",
+      "ideal": "The request should include a JSON body with the issue keys and the corresponding custom field values to be updated. The response should confirm the successful update of the specified fields."
+    },
+    {
+      "path": "/rest/api/3/app/field/{fieldIdOrKey}/value",
+      "method": "PUT",
+      "operationId": "updateCustomFieldValue",
+      "summary": "",
+      "user": "User B is a software developer who needs to update a specific custom field value for a single issue in Jira. This custom field is critical for tracking the progress of a feature they are working on. User B uses this API to ensure that the field reflects the current status of the development work, which is essential for accurate reporting and team collaboration.",
+      "ideal": "The request should specify the field ID or key in the URL and include the new value for the custom field in the request body. The response should indicate whether the update was successful and return the updated field value."
+    }
+  ]
+}

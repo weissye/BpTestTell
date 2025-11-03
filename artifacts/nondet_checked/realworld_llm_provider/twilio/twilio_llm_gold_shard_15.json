@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchCallNotification",
+      "summary": "",
+      "user": "User wants to retrieve a specific notification related to a call identified by CallSid and Sid for their account.",
+      "ideal": "The API should return the details of the notification, including its status, timestamp, and any relevant message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json",
+      "method": "GET",
+      "operationId": "ListCallNotification",
+      "summary": "",
+      "user": "User needs to list all notifications for a specific call identified by CallSid under their account.",
+      "ideal": "The API should return a list of notifications associated with the call, including each notification's Sid, status, and timestamp."
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/my-org/projectsV2",
+      "method": "GET",
+      "operationId": "projects/list-for-org",
+      "summary": "",
+      "user": "Retrieve a list of all projects for the organization 'my-org'.",
+      "ideal": "A successful response with a list of projects in JSON format."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1",
+      "method": "GET",
+      "operationId": "projects/get-for-org",
+      "summary": "",
+      "user": "Get details of the project with number 1 for the organization 'my-org'.",
+      "ideal": "A successful response with project details in JSON format."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1/fields",
+      "method": "GET",
+      "operationId": "projects/list-fields-for-org",
+      "summary": "",
+      "user": "List all fields for the project with number 1 in organization 'my-org'.",
+      "ideal": "A successful response with a list of fields in JSON format."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1/fields/field-1",
+      "method": "GET",
+      "operationId": "projects/get-field-for-org",
+      "summary": "",
+      "user": "Get details of field 'field-1' for project number 1 in organization 'my-org'.",
+      "ideal": "A successful response with field details in JSON format."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1/items",
+      "method": "GET",
+      "operationId": "projects/list-items-for-org",
+      "summary": "",
+      "user": "Retrieve all items for project number 1 in organization 'my-org'.",
+      "ideal": "A successful response with a list of items in JSON format."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1/items",
+      "method": "POST",
+      "operationId": "projects/add-item-for-org",
+      "summary": "",
+      "user": "Add a new item to project number 1 in organization 'my-org'.",
+      "ideal": "A successful response confirming the item was added."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1/items/item-1",
+      "method": "GET",
+      "operationId": "projects/get-org-item",
+      "summary": "",
+      "user": "Get details of item 'item-1' for project number 1 in organization 'my-org'.",
+      "ideal": "A successful response with item details in JSON format."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1/items/item-1",
+      "method": "PATCH",
+      "operationId": "projects/update-item-for-org",
+      "summary": "",
+      "user": "Update item 'item-1' for project number 1 in organization 'my-org'.",
+      "ideal": "A successful response confirming the item was updated."
+    },
+    {
+      "path": "/orgs/my-org/projectsV2/1/items/item-1",
+      "method": "DELETE",
+      "operationId": "projects/delete-item-for-org",
+      "summary": "",
+      "user": "Delete item 'item-1' from project number 1 in organization 'my-org'.",
+      "ideal": "A successful response confirming the item was deleted."
+    },
+    {
+      "path": "/users/johndoe/projectsV2",
+      "method": "GET",
+      "operationId": "projects/list-for-user",
+      "summary": "",
+      "user": "Retrieve a list of all projects for user 'johndoe'.",
+      "ideal": "A successful response with a list of projects in JSON format."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/1",
+      "method": "GET",
+      "operationId": "projects/get-for-user",
+      "summary": "",
+      "user": "Get details of project number 1 for user 'johndoe'.",
+      "ideal": "A successful response with project details in JSON format."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/1/fields",
+      "method": "GET",
+      "operationId": "projects/list-fields-for-user",
+      "summary": "",
+      "user": "List all fields for project number 1 for user 'johndoe'.",
+      "ideal": "A successful response with a list of fields in JSON format."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/1/fields/field-1",
+      "method": "GET",
+      "operationId": "projects/get-field-for-user",
+      "summary": "",
+      "user": "Get details of field 'field-1' for project number 1 for user 'johndoe'.",
+      "ideal": "A successful response with field details in JSON format."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/1/items",
+      "method": "GET",
+      "operationId": "projects/list-items-for-user",
+      "summary": "",
+      "user": "Retrieve all items for project number 1 for user 'johndoe'.",
+      "ideal": "A successful response with a list of items in JSON format."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/1/items",
+      "method": "POST",
+      "operationId": "projects/add-item-for-user",
+      "summary": "",
+      "user": "Add a new item to project number 1 for user 'johndoe'.",
+      "ideal": "A successful response confirming the item was added."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/1/items/item-1",
+      "method": "GET",
+      "operationId": "projects/get-user-item",
+      "summary": "",
+      "user": "Get details of item 'item-1' for project number 1 for user 'johndoe'.",
+      "ideal": "A successful response with item details in JSON format."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/1/items/item-1",
+      "method": "PATCH",
+      "operationId": "projects/update-item-for-user",
+      "summary": "",
+      "user": "Update item 'item-1' for project number 1 for user 'johndoe'.",
+      "ideal": "A successful response confirming the item was updated."
+    },
+    {
+      "path": "/users/johndoe/projectsV2/1/items/item-1",
+      "method": "DELETE",
+      "operationId": "projects/delete-item-for-user",
+      "summary": "",
+      "user": "Delete item 'item-1' from project number 1 for user 'johndoe'.",
+      "ideal": "A successful response confirming the item was deleted."
+    }
+  ]
+}
