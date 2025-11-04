@@ -4,7 +4,7 @@
   "trained_model_dir": "models/hls/meilisearch",
   "source_det": "artifacts/hls_det/real_world_llm_provider/meilisearch/hls_det_gold.json",
   "stories_js": "artifacts/hls_nondet/real_world_llm_provider/meilisearch/readable/stories_hls.js",
-  "generated_at": "2025-11-03T16:55:31.143710+00:00",
+  "generated_at": "2025-11-03T18:26:03.707075+00:00",
   "stories": [
     {
       "entity": "Meilisearch",

@@ -4,7 +4,7 @@
   "trained_model_dir": "models/hls/jira_cloud",
   "source_det": "artifacts/hls_det/real_world_llm_provider/jira_cloud/hls_det_gold.json",
   "stories_js": "artifacts/hls_nondet/real_world_llm_provider/jira_cloud/readable/stories_hls.js",
-  "generated_at": "2025-11-03T16:55:29.967677+00:00",
+  "generated_at": "2025-11-03T18:26:03.185489+00:00",
   "stories": [
     {
       "entity": "AndSwap",

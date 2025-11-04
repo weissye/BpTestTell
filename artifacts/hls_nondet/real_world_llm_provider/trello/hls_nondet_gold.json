@@ -4,7 +4,7 @@
   "trained_model_dir": "models/hls/trello",
   "source_det": "artifacts/hls_det/real_world_llm_provider/trello/hls_det_gold.json",
   "stories_js": "artifacts/hls_nondet/real_world_llm_provider/trello/readable/stories_hls.js",
-  "generated_at": "2025-11-03T16:55:32.296626+00:00",
+  "generated_at": "2025-11-03T18:26:04.226457+00:00",
   "stories": [
     {
       "entity": "Trello",
