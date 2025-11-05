@@ -1,81 +1,65 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
 
-rem ============================================
-rem Build DSL maps for each SUT in a list file
-rem ============================================
-
+rem ---------- resolve python ----------
 set "PY=python"
+if defined VIRTUAL_ENV if exist "%VIRTUAL_ENV%\Scripts\python.exe" set "PY=%VIRTUAL_ENV%\Scripts\python.exe"
 
-rem Path to THIS .bat
-set "THIS_DIR=%~dp0"
-rem build_dsl_map.py is in scripts\analysis
-set "BUILD_DSL_MAP_PY=%THIS_DIR%\build_dsl_map.py"
-
-rem Input list file
-set "LIST_FILE=%~1"
-if not defined LIST_FILE set "LIST_FILE=config\suts_and_rw.txt"
+rem ---------- input list ----------
+set "LIST=%~1"
+if "%LIST%"=="" set "LIST=config\suts_and_rw.txt"
 
 echo ============================================
-echo Building DSL maps from: "%LIST_FILE%"
+echo Building DSL maps from: "%LIST%"
 echo CWD: %CD%
 echo ============================================
+if not exist "%LIST%" ( echo [ERR] list file not found: %LIST% & exit /b 1 )
 
-if not exist "%LIST_FILE%" (
-  echo [ERR ] List file not found: "%LIST_FILE%"
-  exit /b 1
+rem process each line via subroutine (avoids ') was unexpected...' bug)
+for /f "usebackq tokens=* delims=" %%S in ("%LIST%") do call :ProcessLine "%%S"
+goto :Done
+
+:ProcessLine
+setlocal EnableDelayedExpansion
+set "LINE=%~1"
+if "!LINE!"=="" goto :eol
+set "FIRST=!LINE:~0,1!"
+if "!FIRST!"=="#" goto :eol
+if "!FIRST!"==";" goto :eol
+
+rem take first token before space , ; # ( )
+for /f "tokens=1 delims=,;#() " %%A in ("!LINE!") do set "SUT=%%~A"
+if not defined SUT goto :eol
+
+rem pick provider by existing graph
+set "PROVIDER=7_suts_llm_provider"
+if not exist "artifacts\analysis\!PROVIDER!\!SUT!\graph.json" set "PROVIDER=real_world_llm_provider"
+set "GRAPH=artifacts\analysis\!PROVIDER!\!SUT!\graph.json"
+if not exist "!GRAPH!" ( echo   [SKIP] no graph: !PROVIDER!\!SUT! & goto :eol )
+
+rem canonical output path
+if /i "!PROVIDER!"=="7_suts_llm_provider" (
+  set "OUTDIR=models\hls\SUTs\!SUT!"
+) else (
+  set "OUTDIR=models\hls\RWs\!SUT!"
 )
-
-if not exist "%BUILD_DSL_MAP_PY%" (
-  echo [ERR ] build_dsl_map.py not found at "%BUILD_DSL_MAP_PY%"
-  echo        Keep a SINGLE copy here: scripts\analysis\build_dsl_map.py
-  exit /b 1
-)
-
-rem Process non-empty, non-comment lines; strip inline ';' comments.
-for /f "usebackq tokens=* delims=" %%L in ("%LIST_FILE%") do (
-  set "LINE=%%L"
-  rem trim leading spaces
-  for /f "tokens=* delims= " %%A in ("!LINE!") do set "LINE=%%A"
-
-  if not "!LINE!"=="" (
-    if not "!LINE:~0,1!"=="#" if not "!LINE:~0,1!"==";" (
-      for /f "tokens=1 delims=;" %%S in ("!LINE!") do set "SUT=%%~S"
-      rem trim again after cutting comment
-      for /f "tokens=* delims= " %%Z in ("!SUT!") do set "SUT=%%Z"
-
-      if not "!SUT!"=="" (
-        echo.
-        echo [SUT ] !SUT!
-
-        for %%P in (7_suts_llm_provider real_world_llm_provider) do (
-          set "PROVIDER=%%P"
-          set "GRAPH=artifacts\analysis\!PROVIDER!\!SUT!\graph.json"
-
-          if /I "!PROVIDER!"=="7_suts_llm_provider" (
-            set "OUT=models\hls\SUTs\!SUT!\dsl_map.json"
-          ) else (
-            set "OUT=models\hls\RWs\!SUT!\dsl_map.json"
-          )
-
-          echo   [GRPH] !GRAPH!
-          if exist "!GRAPH!" (
-            echo   [RUN ] %PY% -u "%BUILD_DSL_MAP_PY%" --sut "!SUT!" --provider "!PROVIDER!" --graph "!GRAPH!" --out "!OUT!"
-            %PY% -u "%BUILD_DSL_MAP_PY%" --sut "!SUT!" --provider "!PROVIDER!" --graph "!GRAPH!" --out "!OUT!"
-            if errorlevel 1 (
-              echo   [ERR ] build_dsl_map.py failed with exit code !errorlevel!
-            ) else (
-              echo   [OK  ] wrote DSL map -> !OUT!
-            )
-          ) else (
-            echo   [SKIP] no graph:  !PROVIDER!\!SUT!
-          )
-        )
-      )
-    )
-  )
-)
+set "OUT=!OUTDIR!\dsl_map.json"
+if not exist "!OUTDIR!" mkdir "!OUTDIR!" >nul 2>&1
 
 echo.
+echo [SUT ] !SUT!
+echo   [GRPH] !GRAPH!
+echo   [RUN ] %PY% -u "%CD%\scripts\analysis\build_dsl_map.py" --sut "!SUT!" --provider "!PROVIDER!" --graph "!GRAPH!" --out "!OUT!"
+%PY% -u "%CD%\scripts\analysis\build_dsl_map.py" --sut "!SUT!" --provider "!PROVIDER!" --graph "!GRAPH!" --out "!OUT!"
+
+rem ---- remove ONLY the legacy mirror (no other changes) ----
+if exist "models\hls\!SUT!\dsl_map.json" del /q "models\hls\!SUT!\dsl_map.json" >nul 2>&1
+if exist "models\hls\!SUT!" rd /s /q "models\hls\!SUT!" >nul 2>&1
+
+:eol
+endlocal & goto :EOF
+
+:Done
+echo.
 echo [DONE] build_dsl_maps_for_list.bat finished.
-exit /b 0
+endlocal

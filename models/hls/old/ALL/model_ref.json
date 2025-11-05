@@ -1,0 +1,5 @@
+{
+  "model": "ALL",
+  "dataset": "models\\hls\\ALL\\train.jsonl",
+  "notes": "stub model; replace with a trained model if desired"
+}

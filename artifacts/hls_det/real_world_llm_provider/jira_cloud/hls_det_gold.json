@@ -1,0 +1,33 @@
+{
+  "sut": "jira_cloud",
+  "source": "artifacts\\det_checked\\real_world_llm_provider\\jira_cloud\\jira_cloud_det_gold.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "AndSwap",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addAndSwap"
+      ],
+      "checks": [
+        "verifyAndSwapNotExists"
+      ]
+    },
+    {
+      "entity": "ToDefault",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteToDefault"
+      ],
+      "checks": [
+        "verifyToDefaultExists"
+      ]
+    }
+  ]
+}

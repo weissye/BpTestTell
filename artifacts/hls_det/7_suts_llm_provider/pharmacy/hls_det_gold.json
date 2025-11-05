@@ -1,0 +1,47 @@
+{
+  "sut": "pharmacy",
+  "source": "artifacts\\det_checked\\7_suts_llm_provider\\pharmacy\\pharmacy_det_gold.json",
+  "seed": 42,
+  "stories": [
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ]
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ]
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ]
+    }
+  ]
+}
