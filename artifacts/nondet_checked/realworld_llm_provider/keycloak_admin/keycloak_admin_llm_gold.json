@@ -1,0 +1,1988 @@
+{
+  "gold": [
+    {
+      "path": "/v1/{realm}/attack-detection/brute-force/users",
+      "method": "DELETE",
+      "operationId": "deleteUsers",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Successfully deleted all brute force users in the specified realm."
+    },
+    {
+      "path": "/v1/{realm}/attack-detection/brute-force/users/{userId}",
+      "method": "GET",
+      "operationId": "getBruteForceUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieved details for the specified brute force user."
+    },
+    {
+      "path": "/v1/{realm}/attack-detection/brute-force/users/{userId}",
+      "method": "DELETE",
+      "operationId": "deleteBruteForceUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Successfully deleted the specified brute force user."
+    },
+    {
+      "path": "/{realm}/authentication/authenticator-providers",
+      "method": "GET",
+      "operationId": "getAuthenticatorProviders",
+      "summary": "",
+      "user": "Admin user requesting a list of available authenticator providers for a specific realm.",
+      "ideal": "Returns a list of authenticator providers configured in the specified realm."
+    },
+    {
+      "path": "/{realm}/authentication/client-authenticator-providers",
+      "method": "GET",
+      "operationId": "getClientAuthenticatorProviders",
+      "summary": "",
+      "user": "Client application requesting available client authenticator providers for the realm.",
+      "ideal": "Returns a list of client authenticator providers for the specified realm."
+    },
+    {
+      "path": "/{realm}/authentication/config",
+      "method": "POST",
+      "operationId": "postAuthenticationConfig",
+      "summary": "",
+      "user": "Admin user submitting new authentication configuration for the realm.",
+      "ideal": "Creates a new authentication configuration in the specified realm."
+    },
+    {
+      "path": "/{realm}/authentication/config-description/{providerId}",
+      "method": "GET",
+      "operationId": "getConfigDescription",
+      "summary": "",
+      "user": "Admin user seeking detailed configuration description for a specific provider.",
+      "ideal": "Returns the configuration description for the specified authenticator provider."
+    },
+    {
+      "path": "/{realm}/authentication/config/{id}",
+      "method": "GET",
+      "operationId": "getAuthenticationConfig",
+      "summary": "",
+      "user": "Admin user retrieving a specific authentication configuration by ID.",
+      "ideal": "Returns the authentication configuration details for the specified ID."
+    },
+    {
+      "path": "/{realm}/authentication/config/{id}",
+      "method": "PUT",
+      "operationId": "putAuthenticationConfig",
+      "summary": "",
+      "user": "Admin user updating an existing authentication configuration by ID.",
+      "ideal": "Updates the authentication configuration for the specified ID."
+    },
+    {
+      "path": "/{realm}/authentication/config/{id}",
+      "method": "DELETE",
+      "operationId": "deleteConfig",
+      "summary": "",
+      "user": "Admin user deleting an authentication configuration by ID.",
+      "ideal": "Deletes the authentication configuration for the specified ID."
+    },
+    {
+      "path": "/{realm}/authentication/executions",
+      "method": "POST",
+      "operationId": "postExecutions",
+      "summary": "",
+      "user": "Admin user creating a new authentication execution for the realm.",
+      "ideal": "Creates a new authentication execution in the specified realm."
+    },
+    {
+      "path": "/{realm}/authentication/executions/{executionId}",
+      "method": "GET",
+      "operationId": "getExecution",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific authentication execution.",
+      "ideal": "Returns details of the specified authentication execution."
+    },
+    {
+      "path": "/{realm}/authentication/executions/{executionId}",
+      "method": "DELETE",
+      "operationId": "deleteExecution",
+      "summary": "",
+      "user": "Admin user deleting a specific authentication execution.",
+      "ideal": "Deletes the specified authentication execution."
+    },
+    {
+      "path": "/{realm}/authentication/executions/{executionId}/config",
+      "method": "POST",
+      "operationId": "postExecutionConfig",
+      "summary": "",
+      "user": "Admin user submitting configuration for a specific authentication execution.",
+      "ideal": "Creates or updates the configuration for the specified authentication execution."
+    },
+    {
+      "path": "/{realm}/authentication/executions/{executionId}/config/{id}",
+      "method": "GET",
+      "operationId": "getExecutionConfig",
+      "summary": "",
+      "user": "Admin user retrieving configuration details for a specific execution.",
+      "ideal": "Returns configuration details for the specified execution ID."
+    },
+    {
+      "path": "/{realm}/authentication/executions/{executionId}/lower-priority",
+      "method": "POST",
+      "operationId": "postExecutionLowerPriority",
+      "summary": "",
+      "user": "Admin user lowering the priority of a specific authentication execution.",
+      "ideal": "Lowers the priority of the specified authentication execution."
+    },
+    {
+      "path": "/{realm}/authentication/executions/{executionId}/raise-priority",
+      "method": "POST",
+      "operationId": "postExecutionRaisePriority",
+      "summary": "",
+      "user": "Admin user raising the priority of a specific authentication execution.",
+      "ideal": "Raises the priority of the specified authentication execution."
+    },
+    {
+      "path": "/{realm}/authentication/flows",
+      "method": "GET",
+      "operationId": "getFlows",
+      "summary": "",
+      "user": "Admin user requesting a list of authentication flows in the realm.",
+      "ideal": "Returns a list of authentication flows configured in the specified realm."
+    },
+    {
+      "path": "/{realm}/authentication/flows",
+      "method": "POST",
+      "operationId": "postFlows",
+      "summary": "",
+      "user": "Admin user creating a new authentication flow in the realm.",
+      "ideal": "Creates a new authentication flow in the specified realm."
+    },
+    {
+      "path": "/{realm}/authentication/flows/{flowAlias}/copy",
+      "method": "POST",
+      "operationId": "postCopy",
+      "summary": "",
+      "user": "Admin user copying an existing authentication flow.",
+      "ideal": "Creates a copy of the specified authentication flow."
+    },
+    {
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions",
+      "method": "GET",
+      "operationId": "getExecutions",
+      "summary": "",
+      "user": "Admin user retrieving executions for a specific authentication flow.",
+      "ideal": "Returns the executions associated with the specified authentication flow."
+    },
+    {
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions",
+      "method": "PUT",
+      "operationId": "putExecutions",
+      "summary": "",
+      "user": "Admin user updating executions for a specific authentication flow.",
+      "ideal": "Updates the executions for the specified authentication flow."
+    },
+    {
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions/execution",
+      "method": "POST",
+      "operationId": "postExecution",
+      "summary": "",
+      "user": "Admin user creating a new execution in a specific authentication flow.",
+      "ideal": "Creates a new execution in the specified authentication flow."
+    },
+    {
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions/flow",
+      "method": "POST",
+      "operationId": "postFlow",
+      "summary": "",
+      "user": "Admin user creating a new flow execution in a specific authentication flow.",
+      "ideal": "Creates a new flow execution in the specified authentication flow."
+    },
+    {
+      "path": "/{realm}/authentication/flows/{id}",
+      "method": "GET",
+      "operationId": "getFlow",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific authentication flow by ID.",
+      "ideal": "Returns details of the specified authentication flow."
+    },
+    {
+      "path": "/{realm}/authentication/flows/{id}",
+      "method": "PUT",
+      "operationId": "putFlow",
+      "summary": "",
+      "user": "Admin user updating an existing authentication flow by ID.",
+      "ideal": "Updates the specified authentication flow."
+    },
+    {
+      "path": "/{realm}/authentication/flows/{id}",
+      "method": "DELETE",
+      "operationId": "deleteFlow",
+      "summary": "",
+      "user": "Admin user deleting a specific authentication flow by ID.",
+      "ideal": "Deletes the specified authentication flow."
+    },
+    {
+      "path": "/{realm}/authentication/form-action-providers",
+      "method": "GET",
+      "operationId": "getFormActionProviders",
+      "summary": "",
+      "user": "Admin user requesting a list of form action providers for the realm.",
+      "ideal": "Returns a list of form action providers configured in the specified realm."
+    },
+    {
+      "path": "/{realm}/authentication/form-providers",
+      "method": "GET",
+      "operationId": "getFormProviders",
+      "summary": "",
+      "user": "Admin user requesting a list of form providers for the realm.",
+      "ideal": "Returns a list of form providers configured in the specified realm."
+    },
+    {
+      "path": "/{realm}/authentication/per-client-config-description",
+      "method": "GET",
+      "operationId": "getPerClientConfigDescription",
+      "summary": "",
+      "user": "Admin user seeking configuration description for per-client settings.",
+      "ideal": "Returns the configuration description for per-client authentication settings."
+    },
+    {
+      "path": "/{realm}/authentication/register-required-action",
+      "method": "POST",
+      "operationId": "postRegisterRequiredAction",
+      "summary": "",
+      "user": "Admin user registering a new required action for authentication.",
+      "ideal": "Registers a new required action in the specified realm."
+    },
+    {
+      "path": "/{realm}/authentication/required-actions",
+      "method": "GET",
+      "operationId": "getRequiredActions",
+      "summary": "",
+      "user": "Admin user requesting a list of required actions for the realm.",
+      "ideal": "Returns a list of required actions configured in the specified realm."
+    },
+    {
+      "path": "/{realm}/authentication/required-actions/{alias}",
+      "method": "GET",
+      "operationId": "getRequiredAction",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific required action by alias.",
+      "ideal": "Returns details of the specified required action."
+    },
+    {
+      "path": "/{realm}/authentication/required-actions/{alias}",
+      "method": "PUT",
+      "operationId": "putRequiredAction",
+      "summary": "",
+      "user": "Admin user updating a specific required action by alias.",
+      "ideal": "Updates the specified required action."
+    },
+    {
+      "path": "/{realm}/authentication/required-actions/{alias}",
+      "method": "DELETE",
+      "operationId": "deleteRequiredAction",
+      "summary": "",
+      "user": "Admin user deleting a specific required action by alias.",
+      "ideal": "Deletes the specified required action."
+    },
+    {
+      "path": "/{realm}/authentication/required-actions/{alias}/lower-priority",
+      "method": "POST",
+      "operationId": "postRequiredActionLowerPriority",
+      "summary": "",
+      "user": "Admin user lowering the priority of a specific required action.",
+      "ideal": "Lowers the priority of the specified required action."
+    },
+    {
+      "path": "/{realm}/authentication/required-actions/{alias}/raise-priority",
+      "method": "POST",
+      "operationId": "postRequiredActionRaisePriority",
+      "summary": "",
+      "user": "Admin user raising the priority of a specific required action.",
+      "ideal": "Raises the priority of the specified required action."
+    },
+    {
+      "path": "/{realm}/authentication/unregistered-required-actions",
+      "method": "GET",
+      "operationId": "getUnregisteredRequiredActions",
+      "summary": "",
+      "user": "Admin user requesting a list of unregistered required actions.",
+      "ideal": "Returns a list of unregistered required actions available for the realm."
+    },
+    {
+      "path": "/myrealm/clients/123/certificates/public",
+      "method": "GET",
+      "operationId": "getCertificate",
+      "summary": "",
+      "user": "Admin user requesting the public certificate for client ID 123 in the realm 'myrealm'.",
+      "ideal": "Returns the public certificate for the specified client."
+    },
+    {
+      "path": "/myrealm/clients/123/certificates/private/download",
+      "method": "POST",
+      "operationId": "postDownload",
+      "summary": "",
+      "user": "Admin user attempting to download the private certificate for client ID 123 in the realm 'myrealm'.",
+      "ideal": "Downloads the private certificate for the specified client."
+    },
+    {
+      "path": "/myrealm/clients/123/certificates/private/generate",
+      "method": "POST",
+      "operationId": "postGenerate",
+      "summary": "",
+      "user": "Admin user generating a new private certificate for client ID 123 in the realm 'myrealm'.",
+      "ideal": "Generates a new private certificate for the specified client."
+    },
+    {
+      "path": "/myrealm/clients/123/certificates/private/generate-and-download",
+      "method": "POST",
+      "operationId": "postGenerateAndDownload",
+      "summary": "",
+      "user": "Admin user generating and downloading a new private certificate for client ID 123 in the realm 'myrealm'.",
+      "ideal": "Generates and immediately downloads the new private certificate for the specified client."
+    },
+    {
+      "path": "/myrealm/clients/123/certificates/private/upload",
+      "method": "POST",
+      "operationId": "postUpload",
+      "summary": "",
+      "user": "Admin user uploading a new private certificate for client ID 123 in the realm 'myrealm'.",
+      "ideal": "Uploads a new private certificate for the specified client."
+    },
+    {
+      "path": "/myrealm/clients/123/certificates/private/upload-certificate",
+      "method": "POST",
+      "operationId": "postUploadCertificate",
+      "summary": "",
+      "user": "Admin user uploading a specific certificate for client ID 123 in the realm 'myrealm'.",
+      "ideal": "Uploads a specific certificate for the specified client."
+    },
+    {
+      "path": "/myrealm/clients-initial-access",
+      "method": "GET",
+      "operationId": "getClientsInitialAccess",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of initial access tokens for the specified realm."
+    },
+    {
+      "path": "/myrealm/clients-initial-access",
+      "method": "POST",
+      "operationId": "postClientsInitialAccess",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new initial access token for the specified realm."
+    },
+    {
+      "path": "/myrealm/clients-initial-access/12345",
+      "method": "DELETE",
+      "operationId": "deleteClientsInitialAcces",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the initial access token with the specified ID from the realm."
+    },
+    {
+      "path": "/myrealm/client-registration-policy/providers",
+      "method": "GET",
+      "operationId": "getProviders",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all client registration policy providers available in the specified realm."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings/clients/myclient",
+      "method": "GET",
+      "operationId": "getGroupRoleMappingsClient",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve role mappings for group with ID 123 in realm 'myrealm' for client 'myclient'."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings/clients/myclient",
+      "method": "POST",
+      "operationId": "postGroupRoleMappingsClient",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add role mappings for group with ID 123 in realm 'myrealm' for client 'myclient'."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings/clients/myclient",
+      "method": "DELETE",
+      "operationId": "deleteGroupRoleMappingsClient",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove role mappings for group with ID 123 in realm 'myrealm' for client 'myclient'."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings/clients/myclient/available",
+      "method": "GET",
+      "operationId": "getGroupRoleMappingsClientAvailable",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch available role mappings for group with ID 123 in realm 'myrealm' for client 'myclient'."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings/clients/myclient/composite",
+      "method": "GET",
+      "operationId": "getGroupRoleMappingsClientComposite",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get composite role mappings for group with ID 123 in realm 'myrealm' for client 'myclient'."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings/clients/myclient",
+      "method": "GET",
+      "operationId": "getUserRoleMappingsClient",
+      "summary": "",
+      "user": "user1",
+      "ideal": "Retrieve role mappings for user with ID 456 in realm 'myrealm' for client 'myclient'."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings/clients/myclient",
+      "method": "POST",
+      "operationId": "postUserRoleMappingsClient",
+      "summary": "",
+      "user": "user1",
+      "ideal": "Add role mappings for user with ID 456 in realm 'myrealm' for client 'myclient'."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings/clients/myclient",
+      "method": "DELETE",
+      "operationId": "deleteUserRoleMappingsClient",
+      "summary": "",
+      "user": "user1",
+      "ideal": "Remove role mappings for user with ID 456 in realm 'myrealm' for client 'myclient'."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings/clients/myclient/available",
+      "method": "GET",
+      "operationId": "getUserRoleMappingsClientAvailable",
+      "summary": "",
+      "user": "user1",
+      "ideal": "Fetch available role mappings for user with ID 456 in realm 'myrealm' for client 'myclient'."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings/clients/myclient/composite",
+      "method": "GET",
+      "operationId": "getUserRoleMappingsClientComposite",
+      "summary": "",
+      "user": "user1",
+      "ideal": "Get composite role mappings for user with ID 456 in realm 'myrealm' for client 'myclient'."
+    },
+    {
+      "path": "/myrealm/client-scopes",
+      "method": "GET",
+      "operationId": "getClientScopes",
+      "summary": "",
+      "user": "As an admin, I want to retrieve all client scopes in my realm to manage them effectively.",
+      "ideal": "Returns a list of client scopes with their details."
+    },
+    {
+      "path": "/myrealm/client-scopes",
+      "method": "POST",
+      "operationId": "postClientScopes",
+      "summary": "",
+      "user": "As an admin, I want to create a new client scope so that I can define specific access policies.",
+      "ideal": "Creates a new client scope and returns its details."
+    },
+    {
+      "path": "/myrealm/client-scopes/12345",
+      "method": "GET",
+      "operationId": "getClientScope",
+      "summary": "",
+      "user": "As an admin, I want to retrieve details of a specific client scope to review its configuration.",
+      "ideal": "Returns the details of the specified client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/12345",
+      "method": "PUT",
+      "operationId": "putClientScope",
+      "summary": "",
+      "user": "As an admin, I want to update the configuration of a specific client scope to adjust its settings.",
+      "ideal": "Updates the specified client scope and returns the updated details."
+    },
+    {
+      "path": "/myrealm/client-scopes/12345",
+      "method": "DELETE",
+      "operationId": "deleteClientScope",
+      "summary": "",
+      "user": "As an admin, I want to delete a specific client scope that is no longer needed.",
+      "ideal": "Deletes the specified client scope and confirms the deletion."
+    },
+    {
+      "path": "/myrealm/client-templates",
+      "method": "GET",
+      "operationId": "getClientTemplates",
+      "summary": "",
+      "user": "As an admin, I want to retrieve all client templates to streamline client creation.",
+      "ideal": "Returns a list of client templates with their details."
+    },
+    {
+      "path": "/myrealm/client-templates",
+      "method": "POST",
+      "operationId": "postClientTemplates",
+      "summary": "",
+      "user": "As an admin, I want to create a new client template to standardize client configurations.",
+      "ideal": "Creates a new client template and returns its details."
+    },
+    {
+      "path": "/myrealm/client-templates/67890",
+      "method": "GET",
+      "operationId": "getClientTemplate",
+      "summary": "",
+      "user": "As an admin, I want to retrieve details of a specific client template to understand its structure.",
+      "ideal": "Returns the details of the specified client template."
+    },
+    {
+      "path": "/myrealm/client-templates/67890",
+      "method": "PUT",
+      "operationId": "putClientTemplate",
+      "summary": "",
+      "user": "As an admin, I want to update a specific client template to modify its settings.",
+      "ideal": "Updates the specified client template and returns the updated details."
+    },
+    {
+      "path": "/myrealm/client-templates/67890",
+      "method": "DELETE",
+      "operationId": "deleteClientTemplate",
+      "summary": "",
+      "user": "As an admin, I want to delete a specific client template that is outdated.",
+      "ideal": "Deletes the specified client template and confirms the deletion."
+    },
+    {
+      "path": "/{realm}/clients",
+      "method": "GET",
+      "operationId": "getClients",
+      "summary": "",
+      "user": "Admin user retrieves a list of all clients in the specified realm to manage their configurations.",
+      "ideal": "Returns a list of client representations including their IDs, names, and configurations."
+    },
+    {
+      "path": "/{realm}/clients",
+      "method": "POST",
+      "operationId": "postClients",
+      "summary": "",
+      "user": "Admin user creates a new client in the specified realm with necessary configurations.",
+      "ideal": "Returns the created client representation with its ID and default settings."
+    },
+    {
+      "path": "/{realm}/clients/{id}",
+      "method": "GET",
+      "operationId": "getClientByRealmById",
+      "summary": "",
+      "user": "Admin user retrieves detailed information about a specific client using its ID.",
+      "ideal": "Returns the client representation including its settings and permissions."
+    },
+    {
+      "path": "/{realm}/clients/{id}",
+      "method": "PUT",
+      "operationId": "putClient",
+      "summary": "",
+      "user": "Admin user updates the configuration of an existing client identified by its ID.",
+      "ideal": "Returns the updated client representation confirming the changes."
+    },
+    {
+      "path": "/{realm}/clients/{id}",
+      "method": "DELETE",
+      "operationId": "deleteClientByRealmById",
+      "summary": "",
+      "user": "Admin user deletes a specific client from the realm using its ID.",
+      "ideal": "Returns a success message confirming the deletion of the client."
+    },
+    {
+      "path": "/{realm}/clients/{id}/client-secret",
+      "method": "GET",
+      "operationId": "getClientSecret",
+      "summary": "",
+      "user": "Admin user retrieves the current client secret for a specific client.",
+      "ideal": "Returns the client secret used for authentication."
+    },
+    {
+      "path": "/{realm}/clients/{id}/client-secret",
+      "method": "POST",
+      "operationId": "postClientSecret",
+      "summary": "",
+      "user": "Admin user generates a new client secret for a specific client.",
+      "ideal": "Returns the new client secret for the client."
+    },
+    {
+      "path": "/{realm}/clients/{id}/client-secret/rotated",
+      "method": "GET",
+      "operationId": "getRotated",
+      "summary": "",
+      "user": "Admin user checks if the client secret has been rotated for a specific client.",
+      "ideal": "Returns a boolean indicating whether the client secret has been rotated."
+    },
+    {
+      "path": "/{realm}/clients/{id}/client-secret/rotated",
+      "method": "DELETE",
+      "operationId": "deleteRotated",
+      "summary": "",
+      "user": "Admin user deletes the rotated client secret for a specific client.",
+      "ideal": "Returns a success message confirming the deletion of the rotated secret."
+    },
+    {
+      "path": "/{realm}/clients/{id}/default-client-scopes",
+      "method": "GET",
+      "operationId": "getDefaultClientScopes",
+      "summary": "",
+      "user": "Admin user retrieves the default client scopes assigned to a specific client.",
+      "ideal": "Returns a list of default client scopes for the client."
+    },
+    {
+      "path": "/{realm}/clients/{id}/default-client-scopes/{clientScopeId}",
+      "method": "PUT",
+      "operationId": "putDefaultClientScope",
+      "summary": "",
+      "user": "Admin user updates the default client scope for a specific client.",
+      "ideal": "Returns the updated client scope representation."
+    },
+    {
+      "path": "/{realm}/clients/{id}/default-client-scopes/{clientScopeId}",
+      "method": "DELETE",
+      "operationId": "deleteDefaultClientScope",
+      "summary": "",
+      "user": "Admin user removes a default client scope from a specific client.",
+      "ideal": "Returns a success message confirming the removal of the client scope."
+    },
+    {
+      "path": "/{realm}/clients/{id}/evaluate-scopes/generate-example-access-token",
+      "method": "GET",
+      "operationId": "getGenerateExampleAccessToken",
+      "summary": "",
+      "user": "Admin user generates an example access token for testing purposes.",
+      "ideal": "Returns an example access token that can be used for API calls."
+    },
+    {
+      "path": "/{realm}/clients/{id}/evaluate-scopes/generate-example-id-token",
+      "method": "GET",
+      "operationId": "getGenerateExampleIdToken",
+      "summary": "",
+      "user": "Admin user generates an example ID token for testing purposes.",
+      "ideal": "Returns an example ID token that can be used for authentication."
+    },
+    {
+      "path": "/{realm}/clients/{id}/evaluate-scopes/generate-example-userinfo",
+      "method": "GET",
+      "operationId": "getGenerateExampleUserinfo",
+      "summary": "",
+      "user": "Admin user generates example user information for testing purposes.",
+      "ideal": "Returns an example user information payload."
+    },
+    {
+      "path": "/{realm}/clients/{id}/evaluate-scopes/protocol-mappers",
+      "method": "GET",
+      "operationId": "getProtocolMappers",
+      "summary": "",
+      "user": "Admin user retrieves the protocol mappers configured for a specific client.",
+      "ideal": "Returns a list of protocol mappers associated with the client."
+    },
+    {
+      "path": "/{realm}/clients/{id}/evaluate-scopes/scope-mappings/{roleContainerId}/granted",
+      "method": "GET",
+      "operationId": "getGranted",
+      "summary": "",
+      "user": "Admin user checks which roles are granted to a specific client.",
+      "ideal": "Returns a list of granted roles for the client."
+    },
+    {
+      "path": "/{realm}/clients/{id}/evaluate-scopes/scope-mappings/{roleContainerId}/not-granted",
+      "method": "GET",
+      "operationId": "getNotGranted",
+      "summary": "",
+      "user": "Admin user checks which roles are not granted to a specific client.",
+      "ideal": "Returns a list of roles that are not granted to the client."
+    },
+    {
+      "path": "/{realm}/clients/{id}/installation/providers/{providerId}",
+      "method": "GET",
+      "operationId": "getInstallationProvider",
+      "summary": "",
+      "user": "Admin user retrieves installation details for a specific provider associated with the client.",
+      "ideal": "Returns installation configuration details for the specified provider."
+    },
+    {
+      "path": "/{realm}/clients/{id}/management/permissions",
+      "method": "GET",
+      "operationId": "getClientManagementPermissions",
+      "summary": "",
+      "user": "Admin user retrieves management permissions for a specific client.",
+      "ideal": "Returns a list of permissions associated with the client."
+    },
+    {
+      "path": "/{realm}/clients/{id}/management/permissions",
+      "method": "PUT",
+      "operationId": "putClientManagementPermissions",
+      "summary": "",
+      "user": "Admin user updates management permissions for a specific client.",
+      "ideal": "Returns the updated permissions for the client."
+    },
+    {
+      "path": "/{realm}/clients/{id}/nodes",
+      "method": "POST",
+      "operationId": "postNodes",
+      "summary": "",
+      "user": "Admin user adds nodes to a specific client for load balancing.",
+      "ideal": "Returns a success message confirming the addition of nodes."
+    },
+    {
+      "path": "/{realm}/clients/{id}/nodes/{node}",
+      "method": "DELETE",
+      "operationId": "deleteNode",
+      "summary": "",
+      "user": "Admin user removes a specific node from a client.",
+      "ideal": "Returns a success message confirming the removal of the node."
+    },
+    {
+      "path": "/{realm}/clients/{id}/offline-session-count",
+      "method": "GET",
+      "operationId": "getOfflineSessionCount",
+      "summary": "",
+      "user": "Admin user retrieves the count of offline sessions for a specific client.",
+      "ideal": "Returns the number of offline sessions associated with the client."
+    },
+    {
+      "path": "/{realm}/clients/{id}/offline-sessions",
+      "method": "GET",
+      "operationId": "getOfflineSessions",
+      "summary": "",
+      "user": "Admin user retrieves details of offline sessions for a specific client.",
+      "ideal": "Returns a list of offline session details."
+    },
+    {
+      "path": "/{realm}/clients/{id}/optional-client-scopes",
+      "method": "GET",
+      "operationId": "getOptionalClientScopes",
+      "summary": "",
+      "user": "Admin user retrieves the optional client scopes assigned to a specific client.",
+      "ideal": "Returns a list of optional client scopes for the client."
+    },
+    {
+      "path": "/{realm}/clients/{id}/optional-client-scopes/{clientScopeId}",
+      "method": "PUT",
+      "operationId": "putOptionalClientScope",
+      "summary": "",
+      "user": "Admin user updates an optional client scope for a specific client.",
+      "ideal": "Returns the updated optional client scope representation."
+    },
+    {
+      "path": "/{realm}/clients/{id}/optional-client-scopes/{clientScopeId}",
+      "method": "DELETE",
+      "operationId": "deleteOptionalClientScope",
+      "summary": "",
+      "user": "Admin user removes an optional client scope from a specific client.",
+      "ideal": "Returns a success message confirming the removal of the optional client scope."
+    },
+    {
+      "path": "/{realm}/clients/{id}/push-revocation",
+      "method": "POST",
+      "operationId": "postClientPushRevocation",
+      "summary": "",
+      "user": "Admin user pushes revocation of tokens for a specific client.",
+      "ideal": "Returns a success message confirming the revocation push."
+    },
+    {
+      "path": "/{realm}/clients/{id}/registration-access-token",
+      "method": "POST",
+      "operationId": "postRegistrationAccessToken",
+      "summary": "",
+      "user": "Admin user generates a registration access token for a specific client.",
+      "ideal": "Returns the generated registration access token."
+    },
+    {
+      "path": "/{realm}/clients/{id}/service-account-user",
+      "method": "GET",
+      "operationId": "getServiceAccountUser",
+      "summary": "",
+      "user": "Admin user retrieves the service account user associated with a specific client.",
+      "ideal": "Returns the service account user details."
+    },
+    {
+      "path": "/{realm}/clients/{id}/session-count",
+      "method": "GET",
+      "operationId": "getSessionCount",
+      "summary": "",
+      "user": "Admin user retrieves the current session count for a specific client.",
+      "ideal": "Returns the number of active sessions for the client."
+    },
+    {
+      "path": "/{realm}/clients/{id}/test-nodes-available",
+      "method": "GET",
+      "operationId": "getTestNodesAvailable",
+      "summary": "",
+      "user": "Admin user checks the availability of nodes for a specific client.",
+      "ideal": "Returns a list of available nodes for the client."
+    },
+    {
+      "path": "/{realm}/clients/{id}/user-sessions",
+      "method": "GET",
+      "operationId": "getClientUserSessions",
+      "summary": "",
+      "user": "Admin user retrieves user sessions associated with a specific client.",
+      "ideal": "Returns a list of user session details for the client."
+    },
+    {
+      "path": "/myrealm/components",
+      "method": "GET",
+      "operationId": "getComponents",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all components in the specified realm."
+    },
+    {
+      "path": "/myrealm/components",
+      "method": "POST",
+      "operationId": "postComponents",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new component in the specified realm with the provided configuration."
+    },
+    {
+      "path": "/myrealm/components/12345",
+      "method": "GET",
+      "operationId": "getComponent",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch details of the component with ID 12345 in the specified realm."
+    },
+    {
+      "path": "/myrealm/components/12345",
+      "method": "PUT",
+      "operationId": "putComponent",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the component with ID 12345 in the specified realm with new configuration."
+    },
+    {
+      "path": "/myrealm/components/12345",
+      "method": "DELETE",
+      "operationId": "deleteComponent",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete the component with ID 12345 from the specified realm."
+    },
+    {
+      "path": "/myrealm/components/12345/sub-component-types",
+      "method": "GET",
+      "operationId": "getSubComponentTypes",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of sub-component types for the component with ID 12345 in the specified realm."
+    },
+    {
+      "path": "/myrealm/groups",
+      "method": "GET",
+      "operationId": "getGroupsByRealm",
+      "summary": "",
+      "user": "Admin user requesting all groups in the 'myrealm' realm.",
+      "ideal": "Returns a list of groups in the specified realm."
+    },
+    {
+      "path": "/myrealm/groups",
+      "method": "POST",
+      "operationId": "postGroups",
+      "summary": "",
+      "user": "Admin user creating a new group named 'Developers' in the 'myrealm' realm.",
+      "ideal": "Creates a new group and returns the created group's details."
+    },
+    {
+      "path": "/myrealm/groups/count",
+      "method": "GET",
+      "operationId": "getGroupsCountByRealm",
+      "summary": "",
+      "user": "Admin user checking the total number of groups in 'myrealm'.",
+      "ideal": "Returns the count of groups in the specified realm."
+    },
+    {
+      "path": "/myrealm/groups/12345",
+      "method": "GET",
+      "operationId": "getGroup",
+      "summary": "",
+      "user": "Admin user retrieving details of the group with ID '12345' in 'myrealm'.",
+      "ideal": "Returns the details of the specified group."
+    },
+    {
+      "path": "/myrealm/groups/12345",
+      "method": "PUT",
+      "operationId": "putGroupByRealmById",
+      "summary": "",
+      "user": "Admin user updating the group with ID '12345' to change its name to 'Senior Developers'.",
+      "ideal": "Updates the specified group and returns the updated group's details."
+    },
+    {
+      "path": "/myrealm/groups/12345",
+      "method": "DELETE",
+      "operationId": "deleteGroupByRealmById",
+      "summary": "",
+      "user": "Admin user deleting the group with ID '12345' from 'myrealm'.",
+      "ideal": "Deletes the specified group and confirms the deletion."
+    },
+    {
+      "path": "/myrealm/groups/12345/children",
+      "method": "POST",
+      "operationId": "postChildren",
+      "summary": "",
+      "user": "Admin user adding a child group to the group with ID '12345' in 'myrealm'.",
+      "ideal": "Adds a child group to the specified group and returns the updated group details."
+    },
+    {
+      "path": "/myrealm/groups/12345/management/permissions",
+      "method": "GET",
+      "operationId": "getGroupManagementPermissions",
+      "summary": "",
+      "user": "Admin user checking management permissions for the group with ID '12345'.",
+      "ideal": "Returns the management permissions for the specified group."
+    },
+    {
+      "path": "/myrealm/groups/12345/management/permissions",
+      "method": "PUT",
+      "operationId": "putGroupManagementPermissions",
+      "summary": "",
+      "user": "Admin user updating management permissions for the group with ID '12345'.",
+      "ideal": "Updates the management permissions for the specified group and returns the updated permissions."
+    },
+    {
+      "path": "/myrealm/groups/12345/members",
+      "method": "GET",
+      "operationId": "getMembers",
+      "summary": "",
+      "user": "Admin user retrieving members of the group with ID '12345' in 'myrealm'.",
+      "ideal": "Returns a list of members in the specified group."
+    },
+    {
+      "path": "/{realm}/identity-provider/instances",
+      "method": "GET",
+      "operationId": "getInstances",
+      "summary": "",
+      "user": "Admin user requesting a list of all identity provider instances in the specified realm.",
+      "ideal": "Returns a list of identity provider instances."
+    },
+    {
+      "path": "/{realm}/identity-provider/instances",
+      "method": "POST",
+      "operationId": "postInstances",
+      "summary": "",
+      "user": "Admin user creating a new identity provider instance with specific configuration.",
+      "ideal": "Creates a new identity provider instance and returns its details."
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}",
+      "method": "GET",
+      "operationId": "getInstance",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific identity provider instance using its alias.",
+      "ideal": "Returns the details of the specified identity provider instance."
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}",
+      "method": "PUT",
+      "operationId": "putInstance",
+      "summary": "",
+      "user": "Admin user updating the configuration of an existing identity provider instance.",
+      "ideal": "Updates the specified identity provider instance and returns the updated details."
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}",
+      "method": "DELETE",
+      "operationId": "deleteInstance",
+      "summary": "",
+      "user": "Admin user deleting a specific identity provider instance by its alias.",
+      "ideal": "Deletes the specified identity provider instance."
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/export",
+      "method": "GET",
+      "operationId": "getExport",
+      "summary": "",
+      "user": "Admin user exporting the configuration of a specific identity provider instance.",
+      "ideal": "Returns the exported configuration of the specified identity provider instance."
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/management/permissions",
+      "method": "GET",
+      "operationId": "getInstanceManagementPermissions",
+      "summary": "",
+      "user": "Admin user checking management permissions for a specific identity provider instance.",
+      "ideal": "Returns the management permissions for the specified identity provider instance."
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/management/permissions",
+      "method": "PUT",
+      "operationId": "putInstanceManagementPermissions",
+      "summary": "",
+      "user": "Admin user updating management permissions for a specific identity provider instance.",
+      "ideal": "Updates the management permissions for the specified identity provider instance."
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/mapper-types",
+      "method": "GET",
+      "operationId": "getMapperTypes",
+      "summary": "",
+      "user": "Admin user retrieving available mapper types for a specific identity provider instance.",
+      "ideal": "Returns a list of available mapper types for the specified identity provider instance."
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/mappers",
+      "method": "GET",
+      "operationId": "getMappers",
+      "summary": "",
+      "user": "Admin user retrieving all mappers associated with a specific identity provider instance.",
+      "ideal": "Returns a list of mappers for the specified identity provider instance."
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/mappers",
+      "method": "POST",
+      "operationId": "postMappers",
+      "summary": "",
+      "user": "Admin user creating a new mapper for a specific identity provider instance.",
+      "ideal": "Creates a new mapper and returns its details."
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}",
+      "method": "GET",
+      "operationId": "getMapper",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific mapper by its ID.",
+      "ideal": "Returns the details of the specified mapper."
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}",
+      "method": "PUT",
+      "operationId": "putMapper",
+      "summary": "",
+      "user": "Admin user updating the configuration of a specific mapper by its ID.",
+      "ideal": "Updates the specified mapper and returns the updated details."
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}",
+      "method": "DELETE",
+      "operationId": "deleteMapper",
+      "summary": "",
+      "user": "Admin user deleting a specific mapper by its ID.",
+      "ideal": "Deletes the specified mapper."
+    },
+    {
+      "path": "/{realm}/identity-provider/providers/{provider_id}",
+      "method": "GET",
+      "operationId": "getIdentityProviderProvider",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific identity provider by its ID.",
+      "ideal": "Returns the details of the specified identity provider."
+    },
+    {
+      "path": "/{realm}/keys",
+      "method": "GET",
+      "operationId": "getKeys",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the public keys used for signing and encrypting tokens in the specified realm."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models/456",
+      "method": "GET",
+      "operationId": "getClientScopeProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user requesting details of a specific protocol mapper model.",
+      "ideal": "Returns the details of the protocol mapper model with ID 456 for the client scope with ID 123."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models/456",
+      "method": "PUT",
+      "operationId": "putClientScopeProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user updating the protocol mapper model with new configurations.",
+      "ideal": "Updates the protocol mapper model with ID 456 for the client scope with ID 123 and returns the updated model."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models/456",
+      "method": "DELETE",
+      "operationId": "deleteClientScopeProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user deleting a specific protocol mapper model.",
+      "ideal": "Deletes the protocol mapper model with ID 456 for the client scope with ID 123 and confirms deletion."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/protocol-mappers/add-models",
+      "method": "POST",
+      "operationId": "postClientScopeProtocolMappersAddModels",
+      "summary": "",
+      "user": "Admin user adding new protocol mapper models to the client scope.",
+      "ideal": "Adds new protocol mapper models to the client scope with ID 123 and returns the added models."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models",
+      "method": "GET",
+      "operationId": "getClientScopeProtocolMappersModels",
+      "summary": "",
+      "user": "Admin user retrieving all protocol mapper models for a client scope.",
+      "ideal": "Returns a list of all protocol mapper models for the client scope with ID 123."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/protocol-mappers/models",
+      "method": "POST",
+      "operationId": "postClientScopeProtocolMappersModels",
+      "summary": "",
+      "user": "Admin user creating multiple protocol mapper models for the client scope.",
+      "ideal": "Creates multiple protocol mapper models for the client scope with ID 123 and returns the created models."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/protocol-mappers/protocol/saml",
+      "method": "GET",
+      "operationId": "getClientScopeProtocolMappersProtocol",
+      "summary": "",
+      "user": "Admin user checking protocol mappers for a specific protocol.",
+      "ideal": "Returns protocol mappers associated with the SAML protocol for the client scope with ID 123."
+    },
+    {
+      "path": "/myrealm/client-templates/456/protocol-mappers/models/789",
+      "method": "GET",
+      "operationId": "getClientTemplateProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user retrieving a specific protocol mapper model from a client template.",
+      "ideal": "Returns the details of the protocol mapper model with ID 789 for the client template with ID 456."
+    },
+    {
+      "path": "/myrealm/client-templates/456/protocol-mappers/models/789",
+      "method": "PUT",
+      "operationId": "putClientTemplateProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user updating a protocol mapper model in a client template.",
+      "ideal": "Updates the protocol mapper model with ID 789 for the client template with ID 456 and returns the updated model."
+    },
+    {
+      "path": "/myrealm/client-templates/456/protocol-mappers/models/789",
+      "method": "DELETE",
+      "operationId": "deleteClientTemplateProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user deleting a protocol mapper model from a client template.",
+      "ideal": "Deletes the protocol mapper model with ID 789 for the client template with ID 456 and confirms deletion."
+    },
+    {
+      "path": "/myrealm/client-templates/456/protocol-mappers/add-models",
+      "method": "POST",
+      "operationId": "postClientTemplateProtocolMappersAddModels",
+      "summary": "",
+      "user": "Admin user adding new protocol mapper models to a client template.",
+      "ideal": "Adds new protocol mapper models to the client template with ID 456 and returns the added models."
+    },
+    {
+      "path": "/myrealm/client-templates/456/protocol-mappers/models",
+      "method": "GET",
+      "operationId": "getClientTemplateProtocolMappersModels",
+      "summary": "",
+      "user": "Admin user retrieving all protocol mapper models for a client template.",
+      "ideal": "Returns a list of all protocol mapper models for the client template with ID 456."
+    },
+    {
+      "path": "/myrealm/client-templates/456/protocol-mappers/models",
+      "method": "POST",
+      "operationId": "postClientTemplateProtocolMappersModels",
+      "summary": "",
+      "user": "Admin user creating multiple protocol mapper models for a client template.",
+      "ideal": "Creates multiple protocol mapper models for the client template with ID 456 and returns the created models."
+    },
+    {
+      "path": "/myrealm/client-templates/456/protocol-mappers/protocol/openid-connect",
+      "method": "GET",
+      "operationId": "getClientTemplateProtocolMappersProtocol",
+      "summary": "",
+      "user": "Admin user checking protocol mappers for a specific protocol in a client template.",
+      "ideal": "Returns protocol mappers associated with the OpenID Connect protocol for the client template with ID 456."
+    },
+    {
+      "path": "/myrealm/clients/789/protocol-mappers/models/101112",
+      "method": "GET",
+      "operationId": "getClientProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user retrieving a specific protocol mapper model from a client.",
+      "ideal": "Returns the details of the protocol mapper model with ID 101112 for the client with ID 789."
+    },
+    {
+      "path": "/myrealm/clients/789/protocol-mappers/models/101112",
+      "method": "PUT",
+      "operationId": "putClientProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user updating a protocol mapper model in a client.",
+      "ideal": "Updates the protocol mapper model with ID 101112 for the client with ID 789 and returns the updated model."
+    },
+    {
+      "path": "/myrealm/clients/789/protocol-mappers/models/101112",
+      "method": "DELETE",
+      "operationId": "deleteClientProtocolMappersModel",
+      "summary": "",
+      "user": "Admin user deleting a protocol mapper model from a client.",
+      "ideal": "Deletes the protocol mapper model with ID 101112 for the client with ID 789 and confirms deletion."
+    },
+    {
+      "path": "/myrealm/clients/789/protocol-mappers/add-models",
+      "method": "POST",
+      "operationId": "postClientProtocolMappersAddModels",
+      "summary": "",
+      "user": "Admin user adding new protocol mapper models to a client.",
+      "ideal": "Adds new protocol mapper models to the client with ID 789 and returns the added models."
+    },
+    {
+      "path": "/myrealm/clients/789/protocol-mappers/models",
+      "method": "GET",
+      "operationId": "getClientProtocolMappersModels",
+      "summary": "",
+      "user": "Admin user retrieving all protocol mapper models for a client.",
+      "ideal": "Returns a list of all protocol mapper models for the client with ID 789."
+    },
+    {
+      "path": "/myrealm/clients/789/protocol-mappers/models",
+      "method": "POST",
+      "operationId": "postClientProtocolMappersModels",
+      "summary": "",
+      "user": "Admin user creating multiple protocol mapper models for a client.",
+      "ideal": "Creates multiple protocol mapper models for the client with ID 789 and returns the created models."
+    },
+    {
+      "path": "/myrealm/clients/789/protocol-mappers/protocol/oauth2",
+      "method": "GET",
+      "operationId": "getClientProtocolMappersProtocol",
+      "summary": "",
+      "user": "Admin user checking protocol mappers for a specific protocol in a client.",
+      "ideal": "Returns protocol mappers associated with the OAuth2 protocol for the client with ID 789."
+    },
+    {
+      "path": "/v1/",
+      "method": "GET",
+      "operationId": "get",
+      "summary": "",
+      "user": "Admin user requesting the root endpoint to check API availability.",
+      "ideal": "Successful response with API metadata."
+    },
+    {
+      "path": "/v1/{realm}",
+      "method": "POST",
+      "operationId": "post",
+      "summary": "",
+      "user": "A user creating a new realm with necessary configurations.",
+      "ideal": "Realm created successfully with a confirmation message."
+    },
+    {
+      "path": "/v1/{realm}",
+      "method": "PUT",
+      "operationId": "putByRealm",
+      "summary": "",
+      "user": "Admin updating the realm settings to enable two-factor authentication.",
+      "ideal": "Realm updated successfully with new settings."
+    },
+    {
+      "path": "/v1/{realm}",
+      "method": "DELETE",
+      "operationId": "deleteByRealm",
+      "summary": "",
+      "user": "A user deleting a realm that is no longer needed.",
+      "ideal": "Realm deleted successfully with a confirmation message."
+    },
+    {
+      "path": "/v1/{realm}/admin-events",
+      "method": "GET",
+      "operationId": "getAdminEvents",
+      "summary": "",
+      "user": "Admin reviewing recent administrative events for security audits.",
+      "ideal": "List of recent admin events returned successfully."
+    },
+    {
+      "path": "/v1/{realm}/client-policies/policies",
+      "method": "GET",
+      "operationId": "getPolicies",
+      "summary": "",
+      "user": "A user retrieving the current client policies for review.",
+      "ideal": "List of client policies returned successfully."
+    },
+    {
+      "path": "/v1/{realm}/client-policies/policies",
+      "method": "PUT",
+      "operationId": "putPolicies",
+      "summary": "",
+      "user": "Admin updating client policies to enforce stricter access controls.",
+      "ideal": "Client policies updated successfully."
+    },
+    {
+      "path": "/v1/{realm}/default-groups",
+      "method": "GET",
+      "operationId": "getDefaultGroups",
+      "summary": "",
+      "user": "A user checking the default groups configured in the realm.",
+      "ideal": "List of default groups returned successfully."
+    },
+    {
+      "path": "/v1/{realm}/localization/en",
+      "method": "POST",
+      "operationId": "postLocalization",
+      "summary": "",
+      "user": "Admin adding new localization entries for the English locale.",
+      "ideal": "Localization entries added successfully."
+    },
+    {
+      "path": "/v1/{realm}/localization/en/welcome",
+      "method": "PUT",
+      "operationId": "putLocalization",
+      "summary": "",
+      "user": "A user updating the welcome message localization key.",
+      "ideal": "Localization key updated successfully."
+    },
+    {
+      "path": "/v1/{realm}/localization/en/welcome",
+      "method": "DELETE",
+      "operationId": "deleteLocalizationByRealmByLocaleByKey",
+      "summary": "",
+      "user": "Admin removing the outdated welcome message localization key.",
+      "ideal": "Localization key deleted successfully."
+    },
+    {
+      "path": "/v1/{realm}/logout-all",
+      "method": "POST",
+      "operationId": "postLogoutAll",
+      "summary": "",
+      "user": "Admin logging out all users from the realm for security reasons.",
+      "ideal": "All users logged out successfully."
+    },
+    {
+      "path": "/v1/{realm}/testSMTPConnection",
+      "method": "POST",
+      "operationId": "postTestSmtpConnection",
+      "summary": "",
+      "user": "Admin testing SMTP connection settings for email notifications.",
+      "ideal": "SMTP connection tested successfully with confirmation."
+    },
+    {
+      "path": "/v1/{realm}/users-management-permissions",
+      "method": "GET",
+      "operationId": "getUsersManagementPermissions",
+      "summary": "",
+      "user": "A user checking the current permissions for user management.",
+      "ideal": "List of user management permissions returned successfully."
+    },
+    {
+      "path": "/v1/{realm}/users-management-permissions",
+      "method": "PUT",
+      "operationId": "putUsersManagementPermissions",
+      "summary": "",
+      "user": "Admin updating user management permissions to restrict access.",
+      "ideal": "User management permissions updated successfully."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings",
+      "method": "GET",
+      "operationId": "getGroupRoleMappings",
+      "summary": "",
+      "user": "Admin user requesting role mappings for group 123.",
+      "ideal": "Returns the role mappings associated with the specified group."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings/realm",
+      "method": "GET",
+      "operationId": "getGroupRoleMappingsRealm",
+      "summary": "",
+      "user": "Admin user checking realm-specific role mappings for group 123.",
+      "ideal": "Returns the realm-specific role mappings for the group."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings/realm",
+      "method": "POST",
+      "operationId": "postGroupRoleMappingsRealm",
+      "summary": "",
+      "user": "Admin user adding new realm role mappings to group 123.",
+      "ideal": "Successfully adds the specified role mappings to the group."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings/realm",
+      "method": "DELETE",
+      "operationId": "deleteGroupRoleMappingsRealm",
+      "summary": "",
+      "user": "Admin user removing realm role mappings from group 123.",
+      "ideal": "Successfully removes the specified role mappings from the group."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings/realm/available",
+      "method": "GET",
+      "operationId": "getGroupRoleMappingsRealmAvailable",
+      "summary": "",
+      "user": "Admin user checking available realm role mappings for group 123.",
+      "ideal": "Returns a list of available role mappings that can be assigned to the group."
+    },
+    {
+      "path": "/myrealm/groups/123/role-mappings/realm/composite",
+      "method": "GET",
+      "operationId": "getGroupRoleMappingsRealmComposite",
+      "summary": "",
+      "user": "Admin user retrieving composite role mappings for group 123.",
+      "ideal": "Returns the composite role mappings for the group."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings",
+      "method": "GET",
+      "operationId": "getUserRoleMappings",
+      "summary": "",
+      "user": "Admin user requesting role mappings for user 456.",
+      "ideal": "Returns the role mappings associated with the specified user."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings/realm",
+      "method": "GET",
+      "operationId": "getUserRoleMappingsRealm",
+      "summary": "",
+      "user": "Admin user checking realm-specific role mappings for user 456.",
+      "ideal": "Returns the realm-specific role mappings for the user."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings/realm",
+      "method": "POST",
+      "operationId": "postUserRoleMappingsRealm",
+      "summary": "",
+      "user": "Admin user adding new realm role mappings to user 456.",
+      "ideal": "Successfully adds the specified role mappings to the user."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings/realm",
+      "method": "DELETE",
+      "operationId": "deleteUserRoleMappingsRealm",
+      "summary": "",
+      "user": "Admin user removing realm role mappings from user 456.",
+      "ideal": "Successfully removes the specified role mappings from the user."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings/realm/available",
+      "method": "GET",
+      "operationId": "getUserRoleMappingsRealmAvailable",
+      "summary": "",
+      "user": "Admin user checking available realm role mappings for user 456.",
+      "ideal": "Returns a list of available role mappings that can be assigned to the user."
+    },
+    {
+      "path": "/myrealm/users/456/role-mappings/realm/composite",
+      "method": "GET",
+      "operationId": "getUserRoleMappingsRealmComposite",
+      "summary": "",
+      "user": "Admin user retrieving composite role mappings for user 456.",
+      "ideal": "Returns the composite role mappings for the user."
+    },
+    {
+      "path": "/myrealm/clients/123/roles",
+      "method": "GET",
+      "operationId": "getClientRoles",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve all roles associated with the client having ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/clients/123/roles",
+      "method": "POST",
+      "operationId": "postClientRoles",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new role for the client with ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/clients/123/roles/myrole",
+      "method": "GET",
+      "operationId": "getClientRole",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Fetch details of the role 'myrole' associated with client ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/clients/123/roles/myrole",
+      "method": "PUT",
+      "operationId": "putClientRole",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Update the role 'myrole' for client ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/clients/123/roles/myrole",
+      "method": "DELETE",
+      "operationId": "deleteClientRole",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete the role 'myrole' associated with client ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/clients/123/roles/myrole/composites",
+      "method": "GET",
+      "operationId": "getClientRoleComposites",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve composite roles for 'myrole' associated with client ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/clients/123/roles/myrole/composites",
+      "method": "POST",
+      "operationId": "postClientRoleComposites",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Add composite roles to 'myrole' for client ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/clients/123/roles/myrole/composites",
+      "method": "DELETE",
+      "operationId": "deleteClientRoleComposites",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Remove composite roles from 'myrole' associated with client ID 123 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles",
+      "method": "GET",
+      "operationId": "getRolesByRealm",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve all roles defined in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles",
+      "method": "POST",
+      "operationId": "postRolesByRealm",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new role in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles/myrole",
+      "method": "GET",
+      "operationId": "getRoleByRealmByRoleName",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Fetch details of the role 'myrole' in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles/myrole",
+      "method": "PUT",
+      "operationId": "putRoleByRealmByRoleName",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Update the role 'myrole' in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles/myrole",
+      "method": "DELETE",
+      "operationId": "deleteRoleByRealmByRoleName",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete the role 'myrole' from the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345",
+      "method": "GET",
+      "operationId": "getRolesById",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve role details for role ID 12345 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345",
+      "method": "PUT",
+      "operationId": "putRolesById",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update role details for role ID 12345 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345",
+      "method": "DELETE",
+      "operationId": "deleteRolesById",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete role with ID 12345 from the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345/composites",
+      "method": "GET",
+      "operationId": "getRolesByIdComposites",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch composite roles for role ID 12345 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345/composites",
+      "method": "POST",
+      "operationId": "postRolesByIdComposites",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add composite roles to role ID 12345 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345/composites",
+      "method": "DELETE",
+      "operationId": "deleteRolesByIdComposites",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove composite roles from role ID 12345 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345/composites/clients/67890",
+      "method": "GET",
+      "operationId": "getRolesByIdCompositesClient",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve composite roles for role ID 12345 specific to client UUID 67890 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345/composites/realm",
+      "method": "GET",
+      "operationId": "getRolesByIdCompositesRealm",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch realm composite roles for role ID 12345 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345/management/permissions",
+      "method": "GET",
+      "operationId": "getRolesByIdManagementPermissions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get management permissions for role ID 12345 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/roles-by-id/12345/management/permissions",
+      "method": "PUT",
+      "operationId": "putRolesByIdManagementPermissions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update management permissions for role ID 12345 in the realm 'myrealm'."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings",
+      "method": "GET",
+      "operationId": "getClientScopeScopeMappings",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve all scope mappings for the specified client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient",
+      "method": "GET",
+      "operationId": "getClientScopeScopeMappingsClient",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Get scope mappings for a specific client within the client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient",
+      "method": "POST",
+      "operationId": "postClientScopeScopeMappingsClient",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Add scope mappings for a specific client within the client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient",
+      "method": "DELETE",
+      "operationId": "deleteClientScopeScopeMappingsClient",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Remove scope mappings for a specific client within the client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient/available",
+      "method": "GET",
+      "operationId": "getClientScopeScopeMappingsClientAvailable",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve available scope mappings for a specific client."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/clients/myclient/composite",
+      "method": "GET",
+      "operationId": "getClientScopeScopeMappingsClientComposite",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Get composite scope mappings for a specific client."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm",
+      "method": "GET",
+      "operationId": "getClientScopeScopeMappingsRealm",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve all realm scope mappings for the specified client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm",
+      "method": "POST",
+      "operationId": "postClientScopeScopeMappingsRealm",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Add realm scope mappings for the specified client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm",
+      "method": "DELETE",
+      "operationId": "deleteClientScopeScopeMappingsRealm",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Remove realm scope mappings for the specified client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm/available",
+      "method": "GET",
+      "operationId": "getClientScopeScopeMappingsRealmAvailable",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve available realm scope mappings for the specified client scope."
+    },
+    {
+      "path": "/myrealm/client-scopes/123/scope-mappings/realm/composite",
+      "method": "GET",
+      "operationId": "getClientScopeScopeMappingsRealmComposite",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Get composite realm scope mappings for the specified client scope."
+    },
+    {
+      "path": "/myrealm/users",
+      "method": "GET",
+      "operationId": "getUsersByRealm",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of users in the specified realm."
+    },
+    {
+      "path": "/myrealm/users",
+      "method": "POST",
+      "operationId": "postUsers",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new user in the specified realm."
+    },
+    {
+      "path": "/myrealm/users/count",
+      "method": "GET",
+      "operationId": "getUsersCount",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get the total count of users in the specified realm."
+    },
+    {
+      "path": "/myrealm/users/profile",
+      "method": "GET",
+      "operationId": "getProfile",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the profile information for the realm."
+    },
+    {
+      "path": "/myrealm/users/profile",
+      "method": "PUT",
+      "operationId": "putProfile",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the profile information for the realm."
+    },
+    {
+      "path": "/myrealm/users/12345",
+      "method": "GET",
+      "operationId": "getUserByRealmById",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve user details by user ID in the specified realm."
+    },
+    {
+      "path": "/myrealm/users/12345",
+      "method": "PUT",
+      "operationId": "putUser",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update user information by user ID in the specified realm."
+    },
+    {
+      "path": "/myrealm/users/12345",
+      "method": "DELETE",
+      "operationId": "deleteUserByRealmById",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a user by user ID in the specified realm."
+    },
+    {
+      "path": "/myrealm/users/12345/configured-user-storage-credential-types",
+      "method": "GET",
+      "operationId": "getConfiguredUserStorageCredentialTypes",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve configured credential types for a user."
+    },
+    {
+      "path": "/myrealm/users/12345/consents",
+      "method": "GET",
+      "operationId": "getConsents",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get the consents granted by the user."
+    },
+    {
+      "path": "/myrealm/users/12345/consents/myclient",
+      "method": "DELETE",
+      "operationId": "deleteConsent",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Revoke consent for a specific client from the user."
+    },
+    {
+      "path": "/myrealm/users/12345/credentials",
+      "method": "GET",
+      "operationId": "getCredentials",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the credentials associated with the user."
+    },
+    {
+      "path": "/myrealm/users/12345/credentials/credentialId",
+      "method": "DELETE",
+      "operationId": "deleteCredential",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific credential for the user."
+    },
+    {
+      "path": "/myrealm/users/12345/credentials/credentialId/moveAfter/newPreviousCredentialId",
+      "method": "POST",
+      "operationId": "postMoveAfter",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Move a credential after another specified credential."
+    },
+    {
+      "path": "/myrealm/users/12345/credentials/credentialId/moveToFirst",
+      "method": "POST",
+      "operationId": "postMoveToFirst",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Move a credential to the first position."
+    },
+    {
+      "path": "/myrealm/users/12345/credentials/credentialId/userLabel",
+      "method": "PUT",
+      "operationId": "putUserLabel",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the user label for a specific credential."
+    },
+    {
+      "path": "/myrealm/users/12345/disable-credential-types",
+      "method": "PUT",
+      "operationId": "putDisableCredentialTypes",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Disable specific credential types for the user."
+    },
+    {
+      "path": "/myrealm/users/12345/execute-actions-email",
+      "method": "PUT",
+      "operationId": "putExecuteActionsEmail",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Trigger email actions for the user."
+    },
+    {
+      "path": "/myrealm/users/12345/federated-identity",
+      "method": "GET",
+      "operationId": "getFederatedIdentity",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve federated identity information for the user."
+    },
+    {
+      "path": "/myrealm/users/12345/federated-identity/myprovider",
+      "method": "POST",
+      "operationId": "postFederatedIdentity",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add a federated identity for the user."
+    },
+    {
+      "path": "/myrealm/users/12345/federated-identity/myprovider",
+      "method": "DELETE",
+      "operationId": "deleteFederatedIdentity",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove a federated identity for the user."
+    },
+    {
+      "path": "/myrealm/users/12345/groups",
+      "method": "GET",
+      "operationId": "getUserGroups",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve groups associated with the user."
+    },
+    {
+      "path": "/myrealm/users/12345/groups/count",
+      "method": "GET",
+      "operationId": "getUserGroupsCount",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get the count of groups associated with the user."
+    },
+    {
+      "path": "/myrealm/users/12345/groups/groupId",
+      "method": "PUT",
+      "operationId": "putUserGroup",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add the user to a specific group."
+    },
+    {
+      "path": "/myrealm/users/12345/groups/groupId",
+      "method": "DELETE",
+      "operationId": "deleteUserGroup",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove the user from a specific group."
+    },
+    {
+      "path": "/myrealm/users/12345/impersonation",
+      "method": "POST",
+      "operationId": "postImpersonation",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Impersonate the user for administrative tasks."
+    },
+    {
+      "path": "/myrealm/users/12345/logout",
+      "method": "POST",
+      "operationId": "postLogout",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Log out the user from all sessions."
+    },
+    {
+      "path": "/myrealm/users/12345/offline-sessions/clientUuid",
+      "method": "GET",
+      "operationId": "getOfflineSession",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve offline session details for the user."
+    },
+    {
+      "path": "/myrealm/users/12345/reset-password",
+      "method": "PUT",
+      "operationId": "putResetPassword",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Reset the user's password."
+    },
+    {
+      "path": "/myrealm/users/12345/reset-password-email",
+      "method": "PUT",
+      "operationId": "putResetPasswordEmail",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Send an email to reset the user's password."
+    },
+    {
+      "path": "/myrealm/users/12345/send-verify-email",
+      "method": "PUT",
+      "operationId": "putSendVerifyEmail",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Send a verification email to the user."
+    },
+    {
+      "path": "/myrealm/users/12345/sessions",
+      "method": "GET",
+      "operationId": "getSessions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve active sessions for the user."
+    }
+  ]
+}

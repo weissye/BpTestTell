@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issueLink",
+      "method": "POST",
+      "operationId": "linkIssues",
+      "summary": "",
+      "user": "As a project manager, I want to link two issues together to show their relationship, so that team members can easily navigate between related tasks.",
+      "ideal": "Successfully links the specified issues and returns the details of the created link."
+    },
+    {
+      "path": "/rest/api/3/issueLink/{linkId}",
+      "method": "DELETE",
+      "operationId": "deleteIssueLink",
+      "summary": "",
+      "user": "As a developer, I need to remove a link between two issues that are no longer relevant, to keep the issue tracking clean and accurate.",
+      "ideal": "Successfully deletes the specified issue link and confirms the deletion."
+    },
+    {
+      "path": "/rest/api/3/issueLink/{linkId}",
+      "method": "GET",
+      "operationId": "getIssueLink",
+      "summary": "",
+      "user": "As a team member, I want to retrieve the details of a specific issue link to understand how two issues are related, so I can prioritize my work accordingly.",
+      "ideal": "Returns the details of the specified issue link, including the issues it connects and the link type."
+    }
+  ]
+}

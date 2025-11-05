@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Calls/IpAccessControlListMappings.json",
+      "method": "POST",
+      "operationId": "CreateSipAuthCallsIpAccessControlListMapping",
+      "summary": "",
+      "user": "User wants to create a new IP Access Control List mapping for SIP authentication.",
+      "ideal": "Successfully creates a new IP Access Control List mapping."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Calls/IpAccessControlListMappings.json",
+      "method": "GET",
+      "operationId": "ListSipAuthCallsIpAccessControlListMapping",
+      "summary": "",
+      "user": "User wants to retrieve a list of all IP Access Control List mappings for a specific SIP domain.",
+      "ideal": "Returns a list of all IP Access Control List mappings."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Calls/IpAccessControlListMappings/ALXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchSipAuthCallsIpAccessControlListMapping",
+      "summary": "",
+      "user": "User wants to fetch details of a specific IP Access Control List mapping using its SID.",
+      "ideal": "Returns the details of the specified IP Access Control List mapping."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Calls/IpAccessControlListMappings/ALXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipAuthCallsIpAccessControlListMapping",
+      "summary": "",
+      "user": "User wants to delete a specific IP Access Control List mapping by its SID.",
+      "ideal": "Successfully deletes the specified IP Access Control List mapping."
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "resetSystem",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Resets the entire configuration control system to its default state."
+    },
+    {
+      "path": "/apps",
+      "method": "POST",
+      "operationId": "createApp",
+      "summary": "",
+      "user": "developer",
+      "ideal": "Creates a new application entry in the configuration control system."
+    },
+    {
+      "path": "/apps",
+      "method": "GET",
+      "operationId": "listApps",
+      "summary": "",
+      "user": "developer",
+      "ideal": "Retrieves a list of all applications managed by the configuration control system."
+    },
+    {
+      "path": "/envs",
+      "method": "POST",
+      "operationId": "createEnv",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Creates a new environment for application deployment."
+    },
+    {
+      "path": "/envs",
+      "method": "GET",
+      "operationId": "listEnvs",
+      "summary": "",
+      "user": "developer",
+      "ideal": "Retrieves a list of all environments available for applications."
+    },
+    {
+      "path": "/configs",
+      "method": "POST",
+      "operationId": "createConfig",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Creates a new configuration setting for an application."
+    },
+    {
+      "path": "/configs",
+      "method": "GET",
+      "operationId": "listConfigs",
+      "summary": "",
+      "user": "developer",
+      "ideal": "Retrieves a list of all configuration settings for applications."
+    },
+    {
+      "path": "/releases",
+      "method": "POST",
+      "operationId": "createRelease",
+      "summary": "",
+      "user": "developer",
+      "ideal": "Creates a new release version for an application."
+    },
+    {
+      "path": "/releases",
+      "method": "GET",
+      "operationId": "listReleases",
+      "summary": "",
+      "user": "developer",
+      "ideal": "Retrieves a list of all release versions for applications."
+    },
+    {
+      "path": "/policies",
+      "method": "POST",
+      "operationId": "createPolicy",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Creates a new policy for managing application configurations."
+    },
+    {
+      "path": "/policies",
+      "method": "GET",
+      "operationId": "listPolicies",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieves a list of all policies governing application configurations."
+    }
+  ]
+}

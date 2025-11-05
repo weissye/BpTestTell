@@ -1,0 +1,24 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/get_stream_id"
+    },
+    {
+      "method": "POST",
+      "path": "/messages/{message_id}/typing"
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/user_settings_defaults"
+    },
+    {
+      "method": "POST",
+      "path": "/typing"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/muted_users/{muted_user_id}"
+    }
+  ]
+}

@@ -1,8 +1,0 @@
-{
-  "sut": "keycloak_admin",
-  "provider": "openai",
-  "trained": false,
-  "model_id": "gpt-4o-mini",
-  "created": "2025-11-03T15:26:16.641734Z",
-  "source_det": "artifacts\\hls_det\\real_world_llm_provider\\keycloak_admin\\hls_det_gold.json"
-}

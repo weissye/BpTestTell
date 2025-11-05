@@ -1,0 +1,81 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/field/{fieldKey}/option",
+      "method": "GET",
+      "tags": [
+        "Issue custom field options (apps)"
+      ],
+      "summary": "Get all issue field options",
+      "operationId": "getAllIssueFieldOptions"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldKey}/option",
+      "method": "POST",
+      "tags": [
+        "Issue custom field options (apps)"
+      ],
+      "summary": "Create issue field option",
+      "operationId": "createIssueFieldOption"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldKey}/option/suggestions/edit",
+      "method": "GET",
+      "tags": [
+        "Issue custom field options (apps)"
+      ],
+      "summary": "Get selectable issue field options",
+      "operationId": "getSelectableIssueFieldOptions"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldKey}/option/suggestions/search",
+      "method": "GET",
+      "tags": [
+        "Issue custom field options (apps)"
+      ],
+      "summary": "Get visible issue field options",
+      "operationId": "getVisibleIssueFieldOptions"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldKey}/option/{optionId}",
+      "method": "DELETE",
+      "tags": [
+        "Issue custom field options (apps)"
+      ],
+      "summary": "Delete issue field option",
+      "operationId": "deleteIssueFieldOption"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldKey}/option/{optionId}",
+      "method": "GET",
+      "tags": [
+        "Issue custom field options (apps)"
+      ],
+      "summary": "Get issue field option",
+      "operationId": "getIssueFieldOption"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldKey}/option/{optionId}",
+      "method": "PUT",
+      "tags": [
+        "Issue custom field options (apps)"
+      ],
+      "summary": "Update issue field option",
+      "operationId": "updateIssueFieldOption"
+    },
+    {
+      "path": "/rest/api/3/field/{fieldKey}/option/{optionId}/issue",
+      "method": "DELETE",
+      "tags": [
+        "Issue custom field options (apps)"
+      ],
+      "summary": "Replace issue field option",
+      "operationId": "replaceIssueFieldOption"
+    }
+  ]
+}

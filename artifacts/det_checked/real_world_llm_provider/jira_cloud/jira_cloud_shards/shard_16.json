@@ -1,0 +1,104 @@
+{
+  "ops": [
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/attachment/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/component/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/dashboard/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/{fieldId}/context/{contextId}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/{id}/trash"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/filter/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/bulk"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/move"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes/search"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescheme/mapping"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/function/computation/search"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/permissions/check"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/plans/plan/{planId}/team/planonly/{planOnlyTeamId}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project-template/remove-template"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/properties"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/projectCategory/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/role/{id}/actors"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/search/jql"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/uiModifications/{uiModificationId}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/properties"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/webhook"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflows/search"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{id}/draft/issuetype/{issueType}"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/atlassian-connect/1/migration/properties/{entityType}"
+    }
+  ]
+}

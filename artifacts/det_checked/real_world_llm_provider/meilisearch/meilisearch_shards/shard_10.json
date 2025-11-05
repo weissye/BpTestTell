@@ -1,0 +1,16 @@
+{
+  "ops": [
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/documents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/filterable-attributes"
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/stats"
+    }
+  ]
+}

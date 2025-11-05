@@ -1,0 +1,56 @@
+{
+  "ops": [
+    {
+      "method": "DELETE",
+      "path": "/{realm}/authentication/executions/{executionId}"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/required-actions/{alias}/lower-priority"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/clients/{id}/certificates/{attr}/upload-certificate"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/clients/{id}/protocol-mappers/add-models"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}/available"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/default-optional-client-scopes"
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/groups/{id}/role-mappings/realm"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/localization/{locale}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/roles/{role-name}/composites"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/users/{id}/credentials"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/users/{id}/role-mappings/clients/{client}/composite"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/group",
+      "method": "DELETE",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "Remove group",
+      "operationId": "removeGroup"
+    },
+    {
+      "path": "/rest/api/3/group",
+      "method": "GET",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "Get group",
+      "operationId": "getGroup"
+    },
+    {
+      "path": "/rest/api/3/group",
+      "method": "POST",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "Create group",
+      "operationId": "createGroup"
+    },
+    {
+      "path": "/rest/api/3/group/bulk",
+      "method": "GET",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "Bulk get groups",
+      "operationId": "bulkGetGroups"
+    },
+    {
+      "path": "/rest/api/3/group/member",
+      "method": "GET",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "Get users from group",
+      "operationId": "getUsersFromGroup"
+    },
+    {
+      "path": "/rest/api/3/group/user",
+      "method": "DELETE",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "Remove user from group",
+      "operationId": "removeUserFromGroup"
+    },
+    {
+      "path": "/rest/api/3/group/user",
+      "method": "POST",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "Add user to group",
+      "operationId": "addUserToGroup"
+    },
+    {
+      "path": "/rest/api/3/groups/picker",
+      "method": "GET",
+      "tags": [
+        "Groups"
+      ],
+      "summary": "Find groups",
+      "operationId": "findGroups"
+    }
+  ]
+}

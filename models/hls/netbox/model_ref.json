@@ -1,8 +1,0 @@
-{
-  "sut": "netbox",
-  "provider": "openai",
-  "trained": false,
-  "model_id": "gpt-4o-mini",
-  "created": "2025-11-03T15:26:18.936884Z",
-  "source_det": "artifacts\\hls_det\\real_world_llm_provider\\netbox\\hls_det_gold.json"
-}

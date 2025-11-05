@@ -1,0 +1,72 @@
+{
+  "ops": [
+    {
+      "method": "DELETE",
+      "path": "/admin/users/{username}/badges"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/hooks/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/migrate"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branch_protections/{name}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/editorconfig/{filepath}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{index}/blocks"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/milestones/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/releases/{id}/assets/{attachment_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/times/{user}"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{id}/activities/feeds"
+    },
+    {
+      "method": "DELETE",
+      "path": "/user/avatar"
+    },
+    {
+      "method": "PATCH",
+      "path": "/user/hooks/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/gpg_keys"
+    }
+  ]
+}

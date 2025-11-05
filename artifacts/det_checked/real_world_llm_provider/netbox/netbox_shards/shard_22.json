@@ -1,0 +1,196 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/api/circuits/circuit-terminations/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/circuits/circuits/{id}/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/circuits/providers/{id}/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/circuits/virtual-circuits/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/core/data-sources/"
+    },
+    {
+      "method": "POST",
+      "path": "/api/dcim/cables/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/dcim/console-ports/{id}/"
+    },
+    {
+      "method": "POST",
+      "path": "/api/dcim/device-bay-templates/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/dcim/device-types/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/dcim/front-port-templates/{id}/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/interfaces/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/inventory-item-templates/{id}/"
+    },
+    {
+      "method": "POST",
+      "path": "/api/dcim/mac-addresses/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/dcim/module-bays/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/module-types/{id}/"
+    },
+    {
+      "method": "POST",
+      "path": "/api/dcim/power-feeds/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/dcim/power-outlets/{id}/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/dcim/power-ports/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/dcim/rack-types/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/dcim/rear-port-templates/{id}/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/site-groups/"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/dcim/virtual-chassis/{id}/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/config-context-profiles/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/config-templates/{id}/"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/extras/custom-links/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/export-templates/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/extras/notification-groups/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/saved-filters/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/table-configs/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/webhooks/{id}/"
+    },
+    {
+      "method": "POST",
+      "path": "/api/ipam/asns/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/ipam/ip-addresses/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/ipam/prefixes/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/ipam/roles/{id}/"
+    },
+    {
+      "method": "POST",
+      "path": "/api/ipam/services/"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/ipam/vlan-translation-policies/{id}/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/ipam/vrfs/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/tenancy/contact-groups/{id}/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/tenancy/tenant-groups/{id}/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/permissions/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/users/{id}/"
+    },
+    {
+      "method": "POST",
+      "path": "/api/virtualization/clusters/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/virtualization/virtual-machines/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/vpn/ike-proposals/{id}/"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/vpn/ipsec-proposals/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/vpn/l2vpns/{id}/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/vpn/tunnels/{id}/"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/wireless/wireless-links/"
+    }
+  ]
+}

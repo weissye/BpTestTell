@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/indexes",
+      "method": "GET",
+      "operationId": "indexes.list",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all indexes available in the Meilisearch instance."
+    },
+    {
+      "path": "/indexes",
+      "method": "POST",
+      "operationId": "indexes.create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new index with a specified UID and settings."
+    },
+    {
+      "path": "/indexes/my_index",
+      "method": "GET",
+      "operationId": "indexes.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch details of the index with UID 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index",
+      "method": "PATCH",
+      "operationId": "indexes.update",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update the settings of the index with UID 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index",
+      "method": "DELETE",
+      "operationId": "indexes.remove",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove the index with UID 'my_index' from the Meilisearch instance."
+    },
+    {
+      "path": "/swap-indexes",
+      "method": "POST",
+      "operationId": "indexes.swap",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Swap the positions of two indexes in the Meilisearch instance."
+    }
+  ]
+}

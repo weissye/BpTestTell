@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/National.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberNational",
+      "summary": "",
+      "user": "A small business owner looking to expand their operations in the United States and needs to find available national phone numbers for their new office.",
+      "ideal": "Returns a list of available national phone numbers in the US, including details such as area codes and pricing."
+    }
+  ]
+}

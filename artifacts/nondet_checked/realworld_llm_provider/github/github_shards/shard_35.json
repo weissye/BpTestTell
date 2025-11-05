@@ -1,0 +1,252 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/repos/{owner}/{repo}/pulls",
+      "method": "GET",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "List pull requests",
+      "operationId": "pulls/list"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls",
+      "method": "POST",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Create a pull request",
+      "operationId": "pulls/create"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/comments",
+      "method": "GET",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "List review comments in a repository",
+      "operationId": "pulls/list-review-comments-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}",
+      "method": "GET",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Get a review comment for a pull request",
+      "operationId": "pulls/get-review-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}",
+      "method": "PATCH",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Update a review comment for a pull request",
+      "operationId": "pulls/update-review-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}",
+      "method": "DELETE",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Delete a review comment for a pull request",
+      "operationId": "pulls/delete-review-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}",
+      "method": "GET",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Get a pull request",
+      "operationId": "pulls/get"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}",
+      "method": "PATCH",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Update a pull request",
+      "operationId": "pulls/update"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/comments",
+      "method": "GET",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "List review comments on a pull request",
+      "operationId": "pulls/list-review-comments"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/comments",
+      "method": "POST",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Create a review comment for a pull request",
+      "operationId": "pulls/create-review-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies",
+      "method": "POST",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Create a reply for a review comment",
+      "operationId": "pulls/create-reply-for-review-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/commits",
+      "method": "GET",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "List commits on a pull request",
+      "operationId": "pulls/list-commits"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/files",
+      "method": "GET",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "List pull requests files",
+      "operationId": "pulls/list-files"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/merge",
+      "method": "GET",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Check if a pull request has been merged",
+      "operationId": "pulls/check-if-merged"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/merge",
+      "method": "PUT",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Merge a pull request",
+      "operationId": "pulls/merge"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+      "method": "GET",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Get all requested reviewers for a pull request",
+      "operationId": "pulls/list-requested-reviewers"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+      "method": "POST",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Request reviewers for a pull request",
+      "operationId": "pulls/request-reviewers"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+      "method": "DELETE",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Remove requested reviewers from a pull request",
+      "operationId": "pulls/remove-requested-reviewers"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews",
+      "method": "GET",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "List reviews for a pull request",
+      "operationId": "pulls/list-reviews"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews",
+      "method": "POST",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Create a review for a pull request",
+      "operationId": "pulls/create-review"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",
+      "method": "GET",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Get a review for a pull request",
+      "operationId": "pulls/get-review"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",
+      "method": "PUT",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Update a review for a pull request",
+      "operationId": "pulls/update-review"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",
+      "method": "DELETE",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Delete a pending review for a pull request",
+      "operationId": "pulls/delete-pending-review"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments",
+      "method": "GET",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "List comments for a pull request review",
+      "operationId": "pulls/list-comments-for-review"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals",
+      "method": "PUT",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Dismiss a review for a pull request",
+      "operationId": "pulls/dismiss-review"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events",
+      "method": "POST",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Submit a review for a pull request",
+      "operationId": "pulls/submit-review"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/update-branch",
+      "method": "PUT",
+      "tags": [
+        "pulls"
+      ],
+      "summary": "Update a pull request branch",
+      "operationId": "pulls/update-branch"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/my-org/campaigns",
+      "method": "GET",
+      "operationId": "campaigns/list-org-campaigns",
+      "summary": "",
+      "user": "As a marketing manager, I want to retrieve all campaigns for my organization to analyze their performance and plan future strategies.",
+      "ideal": "The response should include a list of all campaigns with their details such as title, status, and start/end dates."
+    },
+    {
+      "path": "/orgs/my-org/campaigns",
+      "method": "POST",
+      "operationId": "campaigns/create-campaign",
+      "summary": "",
+      "user": "As a campaign coordinator, I want to create a new marketing campaign for my organization to promote our latest product launch.",
+      "ideal": "The response should confirm the creation of the campaign and return the campaign ID and details."
+    },
+    {
+      "path": "/orgs/my-org/campaigns/123",
+      "method": "GET",
+      "operationId": "campaigns/get-campaign-summary",
+      "summary": "",
+      "user": "As a data analyst, I want to get a summary of a specific campaign to evaluate its effectiveness and gather insights.",
+      "ideal": "The response should provide a detailed summary of the campaign, including metrics like engagement and conversion rates."
+    },
+    {
+      "path": "/orgs/my-org/campaigns/123",
+      "method": "PATCH",
+      "operationId": "campaigns/update-campaign",
+      "summary": "",
+      "user": "As a project manager, I want to update the details of an ongoing campaign to reflect new changes in strategy and objectives.",
+      "ideal": "The response should confirm the update and return the updated campaign details."
+    },
+    {
+      "path": "/orgs/my-org/campaigns/123",
+      "method": "DELETE",
+      "operationId": "campaigns/delete-campaign",
+      "summary": "",
+      "user": "As a compliance officer, I want to delete a campaign that is no longer relevant to ensure our marketing efforts align with current regulations.",
+      "ideal": "The response should confirm the deletion of the campaign and indicate that it has been successfully removed."
+    }
+  ]
+}

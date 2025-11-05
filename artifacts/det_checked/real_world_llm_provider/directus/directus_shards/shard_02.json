@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/activity/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/fields"
+    },
+    {
+      "method": "DELETE",
+      "path": "/folders/{id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/permissions/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/schema/snapshot"
+    },
+    {
+      "method": "GET",
+      "path": "/utils/random/string"
+    }
+  ]
+}

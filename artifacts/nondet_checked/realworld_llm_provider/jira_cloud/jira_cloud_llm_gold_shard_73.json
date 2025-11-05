@@ -1,0 +1,108 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project",
+      "method": "GET",
+      "operationId": "getAllProjects",
+      "summary": "",
+      "user": "User requests to retrieve all projects in their Jira instance.",
+      "ideal": "Returns a list of all projects with their details."
+    },
+    {
+      "path": "/rest/api/3/project",
+      "method": "POST",
+      "operationId": "createProject",
+      "summary": "",
+      "user": "User wants to create a new project named 'New Project' with key 'NP'.",
+      "ideal": "Creates a new project and returns the project details."
+    },
+    {
+      "path": "/rest/api/3/project/recent",
+      "method": "GET",
+      "operationId": "getRecent",
+      "summary": "",
+      "user": "User wants to see the most recently accessed projects.",
+      "ideal": "Returns a list of recently accessed projects."
+    },
+    {
+      "path": "/rest/api/3/project/search",
+      "method": "GET",
+      "operationId": "searchProjects",
+      "summary": "",
+      "user": "User searches for projects containing the keyword 'API'.",
+      "ideal": "Returns a list of projects that match the search criteria."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "method": "DELETE",
+      "operationId": "deleteProject",
+      "summary": "",
+      "user": "User wants to delete the project with ID '12345'.",
+      "ideal": "Deletes the specified project and returns a success message."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "method": "GET",
+      "operationId": "getProject",
+      "summary": "",
+      "user": "User wants to retrieve details for the project with key 'NP'.",
+      "ideal": "Returns detailed information about the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}",
+      "method": "PUT",
+      "operationId": "updateProject",
+      "summary": "",
+      "user": "User wants to update the project 'NP' to change its name to 'Updated Project'.",
+      "ideal": "Updates the project details and returns the updated project information."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/archive",
+      "method": "POST",
+      "operationId": "archiveProject",
+      "summary": "",
+      "user": "User wants to archive the project with key 'NP'.",
+      "ideal": "Archives the specified project and returns a confirmation message."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/delete",
+      "method": "POST",
+      "operationId": "deleteProjectAsynchronously",
+      "summary": "",
+      "user": "User requests to delete the project 'NP' asynchronously.",
+      "ideal": "Initiates an asynchronous delete operation for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/restore",
+      "method": "POST",
+      "operationId": "restore",
+      "summary": "",
+      "user": "User wants to restore the project with key 'NP' that was previously archived.",
+      "ideal": "Restores the specified archived project and returns its details."
+    },
+    {
+      "path": "/rest/api/3/project/{projectId}/statuses",
+      "method": "GET",
+      "operationId": "getAllStatuses",
+      "summary": "",
+      "user": "User wants to retrieve all statuses associated with the project 'NP'.",
+      "ideal": "Returns a list of all statuses for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectId}/hierarchy",
+      "method": "GET",
+      "operationId": "getHierarchy",
+      "summary": "",
+      "user": "User wants to view the hierarchy of the project with ID '12345'.",
+      "ideal": "Returns the hierarchy structure of the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectKeyOrId}/notificationscheme",
+      "method": "GET",
+      "operationId": "getNotificationSchemeForProject",
+      "summary": "",
+      "user": "User wants to check the notification scheme for the project with key 'NP'.",
+      "ideal": "Returns the notification scheme details for the specified project."
+    }
+  ]
+}

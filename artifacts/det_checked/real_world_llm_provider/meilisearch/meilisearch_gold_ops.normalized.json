@@ -1,0 +1,369 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/dumps",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/experimental-features",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/experimental-features",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents/delete",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents/delete-batch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents/fetch",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/facet-search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/stats",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/keys",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/keys",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/keys/{uid_or_key}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/keys/{uid_or_key}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/keys/{uid_or_key}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/metrics",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/multi-search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/snapshots",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/stats",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/swap-indexes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tasks",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/tasks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tasks/:taskUid",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/tasks/cancel",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/version",
+      "body": null
+    }
+  ]
+}

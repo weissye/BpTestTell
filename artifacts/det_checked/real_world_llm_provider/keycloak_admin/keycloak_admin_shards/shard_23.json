@@ -1,0 +1,56 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/executions/{executionId}/lower-priority"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/client-policies/policies"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/realm"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/client-templates/{id}/scope-mappings/realm"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/clients/{id}/client-secret/rotated"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/clients/{id}/push-revocation"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/clients/{id}/scope-mappings/realm"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/events"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/groups/{id}/role-mappings/realm/composite"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/localization/{locale}/{key}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/roles/{role-name}/composites/realm"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/users/{id}/credentials/{credentialId}/userLabel"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/users/{id}/role-mappings/realm/available"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchConference",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve details of a specific conference using the Account SID and Conference SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateConference",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Update the details of a specific conference with new parameters such as status or recording options."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences.json",
+      "method": "GET",
+      "operationId": "ListConference",
+      "summary": "",
+      "user": "user789",
+      "ideal": "List all conferences associated with the specified Account SID."
+    }
+  ]
+}

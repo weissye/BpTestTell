@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/plans/plan",
+      "method": "GET",
+      "operationId": "getPlans",
+      "summary": "",
+      "user": "User requests to retrieve a list of all plans available in their Jira Cloud instance.",
+      "ideal": "A successful response with a list of plans, including their IDs, names, and statuses."
+    },
+    {
+      "path": "/rest/api/3/plans/plan",
+      "method": "POST",
+      "operationId": "createPlan",
+      "summary": "",
+      "user": "User submits a new plan with a name, description, and associated issues.",
+      "ideal": "A successful response indicating the plan has been created, along with the new plan ID."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/{planId}",
+      "method": "GET",
+      "operationId": "getPlan",
+      "summary": "",
+      "user": "User wants to view the details of a specific plan identified by its plan ID.",
+      "ideal": "A successful response containing the details of the specified plan, including its configuration and status."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/{planId}",
+      "method": "PUT",
+      "operationId": "updatePlan",
+      "summary": "",
+      "user": "User updates the name and description of an existing plan using its plan ID.",
+      "ideal": "A successful response confirming that the plan has been updated with the new details."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/{planId}/archive",
+      "method": "PUT",
+      "operationId": "archivePlan",
+      "summary": "",
+      "user": "User requests to archive a plan that is no longer active.",
+      "ideal": "A successful response indicating that the plan has been archived."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/{planId}/duplicate",
+      "method": "POST",
+      "operationId": "duplicatePlan",
+      "summary": "",
+      "user": "User wants to create a duplicate of an existing plan for further modifications.",
+      "ideal": "A successful response with the details of the newly created duplicate plan."
+    },
+    {
+      "path": "/rest/api/3/plans/plan/{planId}/trash",
+      "method": "PUT",
+      "operationId": "trashPlan",
+      "summary": "",
+      "user": "User decides to move a plan to the trash for potential future recovery.",
+      "ideal": "A successful response confirming that the plan has been moved to the trash."
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/executions"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/authentication/required-actions/{alias}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/clients/{id}/certificates/{attr}/upload"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/clients/{id}/optional-client-scopes/{clientScopeId}"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/default-groups/{groupId}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/groups/{id}/role-mappings/clients/{client}/composite"
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/localization/{locale}"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/roles/{role-name}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/users/{id}/consents/{client}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/users/{id}/role-mappings/clients/{client}/available"
+    }
+  ]
+}

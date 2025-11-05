@@ -1,0 +1,99 @@
+{
+  "openapi_meta": {
+    "title": "Trello",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/tokens/{token}",
+      "method": "DELETE",
+      "tags": [
+        "token"
+      ],
+      "summary": "deleteTokensByToken()",
+      "operationId": "deleteTokensByToken"
+    },
+    {
+      "path": "/tokens/{token}",
+      "method": "GET",
+      "tags": [
+        "token"
+      ],
+      "summary": "getTokensByToken()",
+      "operationId": "getTokensByToken"
+    },
+    {
+      "path": "/tokens/{token}/member",
+      "method": "GET",
+      "tags": [
+        "token"
+      ],
+      "summary": "getTokensMemberByToken()",
+      "operationId": "getTokensMemberByToken"
+    },
+    {
+      "path": "/tokens/{token}/member/{field}",
+      "method": "GET",
+      "tags": [
+        "token"
+      ],
+      "summary": "getTokensMemberByTokenByField()",
+      "operationId": "getTokensMemberByTokenByField"
+    },
+    {
+      "path": "/tokens/{token}/webhooks",
+      "method": "GET",
+      "tags": [
+        "token"
+      ],
+      "summary": "getTokensWebhooksByToken()",
+      "operationId": "getTokensWebhooksByToken"
+    },
+    {
+      "path": "/tokens/{token}/webhooks",
+      "method": "POST",
+      "tags": [
+        "token"
+      ],
+      "summary": "addTokensWebhooksByToken()",
+      "operationId": "addTokensWebhooksByToken"
+    },
+    {
+      "path": "/tokens/{token}/webhooks",
+      "method": "PUT",
+      "tags": [
+        "token"
+      ],
+      "summary": "updateTokensWebhooksByToken()",
+      "operationId": "updateTokensWebhooksByToken"
+    },
+    {
+      "path": "/tokens/{token}/webhooks/{idWebhook}",
+      "method": "DELETE",
+      "tags": [
+        "token"
+      ],
+      "summary": "deleteTokensWebhooksByTokenByIdWebhook()",
+      "operationId": "deleteTokensWebhooksByTokenByIdWebhook"
+    },
+    {
+      "path": "/tokens/{token}/webhooks/{idWebhook}",
+      "method": "GET",
+      "tags": [
+        "token"
+      ],
+      "summary": "getTokensWebhooksByTokenByIdWebhook()",
+      "operationId": "getTokensWebhooksByTokenByIdWebhook"
+    },
+    {
+      "path": "/tokens/{token}/{field}",
+      "method": "GET",
+      "tags": [
+        "token"
+      ],
+      "summary": "getTokensByTokenByField()",
+      "operationId": "getTokensByTokenByField"
+    }
+  ]
+}

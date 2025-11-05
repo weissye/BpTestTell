@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/activitypub/user-id/12345",
+      "method": "GET",
+      "operationId": "activitypubPerson",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the ActivityPub representation of the user with ID 12345."
+    },
+    {
+      "path": "/activitypub/user-id/12345/inbox",
+      "method": "POST",
+      "operationId": "activitypubPersonInbox",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Send a message to the inbox of the user with ID 12345."
+    }
+  ]
+}

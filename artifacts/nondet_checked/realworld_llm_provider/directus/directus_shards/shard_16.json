@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/revisions",
+      "method": "GET",
+      "tags": [
+        "Revisions"
+      ],
+      "summary": "List Revisions",
+      "operationId": "getRevisions"
+    },
+    {
+      "path": "/revisions/{id}",
+      "method": "GET",
+      "tags": [
+        "Revisions"
+      ],
+      "summary": "Retrieve a Revision",
+      "operationId": "getRevision"
+    }
+  ]
+}

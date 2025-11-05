@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401CallRecording"
+      ],
+      "summary": "Create a recording for the call",
+      "operationId": "CreateCallRecording"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401CallRecording"
+      ],
+      "summary": "Retrieve a list of recordings belonging to the call used to make the request",
+      "operationId": "ListCallRecording"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401CallRecording"
+      ],
+      "summary": "Changes the status of the recording to paused, stopped, or in-progress. Note: Pass `Twilio.CURRENT` instead of recording sid to reference current active recording.",
+      "operationId": "UpdateCallRecording"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401CallRecording"
+      ],
+      "summary": "Fetch an instance of a recording for a call",
+      "operationId": "FetchCallRecording"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401CallRecording"
+      ],
+      "summary": "Delete a recording from your account",
+      "operationId": "DeleteCallRecording"
+    }
+  ]
+}

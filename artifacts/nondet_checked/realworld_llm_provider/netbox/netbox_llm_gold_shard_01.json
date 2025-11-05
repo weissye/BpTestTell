@@ -1,0 +1,116 @@
+{
+  "gold": [
+    {
+      "path": "/api/circuits/circuit-groups/",
+      "method": "GET",
+      "operationId": "circuits_circuit_groups_list",
+      "summary": "",
+      "user": "Admin user requesting a list of all circuit groups to manage network configurations.",
+      "ideal": "A successful response with a list of circuit groups in JSON format."
+    },
+    {
+      "path": "/api/circuits/circuit-groups/",
+      "method": "POST",
+      "operationId": "circuits_circuit_groups_create",
+      "summary": "",
+      "user": "Network engineer creating a new circuit group for a project.",
+      "ideal": "A successful creation response with the details of the new circuit group."
+    },
+    {
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "method": "PUT",
+      "operationId": "circuits_circuit_groups_update",
+      "summary": "",
+      "user": "Admin user updating the details of an existing circuit group.",
+      "ideal": "A successful update response confirming the changes made to the circuit group."
+    },
+    {
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "method": "DELETE",
+      "operationId": "circuits_circuit_groups_destroy",
+      "summary": "",
+      "user": "Network administrator deleting an obsolete circuit group.",
+      "ideal": "A successful deletion response confirming the circuit group has been removed."
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/",
+      "method": "GET",
+      "operationId": "circuits_circuit_terminations_list",
+      "summary": "",
+      "user": "Support technician retrieving all circuit terminations for troubleshooting.",
+      "ideal": "A successful response with a list of circuit terminations in JSON format."
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/",
+      "method": "POST",
+      "operationId": "circuits_circuit_terminations_create",
+      "summary": "",
+      "user": "Network engineer adding a new circuit termination for a client.",
+      "ideal": "A successful creation response with the details of the new circuit termination."
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "method": "PATCH",
+      "operationId": "circuits_circuit_terminations_partial_update",
+      "summary": "",
+      "user": "Admin user updating specific fields of a circuit termination.",
+      "ideal": "A successful update response confirming the partial changes made."
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "method": "DELETE",
+      "operationId": "circuits_circuit_terminations_destroy",
+      "summary": "",
+      "user": "Network administrator removing a circuit termination that is no longer in use.",
+      "ideal": "A successful deletion response confirming the circuit termination has been removed."
+    },
+    {
+      "path": "/api/circuits/circuit-types/",
+      "method": "GET",
+      "operationId": "circuits_circuit_types_list",
+      "summary": "",
+      "user": "Network planner reviewing available circuit types for new installations.",
+      "ideal": "A successful response with a list of circuit types in JSON format."
+    },
+    {
+      "path": "/api/circuits/circuit-types/",
+      "method": "POST",
+      "operationId": "circuits_circuit_types_create",
+      "summary": "",
+      "user": "Network architect creating a new circuit type for advanced configurations.",
+      "ideal": "A successful creation response with the details of the new circuit type."
+    },
+    {
+      "path": "/api/circuits/circuits/",
+      "method": "GET",
+      "operationId": "circuits_circuits_list",
+      "summary": "",
+      "user": "Network operations center staff checking the status of all circuits.",
+      "ideal": "A successful response with a list of circuits and their statuses."
+    },
+    {
+      "path": "/api/circuits/circuits/{id}/",
+      "method": "PUT",
+      "operationId": "circuits_circuits_update",
+      "summary": "",
+      "user": "Network engineer updating the configuration of a specific circuit.",
+      "ideal": "A successful update response confirming the changes made to the circuit."
+    },
+    {
+      "path": "/api/circuits/providers/",
+      "method": "GET",
+      "operationId": "circuits_providers_list",
+      "summary": "",
+      "user": "Procurement officer reviewing all circuit providers for contract renewals.",
+      "ideal": "A successful response with a list of circuit providers in JSON format."
+    },
+    {
+      "path": "/api/circuits/providers/",
+      "method": "POST",
+      "operationId": "circuits_providers_create",
+      "summary": "",
+      "user": "Network manager adding a new provider to the system.",
+      "ideal": "A successful creation response with the details of the new provider."
+    }
+  ]
+}

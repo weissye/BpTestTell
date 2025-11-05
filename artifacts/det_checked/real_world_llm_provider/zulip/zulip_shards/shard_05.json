@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "PATCH",
+      "path": "/channel_folders"
+    },
+    {
+      "method": "POST",
+      "path": "/mark_all_as_read"
+    },
+    {
+      "method": "PATCH",
+      "path": "/navigation_views/{fragment}"
+    },
+    {
+      "method": "GET",
+      "path": "/saved_snippets"
+    },
+    {
+      "method": "GET",
+      "path": "/user_groups/{user_group_id}/members/{user_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/subscriptions"
+    }
+  ]
+}

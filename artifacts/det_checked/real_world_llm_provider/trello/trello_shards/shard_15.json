@@ -1,0 +1,56 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/memberCreator/{field}"
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/labelNames/orange"
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/idEmailList"
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}"
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/desc"
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/stickers/{idSticker}"
+    },
+    {
+      "method": "PUT",
+      "path": "/labels/{idLabel}"
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/actions"
+    },
+    {
+      "method": "DELETE",
+      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}"
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/savedSearches"
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/memberCreator/{field}"
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/members/{idMember}/deactivated"
+    },
+    {
+      "method": "PUT",
+      "path": "/sessions/{idSession}/status"
+    }
+  ]
+}

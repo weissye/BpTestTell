@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys.json",
+      "method": "POST",
+      "operationId": "CreateNewKey",
+      "summary": "",
+      "user": "User wants to create a new API key for their Twilio account to enable programmatic access to Twilio services. They have their Account SID ready and want to ensure the key is created with the necessary permissions for their application.",
+      "ideal": "The API should return a JSON response containing the new key's SID, secret, and any relevant metadata, confirming that the key has been successfully created."
+    }
+  ]
+}

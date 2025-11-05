@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/jql/autocompletedata",
+      "method": "GET",
+      "operationId": "getAutoComplete",
+      "summary": "",
+      "user": "User wants to retrieve autocomplete suggestions for JQL queries to enhance their search experience in Jira.",
+      "ideal": "Returns a list of autocomplete suggestions based on the current input."
+    },
+    {
+      "path": "/rest/api/3/jql/autocompletedata",
+      "method": "POST",
+      "operationId": "getAutoCompletePost",
+      "summary": "",
+      "user": "User submits a JQL query string to get autocomplete suggestions for fields and values.",
+      "ideal": "Returns a detailed response with suggestions for the provided JQL query."
+    },
+    {
+      "path": "/rest/api/3/jql/autocompletedata/suggestions",
+      "method": "GET",
+      "operationId": "getFieldAutoCompleteForQueryString",
+      "summary": "",
+      "user": "User wants to get field-specific autocomplete suggestions based on a partial JQL query.",
+      "ideal": "Returns field-specific suggestions that match the provided query string."
+    },
+    {
+      "path": "/rest/api/3/jql/parse",
+      "method": "POST",
+      "operationId": "parseJqlQueries",
+      "summary": "",
+      "user": "User sends a JQL query to be parsed for validation and structure analysis.",
+      "ideal": "Returns a parsed representation of the JQL query with any errors highlighted."
+    },
+    {
+      "path": "/rest/api/3/jql/pdcleaner",
+      "method": "POST",
+      "operationId": "migrateQueries",
+      "summary": "",
+      "user": "User wants to migrate old JQL queries to a new format compatible with the latest Jira version.",
+      "ideal": "Returns a list of migrated queries with any necessary adjustments made."
+    },
+    {
+      "path": "/rest/api/3/jql/sanitize",
+      "method": "POST",
+      "operationId": "sanitiseJqlQueries",
+      "summary": "",
+      "user": "User submits potentially unsafe JQL queries to be sanitized before execution.",
+      "ideal": "Returns a sanitized version of the JQL query ensuring it is safe to run."
+    }
+  ]
+}

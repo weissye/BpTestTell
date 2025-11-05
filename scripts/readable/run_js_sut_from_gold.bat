@@ -1,69 +1,108 @@
 @echo off
-setlocal EnableExtensions EnableDelayedExpansion
+setlocal EnableExtensions
 
-REM Usage:
-REM   run_js_sut_from_gold.bat  artifacts\det_checked\7_suts_llm_provider\banking
-REM   run_js_sut_from_gold.bat  artifacts\nondet_checked\realworld_llm_provider\stripe
+rem =============================================================
+rem run_js_sut_from_gold.bat
+rem Usage (preferred, from wrapper):
+rem   %1=det_checked|nondet_checked  %2=PROVIDER  %3=SUT  %4=SUT_DIR
+rem Fallback (legacy):
+rem   %1=SUT_DIR   (we'll infer the rest)
+rem =============================================================
 
-if "%~1"=="" (
-  echo [ERR] Please provide a SUT folder path.
-  echo Example: scripts\readable\run_js_sut_from_gold.bat artifacts\det_checked\7_suts_llm_provider\banking
-  exit /b 1
-)
+for %%I in ("%~dp0..\..") do set "ROOT=%%~fI"
 
-set SUT_DIR=%~1
-set PY=%~dp0..\..\ .venv\Scripts\python.exe
-set PY=%~dp0..\..\ .venv\Scripts\python.exe
-set PY=%~dp0..\..\ .venv\Scripts\python.exe
-REM Normalize path for spaces
-set "PY=%~dp0..\..\..\ .venv\Scripts\python.exe"
-REM Fallback if above expansion is weird in your tree:
-if not exist "%PY%" set "PY=%CD%\.venv\Scripts\python.exe"
-
-if not exist "%SUT_DIR%" (
-  echo [ERR] SUT dir not found: %SUT_DIR%
-  exit /b 1
-)
-
-REM pick SUT name from leaf folder
-for %%A in ("%SUT_DIR%") do set "SUT=%%~nA"
-
-set "OUT_DIR=%SUT_DIR%\readable"
-if not exist "%OUT_DIR%" mkdir "%OUT_DIR%" 2>nul
-
-REM Prefer *_llm_gold_fixed.(json|jsonl), else *_llm_gold.(json|jsonl), else per-shard *_llm_gold_shard_*.json
-set "CANDIDATES="
-for %%F in ("%SUT_DIR%\%SUT%_llm_gold_fixed.json" "%SUT_DIR%\%SUT%_llm_gold_fixed.jsonl" "%SUT_DIR%\%SUT%_llm_gold.json" "%SUT_DIR%\%SUT%_llm_gold.jsonl") do (
-  if exist "%%~fF" set "CANDIDATES=!CANDIDATES! "%%~fF""
-)
-
-if "%CANDIDATES%"=="" (
-  for %%F in ("%SUT_DIR%\%SUT%_llm_gold_shard_*.json") do (
-    if exist "%%~fF" set "CANDIDATES=!CANDIDATES! "%%~fF""
+rem ---------- Parse args ----------
+if "%~4"=="" (
+  set "SUT_DIR=%~1"
+  if not defined SUT_DIR (
+    echo [ERR ] Missing arguments. Expected:
+    echo        run_js_sut_from_gold.bat det_checked^|nondet_checked PROVIDER SUT SUT_DIR
+    exit /b 2
   )
+  rem Infer base/provider/sut from path
+  set "BASE_DIR="
+  echo %SUT_DIR% | findstr /I /C:"\artifacts\det_checked\" >nul && set "BASE_DIR=det_checked"
+  if not defined BASE_DIR set "BASE_DIR=nondet_checked"
+
+  for /f "tokens=1,2 delims=\ " %%a in ("%SUT_DIR:%ROOT%\artifacts\%BASE_DIR%\=%") do (
+    set "PROVIDER=%%a"
+    set "SUT=%%b"
+  )
+) else (
+  set "BASE_DIR=%~1"
+  set "PROVIDER=%~2"
+  set "SUT=%~3"
+  set "SUT_DIR=%~4"
 )
 
-if "%CANDIDATES%"=="" (
-  echo [WARN] No GOLD files found under %SUT_DIR%. Skipping.
+if /I "%BASE_DIR%"=="det_checked" (set "BASE=det") else (set "BASE=nondet")
+
+echo [INFO] Using: "%~f0"
+echo [INFO] ROOT="%ROOT%"
+echo [INFO] BASE="%BASE%"
+echo [INFO] PROVIDER="%PROVIDER%"
+echo [INFO] SUT="%SUT%"
+echo [DBG ] SUT_DIR="%SUT_DIR%"
+
+rem ---------- Must be an existing directory ----------
+if not exist "%SUT_DIR%\." (
+  if exist "%SUT_DIR%" (
+    echo [ERR ] Path exists but is not a directory: "%SUT_DIR%"
+  ) else (
+    echo [ERR ] SUT dir not found: "%SUT_DIR%"
+  )
+  exit /b 1
+)
+
+rem ---------- Inputs/outputs ----------
+if /I "%BASE%"=="det" (
+  set "RAW=%SUT_DIR%\%SUT%_llm_gold_ops.json"
+  set "NORM=%SUT_DIR%\%SUT%_gold_ops.normalized.json"
+) else (
+  set "RAW=%SUT_DIR%\%SUT%_llm_gold.json"
+  set "NORM=%SUT_DIR%\%SUT%_llm_gold.normalized.json"
+)
+set "OUT=%SUT_DIR%\readables"
+
+if not exist "%RAW%" (
+  if /I "%BASE%"=="det" (
+    echo [INFO] DET GOLD not found for "%SUT%" under "%SUT_DIR%".
+  ) else (
+    echo [INFO] NONDET GOLD not found for "%SUT%" under "%SUT_DIR%".
+  )
   exit /b 0
 )
 
-set "OPS_OUT=%SUT_DIR%\%SUT%_llm_gold_ops.json"
-
-REM Normalize + merge ops (never fail the batch)
-echo [RUN ] normalizing ops -> "%OPS_OUT%"
-%PY% scripts\readable\normalize_gold_for_readables.py --out "%OPS_OUT%" %CANDIDATES%
-if errorlevel 1 (
-  echo [WARN] normalization failed for %SUT%. Continuing.
-)
-
-REM Run the single producer (interfaces + lifecycle from gold)
-echo [RUN ] emit_readables_from_gold.py for "%SUT%"
-%PY% scripts\readable\emit_readables_from_gold.py --gold "%OPS_OUT%" --out-dir "%OUT_DIR%" --force-crud
-if errorlevel 1 (
-  echo [WARN] emit_readables_from_gold.py failed for %SUT%. Continuing.
+if /I "%BASE%"=="det" (
+  echo [DBG ] DET_INPUTS="%RAW%"
 ) else (
-  echo [OK  ] readables written to "%OUT_DIR%"
+  echo [DBG ] ND_INPUTS="%RAW%"
 )
 
+rem ---------- Normalize ----------
+echo [CMD ] "%ROOT%\.venv\Scripts\python.exe" "%ROOT%\scripts\readable\normalize_gold_for_readables.py" --out="%NORM%" "%RAW%"
+"%ROOT%\.venv\Scripts\python.exe" "%ROOT%\scripts\readable\normalize_gold_for_readables.py" --out="%NORM%" "%RAW%"
+if errorlevel 1 (
+  echo [ERR ] normalize_gold_for_readables.py failed.
+  exit /b 1
+)
+
+rem ---------- Ensure OUT is a directory ----------
+if not exist "%OUT%\." (
+  if exist "%OUT%" (
+    echo [WARN] "%OUT%" exists as a file. Renaming to "readables.bak".
+    ren "%OUT%" "readables.bak" >nul 2>&1
+  )
+  md "%OUT%" >nul 2>&1
+)
+
+rem ---------- Emit readables ----------
+echo [CMD ] "%ROOT%\.venv\Scripts\python.exe" "%ROOT%\scripts\readable\emit_readables_from_gold.py" --gold "%NORM%" --out-dir "%OUT%"
+"%ROOT%\.venv\Scripts\python.exe" "%ROOT%\scripts\readable\emit_readables_from_gold.py" --gold "%NORM%" --out-dir "%OUT%"
+if errorlevel 1 (
+  echo [ERR ] emit_readables_from_gold.py failed.
+  exit /b 1
+)
+
+echo [DONE] %SUT%
 exit /b 0

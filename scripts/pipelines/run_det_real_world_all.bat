@@ -1,52 +1,50 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
+rem Pure deterministic DET from OpenAPI; emits ops + shards + det_gold (+ compat llm_gold). No LLM.
 
-for %%I in ("%~dp0..\..\") do set "ROOT=%%~fI"
-set "SUTS=directus gitea github jira_cloud keycloak_admin meilisearch netbox stripe trello twilio zulip"
+rem --- repo root ---
+pushd "%~dp0\..\.."
+set "ROOT=%CD%"
 
-if not defined PYTHON_EXE if exist "%ROOT%\.venv\Scripts\python.exe" set "PYTHON_EXE=%ROOT%\.venv\Scripts\python.exe"
-if not defined PYTHON_EXE set "PYTHON_EXE=python"
+rem --- python ---
+set "PY=%ROOT%\.venv\Scripts\python.exe"
+if not exist "%PY%" set "PY=python"
 
-if not defined GEN_PY (
-  if exist "%ROOT%\scripts\llm\run_llm_gold_and_grade.py" (
-    set "GEN_PY=%ROOT%\scripts\llm\run_llm_gold_and_grade.py"
-  ) else if exist "%ROOT%\scripts\llm\emit_llm_gold_from_openapi.py" (
-    set "GEN_PY=%ROOT%\scripts\llm\emit_llm_gold_from_openapi.py"
-  )
-)
-if not exist "%GEN_PY%" (
-  echo [ERR] Generator script not found at "%GEN_PY%".
-  echo       PowerShell: ^$env:GEN_PY = "%ROOT%\scripts\llm\run_llm_gold_and_grade.py"
-  exit /b 1
-)
+set "GEN=%ROOT%\scripts\pipelines\det_from_openapi.py"
+echo [INFO] CWD=%ROOT%
+echo [INFO] DET generator (no LLM) = %GEN%
+echo ------------------------------------------------------------
 
-set "CLEAN_FLAG="
-if defined CLEAN set "CLEAN_FLAG=--rebuild-shards"
-set "FORCE_FLAG="
-if defined FORCE set "FORCE_FLAG=--force"
-
-echo [INFO] CWD=%CD%
-echo [INFO] GEN_PY=%GEN_PY%
-if defined PROVIDER echo [INFO] PROVIDER=%PROVIDER%  MODEL=%MODEL%
-
-for %%S in (%SUTS%) do (
+rem RW list (stripe removed)
+for %%S in (directus github gitea jira_cloud keycloak_admin meilisearch netbox trello twilio zulip) do (
   set "SUT=%%S"
-  echo.
-  echo ==== !SUT! ^(REAL-WORLD^) ====
-  set "SPEC=%ROOT%\packs\realworld\!SUT!\openapi.json"
-  set "OUTDIR=%ROOT%\artifacts\det_checked\real_world_llm_provider\!SUT!"
+  set "SPEC=%ROOT%\packs\realworld\%%S\openapi.json"
+  set "OUT=%ROOT%\artifacts\det_checked\real_world_llm_provider\%%S"
 
-  if not exist "!SPEC!" (
-    echo [ERR] Could not locate openapi.json for "!SUT!".
-    echo [WARN] !SUT! failed.
-  ) else (
-    echo [RUN] provider=!PROVIDER!  model=!MODEL!
-    echo [RUN] spec="!SPEC!"  out="!OUTDIR!"
-    "%PYTHON_EXE%" "%GEN_PY%" --spec "!SPEC!" --name "!SUT!" --out-dir "!OUTDIR!" --provider "!PROVIDER!" --model "!MODEL!" !CLEAN_FLAG! !FORCE_FLAG!
-    if errorlevel 1 (echo [WARN] !SUT! failed.) else (echo [OK] !SUT!)
+  echo ==== !SUT! ^(REAL-WORLD DET^) ====
+  echo [RUN ] spec="!SPEC!"  outdir="!OUT!"
+  if not exist "!OUT!" mkdir "!OUT!" >nul 2>&1
+
+  "%PY%" "%GEN%" "!SPEC!" "!OUT!" --sut "!SUT!" --shards 24 --emit_llm_gold
+  if errorlevel 1 (
+    echo [ERR ] det_from_openapi.py failed for !SUT!
+    goto :fail
+  )
+
+  for %%F in ("!OUT!\!SUT!_llm_gold_ops.json" "!OUT!\!SUT!_det_gold.json" "!OUT!\!SUT!_llm_gold.json") do (
+    if not exist "%%~fF" (
+      echo [ERR ] expected "%%~fF" but it does not exist.
+      goto :fail
+    )
+    "%PY%" -c "import json,os,sys; p=sys.argv[1]; json.load(open(p,'r',encoding='utf-8')); print('[OK  ]', os.path.basename(p), 'valid JSON, size', os.path.getsize(p))" "%%~fF"
   )
 )
 
 echo.
-echo [SUMMARY] real-world run finished.
-endlocal
+echo [DONE] Real-world DET (pure OpenAPI; ops + shards + det_gold) completed.
+popd
+exit /b 0
+
+:fail
+popd
+exit /b 1

@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/roles",
+      "method": "GET",
+      "operationId": "getRoles",
+      "summary": "",
+      "user": "Admin user requesting a list of all roles in the system to manage permissions.",
+      "ideal": "A successful response with a list of roles including their IDs and names."
+    },
+    {
+      "path": "/roles",
+      "method": "POST",
+      "operationId": "createRole",
+      "summary": "",
+      "user": "Admin user creating a new role for a team with specific permissions.",
+      "ideal": "A successful response indicating the role was created, including the new role's ID."
+    },
+    {
+      "path": "/roles",
+      "method": "PATCH",
+      "operationId": "updateRoles",
+      "summary": "",
+      "user": "Admin user updating multiple roles to adjust permissions for a group of users.",
+      "ideal": "A successful response confirming the roles were updated."
+    },
+    {
+      "path": "/roles",
+      "method": "DELETE",
+      "operationId": "deleteRoles",
+      "summary": "",
+      "user": "Admin user deleting obsolete roles that are no longer needed.",
+      "ideal": "A successful response confirming the roles were deleted."
+    },
+    {
+      "path": "/roles/{id}",
+      "method": "GET",
+      "operationId": "getRole",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific role to review its permissions.",
+      "ideal": "A successful response with the details of the requested role."
+    },
+    {
+      "path": "/roles/{id}",
+      "method": "PATCH",
+      "operationId": "updateRole",
+      "summary": "",
+      "user": "Admin user updating a specific role's permissions to enhance security.",
+      "ideal": "A successful response confirming the role was updated."
+    },
+    {
+      "path": "/roles/{id}",
+      "method": "DELETE",
+      "operationId": "deleteRole",
+      "summary": "",
+      "user": "Admin user deleting a specific role that is no longer in use.",
+      "ideal": "A successful response confirming the role was deleted."
+    }
+  ]
+}

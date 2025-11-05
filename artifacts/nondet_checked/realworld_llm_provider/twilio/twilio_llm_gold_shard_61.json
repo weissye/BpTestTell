@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json",
+      "method": "GET",
+      "operationId": "ListSipIpAddress",
+      "summary": "",
+      "user": "As a developer, I want to retrieve a list of IP addresses associated with a specific SIP IP Access Control List so that I can manage access control effectively.",
+      "ideal": "The API should return a JSON array of IP addresses with their details, including the SID, IP address, and any associated metadata."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json",
+      "method": "POST",
+      "operationId": "CreateSipIpAddress",
+      "summary": "",
+      "user": "As a system administrator, I need to add a new IP address to a SIP IP Access Control List to ensure that the new server can communicate with our SIP infrastructure.",
+      "ideal": "The API should accept a JSON payload with the IP address and return the created IP address details, including its SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchSipIpAddress",
+      "summary": "",
+      "user": "As a network engineer, I want to fetch the details of a specific IP address in a SIP IP Access Control List to verify its configuration.",
+      "ideal": "The API should return the details of the specified IP address, including its SID, IP address, and any associated metadata."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateSipIpAddress",
+      "summary": "",
+      "user": "As a developer, I need to update the details of an existing IP address in a SIP IP Access Control List to reflect changes in our network configuration.",
+      "ideal": "The API should accept a JSON payload with the updated details and return the updated IP address information."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipIpAddress",
+      "summary": "",
+      "user": "As a security officer, I want to remove an IP address from a SIP IP Access Control List to prevent unauthorized access to our SIP services.",
+      "ideal": "The API should confirm the deletion of the specified IP address and return a success message."
+    }
+  ]
+}

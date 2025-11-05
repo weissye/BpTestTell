@@ -1,0 +1,124 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/workflowscheme",
+      "method": "GET",
+      "operationId": "getAllWorkflowSchemes",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all workflow schemes to understand the current configurations in our Jira instance.",
+      "ideal": "The response should include a list of all workflow schemes with their IDs and names."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme",
+      "method": "POST",
+      "operationId": "createWorkflowScheme",
+      "summary": "",
+      "user": "As a Jira administrator, I want to create a new workflow scheme to apply a specific workflow to a set of issue types.",
+      "ideal": "The response should confirm the creation of the workflow scheme with its ID and details."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/read",
+      "method": "POST",
+      "operationId": "readWorkflowSchemes",
+      "summary": "",
+      "user": "As a developer, I need to read multiple workflow schemes to analyze their configurations for integration purposes.",
+      "ideal": "The response should return the details of the requested workflow schemes."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/update",
+      "method": "POST",
+      "operationId": "updateSchemes",
+      "summary": "",
+      "user": "As a project lead, I want to update existing workflow schemes to improve our issue tracking process.",
+      "ideal": "The response should indicate success and provide updated details of the workflow schemes."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "method": "GET",
+      "operationId": "getWorkflowScheme",
+      "summary": "",
+      "user": "As a business analyst, I want to fetch a specific workflow scheme to review its configuration for a project.",
+      "ideal": "The response should return the details of the specified workflow scheme."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "method": "PUT",
+      "operationId": "updateWorkflowScheme",
+      "summary": "",
+      "user": "As a system administrator, I need to update a workflow scheme to reflect changes in our project management process.",
+      "ideal": "The response should confirm the update and return the modified workflow scheme details."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "method": "DELETE",
+      "operationId": "deleteWorkflowScheme",
+      "summary": "",
+      "user": "As a project manager, I want to delete an obsolete workflow scheme that is no longer in use.",
+      "ideal": "The response should confirm the deletion of the workflow scheme."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/default",
+      "method": "GET",
+      "operationId": "getDefaultWorkflow",
+      "summary": "",
+      "user": "As a project coordinator, I want to check the default workflow associated with a workflow scheme.",
+      "ideal": "The response should return the details of the default workflow for the specified scheme."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/default",
+      "method": "PUT",
+      "operationId": "updateDefaultWorkflow",
+      "summary": "",
+      "user": "As a Jira administrator, I need to update the default workflow for a workflow scheme to ensure it aligns with our current processes.",
+      "ideal": "The response should confirm the update and provide the new default workflow details."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+      "method": "GET",
+      "operationId": "getWorkflowSchemeIssueType",
+      "summary": "",
+      "user": "As a developer, I want to retrieve the workflow scheme associated with a specific issue type to understand its workflow.",
+      "ideal": "The response should return the workflow scheme details for the specified issue type."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+      "method": "PUT",
+      "operationId": "setWorkflowSchemeIssueType",
+      "summary": "",
+      "user": "As a project manager, I want to associate a new issue type with a workflow scheme to enhance our issue tracking.",
+      "ideal": "The response should confirm the association and return the updated workflow scheme details."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "method": "GET",
+      "operationId": "getWorkflow",
+      "summary": "",
+      "user": "As a business analyst, I need to retrieve the workflow mappings for a specific workflow scheme to analyze its structure.",
+      "ideal": "The response should return the workflow mappings associated with the specified workflow scheme."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "method": "PUT",
+      "operationId": "updateWorkflowMapping",
+      "summary": "",
+      "user": "As a system administrator, I want to update the workflow mappings for a workflow scheme to reflect process changes.",
+      "ideal": "The response should confirm the update and provide the new workflow mappings."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/default",
+      "method": "DELETE",
+      "operationId": "deleteDefaultWorkflow",
+      "summary": "",
+      "user": "As a project lead, I want to remove the default workflow from a workflow scheme that is no longer applicable.",
+      "ideal": "The response should confirm the deletion of the default workflow."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{workflowSchemeId}/projectUsages",
+      "method": "GET",
+      "operationId": "getProjectUsagesForWorkflowScheme",
+      "summary": "",
+      "user": "As a project manager, I want to see which projects are using a specific workflow scheme to assess its impact.",
+      "ideal": "The response should return a list of projects associated with the specified workflow scheme."
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/assignments/{assignment_id}",
+      "method": "GET",
+      "tags": [
+        "classroom"
+      ],
+      "summary": "Get an assignment",
+      "operationId": "classroom/get-an-assignment"
+    },
+    {
+      "path": "/assignments/{assignment_id}/accepted_assignments",
+      "method": "GET",
+      "tags": [
+        "classroom"
+      ],
+      "summary": "List accepted assignments for an assignment",
+      "operationId": "classroom/list-accepted-assignments-for-an-assignment"
+    },
+    {
+      "path": "/assignments/{assignment_id}/grades",
+      "method": "GET",
+      "tags": [
+        "classroom"
+      ],
+      "summary": "Get assignment grades",
+      "operationId": "classroom/get-assignment-grades"
+    },
+    {
+      "path": "/classrooms",
+      "method": "GET",
+      "tags": [
+        "classroom"
+      ],
+      "summary": "List classrooms",
+      "operationId": "classroom/list-classrooms"
+    },
+    {
+      "path": "/classrooms/{classroom_id}",
+      "method": "GET",
+      "tags": [
+        "classroom"
+      ],
+      "summary": "Get a classroom",
+      "operationId": "classroom/get-a-classroom"
+    },
+    {
+      "path": "/classrooms/{classroom_id}/assignments",
+      "method": "GET",
+      "tags": [
+        "classroom"
+      ],
+      "summary": "List assignments for a classroom",
+      "operationId": "classroom/list-assignments-for-a-classroom"
+    }
+  ]
+}

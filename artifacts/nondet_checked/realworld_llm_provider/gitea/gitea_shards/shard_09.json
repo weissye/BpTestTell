@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "Gitea API",
+    "version": "{{AppVer | JSEscape}}"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/settings/api",
+      "method": "GET",
+      "tags": [
+        "settings"
+      ],
+      "summary": "Get instance's global settings for api",
+      "operationId": "getGeneralAPISettings"
+    },
+    {
+      "path": "/settings/attachment",
+      "method": "GET",
+      "tags": [
+        "settings"
+      ],
+      "summary": "Get instance's global settings for Attachment",
+      "operationId": "getGeneralAttachmentSettings"
+    },
+    {
+      "path": "/settings/repository",
+      "method": "GET",
+      "tags": [
+        "settings"
+      ],
+      "summary": "Get instance's global settings for repositories",
+      "operationId": "getGeneralRepositorySettings"
+    },
+    {
+      "path": "/settings/ui",
+      "method": "GET",
+      "tags": [
+        "settings"
+      ],
+      "summary": "Get instance's global settings for ui",
+      "operationId": "getGeneralUISettings"
+    }
+  ]
+}

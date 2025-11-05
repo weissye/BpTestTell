@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/field/association",
+      "method": "DELETE",
+      "operationId": "removeAssociations",
+      "summary": "",
+      "user": "As a project manager, I want to remove associations between custom fields and specific issue types to ensure that irrelevant fields do not clutter the issue creation process.",
+      "ideal": "Successfully removed associations between the specified custom fields and issue types."
+    },
+    {
+      "path": "/rest/api/3/field/association",
+      "method": "PUT",
+      "operationId": "createAssociations",
+      "summary": "",
+      "user": "As a product owner, I need to create associations between custom fields and issue types to ensure that the right fields are displayed when users create or edit issues.",
+      "ideal": "Successfully created associations between the specified custom fields and issue types."
+    }
+  ]
+}

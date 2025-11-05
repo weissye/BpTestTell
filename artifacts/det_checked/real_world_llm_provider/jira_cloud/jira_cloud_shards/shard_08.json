@@ -1,0 +1,104 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/rest/api/3/application-properties"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/classification-levels"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/dashboard/{dashboardId}/gadget"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/{fieldId}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/{fieldKey}/option/suggestions/edit"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/filter"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/group/user"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/assignee"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/votes"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issues/archive/export"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype/{id}/alternatives"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping/default"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/notificationscheme"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/plans/plan/{planId}/duplicate"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/priorityscheme/{schemeId}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectId}/hierarchy"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/role"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}/move/{pos}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses/{statusId}/project/{projectId}/issueTypeUsages"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/user/columns"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/version/{id}/relatedIssueCounts"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/{workflowId}/projectUsages"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/{id}/default"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/atlassian-connect/1/addons/{addonKey}/properties"
+    }
+  ]
+}

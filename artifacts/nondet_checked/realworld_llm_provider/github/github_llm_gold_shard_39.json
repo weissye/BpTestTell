@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/search/code",
+      "method": "GET",
+      "operationId": "search/code",
+      "summary": "",
+      "user": "developer123",
+      "ideal": "Search for code snippets across GitHub repositories."
+    },
+    {
+      "path": "/search/commits",
+      "method": "GET",
+      "operationId": "search/commits",
+      "summary": "",
+      "user": "codeHistorian",
+      "ideal": "Retrieve commit history based on specific search criteria."
+    },
+    {
+      "path": "/search/issues",
+      "method": "GET",
+      "operationId": "search/issues-and-pull-requests",
+      "summary": "",
+      "user": "issueTracker",
+      "ideal": "Find issues and pull requests that match the given search parameters."
+    },
+    {
+      "path": "/search/labels",
+      "method": "GET",
+      "operationId": "search/labels",
+      "summary": "",
+      "user": "labelMaster",
+      "ideal": "Search for labels used in repositories."
+    },
+    {
+      "path": "/search/repositories",
+      "method": "GET",
+      "operationId": "search/repos",
+      "summary": "",
+      "user": "repoExplorer",
+      "ideal": "Search for repositories based on keywords and filters."
+    },
+    {
+      "path": "/search/topics",
+      "method": "GET",
+      "operationId": "search/topics",
+      "summary": "",
+      "user": "topicFinder",
+      "ideal": "Find topics associated with repositories."
+    },
+    {
+      "path": "/search/users",
+      "method": "GET",
+      "operationId": "search/users",
+      "summary": "",
+      "user": "userScout",
+      "ideal": "Search for GitHub users based on usernames or other criteria."
+    }
+  ]
+}

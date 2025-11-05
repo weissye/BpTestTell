@@ -1,0 +1,12 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/cars/{vin}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repair-orders/{roId}"
+    }
+  ]
+}

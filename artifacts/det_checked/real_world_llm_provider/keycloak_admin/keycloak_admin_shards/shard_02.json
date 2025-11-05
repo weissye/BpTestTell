@@ -1,0 +1,60 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/flows"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/client-policies/profiles"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/realm/composite"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/client-templates/{id}/scope-mappings/realm/composite"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/clients/{id}/default-client-scopes/{clientScopeId}"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/clients/{id}/roles"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/clients/{id}/service-account-user"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/group-by-path/{path}"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/identity-provider/instances"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/partialImport"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/roles/{role-name}/management/permissions"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/users/{id}/federated-identity"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/users/{id}/sessions"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/orgs/{org}/private-registries",
+      "method": "GET",
+      "tags": [
+        "private-registries"
+      ],
+      "summary": "List private registries for an organization",
+      "operationId": "private-registries/list-org-private-registries"
+    },
+    {
+      "path": "/orgs/{org}/private-registries",
+      "method": "POST",
+      "tags": [
+        "private-registries"
+      ],
+      "summary": "Create a private registry for an organization",
+      "operationId": "private-registries/create-org-private-registry"
+    },
+    {
+      "path": "/orgs/{org}/private-registries/public-key",
+      "method": "GET",
+      "tags": [
+        "private-registries"
+      ],
+      "summary": "Get private registries public key for an organization",
+      "operationId": "private-registries/get-org-public-key"
+    },
+    {
+      "path": "/orgs/{org}/private-registries/{secret_name}",
+      "method": "GET",
+      "tags": [
+        "private-registries"
+      ],
+      "summary": "Get a private registry for an organization",
+      "operationId": "private-registries/get-org-private-registry"
+    },
+    {
+      "path": "/orgs/{org}/private-registries/{secret_name}",
+      "method": "PATCH",
+      "tags": [
+        "private-registries"
+      ],
+      "summary": "Update a private registry for an organization",
+      "operationId": "private-registries/update-org-private-registry"
+    },
+    {
+      "path": "/orgs/{org}/private-registries/{secret_name}",
+      "method": "DELETE",
+      "tags": [
+        "private-registries"
+      ],
+      "summary": "Delete a private registry for an organization",
+      "operationId": "private-registries/delete-org-private-registry"
+    }
+  ]
+}

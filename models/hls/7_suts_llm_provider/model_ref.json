@@ -1,8 +1,0 @@
-{
-  "sut": "7_suts_llm_provider",
-  "provider": "openai",
-  "trained": false,
-  "model_id": "gpt-4o-mini",
-  "created": "2025-11-03T14:41:11.866622Z",
-  "source_det": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\hls_det\\7_suts_llm_provider\\hls_det_gold.json"
-}

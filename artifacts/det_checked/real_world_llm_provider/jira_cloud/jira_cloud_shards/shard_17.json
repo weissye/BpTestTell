@@ -1,0 +1,104 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/rest/api/3/attachment/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/component/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/dashboard/{id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/{fieldId}/context/{contextId}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/fieldconfiguration"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/filter/{id}/columns"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/bulkfetch"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/editmeta"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescheme/project"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/match"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/permissions/project"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/plans/plan/{planId}/team/planonly/{planOnlyTeamId}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project-template/save-template"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project/{projectIdOrKey}/properties/{propertyKey}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/projectCategory/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/screens"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/search/jql"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/universal_avatar/type/{type}/owner/{entityId}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/user/properties/{propertyKey}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/webhook"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflows/update"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/{id}/draft/issuetype/{issueType}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/atlassian-connect/1/migration/workflow/rule/search"
+    }
+  ]
+}

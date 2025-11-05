@@ -1,8 +1,0 @@
-{
-  "sut": "jira_cloud",
-  "provider": "openai",
-  "trained": false,
-  "model_id": "gpt-4o-mini",
-  "created": "2025-11-03T15:26:15.501370Z",
-  "source_det": "artifacts\\hls_det\\real_world_llm_provider\\jira_cloud\\hls_det_gold.json"
-}

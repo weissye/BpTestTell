@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/attachments"
+    },
+    {
+      "method": "POST",
+      "path": "/invites/multiuse"
+    },
+    {
+      "method": "POST",
+      "path": "/mobile_push/test_notification"
+    },
+    {
+      "method": "POST",
+      "path": "/reminders"
+    },
+    {
+      "method": "PATCH",
+      "path": "/user_groups/{user_group_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/status"
+    }
+  ]
+}

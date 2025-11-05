@@ -1,0 +1,2202 @@
+{
+  "gold": [
+    {
+      "op": {
+        "method": "GET",
+        "path": "/"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/admin-events"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/admin-events"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/attack-detection/brute-force/users"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/attack-detection/brute-force/users/{userId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/attack-detection/brute-force/users/{userId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/authentication/authenticator-providers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/authentication/client-authenticator-providers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/authentication/config"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/authentication/config-description/{providerId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/authentication/config/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/authentication/config/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/authentication/config/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/authentication/executions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/authentication/executions/{executionId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/authentication/executions/{executionId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/authentication/executions/{executionId}/config"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/authentication/executions/{executionId}/config/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/authentication/executions/{executionId}/lower-priority"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/authentication/executions/{executionId}/raise-priority"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/authentication/flows"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/authentication/flows"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/authentication/flows/{flowAlias}/copy"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/authentication/flows/{flowAlias}/executions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/authentication/flows/{flowAlias}/executions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/authentication/flows/{flowAlias}/executions/execution"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/authentication/flows/{flowAlias}/executions/flow"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/authentication/flows/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/authentication/flows/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/authentication/flows/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/authentication/form-action-providers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/authentication/form-providers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/authentication/per-client-config-description"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/authentication/register-required-action"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/authentication/required-actions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/authentication/required-actions/{alias}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/authentication/required-actions/{alias}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/authentication/required-actions/{alias}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/authentication/required-actions/{alias}/lower-priority"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/authentication/required-actions/{alias}/raise-priority"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/authentication/unregistered-required-actions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/client-description-converter"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-policies/policies"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/client-policies/policies"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-policies/profiles"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/client-policies/profiles"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-registration-policy/providers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-scopes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/client-scopes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-scopes/{id1}/protocol-mappers/models/{id2}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/client-scopes/{id1}/protocol-mappers/models/{id2}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/client-scopes/{id1}/protocol-mappers/models/{id2}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-scopes/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/client-scopes/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/client-scopes/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/client-scopes/{id}/protocol-mappers/add-models"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-scopes/{id}/protocol-mappers/models"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/client-scopes/{id}/protocol-mappers/models"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-scopes/{id}/protocol-mappers/protocol/{protocol}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-scopes/{id}/scope-mappings"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}/available"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-scopes/{id}/scope-mappings/clients/{client}/composite"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-scopes/{id}/scope-mappings/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/client-scopes/{id}/scope-mappings/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/client-scopes/{id}/scope-mappings/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-scopes/{id}/scope-mappings/realm/available"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-scopes/{id}/scope-mappings/realm/composite"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-session-stats"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-templates"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/client-templates"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-templates/{id1}/protocol-mappers/models/{id2}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/client-templates/{id1}/protocol-mappers/models/{id2}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/client-templates/{id1}/protocol-mappers/models/{id2}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-templates/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/client-templates/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/client-templates/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/client-templates/{id}/protocol-mappers/add-models"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-templates/{id}/protocol-mappers/models"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/client-templates/{id}/protocol-mappers/models"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-templates/{id}/protocol-mappers/protocol/{protocol}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-templates/{id}/scope-mappings"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}/available"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-templates/{id}/scope-mappings/clients/{client}/composite"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-templates/{id}/scope-mappings/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/client-templates/{id}/scope-mappings/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/client-templates/{id}/scope-mappings/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-templates/{id}/scope-mappings/realm/available"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/client-templates/{id}/scope-mappings/realm/composite"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients-initial-access"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients-initial-access"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/clients-initial-access/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id1}/protocol-mappers/models/{id2}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/clients/{id1}/protocol-mappers/models/{id2}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/clients/{id1}/protocol-mappers/models/{id2}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/clients/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/clients/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/certificates/{attr}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients/{id}/certificates/{attr}/download"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients/{id}/certificates/{attr}/generate"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients/{id}/certificates/{attr}/generate-and-download"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients/{id}/certificates/{attr}/upload"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients/{id}/certificates/{attr}/upload-certificate"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/client-secret"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients/{id}/client-secret"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/client-secret/rotated"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/clients/{id}/client-secret/rotated"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/default-client-scopes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/clients/{id}/default-client-scopes/{clientScopeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/clients/{id}/default-client-scopes/{clientScopeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/evaluate-scopes/generate-example-access-token"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/evaluate-scopes/generate-example-id-token"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/evaluate-scopes/generate-example-userinfo"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/evaluate-scopes/protocol-mappers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/evaluate-scopes/scope-mappings/{roleContainerId}/granted"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/evaluate-scopes/scope-mappings/{roleContainerId}/not-granted"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/installation/providers/{providerId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/management/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/clients/{id}/management/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients/{id}/nodes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/clients/{id}/nodes/{node}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/offline-session-count"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/offline-sessions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/optional-client-scopes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/clients/{id}/optional-client-scopes/{clientScopeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/clients/{id}/optional-client-scopes/{clientScopeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients/{id}/protocol-mappers/add-models"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/protocol-mappers/models"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients/{id}/protocol-mappers/models"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/protocol-mappers/protocol/{protocol}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients/{id}/push-revocation"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients/{id}/registration-access-token"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/roles"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients/{id}/roles"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/roles/{role-name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/clients/{id}/roles/{role-name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/clients/{id}/roles/{role-name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/roles/{role-name}/composites"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients/{id}/roles/{role-name}/composites"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/clients/{id}/roles/{role-name}/composites"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/roles/{role-name}/composites/clients/{clientUuid}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/roles/{role-name}/composites/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/roles/{role-name}/groups"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/roles/{role-name}/management/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/clients/{id}/roles/{role-name}/management/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/roles/{role-name}/users"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/scope-mappings"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}/available"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}/composite"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/scope-mappings/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/clients/{id}/scope-mappings/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/clients/{id}/scope-mappings/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/scope-mappings/realm/available"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/scope-mappings/realm/composite"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/service-account-user"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/session-count"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/test-nodes-available"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/clients/{id}/user-sessions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/components"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/components"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/components/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/components/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/components/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/components/{id}/sub-component-types"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/credential-registrators"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/default-default-client-scopes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/default-default-client-scopes/{clientScopeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/default-default-client-scopes/{clientScopeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/default-groups"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/default-groups/{groupId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/default-groups/{groupId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/default-optional-client-scopes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/default-optional-client-scopes/{clientScopeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/default-optional-client-scopes/{clientScopeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/events"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/events"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/events/config"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/events/config"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/group-by-path/{path}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/groups"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/groups"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/groups/count"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/groups/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/groups/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/groups/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/groups/{id}/children"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/groups/{id}/management/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/groups/{id}/management/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/groups/{id}/members"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/groups/{id}/role-mappings"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/groups/{id}/role-mappings/clients/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/groups/{id}/role-mappings/clients/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/groups/{id}/role-mappings/clients/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/groups/{id}/role-mappings/clients/{client}/available"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/groups/{id}/role-mappings/clients/{client}/composite"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/groups/{id}/role-mappings/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/groups/{id}/role-mappings/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/groups/{id}/role-mappings/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/groups/{id}/role-mappings/realm/available"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/groups/{id}/role-mappings/realm/composite"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/identity-provider/import-config"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/identity-provider/instances"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/identity-provider/instances"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/identity-provider/instances/{alias}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/identity-provider/instances/{alias}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/identity-provider/instances/{alias}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/identity-provider/instances/{alias}/export"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/identity-provider/instances/{alias}/management/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/identity-provider/instances/{alias}/management/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/identity-provider/instances/{alias}/mapper-types"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/identity-provider/instances/{alias}/mappers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/identity-provider/instances/{alias}/mappers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/identity-provider/providers/{provider_id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/keys"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/localization"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/localization/{locale}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/localization/{locale}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/localization/{locale}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/localization/{locale}/{key}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/localization/{locale}/{key}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/localization/{locale}/{key}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/logout-all"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/partial-export"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/partialImport"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/push-revocation"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/roles"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/roles"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/roles-by-id/{role-id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/roles-by-id/{role-id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/roles-by-id/{role-id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/roles-by-id/{role-id}/composites"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/roles-by-id/{role-id}/composites"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/roles-by-id/{role-id}/composites"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/roles-by-id/{role-id}/composites/clients/{clientUuid}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/roles-by-id/{role-id}/composites/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/roles-by-id/{role-id}/management/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/roles-by-id/{role-id}/management/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/roles/{role-name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/roles/{role-name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/roles/{role-name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/roles/{role-name}/composites"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/roles/{role-name}/composites"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/roles/{role-name}/composites"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/roles/{role-name}/composites/clients/{clientUuid}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/roles/{role-name}/composites/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/roles/{role-name}/groups"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/roles/{role-name}/management/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/roles/{role-name}/management/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/roles/{role-name}/users"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/sessions/{session}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/testSMTPConnection"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/users"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users-management-permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/users-management-permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/count"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/profile"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/users/profile"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/users/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/users/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}/configured-user-storage-credential-types"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}/consents"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/users/{id}/consents/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}/credentials"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/users/{id}/credentials/{credentialId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/users/{id}/credentials/{credentialId}/moveAfter/{newPreviousCredentialId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/users/{id}/credentials/{credentialId}/moveToFirst"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/users/{id}/credentials/{credentialId}/userLabel"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/users/{id}/disable-credential-types"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/users/{id}/execute-actions-email"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}/federated-identity"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/users/{id}/federated-identity/{provider}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/users/{id}/federated-identity/{provider}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}/groups"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}/groups/count"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/users/{id}/groups/{groupId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/users/{id}/groups/{groupId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/users/{id}/impersonation"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/users/{id}/logout"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}/offline-sessions/{clientUuid}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/users/{id}/reset-password"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/users/{id}/reset-password-email"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}/role-mappings"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}/role-mappings/clients/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/users/{id}/role-mappings/clients/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/users/{id}/role-mappings/clients/{client}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}/role-mappings/clients/{client}/available"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}/role-mappings/clients/{client}/composite"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}/role-mappings/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/{realm}/users/{id}/role-mappings/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/{realm}/users/{id}/role-mappings/realm"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}/role-mappings/realm/available"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}/role-mappings/realm/composite"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/{realm}/users/{id}/send-verify-email"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/{realm}/users/{id}/sessions"
+      },
+      "source": "openapi-det"
+    }
+  ]
+}

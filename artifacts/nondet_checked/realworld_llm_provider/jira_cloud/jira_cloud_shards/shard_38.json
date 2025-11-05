@@ -1,0 +1,153 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/issuesecurityschemes",
+      "method": "GET",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Get issue security schemes",
+      "operationId": "getIssueSecuritySchemes"
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes",
+      "method": "POST",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Create issue security scheme",
+      "operationId": "createIssueSecurityScheme"
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/level",
+      "method": "GET",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Get issue security levels",
+      "operationId": "getSecurityLevels"
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/level/default",
+      "method": "PUT",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Set default issue security levels",
+      "operationId": "setDefaultLevels"
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/level/member",
+      "method": "GET",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Get issue security level members",
+      "operationId": "getSecurityLevelMembers"
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/project",
+      "method": "GET",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Get projects using issue security schemes",
+      "operationId": "searchProjectsUsingSecuritySchemes"
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/project",
+      "method": "PUT",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Associate security scheme to project",
+      "operationId": "associateSchemesToProjects"
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/search",
+      "method": "GET",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Search issue security schemes",
+      "operationId": "searchSecuritySchemes"
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{id}",
+      "method": "GET",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Get issue security scheme",
+      "operationId": "getIssueSecurityScheme"
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{id}",
+      "method": "PUT",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Update issue security scheme",
+      "operationId": "updateIssueSecurityScheme"
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}",
+      "method": "DELETE",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Delete issue security scheme",
+      "operationId": "deleteSecurityScheme"
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level",
+      "method": "PUT",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Add issue security levels",
+      "operationId": "addSecurityLevel"
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}",
+      "method": "DELETE",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Remove issue security level",
+      "operationId": "removeLevel"
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}",
+      "method": "PUT",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Update issue security level",
+      "operationId": "updateSecurityLevel"
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}/member",
+      "method": "PUT",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Add issue security level members",
+      "operationId": "addSecurityLevelMembers"
+    },
+    {
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}/member/{memberId}",
+      "method": "DELETE",
+      "tags": [
+        "Issue security schemes"
+      ],
+      "summary": "Remove member from issue security level",
+      "operationId": "removeMemberFromSecurityLevel"
+    }
+  ]
+}

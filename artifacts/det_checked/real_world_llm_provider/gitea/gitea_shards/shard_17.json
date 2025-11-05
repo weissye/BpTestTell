@@ -1,0 +1,72 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/admin/users"
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/new"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/blocks/{username}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/packages/{owner}/{type}/{name}/{version}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branch_protections"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/contents/{filepath}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/hooks/{id}/tests"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{index}/assets/{attachment_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{index}/reactions"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/media/{filepath}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls/{index}/requested_reviewers"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases/{id}/assets"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/teams/{team}"
+    },
+    {
+      "method": "GET",
+      "path": "/signing-key.gpg"
+    },
+    {
+      "method": "POST",
+      "path": "/user/applications/oauth2"
+    },
+    {
+      "method": "GET",
+      "path": "/user/hooks"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/activities/feeds"
+    }
+  ]
+}

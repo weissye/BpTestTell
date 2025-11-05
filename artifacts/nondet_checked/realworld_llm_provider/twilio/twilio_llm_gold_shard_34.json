@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
+      "method": "GET",
+      "operationId": "ListSipIpAccessControlList",
+      "summary": "",
+      "user": "User requests to list all SIP IP Access Control Lists for their account.",
+      "ideal": "Returns a list of SIP IP Access Control Lists associated with the specified Account SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
+      "method": "POST",
+      "operationId": "CreateSipIpAccessControlList",
+      "summary": "",
+      "user": "User wants to create a new SIP IP Access Control List with specific parameters.",
+      "ideal": "Creates a new SIP IP Access Control List and returns its details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchSipIpAccessControlList",
+      "summary": "",
+      "user": "User needs to fetch details of a specific SIP IP Access Control List by its SID.",
+      "ideal": "Returns the details of the specified SIP IP Access Control List."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateSipIpAccessControlList",
+      "summary": "",
+      "user": "User wants to update an existing SIP IP Access Control List with new settings.",
+      "ideal": "Updates the specified SIP IP Access Control List and returns the updated details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipIpAccessControlList",
+      "summary": "",
+      "user": "User intends to delete a specific SIP IP Access Control List by its SID.",
+      "ideal": "Deletes the specified SIP IP Access Control List and confirms the deletion."
+    }
+  ]
+}

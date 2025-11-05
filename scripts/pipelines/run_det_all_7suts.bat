@@ -1,52 +1,82 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
+rem Pure deterministic DET from OpenAPI for the 7 SUTs.
+rem Emits: *_llm_gold_ops.json, *_det_gold.json, *_llm_gold.json and *_shards.
+rem No LLM/provider/model/temperature involved.
 
-for %%I in ("%~dp0..\..\") do set "ROOT=%%~fI"
-set "SUTS=banking pharmacy library garage factory config_control web_shop"
+rem --- repo root (this file lives in scripts\pipelines) ---
+pushd "%~dp0\..\.."
+set "ROOT=%CD%"
 
-if not defined PYTHON_EXE if exist "%ROOT%\.venv\Scripts\python.exe" set "PYTHON_EXE=%ROOT%\.venv\Scripts\python.exe"
-if not defined PYTHON_EXE set "PYTHON_EXE=python"
+rem --- python ---
+set "PY=%ROOT%\.venv\Scripts\python.exe"
+if not exist "%PY%" set "PY=python"
 
-if not defined GEN_PY (
-  if exist "%ROOT%\scripts\llm\run_llm_gold_and_grade.py" (
-    set "GEN_PY=%ROOT%\scripts\llm\run_llm_gold_and_grade.py"
-  ) else if exist "%ROOT%\scripts\llm\emit_llm_gold_from_openapi.py" (
-    set "GEN_PY=%ROOT%\scripts\llm\emit_llm_gold_from_openapi.py"
+rem --- generator (already used by the RW pipeline) ---
+set "GEN=%ROOT%\scripts\pipelines\det_from_openapi.py"
+if not exist "%GEN%" (
+  echo [ERR] DET generator not found: %GEN%
+  popd & exit /b 2
+)
+
+rem --- locate packs folder for the 7 SUTs ---
+set "PACKS="
+if exist "%ROOT%\packs\7_suts\" set "PACKS=%ROOT%\packs\7_suts"
+if not defined PACKS if exist "%ROOT%\packs\7_suts_llm_provider\" set "PACKS=%ROOT%\packs\7_suts_llm_provider"
+if not defined PACKS if exist "%ROOT%\packs\synthetic\" set "PACKS=%ROOT%\packs\synthetic"
+
+if not defined PACKS (
+  echo [ERR] Could not find a 7-SUTs packs folder. Tried:
+  echo       %ROOT%\packs\7_suts
+  echo       %ROOT%\packs\7_suts_llm_provider
+  echo       %ROOT%\packs\synthetic
+  popd & exit /b 3
+)
+
+echo [INFO] CWD=%ROOT%
+echo [INFO] PACKS=%PACKS%
+echo [INFO] DET generator (no LLM) = %GEN%
+echo ------------------------------------------------------------
+
+rem Iterate all subfolders under PACKS that contain openapi.json
+set "COUNT=0"
+for /d %%D in ("%PACKS%\*") do (
+  if exist "%%~fD\openapi.json" (
+    set /a COUNT+=1
+    set "SUT=%%~nD"
+    set "SPEC=%%~fD\openapi.json"
+    set "OUT=%ROOT%\artifacts\det_checked\7_suts_llm_provider\!SUT!"
+
+    echo ==== !SUT! ^(7-SUT DET^) ====
+    echo [RUN ] spec="!SPEC!"  outdir="!OUT!"
+    if not exist "!OUT!" mkdir "!OUT!" >nul 2>&1
+
+    "%PY%" "%GEN%" "!SPEC!" "!OUT!" --sut "!SUT!" --shards 24 --emit_llm_gold
+    if errorlevel 1 (
+      echo [ERR ] det_from_openapi.py failed for !SUT!
+      goto :fail
+    )
+
+    for %%F in ("!OUT!\!SUT!_llm_gold_ops.json" "!OUT!\!SUT!_det_gold.json" "!OUT!\!SUT!_llm_gold.json") do (
+      if not exist "%%~fF" (
+        echo [ERR ] expected "%%~fF" but it does not exist.
+        goto :fail
+      )
+      "%PY%" -c "import json,os,sys; p=sys.argv[1]; json.load(open(p,'r',encoding='utf-8')); print('[OK  ]', os.path.basename(p), 'valid JSON, size', os.path.getsize(p))" "%%~fF"
+    )
   )
 )
-if not exist "%GEN_PY%" (
-  echo [ERR] Generator script not found at "%GEN_PY%".
-  echo       PowerShell: ^$env:GEN_PY = "%ROOT%\scripts\llm\run_llm_gold_and_grade.py"
-  exit /b 1
-)
 
-set "CLEAN_FLAG="
-if defined CLEAN set "CLEAN_FLAG=--rebuild-shards"
-set "FORCE_FLAG="
-if defined FORCE set "FORCE_FLAG=--force"
-
-echo [INFO] CWD=%CD%
-echo [INFO] GEN_PY=%GEN_PY%
-if defined PROVIDER echo [INFO] PROVIDER=%PROVIDER%  MODEL=%MODEL%
-
-for %%S in (%SUTS%) do (
-  set "SUT=%%S"
+if "!COUNT!"=="0" (
+  echo [WARN] No SUTs found under %PACKS% with an openapi.json
+) else (
   echo.
-  echo ==== !SUT! ^(7-SUTS^) ====
-  set "SPEC=%ROOT%\packs\7_suts\!SUT!\openapi.json"
-  set "OUTDIR=%ROOT%\artifacts\det_checked\7_suts_llm_provider\!SUT!"
-
-  if not exist "!SPEC!" (
-    echo [ERR] Could not locate openapi.json for "!SUT!".
-    echo [WARN] !SUT! failed.
-  ) else (
-    echo [RUN] provider=!PROVIDER!  model=!MODEL!
-    echo [RUN] spec="!SPEC!"  out="!OUTDIR!"
-    "%PYTHON_EXE%" "%GEN_PY%" --spec "!SPEC!" --name "!SUT!" --out-dir "!OUTDIR!" --provider "!PROVIDER!" --model "!MODEL!" !CLEAN_FLAG! !FORCE_FLAG!
-    if errorlevel 1 (echo [WARN] !SUT! failed.) else (echo [OK] !SUT!)
-  )
+  echo [DONE] 7-SUT DET (pure OpenAPI; ops + shards + det_gold) completed for !COUNT! SUT(s).
 )
 
-echo.
-echo [SUMMARY] 7-suts run finished.
-endlocal
+popd
+exit /b 0
+
+:fail
+popd
+exit /b 1

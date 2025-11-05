@@ -1,0 +1,540 @@
+{
+  "openapi_meta": {
+    "title": "Gitea API",
+    "version": "{{AppVer | JSEscape}}"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/org/{org}/repos",
+      "method": "POST",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Create a repository in an organization",
+      "operationId": "createOrgRepoDeprecated"
+    },
+    {
+      "path": "/orgs",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Get list of organizations",
+      "operationId": "orgGetAll"
+    },
+    {
+      "path": "/orgs",
+      "method": "POST",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Create an organization",
+      "operationId": "orgCreate"
+    },
+    {
+      "path": "/orgs/{org}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Get an organization",
+      "operationId": "orgGet"
+    },
+    {
+      "path": "/orgs/{org}",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Delete an organization",
+      "operationId": "orgDelete"
+    },
+    {
+      "path": "/orgs/{org}",
+      "method": "PATCH",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Edit an organization",
+      "operationId": "orgEdit"
+    },
+    {
+      "path": "/orgs/{org}/actions/runners/registration-token",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Get an organization's actions runner registration token",
+      "operationId": "orgGetRunnerRegistrationToken"
+    },
+    {
+      "path": "/orgs/{org}/actions/secrets",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List an organization's actions secrets",
+      "operationId": "orgListActionsSecrets"
+    },
+    {
+      "path": "/orgs/{org}/actions/secrets/{secretname}",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Create or Update a secret value in an organization",
+      "operationId": "updateOrgSecret"
+    },
+    {
+      "path": "/orgs/{org}/actions/secrets/{secretname}",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Delete a secret in an organization",
+      "operationId": "deleteOrgSecret"
+    },
+    {
+      "path": "/orgs/{org}/actions/variables",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Get an org-level variables list",
+      "operationId": "getOrgVariablesList"
+    },
+    {
+      "path": "/orgs/{org}/actions/variables/{variablename}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Get an org-level variable",
+      "operationId": "getOrgVariable"
+    },
+    {
+      "path": "/orgs/{org}/actions/variables/{variablename}",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Update an org-level variable",
+      "operationId": "updateOrgVariable"
+    },
+    {
+      "path": "/orgs/{org}/actions/variables/{variablename}",
+      "method": "POST",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Create an org-level variable",
+      "operationId": "createOrgVariable"
+    },
+    {
+      "path": "/orgs/{org}/actions/variables/{variablename}",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Delete an org-level variable",
+      "operationId": "deleteOrgVariable"
+    },
+    {
+      "path": "/orgs/{org}/activities/feeds",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List an organization's activity feeds",
+      "operationId": "orgListActivityFeeds"
+    },
+    {
+      "path": "/orgs/{org}/avatar",
+      "method": "POST",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Update Avatar",
+      "operationId": "orgUpdateAvatar"
+    },
+    {
+      "path": "/orgs/{org}/avatar",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Delete Avatar",
+      "operationId": "orgDeleteAvatar"
+    },
+    {
+      "path": "/orgs/{org}/blocks",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List users blocked by the organization",
+      "operationId": "organizationListBlocks"
+    },
+    {
+      "path": "/orgs/{org}/blocks/{username}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Check if a user is blocked by the organization",
+      "operationId": "organizationCheckUserBlock"
+    },
+    {
+      "path": "/orgs/{org}/blocks/{username}",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Block a user",
+      "operationId": "organizationBlockUser"
+    },
+    {
+      "path": "/orgs/{org}/blocks/{username}",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Unblock a user",
+      "operationId": "organizationUnblockUser"
+    },
+    {
+      "path": "/orgs/{org}/hooks",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List an organization's webhooks",
+      "operationId": "orgListHooks"
+    },
+    {
+      "path": "/orgs/{org}/hooks",
+      "method": "POST",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Create a hook",
+      "operationId": "orgCreateHook"
+    },
+    {
+      "path": "/orgs/{org}/hooks/{id}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Get a hook",
+      "operationId": "orgGetHook"
+    },
+    {
+      "path": "/orgs/{org}/hooks/{id}",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Delete a hook",
+      "operationId": "orgDeleteHook"
+    },
+    {
+      "path": "/orgs/{org}/hooks/{id}",
+      "method": "PATCH",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Update a hook",
+      "operationId": "orgEditHook"
+    },
+    {
+      "path": "/orgs/{org}/labels",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List an organization's labels",
+      "operationId": "orgListLabels"
+    },
+    {
+      "path": "/orgs/{org}/labels",
+      "method": "POST",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Create a label for an organization",
+      "operationId": "orgCreateLabel"
+    },
+    {
+      "path": "/orgs/{org}/labels/{id}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Get a single label",
+      "operationId": "orgGetLabel"
+    },
+    {
+      "path": "/orgs/{org}/labels/{id}",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Delete a label",
+      "operationId": "orgDeleteLabel"
+    },
+    {
+      "path": "/orgs/{org}/labels/{id}",
+      "method": "PATCH",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Update a label",
+      "operationId": "orgEditLabel"
+    },
+    {
+      "path": "/orgs/{org}/members",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List an organization's members",
+      "operationId": "orgListMembers"
+    },
+    {
+      "path": "/orgs/{org}/members/{username}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Check if a user is a member of an organization",
+      "operationId": "orgIsMember"
+    },
+    {
+      "path": "/orgs/{org}/members/{username}",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Remove a member from an organization",
+      "operationId": "orgDeleteMember"
+    },
+    {
+      "path": "/orgs/{org}/public_members",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List an organization's public members",
+      "operationId": "orgListPublicMembers"
+    },
+    {
+      "path": "/orgs/{org}/public_members/{username}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Check if a user is a public member of an organization",
+      "operationId": "orgIsPublicMember"
+    },
+    {
+      "path": "/orgs/{org}/public_members/{username}",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Publicize a user's membership",
+      "operationId": "orgPublicizeMember"
+    },
+    {
+      "path": "/orgs/{org}/public_members/{username}",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Conceal a user's membership",
+      "operationId": "orgConcealMember"
+    },
+    {
+      "path": "/orgs/{org}/repos",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List an organization's repos",
+      "operationId": "orgListRepos"
+    },
+    {
+      "path": "/orgs/{org}/repos",
+      "method": "POST",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Create a repository in an organization",
+      "operationId": "createOrgRepo"
+    },
+    {
+      "path": "/orgs/{org}/teams",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List an organization's teams",
+      "operationId": "orgListTeams"
+    },
+    {
+      "path": "/orgs/{org}/teams",
+      "method": "POST",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Create a team",
+      "operationId": "orgCreateTeam"
+    },
+    {
+      "path": "/orgs/{org}/teams/search",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Search for teams within an organization",
+      "operationId": "teamSearch"
+    },
+    {
+      "path": "/teams/{id}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Get a team",
+      "operationId": "orgGetTeam"
+    },
+    {
+      "path": "/teams/{id}",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Delete a team",
+      "operationId": "orgDeleteTeam"
+    },
+    {
+      "path": "/teams/{id}",
+      "method": "PATCH",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Edit a team",
+      "operationId": "orgEditTeam"
+    },
+    {
+      "path": "/teams/{id}/activities/feeds",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List a team's activity feeds",
+      "operationId": "orgListTeamActivityFeeds"
+    },
+    {
+      "path": "/teams/{id}/members",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List a team's members",
+      "operationId": "orgListTeamMembers"
+    },
+    {
+      "path": "/teams/{id}/members/{username}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List a particular member of team",
+      "operationId": "orgListTeamMember"
+    },
+    {
+      "path": "/teams/{id}/members/{username}",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Add a team member",
+      "operationId": "orgAddTeamMember"
+    },
+    {
+      "path": "/teams/{id}/members/{username}",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Remove a team member",
+      "operationId": "orgRemoveTeamMember"
+    },
+    {
+      "path": "/teams/{id}/repos",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List a team's repos",
+      "operationId": "orgListTeamRepos"
+    },
+    {
+      "path": "/teams/{id}/repos/{org}/{repo}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List a particular repo of team",
+      "operationId": "orgListTeamRepo"
+    },
+    {
+      "path": "/teams/{id}/repos/{org}/{repo}",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Add a repository to a team",
+      "operationId": "orgAddTeamRepository"
+    },
+    {
+      "path": "/teams/{id}/repos/{org}/{repo}",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Remove a repository from a team",
+      "operationId": "orgRemoveTeamRepository"
+    },
+    {
+      "path": "/user/orgs",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List the current user's organizations",
+      "operationId": "orgListCurrentUserOrgs"
+    },
+    {
+      "path": "/users/{username}/orgs",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "List a user's organizations",
+      "operationId": "orgListUserOrgs"
+    },
+    {
+      "path": "/users/{username}/orgs/{org}/permissions",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "Get user permissions in organization",
+      "operationId": "orgGetUserPermissions"
+    }
+  ]
+}

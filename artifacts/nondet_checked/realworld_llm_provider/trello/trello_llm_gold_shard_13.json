@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/v1/tokens/abc123",
+      "method": "DELETE",
+      "operationId": "deleteTokensByToken",
+      "summary": "",
+      "user": "User123 wants to revoke access for a token that is no longer needed.",
+      "ideal": "Successfully deletes the token and returns a confirmation message."
+    },
+    {
+      "path": "/v1/tokens/abc123",
+      "method": "GET",
+      "operationId": "getTokensByToken",
+      "summary": "",
+      "user": "User456 needs to check the details of a specific token for auditing purposes.",
+      "ideal": "Returns the details of the token including its permissions and associated user."
+    },
+    {
+      "path": "/v1/tokens/abc123/member",
+      "method": "GET",
+      "operationId": "getTokensMemberByToken",
+      "summary": "",
+      "user": "User789 wants to find out which member is associated with a specific token.",
+      "ideal": "Returns the member information linked to the token."
+    },
+    {
+      "path": "/v1/tokens/abc123/member/email",
+      "method": "GET",
+      "operationId": "getTokensMemberByTokenByField",
+      "summary": "",
+      "user": "User101 wants to retrieve the email address of the member associated with the token.",
+      "ideal": "Returns the email address of the member linked to the token."
+    },
+    {
+      "path": "/v1/tokens/abc123/webhooks",
+      "method": "GET",
+      "operationId": "getTokensWebhooksByToken",
+      "summary": "",
+      "user": "User202 needs to list all webhooks associated with a specific token.",
+      "ideal": "Returns a list of all webhooks linked to the token."
+    },
+    {
+      "path": "/v1/tokens/abc123/webhooks",
+      "method": "POST",
+      "operationId": "addTokensWebhooksByToken",
+      "summary": "",
+      "user": "User303 wants to add a new webhook for a token to receive updates.",
+      "ideal": "Successfully adds the webhook and returns the webhook details."
+    },
+    {
+      "path": "/v1/tokens/abc123/webhooks",
+      "method": "PUT",
+      "operationId": "updateTokensWebhooksByToken",
+      "summary": "",
+      "user": "User404 needs to update the configuration of an existing webhook.",
+      "ideal": "Successfully updates the webhook and returns the updated details."
+    },
+    {
+      "path": "/v1/tokens/abc123/webhooks/456def",
+      "method": "DELETE",
+      "operationId": "deleteTokensWebhooksByTokenByIdWebhook",
+      "summary": "",
+      "user": "User505 wants to remove a specific webhook that is no longer needed.",
+      "ideal": "Successfully deletes the webhook and returns a confirmation message."
+    },
+    {
+      "path": "/v1/tokens/abc123/webhooks/456def",
+      "method": "GET",
+      "operationId": "getTokensWebhooksByTokenByIdWebhook",
+      "summary": "",
+      "user": "User606 wants to check the details of a specific webhook associated with a token.",
+      "ideal": "Returns the details of the specified webhook."
+    },
+    {
+      "path": "/v1/tokens/abc123/permissions",
+      "method": "GET",
+      "operationId": "getTokensByTokenByField",
+      "summary": "",
+      "user": "User707 needs to verify the permissions granted to a specific token.",
+      "ideal": "Returns the permissions associated with the token."
+    }
+  ]
+}

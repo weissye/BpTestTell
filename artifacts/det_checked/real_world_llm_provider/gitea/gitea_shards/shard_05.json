@@ -1,0 +1,76 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/admin/emails"
+    },
+    {
+      "method": "GET",
+      "path": "/gitignore/templates"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/actions/secrets/{secretname}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/members/{username}"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/actions/secrets/{secretname}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/collaborators/{collaborator}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/git/refs/{ref}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{index}/dependencies"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{index}/times/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/push_mirrors-sync"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/subscription"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/wiki/new"
+    },
+    {
+      "method": "PUT",
+      "path": "/teams/{id}/repos/{org}/{repo}"
+    },
+    {
+      "method": "POST",
+      "path": "/user/emails"
+    },
+    {
+      "method": "GET",
+      "path": "/user/settings"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/tokens"
+    }
+  ]
+}

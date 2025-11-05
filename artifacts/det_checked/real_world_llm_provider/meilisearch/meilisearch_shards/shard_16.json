@@ -1,0 +1,16 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents/fetch"
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/ranking-rules"
+    },
+    {
+      "method": "GET",
+      "path": "/metrics"
+    }
+  ]
+}

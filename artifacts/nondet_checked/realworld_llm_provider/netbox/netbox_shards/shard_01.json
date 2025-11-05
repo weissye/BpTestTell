@@ -1,0 +1,918 @@
+{
+  "openapi_meta": {
+    "title": "NetBox REST API",
+    "version": "4.4.2 (4.4)"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/api/circuits/circuit-group-assignments/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_group_assignments_list"
+    },
+    {
+      "path": "/api/circuits/circuit-group-assignments/",
+      "method": "POST",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_group_assignments_create"
+    },
+    {
+      "path": "/api/circuits/circuit-group-assignments/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_group_assignments_bulk_update"
+    },
+    {
+      "path": "/api/circuits/circuit-group-assignments/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_group_assignments_bulk_partial_update"
+    },
+    {
+      "path": "/api/circuits/circuit-group-assignments/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_group_assignments_bulk_destroy"
+    },
+    {
+      "path": "/api/circuits/circuit-group-assignments/{id}/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_group_assignments_retrieve"
+    },
+    {
+      "path": "/api/circuits/circuit-group-assignments/{id}/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_group_assignments_update"
+    },
+    {
+      "path": "/api/circuits/circuit-group-assignments/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_group_assignments_partial_update"
+    },
+    {
+      "path": "/api/circuits/circuit-group-assignments/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_group_assignments_destroy"
+    },
+    {
+      "path": "/api/circuits/circuit-groups/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_groups_list"
+    },
+    {
+      "path": "/api/circuits/circuit-groups/",
+      "method": "POST",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_groups_create"
+    },
+    {
+      "path": "/api/circuits/circuit-groups/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_groups_bulk_update"
+    },
+    {
+      "path": "/api/circuits/circuit-groups/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_groups_bulk_partial_update"
+    },
+    {
+      "path": "/api/circuits/circuit-groups/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_groups_bulk_destroy"
+    },
+    {
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_groups_retrieve"
+    },
+    {
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_groups_update"
+    },
+    {
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_groups_partial_update"
+    },
+    {
+      "path": "/api/circuits/circuit-groups/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_groups_destroy"
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_terminations_list"
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/",
+      "method": "POST",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_terminations_create"
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_terminations_bulk_update"
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_terminations_bulk_partial_update"
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_terminations_bulk_destroy"
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_terminations_retrieve"
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_terminations_update"
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_terminations_partial_update"
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_terminations_destroy"
+    },
+    {
+      "path": "/api/circuits/circuit-terminations/{id}/paths/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_terminations_paths_retrieve"
+    },
+    {
+      "path": "/api/circuits/circuit-types/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_types_list"
+    },
+    {
+      "path": "/api/circuits/circuit-types/",
+      "method": "POST",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_types_create"
+    },
+    {
+      "path": "/api/circuits/circuit-types/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_types_bulk_update"
+    },
+    {
+      "path": "/api/circuits/circuit-types/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_types_bulk_partial_update"
+    },
+    {
+      "path": "/api/circuits/circuit-types/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_types_bulk_destroy"
+    },
+    {
+      "path": "/api/circuits/circuit-types/{id}/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_types_retrieve"
+    },
+    {
+      "path": "/api/circuits/circuit-types/{id}/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_types_update"
+    },
+    {
+      "path": "/api/circuits/circuit-types/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_types_partial_update"
+    },
+    {
+      "path": "/api/circuits/circuit-types/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuit_types_destroy"
+    },
+    {
+      "path": "/api/circuits/circuits/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuits_list"
+    },
+    {
+      "path": "/api/circuits/circuits/",
+      "method": "POST",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuits_create"
+    },
+    {
+      "path": "/api/circuits/circuits/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuits_bulk_update"
+    },
+    {
+      "path": "/api/circuits/circuits/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuits_bulk_partial_update"
+    },
+    {
+      "path": "/api/circuits/circuits/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuits_bulk_destroy"
+    },
+    {
+      "path": "/api/circuits/circuits/{id}/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuits_retrieve"
+    },
+    {
+      "path": "/api/circuits/circuits/{id}/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuits_update"
+    },
+    {
+      "path": "/api/circuits/circuits/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuits_partial_update"
+    },
+    {
+      "path": "/api/circuits/circuits/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_circuits_destroy"
+    },
+    {
+      "path": "/api/circuits/provider-accounts/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_accounts_list"
+    },
+    {
+      "path": "/api/circuits/provider-accounts/",
+      "method": "POST",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_accounts_create"
+    },
+    {
+      "path": "/api/circuits/provider-accounts/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_accounts_bulk_update"
+    },
+    {
+      "path": "/api/circuits/provider-accounts/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_accounts_bulk_partial_update"
+    },
+    {
+      "path": "/api/circuits/provider-accounts/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_accounts_bulk_destroy"
+    },
+    {
+      "path": "/api/circuits/provider-accounts/{id}/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_accounts_retrieve"
+    },
+    {
+      "path": "/api/circuits/provider-accounts/{id}/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_accounts_update"
+    },
+    {
+      "path": "/api/circuits/provider-accounts/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_accounts_partial_update"
+    },
+    {
+      "path": "/api/circuits/provider-accounts/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_accounts_destroy"
+    },
+    {
+      "path": "/api/circuits/provider-networks/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_networks_list"
+    },
+    {
+      "path": "/api/circuits/provider-networks/",
+      "method": "POST",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_networks_create"
+    },
+    {
+      "path": "/api/circuits/provider-networks/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_networks_bulk_update"
+    },
+    {
+      "path": "/api/circuits/provider-networks/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_networks_bulk_partial_update"
+    },
+    {
+      "path": "/api/circuits/provider-networks/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_networks_bulk_destroy"
+    },
+    {
+      "path": "/api/circuits/provider-networks/{id}/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_networks_retrieve"
+    },
+    {
+      "path": "/api/circuits/provider-networks/{id}/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_networks_update"
+    },
+    {
+      "path": "/api/circuits/provider-networks/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_networks_partial_update"
+    },
+    {
+      "path": "/api/circuits/provider-networks/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_provider_networks_destroy"
+    },
+    {
+      "path": "/api/circuits/providers/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_providers_list"
+    },
+    {
+      "path": "/api/circuits/providers/",
+      "method": "POST",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_providers_create"
+    },
+    {
+      "path": "/api/circuits/providers/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_providers_bulk_update"
+    },
+    {
+      "path": "/api/circuits/providers/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_providers_bulk_partial_update"
+    },
+    {
+      "path": "/api/circuits/providers/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_providers_bulk_destroy"
+    },
+    {
+      "path": "/api/circuits/providers/{id}/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_providers_retrieve"
+    },
+    {
+      "path": "/api/circuits/providers/{id}/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_providers_update"
+    },
+    {
+      "path": "/api/circuits/providers/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_providers_partial_update"
+    },
+    {
+      "path": "/api/circuits/providers/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_providers_destroy"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-terminations/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_terminations_list"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-terminations/",
+      "method": "POST",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_terminations_create"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-terminations/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_terminations_bulk_update"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-terminations/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_terminations_bulk_partial_update"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-terminations/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_terminations_bulk_destroy"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-terminations/{id}/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_terminations_retrieve"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-terminations/{id}/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_terminations_update"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-terminations/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_terminations_partial_update"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-terminations/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_terminations_destroy"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-terminations/{id}/paths/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_terminations_paths_retrieve"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-types/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_types_list"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-types/",
+      "method": "POST",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_types_create"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-types/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_types_bulk_update"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-types/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_types_bulk_partial_update"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-types/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_types_bulk_destroy"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-types/{id}/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_types_retrieve"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-types/{id}/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_types_update"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-types/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_types_partial_update"
+    },
+    {
+      "path": "/api/circuits/virtual-circuit-types/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuit_types_destroy"
+    },
+    {
+      "path": "/api/circuits/virtual-circuits/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuits_list"
+    },
+    {
+      "path": "/api/circuits/virtual-circuits/",
+      "method": "POST",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuits_create"
+    },
+    {
+      "path": "/api/circuits/virtual-circuits/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuits_bulk_update"
+    },
+    {
+      "path": "/api/circuits/virtual-circuits/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuits_bulk_partial_update"
+    },
+    {
+      "path": "/api/circuits/virtual-circuits/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuits_bulk_destroy"
+    },
+    {
+      "path": "/api/circuits/virtual-circuits/{id}/",
+      "method": "GET",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuits_retrieve"
+    },
+    {
+      "path": "/api/circuits/virtual-circuits/{id}/",
+      "method": "PUT",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuits_update"
+    },
+    {
+      "path": "/api/circuits/virtual-circuits/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuits_partial_update"
+    },
+    {
+      "path": "/api/circuits/virtual-circuits/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "circuits"
+      ],
+      "summary": "",
+      "operationId": "circuits_virtual_circuits_destroy"
+    }
+  ]
+}

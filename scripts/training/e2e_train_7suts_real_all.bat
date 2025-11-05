@@ -18,7 +18,7 @@ if "%MODEL_ID%"=="" (
 )
 
 :: Real-world packs (add more later)
-set REAL_PACKS=netbox github trello twilio jira_cloud directus meilisearch keycloak_admin zulip
+set REAL_PACKS=netbox gitea github trello twilio jira_cloud directus meilisearch keycloak_admin zulip
 
 :: 7 SUT packs
 set SUT_PACKS=banking config_control ecommerce factory garage library pharmacy

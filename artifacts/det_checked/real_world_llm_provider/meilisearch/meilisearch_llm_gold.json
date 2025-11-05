@@ -1,0 +1,515 @@
+{
+  "gold": [
+    {
+      "op": {
+        "method": "POST",
+        "path": "/dumps"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/experimental-features"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/experimental-features"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/health"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/indexes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/indexes/{indexUid}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/indexes/{indexUid}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/documents"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/indexes/{indexUid}/documents"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/indexes/{indexUid}/documents"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/indexes/{indexUid}/documents"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/indexes/{indexUid}/documents/delete"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/indexes/{indexUid}/documents/delete-batch"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/indexes/{indexUid}/documents/fetch"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/documents/{documentId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/indexes/{indexUid}/documents/{documentId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/indexes/{indexUid}/facet-search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/indexes/{indexUid}/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/settings"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/indexes/{indexUid}/settings"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/indexes/{indexUid}/settings"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/settings/displayed-attributes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/indexes/{indexUid}/settings/displayed-attributes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/indexes/{indexUid}/settings/displayed-attributes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/settings/distinct-attribute"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/indexes/{indexUid}/settings/distinct-attribute"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/indexes/{indexUid}/settings/distinct-attribute"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/settings/faceting"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/indexes/{indexUid}/settings/faceting"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/indexes/{indexUid}/settings/faceting"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/settings/filterable-attributes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/indexes/{indexUid}/settings/filterable-attributes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/indexes/{indexUid}/settings/filterable-attributes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/settings/pagination"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/indexes/{indexUid}/settings/pagination"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/indexes/{indexUid}/settings/pagination"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/settings/ranking-rules"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/indexes/{indexUid}/settings/ranking-rules"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/indexes/{indexUid}/settings/ranking-rules"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/settings/searchable-attributes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/indexes/{indexUid}/settings/searchable-attributes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/indexes/{indexUid}/settings/searchable-attributes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/settings/sortable-attributes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/indexes/{indexUid}/settings/sortable-attributes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/indexes/{indexUid}/settings/sortable-attributes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/settings/stop-words"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/indexes/{indexUid}/settings/stop-words"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/indexes/{indexUid}/settings/stop-words"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/settings/synonyms"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/indexes/{indexUid}/settings/synonyms"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/indexes/{indexUid}/settings/synonyms"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/settings/typo-tolerance"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/indexes/{indexUid}/settings/typo-tolerance"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/indexes/{indexUid}/settings/typo-tolerance"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/indexes/{indexUid}/stats"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/keys"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/keys"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/keys/{uid_or_key}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/keys/{uid_or_key}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/keys/{uid_or_key}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/metrics"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/multi-search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/snapshots"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/stats"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/swap-indexes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/tasks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/tasks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/tasks/:taskUid"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/tasks/cancel"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/version"
+      },
+      "source": "openapi-det"
+    }
+  ]
+}
