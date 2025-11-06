@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/comment/12345/properties",
+      "method": "GET",
+      "operationId": "getCommentPropertyKeys",
+      "summary": "",
+      "user": "User requests to retrieve all property keys associated with a specific comment identified by commentId 12345.",
+      "ideal": "Returns a list of property keys for the comment."
+    },
+    {
+      "path": "/rest/api/3/comment/12345/properties/priority",
+      "method": "DELETE",
+      "operationId": "deleteCommentProperty",
+      "summary": "",
+      "user": "User wants to delete the property with key 'priority' from the comment with commentId 12345.",
+      "ideal": "Successfully deletes the specified property and returns a confirmation."
+    },
+    {
+      "path": "/rest/api/3/comment/12345/properties/priority",
+      "method": "GET",
+      "operationId": "getCommentProperty",
+      "summary": "",
+      "user": "User queries to get the value of the property 'priority' for the comment with commentId 12345.",
+      "ideal": "Returns the value of the 'priority' property for the specified comment."
+    },
+    {
+      "path": "/rest/api/3/comment/12345/properties/priority",
+      "method": "PUT",
+      "operationId": "setCommentProperty",
+      "summary": "",
+      "user": "User wants to set the property 'priority' to 'high' for the comment with commentId 12345.",
+      "ideal": "Successfully updates the property and returns the updated property details."
+    }
+  ]
+}

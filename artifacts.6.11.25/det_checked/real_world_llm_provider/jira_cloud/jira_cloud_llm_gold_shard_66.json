@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/ABC/issuesecuritylevelscheme",
+      "method": "GET",
+      "operationId": "getProjectIssueSecurityScheme",
+      "summary": "",
+      "user": "A project manager wants to retrieve the issue security level scheme for the project with key 'ABC' to understand the visibility of issues based on their security levels.",
+      "ideal": "The response should include the security level scheme details, including the security levels defined for the project."
+    },
+    {
+      "path": "/rest/api/3/project/XYZ/permissionscheme",
+      "method": "GET",
+      "operationId": "getAssignedPermissionScheme",
+      "summary": "",
+      "user": "A developer needs to check the permission scheme assigned to the project 'XYZ' to ensure they have the necessary permissions to perform their tasks.",
+      "ideal": "The response should provide the details of the permission scheme, including the permissions granted to different roles within the project."
+    },
+    {
+      "path": "/rest/api/3/project/DEF/permissionscheme",
+      "method": "PUT",
+      "operationId": "assignPermissionScheme",
+      "summary": "",
+      "user": "An administrator is updating the permission scheme for project 'DEF' to a new scheme to enhance security and control over project resources.",
+      "ideal": "The response should confirm that the permission scheme has been successfully updated for the project."
+    },
+    {
+      "path": "/rest/api/3/project/GHI/securitylevel",
+      "method": "GET",
+      "operationId": "getSecurityLevelsForProject",
+      "summary": "",
+      "user": "A security officer wants to retrieve the security levels defined for project 'GHI' to ensure compliance with organizational security policies.",
+      "ideal": "The response should list all security levels associated with the project, including their descriptions and any relevant configurations."
+    }
+  ]
+}

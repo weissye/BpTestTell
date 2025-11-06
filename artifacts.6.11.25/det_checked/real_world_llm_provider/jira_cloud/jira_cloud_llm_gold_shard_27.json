@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issueLinkType",
+      "method": "GET",
+      "operationId": "getIssueLinkTypes",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all available issue link types in Jira to understand how issues can be related.",
+      "ideal": "A successful response with a list of issue link types, including their IDs and names."
+    },
+    {
+      "path": "/rest/api/3/issueLinkType",
+      "method": "POST",
+      "operationId": "createIssueLinkType",
+      "summary": "",
+      "user": "As a Jira administrator, I want to create a new issue link type to better categorize the relationships between issues.",
+      "ideal": "A successful response confirming the creation of the new issue link type with its details."
+    },
+    {
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
+      "method": "DELETE",
+      "operationId": "deleteIssueLinkType",
+      "summary": "",
+      "user": "As a Jira administrator, I want to delete an obsolete issue link type to clean up the system.",
+      "ideal": "A successful response indicating that the issue link type has been deleted."
+    },
+    {
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
+      "method": "GET",
+      "operationId": "getIssueLinkType",
+      "summary": "",
+      "user": "As a developer, I want to retrieve details of a specific issue link type to understand its properties and usage.",
+      "ideal": "A successful response with detailed information about the specified issue link type."
+    },
+    {
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
+      "method": "PUT",
+      "operationId": "updateIssueLinkType",
+      "summary": "",
+      "user": "As a project lead, I want to update an existing issue link type to reflect changes in our project management process.",
+      "ideal": "A successful response confirming the update of the issue link type with the new details."
+    }
+  ]
+}

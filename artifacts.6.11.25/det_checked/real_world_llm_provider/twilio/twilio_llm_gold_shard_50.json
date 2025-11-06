@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/OutgoingCallerIds/PNXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchOutgoingCallerId",
+      "summary": "",
+      "user": "User wants to retrieve the details of a specific outgoing caller ID associated with their Twilio account.",
+      "ideal": "Successful retrieval of the outgoing caller ID details in JSON format."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/OutgoingCallerIds/PNXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateOutgoingCallerId",
+      "summary": "",
+      "user": "User needs to update the friendly name of an existing outgoing caller ID for better identification.",
+      "ideal": "Successful update of the outgoing caller ID with a confirmation message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/OutgoingCallerIds/PNXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteOutgoingCallerId",
+      "summary": "",
+      "user": "User wants to remove an outgoing caller ID that is no longer in use to keep their account organized.",
+      "ideal": "Successful deletion of the outgoing caller ID with a confirmation response."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/OutgoingCallerIds.json",
+      "method": "GET",
+      "operationId": "ListOutgoingCallerId",
+      "summary": "",
+      "user": "User wants to list all outgoing caller IDs associated with their Twilio account to manage them effectively.",
+      "ideal": "Successful retrieval of a list of outgoing caller IDs in JSON format."
+    }
+  ]
+}

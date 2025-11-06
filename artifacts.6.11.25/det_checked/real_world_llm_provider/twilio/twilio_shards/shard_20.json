@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401ConnectApp"
+      ],
+      "summary": "Fetch an instance of a connect-app",
+      "operationId": "FetchConnectApp"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401ConnectApp"
+      ],
+      "summary": "Update a connect-app with the specified parameters",
+      "operationId": "UpdateConnectApp"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401ConnectApp"
+      ],
+      "summary": "Delete an instance of a connect-app",
+      "operationId": "DeleteConnectApp"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401ConnectApp"
+      ],
+      "summary": "Retrieve a list of connect-apps belonging to the account used to make the request",
+      "operationId": "ListConnectApp"
+    }
+  ]
+}

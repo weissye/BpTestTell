@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/field/{fieldId}/screens",
+      "method": "GET",
+      "operationId": "getScreensForField",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Retrieve all screens associated with a specific field by providing the fieldId."
+    },
+    {
+      "path": "/rest/api/3/screens",
+      "method": "GET",
+      "operationId": "getScreens",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Fetch a list of all screens available in the Jira instance."
+    },
+    {
+      "path": "/rest/api/3/screens",
+      "method": "POST",
+      "operationId": "createScreen",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Create a new screen by providing the necessary details in the request body."
+    },
+    {
+      "path": "/rest/api/3/screens/addToDefault/{fieldId}",
+      "method": "POST",
+      "operationId": "addFieldToDefaultScreen",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Add a specified field to the default screen using the fieldId."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}",
+      "method": "DELETE",
+      "operationId": "deleteScreen",
+      "summary": "",
+      "user": "User202",
+      "ideal": "Delete a screen by providing the screenId in the request."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}",
+      "method": "PUT",
+      "operationId": "updateScreen",
+      "summary": "",
+      "user": "User303",
+      "ideal": "Update an existing screen by providing the screenId and new details in the request body."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/availableFields",
+      "method": "GET",
+      "operationId": "getAvailableScreenFields",
+      "summary": "",
+      "user": "User404",
+      "ideal": "Get a list of fields that can be added to a specific screen using the screenId."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Call"
+      ],
+      "summary": "Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections",
+      "operationId": "CreateCall"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Call"
+      ],
+      "summary": "Retrieves a collection of calls made to and from your account",
+      "operationId": "ListCall"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Call"
+      ],
+      "summary": "Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.",
+      "operationId": "DeleteCall"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Call"
+      ],
+      "summary": "Fetch the call specified by the provided Call SID",
+      "operationId": "FetchCall"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Call"
+      ],
+      "summary": "Initiates a call redirect or terminates a call",
+      "operationId": "UpdateCall"
+    }
+  ]
+}

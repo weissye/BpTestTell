@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings.json",
+      "method": "POST",
+      "operationId": "CreateSipAuthCallsCredentialListMapping",
+      "summary": "",
+      "user": "User wants to create a new credential list mapping for SIP authentication calls.",
+      "ideal": "Successfully created a new credential list mapping."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings.json",
+      "method": "GET",
+      "operationId": "ListSipAuthCallsCredentialListMapping",
+      "summary": "",
+      "user": "User needs to retrieve all credential list mappings for a specific SIP domain.",
+      "ideal": "List of all credential list mappings returned successfully."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchSipAuthCallsCredentialListMapping",
+      "summary": "",
+      "user": "User wants to fetch details of a specific credential list mapping using its SID.",
+      "ideal": "Details of the specified credential list mapping returned successfully."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipAuthCallsCredentialListMapping",
+      "summary": "",
+      "user": "User intends to delete a specific credential list mapping by its SID.",
+      "ideal": "Credential list mapping deleted successfully."
+    }
+  ]
+}

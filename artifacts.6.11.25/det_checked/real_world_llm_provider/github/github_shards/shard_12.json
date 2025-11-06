@@ -1,0 +1,90 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/orgs/{org}/copilot/billing",
+      "method": "GET",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Get Copilot seat information and settings for an organization",
+      "operationId": "copilot/get-copilot-organization-details"
+    },
+    {
+      "path": "/orgs/{org}/copilot/billing/seats",
+      "method": "GET",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "List all Copilot seat assignments for an organization",
+      "operationId": "copilot/list-copilot-seats"
+    },
+    {
+      "path": "/orgs/{org}/copilot/billing/selected_teams",
+      "method": "POST",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Add teams to the Copilot subscription for an organization",
+      "operationId": "copilot/add-copilot-seats-for-teams"
+    },
+    {
+      "path": "/orgs/{org}/copilot/billing/selected_teams",
+      "method": "DELETE",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Remove teams from the Copilot subscription for an organization",
+      "operationId": "copilot/cancel-copilot-seat-assignment-for-teams"
+    },
+    {
+      "path": "/orgs/{org}/copilot/billing/selected_users",
+      "method": "POST",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Add users to the Copilot subscription for an organization",
+      "operationId": "copilot/add-copilot-seats-for-users"
+    },
+    {
+      "path": "/orgs/{org}/copilot/billing/selected_users",
+      "method": "DELETE",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Remove users from the Copilot subscription for an organization",
+      "operationId": "copilot/cancel-copilot-seat-assignment-for-users"
+    },
+    {
+      "path": "/orgs/{org}/copilot/metrics",
+      "method": "GET",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Get Copilot metrics for an organization",
+      "operationId": "copilot/copilot-metrics-for-organization"
+    },
+    {
+      "path": "/orgs/{org}/members/{username}/copilot",
+      "method": "GET",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Get Copilot seat assignment details for a user",
+      "operationId": "copilot/get-copilot-seat-details-for-user"
+    },
+    {
+      "path": "/orgs/{org}/team/{team_slug}/copilot/metrics",
+      "method": "GET",
+      "tags": [
+        "copilot"
+      ],
+      "summary": "Get Copilot metrics for a team",
+      "operationId": "copilot/copilot-metrics-for-team"
+    }
+  ]
+}

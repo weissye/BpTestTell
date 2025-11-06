@@ -1,0 +1,100 @@
+{
+  "gold": [
+    {
+      "path": "/repos/octocat/Hello-World/check-runs",
+      "method": "POST",
+      "operationId": "checks/create",
+      "summary": "",
+      "user": "User wants to create a new check run for the specified repository to validate the latest commit.",
+      "ideal": "A new check run is created successfully with the provided details."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/123456",
+      "method": "GET",
+      "operationId": "checks/get",
+      "summary": "",
+      "user": "User needs to retrieve the details of a specific check run to review its results.",
+      "ideal": "The details of the check run with ID 123456 are returned successfully."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/123456",
+      "method": "PATCH",
+      "operationId": "checks/update",
+      "summary": "",
+      "user": "User wants to update the status of an existing check run to reflect new findings.",
+      "ideal": "The check run is updated successfully with the new status and output."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/123456/annotations",
+      "method": "GET",
+      "operationId": "checks/list-annotations",
+      "summary": "",
+      "user": "User is looking to list all annotations related to a specific check run for better insights.",
+      "ideal": "All annotations for the check run are retrieved successfully."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-runs/123456/rerequest",
+      "method": "POST",
+      "operationId": "checks/rerequest-run",
+      "summary": "",
+      "user": "User wants to rerun a specific check run to validate changes made in the code.",
+      "ideal": "The check run is successfully re-requested and queued for execution."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites",
+      "method": "POST",
+      "operationId": "checks/create-suite",
+      "summary": "",
+      "user": "User intends to create a new check suite for a specific commit to group related checks.",
+      "ideal": "A new check suite is created successfully for the specified commit."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/preferences",
+      "method": "PATCH",
+      "operationId": "checks/set-suites-preferences",
+      "summary": "",
+      "user": "User wants to update the preferences for check suites in the repository.",
+      "ideal": "The preferences for check suites are updated successfully."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/78910",
+      "method": "GET",
+      "operationId": "checks/get-suite",
+      "summary": "",
+      "user": "User needs to retrieve the details of a specific check suite to understand its configuration.",
+      "ideal": "The details of the check suite with ID 78910 are returned successfully."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/78910/check-runs",
+      "method": "GET",
+      "operationId": "checks/list-for-suite",
+      "summary": "",
+      "user": "User is looking to list all check runs associated with a specific check suite.",
+      "ideal": "All check runs for the check suite are retrieved successfully."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/check-suites/78910/rerequest",
+      "method": "POST",
+      "operationId": "checks/rerequest-suite",
+      "summary": "",
+      "user": "User wants to rerun all checks in a specific check suite to validate recent changes.",
+      "ideal": "The check suite is successfully re-requested and all checks are queued for execution."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/commits/main/check-runs",
+      "method": "GET",
+      "operationId": "checks/list-for-ref",
+      "summary": "",
+      "user": "User wants to list all check runs for the latest commit on the main branch.",
+      "ideal": "All check runs for the specified commit reference are retrieved successfully."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/commits/main/check-suites",
+      "method": "GET",
+      "operationId": "checks/list-suites-for-ref",
+      "summary": "",
+      "user": "User is looking to list all check suites associated with the latest commit on the main branch.",
+      "ideal": "All check suites for the specified commit reference are retrieved successfully."
+    }
+  ]
+}

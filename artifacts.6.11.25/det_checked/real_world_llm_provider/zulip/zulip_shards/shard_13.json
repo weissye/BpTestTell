@@ -1,0 +1,18 @@
+{
+  "openapi_meta": {
+    "title": "Zulip REST API",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/zulip-outgoing-webhook",
+      "method": "POST",
+      "tags": [
+        "webhooks"
+      ],
+      "summary": "Outgoing webhooks",
+      "operationId": "zulip-outgoing-webhooks"
+    }
+  ]
+}

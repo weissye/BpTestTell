@@ -1,0 +1,1845 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/orgs/{org}/repos",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List organization repositories",
+      "operationId": "repos/list-for-org"
+    },
+    {
+      "path": "/orgs/{org}/repos",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create an organization repository",
+      "operationId": "repos/create-in-org"
+    },
+    {
+      "path": "/orgs/{org}/rulesets",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get all organization repository rulesets",
+      "operationId": "repos/get-org-rulesets"
+    },
+    {
+      "path": "/orgs/{org}/rulesets",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create an organization repository ruleset",
+      "operationId": "repos/create-org-ruleset"
+    },
+    {
+      "path": "/orgs/{org}/rulesets/rule-suites",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List organization rule suites",
+      "operationId": "repos/get-org-rule-suites"
+    },
+    {
+      "path": "/orgs/{org}/rulesets/rule-suites/{rule_suite_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get an organization rule suite",
+      "operationId": "repos/get-org-rule-suite"
+    },
+    {
+      "path": "/orgs/{org}/rulesets/{ruleset_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get an organization repository ruleset",
+      "operationId": "repos/get-org-ruleset"
+    },
+    {
+      "path": "/orgs/{org}/rulesets/{ruleset_id}",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Update an organization repository ruleset",
+      "operationId": "repos/update-org-ruleset"
+    },
+    {
+      "path": "/orgs/{org}/rulesets/{ruleset_id}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete an organization repository ruleset",
+      "operationId": "repos/delete-org-ruleset"
+    },
+    {
+      "path": "/repos/{owner}/{repo}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a repository",
+      "operationId": "repos/get"
+    },
+    {
+      "path": "/repos/{owner}/{repo}",
+      "method": "PATCH",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Update a repository",
+      "operationId": "repos/update"
+    },
+    {
+      "path": "/repos/{owner}/{repo}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete a repository",
+      "operationId": "repos/delete"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/activity",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List repository activities",
+      "operationId": "repos/list-activities"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/attestations",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create an attestation",
+      "operationId": "repos/create-attestation"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/attestations/{subject_digest}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List attestations",
+      "operationId": "repos/list-attestations"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/autolinks",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get all autolinks of a repository",
+      "operationId": "repos/list-autolinks"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/autolinks",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create an autolink reference for a repository",
+      "operationId": "repos/create-autolink"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/autolinks/{autolink_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get an autolink reference of a repository",
+      "operationId": "repos/get-autolink"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/autolinks/{autolink_id}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete an autolink reference from a repository",
+      "operationId": "repos/delete-autolink"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/automated-security-fixes",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Check if Dependabot security updates are enabled for a repository",
+      "operationId": "repos/check-automated-security-fixes"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/automated-security-fixes",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Enable Dependabot security updates",
+      "operationId": "repos/enable-automated-security-fixes"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/automated-security-fixes",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Disable Dependabot security updates",
+      "operationId": "repos/disable-automated-security-fixes"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List branches",
+      "operationId": "repos/list-branches"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a branch",
+      "operationId": "repos/get-branch"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get branch protection",
+      "operationId": "repos/get-branch-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Update branch protection",
+      "operationId": "repos/update-branch-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete branch protection",
+      "operationId": "repos/delete-branch-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get admin branch protection",
+      "operationId": "repos/get-admin-branch-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Set admin branch protection",
+      "operationId": "repos/set-admin-branch-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete admin branch protection",
+      "operationId": "repos/delete-admin-branch-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get pull request review protection",
+      "operationId": "repos/get-pull-request-review-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",
+      "method": "PATCH",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Update pull request review protection",
+      "operationId": "repos/update-pull-request-review-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete pull request review protection",
+      "operationId": "repos/delete-pull-request-review-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get commit signature protection",
+      "operationId": "repos/get-commit-signature-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create commit signature protection",
+      "operationId": "repos/create-commit-signature-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete commit signature protection",
+      "operationId": "repos/delete-commit-signature-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get status checks protection",
+      "operationId": "repos/get-status-checks-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",
+      "method": "PATCH",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Update status check protection",
+      "operationId": "repos/update-status-check-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Remove status check protection",
+      "operationId": "repos/remove-status-check-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get all status check contexts",
+      "operationId": "repos/get-all-status-check-contexts"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Add status check contexts",
+      "operationId": "repos/add-status-check-contexts"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Set status check contexts",
+      "operationId": "repos/set-status-check-contexts"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Remove status check contexts",
+      "operationId": "repos/remove-status-check-contexts"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get access restrictions",
+      "operationId": "repos/get-access-restrictions"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete access restrictions",
+      "operationId": "repos/delete-access-restrictions"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get apps with access to the protected branch",
+      "operationId": "repos/get-apps-with-access-to-protected-branch"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Add app access restrictions",
+      "operationId": "repos/add-app-access-restrictions"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Set app access restrictions",
+      "operationId": "repos/set-app-access-restrictions"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Remove app access restrictions",
+      "operationId": "repos/remove-app-access-restrictions"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get teams with access to the protected branch",
+      "operationId": "repos/get-teams-with-access-to-protected-branch"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Add team access restrictions",
+      "operationId": "repos/add-team-access-restrictions"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Set team access restrictions",
+      "operationId": "repos/set-team-access-restrictions"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Remove team access restrictions",
+      "operationId": "repos/remove-team-access-restrictions"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get users with access to the protected branch",
+      "operationId": "repos/get-users-with-access-to-protected-branch"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Add user access restrictions",
+      "operationId": "repos/add-user-access-restrictions"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Set user access restrictions",
+      "operationId": "repos/set-user-access-restrictions"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Remove user access restrictions",
+      "operationId": "repos/remove-user-access-restrictions"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/branches/{branch}/rename",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Rename a branch",
+      "operationId": "repos/rename-branch"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/codeowners/errors",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List CODEOWNERS errors",
+      "operationId": "repos/codeowners-errors"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/collaborators",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List repository collaborators",
+      "operationId": "repos/list-collaborators"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/collaborators/{username}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Check if a user is a repository collaborator",
+      "operationId": "repos/check-collaborator"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/collaborators/{username}",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Add a repository collaborator",
+      "operationId": "repos/add-collaborator"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/collaborators/{username}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Remove a repository collaborator",
+      "operationId": "repos/remove-collaborator"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/collaborators/{username}/permission",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get repository permissions for a user",
+      "operationId": "repos/get-collaborator-permission-level"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/comments",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List commit comments for a repository",
+      "operationId": "repos/list-commit-comments-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/comments/{comment_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a commit comment",
+      "operationId": "repos/get-commit-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/comments/{comment_id}",
+      "method": "PATCH",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Update a commit comment",
+      "operationId": "repos/update-commit-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/comments/{comment_id}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete a commit comment",
+      "operationId": "repos/delete-commit-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/commits",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List commits",
+      "operationId": "repos/list-commits"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List branches for HEAD commit",
+      "operationId": "repos/list-branches-for-head-commit"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/commits/{commit_sha}/comments",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List commit comments",
+      "operationId": "repos/list-comments-for-commit"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/commits/{commit_sha}/comments",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a commit comment",
+      "operationId": "repos/create-commit-comment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/commits/{commit_sha}/pulls",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List pull requests associated with a commit",
+      "operationId": "repos/list-pull-requests-associated-with-commit"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/commits/{ref}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a commit",
+      "operationId": "repos/get-commit"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/commits/{ref}/status",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get the combined status for a specific reference",
+      "operationId": "repos/get-combined-status-for-ref"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/commits/{ref}/statuses",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List commit statuses for a reference",
+      "operationId": "repos/list-commit-statuses-for-ref"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/community/profile",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get community profile metrics",
+      "operationId": "repos/get-community-profile-metrics"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/compare/{basehead}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Compare two commits",
+      "operationId": "repos/compare-commits"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/contents/{path}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get repository content",
+      "operationId": "repos/get-content"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/contents/{path}",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create or update file contents",
+      "operationId": "repos/create-or-update-file-contents"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/contents/{path}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete a file",
+      "operationId": "repos/delete-file"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/contributors",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List repository contributors",
+      "operationId": "repos/list-contributors"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/deployments",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List deployments",
+      "operationId": "repos/list-deployments"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/deployments",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a deployment",
+      "operationId": "repos/create-deployment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/deployments/{deployment_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a deployment",
+      "operationId": "repos/get-deployment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/deployments/{deployment_id}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete a deployment",
+      "operationId": "repos/delete-deployment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/deployments/{deployment_id}/statuses",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List deployment statuses",
+      "operationId": "repos/list-deployment-statuses"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/deployments/{deployment_id}/statuses",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a deployment status",
+      "operationId": "repos/create-deployment-status"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a deployment status",
+      "operationId": "repos/get-deployment-status"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/dispatches",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a repository dispatch event",
+      "operationId": "repos/create-dispatch-event"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/environments",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List environments",
+      "operationId": "repos/get-all-environments"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get an environment",
+      "operationId": "repos/get-environment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create or update an environment",
+      "operationId": "repos/create-or-update-environment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete an environment",
+      "operationId": "repos/delete-an-environment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}/deployment-branch-policies",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List deployment branch policies",
+      "operationId": "repos/list-deployment-branch-policies"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}/deployment-branch-policies",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a deployment branch policy",
+      "operationId": "repos/create-deployment-branch-policy"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}/deployment-branch-policies/{branch_policy_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a deployment branch policy",
+      "operationId": "repos/get-deployment-branch-policy"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}/deployment-branch-policies/{branch_policy_id}",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Update a deployment branch policy",
+      "operationId": "repos/update-deployment-branch-policy"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}/deployment-branch-policies/{branch_policy_id}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete a deployment branch policy",
+      "operationId": "repos/delete-deployment-branch-policy"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get all deployment protection rules for an environment",
+      "operationId": "repos/get-all-deployment-protection-rules"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a custom deployment protection rule on an environment",
+      "operationId": "repos/create-deployment-protection-rule"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules/apps",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List custom deployment rule integrations available for an environment",
+      "operationId": "repos/list-custom-deployment-rule-integrations"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules/{protection_rule_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a custom deployment protection rule",
+      "operationId": "repos/get-custom-deployment-protection-rule"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules/{protection_rule_id}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Disable a custom protection rule for an environment",
+      "operationId": "repos/disable-deployment-protection-rule"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/forks",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List forks",
+      "operationId": "repos/list-forks"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/forks",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a fork",
+      "operationId": "repos/create-fork"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/hooks",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List repository webhooks",
+      "operationId": "repos/list-webhooks"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/hooks",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a repository webhook",
+      "operationId": "repos/create-webhook"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/hooks/{hook_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a repository webhook",
+      "operationId": "repos/get-webhook"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/hooks/{hook_id}",
+      "method": "PATCH",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Update a repository webhook",
+      "operationId": "repos/update-webhook"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/hooks/{hook_id}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete a repository webhook",
+      "operationId": "repos/delete-webhook"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/hooks/{hook_id}/config",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a webhook configuration for a repository",
+      "operationId": "repos/get-webhook-config-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/hooks/{hook_id}/config",
+      "method": "PATCH",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Update a webhook configuration for a repository",
+      "operationId": "repos/update-webhook-config-for-repo"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/hooks/{hook_id}/deliveries",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List deliveries for a repository webhook",
+      "operationId": "repos/list-webhook-deliveries"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a delivery for a repository webhook",
+      "operationId": "repos/get-webhook-delivery"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}/attempts",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Redeliver a delivery for a repository webhook",
+      "operationId": "repos/redeliver-webhook-delivery"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/hooks/{hook_id}/pings",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Ping a repository webhook",
+      "operationId": "repos/ping-webhook"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/hooks/{hook_id}/tests",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Test the push repository webhook",
+      "operationId": "repos/test-push-webhook"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/immutable-releases",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Check if immutable releases are enabled for a repository",
+      "operationId": "repos/check-immutable-releases"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/immutable-releases",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Enable immutable releases",
+      "operationId": "repos/enable-immutable-releases"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/immutable-releases",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Disable immutable releases",
+      "operationId": "repos/disable-immutable-releases"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/invitations",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List repository invitations",
+      "operationId": "repos/list-invitations"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/invitations/{invitation_id}",
+      "method": "PATCH",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Update a repository invitation",
+      "operationId": "repos/update-invitation"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/invitations/{invitation_id}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete a repository invitation",
+      "operationId": "repos/delete-invitation"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/keys",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List deploy keys",
+      "operationId": "repos/list-deploy-keys"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/keys",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a deploy key",
+      "operationId": "repos/create-deploy-key"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/keys/{key_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a deploy key",
+      "operationId": "repos/get-deploy-key"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/keys/{key_id}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete a deploy key",
+      "operationId": "repos/delete-deploy-key"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/languages",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List repository languages",
+      "operationId": "repos/list-languages"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/merge-upstream",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Sync a fork branch with the upstream repository",
+      "operationId": "repos/merge-upstream"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/merges",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Merge a branch",
+      "operationId": "repos/merge"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pages",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a GitHub Pages site",
+      "operationId": "repos/get-pages"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pages",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a GitHub Pages site",
+      "operationId": "repos/create-pages-site"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pages",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Update information about a GitHub Pages site",
+      "operationId": "repos/update-information-about-pages-site"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pages",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete a GitHub Pages site",
+      "operationId": "repos/delete-pages-site"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pages/builds",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List GitHub Pages builds",
+      "operationId": "repos/list-pages-builds"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pages/builds",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Request a GitHub Pages build",
+      "operationId": "repos/request-pages-build"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pages/builds/latest",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get latest Pages build",
+      "operationId": "repos/get-latest-pages-build"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pages/builds/{build_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get GitHub Pages build",
+      "operationId": "repos/get-pages-build"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pages/deployments",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a GitHub Pages deployment",
+      "operationId": "repos/create-pages-deployment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pages/deployments/{pages_deployment_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get the status of a GitHub Pages deployment",
+      "operationId": "repos/get-pages-deployment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pages/deployments/{pages_deployment_id}/cancel",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Cancel a GitHub Pages deployment",
+      "operationId": "repos/cancel-pages-deployment"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/pages/health",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a DNS health check for GitHub Pages",
+      "operationId": "repos/get-pages-health-check"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/private-vulnerability-reporting",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Check if private vulnerability reporting is enabled for a repository",
+      "operationId": "repos/check-private-vulnerability-reporting"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/private-vulnerability-reporting",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Enable private vulnerability reporting for a repository",
+      "operationId": "repos/enable-private-vulnerability-reporting"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/private-vulnerability-reporting",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Disable private vulnerability reporting for a repository",
+      "operationId": "repos/disable-private-vulnerability-reporting"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/properties/values",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get all custom property values for a repository",
+      "operationId": "repos/custom-properties-for-repos-get-repository-values"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/properties/values",
+      "method": "PATCH",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create or update custom property values for a repository",
+      "operationId": "repos/custom-properties-for-repos-create-or-update-repository-values"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/readme",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a repository README",
+      "operationId": "repos/get-readme"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/readme/{dir}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a repository README for a directory",
+      "operationId": "repos/get-readme-in-directory"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List releases",
+      "operationId": "repos/list-releases"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a release",
+      "operationId": "repos/create-release"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases/assets/{asset_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a release asset",
+      "operationId": "repos/get-release-asset"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases/assets/{asset_id}",
+      "method": "PATCH",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Update a release asset",
+      "operationId": "repos/update-release-asset"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases/assets/{asset_id}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete a release asset",
+      "operationId": "repos/delete-release-asset"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases/generate-notes",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Generate release notes content for a release",
+      "operationId": "repos/generate-release-notes"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases/latest",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get the latest release",
+      "operationId": "repos/get-latest-release"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases/tags/{tag}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a release by tag name",
+      "operationId": "repos/get-release-by-tag"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases/{release_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a release",
+      "operationId": "repos/get-release"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases/{release_id}",
+      "method": "PATCH",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Update a release",
+      "operationId": "repos/update-release"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases/{release_id}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete a release",
+      "operationId": "repos/delete-release"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases/{release_id}/assets",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List release assets",
+      "operationId": "repos/list-release-assets"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/releases/{release_id}/assets",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Upload a release asset",
+      "operationId": "repos/upload-release-asset"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/rules/branches/{branch}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get rules for a branch",
+      "operationId": "repos/get-branch-rules"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/rulesets",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get all repository rulesets",
+      "operationId": "repos/get-repo-rulesets"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/rulesets",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a repository ruleset",
+      "operationId": "repos/create-repo-ruleset"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/rulesets/rule-suites",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List repository rule suites",
+      "operationId": "repos/get-repo-rule-suites"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/rulesets/rule-suites/{rule_suite_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a repository rule suite",
+      "operationId": "repos/get-repo-rule-suite"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/rulesets/{ruleset_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get a repository ruleset",
+      "operationId": "repos/get-repo-ruleset"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/rulesets/{ruleset_id}",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Update a repository ruleset",
+      "operationId": "repos/update-repo-ruleset"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/rulesets/{ruleset_id}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Delete a repository ruleset",
+      "operationId": "repos/delete-repo-ruleset"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/rulesets/{ruleset_id}/history",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get repository ruleset history",
+      "operationId": "repos/get-repo-ruleset-history"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/rulesets/{ruleset_id}/history/{version_id}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get repository ruleset version",
+      "operationId": "repos/get-repo-ruleset-version"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/stats/code_frequency",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get the weekly commit activity",
+      "operationId": "repos/get-code-frequency-stats"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/stats/commit_activity",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get the last year of commit activity",
+      "operationId": "repos/get-commit-activity-stats"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/stats/contributors",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get all contributor commit activity",
+      "operationId": "repos/get-contributors-stats"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/stats/participation",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get the weekly commit count",
+      "operationId": "repos/get-participation-stats"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/stats/punch_card",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get the hourly commit count for each day",
+      "operationId": "repos/get-punch-card-stats"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/statuses/{sha}",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a commit status",
+      "operationId": "repos/create-commit-status"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/tags",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List repository tags",
+      "operationId": "repos/list-tags"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/tags/protection",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Closing down - List tag protection states for a repository",
+      "operationId": "repos/list-tag-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/tags/protection",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Closing down - Create a tag protection state for a repository",
+      "operationId": "repos/create-tag-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/tags/protection/{tag_protection_id}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Closing down - Delete a tag protection state for a repository",
+      "operationId": "repos/delete-tag-protection"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/tarball/{ref}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Download a repository archive (tar)",
+      "operationId": "repos/download-tarball-archive"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/teams",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List repository teams",
+      "operationId": "repos/list-teams"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/topics",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get all repository topics",
+      "operationId": "repos/get-all-topics"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/topics",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Replace all repository topics",
+      "operationId": "repos/replace-all-topics"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/traffic/clones",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get repository clones",
+      "operationId": "repos/get-clones"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/traffic/popular/paths",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get top referral paths",
+      "operationId": "repos/get-top-paths"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/traffic/popular/referrers",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get top referral sources",
+      "operationId": "repos/get-top-referrers"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/traffic/views",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Get page views",
+      "operationId": "repos/get-views"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/transfer",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Transfer a repository",
+      "operationId": "repos/transfer"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/vulnerability-alerts",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Check if vulnerability alerts are enabled for a repository",
+      "operationId": "repos/check-vulnerability-alerts"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/vulnerability-alerts",
+      "method": "PUT",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Enable vulnerability alerts",
+      "operationId": "repos/enable-vulnerability-alerts"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/vulnerability-alerts",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Disable vulnerability alerts",
+      "operationId": "repos/disable-vulnerability-alerts"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/zipball/{ref}",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Download a repository archive (zip)",
+      "operationId": "repos/download-zipball-archive"
+    },
+    {
+      "path": "/repos/{template_owner}/{template_repo}/generate",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a repository using a template",
+      "operationId": "repos/create-using-template"
+    },
+    {
+      "path": "/repositories",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List public repositories",
+      "operationId": "repos/list-public"
+    },
+    {
+      "path": "/user/repos",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List repositories for the authenticated user",
+      "operationId": "repos/list-for-authenticated-user"
+    },
+    {
+      "path": "/user/repos",
+      "method": "POST",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Create a repository for the authenticated user",
+      "operationId": "repos/create-for-authenticated-user"
+    },
+    {
+      "path": "/user/repository_invitations",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List repository invitations for the authenticated user",
+      "operationId": "repos/list-invitations-for-authenticated-user"
+    },
+    {
+      "path": "/user/repository_invitations/{invitation_id}",
+      "method": "PATCH",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Accept a repository invitation",
+      "operationId": "repos/accept-invitation-for-authenticated-user"
+    },
+    {
+      "path": "/user/repository_invitations/{invitation_id}",
+      "method": "DELETE",
+      "tags": [
+        "repos"
+      ],
+      "summary": "Decline a repository invitation",
+      "operationId": "repos/decline-invitation-for-authenticated-user"
+    },
+    {
+      "path": "/users/{username}/repos",
+      "method": "GET",
+      "tags": [
+        "repos"
+      ],
+      "summary": "List repositories for a user",
+      "operationId": "repos/list-for-user"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/repos/octocat/Hello-World/issues",
+      "method": "GET",
+      "operationId": "issues/list-for-repo",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve a list of issues for the specified repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/1/comments",
+      "method": "GET",
+      "operationId": "issues/list-comments",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Get all comments for issue number 1 in the Hello-World repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/1/comments",
+      "method": "POST",
+      "operationId": "issues/create-comment",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Add a new comment to issue number 1 in the Hello-World repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/1",
+      "method": "PATCH",
+      "operationId": "issues/update",
+      "summary": "",
+      "user": "user321",
+      "ideal": "Update the details of issue number 1 in the Hello-World repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/1/assignees",
+      "method": "POST",
+      "operationId": "issues/add-assignees",
+      "summary": "",
+      "user": "user654",
+      "ideal": "Assign a user to issue number 1 in the Hello-World repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/1/labels",
+      "method": "DELETE",
+      "operationId": "issues/remove-all-labels",
+      "summary": "",
+      "user": "user987",
+      "ideal": "Remove all labels from issue number 1 in the Hello-World repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/1/lock",
+      "method": "PUT",
+      "operationId": "issues/lock",
+      "summary": "",
+      "user": "user135",
+      "ideal": "Lock issue number 1 in the Hello-World repository to prevent further comments."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/1/sub_issues",
+      "method": "POST",
+      "operationId": "issues/add-sub-issue",
+      "summary": "",
+      "user": "user246",
+      "ideal": "Add a sub-issue to issue number 1 in the Hello-World repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/issues/1/events",
+      "method": "GET",
+      "operationId": "issues/list-events",
+      "summary": "",
+      "user": "user369",
+      "ideal": "Retrieve a list of events for issue number 1 in the Hello-World repository."
+    },
+    {
+      "path": "/repos/octocat/Hello-World/milestones",
+      "method": "GET",
+      "operationId": "issues/list-milestones",
+      "summary": "",
+      "user": "user852",
+      "ideal": "Get a list of milestones for the Hello-World repository."
+    }
+  ]
+}

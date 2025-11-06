@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json",
+      "method": "POST",
+      "operationId": "CreateUserDefinedMessageSubscription",
+      "summary": "",
+      "user": "A user wants to subscribe to user-defined messages for a specific call to receive updates about the call status and other relevant information.",
+      "ideal": "The API should successfully create a user-defined message subscription for the specified call."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteUserDefinedMessageSubscription",
+      "summary": "",
+      "user": "A user wishes to unsubscribe from user-defined messages for a specific call, as they no longer need updates for that call.",
+      "ideal": "The API should successfully delete the specified user-defined message subscription."
+    }
+  ]
+}

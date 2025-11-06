@@ -1,0 +1,36 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/licenses",
+      "method": "GET",
+      "tags": [
+        "licenses"
+      ],
+      "summary": "Get all commonly used licenses",
+      "operationId": "licenses/get-all-commonly-used"
+    },
+    {
+      "path": "/licenses/{license}",
+      "method": "GET",
+      "tags": [
+        "licenses"
+      ],
+      "summary": "Get a license",
+      "operationId": "licenses/get"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/license",
+      "method": "GET",
+      "tags": [
+        "licenses"
+      ],
+      "summary": "Get the license for a repository",
+      "operationId": "licenses/get-for-repo"
+    }
+  ]
+}

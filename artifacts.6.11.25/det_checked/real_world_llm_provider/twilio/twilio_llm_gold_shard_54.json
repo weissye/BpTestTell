@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchQueue",
+      "summary": "",
+      "user": "User wants to retrieve the details of a specific queue using the Account SID and Queue SID.",
+      "ideal": "Successful retrieval of queue details with status 200."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateQueue",
+      "summary": "",
+      "user": "User needs to update the properties of an existing queue, such as its name or max size.",
+      "ideal": "Successful update of the queue with status 200 and updated queue details in response."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteQueue",
+      "summary": "",
+      "user": "User wants to delete a specific queue from their account using the Account SID and Queue SID.",
+      "ideal": "Successful deletion of the queue with status 204 and no content in response."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "method": "GET",
+      "operationId": "ListQueue",
+      "summary": "",
+      "user": "User wants to list all queues associated with their account to manage them effectively.",
+      "ideal": "Successful retrieval of the list of queues with status 200 and an array of queue objects in response."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "method": "POST",
+      "operationId": "CreateQueue",
+      "summary": "",
+      "user": "User needs to create a new queue with specific parameters like name and max size.",
+      "ideal": "Successful creation of the queue with status 201 and the new queue details in response."
+    }
+  ]
+}

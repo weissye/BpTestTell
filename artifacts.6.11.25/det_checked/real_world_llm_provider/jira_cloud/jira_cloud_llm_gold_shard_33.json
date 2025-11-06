@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/redact",
+      "method": "POST",
+      "operationId": "redact",
+      "summary": "",
+      "user": "User wants to redact sensitive information from a Jira issue. They provide the issue ID and specify the fields that need redaction, such as comments and attachments.",
+      "ideal": "The API should successfully redact the specified fields from the issue and return a confirmation message with the job ID for tracking."
+    },
+    {
+      "path": "/rest/api/3/redact/status/{jobId}",
+      "method": "GET",
+      "operationId": "getRedactionStatus",
+      "summary": "",
+      "user": "User is checking the status of a redaction job they initiated earlier. They provide the job ID they received after submitting the redaction request.",
+      "ideal": "The API should return the current status of the redaction job, indicating whether it is still in progress, completed, or failed, along with any relevant messages."
+    }
+  ]
+}

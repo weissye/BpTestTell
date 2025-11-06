@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Transcriptions/TRXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchTranscription",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Fetches the transcription for the specified transcription SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Transcriptions/TRXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteTranscription",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Deletes the transcription with the specified SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Transcriptions.json",
+      "method": "GET",
+      "operationId": "ListTranscription",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Lists all transcriptions for the specified account."
+    }
+  ]
+}

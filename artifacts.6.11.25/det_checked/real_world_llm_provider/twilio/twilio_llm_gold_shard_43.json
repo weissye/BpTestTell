@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages.json",
+      "method": "POST",
+      "operationId": "CreateMessage",
+      "summary": "",
+      "user": "User wants to send a new SMS message to a recipient's phone number with a specific body text.",
+      "ideal": "The API should return a success response with the details of the created message, including the SID."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages.json",
+      "method": "GET",
+      "operationId": "ListMessage",
+      "summary": "",
+      "user": "User wants to retrieve a list of all messages sent from their account, possibly to review message statuses.",
+      "ideal": "The API should return a list of messages with their details such as SID, status, and timestamps."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteMessage",
+      "summary": "",
+      "user": "User wants to delete a specific message that was sent previously, as it is no longer needed.",
+      "ideal": "The API should confirm the deletion of the message and return a success status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchMessage",
+      "summary": "",
+      "user": "User wants to fetch the details of a specific message using its SID to check its status and content.",
+      "ideal": "The API should return the details of the requested message, including its status and any error messages if applicable."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateMessage",
+      "summary": "",
+      "user": "User wants to update the status of a previously sent message, perhaps to mark it as read or to change its metadata.",
+      "ideal": "The API should return the updated message details confirming the changes made."
+    }
+  ]
+}

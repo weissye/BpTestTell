@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/label",
+      "method": "GET",
+      "operationId": "getAllLabels",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all labels available in the Jira Cloud platform to ensure that I can categorize issues effectively and maintain consistency across the project.",
+      "ideal": "A successful response should return a list of all labels in the system, including their names and any associated metadata, in a JSON format."
+    }
+  ]
+}

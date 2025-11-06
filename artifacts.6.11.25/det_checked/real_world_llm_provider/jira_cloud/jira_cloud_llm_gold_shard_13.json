@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/groupuserpicker",
+      "method": "GET",
+      "operationId": "findUsersAndGroups",
+      "summary": "",
+      "user": "john.doe@example.com",
+      "ideal": "Returns a list of users and groups that match the specified query."
+    }
+  ]
+}

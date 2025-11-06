@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/ABC/role",
+      "method": "GET",
+      "operationId": "getProjectRoles",
+      "summary": "",
+      "user": "User requests the roles associated with project ABC to understand the permissions and responsibilities assigned to different team members.",
+      "ideal": "Returns a list of roles for the specified project, including role IDs and names."
+    },
+    {
+      "path": "/rest/api/3/project/ABC/role/123",
+      "method": "GET",
+      "operationId": "getProjectRole",
+      "summary": "",
+      "user": "User wants to retrieve details about a specific role with ID 123 in project ABC to check its permissions.",
+      "ideal": "Returns detailed information about the specified project role, including its name and permissions."
+    },
+    {
+      "path": "/rest/api/3/project/ABC/roledetails",
+      "method": "GET",
+      "operationId": "getProjectRoleDetails",
+      "summary": "",
+      "user": "User needs detailed information about all roles in project ABC to prepare for a team meeting.",
+      "ideal": "Returns detailed role information for the specified project, including members and permissions."
+    },
+    {
+      "path": "/rest/api/3/role",
+      "method": "GET",
+      "operationId": "getAllProjectRoles",
+      "summary": "",
+      "user": "User is looking for a comprehensive list of all project roles available in the system to identify potential roles for a new project.",
+      "ideal": "Returns a list of all project roles in the system, including their IDs and names."
+    },
+    {
+      "path": "/rest/api/3/role",
+      "method": "POST",
+      "operationId": "createProjectRole",
+      "summary": "",
+      "user": "User wants to create a new project role called 'Tester' to assign to team members for the upcoming project.",
+      "ideal": "Creates a new project role and returns the created role's details, including its ID."
+    },
+    {
+      "path": "/rest/api/3/role/456",
+      "method": "DELETE",
+      "operationId": "deleteProjectRole",
+      "summary": "",
+      "user": "User needs to delete the project role with ID 456 as it is no longer needed in the project.",
+      "ideal": "Deletes the specified project role and returns a confirmation message."
+    },
+    {
+      "path": "/rest/api/3/role/789",
+      "method": "GET",
+      "operationId": "getProjectRoleById",
+      "summary": "",
+      "user": "User wants to fetch details of the project role with ID 789 to review its permissions before making changes.",
+      "ideal": "Returns the details of the specified project role, including its name and permissions."
+    },
+    {
+      "path": "/rest/api/3/role/789",
+      "method": "POST",
+      "operationId": "partialUpdateProjectRole",
+      "summary": "",
+      "user": "User intends to update the name of the project role with ID 789 to 'Senior Developer' to reflect the new responsibilities.",
+      "ideal": "Partially updates the specified project role and returns the updated role's details."
+    },
+    {
+      "path": "/rest/api/3/role/789",
+      "method": "PUT",
+      "operationId": "fullyUpdateProjectRole",
+      "summary": "",
+      "user": "User wants to fully update the project role with ID 789 to change its permissions and name to 'Lead Developer'.",
+      "ideal": "Fully updates the specified project role and returns the updated role's complete details."
+    }
+  ]
+}

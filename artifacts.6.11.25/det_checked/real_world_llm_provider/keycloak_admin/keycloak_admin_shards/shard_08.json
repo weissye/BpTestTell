@@ -1,0 +1,315 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/clients",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getClients"
+    },
+    {
+      "path": "/{realm}/clients",
+      "method": "POST",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "postClients"
+    },
+    {
+      "path": "/{realm}/clients/{id}",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getClientByRealmById"
+    },
+    {
+      "path": "/{realm}/clients/{id}",
+      "method": "PUT",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "putClient"
+    },
+    {
+      "path": "/{realm}/clients/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "deleteClientByRealmById"
+    },
+    {
+      "path": "/{realm}/clients/{id}/client-secret",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getClientSecret"
+    },
+    {
+      "path": "/{realm}/clients/{id}/client-secret",
+      "method": "POST",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "postClientSecret"
+    },
+    {
+      "path": "/{realm}/clients/{id}/client-secret/rotated",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getRotated"
+    },
+    {
+      "path": "/{realm}/clients/{id}/client-secret/rotated",
+      "method": "DELETE",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "deleteRotated"
+    },
+    {
+      "path": "/{realm}/clients/{id}/default-client-scopes",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getDefaultClientScopes"
+    },
+    {
+      "path": "/{realm}/clients/{id}/default-client-scopes/{clientScopeId}",
+      "method": "PUT",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "putDefaultClientScope"
+    },
+    {
+      "path": "/{realm}/clients/{id}/default-client-scopes/{clientScopeId}",
+      "method": "DELETE",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "deleteDefaultClientScope"
+    },
+    {
+      "path": "/{realm}/clients/{id}/evaluate-scopes/generate-example-access-token",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getGenerateExampleAccessToken"
+    },
+    {
+      "path": "/{realm}/clients/{id}/evaluate-scopes/generate-example-id-token",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getGenerateExampleIdToken"
+    },
+    {
+      "path": "/{realm}/clients/{id}/evaluate-scopes/generate-example-userinfo",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getGenerateExampleUserinfo"
+    },
+    {
+      "path": "/{realm}/clients/{id}/evaluate-scopes/protocol-mappers",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getProtocolMappers"
+    },
+    {
+      "path": "/{realm}/clients/{id}/evaluate-scopes/scope-mappings/{roleContainerId}/granted",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getGranted"
+    },
+    {
+      "path": "/{realm}/clients/{id}/evaluate-scopes/scope-mappings/{roleContainerId}/not-granted",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getNotGranted"
+    },
+    {
+      "path": "/{realm}/clients/{id}/installation/providers/{providerId}",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getInstallationProvider"
+    },
+    {
+      "path": "/{realm}/clients/{id}/management/permissions",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getClientManagementPermissions"
+    },
+    {
+      "path": "/{realm}/clients/{id}/management/permissions",
+      "method": "PUT",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "putClientManagementPermissions"
+    },
+    {
+      "path": "/{realm}/clients/{id}/nodes",
+      "method": "POST",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "postNodes"
+    },
+    {
+      "path": "/{realm}/clients/{id}/nodes/{node}",
+      "method": "DELETE",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "deleteNode"
+    },
+    {
+      "path": "/{realm}/clients/{id}/offline-session-count",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getOfflineSessionCount"
+    },
+    {
+      "path": "/{realm}/clients/{id}/offline-sessions",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getOfflineSessions"
+    },
+    {
+      "path": "/{realm}/clients/{id}/optional-client-scopes",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getOptionalClientScopes"
+    },
+    {
+      "path": "/{realm}/clients/{id}/optional-client-scopes/{clientScopeId}",
+      "method": "PUT",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "putOptionalClientScope"
+    },
+    {
+      "path": "/{realm}/clients/{id}/optional-client-scopes/{clientScopeId}",
+      "method": "DELETE",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "deleteOptionalClientScope"
+    },
+    {
+      "path": "/{realm}/clients/{id}/push-revocation",
+      "method": "POST",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "postClientPushRevocation"
+    },
+    {
+      "path": "/{realm}/clients/{id}/registration-access-token",
+      "method": "POST",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "postRegistrationAccessToken"
+    },
+    {
+      "path": "/{realm}/clients/{id}/service-account-user",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getServiceAccountUser"
+    },
+    {
+      "path": "/{realm}/clients/{id}/session-count",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getSessionCount"
+    },
+    {
+      "path": "/{realm}/clients/{id}/test-nodes-available",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getTestNodesAvailable"
+    },
+    {
+      "path": "/{realm}/clients/{id}/user-sessions",
+      "method": "GET",
+      "tags": [
+        "Clients"
+      ],
+      "summary": "",
+      "operationId": "getClientUserSessions"
+    }
+  ]
+}

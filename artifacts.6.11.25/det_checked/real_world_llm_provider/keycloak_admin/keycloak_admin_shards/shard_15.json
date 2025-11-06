@@ -1,0 +1,117 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/groups/{id}/role-mappings",
+      "method": "GET",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "getGroupRoleMappings"
+    },
+    {
+      "path": "/{realm}/groups/{id}/role-mappings/realm",
+      "method": "GET",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "getGroupRoleMappingsRealm"
+    },
+    {
+      "path": "/{realm}/groups/{id}/role-mappings/realm",
+      "method": "POST",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "postGroupRoleMappingsRealm"
+    },
+    {
+      "path": "/{realm}/groups/{id}/role-mappings/realm",
+      "method": "DELETE",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "deleteGroupRoleMappingsRealm"
+    },
+    {
+      "path": "/{realm}/groups/{id}/role-mappings/realm/available",
+      "method": "GET",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "getGroupRoleMappingsRealmAvailable"
+    },
+    {
+      "path": "/{realm}/groups/{id}/role-mappings/realm/composite",
+      "method": "GET",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "getGroupRoleMappingsRealmComposite"
+    },
+    {
+      "path": "/{realm}/users/{id}/role-mappings",
+      "method": "GET",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "getUserRoleMappings"
+    },
+    {
+      "path": "/{realm}/users/{id}/role-mappings/realm",
+      "method": "GET",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "getUserRoleMappingsRealm"
+    },
+    {
+      "path": "/{realm}/users/{id}/role-mappings/realm",
+      "method": "POST",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "postUserRoleMappingsRealm"
+    },
+    {
+      "path": "/{realm}/users/{id}/role-mappings/realm",
+      "method": "DELETE",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "deleteUserRoleMappingsRealm"
+    },
+    {
+      "path": "/{realm}/users/{id}/role-mappings/realm/available",
+      "method": "GET",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "getUserRoleMappingsRealmAvailable"
+    },
+    {
+      "path": "/{realm}/users/{id}/role-mappings/realm/composite",
+      "method": "GET",
+      "tags": [
+        "Role Mapper"
+      ],
+      "summary": "",
+      "operationId": "getUserRoleMappingsRealmComposite"
+    }
+  ]
+}

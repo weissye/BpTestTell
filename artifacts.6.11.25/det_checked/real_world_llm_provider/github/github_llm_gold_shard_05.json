@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/example-org/campaigns",
+      "method": "GET",
+      "operationId": "campaigns/list-org-campaigns",
+      "summary": "",
+      "user": "As a marketing manager, I want to retrieve all campaigns for my organization to analyze their performance and plan future strategies.",
+      "ideal": "The response should include a list of campaigns with their details such as title, status, and start/end dates."
+    },
+    {
+      "path": "/orgs/example-org/campaigns",
+      "method": "POST",
+      "operationId": "campaigns/create-campaign",
+      "summary": "",
+      "user": "As a marketing manager, I want to create a new campaign for our upcoming product launch to engage our audience effectively.",
+      "ideal": "The response should confirm the creation of the campaign and return the campaign ID along with its details."
+    },
+    {
+      "path": "/orgs/example-org/campaigns/123",
+      "method": "GET",
+      "operationId": "campaigns/get-campaign-summary",
+      "summary": "",
+      "user": "As a marketing analyst, I want to get a summary of a specific campaign to evaluate its success metrics and engagement levels.",
+      "ideal": "The response should provide detailed metrics such as impressions, clicks, and conversion rates for the specified campaign."
+    },
+    {
+      "path": "/orgs/example-org/campaigns/123",
+      "method": "PATCH",
+      "operationId": "campaigns/update-campaign",
+      "summary": "",
+      "user": "As a marketing manager, I want to update the details of an existing campaign to reflect changes in our strategy and messaging.",
+      "ideal": "The response should confirm the update and return the updated campaign details."
+    },
+    {
+      "path": "/orgs/example-org/campaigns/123",
+      "method": "DELETE",
+      "operationId": "campaigns/delete-campaign",
+      "summary": "",
+      "user": "As a marketing director, I want to delete a campaign that is no longer relevant to ensure our resources are focused on active initiatives.",
+      "ideal": "The response should confirm the deletion of the campaign and indicate that it can no longer be accessed."
+    }
+  ]
+}

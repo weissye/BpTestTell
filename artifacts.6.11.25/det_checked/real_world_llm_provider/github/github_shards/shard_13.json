@@ -1,0 +1,18 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/credentials/revoke",
+      "method": "POST",
+      "tags": [
+        "credentials"
+      ],
+      "summary": "Revoke a list of credentials",
+      "operationId": "credentials/revoke"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "Gitea API",
+    "version": "{{AppVer | JSEscape}}"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/activitypub/user-id/{user-id}",
+      "method": "GET",
+      "tags": [
+        "activitypub"
+      ],
+      "summary": "Returns the Person actor for a user",
+      "operationId": "activitypubPerson"
+    },
+    {
+      "path": "/activitypub/user-id/{user-id}/inbox",
+      "method": "POST",
+      "tags": [
+        "activitypub"
+      ],
+      "summary": "Send to the inbox",
+      "operationId": "activitypubPersonInbox"
+    }
+  ]
+}

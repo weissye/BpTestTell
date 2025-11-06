@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/avatar/{type}/system",
+      "method": "GET",
+      "tags": [
+        "Avatars"
+      ],
+      "summary": "Get system avatars by type",
+      "operationId": "getAllSystemAvatars"
+    },
+    {
+      "path": "/rest/api/3/universal_avatar/type/{type}/owner/{entityId}",
+      "method": "GET",
+      "tags": [
+        "Avatars"
+      ],
+      "summary": "Get avatars",
+      "operationId": "getAvatars"
+    },
+    {
+      "path": "/rest/api/3/universal_avatar/type/{type}/owner/{entityId}",
+      "method": "POST",
+      "tags": [
+        "Avatars"
+      ],
+      "summary": "Load avatar",
+      "operationId": "storeAvatar"
+    },
+    {
+      "path": "/rest/api/3/universal_avatar/type/{type}/owner/{owningObjectId}/avatar/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Avatars"
+      ],
+      "summary": "Delete avatar",
+      "operationId": "deleteAvatar"
+    },
+    {
+      "path": "/rest/api/3/universal_avatar/view/type/{type}",
+      "method": "GET",
+      "tags": [
+        "Avatars"
+      ],
+      "summary": "Get avatar image by type",
+      "operationId": "getAvatarImageByType"
+    },
+    {
+      "path": "/rest/api/3/universal_avatar/view/type/{type}/avatar/{id}",
+      "method": "GET",
+      "tags": [
+        "Avatars"
+      ],
+      "summary": "Get avatar image by ID",
+      "operationId": "getAvatarImageByID"
+    },
+    {
+      "path": "/rest/api/3/universal_avatar/view/type/{type}/owner/{entityId}",
+      "method": "GET",
+      "tags": [
+        "Avatars"
+      ],
+      "summary": "Get avatar image by owner",
+      "operationId": "getAvatarImageByOwner"
+    }
+  ]
+}

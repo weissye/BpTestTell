@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/roles",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "List Roles",
+      "operationId": "getRoles"
+    },
+    {
+      "path": "/roles",
+      "method": "POST",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "Create a Role",
+      "operationId": "createRole"
+    },
+    {
+      "path": "/roles",
+      "method": "PATCH",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "Update Multiple Roles",
+      "operationId": "updateRoles"
+    },
+    {
+      "path": "/roles",
+      "method": "DELETE",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "Delete Multiple Roles",
+      "operationId": "deleteRoles"
+    },
+    {
+      "path": "/roles/{id}",
+      "method": "GET",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "Retrieve a Role",
+      "operationId": "getRole"
+    },
+    {
+      "path": "/roles/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "Update a Role",
+      "operationId": "updateRole"
+    },
+    {
+      "path": "/roles/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Roles"
+      ],
+      "summary": "Delete a Role",
+      "operationId": "deleteRole"
+    }
+  ]
+}

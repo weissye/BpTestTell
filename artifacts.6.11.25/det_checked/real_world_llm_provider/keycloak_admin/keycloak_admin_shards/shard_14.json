@@ -1,0 +1,396 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "get"
+    },
+    {
+      "path": "/",
+      "method": "POST",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "post"
+    },
+    {
+      "path": "/{realm}",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getByRealm"
+    },
+    {
+      "path": "/{realm}",
+      "method": "PUT",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "putByRealm"
+    },
+    {
+      "path": "/{realm}",
+      "method": "DELETE",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "deleteByRealm"
+    },
+    {
+      "path": "/{realm}/admin-events",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getAdminEvents"
+    },
+    {
+      "path": "/{realm}/admin-events",
+      "method": "DELETE",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "deleteAdminEvents"
+    },
+    {
+      "path": "/{realm}/client-description-converter",
+      "method": "POST",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "postClientDescriptionConverter"
+    },
+    {
+      "path": "/{realm}/client-policies/policies",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getPolicies"
+    },
+    {
+      "path": "/{realm}/client-policies/policies",
+      "method": "PUT",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "putPolicies"
+    },
+    {
+      "path": "/{realm}/client-policies/profiles",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getProfiles"
+    },
+    {
+      "path": "/{realm}/client-policies/profiles",
+      "method": "PUT",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "putProfiles"
+    },
+    {
+      "path": "/{realm}/client-session-stats",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getClientSessionStats"
+    },
+    {
+      "path": "/{realm}/credential-registrators",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getCredentialRegistrators"
+    },
+    {
+      "path": "/{realm}/default-default-client-scopes",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getDefaultDefaultClientScopes"
+    },
+    {
+      "path": "/{realm}/default-default-client-scopes/{clientScopeId}",
+      "method": "PUT",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "putDefaultDefaultClientScope"
+    },
+    {
+      "path": "/{realm}/default-default-client-scopes/{clientScopeId}",
+      "method": "DELETE",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "deleteDefaultDefaultClientScope"
+    },
+    {
+      "path": "/{realm}/default-groups",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getDefaultGroups"
+    },
+    {
+      "path": "/{realm}/default-groups/{groupId}",
+      "method": "PUT",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "putDefaultGroup"
+    },
+    {
+      "path": "/{realm}/default-groups/{groupId}",
+      "method": "DELETE",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "deleteDefaultGroup"
+    },
+    {
+      "path": "/{realm}/default-optional-client-scopes",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getDefaultOptionalClientScopes"
+    },
+    {
+      "path": "/{realm}/default-optional-client-scopes/{clientScopeId}",
+      "method": "PUT",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "putDefaultOptionalClientScope"
+    },
+    {
+      "path": "/{realm}/default-optional-client-scopes/{clientScopeId}",
+      "method": "DELETE",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "deleteDefaultOptionalClientScope"
+    },
+    {
+      "path": "/{realm}/events",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getEvents"
+    },
+    {
+      "path": "/{realm}/events",
+      "method": "DELETE",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "deleteEvents"
+    },
+    {
+      "path": "/{realm}/events/config",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getEventsConfig"
+    },
+    {
+      "path": "/{realm}/events/config",
+      "method": "PUT",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "putEventsConfig"
+    },
+    {
+      "path": "/{realm}/group-by-path/{path}",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getGroupByPath"
+    },
+    {
+      "path": "/{realm}/localization",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getLocalizationByRealm"
+    },
+    {
+      "path": "/{realm}/localization/{locale}",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getLocalizationByRealmByLocale"
+    },
+    {
+      "path": "/{realm}/localization/{locale}",
+      "method": "POST",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "postLocalization"
+    },
+    {
+      "path": "/{realm}/localization/{locale}",
+      "method": "DELETE",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "deleteLocalizationByRealmByLocale"
+    },
+    {
+      "path": "/{realm}/localization/{locale}/{key}",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getLocalizationByRealmByLocaleByKey"
+    },
+    {
+      "path": "/{realm}/localization/{locale}/{key}",
+      "method": "PUT",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "putLocalization"
+    },
+    {
+      "path": "/{realm}/localization/{locale}/{key}",
+      "method": "DELETE",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "deleteLocalizationByRealmByLocaleByKey"
+    },
+    {
+      "path": "/{realm}/logout-all",
+      "method": "POST",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "postLogoutAll"
+    },
+    {
+      "path": "/{realm}/partial-export",
+      "method": "POST",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "postPartialExport"
+    },
+    {
+      "path": "/{realm}/partialImport",
+      "method": "POST",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "postPartialImport"
+    },
+    {
+      "path": "/{realm}/push-revocation",
+      "method": "POST",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "postPushRevocationByRealm"
+    },
+    {
+      "path": "/{realm}/sessions/{session}",
+      "method": "DELETE",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "deleteSession"
+    },
+    {
+      "path": "/{realm}/testSMTPConnection",
+      "method": "POST",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "postTestSmtpConnection"
+    },
+    {
+      "path": "/{realm}/users-management-permissions",
+      "method": "GET",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "getUsersManagementPermissions"
+    },
+    {
+      "path": "/{realm}/users-management-permissions",
+      "method": "PUT",
+      "tags": [
+        "Realms Admin"
+      ],
+      "summary": "",
+      "operationId": "putUsersManagementPermissions"
+    }
+  ]
+}

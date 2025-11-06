@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue/PROJ-123/votes",
+      "method": "GET",
+      "operationId": "getVotes",
+      "summary": "",
+      "user": "As a project manager, I want to see how many votes an issue has received to prioritize it effectively.",
+      "ideal": "The response should return the total number of votes for the issue PROJ-123."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJ-123/votes",
+      "method": "POST",
+      "operationId": "addVote",
+      "summary": "",
+      "user": "As a team member, I want to vote for an issue to indicate its importance to me.",
+      "ideal": "The response should confirm that my vote has been successfully added to the issue PROJ-123."
+    },
+    {
+      "path": "/rest/api/3/issue/PROJ-123/votes",
+      "method": "DELETE",
+      "operationId": "removeVote",
+      "summary": "",
+      "user": "As a contributor, I want to remove my vote from an issue if my priorities have changed.",
+      "ideal": "The response should confirm that my vote has been successfully removed from the issue PROJ-123."
+    }
+  ]
+}

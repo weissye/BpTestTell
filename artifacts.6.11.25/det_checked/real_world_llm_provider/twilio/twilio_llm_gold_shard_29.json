@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json",
+      "method": "POST",
+      "operationId": "CreateMessageFeedback",
+      "summary": "",
+      "user": "User123: I want to provide feedback on a message I received. The message was not relevant to me, and I would like to report it as spam.",
+      "ideal": "{\"feedback\":\"spam\"}"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issue/picker",
+      "method": "GET",
+      "operationId": "getIssuePickerResource",
+      "summary": "",
+      "user": "A project manager looking to quickly find issues related to a specific project for a team meeting.",
+      "ideal": "Returns a list of issues that match the specified criteria, allowing the user to easily pick issues for discussion."
+    },
+    {
+      "path": "/rest/api/3/jql/match",
+      "method": "POST",
+      "operationId": "matchIssues",
+      "summary": "",
+      "user": "A developer wanting to find issues that match a specific set of criteria for a bug fix.",
+      "ideal": "Returns a list of issues that match the provided JQL query, helping the developer identify relevant tasks."
+    },
+    {
+      "path": "/rest/api/3/search",
+      "method": "GET",
+      "operationId": "searchForIssuesUsingJql",
+      "summary": "",
+      "user": "A QA engineer needing to retrieve all issues assigned to them for testing.",
+      "ideal": "Returns a paginated list of issues that match the JQL query, including all relevant details for each issue."
+    },
+    {
+      "path": "/rest/api/3/search",
+      "method": "POST",
+      "operationId": "searchForIssuesUsingJqlPost",
+      "summary": "",
+      "user": "A product owner looking to analyze issues based on specific criteria to prioritize the backlog.",
+      "ideal": "Executes a JQL search and returns a detailed list of issues that meet the specified conditions."
+    },
+    {
+      "path": "/rest/api/3/search/approximate-count",
+      "method": "POST",
+      "operationId": "countIssues",
+      "summary": "",
+      "user": "A scrum master wanting to estimate the number of issues in the backlog for sprint planning.",
+      "ideal": "Returns an approximate count of issues that match the given JQL query, aiding in sprint estimation."
+    },
+    {
+      "path": "/rest/api/3/search/jql",
+      "method": "GET",
+      "operationId": "searchAndReconsileIssuesUsingJql",
+      "summary": "",
+      "user": "An analyst needing to reconcile issues across multiple projects for reporting.",
+      "ideal": "Returns a comprehensive list of issues from various projects that match the JQL query for analysis."
+    },
+    {
+      "path": "/rest/api/3/search/jql",
+      "method": "POST",
+      "operationId": "searchAndReconsileIssuesUsingJqlPost",
+      "summary": "",
+      "user": "A team lead wanting to perform a deep search for issues across teams to identify dependencies.",
+      "ideal": "Executes a JQL search and returns a detailed list of issues, including their relationships and dependencies."
+    }
+  ]
+}

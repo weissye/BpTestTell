@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/{org}/actions/oidc/customization/sub",
+      "method": "GET",
+      "operationId": "oidc/get-oidc-custom-sub-template-for-org",
+      "summary": "",
+      "user": "A developer wants to retrieve the custom OIDC subject template for their organization to understand how it is configured and possibly make adjustments to their authentication flow.",
+      "ideal": "The API should return the current OIDC custom subject template for the specified organization, including any relevant details about its configuration."
+    },
+    {
+      "path": "/orgs/{org}/actions/oidc/customization/sub",
+      "method": "PUT",
+      "operationId": "oidc/update-oidc-custom-sub-template-for-org",
+      "summary": "",
+      "user": "An administrator needs to update the OIDC custom subject template for their organization to include additional claims that are necessary for their CI/CD pipeline to function correctly.",
+      "ideal": "The API should successfully update the OIDC custom subject template for the specified organization and return a confirmation message along with the updated template details."
+    }
+  ]
+}

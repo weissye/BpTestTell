@@ -1,0 +1,92 @@
+{
+  "gold": [
+    {
+      "path": "/indexes/my_index/settings",
+      "method": "GET",
+      "operationId": "indexes.settings.get",
+      "summary": "",
+      "user": "User A wants to retrieve the current settings of the index 'my_index' to understand its configuration.",
+      "ideal": "Returns the settings of the index including synonyms, ranking rules, and other configurations."
+    },
+    {
+      "path": "/indexes/my_index/settings/synonyms",
+      "method": "GET",
+      "operationId": "indexes.settings.synonyms.get",
+      "summary": "",
+      "user": "User B needs to check the synonyms set for 'my_index' to ensure they are correctly defined.",
+      "ideal": "Returns the list of synonyms configured for the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/sortable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.sortable-attributes.get",
+      "summary": "",
+      "user": "User C is reviewing the sortable attributes for 'my_index' to optimize search results.",
+      "ideal": "Returns the attributes that can be used for sorting in the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/ranking-rules",
+      "method": "GET",
+      "operationId": "indexes.settings.rankingRules.get",
+      "summary": "",
+      "user": "User D wants to analyze the ranking rules applied to 'my_index' to improve search relevance.",
+      "ideal": "Returns the ranking rules currently applied to the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/typo-tolerance",
+      "method": "GET",
+      "operationId": "indexes.settings.typoTolerance.get",
+      "summary": "",
+      "user": "User E is checking the typo tolerance settings for 'my_index' to enhance user experience.",
+      "ideal": "Returns the typo tolerance settings for the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/pagination",
+      "method": "GET",
+      "operationId": "indexes.settings.pagination.get",
+      "summary": "",
+      "user": "User F wants to verify the pagination settings for 'my_index' to ensure proper data display.",
+      "ideal": "Returns the pagination settings for the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/faceting",
+      "method": "GET",
+      "operationId": "indexes.settings.faceting.get",
+      "summary": "",
+      "user": "User G is interested in the faceting settings for 'my_index' to enhance filtering options.",
+      "ideal": "Returns the faceting settings for the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/filterable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.filterableAttributes.get",
+      "summary": "",
+      "user": "User H needs to review the filterable attributes for 'my_index' to improve search functionality.",
+      "ideal": "Returns the list of attributes that can be used for filtering in the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/distinct-attribute",
+      "method": "GET",
+      "operationId": "indexes.settings.distinctAttribute.get",
+      "summary": "",
+      "user": "User I is checking the distinct attribute setting for 'my_index' to avoid duplicate results.",
+      "ideal": "Returns the distinct attribute setting for the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/searchable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.searchableAttributes.get",
+      "summary": "",
+      "user": "User J wants to see the searchable attributes for 'my_index' to ensure all necessary fields are indexed.",
+      "ideal": "Returns the list of attributes that can be searched in the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/displayed-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.displayedAttributes.get",
+      "summary": "",
+      "user": "User K is reviewing the displayed attributes for 'my_index' to optimize the search results presentation.",
+      "ideal": "Returns the attributes that are displayed in the search results for the index 'my_index'."
+    }
+  ]
+}

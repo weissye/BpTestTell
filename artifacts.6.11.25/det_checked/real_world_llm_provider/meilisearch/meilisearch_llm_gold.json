@@ -1,0 +1,404 @@
+{
+  "gold": [
+    {
+      "path": "/indexes/myIndex/documents",
+      "method": "GET",
+      "operationId": "indexes.documents.list",
+      "summary": "",
+      "user": "User wants to retrieve all documents from the 'myIndex' index to display them on the dashboard.",
+      "ideal": "Returns a list of documents in the 'myIndex' index."
+    },
+    {
+      "path": "/indexes/myIndex/documents",
+      "method": "POST",
+      "operationId": "indexes.documents.create",
+      "summary": "",
+      "user": "User is adding a new document to 'myIndex' with title and content fields.",
+      "ideal": "Successfully creates a new document in the 'myIndex' index."
+    },
+    {
+      "path": "/indexes/myIndex/documents",
+      "method": "PUT",
+      "operationId": "indexes.documents.upsert",
+      "summary": "",
+      "user": "User wants to update an existing document in 'myIndex' or create it if it doesn't exist.",
+      "ideal": "Updates the document if it exists or creates a new one in 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/documents",
+      "method": "DELETE",
+      "operationId": "indexes.documents.removeAll",
+      "summary": "",
+      "user": "User needs to remove all documents from 'myIndex' for a fresh start.",
+      "ideal": "All documents in 'myIndex' are removed successfully."
+    },
+    {
+      "path": "/indexes/myIndex/documents/fetch",
+      "method": "POST",
+      "operationId": "indexes.documents.fetch",
+      "summary": "",
+      "user": "User wants to fetch documents from an external source to add to 'myIndex'.",
+      "ideal": "Documents are fetched and ready to be added to 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/documents/delete-batch",
+      "method": "POST",
+      "operationId": "indexes.documents.removeBatch",
+      "summary": "",
+      "user": "User is deleting multiple documents from 'myIndex' based on their IDs.",
+      "ideal": "The specified batch of documents is removed from 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/documents/delete",
+      "method": "POST",
+      "operationId": "indexes.documents.remove",
+      "summary": "",
+      "user": "User wants to delete a specific document from 'myIndex' using its ID.",
+      "ideal": "The document with the specified ID is removed from 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/documents/123",
+      "method": "GET",
+      "operationId": "indexes.documents.get",
+      "summary": "",
+      "user": "User is looking to retrieve a specific document with ID 123 from 'myIndex'.",
+      "ideal": "Returns the document with ID 123 from 'myIndex'."
+    },
+    {
+      "path": "/indexes/myIndex/documents/123",
+      "method": "DELETE",
+      "operationId": "indexes.documents.removeOne",
+      "summary": "",
+      "user": "User wants to delete the document with ID 123 from 'myIndex'.",
+      "ideal": "The document with ID 123 is successfully removed from 'myIndex'."
+    },
+    {
+      "path": "/dumps",
+      "method": "POST",
+      "operationId": "dumps.create",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new dump of the Meilisearch database."
+    },
+    {
+      "path": "/experimental-features",
+      "method": "GET",
+      "operationId": "experimental.get",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the current experimental features available in the Meilisearch instance."
+    },
+    {
+      "path": "/experimental-features",
+      "method": "PATCH",
+      "operationId": "experimental.update",
+      "summary": "",
+      "user": "developer",
+      "ideal": "Update the settings for experimental features in the Meilisearch instance."
+    },
+    {
+      "path": "/metrics",
+      "method": "GET",
+      "operationId": "metrics.get",
+      "summary": "",
+      "user": "monitoring_service",
+      "ideal": "Fetch the current metrics for the Meilisearch instance to monitor performance and usage."
+    },
+    {
+      "path": "/indexes/my_index/facet-search",
+      "method": "POST",
+      "operationId": "indexes.documents.facet.search",
+      "summary": "",
+      "user": "User wants to search for specific facets in the 'my_index' index to filter results based on certain criteria, such as color or size.",
+      "ideal": "The API should return a list of facets that match the search criteria, including the count of documents for each facet."
+    },
+    {
+      "path": "/health",
+      "method": "GET",
+      "operationId": "health.check",
+      "summary": "",
+      "user": "As a developer, I want to ensure that the Meilisearch server is running and accessible so that I can confirm the health status of my search service before proceeding with further integration tests.",
+      "ideal": "The response should indicate the health status of the Meilisearch server, typically returning a JSON object with a 'status' field that confirms the server is 'available'."
+    },
+    {
+      "path": "/indexes",
+      "method": "GET",
+      "operationId": "indexes.list",
+      "summary": "",
+      "user": "A developer wants to retrieve a list of all indexes in the Meilisearch instance to understand the current data structure and available search options.",
+      "ideal": "The API should return a JSON array of index objects, each containing details like indexUid, name, and number of documents."
+    },
+    {
+      "path": "/indexes",
+      "method": "POST",
+      "operationId": "indexes.create",
+      "summary": "",
+      "user": "A data engineer is looking to create a new index for a dataset containing product information to enable efficient searching and filtering.",
+      "ideal": "The API should return a success message along with the details of the newly created index, including its indexUid."
+    },
+    {
+      "path": "/indexes/{indexUid}",
+      "method": "GET",
+      "operationId": "indexes.get",
+      "summary": "",
+      "user": "A product manager needs to check the configuration and status of a specific index to ensure it is set up correctly for the upcoming product launch.",
+      "ideal": "The API should return the details of the specified index, including its schema, settings, and document count."
+    },
+    {
+      "path": "/indexes/{indexUid}",
+      "method": "PATCH",
+      "operationId": "indexes.update",
+      "summary": "",
+      "user": "A backend developer wants to update the settings of an existing index to improve search performance and relevance based on user feedback.",
+      "ideal": "The API should confirm the update and return the updated settings of the index."
+    },
+    {
+      "path": "/indexes/{indexUid}",
+      "method": "DELETE",
+      "operationId": "indexes.remove",
+      "summary": "",
+      "user": "An administrator needs to remove an outdated index that is no longer in use to clean up the Meilisearch instance and free up resources.",
+      "ideal": "The API should return a success message indicating that the index has been successfully removed."
+    },
+    {
+      "path": "/swap-indexes",
+      "method": "POST",
+      "operationId": "indexes.swap",
+      "summary": "",
+      "user": "A DevOps engineer is performing a deployment and needs to swap the current index with a new version to ensure zero downtime for users.",
+      "ideal": "The API should return a confirmation of the swap operation along with the details of the indexes that were swapped."
+    },
+    {
+      "path": "/keys",
+      "method": "GET",
+      "operationId": "keys.list",
+      "summary": "",
+      "user": "Admin user requesting a list of all API keys to manage access permissions.",
+      "ideal": "Returns a list of all API keys with their details."
+    },
+    {
+      "path": "/keys",
+      "method": "POST",
+      "operationId": "keys.create",
+      "summary": "",
+      "user": "Admin user creating a new API key for a developer to access the Meilisearch instance.",
+      "ideal": "Creates a new API key and returns its details including the key itself."
+    },
+    {
+      "path": "/keys/{uid_or_key}",
+      "method": "GET",
+      "operationId": "keys.get",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific API key to check its permissions.",
+      "ideal": "Returns the details of the specified API key."
+    },
+    {
+      "path": "/keys/{uid_or_key}",
+      "method": "DELETE",
+      "operationId": "keys.delete",
+      "summary": "",
+      "user": "Admin user deleting an API key that is no longer needed for security reasons.",
+      "ideal": "Successfully deletes the specified API key and returns a confirmation message."
+    },
+    {
+      "path": "/keys/{uid_or_key}",
+      "method": "PATCH",
+      "operationId": "keys.update",
+      "summary": "",
+      "user": "Admin user updating the permissions of an existing API key to restrict access.",
+      "ideal": "Updates the specified API key's permissions and returns the updated details."
+    },
+    {
+      "path": "/indexes/books/search",
+      "method": "GET",
+      "operationId": "indexes.documents.searchGet",
+      "summary": "",
+      "user": "A user wants to find books related to science fiction in the 'books' index. They are looking for titles that include the word 'space' and want to see the top 10 results.",
+      "ideal": "{\"q\":\"space\",\"limit\":10}"
+    },
+    {
+      "path": "/indexes/books/search",
+      "method": "POST",
+      "operationId": "indexes.documents.search",
+      "summary": "",
+      "user": "A user is searching for books in the 'books' index that contain the keyword 'adventure'. They want to retrieve a list of books with their authors and publication dates.",
+      "ideal": "{\"q\":\"adventure\",\"attributesToRetrieve\":[\"title\",\"author\",\"publication_date\"]}"
+    },
+    {
+      "path": "/indexes/books/facet-search",
+      "method": "POST",
+      "operationId": "indexes.documents.facet.search",
+      "summary": "",
+      "user": "A user wants to filter books in the 'books' index by genre and publication year. They are interested in books that are categorized as 'fantasy' and published after 2010.",
+      "ideal": "{\"facetFilters\":[\"genre:fantasy\",\"publication_year:>2010\"]}"
+    },
+    {
+      "path": "/multi-search",
+      "method": "POST",
+      "operationId": "multi_search",
+      "summary": "",
+      "user": "A user wants to perform a multi-search across different indexes for books and movies. They are looking for results that match the keyword 'hero' in both indexes.",
+      "ideal": "[{\"index\":\"books\",\"q\":\"hero\"},{\"index\":\"movies\",\"q\":\"hero\"}]"
+    },
+    {
+      "path": "/indexes/my_index/settings",
+      "method": "GET",
+      "operationId": "indexes.settings.get",
+      "summary": "",
+      "user": "User A wants to retrieve the current settings of the index 'my_index' to understand its configuration.",
+      "ideal": "Returns the settings of the index including synonyms, ranking rules, and other configurations."
+    },
+    {
+      "path": "/indexes/my_index/settings/synonyms",
+      "method": "GET",
+      "operationId": "indexes.settings.synonyms.get",
+      "summary": "",
+      "user": "User B needs to check the synonyms set for 'my_index' to ensure they are correctly defined.",
+      "ideal": "Returns the list of synonyms configured for the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/sortable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.sortable-attributes.get",
+      "summary": "",
+      "user": "User C is reviewing the sortable attributes for 'my_index' to optimize search results.",
+      "ideal": "Returns the attributes that can be used for sorting in the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/ranking-rules",
+      "method": "GET",
+      "operationId": "indexes.settings.rankingRules.get",
+      "summary": "",
+      "user": "User D wants to analyze the ranking rules applied to 'my_index' to improve search relevance.",
+      "ideal": "Returns the ranking rules currently applied to the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/typo-tolerance",
+      "method": "GET",
+      "operationId": "indexes.settings.typoTolerance.get",
+      "summary": "",
+      "user": "User E is checking the typo tolerance settings for 'my_index' to enhance user experience.",
+      "ideal": "Returns the typo tolerance settings for the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/pagination",
+      "method": "GET",
+      "operationId": "indexes.settings.pagination.get",
+      "summary": "",
+      "user": "User F wants to verify the pagination settings for 'my_index' to ensure proper data display.",
+      "ideal": "Returns the pagination settings for the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/faceting",
+      "method": "GET",
+      "operationId": "indexes.settings.faceting.get",
+      "summary": "",
+      "user": "User G is interested in the faceting settings for 'my_index' to enhance filtering options.",
+      "ideal": "Returns the faceting settings for the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/filterable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.filterableAttributes.get",
+      "summary": "",
+      "user": "User H needs to review the filterable attributes for 'my_index' to improve search functionality.",
+      "ideal": "Returns the list of attributes that can be used for filtering in the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/distinct-attribute",
+      "method": "GET",
+      "operationId": "indexes.settings.distinctAttribute.get",
+      "summary": "",
+      "user": "User I is checking the distinct attribute setting for 'my_index' to avoid duplicate results.",
+      "ideal": "Returns the distinct attribute setting for the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/searchable-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.searchableAttributes.get",
+      "summary": "",
+      "user": "User J wants to see the searchable attributes for 'my_index' to ensure all necessary fields are indexed.",
+      "ideal": "Returns the list of attributes that can be searched in the index 'my_index'."
+    },
+    {
+      "path": "/indexes/my_index/settings/displayed-attributes",
+      "method": "GET",
+      "operationId": "indexes.settings.displayedAttributes.get",
+      "summary": "",
+      "user": "User K is reviewing the displayed attributes for 'my_index' to optimize the search results presentation.",
+      "ideal": "Returns the attributes that are displayed in the search results for the index 'my_index'."
+    },
+    {
+      "path": "/snapshots",
+      "method": "POST",
+      "operationId": "snapshots.create",
+      "summary": "",
+      "user": "User wants to create a snapshot of the current state of the Meilisearch index to ensure data persistence and recovery options in case of failures.",
+      "ideal": "The API should return a success message with the snapshot ID and status indicating that the snapshot creation process has started."
+    },
+    {
+      "path": "/indexes/my_index/stats",
+      "method": "GET",
+      "operationId": "indexes.stats.get",
+      "summary": "",
+      "user": "A developer wants to retrieve the statistics of the 'my_index' index in Meilisearch to analyze its performance and usage metrics.",
+      "ideal": "The response should include the number of documents, number of searchable documents, and the last update timestamp."
+    },
+    {
+      "path": "/stats",
+      "method": "GET",
+      "operationId": "stats.list",
+      "summary": "",
+      "user": "An administrator is interested in getting overall statistics about the Meilisearch instance, including the total number of indexes and the total number of documents across all indexes.",
+      "ideal": "The response should provide a summary of the total indexes, total documents, and other relevant statistics."
+    },
+    {
+      "path": "/metrics",
+      "method": "GET",
+      "operationId": "metrics.get",
+      "summary": "",
+      "user": "A data analyst wants to monitor the performance metrics of the Meilisearch instance, such as query response times and error rates, to ensure optimal performance.",
+      "ideal": "The response should include metrics such as average query response time, total queries, and error counts."
+    },
+    {
+      "path": "/tasks",
+      "method": "GET",
+      "operationId": "tasks.list",
+      "summary": "",
+      "user": "As a developer, I want to retrieve a list of all tasks in the Meilisearch instance so that I can monitor their status and progress.",
+      "ideal": "The response should include an array of task objects, each containing details such as taskUid, status, and type."
+    },
+    {
+      "path": "/tasks/:taskUid",
+      "method": "GET",
+      "operationId": "tasks.get",
+      "summary": "",
+      "user": "As a user, I need to fetch the details of a specific task using its unique identifier to check its current status and results.",
+      "ideal": "The response should return the task object corresponding to the provided taskUid, including its status and any relevant information."
+    },
+    {
+      "path": "/tasks",
+      "method": "DELETE",
+      "operationId": "tasks.delete",
+      "summary": "",
+      "user": "As an administrator, I want to delete a specific task from the task list to clean up completed or unnecessary tasks.",
+      "ideal": "The response should confirm the deletion of the task and return a success message."
+    },
+    {
+      "path": "/tasks/cancel",
+      "method": "POST",
+      "operationId": "tasks.cancel",
+      "summary": "",
+      "user": "As a user, I want to cancel a running task by providing its unique identifier to stop any ongoing operations that are no longer needed.",
+      "ideal": "The response should indicate whether the cancellation was successful and provide the updated status of the task."
+    },
+    {
+      "path": "/version",
+      "method": "GET",
+      "operationId": "version.get",
+      "summary": "",
+      "user": "A developer wants to check the current version of the Meilisearch server to ensure compatibility with their application. They send a GET request to the /version endpoint to retrieve the version information.",
+      "ideal": "The response should return a JSON object containing the version of the Meilisearch server, for example: {\"version\":\"1.7.0\"}."
+    }
+  ]
+}

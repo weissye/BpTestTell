@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/12345/email",
+      "method": "GET",
+      "operationId": "getProjectEmail",
+      "summary": "",
+      "user": "Project Manager looking to retrieve the email associated with project ID 12345 to ensure communication is directed correctly.",
+      "ideal": "Retrieve the email address linked to the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/12345/email",
+      "method": "PUT",
+      "operationId": "updateProjectEmail",
+      "summary": "",
+      "user": "Project Manager updating the project email to a new address for better team collaboration.",
+      "ideal": "Update the email address for project ID 12345 to the new specified email."
+    }
+  ]
+}

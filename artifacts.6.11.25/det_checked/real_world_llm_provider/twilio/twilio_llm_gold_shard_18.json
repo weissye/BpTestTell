@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchConference",
+      "summary": "",
+      "user": "As a user, I want to retrieve details about a specific conference using its unique SID so that I can check its status and participants.",
+      "ideal": "The API should return a JSON object containing the conference details, including its status, participants, and any scheduled events."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateConference",
+      "summary": "",
+      "user": "As a user, I want to update the settings of an existing conference by providing its SID and the new parameters so that I can modify its behavior.",
+      "ideal": "The API should accept a JSON payload with the updated conference parameters and return a confirmation of the update along with the updated conference details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences.json",
+      "method": "GET",
+      "operationId": "ListConference",
+      "summary": "",
+      "user": "As a user, I want to list all conferences associated with my account so that I can manage them effectively.",
+      "ideal": "The API should return a JSON array of conference objects, each containing details such as SID, status, and participant count."
+    }
+  ]
+}

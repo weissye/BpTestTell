@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/settings/columns",
+      "method": "GET",
+      "operationId": "getIssueNavigatorDefaultColumns",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve the default columns set for the issue navigator so that I can ensure the team is viewing the most relevant information when managing issues.",
+      "ideal": "The API should return a list of the default columns currently configured for the issue navigator, including their IDs and names."
+    },
+    {
+      "path": "/rest/api/3/settings/columns",
+      "method": "PUT",
+      "operationId": "setIssueNavigatorDefaultColumns",
+      "summary": "",
+      "user": "As a team lead, I want to update the default columns in the issue navigator to include 'Priority' and 'Assignee' so that my team can quickly assess the status and ownership of issues.",
+      "ideal": "The API should accept a payload with the new column configuration and return a success message confirming the update of the default columns."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json",
+      "method": "GET",
+      "operationId": "ListDependentPhoneNumber",
+      "summary": "",
+      "user": "A user wants to retrieve a list of phone numbers that are dependent on a specific address associated with their Twilio account. They have the Account SID and Address SID ready and want to ensure they get all relevant dependent phone numbers for management purposes.",
+      "ideal": "The API should return a JSON response containing an array of dependent phone numbers, including details such as the phone number, type, and any associated metadata."
+    }
+  ]
+}

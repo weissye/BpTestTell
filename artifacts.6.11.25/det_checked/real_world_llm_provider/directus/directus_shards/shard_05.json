@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/comments",
+      "method": "GET",
+      "tags": [
+        "Comments"
+      ],
+      "summary": "List Comments",
+      "operationId": "getComments"
+    },
+    {
+      "path": "/comments",
+      "method": "POST",
+      "tags": [
+        "Comments"
+      ],
+      "summary": "Create a Comment",
+      "operationId": "createComment"
+    },
+    {
+      "path": "/comments",
+      "method": "PATCH",
+      "tags": [
+        "Comments"
+      ],
+      "summary": "Update Multiple Comments",
+      "operationId": "updateComments"
+    },
+    {
+      "path": "/comments",
+      "method": "DELETE",
+      "tags": [
+        "Comments"
+      ],
+      "summary": "Delete Multiple Comments",
+      "operationId": "deleteComments"
+    },
+    {
+      "path": "/comments/{id}",
+      "method": "GET",
+      "tags": [
+        "Comments"
+      ],
+      "summary": "Retrieve a Comment",
+      "operationId": "getComment"
+    },
+    {
+      "path": "/comments/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Comments"
+      ],
+      "summary": "Update a Comment",
+      "operationId": "updateComment"
+    },
+    {
+      "path": "/comments/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Comments"
+      ],
+      "summary": "Delete a Comment",
+      "operationId": "deleteComment"
+    }
+  ]
+}

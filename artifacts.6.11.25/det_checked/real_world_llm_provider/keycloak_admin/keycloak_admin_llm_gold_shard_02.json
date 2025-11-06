@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/authentication/authenticator-providers",
+      "method": "GET",
+      "operationId": "getAuthenticatorProviders",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of available authenticator providers for the specified realm."
+    },
+    {
+      "path": "/myrealm/authentication/config-description/my-provider",
+      "method": "GET",
+      "operationId": "getConfigDescription",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get the configuration description for the specified authenticator provider."
+    },
+    {
+      "path": "/myrealm/authentication/config/my-config-id",
+      "method": "GET",
+      "operationId": "getAuthenticationConfig",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch the authentication configuration details for the specified ID."
+    },
+    {
+      "path": "/myrealm/authentication/executions/my-execution-id",
+      "method": "GET",
+      "operationId": "getExecution",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific authentication execution by its ID."
+    },
+    {
+      "path": "/myrealm/authentication/flows",
+      "method": "GET",
+      "operationId": "getFlows",
+      "summary": "",
+      "user": "admin",
+      "ideal": "List all authentication flows available in the specified realm."
+    },
+    {
+      "path": "/myrealm/authentication/required-actions",
+      "method": "GET",
+      "operationId": "getRequiredActions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get a list of all required actions configured for the realm."
+    },
+    {
+      "path": "/myrealm/authentication/flows/my-flow-alias/executions",
+      "method": "GET",
+      "operationId": "getExecutions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the execution details for a specific authentication flow."
+    },
+    {
+      "path": "/myrealm/authentication/required-actions/my-action-alias",
+      "method": "GET",
+      "operationId": "getRequiredAction",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch details of a specific required action by its alias."
+    },
+    {
+      "path": "/myrealm/authentication/executions/my-execution-id/config/my-config-id",
+      "method": "GET",
+      "operationId": "getExecutionConfig",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get the configuration for a specific execution by its ID."
+    },
+    {
+      "path": "/myrealm/authentication/flows/my-flow-id",
+      "method": "GET",
+      "operationId": "getFlow",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific authentication flow by its ID."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/activitypub/user-id/johndoe",
+      "method": "GET",
+      "operationId": "activitypubPerson",
+      "summary": "",
+      "user": "johndoe",
+      "ideal": "Retrieve the ActivityPub representation of the user 'johndoe'."
+    },
+    {
+      "path": "/activitypub/user-id/johndoe/inbox",
+      "method": "POST",
+      "operationId": "activitypubPersonInbox",
+      "summary": "",
+      "user": "johndoe",
+      "ideal": "Send an activity to the inbox of the user 'johndoe'."
+    }
+  ]
+}

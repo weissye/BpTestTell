@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/api/dcim/cable-terminations/",
+      "method": "GET",
+      "operationId": "dcim_cable_terminations_list",
+      "summary": "",
+      "user": "Admin user requesting a list of all cable terminations in the system.",
+      "ideal": "Returns a list of cable terminations with details such as ID, name, and associated devices."
+    },
+    {
+      "path": "/api/dcim/cables/",
+      "method": "POST",
+      "operationId": "dcim_cables_create",
+      "summary": "",
+      "user": "Network engineer creating a new cable entry for a new installation.",
+      "ideal": "Creates a new cable entry and returns the created cable's details including ID and status."
+    },
+    {
+      "path": "/api/dcim/devices/{id}/",
+      "method": "PUT",
+      "operationId": "dcim_devices_update",
+      "summary": "",
+      "user": "System administrator updating device information for a server.",
+      "ideal": "Updates the device information and returns the updated device details."
+    },
+    {
+      "path": "/api/dcim/locations/{id}/",
+      "method": "DELETE",
+      "operationId": "dcim_locations_destroy",
+      "summary": "",
+      "user": "Facility manager removing a location that is no longer in use.",
+      "ideal": "Successfully deletes the specified location and returns a confirmation message."
+    },
+    {
+      "path": "/api/dcim/interfaces/{id}/trace/",
+      "method": "GET",
+      "operationId": "dcim_interfaces_trace_retrieve",
+      "summary": "",
+      "user": "Network technician tracing the path of a specific interface to troubleshoot connectivity issues.",
+      "ideal": "Returns the trace information for the specified interface, including hop details."
+    },
+    {
+      "path": "/api/dcim/power-feeds/",
+      "method": "GET",
+      "operationId": "dcim_power_feeds_list",
+      "summary": "",
+      "user": "Data center operator checking the status of all power feeds.",
+      "ideal": "Returns a list of all power feeds with their current status and load details."
+    },
+    {
+      "path": "/api/dcim/devices/{id}/render-config/",
+      "method": "POST",
+      "operationId": "dcim_devices_render_config_create",
+      "summary": "",
+      "user": "DevOps engineer generating a configuration file for a device.",
+      "ideal": "Creates a configuration file for the specified device and returns the file details."
+    },
+    {
+      "path": "/api/dcim/manufacturers/{id}/",
+      "method": "PATCH",
+      "operationId": "dcim_manufacturers_partial_update",
+      "summary": "",
+      "user": "Product manager updating manufacturer details to reflect a name change.",
+      "ideal": "Partially updates the manufacturer details and returns the updated information."
+    },
+    {
+      "path": "/api/dcim/inventory-items/",
+      "method": "POST",
+      "operationId": "dcim_inventory_items_create",
+      "summary": "",
+      "user": "Warehouse staff adding a new inventory item to the system.",
+      "ideal": "Creates a new inventory item and returns its details including ID and status."
+    },
+    {
+      "path": "/api/dcim/device-roles/",
+      "method": "GET",
+      "operationId": "dcim_device_roles_list",
+      "summary": "",
+      "user": "Network administrator reviewing the roles assigned to devices.",
+      "ideal": "Returns a list of all device roles with descriptions and associated devices."
+    }
+  ]
+}

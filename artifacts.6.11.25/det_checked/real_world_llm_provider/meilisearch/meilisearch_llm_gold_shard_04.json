@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/indexes/my_index/facet-search",
+      "method": "POST",
+      "operationId": "indexes.documents.facet.search",
+      "summary": "",
+      "user": "User wants to search for specific facets in the 'my_index' index to filter results based on certain criteria, such as color or size.",
+      "ideal": "The API should return a list of facets that match the search criteria, including the count of documents for each facet."
+    }
+  ]
+}

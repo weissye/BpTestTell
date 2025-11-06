@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401CredentialList"
+      ],
+      "summary": "Get All Credential Lists",
+      "operationId": "ListSipCredentialList"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401CredentialList"
+      ],
+      "summary": "Create a Credential List",
+      "operationId": "CreateSipCredentialList"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401CredentialList"
+      ],
+      "summary": "Get a Credential List",
+      "operationId": "FetchSipCredentialList"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401CredentialList"
+      ],
+      "summary": "Update a Credential List",
+      "operationId": "UpdateSipCredentialList"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401CredentialList"
+      ],
+      "summary": "Delete a Credential List",
+      "operationId": "DeleteSipCredentialList"
+    }
+  ]
+}

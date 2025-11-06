@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchIncomingPhoneNumberAssignedAddOnExtension",
+      "summary": "",
+      "user": "User wants to retrieve details of a specific extension associated with an assigned add-on for an incoming phone number.",
+      "ideal": "The API should return the details of the extension, including its SID, friendly name, and any relevant configuration settings."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumberAssignedAddOnExtension",
+      "summary": "",
+      "user": "User needs to list all extensions for a specific assigned add-on linked to an incoming phone number.",
+      "ideal": "The API should return a list of all extensions, including their SIDs and friendly names, associated with the specified add-on."
+    }
+  ]
+}

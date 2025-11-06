@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/relations",
+      "method": "GET",
+      "operationId": "getRelations",
+      "summary": "",
+      "user": "A developer wants to retrieve all relations in the Directus database to understand the existing connections between collections.",
+      "ideal": "The API should return a list of all relations, including their IDs, collection names, and field names."
+    },
+    {
+      "path": "/relations",
+      "method": "POST",
+      "operationId": "createRelation",
+      "summary": "",
+      "user": "A database administrator needs to create a new relation between two collections, 'posts' and 'comments', to link comments to their respective posts.",
+      "ideal": "The API should successfully create a new relation and return the details of the created relation, including its ID and the collections involved."
+    },
+    {
+      "path": "/relations/{id}",
+      "method": "GET",
+      "operationId": "getRelation",
+      "summary": "",
+      "user": "A data analyst wants to fetch details of a specific relation by its ID to analyze how two collections are linked.",
+      "ideal": "The API should return the details of the specified relation, including the collections and fields involved."
+    },
+    {
+      "path": "/relations/{id}",
+      "method": "PATCH",
+      "operationId": "updateRelation",
+      "summary": "",
+      "user": "A developer needs to update an existing relation to change the field names or collection names for better clarity.",
+      "ideal": "The API should successfully update the relation and return the updated details of the relation."
+    },
+    {
+      "path": "/relations/{id}",
+      "method": "DELETE",
+      "operationId": "deleteRelation",
+      "summary": "",
+      "user": "A system administrator wants to remove an obsolete relation between two collections that are no longer in use.",
+      "ideal": "The API should successfully delete the relation and confirm the deletion with a success message."
+    }
+  ]
+}

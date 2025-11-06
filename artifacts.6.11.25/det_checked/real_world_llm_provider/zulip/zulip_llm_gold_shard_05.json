@@ -1,0 +1,156 @@
+{
+  "gold": [
+    {
+      "path": "/mark_all_as_read",
+      "method": "POST",
+      "operationId": "mark-all-as-read",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Marks all messages as read for the user."
+    },
+    {
+      "path": "/mark_stream_as_read",
+      "method": "POST",
+      "operationId": "mark-stream-as-read",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Marks all messages in a specific stream as read."
+    },
+    {
+      "path": "/mark_topic_as_read",
+      "method": "POST",
+      "operationId": "mark-topic-as-read",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Marks all messages in a specific topic as read."
+    },
+    {
+      "path": "/messages",
+      "method": "GET",
+      "operationId": "get-messages",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieves a list of messages for the user."
+    },
+    {
+      "path": "/messages",
+      "method": "POST",
+      "operationId": "send-message",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Sends a new message to a specified stream or topic."
+    },
+    {
+      "path": "/messages/{message_id}/history",
+      "method": "GET",
+      "operationId": "get-message-history",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Retrieves the edit history of a specific message."
+    },
+    {
+      "path": "/messages/flags",
+      "method": "POST",
+      "operationId": "update-message-flags",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Updates flags for specified messages."
+    },
+    {
+      "path": "/messages/flags/narrow",
+      "method": "POST",
+      "operationId": "update-message-flags-for-narrow",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Updates flags for messages in a narrow view."
+    },
+    {
+      "path": "/messages/render",
+      "method": "POST",
+      "operationId": "render-message",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Renders a message's content for display."
+    },
+    {
+      "path": "/messages/{message_id}/reactions",
+      "method": "POST",
+      "operationId": "add-reaction",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Adds a reaction to a specific message."
+    },
+    {
+      "path": "/messages/{message_id}/reactions",
+      "method": "DELETE",
+      "operationId": "remove-reaction",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Removes a reaction from a specific message."
+    },
+    {
+      "path": "/messages/{message_id}/read_receipts",
+      "method": "GET",
+      "operationId": "get-read-receipts",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Retrieves read receipts for a specific message."
+    },
+    {
+      "path": "/messages/matches_narrow",
+      "method": "GET",
+      "operationId": "check-messages-match-narrow",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Checks if messages match the narrow criteria."
+    },
+    {
+      "path": "/messages/{message_id}",
+      "method": "GET",
+      "operationId": "get-message",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Retrieves a specific message by its ID."
+    },
+    {
+      "path": "/messages/{message_id}",
+      "method": "PATCH",
+      "operationId": "update-message",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Updates the content of a specific message."
+    },
+    {
+      "path": "/messages/{message_id}",
+      "method": "DELETE",
+      "operationId": "delete-message",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Deletes a specific message by its ID."
+    },
+    {
+      "path": "/messages/{message_id}/report",
+      "method": "POST",
+      "operationId": "report-message",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Reports a specific message for review."
+    },
+    {
+      "path": "/user_uploads",
+      "method": "POST",
+      "operationId": "upload-file",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Uploads a file to the user's account."
+    },
+    {
+      "path": "/user_uploads/{realm_id_str}/{filename}",
+      "method": "GET",
+      "operationId": "get-file-temporary-url",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieves a temporary URL for a specific uploaded file."
+    }
+  ]
+}

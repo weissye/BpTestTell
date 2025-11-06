@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchRecordingTranscription",
+      "summary": "",
+      "user": "User wants to retrieve the transcription of a specific recording using the Account SID and Recording SID.",
+      "ideal": "The response should include the transcription text, status, and any relevant metadata."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteRecordingTranscription",
+      "summary": "",
+      "user": "User needs to delete a specific transcription for a recording to manage storage and keep only necessary data.",
+      "ideal": "The response should confirm the deletion with a success message or status code."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json",
+      "method": "GET",
+      "operationId": "ListRecordingTranscription",
+      "summary": "",
+      "user": "User wants to list all transcriptions for a specific recording to review or manage them.",
+      "ideal": "The response should include an array of transcriptions with details such as SID, status, and text."
+    }
+  ]
+}

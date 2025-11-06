@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/v1/account",
+      "method": "GET",
+      "operationId": "GetAccount",
+      "summary": "",
+      "user": "Retrieve the account details of the authenticated user.",
+      "ideal": "Returns the account object with details such as id, type, and capabilities."
+    },
+    {
+      "path": "/v1/accounts",
+      "method": "GET",
+      "operationId": "GetAccounts",
+      "summary": "",
+      "user": "Fetch a list of all accounts associated with the user.",
+      "ideal": "Returns an array of account objects with their respective details."
+    },
+    {
+      "path": "/v1/accounts/{account}",
+      "method": "GET",
+      "operationId": "GetAccountsAccount",
+      "summary": "",
+      "user": "Get details for a specific account by its ID.",
+      "ideal": "Returns the account object with detailed information."
+    },
+    {
+      "path": "/v1/customers",
+      "method": "POST",
+      "operationId": "PostCustomers",
+      "summary": "",
+      "user": "Create a new customer record in the system.",
+      "ideal": "Returns the newly created customer object with its ID and details."
+    },
+    {
+      "path": "/v1/customers/{customer}",
+      "method": "GET",
+      "operationId": "GetCustomersCustomer",
+      "summary": "",
+      "user": "Retrieve details of a specific customer using their ID.",
+      "ideal": "Returns the customer object with all relevant information."
+    },
+    {
+      "path": "/v1/charges",
+      "method": "POST",
+      "operationId": "PostCharges",
+      "summary": "",
+      "user": "Create a new charge for a customer.",
+      "ideal": "Returns the charge object with details including amount, currency, and status."
+    },
+    {
+      "path": "/v1/charges/{charge}/refunds",
+      "method": "POST",
+      "operationId": "PostChargesChargeRefunds",
+      "summary": "",
+      "user": "Request a refund for a specific charge.",
+      "ideal": "Returns the refund object with details about the refund status."
+    },
+    {
+      "path": "/v1/invoices",
+      "method": "GET",
+      "operationId": "GetInvoices",
+      "summary": "",
+      "user": "Retrieve a list of all invoices for the authenticated user.",
+      "ideal": "Returns an array of invoice objects with their statuses and amounts."
+    },
+    {
+      "path": "/v1/invoices/{invoice}",
+      "method": "GET",
+      "operationId": "GetInvoicesInvoice",
+      "summary": "",
+      "user": "Get details of a specific invoice by its ID.",
+      "ideal": "Returns the invoice object with detailed information."
+    },
+    {
+      "path": "/v1/identity/verification_sessions",
+      "method": "POST",
+      "operationId": "PostIdentityVerificationSessions",
+      "summary": "",
+      "user": "Start a new identity verification session.",
+      "ideal": "Returns the verification session object with its status and instructions."
+    }
+  ]
+}

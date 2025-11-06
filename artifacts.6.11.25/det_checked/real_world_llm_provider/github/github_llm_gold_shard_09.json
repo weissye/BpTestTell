@@ -1,0 +1,156 @@
+{
+  "gold": [
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations",
+      "method": "GET",
+      "operationId": "code-security/get-configurations-for-enterprise",
+      "summary": "",
+      "user": "As an enterprise admin, I want to retrieve all code security configurations for my enterprise to review the current settings.",
+      "ideal": "A list of all code security configurations for the specified enterprise."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations",
+      "method": "POST",
+      "operationId": "code-security/create-configuration-for-enterprise",
+      "summary": "",
+      "user": "As an enterprise admin, I want to create a new code security configuration for my enterprise to enhance security measures.",
+      "ideal": "Confirmation of the newly created code security configuration with its details."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/defaults",
+      "method": "GET",
+      "operationId": "code-security/get-default-configurations-for-enterprise",
+      "summary": "",
+      "user": "As an enterprise admin, I want to fetch the default code security configurations to understand the baseline security posture.",
+      "ideal": "A list of default code security configurations applicable to the enterprise."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345",
+      "method": "GET",
+      "operationId": "code-security/get-single-configuration-for-enterprise",
+      "summary": "",
+      "user": "As an enterprise admin, I want to view the details of a specific code security configuration to assess its settings.",
+      "ideal": "Details of the specified code security configuration."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345",
+      "method": "PATCH",
+      "operationId": "code-security/update-enterprise-configuration",
+      "summary": "",
+      "user": "As an enterprise admin, I want to update an existing code security configuration to improve its effectiveness.",
+      "ideal": "Confirmation of the updated code security configuration with the new settings."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345",
+      "method": "DELETE",
+      "operationId": "code-security/delete-configuration-for-enterprise",
+      "summary": "",
+      "user": "As an enterprise admin, I want to delete an outdated code security configuration to maintain a clean configuration list.",
+      "ideal": "Confirmation that the specified code security configuration has been successfully deleted."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345/attach",
+      "method": "POST",
+      "operationId": "code-security/attach-enterprise-configuration",
+      "summary": "",
+      "user": "As an enterprise admin, I want to attach a code security configuration to a repository to enforce security policies.",
+      "ideal": "Confirmation that the code security configuration has been successfully attached to the repository."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345/defaults",
+      "method": "PUT",
+      "operationId": "code-security/set-configuration-as-default-for-enterprise",
+      "summary": "",
+      "user": "As an enterprise admin, I want to set a specific code security configuration as the default for all repositories.",
+      "ideal": "Confirmation that the specified configuration has been set as the default."
+    },
+    {
+      "path": "/enterprises/my-enterprise/code-security/configurations/12345/repositories",
+      "method": "GET",
+      "operationId": "code-security/get-repositories-for-enterprise-configuration",
+      "summary": "",
+      "user": "As an enterprise admin, I want to see which repositories are using a specific code security configuration.",
+      "ideal": "A list of repositories associated with the specified code security configuration."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations",
+      "method": "GET",
+      "operationId": "code-security/get-configurations-for-org",
+      "summary": "",
+      "user": "As an organization admin, I want to retrieve all code security configurations for my organization to ensure compliance.",
+      "ideal": "A list of all code security configurations for the specified organization."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations",
+      "method": "POST",
+      "operationId": "code-security/create-configuration",
+      "summary": "",
+      "user": "As an organization admin, I want to create a new code security configuration for my organization to enhance security.",
+      "ideal": "Confirmation of the newly created code security configuration with its details."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/defaults",
+      "method": "GET",
+      "operationId": "code-security/get-default-configurations",
+      "summary": "",
+      "user": "As an organization admin, I want to fetch the default code security configurations to understand the baseline security posture.",
+      "ideal": "A list of default code security configurations applicable to the organization."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345",
+      "method": "GET",
+      "operationId": "code-security/get-configuration",
+      "summary": "",
+      "user": "As an organization admin, I want to view the details of a specific code security configuration to assess its settings.",
+      "ideal": "Details of the specified code security configuration."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345",
+      "method": "PATCH",
+      "operationId": "code-security/update-configuration",
+      "summary": "",
+      "user": "As an organization admin, I want to update an existing code security configuration to improve its effectiveness.",
+      "ideal": "Confirmation of the updated code security configuration with the new settings."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345",
+      "method": "DELETE",
+      "operationId": "code-security/delete-configuration",
+      "summary": "",
+      "user": "As an organization admin, I want to delete an outdated code security configuration to maintain a clean configuration list.",
+      "ideal": "Confirmation that the specified code security configuration has been successfully deleted."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345/attach",
+      "method": "POST",
+      "operationId": "code-security/attach-configuration",
+      "summary": "",
+      "user": "As an organization admin, I want to attach a code security configuration to a repository to enforce security policies.",
+      "ideal": "Confirmation that the code security configuration has been successfully attached to the repository."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345/defaults",
+      "method": "PUT",
+      "operationId": "code-security/set-configuration-as-default",
+      "summary": "",
+      "user": "As an organization admin, I want to set a specific code security configuration as the default for all repositories.",
+      "ideal": "Confirmation that the specified configuration has been set as the default."
+    },
+    {
+      "path": "/orgs/my-org/code-security/configurations/12345/repositories",
+      "method": "GET",
+      "operationId": "code-security/get-repositories-for-configuration",
+      "summary": "",
+      "user": "As an organization admin, I want to see which repositories are using a specific code security configuration.",
+      "ideal": "A list of repositories associated with the specified code security configuration."
+    },
+    {
+      "path": "/repos/my-owner/my-repo/code-security-configuration",
+      "method": "GET",
+      "operationId": "code-security/get-configuration-for-repository",
+      "summary": "",
+      "user": "As a repository owner, I want to retrieve the code security configuration for my repository to ensure it meets security standards.",
+      "ideal": "Details of the code security configuration for the specified repository."
+    }
+  ]
+}

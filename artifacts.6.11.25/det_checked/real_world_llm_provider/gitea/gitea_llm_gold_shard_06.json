@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/orgs",
+      "method": "GET",
+      "operationId": "orgGetAll",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all organizations."
+    },
+    {
+      "path": "/orgs/{org}",
+      "method": "GET",
+      "operationId": "orgGet",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get details of a specific organization."
+    },
+    {
+      "path": "/orgs/{org}/repos",
+      "method": "GET",
+      "operationId": "orgListRepos",
+      "summary": "",
+      "user": "devUser",
+      "ideal": "List all repositories for the specified organization."
+    },
+    {
+      "path": "/orgs/{org}/members",
+      "method": "GET",
+      "operationId": "orgListMembers",
+      "summary": "",
+      "user": "teamLead",
+      "ideal": "Retrieve a list of all members in the organization."
+    },
+    {
+      "path": "/orgs/{org}/hooks",
+      "method": "GET",
+      "operationId": "orgListHooks",
+      "summary": "",
+      "user": "webhookAdmin",
+      "ideal": "List all webhooks for the specified organization."
+    },
+    {
+      "path": "/orgs/{org}/labels",
+      "method": "GET",
+      "operationId": "orgListLabels",
+      "summary": "",
+      "user": "projectManager",
+      "ideal": "Get all labels associated with the organization."
+    },
+    {
+      "path": "/orgs/{org}/teams",
+      "method": "GET",
+      "operationId": "orgListTeams",
+      "summary": "",
+      "user": "orgAdmin",
+      "ideal": "Retrieve a list of all teams in the organization."
+    },
+    {
+      "path": "/orgs/{org}/actions/secrets",
+      "method": "GET",
+      "operationId": "orgListActionsSecrets",
+      "summary": "",
+      "user": "securityOfficer",
+      "ideal": "List all action secrets for the organization."
+    },
+    {
+      "path": "/orgs/{org}/public_members",
+      "method": "GET",
+      "operationId": "orgListPublicMembers",
+      "summary": "",
+      "user": "communityManager",
+      "ideal": "Get a list of public members in the organization."
+    },
+    {
+      "path": "/orgs/{org}/activities/feeds",
+      "method": "GET",
+      "operationId": "orgListActivityFeeds",
+      "summary": "",
+      "user": "activityMonitor",
+      "ideal": "Retrieve activity feeds for the organization."
+    }
+  ]
+}

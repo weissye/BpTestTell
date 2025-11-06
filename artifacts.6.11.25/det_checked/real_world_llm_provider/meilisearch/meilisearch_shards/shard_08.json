@@ -1,0 +1,46 @@
+{
+  "openapi_meta": {
+    "title": "Meilisearch Core API",
+    "version": "1.7.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/indexes/{indexUid}/search",
+      "method": "GET",
+      "tags": [
+        "Search"
+      ],
+      "summary": "Search",
+      "operationId": "indexes.documents.searchGet"
+    },
+    {
+      "path": "/indexes/{indexUid}/search",
+      "method": "POST",
+      "tags": [
+        "Search"
+      ],
+      "summary": "Search",
+      "operationId": "indexes.documents.search"
+    },
+    {
+      "path": "/indexes/{indexUid}/facet-search",
+      "method": "POST",
+      "tags": [
+        "Search",
+        "Facet"
+      ],
+      "summary": "Facet Search",
+      "operationId": "indexes.documents.facet.search"
+    },
+    {
+      "path": "/multi-search",
+      "method": "POST",
+      "tags": [
+        "Search"
+      ],
+      "summary": "Multi Search",
+      "operationId": "multi_search"
+    }
+  ]
+}

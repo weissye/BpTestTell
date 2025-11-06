@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/zulip-outgoing-webhook",
+      "method": "POST",
+      "operationId": "zulip-outgoing-webhooks",
+      "summary": "",
+      "user": "user@example.com",
+      "ideal": "This endpoint allows you to send outgoing webhooks from Zulip to your specified URL. You need to provide the necessary payload in the request body."
+    }
+  ]
+}
