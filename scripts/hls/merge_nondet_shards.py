@@ -1,39 +1,33 @@
-#!/usr/bin/env python3
-import argparse, glob, json, os, sys
+#!/usr/bin/env python
+import argparse, json, glob, os, sys, re
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--out", required=True, help="output merged JSON path")
-    ap.add_argument("--glob", required=True, help=r'glob for shard files, e.g. path\file.json.shard*.json')
-    args = ap.parse_args()
+ap = argparse.ArgumentParser()
+ap.add_argument("--sut", required=True)
+ap.add_argument("--provider", required=True)
+ap.add_argument("--out", required=True)
+args = ap.parse_args()
 
-    shard_paths = sorted(glob.glob(args.glob))
-    if not shard_paths:
-        print(f"[ERR] no shard files match: {args.glob}", file=sys.stderr)
-        return 1
+outdir = os.path.dirname(args.out)
+pattern = os.path.join(outdir, "hls_nondet_gold.json.shard*.json")
+files = sorted(glob.glob(pattern), key=lambda p: int(re.search(r"shard(\d+)", p).group(1)))
+if not files:
+    print(f"[ERR ] No shards found: {pattern}", file=sys.stderr)
+    sys.exit(2)
 
-    stories = []
-    total_files = 0
-    for p in shard_paths:
-        try:
-            with open(p, "r", encoding="utf-8") as fh:
-                data = json.load(fh)
-            total_files += 1
-            if isinstance(data, list):
-                stories.extend(data)
-            elif isinstance(data, dict) and isinstance(data.get("stories"), list):
-                stories.extend(data["stories"])
-            else:
-                print(f"[WARN] unexpected JSON shape in {p}; skipping", file=sys.stderr)
-        except Exception as e:
-            print(f"[WARN] failed to read {p}: {e}", file=sys.stderr)
+stories = []
+meta = {}
+for p in files:
+    with open(p, "r", encoding="utf-8") as fh:
+        data = json.load(fh)
+    if not meta and isinstance(data, dict):
+        meta = {k: v for k, v in data.items() if k != "stories"}
+    stories.extend(data.get("stories", []))
 
-    os.makedirs(os.path.dirname(args.out), exist_ok=True)
-    with open(args.out, "w", encoding="utf-8") as oh:
-        json.dump({"stories": stories}, oh, ensure_ascii=False, indent=2)
+merged = dict(meta)
+merged["stories"] = stories
 
-    print(f"[OK] merged {total_files} shards -> {len(stories)} stories -> {args.out}")
-    return 0
+os.makedirs(outdir, exist_ok=True)
+with open(args.out, "w", encoding="utf-8") as fh:
+    json.dump(merged, fh, ensure_ascii=False, indent=2)
 
-if __name__ == "__main__":
-    sys.exit(main())
+print(f"[OK ] merged -> {args.out} (stories={len(stories)})")

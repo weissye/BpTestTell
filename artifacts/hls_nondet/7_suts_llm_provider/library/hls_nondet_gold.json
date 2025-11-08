@@ -4,7 +4,7 @@
   "trained_model_dir": "models/hls/library",
   "source_det": "artifacts/hls_det/7_suts_llm_provider/library/hls_det_gold.json",
   "stories_js": "artifacts/hls_nondet/7_suts_llm_provider/library/readable/stories_hls.js",
-  "generated_at": "2025-11-06T17:08:01.189774+00:00",
+  "generated_at": "2025-11-08T19:14:59.332739+00:00",
   "stories": [
     {
       "entity": "Gold",

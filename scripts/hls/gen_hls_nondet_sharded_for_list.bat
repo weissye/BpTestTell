@@ -1,49 +1,42 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
 
-set "LIST=%~1"
-if "%LIST%"=="" (
-  echo Usage: %~nx0 ^<sut_list_file^>
+rem Usage: gen_hls_nondet_sharded_for_list.bat <list.txt>
+if "%~1"=="" (
+  echo Usage: gen_hls_nondet_sharded_for_list.bat ^<list.txt^>
   exit /b 2
 )
 
-rem Resolve repo root
-set "SCRIPT_DIR=%~dp0"
-pushd "%SCRIPT_DIR%\..\.."
+set "LIST=%~1"
+
+rem Repo root (relative to this script)
+set "ROOT=%~dp0..\.."
+pushd "%ROOT%" >nul
 set "ROOT=%CD%"
-popd
 
-set "GEN=%ROOT%\scripts\hls\gen_hls_nondet.bat"
-set "MERGE_PY=%ROOT%\scripts\hls\merge_nondet_shards.py"
+set "GEN_ONE=scripts\hls\gen_hls_nondet.bat"
+set "MERGER_PY=.venv\Scripts\python.exe"
+set "MERGER=scripts\hls\merge_nondet_shards.py"
 
-echo ============================================
-echo HLS-NONDET (sharded) from: "%LIST%"
-echo CWD   : %CD%
-echo ROOT  : %ROOT%
-echo GEN   : %GEN%
-echo DET-7 : %ROOT%\artifacts\hls_det\7_suts_llm_provider
-echo DET-RW: %ROOT%\artifacts\hls_det\real_world_llm_provider
-echo ============================================
+set "DET7=artifacts\hls_det\7_suts_llm_provider"
+set "DETRW=artifacts\hls_det\real_world_llm_provider"
+
+rem Shard params
+if "%HLS_SHARDS%"=="" set "HLS_SHARDS=72"
+set /a LAST_SHARD=%HLS_SHARDS%-1
 
 if defined HLS_DEBUG (
-  echo [DBG] where python:
-  where "%ROOT%\.venv\Scripts\python.exe"
+  echo ============================================
+  echo HLS-NONDET ^(sharded^) from: "%LIST%"
+  echo CWD   : %CD%
+  echo ROOT  : %ROOT%
+  echo GEN   : %ROOT%\%GEN_ONE%
+  echo DET-7 : %ROOT%\%DET7%
+  echo DET-RW: %ROOT%\%DETRW%
+  echo PY    : %MERGER_PY%
+  echo ============================================
   echo [DBG] env:
-  echo       HLS_DEBUG=%HLS_DEBUG%
-  echo       HLS_DRYRUN=%HLS_DRYRUN%
-  echo       HLS_SHARDS=%HLS_SHARDS%
-  echo       HLS_NONDET_PER_SHARD=%HLS_NONDET_PER_SHARD%
-  echo       HLS_NONDET_MAX=%HLS_NONDET_MAX%
-  echo       HLS_SEED=%HLS_SEED%
-  echo       HLS_KEEP_SHARDS=%HLS_KEEP_SHARDS%
-)
-
-if not exist "%LIST%" (
-  echo [ERR] list file not found: %LIST%
-  exit /b 3
-)
-
-if defined HLS_DEBUG (
+  set HLS_
   echo [DBG] Dumping "%LIST%" with line numbers:
   set /a LN=0
   for /f "usebackq delims=" %%L in ("%LIST%") do (
@@ -53,54 +46,64 @@ if defined HLS_DEBUG (
 )
 
 echo [DBG] Entering generation loop...
+for /f "usebackq tokens=* delims=" %%L in ("%LIST%") do (
+  set "SKIP="
+  set "LINE=%%L"
+  for /f "tokens=* delims= " %%Z in ("!LINE!") do set "LINE=%%Z"
+  if "!LINE!"==""  set "SKIP=1"
+  if /i "!LINE:~0,1!"==";" set "SKIP=1"
+  if /i "!LINE:~0,1!"=="#" set "SKIP=1"
 
-for /f "usebackq tokens=* delims=" %%S in ("%LIST%") do (
-  set "SUT=%%~S"
-  rem skip blanks and comment lines starting with ; or #
-  if not "!SUT!"=="" if /I not "!SUT:~0,1!"==";" if /I not "!SUT:~0,1!"=="#" (
-    rem auto-pick provider by probing det artifacts
-    set "PROVIDER="
-    if exist "%ROOT%\artifacts\hls_det\7_suts_llm_provider\!SUT!\hls_det_gold.json" set "PROVIDER=7_suts_llm_provider"
-    if exist "%ROOT%\artifacts\hls_det\real_world_llm_provider\!SUT!\hls_det_gold.json" set "PROVIDER=real_world_llm_provider"
+  if not defined SKIP (
+    set "SUT=!LINE!"
 
-    if "!PROVIDER!"=="" (
-      echo [WARN] skipping "!SUT!": no DET gold found in either provider.
-    ) else if /I "!PROVIDER!"=="7_suts_llm_provider" (
-      echo [LOOP] SUT=!SUT!  PROVIDER=!PROVIDER!
-      call "%GEN%" "!SUT!" "!PROVIDER!"
+    rem Determine provider by probing det-gold locations
+    set "PROV="
+    if exist "%DET7%\!SUT!\hls_det_gold.json" set "PROV=7_suts_llm_provider"
+    if exist "%DETRW%\!SUT!\hls_det_gold.json" set "PROV=real_world_llm_provider"
+
+    if "!PROV!"=="" (
+      echo [WARN] Skip !SUT!: no det gold under %DET7% or %DETRW%
     ) else (
-      echo [LOOP] SUT=!SUT!  PROVIDER=!PROVIDER!
-      set "TOTAL_SHARDS=%HLS_SHARDS%"
-      if "!TOTAL_SHARDS!"=="" set "TOTAL_SHARDS=1"
-
-      for /L %%i in (0,1,!TOTAL_SHARDS!-1) do (
-        set "HLS_SHARD_INDEX=%%i"
-        echo [CALL] shard %%i/!TOTAL_SHARDS!: "%GEN%" "!SUT!" "!PROVIDER!"
-        call "%GEN%" "!SUT!" "!PROVIDER!"
-        if ERRORLEVEL 1 echo [ERR ] shard %%i failed for "!SUT!"
-      )
-
-      rem merge all shard files
-      set "OUT_DIR=%ROOT%\artifacts\hls_nondet\!PROVIDER!\!SUT!"
-      set "OUT_FILE=!OUT_DIR!\hls_nondet_gold.json"
-      set "GLOB=!OUT_FILE!.shard*.json"
-
-      if exist "!OUT_DIR!" (
-        echo [MERGE] !SUT!: "!GLOB!" -> "!OUT_FILE!"
-        if not defined HLS_DRYRUN (
-          "%ROOT%\.venv\Scripts\python.exe" "%MERGE_PY%" --out "!OUT_FILE!" --glob "!GLOB!"
-          if ERRORLEVEL 1 (
-            echo [ERR ] merge failed for "!SUT!"
-          ) else (
-            if not defined HLS_KEEP_SHARDS del /q "!GLOB!" >nul 2>&1
-          )
+      if /i "!PROV!"=="7_suts_llm_provider" (
+        if defined HLS_DEBUG echo [CALL] SUT=!SUT! PROVIDER=!PROV! [no-sharding]
+        set "HLS_SHARD_INDEX="
+        if defined HLS_DRYRUN (
+          echo [DRY] call "%GEN_ONE%" "!SUT!" "!PROV!"
+        ) else (
+          call "%GEN_ONE%" "!SUT!" "!PROV!"
+          if errorlevel 1 exit /b 10
         )
       ) else (
-        echo [WARN] skip merge for "!SUT!": out dir missing.
+        rem real_world_llm_provider -> run all shards then merge
+        if defined HLS_DEBUG echo [SHRD] SUT=!SUT! shards=%HLS_SHARDS%
+
+        for /l %%I in (0,1,%LAST_SHARD%) do (
+          set "HLS_SHARD_INDEX=%%I"
+          if defined HLS_DRYRUN (
+            echo [DRY] call "%GEN_ONE%" "!SUT!" "!PROV!"
+          ) else (
+            call "%GEN_ONE%" "!SUT!" "!PROV!"
+            if errorlevel 1 exit /b 11
+          )
+        )
+
+        rem Merge once after all shard files exist
+        set "FINAL=artifacts\hls_nondet\!PROV!\!SUT!\hls_nondet_gold.json"
+        if defined HLS_DRYRUN (
+          echo [DRY] "%MERGER_PY%" -u "%MERGER%" --sut "!SUT!" --provider "!PROV!" --out "!FINAL!"
+        ) else (
+          "%MERGER_PY%" -u "%MERGER%" --sut "!SUT!" --provider "!PROV!" --out "!FINAL!"
+          if errorlevel 1 (
+            echo [ERR ] merge failed for !SUT! (!PROV!)
+            exit /b 12
+          )
+        )
       )
     )
   )
 )
 
-echo [DONE] %~nx0 finished.
+echo [DONE] gen_hls_nondet_sharded_for_list.bat finished.
+popd
 exit /b 0
