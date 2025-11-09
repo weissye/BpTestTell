@@ -1,9 +1,0 @@
-{
-  "sut": "directus",
-  "provider": "real_world_llm_provider",
-  "provenance": "merged",
-  "checks": [
-    "verifyStateConsistent"
-  ],
-  "blocks": []
-}

@@ -1,0 +1,369 @@
+{
+  "kind": "hls_gold",
+  "deterministic": true,
+  "provider": "real_world_llm_provider",
+  "sut": "directus",
+  "generated_at": "2025-11-09T13:50:05.988884Z",
+  "source": {
+    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\directus\\graph.json",
+    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\directus\\dsl_map.json"
+  },
+  "entities": [
+    {
+      "name": "accept",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "activity",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "apply",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "asset",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "clear",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "collection",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "comment",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "compare",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "diff",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "disable",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "enable",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "export",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "extension",
+      "verbs": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "field",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "file",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "flow",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "folder",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "generate",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "import",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "info",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "invite",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "item",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "login",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "logout",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "me",
+      "verbs": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "oauth",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "operation",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "page",
+      "verbs": [
+        "PATCH"
+      ]
+    },
+    {
+      "name": "permission",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "ping",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "preset",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "promote",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "refresh",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "relation",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "request",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "reset",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "revision",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "role",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "save",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "setting",
+      "verbs": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "snapshot",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "sort",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "string",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "user",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "verify",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "version",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "webhook",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "name": "CRUD accept",
+      "desc": "Deterministic CRUD flow for entity 'accept' inferred from graph.",
+      "entity": "accept",
+      "js": "// Deterministic CRUD flow for entity: accept\nbp.registerBThread(\"HLS: CRUD accept\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/users/invite/accept\", {})});\n});"
+    },
+    {
+      "name": "CRUD activity",
+      "desc": "Deterministic CRUD flow for entity 'activity' inferred from graph.",
+      "entity": "activity",
+      "js": "// Deterministic CRUD flow for entity: activity\nbp.registerBThread(\"HLS: CRUD activity\", function () {\n  bp.sync({request: REST.GET(\"/activity\", {})});\n  bp.sync({request: REST.GET(\"/activity\", {})});\n});"
+    },
+    {
+      "name": "CRUD apply",
+      "desc": "Deterministic CRUD flow for entity 'apply' inferred from graph.",
+      "entity": "apply",
+      "js": "// Deterministic CRUD flow for entity: apply\nbp.registerBThread(\"HLS: CRUD apply\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/schema/apply\", {})});\n});"
+    },
+    {
+      "name": "CRUD asset",
+      "desc": "Deterministic CRUD flow for entity 'asset' inferred from graph.",
+      "entity": "asset",
+      "js": "// Deterministic CRUD flow for entity: asset\nbp.registerBThread(\"HLS: CRUD asset\", function () {\n  bp.sync({request: REST.GET(\"/assets/{id}\", {})});\n  bp.sync({request: REST.GET(\"/assets/{id}\", {})});\n});"
+    }
+  ]
+}

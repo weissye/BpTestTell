@@ -1,1 +1,0 @@
-artifacts/hls_nondet/real_world_llm_provider/github/readable/stories_hls.js
