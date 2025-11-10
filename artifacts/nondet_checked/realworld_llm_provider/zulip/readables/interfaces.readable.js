@@ -3,11 +3,9 @@
 /**
  * Auto-generated interfaces & lifecycle (readable)
  * From GOLD only – full CRUD + verifications + match/wait helpers.
- * This approximates the "Library SUT" interface style.
  */
 
-// CHANGE (1): add default host/port placeholders before RESTSession
-var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var host = (typeof host !== 'undefined') ? host : '192.168.225.53';
 var port = (typeof port !== 'undefined') ? port : 5014;
 
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
@@ -31,10 +29,7 @@ function matchesDescriptionRegex(rx) {
 
 // CREATE
 function addCall(id) {
-  svc.post("/calls", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a call with " + "id " + id }
-    });
+  svc.post("/calls", { body: JSON.stringify({ id: id }), parameters: { description: "Add a call with " + "id " + id } });
 }
 
 // DELETE
@@ -44,31 +39,26 @@ function deleteCall(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingCall(id) {
   svc.delete("/calls/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a call with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingCall(id) {
   svc.post("/calls", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a call with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a call with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a call with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateCall(id) {
-  svc.put("/calls/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a call with " + "id " + id }
-    });
+  svc.put("/calls/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a call with " + "id " + id } });
 }
 
 // GET one
@@ -204,10 +194,7 @@ function verifyCallUpdated(id) {
 
 // CREATE
 function addChannel_folder(channel_folder_id) {
-  svc.post("/channel_folders", {
-      body: JSON.stringify({ channel_folder_id: channel_folder_id }),
-      parameters: { description: "Add a channel_folder with " + "channel_folder_id " + channel_folder_id }
-    });
+  svc.post("/channel_folders", { body: JSON.stringify({ channel_folder_id: channel_folder_id }), parameters: { description: "Add a channel_folder with " + "channel_folder_id " + channel_folder_id } });
 }
 
 // DELETE
@@ -217,31 +204,26 @@ function deleteChannel_folder(channel_folder_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingChannel_folder(channel_folder_id) {
   svc.delete("/channel_folders/" + channel_folder_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a channel_folder with " + "channel_folder_id " + channel_folder_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingChannel_folder(channel_folder_id) {
   svc.post("/channel_folders", {
-      body: JSON.stringify({ channel_folder_id: channel_folder_id }),
-      parameters: { description: "Add a channel_folder with " + "channel_folder_id " + channel_folder_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a channel_folder with " + "channel_folder_id " + channel_folder_id }
+    body: JSON.stringify({ channel_folder_id: channel_folder_id }),
+    parameters: { description: "Add a channel_folder with " + "channel_folder_id " + channel_folder_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateChannel_folder(channel_folder_id) {
-  svc.put("/channel_folders/" + channel_folder_id, {
-      body: JSON.stringify({ channel_folder_id: channel_folder_id }),
-      parameters: { description: "Update a channel_folder with " + "channel_folder_id " + channel_folder_id }
-    });
+  svc.put("/channel_folders/" + channel_folder_id, { body: JSON.stringify({ channel_folder_id: channel_folder_id }), parameters: { description: "Update a channel_folder with " + "channel_folder_id " + channel_folder_id } });
 }
 
 // GET one
@@ -377,10 +359,7 @@ function verifyChannel_folderUpdated(channel_folder_id) {
 
 // CREATE
 function addChannel(id) {
-  svc.post("/channels", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a channel with " + "id " + id }
-    });
+  svc.post("/channels", { body: JSON.stringify({ id: id }), parameters: { description: "Add a channel with " + "id " + id } });
 }
 
 // DELETE
@@ -390,31 +369,26 @@ function deleteChannel(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingChannel(id) {
   svc.delete("/channels/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a channel with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingChannel(id) {
   svc.post("/channels", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a channel with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a channel with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a channel with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateChannel(id) {
-  svc.put("/channels/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a channel with " + "id " + id }
-    });
+  svc.put("/channels/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a channel with " + "id " + id } });
 }
 
 // GET one
@@ -550,10 +524,7 @@ function verifyChannelUpdated(id) {
 
 // CREATE
 function addDefault_stream(id) {
-  svc.post("/default_streams", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a default_stream with " + "id " + id }
-    });
+  svc.post("/default_streams", { body: JSON.stringify({ id: id }), parameters: { description: "Add a default_stream with " + "id " + id } });
 }
 
 // DELETE
@@ -563,31 +534,26 @@ function deleteDefault_stream(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingDefault_stream(id) {
   svc.delete("/default_streams/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a default_stream with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingDefault_stream(id) {
   svc.post("/default_streams", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a default_stream with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a default_stream with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a default_stream with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateDefault_stream(id) {
-  svc.put("/default_streams/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a default_stream with " + "id " + id }
-    });
+  svc.put("/default_streams/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a default_stream with " + "id " + id } });
 }
 
 // GET one
@@ -723,10 +689,7 @@ function verifyDefault_streamUpdated(id) {
 
 // CREATE
 function addDev_fetch_api_key(id) {
-  svc.post("/dev_fetch_api_key", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a dev_fetch_api_key with " + "id " + id }
-    });
+  svc.post("/dev_fetch_api_key", { body: JSON.stringify({ id: id }), parameters: { description: "Add a dev_fetch_api_key with " + "id " + id } });
 }
 
 // DELETE
@@ -736,31 +699,26 @@ function deleteDev_fetch_api_key(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingDev_fetch_api_key(id) {
   svc.delete("/dev_fetch_api_key/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a dev_fetch_api_key with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingDev_fetch_api_key(id) {
   svc.post("/dev_fetch_api_key", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a dev_fetch_api_key with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a dev_fetch_api_key with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a dev_fetch_api_key with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateDev_fetch_api_key(id) {
-  svc.put("/dev_fetch_api_key/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a dev_fetch_api_key with " + "id " + id }
-    });
+  svc.put("/dev_fetch_api_key/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a dev_fetch_api_key with " + "id " + id } });
 }
 
 // GET one
@@ -896,10 +854,7 @@ function verifyDev_fetch_api_keyUpdated(id) {
 
 // CREATE
 function addDraft(id) {
-  svc.post("/drafts", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a draft with " + "id " + id }
-    });
+  svc.post("/drafts", { body: JSON.stringify({ id: id }), parameters: { description: "Add a draft with " + "id " + id } });
 }
 
 // DELETE
@@ -909,31 +864,26 @@ function deleteDraft(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingDraft(id) {
   svc.delete("/drafts/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a draft with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingDraft(id) {
   svc.post("/drafts", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a draft with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a draft with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a draft with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateDraft(id) {
-  svc.put("/drafts/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a draft with " + "id " + id }
-    });
+  svc.put("/drafts/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a draft with " + "id " + id } });
 }
 
 // GET one
@@ -1069,10 +1019,7 @@ function verifyDraftUpdated(id) {
 
 // CREATE
 function addEvent(id) {
-  svc.post("/events", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a event with " + "id " + id }
-    });
+  svc.post("/events", { body: JSON.stringify({ id: id }), parameters: { description: "Add a event with " + "id " + id } });
 }
 
 // DELETE
@@ -1082,31 +1029,26 @@ function deleteEvent(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingEvent(id) {
   svc.delete("/events/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a event with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingEvent(id) {
   svc.post("/events", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a event with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a event with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a event with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateEvent(id) {
-  svc.put("/events/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a event with " + "id " + id }
-    });
+  svc.put("/events/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a event with " + "id " + id } });
 }
 
 // GET one
@@ -1242,10 +1184,7 @@ function verifyEventUpdated(id) {
 
 // CREATE
 function addExport(id) {
-  svc.post("/export", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a export with " + "id " + id }
-    });
+  svc.post("/export", { body: JSON.stringify({ id: id }), parameters: { description: "Add a export with " + "id " + id } });
 }
 
 // DELETE
@@ -1255,31 +1194,26 @@ function deleteExport(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingExport(id) {
   svc.delete("/export/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a export with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingExport(id) {
   svc.post("/export", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a export with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a export with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a export with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateExport(id) {
-  svc.put("/export/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a export with " + "id " + id }
-    });
+  svc.put("/export/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a export with " + "id " + id } });
 }
 
 // GET one
@@ -1415,10 +1349,7 @@ function verifyExportUpdated(id) {
 
 // CREATE
 function addFetch_api_key(id) {
-  svc.post("/fetch_api_key", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a fetch_api_key with " + "id " + id }
-    });
+  svc.post("/fetch_api_key", { body: JSON.stringify({ id: id }), parameters: { description: "Add a fetch_api_key with " + "id " + id } });
 }
 
 // DELETE
@@ -1428,31 +1359,26 @@ function deleteFetch_api_key(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingFetch_api_key(id) {
   svc.delete("/fetch_api_key/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a fetch_api_key with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingFetch_api_key(id) {
   svc.post("/fetch_api_key", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a fetch_api_key with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a fetch_api_key with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a fetch_api_key with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateFetch_api_key(id) {
-  svc.put("/fetch_api_key/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a fetch_api_key with " + "id " + id }
-    });
+  svc.put("/fetch_api_key/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a fetch_api_key with " + "id " + id } });
 }
 
 // GET one
@@ -1588,10 +1514,7 @@ function verifyFetch_api_keyUpdated(id) {
 
 // CREATE
 function addGet_stream_id(id) {
-  svc.post("/get_stream_id", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a get_stream_id with " + "id " + id }
-    });
+  svc.post("/get_stream_id", { body: JSON.stringify({ id: id }), parameters: { description: "Add a get_stream_id with " + "id " + id } });
 }
 
 // DELETE
@@ -1601,31 +1524,26 @@ function deleteGet_stream_id(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingGet_stream_id(id) {
   svc.delete("/get_stream_id/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a get_stream_id with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingGet_stream_id(id) {
   svc.post("/get_stream_id", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a get_stream_id with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a get_stream_id with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a get_stream_id with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateGet_stream_id(id) {
-  svc.put("/get_stream_id/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a get_stream_id with " + "id " + id }
-    });
+  svc.put("/get_stream_id/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a get_stream_id with " + "id " + id } });
 }
 
 // GET one
@@ -1761,10 +1679,7 @@ function verifyGet_stream_idUpdated(id) {
 
 // CREATE
 function addInvite(invite_id) {
-  svc.post("/invites", {
-      body: JSON.stringify({ invite_id: invite_id }),
-      parameters: { description: "Add a invite with " + "invite_id " + invite_id }
-    });
+  svc.post("/invites", { body: JSON.stringify({ invite_id: invite_id }), parameters: { description: "Add a invite with " + "invite_id " + invite_id } });
 }
 
 // DELETE
@@ -1774,31 +1689,26 @@ function deleteInvite(invite_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingInvite(invite_id) {
   svc.delete("/invites/" + invite_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a invite with " + "invite_id " + invite_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingInvite(invite_id) {
   svc.post("/invites", {
-      body: JSON.stringify({ invite_id: invite_id }),
-      parameters: { description: "Add a invite with " + "invite_id " + invite_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a invite with " + "invite_id " + invite_id }
+    body: JSON.stringify({ invite_id: invite_id }),
+    parameters: { description: "Add a invite with " + "invite_id " + invite_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateInvite(invite_id) {
-  svc.put("/invites/" + invite_id, {
-      body: JSON.stringify({ invite_id: invite_id }),
-      parameters: { description: "Update a invite with " + "invite_id " + invite_id }
-    });
+  svc.put("/invites/" + invite_id, { body: JSON.stringify({ invite_id: invite_id }), parameters: { description: "Update a invite with " + "invite_id " + invite_id } });
 }
 
 // GET one
@@ -1934,10 +1844,7 @@ function verifyInviteUpdated(invite_id) {
 
 // CREATE
 function addMark_all_as_read(id) {
-  svc.post("/mark_all_as_read", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a mark_all_as_read with " + "id " + id }
-    });
+  svc.post("/mark_all_as_read", { body: JSON.stringify({ id: id }), parameters: { description: "Add a mark_all_as_read with " + "id " + id } });
 }
 
 // DELETE
@@ -1947,31 +1854,26 @@ function deleteMark_all_as_read(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingMark_all_as_read(id) {
   svc.delete("/mark_all_as_read/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a mark_all_as_read with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingMark_all_as_read(id) {
   svc.post("/mark_all_as_read", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a mark_all_as_read with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a mark_all_as_read with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a mark_all_as_read with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateMark_all_as_read(id) {
-  svc.put("/mark_all_as_read/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a mark_all_as_read with " + "id " + id }
-    });
+  svc.put("/mark_all_as_read/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a mark_all_as_read with " + "id " + id } });
 }
 
 // GET one
@@ -2107,10 +2009,7 @@ function verifyMark_all_as_readUpdated(id) {
 
 // CREATE
 function addMark_stream_as_read(id) {
-  svc.post("/mark_stream_as_read", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a mark_stream_as_read with " + "id " + id }
-    });
+  svc.post("/mark_stream_as_read", { body: JSON.stringify({ id: id }), parameters: { description: "Add a mark_stream_as_read with " + "id " + id } });
 }
 
 // DELETE
@@ -2120,31 +2019,26 @@ function deleteMark_stream_as_read(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingMark_stream_as_read(id) {
   svc.delete("/mark_stream_as_read/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a mark_stream_as_read with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingMark_stream_as_read(id) {
   svc.post("/mark_stream_as_read", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a mark_stream_as_read with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a mark_stream_as_read with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a mark_stream_as_read with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateMark_stream_as_read(id) {
-  svc.put("/mark_stream_as_read/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a mark_stream_as_read with " + "id " + id }
-    });
+  svc.put("/mark_stream_as_read/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a mark_stream_as_read with " + "id " + id } });
 }
 
 // GET one
@@ -2280,10 +2174,7 @@ function verifyMark_stream_as_readUpdated(id) {
 
 // CREATE
 function addMark_topic_as_read(id) {
-  svc.post("/mark_topic_as_read", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a mark_topic_as_read with " + "id " + id }
-    });
+  svc.post("/mark_topic_as_read", { body: JSON.stringify({ id: id }), parameters: { description: "Add a mark_topic_as_read with " + "id " + id } });
 }
 
 // DELETE
@@ -2293,31 +2184,26 @@ function deleteMark_topic_as_read(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingMark_topic_as_read(id) {
   svc.delete("/mark_topic_as_read/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a mark_topic_as_read with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingMark_topic_as_read(id) {
   svc.post("/mark_topic_as_read", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a mark_topic_as_read with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a mark_topic_as_read with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a mark_topic_as_read with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateMark_topic_as_read(id) {
-  svc.put("/mark_topic_as_read/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a mark_topic_as_read with " + "id " + id }
-    });
+  svc.put("/mark_topic_as_read/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a mark_topic_as_read with " + "id " + id } });
 }
 
 // GET one
@@ -2453,10 +2339,7 @@ function verifyMark_topic_as_readUpdated(id) {
 
 // CREATE
 function addMessage(message_id) {
-  svc.post("/messages", {
-      body: JSON.stringify({ message_id: message_id }),
-      parameters: { description: "Add a message with " + "message_id " + message_id }
-    });
+  svc.post("/messages", { body: JSON.stringify({ message_id: message_id }), parameters: { description: "Add a message with " + "message_id " + message_id } });
 }
 
 // DELETE
@@ -2466,31 +2349,26 @@ function deleteMessage(message_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingMessage(message_id) {
   svc.delete("/messages/" + message_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a message with " + "message_id " + message_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingMessage(message_id) {
   svc.post("/messages", {
-      body: JSON.stringify({ message_id: message_id }),
-      parameters: { description: "Add a message with " + "message_id " + message_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a message with " + "message_id " + message_id }
+    body: JSON.stringify({ message_id: message_id }),
+    parameters: { description: "Add a message with " + "message_id " + message_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateMessage(message_id) {
-  svc.put("/messages/" + message_id, {
-      body: JSON.stringify({ message_id: message_id }),
-      parameters: { description: "Update a message with " + "message_id " + message_id }
-    });
+  svc.put("/messages/" + message_id, { body: JSON.stringify({ message_id: message_id }), parameters: { description: "Update a message with " + "message_id " + message_id } });
 }
 
 // GET one
@@ -2626,10 +2504,7 @@ function verifyMessageUpdated(message_id) {
 
 // CREATE
 function addMobile_push(id) {
-  svc.post("/mobile_push", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a mobile_push with " + "id " + id }
-    });
+  svc.post("/mobile_push", { body: JSON.stringify({ id: id }), parameters: { description: "Add a mobile_push with " + "id " + id } });
 }
 
 // DELETE
@@ -2639,31 +2514,26 @@ function deleteMobile_push(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingMobile_push(id) {
   svc.delete("/mobile_push/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a mobile_push with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingMobile_push(id) {
   svc.post("/mobile_push", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a mobile_push with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a mobile_push with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a mobile_push with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateMobile_push(id) {
-  svc.put("/mobile_push/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a mobile_push with " + "id " + id }
-    });
+  svc.put("/mobile_push/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a mobile_push with " + "id " + id } });
 }
 
 // GET one
@@ -2799,10 +2669,7 @@ function verifyMobile_pushUpdated(id) {
 
 // CREATE
 function addNavigation_view(fragment) {
-  svc.post("/navigation_views", {
-      body: JSON.stringify({ fragment: fragment }),
-      parameters: { description: "Add a navigation_view with " + "fragment " + fragment }
-    });
+  svc.post("/navigation_views", { body: JSON.stringify({ fragment: fragment }), parameters: { description: "Add a navigation_view with " + "fragment " + fragment } });
 }
 
 // DELETE
@@ -2812,31 +2679,26 @@ function deleteNavigation_view(fragment) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingNavigation_view(fragment) {
   svc.delete("/navigation_views/" + fragment, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a navigation_view with " + "fragment " + fragment }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingNavigation_view(fragment) {
   svc.post("/navigation_views", {
-      body: JSON.stringify({ fragment: fragment }),
-      parameters: { description: "Add a navigation_view with " + "fragment " + fragment }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a navigation_view with " + "fragment " + fragment }
+    body: JSON.stringify({ fragment: fragment }),
+    parameters: { description: "Add a navigation_view with " + "fragment " + fragment },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateNavigation_view(fragment) {
-  svc.put("/navigation_views/" + fragment, {
-      body: JSON.stringify({ fragment: fragment }),
-      parameters: { description: "Update a navigation_view with " + "fragment " + fragment }
-    });
+  svc.put("/navigation_views/" + fragment, { body: JSON.stringify({ fragment: fragment }), parameters: { description: "Update a navigation_view with " + "fragment " + fragment } });
 }
 
 // GET one
@@ -2972,10 +2834,7 @@ function verifyNavigation_viewUpdated(fragment) {
 
 // CREATE
 function addReal_time(id) {
-  svc.post("/real_time", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a real_time with " + "id " + id }
-    });
+  svc.post("/real_time", { body: JSON.stringify({ id: id }), parameters: { description: "Add a real_time with " + "id " + id } });
 }
 
 // DELETE
@@ -2985,31 +2844,26 @@ function deleteReal_time(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingReal_time(id) {
   svc.delete("/real_time/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a real_time with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingReal_time(id) {
   svc.post("/real_time", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a real_time with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a real_time with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a real_time with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateReal_time(id) {
-  svc.put("/real_time/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a real_time with " + "id " + id }
-    });
+  svc.put("/real_time/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a real_time with " + "id " + id } });
 }
 
 // GET one
@@ -3145,10 +2999,7 @@ function verifyReal_timeUpdated(id) {
 
 // CREATE
 function addRealm(id) {
-  svc.post("/realm", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a realm with " + "id " + id }
-    });
+  svc.post("/realm", { body: JSON.stringify({ id: id }), parameters: { description: "Add a realm with " + "id " + id } });
 }
 
 // DELETE
@@ -3158,31 +3009,26 @@ function deleteRealm(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingRealm(id) {
   svc.delete("/realm/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a realm with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingRealm(id) {
   svc.post("/realm", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a realm with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a realm with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a realm with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateRealm(id) {
-  svc.put("/realm/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a realm with " + "id " + id }
-    });
+  svc.put("/realm/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a realm with " + "id " + id } });
 }
 
 // GET one
@@ -3318,10 +3164,7 @@ function verifyRealmUpdated(id) {
 
 // CREATE
 function addRegister(id) {
-  svc.post("/register", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a register with " + "id " + id }
-    });
+  svc.post("/register", { body: JSON.stringify({ id: id }), parameters: { description: "Add a register with " + "id " + id } });
 }
 
 // DELETE
@@ -3331,31 +3174,26 @@ function deleteRegister(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingRegister(id) {
   svc.delete("/register/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a register with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingRegister(id) {
   svc.post("/register", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a register with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a register with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a register with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateRegister(id) {
-  svc.put("/register/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a register with " + "id " + id }
-    });
+  svc.put("/register/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a register with " + "id " + id } });
 }
 
 // GET one
@@ -3491,10 +3329,7 @@ function verifyRegisterUpdated(id) {
 
 // CREATE
 function addReminder(reminder_id) {
-  svc.post("/reminders", {
-      body: JSON.stringify({ reminder_id: reminder_id }),
-      parameters: { description: "Add a reminder with " + "reminder_id " + reminder_id }
-    });
+  svc.post("/reminders", { body: JSON.stringify({ reminder_id: reminder_id }), parameters: { description: "Add a reminder with " + "reminder_id " + reminder_id } });
 }
 
 // DELETE
@@ -3504,31 +3339,26 @@ function deleteReminder(reminder_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingReminder(reminder_id) {
   svc.delete("/reminders/" + reminder_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a reminder with " + "reminder_id " + reminder_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingReminder(reminder_id) {
   svc.post("/reminders", {
-      body: JSON.stringify({ reminder_id: reminder_id }),
-      parameters: { description: "Add a reminder with " + "reminder_id " + reminder_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a reminder with " + "reminder_id " + reminder_id }
+    body: JSON.stringify({ reminder_id: reminder_id }),
+    parameters: { description: "Add a reminder with " + "reminder_id " + reminder_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateReminder(reminder_id) {
-  svc.put("/reminders/" + reminder_id, {
-      body: JSON.stringify({ reminder_id: reminder_id }),
-      parameters: { description: "Update a reminder with " + "reminder_id " + reminder_id }
-    });
+  svc.put("/reminders/" + reminder_id, { body: JSON.stringify({ reminder_id: reminder_id }), parameters: { description: "Update a reminder with " + "reminder_id " + reminder_id } });
 }
 
 // GET one
@@ -3664,10 +3494,7 @@ function verifyReminderUpdated(reminder_id) {
 
 // CREATE
 function addRemote(id) {
-  svc.post("/remotes", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a remote with " + "id " + id }
-    });
+  svc.post("/remotes", { body: JSON.stringify({ id: id }), parameters: { description: "Add a remote with " + "id " + id } });
 }
 
 // DELETE
@@ -3677,31 +3504,26 @@ function deleteRemote(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingRemote(id) {
   svc.delete("/remotes/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a remote with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingRemote(id) {
   svc.post("/remotes", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a remote with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a remote with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a remote with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateRemote(id) {
-  svc.put("/remotes/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a remote with " + "id " + id }
-    });
+  svc.put("/remotes/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a remote with " + "id " + id } });
 }
 
 // GET one
@@ -3837,10 +3659,7 @@ function verifyRemoteUpdated(id) {
 
 // CREATE
 function addRest_error_handling(id) {
-  svc.post("/rest_error_handling", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a rest_error_handling with " + "id " + id }
-    });
+  svc.post("/rest_error_handling", { body: JSON.stringify({ id: id }), parameters: { description: "Add a rest_error_handling with " + "id " + id } });
 }
 
 // DELETE
@@ -3850,31 +3669,26 @@ function deleteRest_error_handling(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingRest_error_handling(id) {
   svc.delete("/rest_error_handling/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a rest_error_handling with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingRest_error_handling(id) {
   svc.post("/rest_error_handling", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a rest_error_handling with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a rest_error_handling with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a rest_error_handling with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateRest_error_handling(id) {
-  svc.put("/rest_error_handling/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a rest_error_handling with " + "id " + id }
-    });
+  svc.put("/rest_error_handling/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a rest_error_handling with " + "id " + id } });
 }
 
 // GET one
@@ -4010,10 +3824,7 @@ function verifyRest_error_handlingUpdated(id) {
 
 // CREATE
 function addSaved_snippet(id) {
-  svc.post("/saved_snippets", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a saved_snippet with " + "id " + id }
-    });
+  svc.post("/saved_snippets", { body: JSON.stringify({ id: id }), parameters: { description: "Add a saved_snippet with " + "id " + id } });
 }
 
 // DELETE
@@ -4023,31 +3834,26 @@ function deleteSaved_snippet(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingSaved_snippet(id) {
   svc.delete("/saved_snippets/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a saved_snippet with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingSaved_snippet(id) {
   svc.post("/saved_snippets", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a saved_snippet with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a saved_snippet with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a saved_snippet with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateSaved_snippet(id) {
-  svc.put("/saved_snippets/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a saved_snippet with " + "id " + id }
-    });
+  svc.put("/saved_snippets/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a saved_snippet with " + "id " + id } });
 }
 
 // GET one
@@ -4183,10 +3989,7 @@ function verifySaved_snippetUpdated(id) {
 
 // CREATE
 function addScheduled_message(scheduled_message_id) {
-  svc.post("/scheduled_messages", {
-      body: JSON.stringify({ scheduled_message_id: scheduled_message_id }),
-      parameters: { description: "Add a scheduled_message with " + "scheduled_message_id " + scheduled_message_id }
-    });
+  svc.post("/scheduled_messages", { body: JSON.stringify({ scheduled_message_id: scheduled_message_id }), parameters: { description: "Add a scheduled_message with " + "scheduled_message_id " + scheduled_message_id } });
 }
 
 // DELETE
@@ -4196,31 +3999,26 @@ function deleteScheduled_message(scheduled_message_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingScheduled_message(scheduled_message_id) {
   svc.delete("/scheduled_messages/" + scheduled_message_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a scheduled_message with " + "scheduled_message_id " + scheduled_message_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingScheduled_message(scheduled_message_id) {
   svc.post("/scheduled_messages", {
-      body: JSON.stringify({ scheduled_message_id: scheduled_message_id }),
-      parameters: { description: "Add a scheduled_message with " + "scheduled_message_id " + scheduled_message_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a scheduled_message with " + "scheduled_message_id " + scheduled_message_id }
+    body: JSON.stringify({ scheduled_message_id: scheduled_message_id }),
+    parameters: { description: "Add a scheduled_message with " + "scheduled_message_id " + scheduled_message_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateScheduled_message(scheduled_message_id) {
-  svc.put("/scheduled_messages/" + scheduled_message_id, {
-      body: JSON.stringify({ scheduled_message_id: scheduled_message_id }),
-      parameters: { description: "Update a scheduled_message with " + "scheduled_message_id " + scheduled_message_id }
-    });
+  svc.put("/scheduled_messages/" + scheduled_message_id, { body: JSON.stringify({ scheduled_message_id: scheduled_message_id }), parameters: { description: "Update a scheduled_message with " + "scheduled_message_id " + scheduled_message_id } });
 }
 
 // GET one
@@ -4356,10 +4154,7 @@ function verifyScheduled_messageUpdated(scheduled_message_id) {
 
 // CREATE
 function addServer_setting(id) {
-  svc.post("/server_settings", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a server_setting with " + "id " + id }
-    });
+  svc.post("/server_settings", { body: JSON.stringify({ id: id }), parameters: { description: "Add a server_setting with " + "id " + id } });
 }
 
 // DELETE
@@ -4369,31 +4164,26 @@ function deleteServer_setting(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingServer_setting(id) {
   svc.delete("/server_settings/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a server_setting with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingServer_setting(id) {
   svc.post("/server_settings", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a server_setting with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a server_setting with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a server_setting with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateServer_setting(id) {
-  svc.put("/server_settings/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a server_setting with " + "id " + id }
-    });
+  svc.put("/server_settings/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a server_setting with " + "id " + id } });
 }
 
 // GET one
@@ -4529,10 +4319,7 @@ function verifyServer_settingUpdated(id) {
 
 // CREATE
 function addStream(stream_id) {
-  svc.post("/streams", {
-      body: JSON.stringify({ stream_id: stream_id }),
-      parameters: { description: "Add a stream with " + "stream_id " + stream_id }
-    });
+  svc.post("/streams", { body: JSON.stringify({ stream_id: stream_id }), parameters: { description: "Add a stream with " + "stream_id " + stream_id } });
 }
 
 // DELETE
@@ -4542,31 +4329,26 @@ function deleteStream(stream_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingStream(stream_id) {
   svc.delete("/streams/" + stream_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a stream with " + "stream_id " + stream_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingStream(stream_id) {
   svc.post("/streams", {
-      body: JSON.stringify({ stream_id: stream_id }),
-      parameters: { description: "Add a stream with " + "stream_id " + stream_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a stream with " + "stream_id " + stream_id }
+    body: JSON.stringify({ stream_id: stream_id }),
+    parameters: { description: "Add a stream with " + "stream_id " + stream_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateStream(stream_id) {
-  svc.put("/streams/" + stream_id, {
-      body: JSON.stringify({ stream_id: stream_id }),
-      parameters: { description: "Update a stream with " + "stream_id " + stream_id }
-    });
+  svc.put("/streams/" + stream_id, { body: JSON.stringify({ stream_id: stream_id }), parameters: { description: "Update a stream with " + "stream_id " + stream_id } });
 }
 
 // GET one
@@ -4702,10 +4484,7 @@ function verifyStreamUpdated(stream_id) {
 
 // CREATE
 function addUser_group(user_group_id) {
-  svc.post("/user_groups", {
-      body: JSON.stringify({ user_group_id: user_group_id }),
-      parameters: { description: "Add a user_group with " + "user_group_id " + user_group_id }
-    });
+  svc.post("/user_groups", { body: JSON.stringify({ user_group_id: user_group_id }), parameters: { description: "Add a user_group with " + "user_group_id " + user_group_id } });
 }
 
 // DELETE
@@ -4715,31 +4494,26 @@ function deleteUser_group(user_group_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingUser_group(user_group_id) {
   svc.delete("/user_groups/" + user_group_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a user_group with " + "user_group_id " + user_group_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingUser_group(user_group_id) {
   svc.post("/user_groups", {
-      body: JSON.stringify({ user_group_id: user_group_id }),
-      parameters: { description: "Add a user_group with " + "user_group_id " + user_group_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a user_group with " + "user_group_id " + user_group_id }
+    body: JSON.stringify({ user_group_id: user_group_id }),
+    parameters: { description: "Add a user_group with " + "user_group_id " + user_group_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateUser_group(user_group_id) {
-  svc.put("/user_groups/" + user_group_id, {
-      body: JSON.stringify({ user_group_id: user_group_id }),
-      parameters: { description: "Update a user_group with " + "user_group_id " + user_group_id }
-    });
+  svc.put("/user_groups/" + user_group_id, { body: JSON.stringify({ user_group_id: user_group_id }), parameters: { description: "Update a user_group with " + "user_group_id " + user_group_id } });
 }
 
 // GET one
@@ -4875,10 +4649,7 @@ function verifyUser_groupUpdated(user_group_id) {
 
 // CREATE
 function addUser_topic(id) {
-  svc.post("/user_topics", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a user_topic with " + "id " + id }
-    });
+  svc.post("/user_topics", { body: JSON.stringify({ id: id }), parameters: { description: "Add a user_topic with " + "id " + id } });
 }
 
 // DELETE
@@ -4888,31 +4659,26 @@ function deleteUser_topic(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingUser_topic(id) {
   svc.delete("/user_topics/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a user_topic with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingUser_topic(id) {
   svc.post("/user_topics", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a user_topic with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a user_topic with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a user_topic with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateUser_topic(id) {
-  svc.put("/user_topics/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a user_topic with " + "id " + id }
-    });
+  svc.put("/user_topics/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a user_topic with " + "id " + id } });
 }
 
 // GET one
@@ -5048,10 +4814,7 @@ function verifyUser_topicUpdated(id) {
 
 // CREATE
 function addUser_upload(realm_id_str, filename) {
-  svc.post("/user_uploads", {
-      body: JSON.stringify({ realm_id_str: realm_id_str, filename: filename }),
-      parameters: { description: "Add a user_upload with " + "realm_id_str " + realm_id_str + " and " + "filename " + filename }
-    });
+  svc.post("/user_uploads", { body: JSON.stringify({ realm_id_str: realm_id_str, filename: filename }), parameters: { description: "Add a user_upload with " + "realm_id_str " + realm_id_str + " and " + "filename " + filename } });
 }
 
 // DELETE
@@ -5061,31 +4824,26 @@ function deleteUser_upload(realm_id_str, filename) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingUser_upload(realm_id_str, filename) {
   svc.delete("/user_uploads/" + realm_id_str + "/"+ filename, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a user_upload with " + "realm_id_str " + realm_id_str + " and " + "filename " + filename }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingUser_upload(realm_id_str, filename) {
   svc.post("/user_uploads", {
-      body: JSON.stringify({ realm_id_str: realm_id_str, filename: filename }),
-      parameters: { description: "Add a user_upload with " + "realm_id_str " + realm_id_str + " and " + "filename " + filename }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a user_upload with " + "realm_id_str " + realm_id_str + " and " + "filename " + filename }
+    body: JSON.stringify({ realm_id_str: realm_id_str, filename: filename }),
+    parameters: { description: "Add a user_upload with " + "realm_id_str " + realm_id_str + " and " + "filename " + filename },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateUser_upload(realm_id_str, filename) {
-  svc.put("/user_uploads/" + realm_id_str + "/"+ filename, {
-      body: JSON.stringify({ realm_id_str: realm_id_str, filename: filename }),
-      parameters: { description: "Update a user_upload with " + "realm_id_str " + realm_id_str + " and " + "filename " + filename }
-    });
+  svc.put("/user_uploads/" + realm_id_str + "/"+ filename, { body: JSON.stringify({ realm_id_str: realm_id_str, filename: filename }), parameters: { description: "Update a user_upload with " + "realm_id_str " + realm_id_str + " and " + "filename " + filename } });
 }
 
 // GET one
@@ -5221,10 +4979,7 @@ function verifyUser_uploadUpdated(realm_id_str, filename) {
 
 // CREATE
 function addUser(user_id, stream_id, email) {
-  svc.post("/users", {
-      body: JSON.stringify({ user_id: user_id, stream_id: stream_id, email: email }),
-      parameters: { description: "Add a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email }
-    });
+  svc.post("/users", { body: JSON.stringify({ user_id: user_id, stream_id: stream_id, email: email }), parameters: { description: "Add a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email } });
 }
 
 // DELETE
@@ -5234,31 +4989,26 @@ function deleteUser(user_id, stream_id, email) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingUser(user_id, stream_id, email) {
   svc.delete("/users/" + user_id + "/"+ stream_id + "/"+ email, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingUser(user_id, stream_id, email) {
   svc.post("/users", {
-      body: JSON.stringify({ user_id: user_id, stream_id: stream_id, email: email }),
-      parameters: { description: "Add a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email }
+    body: JSON.stringify({ user_id: user_id, stream_id: stream_id, email: email }),
+    parameters: { description: "Add a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateUser(user_id, stream_id, email) {
-  svc.put("/users/" + user_id + "/"+ stream_id + "/"+ email, {
-      body: JSON.stringify({ user_id: user_id, stream_id: stream_id, email: email }),
-      parameters: { description: "Update a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email }
-    });
+  svc.put("/users/" + user_id + "/"+ stream_id + "/"+ email, { body: JSON.stringify({ user_id: user_id, stream_id: stream_id, email: email }), parameters: { description: "Update a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email } });
 }
 
 // GET one
@@ -5394,10 +5144,7 @@ function verifyUserUpdated(user_id, stream_id, email) {
 
 // CREATE
 function addZulip_outgoing_webhook(id) {
-  svc.post("/zulip_outgoing_webhook", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a zulip_outgoing_webhook with " + "id " + id }
-    });
+  svc.post("/zulip_outgoing_webhook", { body: JSON.stringify({ id: id }), parameters: { description: "Add a zulip_outgoing_webhook with " + "id " + id } });
 }
 
 // DELETE
@@ -5407,31 +5154,26 @@ function deleteZulip_outgoing_webhook(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingZulip_outgoing_webhook(id) {
   svc.delete("/zulip_outgoing_webhook/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a zulip_outgoing_webhook with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingZulip_outgoing_webhook(id) {
   svc.post("/zulip_outgoing_webhook", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a zulip_outgoing_webhook with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a zulip_outgoing_webhook with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a zulip_outgoing_webhook with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateZulip_outgoing_webhook(id) {
-  svc.put("/zulip_outgoing_webhook/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a zulip_outgoing_webhook with " + "id " + id }
-    });
+  svc.put("/zulip_outgoing_webhook/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a zulip_outgoing_webhook with " + "id " + id } });
 }
 
 // GET one

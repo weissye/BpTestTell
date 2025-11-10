@@ -1,13 +1,31 @@
 # scripts/readable/emit_readables_from_gold.py
-import argparse, json, re, sys, os
+import argparse, json, re, sys
 from pathlib import Path
 from collections import defaultdict, Counter
+from urllib.parse import urlparse
 
 NUMERIC_KEY_RX = re.compile(r"(?:^|_)(id|count|num|code)(?:$|_)", re.I)
+
+# -------------------- IO --------------------
 
 def load_json(p):
     with open(p, "r", encoding="utf-8") as f:
         return json.load(f)
+
+def try_load_openapi(path):
+    if not path:
+        return None
+    p = Path(path)
+    if not p.is_file():
+        print(f"[WARN] --openapi file not found: {p}", file=sys.stderr)
+        return None
+    try:
+        return load_json(p)
+    except Exception as e:
+        print(f"[WARN] Failed to parse OpenAPI ({p}): {e}", file=sys.stderr)
+        return None
+
+# -------------------- GOLD extraction --------------------
 
 def is_http_op(d):
     if not isinstance(d, dict): return False
@@ -18,9 +36,11 @@ def is_http_op(d):
 def walk_ops_anywhere(obj, sink):
     if isinstance(obj, dict):
         if is_http_op(obj):
-            sink.append({"method": (obj.get("method") or obj.get("http_method")).upper(),
-                         "path":   obj.get("path") or obj.get("http_path") or obj.get("endpoint"),
-                         "body":   obj.get("body") or obj.get("requestBody") or obj.get("payload") or None})
+            sink.append({
+                "method": (obj.get("method") or obj.get("http_method")).upper(),
+                "path":   obj.get("path")   or obj.get("http_path") or obj.get("endpoint"),
+                "body":   obj.get("body")   or obj.get("requestBody") or obj.get("payload") or None
+            })
         for v in obj.values():
             walk_ops_anywhere(v, sink)
     elif isinstance(obj, list):
@@ -60,67 +80,6 @@ def prefer_keys(path_keys, body_keys):
         scored.append((score, k))
     scored.sort(key=lambda t: (-t[0], body_keys.index(t[1])))
     return [k for _, k in scored[:2]]
-
-# --- CLEAN string builders for JS description expressions --------------------
-
-def desc_expr(prefix: str, ent: str, keys):
-    """
-    Returns a JS expression (as a string) that evaluates to the exact
-    description we set in 'parameters.description'.
-    Example (with keys ['id','code']):
-      "Add a drug with " + "id " + id + " and " + "code " + code
-    """
-    if not keys:
-        return f"\"{prefix} a {ent}\""
-    parts = ' + " and " + '.join([f"\"{k} \" + {k}" for k in keys])
-    return f"\"{prefix} a {ent} with \" + {parts}"
-
-def delete_desc_expr(ent: str, keys):
-    return desc_expr("Delete", ent, keys)
-
-def verify_desc_expr(ent: str, keys, exists=True):
-    what = "exists" if exists else "does not exist"
-    if not keys:
-        return f"\"Verify {ent} {what}\""
-    parts = ' + " and " + '.join([f"\"{k} \" + {k}" for k in keys])
-    return f"\"Verify {ent} with \" + {parts} + \" {what}\""
-
-# ---------------------------------------------------------------------------
-
-def js_match_equals_desc(prefix, entity, keys):
-    # Compare to the exact expression we constructed for parameters.description
-    if not keys:
-        return f'return e.data.parameters.description === "{prefix} a {entity}";'
-    wanted = desc_expr(prefix, entity, keys)
-    return f"return e.data.parameters.description === {wanted};"
-
-def param_is_numeric(name):
-    return bool(NUMERIC_KEY_RX.search(name))
-
-def render_extract_from_desc(prefix, entity, keys):
-    # Build a regex that captures each key value from the description
-    # Example: /^Add a user with id (.+) and name (.+)$/
-    if not keys:
-        return "return {};"
-    rx = "^" + re.escape(prefix + " " + entity + " with ")
-    rx += " and ".join([re.escape(k + " ") + "(.+)" for k in keys]) + "$"
-    out = []
-    out.append(f"let e = waitFor(matchesDescriptionRegex(/{rx}/));")
-    out.append("let m = e.data.parameters.description.match(/" + rx + "/);")
-    assigns = []
-    for i, k in enumerate(keys, start=1):
-        # Emit a concrete value, not a function
-        if param_is_numeric(k):
-            assigns.append(f"{k}: parseInt(m[{i}])")
-        else:
-            assigns.append(f"{k}: m[{i}]")
-    out.append("return { " + ", ".join(assigns) + " };")
-    return "\n    ".join(out)
-
-def make_path(plural, keys):
-    if not keys:
-        return f'"/{plural}"'
-    return '"/' + plural + '/" + ' + ' + "/"+ '.join(keys)
 
 def unique_preserve(seq):
     seen=set(); out=[]
@@ -170,47 +129,139 @@ def group_entities(ops):
         })
     return sorted(entities, key=lambda e: e["plural"])
 
-def js_head():
+# -------------------- OpenAPI hints (Option 3) --------------------
+
+def parse_server_host_port(spec):
+    try:
+        url = spec.get("servers", [{}])[0].get("url", "")
+        u = urlparse(url)
+        host = (u.hostname or "192.168.225.53")
+        port = (u.port or 5014)
+        return host, port
+    except Exception:
+        return "192.168.225.53", 5014
+
+def build_hint_maps_from_openapi(spec):
+    """Return per-entity (plural) hint maps."""
+    hints = {
+        "_defaults": {
+            "neg_delete": [200, 404, 401],
+            "dup_create": [409, 400],
+            "create":     [201, 200],
+        }
+    }
+    try:
+        for path, item in spec.get("paths", {}).items():
+            parts = [p for p in path.split("/") if p]
+            if not parts: 
+                continue
+            plural = parts[0].replace("-", "_")
+            ent = hints.setdefault(plural, {})
+            # duplicate-create codes on collection POST
+            post = item.get("post")
+            if post:
+                if "x-duplicate-expected-codes" in post:
+                    ent["dup_create"] = post["x-duplicate-expected-codes"]
+                if "x-create-expected-codes" in post:
+                    ent["create"] = post["x-create-expected-codes"]
+            # negative delete codes on item DELETE
+            delete = item.get("delete")
+            if delete and "x-negative-delete-expected-codes" in delete:
+                ent["neg_delete"] = delete["x-negative-delete-expected-codes"]
+    except Exception:
+        pass
+    return hints
+
+def get_codes(hints, plural, key):
+    ent = hints.get(plural, {})
+    return ent.get(key) or hints["_defaults"][key]
+
+# -------------------- JS string helpers --------------------
+
+def desc_expr(prefix: str, ent: str, keys):
+    if not keys:
+        return f"\"{prefix} a {ent}\""
+    parts = ' + " and " + '.join([f"\"{k} \" + {k}" for k in keys])
+    return f"\"{prefix} a {ent} with \" + {parts}"
+
+def delete_desc_expr(ent: str, keys):
+    return desc_expr("Delete", ent, keys)
+
+def verify_desc_expr(ent: str, keys, exists=True):
+    what = "exists" if exists else "does not exist"
+    if not keys:
+        return f"\"Verify {ent} {what}\""
+    parts = ' + " and " + '.join([f"\"{k} \" + {k}" for k in keys])
+    return f"\"Verify {ent} with \" + {parts} + \" {what}\""
+
+def js_match_equals_desc(prefix, entity, keys):
+    if not keys:
+        return f'return e.data.parameters.description === "{prefix} a {entity}";'
+    wanted = desc_expr(prefix, entity, keys)
+    return f"return e.data.parameters.description === {wanted};"
+
+def param_is_numeric(name):
+    return bool(NUMERIC_KEY_RX.search(name))
+
+def render_extract_from_desc(prefix, entity, keys):
+    if not keys:
+        return "return {};"
+    rx = "^" + re.escape(prefix + " " + entity + " with ")
+    rx += " and ".join([re.escape(k + " ") + "(.+)" for k in keys]) + "$"
+    out = []
+    out.append(f"let e = waitFor(matchesDescriptionRegex(/{rx}/));")
+    out.append("let m = e.data.parameters.description.match(/" + rx + "/);")
+    assigns = []
+    for i, k in enumerate(keys, start=1):
+        if param_is_numeric(k):
+            assigns.append(f"{k}: parseInt(m[{i}])")
+        else:
+            assigns.append(f"{k}: m[{i}]")
+    out.append("return { " + ", ".join(assigns) + " };")
+    return "\n    ".join(out)
+
+def make_path(plural, keys):
+    if not keys:
+        return f'"/{plural}"'
+    return '"/' + plural + '/" + ' + ' + "/"+ '.join(keys)
+
+# -------------------- JS emitters --------------------
+
+def js_head(host_default, port_default):
     return (
-'''//@provengo summon rest
+f'''//@provengo summon rest
 
 /**
  * Auto-generated interfaces & lifecycle (readable)
  * From GOLD only – full CRUD + verifications + match/wait helpers.
- * This approximates the "Library SUT" interface style.
  */
 
-// CHANGE (1): add default host/port placeholders before RESTSession
-var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
-var port = (typeof port !== 'undefined') ? port : 5014;
+var host = (typeof host !== 'undefined') ? host : '{host_default}';
+var port = (typeof port !== 'undefined') ? port : {port_default};
 
-const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
-  headers: { "Content-Type": "application/json" },
-});
+const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {{
+  headers: {{ "Content-Type": "application/json" }},
+}});
 
 // Common helpers
-function matchesDescription(text) {
-  return bp.EventSet("desc-eq", function(e) {
+function matchesDescription(text) {{
+  return bp.EventSet("desc-eq", function(e) {{
     return !!(e && e.data && e.data.parameters && e.data.parameters.description === text);
-  });
-}
-function matchesDescriptionRegex(rx) {
-  return bp.EventSet("desc-rx", function(e) {
+  }});
+}}
+function matchesDescriptionRegex(rx) {{
+  return bp.EventSet("desc-rx", function(e) {{
     if (!e || !e.data || !e.data.parameters || !e.data.parameters.description) return false;
     return rx.test(e.data.parameters.description);
-  });
-}'''
+  }});
+}}'''
     )
 
-def render_entity_block(e):
-    ent = e["singular"]
-    Ent = e["Singular"]
-    plural = e["plural"]
-    Plural = e["Plural"]
+def render_entity_block(e, hints):
+    ent = e["singular"]; Ent = e["Singular"]
+    plural = e["plural"]; Plural = e["Plural"]
     keys = e["keys"]
-
     params = ", ".join(keys) if keys else ""
-
     body_fields = ", ".join([f"{k}: {k}" for k in keys]) if keys else ""
 
     add_desc = desc_expr("Add", ent, keys)
@@ -218,11 +269,18 @@ def render_entity_block(e):
     upd_desc = desc_expr("Update", ent, keys)
     get_desc = desc_expr("Get", ent, keys)
 
-    post_body = ("{\n      body: JSON.stringify({ " + body_fields + " }),\n" if body_fields else "{\n") + \
-                f"      parameters: {{ description: {add_desc} }}\n    }}"
+    # Codes from hints (OpenAPI or defaults)
+    neg_delete_codes = get_codes(hints, plural, "neg_delete")      # Option-3 default [200,404,401]
+    dup_create_codes = get_codes(hints, plural, "dup_create")      # default [409,400]
+    create_codes     = get_codes(hints, plural, "create")          # default [201,200]
 
-    put_body = ("{\n      body: JSON.stringify({ " + body_fields + " }),\n" if body_fields else "{\n") + \
-               f"      parameters: {{ description: {upd_desc} }}\n    }}"
+    # Build call objects without duplicate 'parameters'
+    if body_fields:
+        post_obj = f'{{ body: JSON.stringify({{ {body_fields} }}), parameters: {{ description: {add_desc} }} }}'
+        put_obj  = f'{{ body: JSON.stringify({{ {body_fields} }}), parameters: {{ description: {upd_desc} }} }}'
+    else:
+        post_obj = f'{{ parameters: {{ description: {add_desc} }} }}'
+        put_obj  = f'{{ parameters: {{ description: {upd_desc} }} }}'
 
     path_add   = f'"/{plural}"'
     path_list  = f'"/{plural}"'
@@ -235,12 +293,16 @@ def render_entity_block(e):
     extract_del   = render_extract_from_desc("Delete a", ent, keys)
     extract_upd   = render_extract_from_desc("Update a", ent, keys)
 
+    # Helper to render JS array like [200, 404, 401]
+    def js_codes(arr):
+        return "[{}]".format(", ".join(str(x) for x in arr))
+
     return f'''
 /** === {Ent} Operations === */
 
 // CREATE
 function add{Ent}({params}) {{
-  svc.post({path_add}, {post_body});
+  svc.post({path_add}, {post_obj});
 }}
 
 // DELETE
@@ -250,25 +312,26 @@ function delete{Ent}({params}) {{
   }});
 }}
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExisting{Ent}({params}) {{
   svc.delete({path_item}, {{
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: {js_codes(neg_delete_codes)},
     parameters: {{ description: {del_desc} }}
   }});
 }}
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExisting{Ent}({params}) {{
-  svc.post({path_add}, {post_body[:-2]} , 
-    expectedResponseCodes: [400, 409],
-    parameters: {{ description: {add_desc} }}
+  svc.post({path_add}, {{
+    body: JSON.stringify({{ {body_fields} }}),
+    parameters: {{ description: {add_desc} }},
+    expectedResponseCodes: {js_codes(dup_create_codes)}
   }});
 }}
 
 // UPDATE
 function update{Ent}({params}) {{
-  svc.put({path_item}, {put_body});
+  svc.put({path_item}, {put_obj});
 }}
 
 // GET one
@@ -411,15 +474,16 @@ function lifecycle_{ent}({params}) {{
 }}''')
     return "\n".join(lines)
 
+# -------------------- main --------------------
+
 def main():
     ap = argparse.ArgumentParser(
         description=(
             "Emit interfaces.readable.js and lifecycle.readable.js from GOLD only.\n"
+            "Optionally consume OpenAPI hints (--openapi) for expected codes and server URL.\n"
             "Example:\n"
             "  python scripts\\readable\\emit_readables_from_gold.py "
-            "--gold artifacts\\v25\\nondet_checked\\7_suts_llm_provider\\banking\\banking_llm_gold_fixed.json "
-            "\"artifacts\\v25\\nondet_checked\\7_suts_llm_provider\\banking\\banking_llm_gold.json\" "
-            "--out-dir artifacts\\v25\\nondet_checked\\7_suts_llm_provider\\banking\\readable --force-crud"
+            "--gold artifacts\\det_checked\\...\\gold.json --out-dir out --openapi openapi.json --force-crud"
         )
     )
     ap.add_argument("--gold", nargs="+", required=True, help="One or more GOLD json files")
@@ -427,8 +491,10 @@ def main():
     ap.add_argument("--force-crud", action="store_true", help="Always emit full CRUD shells")
     ap.add_argument("--entity-map", help="Optional JSON overrides: { plural: { 'keys': ['id','name'] } }")
     ap.add_argument("--style", default="library", choices=["library","readable"], help="Kept for compatibility")
+    ap.add_argument("--openapi", help="Optional OpenAPI JSON with x-* hints (Option 3)")
     args = ap.parse_args()
 
+    # GOLD → ops → entities
     golds = [load_json(p) for p in args.gold]
     ops = collect_ops_from_gold(golds)
     if not ops:
@@ -437,24 +503,32 @@ def main():
 
     entities = group_entities(ops)
 
+    # entity-map overrides
     if args.entity_map and Path(args.entity_map).is_file():
         em = load_json(args.entity_map)
         for e in entities:
             ov = em.get(e["plural"]) or em.get(e["singular"])
-            if ov:
-                if "keys" in ov and isinstance(ov["keys"], list) and ov["keys"]:
-                    e["keys"] = ov["keys"]
+            if ov and isinstance(ov.get("keys"), list) and ov["keys"]:
+                e["keys"] = ov["keys"]
 
-    out = Path(args.out_dir); out.mkdir(parents=True, exist_ok=True)
+    # OpenAPI hints (Option 3); defaults hard-coded to Option-3 if spec absent
+    spec = try_load_openapi(args.openapi)
+    host_default, port_default = ("192.168.225.53", 5014)
+    hints = {"_defaults": {"neg_delete":[200,404,401], "dup_create":[409,400], "create":[201,200]}}
+    if spec:
+        host_default, port_default = parse_server_host_port(spec)
+        hints = build_hint_maps_from_openapi(spec)
 
-    js = [js_head()]
+    out_dir = Path(args.out_dir); out_dir.mkdir(parents=True, exist_ok=True)
+
+    js = [js_head(host_default, port_default)]
     for e in entities:
-        js.append(render_entity_block(e))
-    (out / "interfaces.readable.js").write_text("\n".join(js)+"\n", encoding="utf-8")
+        js.append(render_entity_block(e, hints))
+    (out_dir / "interfaces.readable.js").write_text("\n".join(js)+"\n", encoding="utf-8")
 
-    (out / "lifecycle.readable.js").write_text(build_lifecycle(entities)+"\n", encoding="utf-8")
+    (out_dir / "lifecycle.readable.js").write_text(build_lifecycle(entities)+"\n", encoding="utf-8")
 
-    print(f"[OK] Wrote: {out/'interfaces.readable.js'} and {out/'lifecycle.readable.js'}")
+    print(f"[OK] Wrote: {out_dir/'interfaces.readable.js'} and {out_dir/'lifecycle.readable.js'}")
 
 if __name__ == "__main__":
     main()

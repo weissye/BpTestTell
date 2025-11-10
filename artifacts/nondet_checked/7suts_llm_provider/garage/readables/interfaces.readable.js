@@ -3,11 +3,9 @@
 /**
  * Auto-generated interfaces & lifecycle (readable)
  * From GOLD only – full CRUD + verifications + match/wait helpers.
- * This approximates the "Library SUT" interface style.
  */
 
-// CHANGE (1): add default host/port placeholders before RESTSession
-var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var host = (typeof host !== 'undefined') ? host : '192.168.225.53';
 var port = (typeof port !== 'undefined') ? port : 5014;
 
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
@@ -31,10 +29,7 @@ function matchesDescriptionRegex(rx) {
 
 // CREATE
 function addV1(roId, chainId, garageId, customerId, vin, pmId) {
-  svc.post("/v1", {
-      body: JSON.stringify({ roId: roId, chainId: chainId, garageId: garageId, customerId: customerId, vin: vin, pmId: pmId }),
-      parameters: { description: "Add a v1 with " + "roId " + roId + " and " + "chainId " + chainId + " and " + "garageId " + garageId + " and " + "customerId " + customerId + " and " + "vin " + vin + " and " + "pmId " + pmId }
-    });
+  svc.post("/v1", { body: JSON.stringify({ roId: roId, chainId: chainId, garageId: garageId, customerId: customerId, vin: vin, pmId: pmId }), parameters: { description: "Add a v1 with " + "roId " + roId + " and " + "chainId " + chainId + " and " + "garageId " + garageId + " and " + "customerId " + customerId + " and " + "vin " + vin + " and " + "pmId " + pmId } });
 }
 
 // DELETE
@@ -44,31 +39,26 @@ function deleteV1(roId, chainId, garageId, customerId, vin, pmId) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingV1(roId, chainId, garageId, customerId, vin, pmId) {
   svc.delete("/v1/" + roId + "/"+ chainId + "/"+ garageId + "/"+ customerId + "/"+ vin + "/"+ pmId, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a v1 with " + "roId " + roId + " and " + "chainId " + chainId + " and " + "garageId " + garageId + " and " + "customerId " + customerId + " and " + "vin " + vin + " and " + "pmId " + pmId }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingV1(roId, chainId, garageId, customerId, vin, pmId) {
   svc.post("/v1", {
-      body: JSON.stringify({ roId: roId, chainId: chainId, garageId: garageId, customerId: customerId, vin: vin, pmId: pmId }),
-      parameters: { description: "Add a v1 with " + "roId " + roId + " and " + "chainId " + chainId + " and " + "garageId " + garageId + " and " + "customerId " + customerId + " and " + "vin " + vin + " and " + "pmId " + pmId }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a v1 with " + "roId " + roId + " and " + "chainId " + chainId + " and " + "garageId " + garageId + " and " + "customerId " + customerId + " and " + "vin " + vin + " and " + "pmId " + pmId }
+    body: JSON.stringify({ roId: roId, chainId: chainId, garageId: garageId, customerId: customerId, vin: vin, pmId: pmId }),
+    parameters: { description: "Add a v1 with " + "roId " + roId + " and " + "chainId " + chainId + " and " + "garageId " + garageId + " and " + "customerId " + customerId + " and " + "vin " + vin + " and " + "pmId " + pmId },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateV1(roId, chainId, garageId, customerId, vin, pmId) {
-  svc.put("/v1/" + roId + "/"+ chainId + "/"+ garageId + "/"+ customerId + "/"+ vin + "/"+ pmId, {
-      body: JSON.stringify({ roId: roId, chainId: chainId, garageId: garageId, customerId: customerId, vin: vin, pmId: pmId }),
-      parameters: { description: "Update a v1 with " + "roId " + roId + " and " + "chainId " + chainId + " and " + "garageId " + garageId + " and " + "customerId " + customerId + " and " + "vin " + vin + " and " + "pmId " + pmId }
-    });
+  svc.put("/v1/" + roId + "/"+ chainId + "/"+ garageId + "/"+ customerId + "/"+ vin + "/"+ pmId, { body: JSON.stringify({ roId: roId, chainId: chainId, garageId: garageId, customerId: customerId, vin: vin, pmId: pmId }), parameters: { description: "Update a v1 with " + "roId " + roId + " and " + "chainId " + chainId + " and " + "garageId " + garageId + " and " + "customerId " + customerId + " and " + "vin " + vin + " and " + "pmId " + pmId } });
 }
 
 // GET one

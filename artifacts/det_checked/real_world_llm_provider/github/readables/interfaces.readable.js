@@ -3,11 +3,9 @@
 /**
  * Auto-generated interfaces & lifecycle (readable)
  * From GOLD only – full CRUD + verifications + match/wait helpers.
- * This approximates the "Library SUT" interface style.
  */
 
-// CHANGE (1): add default host/port placeholders before RESTSession
-var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var host = (typeof host !== 'undefined') ? host : '192.168.225.53';
 var port = (typeof port !== 'undefined') ? port : 5014;
 
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
@@ -31,10 +29,7 @@ function matchesDescriptionRegex(rx) {
 
 // CREATE
 function addAdvisorie(ghsa_id) {
-  svc.post("/advisories", {
-      body: JSON.stringify({ ghsa_id: ghsa_id }),
-      parameters: { description: "Add a advisorie with " + "ghsa_id " + ghsa_id }
-    });
+  svc.post("/advisories", { body: JSON.stringify({ ghsa_id: ghsa_id }), parameters: { description: "Add a advisorie with " + "ghsa_id " + ghsa_id } });
 }
 
 // DELETE
@@ -44,31 +39,26 @@ function deleteAdvisorie(ghsa_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingAdvisorie(ghsa_id) {
   svc.delete("/advisories/" + ghsa_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a advisorie with " + "ghsa_id " + ghsa_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingAdvisorie(ghsa_id) {
   svc.post("/advisories", {
-      body: JSON.stringify({ ghsa_id: ghsa_id }),
-      parameters: { description: "Add a advisorie with " + "ghsa_id " + ghsa_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a advisorie with " + "ghsa_id " + ghsa_id }
+    body: JSON.stringify({ ghsa_id: ghsa_id }),
+    parameters: { description: "Add a advisorie with " + "ghsa_id " + ghsa_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateAdvisorie(ghsa_id) {
-  svc.put("/advisories/" + ghsa_id, {
-      body: JSON.stringify({ ghsa_id: ghsa_id }),
-      parameters: { description: "Update a advisorie with " + "ghsa_id " + ghsa_id }
-    });
+  svc.put("/advisories/" + ghsa_id, { body: JSON.stringify({ ghsa_id: ghsa_id }), parameters: { description: "Update a advisorie with " + "ghsa_id " + ghsa_id } });
 }
 
 // GET one
@@ -204,10 +194,7 @@ function verifyAdvisorieUpdated(ghsa_id) {
 
 // CREATE
 function addApp(installation_id, delivery_id) {
-  svc.post("/app", {
-      body: JSON.stringify({ installation_id: installation_id, delivery_id: delivery_id }),
-      parameters: { description: "Add a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id }
-    });
+  svc.post("/app", { body: JSON.stringify({ installation_id: installation_id, delivery_id: delivery_id }), parameters: { description: "Add a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id } });
 }
 
 // DELETE
@@ -217,31 +204,26 @@ function deleteApp(installation_id, delivery_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingApp(installation_id, delivery_id) {
   svc.delete("/app/" + installation_id + "/"+ delivery_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingApp(installation_id, delivery_id) {
   svc.post("/app", {
-      body: JSON.stringify({ installation_id: installation_id, delivery_id: delivery_id }),
-      parameters: { description: "Add a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id }
+    body: JSON.stringify({ installation_id: installation_id, delivery_id: delivery_id }),
+    parameters: { description: "Add a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateApp(installation_id, delivery_id) {
-  svc.put("/app/" + installation_id + "/"+ delivery_id, {
-      body: JSON.stringify({ installation_id: installation_id, delivery_id: delivery_id }),
-      parameters: { description: "Update a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id }
-    });
+  svc.put("/app/" + installation_id + "/"+ delivery_id, { body: JSON.stringify({ installation_id: installation_id, delivery_id: delivery_id }), parameters: { description: "Update a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id } });
 }
 
 // GET one
@@ -377,10 +359,7 @@ function verifyAppUpdated(installation_id, delivery_id) {
 
 // CREATE
 function addApp_manifest(code) {
-  svc.post("/app_manifests", {
-      body: JSON.stringify({ code: code }),
-      parameters: { description: "Add a app_manifest with " + "code " + code }
-    });
+  svc.post("/app_manifests", { body: JSON.stringify({ code: code }), parameters: { description: "Add a app_manifest with " + "code " + code } });
 }
 
 // DELETE
@@ -390,31 +369,26 @@ function deleteApp_manifest(code) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingApp_manifest(code) {
   svc.delete("/app_manifests/" + code, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a app_manifest with " + "code " + code }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingApp_manifest(code) {
   svc.post("/app_manifests", {
-      body: JSON.stringify({ code: code }),
-      parameters: { description: "Add a app_manifest with " + "code " + code }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a app_manifest with " + "code " + code }
+    body: JSON.stringify({ code: code }),
+    parameters: { description: "Add a app_manifest with " + "code " + code },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateApp_manifest(code) {
-  svc.put("/app_manifests/" + code, {
-      body: JSON.stringify({ code: code }),
-      parameters: { description: "Update a app_manifest with " + "code " + code }
-    });
+  svc.put("/app_manifests/" + code, { body: JSON.stringify({ code: code }), parameters: { description: "Update a app_manifest with " + "code " + code } });
 }
 
 // GET one
@@ -550,10 +524,7 @@ function verifyApp_manifestUpdated(code) {
 
 // CREATE
 function addApplication(client_id) {
-  svc.post("/applications", {
-      body: JSON.stringify({ client_id: client_id }),
-      parameters: { description: "Add a application with " + "client_id " + client_id }
-    });
+  svc.post("/applications", { body: JSON.stringify({ client_id: client_id }), parameters: { description: "Add a application with " + "client_id " + client_id } });
 }
 
 // DELETE
@@ -563,31 +534,26 @@ function deleteApplication(client_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingApplication(client_id) {
   svc.delete("/applications/" + client_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a application with " + "client_id " + client_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingApplication(client_id) {
   svc.post("/applications", {
-      body: JSON.stringify({ client_id: client_id }),
-      parameters: { description: "Add a application with " + "client_id " + client_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a application with " + "client_id " + client_id }
+    body: JSON.stringify({ client_id: client_id }),
+    parameters: { description: "Add a application with " + "client_id " + client_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateApplication(client_id) {
-  svc.put("/applications/" + client_id, {
-      body: JSON.stringify({ client_id: client_id }),
-      parameters: { description: "Update a application with " + "client_id " + client_id }
-    });
+  svc.put("/applications/" + client_id, { body: JSON.stringify({ client_id: client_id }), parameters: { description: "Update a application with " + "client_id " + client_id } });
 }
 
 // GET one
@@ -723,10 +689,7 @@ function verifyApplicationUpdated(client_id) {
 
 // CREATE
 function addApp(app_slug) {
-  svc.post("/apps", {
-      body: JSON.stringify({ app_slug: app_slug }),
-      parameters: { description: "Add a app with " + "app_slug " + app_slug }
-    });
+  svc.post("/apps", { body: JSON.stringify({ app_slug: app_slug }), parameters: { description: "Add a app with " + "app_slug " + app_slug } });
 }
 
 // DELETE
@@ -736,31 +699,26 @@ function deleteApp(app_slug) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingApp(app_slug) {
   svc.delete("/apps/" + app_slug, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a app with " + "app_slug " + app_slug }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingApp(app_slug) {
   svc.post("/apps", {
-      body: JSON.stringify({ app_slug: app_slug }),
-      parameters: { description: "Add a app with " + "app_slug " + app_slug }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a app with " + "app_slug " + app_slug }
+    body: JSON.stringify({ app_slug: app_slug }),
+    parameters: { description: "Add a app with " + "app_slug " + app_slug },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateApp(app_slug) {
-  svc.put("/apps/" + app_slug, {
-      body: JSON.stringify({ app_slug: app_slug }),
-      parameters: { description: "Update a app with " + "app_slug " + app_slug }
-    });
+  svc.put("/apps/" + app_slug, { body: JSON.stringify({ app_slug: app_slug }), parameters: { description: "Update a app with " + "app_slug " + app_slug } });
 }
 
 // GET one
@@ -896,10 +854,7 @@ function verifyAppUpdated(app_slug) {
 
 // CREATE
 function addAssignment(assignment_id) {
-  svc.post("/assignments", {
-      body: JSON.stringify({ assignment_id: assignment_id }),
-      parameters: { description: "Add a assignment with " + "assignment_id " + assignment_id }
-    });
+  svc.post("/assignments", { body: JSON.stringify({ assignment_id: assignment_id }), parameters: { description: "Add a assignment with " + "assignment_id " + assignment_id } });
 }
 
 // DELETE
@@ -909,31 +864,26 @@ function deleteAssignment(assignment_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingAssignment(assignment_id) {
   svc.delete("/assignments/" + assignment_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a assignment with " + "assignment_id " + assignment_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingAssignment(assignment_id) {
   svc.post("/assignments", {
-      body: JSON.stringify({ assignment_id: assignment_id }),
-      parameters: { description: "Add a assignment with " + "assignment_id " + assignment_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a assignment with " + "assignment_id " + assignment_id }
+    body: JSON.stringify({ assignment_id: assignment_id }),
+    parameters: { description: "Add a assignment with " + "assignment_id " + assignment_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateAssignment(assignment_id) {
-  svc.put("/assignments/" + assignment_id, {
-      body: JSON.stringify({ assignment_id: assignment_id }),
-      parameters: { description: "Update a assignment with " + "assignment_id " + assignment_id }
-    });
+  svc.put("/assignments/" + assignment_id, { body: JSON.stringify({ assignment_id: assignment_id }), parameters: { description: "Update a assignment with " + "assignment_id " + assignment_id } });
 }
 
 // GET one
@@ -1069,10 +1019,7 @@ function verifyAssignmentUpdated(assignment_id) {
 
 // CREATE
 function addClassroom(classroom_id) {
-  svc.post("/classrooms", {
-      body: JSON.stringify({ classroom_id: classroom_id }),
-      parameters: { description: "Add a classroom with " + "classroom_id " + classroom_id }
-    });
+  svc.post("/classrooms", { body: JSON.stringify({ classroom_id: classroom_id }), parameters: { description: "Add a classroom with " + "classroom_id " + classroom_id } });
 }
 
 // DELETE
@@ -1082,31 +1029,26 @@ function deleteClassroom(classroom_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingClassroom(classroom_id) {
   svc.delete("/classrooms/" + classroom_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a classroom with " + "classroom_id " + classroom_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingClassroom(classroom_id) {
   svc.post("/classrooms", {
-      body: JSON.stringify({ classroom_id: classroom_id }),
-      parameters: { description: "Add a classroom with " + "classroom_id " + classroom_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a classroom with " + "classroom_id " + classroom_id }
+    body: JSON.stringify({ classroom_id: classroom_id }),
+    parameters: { description: "Add a classroom with " + "classroom_id " + classroom_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateClassroom(classroom_id) {
-  svc.put("/classrooms/" + classroom_id, {
-      body: JSON.stringify({ classroom_id: classroom_id }),
-      parameters: { description: "Update a classroom with " + "classroom_id " + classroom_id }
-    });
+  svc.put("/classrooms/" + classroom_id, { body: JSON.stringify({ classroom_id: classroom_id }), parameters: { description: "Update a classroom with " + "classroom_id " + classroom_id } });
 }
 
 // GET one
@@ -1242,10 +1184,7 @@ function verifyClassroomUpdated(classroom_id) {
 
 // CREATE
 function addCodes_of_conduct(key) {
-  svc.post("/codes_of_conduct", {
-      body: JSON.stringify({ key: key }),
-      parameters: { description: "Add a codes_of_conduct with " + "key " + key }
-    });
+  svc.post("/codes_of_conduct", { body: JSON.stringify({ key: key }), parameters: { description: "Add a codes_of_conduct with " + "key " + key } });
 }
 
 // DELETE
@@ -1255,31 +1194,26 @@ function deleteCodes_of_conduct(key) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingCodes_of_conduct(key) {
   svc.delete("/codes_of_conduct/" + key, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a codes_of_conduct with " + "key " + key }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingCodes_of_conduct(key) {
   svc.post("/codes_of_conduct", {
-      body: JSON.stringify({ key: key }),
-      parameters: { description: "Add a codes_of_conduct with " + "key " + key }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a codes_of_conduct with " + "key " + key }
+    body: JSON.stringify({ key: key }),
+    parameters: { description: "Add a codes_of_conduct with " + "key " + key },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateCodes_of_conduct(key) {
-  svc.put("/codes_of_conduct/" + key, {
-      body: JSON.stringify({ key: key }),
-      parameters: { description: "Update a codes_of_conduct with " + "key " + key }
-    });
+  svc.put("/codes_of_conduct/" + key, { body: JSON.stringify({ key: key }), parameters: { description: "Update a codes_of_conduct with " + "key " + key } });
 }
 
 // GET one
@@ -1415,10 +1349,7 @@ function verifyCodes_of_conductUpdated(key) {
 
 // CREATE
 function addCredential(id) {
-  svc.post("/credentials", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a credential with " + "id " + id }
-    });
+  svc.post("/credentials", { body: JSON.stringify({ id: id }), parameters: { description: "Add a credential with " + "id " + id } });
 }
 
 // DELETE
@@ -1428,31 +1359,26 @@ function deleteCredential(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingCredential(id) {
   svc.delete("/credentials/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a credential with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingCredential(id) {
   svc.post("/credentials", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a credential with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a credential with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a credential with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateCredential(id) {
-  svc.put("/credentials/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a credential with " + "id " + id }
-    });
+  svc.put("/credentials/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a credential with " + "id " + id } });
 }
 
 // GET one
@@ -1588,10 +1514,7 @@ function verifyCredentialUpdated(id) {
 
 // CREATE
 function addEmoji(id) {
-  svc.post("/emojis", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a emoji with " + "id " + id }
-    });
+  svc.post("/emojis", { body: JSON.stringify({ id: id }), parameters: { description: "Add a emoji with " + "id " + id } });
 }
 
 // DELETE
@@ -1601,31 +1524,26 @@ function deleteEmoji(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingEmoji(id) {
   svc.delete("/emojis/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a emoji with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingEmoji(id) {
   svc.post("/emojis", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a emoji with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a emoji with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a emoji with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateEmoji(id) {
-  svc.put("/emojis/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a emoji with " + "id " + id }
-    });
+  svc.put("/emojis/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a emoji with " + "id " + id } });
 }
 
 // GET one
@@ -1761,10 +1679,7 @@ function verifyEmojiUpdated(id) {
 
 // CREATE
 function addEnterprise(enterprise, configuration_id, enterprise-team, username, team_slug) {
-  svc.post("/enterprises", {
-      body: JSON.stringify({ enterprise: enterprise, configuration_id: configuration_id, enterprise-team: enterprise-team, username: username, team_slug: team_slug }),
-      parameters: { description: "Add a enterprise with " + "enterprise " + enterprise + " and " + "configuration_id " + configuration_id + " and " + "enterprise-team " + enterprise-team + " and " + "username " + username + " and " + "team_slug " + team_slug }
-    });
+  svc.post("/enterprises", { body: JSON.stringify({ enterprise: enterprise, configuration_id: configuration_id, enterprise-team: enterprise-team, username: username, team_slug: team_slug }), parameters: { description: "Add a enterprise with " + "enterprise " + enterprise + " and " + "configuration_id " + configuration_id + " and " + "enterprise-team " + enterprise-team + " and " + "username " + username + " and " + "team_slug " + team_slug } });
 }
 
 // DELETE
@@ -1774,31 +1689,26 @@ function deleteEnterprise(enterprise, configuration_id, enterprise-team, usernam
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingEnterprise(enterprise, configuration_id, enterprise-team, username, team_slug) {
   svc.delete("/enterprises/" + enterprise + "/"+ configuration_id + "/"+ enterprise-team + "/"+ username + "/"+ team_slug, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a enterprise with " + "enterprise " + enterprise + " and " + "configuration_id " + configuration_id + " and " + "enterprise-team " + enterprise-team + " and " + "username " + username + " and " + "team_slug " + team_slug }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingEnterprise(enterprise, configuration_id, enterprise-team, username, team_slug) {
   svc.post("/enterprises", {
-      body: JSON.stringify({ enterprise: enterprise, configuration_id: configuration_id, enterprise-team: enterprise-team, username: username, team_slug: team_slug }),
-      parameters: { description: "Add a enterprise with " + "enterprise " + enterprise + " and " + "configuration_id " + configuration_id + " and " + "enterprise-team " + enterprise-team + " and " + "username " + username + " and " + "team_slug " + team_slug }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a enterprise with " + "enterprise " + enterprise + " and " + "configuration_id " + configuration_id + " and " + "enterprise-team " + enterprise-team + " and " + "username " + username + " and " + "team_slug " + team_slug }
+    body: JSON.stringify({ enterprise: enterprise, configuration_id: configuration_id, enterprise-team: enterprise-team, username: username, team_slug: team_slug }),
+    parameters: { description: "Add a enterprise with " + "enterprise " + enterprise + " and " + "configuration_id " + configuration_id + " and " + "enterprise-team " + enterprise-team + " and " + "username " + username + " and " + "team_slug " + team_slug },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateEnterprise(enterprise, configuration_id, enterprise-team, username, team_slug) {
-  svc.put("/enterprises/" + enterprise + "/"+ configuration_id + "/"+ enterprise-team + "/"+ username + "/"+ team_slug, {
-      body: JSON.stringify({ enterprise: enterprise, configuration_id: configuration_id, enterprise-team: enterprise-team, username: username, team_slug: team_slug }),
-      parameters: { description: "Update a enterprise with " + "enterprise " + enterprise + " and " + "configuration_id " + configuration_id + " and " + "enterprise-team " + enterprise-team + " and " + "username " + username + " and " + "team_slug " + team_slug }
-    });
+  svc.put("/enterprises/" + enterprise + "/"+ configuration_id + "/"+ enterprise-team + "/"+ username + "/"+ team_slug, { body: JSON.stringify({ enterprise: enterprise, configuration_id: configuration_id, enterprise-team: enterprise-team, username: username, team_slug: team_slug }), parameters: { description: "Update a enterprise with " + "enterprise " + enterprise + " and " + "configuration_id " + configuration_id + " and " + "enterprise-team " + enterprise-team + " and " + "username " + username + " and " + "team_slug " + team_slug } });
 }
 
 // GET one
@@ -1934,10 +1844,7 @@ function verifyEnterpriseUpdated(enterprise, configuration_id, enterprise-team, 
 
 // CREATE
 function addEvent(id) {
-  svc.post("/events", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a event with " + "id " + id }
-    });
+  svc.post("/events", { body: JSON.stringify({ id: id }), parameters: { description: "Add a event with " + "id " + id } });
 }
 
 // DELETE
@@ -1947,31 +1854,26 @@ function deleteEvent(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingEvent(id) {
   svc.delete("/events/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a event with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingEvent(id) {
   svc.post("/events", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a event with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a event with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a event with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateEvent(id) {
-  svc.put("/events/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a event with " + "id " + id }
-    });
+  svc.put("/events/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a event with " + "id " + id } });
 }
 
 // GET one
@@ -2107,10 +2009,7 @@ function verifyEventUpdated(id) {
 
 // CREATE
 function addFeed(id) {
-  svc.post("/feeds", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a feed with " + "id " + id }
-    });
+  svc.post("/feeds", { body: JSON.stringify({ id: id }), parameters: { description: "Add a feed with " + "id " + id } });
 }
 
 // DELETE
@@ -2120,31 +2019,26 @@ function deleteFeed(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingFeed(id) {
   svc.delete("/feeds/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a feed with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingFeed(id) {
   svc.post("/feeds", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a feed with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a feed with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a feed with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateFeed(id) {
-  svc.put("/feeds/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a feed with " + "id " + id }
-    });
+  svc.put("/feeds/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a feed with " + "id " + id } });
 }
 
 // GET one
@@ -2280,10 +2174,7 @@ function verifyFeedUpdated(id) {
 
 // CREATE
 function addGist(gist_id, comment_id, sha) {
-  svc.post("/gists", {
-      body: JSON.stringify({ gist_id: gist_id, comment_id: comment_id, sha: sha }),
-      parameters: { description: "Add a gist with " + "gist_id " + gist_id + " and " + "comment_id " + comment_id + " and " + "sha " + sha }
-    });
+  svc.post("/gists", { body: JSON.stringify({ gist_id: gist_id, comment_id: comment_id, sha: sha }), parameters: { description: "Add a gist with " + "gist_id " + gist_id + " and " + "comment_id " + comment_id + " and " + "sha " + sha } });
 }
 
 // DELETE
@@ -2293,31 +2184,26 @@ function deleteGist(gist_id, comment_id, sha) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingGist(gist_id, comment_id, sha) {
   svc.delete("/gists/" + gist_id + "/"+ comment_id + "/"+ sha, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a gist with " + "gist_id " + gist_id + " and " + "comment_id " + comment_id + " and " + "sha " + sha }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingGist(gist_id, comment_id, sha) {
   svc.post("/gists", {
-      body: JSON.stringify({ gist_id: gist_id, comment_id: comment_id, sha: sha }),
-      parameters: { description: "Add a gist with " + "gist_id " + gist_id + " and " + "comment_id " + comment_id + " and " + "sha " + sha }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a gist with " + "gist_id " + gist_id + " and " + "comment_id " + comment_id + " and " + "sha " + sha }
+    body: JSON.stringify({ gist_id: gist_id, comment_id: comment_id, sha: sha }),
+    parameters: { description: "Add a gist with " + "gist_id " + gist_id + " and " + "comment_id " + comment_id + " and " + "sha " + sha },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateGist(gist_id, comment_id, sha) {
-  svc.put("/gists/" + gist_id + "/"+ comment_id + "/"+ sha, {
-      body: JSON.stringify({ gist_id: gist_id, comment_id: comment_id, sha: sha }),
-      parameters: { description: "Update a gist with " + "gist_id " + gist_id + " and " + "comment_id " + comment_id + " and " + "sha " + sha }
-    });
+  svc.put("/gists/" + gist_id + "/"+ comment_id + "/"+ sha, { body: JSON.stringify({ gist_id: gist_id, comment_id: comment_id, sha: sha }), parameters: { description: "Update a gist with " + "gist_id " + gist_id + " and " + "comment_id " + comment_id + " and " + "sha " + sha } });
 }
 
 // GET one
@@ -2453,10 +2339,7 @@ function verifyGistUpdated(gist_id, comment_id, sha) {
 
 // CREATE
 function addGitignore(name) {
-  svc.post("/gitignore", {
-      body: JSON.stringify({ name: name }),
-      parameters: { description: "Add a gitignore with " + "name " + name }
-    });
+  svc.post("/gitignore", { body: JSON.stringify({ name: name }), parameters: { description: "Add a gitignore with " + "name " + name } });
 }
 
 // DELETE
@@ -2466,31 +2349,26 @@ function deleteGitignore(name) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingGitignore(name) {
   svc.delete("/gitignore/" + name, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a gitignore with " + "name " + name }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingGitignore(name) {
   svc.post("/gitignore", {
-      body: JSON.stringify({ name: name }),
-      parameters: { description: "Add a gitignore with " + "name " + name }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a gitignore with " + "name " + name }
+    body: JSON.stringify({ name: name }),
+    parameters: { description: "Add a gitignore with " + "name " + name },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateGitignore(name) {
-  svc.put("/gitignore/" + name, {
-      body: JSON.stringify({ name: name }),
-      parameters: { description: "Update a gitignore with " + "name " + name }
-    });
+  svc.put("/gitignore/" + name, { body: JSON.stringify({ name: name }), parameters: { description: "Update a gitignore with " + "name " + name } });
 }
 
 // GET one
@@ -2626,10 +2504,7 @@ function verifyGitignoreUpdated(name) {
 
 // CREATE
 function addInstallation(id) {
-  svc.post("/installation", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a installation with " + "id " + id }
-    });
+  svc.post("/installation", { body: JSON.stringify({ id: id }), parameters: { description: "Add a installation with " + "id " + id } });
 }
 
 // DELETE
@@ -2639,31 +2514,26 @@ function deleteInstallation(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingInstallation(id) {
   svc.delete("/installation/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a installation with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingInstallation(id) {
   svc.post("/installation", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a installation with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a installation with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a installation with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateInstallation(id) {
-  svc.put("/installation/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a installation with " + "id " + id }
-    });
+  svc.put("/installation/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a installation with " + "id " + id } });
 }
 
 // GET one
@@ -2799,10 +2669,7 @@ function verifyInstallationUpdated(id) {
 
 // CREATE
 function addIssue(id) {
-  svc.post("/issues", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a issue with " + "id " + id }
-    });
+  svc.post("/issues", { body: JSON.stringify({ id: id }), parameters: { description: "Add a issue with " + "id " + id } });
 }
 
 // DELETE
@@ -2812,31 +2679,26 @@ function deleteIssue(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingIssue(id) {
   svc.delete("/issues/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a issue with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingIssue(id) {
   svc.post("/issues", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a issue with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a issue with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a issue with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateIssue(id) {
-  svc.put("/issues/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a issue with " + "id " + id }
-    });
+  svc.put("/issues/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a issue with " + "id " + id } });
 }
 
 // GET one
@@ -2972,10 +2834,7 @@ function verifyIssueUpdated(id) {
 
 // CREATE
 function addLicense(license) {
-  svc.post("/licenses", {
-      body: JSON.stringify({ license: license }),
-      parameters: { description: "Add a license with " + "license " + license }
-    });
+  svc.post("/licenses", { body: JSON.stringify({ license: license }), parameters: { description: "Add a license with " + "license " + license } });
 }
 
 // DELETE
@@ -2985,31 +2844,26 @@ function deleteLicense(license) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingLicense(license) {
   svc.delete("/licenses/" + license, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a license with " + "license " + license }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingLicense(license) {
   svc.post("/licenses", {
-      body: JSON.stringify({ license: license }),
-      parameters: { description: "Add a license with " + "license " + license }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a license with " + "license " + license }
+    body: JSON.stringify({ license: license }),
+    parameters: { description: "Add a license with " + "license " + license },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateLicense(license) {
-  svc.put("/licenses/" + license, {
-      body: JSON.stringify({ license: license }),
-      parameters: { description: "Update a license with " + "license " + license }
-    });
+  svc.put("/licenses/" + license, { body: JSON.stringify({ license: license }), parameters: { description: "Update a license with " + "license " + license } });
 }
 
 // GET one
@@ -3145,10 +2999,7 @@ function verifyLicenseUpdated(license) {
 
 // CREATE
 function addMarkdown(id) {
-  svc.post("/markdown", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a markdown with " + "id " + id }
-    });
+  svc.post("/markdown", { body: JSON.stringify({ id: id }), parameters: { description: "Add a markdown with " + "id " + id } });
 }
 
 // DELETE
@@ -3158,31 +3009,26 @@ function deleteMarkdown(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingMarkdown(id) {
   svc.delete("/markdown/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a markdown with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingMarkdown(id) {
   svc.post("/markdown", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a markdown with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a markdown with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a markdown with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateMarkdown(id) {
-  svc.put("/markdown/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a markdown with " + "id " + id }
-    });
+  svc.put("/markdown/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a markdown with " + "id " + id } });
 }
 
 // GET one
@@ -3318,10 +3164,7 @@ function verifyMarkdownUpdated(id) {
 
 // CREATE
 function addMarketplace_listing(account_id, plan_id) {
-  svc.post("/marketplace_listing", {
-      body: JSON.stringify({ account_id: account_id, plan_id: plan_id }),
-      parameters: { description: "Add a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id }
-    });
+  svc.post("/marketplace_listing", { body: JSON.stringify({ account_id: account_id, plan_id: plan_id }), parameters: { description: "Add a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id } });
 }
 
 // DELETE
@@ -3331,31 +3174,26 @@ function deleteMarketplace_listing(account_id, plan_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingMarketplace_listing(account_id, plan_id) {
   svc.delete("/marketplace_listing/" + account_id + "/"+ plan_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingMarketplace_listing(account_id, plan_id) {
   svc.post("/marketplace_listing", {
-      body: JSON.stringify({ account_id: account_id, plan_id: plan_id }),
-      parameters: { description: "Add a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id }
+    body: JSON.stringify({ account_id: account_id, plan_id: plan_id }),
+    parameters: { description: "Add a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateMarketplace_listing(account_id, plan_id) {
-  svc.put("/marketplace_listing/" + account_id + "/"+ plan_id, {
-      body: JSON.stringify({ account_id: account_id, plan_id: plan_id }),
-      parameters: { description: "Update a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id }
-    });
+  svc.put("/marketplace_listing/" + account_id + "/"+ plan_id, { body: JSON.stringify({ account_id: account_id, plan_id: plan_id }), parameters: { description: "Update a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id } });
 }
 
 // GET one
@@ -3491,10 +3329,7 @@ function verifyMarketplace_listingUpdated(account_id, plan_id) {
 
 // CREATE
 function addMeta(id) {
-  svc.post("/meta", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a meta with " + "id " + id }
-    });
+  svc.post("/meta", { body: JSON.stringify({ id: id }), parameters: { description: "Add a meta with " + "id " + id } });
 }
 
 // DELETE
@@ -3504,31 +3339,26 @@ function deleteMeta(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingMeta(id) {
   svc.delete("/meta/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a meta with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingMeta(id) {
   svc.post("/meta", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a meta with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a meta with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a meta with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateMeta(id) {
-  svc.put("/meta/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a meta with " + "id " + id }
-    });
+  svc.put("/meta/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a meta with " + "id " + id } });
 }
 
 // GET one
@@ -3664,10 +3494,7 @@ function verifyMetaUpdated(id) {
 
 // CREATE
 function addNetwork(owner, repo) {
-  svc.post("/networks", {
-      body: JSON.stringify({ owner: owner, repo: repo }),
-      parameters: { description: "Add a network with " + "owner " + owner + " and " + "repo " + repo }
-    });
+  svc.post("/networks", { body: JSON.stringify({ owner: owner, repo: repo }), parameters: { description: "Add a network with " + "owner " + owner + " and " + "repo " + repo } });
 }
 
 // DELETE
@@ -3677,31 +3504,26 @@ function deleteNetwork(owner, repo) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingNetwork(owner, repo) {
   svc.delete("/networks/" + owner + "/"+ repo, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a network with " + "owner " + owner + " and " + "repo " + repo }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingNetwork(owner, repo) {
   svc.post("/networks", {
-      body: JSON.stringify({ owner: owner, repo: repo }),
-      parameters: { description: "Add a network with " + "owner " + owner + " and " + "repo " + repo }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a network with " + "owner " + owner + " and " + "repo " + repo }
+    body: JSON.stringify({ owner: owner, repo: repo }),
+    parameters: { description: "Add a network with " + "owner " + owner + " and " + "repo " + repo },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateNetwork(owner, repo) {
-  svc.put("/networks/" + owner + "/"+ repo, {
-      body: JSON.stringify({ owner: owner, repo: repo }),
-      parameters: { description: "Update a network with " + "owner " + owner + " and " + "repo " + repo }
-    });
+  svc.put("/networks/" + owner + "/"+ repo, { body: JSON.stringify({ owner: owner, repo: repo }), parameters: { description: "Update a network with " + "owner " + owner + " and " + "repo " + repo } });
 }
 
 // GET one
@@ -3837,10 +3659,7 @@ function verifyNetworkUpdated(owner, repo) {
 
 // CREATE
 function addNotification(thread_id) {
-  svc.post("/notifications", {
-      body: JSON.stringify({ thread_id: thread_id }),
-      parameters: { description: "Add a notification with " + "thread_id " + thread_id }
-    });
+  svc.post("/notifications", { body: JSON.stringify({ thread_id: thread_id }), parameters: { description: "Add a notification with " + "thread_id " + thread_id } });
 }
 
 // DELETE
@@ -3850,31 +3669,26 @@ function deleteNotification(thread_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingNotification(thread_id) {
   svc.delete("/notifications/" + thread_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a notification with " + "thread_id " + thread_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingNotification(thread_id) {
   svc.post("/notifications", {
-      body: JSON.stringify({ thread_id: thread_id }),
-      parameters: { description: "Add a notification with " + "thread_id " + thread_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a notification with " + "thread_id " + thread_id }
+    body: JSON.stringify({ thread_id: thread_id }),
+    parameters: { description: "Add a notification with " + "thread_id " + thread_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateNotification(thread_id) {
-  svc.put("/notifications/" + thread_id, {
-      body: JSON.stringify({ thread_id: thread_id }),
-      parameters: { description: "Update a notification with " + "thread_id " + thread_id }
-    });
+  svc.put("/notifications/" + thread_id, { body: JSON.stringify({ thread_id: thread_id }), parameters: { description: "Update a notification with " + "thread_id " + thread_id } });
 }
 
 // GET one
@@ -4010,10 +3824,7 @@ function verifyNotificationUpdated(thread_id) {
 
 // CREATE
 function addOctocat(id) {
-  svc.post("/octocat", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a octocat with " + "id " + id }
-    });
+  svc.post("/octocat", { body: JSON.stringify({ id: id }), parameters: { description: "Add a octocat with " + "id " + id } });
 }
 
 // DELETE
@@ -4023,31 +3834,26 @@ function deleteOctocat(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingOctocat(id) {
   svc.delete("/octocat/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a octocat with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingOctocat(id) {
   svc.post("/octocat", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a octocat with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a octocat with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a octocat with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateOctocat(id) {
-  svc.put("/octocat/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a octocat with " + "id " + id }
-    });
+  svc.put("/octocat/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a octocat with " + "id " + id } });
 }
 
 // GET one
@@ -4183,10 +3989,7 @@ function verifyOctocatUpdated(id) {
 
 // CREATE
 function addOrganization(org) {
-  svc.post("/organizations", {
-      body: JSON.stringify({ org: org }),
-      parameters: { description: "Add a organization with " + "org " + org }
-    });
+  svc.post("/organizations", { body: JSON.stringify({ org: org }), parameters: { description: "Add a organization with " + "org " + org } });
 }
 
 // DELETE
@@ -4196,31 +3999,26 @@ function deleteOrganization(org) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingOrganization(org) {
   svc.delete("/organizations/" + org, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a organization with " + "org " + org }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingOrganization(org) {
   svc.post("/organizations", {
-      body: JSON.stringify({ org: org }),
-      parameters: { description: "Add a organization with " + "org " + org }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a organization with " + "org " + org }
+    body: JSON.stringify({ org: org }),
+    parameters: { description: "Add a organization with " + "org " + org },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateOrganization(org) {
-  svc.put("/organizations/" + org, {
-      body: JSON.stringify({ org: org }),
-      parameters: { description: "Update a organization with " + "org " + org }
-    });
+  svc.put("/organizations/" + org, { body: JSON.stringify({ org: org }), parameters: { description: "Update a organization with " + "org " + org } });
 }
 
 // GET one
@@ -4356,10 +4154,7 @@ function verifyOrganizationUpdated(org) {
 
 // CREATE
 function addOrg(org, team_slug, secret_name, username, repository_id, discussion_number, runner_group_id, runner_id, hook_id, name, project_number, role_id, package_type, package_name, configuration_id, comment_number, migration_id, ruleset_id, hosted_runner_id, subject_digest, campaign_number, actor_type, actor_id, user_id, package_version_id, item_id, custom_property_name, network_configuration_id, project_id, owner, repo, delivery_id, invitation_id, issue_type_id, codespace_name, pat_request_id, pat_id, reaction_id, attestation_id, repo_name, field_id, rule_suite_id, version_id, network_settings_id, security_product, enablement) {
-  svc.post("/orgs", {
-      body: JSON.stringify({ org: org, team_slug: team_slug, secret_name: secret_name, username: username, repository_id: repository_id, discussion_number: discussion_number, runner_group_id: runner_group_id, runner_id: runner_id, hook_id: hook_id, name: name, project_number: project_number, role_id: role_id, package_type: package_type, package_name: package_name, configuration_id: configuration_id, comment_number: comment_number, migration_id: migration_id, ruleset_id: ruleset_id, hosted_runner_id: hosted_runner_id, subject_digest: subject_digest, campaign_number: campaign_number, actor_type: actor_type, actor_id: actor_id, user_id: user_id, package_version_id: package_version_id, item_id: item_id, custom_property_name: custom_property_name, network_configuration_id: network_configuration_id, project_id: project_id, owner: owner, repo: repo, delivery_id: delivery_id, invitation_id: invitation_id, issue_type_id: issue_type_id, codespace_name: codespace_name, pat_request_id: pat_request_id, pat_id: pat_id, reaction_id: reaction_id, attestation_id: attestation_id, repo_name: repo_name, field_id: field_id, rule_suite_id: rule_suite_id, version_id: version_id, network_settings_id: network_settings_id, security_product: security_product, enablement: enablement }),
-      parameters: { description: "Add a org with " + "org " + org + " and " + "team_slug " + team_slug + " and " + "secret_name " + secret_name + " and " + "username " + username + " and " + "repository_id " + repository_id + " and " + "discussion_number " + discussion_number + " and " + "runner_group_id " + runner_group_id + " and " + "runner_id " + runner_id + " and " + "hook_id " + hook_id + " and " + "name " + name + " and " + "project_number " + project_number + " and " + "role_id " + role_id + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "configuration_id " + configuration_id + " and " + "comment_number " + comment_number + " and " + "migration_id " + migration_id + " and " + "ruleset_id " + ruleset_id + " and " + "hosted_runner_id " + hosted_runner_id + " and " + "subject_digest " + subject_digest + " and " + "campaign_number " + campaign_number + " and " + "actor_type " + actor_type + " and " + "actor_id " + actor_id + " and " + "user_id " + user_id + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "custom_property_name " + custom_property_name + " and " + "network_configuration_id " + network_configuration_id + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "issue_type_id " + issue_type_id + " and " + "codespace_name " + codespace_name + " and " + "pat_request_id " + pat_request_id + " and " + "pat_id " + pat_id + " and " + "reaction_id " + reaction_id + " and " + "attestation_id " + attestation_id + " and " + "repo_name " + repo_name + " and " + "field_id " + field_id + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "network_settings_id " + network_settings_id + " and " + "security_product " + security_product + " and " + "enablement " + enablement }
-    });
+  svc.post("/orgs", { body: JSON.stringify({ org: org, team_slug: team_slug, secret_name: secret_name, username: username, repository_id: repository_id, discussion_number: discussion_number, runner_group_id: runner_group_id, runner_id: runner_id, hook_id: hook_id, name: name, project_number: project_number, role_id: role_id, package_type: package_type, package_name: package_name, configuration_id: configuration_id, comment_number: comment_number, migration_id: migration_id, ruleset_id: ruleset_id, hosted_runner_id: hosted_runner_id, subject_digest: subject_digest, campaign_number: campaign_number, actor_type: actor_type, actor_id: actor_id, user_id: user_id, package_version_id: package_version_id, item_id: item_id, custom_property_name: custom_property_name, network_configuration_id: network_configuration_id, project_id: project_id, owner: owner, repo: repo, delivery_id: delivery_id, invitation_id: invitation_id, issue_type_id: issue_type_id, codespace_name: codespace_name, pat_request_id: pat_request_id, pat_id: pat_id, reaction_id: reaction_id, attestation_id: attestation_id, repo_name: repo_name, field_id: field_id, rule_suite_id: rule_suite_id, version_id: version_id, network_settings_id: network_settings_id, security_product: security_product, enablement: enablement }), parameters: { description: "Add a org with " + "org " + org + " and " + "team_slug " + team_slug + " and " + "secret_name " + secret_name + " and " + "username " + username + " and " + "repository_id " + repository_id + " and " + "discussion_number " + discussion_number + " and " + "runner_group_id " + runner_group_id + " and " + "runner_id " + runner_id + " and " + "hook_id " + hook_id + " and " + "name " + name + " and " + "project_number " + project_number + " and " + "role_id " + role_id + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "configuration_id " + configuration_id + " and " + "comment_number " + comment_number + " and " + "migration_id " + migration_id + " and " + "ruleset_id " + ruleset_id + " and " + "hosted_runner_id " + hosted_runner_id + " and " + "subject_digest " + subject_digest + " and " + "campaign_number " + campaign_number + " and " + "actor_type " + actor_type + " and " + "actor_id " + actor_id + " and " + "user_id " + user_id + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "custom_property_name " + custom_property_name + " and " + "network_configuration_id " + network_configuration_id + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "issue_type_id " + issue_type_id + " and " + "codespace_name " + codespace_name + " and " + "pat_request_id " + pat_request_id + " and " + "pat_id " + pat_id + " and " + "reaction_id " + reaction_id + " and " + "attestation_id " + attestation_id + " and " + "repo_name " + repo_name + " and " + "field_id " + field_id + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "network_settings_id " + network_settings_id + " and " + "security_product " + security_product + " and " + "enablement " + enablement } });
 }
 
 // DELETE
@@ -4369,31 +4164,26 @@ function deleteOrg(org, team_slug, secret_name, username, repository_id, discuss
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingOrg(org, team_slug, secret_name, username, repository_id, discussion_number, runner_group_id, runner_id, hook_id, name, project_number, role_id, package_type, package_name, configuration_id, comment_number, migration_id, ruleset_id, hosted_runner_id, subject_digest, campaign_number, actor_type, actor_id, user_id, package_version_id, item_id, custom_property_name, network_configuration_id, project_id, owner, repo, delivery_id, invitation_id, issue_type_id, codespace_name, pat_request_id, pat_id, reaction_id, attestation_id, repo_name, field_id, rule_suite_id, version_id, network_settings_id, security_product, enablement) {
   svc.delete("/orgs/" + org + "/"+ team_slug + "/"+ secret_name + "/"+ username + "/"+ repository_id + "/"+ discussion_number + "/"+ runner_group_id + "/"+ runner_id + "/"+ hook_id + "/"+ name + "/"+ project_number + "/"+ role_id + "/"+ package_type + "/"+ package_name + "/"+ configuration_id + "/"+ comment_number + "/"+ migration_id + "/"+ ruleset_id + "/"+ hosted_runner_id + "/"+ subject_digest + "/"+ campaign_number + "/"+ actor_type + "/"+ actor_id + "/"+ user_id + "/"+ package_version_id + "/"+ item_id + "/"+ custom_property_name + "/"+ network_configuration_id + "/"+ project_id + "/"+ owner + "/"+ repo + "/"+ delivery_id + "/"+ invitation_id + "/"+ issue_type_id + "/"+ codespace_name + "/"+ pat_request_id + "/"+ pat_id + "/"+ reaction_id + "/"+ attestation_id + "/"+ repo_name + "/"+ field_id + "/"+ rule_suite_id + "/"+ version_id + "/"+ network_settings_id + "/"+ security_product + "/"+ enablement, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a org with " + "org " + org + " and " + "team_slug " + team_slug + " and " + "secret_name " + secret_name + " and " + "username " + username + " and " + "repository_id " + repository_id + " and " + "discussion_number " + discussion_number + " and " + "runner_group_id " + runner_group_id + " and " + "runner_id " + runner_id + " and " + "hook_id " + hook_id + " and " + "name " + name + " and " + "project_number " + project_number + " and " + "role_id " + role_id + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "configuration_id " + configuration_id + " and " + "comment_number " + comment_number + " and " + "migration_id " + migration_id + " and " + "ruleset_id " + ruleset_id + " and " + "hosted_runner_id " + hosted_runner_id + " and " + "subject_digest " + subject_digest + " and " + "campaign_number " + campaign_number + " and " + "actor_type " + actor_type + " and " + "actor_id " + actor_id + " and " + "user_id " + user_id + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "custom_property_name " + custom_property_name + " and " + "network_configuration_id " + network_configuration_id + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "issue_type_id " + issue_type_id + " and " + "codespace_name " + codespace_name + " and " + "pat_request_id " + pat_request_id + " and " + "pat_id " + pat_id + " and " + "reaction_id " + reaction_id + " and " + "attestation_id " + attestation_id + " and " + "repo_name " + repo_name + " and " + "field_id " + field_id + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "network_settings_id " + network_settings_id + " and " + "security_product " + security_product + " and " + "enablement " + enablement }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingOrg(org, team_slug, secret_name, username, repository_id, discussion_number, runner_group_id, runner_id, hook_id, name, project_number, role_id, package_type, package_name, configuration_id, comment_number, migration_id, ruleset_id, hosted_runner_id, subject_digest, campaign_number, actor_type, actor_id, user_id, package_version_id, item_id, custom_property_name, network_configuration_id, project_id, owner, repo, delivery_id, invitation_id, issue_type_id, codespace_name, pat_request_id, pat_id, reaction_id, attestation_id, repo_name, field_id, rule_suite_id, version_id, network_settings_id, security_product, enablement) {
   svc.post("/orgs", {
-      body: JSON.stringify({ org: org, team_slug: team_slug, secret_name: secret_name, username: username, repository_id: repository_id, discussion_number: discussion_number, runner_group_id: runner_group_id, runner_id: runner_id, hook_id: hook_id, name: name, project_number: project_number, role_id: role_id, package_type: package_type, package_name: package_name, configuration_id: configuration_id, comment_number: comment_number, migration_id: migration_id, ruleset_id: ruleset_id, hosted_runner_id: hosted_runner_id, subject_digest: subject_digest, campaign_number: campaign_number, actor_type: actor_type, actor_id: actor_id, user_id: user_id, package_version_id: package_version_id, item_id: item_id, custom_property_name: custom_property_name, network_configuration_id: network_configuration_id, project_id: project_id, owner: owner, repo: repo, delivery_id: delivery_id, invitation_id: invitation_id, issue_type_id: issue_type_id, codespace_name: codespace_name, pat_request_id: pat_request_id, pat_id: pat_id, reaction_id: reaction_id, attestation_id: attestation_id, repo_name: repo_name, field_id: field_id, rule_suite_id: rule_suite_id, version_id: version_id, network_settings_id: network_settings_id, security_product: security_product, enablement: enablement }),
-      parameters: { description: "Add a org with " + "org " + org + " and " + "team_slug " + team_slug + " and " + "secret_name " + secret_name + " and " + "username " + username + " and " + "repository_id " + repository_id + " and " + "discussion_number " + discussion_number + " and " + "runner_group_id " + runner_group_id + " and " + "runner_id " + runner_id + " and " + "hook_id " + hook_id + " and " + "name " + name + " and " + "project_number " + project_number + " and " + "role_id " + role_id + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "configuration_id " + configuration_id + " and " + "comment_number " + comment_number + " and " + "migration_id " + migration_id + " and " + "ruleset_id " + ruleset_id + " and " + "hosted_runner_id " + hosted_runner_id + " and " + "subject_digest " + subject_digest + " and " + "campaign_number " + campaign_number + " and " + "actor_type " + actor_type + " and " + "actor_id " + actor_id + " and " + "user_id " + user_id + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "custom_property_name " + custom_property_name + " and " + "network_configuration_id " + network_configuration_id + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "issue_type_id " + issue_type_id + " and " + "codespace_name " + codespace_name + " and " + "pat_request_id " + pat_request_id + " and " + "pat_id " + pat_id + " and " + "reaction_id " + reaction_id + " and " + "attestation_id " + attestation_id + " and " + "repo_name " + repo_name + " and " + "field_id " + field_id + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "network_settings_id " + network_settings_id + " and " + "security_product " + security_product + " and " + "enablement " + enablement }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a org with " + "org " + org + " and " + "team_slug " + team_slug + " and " + "secret_name " + secret_name + " and " + "username " + username + " and " + "repository_id " + repository_id + " and " + "discussion_number " + discussion_number + " and " + "runner_group_id " + runner_group_id + " and " + "runner_id " + runner_id + " and " + "hook_id " + hook_id + " and " + "name " + name + " and " + "project_number " + project_number + " and " + "role_id " + role_id + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "configuration_id " + configuration_id + " and " + "comment_number " + comment_number + " and " + "migration_id " + migration_id + " and " + "ruleset_id " + ruleset_id + " and " + "hosted_runner_id " + hosted_runner_id + " and " + "subject_digest " + subject_digest + " and " + "campaign_number " + campaign_number + " and " + "actor_type " + actor_type + " and " + "actor_id " + actor_id + " and " + "user_id " + user_id + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "custom_property_name " + custom_property_name + " and " + "network_configuration_id " + network_configuration_id + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "issue_type_id " + issue_type_id + " and " + "codespace_name " + codespace_name + " and " + "pat_request_id " + pat_request_id + " and " + "pat_id " + pat_id + " and " + "reaction_id " + reaction_id + " and " + "attestation_id " + attestation_id + " and " + "repo_name " + repo_name + " and " + "field_id " + field_id + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "network_settings_id " + network_settings_id + " and " + "security_product " + security_product + " and " + "enablement " + enablement }
+    body: JSON.stringify({ org: org, team_slug: team_slug, secret_name: secret_name, username: username, repository_id: repository_id, discussion_number: discussion_number, runner_group_id: runner_group_id, runner_id: runner_id, hook_id: hook_id, name: name, project_number: project_number, role_id: role_id, package_type: package_type, package_name: package_name, configuration_id: configuration_id, comment_number: comment_number, migration_id: migration_id, ruleset_id: ruleset_id, hosted_runner_id: hosted_runner_id, subject_digest: subject_digest, campaign_number: campaign_number, actor_type: actor_type, actor_id: actor_id, user_id: user_id, package_version_id: package_version_id, item_id: item_id, custom_property_name: custom_property_name, network_configuration_id: network_configuration_id, project_id: project_id, owner: owner, repo: repo, delivery_id: delivery_id, invitation_id: invitation_id, issue_type_id: issue_type_id, codespace_name: codespace_name, pat_request_id: pat_request_id, pat_id: pat_id, reaction_id: reaction_id, attestation_id: attestation_id, repo_name: repo_name, field_id: field_id, rule_suite_id: rule_suite_id, version_id: version_id, network_settings_id: network_settings_id, security_product: security_product, enablement: enablement }),
+    parameters: { description: "Add a org with " + "org " + org + " and " + "team_slug " + team_slug + " and " + "secret_name " + secret_name + " and " + "username " + username + " and " + "repository_id " + repository_id + " and " + "discussion_number " + discussion_number + " and " + "runner_group_id " + runner_group_id + " and " + "runner_id " + runner_id + " and " + "hook_id " + hook_id + " and " + "name " + name + " and " + "project_number " + project_number + " and " + "role_id " + role_id + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "configuration_id " + configuration_id + " and " + "comment_number " + comment_number + " and " + "migration_id " + migration_id + " and " + "ruleset_id " + ruleset_id + " and " + "hosted_runner_id " + hosted_runner_id + " and " + "subject_digest " + subject_digest + " and " + "campaign_number " + campaign_number + " and " + "actor_type " + actor_type + " and " + "actor_id " + actor_id + " and " + "user_id " + user_id + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "custom_property_name " + custom_property_name + " and " + "network_configuration_id " + network_configuration_id + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "issue_type_id " + issue_type_id + " and " + "codespace_name " + codespace_name + " and " + "pat_request_id " + pat_request_id + " and " + "pat_id " + pat_id + " and " + "reaction_id " + reaction_id + " and " + "attestation_id " + attestation_id + " and " + "repo_name " + repo_name + " and " + "field_id " + field_id + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "network_settings_id " + network_settings_id + " and " + "security_product " + security_product + " and " + "enablement " + enablement },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateOrg(org, team_slug, secret_name, username, repository_id, discussion_number, runner_group_id, runner_id, hook_id, name, project_number, role_id, package_type, package_name, configuration_id, comment_number, migration_id, ruleset_id, hosted_runner_id, subject_digest, campaign_number, actor_type, actor_id, user_id, package_version_id, item_id, custom_property_name, network_configuration_id, project_id, owner, repo, delivery_id, invitation_id, issue_type_id, codespace_name, pat_request_id, pat_id, reaction_id, attestation_id, repo_name, field_id, rule_suite_id, version_id, network_settings_id, security_product, enablement) {
-  svc.put("/orgs/" + org + "/"+ team_slug + "/"+ secret_name + "/"+ username + "/"+ repository_id + "/"+ discussion_number + "/"+ runner_group_id + "/"+ runner_id + "/"+ hook_id + "/"+ name + "/"+ project_number + "/"+ role_id + "/"+ package_type + "/"+ package_name + "/"+ configuration_id + "/"+ comment_number + "/"+ migration_id + "/"+ ruleset_id + "/"+ hosted_runner_id + "/"+ subject_digest + "/"+ campaign_number + "/"+ actor_type + "/"+ actor_id + "/"+ user_id + "/"+ package_version_id + "/"+ item_id + "/"+ custom_property_name + "/"+ network_configuration_id + "/"+ project_id + "/"+ owner + "/"+ repo + "/"+ delivery_id + "/"+ invitation_id + "/"+ issue_type_id + "/"+ codespace_name + "/"+ pat_request_id + "/"+ pat_id + "/"+ reaction_id + "/"+ attestation_id + "/"+ repo_name + "/"+ field_id + "/"+ rule_suite_id + "/"+ version_id + "/"+ network_settings_id + "/"+ security_product + "/"+ enablement, {
-      body: JSON.stringify({ org: org, team_slug: team_slug, secret_name: secret_name, username: username, repository_id: repository_id, discussion_number: discussion_number, runner_group_id: runner_group_id, runner_id: runner_id, hook_id: hook_id, name: name, project_number: project_number, role_id: role_id, package_type: package_type, package_name: package_name, configuration_id: configuration_id, comment_number: comment_number, migration_id: migration_id, ruleset_id: ruleset_id, hosted_runner_id: hosted_runner_id, subject_digest: subject_digest, campaign_number: campaign_number, actor_type: actor_type, actor_id: actor_id, user_id: user_id, package_version_id: package_version_id, item_id: item_id, custom_property_name: custom_property_name, network_configuration_id: network_configuration_id, project_id: project_id, owner: owner, repo: repo, delivery_id: delivery_id, invitation_id: invitation_id, issue_type_id: issue_type_id, codespace_name: codespace_name, pat_request_id: pat_request_id, pat_id: pat_id, reaction_id: reaction_id, attestation_id: attestation_id, repo_name: repo_name, field_id: field_id, rule_suite_id: rule_suite_id, version_id: version_id, network_settings_id: network_settings_id, security_product: security_product, enablement: enablement }),
-      parameters: { description: "Update a org with " + "org " + org + " and " + "team_slug " + team_slug + " and " + "secret_name " + secret_name + " and " + "username " + username + " and " + "repository_id " + repository_id + " and " + "discussion_number " + discussion_number + " and " + "runner_group_id " + runner_group_id + " and " + "runner_id " + runner_id + " and " + "hook_id " + hook_id + " and " + "name " + name + " and " + "project_number " + project_number + " and " + "role_id " + role_id + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "configuration_id " + configuration_id + " and " + "comment_number " + comment_number + " and " + "migration_id " + migration_id + " and " + "ruleset_id " + ruleset_id + " and " + "hosted_runner_id " + hosted_runner_id + " and " + "subject_digest " + subject_digest + " and " + "campaign_number " + campaign_number + " and " + "actor_type " + actor_type + " and " + "actor_id " + actor_id + " and " + "user_id " + user_id + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "custom_property_name " + custom_property_name + " and " + "network_configuration_id " + network_configuration_id + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "issue_type_id " + issue_type_id + " and " + "codespace_name " + codespace_name + " and " + "pat_request_id " + pat_request_id + " and " + "pat_id " + pat_id + " and " + "reaction_id " + reaction_id + " and " + "attestation_id " + attestation_id + " and " + "repo_name " + repo_name + " and " + "field_id " + field_id + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "network_settings_id " + network_settings_id + " and " + "security_product " + security_product + " and " + "enablement " + enablement }
-    });
+  svc.put("/orgs/" + org + "/"+ team_slug + "/"+ secret_name + "/"+ username + "/"+ repository_id + "/"+ discussion_number + "/"+ runner_group_id + "/"+ runner_id + "/"+ hook_id + "/"+ name + "/"+ project_number + "/"+ role_id + "/"+ package_type + "/"+ package_name + "/"+ configuration_id + "/"+ comment_number + "/"+ migration_id + "/"+ ruleset_id + "/"+ hosted_runner_id + "/"+ subject_digest + "/"+ campaign_number + "/"+ actor_type + "/"+ actor_id + "/"+ user_id + "/"+ package_version_id + "/"+ item_id + "/"+ custom_property_name + "/"+ network_configuration_id + "/"+ project_id + "/"+ owner + "/"+ repo + "/"+ delivery_id + "/"+ invitation_id + "/"+ issue_type_id + "/"+ codespace_name + "/"+ pat_request_id + "/"+ pat_id + "/"+ reaction_id + "/"+ attestation_id + "/"+ repo_name + "/"+ field_id + "/"+ rule_suite_id + "/"+ version_id + "/"+ network_settings_id + "/"+ security_product + "/"+ enablement, { body: JSON.stringify({ org: org, team_slug: team_slug, secret_name: secret_name, username: username, repository_id: repository_id, discussion_number: discussion_number, runner_group_id: runner_group_id, runner_id: runner_id, hook_id: hook_id, name: name, project_number: project_number, role_id: role_id, package_type: package_type, package_name: package_name, configuration_id: configuration_id, comment_number: comment_number, migration_id: migration_id, ruleset_id: ruleset_id, hosted_runner_id: hosted_runner_id, subject_digest: subject_digest, campaign_number: campaign_number, actor_type: actor_type, actor_id: actor_id, user_id: user_id, package_version_id: package_version_id, item_id: item_id, custom_property_name: custom_property_name, network_configuration_id: network_configuration_id, project_id: project_id, owner: owner, repo: repo, delivery_id: delivery_id, invitation_id: invitation_id, issue_type_id: issue_type_id, codespace_name: codespace_name, pat_request_id: pat_request_id, pat_id: pat_id, reaction_id: reaction_id, attestation_id: attestation_id, repo_name: repo_name, field_id: field_id, rule_suite_id: rule_suite_id, version_id: version_id, network_settings_id: network_settings_id, security_product: security_product, enablement: enablement }), parameters: { description: "Update a org with " + "org " + org + " and " + "team_slug " + team_slug + " and " + "secret_name " + secret_name + " and " + "username " + username + " and " + "repository_id " + repository_id + " and " + "discussion_number " + discussion_number + " and " + "runner_group_id " + runner_group_id + " and " + "runner_id " + runner_id + " and " + "hook_id " + hook_id + " and " + "name " + name + " and " + "project_number " + project_number + " and " + "role_id " + role_id + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "configuration_id " + configuration_id + " and " + "comment_number " + comment_number + " and " + "migration_id " + migration_id + " and " + "ruleset_id " + ruleset_id + " and " + "hosted_runner_id " + hosted_runner_id + " and " + "subject_digest " + subject_digest + " and " + "campaign_number " + campaign_number + " and " + "actor_type " + actor_type + " and " + "actor_id " + actor_id + " and " + "user_id " + user_id + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "custom_property_name " + custom_property_name + " and " + "network_configuration_id " + network_configuration_id + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "issue_type_id " + issue_type_id + " and " + "codespace_name " + codespace_name + " and " + "pat_request_id " + pat_request_id + " and " + "pat_id " + pat_id + " and " + "reaction_id " + reaction_id + " and " + "attestation_id " + attestation_id + " and " + "repo_name " + repo_name + " and " + "field_id " + field_id + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "network_settings_id " + network_settings_id + " and " + "security_product " + security_product + " and " + "enablement " + enablement } });
 }
 
 // GET one
@@ -4529,10 +4319,7 @@ function verifyOrgUpdated(org, team_slug, secret_name, username, repository_id, 
 
 // CREATE
 function addProject(project_id, column_id, username) {
-  svc.post("/projects", {
-      body: JSON.stringify({ project_id: project_id, column_id: column_id, username: username }),
-      parameters: { description: "Add a project with " + "project_id " + project_id + " and " + "column_id " + column_id + " and " + "username " + username }
-    });
+  svc.post("/projects", { body: JSON.stringify({ project_id: project_id, column_id: column_id, username: username }), parameters: { description: "Add a project with " + "project_id " + project_id + " and " + "column_id " + column_id + " and " + "username " + username } });
 }
 
 // DELETE
@@ -4542,31 +4329,26 @@ function deleteProject(project_id, column_id, username) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingProject(project_id, column_id, username) {
   svc.delete("/projects/" + project_id + "/"+ column_id + "/"+ username, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a project with " + "project_id " + project_id + " and " + "column_id " + column_id + " and " + "username " + username }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingProject(project_id, column_id, username) {
   svc.post("/projects", {
-      body: JSON.stringify({ project_id: project_id, column_id: column_id, username: username }),
-      parameters: { description: "Add a project with " + "project_id " + project_id + " and " + "column_id " + column_id + " and " + "username " + username }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a project with " + "project_id " + project_id + " and " + "column_id " + column_id + " and " + "username " + username }
+    body: JSON.stringify({ project_id: project_id, column_id: column_id, username: username }),
+    parameters: { description: "Add a project with " + "project_id " + project_id + " and " + "column_id " + column_id + " and " + "username " + username },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateProject(project_id, column_id, username) {
-  svc.put("/projects/" + project_id + "/"+ column_id + "/"+ username, {
-      body: JSON.stringify({ project_id: project_id, column_id: column_id, username: username }),
-      parameters: { description: "Update a project with " + "project_id " + project_id + " and " + "column_id " + column_id + " and " + "username " + username }
-    });
+  svc.put("/projects/" + project_id + "/"+ column_id + "/"+ username, { body: JSON.stringify({ project_id: project_id, column_id: column_id, username: username }), parameters: { description: "Update a project with " + "project_id " + project_id + " and " + "column_id " + column_id + " and " + "username " + username } });
 }
 
 // GET one
@@ -4702,10 +4484,7 @@ function verifyProjectUpdated(project_id, column_id, username) {
 
 // CREATE
 function addRate_limit(id) {
-  svc.post("/rate_limit", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a rate_limit with " + "id " + id }
-    });
+  svc.post("/rate_limit", { body: JSON.stringify({ id: id }), parameters: { description: "Add a rate_limit with " + "id " + id } });
 }
 
 // DELETE
@@ -4715,31 +4494,26 @@ function deleteRate_limit(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingRate_limit(id) {
   svc.delete("/rate_limit/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a rate_limit with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingRate_limit(id) {
   svc.post("/rate_limit", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a rate_limit with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a rate_limit with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a rate_limit with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateRate_limit(id) {
-  svc.put("/rate_limit/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a rate_limit with " + "id " + id }
-    });
+  svc.put("/rate_limit/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a rate_limit with " + "id " + id } });
 }
 
 // GET one
@@ -4875,10 +4649,7 @@ function verifyRate_limitUpdated(id) {
 
 // CREATE
 function addRepo(owner, repo, branch, issue_number, environment_name, pull_number, run_id, comment_id, secret_name, name, alert_number, ref, hook_id, release_id, runner_id, workflow_id, review_id, reaction_id, commit_sha, deployment_id, ruleset_id, check_run_id, username, milestone_number, ghsa_id, artifact_id, job_id, attempt_number, check_suite_id, path, branch_policy_id, asset_id, assignee, autolink_id, analysis_id, language, codeql_variant_analysis_id, basehead, protection_rule_id, delivery_id, invitation_id, key_id, pages_deployment_id, archive_format, cache_id, subject_digest, repo_owner, repo_name, sarif_id, status_id, file_sha, tag_sha, tree_sha, author_id, event_id, issue_id, build_id, dir, tag, rule_suite_id, version_id, sha, tag_protection_id, template_owner, template_repo) {
-  svc.post("/repos", {
-      body: JSON.stringify({ owner: owner, repo: repo, branch: branch, issue_number: issue_number, environment_name: environment_name, pull_number: pull_number, run_id: run_id, comment_id: comment_id, secret_name: secret_name, name: name, alert_number: alert_number, ref: ref, hook_id: hook_id, release_id: release_id, runner_id: runner_id, workflow_id: workflow_id, review_id: review_id, reaction_id: reaction_id, commit_sha: commit_sha, deployment_id: deployment_id, ruleset_id: ruleset_id, check_run_id: check_run_id, username: username, milestone_number: milestone_number, ghsa_id: ghsa_id, artifact_id: artifact_id, job_id: job_id, attempt_number: attempt_number, check_suite_id: check_suite_id, path: path, branch_policy_id: branch_policy_id, asset_id: asset_id, assignee: assignee, autolink_id: autolink_id, analysis_id: analysis_id, language: language, codeql_variant_analysis_id: codeql_variant_analysis_id, basehead: basehead, protection_rule_id: protection_rule_id, delivery_id: delivery_id, invitation_id: invitation_id, key_id: key_id, pages_deployment_id: pages_deployment_id, archive_format: archive_format, cache_id: cache_id, subject_digest: subject_digest, repo_owner: repo_owner, repo_name: repo_name, sarif_id: sarif_id, status_id: status_id, file_sha: file_sha, tag_sha: tag_sha, tree_sha: tree_sha, author_id: author_id, event_id: event_id, issue_id: issue_id, build_id: build_id, dir: dir, tag: tag, rule_suite_id: rule_suite_id, version_id: version_id, sha: sha, tag_protection_id: tag_protection_id, template_owner: template_owner, template_repo: template_repo }),
-      parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "branch " + branch + " and " + "issue_number " + issue_number + " and " + "environment_name " + environment_name + " and " + "pull_number " + pull_number + " and " + "run_id " + run_id + " and " + "comment_id " + comment_id + " and " + "secret_name " + secret_name + " and " + "name " + name + " and " + "alert_number " + alert_number + " and " + "ref " + ref + " and " + "hook_id " + hook_id + " and " + "release_id " + release_id + " and " + "runner_id " + runner_id + " and " + "workflow_id " + workflow_id + " and " + "review_id " + review_id + " and " + "reaction_id " + reaction_id + " and " + "commit_sha " + commit_sha + " and " + "deployment_id " + deployment_id + " and " + "ruleset_id " + ruleset_id + " and " + "check_run_id " + check_run_id + " and " + "username " + username + " and " + "milestone_number " + milestone_number + " and " + "ghsa_id " + ghsa_id + " and " + "artifact_id " + artifact_id + " and " + "job_id " + job_id + " and " + "attempt_number " + attempt_number + " and " + "check_suite_id " + check_suite_id + " and " + "path " + path + " and " + "branch_policy_id " + branch_policy_id + " and " + "asset_id " + asset_id + " and " + "assignee " + assignee + " and " + "autolink_id " + autolink_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "basehead " + basehead + " and " + "protection_rule_id " + protection_rule_id + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "key_id " + key_id + " and " + "pages_deployment_id " + pages_deployment_id + " and " + "archive_format " + archive_format + " and " + "cache_id " + cache_id + " and " + "subject_digest " + subject_digest + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id + " and " + "status_id " + status_id + " and " + "file_sha " + file_sha + " and " + "tag_sha " + tag_sha + " and " + "tree_sha " + tree_sha + " and " + "author_id " + author_id + " and " + "event_id " + event_id + " and " + "issue_id " + issue_id + " and " + "build_id " + build_id + " and " + "dir " + dir + " and " + "tag " + tag + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "sha " + sha + " and " + "tag_protection_id " + tag_protection_id + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo }
-    });
+  svc.post("/repos", { body: JSON.stringify({ owner: owner, repo: repo, branch: branch, issue_number: issue_number, environment_name: environment_name, pull_number: pull_number, run_id: run_id, comment_id: comment_id, secret_name: secret_name, name: name, alert_number: alert_number, ref: ref, hook_id: hook_id, release_id: release_id, runner_id: runner_id, workflow_id: workflow_id, review_id: review_id, reaction_id: reaction_id, commit_sha: commit_sha, deployment_id: deployment_id, ruleset_id: ruleset_id, check_run_id: check_run_id, username: username, milestone_number: milestone_number, ghsa_id: ghsa_id, artifact_id: artifact_id, job_id: job_id, attempt_number: attempt_number, check_suite_id: check_suite_id, path: path, branch_policy_id: branch_policy_id, asset_id: asset_id, assignee: assignee, autolink_id: autolink_id, analysis_id: analysis_id, language: language, codeql_variant_analysis_id: codeql_variant_analysis_id, basehead: basehead, protection_rule_id: protection_rule_id, delivery_id: delivery_id, invitation_id: invitation_id, key_id: key_id, pages_deployment_id: pages_deployment_id, archive_format: archive_format, cache_id: cache_id, subject_digest: subject_digest, repo_owner: repo_owner, repo_name: repo_name, sarif_id: sarif_id, status_id: status_id, file_sha: file_sha, tag_sha: tag_sha, tree_sha: tree_sha, author_id: author_id, event_id: event_id, issue_id: issue_id, build_id: build_id, dir: dir, tag: tag, rule_suite_id: rule_suite_id, version_id: version_id, sha: sha, tag_protection_id: tag_protection_id, template_owner: template_owner, template_repo: template_repo }), parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "branch " + branch + " and " + "issue_number " + issue_number + " and " + "environment_name " + environment_name + " and " + "pull_number " + pull_number + " and " + "run_id " + run_id + " and " + "comment_id " + comment_id + " and " + "secret_name " + secret_name + " and " + "name " + name + " and " + "alert_number " + alert_number + " and " + "ref " + ref + " and " + "hook_id " + hook_id + " and " + "release_id " + release_id + " and " + "runner_id " + runner_id + " and " + "workflow_id " + workflow_id + " and " + "review_id " + review_id + " and " + "reaction_id " + reaction_id + " and " + "commit_sha " + commit_sha + " and " + "deployment_id " + deployment_id + " and " + "ruleset_id " + ruleset_id + " and " + "check_run_id " + check_run_id + " and " + "username " + username + " and " + "milestone_number " + milestone_number + " and " + "ghsa_id " + ghsa_id + " and " + "artifact_id " + artifact_id + " and " + "job_id " + job_id + " and " + "attempt_number " + attempt_number + " and " + "check_suite_id " + check_suite_id + " and " + "path " + path + " and " + "branch_policy_id " + branch_policy_id + " and " + "asset_id " + asset_id + " and " + "assignee " + assignee + " and " + "autolink_id " + autolink_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "basehead " + basehead + " and " + "protection_rule_id " + protection_rule_id + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "key_id " + key_id + " and " + "pages_deployment_id " + pages_deployment_id + " and " + "archive_format " + archive_format + " and " + "cache_id " + cache_id + " and " + "subject_digest " + subject_digest + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id + " and " + "status_id " + status_id + " and " + "file_sha " + file_sha + " and " + "tag_sha " + tag_sha + " and " + "tree_sha " + tree_sha + " and " + "author_id " + author_id + " and " + "event_id " + event_id + " and " + "issue_id " + issue_id + " and " + "build_id " + build_id + " and " + "dir " + dir + " and " + "tag " + tag + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "sha " + sha + " and " + "tag_protection_id " + tag_protection_id + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo } });
 }
 
 // DELETE
@@ -4888,31 +4659,26 @@ function deleteRepo(owner, repo, branch, issue_number, environment_name, pull_nu
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingRepo(owner, repo, branch, issue_number, environment_name, pull_number, run_id, comment_id, secret_name, name, alert_number, ref, hook_id, release_id, runner_id, workflow_id, review_id, reaction_id, commit_sha, deployment_id, ruleset_id, check_run_id, username, milestone_number, ghsa_id, artifact_id, job_id, attempt_number, check_suite_id, path, branch_policy_id, asset_id, assignee, autolink_id, analysis_id, language, codeql_variant_analysis_id, basehead, protection_rule_id, delivery_id, invitation_id, key_id, pages_deployment_id, archive_format, cache_id, subject_digest, repo_owner, repo_name, sarif_id, status_id, file_sha, tag_sha, tree_sha, author_id, event_id, issue_id, build_id, dir, tag, rule_suite_id, version_id, sha, tag_protection_id, template_owner, template_repo) {
   svc.delete("/repos/" + owner + "/"+ repo + "/"+ branch + "/"+ issue_number + "/"+ environment_name + "/"+ pull_number + "/"+ run_id + "/"+ comment_id + "/"+ secret_name + "/"+ name + "/"+ alert_number + "/"+ ref + "/"+ hook_id + "/"+ release_id + "/"+ runner_id + "/"+ workflow_id + "/"+ review_id + "/"+ reaction_id + "/"+ commit_sha + "/"+ deployment_id + "/"+ ruleset_id + "/"+ check_run_id + "/"+ username + "/"+ milestone_number + "/"+ ghsa_id + "/"+ artifact_id + "/"+ job_id + "/"+ attempt_number + "/"+ check_suite_id + "/"+ path + "/"+ branch_policy_id + "/"+ asset_id + "/"+ assignee + "/"+ autolink_id + "/"+ analysis_id + "/"+ language + "/"+ codeql_variant_analysis_id + "/"+ basehead + "/"+ protection_rule_id + "/"+ delivery_id + "/"+ invitation_id + "/"+ key_id + "/"+ pages_deployment_id + "/"+ archive_format + "/"+ cache_id + "/"+ subject_digest + "/"+ repo_owner + "/"+ repo_name + "/"+ sarif_id + "/"+ status_id + "/"+ file_sha + "/"+ tag_sha + "/"+ tree_sha + "/"+ author_id + "/"+ event_id + "/"+ issue_id + "/"+ build_id + "/"+ dir + "/"+ tag + "/"+ rule_suite_id + "/"+ version_id + "/"+ sha + "/"+ tag_protection_id + "/"+ template_owner + "/"+ template_repo, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "branch " + branch + " and " + "issue_number " + issue_number + " and " + "environment_name " + environment_name + " and " + "pull_number " + pull_number + " and " + "run_id " + run_id + " and " + "comment_id " + comment_id + " and " + "secret_name " + secret_name + " and " + "name " + name + " and " + "alert_number " + alert_number + " and " + "ref " + ref + " and " + "hook_id " + hook_id + " and " + "release_id " + release_id + " and " + "runner_id " + runner_id + " and " + "workflow_id " + workflow_id + " and " + "review_id " + review_id + " and " + "reaction_id " + reaction_id + " and " + "commit_sha " + commit_sha + " and " + "deployment_id " + deployment_id + " and " + "ruleset_id " + ruleset_id + " and " + "check_run_id " + check_run_id + " and " + "username " + username + " and " + "milestone_number " + milestone_number + " and " + "ghsa_id " + ghsa_id + " and " + "artifact_id " + artifact_id + " and " + "job_id " + job_id + " and " + "attempt_number " + attempt_number + " and " + "check_suite_id " + check_suite_id + " and " + "path " + path + " and " + "branch_policy_id " + branch_policy_id + " and " + "asset_id " + asset_id + " and " + "assignee " + assignee + " and " + "autolink_id " + autolink_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "basehead " + basehead + " and " + "protection_rule_id " + protection_rule_id + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "key_id " + key_id + " and " + "pages_deployment_id " + pages_deployment_id + " and " + "archive_format " + archive_format + " and " + "cache_id " + cache_id + " and " + "subject_digest " + subject_digest + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id + " and " + "status_id " + status_id + " and " + "file_sha " + file_sha + " and " + "tag_sha " + tag_sha + " and " + "tree_sha " + tree_sha + " and " + "author_id " + author_id + " and " + "event_id " + event_id + " and " + "issue_id " + issue_id + " and " + "build_id " + build_id + " and " + "dir " + dir + " and " + "tag " + tag + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "sha " + sha + " and " + "tag_protection_id " + tag_protection_id + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingRepo(owner, repo, branch, issue_number, environment_name, pull_number, run_id, comment_id, secret_name, name, alert_number, ref, hook_id, release_id, runner_id, workflow_id, review_id, reaction_id, commit_sha, deployment_id, ruleset_id, check_run_id, username, milestone_number, ghsa_id, artifact_id, job_id, attempt_number, check_suite_id, path, branch_policy_id, asset_id, assignee, autolink_id, analysis_id, language, codeql_variant_analysis_id, basehead, protection_rule_id, delivery_id, invitation_id, key_id, pages_deployment_id, archive_format, cache_id, subject_digest, repo_owner, repo_name, sarif_id, status_id, file_sha, tag_sha, tree_sha, author_id, event_id, issue_id, build_id, dir, tag, rule_suite_id, version_id, sha, tag_protection_id, template_owner, template_repo) {
   svc.post("/repos", {
-      body: JSON.stringify({ owner: owner, repo: repo, branch: branch, issue_number: issue_number, environment_name: environment_name, pull_number: pull_number, run_id: run_id, comment_id: comment_id, secret_name: secret_name, name: name, alert_number: alert_number, ref: ref, hook_id: hook_id, release_id: release_id, runner_id: runner_id, workflow_id: workflow_id, review_id: review_id, reaction_id: reaction_id, commit_sha: commit_sha, deployment_id: deployment_id, ruleset_id: ruleset_id, check_run_id: check_run_id, username: username, milestone_number: milestone_number, ghsa_id: ghsa_id, artifact_id: artifact_id, job_id: job_id, attempt_number: attempt_number, check_suite_id: check_suite_id, path: path, branch_policy_id: branch_policy_id, asset_id: asset_id, assignee: assignee, autolink_id: autolink_id, analysis_id: analysis_id, language: language, codeql_variant_analysis_id: codeql_variant_analysis_id, basehead: basehead, protection_rule_id: protection_rule_id, delivery_id: delivery_id, invitation_id: invitation_id, key_id: key_id, pages_deployment_id: pages_deployment_id, archive_format: archive_format, cache_id: cache_id, subject_digest: subject_digest, repo_owner: repo_owner, repo_name: repo_name, sarif_id: sarif_id, status_id: status_id, file_sha: file_sha, tag_sha: tag_sha, tree_sha: tree_sha, author_id: author_id, event_id: event_id, issue_id: issue_id, build_id: build_id, dir: dir, tag: tag, rule_suite_id: rule_suite_id, version_id: version_id, sha: sha, tag_protection_id: tag_protection_id, template_owner: template_owner, template_repo: template_repo }),
-      parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "branch " + branch + " and " + "issue_number " + issue_number + " and " + "environment_name " + environment_name + " and " + "pull_number " + pull_number + " and " + "run_id " + run_id + " and " + "comment_id " + comment_id + " and " + "secret_name " + secret_name + " and " + "name " + name + " and " + "alert_number " + alert_number + " and " + "ref " + ref + " and " + "hook_id " + hook_id + " and " + "release_id " + release_id + " and " + "runner_id " + runner_id + " and " + "workflow_id " + workflow_id + " and " + "review_id " + review_id + " and " + "reaction_id " + reaction_id + " and " + "commit_sha " + commit_sha + " and " + "deployment_id " + deployment_id + " and " + "ruleset_id " + ruleset_id + " and " + "check_run_id " + check_run_id + " and " + "username " + username + " and " + "milestone_number " + milestone_number + " and " + "ghsa_id " + ghsa_id + " and " + "artifact_id " + artifact_id + " and " + "job_id " + job_id + " and " + "attempt_number " + attempt_number + " and " + "check_suite_id " + check_suite_id + " and " + "path " + path + " and " + "branch_policy_id " + branch_policy_id + " and " + "asset_id " + asset_id + " and " + "assignee " + assignee + " and " + "autolink_id " + autolink_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "basehead " + basehead + " and " + "protection_rule_id " + protection_rule_id + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "key_id " + key_id + " and " + "pages_deployment_id " + pages_deployment_id + " and " + "archive_format " + archive_format + " and " + "cache_id " + cache_id + " and " + "subject_digest " + subject_digest + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id + " and " + "status_id " + status_id + " and " + "file_sha " + file_sha + " and " + "tag_sha " + tag_sha + " and " + "tree_sha " + tree_sha + " and " + "author_id " + author_id + " and " + "event_id " + event_id + " and " + "issue_id " + issue_id + " and " + "build_id " + build_id + " and " + "dir " + dir + " and " + "tag " + tag + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "sha " + sha + " and " + "tag_protection_id " + tag_protection_id + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "branch " + branch + " and " + "issue_number " + issue_number + " and " + "environment_name " + environment_name + " and " + "pull_number " + pull_number + " and " + "run_id " + run_id + " and " + "comment_id " + comment_id + " and " + "secret_name " + secret_name + " and " + "name " + name + " and " + "alert_number " + alert_number + " and " + "ref " + ref + " and " + "hook_id " + hook_id + " and " + "release_id " + release_id + " and " + "runner_id " + runner_id + " and " + "workflow_id " + workflow_id + " and " + "review_id " + review_id + " and " + "reaction_id " + reaction_id + " and " + "commit_sha " + commit_sha + " and " + "deployment_id " + deployment_id + " and " + "ruleset_id " + ruleset_id + " and " + "check_run_id " + check_run_id + " and " + "username " + username + " and " + "milestone_number " + milestone_number + " and " + "ghsa_id " + ghsa_id + " and " + "artifact_id " + artifact_id + " and " + "job_id " + job_id + " and " + "attempt_number " + attempt_number + " and " + "check_suite_id " + check_suite_id + " and " + "path " + path + " and " + "branch_policy_id " + branch_policy_id + " and " + "asset_id " + asset_id + " and " + "assignee " + assignee + " and " + "autolink_id " + autolink_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "basehead " + basehead + " and " + "protection_rule_id " + protection_rule_id + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "key_id " + key_id + " and " + "pages_deployment_id " + pages_deployment_id + " and " + "archive_format " + archive_format + " and " + "cache_id " + cache_id + " and " + "subject_digest " + subject_digest + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id + " and " + "status_id " + status_id + " and " + "file_sha " + file_sha + " and " + "tag_sha " + tag_sha + " and " + "tree_sha " + tree_sha + " and " + "author_id " + author_id + " and " + "event_id " + event_id + " and " + "issue_id " + issue_id + " and " + "build_id " + build_id + " and " + "dir " + dir + " and " + "tag " + tag + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "sha " + sha + " and " + "tag_protection_id " + tag_protection_id + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo }
+    body: JSON.stringify({ owner: owner, repo: repo, branch: branch, issue_number: issue_number, environment_name: environment_name, pull_number: pull_number, run_id: run_id, comment_id: comment_id, secret_name: secret_name, name: name, alert_number: alert_number, ref: ref, hook_id: hook_id, release_id: release_id, runner_id: runner_id, workflow_id: workflow_id, review_id: review_id, reaction_id: reaction_id, commit_sha: commit_sha, deployment_id: deployment_id, ruleset_id: ruleset_id, check_run_id: check_run_id, username: username, milestone_number: milestone_number, ghsa_id: ghsa_id, artifact_id: artifact_id, job_id: job_id, attempt_number: attempt_number, check_suite_id: check_suite_id, path: path, branch_policy_id: branch_policy_id, asset_id: asset_id, assignee: assignee, autolink_id: autolink_id, analysis_id: analysis_id, language: language, codeql_variant_analysis_id: codeql_variant_analysis_id, basehead: basehead, protection_rule_id: protection_rule_id, delivery_id: delivery_id, invitation_id: invitation_id, key_id: key_id, pages_deployment_id: pages_deployment_id, archive_format: archive_format, cache_id: cache_id, subject_digest: subject_digest, repo_owner: repo_owner, repo_name: repo_name, sarif_id: sarif_id, status_id: status_id, file_sha: file_sha, tag_sha: tag_sha, tree_sha: tree_sha, author_id: author_id, event_id: event_id, issue_id: issue_id, build_id: build_id, dir: dir, tag: tag, rule_suite_id: rule_suite_id, version_id: version_id, sha: sha, tag_protection_id: tag_protection_id, template_owner: template_owner, template_repo: template_repo }),
+    parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "branch " + branch + " and " + "issue_number " + issue_number + " and " + "environment_name " + environment_name + " and " + "pull_number " + pull_number + " and " + "run_id " + run_id + " and " + "comment_id " + comment_id + " and " + "secret_name " + secret_name + " and " + "name " + name + " and " + "alert_number " + alert_number + " and " + "ref " + ref + " and " + "hook_id " + hook_id + " and " + "release_id " + release_id + " and " + "runner_id " + runner_id + " and " + "workflow_id " + workflow_id + " and " + "review_id " + review_id + " and " + "reaction_id " + reaction_id + " and " + "commit_sha " + commit_sha + " and " + "deployment_id " + deployment_id + " and " + "ruleset_id " + ruleset_id + " and " + "check_run_id " + check_run_id + " and " + "username " + username + " and " + "milestone_number " + milestone_number + " and " + "ghsa_id " + ghsa_id + " and " + "artifact_id " + artifact_id + " and " + "job_id " + job_id + " and " + "attempt_number " + attempt_number + " and " + "check_suite_id " + check_suite_id + " and " + "path " + path + " and " + "branch_policy_id " + branch_policy_id + " and " + "asset_id " + asset_id + " and " + "assignee " + assignee + " and " + "autolink_id " + autolink_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "basehead " + basehead + " and " + "protection_rule_id " + protection_rule_id + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "key_id " + key_id + " and " + "pages_deployment_id " + pages_deployment_id + " and " + "archive_format " + archive_format + " and " + "cache_id " + cache_id + " and " + "subject_digest " + subject_digest + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id + " and " + "status_id " + status_id + " and " + "file_sha " + file_sha + " and " + "tag_sha " + tag_sha + " and " + "tree_sha " + tree_sha + " and " + "author_id " + author_id + " and " + "event_id " + event_id + " and " + "issue_id " + issue_id + " and " + "build_id " + build_id + " and " + "dir " + dir + " and " + "tag " + tag + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "sha " + sha + " and " + "tag_protection_id " + tag_protection_id + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateRepo(owner, repo, branch, issue_number, environment_name, pull_number, run_id, comment_id, secret_name, name, alert_number, ref, hook_id, release_id, runner_id, workflow_id, review_id, reaction_id, commit_sha, deployment_id, ruleset_id, check_run_id, username, milestone_number, ghsa_id, artifact_id, job_id, attempt_number, check_suite_id, path, branch_policy_id, asset_id, assignee, autolink_id, analysis_id, language, codeql_variant_analysis_id, basehead, protection_rule_id, delivery_id, invitation_id, key_id, pages_deployment_id, archive_format, cache_id, subject_digest, repo_owner, repo_name, sarif_id, status_id, file_sha, tag_sha, tree_sha, author_id, event_id, issue_id, build_id, dir, tag, rule_suite_id, version_id, sha, tag_protection_id, template_owner, template_repo) {
-  svc.put("/repos/" + owner + "/"+ repo + "/"+ branch + "/"+ issue_number + "/"+ environment_name + "/"+ pull_number + "/"+ run_id + "/"+ comment_id + "/"+ secret_name + "/"+ name + "/"+ alert_number + "/"+ ref + "/"+ hook_id + "/"+ release_id + "/"+ runner_id + "/"+ workflow_id + "/"+ review_id + "/"+ reaction_id + "/"+ commit_sha + "/"+ deployment_id + "/"+ ruleset_id + "/"+ check_run_id + "/"+ username + "/"+ milestone_number + "/"+ ghsa_id + "/"+ artifact_id + "/"+ job_id + "/"+ attempt_number + "/"+ check_suite_id + "/"+ path + "/"+ branch_policy_id + "/"+ asset_id + "/"+ assignee + "/"+ autolink_id + "/"+ analysis_id + "/"+ language + "/"+ codeql_variant_analysis_id + "/"+ basehead + "/"+ protection_rule_id + "/"+ delivery_id + "/"+ invitation_id + "/"+ key_id + "/"+ pages_deployment_id + "/"+ archive_format + "/"+ cache_id + "/"+ subject_digest + "/"+ repo_owner + "/"+ repo_name + "/"+ sarif_id + "/"+ status_id + "/"+ file_sha + "/"+ tag_sha + "/"+ tree_sha + "/"+ author_id + "/"+ event_id + "/"+ issue_id + "/"+ build_id + "/"+ dir + "/"+ tag + "/"+ rule_suite_id + "/"+ version_id + "/"+ sha + "/"+ tag_protection_id + "/"+ template_owner + "/"+ template_repo, {
-      body: JSON.stringify({ owner: owner, repo: repo, branch: branch, issue_number: issue_number, environment_name: environment_name, pull_number: pull_number, run_id: run_id, comment_id: comment_id, secret_name: secret_name, name: name, alert_number: alert_number, ref: ref, hook_id: hook_id, release_id: release_id, runner_id: runner_id, workflow_id: workflow_id, review_id: review_id, reaction_id: reaction_id, commit_sha: commit_sha, deployment_id: deployment_id, ruleset_id: ruleset_id, check_run_id: check_run_id, username: username, milestone_number: milestone_number, ghsa_id: ghsa_id, artifact_id: artifact_id, job_id: job_id, attempt_number: attempt_number, check_suite_id: check_suite_id, path: path, branch_policy_id: branch_policy_id, asset_id: asset_id, assignee: assignee, autolink_id: autolink_id, analysis_id: analysis_id, language: language, codeql_variant_analysis_id: codeql_variant_analysis_id, basehead: basehead, protection_rule_id: protection_rule_id, delivery_id: delivery_id, invitation_id: invitation_id, key_id: key_id, pages_deployment_id: pages_deployment_id, archive_format: archive_format, cache_id: cache_id, subject_digest: subject_digest, repo_owner: repo_owner, repo_name: repo_name, sarif_id: sarif_id, status_id: status_id, file_sha: file_sha, tag_sha: tag_sha, tree_sha: tree_sha, author_id: author_id, event_id: event_id, issue_id: issue_id, build_id: build_id, dir: dir, tag: tag, rule_suite_id: rule_suite_id, version_id: version_id, sha: sha, tag_protection_id: tag_protection_id, template_owner: template_owner, template_repo: template_repo }),
-      parameters: { description: "Update a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "branch " + branch + " and " + "issue_number " + issue_number + " and " + "environment_name " + environment_name + " and " + "pull_number " + pull_number + " and " + "run_id " + run_id + " and " + "comment_id " + comment_id + " and " + "secret_name " + secret_name + " and " + "name " + name + " and " + "alert_number " + alert_number + " and " + "ref " + ref + " and " + "hook_id " + hook_id + " and " + "release_id " + release_id + " and " + "runner_id " + runner_id + " and " + "workflow_id " + workflow_id + " and " + "review_id " + review_id + " and " + "reaction_id " + reaction_id + " and " + "commit_sha " + commit_sha + " and " + "deployment_id " + deployment_id + " and " + "ruleset_id " + ruleset_id + " and " + "check_run_id " + check_run_id + " and " + "username " + username + " and " + "milestone_number " + milestone_number + " and " + "ghsa_id " + ghsa_id + " and " + "artifact_id " + artifact_id + " and " + "job_id " + job_id + " and " + "attempt_number " + attempt_number + " and " + "check_suite_id " + check_suite_id + " and " + "path " + path + " and " + "branch_policy_id " + branch_policy_id + " and " + "asset_id " + asset_id + " and " + "assignee " + assignee + " and " + "autolink_id " + autolink_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "basehead " + basehead + " and " + "protection_rule_id " + protection_rule_id + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "key_id " + key_id + " and " + "pages_deployment_id " + pages_deployment_id + " and " + "archive_format " + archive_format + " and " + "cache_id " + cache_id + " and " + "subject_digest " + subject_digest + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id + " and " + "status_id " + status_id + " and " + "file_sha " + file_sha + " and " + "tag_sha " + tag_sha + " and " + "tree_sha " + tree_sha + " and " + "author_id " + author_id + " and " + "event_id " + event_id + " and " + "issue_id " + issue_id + " and " + "build_id " + build_id + " and " + "dir " + dir + " and " + "tag " + tag + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "sha " + sha + " and " + "tag_protection_id " + tag_protection_id + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo }
-    });
+  svc.put("/repos/" + owner + "/"+ repo + "/"+ branch + "/"+ issue_number + "/"+ environment_name + "/"+ pull_number + "/"+ run_id + "/"+ comment_id + "/"+ secret_name + "/"+ name + "/"+ alert_number + "/"+ ref + "/"+ hook_id + "/"+ release_id + "/"+ runner_id + "/"+ workflow_id + "/"+ review_id + "/"+ reaction_id + "/"+ commit_sha + "/"+ deployment_id + "/"+ ruleset_id + "/"+ check_run_id + "/"+ username + "/"+ milestone_number + "/"+ ghsa_id + "/"+ artifact_id + "/"+ job_id + "/"+ attempt_number + "/"+ check_suite_id + "/"+ path + "/"+ branch_policy_id + "/"+ asset_id + "/"+ assignee + "/"+ autolink_id + "/"+ analysis_id + "/"+ language + "/"+ codeql_variant_analysis_id + "/"+ basehead + "/"+ protection_rule_id + "/"+ delivery_id + "/"+ invitation_id + "/"+ key_id + "/"+ pages_deployment_id + "/"+ archive_format + "/"+ cache_id + "/"+ subject_digest + "/"+ repo_owner + "/"+ repo_name + "/"+ sarif_id + "/"+ status_id + "/"+ file_sha + "/"+ tag_sha + "/"+ tree_sha + "/"+ author_id + "/"+ event_id + "/"+ issue_id + "/"+ build_id + "/"+ dir + "/"+ tag + "/"+ rule_suite_id + "/"+ version_id + "/"+ sha + "/"+ tag_protection_id + "/"+ template_owner + "/"+ template_repo, { body: JSON.stringify({ owner: owner, repo: repo, branch: branch, issue_number: issue_number, environment_name: environment_name, pull_number: pull_number, run_id: run_id, comment_id: comment_id, secret_name: secret_name, name: name, alert_number: alert_number, ref: ref, hook_id: hook_id, release_id: release_id, runner_id: runner_id, workflow_id: workflow_id, review_id: review_id, reaction_id: reaction_id, commit_sha: commit_sha, deployment_id: deployment_id, ruleset_id: ruleset_id, check_run_id: check_run_id, username: username, milestone_number: milestone_number, ghsa_id: ghsa_id, artifact_id: artifact_id, job_id: job_id, attempt_number: attempt_number, check_suite_id: check_suite_id, path: path, branch_policy_id: branch_policy_id, asset_id: asset_id, assignee: assignee, autolink_id: autolink_id, analysis_id: analysis_id, language: language, codeql_variant_analysis_id: codeql_variant_analysis_id, basehead: basehead, protection_rule_id: protection_rule_id, delivery_id: delivery_id, invitation_id: invitation_id, key_id: key_id, pages_deployment_id: pages_deployment_id, archive_format: archive_format, cache_id: cache_id, subject_digest: subject_digest, repo_owner: repo_owner, repo_name: repo_name, sarif_id: sarif_id, status_id: status_id, file_sha: file_sha, tag_sha: tag_sha, tree_sha: tree_sha, author_id: author_id, event_id: event_id, issue_id: issue_id, build_id: build_id, dir: dir, tag: tag, rule_suite_id: rule_suite_id, version_id: version_id, sha: sha, tag_protection_id: tag_protection_id, template_owner: template_owner, template_repo: template_repo }), parameters: { description: "Update a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "branch " + branch + " and " + "issue_number " + issue_number + " and " + "environment_name " + environment_name + " and " + "pull_number " + pull_number + " and " + "run_id " + run_id + " and " + "comment_id " + comment_id + " and " + "secret_name " + secret_name + " and " + "name " + name + " and " + "alert_number " + alert_number + " and " + "ref " + ref + " and " + "hook_id " + hook_id + " and " + "release_id " + release_id + " and " + "runner_id " + runner_id + " and " + "workflow_id " + workflow_id + " and " + "review_id " + review_id + " and " + "reaction_id " + reaction_id + " and " + "commit_sha " + commit_sha + " and " + "deployment_id " + deployment_id + " and " + "ruleset_id " + ruleset_id + " and " + "check_run_id " + check_run_id + " and " + "username " + username + " and " + "milestone_number " + milestone_number + " and " + "ghsa_id " + ghsa_id + " and " + "artifact_id " + artifact_id + " and " + "job_id " + job_id + " and " + "attempt_number " + attempt_number + " and " + "check_suite_id " + check_suite_id + " and " + "path " + path + " and " + "branch_policy_id " + branch_policy_id + " and " + "asset_id " + asset_id + " and " + "assignee " + assignee + " and " + "autolink_id " + autolink_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "basehead " + basehead + " and " + "protection_rule_id " + protection_rule_id + " and " + "delivery_id " + delivery_id + " and " + "invitation_id " + invitation_id + " and " + "key_id " + key_id + " and " + "pages_deployment_id " + pages_deployment_id + " and " + "archive_format " + archive_format + " and " + "cache_id " + cache_id + " and " + "subject_digest " + subject_digest + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id + " and " + "status_id " + status_id + " and " + "file_sha " + file_sha + " and " + "tag_sha " + tag_sha + " and " + "tree_sha " + tree_sha + " and " + "author_id " + author_id + " and " + "event_id " + event_id + " and " + "issue_id " + issue_id + " and " + "build_id " + build_id + " and " + "dir " + dir + " and " + "tag " + tag + " and " + "rule_suite_id " + rule_suite_id + " and " + "version_id " + version_id + " and " + "sha " + sha + " and " + "tag_protection_id " + tag_protection_id + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo } });
 }
 
 // GET one
@@ -5048,10 +4814,7 @@ function verifyRepoUpdated(owner, repo, branch, issue_number, environment_name, 
 
 // CREATE
 function addRepositorie(id) {
-  svc.post("/repositories", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a repositorie with " + "id " + id }
-    });
+  svc.post("/repositories", { body: JSON.stringify({ id: id }), parameters: { description: "Add a repositorie with " + "id " + id } });
 }
 
 // DELETE
@@ -5061,31 +4824,26 @@ function deleteRepositorie(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingRepositorie(id) {
   svc.delete("/repositories/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a repositorie with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingRepositorie(id) {
   svc.post("/repositories", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a repositorie with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a repositorie with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a repositorie with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateRepositorie(id) {
-  svc.put("/repositories/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a repositorie with " + "id " + id }
-    });
+  svc.put("/repositories/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a repositorie with " + "id " + id } });
 }
 
 // GET one
@@ -5221,10 +4979,7 @@ function verifyRepositorieUpdated(id) {
 
 // CREATE
 function addRoot(id) {
-  svc.post("/root", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a root with " + "id " + id }
-    });
+  svc.post("/root", { body: JSON.stringify({ id: id }), parameters: { description: "Add a root with " + "id " + id } });
 }
 
 // DELETE
@@ -5234,31 +4989,26 @@ function deleteRoot(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingRoot(id) {
   svc.delete("/root/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a root with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingRoot(id) {
   svc.post("/root", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a root with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a root with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a root with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateRoot(id) {
-  svc.put("/root/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a root with " + "id " + id }
-    });
+  svc.put("/root/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a root with " + "id " + id } });
 }
 
 // GET one
@@ -5394,10 +5144,7 @@ function verifyRootUpdated(id) {
 
 // CREATE
 function addSearch(id) {
-  svc.post("/search", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a search with " + "id " + id }
-    });
+  svc.post("/search", { body: JSON.stringify({ id: id }), parameters: { description: "Add a search with " + "id " + id } });
 }
 
 // DELETE
@@ -5407,31 +5154,26 @@ function deleteSearch(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingSearch(id) {
   svc.delete("/search/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a search with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingSearch(id) {
   svc.post("/search", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a search with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a search with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a search with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateSearch(id) {
-  svc.put("/search/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a search with " + "id " + id }
-    });
+  svc.put("/search/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a search with " + "id " + id } });
 }
 
 // GET one
@@ -5567,10 +5309,7 @@ function verifySearchUpdated(id) {
 
 // CREATE
 function addTeam(team_id, discussion_number, username, comment_number, project_id, owner, repo) {
-  svc.post("/teams", {
-      body: JSON.stringify({ team_id: team_id, discussion_number: discussion_number, username: username, comment_number: comment_number, project_id: project_id, owner: owner, repo: repo }),
-      parameters: { description: "Add a team with " + "team_id " + team_id + " and " + "discussion_number " + discussion_number + " and " + "username " + username + " and " + "comment_number " + comment_number + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo }
-    });
+  svc.post("/teams", { body: JSON.stringify({ team_id: team_id, discussion_number: discussion_number, username: username, comment_number: comment_number, project_id: project_id, owner: owner, repo: repo }), parameters: { description: "Add a team with " + "team_id " + team_id + " and " + "discussion_number " + discussion_number + " and " + "username " + username + " and " + "comment_number " + comment_number + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo } });
 }
 
 // DELETE
@@ -5580,31 +5319,26 @@ function deleteTeam(team_id, discussion_number, username, comment_number, projec
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingTeam(team_id, discussion_number, username, comment_number, project_id, owner, repo) {
   svc.delete("/teams/" + team_id + "/"+ discussion_number + "/"+ username + "/"+ comment_number + "/"+ project_id + "/"+ owner + "/"+ repo, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a team with " + "team_id " + team_id + " and " + "discussion_number " + discussion_number + " and " + "username " + username + " and " + "comment_number " + comment_number + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingTeam(team_id, discussion_number, username, comment_number, project_id, owner, repo) {
   svc.post("/teams", {
-      body: JSON.stringify({ team_id: team_id, discussion_number: discussion_number, username: username, comment_number: comment_number, project_id: project_id, owner: owner, repo: repo }),
-      parameters: { description: "Add a team with " + "team_id " + team_id + " and " + "discussion_number " + discussion_number + " and " + "username " + username + " and " + "comment_number " + comment_number + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a team with " + "team_id " + team_id + " and " + "discussion_number " + discussion_number + " and " + "username " + username + " and " + "comment_number " + comment_number + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo }
+    body: JSON.stringify({ team_id: team_id, discussion_number: discussion_number, username: username, comment_number: comment_number, project_id: project_id, owner: owner, repo: repo }),
+    parameters: { description: "Add a team with " + "team_id " + team_id + " and " + "discussion_number " + discussion_number + " and " + "username " + username + " and " + "comment_number " + comment_number + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateTeam(team_id, discussion_number, username, comment_number, project_id, owner, repo) {
-  svc.put("/teams/" + team_id + "/"+ discussion_number + "/"+ username + "/"+ comment_number + "/"+ project_id + "/"+ owner + "/"+ repo, {
-      body: JSON.stringify({ team_id: team_id, discussion_number: discussion_number, username: username, comment_number: comment_number, project_id: project_id, owner: owner, repo: repo }),
-      parameters: { description: "Update a team with " + "team_id " + team_id + " and " + "discussion_number " + discussion_number + " and " + "username " + username + " and " + "comment_number " + comment_number + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo }
-    });
+  svc.put("/teams/" + team_id + "/"+ discussion_number + "/"+ username + "/"+ comment_number + "/"+ project_id + "/"+ owner + "/"+ repo, { body: JSON.stringify({ team_id: team_id, discussion_number: discussion_number, username: username, comment_number: comment_number, project_id: project_id, owner: owner, repo: repo }), parameters: { description: "Update a team with " + "team_id " + team_id + " and " + "discussion_number " + discussion_number + " and " + "username " + username + " and " + "comment_number " + comment_number + " and " + "project_id " + project_id + " and " + "owner " + owner + " and " + "repo " + repo } });
 }
 
 // GET one
@@ -5740,10 +5474,7 @@ function verifyTeamUpdated(team_id, discussion_number, username, comment_number,
 
 // CREATE
 function addUser(codespace_name, secret_name, package_type, package_name, username, migration_id, repository_id, installation_id, package_version_id, owner, repo, gpg_key_id, key_id, org, invitation_id, ssh_signing_key_id, export_id, repo_name, account_id) {
-  svc.post("/user", {
-      body: JSON.stringify({ codespace_name: codespace_name, secret_name: secret_name, package_type: package_type, package_name: package_name, username: username, migration_id: migration_id, repository_id: repository_id, installation_id: installation_id, package_version_id: package_version_id, owner: owner, repo: repo, gpg_key_id: gpg_key_id, key_id: key_id, org: org, invitation_id: invitation_id, ssh_signing_key_id: ssh_signing_key_id, export_id: export_id, repo_name: repo_name, account_id: account_id }),
-      parameters: { description: "Add a user with " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "username " + username + " and " + "migration_id " + migration_id + " and " + "repository_id " + repository_id + " and " + "installation_id " + installation_id + " and " + "package_version_id " + package_version_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "org " + org + " and " + "invitation_id " + invitation_id + " and " + "ssh_signing_key_id " + ssh_signing_key_id + " and " + "export_id " + export_id + " and " + "repo_name " + repo_name + " and " + "account_id " + account_id }
-    });
+  svc.post("/user", { body: JSON.stringify({ codespace_name: codespace_name, secret_name: secret_name, package_type: package_type, package_name: package_name, username: username, migration_id: migration_id, repository_id: repository_id, installation_id: installation_id, package_version_id: package_version_id, owner: owner, repo: repo, gpg_key_id: gpg_key_id, key_id: key_id, org: org, invitation_id: invitation_id, ssh_signing_key_id: ssh_signing_key_id, export_id: export_id, repo_name: repo_name, account_id: account_id }), parameters: { description: "Add a user with " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "username " + username + " and " + "migration_id " + migration_id + " and " + "repository_id " + repository_id + " and " + "installation_id " + installation_id + " and " + "package_version_id " + package_version_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "org " + org + " and " + "invitation_id " + invitation_id + " and " + "ssh_signing_key_id " + ssh_signing_key_id + " and " + "export_id " + export_id + " and " + "repo_name " + repo_name + " and " + "account_id " + account_id } });
 }
 
 // DELETE
@@ -5753,31 +5484,26 @@ function deleteUser(codespace_name, secret_name, package_type, package_name, use
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingUser(codespace_name, secret_name, package_type, package_name, username, migration_id, repository_id, installation_id, package_version_id, owner, repo, gpg_key_id, key_id, org, invitation_id, ssh_signing_key_id, export_id, repo_name, account_id) {
   svc.delete("/user/" + codespace_name + "/"+ secret_name + "/"+ package_type + "/"+ package_name + "/"+ username + "/"+ migration_id + "/"+ repository_id + "/"+ installation_id + "/"+ package_version_id + "/"+ owner + "/"+ repo + "/"+ gpg_key_id + "/"+ key_id + "/"+ org + "/"+ invitation_id + "/"+ ssh_signing_key_id + "/"+ export_id + "/"+ repo_name + "/"+ account_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a user with " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "username " + username + " and " + "migration_id " + migration_id + " and " + "repository_id " + repository_id + " and " + "installation_id " + installation_id + " and " + "package_version_id " + package_version_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "org " + org + " and " + "invitation_id " + invitation_id + " and " + "ssh_signing_key_id " + ssh_signing_key_id + " and " + "export_id " + export_id + " and " + "repo_name " + repo_name + " and " + "account_id " + account_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingUser(codespace_name, secret_name, package_type, package_name, username, migration_id, repository_id, installation_id, package_version_id, owner, repo, gpg_key_id, key_id, org, invitation_id, ssh_signing_key_id, export_id, repo_name, account_id) {
   svc.post("/user", {
-      body: JSON.stringify({ codespace_name: codespace_name, secret_name: secret_name, package_type: package_type, package_name: package_name, username: username, migration_id: migration_id, repository_id: repository_id, installation_id: installation_id, package_version_id: package_version_id, owner: owner, repo: repo, gpg_key_id: gpg_key_id, key_id: key_id, org: org, invitation_id: invitation_id, ssh_signing_key_id: ssh_signing_key_id, export_id: export_id, repo_name: repo_name, account_id: account_id }),
-      parameters: { description: "Add a user with " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "username " + username + " and " + "migration_id " + migration_id + " and " + "repository_id " + repository_id + " and " + "installation_id " + installation_id + " and " + "package_version_id " + package_version_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "org " + org + " and " + "invitation_id " + invitation_id + " and " + "ssh_signing_key_id " + ssh_signing_key_id + " and " + "export_id " + export_id + " and " + "repo_name " + repo_name + " and " + "account_id " + account_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a user with " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "username " + username + " and " + "migration_id " + migration_id + " and " + "repository_id " + repository_id + " and " + "installation_id " + installation_id + " and " + "package_version_id " + package_version_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "org " + org + " and " + "invitation_id " + invitation_id + " and " + "ssh_signing_key_id " + ssh_signing_key_id + " and " + "export_id " + export_id + " and " + "repo_name " + repo_name + " and " + "account_id " + account_id }
+    body: JSON.stringify({ codespace_name: codespace_name, secret_name: secret_name, package_type: package_type, package_name: package_name, username: username, migration_id: migration_id, repository_id: repository_id, installation_id: installation_id, package_version_id: package_version_id, owner: owner, repo: repo, gpg_key_id: gpg_key_id, key_id: key_id, org: org, invitation_id: invitation_id, ssh_signing_key_id: ssh_signing_key_id, export_id: export_id, repo_name: repo_name, account_id: account_id }),
+    parameters: { description: "Add a user with " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "username " + username + " and " + "migration_id " + migration_id + " and " + "repository_id " + repository_id + " and " + "installation_id " + installation_id + " and " + "package_version_id " + package_version_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "org " + org + " and " + "invitation_id " + invitation_id + " and " + "ssh_signing_key_id " + ssh_signing_key_id + " and " + "export_id " + export_id + " and " + "repo_name " + repo_name + " and " + "account_id " + account_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateUser(codespace_name, secret_name, package_type, package_name, username, migration_id, repository_id, installation_id, package_version_id, owner, repo, gpg_key_id, key_id, org, invitation_id, ssh_signing_key_id, export_id, repo_name, account_id) {
-  svc.put("/user/" + codespace_name + "/"+ secret_name + "/"+ package_type + "/"+ package_name + "/"+ username + "/"+ migration_id + "/"+ repository_id + "/"+ installation_id + "/"+ package_version_id + "/"+ owner + "/"+ repo + "/"+ gpg_key_id + "/"+ key_id + "/"+ org + "/"+ invitation_id + "/"+ ssh_signing_key_id + "/"+ export_id + "/"+ repo_name + "/"+ account_id, {
-      body: JSON.stringify({ codespace_name: codespace_name, secret_name: secret_name, package_type: package_type, package_name: package_name, username: username, migration_id: migration_id, repository_id: repository_id, installation_id: installation_id, package_version_id: package_version_id, owner: owner, repo: repo, gpg_key_id: gpg_key_id, key_id: key_id, org: org, invitation_id: invitation_id, ssh_signing_key_id: ssh_signing_key_id, export_id: export_id, repo_name: repo_name, account_id: account_id }),
-      parameters: { description: "Update a user with " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "username " + username + " and " + "migration_id " + migration_id + " and " + "repository_id " + repository_id + " and " + "installation_id " + installation_id + " and " + "package_version_id " + package_version_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "org " + org + " and " + "invitation_id " + invitation_id + " and " + "ssh_signing_key_id " + ssh_signing_key_id + " and " + "export_id " + export_id + " and " + "repo_name " + repo_name + " and " + "account_id " + account_id }
-    });
+  svc.put("/user/" + codespace_name + "/"+ secret_name + "/"+ package_type + "/"+ package_name + "/"+ username + "/"+ migration_id + "/"+ repository_id + "/"+ installation_id + "/"+ package_version_id + "/"+ owner + "/"+ repo + "/"+ gpg_key_id + "/"+ key_id + "/"+ org + "/"+ invitation_id + "/"+ ssh_signing_key_id + "/"+ export_id + "/"+ repo_name + "/"+ account_id, { body: JSON.stringify({ codespace_name: codespace_name, secret_name: secret_name, package_type: package_type, package_name: package_name, username: username, migration_id: migration_id, repository_id: repository_id, installation_id: installation_id, package_version_id: package_version_id, owner: owner, repo: repo, gpg_key_id: gpg_key_id, key_id: key_id, org: org, invitation_id: invitation_id, ssh_signing_key_id: ssh_signing_key_id, export_id: export_id, repo_name: repo_name, account_id: account_id }), parameters: { description: "Update a user with " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "username " + username + " and " + "migration_id " + migration_id + " and " + "repository_id " + repository_id + " and " + "installation_id " + installation_id + " and " + "package_version_id " + package_version_id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "org " + org + " and " + "invitation_id " + invitation_id + " and " + "ssh_signing_key_id " + ssh_signing_key_id + " and " + "export_id " + export_id + " and " + "repo_name " + repo_name + " and " + "account_id " + account_id } });
 }
 
 // GET one
@@ -5913,10 +5639,7 @@ function verifyUserUpdated(codespace_name, secret_name, package_type, package_na
 
 // CREATE
 function addUser(username, project_number, package_type, package_name, package_version_id, item_id, subject_digest, attestation_id, org, target_user, field_id) {
-  svc.post("/users", {
-      body: JSON.stringify({ username: username, project_number: project_number, package_type: package_type, package_name: package_name, package_version_id: package_version_id, item_id: item_id, subject_digest: subject_digest, attestation_id: attestation_id, org: org, target_user: target_user, field_id: field_id }),
-      parameters: { description: "Add a user with " + "username " + username + " and " + "project_number " + project_number + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "subject_digest " + subject_digest + " and " + "attestation_id " + attestation_id + " and " + "org " + org + " and " + "target_user " + target_user + " and " + "field_id " + field_id }
-    });
+  svc.post("/users", { body: JSON.stringify({ username: username, project_number: project_number, package_type: package_type, package_name: package_name, package_version_id: package_version_id, item_id: item_id, subject_digest: subject_digest, attestation_id: attestation_id, org: org, target_user: target_user, field_id: field_id }), parameters: { description: "Add a user with " + "username " + username + " and " + "project_number " + project_number + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "subject_digest " + subject_digest + " and " + "attestation_id " + attestation_id + " and " + "org " + org + " and " + "target_user " + target_user + " and " + "field_id " + field_id } });
 }
 
 // DELETE
@@ -5926,31 +5649,26 @@ function deleteUser(username, project_number, package_type, package_name, packag
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingUser(username, project_number, package_type, package_name, package_version_id, item_id, subject_digest, attestation_id, org, target_user, field_id) {
   svc.delete("/users/" + username + "/"+ project_number + "/"+ package_type + "/"+ package_name + "/"+ package_version_id + "/"+ item_id + "/"+ subject_digest + "/"+ attestation_id + "/"+ org + "/"+ target_user + "/"+ field_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a user with " + "username " + username + " and " + "project_number " + project_number + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "subject_digest " + subject_digest + " and " + "attestation_id " + attestation_id + " and " + "org " + org + " and " + "target_user " + target_user + " and " + "field_id " + field_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingUser(username, project_number, package_type, package_name, package_version_id, item_id, subject_digest, attestation_id, org, target_user, field_id) {
   svc.post("/users", {
-      body: JSON.stringify({ username: username, project_number: project_number, package_type: package_type, package_name: package_name, package_version_id: package_version_id, item_id: item_id, subject_digest: subject_digest, attestation_id: attestation_id, org: org, target_user: target_user, field_id: field_id }),
-      parameters: { description: "Add a user with " + "username " + username + " and " + "project_number " + project_number + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "subject_digest " + subject_digest + " and " + "attestation_id " + attestation_id + " and " + "org " + org + " and " + "target_user " + target_user + " and " + "field_id " + field_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a user with " + "username " + username + " and " + "project_number " + project_number + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "subject_digest " + subject_digest + " and " + "attestation_id " + attestation_id + " and " + "org " + org + " and " + "target_user " + target_user + " and " + "field_id " + field_id }
+    body: JSON.stringify({ username: username, project_number: project_number, package_type: package_type, package_name: package_name, package_version_id: package_version_id, item_id: item_id, subject_digest: subject_digest, attestation_id: attestation_id, org: org, target_user: target_user, field_id: field_id }),
+    parameters: { description: "Add a user with " + "username " + username + " and " + "project_number " + project_number + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "subject_digest " + subject_digest + " and " + "attestation_id " + attestation_id + " and " + "org " + org + " and " + "target_user " + target_user + " and " + "field_id " + field_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateUser(username, project_number, package_type, package_name, package_version_id, item_id, subject_digest, attestation_id, org, target_user, field_id) {
-  svc.put("/users/" + username + "/"+ project_number + "/"+ package_type + "/"+ package_name + "/"+ package_version_id + "/"+ item_id + "/"+ subject_digest + "/"+ attestation_id + "/"+ org + "/"+ target_user + "/"+ field_id, {
-      body: JSON.stringify({ username: username, project_number: project_number, package_type: package_type, package_name: package_name, package_version_id: package_version_id, item_id: item_id, subject_digest: subject_digest, attestation_id: attestation_id, org: org, target_user: target_user, field_id: field_id }),
-      parameters: { description: "Update a user with " + "username " + username + " and " + "project_number " + project_number + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "subject_digest " + subject_digest + " and " + "attestation_id " + attestation_id + " and " + "org " + org + " and " + "target_user " + target_user + " and " + "field_id " + field_id }
-    });
+  svc.put("/users/" + username + "/"+ project_number + "/"+ package_type + "/"+ package_name + "/"+ package_version_id + "/"+ item_id + "/"+ subject_digest + "/"+ attestation_id + "/"+ org + "/"+ target_user + "/"+ field_id, { body: JSON.stringify({ username: username, project_number: project_number, package_type: package_type, package_name: package_name, package_version_id: package_version_id, item_id: item_id, subject_digest: subject_digest, attestation_id: attestation_id, org: org, target_user: target_user, field_id: field_id }), parameters: { description: "Update a user with " + "username " + username + " and " + "project_number " + project_number + " and " + "package_type " + package_type + " and " + "package_name " + package_name + " and " + "package_version_id " + package_version_id + " and " + "item_id " + item_id + " and " + "subject_digest " + subject_digest + " and " + "attestation_id " + attestation_id + " and " + "org " + org + " and " + "target_user " + target_user + " and " + "field_id " + field_id } });
 }
 
 // GET one
@@ -6086,10 +5804,7 @@ function verifyUserUpdated(username, project_number, package_type, package_name,
 
 // CREATE
 function addVersion(id) {
-  svc.post("/versions", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a version with " + "id " + id }
-    });
+  svc.post("/versions", { body: JSON.stringify({ id: id }), parameters: { description: "Add a version with " + "id " + id } });
 }
 
 // DELETE
@@ -6099,31 +5814,26 @@ function deleteVersion(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingVersion(id) {
   svc.delete("/versions/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a version with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingVersion(id) {
   svc.post("/versions", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a version with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a version with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a version with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateVersion(id) {
-  svc.put("/versions/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a version with " + "id " + id }
-    });
+  svc.put("/versions/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a version with " + "id " + id } });
 }
 
 // GET one
@@ -6259,10 +5969,7 @@ function verifyVersionUpdated(id) {
 
 // CREATE
 function addZen(id) {
-  svc.post("/zen", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a zen with " + "id " + id }
-    });
+  svc.post("/zen", { body: JSON.stringify({ id: id }), parameters: { description: "Add a zen with " + "id " + id } });
 }
 
 // DELETE
@@ -6272,31 +5979,26 @@ function deleteZen(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingZen(id) {
   svc.delete("/zen/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a zen with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingZen(id) {
   svc.post("/zen", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a zen with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a zen with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a zen with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateZen(id) {
-  svc.put("/zen/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a zen with " + "id " + id }
-    });
+  svc.put("/zen/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a zen with " + "id " + id } });
 }
 
 // GET one

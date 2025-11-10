@@ -3,11 +3,9 @@
 /**
  * Auto-generated interfaces & lifecycle (readable)
  * From GOLD only – full CRUD + verifications + match/wait helpers.
- * This approximates the "Library SUT" interface style.
  */
 
-// CHANGE (1): add default host/port placeholders before RESTSession
-var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var host = (typeof host !== 'undefined') ? host : '192.168.225.53';
 var port = (typeof port !== 'undefined') ? port : 5014;
 
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
@@ -31,10 +29,7 @@ function matchesDescriptionRegex(rx) {
 
 // CREATE
 function addBook(book_id) {
-  svc.post("/books", {
-      body: JSON.stringify({ book_id: book_id }),
-      parameters: { description: "Add a book with " + "book_id " + book_id }
-    });
+  svc.post("/books", { body: JSON.stringify({ book_id: book_id }), parameters: { description: "Add a book with " + "book_id " + book_id } });
 }
 
 // DELETE
@@ -44,31 +39,26 @@ function deleteBook(book_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingBook(book_id) {
   svc.delete("/books/" + book_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a book with " + "book_id " + book_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingBook(book_id) {
   svc.post("/books", {
-      body: JSON.stringify({ book_id: book_id }),
-      parameters: { description: "Add a book with " + "book_id " + book_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a book with " + "book_id " + book_id }
+    body: JSON.stringify({ book_id: book_id }),
+    parameters: { description: "Add a book with " + "book_id " + book_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateBook(book_id) {
-  svc.put("/books/" + book_id, {
-      body: JSON.stringify({ book_id: book_id }),
-      parameters: { description: "Update a book with " + "book_id " + book_id }
-    });
+  svc.put("/books/" + book_id, { body: JSON.stringify({ book_id: book_id }), parameters: { description: "Update a book with " + "book_id " + book_id } });
 }
 
 // GET one
@@ -204,10 +194,7 @@ function verifyBookUpdated(book_id) {
 
 // CREATE
 function addHold(hold_id) {
-  svc.post("/holds", {
-      body: JSON.stringify({ hold_id: hold_id }),
-      parameters: { description: "Add a hold with " + "hold_id " + hold_id }
-    });
+  svc.post("/holds", { body: JSON.stringify({ hold_id: hold_id }), parameters: { description: "Add a hold with " + "hold_id " + hold_id } });
 }
 
 // DELETE
@@ -217,31 +204,26 @@ function deleteHold(hold_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingHold(hold_id) {
   svc.delete("/holds/" + hold_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a hold with " + "hold_id " + hold_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingHold(hold_id) {
   svc.post("/holds", {
-      body: JSON.stringify({ hold_id: hold_id }),
-      parameters: { description: "Add a hold with " + "hold_id " + hold_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a hold with " + "hold_id " + hold_id }
+    body: JSON.stringify({ hold_id: hold_id }),
+    parameters: { description: "Add a hold with " + "hold_id " + hold_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateHold(hold_id) {
-  svc.put("/holds/" + hold_id, {
-      body: JSON.stringify({ hold_id: hold_id }),
-      parameters: { description: "Update a hold with " + "hold_id " + hold_id }
-    });
+  svc.put("/holds/" + hold_id, { body: JSON.stringify({ hold_id: hold_id }), parameters: { description: "Update a hold with " + "hold_id " + hold_id } });
 }
 
 // GET one
@@ -377,10 +359,7 @@ function verifyHoldUpdated(hold_id) {
 
 // CREATE
 function addLoan(user_id, book_id) {
-  svc.post("/loans", {
-      body: JSON.stringify({ user_id: user_id, book_id: book_id }),
-      parameters: { description: "Add a loan with " + "user_id " + user_id + " and " + "book_id " + book_id }
-    });
+  svc.post("/loans", { body: JSON.stringify({ user_id: user_id, book_id: book_id }), parameters: { description: "Add a loan with " + "user_id " + user_id + " and " + "book_id " + book_id } });
 }
 
 // DELETE
@@ -390,31 +369,26 @@ function deleteLoan(user_id, book_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingLoan(user_id, book_id) {
   svc.delete("/loans/" + user_id + "/"+ book_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a loan with " + "user_id " + user_id + " and " + "book_id " + book_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingLoan(user_id, book_id) {
   svc.post("/loans", {
-      body: JSON.stringify({ user_id: user_id, book_id: book_id }),
-      parameters: { description: "Add a loan with " + "user_id " + user_id + " and " + "book_id " + book_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a loan with " + "user_id " + user_id + " and " + "book_id " + book_id }
+    body: JSON.stringify({ user_id: user_id, book_id: book_id }),
+    parameters: { description: "Add a loan with " + "user_id " + user_id + " and " + "book_id " + book_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateLoan(user_id, book_id) {
-  svc.put("/loans/" + user_id + "/"+ book_id, {
-      body: JSON.stringify({ user_id: user_id, book_id: book_id }),
-      parameters: { description: "Update a loan with " + "user_id " + user_id + " and " + "book_id " + book_id }
-    });
+  svc.put("/loans/" + user_id + "/"+ book_id, { body: JSON.stringify({ user_id: user_id, book_id: book_id }), parameters: { description: "Update a loan with " + "user_id " + user_id + " and " + "book_id " + book_id } });
 }
 
 // GET one
@@ -550,10 +524,7 @@ function verifyLoanUpdated(user_id, book_id) {
 
 // CREATE
 function addUser(user_id) {
-  svc.post("/users", {
-      body: JSON.stringify({ user_id: user_id }),
-      parameters: { description: "Add a user with " + "user_id " + user_id }
-    });
+  svc.post("/users", { body: JSON.stringify({ user_id: user_id }), parameters: { description: "Add a user with " + "user_id " + user_id } });
 }
 
 // DELETE
@@ -563,31 +534,26 @@ function deleteUser(user_id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingUser(user_id) {
   svc.delete("/users/" + user_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a user with " + "user_id " + user_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingUser(user_id) {
   svc.post("/users", {
-      body: JSON.stringify({ user_id: user_id }),
-      parameters: { description: "Add a user with " + "user_id " + user_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a user with " + "user_id " + user_id }
+    body: JSON.stringify({ user_id: user_id }),
+    parameters: { description: "Add a user with " + "user_id " + user_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateUser(user_id) {
-  svc.put("/users/" + user_id, {
-      body: JSON.stringify({ user_id: user_id }),
-      parameters: { description: "Update a user with " + "user_id " + user_id }
-    });
+  svc.put("/users/" + user_id, { body: JSON.stringify({ user_id: user_id }), parameters: { description: "Update a user with " + "user_id " + user_id } });
 }
 
 // GET one

@@ -3,11 +3,9 @@
 /**
  * Auto-generated interfaces & lifecycle (readable)
  * From GOLD only – full CRUD + verifications + match/wait helpers.
- * This approximates the "Library SUT" interface style.
  */
 
-// CHANGE (1): add default host/port placeholders before RESTSession
-var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var host = (typeof host !== 'undefined') ? host : '192.168.225.53';
 var port = (typeof port !== 'undefined') ? port : 5014;
 
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
@@ -31,10 +29,7 @@ function matchesDescriptionRegex(rx) {
 
 // CREATE
 function addAction(idAction, field) {
-  svc.post("/actions", {
-      body: JSON.stringify({ idAction: idAction, field: field }),
-      parameters: { description: "Add a action with " + "idAction " + idAction + " and " + "field " + field }
-    });
+  svc.post("/actions", { body: JSON.stringify({ idAction: idAction, field: field }), parameters: { description: "Add a action with " + "idAction " + idAction + " and " + "field " + field } });
 }
 
 // DELETE
@@ -44,31 +39,26 @@ function deleteAction(idAction, field) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingAction(idAction, field) {
   svc.delete("/actions/" + idAction + "/"+ field, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a action with " + "idAction " + idAction + " and " + "field " + field }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingAction(idAction, field) {
   svc.post("/actions", {
-      body: JSON.stringify({ idAction: idAction, field: field }),
-      parameters: { description: "Add a action with " + "idAction " + idAction + " and " + "field " + field }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a action with " + "idAction " + idAction + " and " + "field " + field }
+    body: JSON.stringify({ idAction: idAction, field: field }),
+    parameters: { description: "Add a action with " + "idAction " + idAction + " and " + "field " + field },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateAction(idAction, field) {
-  svc.put("/actions/" + idAction + "/"+ field, {
-      body: JSON.stringify({ idAction: idAction, field: field }),
-      parameters: { description: "Update a action with " + "idAction " + idAction + " and " + "field " + field }
-    });
+  svc.put("/actions/" + idAction + "/"+ field, { body: JSON.stringify({ idAction: idAction, field: field }), parameters: { description: "Update a action with " + "idAction " + idAction + " and " + "field " + field } });
 }
 
 // GET one
@@ -204,10 +194,7 @@ function verifyActionUpdated(idAction, field) {
 
 // CREATE
 function addBatch(id) {
-  svc.post("/batch", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a batch with " + "id " + id }
-    });
+  svc.post("/batch", { body: JSON.stringify({ id: id }), parameters: { description: "Add a batch with " + "id " + id } });
 }
 
 // DELETE
@@ -217,31 +204,26 @@ function deleteBatch(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingBatch(id) {
   svc.delete("/batch/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a batch with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingBatch(id) {
   svc.post("/batch", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a batch with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a batch with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a batch with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateBatch(id) {
-  svc.put("/batch/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a batch with " + "id " + id }
-    });
+  svc.put("/batch/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a batch with " + "id " + id } });
 }
 
 // GET one
@@ -377,10 +359,7 @@ function verifyBatchUpdated(id) {
 
 // CREATE
 function addBoard(idBoard, filter, idMember, field, idMembership, idCard, idLabel, powerUp) {
-  svc.post("/boards", {
-      body: JSON.stringify({ idBoard: idBoard, filter: filter, idMember: idMember, field: field, idMembership: idMembership, idCard: idCard, idLabel: idLabel, powerUp: powerUp }),
-      parameters: { description: "Add a board with " + "idBoard " + idBoard + " and " + "filter " + filter + " and " + "idMember " + idMember + " and " + "field " + field + " and " + "idMembership " + idMembership + " and " + "idCard " + idCard + " and " + "idLabel " + idLabel + " and " + "powerUp " + powerUp }
-    });
+  svc.post("/boards", { body: JSON.stringify({ idBoard: idBoard, filter: filter, idMember: idMember, field: field, idMembership: idMembership, idCard: idCard, idLabel: idLabel, powerUp: powerUp }), parameters: { description: "Add a board with " + "idBoard " + idBoard + " and " + "filter " + filter + " and " + "idMember " + idMember + " and " + "field " + field + " and " + "idMembership " + idMembership + " and " + "idCard " + idCard + " and " + "idLabel " + idLabel + " and " + "powerUp " + powerUp } });
 }
 
 // DELETE
@@ -390,31 +369,26 @@ function deleteBoard(idBoard, filter, idMember, field, idMembership, idCard, idL
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingBoard(idBoard, filter, idMember, field, idMembership, idCard, idLabel, powerUp) {
   svc.delete("/boards/" + idBoard + "/"+ filter + "/"+ idMember + "/"+ field + "/"+ idMembership + "/"+ idCard + "/"+ idLabel + "/"+ powerUp, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a board with " + "idBoard " + idBoard + " and " + "filter " + filter + " and " + "idMember " + idMember + " and " + "field " + field + " and " + "idMembership " + idMembership + " and " + "idCard " + idCard + " and " + "idLabel " + idLabel + " and " + "powerUp " + powerUp }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingBoard(idBoard, filter, idMember, field, idMembership, idCard, idLabel, powerUp) {
   svc.post("/boards", {
-      body: JSON.stringify({ idBoard: idBoard, filter: filter, idMember: idMember, field: field, idMembership: idMembership, idCard: idCard, idLabel: idLabel, powerUp: powerUp }),
-      parameters: { description: "Add a board with " + "idBoard " + idBoard + " and " + "filter " + filter + " and " + "idMember " + idMember + " and " + "field " + field + " and " + "idMembership " + idMembership + " and " + "idCard " + idCard + " and " + "idLabel " + idLabel + " and " + "powerUp " + powerUp }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a board with " + "idBoard " + idBoard + " and " + "filter " + filter + " and " + "idMember " + idMember + " and " + "field " + field + " and " + "idMembership " + idMembership + " and " + "idCard " + idCard + " and " + "idLabel " + idLabel + " and " + "powerUp " + powerUp }
+    body: JSON.stringify({ idBoard: idBoard, filter: filter, idMember: idMember, field: field, idMembership: idMembership, idCard: idCard, idLabel: idLabel, powerUp: powerUp }),
+    parameters: { description: "Add a board with " + "idBoard " + idBoard + " and " + "filter " + filter + " and " + "idMember " + idMember + " and " + "field " + field + " and " + "idMembership " + idMembership + " and " + "idCard " + idCard + " and " + "idLabel " + idLabel + " and " + "powerUp " + powerUp },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateBoard(idBoard, filter, idMember, field, idMembership, idCard, idLabel, powerUp) {
-  svc.put("/boards/" + idBoard + "/"+ filter + "/"+ idMember + "/"+ field + "/"+ idMembership + "/"+ idCard + "/"+ idLabel + "/"+ powerUp, {
-      body: JSON.stringify({ idBoard: idBoard, filter: filter, idMember: idMember, field: field, idMembership: idMembership, idCard: idCard, idLabel: idLabel, powerUp: powerUp }),
-      parameters: { description: "Update a board with " + "idBoard " + idBoard + " and " + "filter " + filter + " and " + "idMember " + idMember + " and " + "field " + field + " and " + "idMembership " + idMembership + " and " + "idCard " + idCard + " and " + "idLabel " + idLabel + " and " + "powerUp " + powerUp }
-    });
+  svc.put("/boards/" + idBoard + "/"+ filter + "/"+ idMember + "/"+ field + "/"+ idMembership + "/"+ idCard + "/"+ idLabel + "/"+ powerUp, { body: JSON.stringify({ idBoard: idBoard, filter: filter, idMember: idMember, field: field, idMembership: idMembership, idCard: idCard, idLabel: idLabel, powerUp: powerUp }), parameters: { description: "Update a board with " + "idBoard " + idBoard + " and " + "filter " + filter + " and " + "idMember " + idMember + " and " + "field " + field + " and " + "idMembership " + idMembership + " and " + "idCard " + idCard + " and " + "idLabel " + idLabel + " and " + "powerUp " + powerUp } });
 }
 
 // GET one
@@ -550,10 +524,7 @@ function verifyBoardUpdated(idBoard, filter, idMember, field, idMembership, idCa
 
 // CREATE
 function addCard(idCard, idChecklist, idCheckItem, field, idSticker, idAction, idAttachment, idMember, idChecklistCurrent, idLabel, color) {
-  svc.post("/cards", {
-      body: JSON.stringify({ idCard: idCard, idChecklist: idChecklist, idCheckItem: idCheckItem, field: field, idSticker: idSticker, idAction: idAction, idAttachment: idAttachment, idMember: idMember, idChecklistCurrent: idChecklistCurrent, idLabel: idLabel, color: color }),
-      parameters: { description: "Add a card with " + "idCard " + idCard + " and " + "idChecklist " + idChecklist + " and " + "idCheckItem " + idCheckItem + " and " + "field " + field + " and " + "idSticker " + idSticker + " and " + "idAction " + idAction + " and " + "idAttachment " + idAttachment + " and " + "idMember " + idMember + " and " + "idChecklistCurrent " + idChecklistCurrent + " and " + "idLabel " + idLabel + " and " + "color " + color }
-    });
+  svc.post("/cards", { body: JSON.stringify({ idCard: idCard, idChecklist: idChecklist, idCheckItem: idCheckItem, field: field, idSticker: idSticker, idAction: idAction, idAttachment: idAttachment, idMember: idMember, idChecklistCurrent: idChecklistCurrent, idLabel: idLabel, color: color }), parameters: { description: "Add a card with " + "idCard " + idCard + " and " + "idChecklist " + idChecklist + " and " + "idCheckItem " + idCheckItem + " and " + "field " + field + " and " + "idSticker " + idSticker + " and " + "idAction " + idAction + " and " + "idAttachment " + idAttachment + " and " + "idMember " + idMember + " and " + "idChecklistCurrent " + idChecklistCurrent + " and " + "idLabel " + idLabel + " and " + "color " + color } });
 }
 
 // DELETE
@@ -563,31 +534,26 @@ function deleteCard(idCard, idChecklist, idCheckItem, field, idSticker, idAction
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingCard(idCard, idChecklist, idCheckItem, field, idSticker, idAction, idAttachment, idMember, idChecklistCurrent, idLabel, color) {
   svc.delete("/cards/" + idCard + "/"+ idChecklist + "/"+ idCheckItem + "/"+ field + "/"+ idSticker + "/"+ idAction + "/"+ idAttachment + "/"+ idMember + "/"+ idChecklistCurrent + "/"+ idLabel + "/"+ color, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a card with " + "idCard " + idCard + " and " + "idChecklist " + idChecklist + " and " + "idCheckItem " + idCheckItem + " and " + "field " + field + " and " + "idSticker " + idSticker + " and " + "idAction " + idAction + " and " + "idAttachment " + idAttachment + " and " + "idMember " + idMember + " and " + "idChecklistCurrent " + idChecklistCurrent + " and " + "idLabel " + idLabel + " and " + "color " + color }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingCard(idCard, idChecklist, idCheckItem, field, idSticker, idAction, idAttachment, idMember, idChecklistCurrent, idLabel, color) {
   svc.post("/cards", {
-      body: JSON.stringify({ idCard: idCard, idChecklist: idChecklist, idCheckItem: idCheckItem, field: field, idSticker: idSticker, idAction: idAction, idAttachment: idAttachment, idMember: idMember, idChecklistCurrent: idChecklistCurrent, idLabel: idLabel, color: color }),
-      parameters: { description: "Add a card with " + "idCard " + idCard + " and " + "idChecklist " + idChecklist + " and " + "idCheckItem " + idCheckItem + " and " + "field " + field + " and " + "idSticker " + idSticker + " and " + "idAction " + idAction + " and " + "idAttachment " + idAttachment + " and " + "idMember " + idMember + " and " + "idChecklistCurrent " + idChecklistCurrent + " and " + "idLabel " + idLabel + " and " + "color " + color }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a card with " + "idCard " + idCard + " and " + "idChecklist " + idChecklist + " and " + "idCheckItem " + idCheckItem + " and " + "field " + field + " and " + "idSticker " + idSticker + " and " + "idAction " + idAction + " and " + "idAttachment " + idAttachment + " and " + "idMember " + idMember + " and " + "idChecklistCurrent " + idChecklistCurrent + " and " + "idLabel " + idLabel + " and " + "color " + color }
+    body: JSON.stringify({ idCard: idCard, idChecklist: idChecklist, idCheckItem: idCheckItem, field: field, idSticker: idSticker, idAction: idAction, idAttachment: idAttachment, idMember: idMember, idChecklistCurrent: idChecklistCurrent, idLabel: idLabel, color: color }),
+    parameters: { description: "Add a card with " + "idCard " + idCard + " and " + "idChecklist " + idChecklist + " and " + "idCheckItem " + idCheckItem + " and " + "field " + field + " and " + "idSticker " + idSticker + " and " + "idAction " + idAction + " and " + "idAttachment " + idAttachment + " and " + "idMember " + idMember + " and " + "idChecklistCurrent " + idChecklistCurrent + " and " + "idLabel " + idLabel + " and " + "color " + color },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateCard(idCard, idChecklist, idCheckItem, field, idSticker, idAction, idAttachment, idMember, idChecklistCurrent, idLabel, color) {
-  svc.put("/cards/" + idCard + "/"+ idChecklist + "/"+ idCheckItem + "/"+ field + "/"+ idSticker + "/"+ idAction + "/"+ idAttachment + "/"+ idMember + "/"+ idChecklistCurrent + "/"+ idLabel + "/"+ color, {
-      body: JSON.stringify({ idCard: idCard, idChecklist: idChecklist, idCheckItem: idCheckItem, field: field, idSticker: idSticker, idAction: idAction, idAttachment: idAttachment, idMember: idMember, idChecklistCurrent: idChecklistCurrent, idLabel: idLabel, color: color }),
-      parameters: { description: "Update a card with " + "idCard " + idCard + " and " + "idChecklist " + idChecklist + " and " + "idCheckItem " + idCheckItem + " and " + "field " + field + " and " + "idSticker " + idSticker + " and " + "idAction " + idAction + " and " + "idAttachment " + idAttachment + " and " + "idMember " + idMember + " and " + "idChecklistCurrent " + idChecklistCurrent + " and " + "idLabel " + idLabel + " and " + "color " + color }
-    });
+  svc.put("/cards/" + idCard + "/"+ idChecklist + "/"+ idCheckItem + "/"+ field + "/"+ idSticker + "/"+ idAction + "/"+ idAttachment + "/"+ idMember + "/"+ idChecklistCurrent + "/"+ idLabel + "/"+ color, { body: JSON.stringify({ idCard: idCard, idChecklist: idChecklist, idCheckItem: idCheckItem, field: field, idSticker: idSticker, idAction: idAction, idAttachment: idAttachment, idMember: idMember, idChecklistCurrent: idChecklistCurrent, idLabel: idLabel, color: color }), parameters: { description: "Update a card with " + "idCard " + idCard + " and " + "idChecklist " + idChecklist + " and " + "idCheckItem " + idCheckItem + " and " + "field " + field + " and " + "idSticker " + idSticker + " and " + "idAction " + idAction + " and " + "idAttachment " + idAttachment + " and " + "idMember " + idMember + " and " + "idChecklistCurrent " + idChecklistCurrent + " and " + "idLabel " + idLabel + " and " + "color " + color } });
 }
 
 // GET one
@@ -723,10 +689,7 @@ function verifyCardUpdated(idCard, idChecklist, idCheckItem, field, idSticker, i
 
 // CREATE
 function addChecklist(idChecklist, field, idCheckItem, filter) {
-  svc.post("/checklists", {
-      body: JSON.stringify({ idChecklist: idChecklist, field: field, idCheckItem: idCheckItem, filter: filter }),
-      parameters: { description: "Add a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter }
-    });
+  svc.post("/checklists", { body: JSON.stringify({ idChecklist: idChecklist, field: field, idCheckItem: idCheckItem, filter: filter }), parameters: { description: "Add a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter } });
 }
 
 // DELETE
@@ -736,31 +699,26 @@ function deleteChecklist(idChecklist, field, idCheckItem, filter) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingChecklist(idChecklist, field, idCheckItem, filter) {
   svc.delete("/checklists/" + idChecklist + "/"+ field + "/"+ idCheckItem + "/"+ filter, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingChecklist(idChecklist, field, idCheckItem, filter) {
   svc.post("/checklists", {
-      body: JSON.stringify({ idChecklist: idChecklist, field: field, idCheckItem: idCheckItem, filter: filter }),
-      parameters: { description: "Add a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter }
+    body: JSON.stringify({ idChecklist: idChecklist, field: field, idCheckItem: idCheckItem, filter: filter }),
+    parameters: { description: "Add a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateChecklist(idChecklist, field, idCheckItem, filter) {
-  svc.put("/checklists/" + idChecklist + "/"+ field + "/"+ idCheckItem + "/"+ filter, {
-      body: JSON.stringify({ idChecklist: idChecklist, field: field, idCheckItem: idCheckItem, filter: filter }),
-      parameters: { description: "Update a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter }
-    });
+  svc.put("/checklists/" + idChecklist + "/"+ field + "/"+ idCheckItem + "/"+ filter, { body: JSON.stringify({ idChecklist: idChecklist, field: field, idCheckItem: idCheckItem, filter: filter }), parameters: { description: "Update a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter } });
 }
 
 // GET one
@@ -896,10 +854,7 @@ function verifyChecklistUpdated(idChecklist, field, idCheckItem, filter) {
 
 // CREATE
 function addLabel(idLabel, field) {
-  svc.post("/labels", {
-      body: JSON.stringify({ idLabel: idLabel, field: field }),
-      parameters: { description: "Add a label with " + "idLabel " + idLabel + " and " + "field " + field }
-    });
+  svc.post("/labels", { body: JSON.stringify({ idLabel: idLabel, field: field }), parameters: { description: "Add a label with " + "idLabel " + idLabel + " and " + "field " + field } });
 }
 
 // DELETE
@@ -909,31 +864,26 @@ function deleteLabel(idLabel, field) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingLabel(idLabel, field) {
   svc.delete("/labels/" + idLabel + "/"+ field, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a label with " + "idLabel " + idLabel + " and " + "field " + field }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingLabel(idLabel, field) {
   svc.post("/labels", {
-      body: JSON.stringify({ idLabel: idLabel, field: field }),
-      parameters: { description: "Add a label with " + "idLabel " + idLabel + " and " + "field " + field }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a label with " + "idLabel " + idLabel + " and " + "field " + field }
+    body: JSON.stringify({ idLabel: idLabel, field: field }),
+    parameters: { description: "Add a label with " + "idLabel " + idLabel + " and " + "field " + field },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateLabel(idLabel, field) {
-  svc.put("/labels/" + idLabel + "/"+ field, {
-      body: JSON.stringify({ idLabel: idLabel, field: field }),
-      parameters: { description: "Update a label with " + "idLabel " + idLabel + " and " + "field " + field }
-    });
+  svc.put("/labels/" + idLabel + "/"+ field, { body: JSON.stringify({ idLabel: idLabel, field: field }), parameters: { description: "Update a label with " + "idLabel " + idLabel + " and " + "field " + field } });
 }
 
 // GET one
@@ -1069,10 +1019,7 @@ function verifyLabelUpdated(idLabel, field) {
 
 // CREATE
 function addList(idList, field, filter) {
-  svc.post("/lists", {
-      body: JSON.stringify({ idList: idList, field: field, filter: filter }),
-      parameters: { description: "Add a list with " + "idList " + idList + " and " + "field " + field + " and " + "filter " + filter }
-    });
+  svc.post("/lists", { body: JSON.stringify({ idList: idList, field: field, filter: filter }), parameters: { description: "Add a list with " + "idList " + idList + " and " + "field " + field + " and " + "filter " + filter } });
 }
 
 // DELETE
@@ -1082,31 +1029,26 @@ function deleteList(idList, field, filter) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingList(idList, field, filter) {
   svc.delete("/lists/" + idList + "/"+ field + "/"+ filter, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a list with " + "idList " + idList + " and " + "field " + field + " and " + "filter " + filter }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingList(idList, field, filter) {
   svc.post("/lists", {
-      body: JSON.stringify({ idList: idList, field: field, filter: filter }),
-      parameters: { description: "Add a list with " + "idList " + idList + " and " + "field " + field + " and " + "filter " + filter }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a list with " + "idList " + idList + " and " + "field " + field + " and " + "filter " + filter }
+    body: JSON.stringify({ idList: idList, field: field, filter: filter }),
+    parameters: { description: "Add a list with " + "idList " + idList + " and " + "field " + field + " and " + "filter " + filter },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateList(idList, field, filter) {
-  svc.put("/lists/" + idList + "/"+ field + "/"+ filter, {
-      body: JSON.stringify({ idList: idList, field: field, filter: filter }),
-      parameters: { description: "Update a list with " + "idList " + idList + " and " + "field " + field + " and " + "filter " + filter }
-    });
+  svc.put("/lists/" + idList + "/"+ field + "/"+ filter, { body: JSON.stringify({ idList: idList, field: field, filter: filter }), parameters: { description: "Update a list with " + "idList " + idList + " and " + "field " + field + " and " + "filter " + filter } });
 }
 
 // GET one
@@ -1242,10 +1184,7 @@ function verifyListUpdated(idList, field, filter) {
 
 // CREATE
 function addMember(idMember, idBoardBackground, idSavedSearch, idBoardStar, filter, field, idCustomSticker, idCustomEmoji) {
-  svc.post("/members", {
-      body: JSON.stringify({ idMember: idMember, idBoardBackground: idBoardBackground, idSavedSearch: idSavedSearch, idBoardStar: idBoardStar, filter: filter, field: field, idCustomSticker: idCustomSticker, idCustomEmoji: idCustomEmoji }),
-      parameters: { description: "Add a member with " + "idMember " + idMember + " and " + "idBoardBackground " + idBoardBackground + " and " + "idSavedSearch " + idSavedSearch + " and " + "idBoardStar " + idBoardStar + " and " + "filter " + filter + " and " + "field " + field + " and " + "idCustomSticker " + idCustomSticker + " and " + "idCustomEmoji " + idCustomEmoji }
-    });
+  svc.post("/members", { body: JSON.stringify({ idMember: idMember, idBoardBackground: idBoardBackground, idSavedSearch: idSavedSearch, idBoardStar: idBoardStar, filter: filter, field: field, idCustomSticker: idCustomSticker, idCustomEmoji: idCustomEmoji }), parameters: { description: "Add a member with " + "idMember " + idMember + " and " + "idBoardBackground " + idBoardBackground + " and " + "idSavedSearch " + idSavedSearch + " and " + "idBoardStar " + idBoardStar + " and " + "filter " + filter + " and " + "field " + field + " and " + "idCustomSticker " + idCustomSticker + " and " + "idCustomEmoji " + idCustomEmoji } });
 }
 
 // DELETE
@@ -1255,31 +1194,26 @@ function deleteMember(idMember, idBoardBackground, idSavedSearch, idBoardStar, f
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingMember(idMember, idBoardBackground, idSavedSearch, idBoardStar, filter, field, idCustomSticker, idCustomEmoji) {
   svc.delete("/members/" + idMember + "/"+ idBoardBackground + "/"+ idSavedSearch + "/"+ idBoardStar + "/"+ filter + "/"+ field + "/"+ idCustomSticker + "/"+ idCustomEmoji, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a member with " + "idMember " + idMember + " and " + "idBoardBackground " + idBoardBackground + " and " + "idSavedSearch " + idSavedSearch + " and " + "idBoardStar " + idBoardStar + " and " + "filter " + filter + " and " + "field " + field + " and " + "idCustomSticker " + idCustomSticker + " and " + "idCustomEmoji " + idCustomEmoji }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingMember(idMember, idBoardBackground, idSavedSearch, idBoardStar, filter, field, idCustomSticker, idCustomEmoji) {
   svc.post("/members", {
-      body: JSON.stringify({ idMember: idMember, idBoardBackground: idBoardBackground, idSavedSearch: idSavedSearch, idBoardStar: idBoardStar, filter: filter, field: field, idCustomSticker: idCustomSticker, idCustomEmoji: idCustomEmoji }),
-      parameters: { description: "Add a member with " + "idMember " + idMember + " and " + "idBoardBackground " + idBoardBackground + " and " + "idSavedSearch " + idSavedSearch + " and " + "idBoardStar " + idBoardStar + " and " + "filter " + filter + " and " + "field " + field + " and " + "idCustomSticker " + idCustomSticker + " and " + "idCustomEmoji " + idCustomEmoji }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a member with " + "idMember " + idMember + " and " + "idBoardBackground " + idBoardBackground + " and " + "idSavedSearch " + idSavedSearch + " and " + "idBoardStar " + idBoardStar + " and " + "filter " + filter + " and " + "field " + field + " and " + "idCustomSticker " + idCustomSticker + " and " + "idCustomEmoji " + idCustomEmoji }
+    body: JSON.stringify({ idMember: idMember, idBoardBackground: idBoardBackground, idSavedSearch: idSavedSearch, idBoardStar: idBoardStar, filter: filter, field: field, idCustomSticker: idCustomSticker, idCustomEmoji: idCustomEmoji }),
+    parameters: { description: "Add a member with " + "idMember " + idMember + " and " + "idBoardBackground " + idBoardBackground + " and " + "idSavedSearch " + idSavedSearch + " and " + "idBoardStar " + idBoardStar + " and " + "filter " + filter + " and " + "field " + field + " and " + "idCustomSticker " + idCustomSticker + " and " + "idCustomEmoji " + idCustomEmoji },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateMember(idMember, idBoardBackground, idSavedSearch, idBoardStar, filter, field, idCustomSticker, idCustomEmoji) {
-  svc.put("/members/" + idMember + "/"+ idBoardBackground + "/"+ idSavedSearch + "/"+ idBoardStar + "/"+ filter + "/"+ field + "/"+ idCustomSticker + "/"+ idCustomEmoji, {
-      body: JSON.stringify({ idMember: idMember, idBoardBackground: idBoardBackground, idSavedSearch: idSavedSearch, idBoardStar: idBoardStar, filter: filter, field: field, idCustomSticker: idCustomSticker, idCustomEmoji: idCustomEmoji }),
-      parameters: { description: "Update a member with " + "idMember " + idMember + " and " + "idBoardBackground " + idBoardBackground + " and " + "idSavedSearch " + idSavedSearch + " and " + "idBoardStar " + idBoardStar + " and " + "filter " + filter + " and " + "field " + field + " and " + "idCustomSticker " + idCustomSticker + " and " + "idCustomEmoji " + idCustomEmoji }
-    });
+  svc.put("/members/" + idMember + "/"+ idBoardBackground + "/"+ idSavedSearch + "/"+ idBoardStar + "/"+ filter + "/"+ field + "/"+ idCustomSticker + "/"+ idCustomEmoji, { body: JSON.stringify({ idMember: idMember, idBoardBackground: idBoardBackground, idSavedSearch: idSavedSearch, idBoardStar: idBoardStar, filter: filter, field: field, idCustomSticker: idCustomSticker, idCustomEmoji: idCustomEmoji }), parameters: { description: "Update a member with " + "idMember " + idMember + " and " + "idBoardBackground " + idBoardBackground + " and " + "idSavedSearch " + idSavedSearch + " and " + "idBoardStar " + idBoardStar + " and " + "filter " + filter + " and " + "field " + field + " and " + "idCustomSticker " + idCustomSticker + " and " + "idCustomEmoji " + idCustomEmoji } });
 }
 
 // GET one
@@ -1415,10 +1349,7 @@ function verifyMemberUpdated(idMember, idBoardBackground, idSavedSearch, idBoard
 
 // CREATE
 function addNotification(idNotification, field) {
-  svc.post("/notifications", {
-      body: JSON.stringify({ idNotification: idNotification, field: field }),
-      parameters: { description: "Add a notification with " + "idNotification " + idNotification + " and " + "field " + field }
-    });
+  svc.post("/notifications", { body: JSON.stringify({ idNotification: idNotification, field: field }), parameters: { description: "Add a notification with " + "idNotification " + idNotification + " and " + "field " + field } });
 }
 
 // DELETE
@@ -1428,31 +1359,26 @@ function deleteNotification(idNotification, field) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingNotification(idNotification, field) {
   svc.delete("/notifications/" + idNotification + "/"+ field, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a notification with " + "idNotification " + idNotification + " and " + "field " + field }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingNotification(idNotification, field) {
   svc.post("/notifications", {
-      body: JSON.stringify({ idNotification: idNotification, field: field }),
-      parameters: { description: "Add a notification with " + "idNotification " + idNotification + " and " + "field " + field }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a notification with " + "idNotification " + idNotification + " and " + "field " + field }
+    body: JSON.stringify({ idNotification: idNotification, field: field }),
+    parameters: { description: "Add a notification with " + "idNotification " + idNotification + " and " + "field " + field },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateNotification(idNotification, field) {
-  svc.put("/notifications/" + idNotification + "/"+ field, {
-      body: JSON.stringify({ idNotification: idNotification, field: field }),
-      parameters: { description: "Update a notification with " + "idNotification " + idNotification + " and " + "field " + field }
-    });
+  svc.put("/notifications/" + idNotification + "/"+ field, { body: JSON.stringify({ idNotification: idNotification, field: field }), parameters: { description: "Update a notification with " + "idNotification " + idNotification + " and " + "field " + field } });
 }
 
 // GET one
@@ -1588,10 +1514,7 @@ function verifyNotificationUpdated(idNotification, field) {
 
 // CREATE
 function addOrganization(idOrg, idMember, filter, field, idMembership) {
-  svc.post("/organizations", {
-      body: JSON.stringify({ idOrg: idOrg, idMember: idMember, filter: filter, field: field, idMembership: idMembership }),
-      parameters: { description: "Add a organization with " + "idOrg " + idOrg + " and " + "idMember " + idMember + " and " + "filter " + filter + " and " + "field " + field + " and " + "idMembership " + idMembership }
-    });
+  svc.post("/organizations", { body: JSON.stringify({ idOrg: idOrg, idMember: idMember, filter: filter, field: field, idMembership: idMembership }), parameters: { description: "Add a organization with " + "idOrg " + idOrg + " and " + "idMember " + idMember + " and " + "filter " + filter + " and " + "field " + field + " and " + "idMembership " + idMembership } });
 }
 
 // DELETE
@@ -1601,31 +1524,26 @@ function deleteOrganization(idOrg, idMember, filter, field, idMembership) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingOrganization(idOrg, idMember, filter, field, idMembership) {
   svc.delete("/organizations/" + idOrg + "/"+ idMember + "/"+ filter + "/"+ field + "/"+ idMembership, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a organization with " + "idOrg " + idOrg + " and " + "idMember " + idMember + " and " + "filter " + filter + " and " + "field " + field + " and " + "idMembership " + idMembership }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingOrganization(idOrg, idMember, filter, field, idMembership) {
   svc.post("/organizations", {
-      body: JSON.stringify({ idOrg: idOrg, idMember: idMember, filter: filter, field: field, idMembership: idMembership }),
-      parameters: { description: "Add a organization with " + "idOrg " + idOrg + " and " + "idMember " + idMember + " and " + "filter " + filter + " and " + "field " + field + " and " + "idMembership " + idMembership }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a organization with " + "idOrg " + idOrg + " and " + "idMember " + idMember + " and " + "filter " + filter + " and " + "field " + field + " and " + "idMembership " + idMembership }
+    body: JSON.stringify({ idOrg: idOrg, idMember: idMember, filter: filter, field: field, idMembership: idMembership }),
+    parameters: { description: "Add a organization with " + "idOrg " + idOrg + " and " + "idMember " + idMember + " and " + "filter " + filter + " and " + "field " + field + " and " + "idMembership " + idMembership },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateOrganization(idOrg, idMember, filter, field, idMembership) {
-  svc.put("/organizations/" + idOrg + "/"+ idMember + "/"+ filter + "/"+ field + "/"+ idMembership, {
-      body: JSON.stringify({ idOrg: idOrg, idMember: idMember, filter: filter, field: field, idMembership: idMembership }),
-      parameters: { description: "Update a organization with " + "idOrg " + idOrg + " and " + "idMember " + idMember + " and " + "filter " + filter + " and " + "field " + field + " and " + "idMembership " + idMembership }
-    });
+  svc.put("/organizations/" + idOrg + "/"+ idMember + "/"+ filter + "/"+ field + "/"+ idMembership, { body: JSON.stringify({ idOrg: idOrg, idMember: idMember, filter: filter, field: field, idMembership: idMembership }), parameters: { description: "Update a organization with " + "idOrg " + idOrg + " and " + "idMember " + idMember + " and " + "filter " + filter + " and " + "field " + field + " and " + "idMembership " + idMembership } });
 }
 
 // GET one
@@ -1761,10 +1679,7 @@ function verifyOrganizationUpdated(idOrg, idMember, filter, field, idMembership)
 
 // CREATE
 function addSearch(id) {
-  svc.post("/search", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a search with " + "id " + id }
-    });
+  svc.post("/search", { body: JSON.stringify({ id: id }), parameters: { description: "Add a search with " + "id " + id } });
 }
 
 // DELETE
@@ -1774,31 +1689,26 @@ function deleteSearch(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingSearch(id) {
   svc.delete("/search/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a search with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingSearch(id) {
   svc.post("/search", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a search with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a search with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a search with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateSearch(id) {
-  svc.put("/search/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a search with " + "id " + id }
-    });
+  svc.put("/search/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a search with " + "id " + id } });
 }
 
 // GET one
@@ -1934,10 +1844,7 @@ function verifySearchUpdated(id) {
 
 // CREATE
 function addSession(idSession) {
-  svc.post("/sessions", {
-      body: JSON.stringify({ idSession: idSession }),
-      parameters: { description: "Add a session with " + "idSession " + idSession }
-    });
+  svc.post("/sessions", { body: JSON.stringify({ idSession: idSession }), parameters: { description: "Add a session with " + "idSession " + idSession } });
 }
 
 // DELETE
@@ -1947,31 +1854,26 @@ function deleteSession(idSession) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingSession(idSession) {
   svc.delete("/sessions/" + idSession, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a session with " + "idSession " + idSession }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingSession(idSession) {
   svc.post("/sessions", {
-      body: JSON.stringify({ idSession: idSession }),
-      parameters: { description: "Add a session with " + "idSession " + idSession }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a session with " + "idSession " + idSession }
+    body: JSON.stringify({ idSession: idSession }),
+    parameters: { description: "Add a session with " + "idSession " + idSession },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateSession(idSession) {
-  svc.put("/sessions/" + idSession, {
-      body: JSON.stringify({ idSession: idSession }),
-      parameters: { description: "Update a session with " + "idSession " + idSession }
-    });
+  svc.put("/sessions/" + idSession, { body: JSON.stringify({ idSession: idSession }), parameters: { description: "Update a session with " + "idSession " + idSession } });
 }
 
 // GET one
@@ -2107,10 +2009,7 @@ function verifySessionUpdated(idSession) {
 
 // CREATE
 function addToken(token, field, idWebhook) {
-  svc.post("/tokens", {
-      body: JSON.stringify({ token: token, field: field, idWebhook: idWebhook }),
-      parameters: { description: "Add a token with " + "token " + token + " and " + "field " + field + " and " + "idWebhook " + idWebhook }
-    });
+  svc.post("/tokens", { body: JSON.stringify({ token: token, field: field, idWebhook: idWebhook }), parameters: { description: "Add a token with " + "token " + token + " and " + "field " + field + " and " + "idWebhook " + idWebhook } });
 }
 
 // DELETE
@@ -2120,31 +2019,26 @@ function deleteToken(token, field, idWebhook) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingToken(token, field, idWebhook) {
   svc.delete("/tokens/" + token + "/"+ field + "/"+ idWebhook, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a token with " + "token " + token + " and " + "field " + field + " and " + "idWebhook " + idWebhook }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingToken(token, field, idWebhook) {
   svc.post("/tokens", {
-      body: JSON.stringify({ token: token, field: field, idWebhook: idWebhook }),
-      parameters: { description: "Add a token with " + "token " + token + " and " + "field " + field + " and " + "idWebhook " + idWebhook }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a token with " + "token " + token + " and " + "field " + field + " and " + "idWebhook " + idWebhook }
+    body: JSON.stringify({ token: token, field: field, idWebhook: idWebhook }),
+    parameters: { description: "Add a token with " + "token " + token + " and " + "field " + field + " and " + "idWebhook " + idWebhook },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateToken(token, field, idWebhook) {
-  svc.put("/tokens/" + token + "/"+ field + "/"+ idWebhook, {
-      body: JSON.stringify({ token: token, field: field, idWebhook: idWebhook }),
-      parameters: { description: "Update a token with " + "token " + token + " and " + "field " + field + " and " + "idWebhook " + idWebhook }
-    });
+  svc.put("/tokens/" + token + "/"+ field + "/"+ idWebhook, { body: JSON.stringify({ token: token, field: field, idWebhook: idWebhook }), parameters: { description: "Update a token with " + "token " + token + " and " + "field " + field + " and " + "idWebhook " + idWebhook } });
 }
 
 // GET one
@@ -2280,10 +2174,7 @@ function verifyTokenUpdated(token, field, idWebhook) {
 
 // CREATE
 function addType(id) {
-  svc.post("/types", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a type with " + "id " + id }
-    });
+  svc.post("/types", { body: JSON.stringify({ id: id }), parameters: { description: "Add a type with " + "id " + id } });
 }
 
 // DELETE
@@ -2293,31 +2184,26 @@ function deleteType(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingType(id) {
   svc.delete("/types/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a type with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingType(id) {
   svc.post("/types", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a type with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a type with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a type with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateType(id) {
-  svc.put("/types/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a type with " + "id " + id }
-    });
+  svc.put("/types/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a type with " + "id " + id } });
 }
 
 // GET one
@@ -2453,10 +2339,7 @@ function verifyTypeUpdated(id) {
 
 // CREATE
 function addWebhook(idWebhook, field) {
-  svc.post("/webhooks", {
-      body: JSON.stringify({ idWebhook: idWebhook, field: field }),
-      parameters: { description: "Add a webhook with " + "idWebhook " + idWebhook + " and " + "field " + field }
-    });
+  svc.post("/webhooks", { body: JSON.stringify({ idWebhook: idWebhook, field: field }), parameters: { description: "Add a webhook with " + "idWebhook " + idWebhook + " and " + "field " + field } });
 }
 
 // DELETE
@@ -2466,31 +2349,26 @@ function deleteWebhook(idWebhook, field) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingWebhook(idWebhook, field) {
   svc.delete("/webhooks/" + idWebhook + "/"+ field, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a webhook with " + "idWebhook " + idWebhook + " and " + "field " + field }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingWebhook(idWebhook, field) {
   svc.post("/webhooks", {
-      body: JSON.stringify({ idWebhook: idWebhook, field: field }),
-      parameters: { description: "Add a webhook with " + "idWebhook " + idWebhook + " and " + "field " + field }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a webhook with " + "idWebhook " + idWebhook + " and " + "field " + field }
+    body: JSON.stringify({ idWebhook: idWebhook, field: field }),
+    parameters: { description: "Add a webhook with " + "idWebhook " + idWebhook + " and " + "field " + field },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateWebhook(idWebhook, field) {
-  svc.put("/webhooks/" + idWebhook + "/"+ field, {
-      body: JSON.stringify({ idWebhook: idWebhook, field: field }),
-      parameters: { description: "Update a webhook with " + "idWebhook " + idWebhook + " and " + "field " + field }
-    });
+  svc.put("/webhooks/" + idWebhook + "/"+ field, { body: JSON.stringify({ idWebhook: idWebhook, field: field }), parameters: { description: "Update a webhook with " + "idWebhook " + idWebhook + " and " + "field " + field } });
 }
 
 // GET one

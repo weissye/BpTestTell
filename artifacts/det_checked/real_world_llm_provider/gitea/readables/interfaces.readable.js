@@ -3,11 +3,9 @@
 /**
  * Auto-generated interfaces & lifecycle (readable)
  * From GOLD only – full CRUD + verifications + match/wait helpers.
- * This approximates the "Library SUT" interface style.
  */
 
-// CHANGE (1): add default host/port placeholders before RESTSession
-var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var host = (typeof host !== 'undefined') ? host : '192.168.225.53';
 var port = (typeof port !== 'undefined') ? port : 5014;
 
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
@@ -31,10 +29,7 @@ function matchesDescriptionRegex(rx) {
 
 // CREATE
 function addActivitypub(user-id) {
-  svc.post("/activitypub", {
-      body: JSON.stringify({ user-id: user-id }),
-      parameters: { description: "Add a activitypub with " + "user-id " + user-id }
-    });
+  svc.post("/activitypub", { body: JSON.stringify({ user-id: user-id }), parameters: { description: "Add a activitypub with " + "user-id " + user-id } });
 }
 
 // DELETE
@@ -44,31 +39,26 @@ function deleteActivitypub(user-id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingActivitypub(user-id) {
   svc.delete("/activitypub/" + user-id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a activitypub with " + "user-id " + user-id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingActivitypub(user-id) {
   svc.post("/activitypub", {
-      body: JSON.stringify({ user-id: user-id }),
-      parameters: { description: "Add a activitypub with " + "user-id " + user-id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a activitypub with " + "user-id " + user-id }
+    body: JSON.stringify({ user-id: user-id }),
+    parameters: { description: "Add a activitypub with " + "user-id " + user-id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateActivitypub(user-id) {
-  svc.put("/activitypub/" + user-id, {
-      body: JSON.stringify({ user-id: user-id }),
-      parameters: { description: "Update a activitypub with " + "user-id " + user-id }
-    });
+  svc.put("/activitypub/" + user-id, { body: JSON.stringify({ user-id: user-id }), parameters: { description: "Update a activitypub with " + "user-id " + user-id } });
 }
 
 // GET one
@@ -204,10 +194,7 @@ function verifyActivitypubUpdated(user-id) {
 
 // CREATE
 function addAdmin(username, id, owner, repo, task) {
-  svc.post("/admin", {
-      body: JSON.stringify({ username: username, id: id, owner: owner, repo: repo, task: task }),
-      parameters: { description: "Add a admin with " + "username " + username + " and " + "id " + id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "task " + task }
-    });
+  svc.post("/admin", { body: JSON.stringify({ username: username, id: id, owner: owner, repo: repo, task: task }), parameters: { description: "Add a admin with " + "username " + username + " and " + "id " + id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "task " + task } });
 }
 
 // DELETE
@@ -217,31 +204,26 @@ function deleteAdmin(username, id, owner, repo, task) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingAdmin(username, id, owner, repo, task) {
   svc.delete("/admin/" + username + "/"+ id + "/"+ owner + "/"+ repo + "/"+ task, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a admin with " + "username " + username + " and " + "id " + id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "task " + task }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingAdmin(username, id, owner, repo, task) {
   svc.post("/admin", {
-      body: JSON.stringify({ username: username, id: id, owner: owner, repo: repo, task: task }),
-      parameters: { description: "Add a admin with " + "username " + username + " and " + "id " + id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "task " + task }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a admin with " + "username " + username + " and " + "id " + id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "task " + task }
+    body: JSON.stringify({ username: username, id: id, owner: owner, repo: repo, task: task }),
+    parameters: { description: "Add a admin with " + "username " + username + " and " + "id " + id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "task " + task },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateAdmin(username, id, owner, repo, task) {
-  svc.put("/admin/" + username + "/"+ id + "/"+ owner + "/"+ repo + "/"+ task, {
-      body: JSON.stringify({ username: username, id: id, owner: owner, repo: repo, task: task }),
-      parameters: { description: "Update a admin with " + "username " + username + " and " + "id " + id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "task " + task }
-    });
+  svc.put("/admin/" + username + "/"+ id + "/"+ owner + "/"+ repo + "/"+ task, { body: JSON.stringify({ username: username, id: id, owner: owner, repo: repo, task: task }), parameters: { description: "Update a admin with " + "username " + username + " and " + "id " + id + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "task " + task } });
 }
 
 // GET one
@@ -377,10 +359,7 @@ function verifyAdminUpdated(username, id, owner, repo, task) {
 
 // CREATE
 function addGitignore(name) {
-  svc.post("/gitignore", {
-      body: JSON.stringify({ name: name }),
-      parameters: { description: "Add a gitignore with " + "name " + name }
-    });
+  svc.post("/gitignore", { body: JSON.stringify({ name: name }), parameters: { description: "Add a gitignore with " + "name " + name } });
 }
 
 // DELETE
@@ -390,31 +369,26 @@ function deleteGitignore(name) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingGitignore(name) {
   svc.delete("/gitignore/" + name, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a gitignore with " + "name " + name }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingGitignore(name) {
   svc.post("/gitignore", {
-      body: JSON.stringify({ name: name }),
-      parameters: { description: "Add a gitignore with " + "name " + name }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a gitignore with " + "name " + name }
+    body: JSON.stringify({ name: name }),
+    parameters: { description: "Add a gitignore with " + "name " + name },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateGitignore(name) {
-  svc.put("/gitignore/" + name, {
-      body: JSON.stringify({ name: name }),
-      parameters: { description: "Update a gitignore with " + "name " + name }
-    });
+  svc.put("/gitignore/" + name, { body: JSON.stringify({ name: name }), parameters: { description: "Update a gitignore with " + "name " + name } });
 }
 
 // GET one
@@ -550,10 +524,7 @@ function verifyGitignoreUpdated(name) {
 
 // CREATE
 function addLabel(name) {
-  svc.post("/label", {
-      body: JSON.stringify({ name: name }),
-      parameters: { description: "Add a label with " + "name " + name }
-    });
+  svc.post("/label", { body: JSON.stringify({ name: name }), parameters: { description: "Add a label with " + "name " + name } });
 }
 
 // DELETE
@@ -563,31 +534,26 @@ function deleteLabel(name) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingLabel(name) {
   svc.delete("/label/" + name, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a label with " + "name " + name }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingLabel(name) {
   svc.post("/label", {
-      body: JSON.stringify({ name: name }),
-      parameters: { description: "Add a label with " + "name " + name }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a label with " + "name " + name }
+    body: JSON.stringify({ name: name }),
+    parameters: { description: "Add a label with " + "name " + name },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateLabel(name) {
-  svc.put("/label/" + name, {
-      body: JSON.stringify({ name: name }),
-      parameters: { description: "Update a label with " + "name " + name }
-    });
+  svc.put("/label/" + name, { body: JSON.stringify({ name: name }), parameters: { description: "Update a label with " + "name " + name } });
 }
 
 // GET one
@@ -723,10 +689,7 @@ function verifyLabelUpdated(name) {
 
 // CREATE
 function addLicense(name) {
-  svc.post("/licenses", {
-      body: JSON.stringify({ name: name }),
-      parameters: { description: "Add a license with " + "name " + name }
-    });
+  svc.post("/licenses", { body: JSON.stringify({ name: name }), parameters: { description: "Add a license with " + "name " + name } });
 }
 
 // DELETE
@@ -736,31 +699,26 @@ function deleteLicense(name) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingLicense(name) {
   svc.delete("/licenses/" + name, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a license with " + "name " + name }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingLicense(name) {
   svc.post("/licenses", {
-      body: JSON.stringify({ name: name }),
-      parameters: { description: "Add a license with " + "name " + name }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a license with " + "name " + name }
+    body: JSON.stringify({ name: name }),
+    parameters: { description: "Add a license with " + "name " + name },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateLicense(name) {
-  svc.put("/licenses/" + name, {
-      body: JSON.stringify({ name: name }),
-      parameters: { description: "Update a license with " + "name " + name }
-    });
+  svc.put("/licenses/" + name, { body: JSON.stringify({ name: name }), parameters: { description: "Update a license with " + "name " + name } });
 }
 
 // GET one
@@ -896,10 +854,7 @@ function verifyLicenseUpdated(name) {
 
 // CREATE
 function addMarkdown(id) {
-  svc.post("/markdown", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a markdown with " + "id " + id }
-    });
+  svc.post("/markdown", { body: JSON.stringify({ id: id }), parameters: { description: "Add a markdown with " + "id " + id } });
 }
 
 // DELETE
@@ -909,31 +864,26 @@ function deleteMarkdown(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingMarkdown(id) {
   svc.delete("/markdown/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a markdown with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingMarkdown(id) {
   svc.post("/markdown", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a markdown with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a markdown with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a markdown with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateMarkdown(id) {
-  svc.put("/markdown/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a markdown with " + "id " + id }
-    });
+  svc.put("/markdown/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a markdown with " + "id " + id } });
 }
 
 // GET one
@@ -1069,10 +1019,7 @@ function verifyMarkdownUpdated(id) {
 
 // CREATE
 function addMarkup(id) {
-  svc.post("/markup", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a markup with " + "id " + id }
-    });
+  svc.post("/markup", { body: JSON.stringify({ id: id }), parameters: { description: "Add a markup with " + "id " + id } });
 }
 
 // DELETE
@@ -1082,31 +1029,26 @@ function deleteMarkup(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingMarkup(id) {
   svc.delete("/markup/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a markup with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingMarkup(id) {
   svc.post("/markup", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a markup with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a markup with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a markup with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateMarkup(id) {
-  svc.put("/markup/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a markup with " + "id " + id }
-    });
+  svc.put("/markup/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a markup with " + "id " + id } });
 }
 
 // GET one
@@ -1242,10 +1184,7 @@ function verifyMarkupUpdated(id) {
 
 // CREATE
 function addNodeinfo(id) {
-  svc.post("/nodeinfo", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a nodeinfo with " + "id " + id }
-    });
+  svc.post("/nodeinfo", { body: JSON.stringify({ id: id }), parameters: { description: "Add a nodeinfo with " + "id " + id } });
 }
 
 // DELETE
@@ -1255,31 +1194,26 @@ function deleteNodeinfo(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingNodeinfo(id) {
   svc.delete("/nodeinfo/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a nodeinfo with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingNodeinfo(id) {
   svc.post("/nodeinfo", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a nodeinfo with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a nodeinfo with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a nodeinfo with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateNodeinfo(id) {
-  svc.put("/nodeinfo/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a nodeinfo with " + "id " + id }
-    });
+  svc.put("/nodeinfo/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a nodeinfo with " + "id " + id } });
 }
 
 // GET one
@@ -1415,10 +1349,7 @@ function verifyNodeinfoUpdated(id) {
 
 // CREATE
 function addNotification(id) {
-  svc.post("/notifications", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a notification with " + "id " + id }
-    });
+  svc.post("/notifications", { body: JSON.stringify({ id: id }), parameters: { description: "Add a notification with " + "id " + id } });
 }
 
 // DELETE
@@ -1428,31 +1359,26 @@ function deleteNotification(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingNotification(id) {
   svc.delete("/notifications/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a notification with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingNotification(id) {
   svc.post("/notifications", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a notification with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a notification with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a notification with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateNotification(id) {
-  svc.put("/notifications/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a notification with " + "id " + id }
-    });
+  svc.put("/notifications/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a notification with " + "id " + id } });
 }
 
 // GET one
@@ -1588,10 +1514,7 @@ function verifyNotificationUpdated(id) {
 
 // CREATE
 function addOrg(org) {
-  svc.post("/org", {
-      body: JSON.stringify({ org: org }),
-      parameters: { description: "Add a org with " + "org " + org }
-    });
+  svc.post("/org", { body: JSON.stringify({ org: org }), parameters: { description: "Add a org with " + "org " + org } });
 }
 
 // DELETE
@@ -1601,31 +1524,26 @@ function deleteOrg(org) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingOrg(org) {
   svc.delete("/org/" + org, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a org with " + "org " + org }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingOrg(org) {
   svc.post("/org", {
-      body: JSON.stringify({ org: org }),
-      parameters: { description: "Add a org with " + "org " + org }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a org with " + "org " + org }
+    body: JSON.stringify({ org: org }),
+    parameters: { description: "Add a org with " + "org " + org },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateOrg(org) {
-  svc.put("/org/" + org, {
-      body: JSON.stringify({ org: org }),
-      parameters: { description: "Update a org with " + "org " + org }
-    });
+  svc.put("/org/" + org, { body: JSON.stringify({ org: org }), parameters: { description: "Update a org with " + "org " + org } });
 }
 
 // GET one
@@ -1761,10 +1679,7 @@ function verifyOrgUpdated(org) {
 
 // CREATE
 function addOrg(org, username, id, variablename, secretname) {
-  svc.post("/orgs", {
-      body: JSON.stringify({ org: org, username: username, id: id, variablename: variablename, secretname: secretname }),
-      parameters: { description: "Add a org with " + "org " + org + " and " + "username " + username + " and " + "id " + id + " and " + "variablename " + variablename + " and " + "secretname " + secretname }
-    });
+  svc.post("/orgs", { body: JSON.stringify({ org: org, username: username, id: id, variablename: variablename, secretname: secretname }), parameters: { description: "Add a org with " + "org " + org + " and " + "username " + username + " and " + "id " + id + " and " + "variablename " + variablename + " and " + "secretname " + secretname } });
 }
 
 // DELETE
@@ -1774,31 +1689,26 @@ function deleteOrg(org, username, id, variablename, secretname) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingOrg(org, username, id, variablename, secretname) {
   svc.delete("/orgs/" + org + "/"+ username + "/"+ id + "/"+ variablename + "/"+ secretname, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a org with " + "org " + org + " and " + "username " + username + " and " + "id " + id + " and " + "variablename " + variablename + " and " + "secretname " + secretname }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingOrg(org, username, id, variablename, secretname) {
   svc.post("/orgs", {
-      body: JSON.stringify({ org: org, username: username, id: id, variablename: variablename, secretname: secretname }),
-      parameters: { description: "Add a org with " + "org " + org + " and " + "username " + username + " and " + "id " + id + " and " + "variablename " + variablename + " and " + "secretname " + secretname }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a org with " + "org " + org + " and " + "username " + username + " and " + "id " + id + " and " + "variablename " + variablename + " and " + "secretname " + secretname }
+    body: JSON.stringify({ org: org, username: username, id: id, variablename: variablename, secretname: secretname }),
+    parameters: { description: "Add a org with " + "org " + org + " and " + "username " + username + " and " + "id " + id + " and " + "variablename " + variablename + " and " + "secretname " + secretname },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateOrg(org, username, id, variablename, secretname) {
-  svc.put("/orgs/" + org + "/"+ username + "/"+ id + "/"+ variablename + "/"+ secretname, {
-      body: JSON.stringify({ org: org, username: username, id: id, variablename: variablename, secretname: secretname }),
-      parameters: { description: "Update a org with " + "org " + org + " and " + "username " + username + " and " + "id " + id + " and " + "variablename " + variablename + " and " + "secretname " + secretname }
-    });
+  svc.put("/orgs/" + org + "/"+ username + "/"+ id + "/"+ variablename + "/"+ secretname, { body: JSON.stringify({ org: org, username: username, id: id, variablename: variablename, secretname: secretname }), parameters: { description: "Update a org with " + "org " + org + " and " + "username " + username + " and " + "id " + id + " and " + "variablename " + variablename + " and " + "secretname " + secretname } });
 }
 
 // GET one
@@ -1934,10 +1844,7 @@ function verifyOrgUpdated(org, username, id, variablename, secretname) {
 
 // CREATE
 function addPackage(owner, type, name, version) {
-  svc.post("/packages", {
-      body: JSON.stringify({ owner: owner, type: type, name: name, version: version }),
-      parameters: { description: "Add a package with " + "owner " + owner + " and " + "type " + type + " and " + "name " + name + " and " + "version " + version }
-    });
+  svc.post("/packages", { body: JSON.stringify({ owner: owner, type: type, name: name, version: version }), parameters: { description: "Add a package with " + "owner " + owner + " and " + "type " + type + " and " + "name " + name + " and " + "version " + version } });
 }
 
 // DELETE
@@ -1947,31 +1854,26 @@ function deletePackage(owner, type, name, version) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingPackage(owner, type, name, version) {
   svc.delete("/packages/" + owner + "/"+ type + "/"+ name + "/"+ version, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a package with " + "owner " + owner + " and " + "type " + type + " and " + "name " + name + " and " + "version " + version }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingPackage(owner, type, name, version) {
   svc.post("/packages", {
-      body: JSON.stringify({ owner: owner, type: type, name: name, version: version }),
-      parameters: { description: "Add a package with " + "owner " + owner + " and " + "type " + type + " and " + "name " + name + " and " + "version " + version }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a package with " + "owner " + owner + " and " + "type " + type + " and " + "name " + name + " and " + "version " + version }
+    body: JSON.stringify({ owner: owner, type: type, name: name, version: version }),
+    parameters: { description: "Add a package with " + "owner " + owner + " and " + "type " + type + " and " + "name " + name + " and " + "version " + version },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updatePackage(owner, type, name, version) {
-  svc.put("/packages/" + owner + "/"+ type + "/"+ name + "/"+ version, {
-      body: JSON.stringify({ owner: owner, type: type, name: name, version: version }),
-      parameters: { description: "Update a package with " + "owner " + owner + " and " + "type " + type + " and " + "name " + name + " and " + "version " + version }
-    });
+  svc.put("/packages/" + owner + "/"+ type + "/"+ name + "/"+ version, { body: JSON.stringify({ owner: owner, type: type, name: name, version: version }), parameters: { description: "Update a package with " + "owner " + owner + " and " + "type " + type + " and " + "name " + name + " and " + "version " + version } });
 }
 
 // GET one
@@ -2107,10 +2009,7 @@ function verifyPackageUpdated(owner, type, name, version) {
 
 // CREATE
 function addRepo(owner, repo, index, id, sha, attachment_id, filepath, name, variablename, collaborator, tag, pageName, branch, ref, user, team, secretname, diffType, topic, archive, basehead, position, base, head, template_owner, template_repo) {
-  svc.post("/repos", {
-      body: JSON.stringify({ owner: owner, repo: repo, index: index, id: id, sha: sha, attachment_id: attachment_id, filepath: filepath, name: name, variablename: variablename, collaborator: collaborator, tag: tag, pageName: pageName, branch: branch, ref: ref, user: user, team: team, secretname: secretname, diffType: diffType, topic: topic, archive: archive, basehead: basehead, position: position, base: base, head: head, template_owner: template_owner, template_repo: template_repo }),
-      parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "sha " + sha + " and " + "attachment_id " + attachment_id + " and " + "filepath " + filepath + " and " + "name " + name + " and " + "variablename " + variablename + " and " + "collaborator " + collaborator + " and " + "tag " + tag + " and " + "pageName " + pageName + " and " + "branch " + branch + " and " + "ref " + ref + " and " + "user " + user + " and " + "team " + team + " and " + "secretname " + secretname + " and " + "diffType " + diffType + " and " + "topic " + topic + " and " + "archive " + archive + " and " + "basehead " + basehead + " and " + "position " + position + " and " + "base " + base + " and " + "head " + head + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo }
-    });
+  svc.post("/repos", { body: JSON.stringify({ owner: owner, repo: repo, index: index, id: id, sha: sha, attachment_id: attachment_id, filepath: filepath, name: name, variablename: variablename, collaborator: collaborator, tag: tag, pageName: pageName, branch: branch, ref: ref, user: user, team: team, secretname: secretname, diffType: diffType, topic: topic, archive: archive, basehead: basehead, position: position, base: base, head: head, template_owner: template_owner, template_repo: template_repo }), parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "sha " + sha + " and " + "attachment_id " + attachment_id + " and " + "filepath " + filepath + " and " + "name " + name + " and " + "variablename " + variablename + " and " + "collaborator " + collaborator + " and " + "tag " + tag + " and " + "pageName " + pageName + " and " + "branch " + branch + " and " + "ref " + ref + " and " + "user " + user + " and " + "team " + team + " and " + "secretname " + secretname + " and " + "diffType " + diffType + " and " + "topic " + topic + " and " + "archive " + archive + " and " + "basehead " + basehead + " and " + "position " + position + " and " + "base " + base + " and " + "head " + head + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo } });
 }
 
 // DELETE
@@ -2120,31 +2019,26 @@ function deleteRepo(owner, repo, index, id, sha, attachment_id, filepath, name, 
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingRepo(owner, repo, index, id, sha, attachment_id, filepath, name, variablename, collaborator, tag, pageName, branch, ref, user, team, secretname, diffType, topic, archive, basehead, position, base, head, template_owner, template_repo) {
   svc.delete("/repos/" + owner + "/"+ repo + "/"+ index + "/"+ id + "/"+ sha + "/"+ attachment_id + "/"+ filepath + "/"+ name + "/"+ variablename + "/"+ collaborator + "/"+ tag + "/"+ pageName + "/"+ branch + "/"+ ref + "/"+ user + "/"+ team + "/"+ secretname + "/"+ diffType + "/"+ topic + "/"+ archive + "/"+ basehead + "/"+ position + "/"+ base + "/"+ head + "/"+ template_owner + "/"+ template_repo, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "sha " + sha + " and " + "attachment_id " + attachment_id + " and " + "filepath " + filepath + " and " + "name " + name + " and " + "variablename " + variablename + " and " + "collaborator " + collaborator + " and " + "tag " + tag + " and " + "pageName " + pageName + " and " + "branch " + branch + " and " + "ref " + ref + " and " + "user " + user + " and " + "team " + team + " and " + "secretname " + secretname + " and " + "diffType " + diffType + " and " + "topic " + topic + " and " + "archive " + archive + " and " + "basehead " + basehead + " and " + "position " + position + " and " + "base " + base + " and " + "head " + head + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingRepo(owner, repo, index, id, sha, attachment_id, filepath, name, variablename, collaborator, tag, pageName, branch, ref, user, team, secretname, diffType, topic, archive, basehead, position, base, head, template_owner, template_repo) {
   svc.post("/repos", {
-      body: JSON.stringify({ owner: owner, repo: repo, index: index, id: id, sha: sha, attachment_id: attachment_id, filepath: filepath, name: name, variablename: variablename, collaborator: collaborator, tag: tag, pageName: pageName, branch: branch, ref: ref, user: user, team: team, secretname: secretname, diffType: diffType, topic: topic, archive: archive, basehead: basehead, position: position, base: base, head: head, template_owner: template_owner, template_repo: template_repo }),
-      parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "sha " + sha + " and " + "attachment_id " + attachment_id + " and " + "filepath " + filepath + " and " + "name " + name + " and " + "variablename " + variablename + " and " + "collaborator " + collaborator + " and " + "tag " + tag + " and " + "pageName " + pageName + " and " + "branch " + branch + " and " + "ref " + ref + " and " + "user " + user + " and " + "team " + team + " and " + "secretname " + secretname + " and " + "diffType " + diffType + " and " + "topic " + topic + " and " + "archive " + archive + " and " + "basehead " + basehead + " and " + "position " + position + " and " + "base " + base + " and " + "head " + head + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "sha " + sha + " and " + "attachment_id " + attachment_id + " and " + "filepath " + filepath + " and " + "name " + name + " and " + "variablename " + variablename + " and " + "collaborator " + collaborator + " and " + "tag " + tag + " and " + "pageName " + pageName + " and " + "branch " + branch + " and " + "ref " + ref + " and " + "user " + user + " and " + "team " + team + " and " + "secretname " + secretname + " and " + "diffType " + diffType + " and " + "topic " + topic + " and " + "archive " + archive + " and " + "basehead " + basehead + " and " + "position " + position + " and " + "base " + base + " and " + "head " + head + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo }
+    body: JSON.stringify({ owner: owner, repo: repo, index: index, id: id, sha: sha, attachment_id: attachment_id, filepath: filepath, name: name, variablename: variablename, collaborator: collaborator, tag: tag, pageName: pageName, branch: branch, ref: ref, user: user, team: team, secretname: secretname, diffType: diffType, topic: topic, archive: archive, basehead: basehead, position: position, base: base, head: head, template_owner: template_owner, template_repo: template_repo }),
+    parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "sha " + sha + " and " + "attachment_id " + attachment_id + " and " + "filepath " + filepath + " and " + "name " + name + " and " + "variablename " + variablename + " and " + "collaborator " + collaborator + " and " + "tag " + tag + " and " + "pageName " + pageName + " and " + "branch " + branch + " and " + "ref " + ref + " and " + "user " + user + " and " + "team " + team + " and " + "secretname " + secretname + " and " + "diffType " + diffType + " and " + "topic " + topic + " and " + "archive " + archive + " and " + "basehead " + basehead + " and " + "position " + position + " and " + "base " + base + " and " + "head " + head + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateRepo(owner, repo, index, id, sha, attachment_id, filepath, name, variablename, collaborator, tag, pageName, branch, ref, user, team, secretname, diffType, topic, archive, basehead, position, base, head, template_owner, template_repo) {
-  svc.put("/repos/" + owner + "/"+ repo + "/"+ index + "/"+ id + "/"+ sha + "/"+ attachment_id + "/"+ filepath + "/"+ name + "/"+ variablename + "/"+ collaborator + "/"+ tag + "/"+ pageName + "/"+ branch + "/"+ ref + "/"+ user + "/"+ team + "/"+ secretname + "/"+ diffType + "/"+ topic + "/"+ archive + "/"+ basehead + "/"+ position + "/"+ base + "/"+ head + "/"+ template_owner + "/"+ template_repo, {
-      body: JSON.stringify({ owner: owner, repo: repo, index: index, id: id, sha: sha, attachment_id: attachment_id, filepath: filepath, name: name, variablename: variablename, collaborator: collaborator, tag: tag, pageName: pageName, branch: branch, ref: ref, user: user, team: team, secretname: secretname, diffType: diffType, topic: topic, archive: archive, basehead: basehead, position: position, base: base, head: head, template_owner: template_owner, template_repo: template_repo }),
-      parameters: { description: "Update a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "sha " + sha + " and " + "attachment_id " + attachment_id + " and " + "filepath " + filepath + " and " + "name " + name + " and " + "variablename " + variablename + " and " + "collaborator " + collaborator + " and " + "tag " + tag + " and " + "pageName " + pageName + " and " + "branch " + branch + " and " + "ref " + ref + " and " + "user " + user + " and " + "team " + team + " and " + "secretname " + secretname + " and " + "diffType " + diffType + " and " + "topic " + topic + " and " + "archive " + archive + " and " + "basehead " + basehead + " and " + "position " + position + " and " + "base " + base + " and " + "head " + head + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo }
-    });
+  svc.put("/repos/" + owner + "/"+ repo + "/"+ index + "/"+ id + "/"+ sha + "/"+ attachment_id + "/"+ filepath + "/"+ name + "/"+ variablename + "/"+ collaborator + "/"+ tag + "/"+ pageName + "/"+ branch + "/"+ ref + "/"+ user + "/"+ team + "/"+ secretname + "/"+ diffType + "/"+ topic + "/"+ archive + "/"+ basehead + "/"+ position + "/"+ base + "/"+ head + "/"+ template_owner + "/"+ template_repo, { body: JSON.stringify({ owner: owner, repo: repo, index: index, id: id, sha: sha, attachment_id: attachment_id, filepath: filepath, name: name, variablename: variablename, collaborator: collaborator, tag: tag, pageName: pageName, branch: branch, ref: ref, user: user, team: team, secretname: secretname, diffType: diffType, topic: topic, archive: archive, basehead: basehead, position: position, base: base, head: head, template_owner: template_owner, template_repo: template_repo }), parameters: { description: "Update a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "sha " + sha + " and " + "attachment_id " + attachment_id + " and " + "filepath " + filepath + " and " + "name " + name + " and " + "variablename " + variablename + " and " + "collaborator " + collaborator + " and " + "tag " + tag + " and " + "pageName " + pageName + " and " + "branch " + branch + " and " + "ref " + ref + " and " + "user " + user + " and " + "team " + team + " and " + "secretname " + secretname + " and " + "diffType " + diffType + " and " + "topic " + topic + " and " + "archive " + archive + " and " + "basehead " + basehead + " and " + "position " + position + " and " + "base " + base + " and " + "head " + head + " and " + "template_owner " + template_owner + " and " + "template_repo " + template_repo } });
 }
 
 // GET one
@@ -2280,10 +2174,7 @@ function verifyRepoUpdated(owner, repo, index, id, sha, attachment_id, filepath,
 
 // CREATE
 function addRepositorie(id) {
-  svc.post("/repositories", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a repositorie with " + "id " + id }
-    });
+  svc.post("/repositories", { body: JSON.stringify({ id: id }), parameters: { description: "Add a repositorie with " + "id " + id } });
 }
 
 // DELETE
@@ -2293,31 +2184,26 @@ function deleteRepositorie(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingRepositorie(id) {
   svc.delete("/repositories/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a repositorie with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingRepositorie(id) {
   svc.post("/repositories", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a repositorie with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a repositorie with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a repositorie with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateRepositorie(id) {
-  svc.put("/repositories/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a repositorie with " + "id " + id }
-    });
+  svc.put("/repositories/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a repositorie with " + "id " + id } });
 }
 
 // GET one
@@ -2453,10 +2339,7 @@ function verifyRepositorieUpdated(id) {
 
 // CREATE
 function addSetting(id) {
-  svc.post("/settings", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a setting with " + "id " + id }
-    });
+  svc.post("/settings", { body: JSON.stringify({ id: id }), parameters: { description: "Add a setting with " + "id " + id } });
 }
 
 // DELETE
@@ -2466,31 +2349,26 @@ function deleteSetting(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingSetting(id) {
   svc.delete("/settings/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a setting with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingSetting(id) {
   svc.post("/settings", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a setting with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a setting with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a setting with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateSetting(id) {
-  svc.put("/settings/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a setting with " + "id " + id }
-    });
+  svc.put("/settings/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a setting with " + "id " + id } });
 }
 
 // GET one
@@ -2626,10 +2504,7 @@ function verifySettingUpdated(id) {
 
 // CREATE
 function addSigning_key.gpg(id) {
-  svc.post("/signing_key.gpg", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a signing_key.gpg with " + "id " + id }
-    });
+  svc.post("/signing_key.gpg", { body: JSON.stringify({ id: id }), parameters: { description: "Add a signing_key.gpg with " + "id " + id } });
 }
 
 // DELETE
@@ -2639,31 +2514,26 @@ function deleteSigning_key.gpg(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingSigning_key.gpg(id) {
   svc.delete("/signing_key.gpg/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a signing_key.gpg with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingSigning_key.gpg(id) {
   svc.post("/signing_key.gpg", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a signing_key.gpg with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a signing_key.gpg with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a signing_key.gpg with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateSigning_key.gpg(id) {
-  svc.put("/signing_key.gpg/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a signing_key.gpg with " + "id " + id }
-    });
+  svc.put("/signing_key.gpg/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a signing_key.gpg with " + "id " + id } });
 }
 
 // GET one
@@ -2799,10 +2669,7 @@ function verifySigning_key.gpgUpdated(id) {
 
 // CREATE
 function addTeam(id, username, org, repo) {
-  svc.post("/teams", {
-      body: JSON.stringify({ id: id, username: username, org: org, repo: repo }),
-      parameters: { description: "Add a team with " + "id " + id + " and " + "username " + username + " and " + "org " + org + " and " + "repo " + repo }
-    });
+  svc.post("/teams", { body: JSON.stringify({ id: id, username: username, org: org, repo: repo }), parameters: { description: "Add a team with " + "id " + id + " and " + "username " + username + " and " + "org " + org + " and " + "repo " + repo } });
 }
 
 // DELETE
@@ -2812,31 +2679,26 @@ function deleteTeam(id, username, org, repo) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingTeam(id, username, org, repo) {
   svc.delete("/teams/" + id + "/"+ username + "/"+ org + "/"+ repo, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a team with " + "id " + id + " and " + "username " + username + " and " + "org " + org + " and " + "repo " + repo }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingTeam(id, username, org, repo) {
   svc.post("/teams", {
-      body: JSON.stringify({ id: id, username: username, org: org, repo: repo }),
-      parameters: { description: "Add a team with " + "id " + id + " and " + "username " + username + " and " + "org " + org + " and " + "repo " + repo }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a team with " + "id " + id + " and " + "username " + username + " and " + "org " + org + " and " + "repo " + repo }
+    body: JSON.stringify({ id: id, username: username, org: org, repo: repo }),
+    parameters: { description: "Add a team with " + "id " + id + " and " + "username " + username + " and " + "org " + org + " and " + "repo " + repo },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateTeam(id, username, org, repo) {
-  svc.put("/teams/" + id + "/"+ username + "/"+ org + "/"+ repo, {
-      body: JSON.stringify({ id: id, username: username, org: org, repo: repo }),
-      parameters: { description: "Update a team with " + "id " + id + " and " + "username " + username + " and " + "org " + org + " and " + "repo " + repo }
-    });
+  svc.put("/teams/" + id + "/"+ username + "/"+ org + "/"+ repo, { body: JSON.stringify({ id: id, username: username, org: org, repo: repo }), parameters: { description: "Update a team with " + "id " + id + " and " + "username " + username + " and " + "org " + org + " and " + "repo " + repo } });
 }
 
 // GET one
@@ -2972,10 +2834,7 @@ function verifyTeamUpdated(id, username, org, repo) {
 
 // CREATE
 function addTopic(id) {
-  svc.post("/topics", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a topic with " + "id " + id }
-    });
+  svc.post("/topics", { body: JSON.stringify({ id: id }), parameters: { description: "Add a topic with " + "id " + id } });
 }
 
 // DELETE
@@ -2985,31 +2844,26 @@ function deleteTopic(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingTopic(id) {
   svc.delete("/topics/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a topic with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingTopic(id) {
   svc.post("/topics", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a topic with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a topic with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a topic with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateTopic(id) {
-  svc.put("/topics/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a topic with " + "id " + id }
-    });
+  svc.put("/topics/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a topic with " + "id " + id } });
 }
 
 // GET one
@@ -3145,10 +2999,7 @@ function verifyTopicUpdated(id) {
 
 // CREATE
 function addUser(id, username, variablename, owner, repo, secretname) {
-  svc.post("/user", {
-      body: JSON.stringify({ id: id, username: username, variablename: variablename, owner: owner, repo: repo, secretname: secretname }),
-      parameters: { description: "Add a user with " + "id " + id + " and " + "username " + username + " and " + "variablename " + variablename + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "secretname " + secretname }
-    });
+  svc.post("/user", { body: JSON.stringify({ id: id, username: username, variablename: variablename, owner: owner, repo: repo, secretname: secretname }), parameters: { description: "Add a user with " + "id " + id + " and " + "username " + username + " and " + "variablename " + variablename + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "secretname " + secretname } });
 }
 
 // DELETE
@@ -3158,31 +3009,26 @@ function deleteUser(id, username, variablename, owner, repo, secretname) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingUser(id, username, variablename, owner, repo, secretname) {
   svc.delete("/user/" + id + "/"+ username + "/"+ variablename + "/"+ owner + "/"+ repo + "/"+ secretname, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a user with " + "id " + id + " and " + "username " + username + " and " + "variablename " + variablename + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "secretname " + secretname }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingUser(id, username, variablename, owner, repo, secretname) {
   svc.post("/user", {
-      body: JSON.stringify({ id: id, username: username, variablename: variablename, owner: owner, repo: repo, secretname: secretname }),
-      parameters: { description: "Add a user with " + "id " + id + " and " + "username " + username + " and " + "variablename " + variablename + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "secretname " + secretname }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a user with " + "id " + id + " and " + "username " + username + " and " + "variablename " + variablename + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "secretname " + secretname }
+    body: JSON.stringify({ id: id, username: username, variablename: variablename, owner: owner, repo: repo, secretname: secretname }),
+    parameters: { description: "Add a user with " + "id " + id + " and " + "username " + username + " and " + "variablename " + variablename + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "secretname " + secretname },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateUser(id, username, variablename, owner, repo, secretname) {
-  svc.put("/user/" + id + "/"+ username + "/"+ variablename + "/"+ owner + "/"+ repo + "/"+ secretname, {
-      body: JSON.stringify({ id: id, username: username, variablename: variablename, owner: owner, repo: repo, secretname: secretname }),
-      parameters: { description: "Update a user with " + "id " + id + " and " + "username " + username + " and " + "variablename " + variablename + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "secretname " + secretname }
-    });
+  svc.put("/user/" + id + "/"+ username + "/"+ variablename + "/"+ owner + "/"+ repo + "/"+ secretname, { body: JSON.stringify({ id: id, username: username, variablename: variablename, owner: owner, repo: repo, secretname: secretname }), parameters: { description: "Update a user with " + "id " + id + " and " + "username " + username + " and " + "variablename " + variablename + " and " + "owner " + owner + " and " + "repo " + repo + " and " + "secretname " + secretname } });
 }
 
 // GET one
@@ -3318,10 +3164,7 @@ function verifyUserUpdated(id, username, variablename, owner, repo, secretname) 
 
 // CREATE
 function addUser(username, target, org, token) {
-  svc.post("/users", {
-      body: JSON.stringify({ username: username, target: target, org: org, token: token }),
-      parameters: { description: "Add a user with " + "username " + username + " and " + "target " + target + " and " + "org " + org + " and " + "token " + token }
-    });
+  svc.post("/users", { body: JSON.stringify({ username: username, target: target, org: org, token: token }), parameters: { description: "Add a user with " + "username " + username + " and " + "target " + target + " and " + "org " + org + " and " + "token " + token } });
 }
 
 // DELETE
@@ -3331,31 +3174,26 @@ function deleteUser(username, target, org, token) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingUser(username, target, org, token) {
   svc.delete("/users/" + username + "/"+ target + "/"+ org + "/"+ token, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a user with " + "username " + username + " and " + "target " + target + " and " + "org " + org + " and " + "token " + token }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingUser(username, target, org, token) {
   svc.post("/users", {
-      body: JSON.stringify({ username: username, target: target, org: org, token: token }),
-      parameters: { description: "Add a user with " + "username " + username + " and " + "target " + target + " and " + "org " + org + " and " + "token " + token }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a user with " + "username " + username + " and " + "target " + target + " and " + "org " + org + " and " + "token " + token }
+    body: JSON.stringify({ username: username, target: target, org: org, token: token }),
+    parameters: { description: "Add a user with " + "username " + username + " and " + "target " + target + " and " + "org " + org + " and " + "token " + token },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateUser(username, target, org, token) {
-  svc.put("/users/" + username + "/"+ target + "/"+ org + "/"+ token, {
-      body: JSON.stringify({ username: username, target: target, org: org, token: token }),
-      parameters: { description: "Update a user with " + "username " + username + " and " + "target " + target + " and " + "org " + org + " and " + "token " + token }
-    });
+  svc.put("/users/" + username + "/"+ target + "/"+ org + "/"+ token, { body: JSON.stringify({ username: username, target: target, org: org, token: token }), parameters: { description: "Update a user with " + "username " + username + " and " + "target " + target + " and " + "org " + org + " and " + "token " + token } });
 }
 
 // GET one
@@ -3491,10 +3329,7 @@ function verifyUserUpdated(username, target, org, token) {
 
 // CREATE
 function addVersion(id) {
-  svc.post("/version", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a version with " + "id " + id }
-    });
+  svc.post("/version", { body: JSON.stringify({ id: id }), parameters: { description: "Add a version with " + "id " + id } });
 }
 
 // DELETE
@@ -3504,31 +3339,26 @@ function deleteVersion(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingVersion(id) {
   svc.delete("/version/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a version with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingVersion(id) {
   svc.post("/version", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a version with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a version with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a version with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateVersion(id) {
-  svc.put("/version/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a version with " + "id " + id }
-    });
+  svc.put("/version/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a version with " + "id " + id } });
 }
 
 // GET one

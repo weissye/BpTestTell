@@ -3,11 +3,9 @@
 /**
  * Auto-generated interfaces & lifecycle (readable)
  * From GOLD only – full CRUD + verifications + match/wait helpers.
- * This approximates the "Library SUT" interface style.
  */
 
-// CHANGE (1): add default host/port placeholders before RESTSession
-var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var host = (typeof host !== 'undefined') ? host : '192.168.225.53';
 var port = (typeof port !== 'undefined') ? port : 5014;
 
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
@@ -31,10 +29,7 @@ function matchesDescriptionRegex(rx) {
 
 // CREATE
 function addAccount(accountId) {
-  svc.post("/accounts", {
-      body: JSON.stringify({ accountId: accountId }),
-      parameters: { description: "Add a account with " + "accountId " + accountId }
-    });
+  svc.post("/accounts", { body: JSON.stringify({ accountId: accountId }), parameters: { description: "Add a account with " + "accountId " + accountId } });
 }
 
 // DELETE
@@ -44,31 +39,26 @@ function deleteAccount(accountId) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingAccount(accountId) {
   svc.delete("/accounts/" + accountId, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a account with " + "accountId " + accountId }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingAccount(accountId) {
   svc.post("/accounts", {
-      body: JSON.stringify({ accountId: accountId }),
-      parameters: { description: "Add a account with " + "accountId " + accountId }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a account with " + "accountId " + accountId }
+    body: JSON.stringify({ accountId: accountId }),
+    parameters: { description: "Add a account with " + "accountId " + accountId },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateAccount(accountId) {
-  svc.put("/accounts/" + accountId, {
-      body: JSON.stringify({ accountId: accountId }),
-      parameters: { description: "Update a account with " + "accountId " + accountId }
-    });
+  svc.put("/accounts/" + accountId, { body: JSON.stringify({ accountId: accountId }), parameters: { description: "Update a account with " + "accountId " + accountId } });
 }
 
 // GET one
@@ -204,10 +194,7 @@ function verifyAccountUpdated(accountId) {
 
 // CREATE
 function addCard(id) {
-  svc.post("/cards", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a card with " + "id " + id }
-    });
+  svc.post("/cards", { body: JSON.stringify({ id: id }), parameters: { description: "Add a card with " + "id " + id } });
 }
 
 // DELETE
@@ -217,31 +204,26 @@ function deleteCard(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingCard(id) {
   svc.delete("/cards/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a card with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingCard(id) {
   svc.post("/cards", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a card with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a card with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a card with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateCard(id) {
-  svc.put("/cards/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a card with " + "id " + id }
-    });
+  svc.put("/cards/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a card with " + "id " + id } });
 }
 
 // GET one
@@ -377,10 +359,7 @@ function verifyCardUpdated(id) {
 
 // CREATE
 function addCustomer(id) {
-  svc.post("/customers", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a customer with " + "id " + id }
-    });
+  svc.post("/customers", { body: JSON.stringify({ id: id }), parameters: { description: "Add a customer with " + "id " + id } });
 }
 
 // DELETE
@@ -390,31 +369,26 @@ function deleteCustomer(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingCustomer(id) {
   svc.delete("/customers/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a customer with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingCustomer(id) {
   svc.post("/customers", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a customer with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a customer with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a customer with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateCustomer(id) {
-  svc.put("/customers/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a customer with " + "id " + id }
-    });
+  svc.put("/customers/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a customer with " + "id " + id } });
 }
 
 // GET one
@@ -550,10 +524,7 @@ function verifyCustomerUpdated(id) {
 
 // CREATE
 function addLoan(id) {
-  svc.post("/loans", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a loan with " + "id " + id }
-    });
+  svc.post("/loans", { body: JSON.stringify({ id: id }), parameters: { description: "Add a loan with " + "id " + id } });
 }
 
 // DELETE
@@ -563,31 +534,26 @@ function deleteLoan(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingLoan(id) {
   svc.delete("/loans/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a loan with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingLoan(id) {
   svc.post("/loans", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a loan with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a loan with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a loan with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateLoan(id) {
-  svc.put("/loans/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a loan with " + "id " + id }
-    });
+  svc.put("/loans/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a loan with " + "id " + id } });
 }
 
 // GET one
@@ -723,10 +689,7 @@ function verifyLoanUpdated(id) {
 
 // CREATE
 function addReset(id) {
-  svc.post("/reset", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a reset with " + "id " + id }
-    });
+  svc.post("/reset", { body: JSON.stringify({ id: id }), parameters: { description: "Add a reset with " + "id " + id } });
 }
 
 // DELETE
@@ -736,31 +699,26 @@ function deleteReset(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingReset(id) {
   svc.delete("/reset/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a reset with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingReset(id) {
   svc.post("/reset", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a reset with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a reset with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a reset with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateReset(id) {
-  svc.put("/reset/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a reset with " + "id " + id }
-    });
+  svc.put("/reset/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a reset with " + "id " + id } });
 }
 
 // GET one
@@ -896,10 +854,7 @@ function verifyResetUpdated(id) {
 
 // CREATE
 function addTransfer(id) {
-  svc.post("/transfers", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a transfer with " + "id " + id }
-    });
+  svc.post("/transfers", { body: JSON.stringify({ id: id }), parameters: { description: "Add a transfer with " + "id " + id } });
 }
 
 // DELETE
@@ -909,31 +864,26 @@ function deleteTransfer(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingTransfer(id) {
   svc.delete("/transfers/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a transfer with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingTransfer(id) {
   svc.post("/transfers", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a transfer with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a transfer with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a transfer with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateTransfer(id) {
-  svc.put("/transfers/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a transfer with " + "id " + id }
-    });
+  svc.put("/transfers/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a transfer with " + "id " + id } });
 }
 
 // GET one

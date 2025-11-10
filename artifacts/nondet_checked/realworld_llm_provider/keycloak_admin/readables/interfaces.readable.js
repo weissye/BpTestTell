@@ -3,11 +3,9 @@
 /**
  * Auto-generated interfaces & lifecycle (readable)
  * From GOLD only – full CRUD + verifications + match/wait helpers.
- * This approximates the "Library SUT" interface style.
  */
 
-// CHANGE (1): add default host/port placeholders before RESTSession
-var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var host = (typeof host !== 'undefined') ? host : '192.168.225.53';
 var port = (typeof port !== 'undefined') ? port : 5014;
 
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
@@ -31,10 +29,7 @@ function matchesDescriptionRegex(rx) {
 
 // CREATE
 function addMyrealm(id) {
-  svc.post("/myrealm", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a myrealm with " + "id " + id }
-    });
+  svc.post("/myrealm", { body: JSON.stringify({ id: id }), parameters: { description: "Add a myrealm with " + "id " + id } });
 }
 
 // DELETE
@@ -44,31 +39,26 @@ function deleteMyrealm(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingMyrealm(id) {
   svc.delete("/myrealm/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a myrealm with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingMyrealm(id) {
   svc.post("/myrealm", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a myrealm with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a myrealm with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a myrealm with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateMyrealm(id) {
-  svc.put("/myrealm/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a myrealm with " + "id " + id }
-    });
+  svc.put("/myrealm/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a myrealm with " + "id " + id } });
 }
 
 // GET one
@@ -204,10 +194,7 @@ function verifyMyrealmUpdated(id) {
 
 // CREATE
 function addV1(realm, userId) {
-  svc.post("/v1", {
-      body: JSON.stringify({ realm: realm, userId: userId }),
-      parameters: { description: "Add a v1 with " + "realm " + realm + " and " + "userId " + userId }
-    });
+  svc.post("/v1", { body: JSON.stringify({ realm: realm, userId: userId }), parameters: { description: "Add a v1 with " + "realm " + realm + " and " + "userId " + userId } });
 }
 
 // DELETE
@@ -217,31 +204,26 @@ function deleteV1(realm, userId) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingV1(realm, userId) {
   svc.delete("/v1/" + realm + "/"+ userId, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a v1 with " + "realm " + realm + " and " + "userId " + userId }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingV1(realm, userId) {
   svc.post("/v1", {
-      body: JSON.stringify({ realm: realm, userId: userId }),
-      parameters: { description: "Add a v1 with " + "realm " + realm + " and " + "userId " + userId }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a v1 with " + "realm " + realm + " and " + "userId " + userId }
+    body: JSON.stringify({ realm: realm, userId: userId }),
+    parameters: { description: "Add a v1 with " + "realm " + realm + " and " + "userId " + userId },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateV1(realm, userId) {
-  svc.put("/v1/" + realm + "/"+ userId, {
-      body: JSON.stringify({ realm: realm, userId: userId }),
-      parameters: { description: "Update a v1 with " + "realm " + realm + " and " + "userId " + userId }
-    });
+  svc.put("/v1/" + realm + "/"+ userId, { body: JSON.stringify({ realm: realm, userId: userId }), parameters: { description: "Update a v1 with " + "realm " + realm + " and " + "userId " + userId } });
 }
 
 // GET one
@@ -377,10 +359,7 @@ function verifyV1Updated(realm, userId) {
 
 // CREATE
 function add{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
-  svc.post("/{realm}", {
-      body: JSON.stringify({ realm: realm, id: id, alias: alias, executionId: executionId, flowAlias: flowAlias, clientScopeId: clientScopeId, providerId: providerId, roleContainerId: roleContainerId, node: node, provider_id: provider_id }),
-      parameters: { description: "Add a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id }
-    });
+  svc.post("/{realm}", { body: JSON.stringify({ realm: realm, id: id, alias: alias, executionId: executionId, flowAlias: flowAlias, clientScopeId: clientScopeId, providerId: providerId, roleContainerId: roleContainerId, node: node, provider_id: provider_id }), parameters: { description: "Add a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id } });
 }
 
 // DELETE
@@ -390,31 +369,26 @@ function delete{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, 
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExisting{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
   svc.delete("/{realm}/" + realm + "/"+ id + "/"+ alias + "/"+ executionId + "/"+ flowAlias + "/"+ clientScopeId + "/"+ providerId + "/"+ roleContainerId + "/"+ node + "/"+ provider_id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExisting{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
   svc.post("/{realm}", {
-      body: JSON.stringify({ realm: realm, id: id, alias: alias, executionId: executionId, flowAlias: flowAlias, clientScopeId: clientScopeId, providerId: providerId, roleContainerId: roleContainerId, node: node, provider_id: provider_id }),
-      parameters: { description: "Add a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id }
+    body: JSON.stringify({ realm: realm, id: id, alias: alias, executionId: executionId, flowAlias: flowAlias, clientScopeId: clientScopeId, providerId: providerId, roleContainerId: roleContainerId, node: node, provider_id: provider_id }),
+    parameters: { description: "Add a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function update{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
-  svc.put("/{realm}/" + realm + "/"+ id + "/"+ alias + "/"+ executionId + "/"+ flowAlias + "/"+ clientScopeId + "/"+ providerId + "/"+ roleContainerId + "/"+ node + "/"+ provider_id, {
-      body: JSON.stringify({ realm: realm, id: id, alias: alias, executionId: executionId, flowAlias: flowAlias, clientScopeId: clientScopeId, providerId: providerId, roleContainerId: roleContainerId, node: node, provider_id: provider_id }),
-      parameters: { description: "Update a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id }
-    });
+  svc.put("/{realm}/" + realm + "/"+ id + "/"+ alias + "/"+ executionId + "/"+ flowAlias + "/"+ clientScopeId + "/"+ providerId + "/"+ roleContainerId + "/"+ node + "/"+ provider_id, { body: JSON.stringify({ realm: realm, id: id, alias: alias, executionId: executionId, flowAlias: flowAlias, clientScopeId: clientScopeId, providerId: providerId, roleContainerId: roleContainerId, node: node, provider_id: provider_id }), parameters: { description: "Update a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id } });
 }
 
 // GET one

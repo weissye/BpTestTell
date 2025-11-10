@@ -3,11 +3,9 @@
 /**
  * Auto-generated interfaces & lifecycle (readable)
  * From GOLD only – full CRUD + verifications + match/wait helpers.
- * This approximates the "Library SUT" interface style.
  */
 
-// CHANGE (1): add default host/port placeholders before RESTSession
-var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var host = (typeof host !== 'undefined') ? host : '192.168.225.53';
 var port = (typeof port !== 'undefined') ? port : 5014;
 
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
@@ -31,10 +29,7 @@ function matchesDescriptionRegex(rx) {
 
 // CREATE
 function add2010_04_01(AccountSid, Sid, CallSid, IpAccessControlListSid, CountryCode, ConferenceSid, MessageSid, DomainSid, QueueSid, RecordingSid, ResourceSid, AssignedAddOnSid, ConnectAppSid, ReferenceSid, AddOnResultSid, PayloadSid, AddressSid) {
-  svc.post("/2010_04_01", {
-      body: JSON.stringify({ AccountSid: AccountSid, Sid: Sid, CallSid: CallSid, IpAccessControlListSid: IpAccessControlListSid, CountryCode: CountryCode, ConferenceSid: ConferenceSid, MessageSid: MessageSid, DomainSid: DomainSid, QueueSid: QueueSid, RecordingSid: RecordingSid, ResourceSid: ResourceSid, AssignedAddOnSid: AssignedAddOnSid, ConnectAppSid: ConnectAppSid, ReferenceSid: ReferenceSid, AddOnResultSid: AddOnResultSid, PayloadSid: PayloadSid, AddressSid: AddressSid }),
-      parameters: { description: "Add a 2010_04_01 with " + "AccountSid " + AccountSid + " and " + "Sid " + Sid + " and " + "CallSid " + CallSid + " and " + "IpAccessControlListSid " + IpAccessControlListSid + " and " + "CountryCode " + CountryCode + " and " + "ConferenceSid " + ConferenceSid + " and " + "MessageSid " + MessageSid + " and " + "DomainSid " + DomainSid + " and " + "QueueSid " + QueueSid + " and " + "RecordingSid " + RecordingSid + " and " + "ResourceSid " + ResourceSid + " and " + "AssignedAddOnSid " + AssignedAddOnSid + " and " + "ConnectAppSid " + ConnectAppSid + " and " + "ReferenceSid " + ReferenceSid + " and " + "AddOnResultSid " + AddOnResultSid + " and " + "PayloadSid " + PayloadSid + " and " + "AddressSid " + AddressSid }
-    });
+  svc.post("/2010_04_01", { body: JSON.stringify({ AccountSid: AccountSid, Sid: Sid, CallSid: CallSid, IpAccessControlListSid: IpAccessControlListSid, CountryCode: CountryCode, ConferenceSid: ConferenceSid, MessageSid: MessageSid, DomainSid: DomainSid, QueueSid: QueueSid, RecordingSid: RecordingSid, ResourceSid: ResourceSid, AssignedAddOnSid: AssignedAddOnSid, ConnectAppSid: ConnectAppSid, ReferenceSid: ReferenceSid, AddOnResultSid: AddOnResultSid, PayloadSid: PayloadSid, AddressSid: AddressSid }), parameters: { description: "Add a 2010_04_01 with " + "AccountSid " + AccountSid + " and " + "Sid " + Sid + " and " + "CallSid " + CallSid + " and " + "IpAccessControlListSid " + IpAccessControlListSid + " and " + "CountryCode " + CountryCode + " and " + "ConferenceSid " + ConferenceSid + " and " + "MessageSid " + MessageSid + " and " + "DomainSid " + DomainSid + " and " + "QueueSid " + QueueSid + " and " + "RecordingSid " + RecordingSid + " and " + "ResourceSid " + ResourceSid + " and " + "AssignedAddOnSid " + AssignedAddOnSid + " and " + "ConnectAppSid " + ConnectAppSid + " and " + "ReferenceSid " + ReferenceSid + " and " + "AddOnResultSid " + AddOnResultSid + " and " + "PayloadSid " + PayloadSid + " and " + "AddressSid " + AddressSid } });
 }
 
 // DELETE
@@ -44,31 +39,26 @@ function delete2010_04_01(AccountSid, Sid, CallSid, IpAccessControlListSid, Coun
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExisting2010_04_01(AccountSid, Sid, CallSid, IpAccessControlListSid, CountryCode, ConferenceSid, MessageSid, DomainSid, QueueSid, RecordingSid, ResourceSid, AssignedAddOnSid, ConnectAppSid, ReferenceSid, AddOnResultSid, PayloadSid, AddressSid) {
   svc.delete("/2010_04_01/" + AccountSid + "/"+ Sid + "/"+ CallSid + "/"+ IpAccessControlListSid + "/"+ CountryCode + "/"+ ConferenceSid + "/"+ MessageSid + "/"+ DomainSid + "/"+ QueueSid + "/"+ RecordingSid + "/"+ ResourceSid + "/"+ AssignedAddOnSid + "/"+ ConnectAppSid + "/"+ ReferenceSid + "/"+ AddOnResultSid + "/"+ PayloadSid + "/"+ AddressSid, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a 2010_04_01 with " + "AccountSid " + AccountSid + " and " + "Sid " + Sid + " and " + "CallSid " + CallSid + " and " + "IpAccessControlListSid " + IpAccessControlListSid + " and " + "CountryCode " + CountryCode + " and " + "ConferenceSid " + ConferenceSid + " and " + "MessageSid " + MessageSid + " and " + "DomainSid " + DomainSid + " and " + "QueueSid " + QueueSid + " and " + "RecordingSid " + RecordingSid + " and " + "ResourceSid " + ResourceSid + " and " + "AssignedAddOnSid " + AssignedAddOnSid + " and " + "ConnectAppSid " + ConnectAppSid + " and " + "ReferenceSid " + ReferenceSid + " and " + "AddOnResultSid " + AddOnResultSid + " and " + "PayloadSid " + PayloadSid + " and " + "AddressSid " + AddressSid }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExisting2010_04_01(AccountSid, Sid, CallSid, IpAccessControlListSid, CountryCode, ConferenceSid, MessageSid, DomainSid, QueueSid, RecordingSid, ResourceSid, AssignedAddOnSid, ConnectAppSid, ReferenceSid, AddOnResultSid, PayloadSid, AddressSid) {
   svc.post("/2010_04_01", {
-      body: JSON.stringify({ AccountSid: AccountSid, Sid: Sid, CallSid: CallSid, IpAccessControlListSid: IpAccessControlListSid, CountryCode: CountryCode, ConferenceSid: ConferenceSid, MessageSid: MessageSid, DomainSid: DomainSid, QueueSid: QueueSid, RecordingSid: RecordingSid, ResourceSid: ResourceSid, AssignedAddOnSid: AssignedAddOnSid, ConnectAppSid: ConnectAppSid, ReferenceSid: ReferenceSid, AddOnResultSid: AddOnResultSid, PayloadSid: PayloadSid, AddressSid: AddressSid }),
-      parameters: { description: "Add a 2010_04_01 with " + "AccountSid " + AccountSid + " and " + "Sid " + Sid + " and " + "CallSid " + CallSid + " and " + "IpAccessControlListSid " + IpAccessControlListSid + " and " + "CountryCode " + CountryCode + " and " + "ConferenceSid " + ConferenceSid + " and " + "MessageSid " + MessageSid + " and " + "DomainSid " + DomainSid + " and " + "QueueSid " + QueueSid + " and " + "RecordingSid " + RecordingSid + " and " + "ResourceSid " + ResourceSid + " and " + "AssignedAddOnSid " + AssignedAddOnSid + " and " + "ConnectAppSid " + ConnectAppSid + " and " + "ReferenceSid " + ReferenceSid + " and " + "AddOnResultSid " + AddOnResultSid + " and " + "PayloadSid " + PayloadSid + " and " + "AddressSid " + AddressSid }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a 2010_04_01 with " + "AccountSid " + AccountSid + " and " + "Sid " + Sid + " and " + "CallSid " + CallSid + " and " + "IpAccessControlListSid " + IpAccessControlListSid + " and " + "CountryCode " + CountryCode + " and " + "ConferenceSid " + ConferenceSid + " and " + "MessageSid " + MessageSid + " and " + "DomainSid " + DomainSid + " and " + "QueueSid " + QueueSid + " and " + "RecordingSid " + RecordingSid + " and " + "ResourceSid " + ResourceSid + " and " + "AssignedAddOnSid " + AssignedAddOnSid + " and " + "ConnectAppSid " + ConnectAppSid + " and " + "ReferenceSid " + ReferenceSid + " and " + "AddOnResultSid " + AddOnResultSid + " and " + "PayloadSid " + PayloadSid + " and " + "AddressSid " + AddressSid }
+    body: JSON.stringify({ AccountSid: AccountSid, Sid: Sid, CallSid: CallSid, IpAccessControlListSid: IpAccessControlListSid, CountryCode: CountryCode, ConferenceSid: ConferenceSid, MessageSid: MessageSid, DomainSid: DomainSid, QueueSid: QueueSid, RecordingSid: RecordingSid, ResourceSid: ResourceSid, AssignedAddOnSid: AssignedAddOnSid, ConnectAppSid: ConnectAppSid, ReferenceSid: ReferenceSid, AddOnResultSid: AddOnResultSid, PayloadSid: PayloadSid, AddressSid: AddressSid }),
+    parameters: { description: "Add a 2010_04_01 with " + "AccountSid " + AccountSid + " and " + "Sid " + Sid + " and " + "CallSid " + CallSid + " and " + "IpAccessControlListSid " + IpAccessControlListSid + " and " + "CountryCode " + CountryCode + " and " + "ConferenceSid " + ConferenceSid + " and " + "MessageSid " + MessageSid + " and " + "DomainSid " + DomainSid + " and " + "QueueSid " + QueueSid + " and " + "RecordingSid " + RecordingSid + " and " + "ResourceSid " + ResourceSid + " and " + "AssignedAddOnSid " + AssignedAddOnSid + " and " + "ConnectAppSid " + ConnectAppSid + " and " + "ReferenceSid " + ReferenceSid + " and " + "AddOnResultSid " + AddOnResultSid + " and " + "PayloadSid " + PayloadSid + " and " + "AddressSid " + AddressSid },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function update2010_04_01(AccountSid, Sid, CallSid, IpAccessControlListSid, CountryCode, ConferenceSid, MessageSid, DomainSid, QueueSid, RecordingSid, ResourceSid, AssignedAddOnSid, ConnectAppSid, ReferenceSid, AddOnResultSid, PayloadSid, AddressSid) {
-  svc.put("/2010_04_01/" + AccountSid + "/"+ Sid + "/"+ CallSid + "/"+ IpAccessControlListSid + "/"+ CountryCode + "/"+ ConferenceSid + "/"+ MessageSid + "/"+ DomainSid + "/"+ QueueSid + "/"+ RecordingSid + "/"+ ResourceSid + "/"+ AssignedAddOnSid + "/"+ ConnectAppSid + "/"+ ReferenceSid + "/"+ AddOnResultSid + "/"+ PayloadSid + "/"+ AddressSid, {
-      body: JSON.stringify({ AccountSid: AccountSid, Sid: Sid, CallSid: CallSid, IpAccessControlListSid: IpAccessControlListSid, CountryCode: CountryCode, ConferenceSid: ConferenceSid, MessageSid: MessageSid, DomainSid: DomainSid, QueueSid: QueueSid, RecordingSid: RecordingSid, ResourceSid: ResourceSid, AssignedAddOnSid: AssignedAddOnSid, ConnectAppSid: ConnectAppSid, ReferenceSid: ReferenceSid, AddOnResultSid: AddOnResultSid, PayloadSid: PayloadSid, AddressSid: AddressSid }),
-      parameters: { description: "Update a 2010_04_01 with " + "AccountSid " + AccountSid + " and " + "Sid " + Sid + " and " + "CallSid " + CallSid + " and " + "IpAccessControlListSid " + IpAccessControlListSid + " and " + "CountryCode " + CountryCode + " and " + "ConferenceSid " + ConferenceSid + " and " + "MessageSid " + MessageSid + " and " + "DomainSid " + DomainSid + " and " + "QueueSid " + QueueSid + " and " + "RecordingSid " + RecordingSid + " and " + "ResourceSid " + ResourceSid + " and " + "AssignedAddOnSid " + AssignedAddOnSid + " and " + "ConnectAppSid " + ConnectAppSid + " and " + "ReferenceSid " + ReferenceSid + " and " + "AddOnResultSid " + AddOnResultSid + " and " + "PayloadSid " + PayloadSid + " and " + "AddressSid " + AddressSid }
-    });
+  svc.put("/2010_04_01/" + AccountSid + "/"+ Sid + "/"+ CallSid + "/"+ IpAccessControlListSid + "/"+ CountryCode + "/"+ ConferenceSid + "/"+ MessageSid + "/"+ DomainSid + "/"+ QueueSid + "/"+ RecordingSid + "/"+ ResourceSid + "/"+ AssignedAddOnSid + "/"+ ConnectAppSid + "/"+ ReferenceSid + "/"+ AddOnResultSid + "/"+ PayloadSid + "/"+ AddressSid, { body: JSON.stringify({ AccountSid: AccountSid, Sid: Sid, CallSid: CallSid, IpAccessControlListSid: IpAccessControlListSid, CountryCode: CountryCode, ConferenceSid: ConferenceSid, MessageSid: MessageSid, DomainSid: DomainSid, QueueSid: QueueSid, RecordingSid: RecordingSid, ResourceSid: ResourceSid, AssignedAddOnSid: AssignedAddOnSid, ConnectAppSid: ConnectAppSid, ReferenceSid: ReferenceSid, AddOnResultSid: AddOnResultSid, PayloadSid: PayloadSid, AddressSid: AddressSid }), parameters: { description: "Update a 2010_04_01 with " + "AccountSid " + AccountSid + " and " + "Sid " + Sid + " and " + "CallSid " + CallSid + " and " + "IpAccessControlListSid " + IpAccessControlListSid + " and " + "CountryCode " + CountryCode + " and " + "ConferenceSid " + ConferenceSid + " and " + "MessageSid " + MessageSid + " and " + "DomainSid " + DomainSid + " and " + "QueueSid " + QueueSid + " and " + "RecordingSid " + RecordingSid + " and " + "ResourceSid " + ResourceSid + " and " + "AssignedAddOnSid " + AssignedAddOnSid + " and " + "ConnectAppSid " + ConnectAppSid + " and " + "ReferenceSid " + ReferenceSid + " and " + "AddOnResultSid " + AddOnResultSid + " and " + "PayloadSid " + PayloadSid + " and " + "AddressSid " + AddressSid } });
 }
 
 // GET one

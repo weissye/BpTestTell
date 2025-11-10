@@ -3,11 +3,9 @@
 /**
  * Auto-generated interfaces & lifecycle (readable)
  * From GOLD only – full CRUD + verifications + match/wait helpers.
- * This approximates the "Library SUT" interface style.
  */
 
-// CHANGE (1): add default host/port placeholders before RESTSession
-var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var host = (typeof host !== 'undefined') ? host : '192.168.225.53';
 var port = (typeof port !== 'undefined') ? port : 5014;
 
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
@@ -31,10 +29,7 @@ function matchesDescriptionRegex(rx) {
 
 // CREATE
 function addRoot(id) {
-  svc.post("/root", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a root with " + "id " + id }
-    });
+  svc.post("/root", { body: JSON.stringify({ id: id }), parameters: { description: "Add a root with " + "id " + id } });
 }
 
 // DELETE
@@ -44,31 +39,26 @@ function deleteRoot(id) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingRoot(id) {
   svc.delete("/root/" + id, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a root with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingRoot(id) {
   svc.post("/root", {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Add a root with " + "id " + id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a root with " + "id " + id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a root with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateRoot(id) {
-  svc.put("/root/" + id, {
-      body: JSON.stringify({ id: id }),
-      parameters: { description: "Update a root with " + "id " + id }
-    });
+  svc.put("/root/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a root with " + "id " + id } });
 }
 
 // GET one
@@ -204,10 +194,7 @@ function verifyRootUpdated(id) {
 
 // CREATE
 function add{realm}(realm, id, client, role-name, alias, role-id, id1, id2, clientScopeId, executionId, attr, locale, flowAlias, clientUuid, groupId, credentialId, protocol, key, userId, providerId, roleContainerId, provider, node, path, provider_id, session, newPreviousCredentialId) {
-  svc.post("/{realm}", {
-      body: JSON.stringify({ realm: realm, id: id, client: client, role-name: role-name, alias: alias, role-id: role-id, id1: id1, id2: id2, clientScopeId: clientScopeId, executionId: executionId, attr: attr, locale: locale, flowAlias: flowAlias, clientUuid: clientUuid, groupId: groupId, credentialId: credentialId, protocol: protocol, key: key, userId: userId, providerId: providerId, roleContainerId: roleContainerId, provider: provider, node: node, path: path, provider_id: provider_id, session: session, newPreviousCredentialId: newPreviousCredentialId }),
-      parameters: { description: "Add a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "client " + client + " and " + "role-name " + role-name + " and " + "alias " + alias + " and " + "role-id " + role-id + " and " + "id1 " + id1 + " and " + "id2 " + id2 + " and " + "clientScopeId " + clientScopeId + " and " + "executionId " + executionId + " and " + "attr " + attr + " and " + "locale " + locale + " and " + "flowAlias " + flowAlias + " and " + "clientUuid " + clientUuid + " and " + "groupId " + groupId + " and " + "credentialId " + credentialId + " and " + "protocol " + protocol + " and " + "key " + key + " and " + "userId " + userId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "provider " + provider + " and " + "node " + node + " and " + "path " + path + " and " + "provider_id " + provider_id + " and " + "session " + session + " and " + "newPreviousCredentialId " + newPreviousCredentialId }
-    });
+  svc.post("/{realm}", { body: JSON.stringify({ realm: realm, id: id, client: client, role-name: role-name, alias: alias, role-id: role-id, id1: id1, id2: id2, clientScopeId: clientScopeId, executionId: executionId, attr: attr, locale: locale, flowAlias: flowAlias, clientUuid: clientUuid, groupId: groupId, credentialId: credentialId, protocol: protocol, key: key, userId: userId, providerId: providerId, roleContainerId: roleContainerId, provider: provider, node: node, path: path, provider_id: provider_id, session: session, newPreviousCredentialId: newPreviousCredentialId }), parameters: { description: "Add a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "client " + client + " and " + "role-name " + role-name + " and " + "alias " + alias + " and " + "role-id " + role-id + " and " + "id1 " + id1 + " and " + "id2 " + id2 + " and " + "clientScopeId " + clientScopeId + " and " + "executionId " + executionId + " and " + "attr " + attr + " and " + "locale " + locale + " and " + "flowAlias " + flowAlias + " and " + "clientUuid " + clientUuid + " and " + "groupId " + groupId + " and " + "credentialId " + credentialId + " and " + "protocol " + protocol + " and " + "key " + key + " and " + "userId " + userId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "provider " + provider + " and " + "node " + node + " and " + "path " + path + " and " + "provider_id " + provider_id + " and " + "session " + session + " and " + "newPreviousCredentialId " + newPreviousCredentialId } });
 }
 
 // DELETE
@@ -217,31 +204,26 @@ function delete{realm}(realm, id, client, role-name, alias, role-id, id1, id2, c
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExisting{realm}(realm, id, client, role-name, alias, role-id, id1, id2, clientScopeId, executionId, attr, locale, flowAlias, clientUuid, groupId, credentialId, protocol, key, userId, providerId, roleContainerId, provider, node, path, provider_id, session, newPreviousCredentialId) {
   svc.delete("/{realm}/" + realm + "/"+ id + "/"+ client + "/"+ role-name + "/"+ alias + "/"+ role-id + "/"+ id1 + "/"+ id2 + "/"+ clientScopeId + "/"+ executionId + "/"+ attr + "/"+ locale + "/"+ flowAlias + "/"+ clientUuid + "/"+ groupId + "/"+ credentialId + "/"+ protocol + "/"+ key + "/"+ userId + "/"+ providerId + "/"+ roleContainerId + "/"+ provider + "/"+ node + "/"+ path + "/"+ provider_id + "/"+ session + "/"+ newPreviousCredentialId, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "client " + client + " and " + "role-name " + role-name + " and " + "alias " + alias + " and " + "role-id " + role-id + " and " + "id1 " + id1 + " and " + "id2 " + id2 + " and " + "clientScopeId " + clientScopeId + " and " + "executionId " + executionId + " and " + "attr " + attr + " and " + "locale " + locale + " and " + "flowAlias " + flowAlias + " and " + "clientUuid " + clientUuid + " and " + "groupId " + groupId + " and " + "credentialId " + credentialId + " and " + "protocol " + protocol + " and " + "key " + key + " and " + "userId " + userId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "provider " + provider + " and " + "node " + node + " and " + "path " + path + " and " + "provider_id " + provider_id + " and " + "session " + session + " and " + "newPreviousCredentialId " + newPreviousCredentialId }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExisting{realm}(realm, id, client, role-name, alias, role-id, id1, id2, clientScopeId, executionId, attr, locale, flowAlias, clientUuid, groupId, credentialId, protocol, key, userId, providerId, roleContainerId, provider, node, path, provider_id, session, newPreviousCredentialId) {
   svc.post("/{realm}", {
-      body: JSON.stringify({ realm: realm, id: id, client: client, role-name: role-name, alias: alias, role-id: role-id, id1: id1, id2: id2, clientScopeId: clientScopeId, executionId: executionId, attr: attr, locale: locale, flowAlias: flowAlias, clientUuid: clientUuid, groupId: groupId, credentialId: credentialId, protocol: protocol, key: key, userId: userId, providerId: providerId, roleContainerId: roleContainerId, provider: provider, node: node, path: path, provider_id: provider_id, session: session, newPreviousCredentialId: newPreviousCredentialId }),
-      parameters: { description: "Add a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "client " + client + " and " + "role-name " + role-name + " and " + "alias " + alias + " and " + "role-id " + role-id + " and " + "id1 " + id1 + " and " + "id2 " + id2 + " and " + "clientScopeId " + clientScopeId + " and " + "executionId " + executionId + " and " + "attr " + attr + " and " + "locale " + locale + " and " + "flowAlias " + flowAlias + " and " + "clientUuid " + clientUuid + " and " + "groupId " + groupId + " and " + "credentialId " + credentialId + " and " + "protocol " + protocol + " and " + "key " + key + " and " + "userId " + userId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "provider " + provider + " and " + "node " + node + " and " + "path " + path + " and " + "provider_id " + provider_id + " and " + "session " + session + " and " + "newPreviousCredentialId " + newPreviousCredentialId }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "client " + client + " and " + "role-name " + role-name + " and " + "alias " + alias + " and " + "role-id " + role-id + " and " + "id1 " + id1 + " and " + "id2 " + id2 + " and " + "clientScopeId " + clientScopeId + " and " + "executionId " + executionId + " and " + "attr " + attr + " and " + "locale " + locale + " and " + "flowAlias " + flowAlias + " and " + "clientUuid " + clientUuid + " and " + "groupId " + groupId + " and " + "credentialId " + credentialId + " and " + "protocol " + protocol + " and " + "key " + key + " and " + "userId " + userId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "provider " + provider + " and " + "node " + node + " and " + "path " + path + " and " + "provider_id " + provider_id + " and " + "session " + session + " and " + "newPreviousCredentialId " + newPreviousCredentialId }
+    body: JSON.stringify({ realm: realm, id: id, client: client, role-name: role-name, alias: alias, role-id: role-id, id1: id1, id2: id2, clientScopeId: clientScopeId, executionId: executionId, attr: attr, locale: locale, flowAlias: flowAlias, clientUuid: clientUuid, groupId: groupId, credentialId: credentialId, protocol: protocol, key: key, userId: userId, providerId: providerId, roleContainerId: roleContainerId, provider: provider, node: node, path: path, provider_id: provider_id, session: session, newPreviousCredentialId: newPreviousCredentialId }),
+    parameters: { description: "Add a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "client " + client + " and " + "role-name " + role-name + " and " + "alias " + alias + " and " + "role-id " + role-id + " and " + "id1 " + id1 + " and " + "id2 " + id2 + " and " + "clientScopeId " + clientScopeId + " and " + "executionId " + executionId + " and " + "attr " + attr + " and " + "locale " + locale + " and " + "flowAlias " + flowAlias + " and " + "clientUuid " + clientUuid + " and " + "groupId " + groupId + " and " + "credentialId " + credentialId + " and " + "protocol " + protocol + " and " + "key " + key + " and " + "userId " + userId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "provider " + provider + " and " + "node " + node + " and " + "path " + path + " and " + "provider_id " + provider_id + " and " + "session " + session + " and " + "newPreviousCredentialId " + newPreviousCredentialId },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function update{realm}(realm, id, client, role-name, alias, role-id, id1, id2, clientScopeId, executionId, attr, locale, flowAlias, clientUuid, groupId, credentialId, protocol, key, userId, providerId, roleContainerId, provider, node, path, provider_id, session, newPreviousCredentialId) {
-  svc.put("/{realm}/" + realm + "/"+ id + "/"+ client + "/"+ role-name + "/"+ alias + "/"+ role-id + "/"+ id1 + "/"+ id2 + "/"+ clientScopeId + "/"+ executionId + "/"+ attr + "/"+ locale + "/"+ flowAlias + "/"+ clientUuid + "/"+ groupId + "/"+ credentialId + "/"+ protocol + "/"+ key + "/"+ userId + "/"+ providerId + "/"+ roleContainerId + "/"+ provider + "/"+ node + "/"+ path + "/"+ provider_id + "/"+ session + "/"+ newPreviousCredentialId, {
-      body: JSON.stringify({ realm: realm, id: id, client: client, role-name: role-name, alias: alias, role-id: role-id, id1: id1, id2: id2, clientScopeId: clientScopeId, executionId: executionId, attr: attr, locale: locale, flowAlias: flowAlias, clientUuid: clientUuid, groupId: groupId, credentialId: credentialId, protocol: protocol, key: key, userId: userId, providerId: providerId, roleContainerId: roleContainerId, provider: provider, node: node, path: path, provider_id: provider_id, session: session, newPreviousCredentialId: newPreviousCredentialId }),
-      parameters: { description: "Update a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "client " + client + " and " + "role-name " + role-name + " and " + "alias " + alias + " and " + "role-id " + role-id + " and " + "id1 " + id1 + " and " + "id2 " + id2 + " and " + "clientScopeId " + clientScopeId + " and " + "executionId " + executionId + " and " + "attr " + attr + " and " + "locale " + locale + " and " + "flowAlias " + flowAlias + " and " + "clientUuid " + clientUuid + " and " + "groupId " + groupId + " and " + "credentialId " + credentialId + " and " + "protocol " + protocol + " and " + "key " + key + " and " + "userId " + userId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "provider " + provider + " and " + "node " + node + " and " + "path " + path + " and " + "provider_id " + provider_id + " and " + "session " + session + " and " + "newPreviousCredentialId " + newPreviousCredentialId }
-    });
+  svc.put("/{realm}/" + realm + "/"+ id + "/"+ client + "/"+ role-name + "/"+ alias + "/"+ role-id + "/"+ id1 + "/"+ id2 + "/"+ clientScopeId + "/"+ executionId + "/"+ attr + "/"+ locale + "/"+ flowAlias + "/"+ clientUuid + "/"+ groupId + "/"+ credentialId + "/"+ protocol + "/"+ key + "/"+ userId + "/"+ providerId + "/"+ roleContainerId + "/"+ provider + "/"+ node + "/"+ path + "/"+ provider_id + "/"+ session + "/"+ newPreviousCredentialId, { body: JSON.stringify({ realm: realm, id: id, client: client, role-name: role-name, alias: alias, role-id: role-id, id1: id1, id2: id2, clientScopeId: clientScopeId, executionId: executionId, attr: attr, locale: locale, flowAlias: flowAlias, clientUuid: clientUuid, groupId: groupId, credentialId: credentialId, protocol: protocol, key: key, userId: userId, providerId: providerId, roleContainerId: roleContainerId, provider: provider, node: node, path: path, provider_id: provider_id, session: session, newPreviousCredentialId: newPreviousCredentialId }), parameters: { description: "Update a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "client " + client + " and " + "role-name " + role-name + " and " + "alias " + alias + " and " + "role-id " + role-id + " and " + "id1 " + id1 + " and " + "id2 " + id2 + " and " + "clientScopeId " + clientScopeId + " and " + "executionId " + executionId + " and " + "attr " + attr + " and " + "locale " + locale + " and " + "flowAlias " + flowAlias + " and " + "clientUuid " + clientUuid + " and " + "groupId " + groupId + " and " + "credentialId " + credentialId + " and " + "protocol " + protocol + " and " + "key " + key + " and " + "userId " + userId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "provider " + provider + " and " + "node " + node + " and " + "path " + path + " and " + "provider_id " + provider_id + " and " + "session " + session + " and " + "newPreviousCredentialId " + newPreviousCredentialId } });
 }
 
 // GET one

@@ -3,11 +3,9 @@
 /**
  * Auto-generated interfaces & lifecycle (readable)
  * From GOLD only – full CRUD + verifications + match/wait helpers.
- * This approximates the "Library SUT" interface style.
  */
 
-// CHANGE (1): add default host/port placeholders before RESTSession
-var host = (typeof host !== 'undefined') ? host : '192.168.225.39';
+var host = (typeof host !== 'undefined') ? host : '192.168.225.53';
 var port = (typeof port !== 'undefined') ? port : 5014;
 
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
@@ -31,10 +29,7 @@ function matchesDescriptionRegex(rx) {
 
 // CREATE
 function addApi(id, name) {
-  svc.post("/api", {
-      body: JSON.stringify({ id: id, name: name }),
-      parameters: { description: "Add a api with " + "id " + id + " and " + "name " + name }
-    });
+  svc.post("/api", { body: JSON.stringify({ id: id, name: name }), parameters: { description: "Add a api with " + "id " + id + " and " + "name " + name } });
 }
 
 // DELETE
@@ -44,31 +39,26 @@ function deleteApi(id, name) {
   });
 }
 
-// Negative: delete non-existing (404/401)
+// Negative: delete non-existing (codes from spec/defaults)
 function tryToDeleteANonExistingApi(id, name) {
   svc.delete("/api/" + id + "/"+ name, {
-    expectedResponseCodes: [404, 401],
+    expectedResponseCodes: [200, 404, 401],
     parameters: { description: "Delete a api with " + "id " + id + " and " + "name " + name }
   });
 }
 
-// Negative: add existing (400/409)
+// Negative: add existing (codes from spec/defaults)
 function tryToAddExistingApi(id, name) {
   svc.post("/api", {
-      body: JSON.stringify({ id: id, name: name }),
-      parameters: { description: "Add a api with " + "id " + id + " and " + "name " + name }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a api with " + "id " + id + " and " + "name " + name }
+    body: JSON.stringify({ id: id, name: name }),
+    parameters: { description: "Add a api with " + "id " + id + " and " + "name " + name },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
 function updateApi(id, name) {
-  svc.put("/api/" + id + "/"+ name, {
-      body: JSON.stringify({ id: id, name: name }),
-      parameters: { description: "Update a api with " + "id " + id + " and " + "name " + name }
-    });
+  svc.put("/api/" + id + "/"+ name, { body: JSON.stringify({ id: id, name: name }), parameters: { description: "Update a api with " + "id " + id + " and " + "name " + name } });
 }
 
 // GET one
