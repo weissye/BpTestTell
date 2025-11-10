@@ -1,0 +1,24 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/invites"
+    },
+    {
+      "method": "POST",
+      "path": "/mobile_push/register"
+    },
+    {
+      "method": "GET",
+      "path": "/reminders"
+    },
+    {
+      "method": "POST",
+      "path": "/user_groups/create"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/presence"
+    }
+  ]
+}

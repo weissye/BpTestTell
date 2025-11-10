@@ -1,0 +1,16 @@
+{
+  "ops": [
+    {
+      "method": "PATCH",
+      "path": "/experimental-features"
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/displayed-attributes"
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/stop-words"
+    }
+  ]
+}

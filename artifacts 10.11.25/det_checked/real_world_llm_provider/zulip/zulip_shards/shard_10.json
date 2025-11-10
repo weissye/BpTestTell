@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/default_streams"
+    },
+    {
+      "method": "POST",
+      "path": "/messages/flags"
+    },
+    {
+      "method": "POST",
+      "path": "/realm/filters"
+    },
+    {
+      "method": "POST",
+      "path": "/scheduled_messages"
+    },
+    {
+      "method": "GET",
+      "path": "/user_uploads/{realm_id_str}/{filename}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/{email}"
+    }
+  ]
+}

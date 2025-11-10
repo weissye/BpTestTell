@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/features",
+      "method": "GET",
+      "operationId": "getFeaturesForProject",
+      "summary": "",
+      "user": "Project Manager",
+      "ideal": "Retrieve a list of features enabled for the specified project to assess current capabilities and plan future enhancements."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/features/{featureKey}",
+      "method": "PUT",
+      "operationId": "toggleFeatureForProject",
+      "summary": "",
+      "user": "Developer",
+      "ideal": "Toggle the specified feature on or off for the project to enable or disable functionality based on current development needs."
+    }
+  ]
+}

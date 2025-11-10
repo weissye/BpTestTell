@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/component",
+      "method": "GET",
+      "operationId": "findComponentsForProjects",
+      "summary": "",
+      "user": "A project manager looking to retrieve all components associated with their projects to ensure proper organization and management.",
+      "ideal": "Retrieve a list of components for the specified projects."
+    },
+    {
+      "path": "/rest/api/3/component",
+      "method": "POST",
+      "operationId": "createComponent",
+      "summary": "",
+      "user": "A developer who needs to create a new component for a project to better organize the codebase.",
+      "ideal": "Create a new component with the specified details."
+    },
+    {
+      "path": "/rest/api/3/component/{id}",
+      "method": "DELETE",
+      "operationId": "deleteComponent",
+      "summary": "",
+      "user": "A project administrator who wants to remove an obsolete component from the project.",
+      "ideal": "Delete the specified component from the project."
+    },
+    {
+      "path": "/rest/api/3/component/{id}",
+      "method": "GET",
+      "operationId": "getComponent",
+      "summary": "",
+      "user": "A team member needing to view the details of a specific component to understand its purpose and usage.",
+      "ideal": "Retrieve the details of the specified component."
+    },
+    {
+      "path": "/rest/api/3/component/{id}",
+      "method": "PUT",
+      "operationId": "updateComponent",
+      "summary": "",
+      "user": "A developer who needs to update the details of an existing component to reflect recent changes.",
+      "ideal": "Update the specified component with new information."
+    },
+    {
+      "path": "/rest/api/3/component/{id}/relatedIssueCounts",
+      "method": "GET",
+      "operationId": "getComponentRelatedIssues",
+      "summary": "",
+      "user": "A project manager wanting to see how many issues are related to a specific component for better resource allocation.",
+      "ideal": "Retrieve the count of issues related to the specified component."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/component",
+      "method": "GET",
+      "operationId": "getProjectComponentsPaginated",
+      "summary": "",
+      "user": "A developer who needs to view components for a specific project but wants to paginate through the results for easier navigation.",
+      "ideal": "Retrieve a paginated list of components for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/components",
+      "method": "GET",
+      "operationId": "getProjectComponents",
+      "summary": "",
+      "user": "A project lead who needs to see all components in a project at once for a comprehensive overview.",
+      "ideal": "Retrieve a complete list of components for the specified project."
+    }
+  ]
+}

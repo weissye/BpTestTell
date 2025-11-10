@@ -1,0 +1,72 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/admin/runners/registration-token"
+    },
+    {
+      "method": "POST",
+      "path": "/markup"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/avatar"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/teams"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/archive/{archive}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/compare/{basehead}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/hooks/git/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{index}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{index}/pin"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/labels/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/pulls/{index}/merge"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases/tags/{tag}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/tags"
+    },
+    {
+      "method": "GET",
+      "path": "/settings/api"
+    },
+    {
+      "method": "GET",
+      "path": "/user/actions/variables/{variablename}"
+    },
+    {
+      "method": "GET",
+      "path": "/user/gpg_keys"
+    },
+    {
+      "method": "GET",
+      "path": "/user/teams"
+    }
+  ]
+}

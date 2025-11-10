@@ -1,0 +1,36 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/extensions",
+      "method": "GET",
+      "tags": [
+        "Extensions"
+      ],
+      "summary": "List Extensions",
+      "operationId": "listExtensions"
+    },
+    {
+      "path": "/extensions/{name}",
+      "method": "PATCH",
+      "tags": [
+        "Extensions"
+      ],
+      "summary": "Update an Extension",
+      "operationId": "updateExtensions"
+    },
+    {
+      "path": "/extensions/{bundle}/{name}",
+      "method": "PATCH",
+      "tags": [
+        "Extensions"
+      ],
+      "summary": "Update an Extension",
+      "operationId": "updateExtensionBundle"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "entities": [],
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/reset",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/customers",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/accounts",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/accounts",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/accounts/{accountId}/transactions",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/transfers",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/cards",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/loans",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/loans",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    }
+  ]
+}

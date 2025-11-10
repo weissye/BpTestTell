@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateIncomingPhoneNumber",
+      "summary": "",
+      "user": "User wants to update the voice URL for an existing incoming phone number to redirect calls to a new endpoint.",
+      "ideal": "The incoming phone number is successfully updated with the new voice URL."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchIncomingPhoneNumber",
+      "summary": "",
+      "user": "User needs to retrieve details of a specific incoming phone number to check its current configuration.",
+      "ideal": "The details of the specified incoming phone number are returned successfully."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteIncomingPhoneNumber",
+      "summary": "",
+      "user": "User wants to delete an incoming phone number that is no longer needed for their application.",
+      "ideal": "The incoming phone number is successfully deleted and no longer appears in the account."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumber",
+      "summary": "",
+      "user": "User wants to list all incoming phone numbers associated with their account to manage them effectively.",
+      "ideal": "A list of all incoming phone numbers associated with the account is returned."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "method": "POST",
+      "operationId": "CreateIncomingPhoneNumber",
+      "summary": "",
+      "user": "User wants to purchase a new incoming phone number for their business to handle customer calls.",
+      "ideal": "The new incoming phone number is successfully created and available for use."
+    }
+  ]
+}

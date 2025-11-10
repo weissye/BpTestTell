@@ -74,7 +74,8 @@ echo ============================================
 for %%P in (%PROVIDERS%) do (
   set "PROVIDER=%%P"
   set "SUT_DIR=artifacts\hls_nondet\!PROVIDER!\!SUT!"
-  set "JSON=!SUT_DIR!\hls_nondet_gold.json"
+rem  set "JSON=!SUT_DIR!\hls_nondet_gold.json"
+  set "JSON=!SUT_DIR!\hls_gold.json"
   set "OUTJS=!SUT_DIR!\readable\stories_hls.js"
 
   echo [DBG] Provider="!PROVIDER!"  SUT="!SUT!"

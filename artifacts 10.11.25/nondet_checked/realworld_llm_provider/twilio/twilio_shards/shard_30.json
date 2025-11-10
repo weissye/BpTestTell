@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401IncomingPhoneNumber"
+      ],
+      "summary": "Update an incoming-phone-number instance.",
+      "operationId": "UpdateIncomingPhoneNumber"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401IncomingPhoneNumber"
+      ],
+      "summary": "Fetch an incoming-phone-number belonging to the account used to make the request.",
+      "operationId": "FetchIncomingPhoneNumber"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401IncomingPhoneNumber"
+      ],
+      "summary": "Delete a phone-numbers belonging to the account used to make the request.",
+      "operationId": "DeleteIncomingPhoneNumber"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401IncomingPhoneNumber"
+      ],
+      "summary": "Retrieve a list of incoming-phone-numbers belonging to the account used to make the request.",
+      "operationId": "ListIncomingPhoneNumber"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401IncomingPhoneNumber"
+      ],
+      "summary": "Purchase a phone-number for the account.",
+      "operationId": "CreateIncomingPhoneNumber"
+    }
+  ]
+}

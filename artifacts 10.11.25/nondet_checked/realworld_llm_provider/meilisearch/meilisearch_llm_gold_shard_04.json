@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/indexes/myIndex/facet-search",
+      "method": "POST",
+      "operationId": "indexes.documents.facet.search",
+      "summary": "",
+      "user": "User wants to perform a facet search on the 'myIndex' index to filter results based on specific criteria. They are looking for documents that match certain facets, such as categories or tags, to refine their search results effectively.",
+      "ideal": "The API should return a list of documents that match the specified facets, along with the total number of results and any relevant metadata."
+    }
+  ]
+}

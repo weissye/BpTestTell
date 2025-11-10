@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/permissionscheme",
+      "method": "GET",
+      "operationId": "getAllPermissionSchemes",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all permission schemes to understand the access levels across different projects.",
+      "ideal": "The API should return a list of all permission schemes with their details, including scheme IDs and names."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme",
+      "method": "POST",
+      "operationId": "createPermissionScheme",
+      "summary": "",
+      "user": "As an admin, I want to create a new permission scheme to manage user access for a new project.",
+      "ideal": "The API should create a new permission scheme and return the details of the created scheme, including its ID."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme/{schemeId}",
+      "method": "DELETE",
+      "operationId": "deletePermissionScheme",
+      "summary": "",
+      "user": "As an admin, I want to delete an existing permission scheme that is no longer needed.",
+      "ideal": "The API should confirm the deletion of the permission scheme and return a success message."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme/{schemeId}",
+      "method": "GET",
+      "operationId": "getPermissionScheme",
+      "summary": "",
+      "user": "As a developer, I want to view the details of a specific permission scheme to understand its configuration.",
+      "ideal": "The API should return the details of the specified permission scheme, including its permissions and associated projects."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme/{schemeId}",
+      "method": "PUT",
+      "operationId": "updatePermissionScheme",
+      "summary": "",
+      "user": "As an admin, I want to update an existing permission scheme to modify user access levels.",
+      "ideal": "The API should update the permission scheme and return the updated details, confirming the changes."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission",
+      "method": "GET",
+      "operationId": "getPermissionSchemeGrants",
+      "summary": "",
+      "user": "As a project lead, I want to see all permission grants associated with a specific permission scheme.",
+      "ideal": "The API should return a list of all permission grants for the specified permission scheme."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission",
+      "method": "POST",
+      "operationId": "createPermissionGrant",
+      "summary": "",
+      "user": "As an admin, I want to add a new permission grant to a permission scheme to enhance user access.",
+      "ideal": "The API should create the new permission grant and return its details, including the grant ID."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission/{permissionId}",
+      "method": "DELETE",
+      "operationId": "deletePermissionSchemeEntity",
+      "summary": "",
+      "user": "As an admin, I want to remove a specific permission grant from a permission scheme.",
+      "ideal": "The API should confirm the deletion of the permission grant and return a success message."
+    },
+    {
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission/{permissionId}",
+      "method": "GET",
+      "operationId": "getPermissionSchemeGrant",
+      "summary": "",
+      "user": "As a project manager, I want to view the details of a specific permission grant to ensure it is correctly configured.",
+      "ideal": "The API should return the details of the specified permission grant, including its permissions and associated roles."
+    }
+  ]
+}

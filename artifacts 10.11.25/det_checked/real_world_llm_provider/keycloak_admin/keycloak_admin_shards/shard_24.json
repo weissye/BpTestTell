@@ -1,0 +1,56 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/executions/{executionId}/raise-priority"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/client-policies/policies"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/client-scopes/{id}/scope-mappings/realm"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/client-templates/{id}/scope-mappings/realm"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/clients/{id}/default-client-scopes"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/clients/{id}/registration-access-token"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/clients/{id}/scope-mappings/realm/available"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/events/config"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/identity-provider/import-config"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/logout-all"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/roles/{role-name}/groups"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/users/{id}/disable-credential-types"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/users/{id}/role-mappings/realm/composite"
+    }
+  ]
+}

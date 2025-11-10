@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "DELETE",
+      "path": "/collections/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/files/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/operations"
+    },
+    {
+      "method": "GET",
+      "path": "/relations/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me"
+    },
+    {
+      "method": "POST",
+      "path": "/versions/{id}/save"
+    }
+  ]
+}

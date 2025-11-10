@@ -1,8 +1,12 @@
 {
   "ops": [
     {
-      "method": "POST",
-      "path": "/patients"
+      "method": "GET",
+      "path": "/inventory"
+    },
+    {
+      "method": "GET",
+      "path": "/reset/{id}"
     }
   ]
 }

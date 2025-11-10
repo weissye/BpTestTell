@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/type",
+      "method": "GET",
+      "operationId": "getAllProjectTypes",
+      "summary": "",
+      "user": "A project manager looking to understand all available project types in Jira to better categorize their team's work.",
+      "ideal": "Returns a list of all project types available in the Jira Cloud platform."
+    },
+    {
+      "path": "/rest/api/3/project/type/accessible",
+      "method": "GET",
+      "operationId": "getAllAccessibleProjectTypes",
+      "summary": "",
+      "user": "A team member who needs to know which project types they can create or access based on their permissions.",
+      "ideal": "Returns a list of project types that the user has access to, ensuring they can only see relevant options."
+    },
+    {
+      "path": "/rest/api/3/project/type/{projectTypeKey}",
+      "method": "GET",
+      "operationId": "getProjectTypeByKey",
+      "summary": "",
+      "user": "A developer who wants to retrieve detailed information about a specific project type using its key.",
+      "ideal": "Returns detailed information about the specified project type, including its name and description."
+    },
+    {
+      "path": "/rest/api/3/project/type/{projectTypeKey}/accessible",
+      "method": "GET",
+      "operationId": "getAccessibleProjectTypeByKey",
+      "summary": "",
+      "user": "An administrator checking if a specific project type is accessible to a certain user or group.",
+      "ideal": "Returns accessibility information for the specified project type, indicating whether the user has permission to access it."
+    }
+  ]
+}

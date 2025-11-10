@@ -1,0 +1,104 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/rest/api/3/auditing/record"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/configuration"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/data-policy"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/{fieldId}/context/{contextId}/option"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/fieldconfiguration/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/filter/{id}/favourite"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/createmeta/{projectIdOrKey}/issuetypes/{issueTypeId}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/{worklogId}/properties"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuesecurityschemes/{schemeId}"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/jql/sanitize"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/permissionscheme/{schemeId}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/priority"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/type"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project/{projectIdOrKey}/restore"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/projectvalidate/validProjectKey"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/screens/tabs"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/settings/columns"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/universal_avatar/view/type/{type}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/search"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflowscheme"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{id}/draft/workflow"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/forge/1/app/properties/{propertyKey}"
+    }
+  ]
+}

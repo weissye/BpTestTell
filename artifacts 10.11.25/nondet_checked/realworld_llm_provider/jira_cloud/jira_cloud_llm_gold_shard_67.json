@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/ABC/properties",
+      "method": "GET",
+      "operationId": "getProjectPropertyKeys",
+      "summary": "",
+      "user": "User wants to retrieve all property keys associated with the project identified by 'ABC'.",
+      "ideal": "Returns a list of property keys for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/ABC/properties/customKey",
+      "method": "DELETE",
+      "operationId": "deleteProjectProperty",
+      "summary": "",
+      "user": "User intends to delete a specific property with the key 'customKey' from project 'ABC'.",
+      "ideal": "Successfully deletes the property and returns a confirmation message."
+    },
+    {
+      "path": "/rest/api/3/project/ABC/properties/customKey",
+      "method": "GET",
+      "operationId": "getProjectProperty",
+      "summary": "",
+      "user": "User wants to fetch the value of the property identified by 'customKey' for project 'ABC'.",
+      "ideal": "Returns the value associated with 'customKey' for the specified project."
+    },
+    {
+      "path": "/rest/api/3/project/ABC/properties/customKey",
+      "method": "PUT",
+      "operationId": "setProjectProperty",
+      "summary": "",
+      "user": "User is updating the property 'customKey' for project 'ABC' with a new value.",
+      "ideal": "Successfully updates the property and returns the updated property details."
+    }
+  ]
+}

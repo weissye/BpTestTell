@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/assets/123",
+      "method": "GET",
+      "operationId": "getAsset",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the asset with ID 123, which should return the asset details including its metadata, URL, and associated fields."
+    },
+    {
+      "path": "/assets/456",
+      "method": "GET",
+      "operationId": "getAsset",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Fetch the asset with ID 456 to display its information in the asset management interface, ensuring that all relevant data is included."
+    },
+    {
+      "path": "/assets/789",
+      "method": "GET",
+      "operationId": "getAsset",
+      "summary": "",
+      "user": "viewer",
+      "ideal": "Access the asset with ID 789 to view its details, ensuring that the response includes the asset's name, type, and any available previews."
+    }
+  ]
+}

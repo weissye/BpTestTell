@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/indexes/my_index/stats",
+      "method": "GET",
+      "operationId": "indexes.stats.get",
+      "summary": "",
+      "user": "A developer wants to check the statistics of the 'my_index' index in Meilisearch to monitor its performance and usage.",
+      "ideal": "The response should include the number of documents, number of searchable documents, and the last update timestamp."
+    },
+    {
+      "path": "/stats",
+      "method": "GET",
+      "operationId": "stats.list",
+      "summary": "",
+      "user": "An administrator is interested in retrieving the overall statistics of the Meilisearch instance to assess its health and usage metrics.",
+      "ideal": "The response should provide total number of indexes, total number of documents, and the total number of queries processed."
+    },
+    {
+      "path": "/metrics",
+      "method": "GET",
+      "operationId": "metrics.get",
+      "summary": "",
+      "user": "A data analyst wants to obtain metrics from Meilisearch to analyze query performance and response times for optimization purposes.",
+      "ideal": "The response should include metrics such as average query response time, number of queries per second, and error rates."
+    }
+  ]
+}

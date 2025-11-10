@@ -1,0 +1,153 @@
+{
+  "openapi_meta": {
+    "title": "Trello",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/checklists",
+      "method": "POST",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "addChecklists()",
+      "operationId": "addChecklists"
+    },
+    {
+      "path": "/checklists/{idChecklist}",
+      "method": "DELETE",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "deleteChecklistsByIdChecklist()",
+      "operationId": "deleteChecklistsByIdChecklist"
+    },
+    {
+      "path": "/checklists/{idChecklist}",
+      "method": "GET",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "getChecklistsByIdChecklist()",
+      "operationId": "getChecklistsByIdChecklist"
+    },
+    {
+      "path": "/checklists/{idChecklist}",
+      "method": "PUT",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "updateChecklistsByIdChecklist()",
+      "operationId": "updateChecklistsByIdChecklist"
+    },
+    {
+      "path": "/checklists/{idChecklist}/board",
+      "method": "GET",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "getChecklistsBoardByIdChecklist()",
+      "operationId": "getChecklistsBoardByIdChecklist"
+    },
+    {
+      "path": "/checklists/{idChecklist}/board/{field}",
+      "method": "GET",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "getChecklistsBoardByIdChecklistByField()",
+      "operationId": "getChecklistsBoardByIdChecklistByField"
+    },
+    {
+      "path": "/checklists/{idChecklist}/cards",
+      "method": "GET",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "getChecklistsCardsByIdChecklist()",
+      "operationId": "getChecklistsCardsByIdChecklist"
+    },
+    {
+      "path": "/checklists/{idChecklist}/cards/{filter}",
+      "method": "GET",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "getChecklistsCardsByIdChecklistByFilter()",
+      "operationId": "getChecklistsCardsByIdChecklistByFilter"
+    },
+    {
+      "path": "/checklists/{idChecklist}/checkItems",
+      "method": "GET",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "getChecklistsCheckItemsByIdChecklist()",
+      "operationId": "getChecklistsCheckItemsByIdChecklist"
+    },
+    {
+      "path": "/checklists/{idChecklist}/checkItems",
+      "method": "POST",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "addChecklistsCheckItemsByIdChecklist()",
+      "operationId": "addChecklistsCheckItemsByIdChecklist"
+    },
+    {
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+      "method": "DELETE",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "deleteChecklistsCheckItemsByIdChecklistByIdCheckItem()",
+      "operationId": "deleteChecklistsCheckItemsByIdChecklistByIdCheckItem"
+    },
+    {
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+      "method": "GET",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "getChecklistsCheckItemsByIdChecklistByIdCheckItem()",
+      "operationId": "getChecklistsCheckItemsByIdChecklistByIdCheckItem"
+    },
+    {
+      "path": "/checklists/{idChecklist}/idCard",
+      "method": "PUT",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "updateChecklistsIdCardByIdChecklist()",
+      "operationId": "updateChecklistsIdCardByIdChecklist"
+    },
+    {
+      "path": "/checklists/{idChecklist}/name",
+      "method": "PUT",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "updateChecklistsNameByIdChecklist()",
+      "operationId": "updateChecklistsNameByIdChecklist"
+    },
+    {
+      "path": "/checklists/{idChecklist}/pos",
+      "method": "PUT",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "updateChecklistsPosByIdChecklist()",
+      "operationId": "updateChecklistsPosByIdChecklist"
+    },
+    {
+      "path": "/checklists/{idChecklist}/{field}",
+      "method": "GET",
+      "tags": [
+        "checklist"
+      ],
+      "summary": "getChecklistsByIdChecklistByField()",
+      "operationId": "getChecklistsByIdChecklistByField"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/groups",
+      "method": "GET",
+      "operationId": "getGroupsByRealm",
+      "summary": "",
+      "user": "Admin user requesting all groups in the 'myrealm' realm.",
+      "ideal": "Returns a list of groups in the specified realm."
+    },
+    {
+      "path": "/myrealm/groups",
+      "method": "POST",
+      "operationId": "postGroups",
+      "summary": "",
+      "user": "Admin user creating a new group named 'Developers' in the 'myrealm' realm.",
+      "ideal": "Creates a new group and returns the created group's details."
+    },
+    {
+      "path": "/myrealm/groups/count",
+      "method": "GET",
+      "operationId": "getGroupsCountByRealm",
+      "summary": "",
+      "user": "Admin user checking the total number of groups in 'myrealm'.",
+      "ideal": "Returns the count of groups in the specified realm."
+    },
+    {
+      "path": "/myrealm/groups/12345",
+      "method": "GET",
+      "operationId": "getGroup",
+      "summary": "",
+      "user": "Admin user retrieving details of the group with ID '12345' in 'myrealm'.",
+      "ideal": "Returns the details of the specified group."
+    },
+    {
+      "path": "/myrealm/groups/12345",
+      "method": "PUT",
+      "operationId": "putGroupByRealmById",
+      "summary": "",
+      "user": "Admin user updating the group with ID '12345' to change its name to 'Senior Developers'.",
+      "ideal": "Updates the specified group and returns the updated group's details."
+    },
+    {
+      "path": "/myrealm/groups/12345",
+      "method": "DELETE",
+      "operationId": "deleteGroupByRealmById",
+      "summary": "",
+      "user": "Admin user deleting the group with ID '12345' from 'myrealm'.",
+      "ideal": "Deletes the specified group and confirms the deletion."
+    },
+    {
+      "path": "/myrealm/groups/12345/children",
+      "method": "POST",
+      "operationId": "postChildren",
+      "summary": "",
+      "user": "Admin user adding a child group to the group with ID '12345' in 'myrealm'.",
+      "ideal": "Adds a child group to the specified group and returns the updated group details."
+    },
+    {
+      "path": "/myrealm/groups/12345/management/permissions",
+      "method": "GET",
+      "operationId": "getGroupManagementPermissions",
+      "summary": "",
+      "user": "Admin user checking management permissions for the group with ID '12345'.",
+      "ideal": "Returns the management permissions for the specified group."
+    },
+    {
+      "path": "/myrealm/groups/12345/management/permissions",
+      "method": "PUT",
+      "operationId": "putGroupManagementPermissions",
+      "summary": "",
+      "user": "Admin user updating management permissions for the group with ID '12345'.",
+      "ideal": "Updates the management permissions for the specified group and returns the updated permissions."
+    },
+    {
+      "path": "/myrealm/groups/12345/members",
+      "method": "GET",
+      "operationId": "getMembers",
+      "summary": "",
+      "user": "Admin user retrieving members of the group with ID '12345' in 'myrealm'.",
+      "ideal": "Returns a list of members in the specified group."
+    }
+  ]
+}

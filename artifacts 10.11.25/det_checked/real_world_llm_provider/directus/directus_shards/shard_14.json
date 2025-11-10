@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/collections/{id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/files/{id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/operations"
+    },
+    {
+      "method": "PATCH",
+      "path": "/relations/{id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/me"
+    },
+    {
+      "method": "DELETE",
+      "path": "/webhooks"
+    }
+  ]
+}

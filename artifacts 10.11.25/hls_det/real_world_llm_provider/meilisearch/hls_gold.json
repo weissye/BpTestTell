@@ -1,0 +1,267 @@
+{
+  "kind": "hls_gold",
+  "deterministic": true,
+  "provider": "real_world_llm_provider",
+  "sut": "meilisearch",
+  "generated_at": "2025-11-09T13:50:07.637985Z",
+  "source": {
+    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\meilisearch\\graph.json",
+    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\meilisearch\\dsl_map.json"
+  },
+  "entities": [
+    {
+      "name": "_taskuid",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "cancel",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "delete",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "delete_batch",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "displayed_attribute",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "distinct_attribute",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "document",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "dump",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "experimental_feature",
+      "verbs": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "facet_search",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "faceting",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "fetch",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "filterable_attribute",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "health",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "indexe",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "key",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "metric",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "multi_search",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "pagination",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "ranking_rule",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "search",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "searchable_attribute",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "setting",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "snapshot",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "sortable_attribute",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "stat",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "stop_word",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "swap_indexe",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "synonym",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "task",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "typo_tolerance",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "version",
+      "verbs": [
+        "GET"
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "name": "CRUD _taskuid",
+      "desc": "Deterministic CRUD flow for entity '_taskuid' inferred from graph.",
+      "entity": "_taskuid",
+      "js": "// Deterministic CRUD flow for entity: _taskuid\nbp.registerBThread(\"HLS: CRUD _taskuid\", function () {\n  bp.sync({request: REST.GET(\"/tasks/:taskUid\", {})});\n  bp.sync({request: REST.GET(\"/tasks/:taskUid\", {})});\n});"
+    },
+    {
+      "name": "CRUD cancel",
+      "desc": "Deterministic CRUD flow for entity 'cancel' inferred from graph.",
+      "entity": "cancel",
+      "js": "// Deterministic CRUD flow for entity: cancel\nbp.registerBThread(\"HLS: CRUD cancel\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/tasks/cancel\", {})});\n});"
+    },
+    {
+      "name": "CRUD delete",
+      "desc": "Deterministic CRUD flow for entity 'delete' inferred from graph.",
+      "entity": "delete",
+      "js": "// Deterministic CRUD flow for entity: delete\nbp.registerBThread(\"HLS: CRUD delete\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/indexes/{indexUid}/documents/delete\", {})});\n});"
+    },
+    {
+      "name": "CRUD delete_batch",
+      "desc": "Deterministic CRUD flow for entity 'delete_batch' inferred from graph.",
+      "entity": "delete_batch",
+      "js": "// Deterministic CRUD flow for entity: delete_batch\nbp.registerBThread(\"HLS: CRUD delete_batch\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/indexes/{indexUid}/documents/delete-batch\", {})});\n});"
+    }
+  ]
+}

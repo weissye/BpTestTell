@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401SipIpAddress"
+      ],
+      "summary": "Read multiple IpAddress resources.",
+      "operationId": "ListSipIpAddress"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401SipIpAddress"
+      ],
+      "summary": "Create a new IpAddress resource.",
+      "operationId": "CreateSipIpAddress"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401SipIpAddress"
+      ],
+      "summary": "Read one IpAddress resource.",
+      "operationId": "FetchSipIpAddress"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401SipIpAddress"
+      ],
+      "summary": "Update an IpAddress resource.",
+      "operationId": "UpdateSipIpAddress"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401SipIpAddress"
+      ],
+      "summary": "Delete an IpAddress resource.",
+      "operationId": "DeleteSipIpAddress"
+    }
+  ]
+}

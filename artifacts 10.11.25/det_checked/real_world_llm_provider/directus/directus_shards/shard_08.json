@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/auth/password/request"
+    },
+    {
+      "method": "DELETE",
+      "path": "/files"
+    },
+    {
+      "method": "POST",
+      "path": "/items/{collection}"
+    },
+    {
+      "method": "GET",
+      "path": "/presets/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/users"
+    },
+    {
+      "method": "DELETE",
+      "path": "/versions/{id}"
+    }
+  ]
+}

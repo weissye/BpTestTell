@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/operations",
+      "method": "GET",
+      "operationId": "getOperations",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all operations available in the system."
+    },
+    {
+      "path": "/operations",
+      "method": "POST",
+      "operationId": "createOperation",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new operation with the specified parameters."
+    },
+    {
+      "path": "/operations",
+      "method": "PATCH",
+      "operationId": "updateOperations",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update multiple operations based on the provided criteria."
+    },
+    {
+      "path": "/operations",
+      "method": "DELETE",
+      "operationId": "deleteOperations",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete multiple operations from the system."
+    },
+    {
+      "path": "/operations/{id}",
+      "method": "GET",
+      "operationId": "getOperation",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve details of a specific operation by its ID."
+    },
+    {
+      "path": "/operations/{id}",
+      "method": "PATCH",
+      "operationId": "updateOperation",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Update a specific operation identified by its ID."
+    },
+    {
+      "path": "/operations/{id}",
+      "method": "DELETE",
+      "operationId": "deleteOperation",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Delete a specific operation identified by its ID."
+    }
+  ]
+}

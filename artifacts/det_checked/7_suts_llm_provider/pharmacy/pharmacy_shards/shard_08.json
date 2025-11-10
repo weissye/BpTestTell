@@ -1,8 +1,8 @@
 {
   "ops": [
     {
-      "method": "POST",
-      "path": "/reset"
+      "method": "DELETE",
+      "path": "/inventory/{ndc}"
     }
   ]
 }

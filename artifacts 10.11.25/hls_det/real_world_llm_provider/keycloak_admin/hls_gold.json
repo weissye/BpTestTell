@@ -1,0 +1,730 @@
+{
+  "kind": "hls_gold",
+  "deterministic": true,
+  "provider": "real_world_llm_provider",
+  "sut": "keycloak_admin",
+  "generated_at": "2025-11-09T13:50:07.307104Z",
+  "source": {
+    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\keycloak_admin\\graph.json",
+    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\keycloak_admin\\dsl_map.json"
+  },
+  "entities": [
+    {
+      "name": "add_model",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "admin_event",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "authenticator_provider",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "available",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "certificate",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "children",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "client",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "client_authenticator_provider",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "client_description_converter",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "client_scope",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "client_secret",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "client_session_stat",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "client_template",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "clients_initial_access",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "component",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "composite",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "config",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "config_description",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "configured_user_storage_credential_type",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "consent",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "copy",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "count",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "credential",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "credential_registrator",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "default_client_scope",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "default_default_client_scope",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "default_group",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "default_optional_client_scope",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "disable_credential_type",
+      "verbs": [
+        "PUT"
+      ]
+    },
+    {
+      "name": "download",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "event",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "execute_actions_email",
+      "verbs": [
+        "PUT"
+      ]
+    },
+    {
+      "name": "execution",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "export",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "federated_identity",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "flow",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "form_action_provider",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "form_provider",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "generate",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "generate_and_download",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "generate_example_access_token",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "generate_example_id_token",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "generate_example_userinfo",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "granted",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "group",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "group_by_path",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "impersonation",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "import_config",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "instance",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "item",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "key",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "localization",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "logout",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "logout_all",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "lower_priority",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "mapper",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "mapper_type",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "member",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "model",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "moveafter",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "movetofirst",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "node",
+      "verbs": [
+        "DELETE",
+        "POST"
+      ]
+    },
+    {
+      "name": "not_granted",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "offline_session",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "offline_session_count",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "optional_client_scope",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "partial_export",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "partialimport",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "per_client_config_description",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "permission",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "policy",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "profile",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "protocol",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "protocol_mapper",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "provider",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "push_revocation",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "raise_priority",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "realm",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "register_required_action",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "registration_access_token",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "required_action",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "reset_password",
+      "verbs": [
+        "PUT"
+      ]
+    },
+    {
+      "name": "reset_password_email",
+      "verbs": [
+        "PUT"
+      ]
+    },
+    {
+      "name": "role",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "role_mapping",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "roles_by_id",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "rotated",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "scope_mapping",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "send_verify_email",
+      "verbs": [
+        "PUT"
+      ]
+    },
+    {
+      "name": "service_account_user",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "session",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "session_count",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "sub_component_type",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "test_nodes_available",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "testsmtpconnection",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "unregistered_required_action",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "upload",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "upload_certificate",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "user",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "user_session",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "userlabel",
+      "verbs": [
+        "PUT"
+      ]
+    },
+    {
+      "name": "users_management_permission",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "name": "CRUD add_model",
+      "desc": "Deterministic CRUD flow for entity 'add_model' inferred from graph.",
+      "entity": "add_model",
+      "js": "// Deterministic CRUD flow for entity: add_model\nbp.registerBThread(\"HLS: CRUD add_model\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/{realm}/client-scopes/{id}/protocol-mappers/add-models\", {})});\n});"
+    },
+    {
+      "name": "CRUD admin_event",
+      "desc": "Deterministic CRUD flow for entity 'admin_event' inferred from graph.",
+      "entity": "admin_event",
+      "js": "// Deterministic CRUD flow for entity: admin_event\nbp.registerBThread(\"HLS: CRUD admin_event\", function () {\n  bp.sync({request: REST.GET(\"/{realm}/admin-events\", {})});\n  bp.sync({request: REST.GET(\"/{realm}/admin-events\", {})});\n  bp.sync({request: REST.DELETE(\"/{realm}/admin-events\", {})});\n});"
+    },
+    {
+      "name": "CRUD authenticator_provider",
+      "desc": "Deterministic CRUD flow for entity 'authenticator_provider' inferred from graph.",
+      "entity": "authenticator_provider",
+      "js": "// Deterministic CRUD flow for entity: authenticator_provider\nbp.registerBThread(\"HLS: CRUD authenticator_provider\", function () {\n  bp.sync({request: REST.GET(\"/{realm}/authentication/authenticator-providers\", {})});\n  bp.sync({request: REST.GET(\"/{realm}/authentication/authenticator-providers\", {})});\n});"
+    },
+    {
+      "name": "CRUD available",
+      "desc": "Deterministic CRUD flow for entity 'available' inferred from graph.",
+      "entity": "available",
+      "js": "// Deterministic CRUD flow for entity: available\nbp.registerBThread(\"HLS: CRUD available\", function () {\n  bp.sync({request: REST.GET(\"/{realm}/client-scopes/{id}/scope-mappings/clients/{client}/available\", {})});\n  bp.sync({request: REST.GET(\"/{realm}/client-scopes/{id}/scope-mappings/clients/{client}/available\", {})});\n});"
+    }
+  ]
+}

@@ -2,7 +2,11 @@
   "ops": [
     {
       "method": "GET",
-      "path": "/orders"
+      "path": "/drugs/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/reset-all"
     }
   ]
 }

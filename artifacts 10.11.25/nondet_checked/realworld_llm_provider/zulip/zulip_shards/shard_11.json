@@ -1,0 +1,189 @@
+{
+  "openapi_meta": {
+    "title": "Zulip REST API",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/realm/emoji/{emoji_name}",
+      "method": "POST",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Upload custom emoji",
+      "operationId": "upload-custom-emoji"
+    },
+    {
+      "path": "/realm/emoji/{emoji_name}",
+      "method": "DELETE",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Deactivate custom emoji",
+      "operationId": "deactivate-custom-emoji"
+    },
+    {
+      "path": "/realm/emoji",
+      "method": "GET",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Get all custom emoji",
+      "operationId": "get-custom-emoji"
+    },
+    {
+      "path": "/realm/presence",
+      "method": "GET",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Get presence of all users",
+      "operationId": "get-presence"
+    },
+    {
+      "path": "/realm/profile_fields",
+      "method": "GET",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Get all custom profile fields",
+      "operationId": "get-custom-profile-fields"
+    },
+    {
+      "path": "/realm/profile_fields",
+      "method": "PATCH",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Reorder custom profile fields",
+      "operationId": "reorder-custom-profile-fields"
+    },
+    {
+      "path": "/realm/profile_fields",
+      "method": "POST",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Create a custom profile field",
+      "operationId": "create-custom-profile-field"
+    },
+    {
+      "path": "/realm/user_settings_defaults",
+      "method": "PATCH",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Update realm-level defaults of user settings",
+      "operationId": "update-realm-user-settings-defaults"
+    },
+    {
+      "path": "/realm/linkifiers",
+      "method": "GET",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Get linkifiers",
+      "operationId": "get-linkifiers"
+    },
+    {
+      "path": "/realm/linkifiers",
+      "method": "PATCH",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Reorder linkifiers",
+      "operationId": "reorder-linkifiers"
+    },
+    {
+      "path": "/realm/filters",
+      "method": "POST",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Add a linkifier",
+      "operationId": "add-linkifier"
+    },
+    {
+      "path": "/realm/filters/{filter_id}",
+      "method": "DELETE",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Remove a linkifier",
+      "operationId": "remove-linkifier"
+    },
+    {
+      "path": "/realm/filters/{filter_id}",
+      "method": "PATCH",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Update a linkifier",
+      "operationId": "update-linkifier"
+    },
+    {
+      "path": "/realm/playgrounds",
+      "method": "POST",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Add a code playground",
+      "operationId": "add-code-playground"
+    },
+    {
+      "path": "/realm/playgrounds/{playground_id}",
+      "method": "DELETE",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Remove a code playground",
+      "operationId": "remove-code-playground"
+    },
+    {
+      "path": "/export/realm",
+      "method": "GET",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Get all data exports",
+      "operationId": "get-realm-exports"
+    },
+    {
+      "path": "/export/realm",
+      "method": "POST",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Create a data export",
+      "operationId": "export-realm"
+    },
+    {
+      "path": "/export/realm/consents",
+      "method": "GET",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Get data export consent state",
+      "operationId": "get-realm-export-consents"
+    },
+    {
+      "path": "/realm/test_welcome_bot_custom_message",
+      "method": "POST",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Test welcome bot custom message",
+      "operationId": "test-welcome-bot-custom-message"
+    },
+    {
+      "path": "/server_settings",
+      "method": "GET",
+      "tags": [
+        "server_and_organizations"
+      ],
+      "summary": "Get server settings",
+      "operationId": "get-server-settings"
+    }
+  ]
+}

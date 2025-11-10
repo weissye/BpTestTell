@@ -1,0 +1,16 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/documents/{documentId}"
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/ranking-rules"
+    },
+    {
+      "method": "POST",
+      "path": "/snapshots"
+    }
+  ]
+}

@@ -1064,3 +1064,176 @@ function verifyResetUpdated(id) {
   });
 }
 
+
+/** === Reset_all Operations === */
+
+// CREATE
+function addReset_all(id) {
+  svc.post("/reset_all", {
+      body: JSON.stringify({ id: id }),
+      parameters: { description: "Add a reset_all with " + "id " + id }
+    });
+}
+
+// DELETE
+function deleteReset_all(id) {
+  svc.delete("/reset_all/" + id, {
+    parameters: { description: "Delete a reset_all with " + "id " + id }
+  });
+}
+
+// Negative: delete non-existing (404/401)
+function tryToDeleteANonExistingReset_all(id) {
+  svc.delete("/reset_all/" + id, {
+    expectedResponseCodes: [404, 401],
+    parameters: { description: "Delete a reset_all with " + "id " + id }
+  });
+}
+
+// Negative: add existing (400/409)
+function tryToAddExistingReset_all(id) {
+  svc.post("/reset_all", {
+      body: JSON.stringify({ id: id }),
+      parameters: { description: "Add a reset_all with " + "id " + id }
+    , 
+    expectedResponseCodes: [400, 409],
+    parameters: { description: "Add a reset_all with " + "id " + id }
+  });
+}
+
+// UPDATE
+function updateReset_all(id) {
+  svc.put("/reset_all/" + id, {
+      body: JSON.stringify({ id: id }),
+      parameters: { description: "Update a reset_all with " + "id " + id }
+    });
+}
+
+// GET one
+function getReset_all(id) {
+  svc.get("/reset_all/" + id, {
+    parameters: { description: "Get a reset_all with " + "id " + id }
+  });
+}
+
+// LIST all
+function listReset_all() {
+  svc.get("/reset_all", {
+    parameters: { description: "List reset_all" }
+  });
+}
+
+// Verify exists (by list)
+function verifyReset_allExists(id) {
+  svc.get("/reset_all", {
+    callback: function (response) {
+      reset_all = JSON.parse(response.body);
+      for (let i = 0; i < reset_all.length; i++) {
+        if (reset_all[i].id === id) {
+          return pvg.success("Reset_all exists");
+        }
+      }
+      return pvg.fail("Expected a reset_all to exist but it does not");
+    },
+    parameters: { description: "Verify reset_all with " + "id " + id + " exists" }
+  });
+}
+
+// Verify NOT exists (by list)
+function verifyReset_allDoesNotExist(id) {
+  svc.get("/reset_all", {
+    callback: function (response) {
+      reset_all = JSON.parse(response.body);
+      for (let i = 0; i < reset_all.length; i++) {
+        if (reset_all[i].id === id) {
+          return pvg.fail("Expected a reset_all to not exist but it does");
+        }
+      }
+      return pvg.success("Reset_all does not exist");
+    },
+    parameters: { description: "Verify reset_all with " + "id " + id + " does not exist" }
+  });
+}
+
+// Match helpers
+function matchAnyAddReset_all() {
+  return bp.EventSet("any-add-reset_all", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Add a reset_all");
+  });
+}
+function matchAddReset_all(id) {
+  return bp.EventSet("add-reset_all", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Add a reset_all with " + "id " + id;
+  });
+}
+function matchAnyDeleteReset_all() {
+  return bp.EventSet("any-del-reset_all", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Delete a reset_all");
+  });
+}
+function matchDeleteReset_all(id) {
+  return bp.EventSet("del-reset_all", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Delete a reset_all with " + "id " + id;
+  });
+}
+
+// UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateReset_all() {
+  return bp.EventSet("any-update-reset_all", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a reset_all");
+  });
+}
+function matchUpdateReset_all(id) {
+  return bp.EventSet("update-reset_all", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a reset_all with " + "id " + id;
+  });
+}
+
+// Wait helpers
+function waitForAnyReset_allAdded() {
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ reset_all\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ reset_all\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+function waitForReset_allAdded(id) {
+  waitFor(matchAddReset_all(id));
+}
+function waitForReset_allDeleted(id) {
+  waitFor(matchDeleteReset_all(id));
+}
+function waitForAnyReset_allDeleted() {
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ reset_all\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ reset_all\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+function waitForReset_allUpdated(id) {
+  waitFor(matchUpdateReset_all(id));
+}
+function waitForAnyReset_allUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ reset_all\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ reset_all\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyReset_allUpdated(id) {
+  svc.get("/reset_all", {
+    callback: function (response) {
+      reset_all = JSON.parse(response.body);
+      for (let i = 0; i < reset_all.length; i++) {
+        if (reset_all[i].id === id) {
+          return pvg.success("Reset_all updated (present)");
+        }
+      }
+      return pvg.fail("Expected a reset_all to be present after update, but it is not");
+    },
+    parameters: { description: "Verify reset_all with " + "id " + id + " exists" }
+  });
+}
+

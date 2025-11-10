@@ -53,3 +53,12 @@ function lifecycle_reset(id) {
   deleteReset(id);
   verifyResetDoesNotExist(id);
 }
+
+function lifecycle_reset_all(id) {
+  try { tryToDeleteANonExistingReset_all(id); } catch (_e) {}
+  addReset_all(id);
+  verifyReset_allExists(id);
+  tryToAddExistingReset_all(id);
+  deleteReset_all(id);
+  verifyReset_allDoesNotExist(id);
+}

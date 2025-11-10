@@ -1,0 +1,16 @@
+{
+  "ops": [
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/documents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/pagination"
+    },
+    {
+      "method": "DELETE",
+      "path": "/keys/{uid_or_key}"
+    }
+  ]
+}

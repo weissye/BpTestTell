@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/app/field/context/configuration/list",
+      "method": "POST",
+      "operationId": "getCustomFieldsConfigurations",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve a list of custom field configurations for my Jira project so that I can ensure all fields are properly set up for my team's needs.",
+      "ideal": "The API should return a list of custom field configurations, including field IDs, names, and associated contexts."
+    },
+    {
+      "path": "/rest/api/3/app/field/{fieldIdOrKey}/context/configuration",
+      "method": "GET",
+      "operationId": "getCustomFieldConfiguration",
+      "summary": "",
+      "user": "As a developer, I need to fetch the configuration details of a specific custom field by its ID or key to understand its settings and how it integrates with our workflows.",
+      "ideal": "The API should return the configuration details for the specified custom field, including its context, options, and any validation rules."
+    },
+    {
+      "path": "/rest/api/3/app/field/{fieldIdOrKey}/context/configuration",
+      "method": "PUT",
+      "operationId": "updateCustomFieldConfiguration",
+      "summary": "",
+      "user": "As a system administrator, I want to update the configuration of a custom field to reflect new business requirements, ensuring that the field behaves correctly in our Jira instance.",
+      "ideal": "The API should successfully update the custom field configuration and return a confirmation message along with the updated configuration details."
+    }
+  ]
+}

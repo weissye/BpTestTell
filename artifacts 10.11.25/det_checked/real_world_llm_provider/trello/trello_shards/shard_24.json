@@ -1,0 +1,56 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/actions"
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/lists/{filter}"
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/powerUps"
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/attachments/{idAttachment}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/idMembers/{idMember}"
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/board"
+    },
+    {
+      "method": "POST",
+      "path": "/lists/{idList}/archiveAllCards"
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boardStars"
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/customStickers/{idCustomSticker}"
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/{field}"
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/actions"
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/org"
+    },
+    {
+      "method": "GET",
+      "path": "/tokens/{token}/webhooks/{idWebhook}"
+    }
+  ]
+}

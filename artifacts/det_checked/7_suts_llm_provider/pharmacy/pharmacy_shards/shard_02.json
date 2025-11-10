@@ -3,6 +3,10 @@
     {
       "method": "POST",
       "path": "/drugs"
+    },
+    {
+      "method": "GET",
+      "path": "/reset"
     }
   ]
 }

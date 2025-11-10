@@ -1,0 +1,20 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/dumps"
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/displayed-attributes"
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/stop-words"
+    },
+    {
+      "method": "GET",
+      "path": "/version"
+    }
+  ]
+}

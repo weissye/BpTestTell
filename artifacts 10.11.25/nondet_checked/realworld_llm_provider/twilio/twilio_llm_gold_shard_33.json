@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json",
+      "method": "GET",
+      "operationId": "ListIncomingPhoneNumberTollFree",
+      "summary": "",
+      "user": "As a Twilio account user, I want to retrieve a list of all my toll-free phone numbers so that I can manage them effectively.",
+      "ideal": "The API should return a JSON array of toll-free phone numbers associated with my account, including details such as the phone number, friendly name, and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json",
+      "method": "POST",
+      "operationId": "CreateIncomingPhoneNumberTollFree",
+      "summary": "",
+      "user": "As a Twilio account user, I want to create a new toll-free phone number so that I can use it for my business communications.",
+      "ideal": "The API should accept parameters for the toll-free number and return a JSON object containing the details of the newly created toll-free phone number, including its SID, friendly name, and status."
+    }
+  ]
+}

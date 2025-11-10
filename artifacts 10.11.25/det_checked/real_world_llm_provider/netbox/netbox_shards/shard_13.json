@@ -1,0 +1,196 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/api/circuits/circuit-groups/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/circuits/circuit-types/{id}/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/circuits/provider-networks/{id}/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/circuits/virtual-circuit-types/"
+    },
+    {
+      "method": "POST",
+      "path": "/api/core/background-tasks/{id}/stop/"
+    },
+    {
+      "method": "POST",
+      "path": "/api/dcim/cable-terminations/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/dcim/console-port-templates/{id}/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/dcim/console-server-ports/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/dcim/device-roles/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/devices/{id}/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/interface-templates/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/inventory-item-roles/{id}/"
+    },
+    {
+      "method": "POST",
+      "path": "/api/dcim/locations/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/dcim/module-bay-templates/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/module-type-profiles/{id}/"
+    },
+    {
+      "method": "POST",
+      "path": "/api/dcim/platforms/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/dcim/power-outlet-templates/{id}/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/dcim/power-port-templates/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/dcim/rack-roles/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/racks/{id}/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/dcim/regions/"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/dcim/sites/{id}/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/bookmarks/"
+    },
+    {
+      "method": "POST",
+      "path": "/api/extras/config-contexts/{id}/sync/"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/extras/custom-fields/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/event-rules/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/extras/journal-entries/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/extras/notifications/{id}/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/subscriptions/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/extras/tags/{id}/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/ipam/asn-ranges/{id}/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/ipam/fhrp-groups/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/ipam/ip-ranges/{id}/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/ipam/rirs/{id}/"
+    },
+    {
+      "method": "POST",
+      "path": "/api/ipam/service-templates/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/ipam/vlan-groups/{id}/available-vlans/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/ipam/vlans/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/tenancy/contact-assignments/{id}/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/tenancy/contacts/{id}/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/groups/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/tokens/{id}/"
+    },
+    {
+      "method": "POST",
+      "path": "/api/virtualization/cluster-types/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/virtualization/virtual-disks/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/vpn/ike-policies/{id}/"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/vpn/ipsec-profiles/"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/vpn/l2vpn-terminations/{id}/"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/vpn/tunnel-terminations/{id}/"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/wireless/wireless-lans/"
+    }
+  ]
+}

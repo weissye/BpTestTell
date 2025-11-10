@@ -18,7 +18,7 @@ def create_app():
     def _as_list(name):
         return list(stores[name].values())
 
-    def _ensure_id(payload, key):
+    def _ensure_key(payload, key):
         if not isinstance(payload, dict):
             return None
         v = payload.get(key)
@@ -34,15 +34,19 @@ def create_app():
     @app.post('/drugs')
     def add_drug():
         payload = request.get_json(force=True, silent=True) or {}
-        did = _ensure_id(payload, 'id') or _ensure_id(payload, 'ndc') or f"D{len(stores['drugs'])+1}"
-        stores['drugs'][did] = {'id': did, **{k: v for k, v in payload.items() if k != 'id'}}
+        did = _ensure_key(payload, 'id')
+        if not did:
+            return jsonify({'error': 'id is required'}), 400
+        if did in stores['drugs']:
+            return jsonify({'error': f'drug {did} already exists'}), 409
+        stores['drugs'][did] = {'id': did, **{k: v for k, v in payload.items()}}
         return jsonify(stores['drugs'][did]), 201
 
     @app.put('/drugs/<id>')
     def put_drug(id):
         payload = request.get_json(force=True, silent=True) or {}
         did = str(id)
-        data = {'id': did, **{k: v for k, v in payload.items() if k != 'id'}}
+        data = {'id': did, **{k: v for k, v in payload.items()}}
         stores['drugs'][did] = data
         return jsonify(data), 200
 
@@ -59,15 +63,19 @@ def create_app():
     @app.post('/patients')
     def add_patient():
         payload = request.get_json(force=True, silent=True) or {}
-        pid = _ensure_id(payload, 'id') or f"P{len(stores['patients'])+1}"
-        stores['patients'][pid] = {'id': pid, **{k: v for k, v in payload.items() if k != 'id'}}
+        pid = _ensure_key(payload, 'id')
+        if not pid:
+            return jsonify({'error': 'id is required'}), 400
+        if pid in stores['patients']:
+            return jsonify({'error': f'patient {pid} already exists'}), 409
+        stores['patients'][pid] = {'id': pid, **{k: v for k, v in payload.items()}}
         return jsonify(stores['patients'][pid]), 201
 
     @app.put('/patients/<id>')
     def put_patient(id):
         payload = request.get_json(force=True, silent=True) or {}
         pid = str(id)
-        data = {'id': pid, **{k: v for k, v in payload.items() if k != 'id'}}
+        data = {'id': pid, **{k: v for k, v in payload.items()}}
         stores['patients'][pid] = data
         return jsonify(data), 200
 
@@ -84,15 +92,19 @@ def create_app():
     @app.post('/orders')
     def add_order():
         payload = request.get_json(force=True, silent=True) or {}
-        oid = _ensure_id(payload, 'id') or f"O{len(stores['orders'])+1}"
-        stores['orders'][oid] = {'id': oid, **{k: v for k, v in payload.items() if k != 'id'}}
+        oid = _ensure_key(payload, 'id')
+        if not oid:
+            return jsonify({'error': 'id is required'}), 400
+        if oid in stores['orders']:
+            return jsonify({'error': f'order {oid} already exists'}), 409
+        stores['orders'][oid] = {'id': oid, **{k: v for k, v in payload.items()}}
         return jsonify(stores['orders'][oid]), 201
 
     @app.put('/orders/<id>')
     def put_order(id):
         payload = request.get_json(force=True, silent=True) or {}
         oid = str(id)
-        data = {'id': oid, **{k: v for k, v in payload.items() if k != 'id'}}
+        data = {'id': oid, **{k: v for k, v in payload.items()}}
         stores['orders'][oid] = data
         return jsonify(data), 200
 
@@ -109,15 +121,19 @@ def create_app():
     @app.post('/prescriptions')
     def add_prescription():
         payload = request.get_json(force=True, silent=True) or {}
-        rxid = _ensure_id(payload, 'id') or f"RX{len(stores['prescriptions'])+1}"
-        stores['prescriptions'][rxid] = {'id': rxid, **{k: v for k, v in payload.items() if k != 'id'}}
+        rxid = _ensure_key(payload, 'id')
+        if not rxid:
+            return jsonify({'error': 'id is required'}), 400
+        if rxid in stores['prescriptions']:
+            return jsonify({'error': f'prescription {rxid} already exists'}), 409
+        stores['prescriptions'][rxid] = {'id': rxid, **{k: v for k, v in payload.items()}}
         return jsonify(stores['prescriptions'][rxid]), 201
 
     @app.put('/prescriptions/<id>')
     def put_prescription(id):
         payload = request.get_json(force=True, silent=True) or {}
         rxid = str(id)
-        data = {'id': rxid, **{k: v for k, v in payload.items() if k != 'id'}}
+        data = {'id': rxid, **{k: v for k, v in payload.items()}}
         stores['prescriptions'][rxid] = data
         return jsonify(data), 200
 
@@ -134,15 +150,19 @@ def create_app():
     @app.post('/inventory')
     def add_inventory():
         payload = request.get_json(force=True, silent=True) or {}
-        ndc = _ensure_id(payload, 'ndc') or _ensure_id(payload, 'id') or f"I{len(stores['inventory'])+1}"
-        stores['inventory'][ndc] = {'ndc': ndc, **{k: v for k, v in payload.items() if k != 'ndc'}}
+        ndc = _ensure_key(payload, 'ndc')
+        if not ndc:
+            return jsonify({'error': 'ndc is required'}), 400
+        if ndc in stores['inventory']:
+            return jsonify({'error': f'inventory {ndc} already exists'}), 409
+        stores['inventory'][ndc] = {'ndc': ndc, **{k: v for k, v in payload.items()}}
         return jsonify(stores['inventory'][ndc]), 201
 
     @app.put('/inventory/<ndc>')
     def put_inventory(ndc):
         payload = request.get_json(force=True, silent=True) or {}
         key = str(ndc)
-        data = {'ndc': key, **{k: v for k, v in payload.items() if k != 'ndc'}}
+        data = {'ndc': key, **{k: v for k, v in payload.items()}}
         stores['inventory'][key] = data
         return jsonify(data), 200
 
@@ -151,7 +171,7 @@ def create_app():
         stores['inventory'].pop(str(ndc), None)
         return jsonify({'deleted': str(ndc)}), 200
 
-    # ---- RESET (treated like a regular collection for these stories) ----
+    # ---- RESET (kept as a collection with conflict semantics) ----
     @app.get('/reset')
     def list_resets():
         return jsonify(_as_list('reset')), 200
@@ -159,15 +179,19 @@ def create_app():
     @app.post('/reset')
     def add_reset():
         payload = request.get_json(force=True, silent=True) or {}
-        rid = _ensure_id(payload, 'id') or f"R{len(stores['reset'])+1}"
-        stores['reset'][rid] = {'id': rid, **{k: v for k, v in payload.items() if k != 'id'}}
-        return jsonify(stores['reset'][rid]), 200
+        rid = _ensure_key(payload, 'id')
+        if not rid:
+            return jsonify({'error': 'id is required'}), 400
+        if rid in stores['reset']:
+            return jsonify({'error': f'reset {rid} already exists'}), 409
+        stores['reset'][rid] = {'id': rid, **{k: v for k, v in payload.items()}}
+        return jsonify(stores['reset'][rid]), 201
 
     @app.put('/reset/<id>')
     def put_reset(id):
         payload = request.get_json(force=True, silent=True) or {}
         rid = str(id)
-        data = {'id': rid, **{k: v for k, v in payload.items() if k != 'id'}}
+        data = {'id': rid, **{k: v for k, v in payload.items()}}
         stores['reset'][rid] = data
         return jsonify(data), 200
 

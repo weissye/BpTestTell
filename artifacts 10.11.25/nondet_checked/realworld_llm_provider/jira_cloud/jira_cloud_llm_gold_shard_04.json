@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties",
+      "method": "GET",
+      "operationId": "AddonPropertiesResource.getAddonProperties_get",
+      "summary": "",
+      "user": "User requests to retrieve all properties for the specified addon.",
+      "ideal": "Returns a list of properties associated with the addon."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "method": "DELETE",
+      "operationId": "AddonPropertiesResource.deleteAddonProperty_delete",
+      "summary": "",
+      "user": "User wants to delete a specific property from the addon.",
+      "ideal": "Confirms the deletion of the specified property."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "method": "GET",
+      "operationId": "AddonPropertiesResource.getAddonProperty_get",
+      "summary": "",
+      "user": "User requests to get the value of a specific property for the addon.",
+      "ideal": "Returns the value of the specified property."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "method": "PUT",
+      "operationId": "AddonPropertiesResource.putAddonProperty_put",
+      "summary": "",
+      "user": "User wants to update the value of a specific property for the addon.",
+      "ideal": "Updates the property with the new value and confirms the update."
+    },
+    {
+      "path": "/rest/forge/1/app/properties",
+      "method": "GET",
+      "operationId": "getForgeAppPropertyKeys",
+      "summary": "",
+      "user": "User requests to retrieve all property keys for the Forge app.",
+      "ideal": "Returns a list of property keys associated with the Forge app."
+    },
+    {
+      "path": "/rest/forge/1/app/properties/my-property",
+      "method": "DELETE",
+      "operationId": "deleteForgeAppProperty",
+      "summary": "",
+      "user": "User wants to delete a specific property from the Forge app.",
+      "ideal": "Confirms the deletion of the specified property."
+    },
+    {
+      "path": "/rest/forge/1/app/properties/my-property",
+      "method": "GET",
+      "operationId": "getForgeAppProperty",
+      "summary": "",
+      "user": "User requests to get the value of a specific property for the Forge app.",
+      "ideal": "Returns the value of the specified property."
+    },
+    {
+      "path": "/rest/forge/1/app/properties/my-property",
+      "method": "PUT",
+      "operationId": "putForgeAppProperty",
+      "summary": "",
+      "user": "User wants to update the value of a specific property for the Forge app.",
+      "ideal": "Updates the property with the new value and confirms the update."
+    }
+  ]
+}

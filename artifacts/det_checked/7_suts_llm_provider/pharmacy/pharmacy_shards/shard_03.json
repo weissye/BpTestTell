@@ -1,8 +1,12 @@
 {
   "ops": [
     {
-      "method": "GET",
-      "path": "/inventory/{ndc}"
+      "method": "DELETE",
+      "path": "/drugs/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/reset"
     }
   ]
 }

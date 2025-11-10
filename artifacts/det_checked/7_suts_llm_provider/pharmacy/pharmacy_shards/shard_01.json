@@ -3,6 +3,10 @@
     {
       "method": "GET",
       "path": "/drugs"
+    },
+    {
+      "method": "PUT",
+      "path": "/prescriptions/{id}"
     }
   ]
 }

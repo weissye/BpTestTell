@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/activity",
+      "method": "GET",
+      "tags": [
+        "Activity"
+      ],
+      "summary": "List Activity Actions",
+      "operationId": "getActivities"
+    },
+    {
+      "path": "/activity/{id}",
+      "method": "GET",
+      "tags": [
+        "Activity"
+      ],
+      "summary": "Retrieve an Activity Action",
+      "operationId": "getActivity"
+    }
+  ]
+}

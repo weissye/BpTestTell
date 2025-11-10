@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/enterprises/my-enterprise/teams",
+      "method": "GET",
+      "operationId": "enterprise-teams/list",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve a list of all teams within the specified enterprise."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams",
+      "method": "POST",
+      "operationId": "enterprise-teams/create",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new team within the specified enterprise."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams/my-team",
+      "method": "GET",
+      "operationId": "enterprise-teams/get",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Get details of the specified team within the enterprise."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams/my-team",
+      "method": "PATCH",
+      "operationId": "enterprise-teams/update",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Update the details of the specified team within the enterprise."
+    },
+    {
+      "path": "/enterprises/my-enterprise/teams/my-team",
+      "method": "DELETE",
+      "operationId": "enterprise-teams/delete",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete the specified team from the enterprise."
+    }
+  ]
+}

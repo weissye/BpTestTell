@@ -1,0 +1,235 @@
+{
+  "gold": [
+    {
+      "op": {
+        "method": "POST",
+        "path": "/cars"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/cars"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/cars/{vin}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/cars/{vin}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/cars/{vin}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/chains"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/chains"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/chains/{chainId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/chains/{chainId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/chains/{chainId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/customers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/customers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/customers/{customerId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/customers/{customerId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/customers/{customerId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/garages"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/garages"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/garages/{garageId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/garages/{garageId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/garages/{garageId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/periodic-maintenance"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/periodic-maintenance"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/periodic-maintenance/{pmId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/periodic-maintenance/{pmId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/periodic-maintenance/{pmId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repair-orders"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repair-orders"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repair-orders/{roId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/repair-orders/{roId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repair-orders/{roId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repair-orders/{roId}/approve"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repair-orders/{roId}/close"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/reset"
+      },
+      "source": "openapi-det"
+    }
+  ]
+}

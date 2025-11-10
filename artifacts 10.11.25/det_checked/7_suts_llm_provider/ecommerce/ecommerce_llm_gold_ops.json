@@ -1,0 +1,36 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/drugs"
+    },
+    {
+      "method": "POST",
+      "path": "/drugs"
+    },
+    {
+      "method": "GET",
+      "path": "/inventory/{ndc}"
+    },
+    {
+      "method": "GET",
+      "path": "/orders"
+    },
+    {
+      "method": "POST",
+      "path": "/orders"
+    },
+    {
+      "method": "POST",
+      "path": "/patients"
+    },
+    {
+      "method": "POST",
+      "path": "/prescriptions"
+    },
+    {
+      "method": "POST",
+      "path": "/reset"
+    }
+  ]
+}

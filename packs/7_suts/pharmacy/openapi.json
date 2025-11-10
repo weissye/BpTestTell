@@ -1,74 +1,1002 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "pharmacy SUT",
-    "version": "1.0.0"
+    "title": "Pharmacy API (Option 3: Idempotent DELETE + Conflict on Duplicates)",
+    "version": "1.0.3",
+    "description": "CRUD demo API. POST enforces required key and returns 409 on duplicates (400 on missing key). DELETE is idempotent (200 even if not found). Suite starts with POST /reset-all."
   },
+  "servers": [
+    {
+      "url": "http://192.168.225.53:5014"
+    },
+    {
+      "url": "http://localhost:5014"
+    }
+  ],
+  "x-suite-setup": [
+    {
+      "method": "POST",
+      "path": "/reset-all"
+    }
+  ],
   "paths": {
-    "/reset": {
-      "post": {
+    "/drugs": {
+      "x-key": "id",
+      "get": {
+        "summary": "List drugs",
         "responses": {
           "200": {
-            "description": "ok"
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Drug"
+                  }
+                }
+              }
+            }
           }
         }
+      },
+      "post": {
+        "summary": "Create drug",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Drug"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Drug"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "missing required key (id) or malformed request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "duplicate drug (conflict)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-create-expected-codes": [
+          201,
+          200
+        ],
+        "x-duplicate-policy": "conflict",
+        "x-duplicate-expected-codes": [
+          409,
+          400
+        ]
+      }
+    },
+    "/drugs/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get drug",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Drug"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update drug",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Drug"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete drug (idempotent)",
+        "responses": {
+          "200": {
+            "description": "deleted or did not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Deleted"
+                }
+              }
+            }
+          }
+        },
+        "x-delete-idempotent": true,
+        "x-negative-delete-expected-codes": [
+          200,
+          404,
+          401
+        ]
       }
     },
     "/patients": {
-      "post": {
-        "responses": {
-          "201": {
-            "description": "created"
-          }
-        }
-      }
-    },
-    "/drugs": {
+      "x-key": "id",
       "get": {
+        "summary": "List patients",
         "responses": {
           "200": {
-            "description": "list"
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Patient"
+                  }
+                }
+              }
+            }
           }
         }
       },
       "post": {
+        "summary": "Create patient",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Patient"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
-            "description": "created"
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Patient"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "missing required key (id) or malformed request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "duplicate patient (conflict)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
-        }
+        },
+        "x-create-expected-codes": [
+          201,
+          200
+        ],
+        "x-duplicate-policy": "conflict",
+        "x-duplicate-expected-codes": [
+          409,
+          400
+        ]
       }
     },
-    "/prescriptions": {
-      "post": {
-        "responses": {
-          "201": {
-            "description": "created"
+    "/patients/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
           }
         }
+      ],
+      "get": {
+        "summary": "Get patient",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Patient"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update patient",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Patient"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete patient (idempotent)",
+        "responses": {
+          "200": {
+            "description": "deleted or did not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Deleted"
+                }
+              }
+            }
+          }
+        },
+        "x-delete-idempotent": true,
+        "x-negative-delete-expected-codes": [
+          200,
+          404,
+          401
+        ]
       }
     },
     "/orders": {
+      "x-key": "id",
       "get": {
+        "summary": "List orders",
         "responses": {
           "200": {
-            "description": "list"
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            }
           }
         }
       },
       "post": {
+        "summary": "Create order",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
-            "description": "created"
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "missing required key (id) or malformed request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "duplicate order (conflict)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-create-expected-codes": [
+          201,
+          200
+        ],
+        "x-duplicate-policy": "conflict",
+        "x-duplicate-expected-codes": [
+          409,
+          400
+        ]
+      }
+    },
+    "/orders/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
           }
         }
+      ],
+      "get": {
+        "summary": "Get order",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update order",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete order (idempotent)",
+        "responses": {
+          "200": {
+            "description": "deleted or did not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Deleted"
+                }
+              }
+            }
+          }
+        },
+        "x-delete-idempotent": true,
+        "x-negative-delete-expected-codes": [
+          200,
+          404,
+          401
+        ]
+      }
+    },
+    "/prescriptions": {
+      "x-key": "id",
+      "get": {
+        "summary": "List prescriptions",
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Prescription"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create prescription",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Prescription"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Prescription"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "missing required key (id) or malformed request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "duplicate prescription (conflict)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-create-expected-codes": [
+          201,
+          200
+        ],
+        "x-duplicate-policy": "conflict",
+        "x-duplicate-expected-codes": [
+          409,
+          400
+        ]
+      }
+    },
+    "/prescriptions/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get prescription",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Prescription"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update prescription",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Prescription"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete prescription (idempotent)",
+        "responses": {
+          "200": {
+            "description": "deleted or did not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Deleted"
+                }
+              }
+            }
+          }
+        },
+        "x-delete-idempotent": true,
+        "x-negative-delete-expected-codes": [
+          200,
+          404,
+          401
+        ]
+      }
+    },
+    "/inventory": {
+      "x-key": "ndc",
+      "get": {
+        "summary": "List inventory",
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Inventory"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create inventor",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InventoryCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Inventory"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "missing required key (ndc) or malformed request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "duplicate inventory (conflict)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-create-expected-codes": [
+          201,
+          200
+        ],
+        "x-duplicate-policy": "conflict",
+        "x-duplicate-expected-codes": [
+          409,
+          400
+        ]
       }
     },
     "/inventory/{ndc}": {
+      "parameters": [
+        {
+          "name": "ndc",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
+        "summary": "Get inventor",
         "responses": {
           "200": {
-            "description": "ok"
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Inventory"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update inventor",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Inventory"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete inventor (idempotent)",
+        "responses": {
+          "200": {
+            "description": "deleted or did not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Deleted"
+                }
+              }
+            }
+          }
+        },
+        "x-delete-idempotent": true,
+        "x-negative-delete-expected-codes": [
+          200,
+          404,
+          401
+        ]
+      }
+    },
+    "/reset": {
+      "x-key": "id",
+      "get": {
+        "summary": "List reset",
+        "responses": {
+          "200": {
+            "description": "list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Reset"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create rese",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Reset"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reset"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "missing required key (id) or malformed request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "duplicate reset (conflict)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-create-expected-codes": [
+          201,
+          200
+        ],
+        "x-duplicate-policy": "conflict",
+        "x-duplicate-expected-codes": [
+          409,
+          400
+        ]
+      }
+    },
+    "/reset/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get rese",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reset"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update rese",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Reset"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete rese (idempotent)",
+        "responses": {
+          "200": {
+            "description": "deleted or did not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Deleted"
+                }
+              }
+            }
+          }
+        },
+        "x-delete-idempotent": true,
+        "x-negative-delete-expected-codes": [
+          200,
+          404,
+          401
+        ]
+      }
+    },
+    "/reset-all": {
+      "post": {
+        "summary": "Clear all state",
+        "responses": {
+          "200": {
+            "description": "everything cleared",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ok"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Drug": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "Patient": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "Order": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "Prescription": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "Inventory": {
+        "type": "object",
+        "required": [
+          "ndc"
+        ],
+        "properties": {
+          "ndc": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "InventoryCreate": {
+        "type": "object",
+        "required": [
+          "ndc"
+        ],
+        "properties": {
+          "ndc": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "Reset": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "Deleted": {
+        "type": "object",
+        "properties": {
+          "deleted": {
+            "type": "string"
+          }
+        }
+      },
+      "Ok": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
           }
         }
       }

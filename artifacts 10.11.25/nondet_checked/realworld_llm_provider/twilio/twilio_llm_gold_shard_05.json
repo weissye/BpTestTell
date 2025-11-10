@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+      "method": "POST",
+      "operationId": "CreateApplication",
+      "summary": "",
+      "user": "A developer creating a new Twilio application to handle incoming calls and route them to a specific phone number.",
+      "ideal": "Successfully creates a new application with the specified parameters."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+      "method": "GET",
+      "operationId": "ListApplication",
+      "summary": "",
+      "user": "A system administrator wanting to retrieve a list of all Twilio applications associated with their account for management purposes.",
+      "ideal": "Returns a list of all applications with their details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteApplication",
+      "summary": "",
+      "user": "A developer who needs to remove an outdated Twilio application that is no longer in use.",
+      "ideal": "Successfully deletes the specified application and returns a confirmation."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchApplication",
+      "summary": "",
+      "user": "A product manager looking to fetch details of a specific Twilio application to review its configuration.",
+      "ideal": "Returns the details of the specified application."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateApplication",
+      "summary": "",
+      "user": "A developer updating the configuration of an existing Twilio application to change its webhook URL.",
+      "ideal": "Successfully updates the application with the new parameters."
+    }
+  ]
+}

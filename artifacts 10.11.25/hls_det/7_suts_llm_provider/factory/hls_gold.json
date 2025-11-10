@@ -1,0 +1,73 @@
+{
+  "kind": "hls_gold",
+  "deterministic": true,
+  "provider": "7_suts_llm_provider",
+  "sut": "factory",
+  "generated_at": "2025-11-09T13:49:33.319258Z",
+  "source": {
+    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\7_suts_llm_provider\\factory\\graph.json",
+    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\SUTs\\factory\\dsl_map.json"
+  },
+  "entities": [
+    {
+      "name": "machine",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "maintenance_ticket",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "reset",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "sensor_reading",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "workorder",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "name": "CRUD machine",
+      "desc": "Deterministic CRUD flow for entity 'machine' inferred from graph.",
+      "entity": "machine",
+      "js": "// Deterministic CRUD flow for entity: machine\nbp.registerBThread(\"HLS: CRUD machine\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/machines\", {})});\n  bp.sync({request: REST.GET(\"/machines\", {})});\n  bp.sync({request: REST.GET(\"/machines\", {})});\n});"
+    },
+    {
+      "name": "CRUD maintenance_ticket",
+      "desc": "Deterministic CRUD flow for entity 'maintenance_ticket' inferred from graph.",
+      "entity": "maintenance_ticket",
+      "js": "// Deterministic CRUD flow for entity: maintenance_ticket\nbp.registerBThread(\"HLS: CRUD maintenance_ticket\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/maintenance-tickets\", {})});\n  bp.sync({request: REST.GET(\"/maintenance-tickets\", {})});\n  bp.sync({request: REST.GET(\"/maintenance-tickets\", {})});\n});"
+    },
+    {
+      "name": "CRUD reset",
+      "desc": "Deterministic CRUD flow for entity 'reset' inferred from graph.",
+      "entity": "reset",
+      "js": "// Deterministic CRUD flow for entity: reset\nbp.registerBThread(\"HLS: CRUD reset\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/reset\", {})});\n});"
+    },
+    {
+      "name": "CRUD sensor_reading",
+      "desc": "Deterministic CRUD flow for entity 'sensor_reading' inferred from graph.",
+      "entity": "sensor_reading",
+      "js": "// Deterministic CRUD flow for entity: sensor_reading\nbp.registerBThread(\"HLS: CRUD sensor_reading\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/sensor-readings\", {})});\n  bp.sync({request: REST.GET(\"/sensor-readings\", {})});\n  bp.sync({request: REST.GET(\"/sensor-readings\", {})});\n});"
+    }
+  ]
+}

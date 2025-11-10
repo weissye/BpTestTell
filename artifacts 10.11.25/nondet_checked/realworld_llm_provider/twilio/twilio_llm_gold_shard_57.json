@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchRecordingTranscription",
+      "summary": "",
+      "user": "User1234 wants to retrieve the transcription of a specific recording to review the content of a call for quality assurance purposes.",
+      "ideal": "The API should return the transcription details including the text, status, and timestamps."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteRecordingTranscription",
+      "summary": "",
+      "user": "User5678 needs to delete an outdated transcription that is no longer relevant to maintain data accuracy.",
+      "ideal": "The API should confirm the deletion of the transcription and return a success message."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json",
+      "method": "GET",
+      "operationId": "ListRecordingTranscription",
+      "summary": "",
+      "user": "User91011 is looking to list all transcriptions for a specific recording to analyze multiple calls.",
+      "ideal": "The API should return a list of all transcriptions associated with the specified recording, including their statuses and creation dates."
+    }
+  ]
+}

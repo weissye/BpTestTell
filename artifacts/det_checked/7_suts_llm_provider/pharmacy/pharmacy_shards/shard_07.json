@@ -2,7 +2,11 @@
   "ops": [
     {
       "method": "POST",
-      "path": "/prescriptions"
+      "path": "/inventory"
+    },
+    {
+      "method": "PUT",
+      "path": "/reset/{id}"
     }
   ]
 }

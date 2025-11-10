@@ -1,0 +1,8 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/inventory/{ndc}"
+    }
+  ]
+}

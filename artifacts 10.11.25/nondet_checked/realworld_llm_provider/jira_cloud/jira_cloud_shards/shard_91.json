@@ -1,0 +1,171 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/workflowscheme",
+      "method": "GET",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Get all workflow schemes",
+      "operationId": "getAllWorkflowSchemes"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme",
+      "method": "POST",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Create workflow scheme",
+      "operationId": "createWorkflowScheme"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/read",
+      "method": "POST",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Bulk get workflow schemes",
+      "operationId": "readWorkflowSchemes"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/update",
+      "method": "POST",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Update workflow scheme",
+      "operationId": "updateSchemes"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/update/mappings",
+      "method": "POST",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Get required status mappings for workflow scheme update",
+      "operationId": "updateWorkflowSchemeMappings"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Delete workflow scheme",
+      "operationId": "deleteWorkflowScheme"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "method": "GET",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Get workflow scheme",
+      "operationId": "getWorkflowScheme"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "method": "PUT",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Classic update workflow scheme",
+      "operationId": "updateWorkflowScheme"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/default",
+      "method": "DELETE",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Delete default workflow",
+      "operationId": "deleteDefaultWorkflow"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/default",
+      "method": "GET",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Get default workflow",
+      "operationId": "getDefaultWorkflow"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/default",
+      "method": "PUT",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Update default workflow",
+      "operationId": "updateDefaultWorkflow"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+      "method": "DELETE",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Delete workflow for issue type in workflow scheme",
+      "operationId": "deleteWorkflowSchemeIssueType"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+      "method": "GET",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Get workflow for issue type in workflow scheme",
+      "operationId": "getWorkflowSchemeIssueType"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+      "method": "PUT",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Set workflow for issue type in workflow scheme",
+      "operationId": "setWorkflowSchemeIssueType"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "method": "DELETE",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Delete issue types for workflow in workflow scheme",
+      "operationId": "deleteWorkflowMapping"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "method": "GET",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Get issue types for workflows in workflow scheme",
+      "operationId": "getWorkflow"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "method": "PUT",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Set issue types for workflow in workflow scheme",
+      "operationId": "updateWorkflowMapping"
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{workflowSchemeId}/projectUsages",
+      "method": "GET",
+      "tags": [
+        "Workflow schemes"
+      ],
+      "summary": "Get projects which are using a given workflow scheme",
+      "operationId": "getProjectUsagesForWorkflowScheme"
+    }
+  ]
+}

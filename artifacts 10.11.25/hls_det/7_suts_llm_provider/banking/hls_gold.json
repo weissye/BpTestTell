@@ -1,0 +1,83 @@
+{
+  "kind": "hls_gold",
+  "deterministic": true,
+  "provider": "7_suts_llm_provider",
+  "sut": "banking",
+  "generated_at": "2025-11-09T13:49:32.359614Z",
+  "source": {
+    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\7_suts_llm_provider\\banking\\graph.json",
+    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\SUTs\\banking\\dsl_map.json"
+  },
+  "entities": [
+    {
+      "name": "account",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "card",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "customer",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "loan",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "reset",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "transaction",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "transfer",
+      "verbs": [
+        "POST"
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "name": "CRUD account",
+      "desc": "Deterministic CRUD flow for entity 'account' inferred from graph.",
+      "entity": "account",
+      "js": "// Deterministic CRUD flow for entity: account\nbp.registerBThread(\"HLS: CRUD account\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/accounts\", {})});\n  bp.sync({request: REST.GET(\"/accounts\", {})});\n  bp.sync({request: REST.GET(\"/accounts\", {})});\n});"
+    },
+    {
+      "name": "CRUD card",
+      "desc": "Deterministic CRUD flow for entity 'card' inferred from graph.",
+      "entity": "card",
+      "js": "// Deterministic CRUD flow for entity: card\nbp.registerBThread(\"HLS: CRUD card\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/cards\", {})});\n});"
+    },
+    {
+      "name": "CRUD customer",
+      "desc": "Deterministic CRUD flow for entity 'customer' inferred from graph.",
+      "entity": "customer",
+      "js": "// Deterministic CRUD flow for entity: customer\nbp.registerBThread(\"HLS: CRUD customer\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/customers\", {})});\n});"
+    },
+    {
+      "name": "CRUD loan",
+      "desc": "Deterministic CRUD flow for entity 'loan' inferred from graph.",
+      "entity": "loan",
+      "js": "// Deterministic CRUD flow for entity: loan\nbp.registerBThread(\"HLS: CRUD loan\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/loans\", {})});\n  bp.sync({request: REST.GET(\"/loans\", {})});\n  bp.sync({request: REST.GET(\"/loans\", {})});\n});"
+    }
+  ]
+}

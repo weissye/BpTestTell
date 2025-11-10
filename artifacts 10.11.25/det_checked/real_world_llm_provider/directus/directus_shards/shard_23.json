@@ -1,0 +1,24 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/extensions"
+    },
+    {
+      "method": "GET",
+      "path": "/folders"
+    },
+    {
+      "method": "GET",
+      "path": "/permissions/me"
+    },
+    {
+      "method": "PATCH",
+      "path": "/roles/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/utils/hash/generate"
+    }
+  ]
+}

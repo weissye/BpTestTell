@@ -1,8 +1,12 @@
 {
   "ops": [
     {
-      "method": "POST",
-      "path": "/orders"
+      "method": "PUT",
+      "path": "/drugs/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/reset/{id}"
     }
   ]
 }

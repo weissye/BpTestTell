@@ -1,0 +1,40 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json"
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json"
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json"
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json"
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{Sid}.json"
+    }
+  ]
+}
