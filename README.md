@@ -1,225 +1,309 @@
-# BpTestTell
-> An automatic infrastructure generation for Story-Based Testing with BP for CRUD CRUD-based system
+# BpTestTell — README (Version 7)
+_Last updated: 2025-11-11 21:24_
 
-**BpTestTell** turns OpenAPI contracts (JSON/YAML) into a full **Behavioral Programming (BP)** testing infrastructure. It generates **deterministic (DET)** baselines, runs **end‑to‑end (E2E)** stories, and supports model‑assisted **non‑deterministic (NONDET)** grading—producing readable artifacts and a `lifecycle.js` summary.
+> Contract → **LLE** → **HLS** pipelines for BP-based CRUD testing (DET & NONDET)  
+> **Windows-first, BAT-only reproducible runs**
 
----
+This repository transforms **OpenAPI** contracts into executable **Behavioral Programming** (BP) artifacts:
+- **LLE** (low‑level events) → `interfaces.readable.js`, `lifecycle.readable.js`
+- **HLS** (high‑level stories) → `stories_hls.js` (**DET** and **NONDET** variants)
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Key Features](#key-features)
-- [How It Works](#how-it-works)
-- [Repository Layout](#repository-layout)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Workflows](#workflows)
-  - [1) Prepare Specs](#1-prepare-specs)
-  - [2) Generate Deterministic (DET)](#2-generate-deterministic-det)
-  - [3) Model Access & Optional Training](#3-model-access--optional-training)
-  - [4) Run E2E & NONDET](#4-run-e2e--nondet)
-  - [5) Readable Interface & Lifecycle](#5-readable-interface--lifecycle)
-- [Artifacts & Formats](#artifacts--formats)
-- [Scripts Reference](#scripts-reference)
-- [Troubleshooting](#troubleshooting)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [License](#license)
+All steps are driven by **wrapper `.bat`** scripts. Every step lists **Input → Run → Output** so you can chain the pipeline without guesswork.
 
 ---
 
-## Overview
+## 0) Prerequisites
 
-**Behavioral Programming (BP)** expresses a system as cooperating scenario threads (“stories”). For CRUD‑oriented APIs, BpTestTell ingests an **OpenAPI contract** and scaffolds stories, deterministic baselines, model‑assisted grading, and lifecycle visualization. Both **bundled 7 SUTs** and **Real‑World (RW)** systems are supported.
-
----
-
-## Key Features
-
-- **OpenAPI‑driven**: JSON/YAML contract is the single source of truth.
-- **Story‑based testing** with **BP** threads (real user flows).
-- **Deterministic (DET)** baselines: reproducible gold and rule‑based grades.
-- **NONDET** model‑assisted evaluation for nuanced outcomes.
-- **7 SUTs + Real‑World (RW)**: bundled packs + manifest‑driven fetch.
-- **Readable outputs**: artifacts, HTML/JSON summaries, and `lifecycle.js`.
+- **Windows 10/11** (`cmd.exe`), **Python 3.10+**
+- **Provengo** on PATH (`provengo --version`)
+- **OpenAPI** specs under `packs\` (7 SUTs are included; real‑world specs fetched via manifest)
+- **Model key** for NONDET steps (set in the same shell):
+  ```bat
+  set "OPENAI_API_KEY=sk-..."
+  ```
+- **Servers up** for your SUTs before running Provengo.
 
 ---
 
-## How It Works
+## 1) Repository Layout (matches the current tree)
 
-1. **Input**: OpenAPI specs for targets (SUTs and RW).
-2. **DET**: `run_llm_gold_and_grade.py` extracts endpoints → builds **gold**, **prompts**, **graders**.
-3. **Model**: you set a provider key and pick (or train) a model for NONDET.
-4. **E2E**: batch scripts orchestrate SUT + RW runs with model‑assisted grading.
-5. **Outputs**: `artifacts/det_checked` + `artifacts/nondet_checked`, and `lifecycle.js` for visualization.
+Top level (from your repo):
+```
+artifacts/
+config/
+data/
+docker/
+HLS/
+library/             # Provengo project(s)
+logs/
+models/
+packs/
+pharmacy/            # Provengo project (see section 5)
+schemas/
+scripts/
+templates/
+```
 
----
+Artifacts (current standard):
+```
+artifacts/
+  analysis/                          # HLS graphs, etc.
+  det_checked/                       # LLE DET outputs (gold, grades, prompts)
+  hls_det/                           # HLS DET gold (hls_gold.json)
+  hls_model/                         # model outputs / merges (optional)
+  hls_nondet/                        # HLS NONDET gold (hls_nondet_gold.json)
+  nondet_checked/                    # NONDET eval results (if any)
+```
 
-## Repository Layout
+Packs:
+```
+packs/
+  7_suts/<sut>/openapi.json
+  realworld/<name>/openapi.(json|yaml|yml)
+  suts/ ... (legacy, optional)
+```
 
+Scripts (groups used by the pipelines):
 ```
 scripts/
+  analysis/
+  hls/
   llm/
-    run_llm_gold_and_grade.py          # core gold/grade runner
-  realworld/
-    manifest.json                      # RW systems & raw OpenAPI URLs
-    fetch_openapi_manifest.bat         # fetches RW specs into packs/realworld/<system>
-  training/
-    e2e_train_7suts_real*.bat          # orchestrates SUT + RW DET/NONDET flows (Windows .bat)
   pipelines/
-    run_det_all_7suts.bat              # DET for all 7 SUTs
-packs/
-  7_suts/<name>/openapi.json           # bundled SUT specs
-  realworld/<system>/openapi.(yaml|yml|json)  # fetched RW specs
-artifacts/
-  det_checked/                         # outputs from deterministic runs
-  nondet_checked/                      # outputs from nondeterministic/model runs
-lifecycle.js                           # generated/aggregated lifecycle visualization
-README.md
-.gitignore
+  providers/
+  readable/
+  realworld/
+  templates/
+  training/
+  utils/
 ```
 
-> **Windows first:** orchestration is `.bat` for `cmd.exe`.
+> **Convention:** Everything that **builds** HLS is under `scripts\hls\...`. Everything that **emits** JS (interfaces/stories) is under `scripts\readable\...`.
 
 ---
 
-## Prerequisites
+## 2) Configuration
 
-- **Windows 10/11** (cmd.exe)
-- **Python 3.10+**
-- **Git**
-- **Model key** (e.g., `OPENAI_API_KEY`) exported in your shell
+Use a **single list file** for both SUTs and RW:  
+`config\suts_and_rw.txt` — one system per line (e.g., `pharmacy`, `library`, `garage`, `factory`, `banking`, `config`, `ecommerce`, plus real‑world names).
+
+Provider is usually `7_suts_llm_provider` for the 7 SUTs; use your RW provider name for real‑world runs.
+
+> **Param order used below (for-list BATs):**  
+> `[LIST_FILE]  [PROVIDER]  [SCOPE]` where `SCOPE` is `SUTs` or `RWs`.
 
 ---
 
-## Installation
+## 3) Process A — OpenAPI → LLE → `interfaces.readable.js`
 
+### A1) (Real‑world only) Fetch OpenAPI by manifest
+**Input →** `scripts\realworld\manifest.json` (RW names + raw URLs)  
+**Run →**
 ```bat
-git clone https://github.com/<your-user>/BpTestTell.git
-cd BpTestTell
-
-REM (optional) create venv & install requirements if provided
-REM python -m venv .venv
-REM .venv\Scripts\activate
-REM pip install -r requirements.txt
+scripts\realworld\fetch_openapi_manifest.bat
 ```
+**Output →** `packs\realworld\<name>\openapi.(yaml|yml|json)`
 
 ---
 
-## Configuration
-
-Set your model key **in the shell** (never commit secrets):
-
+### A2) Build LLE (DET) from OpenAPI
+**Input →** `packs\[7_suts|realworld]\<sut>\openapi.json` (and/or realworld)  
+**Run (for list) →**
 ```bat
-set "OPENAI_API_KEY=sk-...your key..."
+scripts\pipelines\run_det_all_7suts.bat  
+scripts\pipelines\run_det_real_world_all.bat  
+```
+**Run (single SUT) →**
+```bat
+scripts\pipelines\run_det_one_sut.bat  <sut>  7_suts_llm_provider
+```
+**Output →** `artifacts\det_checked\<provider>\<sut>\*_gold.json` (+ grades/prompts)
+
+---
+
+### A3) Build LLE (NON-DET) from OpenAPI
+>Train the LLM model (prompt) and generate the nondet gold.js.
+
+>This step requiured an API key for GPT platform
+
+**Input →** `packs\[7_suts|realworld]\<sut>\openapi.json` (and/or realworld)  
+**Run (for list) →**
+```bat
+scripts\training\e2e_train_7suts_rw_all.bat  
 ```
 
-If using other providers, set the equivalent env vars and update the `.bat` configs to select the model (e.g., `gpt-4o-mini`).
+**Output →** `artifacts\nondet_checked\<provider>\<sut>\*_gold.json` (+ grades/prompts)
 
 ---
 
-## Workflows
+### A4) Emit LLE readables (per SUT)
+**Input →** `artifacts\det_checked\<provider>\<sut>\*_gold.json`  
 
-### 1) Prepare Specs
-
-- **7 SUTs:** already under `packs/7_suts/*/openapi.json`.
-- **Real‑World (RW):** edit `scripts/realworld/manifest.json` (system name, raw OpenAPI URL, format). Then fetch:
-  ```bat
-  scripts\realworld\fetch_openapi_manifest.bat
-  ```
-  This creates:
-  ```
-  packs\realworld\<system>\openapi.(yaml|yml|json)
-  ```
-
-### 2) Generate Deterministic (DET)
-
-- **All SUTs**:
-  ```bat
-  scripts\pipelines\run_det_all_7suts.bat
-  ```
-
-- **RW (selected/all)**:
-  ```bat
-  scripts\training\e2e_train_7suts_real*.bat
-  ```
-
-**DET outputs** (per target) appear under `artifacts\det_checked\...`:
-- `*.gold.json` — story gold specifications  
-- `*.prompts.json` — prompt packs for grading  
-- `*.grade.json|csv` — deterministic grading results
-
-### 3) Model Access & Optional Training
-
-- Ensure your key is set:
-  ```bat
-  set "OPENAI_API_KEY=sk-...your key..."
-  ```
-- Select your evaluation model in batch configs (e.g., `gpt-4o-mini`).
-- If training is supported in your setup, run training and record the **model ID**.
-
-### 4) Run E2E & NONDET
-
-Execute E2E scripts to evaluate with the model and generate **NONDET** artifacts:
-
+**Run →**
+```bat
+scripts\readable\run_js_all_from_gold.bat  
 ```
-artifacts\nondet_checked\...
+Or for a single sut:
+```bat
+scripts\readable\run_js_sut_from_gold.bat  <sut>  
 ```
 
-NONDET reports include LLM rationale and flexible pass/fail.
 
-### 5) Readable Interface & Lifecycle
+**Output →**
+```
+packs\7_suts\<sut>\readable\interfaces.readable.js
+packs\7_suts\<sut>\readable\lifecycle.readable.js (basic stories)
+```
 
-Open the generated `lifecycle.js` (and any HTML/JSON summaries) to review stories, runs, and outcomes.
-
----
-
-## Artifacts & Formats
-
-| Artifact             | Purpose                         | Format / Location                                         |
-|----------------------|---------------------------------|-----------------------------------------------------------|
-| OpenAPI Spec         | Canonical API contract          | `packs/<category>/<name>/openapi.(json\|yaml\|yml)`       |
-| Gold & Prompts (DET) | Reproducible baseline           | `artifacts/det_checked/.../*.gold.json`, `*.prompts.json` |
-| DET Grades           | Fixed‑rule evaluation           | `artifacts/det_checked/.../*.grade.json|csv`              |
-| NONDET Reports       | Model‑assisted evaluation       | `artifacts/nondet_checked/.../*.json|csv`                 |
-| Lifecycle Summary    | Readable story/run visualization| `lifecycle.js` (+ optional HTML/JSON)                     |
+> The emitter uses vendor hints from OpenAPI (e.g., `x-negative-delete-expected-codes`) so **negative deletes** expect `[200,404,401]` and **duplicates** include `409`. No manual patching required.
 
 ---
 
-## Scripts Reference
+## 4) Process B — OpenAPI + LLE → HLS → `stories_hls.js` (DET & NONDET)
 
-- `scripts/llm/run_llm_gold_and_grade.py` — core gold/grade runner  
-- `scripts/pipelines/run_det_all_7suts.bat` — DET for all 7 SUTs  
-- `scripts/realworld/fetch_openapi_manifest.bat` — fetch RW OpenAPI by manifest  
-- `scripts/training/e2e_train_7suts_real*.bat` — orchestrates SUT+RW DET/NONDET flows
+All steps are **for‑list** BATs to keep runs reproducible. Each **Output** feeds the next step.
 
----
-
-## Troubleshooting
-
-- **“.bat: `... was unexpected at this time`”**: Escape `|` as `^|` and avoid bare parentheses inside `FOR/IF` blocks. Comment headings with `REM`.
-- **HTTP 404 while fetching RW**: Ensure manifest URLs are **raw** JSON/YAML, not HTML pages.
-- **Python not found / venv mismatch**: `where python` — ensure the interpreter is correct (system or `.venv`).
-- **Model key not picked up**: Set it **in the same shell session** before running the `.bat` files.
+### B1) OpenAPI → Graph (for list)
+**Input →** `packs\7_suts\<sut>\openapi.json` (or `packs\realworld\<name>\openapi.*`)  
+**Run →**
+```bat
+scripts\hls\run_openapi_to_graph_for_list.bat  config\suts_and_rw.txt  7_suts_llm_provider
+```
+**Output →** `artifacts\analysis\<provider>\<sut>\graph.json`
 
 ---
 
-## Roadmap
-
-- CI pipeline to run DET on PRs touching OpenAPI files
-- Richer lifecycle visualization & dashboards
-- Additional BP story templates for complex flows
-- More real‑world packs & synthetic data helpers
-
----
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md). PRs are welcome—please include OS/Python version, the command you ran, and the last ~30 lines of logs when filing issues.
+### B2) Graph → DSL map (for list)
+**Input →** `artifacts\analysis\<provider>\<sut>\graph.json`  
+**Run →**
+```bat
+scripts\hls\build_dsl_from_graph_all.bat  config\suts_and_rw.txt  7_suts_llm_provider  SUTs
+:: use RWs for real‑world
+```
+**Output →** `models\hls\(SUTs|RWs)\<sut>\dsl_map.json`
 
 ---
 
-## License
+### B3) Graph + DSL → HLS GOLD (DET) (for list)
+**Input →** `...graph.json`, `...dsl_map.json`  
+**Run →**
+```bat
+scripts\hls\build_hls_gold_det_for_list.bat  config\suts_and_rw.txt  7_suts_llm_provider  SUTs
+```
+**Output →** `artifacts\hls_det\<provider>\<sut>\hls_gold.json`  
+Deterministic, reproducible HLS baseline (no randomness, no model).
 
-This project is currently **public** without an explicit license (default GitHub settings apply). If you intend others to use/modify/distribute this, add a LICENSE file (MIT/Apache‑2.0/etc.).
+---
+
+### B4) (Optional) DET GOLD → training set (for list)
+**Input →** `artifacts\hls_det\<provider>\<sut>\hls_gold.json`  
+**Run →**
+```bat
+scripts\hls\prep_hls_training_from_det_gold_for_list.bat  config\suts_and_rw.txt  7_suts_llm_provider  SUTs
+:: use 'real_world_llm_provider' for real‑world
+
+```
+**Output →** `artifacts\hls_training\<provider>\<sut>\train.jsonl`
+
+---
+
+### B5) Graph + DSL (+ model outputs) → HLS GOLD (NONDET) (for list)
+**Input →** `...graph.json`, `...dsl_map.json` (+ optional `model_outputs.jsonl`)  
+**Run →**
+```bat
+scripts\hls\build_hls_gold_nondet_for_list.bat  config\suts_and_rw.txt  7_suts_llm_provider  SUTs
+REM or:
+scripts\hls\build_hls_variants_for_list.bat    config\suts_and_rw.txt  7_suts_llm_provider  SUTs
+```
+**Output →** `artifacts\hls_nondet\<provider>\<sut>\hls_nondet_gold.json`
+
+---
+
+### B6) Emit **stories_hls.js** (final step, for list) ✅
+> `build_hls_nondet_and_stories_for_list.bat` does **not** generate the JS in this repo; the emitter below does.
+
+**Input (DET) →** `artifacts\hls_det\<provider>\<sut>\hls_gold.json`  
+**Input (NONDET) →** `artifacts\hls_nondet\<provider>\<sut>\hls_nondet_gold.json`  
+**Run →**
+```bat
+scripts\readable\emit_all_from_list.bat  config\suts_and_rw.txt  7_suts_llm_provider  SUTs
+:: use RWs for real‑world targets:
+scripts\readable\emit_all_from_list.bat  config\suts_and_rw.txt  real_world_llm_provider  RWs
+```
+**Output →**
+```
+packs\7_suts\<sut>\readable\stories_hls.det.js
+packs\7_suts\<sut>\readable\stories_hls.nondet.js
+```
+
+---
+
+## 5) Running the **Pharmacy** Provengo project
+
+Folder highlights (common BP project layout):
+```
+pharmacy/
+  spec/js/
+    interfaces.readable.js      # auto‑generated LLE calls (REST ops)
+    lifecycle.readable.js       # optional seed/lifecycle threads
+    stories_hls.js              # auto‑generated HLS stories (DET/NONDET)
+  dsls/                         # DSLs (e.g., bp-base.js)
+  libs/                         # support libs (e.g., rest.js)
+  resources/                    # optional data
+```
+
+**How to run** (from the repo root or `pharmacy\`):
+```bat
+cd pharmacy
+provengo run [-Dhost=127.0.0.1 -Dport=5014]
+```
+Options you may find useful:
+- `-Dseed=12345` — deterministic selection per run
+- `-DnRuns=1`    — how many test executions
+- `-Dhost`/`-Dport` — override service URL if not using the defaults embedded in readables
+
+**Endpoints exercised** (as generated by your OpenAPI/LLE/HLS):
+- `POST/GET/PUT/DELETE /patients`
+- `POST/GET/PUT/DELETE /drugs`
+- `POST/GET/PUT/DELETE /prescriptions`
+- `POST/GET/PUT/DELETE /orders`
+- `POST/GET/PUT/DELETE /inventory`
+- `POST/GET/PUT/DELETE /reset` (control channel)
+
+Payload keys (per create/update), following your current SUTs:
+- `patients`: `{"id": 203}`
+- `drugs`: `{"id": 200}`
+- `prescriptions`: `{"id": 205}`
+- `orders`: `{"id": 202}`
+- `inventory`: `{"ndc": "ndc_201"}`
+
+**Expected responses**
+- **Create duplicate** → `409` (documented in OpenAPI, propagated to GOLD and stories)
+- **DELETE non‑existing** → `200` or `404` (idempotent delete) and `401` when simulated negative auth; encoded via `x-negative-delete-expected-codes`
+
+If you change behavior, update **OpenAPI** first and regenerate (A→B pipelines).
+
+---
+
+## 6) Troubleshooting & Tips
+
+- **Hosts/ports**: Override via `-Dhost` / `-Dport` when running Provengo; ensure OpenAPI `servers` includes the URLs you actually use (localhost/127.0.0.1/LAN).  
+- **Negative delete**: Expect `[200,404,401]`; do not hand‑edit generated files—fix OpenAPI/SUT and regenerate.  
+- **Duplicates**: POST duplicates should return `409`; encode in OpenAPI so LLE/HLS expectations align.  
+- **Reproducibility**: Re‑run the entire chain on a clean `artifacts\` if you suspect drift.  
+- **Lists**: Keep `config\suts_and_rw.txt` authoritative; the for‑list BATs iterate these names.
+
+---
+
+## 7) Changelog
+
+- **v7** — Unified list file `config\suts_and_rw.txt`; clarified final emission step (`scripts\readable\emit_all_from_list.bat`); added **Pharmacy** project section and concrete run commands; tightened **Input → Run → Output** for every step.
+- v6 — Added explicit parameters (LIST/PROVIDER/SCOPE) and corrected folders to match repo.
+- v5 — First complete write‑up of BAT‑only HLS pipeline.
+
+---
+
+## 8) Contributing
+
+- Keep **OpenAPI** authoritative; encode behavior via vendor hints so generators remain clean.  
+- PRs: include OS/Python version and the last ~30 log lines for any failing step.
