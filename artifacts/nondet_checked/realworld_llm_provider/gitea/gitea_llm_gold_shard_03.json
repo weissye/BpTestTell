@@ -46,7 +46,7 @@
       "operationId": "issueReplaceLabels",
       "summary": "",
       "user": "user303",
-      "ideal": "Replace the labels of a specific issue."
+      "ideal": "Replace labels for a specific issue."
     },
     {
       "path": "/repos/{owner}/{repo}/issues/{index}/reactions",
@@ -65,12 +65,12 @@
       "ideal": "Start the stopwatch for a specific issue."
     },
     {
-      "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions/{user}",
-      "method": "PUT",
-      "operationId": "issueAddSubscription",
+      "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions",
+      "method": "GET",
+      "operationId": "issueSubscriptions",
       "summary": "",
       "user": "user606",
-      "ideal": "Subscribe a user to notifications for a specific issue."
+      "ideal": "Get a list of subscriptions for a specific issue."
     },
     {
       "path": "/repos/{owner}/{repo}/milestones",
@@ -78,7 +78,7 @@
       "operationId": "issueCreateMilestone",
       "summary": "",
       "user": "user707",
-      "ideal": "Create a new milestone for the repository."
+      "ideal": "Create a new milestone in the specified repository."
     }
   ]
 }

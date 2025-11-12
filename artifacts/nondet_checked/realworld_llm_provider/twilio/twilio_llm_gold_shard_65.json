@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "ListUsageRecordToday",
       "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve today's usage records for the specified account."
+      "user": "User requests today's usage records for their Twilio account to monitor SMS and call usage.",
+      "ideal": "Returns a JSON object containing today's usage records, including SMS, voice, and other service usage details."
     }
   ]
 }

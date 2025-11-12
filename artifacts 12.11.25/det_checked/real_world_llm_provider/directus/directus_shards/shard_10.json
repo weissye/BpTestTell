@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/auth/refresh"
+    },
+    {
+      "method": "PATCH",
+      "path": "/files"
+    },
+    {
+      "method": "GET",
+      "path": "/items/{collection}/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/relations"
+    },
+    {
+      "method": "POST",
+      "path": "/users"
+    },
+    {
+      "method": "PATCH",
+      "path": "/versions/{id}"
+    }
+  ]
+}

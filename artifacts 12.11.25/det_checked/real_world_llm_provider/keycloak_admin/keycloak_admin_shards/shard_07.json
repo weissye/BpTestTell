@@ -1,0 +1,56 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/{realm}/admin-events"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions/flow"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/client-scopes/{id1}/protocol-mappers/models/{id2}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/client-templates/{id1}/protocol-mappers/models/{id2}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/clients-initial-access/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/clients/{id}/evaluate-scopes/scope-mappings/{roleContainerId}/granted"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/clients/{id}/roles/{role-name}/composites"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/components"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/groups/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/identity-provider/instances/{alias}/management/permissions"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/roles-by-id/{role-id}"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/users"
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/users/{id}/groups/{groupId}"
+    }
+  ]
+}

@@ -42,17 +42,17 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/myProperty",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/myProperty",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/myProperty",
       "body": null
     },
     {
@@ -62,17 +62,17 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/forge/1/app/properties/my-property",
+      "path": "/rest/forge/1/app/properties/myProperty",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/forge/1/app/properties/my-property",
+      "path": "/rest/forge/1/app/properties/myProperty",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/forge/1/app/properties/my-property",
+      "path": "/rest/forge/1/app/properties/myProperty",
       "body": null
     },
     {
@@ -332,26 +332,6 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/groupuserpicker",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/rest/api/3/groupuserpicker",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/rest/api/3/groupuserpicker",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/rest/api/3/groupuserpicker",
-      "body": null
-    },
-    {
-      "method": "GET",
       "path": "/rest/api/3/group",
       "body": null
     },
@@ -502,27 +482,27 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/PROJECT-1/comment",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/issue/PROJECT-1/comment",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment/{id}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment/{id}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment/{id}",
       "body": null
     },
     {
@@ -622,32 +602,32 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/field/67890/context/54321/option",
+      "path": "/rest/api/3/field/10000/context/20000/option",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/field/67890/context/54321/option",
+      "path": "/rest/api/3/field/10000/context/20000/option",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/field/67890/context/54321/option",
+      "path": "/rest/api/3/field/10000/context/20000/option",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/field/67890/context/54321/option/move",
+      "path": "/rest/api/3/field/10000/context/20000/option/move",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/field/67890/context/54321/option/98765",
+      "path": "/rest/api/3/field/10000/context/20000/option/12345",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/field/67890/context/54321/option/98765/issue",
+      "path": "/rest/api/3/field/10000/context/20000/option/12345/issue",
       "body": null
     },
     {
@@ -672,22 +652,22 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/field/customfield_10001/option/12345",
+      "path": "/rest/api/3/field/customfield_10001/option/5",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/field/customfield_10001/option/12345",
+      "path": "/rest/api/3/field/customfield_10001/option/5",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/field/customfield_10001/option/12345",
+      "path": "/rest/api/3/field/customfield_10001/option/5",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/field/customfield_10001/option/12345/issue",
+      "path": "/rest/api/3/field/customfield_10001/option/5/issue",
       "body": null
     },
     {
@@ -1012,22 +992,22 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/issue/ABC-123/remotelink/10001",
+      "path": "/rest/api/3/issue/ABC-123/remotelink/456",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/ABC-123/remotelink/10001",
+      "path": "/rest/api/3/issue/ABC-123/remotelink/456",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/issue/ABC-123/remotelink/10001",
+      "path": "/rest/api/3/issue/ABC-123/remotelink/456",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/issue/ABC-123/remotelink/xyz-123",
+      "path": "/rest/api/3/issue/ABC-123/remotelink/{globalId}",
       "body": null
     },
     {
@@ -1107,12 +1087,12 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issuesecurityschemes/{issueSecuritySchemeId}/members",
+      "path": "/rest/api/3/issuesecurityschemes/123/members",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/securitylevel/{id}",
+      "path": "/rest/api/3/securitylevel/456",
       "body": null
     },
     {
@@ -1197,22 +1177,22 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issuetype/10001/properties",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/rest/api/3/issuetype/10001/properties/customPropertyKey",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issuetype/10001/properties/customPropertyKey",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/issuetype/10001/properties/customPropertyKey",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
       "body": null
     },
     {
@@ -1381,38 +1361,38 @@
       "body": null
     },
     {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/PROJ-123/watchers",
+      "body": null
+    },
+    {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
+      "path": "/rest/api/3/issue/PROJ-123/watchers",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
+      "path": "/rest/api/3/issue/PROJ-123/watchers",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/customProperty",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties/customProperty",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/customProperty",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties/customProperty",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/customProperty",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties/customProperty",
       "body": null
     },
     {
@@ -1462,7 +1442,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/issue/PROJ-123/worklog/bulkDelete",
+      "path": "/rest/api/3/issue/PROJ-123/worklog",
       "body": null
     },
     {
@@ -1472,11 +1452,6 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}",
-      "body": null
-    },
-    {
-      "method": "PUT",
       "path": "/rest/api/3/issue/{issueIdOrKey}",
       "body": null
     },
@@ -1496,8 +1471,28 @@
       "body": null
     },
     {
-      "method": "POST",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/notify",
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/editmeta",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/assignee",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/createmeta",
       "body": null
     },
     {
@@ -1507,12 +1502,37 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/editmeta",
+      "path": "/rest/api/3/issue/limit/report",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/changelog/bulkfetch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/bulk",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/bulkfetch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/archive",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/assignee",
+      "path": "/rest/api/3/issue/unarchive",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issues/archive/export",
       "body": null
     },
     {
@@ -1787,22 +1807,22 @@
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/project/TEST/avatar",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/project/TEST/avatar/1",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar/{id}",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/project/TEST/avatar2",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar2",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/TEST/avatars",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatars",
       "body": null
     },
     {
@@ -1887,12 +1907,12 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/12345/email",
+      "path": "/rest/api/3/project/{projectId}/email",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/project/12345/email",
+      "path": "/rest/api/3/project/{projectId}/email",
       "body": null
     },
     {
@@ -1922,87 +1942,87 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/ABC/issuesecuritylevelscheme",
+      "path": "/rest/api/3/project/PROJ-123/issuesecuritylevelscheme",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/ABC/permissionscheme",
+      "path": "/rest/api/3/project/PROJ-123/permissionscheme",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/project/ABC/permissionscheme",
+      "path": "/rest/api/3/project/PROJ-123/permissionscheme",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/ABC/securitylevel",
+      "path": "/rest/api/3/project/PROJ-123/securitylevel",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/ABC/properties",
+      "path": "/rest/api/3/project/{projectIdOrKey}/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/properties/{propertyKey}",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/project/ABC/properties/customKey",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/rest/api/3/project/ABC/properties/customKey",
+      "path": "/rest/api/3/project/{projectIdOrKey}/properties/{propertyKey}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/project/ABC/properties/customKey",
+      "path": "/rest/api/3/project/{projectIdOrKey}/properties/{propertyKey}",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}",
+      "path": "/rest/api/3/project/ABC/role/123",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}",
+      "path": "/rest/api/3/project/ABC/role/123",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}",
+      "path": "/rest/api/3/project/ABC/role/123",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/role/{id}/actors",
+      "path": "/rest/api/3/role/123/actors",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/role/{id}/actors",
+      "path": "/rest/api/3/role/123/actors",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/role/{id}/actors",
+      "path": "/rest/api/3/role/123/actors",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/TEST/role",
+      "path": "/rest/api/3/project/{projectIdOrKey}/role",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/TEST/role/1000",
+      "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/TEST/roledetails",
+      "path": "/rest/api/3/project/{projectIdOrKey}/roledetails",
       "body": null
     },
     {
@@ -2017,22 +2037,22 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/role/1000",
+      "path": "/rest/api/3/role/{id}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/role/1000",
+      "path": "/rest/api/3/role/{id}",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/role/1000",
+      "path": "/rest/api/3/role/{id}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/role/1000",
+      "path": "/rest/api/3/role/{id}",
       "body": null
     },
     {
@@ -2082,12 +2102,12 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/PROJ-123/version",
+      "path": "/rest/api/3/project/ABC/version",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/PROJ-123/versions",
+      "path": "/rest/api/3/project/ABC/versions",
       "body": null
     },
     {
@@ -2097,62 +2117,62 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/version/456",
+      "path": "/rest/api/3/version/12345",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/version/456",
+      "path": "/rest/api/3/version/12345",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/version/456",
+      "path": "/rest/api/3/version/12345",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/version/456/mergeto/789",
+      "path": "/rest/api/3/version/12345/mergeto/67890",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/version/456/move",
+      "path": "/rest/api/3/version/12345/move",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/version/456/relatedIssueCounts",
+      "path": "/rest/api/3/version/12345/relatedIssueCounts",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/version/456/relatedwork",
+      "path": "/rest/api/3/version/12345/relatedwork",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/version/456/relatedwork",
+      "path": "/rest/api/3/version/12345/relatedwork",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/version/456/relatedwork",
+      "path": "/rest/api/3/version/12345/relatedwork",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/version/456/removeAndSwap",
+      "path": "/rest/api/3/version/12345/removeAndSwap",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/version/456/unresolvedIssueCount",
+      "path": "/rest/api/3/version/12345/unresolvedIssueCount",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/version/456/relatedwork/789",
+      "path": "/rest/api/3/version/12345/relatedwork/67890",
       "body": null
     },
     {
@@ -2207,7 +2227,7 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/{projectId}/statuses",
+      "path": "/rest/api/3/project/{projectIdOrKey}/statuses",
       "body": null
     },
     {
@@ -2357,12 +2377,12 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/statuses/search",
+      "path": "/rest/api/3/statuses/byNames",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/statuses/byNames",
+      "path": "/rest/api/3/statuses/search",
       "body": null
     },
     {
@@ -2392,47 +2412,47 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/plans/plan/123/team",
+      "path": "/rest/api/3/plans/plan/12345/team",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/plans/plan/123/team/atlassian",
+      "path": "/rest/api/3/plans/plan/12345/team/atlassian",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/plans/plan/123/team/atlassian/789",
+      "path": "/rest/api/3/plans/plan/12345/team/atlassian/67890",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/plans/plan/123/team/atlassian/789",
+      "path": "/rest/api/3/plans/plan/12345/team/atlassian/67890",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/plans/plan/123/team/atlassian/789",
+      "path": "/rest/api/3/plans/plan/12345/team/atlassian/67890",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/plans/plan/123/team/planonly",
+      "path": "/rest/api/3/plans/plan/12345/team/planonly",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/plans/plan/123/team/planonly/456",
+      "path": "/rest/api/3/plans/plan/12345/team/planonly/54321",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/plans/plan/123/team/planonly/456",
+      "path": "/rest/api/3/plans/plan/12345/team/planonly/54321",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/plans/plan/123/team/planonly/456",
+      "path": "/rest/api/3/plans/plan/12345/team/planonly/54321",
       "body": null
     },
     {
@@ -2487,7 +2507,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/user/properties/notification-preferences",
+      "path": "/rest/api/3/user/properties/notificationPreference",
       "body": null
     },
     {
@@ -2716,6 +2736,11 @@
       "body": null
     },
     {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "body": null
+    },
+    {
       "method": "GET",
       "path": "/rest/api/3/workflowscheme/{id}",
       "body": null
@@ -2727,7 +2752,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/workflowscheme/{id}",
+      "path": "/rest/api/3/workflowscheme/{id}/default",
       "body": null
     },
     {
@@ -2738,6 +2763,11 @@
     {
       "method": "PUT",
       "path": "/rest/api/3/workflowscheme/{id}/default",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
       "body": null
     },
     {
@@ -2751,6 +2781,11 @@
       "body": null
     },
     {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "body": null
+    },
+    {
       "method": "GET",
       "path": "/rest/api/3/workflowscheme/{id}/workflow",
       "body": null
@@ -2758,11 +2793,6 @@
     {
       "method": "PUT",
       "path": "/rest/api/3/workflowscheme/{id}/workflow",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/rest/api/3/workflowscheme/{id}/default",
       "body": null
     },
     {
@@ -2957,17 +2987,17 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/myProperty",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/myProperty",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/myProperty",
       "body": null
     },
     {
@@ -2977,17 +3007,17 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/forge/1/app/properties/my-property",
+      "path": "/rest/forge/1/app/properties/myProperty",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/forge/1/app/properties/my-property",
+      "path": "/rest/forge/1/app/properties/myProperty",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/forge/1/app/properties/my-property",
+      "path": "/rest/forge/1/app/properties/myProperty",
       "body": null
     },
     {
@@ -3247,26 +3277,6 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/groupuserpicker",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/rest/api/3/groupuserpicker",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/rest/api/3/groupuserpicker",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/rest/api/3/groupuserpicker",
-      "body": null
-    },
-    {
-      "method": "GET",
       "path": "/rest/api/3/group",
       "body": null
     },
@@ -3417,27 +3427,27 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/PROJECT-1/comment",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/issue/PROJECT-1/comment",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment/{id}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment/{id}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/issue/PROJECT-1/comment/10001",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/comment/{id}",
       "body": null
     },
     {
@@ -3537,32 +3547,32 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/field/67890/context/54321/option",
+      "path": "/rest/api/3/field/10000/context/20000/option",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/field/67890/context/54321/option",
+      "path": "/rest/api/3/field/10000/context/20000/option",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/field/67890/context/54321/option",
+      "path": "/rest/api/3/field/10000/context/20000/option",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/field/67890/context/54321/option/move",
+      "path": "/rest/api/3/field/10000/context/20000/option/move",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/field/67890/context/54321/option/98765",
+      "path": "/rest/api/3/field/10000/context/20000/option/12345",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/field/67890/context/54321/option/98765/issue",
+      "path": "/rest/api/3/field/10000/context/20000/option/12345/issue",
       "body": null
     },
     {
@@ -3587,22 +3597,22 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/field/customfield_10001/option/12345",
+      "path": "/rest/api/3/field/customfield_10001/option/5",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/field/customfield_10001/option/12345",
+      "path": "/rest/api/3/field/customfield_10001/option/5",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/field/customfield_10001/option/12345",
+      "path": "/rest/api/3/field/customfield_10001/option/5",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/field/customfield_10001/option/12345/issue",
+      "path": "/rest/api/3/field/customfield_10001/option/5/issue",
       "body": null
     },
     {
@@ -3927,22 +3937,22 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/issue/ABC-123/remotelink/10001",
+      "path": "/rest/api/3/issue/ABC-123/remotelink/456",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/ABC-123/remotelink/10001",
+      "path": "/rest/api/3/issue/ABC-123/remotelink/456",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/issue/ABC-123/remotelink/10001",
+      "path": "/rest/api/3/issue/ABC-123/remotelink/456",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/issue/ABC-123/remotelink/xyz-123",
+      "path": "/rest/api/3/issue/ABC-123/remotelink/{globalId}",
       "body": null
     },
     {
@@ -4022,12 +4032,12 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issuesecurityschemes/{issueSecuritySchemeId}/members",
+      "path": "/rest/api/3/issuesecurityschemes/123/members",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/securitylevel/{id}",
+      "path": "/rest/api/3/securitylevel/456",
       "body": null
     },
     {
@@ -4112,22 +4122,22 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issuetype/10001/properties",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/rest/api/3/issuetype/10001/properties/customPropertyKey",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issuetype/10001/properties/customPropertyKey",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/issuetype/10001/properties/customPropertyKey",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}",
       "body": null
     },
     {
@@ -4296,38 +4306,38 @@
       "body": null
     },
     {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/PROJ-123/watchers",
+      "body": null
+    },
+    {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
+      "path": "/rest/api/3/issue/PROJ-123/watchers",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers",
+      "path": "/rest/api/3/issue/PROJ-123/watchers",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/customProperty",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties/customProperty",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/customProperty",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties/customProperty",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/issue/ABC-123/worklog/456/properties/customProperty",
+      "path": "/rest/api/3/issue/PROJ-123/worklog/456/properties/customProperty",
       "body": null
     },
     {
@@ -4377,7 +4387,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/issue/PROJ-123/worklog/bulkDelete",
+      "path": "/rest/api/3/issue/PROJ-123/worklog",
       "body": null
     },
     {
@@ -4387,11 +4397,6 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}",
-      "body": null
-    },
-    {
-      "method": "PUT",
       "path": "/rest/api/3/issue/{issueIdOrKey}",
       "body": null
     },
@@ -4411,8 +4416,28 @@
       "body": null
     },
     {
-      "method": "POST",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/notify",
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/editmeta",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/assignee",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/createmeta",
       "body": null
     },
     {
@@ -4422,12 +4447,37 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/editmeta",
+      "path": "/rest/api/3/issue/limit/report",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/changelog/bulkfetch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/bulk",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/bulkfetch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/archive",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/issue/{issueIdOrKey}/assignee",
+      "path": "/rest/api/3/issue/unarchive",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issues/archive/export",
       "body": null
     },
     {
@@ -4702,22 +4752,22 @@
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/project/TEST/avatar",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/project/TEST/avatar/1",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar/{id}",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/project/TEST/avatar2",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar2",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/TEST/avatars",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatars",
       "body": null
     },
     {
@@ -4802,12 +4852,12 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/12345/email",
+      "path": "/rest/api/3/project/{projectId}/email",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/project/12345/email",
+      "path": "/rest/api/3/project/{projectId}/email",
       "body": null
     },
     {
@@ -4837,87 +4887,87 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/ABC/issuesecuritylevelscheme",
+      "path": "/rest/api/3/project/PROJ-123/issuesecuritylevelscheme",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/ABC/permissionscheme",
+      "path": "/rest/api/3/project/PROJ-123/permissionscheme",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/project/ABC/permissionscheme",
+      "path": "/rest/api/3/project/PROJ-123/permissionscheme",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/ABC/securitylevel",
+      "path": "/rest/api/3/project/PROJ-123/securitylevel",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/ABC/properties",
+      "path": "/rest/api/3/project/{projectIdOrKey}/properties",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/properties/{propertyKey}",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/project/ABC/properties/customKey",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/rest/api/3/project/ABC/properties/customKey",
+      "path": "/rest/api/3/project/{projectIdOrKey}/properties/{propertyKey}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/project/ABC/properties/customKey",
+      "path": "/rest/api/3/project/{projectIdOrKey}/properties/{propertyKey}",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}",
+      "path": "/rest/api/3/project/ABC/role/123",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}",
+      "path": "/rest/api/3/project/ABC/role/123",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}",
+      "path": "/rest/api/3/project/ABC/role/123",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/role/{id}/actors",
+      "path": "/rest/api/3/role/123/actors",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/role/{id}/actors",
+      "path": "/rest/api/3/role/123/actors",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/role/{id}/actors",
+      "path": "/rest/api/3/role/123/actors",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/TEST/role",
+      "path": "/rest/api/3/project/{projectIdOrKey}/role",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/TEST/role/1000",
+      "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/TEST/roledetails",
+      "path": "/rest/api/3/project/{projectIdOrKey}/roledetails",
       "body": null
     },
     {
@@ -4932,22 +4982,22 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/role/1000",
+      "path": "/rest/api/3/role/{id}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/role/1000",
+      "path": "/rest/api/3/role/{id}",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/role/1000",
+      "path": "/rest/api/3/role/{id}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/role/1000",
+      "path": "/rest/api/3/role/{id}",
       "body": null
     },
     {
@@ -4997,12 +5047,12 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/PROJ-123/version",
+      "path": "/rest/api/3/project/ABC/version",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/PROJ-123/versions",
+      "path": "/rest/api/3/project/ABC/versions",
       "body": null
     },
     {
@@ -5012,62 +5062,62 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/version/456",
+      "path": "/rest/api/3/version/12345",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/version/456",
+      "path": "/rest/api/3/version/12345",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/version/456",
+      "path": "/rest/api/3/version/12345",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/version/456/mergeto/789",
+      "path": "/rest/api/3/version/12345/mergeto/67890",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/version/456/move",
+      "path": "/rest/api/3/version/12345/move",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/version/456/relatedIssueCounts",
+      "path": "/rest/api/3/version/12345/relatedIssueCounts",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/version/456/relatedwork",
+      "path": "/rest/api/3/version/12345/relatedwork",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/version/456/relatedwork",
+      "path": "/rest/api/3/version/12345/relatedwork",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/version/456/relatedwork",
+      "path": "/rest/api/3/version/12345/relatedwork",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/version/456/removeAndSwap",
+      "path": "/rest/api/3/version/12345/removeAndSwap",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/version/456/unresolvedIssueCount",
+      "path": "/rest/api/3/version/12345/unresolvedIssueCount",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/version/456/relatedwork/789",
+      "path": "/rest/api/3/version/12345/relatedwork/67890",
       "body": null
     },
     {
@@ -5122,7 +5172,7 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/project/{projectId}/statuses",
+      "path": "/rest/api/3/project/{projectIdOrKey}/statuses",
       "body": null
     },
     {
@@ -5272,12 +5322,12 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/statuses/search",
+      "path": "/rest/api/3/statuses/byNames",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/statuses/byNames",
+      "path": "/rest/api/3/statuses/search",
       "body": null
     },
     {
@@ -5307,47 +5357,47 @@
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/plans/plan/123/team",
+      "path": "/rest/api/3/plans/plan/12345/team",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/plans/plan/123/team/atlassian",
+      "path": "/rest/api/3/plans/plan/12345/team/atlassian",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/plans/plan/123/team/atlassian/789",
+      "path": "/rest/api/3/plans/plan/12345/team/atlassian/67890",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/plans/plan/123/team/atlassian/789",
+      "path": "/rest/api/3/plans/plan/12345/team/atlassian/67890",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/plans/plan/123/team/atlassian/789",
+      "path": "/rest/api/3/plans/plan/12345/team/atlassian/67890",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/rest/api/3/plans/plan/123/team/planonly",
+      "path": "/rest/api/3/plans/plan/12345/team/planonly",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/plans/plan/123/team/planonly/456",
+      "path": "/rest/api/3/plans/plan/12345/team/planonly/54321",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/rest/api/3/plans/plan/123/team/planonly/456",
+      "path": "/rest/api/3/plans/plan/12345/team/planonly/54321",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/rest/api/3/plans/plan/123/team/planonly/456",
+      "path": "/rest/api/3/plans/plan/12345/team/planonly/54321",
       "body": null
     },
     {
@@ -5402,7 +5452,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/user/properties/notification-preferences",
+      "path": "/rest/api/3/user/properties/notificationPreference",
       "body": null
     },
     {
@@ -5631,6 +5681,11 @@
       "body": null
     },
     {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "body": null
+    },
+    {
       "method": "GET",
       "path": "/rest/api/3/workflowscheme/{id}",
       "body": null
@@ -5642,7 +5697,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/rest/api/3/workflowscheme/{id}",
+      "path": "/rest/api/3/workflowscheme/{id}/default",
       "body": null
     },
     {
@@ -5653,6 +5708,11 @@
     {
       "method": "PUT",
       "path": "/rest/api/3/workflowscheme/{id}/default",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
       "body": null
     },
     {
@@ -5666,6 +5726,11 @@
       "body": null
     },
     {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "body": null
+    },
+    {
       "method": "GET",
       "path": "/rest/api/3/workflowscheme/{id}/workflow",
       "body": null
@@ -5673,11 +5738,6 @@
     {
       "method": "PUT",
       "path": "/rest/api/3/workflowscheme/{id}/workflow",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/rest/api/3/workflowscheme/{id}/default",
       "body": null
     },
     {

@@ -13,7 +13,7 @@
       "method": "GET",
       "operationId": "listUsers",
       "summary": "",
-      "user": "admin",
+      "user": "admin_user",
       "ideal": "Retrieves a list of all users in the library system."
     },
     {
@@ -21,23 +21,23 @@
       "method": "DELETE",
       "operationId": "deleteUser",
       "summary": "",
-      "user": "admin",
-      "ideal": "Deletes the user with ID '12345'."
+      "user": "admin_user",
+      "ideal": "Deletes the user with the specified user_id."
     },
     {
       "path": "/books",
       "method": "POST",
       "operationId": "createBook",
       "summary": "",
-      "user": "librarian",
-      "ideal": "Adds a new book titled 'The Great Gatsby' to the library."
+      "user": "librarian_user",
+      "ideal": "Adds a new book to the library collection."
     },
     {
       "path": "/books",
       "method": "GET",
       "operationId": "listBooks",
       "summary": "",
-      "user": "visitor",
+      "user": "guest_user",
       "ideal": "Fetches a list of all available books in the library."
     },
     {
@@ -45,16 +45,16 @@
       "method": "GET",
       "operationId": "getBook",
       "summary": "",
-      "user": "visitor",
-      "ideal": "Retrieves details of the book with ID '67890'."
+      "user": "john_doe",
+      "ideal": "Retrieves details of the book with the specified book_id."
     },
     {
       "path": "/books/{book_id}",
       "method": "DELETE",
       "operationId": "deleteBook",
       "summary": "",
-      "user": "librarian",
-      "ideal": "Removes the book with ID '67890' from the library."
+      "user": "librarian_user",
+      "ideal": "Removes the book with the specified book_id from the library."
     },
     {
       "path": "/loans",
@@ -62,7 +62,7 @@
       "operationId": "createLoan",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Creates a loan for the book with ID '67890' for user 'john_doe'."
+      "ideal": "Creates a loan for a book borrowed by the user 'john_doe'."
     },
     {
       "path": "/loans",
@@ -70,15 +70,15 @@
       "operationId": "listLoans",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Lists all loans associated with user 'john_doe'."
+      "ideal": "Lists all loans associated with the user 'john_doe'."
     },
     {
       "path": "/loans/{user_id}/{book_id}",
       "method": "DELETE",
       "operationId": "deleteLoan",
       "summary": "",
-      "user": "john_doe",
-      "ideal": "Deletes the loan for the book with ID '67890' for user 'john_doe'."
+      "user": "librarian_user",
+      "ideal": "Deletes the loan record for the specified user_id and book_id."
     },
     {
       "path": "/holds",
@@ -86,7 +86,7 @@
       "operationId": "createHold",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Places a hold on the book with ID '67890' for user 'john_doe'."
+      "ideal": "Places a hold on a book for the user 'john_doe'."
     },
     {
       "path": "/holds",
@@ -94,7 +94,7 @@
       "operationId": "listHolds",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Retrieves a list of all holds placed by user 'john_doe'."
+      "ideal": "Retrieves all holds placed by the user 'john_doe'."
     },
     {
       "path": "/holds/{hold_id}",
@@ -102,7 +102,7 @@
       "operationId": "deleteHold",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Cancels the hold with ID '54321' for user 'john_doe'."
+      "ideal": "Removes the hold with the specified hold_id for the user 'john_doe'."
     }
   ]
 }

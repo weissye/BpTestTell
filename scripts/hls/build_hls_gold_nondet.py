@@ -105,7 +105,7 @@ def derive_entities(ops: List[Dict]) -> List[Dict]:
 
 def bthread(name: str, decls: List[str], calls: List[str]) -> str:
     template = """// ---- {name} ----
-bp.registerBThread("{name}", function () {{
+bthread("{name}", function () {{
   {decls}
   {calls}
 }});

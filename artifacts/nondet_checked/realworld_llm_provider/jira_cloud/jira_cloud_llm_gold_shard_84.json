@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "getUiModifications",
       "summary": "",
-      "user": "As a project manager, I want to retrieve the current UI modifications applied to my Jira project so that I can review the changes made.",
-      "ideal": "The response should include a list of all UI modifications with their details such as modification ID, type, and status."
+      "user": "As a project manager, I want to retrieve the current UI modifications applied to my Jira project so that I can review the changes made to the user interface.",
+      "ideal": "The API should return a list of all UI modifications, including their IDs, types, and statuses."
     },
     {
       "path": "/rest/api/3/uiModifications",
       "method": "POST",
       "operationId": "createUiModification",
       "summary": "",
-      "user": "As a developer, I want to create a new UI modification for my Jira project to enhance user experience based on feedback.",
-      "ideal": "The response should confirm the creation of the UI modification and return the new modification ID along with its details."
+      "user": "As a developer, I want to create a new UI modification for my project to enhance user experience by adding a custom button to the issue view.",
+      "ideal": "The API should accept the modification details and return the created modification's ID and confirmation of success."
     },
     {
       "path": "/rest/api/3/uiModifications/{uiModificationId}",
       "method": "DELETE",
       "operationId": "deleteUiModification",
       "summary": "",
-      "user": "As an administrator, I want to delete a specific UI modification that is no longer needed to keep the project clean.",
-      "ideal": "The response should confirm the successful deletion of the UI modification and return a success message."
+      "user": "As an admin, I want to delete a specific UI modification that is no longer needed to keep the interface clean and user-friendly.",
+      "ideal": "The API should confirm the deletion of the specified UI modification and return a success message."
     },
     {
       "path": "/rest/api/3/uiModifications/{uiModificationId}",
       "method": "PUT",
       "operationId": "updateUiModification",
       "summary": "",
-      "user": "As a UI designer, I want to update an existing UI modification to reflect the latest design changes based on user testing.",
-      "ideal": "The response should confirm the update of the UI modification and return the updated details."
+      "user": "As a UI designer, I want to update an existing UI modification to improve its functionality based on user feedback.",
+      "ideal": "The API should accept the updated details and return the modified UI modification's ID along with a success confirmation."
     }
   ]
 }

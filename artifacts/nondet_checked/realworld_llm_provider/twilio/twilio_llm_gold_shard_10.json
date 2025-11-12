@@ -5,7 +5,7 @@
       "method": "POST",
       "operationId": "CreateSipAuthRegistrationsCredentialListMapping",
       "summary": "",
-      "user": "User wants to create a new SIP authentication registration credential list mapping for their domain.",
+      "user": "User wants to create a new credential list mapping for SIP authentication to enhance security.",
       "ideal": "Successfully creates a new credential list mapping with the provided details."
     },
     {
@@ -13,15 +13,15 @@
       "method": "GET",
       "operationId": "ListSipAuthRegistrationsCredentialListMapping",
       "summary": "",
-      "user": "User needs to retrieve a list of all credential list mappings for their SIP domain.",
-      "ideal": "Returns a list of all credential list mappings associated with the specified domain."
+      "user": "User needs to retrieve all credential list mappings to review current configurations.",
+      "ideal": "Returns a list of all credential list mappings associated with the specified SIP domain."
     },
     {
       "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Registrations/CredentialListMappings/CLXXXXXXXXXXXXXXXXX.json",
       "method": "GET",
       "operationId": "FetchSipAuthRegistrationsCredentialListMapping",
       "summary": "",
-      "user": "User wants to fetch details of a specific credential list mapping by its SID.",
+      "user": "User wants to fetch details of a specific credential list mapping for troubleshooting.",
       "ideal": "Returns the details of the specified credential list mapping."
     },
     {
@@ -29,7 +29,7 @@
       "method": "DELETE",
       "operationId": "DeleteSipAuthRegistrationsCredentialListMapping",
       "summary": "",
-      "user": "User intends to delete a specific credential list mapping that is no longer needed.",
+      "user": "User intends to delete an outdated credential list mapping to clean up configurations.",
       "ideal": "Successfully deletes the specified credential list mapping."
     }
   ]

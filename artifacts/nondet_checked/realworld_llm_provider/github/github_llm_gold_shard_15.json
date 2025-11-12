@@ -22,7 +22,7 @@
       "operationId": "dependency-graph/create-repository-snapshot",
       "summary": "",
       "user": "octocat",
-      "ideal": "Create a snapshot of the current state of the repository's dependency graph."
+      "ideal": "Create a snapshot of the current state of the dependency graph for the repository."
     }
   ]
 }

@@ -1,0 +1,351 @@
+{
+  "openapi_meta": {
+    "title": "Trello",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/organizations",
+      "method": "POST",
+      "tags": [
+        "organization"
+      ],
+      "summary": "addOrganizations()",
+      "operationId": "addOrganizations"
+    },
+    {
+      "path": "/organizations/{idOrg}",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "deleteOrganizationsByIdOrg()",
+      "operationId": "deleteOrganizationsByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "getOrganizationsByIdOrg()",
+      "operationId": "getOrganizationsByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsByIdOrg()",
+      "operationId": "updateOrganizationsByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/actions",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "getOrganizationsActionsByIdOrg()",
+      "operationId": "getOrganizationsActionsByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/boards",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "getOrganizationsBoardsByIdOrg()",
+      "operationId": "getOrganizationsBoardsByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/boards/{filter}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "getOrganizationsBoardsByIdOrgByFilter()",
+      "operationId": "getOrganizationsBoardsByIdOrgByFilter"
+    },
+    {
+      "path": "/organizations/{idOrg}/deltas",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "getOrganizationsDeltasByIdOrg()",
+      "operationId": "getOrganizationsDeltasByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/desc",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsDescByIdOrg()",
+      "operationId": "updateOrganizationsDescByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/displayName",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsDisplayNameByIdOrg()",
+      "operationId": "updateOrganizationsDisplayNameByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/logo",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "deleteOrganizationsLogoByIdOrg()",
+      "operationId": "deleteOrganizationsLogoByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/logo",
+      "method": "POST",
+      "tags": [
+        "organization"
+      ],
+      "summary": "addOrganizationsLogoByIdOrg()",
+      "operationId": "addOrganizationsLogoByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/members",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "getOrganizationsMembersByIdOrg()",
+      "operationId": "getOrganizationsMembersByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/members",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsMembersByIdOrg()",
+      "operationId": "updateOrganizationsMembersByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/members/{filter}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "getOrganizationsMembersByIdOrgByFilter()",
+      "operationId": "getOrganizationsMembersByIdOrgByFilter"
+    },
+    {
+      "path": "/organizations/{idOrg}/members/{idMember}",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "deleteOrganizationsMembersByIdOrgByIdMember()",
+      "operationId": "deleteOrganizationsMembersByIdOrgByIdMember"
+    },
+    {
+      "path": "/organizations/{idOrg}/members/{idMember}",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsMembersByIdOrgByIdMember()",
+      "operationId": "updateOrganizationsMembersByIdOrgByIdMember"
+    },
+    {
+      "path": "/organizations/{idOrg}/members/{idMember}/all",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "deleteOrganizationsMembersAllByIdOrgByIdMember()",
+      "operationId": "deleteOrganizationsMembersAllByIdOrgByIdMember"
+    },
+    {
+      "path": "/organizations/{idOrg}/members/{idMember}/cards",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "getOrganizationsMembersCardsByIdOrgByIdMember()",
+      "operationId": "getOrganizationsMembersCardsByIdOrgByIdMember"
+    },
+    {
+      "path": "/organizations/{idOrg}/members/{idMember}/deactivated",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsMembersDeactivatedByIdOrgByIdMember()",
+      "operationId": "updateOrganizationsMembersDeactivatedByIdOrgByIdMember"
+    },
+    {
+      "path": "/organizations/{idOrg}/membersInvited",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "getOrganizationsMembersInvitedByIdOrg()",
+      "operationId": "getOrganizationsMembersInvitedByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/membersInvited/{field}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "getOrganizationsMembersInvitedByIdOrgByField()",
+      "operationId": "getOrganizationsMembersInvitedByIdOrgByField"
+    },
+    {
+      "path": "/organizations/{idOrg}/memberships",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "getOrganizationsMembershipsByIdOrg()",
+      "operationId": "getOrganizationsMembershipsByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/memberships/{idMembership}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "getOrganizationsMembershipsByIdOrgByIdMembership()",
+      "operationId": "getOrganizationsMembershipsByIdOrgByIdMembership"
+    },
+    {
+      "path": "/organizations/{idOrg}/memberships/{idMembership}",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsMembershipsByIdOrgByIdMembership()",
+      "operationId": "updateOrganizationsMembershipsByIdOrgByIdMembership"
+    },
+    {
+      "path": "/organizations/{idOrg}/name",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsNameByIdOrg()",
+      "operationId": "updateOrganizationsNameByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/prefs/associatedDomain",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "deleteOrganizationsPrefsAssociatedDomainByIdOrg()",
+      "operationId": "deleteOrganizationsPrefsAssociatedDomainByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/prefs/associatedDomain",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsPrefsAssociatedDomainByIdOrg()",
+      "operationId": "updateOrganizationsPrefsAssociatedDomainByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/org",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsPrefsBoardVisibilityRestrictOrgByIdOrg()",
+      "operationId": "updateOrganizationsPrefsBoardVisibilityRestrictOrgByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/private",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsPrefsBoardVisibilityRestrictPrivateByIdOrg()",
+      "operationId": "updateOrganizationsPrefsBoardVisibilityRestrictPrivateByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/public",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsPrefsBoardVisibilityRestrictPublicByIdOrg()",
+      "operationId": "updateOrganizationsPrefsBoardVisibilityRestrictPublicByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/prefs/externalMembersDisabled",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsPrefsExternalMembersDisabledByIdOrg()",
+      "operationId": "updateOrganizationsPrefsExternalMembersDisabledByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/prefs/googleAppsVersion",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsPrefsGoogleAppsVersionByIdOrg()",
+      "operationId": "updateOrganizationsPrefsGoogleAppsVersionByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/prefs/orgInviteRestrict",
+      "method": "DELETE",
+      "tags": [
+        "organization"
+      ],
+      "summary": "deleteOrganizationsPrefsOrgInviteRestrictByIdOrg()",
+      "operationId": "deleteOrganizationsPrefsOrgInviteRestrictByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/prefs/orgInviteRestrict",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsPrefsOrgInviteRestrictByIdOrg()",
+      "operationId": "updateOrganizationsPrefsOrgInviteRestrictByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/prefs/permissionLevel",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsPrefsPermissionLevelByIdOrg()",
+      "operationId": "updateOrganizationsPrefsPermissionLevelByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/website",
+      "method": "PUT",
+      "tags": [
+        "organization"
+      ],
+      "summary": "updateOrganizationsWebsiteByIdOrg()",
+      "operationId": "updateOrganizationsWebsiteByIdOrg"
+    },
+    {
+      "path": "/organizations/{idOrg}/{field}",
+      "method": "GET",
+      "tags": [
+        "organization"
+      ],
+      "summary": "getOrganizationsByIdOrgByField()",
+      "operationId": "getOrganizationsByIdOrgByField"
+    }
+  ]
+}

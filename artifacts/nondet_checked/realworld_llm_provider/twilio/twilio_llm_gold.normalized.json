@@ -22,17 +22,17 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json",
       "body": null
     },
     {
@@ -92,32 +92,32 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/ADXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/ADXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/AddonSid/Extensions/ExtSid.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/AddonSid/Extensions.json",
       "body": null
     },
     {
@@ -242,27 +242,27 @@
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
@@ -312,22 +312,22 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps/CAXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps/CAXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps/CAXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps.json",
       "body": null
     },
     {
@@ -357,52 +357,52 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/CredentialListMappings.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialListMappings.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/CredentialListMappings.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialListMappings.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/CredentialListMappings/CLXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialListMappings/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/CredentialListMappings/CLXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialListMappings/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/Daily.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json",
       "body": null
     },
     {
@@ -417,32 +417,32 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXX/Events.json",
       "body": null
     },
     {
@@ -507,27 +507,27 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
@@ -617,52 +617,32 @@
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Mobile.json",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/CA/Mobile.json",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/GB/Mobile.json",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/FR/Mobile.json",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/DE/Mobile.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json",
       "body": null
     },
     {
@@ -697,47 +677,47 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OutgoingCallerIds/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OutgoingCallerIds/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OutgoingCallerIds/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OutgoingCallerIds.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
       "body": null
     },
     {
@@ -792,7 +772,7 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Usage/Records.json",
       "body": null
     },
     {
@@ -867,27 +847,27 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX/IpAddresses.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX/IpAddresses.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX/IpAddresses/IDXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX/IpAddresses/IDXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX/IpAddresses/IDXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
@@ -947,27 +927,27 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers/UTXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers/UTXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers/UTXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers.json",
       "body": null
     },
     {
@@ -997,7 +977,7 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/Yearly.json",
       "body": null
     },
     {
@@ -1027,17 +1007,17 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json",
       "body": null
     },
     {
@@ -1097,32 +1077,32 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/ADXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/ADXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/AddonSid/Extensions/ExtSid.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/AddonSid/Extensions.json",
       "body": null
     },
     {
@@ -1247,27 +1227,27 @@
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
@@ -1317,22 +1297,22 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps/CAXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps/CAXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps/CAXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps.json",
       "body": null
     },
     {
@@ -1362,52 +1342,52 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/CredentialListMappings.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialListMappings.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/CredentialListMappings.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialListMappings.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/CredentialListMappings/CLXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialListMappings/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/CredentialListMappings/CLXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialListMappings/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/Daily.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json",
       "body": null
     },
     {
@@ -1422,32 +1402,32 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXX/Events.json",
       "body": null
     },
     {
@@ -1512,27 +1492,27 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
@@ -1622,52 +1602,32 @@
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/Mobile.json",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/CA/Mobile.json",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/GB/Mobile.json",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/FR/Mobile.json",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/DE/Mobile.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json",
       "body": null
     },
     {
@@ -1702,47 +1662,47 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OutgoingCallerIds/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OutgoingCallerIds/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OutgoingCallerIds/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OutgoingCallerIds.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
       "body": null
     },
     {
@@ -1797,7 +1757,7 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Usage/Records.json",
       "body": null
     },
     {
@@ -1872,27 +1832,27 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX/IpAddresses.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX/IpAddresses.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX/IpAddresses/IDXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX/IpAddresses/IDXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX/IpAddresses/IDXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
@@ -1952,27 +1912,27 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers/UTXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers/UTXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers/UTXXXXXXXXXXXXXXXXX.json",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers.json",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers.json",
       "body": null
     },
     {
@@ -2002,7 +1962,7 @@
     },
     {
       "method": "GET",
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/Yearly.json",
       "body": null
     },
     {

@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "getRateLimit",
       "summary": "",
-      "user": "user123",
+      "user": "octocat",
       "ideal": "Returns the current rate limit status for the authenticated user."
     }
   ]

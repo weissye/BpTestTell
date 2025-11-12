@@ -6,15 +6,15 @@
       "operationId": "getDefaultShareScope",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve the default share scope for filters."
+      "ideal": "Retrieve the default share scope settings for filters."
     },
     {
       "path": "/rest/api/3/filter/defaultShareScope",
       "method": "PUT",
       "operationId": "setDefaultShareScope",
       "summary": "",
-      "user": "admin456",
-      "ideal": "Update the default share scope for filters."
+      "user": "user456",
+      "ideal": "Update the default share scope settings for filters."
     },
     {
       "path": "/rest/api/3/filter/{id}/permission",
@@ -22,14 +22,14 @@
       "operationId": "getSharePermissions",
       "summary": "",
       "user": "user789",
-      "ideal": "Get the share permissions for a specific filter by ID."
+      "ideal": "Get the share permissions for a specific filter by its ID."
     },
     {
       "path": "/rest/api/3/filter/{id}/permission",
       "method": "POST",
       "operationId": "addSharePermission",
       "summary": "",
-      "user": "admin456",
+      "user": "user101",
       "ideal": "Add a new share permission to a specific filter."
     },
     {
@@ -37,7 +37,7 @@
       "method": "DELETE",
       "operationId": "deleteSharePermission",
       "summary": "",
-      "user": "admin456",
+      "user": "user202",
       "ideal": "Remove a specific share permission from a filter."
     },
     {
@@ -45,7 +45,7 @@
       "method": "GET",
       "operationId": "getSharePermission",
       "summary": "",
-      "user": "user123",
+      "user": "user303",
       "ideal": "Retrieve details of a specific share permission for a filter."
     }
   ]

@@ -1,5 +1,5 @@
 // ---- crud:drug:nondet:1:1 ----
-bp.registerBThread("crud:drug:nondet:1:1", function () {
+bthread("crud:drug:nondet:1:1", function () {
   let id = 200;
   addDrug(id);
   tryToAddExistingDrug(id);
@@ -12,7 +12,7 @@ bp.registerBThread("crud:drug:nondet:1:1", function () {
 });
 
 // ---- crud:drug:nondet:1:2 ----
-bp.registerBThread("crud:drug:nondet:1:2", function () {
+bthread("crud:drug:nondet:1:2", function () {
   let id = 200;
   addDrug(id);
   tryToAddExistingDrug(id);
@@ -25,7 +25,7 @@ bp.registerBThread("crud:drug:nondet:1:2", function () {
 });
 
 // ---- crud:drug:nondet:1:3 ----
-bp.registerBThread("crud:drug:nondet:1:3", function () {
+bthread("crud:drug:nondet:1:3", function () {
   let id = 200;
   addDrug(id);
   tryToAddExistingDrug(id);
@@ -37,7 +37,7 @@ bp.registerBThread("crud:drug:nondet:1:3", function () {
 });
 
 // ---- crud:drug:nondet:1:4 ----
-bp.registerBThread("crud:drug:nondet:1:4", function () {
+bthread("crud:drug:nondet:1:4", function () {
   let id = 201;
   addDrug(id);
   tryToAddExistingDrug(id);
@@ -48,7 +48,7 @@ bp.registerBThread("crud:drug:nondet:1:4", function () {
 });
 
 // ---- crud:inventory:nondet:2:1 ----
-bp.registerBThread("crud:inventory:nondet:2:1", function () {
+bthread("crud:inventory:nondet:2:1", function () {
   let ndc = "ndc_201";
   addInventory(ndc);
   tryToAddExistingInventory(ndc);
@@ -61,7 +61,7 @@ bp.registerBThread("crud:inventory:nondet:2:1", function () {
 });
 
 // ---- crud:inventory:nondet:2:2 ----
-bp.registerBThread("crud:inventory:nondet:2:2", function () {
+bthread("crud:inventory:nondet:2:2", function () {
   let ndc = "ndc_201";
   addInventory(ndc);
   tryToAddExistingInventory(ndc);
@@ -74,7 +74,7 @@ bp.registerBThread("crud:inventory:nondet:2:2", function () {
 });
 
 // ---- crud:inventory:nondet:2:3 ----
-bp.registerBThread("crud:inventory:nondet:2:3", function () {
+bthread("crud:inventory:nondet:2:3", function () {
   let ndc = "ndc_201";
   addInventory(ndc);
   tryToAddExistingInventory(ndc);
@@ -86,7 +86,7 @@ bp.registerBThread("crud:inventory:nondet:2:3", function () {
 });
 
 // ---- crud:inventory:nondet:2:4 ----
-bp.registerBThread("crud:inventory:nondet:2:4", function () {
+bthread("crud:inventory:nondet:2:4", function () {
   let ndc = "ndc_202";
   addInventory(ndc);
   tryToAddExistingInventory(ndc);
@@ -97,7 +97,7 @@ bp.registerBThread("crud:inventory:nondet:2:4", function () {
 });
 
 // ---- crud:order:nondet:3:1 ----
-bp.registerBThread("crud:order:nondet:3:1", function () {
+bthread("crud:order:nondet:3:1", function () {
   let id = 202;
   addOrder(id);
   tryToAddExistingOrder(id);
@@ -110,7 +110,7 @@ bp.registerBThread("crud:order:nondet:3:1", function () {
 });
 
 // ---- crud:order:nondet:3:2 ----
-bp.registerBThread("crud:order:nondet:3:2", function () {
+bthread("crud:order:nondet:3:2", function () {
   let id = 202;
   addOrder(id);
   tryToAddExistingOrder(id);
@@ -123,7 +123,7 @@ bp.registerBThread("crud:order:nondet:3:2", function () {
 });
 
 // ---- crud:order:nondet:3:3 ----
-bp.registerBThread("crud:order:nondet:3:3", function () {
+bthread("crud:order:nondet:3:3", function () {
   let id = 202;
   addOrder(id);
   tryToAddExistingOrder(id);
@@ -135,7 +135,7 @@ bp.registerBThread("crud:order:nondet:3:3", function () {
 });
 
 // ---- crud:order:nondet:3:4 ----
-bp.registerBThread("crud:order:nondet:3:4", function () {
+bthread("crud:order:nondet:3:4", function () {
   let id = 203;
   addOrder(id);
   tryToAddExistingOrder(id);
@@ -146,7 +146,7 @@ bp.registerBThread("crud:order:nondet:3:4", function () {
 });
 
 // ---- crud:patient:nondet:4:1 ----
-bp.registerBThread("crud:patient:nondet:4:1", function () {
+bthread("crud:patient:nondet:4:1", function () {
   let id = 203;
   addPatient(id);
   tryToAddExistingPatient(id);
@@ -159,7 +159,7 @@ bp.registerBThread("crud:patient:nondet:4:1", function () {
 });
 
 // ---- crud:patient:nondet:4:2 ----
-bp.registerBThread("crud:patient:nondet:4:2", function () {
+bthread("crud:patient:nondet:4:2", function () {
   let id = 203;
   addPatient(id);
   tryToAddExistingPatient(id);
@@ -172,7 +172,7 @@ bp.registerBThread("crud:patient:nondet:4:2", function () {
 });
 
 // ---- crud:patient:nondet:4:3 ----
-bp.registerBThread("crud:patient:nondet:4:3", function () {
+bthread("crud:patient:nondet:4:3", function () {
   let id = 203;
   addPatient(id);
   tryToAddExistingPatient(id);
@@ -184,7 +184,7 @@ bp.registerBThread("crud:patient:nondet:4:3", function () {
 });
 
 // ---- crud:patient:nondet:4:4 ----
-bp.registerBThread("crud:patient:nondet:4:4", function () {
+bthread("crud:patient:nondet:4:4", function () {
   let id = 204;
   addPatient(id);
   tryToAddExistingPatient(id);
@@ -195,7 +195,7 @@ bp.registerBThread("crud:patient:nondet:4:4", function () {
 });
 
 // ---- crud:prescription:nondet:5:1 ----
-bp.registerBThread("crud:prescription:nondet:5:1", function () {
+bthread("crud:prescription:nondet:5:1", function () {
   let id = 204;
   addPrescription(id);
   tryToAddExistingPrescription(id);
@@ -208,7 +208,7 @@ bp.registerBThread("crud:prescription:nondet:5:1", function () {
 });
 
 // ---- crud:prescription:nondet:5:2 ----
-bp.registerBThread("crud:prescription:nondet:5:2", function () {
+bthread("crud:prescription:nondet:5:2", function () {
   let id = 204;
   addPrescription(id);
   tryToAddExistingPrescription(id);
@@ -221,7 +221,7 @@ bp.registerBThread("crud:prescription:nondet:5:2", function () {
 });
 
 // ---- crud:prescription:nondet:5:3 ----
-bp.registerBThread("crud:prescription:nondet:5:3", function () {
+bthread("crud:prescription:nondet:5:3", function () {
   let id = 204;
   addPrescription(id);
   tryToAddExistingPrescription(id);
@@ -233,7 +233,7 @@ bp.registerBThread("crud:prescription:nondet:5:3", function () {
 });
 
 // ---- crud:prescription:nondet:5:4 ----
-bp.registerBThread("crud:prescription:nondet:5:4", function () {
+bthread("crud:prescription:nondet:5:4", function () {
   let id = 205;
   addPrescription(id);
   tryToAddExistingPrescription(id);
@@ -244,7 +244,7 @@ bp.registerBThread("crud:prescription:nondet:5:4", function () {
 });
 
 // ---- crud:reset:nondet:6:1 ----
-bp.registerBThread("crud:reset:nondet:6:1", function () {
+bthread("crud:reset:nondet:6:1", function () {
   let id = 205;
   addReset(id);
   tryToAddExistingReset(id);
@@ -257,7 +257,7 @@ bp.registerBThread("crud:reset:nondet:6:1", function () {
 });
 
 // ---- crud:reset:nondet:6:2 ----
-bp.registerBThread("crud:reset:nondet:6:2", function () {
+bthread("crud:reset:nondet:6:2", function () {
   let id = 205;
   addReset(id);
   tryToAddExistingReset(id);
@@ -270,7 +270,7 @@ bp.registerBThread("crud:reset:nondet:6:2", function () {
 });
 
 // ---- crud:reset:nondet:6:3 ----
-bp.registerBThread("crud:reset:nondet:6:3", function () {
+bthread("crud:reset:nondet:6:3", function () {
   let id = 205;
   addReset(id);
   tryToAddExistingReset(id);
@@ -282,7 +282,7 @@ bp.registerBThread("crud:reset:nondet:6:3", function () {
 });
 
 // ---- crud:reset:nondet:6:4 ----
-bp.registerBThread("crud:reset:nondet:6:4", function () {
+bthread("crud:reset:nondet:6:4", function () {
   let id = 206;
   addReset(id);
   tryToAddExistingReset(id);

@@ -1,0 +1,60 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/board"
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/cards/{filter}"
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/members/{filter}"
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/cardAging"
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/checklist/{idChecklistCurrent}/checkItem/{idCheckItem}"
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/list"
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/checkItems"
+    },
+    {
+      "method": "POST",
+      "path": "/lists/{idList}/cards"
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/boardStars/{idBoardStar}"
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/notifications"
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/board"
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/desc"
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/googleAppsVersion"
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/"
+    }
+  ]
+}

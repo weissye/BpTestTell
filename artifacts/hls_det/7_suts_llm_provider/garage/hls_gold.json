@@ -3,10 +3,10 @@
   "deterministic": true,
   "provider": "7_suts_llm_provider",
   "sut": "garage",
-  "generated_at": "2025-11-09T13:49:33.643631Z",
+  "generated_at": "2025-11-12T20:05:54.224442Z",
   "source": {
-    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\7_suts_llm_provider\\garage\\graph.json",
-    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\SUTs\\garage\\dsl_map.json"
+    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\7_suts_llm_provider\\garage\\graph.json",
+    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\SUTs\\garage\\dsl_map.json"
   },
   "entities": [
     {
@@ -87,25 +87,25 @@
       "name": "CRUD approve",
       "desc": "Deterministic CRUD flow for entity 'approve' inferred from graph.",
       "entity": "approve",
-      "js": "// Deterministic CRUD flow for entity: approve\nbp.registerBThread(\"HLS: CRUD approve\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/repair-orders/{roId}/approve\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: approve\nbthread(\"HLS: CRUD approve\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/repair-orders/{roId}/approve\", {})});\n});"
     },
     {
       "name": "CRUD car",
       "desc": "Deterministic CRUD flow for entity 'car' inferred from graph.",
       "entity": "car",
-      "js": "// Deterministic CRUD flow for entity: car\nbp.registerBThread(\"HLS: CRUD car\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/cars\", {})});\n  bp.sync({request: REST.GET(\"/cars\", {})});\n  bp.sync({request: REST.PUT(\"/cars/{vin}\", {})});\n  bp.sync({request: REST.GET(\"/cars\", {})});\n  bp.sync({request: REST.DELETE(\"/cars/{vin}\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: car\nbthread(\"HLS: CRUD car\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/cars\", {})});\n  bp.sync({request: REST.GET(\"/cars\", {})});\n  bp.sync({request: REST.PUT(\"/cars/{vin}\", {})});\n  bp.sync({request: REST.GET(\"/cars\", {})});\n  bp.sync({request: REST.DELETE(\"/cars/{vin}\", {})});\n});"
     },
     {
       "name": "CRUD chain",
       "desc": "Deterministic CRUD flow for entity 'chain' inferred from graph.",
       "entity": "chain",
-      "js": "// Deterministic CRUD flow for entity: chain\nbp.registerBThread(\"HLS: CRUD chain\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/chains\", {})});\n  bp.sync({request: REST.GET(\"/chains\", {})});\n  bp.sync({request: REST.PUT(\"/chains/{chainId}\", {})});\n  bp.sync({request: REST.GET(\"/chains\", {})});\n  bp.sync({request: REST.DELETE(\"/chains/{chainId}\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: chain\nbthread(\"HLS: CRUD chain\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/chains\", {})});\n  bp.sync({request: REST.GET(\"/chains\", {})});\n  bp.sync({request: REST.PUT(\"/chains/{chainId}\", {})});\n  bp.sync({request: REST.GET(\"/chains\", {})});\n  bp.sync({request: REST.DELETE(\"/chains/{chainId}\", {})});\n});"
     },
     {
       "name": "CRUD close",
       "desc": "Deterministic CRUD flow for entity 'close' inferred from graph.",
       "entity": "close",
-      "js": "// Deterministic CRUD flow for entity: close\nbp.registerBThread(\"HLS: CRUD close\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/repair-orders/{roId}/close\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: close\nbthread(\"HLS: CRUD close\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/repair-orders/{roId}/close\", {})});\n});"
     }
   ]
 }

@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/flows",
+      "method": "GET",
+      "tags": [
+        "Flows"
+      ],
+      "summary": "List Flows",
+      "operationId": "getFlows"
+    },
+    {
+      "path": "/flows",
+      "method": "POST",
+      "tags": [
+        "Flows"
+      ],
+      "summary": "Create a Flow",
+      "operationId": "createFlow"
+    },
+    {
+      "path": "/flows",
+      "method": "PATCH",
+      "tags": [
+        "Flows"
+      ],
+      "summary": "Update Multiple Flows",
+      "operationId": "updateFlows"
+    },
+    {
+      "path": "/flows",
+      "method": "DELETE",
+      "tags": [
+        "Flows"
+      ],
+      "summary": "Delete Multiple Flows",
+      "operationId": "deleteFlows"
+    },
+    {
+      "path": "/flows/{id}",
+      "method": "GET",
+      "tags": [
+        "Flows"
+      ],
+      "summary": "Retrieve a Flow",
+      "operationId": "getFlow"
+    },
+    {
+      "path": "/flows/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Flows"
+      ],
+      "summary": "Update a Flow",
+      "operationId": "updateFlow"
+    },
+    {
+      "path": "/flows/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Flows"
+      ],
+      "summary": "Delete a Flow",
+      "operationId": "deleteFlow"
+    }
+  ]
+}

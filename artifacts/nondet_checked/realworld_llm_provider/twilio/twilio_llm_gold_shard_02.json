@@ -1,28 +1,28 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
       "method": "GET",
       "operationId": "FetchRecordingAddOnResult",
       "summary": "",
       "user": "User123",
-      "ideal": "Fetch the add-on result for a specific recording."
+      "ideal": "Retrieve the add-on results for a specific recording using the Account SID, Recording Reference SID, and Add-On Result SID."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
       "method": "DELETE",
       "operationId": "DeleteRecordingAddOnResult",
       "summary": "",
       "user": "User456",
-      "ideal": "Delete the specified add-on result for a recording."
+      "ideal": "Delete a specific add-on result associated with a recording using the Account SID, Recording Reference SID, and Add-On Result SID."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json",
       "method": "GET",
       "operationId": "ListRecordingAddOnResult",
       "summary": "",
       "user": "User789",
-      "ideal": "List all add-on results for a specific recording."
+      "ideal": "List all add-on results for a specific recording by providing the Account SID and Recording Reference SID."
     }
   ]
 }

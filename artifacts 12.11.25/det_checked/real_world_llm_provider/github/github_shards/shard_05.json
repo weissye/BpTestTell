@@ -1,0 +1,188 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/app-manifests/{code}/conversions"
+    },
+    {
+      "method": "GET",
+      "path": "/classrooms/{classroom_id}/assignments"
+    },
+    {
+      "method": "DELETE",
+      "path": "/enterprises/{enterprise}/teams/{team_slug}"
+    },
+    {
+      "method": "GET",
+      "path": "/gitignore/templates"
+    },
+    {
+      "method": "PUT",
+      "path": "/notifications/threads/{thread_id}/subscription"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/actions/oidc/customization/sub"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/actions/runner-groups"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/actions/runners/{runner_id}/labels/{name}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/attestations/{attestation_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/codespaces/access/selected_users"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/insights/api/time-stats/users/{user_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/memberships/{username}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/packages/{package_type}/{package_name}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/projectsV2/{project_number}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/rulesets/rule-suites/{rule_suite_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/settings/network-configurations/{network_configuration_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions"
+    },
+    {
+      "method": "GET",
+      "path": "/projects/{project_id}/collaborators"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/organization-variables"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/actions/runners/{runner_id}/labels"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/secrets/public-key"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/autolinks/{autolink_id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/codespaces"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/dependency-graph/sbom"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}/secrets"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/git/trees"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/import/lfs"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/comments"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/keys"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pages/builds"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/rulesets/{ruleset_id}/history"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/subscription"
+    },
+    {
+      "method": "GET",
+      "path": "/search/labels"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/members/{username}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/user/codespaces/secrets/{secret_name}"
+    },
+    {
+      "method": "GET",
+      "path": "/user/following/{username}"
+    },
+    {
+      "method": "POST",
+      "path": "/user/migrations"
+    },
+    {
+      "method": "POST",
+      "path": "/user/social_accounts"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/following"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/projectsV2/{project_number}/items/{item_id}"
+    }
+  ]
+}

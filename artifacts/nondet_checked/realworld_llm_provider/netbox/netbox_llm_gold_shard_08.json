@@ -5,80 +5,80 @@
       "method": "GET",
       "operationId": "tenancy_contact_assignments_list",
       "summary": "",
-      "user": "Admin user requesting a list of all contact assignments to manage tenant relationships.",
-      "ideal": "Returns a list of contact assignments with details such as id, contact, and tenant."
+      "user": "Admin user requesting a list of all contact assignments.",
+      "ideal": "Returns a list of contact assignments with their details."
     },
     {
       "path": "/api/tenancy/contact-assignments/",
       "method": "POST",
       "operationId": "tenancy_contact_assignments_create",
       "summary": "",
-      "user": "Tenant manager creating a new contact assignment for a tenant.",
-      "ideal": "Creates a new contact assignment and returns the created assignment's details."
+      "user": "User creating a new contact assignment for a tenant.",
+      "ideal": "Creates a new contact assignment and returns the created object."
     },
     {
-      "path": "/api/tenancy/contact-assignments/{id}/",
+      "path": "/api/tenancy/contact-assignments/1/",
       "method": "PUT",
       "operationId": "tenancy_contact_assignments_update",
       "summary": "",
-      "user": "Admin updating an existing contact assignment to reflect changes in tenant contacts.",
-      "ideal": "Updates the specified contact assignment and returns the updated details."
+      "user": "User updating an existing contact assignment with new details.",
+      "ideal": "Updates the specified contact assignment and returns the updated object."
     },
     {
       "path": "/api/tenancy/contact-groups/",
       "method": "GET",
       "operationId": "tenancy_contact_groups_list",
       "summary": "",
-      "user": "User retrieving all contact groups to organize tenant contacts effectively.",
-      "ideal": "Returns a list of contact groups with their respective details."
+      "user": "Admin user fetching all contact groups.",
+      "ideal": "Returns a list of all contact groups."
     },
     {
-      "path": "/api/tenancy/contact-groups/",
-      "method": "POST",
-      "operationId": "tenancy_contact_groups_create",
-      "summary": "",
-      "user": "User creating a new contact group for better management of tenant contacts.",
-      "ideal": "Creates a new contact group and returns the details of the created group."
-    },
-    {
-      "path": "/api/tenancy/contact-groups/{id}/",
+      "path": "/api/tenancy/contact-groups/1/",
       "method": "DELETE",
       "operationId": "tenancy_contact_groups_destroy",
       "summary": "",
-      "user": "Admin deleting a contact group that is no longer needed.",
-      "ideal": "Successfully deletes the specified contact group and returns a confirmation."
+      "user": "User deleting a specific contact group.",
+      "ideal": "Deletes the specified contact group and returns a success message."
     },
     {
       "path": "/api/tenancy/contacts/",
-      "method": "GET",
-      "operationId": "tenancy_contacts_list",
+      "method": "POST",
+      "operationId": "tenancy_contacts_create",
       "summary": "",
-      "user": "User fetching all contacts to review tenant information.",
-      "ideal": "Returns a list of contacts with their details, including names and roles."
+      "user": "User adding a new contact to the system.",
+      "ideal": "Creates a new contact and returns the created contact object."
     },
     {
-      "path": "/api/tenancy/contacts/{id}/",
+      "path": "/api/tenancy/contacts/1/",
       "method": "PATCH",
       "operationId": "tenancy_contacts_partial_update",
       "summary": "",
-      "user": "User updating specific fields of a contact's information.",
-      "ideal": "Partially updates the specified contact and returns the updated fields."
+      "user": "User updating specific fields of an existing contact.",
+      "ideal": "Partially updates the specified contact and returns the updated object."
     },
     {
       "path": "/api/tenancy/tenants/",
-      "method": "POST",
-      "operationId": "tenancy_tenants_create",
+      "method": "GET",
+      "operationId": "tenancy_tenants_list",
       "summary": "",
-      "user": "Admin creating a new tenant in the system.",
-      "ideal": "Creates a new tenant and returns the details of the created tenant."
+      "user": "Admin user retrieving a list of all tenants.",
+      "ideal": "Returns a list of all tenants with their details."
     },
     {
-      "path": "/api/tenancy/tenants/{id}/",
-      "method": "GET",
-      "operationId": "tenancy_tenants_retrieve",
+      "path": "/api/tenancy/tenants/1/",
+      "method": "PUT",
+      "operationId": "tenancy_tenants_update",
       "summary": "",
-      "user": "User retrieving details of a specific tenant for review.",
-      "ideal": "Returns the details of the specified tenant, including contact and group information."
+      "user": "User updating tenant information.",
+      "ideal": "Updates the specified tenant and returns the updated tenant object."
+    },
+    {
+      "path": "/api/tenancy/contact-roles/",
+      "method": "POST",
+      "operationId": "tenancy_contact_roles_create",
+      "summary": "",
+      "user": "User creating a new contact role.",
+      "ideal": "Creates a new contact role and returns the created role object."
     }
   ]
 }

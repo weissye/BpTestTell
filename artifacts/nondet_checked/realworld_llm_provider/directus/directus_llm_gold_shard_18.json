@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "schemaSnapshot",
       "summary": "",
-      "user": "Admin user requesting a snapshot of the current database schema to review changes made during the last deployment.",
-      "ideal": "Returns the current schema snapshot in JSON format, including tables, fields, and relationships."
+      "user": "admin",
+      "ideal": "Retrieve the current schema snapshot of the database."
     },
     {
       "path": "/schema/apply",
       "method": "POST",
       "operationId": "schemaApply",
       "summary": "",
-      "user": "Database administrator applying a new schema update to the production database after thorough testing in staging.",
-      "ideal": "Successfully applies the provided schema changes and returns a confirmation message with the updated schema version."
+      "user": "developer",
+      "ideal": "Apply the provided schema changes to the database."
     },
     {
       "path": "/schema/diff",
       "method": "POST",
       "operationId": "schemaDiff",
       "summary": "",
-      "user": "Developer comparing the current schema with a proposed schema to identify differences before applying changes.",
-      "ideal": "Returns a detailed comparison of the current schema and the proposed schema, highlighting additions, deletions, and modifications."
+      "user": "dataAnalyst",
+      "ideal": "Get the differences between the current schema and the provided schema."
     }
   ]
 }

@@ -5,8 +5,8 @@
       "method": "POST",
       "operationId": "snapshots.create",
       "summary": "",
-      "user": "User wants to create a snapshot of the current state of the Meilisearch index to ensure data persistence and recovery options in case of failure.",
-      "ideal": "The API should return a success message with the snapshot ID and a status indicating that the snapshot creation is in progress."
+      "user": "User wants to create a snapshot of the current state of the Meilisearch instance to ensure data persistence and recovery options.",
+      "ideal": "The API should return a success message along with the snapshot ID and a status indicating that the snapshot is being created."
     }
   ]
 }

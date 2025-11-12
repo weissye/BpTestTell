@@ -3,10 +3,10 @@
   "deterministic": true,
   "provider": "real_world_llm_provider",
   "sut": "meilisearch",
-  "generated_at": "2025-11-09T13:50:07.637985Z",
+  "generated_at": "2025-11-12T20:06:42.055932Z",
   "source": {
-    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\meilisearch\\graph.json",
-    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\meilisearch\\dsl_map.json"
+    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\meilisearch\\graph.json",
+    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\meilisearch\\dsl_map.json"
   },
   "entities": [
     {
@@ -243,25 +243,25 @@
       "name": "CRUD _taskuid",
       "desc": "Deterministic CRUD flow for entity '_taskuid' inferred from graph.",
       "entity": "_taskuid",
-      "js": "// Deterministic CRUD flow for entity: _taskuid\nbp.registerBThread(\"HLS: CRUD _taskuid\", function () {\n  bp.sync({request: REST.GET(\"/tasks/:taskUid\", {})});\n  bp.sync({request: REST.GET(\"/tasks/:taskUid\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: _taskuid\nbthread(\"HLS: CRUD _taskuid\", function () {\n  bp.sync({request: REST.GET(\"/tasks/:taskUid\", {})});\n  bp.sync({request: REST.GET(\"/tasks/:taskUid\", {})});\n});"
     },
     {
       "name": "CRUD cancel",
       "desc": "Deterministic CRUD flow for entity 'cancel' inferred from graph.",
       "entity": "cancel",
-      "js": "// Deterministic CRUD flow for entity: cancel\nbp.registerBThread(\"HLS: CRUD cancel\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/tasks/cancel\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: cancel\nbthread(\"HLS: CRUD cancel\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/tasks/cancel\", {})});\n});"
     },
     {
       "name": "CRUD delete",
       "desc": "Deterministic CRUD flow for entity 'delete' inferred from graph.",
       "entity": "delete",
-      "js": "// Deterministic CRUD flow for entity: delete\nbp.registerBThread(\"HLS: CRUD delete\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/indexes/{indexUid}/documents/delete\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: delete\nbthread(\"HLS: CRUD delete\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/indexes/{indexUid}/documents/delete\", {})});\n});"
     },
     {
       "name": "CRUD delete_batch",
       "desc": "Deterministic CRUD flow for entity 'delete_batch' inferred from graph.",
       "entity": "delete_batch",
-      "js": "// Deterministic CRUD flow for entity: delete_batch\nbp.registerBThread(\"HLS: CRUD delete_batch\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/indexes/{indexUid}/documents/delete-batch\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: delete_batch\nbthread(\"HLS: CRUD delete_batch\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/indexes/{indexUid}/documents/delete-batch\", {})});\n});"
     }
   ]
 }

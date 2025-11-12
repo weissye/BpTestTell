@@ -1,92 +1,84 @@
 {
   "gold": [
     {
-      "path": "/orgs/octocat/repos",
+      "path": "/orgs/example-org/repos",
       "method": "GET",
       "operationId": "repos/list-for-org",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Retrieve a list of repositories for the organization 'octocat'."
+      "user": "user123",
+      "ideal": "Retrieve a list of repositories for the specified organization."
     },
     {
-      "path": "/orgs/octocat/repos",
+      "path": "/orgs/example-org/repos",
       "method": "POST",
       "operationId": "repos/create-in-org",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Create a new repository in the organization 'octocat'."
+      "user": "user123",
+      "ideal": "Create a new repository in the specified organization."
     },
     {
-      "path": "/repos/octocat/Hello-World",
+      "path": "/repos/example-owner/example-repo",
       "method": "GET",
       "operationId": "repos/get",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Get details about the repository 'Hello-World' owned by 'octocat'."
+      "user": "user123",
+      "ideal": "Fetch details about the specified repository."
     },
     {
-      "path": "/repos/octocat/Hello-World",
+      "path": "/repos/example-owner/example-repo",
       "method": "PATCH",
       "operationId": "repos/update",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Update the repository 'Hello-World' owned by 'octocat'."
+      "user": "user123",
+      "ideal": "Update the specified repository's settings."
     },
     {
-      "path": "/repos/octocat/Hello-World",
-      "method": "DELETE",
-      "operationId": "repos/delete",
-      "summary": "",
-      "user": "octocat",
-      "ideal": "Delete the repository 'Hello-World' owned by 'octocat'."
-    },
-    {
-      "path": "/repos/octocat/Hello-World/branches",
+      "path": "/repos/example-owner/example-repo/branches",
       "method": "GET",
       "operationId": "repos/list-branches",
       "summary": "",
-      "user": "octocat",
-      "ideal": "List all branches in the repository 'Hello-World' owned by 'octocat'."
+      "user": "user123",
+      "ideal": "List all branches in the specified repository."
     },
     {
-      "path": "/repos/octocat/Hello-World/releases",
+      "path": "/repos/example-owner/example-repo/releases",
       "method": "GET",
       "operationId": "repos/list-releases",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Get a list of releases for the repository 'Hello-World' owned by 'octocat'."
+      "user": "user123",
+      "ideal": "Get a list of releases for the specified repository."
     },
     {
-      "path": "/repos/octocat/Hello-World/releases",
+      "path": "/repos/example-owner/example-repo/releases",
       "method": "POST",
       "operationId": "repos/create-release",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Create a new release for the repository 'Hello-World' owned by 'octocat'."
+      "user": "user123",
+      "ideal": "Create a new release for the specified repository."
     },
     {
-      "path": "/repos/octocat/Hello-World/commits",
+      "path": "/repos/example-owner/example-repo/commits",
       "method": "GET",
       "operationId": "repos/list-commits",
       "summary": "",
-      "user": "octocat",
-      "ideal": "List all commits in the repository 'Hello-World' owned by 'octocat'."
+      "user": "user123",
+      "ideal": "Retrieve a list of commits for the specified repository."
     },
     {
-      "path": "/repos/octocat/Hello-World/branches/main/protection",
+      "path": "/repos/example-owner/example-repo/branches/main/protection",
       "method": "GET",
       "operationId": "repos/get-branch-protection",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Get the branch protection settings for the 'main' branch in 'Hello-World'."
+      "user": "user123",
+      "ideal": "Get the protection settings for the main branch."
     },
     {
-      "path": "/repos/octocat/Hello-World/branches/main/protection",
+      "path": "/repos/example-owner/example-repo/branches/main/protection",
       "method": "PUT",
       "operationId": "repos/update-branch-protection",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Update the branch protection settings for the 'main' branch in 'Hello-World'."
+      "user": "user123",
+      "ideal": "Update the protection settings for the main branch."
     }
   ]
 }

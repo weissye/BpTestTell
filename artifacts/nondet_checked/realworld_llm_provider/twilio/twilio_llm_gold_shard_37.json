@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "ListUsageRecordLastMonth",
       "summary": "",
-      "user": "user_12345",
+      "user": "User123",
       "ideal": "Retrieve the usage records for the last month for the specified account."
     }
   ]

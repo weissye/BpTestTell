@@ -3,10 +3,10 @@
   "deterministic": true,
   "provider": "real_world_llm_provider",
   "sut": "jira_cloud",
-  "generated_at": "2025-11-09T13:50:06.991020Z",
+  "generated_at": "2025-11-12T20:06:41.851190Z",
   "source": {
-    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\jira_cloud\\graph.json",
-    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\jira_cloud\\dsl_map.json"
+    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\jira_cloud\\graph.json",
+    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\jira_cloud\\dsl_map.json"
   },
   "entities": [
     {
@@ -1337,25 +1337,25 @@
       "name": "CRUD accessible",
       "desc": "Deterministic CRUD flow for entity 'accessible' inferred from graph.",
       "entity": "accessible",
-      "js": "// Deterministic CRUD flow for entity: accessible\nbp.registerBThread(\"HLS: CRUD accessible\", function () {\n  bp.sync({request: REST.GET(\"/rest/api/3/project/type/accessible\", {})});\n  bp.sync({request: REST.GET(\"/rest/api/3/project/type/accessible\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: accessible\nbthread(\"HLS: CRUD accessible\", function () {\n  bp.sync({request: REST.GET(\"/rest/api/3/project/type/accessible\", {})});\n  bp.sync({request: REST.GET(\"/rest/api/3/project/type/accessible\", {})});\n});"
     },
     {
       "name": "CRUD actor",
       "desc": "Deterministic CRUD flow for entity 'actor' inferred from graph.",
       "entity": "actor",
-      "js": "// Deterministic CRUD flow for entity: actor\nbp.registerBThread(\"HLS: CRUD actor\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/rest/api/3/role/{id}/actors\", {})});\n  bp.sync({request: REST.GET(\"/rest/api/3/role/{id}/actors\", {})});\n  bp.sync({request: REST.GET(\"/rest/api/3/role/{id}/actors\", {})});\n  bp.sync({request: REST.DELETE(\"/rest/api/3/role/{id}/actors\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: actor\nbthread(\"HLS: CRUD actor\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/rest/api/3/role/{id}/actors\", {})});\n  bp.sync({request: REST.GET(\"/rest/api/3/role/{id}/actors\", {})});\n  bp.sync({request: REST.GET(\"/rest/api/3/role/{id}/actors\", {})});\n  bp.sync({request: REST.DELETE(\"/rest/api/3/role/{id}/actors\", {})});\n});"
     },
     {
       "name": "CRUD addtodefault",
       "desc": "Deterministic CRUD flow for entity 'addtodefault' inferred from graph.",
       "entity": "addtodefault",
-      "js": "// Deterministic CRUD flow for entity: addtodefault\nbp.registerBThread(\"HLS: CRUD addtodefault\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/rest/api/3/screens/addToDefault/{fieldId}\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: addtodefault\nbthread(\"HLS: CRUD addtodefault\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/rest/api/3/screens/addToDefault/{fieldId}\", {})});\n});"
     },
     {
       "name": "CRUD advanced_setting",
       "desc": "Deterministic CRUD flow for entity 'advanced_setting' inferred from graph.",
       "entity": "advanced_setting",
-      "js": "// Deterministic CRUD flow for entity: advanced_setting\nbp.registerBThread(\"HLS: CRUD advanced_setting\", function () {\n  bp.sync({request: REST.GET(\"/rest/api/3/application-properties/advanced-settings\", {})});\n  bp.sync({request: REST.GET(\"/rest/api/3/application-properties/advanced-settings\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: advanced_setting\nbthread(\"HLS: CRUD advanced_setting\", function () {\n  bp.sync({request: REST.GET(\"/rest/api/3/application-properties/advanced-settings\", {})});\n  bp.sync({request: REST.GET(\"/rest/api/3/application-properties/advanced-settings\", {})});\n});"
     }
   ]
 }

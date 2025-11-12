@@ -1,5 +1,5 @@
 // ---- crud:machine:nondet:1:1 ----
-bp.registerBThread("crud:machine:nondet:1:1", function () {
+bthread("crud:machine:nondet:1:1", function () {
   let id = 200;
   addMachine(id);
   tryToAddExistingMachine(id);
@@ -12,7 +12,7 @@ bp.registerBThread("crud:machine:nondet:1:1", function () {
 });
 
 // ---- crud:machine:nondet:1:2 ----
-bp.registerBThread("crud:machine:nondet:1:2", function () {
+bthread("crud:machine:nondet:1:2", function () {
   let id = 200;
   addMachine(id);
   tryToAddExistingMachine(id);
@@ -25,7 +25,7 @@ bp.registerBThread("crud:machine:nondet:1:2", function () {
 });
 
 // ---- crud:machine:nondet:1:3 ----
-bp.registerBThread("crud:machine:nondet:1:3", function () {
+bthread("crud:machine:nondet:1:3", function () {
   let id = 200;
   addMachine(id);
   tryToAddExistingMachine(id);
@@ -37,7 +37,7 @@ bp.registerBThread("crud:machine:nondet:1:3", function () {
 });
 
 // ---- crud:machine:nondet:1:4 ----
-bp.registerBThread("crud:machine:nondet:1:4", function () {
+bthread("crud:machine:nondet:1:4", function () {
   let id = 201;
   addMachine(id);
   tryToAddExistingMachine(id);
@@ -48,7 +48,7 @@ bp.registerBThread("crud:machine:nondet:1:4", function () {
 });
 
 // ---- crud:maintenance_ticket:nondet:2:1 ----
-bp.registerBThread("crud:maintenance_ticket:nondet:2:1", function () {
+bthread("crud:maintenance_ticket:nondet:2:1", function () {
   let id = 201;
   addMaintenance_ticket(id);
   tryToAddExistingMaintenance_ticket(id);
@@ -61,7 +61,7 @@ bp.registerBThread("crud:maintenance_ticket:nondet:2:1", function () {
 });
 
 // ---- crud:maintenance_ticket:nondet:2:2 ----
-bp.registerBThread("crud:maintenance_ticket:nondet:2:2", function () {
+bthread("crud:maintenance_ticket:nondet:2:2", function () {
   let id = 201;
   addMaintenance_ticket(id);
   tryToAddExistingMaintenance_ticket(id);
@@ -74,7 +74,7 @@ bp.registerBThread("crud:maintenance_ticket:nondet:2:2", function () {
 });
 
 // ---- crud:maintenance_ticket:nondet:2:3 ----
-bp.registerBThread("crud:maintenance_ticket:nondet:2:3", function () {
+bthread("crud:maintenance_ticket:nondet:2:3", function () {
   let id = 201;
   addMaintenance_ticket(id);
   tryToAddExistingMaintenance_ticket(id);
@@ -86,7 +86,7 @@ bp.registerBThread("crud:maintenance_ticket:nondet:2:3", function () {
 });
 
 // ---- crud:maintenance_ticket:nondet:2:4 ----
-bp.registerBThread("crud:maintenance_ticket:nondet:2:4", function () {
+bthread("crud:maintenance_ticket:nondet:2:4", function () {
   let id = 202;
   addMaintenance_ticket(id);
   tryToAddExistingMaintenance_ticket(id);
@@ -97,7 +97,7 @@ bp.registerBThread("crud:maintenance_ticket:nondet:2:4", function () {
 });
 
 // ---- crud:reset:nondet:3:1 ----
-bp.registerBThread("crud:reset:nondet:3:1", function () {
+bthread("crud:reset:nondet:3:1", function () {
   let id = 202;
   addReset(id);
   tryToAddExistingReset(id);
@@ -110,7 +110,7 @@ bp.registerBThread("crud:reset:nondet:3:1", function () {
 });
 
 // ---- crud:reset:nondet:3:2 ----
-bp.registerBThread("crud:reset:nondet:3:2", function () {
+bthread("crud:reset:nondet:3:2", function () {
   let id = 202;
   addReset(id);
   tryToAddExistingReset(id);
@@ -123,7 +123,7 @@ bp.registerBThread("crud:reset:nondet:3:2", function () {
 });
 
 // ---- crud:reset:nondet:3:3 ----
-bp.registerBThread("crud:reset:nondet:3:3", function () {
+bthread("crud:reset:nondet:3:3", function () {
   let id = 202;
   addReset(id);
   tryToAddExistingReset(id);
@@ -135,7 +135,7 @@ bp.registerBThread("crud:reset:nondet:3:3", function () {
 });
 
 // ---- crud:reset:nondet:3:4 ----
-bp.registerBThread("crud:reset:nondet:3:4", function () {
+bthread("crud:reset:nondet:3:4", function () {
   let id = 203;
   addReset(id);
   tryToAddExistingReset(id);
@@ -146,7 +146,7 @@ bp.registerBThread("crud:reset:nondet:3:4", function () {
 });
 
 // ---- crud:sensor_reading:nondet:4:1 ----
-bp.registerBThread("crud:sensor_reading:nondet:4:1", function () {
+bthread("crud:sensor_reading:nondet:4:1", function () {
   let id = 203;
   addSensor_reading(id);
   tryToAddExistingSensor_reading(id);
@@ -159,7 +159,7 @@ bp.registerBThread("crud:sensor_reading:nondet:4:1", function () {
 });
 
 // ---- crud:sensor_reading:nondet:4:2 ----
-bp.registerBThread("crud:sensor_reading:nondet:4:2", function () {
+bthread("crud:sensor_reading:nondet:4:2", function () {
   let id = 203;
   addSensor_reading(id);
   tryToAddExistingSensor_reading(id);
@@ -172,7 +172,7 @@ bp.registerBThread("crud:sensor_reading:nondet:4:2", function () {
 });
 
 // ---- crud:sensor_reading:nondet:4:3 ----
-bp.registerBThread("crud:sensor_reading:nondet:4:3", function () {
+bthread("crud:sensor_reading:nondet:4:3", function () {
   let id = 203;
   addSensor_reading(id);
   tryToAddExistingSensor_reading(id);
@@ -184,7 +184,7 @@ bp.registerBThread("crud:sensor_reading:nondet:4:3", function () {
 });
 
 // ---- crud:sensor_reading:nondet:4:4 ----
-bp.registerBThread("crud:sensor_reading:nondet:4:4", function () {
+bthread("crud:sensor_reading:nondet:4:4", function () {
   let id = 204;
   addSensor_reading(id);
   tryToAddExistingSensor_reading(id);
@@ -195,7 +195,7 @@ bp.registerBThread("crud:sensor_reading:nondet:4:4", function () {
 });
 
 // ---- crud:workorder:nondet:5:1 ----
-bp.registerBThread("crud:workorder:nondet:5:1", function () {
+bthread("crud:workorder:nondet:5:1", function () {
   let id = 204;
   addWorkorder(id);
   tryToAddExistingWorkorder(id);
@@ -208,7 +208,7 @@ bp.registerBThread("crud:workorder:nondet:5:1", function () {
 });
 
 // ---- crud:workorder:nondet:5:2 ----
-bp.registerBThread("crud:workorder:nondet:5:2", function () {
+bthread("crud:workorder:nondet:5:2", function () {
   let id = 204;
   addWorkorder(id);
   tryToAddExistingWorkorder(id);
@@ -221,7 +221,7 @@ bp.registerBThread("crud:workorder:nondet:5:2", function () {
 });
 
 // ---- crud:workorder:nondet:5:3 ----
-bp.registerBThread("crud:workorder:nondet:5:3", function () {
+bthread("crud:workorder:nondet:5:3", function () {
   let id = 204;
   addWorkorder(id);
   tryToAddExistingWorkorder(id);
@@ -233,7 +233,7 @@ bp.registerBThread("crud:workorder:nondet:5:3", function () {
 });
 
 // ---- crud:workorder:nondet:5:4 ----
-bp.registerBThread("crud:workorder:nondet:5:4", function () {
+bthread("crud:workorder:nondet:5:4", function () {
   let id = 205;
   addWorkorder(id);
   tryToAddExistingWorkorder(id);

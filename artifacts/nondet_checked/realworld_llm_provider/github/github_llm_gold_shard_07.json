@@ -5,48 +5,48 @@
       "method": "GET",
       "operationId": "classroom/get-an-assignment",
       "summary": "",
-      "user": "Teacher requesting details for assignment ID 12345 to review its content and requirements.",
-      "ideal": "Returns the details of the assignment with ID 12345, including title, description, due date, and associated classroom."
+      "user": "teacher123",
+      "ideal": "Retrieve the details of the assignment with ID 12345."
     },
     {
       "path": "/assignments/12345/accepted_assignments",
       "method": "GET",
       "operationId": "classroom/list-accepted-assignments-for-an-assignment",
       "summary": "",
-      "user": "Teacher checking which students have accepted the assignment with ID 12345.",
-      "ideal": "Returns a list of students who have accepted the assignment with ID 12345, including their names and submission statuses."
+      "user": "teacher123",
+      "ideal": "Get a list of accepted assignments for the assignment with ID 12345."
     },
     {
       "path": "/assignments/12345/grades",
       "method": "GET",
       "operationId": "classroom/get-assignment-grades",
       "summary": "",
-      "user": "Teacher looking to review the grades for assignment ID 12345 to provide feedback.",
-      "ideal": "Returns the grades for the assignment with ID 12345, including student names, scores, and any comments."
+      "user": "teacher123",
+      "ideal": "Fetch the grades for the assignment with ID 12345."
     },
     {
       "path": "/classrooms",
       "method": "GET",
       "operationId": "classroom/list-classrooms",
       "summary": "",
-      "user": "Administrator wanting to see a list of all classrooms to manage them effectively.",
-      "ideal": "Returns a list of all classrooms, including their IDs, names, and the number of students enrolled in each."
+      "user": "admin456",
+      "ideal": "List all classrooms available in the system."
     },
     {
       "path": "/classrooms/67890",
       "method": "GET",
       "operationId": "classroom/get-a-classroom",
       "summary": "",
-      "user": "Teacher wanting to view details of classroom ID 67890 to prepare for the next lesson.",
-      "ideal": "Returns the details of the classroom with ID 67890, including its name, description, and list of enrolled students."
+      "user": "admin456",
+      "ideal": "Retrieve details of the classroom with ID 67890."
     },
     {
       "path": "/classrooms/67890/assignments",
       "method": "GET",
       "operationId": "classroom/list-assignments-for-a-classroom",
       "summary": "",
-      "user": "Teacher checking all assignments for classroom ID 67890 to plan upcoming lessons.",
-      "ideal": "Returns a list of assignments for the classroom with ID 67890, including assignment titles, due dates, and statuses."
+      "user": "admin456",
+      "ideal": "Get a list of assignments for the classroom with ID 67890."
     }
   ]
 }

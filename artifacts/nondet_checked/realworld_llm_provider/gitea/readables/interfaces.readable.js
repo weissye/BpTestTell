@@ -193,43 +193,43 @@ function verifyActivitypubUpdated(id) {
 /** === Admin Operations === */
 
 // CREATE
-function addAdmin(id) {
-  svc.post("/admin", { body: JSON.stringify({ id: id }), parameters: { description: "Add a admin with " + "id " + id } });
+function addAdmin(username, id) {
+  svc.post("/admin", { body: JSON.stringify({ username: username, id: id }), parameters: { description: "Add a admin with " + "username " + username + " and " + "id " + id } });
 }
 
 // DELETE
-function deleteAdmin(id) {
-  svc.delete("/admin/" + id, {
-    parameters: { description: "Delete a admin with " + "id " + id }
+function deleteAdmin(username, id) {
+  svc.delete("/admin/" + username + "/"+ id, {
+    parameters: { description: "Delete a admin with " + "username " + username + " and " + "id " + id }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingAdmin(id) {
-  svc.delete("/admin/" + id, {
+function tryToDeleteANonExistingAdmin(username, id) {
+  svc.delete("/admin/" + username + "/"+ id, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a admin with " + "id " + id }
+    parameters: { description: "Delete a admin with " + "username " + username + " and " + "id " + id }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingAdmin(id) {
+function tryToAddExistingAdmin(username, id) {
   svc.post("/admin", {
-    body: JSON.stringify({ id: id }),
-    parameters: { description: "Add a admin with " + "id " + id },
+    body: JSON.stringify({ username: username, id: id }),
+    parameters: { description: "Add a admin with " + "username " + username + " and " + "id " + id },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateAdmin(id) {
-  svc.put("/admin/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a admin with " + "id " + id } });
+function updateAdmin(username, id) {
+  svc.put("/admin/" + username + "/"+ id, { body: JSON.stringify({ username: username, id: id }), parameters: { description: "Update a admin with " + "username " + username + " and " + "id " + id } });
 }
 
 // GET one
-function getAdmin(id) {
-  svc.get("/admin/" + id, {
-    parameters: { description: "Get a admin with " + "id " + id }
+function getAdmin(username, id) {
+  svc.get("/admin/" + username + "/"+ id, {
+    parameters: { description: "Get a admin with " + "username " + username + " and " + "id " + id }
   });
 }
 
@@ -241,34 +241,34 @@ function listAdmin() {
 }
 
 // Verify exists (by list)
-function verifyAdminExists(id) {
+function verifyAdminExists(username, id) {
   svc.get("/admin", {
     callback: function (response) {
       admin = JSON.parse(response.body);
       for (let i = 0; i < admin.length; i++) {
-        if (admin[i].id === id) {
+        if (admin[i].username === username && admin[i].id === id) {
           return pvg.success("Admin exists");
         }
       }
       return pvg.fail("Expected a admin to exist but it does not");
     },
-    parameters: { description: "Verify admin with " + "id " + id + " exists" }
+    parameters: { description: "Verify admin with " + "username " + username + " and " + "id " + id + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyAdminDoesNotExist(id) {
+function verifyAdminDoesNotExist(username, id) {
   svc.get("/admin", {
     callback: function (response) {
       admin = JSON.parse(response.body);
       for (let i = 0; i < admin.length; i++) {
-        if (admin[i].id === id) {
+        if (admin[i].username === username && admin[i].id === id) {
           return pvg.fail("Expected a admin to not exist but it does");
         }
       }
       return pvg.success("Admin does not exist");
     },
-    parameters: { description: "Verify admin with " + "id " + id + " does not exist" }
+    parameters: { description: "Verify admin with " + "username " + username + " and " + "id " + id + " does not exist" }
   });
 }
 
@@ -279,10 +279,10 @@ function matchAnyAddAdmin() {
     return e.data.parameters.description.startsWith("Add a admin");
   });
 }
-function matchAddAdmin(id) {
+function matchAddAdmin(username, id) {
   return bp.EventSet("add-admin", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a admin with " + "id " + id;
+    return e.data.parameters.description === "Add a admin with " + "username " + username + " and " + "id " + id;
   });
 }
 function matchAnyDeleteAdmin() {
@@ -291,10 +291,10 @@ function matchAnyDeleteAdmin() {
     return e.data.parameters.description.startsWith("Delete a admin");
   });
 }
-function matchDeleteAdmin(id) {
+function matchDeleteAdmin(username, id) {
   return bp.EventSet("del-admin", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a admin with " + "id " + id;
+    return e.data.parameters.description === "Delete a admin with " + "username " + username + " and " + "id " + id;
   });
 }
 
@@ -305,52 +305,52 @@ function matchAnyUpdateAdmin() {
     return e.data.parameters.description.startsWith("Update a admin");
   });
 }
-function matchUpdateAdmin(id) {
+function matchUpdateAdmin(username, id) {
   return bp.EventSet("update-admin", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a admin with " + "id " + id;
+    return e.data.parameters.description === "Update a admin with " + "username " + username + " and " + "id " + id;
   });
 }
 
 // Wait helpers
 function waitForAnyAdminAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ admin\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ admin\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ admin\ with\ username\ (.+) and id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ admin\ with\ username\ (.+) and id\ (.+)$/);
+    return { username: m[1], id: parseInt(m[2]) };
 }
-function waitForAdminAdded(id) {
-  waitFor(matchAddAdmin(id));
+function waitForAdminAdded(username, id) {
+  waitFor(matchAddAdmin(username, id));
 }
-function waitForAdminDeleted(id) {
-  waitFor(matchDeleteAdmin(id));
+function waitForAdminDeleted(username, id) {
+  waitFor(matchDeleteAdmin(username, id));
 }
 function waitForAnyAdminDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ admin\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ admin\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ admin\ with\ username\ (.+) and id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ admin\ with\ username\ (.+) and id\ (.+)$/);
+    return { username: m[1], id: parseInt(m[2]) };
 }
-function waitForAdminUpdated(id) {
-  waitFor(matchUpdateAdmin(id));
+function waitForAdminUpdated(username, id) {
+  waitFor(matchUpdateAdmin(username, id));
 }
 function waitForAnyAdminUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ admin\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ admin\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ admin\ with\ username\ (.+) and id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ admin\ with\ username\ (.+) and id\ (.+)$/);
+    return { username: m[1], id: parseInt(m[2]) };
 }
 
 // Verify updated (presence-by-list)
-function verifyAdminUpdated(id) {
+function verifyAdminUpdated(username, id) {
   svc.get("/admin", {
     callback: function (response) {
       admin = JSON.parse(response.body);
       for (let i = 0; i < admin.length; i++) {
-        if (admin[i].id === id) {
+        if (admin[i].username === username && admin[i].id === id) {
           return pvg.success("Admin updated (present)");
         }
       }
       return pvg.fail("Expected a admin to be present after update, but it is not");
     },
-    parameters: { description: "Verify admin with " + "id " + id + " exists" }
+    parameters: { description: "Verify admin with " + "username " + username + " and " + "id " + id + " exists" }
   });
 }
 
@@ -1843,43 +1843,43 @@ function verifyPackageUpdated(id) {
 /** === Repo Operations === */
 
 // CREATE
-function addRepo(owner, repo, index, id, user, secretname, branch) {
-  svc.post("/repos", { body: JSON.stringify({ owner: owner, repo: repo, index: index, id: id, user: user, secretname: secretname, branch: branch }), parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "user " + user + " and " + "secretname " + secretname + " and " + "branch " + branch } });
+function addRepo(owner, repo, index, id, secretname, branch) {
+  svc.post("/repos", { body: JSON.stringify({ owner: owner, repo: repo, index: index, id: id, secretname: secretname, branch: branch }), parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "secretname " + secretname + " and " + "branch " + branch } });
 }
 
 // DELETE
-function deleteRepo(owner, repo, index, id, user, secretname, branch) {
-  svc.delete("/repos/" + owner + "/"+ repo + "/"+ index + "/"+ id + "/"+ user + "/"+ secretname + "/"+ branch, {
-    parameters: { description: "Delete a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "user " + user + " and " + "secretname " + secretname + " and " + "branch " + branch }
+function deleteRepo(owner, repo, index, id, secretname, branch) {
+  svc.delete("/repos/" + owner + "/"+ repo + "/"+ index + "/"+ id + "/"+ secretname + "/"+ branch, {
+    parameters: { description: "Delete a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "secretname " + secretname + " and " + "branch " + branch }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingRepo(owner, repo, index, id, user, secretname, branch) {
-  svc.delete("/repos/" + owner + "/"+ repo + "/"+ index + "/"+ id + "/"+ user + "/"+ secretname + "/"+ branch, {
+function tryToDeleteANonExistingRepo(owner, repo, index, id, secretname, branch) {
+  svc.delete("/repos/" + owner + "/"+ repo + "/"+ index + "/"+ id + "/"+ secretname + "/"+ branch, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "user " + user + " and " + "secretname " + secretname + " and " + "branch " + branch }
+    parameters: { description: "Delete a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "secretname " + secretname + " and " + "branch " + branch }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingRepo(owner, repo, index, id, user, secretname, branch) {
+function tryToAddExistingRepo(owner, repo, index, id, secretname, branch) {
   svc.post("/repos", {
-    body: JSON.stringify({ owner: owner, repo: repo, index: index, id: id, user: user, secretname: secretname, branch: branch }),
-    parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "user " + user + " and " + "secretname " + secretname + " and " + "branch " + branch },
+    body: JSON.stringify({ owner: owner, repo: repo, index: index, id: id, secretname: secretname, branch: branch }),
+    parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "secretname " + secretname + " and " + "branch " + branch },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateRepo(owner, repo, index, id, user, secretname, branch) {
-  svc.put("/repos/" + owner + "/"+ repo + "/"+ index + "/"+ id + "/"+ user + "/"+ secretname + "/"+ branch, { body: JSON.stringify({ owner: owner, repo: repo, index: index, id: id, user: user, secretname: secretname, branch: branch }), parameters: { description: "Update a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "user " + user + " and " + "secretname " + secretname + " and " + "branch " + branch } });
+function updateRepo(owner, repo, index, id, secretname, branch) {
+  svc.put("/repos/" + owner + "/"+ repo + "/"+ index + "/"+ id + "/"+ secretname + "/"+ branch, { body: JSON.stringify({ owner: owner, repo: repo, index: index, id: id, secretname: secretname, branch: branch }), parameters: { description: "Update a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "secretname " + secretname + " and " + "branch " + branch } });
 }
 
 // GET one
-function getRepo(owner, repo, index, id, user, secretname, branch) {
-  svc.get("/repos/" + owner + "/"+ repo + "/"+ index + "/"+ id + "/"+ user + "/"+ secretname + "/"+ branch, {
-    parameters: { description: "Get a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "user " + user + " and " + "secretname " + secretname + " and " + "branch " + branch }
+function getRepo(owner, repo, index, id, secretname, branch) {
+  svc.get("/repos/" + owner + "/"+ repo + "/"+ index + "/"+ id + "/"+ secretname + "/"+ branch, {
+    parameters: { description: "Get a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "secretname " + secretname + " and " + "branch " + branch }
   });
 }
 
@@ -1891,34 +1891,34 @@ function listRepos() {
 }
 
 // Verify exists (by list)
-function verifyRepoExists(owner, repo, index, id, user, secretname, branch) {
+function verifyRepoExists(owner, repo, index, id, secretname, branch) {
   svc.get("/repos", {
     callback: function (response) {
       repo = JSON.parse(response.body);
       for (let i = 0; i < repo.length; i++) {
-        if (repo[i].owner === owner && repo[i].repo === repo && repo[i].index === index && repo[i].id === id && repo[i].user === user && repo[i].secretname === secretname && repo[i].branch === branch) {
+        if (repo[i].owner === owner && repo[i].repo === repo && repo[i].index === index && repo[i].id === id && repo[i].secretname === secretname && repo[i].branch === branch) {
           return pvg.success("Repo exists");
         }
       }
       return pvg.fail("Expected a repo to exist but it does not");
     },
-    parameters: { description: "Verify repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "user " + user + " and " + "secretname " + secretname + " and " + "branch " + branch + " exists" }
+    parameters: { description: "Verify repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "secretname " + secretname + " and " + "branch " + branch + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyRepoDoesNotExist(owner, repo, index, id, user, secretname, branch) {
+function verifyRepoDoesNotExist(owner, repo, index, id, secretname, branch) {
   svc.get("/repos", {
     callback: function (response) {
       repo = JSON.parse(response.body);
       for (let i = 0; i < repo.length; i++) {
-        if (repo[i].owner === owner && repo[i].repo === repo && repo[i].index === index && repo[i].id === id && repo[i].user === user && repo[i].secretname === secretname && repo[i].branch === branch) {
+        if (repo[i].owner === owner && repo[i].repo === repo && repo[i].index === index && repo[i].id === id && repo[i].secretname === secretname && repo[i].branch === branch) {
           return pvg.fail("Expected a repo to not exist but it does");
         }
       }
       return pvg.success("Repo does not exist");
     },
-    parameters: { description: "Verify repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "user " + user + " and " + "secretname " + secretname + " and " + "branch " + branch + " does not exist" }
+    parameters: { description: "Verify repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "secretname " + secretname + " and " + "branch " + branch + " does not exist" }
   });
 }
 
@@ -1929,10 +1929,10 @@ function matchAnyAddRepo() {
     return e.data.parameters.description.startsWith("Add a repo");
   });
 }
-function matchAddRepo(owner, repo, index, id, user, secretname, branch) {
+function matchAddRepo(owner, repo, index, id, secretname, branch) {
   return bp.EventSet("add-repo", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "user " + user + " and " + "secretname " + secretname + " and " + "branch " + branch;
+    return e.data.parameters.description === "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "secretname " + secretname + " and " + "branch " + branch;
   });
 }
 function matchAnyDeleteRepo() {
@@ -1941,10 +1941,10 @@ function matchAnyDeleteRepo() {
     return e.data.parameters.description.startsWith("Delete a repo");
   });
 }
-function matchDeleteRepo(owner, repo, index, id, user, secretname, branch) {
+function matchDeleteRepo(owner, repo, index, id, secretname, branch) {
   return bp.EventSet("del-repo", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "user " + user + " and " + "secretname " + secretname + " and " + "branch " + branch;
+    return e.data.parameters.description === "Delete a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "secretname " + secretname + " and " + "branch " + branch;
   });
 }
 
@@ -1955,52 +1955,52 @@ function matchAnyUpdateRepo() {
     return e.data.parameters.description.startsWith("Update a repo");
   });
 }
-function matchUpdateRepo(owner, repo, index, id, user, secretname, branch) {
+function matchUpdateRepo(owner, repo, index, id, secretname, branch) {
   return bp.EventSet("update-repo", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "user " + user + " and " + "secretname " + secretname + " and " + "branch " + branch;
+    return e.data.parameters.description === "Update a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "secretname " + secretname + " and " + "branch " + branch;
   });
 }
 
 // Wait helpers
 function waitForAnyRepoAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and user\ (.+) and secretname\ (.+) and branch\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and user\ (.+) and secretname\ (.+) and branch\ (.+)$/);
-    return { owner: m[1], repo: m[2], index: m[3], id: parseInt(m[4]), user: m[5], secretname: m[6], branch: m[7] };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and secretname\ (.+) and branch\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and secretname\ (.+) and branch\ (.+)$/);
+    return { owner: m[1], repo: m[2], index: m[3], id: parseInt(m[4]), secretname: m[5], branch: m[6] };
 }
-function waitForRepoAdded(owner, repo, index, id, user, secretname, branch) {
-  waitFor(matchAddRepo(owner, repo, index, id, user, secretname, branch));
+function waitForRepoAdded(owner, repo, index, id, secretname, branch) {
+  waitFor(matchAddRepo(owner, repo, index, id, secretname, branch));
 }
-function waitForRepoDeleted(owner, repo, index, id, user, secretname, branch) {
-  waitFor(matchDeleteRepo(owner, repo, index, id, user, secretname, branch));
+function waitForRepoDeleted(owner, repo, index, id, secretname, branch) {
+  waitFor(matchDeleteRepo(owner, repo, index, id, secretname, branch));
 }
 function waitForAnyRepoDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and user\ (.+) and secretname\ (.+) and branch\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and user\ (.+) and secretname\ (.+) and branch\ (.+)$/);
-    return { owner: m[1], repo: m[2], index: m[3], id: parseInt(m[4]), user: m[5], secretname: m[6], branch: m[7] };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and secretname\ (.+) and branch\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and secretname\ (.+) and branch\ (.+)$/);
+    return { owner: m[1], repo: m[2], index: m[3], id: parseInt(m[4]), secretname: m[5], branch: m[6] };
 }
-function waitForRepoUpdated(owner, repo, index, id, user, secretname, branch) {
-  waitFor(matchUpdateRepo(owner, repo, index, id, user, secretname, branch));
+function waitForRepoUpdated(owner, repo, index, id, secretname, branch) {
+  waitFor(matchUpdateRepo(owner, repo, index, id, secretname, branch));
 }
 function waitForAnyRepoUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and user\ (.+) and secretname\ (.+) and branch\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and user\ (.+) and secretname\ (.+) and branch\ (.+)$/);
-    return { owner: m[1], repo: m[2], index: m[3], id: parseInt(m[4]), user: m[5], secretname: m[6], branch: m[7] };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and secretname\ (.+) and branch\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and index\ (.+) and id\ (.+) and secretname\ (.+) and branch\ (.+)$/);
+    return { owner: m[1], repo: m[2], index: m[3], id: parseInt(m[4]), secretname: m[5], branch: m[6] };
 }
 
 // Verify updated (presence-by-list)
-function verifyRepoUpdated(owner, repo, index, id, user, secretname, branch) {
+function verifyRepoUpdated(owner, repo, index, id, secretname, branch) {
   svc.get("/repos", {
     callback: function (response) {
       repo = JSON.parse(response.body);
       for (let i = 0; i < repo.length; i++) {
-        if (repo[i].owner === owner && repo[i].repo === repo && repo[i].index === index && repo[i].id === id && repo[i].user === user && repo[i].secretname === secretname && repo[i].branch === branch) {
+        if (repo[i].owner === owner && repo[i].repo === repo && repo[i].index === index && repo[i].id === id && repo[i].secretname === secretname && repo[i].branch === branch) {
           return pvg.success("Repo updated (present)");
         }
       }
       return pvg.fail("Expected a repo to be present after update, but it is not");
     },
-    parameters: { description: "Verify repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "user " + user + " and " + "secretname " + secretname + " and " + "branch " + branch + " exists" }
+    parameters: { description: "Verify repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "index " + index + " and " + "id " + id + " and " + "secretname " + secretname + " and " + "branch " + branch + " exists" }
   });
 }
 

@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts.json",
+      "method": "POST",
+      "operationId": "CreateAccount",
+      "summary": "",
+      "user": "User wants to create a new Twilio account to start sending SMS messages.",
+      "ideal": "Successfully creates a new account and returns account details."
+    },
+    {
+      "path": "/2010-04-01/Accounts.json",
+      "method": "GET",
+      "operationId": "ListAccount",
+      "summary": "",
+      "user": "User needs to retrieve a list of all Twilio accounts associated with their API key.",
+      "ideal": "Returns a list of accounts with their details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchAccount",
+      "summary": "",
+      "user": "User wants to fetch details of a specific Twilio account using its SID.",
+      "ideal": "Returns the details of the specified account."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateAccount",
+      "summary": "",
+      "user": "User needs to update the settings of a specific Twilio account to change the friendly name.",
+      "ideal": "Successfully updates the account and returns the updated account details."
+    }
+  ]
+}

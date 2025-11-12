@@ -1,126 +1,143 @@
 @echo off
-setlocal EnableExtensions
+setlocal EnableExtensions EnableDelayedExpansion
 
-REM -----------------------------------------
-REM emit_all_from_list.bat  (v3: robust parsing + escaped parens)
-REM -----------------------------------------
+rem ============================================================================
+rem emit_all_from_list.bat
+rem Usage:
+rem   scripts\readable\emit_all_from_list.bat  <list.txt>  <provider|all>  <det|nondet|both>  [max_stories=0]
+rem
+rem Example:
+rem   scripts\readable\emit_all_from_list.bat  config\suts_and_rw.txt  7_suts_llm_provider  both
+rem ============================================================================
 
-REM Resolve Python
-set "PY=.\.venv\Scripts\python.exe"
+rem ---- Resolve repo root ----
+set "REPO=%~dp0..\.."
+for %%# in ("%REPO%") do set "REPO=%%~f#"
+
+rem ---- Parse args ----
+if "%~1"=="" (
+  echo [ERR] Missing LIST file path
+  exit /b 2
+)
+set "LIST=%~1"
+set "PROVIDER_ARG=%~2"
+if "%PROVIDER_ARG%"=="" set "PROVIDER_ARG=all"
+set "KIND=%~3"
+if "%KIND%"=="" set "KIND=both"
+set "MAX_STORIES=%~4"
+if "%MAX_STORIES%"=="" set "MAX_STORIES=0"
+
+rem ---- Python exe ----
+set "PY=%REPO%\.venv\Scripts\python.exe"
 if not exist "%PY%" set "PY=python"
 
-REM Emitter script path
-set "EMITTER=scripts\readable\emit_hls_all_in_one.py"
-
-REM Input list of SUTs
-set "LIST=%~1"
-if "%LIST%"=="" set "LIST=config\suts_and_rw.txt"
-
-REM Providers to process (space-separated)
-set "PROVIDERS=7_suts_llm_provider real_world_llm_provider"
-
-REM Optional knobs via env
-if "%MAX_STORIES%"=="" set "MAX_STORIES=0"
-if "%PROFILE%"=="" set "PROFILE=basic"
-if "%FAIL_UNDER%"=="" set "FAIL_UNDER=0"
-
-if "%MAX_STORIES%"=="0" (
-  set PER_ENTITY_FLAG=
-) else (
-  set PER_ENTITY_FLAG=--per_entity_max %MAX_STORIES%
-)
+set "EMITTER=%REPO%\scripts\readable\emit_hls_all_in_one.py"
 
 echo [DBG] Python="%PY%"
-echo [DBG] Emitter="%EMITTER%"  Type="ALLINONE"
+echo [DBG] Emitter="scripts\readable\emit_hls_all_in_one.py"  Type="ALLINONE"
 echo Using LIST: %LIST%
-echo Providers (nondet): %PROVIDERS%
+echo Providers focus: %PROVIDER_ARG%
+echo Modes: %KIND%
 echo Max stories: %MAX_STORIES%
 echo.
 
 if not exist "%LIST%" (
-  echo [ERR] List file not found: "%LIST%"
-  exit /b 1
+  echo [ERR] LIST not found: %LIST%
+  exit /b 2
 )
 
+rem ---- Helpers ----
+set "MODELS_SUTS=%REPO%\models\hls\SUTs"
+set "MODELS_RWS=%REPO%\models\hls\RWs"
+set "ANALYSIS=%REPO%\artifacts\analysis"
+
+rem ---------------------------------------------------------------------------
+rem Iterate SUT/RW names from list, skipping comments and empty lines
+rem ---------------------------------------------------------------------------
 echo [DBG] Starting scan of "%LIST%"
-echo.
-
-for /f "usebackq tokens=1 eol=# delims=,; " %%S in ("%LIST%") do (
-  call :PROCESS_SUT "%%~S"
+for /f "usebackq eol=# tokens=* delims=" %%S in ("%LIST%") do (
+  set "NAME=%%~S"
+  if not "!NAME!"=="" (
+    call :PROCESS_ONE "!NAME!"
+  )
 )
-
+echo.
 echo ALL READABLES DONE
 exit /b 0
 
-
-:PROCESS_SUT
-setlocal EnableDelayedExpansion
-set "SUT=%~1"
-
-REM Trim quotes/whitespace
-for /f "delims=" %%A in ("!SUT!") do set "SUT=%%~A"
-
-REM Skip blanks and headers/separators/comments
-if "!SUT!"==""  ( endlocal & goto :EOF )
-if "!SUT:~0,1!"=="=" ( endlocal & goto :EOF )
-if "!SUT:~0,1!"==";" ( endlocal & goto :EOF )
-if "!SUT:~0,2!"=="//" ( endlocal & goto :EOF )
-if /i "!SUT!"=="===" ( endlocal & goto :EOF )
-
+:PROCESS_ONE
+set "NAME=%~1"
+echo.
 echo ============================================
-echo Processing "!SUT!"
+echo Processing "%NAME%"
 echo ============================================
 
-for %%P in (%PROVIDERS%) do (
-  set "PROVIDER=%%P"
-  set "SUT_DIR=artifacts\hls_nondet\!PROVIDER!\!SUT!"
-rem  set "JSON=!SUT_DIR!\hls_nondet_gold.json"
-  set "JSON=!SUT_DIR!\hls_gold.json"
-  set "OUTJS=!SUT_DIR!\readable\stories_hls.js"
+call :DO_ONE_PROVIDER "7_suts_llm_provider" "%NAME%"
+call :DO_ONE_PROVIDER "real_world_llm_provider" "%NAME%"
+exit /b 0
 
-  echo [DBG] Provider="!PROVIDER!"  SUT="!SUT!"
-  echo [DBG] SUT_DIR="!SUT_DIR!"
-  echo [DBG] JSON   ="!JSON!"
+:DO_ONE_PROVIDER
+set "PROV=%~1"
+set "NAME=%~2"
 
-  if exist "!JSON!" (
-    if not exist "!SUT_DIR!\readable" mkdir "!SUT_DIR!\readable" >nul 2>&1
+rem Respect provider focus arg
+if /i not "%PROVIDER_ARG%"=="all" if /i not "%PROVIDER_ARG%"=="%PROV%" exit /b 0
 
-    set "GRAPH=artifacts\analysis\!PROVIDER!\!SUT!\graph.json"
-    set "GFLAG="
-    echo     [DBG] graph="!GRAPH!"
-    if exist "!GRAPH!" (
-      echo     using --graph "!GRAPH!"
-      set "GFLAG=--graph ""!GRAPH!"""
-    )
+for %%M in (nondet det) do (
+  if /i "%KIND%"=="both"  call :DO_ONE_MODE "%PROV%" "%NAME%" "%%M"
+  if /i "%KIND%"=="det"   if /i "%%M"=="det"   call :DO_ONE_MODE "%PROV%" "%NAME%" "%%M"
+  if /i "%KIND%"=="nondet" if /i "%%M"=="nondet" call :DO_ONE_MODE "%PROV%" "%NAME%" "%%M"
+)
+exit /b 0
 
-    set "DSLMAP=artifacts\analysis\!PROVIDER!\!SUT!\dsl_map.json"
-    set "MFLAG="
-    if exist "!DSLMAP!" (
-      echo     using --dsl_map "!DSLMAP!"
-      set "MFLAG=--dsl_map ""!DSLMAP!"""
-    ) else (
-      REM Escape parentheses inside echo:
-      echo     [WARN] DSL map not found at "!DSLMAP!" ^(may fall back to seed stories^)
-    )
+:DO_ONE_MODE
+set "PROV=%~1"
+set "NAME=%~2"
+set "MODE=%~3"
 
-    set "PFLAG=--profile %PROFILE%"
-    set "LFLAG="
-    if not "%MAX_STORIES%"=="0" set "LFLAG=--per_entity_max %MAX_STORIES%"
-    set "FFLAG="
-    if not "%FAIL_UNDER%"=="0" set "FFLAG=--fail_under_stories %FAIL_UNDER%"
+set "SUFFIX=hls_%MODE%"
+set "SUT_DIR=%REPO%\artifacts\%SUFFIX%\%PROV%\%NAME%"
+set "GOLD=%SUT_DIR%\hls_gold.json"
+set "GRAPH=%ANALYSIS%\%PROV%\%NAME%\graph.json"
 
-    "%PY%" -u "%EMITTER%" ^
-      --sut_dir "!SUT_DIR!" ^
-      --mode nondet ^
-      --out "!OUTJS!" ^
-      !GFLAG! !MFLAG! !PFLAG! !LFLAG! !FFLAG!
-  ) else (
-    echo [SKIP] !PROVIDER!\!SUT! - no NONDET gold at "!JSON!"
-  )
-
-  echo.
+rem Choose DSL map location by provider (models first, then artifacts/analysis fallback)
+if /i "%PROV%"=="real_world_llm_provider" (
+  set "DSLMAP=%MODELS_RWS%\%NAME%\dsl_map.json"
+) else (
+  set "DSLMAP=%MODELS_SUTS%\%NAME%\dsl_map.json"
 )
 
-endlocal & goto :EOF
+echo [DBG] Provider="%PROV%"  SUT="%NAME%"
+echo [DBG] SUT_DIR="%SUT_DIR%"
+echo [DBG] JSON   ="%GOLD%"
 
+if exist "%GRAPH%" (
+  set "GRAPH_ARG=--graph ""%GRAPH%"""
+) else (
+  set "GRAPH_ARG="
+)
 
+set "DSLMAP_ARG="
+if exist "%DSLMAP%" (
+  echo     using --dsl_map "%DSLMAP%"
+  set "DSLMAP_ARG=--dsl_map ""%DSLMAP%"""
+) else (
+  set "ALT_DSL=%ANALYSIS%\%PROV%\%NAME%\dsl_map.json"
+  if exist "%ALT_DSL%" (
+    echo     using --dsl_map "%ALT_DSL%"
+    set "DSLMAP_ARG=--dsl_map ""%ALT_DSL%"""
+  ) else (
+    echo [WARN] DSL map not found at "%DSLMAP%" or "%ALT_DSL%" (may fall back to seed stories)
+  )
+)
+
+if not exist "%GOLD%" (
+  echo [SKIP] %PROV%\%NAME% - no %MODE% gold at "%GOLD%"
+  exit /b 0
+)
+
+set "OUT_READABLE=%SUT_DIR%\readable"
+mkdir "%OUT_READABLE%" >nul 2>nul
+
+"%PY%" "%EMITTER%" --gold "%GOLD%" --out_dir "%OUT_READABLE%" %GRAPH_ARG% %DSLMAP_ARG% --max_stories %MAX_STORIES%
+exit /b 0

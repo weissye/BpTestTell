@@ -1,5 +1,5 @@
 // ---- crud:rest:nondet:1:1 ----
-bp.registerBThread("crud:rest:nondet:1:1", function () {
+bthread("crud:rest:nondet:1:1", function () {
   let id = 200;
   let issueIdOrKey = "issueIdOrKey_200";
   let projectIdOrKey = "projectIdOrKey_200";
@@ -68,7 +68,7 @@ bp.registerBThread("crud:rest:nondet:1:1", function () {
 });
 
 // ---- crud:rest:nondet:1:2 ----
-bp.registerBThread("crud:rest:nondet:1:2", function () {
+bthread("crud:rest:nondet:1:2", function () {
   let id = 200;
   let issueIdOrKey = "issueIdOrKey_200";
   let projectIdOrKey = "projectIdOrKey_200";
@@ -137,7 +137,7 @@ bp.registerBThread("crud:rest:nondet:1:2", function () {
 });
 
 // ---- crud:rest:nondet:1:3 ----
-bp.registerBThread("crud:rest:nondet:1:3", function () {
+bthread("crud:rest:nondet:1:3", function () {
   let id = 200;
   let issueIdOrKey = "issueIdOrKey_200";
   let projectIdOrKey = "projectIdOrKey_200";
@@ -205,7 +205,7 @@ bp.registerBThread("crud:rest:nondet:1:3", function () {
 });
 
 // ---- crud:rest:nondet:1:4 ----
-bp.registerBThread("crud:rest:nondet:1:4", function () {
+bthread("crud:rest:nondet:1:4", function () {
   let id = 201;
   let issueIdOrKey = "issueIdOrKey_201";
   let projectIdOrKey = "projectIdOrKey_201";

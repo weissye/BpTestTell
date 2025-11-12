@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/dev_fetch_api_key"
+    },
+    {
+      "method": "POST",
+      "path": "/messages/flags/narrow"
+    },
+    {
+      "method": "DELETE",
+      "path": "/realm/filters/{filter_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/scheduled_messages/{scheduled_message_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/users"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{user_id_or_email}/presence"
+    }
+  ]
+}

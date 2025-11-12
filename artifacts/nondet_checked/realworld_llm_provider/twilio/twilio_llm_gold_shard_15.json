@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "FetchCallNotification",
       "summary": "",
-      "user": "User wants to retrieve a specific notification for a call using the Account SID and Call SID.",
-      "ideal": "The API should return the details of the specified call notification, including its status, timestamp, and any relevant message."
+      "user": "User wants to retrieve a specific notification for a call using the Account SID, Call SID, and Notification SID to ensure they have the correct details regarding the call's status.",
+      "ideal": "The API should return a JSON object containing the details of the specified call notification, including the notification SID, call SID, and the status of the call."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json",
       "method": "GET",
       "operationId": "ListCallNotification",
       "summary": "",
-      "user": "User needs to list all notifications related to a specific call to monitor its status and updates.",
-      "ideal": "The API should return a list of notifications for the specified call, including details such as notification SID, status, and timestamps."
+      "user": "User needs to list all notifications related to a specific call to monitor its progress and any events that have occurred during the call.",
+      "ideal": "The API should return a JSON array of call notifications, each containing details such as notification SID, call SID, event type, and timestamp."
     }
   ]
 }

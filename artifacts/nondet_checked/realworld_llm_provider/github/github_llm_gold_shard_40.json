@@ -62,7 +62,7 @@
       "operationId": "secret-scanning/list-locations-for-alert",
       "summary": "",
       "user": "repo_contributor",
-      "ideal": "Get the locations associated with a specific secret scanning alert."
+      "ideal": "List all locations associated with a specific secret scanning alert."
     },
     {
       "path": "/repos/{owner}/{repo}/secret-scanning/push-protection-bypasses",
@@ -78,7 +78,7 @@
       "operationId": "secret-scanning/get-scan-history",
       "summary": "",
       "user": "repo_contributor",
-      "ideal": "Retrieve the history of secret scanning scans for the repository."
+      "ideal": "Retrieve the scan history for secret scanning in the specified repository."
     }
   ]
 }

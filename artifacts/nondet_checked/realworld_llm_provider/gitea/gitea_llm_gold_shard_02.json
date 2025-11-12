@@ -6,7 +6,7 @@
       "operationId": "adminCronList",
       "summary": "",
       "user": "admin_user",
-      "ideal": "Retrieve a list of all cron jobs configured in the Gitea instance."
+      "ideal": "Retrieve a list of all scheduled cron jobs in the Gitea instance."
     },
     {
       "path": "/admin/hooks",
@@ -14,7 +14,7 @@
       "operationId": "adminListHooks",
       "summary": "",
       "user": "admin_user",
-      "ideal": "Fetch all webhooks configured for the Gitea instance."
+      "ideal": "Fetch all webhooks configured in the Gitea instance."
     },
     {
       "path": "/admin/users",
@@ -22,63 +22,63 @@
       "operationId": "adminSearchUsers",
       "summary": "",
       "user": "admin_user",
-      "ideal": "Get a list of all users registered in the Gitea instance."
+      "ideal": "Search for users in the Gitea instance based on query parameters."
     },
     {
-      "path": "/admin/users/johndoe/badges",
-      "method": "GET",
-      "operationId": "adminListUserBadges",
+      "path": "/admin/users/{username}",
+      "method": "DELETE",
+      "operationId": "adminDeleteUser",
       "summary": "",
       "user": "admin_user",
-      "ideal": "Retrieve all badges associated with the user 'johndoe'."
+      "ideal": "Remove a user from the Gitea instance by their username."
     },
     {
-      "path": "/admin/hooks/123",
-      "method": "GET",
-      "operationId": "adminGetHook",
-      "summary": "",
-      "user": "admin_user",
-      "ideal": "Get details of the webhook with ID 123."
-    },
-    {
-      "path": "/admin/users/johndoe/repos",
+      "path": "/admin/users/{username}/repos",
       "method": "POST",
       "operationId": "adminCreateRepo",
       "summary": "",
       "user": "admin_user",
-      "ideal": "Create a new repository for the user 'johndoe'."
+      "ideal": "Create a new repository under the specified user's account."
     },
     {
-      "path": "/admin/users/johndoe/keys",
-      "method": "POST",
-      "operationId": "adminCreatePublicKey",
-      "summary": "",
-      "user": "admin_user",
-      "ideal": "Add a new public SSH key for the user 'johndoe'."
-    },
-    {
-      "path": "/admin/users/johndoe/orgs",
-      "method": "POST",
-      "operationId": "adminCreateOrg",
-      "summary": "",
-      "user": "admin_user",
-      "ideal": "Create a new organization for the user 'johndoe'."
-    },
-    {
-      "path": "/admin/users/johndoe",
-      "method": "PATCH",
-      "operationId": "adminEditUser",
-      "summary": "",
-      "user": "admin_user",
-      "ideal": "Update the details of the user 'johndoe'."
-    },
-    {
-      "path": "/admin/hooks/123",
+      "path": "/admin/hooks/{id}",
       "method": "DELETE",
       "operationId": "adminDeleteHook",
       "summary": "",
       "user": "admin_user",
-      "ideal": "Remove the webhook with ID 123 from the Gitea instance."
+      "ideal": "Delete a specific webhook by its ID."
+    },
+    {
+      "path": "/admin/unadopted",
+      "method": "GET",
+      "operationId": "adminUnadoptedList",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "List all repositories that are unadopted in the Gitea instance."
+    },
+    {
+      "path": "/admin/users/{username}/badges",
+      "method": "POST",
+      "operationId": "adminAddUserBadges",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Add badges to a user's profile in the Gitea instance."
+    },
+    {
+      "path": "/admin/users/{username}/keys",
+      "method": "POST",
+      "operationId": "adminCreatePublicKey",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new SSH public key for a user."
+    },
+    {
+      "path": "/admin/orgs",
+      "method": "GET",
+      "operationId": "adminGetAllOrgs",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve a list of all organizations in the Gitea instance."
     }
   ]
 }

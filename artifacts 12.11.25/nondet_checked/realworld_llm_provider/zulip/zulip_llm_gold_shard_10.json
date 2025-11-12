@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/scheduled_messages",
+      "method": "GET",
+      "operationId": "get-scheduled-messages",
+      "summary": "",
+      "user": "Alice wants to retrieve all scheduled messages to review upcoming notifications for her team.",
+      "ideal": "A list of all scheduled messages with their details such as content, scheduled time, and recipients."
+    },
+    {
+      "path": "/scheduled_messages",
+      "method": "POST",
+      "operationId": "create-scheduled-message",
+      "summary": "",
+      "user": "Bob needs to schedule a message to remind his team about the project deadline next week.",
+      "ideal": "The scheduled message is created successfully, returning the details of the new message including its ID and scheduled time."
+    },
+    {
+      "path": "/scheduled_messages/{scheduled_message_id}",
+      "method": "PATCH",
+      "operationId": "update-scheduled-message",
+      "summary": "",
+      "user": "Charlie realizes he made a mistake in the scheduled message and wants to update the content before it goes out.",
+      "ideal": "The scheduled message is updated successfully, returning the updated details of the message."
+    },
+    {
+      "path": "/scheduled_messages/{scheduled_message_id}",
+      "method": "DELETE",
+      "operationId": "delete-scheduled-message",
+      "summary": "",
+      "user": "Dana decides that the scheduled message is no longer needed and wants to delete it.",
+      "ideal": "The scheduled message is deleted successfully, confirming the removal of the message."
+    }
+  ]
+}

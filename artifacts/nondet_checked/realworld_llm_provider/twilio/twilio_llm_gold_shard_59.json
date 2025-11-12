@@ -6,7 +6,7 @@
       "operationId": "FetchShortCode",
       "summary": "",
       "user": "user123",
-      "ideal": "Fetches the details of a specific short code identified by Sid."
+      "ideal": "Retrieve the details of a specific short code using the Account SID and the short code SID."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
@@ -14,7 +14,7 @@
       "operationId": "UpdateShortCode",
       "summary": "",
       "user": "user456",
-      "ideal": "Updates the configuration of a specific short code identified by Sid."
+      "ideal": "Update the configuration of a specific short code by providing the Account SID, short code SID, and the new settings."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json",
@@ -22,7 +22,7 @@
       "operationId": "ListShortCode",
       "summary": "",
       "user": "user789",
-      "ideal": "Retrieves a list of all short codes associated with the account."
+      "ideal": "List all short codes associated with the specified Account SID."
     }
   ]
 }

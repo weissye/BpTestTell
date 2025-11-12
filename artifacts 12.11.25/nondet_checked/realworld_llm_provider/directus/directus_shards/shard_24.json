@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/webhooks",
+      "method": "GET",
+      "tags": [
+        "Webhooks"
+      ],
+      "summary": "List Webhooks",
+      "operationId": "getWebhooks"
+    },
+    {
+      "path": "/webhooks",
+      "method": "POST",
+      "tags": [
+        "Webhooks"
+      ],
+      "summary": "Create a Webhook",
+      "operationId": "createWebhook"
+    },
+    {
+      "path": "/webhooks",
+      "method": "PATCH",
+      "tags": [
+        "Webhooks"
+      ],
+      "summary": "Update Multiple Webhooks",
+      "operationId": "updateWebhooks"
+    },
+    {
+      "path": "/webhooks",
+      "method": "DELETE",
+      "tags": [
+        "Webhooks"
+      ],
+      "summary": "Delete Multiple Webhooks",
+      "operationId": "deleteWebhooks"
+    },
+    {
+      "path": "/webhooks/{id}",
+      "method": "GET",
+      "tags": [
+        "Webhooks"
+      ],
+      "summary": "Retrieve a Webhook",
+      "operationId": "getWebhook"
+    },
+    {
+      "path": "/webhooks/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Webhooks"
+      ],
+      "summary": "Update a Webhook",
+      "operationId": "updateWebhook"
+    },
+    {
+      "path": "/webhooks/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Webhooks"
+      ],
+      "summary": "Delete a Webhook",
+      "operationId": "deleteWebhook"
+    }
+  ]
+}

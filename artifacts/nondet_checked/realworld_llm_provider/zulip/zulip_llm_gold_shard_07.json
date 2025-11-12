@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "get-navigation-views",
       "summary": "",
-      "user": "As a user, I want to retrieve a list of all navigation views available in the Zulip application so that I can understand the different sections I can navigate to.",
-      "ideal": "The response should include an array of navigation views, each with a unique identifier, title, and associated URL."
+      "user": "Alice wants to retrieve the current navigation views in her Zulip organization to understand how users are interacting with the interface.",
+      "ideal": "The API should return a list of all navigation views currently configured, including their properties such as name, type, and visibility."
     },
     {
       "path": "/navigation_views",
       "method": "POST",
       "operationId": "add-navigation-view",
       "summary": "",
-      "user": "As an admin, I want to add a new navigation view to the application so that users can access a new feature directly from the navigation menu.",
-      "ideal": "The response should confirm the successful addition of the navigation view and return the details of the newly created view."
+      "user": "Bob, a product manager, needs to add a new navigation view for a feature that is being rolled out to improve user experience.",
+      "ideal": "The API should accept the new navigation view details and confirm the successful addition, returning the created view's ID and properties."
     },
     {
       "path": "/navigation_views/{fragment}",
       "method": "PATCH",
       "operationId": "edit-navigation-view",
       "summary": "",
-      "user": "As a user, I want to edit an existing navigation view to update its title or URL so that it reflects the latest changes in the application.",
-      "ideal": "The response should indicate success and return the updated details of the navigation view."
+      "user": "Charlie, a developer, realizes that the existing navigation view needs to be updated to reflect recent changes in the application structure.",
+      "ideal": "The API should update the specified navigation view with the new details and return the updated view's properties to confirm the changes."
     },
     {
       "path": "/navigation_views/{fragment}",
       "method": "DELETE",
       "operationId": "remove-navigation-view",
       "summary": "",
-      "user": "As an admin, I want to remove a navigation view that is no longer needed so that the navigation menu remains clean and relevant for users.",
-      "ideal": "The response should confirm the successful deletion of the navigation view and ensure that it is no longer accessible."
+      "user": "Dana, an admin, decides to remove an outdated navigation view that is no longer relevant to the current user workflow.",
+      "ideal": "The API should successfully delete the specified navigation view and return a confirmation message indicating the removal was successful."
     }
   ]
 }

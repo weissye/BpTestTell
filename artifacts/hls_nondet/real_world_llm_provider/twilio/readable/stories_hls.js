@@ -1,5 +1,5 @@
 // ---- crud:2010_04_01:nondet:1:1 ----
-bp.registerBThread("crud:2010_04_01:nondet:1:1", function () {
+bthread("crud:2010_04_01:nondet:1:1", function () {
   let AccountSid = 200;
   let Sid = 200;
   let CallSid = 200;
@@ -29,7 +29,7 @@ bp.registerBThread("crud:2010_04_01:nondet:1:1", function () {
 });
 
 // ---- crud:2010_04_01:nondet:1:2 ----
-bp.registerBThread("crud:2010_04_01:nondet:1:2", function () {
+bthread("crud:2010_04_01:nondet:1:2", function () {
   let AccountSid = 200;
   let Sid = 200;
   let CallSid = 200;
@@ -59,7 +59,7 @@ bp.registerBThread("crud:2010_04_01:nondet:1:2", function () {
 });
 
 // ---- crud:2010_04_01:nondet:1:3 ----
-bp.registerBThread("crud:2010_04_01:nondet:1:3", function () {
+bthread("crud:2010_04_01:nondet:1:3", function () {
   let AccountSid = 200;
   let Sid = 200;
   let CallSid = 200;
@@ -88,7 +88,7 @@ bp.registerBThread("crud:2010_04_01:nondet:1:3", function () {
 });
 
 // ---- crud:2010_04_01:nondet:1:4 ----
-bp.registerBThread("crud:2010_04_01:nondet:1:4", function () {
+bthread("crud:2010_04_01:nondet:1:4", function () {
   let AccountSid = 201;
   let Sid = 201;
   let CallSid = 201;

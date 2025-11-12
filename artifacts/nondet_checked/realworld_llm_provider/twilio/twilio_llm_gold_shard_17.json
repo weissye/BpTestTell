@@ -5,16 +5,16 @@
       "method": "POST",
       "operationId": "CreateRealtimeTranscription",
       "summary": "",
-      "user": "User wants to create a transcription for a specific call using Twilio's API. They have the AccountSid and CallSid ready and are looking to send a request to start the transcription process.",
-      "ideal": "The API should return a success response with the details of the created transcription, including the Sid and status."
+      "user": "User wants to create a transcription for a specific call using their Account SID and Call SID. They provide the necessary parameters such as the transcription text and any additional options for the transcription.",
+      "ideal": "The API should return a success response with the details of the created transcription, including the SID of the transcription."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateRealtimeTranscription",
       "summary": "",
-      "user": "User needs to update an existing transcription for a call. They have the AccountSid, CallSid, and the Sid of the transcription they want to modify. They want to change the transcription's status or add additional notes.",
-      "ideal": "The API should respond with the updated transcription details, confirming the changes made."
+      "user": "User needs to update an existing transcription for a call. They have the transcription SID and want to modify the transcription text or other properties. They send the updated information in the request body.",
+      "ideal": "The API should return a success response confirming the update, along with the updated details of the transcription."
     }
   ]
 }

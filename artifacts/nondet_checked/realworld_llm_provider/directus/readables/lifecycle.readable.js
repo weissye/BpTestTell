@@ -18,13 +18,13 @@ function lifecycle_asset(id) {
   verifyAssetDoesNotExist(id);
 }
 
-function lifecycle_auth(provider) {
-  try { tryToDeleteANonExistingAuth(provider); } catch (_e) {}
-  addAuth(provider);
-  verifyAuthExists(provider);
-  tryToAddExistingAuth(provider);
-  deleteAuth(provider);
-  verifyAuthDoesNotExist(provider);
+function lifecycle_auth(id) {
+  try { tryToDeleteANonExistingAuth(id); } catch (_e) {}
+  addAuth(id);
+  verifyAuthExists(id);
+  tryToAddExistingAuth(id);
+  deleteAuth(id);
+  verifyAuthDoesNotExist(id);
 }
 
 function lifecycle_collection(id) {

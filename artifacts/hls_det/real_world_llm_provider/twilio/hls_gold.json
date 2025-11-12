@@ -3,10 +3,10 @@
   "deterministic": true,
   "provider": "real_world_llm_provider",
   "sut": "twilio",
-  "generated_at": "2025-11-09T13:50:08.638950Z",
+  "generated_at": "2025-11-12T20:06:42.373659Z",
   "source": {
-    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\twilio\\graph.json",
-    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\twilio\\dsl_map.json"
+    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\twilio\\graph.json",
+    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\twilio\\dsl_map.json"
   },
   "entities": [
     {
@@ -670,25 +670,25 @@
       "name": "CRUD account",
       "desc": "Deterministic CRUD flow for entity 'account' inferred from graph.",
       "entity": "account",
-      "js": "// Deterministic CRUD flow for entity: account\nbp.registerBThread(\"HLS: CRUD account\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/2010-04-01/Accounts/{Sid}.json\", {})});\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts/{Sid}.json\", {})});\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts/{Sid}.json\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: account\nbthread(\"HLS: CRUD account\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/2010-04-01/Accounts/{Sid}.json\", {})});\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts/{Sid}.json\", {})});\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts/{Sid}.json\", {})});\n});"
     },
     {
       "name": "CRUD accounts_json",
       "desc": "Deterministic CRUD flow for entity 'accounts_json' inferred from graph.",
       "entity": "accounts_json",
-      "js": "// Deterministic CRUD flow for entity: accounts_json\nbp.registerBThread(\"HLS: CRUD accounts_json\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/2010-04-01/Accounts.json\", {})});\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts.json\", {})});\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts.json\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: accounts_json\nbthread(\"HLS: CRUD accounts_json\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/2010-04-01/Accounts.json\", {})});\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts.json\", {})});\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts.json\", {})});\n});"
     },
     {
       "name": "CRUD addonresult",
       "desc": "Deterministic CRUD flow for entity 'addonresult' inferred from graph.",
       "entity": "addonresult",
-      "js": "// Deterministic CRUD flow for entity: addonresult\nbp.registerBThread(\"HLS: CRUD addonresult\", function () {\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json\", {})});\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json\", {})});\n  bp.sync({request: REST.DELETE(\"/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: addonresult\nbthread(\"HLS: CRUD addonresult\", function () {\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json\", {})});\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json\", {})});\n  bp.sync({request: REST.DELETE(\"/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json\", {})});\n});"
     },
     {
       "name": "CRUD addonresults_json",
       "desc": "Deterministic CRUD flow for entity 'addonresults_json' inferred from graph.",
       "entity": "addonresults_json",
-      "js": "// Deterministic CRUD flow for entity: addonresults_json\nbp.registerBThread(\"HLS: CRUD addonresults_json\", function () {\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json\", {})});\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: addonresults_json\nbthread(\"HLS: CRUD addonresults_json\", function () {\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json\", {})});\n  bp.sync({request: REST.GET(\"/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json\", {})});\n});"
     }
   ]
 }

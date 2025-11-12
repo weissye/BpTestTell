@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Payment"
+      ],
+      "summary": "create an instance of payments. This will start a new payments session",
+      "operationId": "CreatePayments"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Payment"
+      ],
+      "summary": "update an instance of payments with different phases of payment flows.",
+      "operationId": "UpdatePayments"
+    }
+  ]
+}

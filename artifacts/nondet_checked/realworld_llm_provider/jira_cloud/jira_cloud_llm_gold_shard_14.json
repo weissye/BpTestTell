@@ -5,64 +5,64 @@
       "method": "GET",
       "operationId": "getGroup",
       "summary": "",
-      "user": "Retrieve the details of a specific group by its name.",
-      "ideal": "The response should include the group's name, description, and members."
+      "user": "user123",
+      "ideal": "Retrieve the details of a specific group."
     },
     {
       "path": "/rest/api/3/group",
       "method": "POST",
       "operationId": "createGroup",
       "summary": "",
-      "user": "Create a new group in Jira with a specified name and description.",
-      "ideal": "The response should confirm the creation of the group and return its ID."
+      "user": "adminUser",
+      "ideal": "Create a new group with the specified name."
     },
     {
       "path": "/rest/api/3/group",
       "method": "DELETE",
       "operationId": "removeGroup",
       "summary": "",
-      "user": "Delete an existing group by its ID.",
-      "ideal": "The response should confirm the successful deletion of the group."
+      "user": "adminUser",
+      "ideal": "Remove an existing group by its ID."
     },
     {
       "path": "/rest/api/3/group/bulk",
       "method": "GET",
       "operationId": "bulkGetGroups",
       "summary": "",
-      "user": "Retrieve details of multiple groups in a single request.",
-      "ideal": "The response should include an array of group details."
+      "user": "user123",
+      "ideal": "Fetch details of multiple groups in a single request."
     },
     {
       "path": "/rest/api/3/group/member",
       "method": "GET",
       "operationId": "getUsersFromGroup",
       "summary": "",
-      "user": "Fetch all users that belong to a specific group.",
-      "ideal": "The response should list all users along with their roles in the group."
+      "user": "user123",
+      "ideal": "Get a list of users belonging to a specific group."
     },
     {
       "path": "/rest/api/3/group/user",
       "method": "POST",
       "operationId": "addUserToGroup",
       "summary": "",
-      "user": "Add a user to a specified group by providing the user's ID and group ID.",
-      "ideal": "The response should confirm the user has been added to the group."
+      "user": "adminUser",
+      "ideal": "Add a user to a specified group."
     },
     {
       "path": "/rest/api/3/group/user",
       "method": "DELETE",
       "operationId": "removeUserFromGroup",
       "summary": "",
-      "user": "Remove a user from a specified group by providing the user's ID and group ID.",
-      "ideal": "The response should confirm the user has been removed from the group."
+      "user": "adminUser",
+      "ideal": "Remove a user from a specified group."
     },
     {
       "path": "/rest/api/3/groups/picker",
       "method": "GET",
       "operationId": "findGroups",
       "summary": "",
-      "user": "Search for groups based on a query string.",
-      "ideal": "The response should return a list of groups that match the search criteria."
+      "user": "user123",
+      "ideal": "Find groups based on a search query."
     }
   ]
 }

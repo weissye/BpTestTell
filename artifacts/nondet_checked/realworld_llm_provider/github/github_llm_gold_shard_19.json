@@ -46,7 +46,7 @@
       "operationId": "gists/update",
       "summary": "",
       "user": "user123",
-      "ideal": "Update the content of an existing gist."
+      "ideal": "Update an existing gist with new content or description."
     },
     {
       "path": "/gists/{gist_id}",
@@ -61,7 +61,7 @@
       "method": "GET",
       "operationId": "gists/list-comments",
       "summary": "",
-      "user": "user123",
+      "user": "user456",
       "ideal": "List all comments for a specific gist."
     },
     {
@@ -69,7 +69,7 @@
       "method": "POST",
       "operationId": "gists/create-comment",
       "summary": "",
-      "user": "user123",
+      "user": "user456",
       "ideal": "Add a comment to a specific gist."
     },
     {
@@ -77,15 +77,15 @@
       "method": "GET",
       "operationId": "gists/get-comment",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve a specific comment by its ID."
+      "user": "user456",
+      "ideal": "Retrieve a specific comment by its ID for a gist."
     },
     {
       "path": "/gists/{gist_id}/comments/{comment_id}",
       "method": "PATCH",
       "operationId": "gists/update-comment",
       "summary": "",
-      "user": "user123",
+      "user": "user456",
       "ideal": "Update a specific comment on a gist."
     },
     {
@@ -93,7 +93,7 @@
       "method": "DELETE",
       "operationId": "gists/delete-comment",
       "summary": "",
-      "user": "user123",
+      "user": "user456",
       "ideal": "Delete a specific comment from a gist."
     },
     {
@@ -102,7 +102,7 @@
       "operationId": "gists/list-commits",
       "summary": "",
       "user": "user123",
-      "ideal": "List all commits made to a specific gist."
+      "ideal": "List all commits for a specific gist."
     },
     {
       "path": "/gists/{gist_id}/forks",
@@ -125,7 +125,7 @@
       "method": "GET",
       "operationId": "gists/check-is-starred",
       "summary": "",
-      "user": "user123",
+      "user": "user789",
       "ideal": "Check if a specific gist is starred by the authenticated user."
     },
     {
@@ -133,7 +133,7 @@
       "method": "PUT",
       "operationId": "gists/star",
       "summary": "",
-      "user": "user123",
+      "user": "user789",
       "ideal": "Star a specific gist."
     },
     {
@@ -141,7 +141,7 @@
       "method": "DELETE",
       "operationId": "gists/unstar",
       "summary": "",
-      "user": "user123",
+      "user": "user789",
       "ideal": "Unstar a specific gist."
     },
     {
@@ -158,7 +158,7 @@
       "operationId": "gists/list-for-user",
       "summary": "",
       "user": "user456",
-      "ideal": "List all gists for a specific user."
+      "ideal": "List all gists for a specific user by username."
     }
   ]
 }

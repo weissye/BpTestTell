@@ -5,16 +5,16 @@
       "method": "POST",
       "operationId": "redact",
       "summary": "",
-      "user": "User123 is a project manager who needs to redact sensitive information from project documents before sharing them with external stakeholders. They use this API to submit redaction requests for specific documents.",
-      "ideal": "The API should accept a request body containing the document ID and the specific information to be redacted, returning a confirmation of the request."
+      "user": "User A is a project manager who needs to redact sensitive information from a set of documents before sharing them with external stakeholders. They prepare the documents and submit them for redaction using the API.",
+      "ideal": "The API successfully processes the redaction request and returns a job ID for tracking the status of the redaction."
     },
     {
       "path": "/rest/api/3/redact/status/{jobId}",
       "method": "GET",
       "operationId": "getRedactionStatus",
       "summary": "",
-      "user": "User456 is a compliance officer who wants to track the status of redaction jobs submitted for various documents. They use this API to check if the redaction process is complete or still in progress.",
-      "ideal": "The API should return the current status of the redaction job, indicating whether it is pending, in progress, or completed, along with any relevant timestamps."
+      "user": "User B is a compliance officer who submitted a redaction job earlier. They want to check the status of the redaction process to ensure it is completed before the documents are shared.",
+      "ideal": "The API returns the current status of the redaction job, indicating whether it is still processing, completed, or failed."
     }
   ]
 }

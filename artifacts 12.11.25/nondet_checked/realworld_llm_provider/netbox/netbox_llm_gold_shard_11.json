@@ -1,0 +1,124 @@
+{
+  "gold": [
+    {
+      "path": "/api/vpn/ike-policies/",
+      "method": "GET",
+      "operationId": "vpn_ike_policies_list",
+      "summary": "",
+      "user": "Admin user requesting a list of IKE policies for VPN configuration.",
+      "ideal": "Returns a list of all IKE policies in the system."
+    },
+    {
+      "path": "/api/vpn/ike-policies/",
+      "method": "POST",
+      "operationId": "vpn_ike_policies_create",
+      "summary": "",
+      "user": "Network engineer creating a new IKE policy for site-to-site VPN.",
+      "ideal": "Creates a new IKE policy and returns the created policy details."
+    },
+    {
+      "path": "/api/vpn/ike-policies/{id}/",
+      "method": "GET",
+      "operationId": "vpn_ike_policies_retrieve",
+      "summary": "",
+      "user": "Support staff retrieving details of a specific IKE policy.",
+      "ideal": "Returns the details of the specified IKE policy."
+    },
+    {
+      "path": "/api/vpn/ike-policies/{id}/",
+      "method": "PUT",
+      "operationId": "vpn_ike_policies_update",
+      "summary": "",
+      "user": "Admin updating an existing IKE policy to enhance security settings.",
+      "ideal": "Updates the specified IKE policy and returns the updated policy details."
+    },
+    {
+      "path": "/api/vpn/ike-policies/{id}/",
+      "method": "DELETE",
+      "operationId": "vpn_ike_policies_destroy",
+      "summary": "",
+      "user": "Network administrator deleting an obsolete IKE policy.",
+      "ideal": "Deletes the specified IKE policy and confirms deletion."
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/",
+      "method": "GET",
+      "operationId": "vpn_ipsec_policies_list",
+      "summary": "",
+      "user": "Network engineer reviewing all IPSec policies for compliance.",
+      "ideal": "Returns a list of all IPSec policies in the system."
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/",
+      "method": "POST",
+      "operationId": "vpn_ipsec_policies_create",
+      "summary": "",
+      "user": "Admin creating a new IPSec policy for a new VPN connection.",
+      "ideal": "Creates a new IPSec policy and returns the created policy details."
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/{id}/",
+      "method": "GET",
+      "operationId": "vpn_ipsec_policies_retrieve",
+      "summary": "",
+      "user": "Support staff retrieving details of a specific IPSec policy.",
+      "ideal": "Returns the details of the specified IPSec policy."
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/{id}/",
+      "method": "PUT",
+      "operationId": "vpn_ipsec_policies_update",
+      "summary": "",
+      "user": "Network engineer updating an IPSec policy for improved performance.",
+      "ideal": "Updates the specified IPSec policy and returns the updated policy details."
+    },
+    {
+      "path": "/api/vpn/ipsec-policies/{id}/",
+      "method": "DELETE",
+      "operationId": "vpn_ipsec_policies_destroy",
+      "summary": "",
+      "user": "Admin removing an outdated IPSec policy.",
+      "ideal": "Deletes the specified IPSec policy and confirms deletion."
+    },
+    {
+      "path": "/api/vpn/tunnels/",
+      "method": "GET",
+      "operationId": "vpn_tunnels_list",
+      "summary": "",
+      "user": "Network administrator listing all active VPN tunnels.",
+      "ideal": "Returns a list of all active VPN tunnels."
+    },
+    {
+      "path": "/api/vpn/tunnels/",
+      "method": "POST",
+      "operationId": "vpn_tunnels_create",
+      "summary": "",
+      "user": "Network engineer creating a new VPN tunnel for a client.",
+      "ideal": "Creates a new VPN tunnel and returns the tunnel details."
+    },
+    {
+      "path": "/api/vpn/tunnels/{id}/",
+      "method": "GET",
+      "operationId": "vpn_tunnels_retrieve",
+      "summary": "",
+      "user": "Support staff retrieving details of a specific VPN tunnel.",
+      "ideal": "Returns the details of the specified VPN tunnel."
+    },
+    {
+      "path": "/api/vpn/tunnels/{id}/",
+      "method": "PUT",
+      "operationId": "vpn_tunnels_update",
+      "summary": "",
+      "user": "Admin updating a VPN tunnel configuration for better security.",
+      "ideal": "Updates the specified VPN tunnel and returns the updated tunnel details."
+    },
+    {
+      "path": "/api/vpn/tunnels/{id}/",
+      "method": "DELETE",
+      "operationId": "vpn_tunnels_destroy",
+      "summary": "",
+      "user": "Network administrator deleting an unused VPN tunnel.",
+      "ideal": "Deletes the specified VPN tunnel and confirms deletion."
+    }
+  ]
+}

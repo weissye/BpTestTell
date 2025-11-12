@@ -6,7 +6,7 @@
       "operationId": "getSearch",
       "summary": "",
       "user": "user123",
-      "ideal": "Search for cards, lists, and boards that match the specified query."
+      "ideal": "Search for cards, lists, and boards that match the query."
     },
     {
       "path": "/search/members",

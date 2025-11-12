@@ -13,15 +13,15 @@
       "method": "POST",
       "operationId": "createCollection",
       "summary": "",
-      "user": "editor",
-      "ideal": "Create a new collection with specified fields and settings."
+      "user": "admin",
+      "ideal": "Create a new collection with the specified schema and properties."
     },
     {
       "path": "/collections/{id}",
       "method": "GET",
       "operationId": "getCollection",
       "summary": "",
-      "user": "viewer",
+      "user": "editor",
       "ideal": "Fetch details of a specific collection by its ID."
     },
     {
@@ -38,7 +38,7 @@
       "operationId": "deleteCollection",
       "summary": "",
       "user": "admin",
-      "ideal": "Remove a collection from the Directus instance using its ID."
+      "ideal": "Remove a collection from the Directus instance by its ID."
     }
   ]
 }

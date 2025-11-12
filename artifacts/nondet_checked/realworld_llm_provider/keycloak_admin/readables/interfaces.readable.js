@@ -193,43 +193,43 @@ function verifyMyrealmUpdated(id) {
 /** === V1 Operations === */
 
 // CREATE
-function addV1(realm, userId) {
-  svc.post("/v1", { body: JSON.stringify({ realm: realm, userId: userId }), parameters: { description: "Add a v1 with " + "realm " + realm + " and " + "userId " + userId } });
+function addV1(realm, userId, session) {
+  svc.post("/v1", { body: JSON.stringify({ realm: realm, userId: userId, session: session }), parameters: { description: "Add a v1 with " + "realm " + realm + " and " + "userId " + userId + " and " + "session " + session } });
 }
 
 // DELETE
-function deleteV1(realm, userId) {
-  svc.delete("/v1/" + realm + "/"+ userId, {
-    parameters: { description: "Delete a v1 with " + "realm " + realm + " and " + "userId " + userId }
+function deleteV1(realm, userId, session) {
+  svc.delete("/v1/" + realm + "/"+ userId + "/"+ session, {
+    parameters: { description: "Delete a v1 with " + "realm " + realm + " and " + "userId " + userId + " and " + "session " + session }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingV1(realm, userId) {
-  svc.delete("/v1/" + realm + "/"+ userId, {
+function tryToDeleteANonExistingV1(realm, userId, session) {
+  svc.delete("/v1/" + realm + "/"+ userId + "/"+ session, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a v1 with " + "realm " + realm + " and " + "userId " + userId }
+    parameters: { description: "Delete a v1 with " + "realm " + realm + " and " + "userId " + userId + " and " + "session " + session }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingV1(realm, userId) {
+function tryToAddExistingV1(realm, userId, session) {
   svc.post("/v1", {
-    body: JSON.stringify({ realm: realm, userId: userId }),
-    parameters: { description: "Add a v1 with " + "realm " + realm + " and " + "userId " + userId },
+    body: JSON.stringify({ realm: realm, userId: userId, session: session }),
+    parameters: { description: "Add a v1 with " + "realm " + realm + " and " + "userId " + userId + " and " + "session " + session },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateV1(realm, userId) {
-  svc.put("/v1/" + realm + "/"+ userId, { body: JSON.stringify({ realm: realm, userId: userId }), parameters: { description: "Update a v1 with " + "realm " + realm + " and " + "userId " + userId } });
+function updateV1(realm, userId, session) {
+  svc.put("/v1/" + realm + "/"+ userId + "/"+ session, { body: JSON.stringify({ realm: realm, userId: userId, session: session }), parameters: { description: "Update a v1 with " + "realm " + realm + " and " + "userId " + userId + " and " + "session " + session } });
 }
 
 // GET one
-function getV1(realm, userId) {
-  svc.get("/v1/" + realm + "/"+ userId, {
-    parameters: { description: "Get a v1 with " + "realm " + realm + " and " + "userId " + userId }
+function getV1(realm, userId, session) {
+  svc.get("/v1/" + realm + "/"+ userId + "/"+ session, {
+    parameters: { description: "Get a v1 with " + "realm " + realm + " and " + "userId " + userId + " and " + "session " + session }
   });
 }
 
@@ -241,34 +241,34 @@ function listV1() {
 }
 
 // Verify exists (by list)
-function verifyV1Exists(realm, userId) {
+function verifyV1Exists(realm, userId, session) {
   svc.get("/v1", {
     callback: function (response) {
       v1 = JSON.parse(response.body);
       for (let i = 0; i < v1.length; i++) {
-        if (v1[i].realm === realm && v1[i].userId === userId) {
+        if (v1[i].realm === realm && v1[i].userId === userId && v1[i].session === session) {
           return pvg.success("V1 exists");
         }
       }
       return pvg.fail("Expected a v1 to exist but it does not");
     },
-    parameters: { description: "Verify v1 with " + "realm " + realm + " and " + "userId " + userId + " exists" }
+    parameters: { description: "Verify v1 with " + "realm " + realm + " and " + "userId " + userId + " and " + "session " + session + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyV1DoesNotExist(realm, userId) {
+function verifyV1DoesNotExist(realm, userId, session) {
   svc.get("/v1", {
     callback: function (response) {
       v1 = JSON.parse(response.body);
       for (let i = 0; i < v1.length; i++) {
-        if (v1[i].realm === realm && v1[i].userId === userId) {
+        if (v1[i].realm === realm && v1[i].userId === userId && v1[i].session === session) {
           return pvg.fail("Expected a v1 to not exist but it does");
         }
       }
       return pvg.success("V1 does not exist");
     },
-    parameters: { description: "Verify v1 with " + "realm " + realm + " and " + "userId " + userId + " does not exist" }
+    parameters: { description: "Verify v1 with " + "realm " + realm + " and " + "userId " + userId + " and " + "session " + session + " does not exist" }
   });
 }
 
@@ -279,10 +279,10 @@ function matchAnyAddV1() {
     return e.data.parameters.description.startsWith("Add a v1");
   });
 }
-function matchAddV1(realm, userId) {
+function matchAddV1(realm, userId, session) {
   return bp.EventSet("add-v1", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a v1 with " + "realm " + realm + " and " + "userId " + userId;
+    return e.data.parameters.description === "Add a v1 with " + "realm " + realm + " and " + "userId " + userId + " and " + "session " + session;
   });
 }
 function matchAnyDeleteV1() {
@@ -291,10 +291,10 @@ function matchAnyDeleteV1() {
     return e.data.parameters.description.startsWith("Delete a v1");
   });
 }
-function matchDeleteV1(realm, userId) {
+function matchDeleteV1(realm, userId, session) {
   return bp.EventSet("del-v1", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a v1 with " + "realm " + realm + " and " + "userId " + userId;
+    return e.data.parameters.description === "Delete a v1 with " + "realm " + realm + " and " + "userId " + userId + " and " + "session " + session;
   });
 }
 
@@ -305,52 +305,52 @@ function matchAnyUpdateV1() {
     return e.data.parameters.description.startsWith("Update a v1");
   });
 }
-function matchUpdateV1(realm, userId) {
+function matchUpdateV1(realm, userId, session) {
   return bp.EventSet("update-v1", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a v1 with " + "realm " + realm + " and " + "userId " + userId;
+    return e.data.parameters.description === "Update a v1 with " + "realm " + realm + " and " + "userId " + userId + " and " + "session " + session;
   });
 }
 
 // Wait helpers
 function waitForAnyV1Added() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ v1\ with\ realm\ (.+) and userId\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ v1\ with\ realm\ (.+) and userId\ (.+)$/);
-    return { realm: m[1], userId: m[2] };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ v1\ with\ realm\ (.+) and userId\ (.+) and session\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ v1\ with\ realm\ (.+) and userId\ (.+) and session\ (.+)$/);
+    return { realm: m[1], userId: m[2], session: m[3] };
 }
-function waitForV1Added(realm, userId) {
-  waitFor(matchAddV1(realm, userId));
+function waitForV1Added(realm, userId, session) {
+  waitFor(matchAddV1(realm, userId, session));
 }
-function waitForV1Deleted(realm, userId) {
-  waitFor(matchDeleteV1(realm, userId));
+function waitForV1Deleted(realm, userId, session) {
+  waitFor(matchDeleteV1(realm, userId, session));
 }
 function waitForAnyV1Deleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ v1\ with\ realm\ (.+) and userId\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ v1\ with\ realm\ (.+) and userId\ (.+)$/);
-    return { realm: m[1], userId: m[2] };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ v1\ with\ realm\ (.+) and userId\ (.+) and session\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ v1\ with\ realm\ (.+) and userId\ (.+) and session\ (.+)$/);
+    return { realm: m[1], userId: m[2], session: m[3] };
 }
-function waitForV1Updated(realm, userId) {
-  waitFor(matchUpdateV1(realm, userId));
+function waitForV1Updated(realm, userId, session) {
+  waitFor(matchUpdateV1(realm, userId, session));
 }
 function waitForAnyV1Updated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ v1\ with\ realm\ (.+) and userId\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ v1\ with\ realm\ (.+) and userId\ (.+)$/);
-    return { realm: m[1], userId: m[2] };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ v1\ with\ realm\ (.+) and userId\ (.+) and session\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ v1\ with\ realm\ (.+) and userId\ (.+) and session\ (.+)$/);
+    return { realm: m[1], userId: m[2], session: m[3] };
 }
 
 // Verify updated (presence-by-list)
-function verifyV1Updated(realm, userId) {
+function verifyV1Updated(realm, userId, session) {
   svc.get("/v1", {
     callback: function (response) {
       v1 = JSON.parse(response.body);
       for (let i = 0; i < v1.length; i++) {
-        if (v1[i].realm === realm && v1[i].userId === userId) {
+        if (v1[i].realm === realm && v1[i].userId === userId && v1[i].session === session) {
           return pvg.success("V1 updated (present)");
         }
       }
       return pvg.fail("Expected a v1 to be present after update, but it is not");
     },
-    parameters: { description: "Verify v1 with " + "realm " + realm + " and " + "userId " + userId + " exists" }
+    parameters: { description: "Verify v1 with " + "realm " + realm + " and " + "userId " + userId + " and " + "session " + session + " exists" }
   });
 }
 
@@ -358,43 +358,43 @@ function verifyV1Updated(realm, userId) {
 /** === {realm} Operations === */
 
 // CREATE
-function add{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
-  svc.post("/{realm}", { body: JSON.stringify({ realm: realm, id: id, alias: alias, executionId: executionId, flowAlias: flowAlias, clientScopeId: clientScopeId, providerId: providerId, roleContainerId: roleContainerId, node: node, provider_id: provider_id }), parameters: { description: "Add a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id } });
+function add{realm}(realm, alias, id, provider_id) {
+  svc.post("/{realm}", { body: JSON.stringify({ realm: realm, alias: alias, id: id, provider_id: provider_id }), parameters: { description: "Add a {realm} with " + "realm " + realm + " and " + "alias " + alias + " and " + "id " + id + " and " + "provider_id " + provider_id } });
 }
 
 // DELETE
-function delete{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
-  svc.delete("/{realm}/" + realm + "/"+ id + "/"+ alias + "/"+ executionId + "/"+ flowAlias + "/"+ clientScopeId + "/"+ providerId + "/"+ roleContainerId + "/"+ node + "/"+ provider_id, {
-    parameters: { description: "Delete a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id }
+function delete{realm}(realm, alias, id, provider_id) {
+  svc.delete("/{realm}/" + realm + "/"+ alias + "/"+ id + "/"+ provider_id, {
+    parameters: { description: "Delete a {realm} with " + "realm " + realm + " and " + "alias " + alias + " and " + "id " + id + " and " + "provider_id " + provider_id }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExisting{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
-  svc.delete("/{realm}/" + realm + "/"+ id + "/"+ alias + "/"+ executionId + "/"+ flowAlias + "/"+ clientScopeId + "/"+ providerId + "/"+ roleContainerId + "/"+ node + "/"+ provider_id, {
+function tryToDeleteANonExisting{realm}(realm, alias, id, provider_id) {
+  svc.delete("/{realm}/" + realm + "/"+ alias + "/"+ id + "/"+ provider_id, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id }
+    parameters: { description: "Delete a {realm} with " + "realm " + realm + " and " + "alias " + alias + " and " + "id " + id + " and " + "provider_id " + provider_id }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExisting{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
+function tryToAddExisting{realm}(realm, alias, id, provider_id) {
   svc.post("/{realm}", {
-    body: JSON.stringify({ realm: realm, id: id, alias: alias, executionId: executionId, flowAlias: flowAlias, clientScopeId: clientScopeId, providerId: providerId, roleContainerId: roleContainerId, node: node, provider_id: provider_id }),
-    parameters: { description: "Add a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id },
+    body: JSON.stringify({ realm: realm, alias: alias, id: id, provider_id: provider_id }),
+    parameters: { description: "Add a {realm} with " + "realm " + realm + " and " + "alias " + alias + " and " + "id " + id + " and " + "provider_id " + provider_id },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function update{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
-  svc.put("/{realm}/" + realm + "/"+ id + "/"+ alias + "/"+ executionId + "/"+ flowAlias + "/"+ clientScopeId + "/"+ providerId + "/"+ roleContainerId + "/"+ node + "/"+ provider_id, { body: JSON.stringify({ realm: realm, id: id, alias: alias, executionId: executionId, flowAlias: flowAlias, clientScopeId: clientScopeId, providerId: providerId, roleContainerId: roleContainerId, node: node, provider_id: provider_id }), parameters: { description: "Update a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id } });
+function update{realm}(realm, alias, id, provider_id) {
+  svc.put("/{realm}/" + realm + "/"+ alias + "/"+ id + "/"+ provider_id, { body: JSON.stringify({ realm: realm, alias: alias, id: id, provider_id: provider_id }), parameters: { description: "Update a {realm} with " + "realm " + realm + " and " + "alias " + alias + " and " + "id " + id + " and " + "provider_id " + provider_id } });
 }
 
 // GET one
-function get{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
-  svc.get("/{realm}/" + realm + "/"+ id + "/"+ alias + "/"+ executionId + "/"+ flowAlias + "/"+ clientScopeId + "/"+ providerId + "/"+ roleContainerId + "/"+ node + "/"+ provider_id, {
-    parameters: { description: "Get a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id }
+function get{realm}(realm, alias, id, provider_id) {
+  svc.get("/{realm}/" + realm + "/"+ alias + "/"+ id + "/"+ provider_id, {
+    parameters: { description: "Get a {realm} with " + "realm " + realm + " and " + "alias " + alias + " and " + "id " + id + " and " + "provider_id " + provider_id }
   });
 }
 
@@ -406,34 +406,34 @@ function list{realm}() {
 }
 
 // Verify exists (by list)
-function verify{realm}Exists(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
+function verify{realm}Exists(realm, alias, id, provider_id) {
   svc.get("/{realm}", {
     callback: function (response) {
       {realm} = JSON.parse(response.body);
       for (let i = 0; i < {realm}.length; i++) {
-        if ({realm}[i].realm === realm && {realm}[i].id === id && {realm}[i].alias === alias && {realm}[i].executionId === executionId && {realm}[i].flowAlias === flowAlias && {realm}[i].clientScopeId === clientScopeId && {realm}[i].providerId === providerId && {realm}[i].roleContainerId === roleContainerId && {realm}[i].node === node && {realm}[i].provider_id === provider_id) {
+        if ({realm}[i].realm === realm && {realm}[i].alias === alias && {realm}[i].id === id && {realm}[i].provider_id === provider_id) {
           return pvg.success("{realm} exists");
         }
       }
       return pvg.fail("Expected a {realm} to exist but it does not");
     },
-    parameters: { description: "Verify {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id + " exists" }
+    parameters: { description: "Verify {realm} with " + "realm " + realm + " and " + "alias " + alias + " and " + "id " + id + " and " + "provider_id " + provider_id + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verify{realm}DoesNotExist(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
+function verify{realm}DoesNotExist(realm, alias, id, provider_id) {
   svc.get("/{realm}", {
     callback: function (response) {
       {realm} = JSON.parse(response.body);
       for (let i = 0; i < {realm}.length; i++) {
-        if ({realm}[i].realm === realm && {realm}[i].id === id && {realm}[i].alias === alias && {realm}[i].executionId === executionId && {realm}[i].flowAlias === flowAlias && {realm}[i].clientScopeId === clientScopeId && {realm}[i].providerId === providerId && {realm}[i].roleContainerId === roleContainerId && {realm}[i].node === node && {realm}[i].provider_id === provider_id) {
+        if ({realm}[i].realm === realm && {realm}[i].alias === alias && {realm}[i].id === id && {realm}[i].provider_id === provider_id) {
           return pvg.fail("Expected a {realm} to not exist but it does");
         }
       }
       return pvg.success("{realm} does not exist");
     },
-    parameters: { description: "Verify {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id + " does not exist" }
+    parameters: { description: "Verify {realm} with " + "realm " + realm + " and " + "alias " + alias + " and " + "id " + id + " and " + "provider_id " + provider_id + " does not exist" }
   });
 }
 
@@ -444,10 +444,10 @@ function matchAnyAdd{realm}() {
     return e.data.parameters.description.startsWith("Add a {realm}");
   });
 }
-function matchAdd{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
+function matchAdd{realm}(realm, alias, id, provider_id) {
   return bp.EventSet("add-{realm}", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id;
+    return e.data.parameters.description === "Add a {realm} with " + "realm " + realm + " and " + "alias " + alias + " and " + "id " + id + " and " + "provider_id " + provider_id;
   });
 }
 function matchAnyDelete{realm}() {
@@ -456,10 +456,10 @@ function matchAnyDelete{realm}() {
     return e.data.parameters.description.startsWith("Delete a {realm}");
   });
 }
-function matchDelete{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
+function matchDelete{realm}(realm, alias, id, provider_id) {
   return bp.EventSet("del-{realm}", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id;
+    return e.data.parameters.description === "Delete a {realm} with " + "realm " + realm + " and " + "alias " + alias + " and " + "id " + id + " and " + "provider_id " + provider_id;
   });
 }
 
@@ -470,52 +470,52 @@ function matchAnyUpdate{realm}() {
     return e.data.parameters.description.startsWith("Update a {realm}");
   });
 }
-function matchUpdate{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
+function matchUpdate{realm}(realm, alias, id, provider_id) {
   return bp.EventSet("update-{realm}", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id;
+    return e.data.parameters.description === "Update a {realm} with " + "realm " + realm + " and " + "alias " + alias + " and " + "id " + id + " and " + "provider_id " + provider_id;
   });
 }
 
 // Wait helpers
 function waitForAny{realm}Added() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ \{realm\}\ with\ realm\ (.+) and id\ (.+) and alias\ (.+) and executionId\ (.+) and flowAlias\ (.+) and clientScopeId\ (.+) and providerId\ (.+) and roleContainerId\ (.+) and node\ (.+) and provider_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ \{realm\}\ with\ realm\ (.+) and id\ (.+) and alias\ (.+) and executionId\ (.+) and flowAlias\ (.+) and clientScopeId\ (.+) and providerId\ (.+) and roleContainerId\ (.+) and node\ (.+) and provider_id\ (.+)$/);
-    return { realm: m[1], id: parseInt(m[2]), alias: m[3], executionId: m[4], flowAlias: m[5], clientScopeId: m[6], providerId: m[7], roleContainerId: m[8], node: m[9], provider_id: parseInt(m[10]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ \{realm\}\ with\ realm\ (.+) and alias\ (.+) and id\ (.+) and provider_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ \{realm\}\ with\ realm\ (.+) and alias\ (.+) and id\ (.+) and provider_id\ (.+)$/);
+    return { realm: m[1], alias: m[2], id: parseInt(m[3]), provider_id: parseInt(m[4]) };
 }
-function waitFor{realm}Added(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
-  waitFor(matchAdd{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id));
+function waitFor{realm}Added(realm, alias, id, provider_id) {
+  waitFor(matchAdd{realm}(realm, alias, id, provider_id));
 }
-function waitFor{realm}Deleted(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
-  waitFor(matchDelete{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id));
+function waitFor{realm}Deleted(realm, alias, id, provider_id) {
+  waitFor(matchDelete{realm}(realm, alias, id, provider_id));
 }
 function waitForAny{realm}Deleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ \{realm\}\ with\ realm\ (.+) and id\ (.+) and alias\ (.+) and executionId\ (.+) and flowAlias\ (.+) and clientScopeId\ (.+) and providerId\ (.+) and roleContainerId\ (.+) and node\ (.+) and provider_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ \{realm\}\ with\ realm\ (.+) and id\ (.+) and alias\ (.+) and executionId\ (.+) and flowAlias\ (.+) and clientScopeId\ (.+) and providerId\ (.+) and roleContainerId\ (.+) and node\ (.+) and provider_id\ (.+)$/);
-    return { realm: m[1], id: parseInt(m[2]), alias: m[3], executionId: m[4], flowAlias: m[5], clientScopeId: m[6], providerId: m[7], roleContainerId: m[8], node: m[9], provider_id: parseInt(m[10]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ \{realm\}\ with\ realm\ (.+) and alias\ (.+) and id\ (.+) and provider_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ \{realm\}\ with\ realm\ (.+) and alias\ (.+) and id\ (.+) and provider_id\ (.+)$/);
+    return { realm: m[1], alias: m[2], id: parseInt(m[3]), provider_id: parseInt(m[4]) };
 }
-function waitFor{realm}Updated(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
-  waitFor(matchUpdate{realm}(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id));
+function waitFor{realm}Updated(realm, alias, id, provider_id) {
+  waitFor(matchUpdate{realm}(realm, alias, id, provider_id));
 }
 function waitForAny{realm}Updated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ \{realm\}\ with\ realm\ (.+) and id\ (.+) and alias\ (.+) and executionId\ (.+) and flowAlias\ (.+) and clientScopeId\ (.+) and providerId\ (.+) and roleContainerId\ (.+) and node\ (.+) and provider_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ \{realm\}\ with\ realm\ (.+) and id\ (.+) and alias\ (.+) and executionId\ (.+) and flowAlias\ (.+) and clientScopeId\ (.+) and providerId\ (.+) and roleContainerId\ (.+) and node\ (.+) and provider_id\ (.+)$/);
-    return { realm: m[1], id: parseInt(m[2]), alias: m[3], executionId: m[4], flowAlias: m[5], clientScopeId: m[6], providerId: m[7], roleContainerId: m[8], node: m[9], provider_id: parseInt(m[10]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ \{realm\}\ with\ realm\ (.+) and alias\ (.+) and id\ (.+) and provider_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ \{realm\}\ with\ realm\ (.+) and alias\ (.+) and id\ (.+) and provider_id\ (.+)$/);
+    return { realm: m[1], alias: m[2], id: parseInt(m[3]), provider_id: parseInt(m[4]) };
 }
 
 // Verify updated (presence-by-list)
-function verify{realm}Updated(realm, id, alias, executionId, flowAlias, clientScopeId, providerId, roleContainerId, node, provider_id) {
+function verify{realm}Updated(realm, alias, id, provider_id) {
   svc.get("/{realm}", {
     callback: function (response) {
       {realm} = JSON.parse(response.body);
       for (let i = 0; i < {realm}.length; i++) {
-        if ({realm}[i].realm === realm && {realm}[i].id === id && {realm}[i].alias === alias && {realm}[i].executionId === executionId && {realm}[i].flowAlias === flowAlias && {realm}[i].clientScopeId === clientScopeId && {realm}[i].providerId === providerId && {realm}[i].roleContainerId === roleContainerId && {realm}[i].node === node && {realm}[i].provider_id === provider_id) {
+        if ({realm}[i].realm === realm && {realm}[i].alias === alias && {realm}[i].id === id && {realm}[i].provider_id === provider_id) {
           return pvg.success("{realm} updated (present)");
         }
       }
       return pvg.fail("Expected a {realm} to be present after update, but it is not");
     },
-    parameters: { description: "Verify {realm} with " + "realm " + realm + " and " + "id " + id + " and " + "alias " + alias + " and " + "executionId " + executionId + " and " + "flowAlias " + flowAlias + " and " + "clientScopeId " + clientScopeId + " and " + "providerId " + providerId + " and " + "roleContainerId " + roleContainerId + " and " + "node " + node + " and " + "provider_id " + provider_id + " exists" }
+    parameters: { description: "Verify {realm} with " + "realm " + realm + " and " + "alias " + alias + " and " + "id " + id + " and " + "provider_id " + provider_id + " exists" }
   });
 }
 

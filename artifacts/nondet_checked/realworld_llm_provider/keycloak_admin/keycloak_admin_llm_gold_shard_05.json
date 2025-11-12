@@ -1,7 +1,7 @@
 {
   "gold": [
     {
-      "path": "/myrealm/client-registration-policy/providers",
+      "path": "/{realm}/client-registration-policy/providers",
       "method": "GET",
       "operationId": "getProviders",
       "summary": "",

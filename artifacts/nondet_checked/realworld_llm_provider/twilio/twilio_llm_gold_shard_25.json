@@ -6,7 +6,7 @@
       "operationId": "FetchRecordingAddOnResultPayloadData",
       "summary": "",
       "user": "user_12345",
-      "ideal": "Fetch the payload data for a specific add-on result of a recording."
+      "ideal": "Retrieve the payload data for a specific add-on result associated with a recording."
     }
   ]
 }

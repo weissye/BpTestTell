@@ -6,7 +6,7 @@
       "operationId": "userGetCurrent",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Retrieve the current authenticated user's information."
+      "ideal": "Retrieve the current user's information."
     },
     {
       "path": "/user/actions/runners/registration-token",
@@ -65,12 +65,20 @@
       "ideal": "Update the user's avatar."
     },
     {
+      "path": "/user/blocks",
+      "method": "GET",
+      "operationId": "userListBlocks",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all users blocked by the current user."
+    },
+    {
       "path": "/user/emails",
       "method": "POST",
       "operationId": "userAddEmail",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Add a new email address for the user."
+      "ideal": "Add a new email address to the user's account."
     },
     {
       "path": "/user/following/jane_doe",
@@ -94,7 +102,7 @@
       "operationId": "userCreateHook",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Create a new webhook for the user."
+      "ideal": "Create a new webhook for the user's repository."
     },
     {
       "path": "/user/repos",
@@ -102,7 +110,7 @@
       "operationId": "createCurrentUserRepo",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Create a new repository for the user."
+      "ideal": "Create a new repository for the current user."
     },
     {
       "path": "/user/settings",

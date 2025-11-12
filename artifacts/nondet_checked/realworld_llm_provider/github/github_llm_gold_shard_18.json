@@ -22,7 +22,7 @@
       "operationId": "enterprise-teams/get",
       "summary": "",
       "user": "admin_user",
-      "ideal": "Get details of the specified team within the enterprise."
+      "ideal": "Get details of a specific team by its slug within the enterprise."
     },
     {
       "path": "/enterprises/my-enterprise/teams/my-team",
@@ -30,7 +30,7 @@
       "operationId": "enterprise-teams/update",
       "summary": "",
       "user": "admin_user",
-      "ideal": "Update the details of the specified team within the enterprise."
+      "ideal": "Update the details of a specific team within the enterprise."
     },
     {
       "path": "/enterprises/my-enterprise/teams/my-team",
@@ -38,7 +38,7 @@
       "operationId": "enterprise-teams/delete",
       "summary": "",
       "user": "admin_user",
-      "ideal": "Delete the specified team from the enterprise."
+      "ideal": "Delete a specific team from the enterprise."
     }
   ]
 }

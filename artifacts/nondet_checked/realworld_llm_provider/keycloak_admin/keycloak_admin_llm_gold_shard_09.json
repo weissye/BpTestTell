@@ -22,7 +22,7 @@
       "operationId": "getComponent",
       "summary": "",
       "user": "admin",
-      "ideal": "Fetch details of the component with ID 12345 in the specified realm."
+      "ideal": "Fetch the details of the component with ID 12345 in the specified realm."
     },
     {
       "path": "/myrealm/components/12345",

@@ -14,15 +14,7 @@
       "operationId": "create-user",
       "summary": "",
       "user": "admin",
-      "ideal": "Create a new user with specified details."
-    },
-    {
-      "path": "/users/{user_id}/reactivate",
-      "method": "POST",
-      "operationId": "reactivate-user",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Reactivate a previously deactivated user."
+      "ideal": "Create a new user with the specified details."
     },
     {
       "path": "/users/{user_id}/status",
@@ -38,7 +30,7 @@
       "operationId": "get-own-user",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve details of the currently authenticated user."
+      "ideal": "Retrieve the details of the currently authenticated user."
     },
     {
       "path": "/users/me/alert_words",
@@ -57,12 +49,12 @@
       "ideal": "Update the presence status of the current user."
     },
     {
-      "path": "/users/{email}",
-      "method": "GET",
-      "operationId": "get-user-by-email",
+      "path": "/users/{user_id}",
+      "method": "PATCH",
+      "operationId": "update-user",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve user details using their email address."
+      "ideal": "Update the details of a specific user."
     },
     {
       "path": "/user_groups",
@@ -70,7 +62,7 @@
       "operationId": "get-user-groups",
       "summary": "",
       "user": "admin",
-      "ideal": "Fetch a list of all user groups in the organization."
+      "ideal": "Retrieve a list of all user groups in the organization."
     },
     {
       "path": "/user_groups/{user_group_id}/members",
@@ -78,7 +70,15 @@
       "operationId": "get-user-group-members",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve members of a specific user group."
+      "ideal": "Get the members of a specific user group."
+    },
+    {
+      "path": "/user_groups/{user_group_id}/members",
+      "method": "POST",
+      "operationId": "update-user-group-members",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Add or remove members from a specific user group."
     }
   ]
 }

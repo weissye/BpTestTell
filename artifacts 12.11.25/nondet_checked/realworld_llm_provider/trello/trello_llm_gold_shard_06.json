@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/labels",
+      "method": "POST",
+      "operationId": "addLabels",
+      "summary": "",
+      "user": "{\"name\":\"Urgent\",\"color\":\"red\"}",
+      "ideal": "{\"id\":\"12345\",\"name\":\"Urgent\",\"color\":\"red\"}"
+    },
+    {
+      "path": "/labels/12345",
+      "method": "PUT",
+      "operationId": "updateLabelsByIdLabel",
+      "summary": "",
+      "user": "{\"name\":\"High Priority\"}",
+      "ideal": "{\"id\":\"12345\",\"name\":\"High Priority\",\"color\":\"red\"}"
+    },
+    {
+      "path": "/labels/12345/color",
+      "method": "PUT",
+      "operationId": "updateLabelsColorByIdLabel",
+      "summary": "",
+      "user": "{\"color\":\"blue\"}",
+      "ideal": "{\"id\":\"12345\",\"name\":\"High Priority\",\"color\":\"blue\"}"
+    },
+    {
+      "path": "/labels/12345/name",
+      "method": "PUT",
+      "operationId": "updateLabelsNameByIdLabel",
+      "summary": "",
+      "user": "{\"name\":\"Critical\"}",
+      "ideal": "{\"id\":\"12345\",\"name\":\"Critical\",\"color\":\"blue\"}"
+    }
+  ]
+}

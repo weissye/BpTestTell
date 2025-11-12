@@ -14,7 +14,7 @@
       "operationId": "orgGet",
       "summary": "",
       "user": "user456",
-      "ideal": "Get details of a specific organization by its name."
+      "ideal": "Get details of a specific organization."
     },
     {
       "path": "/orgs/{org}/repos",
@@ -22,7 +22,7 @@
       "operationId": "orgListRepos",
       "summary": "",
       "user": "user789",
-      "ideal": "List all repositories for the specified organization."
+      "ideal": "List all repositories for a specific organization."
     },
     {
       "path": "/orgs/{org}/members",
@@ -46,7 +46,7 @@
       "operationId": "orgListHooks",
       "summary": "",
       "user": "user303",
-      "ideal": "List all webhooks configured for the organization."
+      "ideal": "List all webhooks for the organization."
     },
     {
       "path": "/orgs/{org}/actions/secrets",
@@ -54,7 +54,7 @@
       "operationId": "orgListActionsSecrets",
       "summary": "",
       "user": "user404",
-      "ideal": "Retrieve a list of all secrets for the organization."
+      "ideal": "Retrieve a list of all action secrets for the organization."
     },
     {
       "path": "/orgs/{org}/blocks",
@@ -62,7 +62,7 @@
       "operationId": "organizationListBlocks",
       "summary": "",
       "user": "user505",
-      "ideal": "List all users blocked by the organization."
+      "ideal": "List all blocked users in the organization."
     },
     {
       "path": "/orgs/{org}/labels",
@@ -70,7 +70,7 @@
       "operationId": "orgListLabels",
       "summary": "",
       "user": "user606",
-      "ideal": "Get a list of all labels in the organization."
+      "ideal": "Get a list of all labels for the organization."
     },
     {
       "path": "/orgs/{org}/public_members",
@@ -78,7 +78,7 @@
       "operationId": "orgListPublicMembers",
       "summary": "",
       "user": "user707",
-      "ideal": "Retrieve a list of all public members of the organization."
+      "ideal": "Retrieve a list of all public members in the organization."
     }
   ]
 }

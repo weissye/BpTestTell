@@ -270,13 +270,13 @@ function lifecycle_user_upload(realm_id_str, filename) {
   verifyUser_uploadDoesNotExist(realm_id_str, filename);
 }
 
-function lifecycle_user(user_id, stream_id, email) {
-  try { tryToDeleteANonExistingUser(user_id, stream_id, email); } catch (_e) {}
-  addUser(user_id, stream_id, email);
-  verifyUserExists(user_id, stream_id, email);
-  tryToAddExistingUser(user_id, stream_id, email);
-  deleteUser(user_id, stream_id, email);
-  verifyUserDoesNotExist(user_id, stream_id, email);
+function lifecycle_user(user_id, stream_id) {
+  try { tryToDeleteANonExistingUser(user_id, stream_id); } catch (_e) {}
+  addUser(user_id, stream_id);
+  verifyUserExists(user_id, stream_id);
+  tryToAddExistingUser(user_id, stream_id);
+  deleteUser(user_id, stream_id);
+  verifyUserDoesNotExist(user_id, stream_id);
 }
 
 function lifecycle_zulip_outgoing_webhook(id) {

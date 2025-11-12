@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "getAllApplicationRoles",
       "summary": "",
-      "user": "As a Jira administrator, I want to retrieve all application roles available in my Jira instance so that I can manage user permissions effectively.",
-      "ideal": "The API should return a list of all application roles, including their keys and descriptions, in a structured JSON format."
+      "user": "As a project manager, I want to retrieve all application roles available in Jira so that I can understand the permissions and access levels assigned to different roles within my projects.",
+      "ideal": "The response should include a list of all application roles with their respective keys and descriptions, allowing me to easily identify and manage user permissions."
     },
     {
       "path": "/rest/api/3/applicationrole/{key}",
       "method": "GET",
       "operationId": "getApplicationRole",
       "summary": "",
-      "user": "As a project manager, I need to get details of a specific application role by its key to understand its permissions and responsibilities within the project.",
-      "ideal": "The API should return detailed information about the specified application role, including its key, name, and associated permissions in a clear JSON structure."
+      "user": "As a system administrator, I need to fetch details of a specific application role by its key to ensure that the role's permissions are correctly configured for our team's needs.",
+      "ideal": "The response should provide detailed information about the specified application role, including its key, name, and associated permissions, enabling me to verify and adjust settings as necessary."
     }
   ]
 }

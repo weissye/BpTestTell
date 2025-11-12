@@ -18,22 +18,31 @@ function lifecycle_batch(id) {
   verifyBatchDoesNotExist(id);
 }
 
-function lifecycle_checklist(id) {
-  try { tryToDeleteANonExistingChecklist(id); } catch (_e) {}
-  addChecklist(id);
-  verifyChecklistExists(id);
-  tryToAddExistingChecklist(id);
-  deleteChecklist(id);
-  verifyChecklistDoesNotExist(id);
+function lifecycle_board(idBoard) {
+  try { tryToDeleteANonExistingBoard(idBoard); } catch (_e) {}
+  addBoard(idBoard);
+  verifyBoardExists(idBoard);
+  tryToAddExistingBoard(idBoard);
+  deleteBoard(idBoard);
+  verifyBoardDoesNotExist(idBoard);
 }
 
-function lifecycle_label(id) {
-  try { tryToDeleteANonExistingLabel(id); } catch (_e) {}
-  addLabel(id);
-  verifyLabelExists(id);
-  tryToAddExistingLabel(id);
-  deleteLabel(id);
-  verifyLabelDoesNotExist(id);
+function lifecycle_checklist(idChecklist, field, idCheckItem, filter) {
+  try { tryToDeleteANonExistingChecklist(idChecklist, field, idCheckItem, filter); } catch (_e) {}
+  addChecklist(idChecklist, field, idCheckItem, filter);
+  verifyChecklistExists(idChecklist, field, idCheckItem, filter);
+  tryToAddExistingChecklist(idChecklist, field, idCheckItem, filter);
+  deleteChecklist(idChecklist, field, idCheckItem, filter);
+  verifyChecklistDoesNotExist(idChecklist, field, idCheckItem, filter);
+}
+
+function lifecycle_label(idLabel, field) {
+  try { tryToDeleteANonExistingLabel(idLabel, field); } catch (_e) {}
+  addLabel(idLabel, field);
+  verifyLabelExists(idLabel, field);
+  tryToAddExistingLabel(idLabel, field);
+  deleteLabel(idLabel, field);
+  verifyLabelDoesNotExist(idLabel, field);
 }
 
 function lifecycle_list(idList, field, filter) {
@@ -88,6 +97,15 @@ function lifecycle_session(idSession) {
   tryToAddExistingSession(idSession);
   deleteSession(idSession);
   verifySessionDoesNotExist(idSession);
+}
+
+function lifecycle_token(id) {
+  try { tryToDeleteANonExistingToken(id); } catch (_e) {}
+  addToken(id);
+  verifyTokenExists(id);
+  tryToAddExistingToken(id);
+  deleteToken(id);
+  verifyTokenDoesNotExist(id);
 }
 
 function lifecycle_type(id) {

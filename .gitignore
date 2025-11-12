@@ -38,4 +38,5 @@ OpenAiKey.txt
 
 #Keep anything in 'readable' subfolders
 !artifacts/**/readable/**
+!artifacts/**/readable/**
 mySetupEnv.bat

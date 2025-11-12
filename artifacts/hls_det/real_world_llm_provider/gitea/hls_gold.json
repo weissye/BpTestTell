@@ -3,10 +3,10 @@
   "deterministic": true,
   "provider": "real_world_llm_provider",
   "sut": "gitea",
-  "generated_at": "2025-11-09T13:50:06.305625Z",
+  "generated_at": "2025-11-12T20:06:41.637351Z",
   "source": {
-    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\gitea\\graph.json",
-    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\gitea\\dsl_map.json"
+    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\gitea\\graph.json",
+    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\gitea\\dsl_map.json"
   },
   "entities": [
     {
@@ -859,25 +859,25 @@
       "name": "CRUD accept",
       "desc": "Deterministic CRUD flow for entity 'accept' inferred from graph.",
       "entity": "accept",
-      "js": "// Deterministic CRUD flow for entity: accept\nbp.registerBThread(\"HLS: CRUD accept\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/repos/{owner}/{repo}/transfer/accept\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: accept\nbthread(\"HLS: CRUD accept\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/repos/{owner}/{repo}/transfer/accept\", {})});\n});"
     },
     {
       "name": "CRUD api",
       "desc": "Deterministic CRUD flow for entity 'api' inferred from graph.",
       "entity": "api",
-      "js": "// Deterministic CRUD flow for entity: api\nbp.registerBThread(\"HLS: CRUD api\", function () {\n  bp.sync({request: REST.GET(\"/settings/api\", {})});\n  bp.sync({request: REST.GET(\"/settings/api\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: api\nbthread(\"HLS: CRUD api\", function () {\n  bp.sync({request: REST.GET(\"/settings/api\", {})});\n  bp.sync({request: REST.GET(\"/settings/api\", {})});\n});"
     },
     {
       "name": "CRUD archive",
       "desc": "Deterministic CRUD flow for entity 'archive' inferred from graph.",
       "entity": "archive",
-      "js": "// Deterministic CRUD flow for entity: archive\nbp.registerBThread(\"HLS: CRUD archive\", function () {\n  bp.sync({request: REST.GET(\"/repos/{owner}/{repo}/archive/{archive}\", {})});\n  bp.sync({request: REST.GET(\"/repos/{owner}/{repo}/archive/{archive}\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: archive\nbthread(\"HLS: CRUD archive\", function () {\n  bp.sync({request: REST.GET(\"/repos/{owner}/{repo}/archive/{archive}\", {})});\n  bp.sync({request: REST.GET(\"/repos/{owner}/{repo}/archive/{archive}\", {})});\n});"
     },
     {
       "name": "CRUD asset",
       "desc": "Deterministic CRUD flow for entity 'asset' inferred from graph.",
       "entity": "asset",
-      "js": "// Deterministic CRUD flow for entity: asset\nbp.registerBThread(\"HLS: CRUD asset\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/repos/{owner}/{repo}/issues/comments/{id}/assets\", {})});\n  bp.sync({request: REST.GET(\"/repos/{owner}/{repo}/issues/comments/{id}/assets\", {})});\n  bp.sync({request: REST.PATCH(\"/repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}\", {})});\n  bp.sync({request: REST.GET(\"/repos/{owner}/{repo}/issues/comments/{id}/assets\", {})});\n  bp.sync({request: REST.DELETE(\"/repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: asset\nbthread(\"HLS: CRUD asset\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/repos/{owner}/{repo}/issues/comments/{id}/assets\", {})});\n  bp.sync({request: REST.GET(\"/repos/{owner}/{repo}/issues/comments/{id}/assets\", {})});\n  bp.sync({request: REST.PATCH(\"/repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}\", {})});\n  bp.sync({request: REST.GET(\"/repos/{owner}/{repo}/issues/comments/{id}/assets\", {})});\n  bp.sync({request: REST.DELETE(\"/repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}\", {})});\n});"
     }
   ]
 }

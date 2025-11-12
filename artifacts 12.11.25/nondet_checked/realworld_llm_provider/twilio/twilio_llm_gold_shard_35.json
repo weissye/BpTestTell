@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "A developer wants to retrieve the details of a specific IP Access Control List mapping for a SIP domain using the Account SID and Domain SID.",
+      "ideal": "The API should return the details of the specified IP Access Control List mapping, including its SID, friendly name, and associated IP addresses."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "An administrator needs to remove an existing IP Access Control List mapping from a SIP domain to ensure that certain IP addresses are no longer allowed access.",
+      "ideal": "The API should successfully delete the specified IP Access Control List mapping and return a confirmation message indicating the deletion was successful."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+      "method": "POST",
+      "operationId": "CreateSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "A system integrator is adding a new IP Access Control List mapping to a SIP domain to allow a specific IP address to access the service.",
+      "ideal": "The API should create a new IP Access Control List mapping and return the details of the newly created mapping, including its SID and friendly name."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+      "method": "GET",
+      "operationId": "ListSipIpAccessControlListMapping",
+      "summary": "",
+      "user": "A network administrator wants to view all existing IP Access Control List mappings for a specific SIP domain to manage access control effectively.",
+      "ideal": "The API should return a list of all IP Access Control List mappings associated with the specified SIP domain, including their SIDs and friendly names."
+    }
+  ]
+}

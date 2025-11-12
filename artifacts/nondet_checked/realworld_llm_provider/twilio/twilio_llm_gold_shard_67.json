@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "ListAvailablePhoneNumberTollFree",
       "summary": "",
-      "user": "User wants to retrieve a list of available toll-free phone numbers in the specified country to assess options for business communication.",
-      "ideal": "A JSON response containing an array of available toll-free phone numbers, including details such as the phone number, friendly name, and any associated pricing information."
+      "user": "user_12345",
+      "ideal": "Retrieve a list of available toll-free phone numbers in the specified country."
     }
   ]
 }

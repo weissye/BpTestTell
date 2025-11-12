@@ -1,0 +1,16 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/documents"
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/filterable-attributes"
+    },
+    {
+      "method": "GET",
+      "path": "/keys"
+    }
+  ]
+}

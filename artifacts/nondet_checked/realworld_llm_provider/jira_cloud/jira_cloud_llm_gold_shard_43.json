@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "getVotes",
       "summary": "",
-      "user": "User A wants to check how many votes the issue PROJ-123 has received to gauge its popularity.",
-      "ideal": "The response should return the total number of votes and details about the users who voted."
+      "user": "User123",
+      "ideal": "Retrieve the current vote count for the issue with ID PROJ-123."
     },
     {
       "path": "/rest/api/3/issue/PROJ-123/votes",
       "method": "POST",
       "operationId": "addVote",
       "summary": "",
-      "user": "User B is a team member who wants to support the issue PROJ-123 by adding their vote.",
-      "ideal": "The response should confirm that the vote has been successfully added to the issue."
+      "user": "User456",
+      "ideal": "Add a vote to the issue with ID PROJ-123."
     },
     {
       "path": "/rest/api/3/issue/PROJ-123/votes",
       "method": "DELETE",
       "operationId": "removeVote",
       "summary": "",
-      "user": "User C previously voted on issue PROJ-123 but has changed their mind and wants to remove their vote.",
-      "ideal": "The response should confirm that the vote has been successfully removed from the issue."
+      "user": "User789",
+      "ideal": "Remove the user's vote from the issue with ID PROJ-123."
     }
   ]
 }

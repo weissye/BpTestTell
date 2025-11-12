@@ -22,7 +22,7 @@
       "operationId": "meta/get-octocat",
       "summary": "",
       "user": "user789",
-      "ideal": "Fetches the Octocat avatar and related information."
+      "ideal": "Fetches the Octocat avatar image."
     },
     {
       "path": "/versions",

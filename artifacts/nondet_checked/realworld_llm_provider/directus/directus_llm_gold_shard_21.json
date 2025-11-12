@@ -14,7 +14,7 @@
       "operationId": "createUser",
       "summary": "",
       "user": "admin",
-      "ideal": "Create a new user with specified details."
+      "ideal": "Create a new user with the provided details."
     },
     {
       "path": "/users",
@@ -22,7 +22,7 @@
       "operationId": "updateUsers",
       "summary": "",
       "user": "admin",
-      "ideal": "Update details for multiple users."
+      "ideal": "Update multiple users' information based on the provided data."
     },
     {
       "path": "/users",
@@ -38,7 +38,7 @@
       "operationId": "getUser",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve details of a specific user by ID."
+      "ideal": "Retrieve detailed information about a specific user by ID."
     },
     {
       "path": "/users/{id}",
@@ -46,7 +46,7 @@
       "operationId": "updateUser",
       "summary": "",
       "user": "admin",
-      "ideal": "Update details of a specific user by ID."
+      "ideal": "Update information for a specific user identified by ID."
     },
     {
       "path": "/users/{id}",
@@ -54,7 +54,7 @@
       "operationId": "deleteUser",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete a specific user by ID."
+      "ideal": "Delete a specific user from the system by ID."
     },
     {
       "path": "/users/invite",
@@ -62,7 +62,7 @@
       "operationId": "invite",
       "summary": "",
       "user": "admin",
-      "ideal": "Send an invitation to a new user."
+      "ideal": "Send an invitation to a new user to join the platform."
     },
     {
       "path": "/users/invite/accept",
@@ -70,47 +70,47 @@
       "operationId": "acceptInvite",
       "summary": "",
       "user": "new_user",
-      "ideal": "Accept an invitation to join the platform."
+      "ideal": "Accept an invitation to join the platform and create an account."
     },
     {
       "path": "/users/me",
       "method": "GET",
       "operationId": "getMe",
       "summary": "",
-      "user": "registered_user",
-      "ideal": "Retrieve details of the currently authenticated user."
+      "user": "user123",
+      "ideal": "Retrieve the current user's profile information."
     },
     {
       "path": "/users/me",
       "method": "PATCH",
       "operationId": "updateMe",
       "summary": "",
-      "user": "registered_user",
-      "ideal": "Update details of the currently authenticated user."
+      "user": "user123",
+      "ideal": "Update the current user's profile information."
     },
     {
       "path": "/users/me/track/page",
       "method": "PATCH",
       "operationId": "updateLastUsedPageMe",
       "summary": "",
-      "user": "registered_user",
-      "ideal": "Update the last used page for the currently authenticated user."
+      "user": "user123",
+      "ideal": "Update the last used page for the current user."
     },
     {
       "path": "/users/me/tfa/enable",
       "method": "POST",
       "operationId": "meTfaEnable",
       "summary": "",
-      "user": "registered_user",
-      "ideal": "Enable two-factor authentication for the currently authenticated user."
+      "user": "user123",
+      "ideal": "Enable two-factor authentication for the current user."
     },
     {
       "path": "/users/me/tfa/disable",
       "method": "POST",
       "operationId": "meTfaDisable",
       "summary": "",
-      "user": "registered_user",
-      "ideal": "Disable two-factor authentication for the currently authenticated user."
+      "user": "user123",
+      "ideal": "Disable two-factor authentication for the current user."
     }
   ]
 }

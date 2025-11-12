@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/api/virtualization/cluster-groups/",
+      "method": "GET",
+      "operationId": "virtualization_cluster_groups_list",
+      "summary": "",
+      "user": "Admin user requesting a list of all cluster groups to manage virtualization resources.",
+      "ideal": "Returns a list of cluster groups with their details."
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/",
+      "method": "POST",
+      "operationId": "virtualization_cluster_groups_create",
+      "summary": "",
+      "user": "Network engineer creating a new cluster group for better organization of virtual resources.",
+      "ideal": "Creates a new cluster group and returns the details of the created group."
+    },
+    {
+      "path": "/api/virtualization/cluster-groups/{id}/",
+      "method": "GET",
+      "operationId": "virtualization_cluster_groups_retrieve",
+      "summary": "",
+      "user": "Support staff retrieving details of a specific cluster group to assist with troubleshooting.",
+      "ideal": "Returns the details of the specified cluster group."
+    },
+    {
+      "path": "/api/virtualization/cluster-types/",
+      "method": "GET",
+      "operationId": "virtualization_cluster_types_list",
+      "summary": "",
+      "user": "System administrator looking to review available cluster types for deployment.",
+      "ideal": "Returns a list of all cluster types available in the system."
+    },
+    {
+      "path": "/api/virtualization/clusters/",
+      "method": "POST",
+      "operationId": "virtualization_clusters_create",
+      "summary": "",
+      "user": "DevOps engineer creating a new cluster for application deployment.",
+      "ideal": "Creates a new cluster and returns the details of the created cluster."
+    },
+    {
+      "path": "/api/virtualization/clusters/{id}/",
+      "method": "DELETE",
+      "operationId": "virtualization_clusters_destroy",
+      "summary": "",
+      "user": "Database administrator deleting an obsolete cluster to free up resources.",
+      "ideal": "Successfully deletes the specified cluster and returns a confirmation."
+    },
+    {
+      "path": "/api/virtualization/interfaces/",
+      "method": "GET",
+      "operationId": "virtualization_interfaces_list",
+      "summary": "",
+      "user": "Network administrator checking the list of all virtual interfaces for configuration.",
+      "ideal": "Returns a list of all virtual interfaces with their configurations."
+    },
+    {
+      "path": "/api/virtualization/virtual-disks/",
+      "method": "POST",
+      "operationId": "virtualization_virtual_disks_create",
+      "summary": "",
+      "user": "Storage engineer creating a new virtual disk for a virtual machine.",
+      "ideal": "Creates a new virtual disk and returns the details of the created disk."
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/{id}/",
+      "method": "PATCH",
+      "operationId": "virtualization_virtual_machines_partial_update",
+      "summary": "",
+      "user": "System administrator updating the configuration of a virtual machine to optimize performance.",
+      "ideal": "Partially updates the specified virtual machine and returns the updated details."
+    },
+    {
+      "path": "/api/virtualization/virtual-machines/{id}/render-config/",
+      "method": "POST",
+      "operationId": "virtualization_virtual_machines_render_config_create",
+      "summary": "",
+      "user": "Developer generating a render configuration for a virtual machine to prepare for deployment.",
+      "ideal": "Creates a render configuration for the specified virtual machine and returns the configuration details."
+    }
+  ]
+}

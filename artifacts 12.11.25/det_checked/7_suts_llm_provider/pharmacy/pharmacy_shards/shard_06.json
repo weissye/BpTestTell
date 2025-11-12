@@ -1,0 +1,12 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/inventory"
+    },
+    {
+      "method": "GET",
+      "path": "/reset/{id}"
+    }
+  ]
+}

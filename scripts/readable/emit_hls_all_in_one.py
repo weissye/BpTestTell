@@ -1,216 +1,139 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 emit_hls_all_in_one.py
-Emits stories_hls.js from an HLS GOLD JSON.
-- Auto-detects GOLD file (hls_gold.json / hls_nondet_gold.json / hls_det_gold.json / *_gold.json),
-  or use --gold to point directly.
-- If GOLD contains ready-made JS, uses it; otherwise synthesizes BPJS from structured stories.
-- Never writes an empty file: falls back to a small seed if needed.
+----------------------
+Robust emitter for stories_hls.js from HLS GOLD.
+
+Design goals:
+- Works for both det/nondet. Uses GOLD's "stories" (each with {"name","js"}) or "stories_js".
+- Makes DET look like NONDET by emitting the same header + concatenated JS blocks from GOLD.
+- Writes a small coverage file "<sut_dir>/hls_gold_ops.json" (count, by_entity) for quick sanity checks.
+- Accepts optional --dsl_map and --graph (logged for traceability only; not required if GOLD already has JS).
+- Handles Windows/Unix paths and extra quotes gracefully.
 """
-import argparse, json, re, sys
+
+from __future__ import annotations
+import argparse, json, os, re, sys
 from pathlib import Path
-from collections import Counter
-from typing import Any, Dict, List, Tuple, Union
 
-def read_json(p: Union[str, Path]) -> Any:
-    if not p: return None
-    p = Path(p)
-    if not p.exists(): return None
-    txt = p.read_text(encoding="utf-8", errors="ignore").strip()
-    if not txt: return None
-    try:
-        return json.loads(txt)
-    except Exception:
-        # salvage an embedded JSON object if present
-        try:
-            s, e = txt.find("{"), txt.rfind("}")
-            if s != -1 and e != -1 and e > s:
-                return json.loads(txt[s:e+1])
-        except Exception:
-            return None
+def _norm(p: str | None) -> str | None:
+    if not p:
+        return None
+    # Strip any surrounding quotes once, then normpath
+    p = p.strip().strip('"').strip("'")
+    return os.path.normpath(p)
 
-def ensure_parent(path: Union[str, Path]) -> None:
-    Path(path).parent.mkdir(parents=True, exist_ok=True)
+def load_gold(gold_path: str) -> dict:
+    with open(gold_path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
-def count_bthreads(js: str) -> int:
-    return len(re.findall(r'\bbp\.registerBThread\s*\(', js or ""))
+def concat_stories_js(gold: dict) -> tuple[str,int,dict]:
+    """
+    Returns: (full_js_text, n_stories, by_entity)
+    """
+    by_entity = {}
+    if isinstance(gold.get("stories_js"), str) and gold["stories_js"].strip():
+        # Prefer the pre-concatenated JS field when present
+        js = gold["stories_js"]
+        # Try to count by splitting per header markers if present
+        names = []
+        for m in re.finditer(r'//\s*-{2}\s*(.*?)\s*-{2}', js):
+            names.append(m.group(1).strip())
+        for nm in names:
+            m2 = re.match(r'^crud:([^:]+):', nm)
+            ent = m2.group(1) if m2 else "?"
+            by_entity[ent] = by_entity.get(ent, 0) + 1
+        return js, len(names) if names else 0, by_entity
 
-def try_js_from_gold(g: Any) -> Tuple[str, int]:
-    if not isinstance(g, (dict, list)): return ("", -1)
+    # Otherwise, build from stories[] list (each item has {"name","js"})
+    stories = gold.get("stories") or []
+    chunks = []
+    for s in stories:
+        name = s.get("name", "").strip()
+        js = s.get("js", "").rstrip()
+        if name and js:
+            chunks.append(js if js.endswith("\n") else js + "\n")
+            m = re.match(r'^crud:([^:]+):', name)
+            ent = m.group(1) if m else "?"
+            by_entity[ent] = by_entity.get(ent, 0) + 1
+    return ("\n".join(chunks), len(stories), by_entity)
 
-    # Big JS blob fields
-    if isinstance(g, dict):
-        for k in ("stories_js", "js", "readable_js", "storiesHlsJs"):
-            v = g.get(k)
-            if isinstance(v, str) and v.strip():
-                return (v, -1)
-
-    # Per-story JS snippets
-    def _grab(item) -> str:
-        if isinstance(item, str) and item.strip():
-            return item
-        if isinstance(item, dict):
-            for kk in ("js","story_js","bt_js","code","text","content","body","script"):
-                vv = item.get(kk)
-                if isinstance(vv, str) and vv.strip():
-                    return vv
-        return ""
-
-    snippets: List[str] = []
-    if isinstance(g, dict) and isinstance(g.get("stories"), list):
-        for it in g["stories"]:
-            s = _grab(it)
-            if s: snippets.append(s)
-    elif isinstance(g, list):
-        for it in g:
-            s = _grab(it)
-            if s: snippets.append(s)
-
-    return ("\n\n".join(snippets), len(snippets)) if snippets else ("", -1)
-
-def synthesize_from_struct(g: Any) -> Tuple[str, int]:
-    if not isinstance(g, dict): return ("", 0)
-    stories = g.get("stories")
-    if not isinstance(stories, list): return ("", 0)
-
-    def ev_name(ev):
-        if isinstance(ev, str): return ev
-        if isinstance(ev, dict):
-            return ev.get("event") or ev.get("name") or ev.get("type") or ev.get("op") or ev.get("id") or "Unknown"
-        return "Unknown"
-
-    out: List[str] = []
-    idx = 0
-    for i, st in enumerate(stories, 1):
-        if isinstance(st, dict):
-            name = st.get("name") or st.get("title") or f"story#{i}"
-            seq = None
-            for k in ("events","sequence","seq","steps","calls","content","body"):
-                v = st.get(k)
-                if isinstance(v, list) and v:
-                    seq = v; break
-            if not seq: continue
-            lines = []
-            for ev in seq:
-                en = str(ev_name(ev)).replace('"','\\"')
-                lines.append(f'  bp.sync({{request: Event("{en}")}});')
-            out.append(f'bthread("{name}", function () {{\n' + "\n".join(lines) + "\n});\n")
-            idx += 1
-        elif isinstance(st, str) and st.strip():
-            s = st.strip()
-            if s.startswith("bthread"):
-                out.append(s if s.endswith("\n") else s+"\n")
-            else:
-                out.append(f'bthread("story#{i}", function () {{\n  // {s}\n}});\n')
-            idx += 1
-
-    js = "\n".join(out)
-    return (js, idx)
-
-def seed_js() -> Tuple[str,int]:
-    js = """\
-// Minimal fallback seed to avoid empty file
-bthread("seed-open-close", function(){ bp.sync({request: Event("Open")}); bp.sync({request: Event("Close")}); });
-bthread("seed-login-logout", function(){ bp.sync({request: Event("Login")}); bp.sync({request: Event("Logout")}); });
+def banner(gold: dict, n: int) -> str:
+    sut = gold.get("sut","?")
+    provider = gold.get("provider","?")
+    mode = gold.get("mode","?")
+    src = gold.get("source",{})
+    created_by = src.get("created_by","")
+    return f"""// ============================================================================
+// Auto-generated by emit_hls_all_in_one.py
+// SUT={sut}  Provider={provider}  Mode={mode}  Stories={n}
+// Source: {created_by}
+// ============================================================================
 """
-    return (js, 2)
 
-def flatten_ops(d: Any) -> List[Dict[str,Any]]:
-    out: List[Dict[str,Any]] = []
-    def walk(x):
-        if isinstance(x, dict):
-            if any(k in x for k in ("op","operation","endpoint","kind","entity","path","name")):
-                out.append(x)
-            for v in x.values(): walk(v)
-        elif isinstance(x, list):
-            for v in x: walk(v)
-    walk(d)
-    return out
+def write_ops(out_dir: Path, by_entity: dict, count: int) -> None:
+    out = {
+        "count_stories": count,
+        "by_entity": by_entity,
+    }
+    out_path = out_dir / "hls_gold_ops.json"
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(out, f, indent=2, ensure_ascii=False)
 
-def graph_coverage(graph: Any) -> Tuple[int, Dict[str,int]]:
-    if not graph: return (0,{})
-    ops = 0; by = Counter()
-    if isinstance(graph, dict) and isinstance(graph.get("ops"), list):
-        ops = len(graph["ops"])
-        for op in graph["ops"]:
-            ent = None
-            if isinstance(op, dict):
-                ent = op.get("entity") or op.get("kind") or op.get("resource") or op.get("name")
-            if isinstance(ent, str): by[ent]+=1
-    if ops == 0:
-        flat = flatten_ops(graph); ops = len(flat)
-        for rec in flat:
-            ent = rec.get("entity") or rec.get("kind") or rec.get("resource") or rec.get("name")
-            if isinstance(ent, str): by[ent]+=1
-            elif isinstance(rec.get("path"), str):
-                tail = rec["path"].strip("/").split("/")[-1]
-                if tail: by[tail]+=1
-    return (ops, dict(by))
-
-def autodetect_gold(sut_dir: Path, explicit: Union[str,Path,None]) -> Path:
-    if explicit:
-        p = Path(explicit)
-        return p if p.exists() else Path()
-    for name in ("hls_gold.json","hls_nondet_gold.json","hls_det_gold.json"):
-        p = sut_dir / name
-        if p.exists(): return p
-    globs = list(sut_dir.glob("*_gold.json"))
-    return globs[0] if len(globs)==1 else Path()
-
-def main() -> int:
+def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sut_dir", required=True)
-    ap.add_argument("--gold", default=None)
-    ap.add_argument("--mode", choices=("det","nondet"), default="nondet")
-    ap.add_argument("--out", default=None)
-    ap.add_argument("--graph", default=None)
-    ap.add_argument("--dsl_map", default=None)
-    ap.add_argument("--profile", choices=("basic","rich"), default="basic")
-    ap.add_argument("--per_entity_max", type=int, default=0)
-    ap.add_argument("--fail_under_stories", type=int, default=0)
+    ap.add_argument("--gold", required=True, help="Path to hls_gold.json")
+    ap.add_argument("--out_dir", required=True, help="Directory to write /readable/stories_hls.js into")
+    ap.add_argument("--dsl_map", default=None, help="Optional DSL map (logged)")
+    ap.add_argument("--graph", default=None, help="Optional graph.json (logged)")
+    ap.add_argument("--max_stories", type=int, default=0, help="Limit number of stories (0 = all)")
     args = ap.parse_args()
 
-    sut_dir = Path(args.sut_dir)
-    if not sut_dir.exists():
-        print(f'[ERR] SUT dir not found: "{sut_dir}"', file=sys.stderr)
-        return 2
+    gold_path = _norm(args.gold)
+    out_dir = Path(_norm(args.out_dir))
+    dsl_map = _norm(args.dsl_map)
+    graph = _norm(args.graph)
 
-    gold_path = autodetect_gold(sut_dir, args.gold)
-    gold = read_json(gold_path) if gold_path else None
-    if gold_path:
-        print(f"[INFO] Using GOLD: {gold_path.as_posix()}")
+    if not gold_path or not os.path.isfile(gold_path):
+        print(f"[ERR] GOLD not found: {args.gold}", file=sys.stderr)
+        sys.exit(2)
 
-    graph = read_json(args.graph) if args.graph else None
+    out_dir.mkdir(parents=True, exist_ok=True)
+    if dsl_map:
+        print(f'    using --dsl_map "{dsl_map}"')
+    if graph:
+        print(f'    using --graph "{graph}"')
 
-    js, n = try_js_from_gold(gold)
-    if not js.strip():
-        js2, n2 = synthesize_from_struct(gold)
-        if js2.strip():
-            js, n = js2, n2
-    if not js.strip():
-        js, n = seed_js()
+    print(f"[INFO] Using GOLD: {gold_path.replace(os.sep, '/')}")
+    gold = load_gold(gold_path)
+    stories_js, n, by_entity = concat_stories_js(gold)
 
-    if args.per_entity_max and args.per_entity_max > 0:
-        chunks = re.split(r'(?=bp\.registerBThread\s*\()', js)
-        head, bts = chunks[0], chunks[1:]
-        if bts:
-            bts = bts[:args.per_entity_max]
-            js = head + "".join(bts)
-            n = len(bts)
+    if args.max_stories > 0:
+        # naïve truncation by detecting per-story separators; robust when built from stories[]
+        # When stories_js came as one block, we'll do a safe split on bthread openings.
+        blocks = re.split(r'\n(?=bthread\()', stories_js, flags=re.MULTILINE)
+        if len(blocks) > args.max_stories:
+            stories_js = "\n".join(blocks[:args.max_stories])
+            # recount roughly
+            n = args.max_stories
 
-    out_path = Path(args.out) if args.out else (sut_dir / "readable" / "stories_hls.js")
-    ensure_parent(out_path)
-    out_path.write_text(js, encoding="utf-8")
+    # Emit file
+    js_path = out_dir / "stories_hls.js"
+    with open(js_path, "w", encoding="utf-8") as f:
+        f.write(banner(gold, n))
+        f.write("\n")
+        f.write(stories_js)
+        if not stories_js.endswith("\n"):
+            f.write("\n")
 
-    ops, by = graph_coverage(graph)
-    print(f"[OK] wrote {out_path.as_posix()} ({n} stories)")
-    print(f"[COVERAGE] sut={args.mode} ops={ops} by_entity={by}")
-
-    if args.fail_under_stories and n < args.fail_under_stories:
-        print(f"[ERR] Story count {n} < threshold {args.fail_under_stories}", file=sys.stderr)
-        return 3
-    return 0
+    write_ops(out_dir.parent, by_entity, n)
+    print(f"[OK] wrote {js_path.as_posix()} ({n} stories)")
+    print(f"[COVERAGE] by_entity={by_entity}")
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n[INTERRUPTED]")
+        raise

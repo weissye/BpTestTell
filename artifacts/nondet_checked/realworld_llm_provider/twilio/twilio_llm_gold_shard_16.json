@@ -1,44 +1,44 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings.json",
       "method": "POST",
       "operationId": "CreateCallRecording",
       "summary": "",
-      "user": "User wants to create a new recording for a specific call using Twilio's API.",
-      "ideal": "The API should return a success response with the details of the newly created recording."
+      "user": "User wants to create a new recording for a specific call using the Twilio API.",
+      "ideal": "The API should return a success response with the details of the created recording."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings.json",
       "method": "GET",
       "operationId": "ListCallRecording",
       "summary": "",
-      "user": "User needs to retrieve all recordings associated with a specific call to review them.",
-      "ideal": "The API should return a list of recordings with their details for the specified call."
+      "user": "User wants to retrieve a list of all recordings for a specific call to manage them effectively.",
+      "ideal": "The API should return a list of recordings associated with the specified call."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXX.json",
       "method": "POST",
       "operationId": "UpdateCallRecording",
       "summary": "",
-      "user": "User wants to update the metadata of a specific recording to include additional notes.",
-      "ideal": "The API should return a success response confirming the update of the recording's metadata."
+      "user": "User needs to update the metadata of a specific recording to include additional notes.",
+      "ideal": "The API should return a success response indicating that the recording has been updated."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXX.json",
       "method": "GET",
       "operationId": "FetchCallRecording",
       "summary": "",
-      "user": "User is looking to fetch details of a specific recording to check its duration and format.",
-      "ideal": "The API should return the details of the specified recording including duration and format."
+      "user": "User wants to fetch details of a specific recording to review its content and metadata.",
+      "ideal": "The API should return the details of the requested recording."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXX.json",
       "method": "DELETE",
       "operationId": "DeleteCallRecording",
       "summary": "",
-      "user": "User wants to delete a specific recording that is no longer needed to free up storage.",
-      "ideal": "The API should return a success response confirming the deletion of the specified recording."
+      "user": "User wishes to delete a specific recording that is no longer needed to free up storage.",
+      "ideal": "The API should return a success response confirming the deletion of the recording."
     }
   ]
 }

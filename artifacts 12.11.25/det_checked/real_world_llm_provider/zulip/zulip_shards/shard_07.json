@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "PATCH",
+      "path": "/channel_folders/{channel_folder_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/mark_topic_as_read"
+    },
+    {
+      "method": "GET",
+      "path": "/realm/emoji"
+    },
+    {
+      "method": "DELETE",
+      "path": "/saved_snippets/{saved_snippet_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/user_groups/{user_group_id}/subgroups"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/subscriptions/properties"
+    }
+  ]
+}

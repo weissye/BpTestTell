@@ -1,0 +1,496 @@
+{
+  "kind": "hls_gold",
+  "deterministic": true,
+  "provider": "real_world_llm_provider",
+  "sut": "zulip",
+  "generated_at": "2025-11-09T13:50:08.953764Z",
+  "source": {
+    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\zulip\\graph.json",
+    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\zulip\\dsl_map.json"
+  },
+  "entities": [
+    {
+      "name": "alert_word",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "android_gcm_reg_id",
+      "verbs": [
+        "DELETE",
+        "POST"
+      ]
+    },
+    {
+      "name": "apns_device_token",
+      "verbs": [
+        "DELETE",
+        "POST"
+      ]
+    },
+    {
+      "name": "attachment",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "channel_folder",
+      "verbs": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "consent",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "create",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "deactivate",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "default_stream",
+      "verbs": [
+        "DELETE",
+        "POST"
+      ]
+    },
+    {
+      "name": "delete_topic",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "dev_fetch_api_key",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "draft",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "email_address",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "emoji",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "event",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "fetch_api_key",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "filter",
+      "verbs": [
+        "DELETE",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "flag",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "get_stream_id",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "history",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "invite",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "linkifier",
+      "verbs": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "mark_all_as_read",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "mark_stream_as_read",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "mark_topic_as_read",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "matches_narrow",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "me",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "member",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "message",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "multiuse",
+      "verbs": [
+        "DELETE",
+        "POST"
+      ]
+    },
+    {
+      "name": "muted_topic",
+      "verbs": [
+        "PATCH"
+      ]
+    },
+    {
+      "name": "muted_user",
+      "verbs": [
+        "DELETE",
+        "POST"
+      ]
+    },
+    {
+      "name": "narrow",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "navigation_view",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "playground",
+      "verbs": [
+        "DELETE",
+        "POST"
+      ]
+    },
+    {
+      "name": "presence",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "profile_field",
+      "verbs": [
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "property",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "reaction",
+      "verbs": [
+        "DELETE",
+        "POST"
+      ]
+    },
+    {
+      "name": "reactivate",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "read_receipt",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "real_time",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "realm",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "register",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "reminder",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "render",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "report",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "resend",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "rest_error_handling",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "saved_snippet",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "scheduled_message",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "server_setting",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "setting",
+      "verbs": [
+        "PATCH"
+      ]
+    },
+    {
+      "name": "statu",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "stream",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "subgroup",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "subscription",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "test_notification",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "test_welcome_bot_custom_message",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "topic",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "typing",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "user",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "user_group",
+      "verbs": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "user_settings_default",
+      "verbs": [
+        "PATCH"
+      ]
+    },
+    {
+      "name": "user_topic",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "user_upload",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "zulip_outgoing_webhook",
+      "verbs": [
+        "POST"
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "name": "CRUD alert_word",
+      "desc": "Deterministic CRUD flow for entity 'alert_word' inferred from graph.",
+      "entity": "alert_word",
+      "js": "// Deterministic CRUD flow for entity: alert_word\nbp.registerBThread(\"HLS: CRUD alert_word\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/users/me/alert_words\", {})});\n  bp.sync({request: REST.GET(\"/users/me/alert_words\", {})});\n  bp.sync({request: REST.GET(\"/users/me/alert_words\", {})});\n  bp.sync({request: REST.DELETE(\"/users/me/alert_words\", {})});\n});"
+    },
+    {
+      "name": "CRUD android_gcm_reg_id",
+      "desc": "Deterministic CRUD flow for entity 'android_gcm_reg_id' inferred from graph.",
+      "entity": "android_gcm_reg_id",
+      "js": "// Deterministic CRUD flow for entity: android_gcm_reg_id\nbp.registerBThread(\"HLS: CRUD android_gcm_reg_id\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/users/me/android_gcm_reg_id\", {})});\n  bp.sync({request: REST.DELETE(\"/users/me/android_gcm_reg_id\", {})});\n});"
+    },
+    {
+      "name": "CRUD apns_device_token",
+      "desc": "Deterministic CRUD flow for entity 'apns_device_token' inferred from graph.",
+      "entity": "apns_device_token",
+      "js": "// Deterministic CRUD flow for entity: apns_device_token\nbp.registerBThread(\"HLS: CRUD apns_device_token\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/users/me/apns_device_token\", {})});\n  bp.sync({request: REST.DELETE(\"/users/me/apns_device_token\", {})});\n});"
+    },
+    {
+      "name": "CRUD attachment",
+      "desc": "Deterministic CRUD flow for entity 'attachment' inferred from graph.",
+      "entity": "attachment",
+      "js": "// Deterministic CRUD flow for entity: attachment\nbp.registerBThread(\"HLS: CRUD attachment\", function () {\n  bp.sync({request: REST.GET(\"/attachments\", {})});\n  bp.sync({request: REST.GET(\"/attachments\", {})});\n  bp.sync({request: REST.DELETE(\"/attachments/{attachment_id}\", {})});\n});"
+    }
+  ]
+}

@@ -1,36 +1,36 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/ADXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
       "method": "GET",
       "operationId": "FetchIncomingPhoneNumberAssignedAddOn",
       "summary": "",
-      "user": "As a developer, I want to retrieve the details of a specific assigned add-on for an incoming phone number so that I can verify its configuration and status.",
-      "ideal": "The response should include the add-on's SID, friendly name, and any configuration details."
+      "user": "Retrieve the details of a specific assigned add-on for an incoming phone number using the Account SID and Resource SID.",
+      "ideal": "Successfully fetch the assigned add-on details with status code 200 and a JSON response containing the add-on information."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/ADXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
       "method": "DELETE",
       "operationId": "DeleteIncomingPhoneNumberAssignedAddOn",
       "summary": "",
-      "user": "As an admin, I need to remove an assigned add-on from an incoming phone number to ensure it no longer incurs charges or affects functionality.",
-      "ideal": "The response should confirm the successful deletion of the assigned add-on."
+      "user": "Remove an assigned add-on from an incoming phone number by specifying the Account SID, Resource SID, and the add-on SID.",
+      "ideal": "Successfully delete the assigned add-on with status code 204 and no content in the response."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
       "method": "GET",
       "operationId": "ListIncomingPhoneNumberAssignedAddOn",
       "summary": "",
-      "user": "As a user, I want to list all assigned add-ons for a specific incoming phone number to manage and review their usage.",
-      "ideal": "The response should return an array of assigned add-ons with their details, such as SID and status."
+      "user": "List all assigned add-ons for a specific incoming phone number using the Account SID and Resource SID.",
+      "ideal": "Successfully retrieve a list of assigned add-ons with status code 200 and a JSON array of add-on details."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
       "method": "POST",
       "operationId": "CreateIncomingPhoneNumberAssignedAddOn",
       "summary": "",
-      "user": "As a developer, I want to assign a new add-on to an incoming phone number to enhance its capabilities with additional features.",
-      "ideal": "The response should include the SID of the newly created assigned add-on and its configuration details."
+      "user": "Create a new assigned add-on for an incoming phone number by providing the Account SID, Resource SID, and add-on details in the request body.",
+      "ideal": "Successfully create the assigned add-on with status code 201 and a JSON response containing the newly created add-on information."
     }
   ]
 }

@@ -14,7 +14,7 @@
       "operationId": "postDownload",
       "summary": "",
       "user": "Admin user attempting to download the private certificate for client ID 123 in the realm 'myrealm'.",
-      "ideal": "Downloads the private certificate for the specified client."
+      "ideal": "Successfully downloads the private certificate for the specified client."
     },
     {
       "path": "/myrealm/clients/123/certificates/private/generate",
@@ -38,7 +38,7 @@
       "operationId": "postUpload",
       "summary": "",
       "user": "Admin user uploading a new private certificate for client ID 123 in the realm 'myrealm'.",
-      "ideal": "Uploads a new private certificate for the specified client."
+      "ideal": "Successfully uploads the new private certificate for the specified client."
     },
     {
       "path": "/myrealm/clients/123/certificates/private/upload-certificate",
@@ -46,7 +46,7 @@
       "operationId": "postUploadCertificate",
       "summary": "",
       "user": "Admin user uploading a specific certificate for client ID 123 in the realm 'myrealm'.",
-      "ideal": "Uploads a specific certificate for the specified client."
+      "ideal": "Successfully uploads the specified certificate for the client."
     }
   ]
 }

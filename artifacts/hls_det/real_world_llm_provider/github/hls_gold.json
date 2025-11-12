@@ -3,10 +3,10 @@
   "deterministic": true,
   "provider": "real_world_llm_provider",
   "sut": "github",
-  "generated_at": "2025-11-09T13:50:06.645102Z",
+  "generated_at": "2025-11-12T20:06:41.745706Z",
   "source": {
-    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\github\\graph.json",
-    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\github\\dsl_map.json"
+    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\github\\graph.json",
+    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\github\\dsl_map.json"
   },
   "entities": [
     {
@@ -1980,25 +1980,25 @@
       "name": "CRUD accepted_assignment",
       "desc": "Deterministic CRUD flow for entity 'accepted_assignment' inferred from graph.",
       "entity": "accepted_assignment",
-      "js": "// Deterministic CRUD flow for entity: accepted_assignment\nbp.registerBThread(\"HLS: CRUD accepted_assignment\", function () {\n  bp.sync({request: REST.GET(\"/assignments/{assignment_id}/accepted_assignments\", {})});\n  bp.sync({request: REST.GET(\"/assignments/{assignment_id}/accepted_assignments\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: accepted_assignment\nbthread(\"HLS: CRUD accepted_assignment\", function () {\n  bp.sync({request: REST.GET(\"/assignments/{assignment_id}/accepted_assignments\", {})});\n  bp.sync({request: REST.GET(\"/assignments/{assignment_id}/accepted_assignments\", {})});\n});"
     },
     {
       "name": "CRUD access",
       "desc": "Deterministic CRUD flow for entity 'access' inferred from graph.",
       "entity": "access",
-      "js": "// Deterministic CRUD flow for entity: access\nbp.registerBThread(\"HLS: CRUD access\", function () {\n  bp.sync({request: REST.GET(\"/repos/{owner}/{repo}/actions/permissions/access\", {})});\n  bp.sync({request: REST.PUT(\"/orgs/{org}/codespaces/access\", {})});\n  bp.sync({request: REST.GET(\"/repos/{owner}/{repo}/actions/permissions/access\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: access\nbthread(\"HLS: CRUD access\", function () {\n  bp.sync({request: REST.GET(\"/repos/{owner}/{repo}/actions/permissions/access\", {})});\n  bp.sync({request: REST.PUT(\"/orgs/{org}/codespaces/access\", {})});\n  bp.sync({request: REST.GET(\"/repos/{owner}/{repo}/actions/permissions/access\", {})});\n});"
     },
     {
       "name": "CRUD access_token",
       "desc": "Deterministic CRUD flow for entity 'access_token' inferred from graph.",
       "entity": "access_token",
-      "js": "// Deterministic CRUD flow for entity: access_token\nbp.registerBThread(\"HLS: CRUD access_token\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/app/installations/{installation_id}/access_tokens\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: access_token\nbthread(\"HLS: CRUD access_token\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/app/installations/{installation_id}/access_tokens\", {})});\n});"
     },
     {
       "name": "CRUD account",
       "desc": "Deterministic CRUD flow for entity 'account' inferred from graph.",
       "entity": "account",
-      "js": "// Deterministic CRUD flow for entity: account\nbp.registerBThread(\"HLS: CRUD account\", function () {\n  bp.sync({request: REST.GET(\"/marketplace_listing/accounts/{account_id}\", {})});\n  bp.sync({request: REST.GET(\"/marketplace_listing/accounts/{account_id}\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: account\nbthread(\"HLS: CRUD account\", function () {\n  bp.sync({request: REST.GET(\"/marketplace_listing/accounts/{account_id}\", {})});\n  bp.sync({request: REST.GET(\"/marketplace_listing/accounts/{account_id}\", {})});\n});"
     }
   ]
 }

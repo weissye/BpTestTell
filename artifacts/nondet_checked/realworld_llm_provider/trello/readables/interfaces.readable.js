@@ -355,46 +355,211 @@ function verifyBatchUpdated(id) {
 }
 
 
-/** === Checklist Operations === */
+/** === Board Operations === */
 
 // CREATE
-function addChecklist(id) {
-  svc.post("/checklists", { body: JSON.stringify({ id: id }), parameters: { description: "Add a checklist with " + "id " + id } });
+function addBoard(idBoard) {
+  svc.post("/boards", { body: JSON.stringify({ idBoard: idBoard }), parameters: { description: "Add a board with " + "idBoard " + idBoard } });
 }
 
 // DELETE
-function deleteChecklist(id) {
-  svc.delete("/checklists/" + id, {
-    parameters: { description: "Delete a checklist with " + "id " + id }
+function deleteBoard(idBoard) {
+  svc.delete("/boards/" + idBoard, {
+    parameters: { description: "Delete a board with " + "idBoard " + idBoard }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingChecklist(id) {
-  svc.delete("/checklists/" + id, {
+function tryToDeleteANonExistingBoard(idBoard) {
+  svc.delete("/boards/" + idBoard, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a checklist with " + "id " + id }
+    parameters: { description: "Delete a board with " + "idBoard " + idBoard }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingChecklist(id) {
-  svc.post("/checklists", {
-    body: JSON.stringify({ id: id }),
-    parameters: { description: "Add a checklist with " + "id " + id },
+function tryToAddExistingBoard(idBoard) {
+  svc.post("/boards", {
+    body: JSON.stringify({ idBoard: idBoard }),
+    parameters: { description: "Add a board with " + "idBoard " + idBoard },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateChecklist(id) {
-  svc.put("/checklists/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a checklist with " + "id " + id } });
+function updateBoard(idBoard) {
+  svc.put("/boards/" + idBoard, { body: JSON.stringify({ idBoard: idBoard }), parameters: { description: "Update a board with " + "idBoard " + idBoard } });
 }
 
 // GET one
-function getChecklist(id) {
-  svc.get("/checklists/" + id, {
-    parameters: { description: "Get a checklist with " + "id " + id }
+function getBoard(idBoard) {
+  svc.get("/boards/" + idBoard, {
+    parameters: { description: "Get a board with " + "idBoard " + idBoard }
+  });
+}
+
+// LIST all
+function listBoards() {
+  svc.get("/boards", {
+    parameters: { description: "List boards" }
+  });
+}
+
+// Verify exists (by list)
+function verifyBoardExists(idBoard) {
+  svc.get("/boards", {
+    callback: function (response) {
+      board = JSON.parse(response.body);
+      for (let i = 0; i < board.length; i++) {
+        if (board[i].idBoard === idBoard) {
+          return pvg.success("Board exists");
+        }
+      }
+      return pvg.fail("Expected a board to exist but it does not");
+    },
+    parameters: { description: "Verify board with " + "idBoard " + idBoard + " exists" }
+  });
+}
+
+// Verify NOT exists (by list)
+function verifyBoardDoesNotExist(idBoard) {
+  svc.get("/boards", {
+    callback: function (response) {
+      board = JSON.parse(response.body);
+      for (let i = 0; i < board.length; i++) {
+        if (board[i].idBoard === idBoard) {
+          return pvg.fail("Expected a board to not exist but it does");
+        }
+      }
+      return pvg.success("Board does not exist");
+    },
+    parameters: { description: "Verify board with " + "idBoard " + idBoard + " does not exist" }
+  });
+}
+
+// Match helpers
+function matchAnyAddBoard() {
+  return bp.EventSet("any-add-board", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Add a board");
+  });
+}
+function matchAddBoard(idBoard) {
+  return bp.EventSet("add-board", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Add a board with " + "idBoard " + idBoard;
+  });
+}
+function matchAnyDeleteBoard() {
+  return bp.EventSet("any-del-board", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Delete a board");
+  });
+}
+function matchDeleteBoard(idBoard) {
+  return bp.EventSet("del-board", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Delete a board with " + "idBoard " + idBoard;
+  });
+}
+
+// UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateBoard() {
+  return bp.EventSet("any-update-board", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a board");
+  });
+}
+function matchUpdateBoard(idBoard) {
+  return bp.EventSet("update-board", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a board with " + "idBoard " + idBoard;
+  });
+}
+
+// Wait helpers
+function waitForAnyBoardAdded() {
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ board\ with\ idBoard\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ board\ with\ idBoard\ (.+)$/);
+    return { idBoard: m[1] };
+}
+function waitForBoardAdded(idBoard) {
+  waitFor(matchAddBoard(idBoard));
+}
+function waitForBoardDeleted(idBoard) {
+  waitFor(matchDeleteBoard(idBoard));
+}
+function waitForAnyBoardDeleted() {
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ board\ with\ idBoard\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ board\ with\ idBoard\ (.+)$/);
+    return { idBoard: m[1] };
+}
+function waitForBoardUpdated(idBoard) {
+  waitFor(matchUpdateBoard(idBoard));
+}
+function waitForAnyBoardUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ board\ with\ idBoard\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ board\ with\ idBoard\ (.+)$/);
+    return { idBoard: m[1] };
+}
+
+// Verify updated (presence-by-list)
+function verifyBoardUpdated(idBoard) {
+  svc.get("/boards", {
+    callback: function (response) {
+      board = JSON.parse(response.body);
+      for (let i = 0; i < board.length; i++) {
+        if (board[i].idBoard === idBoard) {
+          return pvg.success("Board updated (present)");
+        }
+      }
+      return pvg.fail("Expected a board to be present after update, but it is not");
+    },
+    parameters: { description: "Verify board with " + "idBoard " + idBoard + " exists" }
+  });
+}
+
+
+/** === Checklist Operations === */
+
+// CREATE
+function addChecklist(idChecklist, field, idCheckItem, filter) {
+  svc.post("/checklists", { body: JSON.stringify({ idChecklist: idChecklist, field: field, idCheckItem: idCheckItem, filter: filter }), parameters: { description: "Add a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter } });
+}
+
+// DELETE
+function deleteChecklist(idChecklist, field, idCheckItem, filter) {
+  svc.delete("/checklists/" + idChecklist + "/"+ field + "/"+ idCheckItem + "/"+ filter, {
+    parameters: { description: "Delete a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter }
+  });
+}
+
+// Negative: delete non-existing (codes from spec/defaults)
+function tryToDeleteANonExistingChecklist(idChecklist, field, idCheckItem, filter) {
+  svc.delete("/checklists/" + idChecklist + "/"+ field + "/"+ idCheckItem + "/"+ filter, {
+    expectedResponseCodes: [200, 404, 401],
+    parameters: { description: "Delete a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter }
+  });
+}
+
+// Negative: add existing (codes from spec/defaults)
+function tryToAddExistingChecklist(idChecklist, field, idCheckItem, filter) {
+  svc.post("/checklists", {
+    body: JSON.stringify({ idChecklist: idChecklist, field: field, idCheckItem: idCheckItem, filter: filter }),
+    parameters: { description: "Add a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter },
+    expectedResponseCodes: [409, 400]
+  });
+}
+
+// UPDATE
+function updateChecklist(idChecklist, field, idCheckItem, filter) {
+  svc.put("/checklists/" + idChecklist + "/"+ field + "/"+ idCheckItem + "/"+ filter, { body: JSON.stringify({ idChecklist: idChecklist, field: field, idCheckItem: idCheckItem, filter: filter }), parameters: { description: "Update a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter } });
+}
+
+// GET one
+function getChecklist(idChecklist, field, idCheckItem, filter) {
+  svc.get("/checklists/" + idChecklist + "/"+ field + "/"+ idCheckItem + "/"+ filter, {
+    parameters: { description: "Get a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter }
   });
 }
 
@@ -406,34 +571,34 @@ function listChecklists() {
 }
 
 // Verify exists (by list)
-function verifyChecklistExists(id) {
+function verifyChecklistExists(idChecklist, field, idCheckItem, filter) {
   svc.get("/checklists", {
     callback: function (response) {
       checklist = JSON.parse(response.body);
       for (let i = 0; i < checklist.length; i++) {
-        if (checklist[i].id === id) {
+        if (checklist[i].idChecklist === idChecklist && checklist[i].field === field && checklist[i].idCheckItem === idCheckItem && checklist[i].filter === filter) {
           return pvg.success("Checklist exists");
         }
       }
       return pvg.fail("Expected a checklist to exist but it does not");
     },
-    parameters: { description: "Verify checklist with " + "id " + id + " exists" }
+    parameters: { description: "Verify checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyChecklistDoesNotExist(id) {
+function verifyChecklistDoesNotExist(idChecklist, field, idCheckItem, filter) {
   svc.get("/checklists", {
     callback: function (response) {
       checklist = JSON.parse(response.body);
       for (let i = 0; i < checklist.length; i++) {
-        if (checklist[i].id === id) {
+        if (checklist[i].idChecklist === idChecklist && checklist[i].field === field && checklist[i].idCheckItem === idCheckItem && checklist[i].filter === filter) {
           return pvg.fail("Expected a checklist to not exist but it does");
         }
       }
       return pvg.success("Checklist does not exist");
     },
-    parameters: { description: "Verify checklist with " + "id " + id + " does not exist" }
+    parameters: { description: "Verify checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter + " does not exist" }
   });
 }
 
@@ -444,10 +609,10 @@ function matchAnyAddChecklist() {
     return e.data.parameters.description.startsWith("Add a checklist");
   });
 }
-function matchAddChecklist(id) {
+function matchAddChecklist(idChecklist, field, idCheckItem, filter) {
   return bp.EventSet("add-checklist", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a checklist with " + "id " + id;
+    return e.data.parameters.description === "Add a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter;
   });
 }
 function matchAnyDeleteChecklist() {
@@ -456,10 +621,10 @@ function matchAnyDeleteChecklist() {
     return e.data.parameters.description.startsWith("Delete a checklist");
   });
 }
-function matchDeleteChecklist(id) {
+function matchDeleteChecklist(idChecklist, field, idCheckItem, filter) {
   return bp.EventSet("del-checklist", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a checklist with " + "id " + id;
+    return e.data.parameters.description === "Delete a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter;
   });
 }
 
@@ -470,52 +635,52 @@ function matchAnyUpdateChecklist() {
     return e.data.parameters.description.startsWith("Update a checklist");
   });
 }
-function matchUpdateChecklist(id) {
+function matchUpdateChecklist(idChecklist, field, idCheckItem, filter) {
   return bp.EventSet("update-checklist", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a checklist with " + "id " + id;
+    return e.data.parameters.description === "Update a checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter;
   });
 }
 
 // Wait helpers
 function waitForAnyChecklistAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ checklist\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ checklist\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ checklist\ with\ idChecklist\ (.+) and field\ (.+) and idCheckItem\ (.+) and filter\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ checklist\ with\ idChecklist\ (.+) and field\ (.+) and idCheckItem\ (.+) and filter\ (.+)$/);
+    return { idChecklist: m[1], field: m[2], idCheckItem: m[3], filter: m[4] };
 }
-function waitForChecklistAdded(id) {
-  waitFor(matchAddChecklist(id));
+function waitForChecklistAdded(idChecklist, field, idCheckItem, filter) {
+  waitFor(matchAddChecklist(idChecklist, field, idCheckItem, filter));
 }
-function waitForChecklistDeleted(id) {
-  waitFor(matchDeleteChecklist(id));
+function waitForChecklistDeleted(idChecklist, field, idCheckItem, filter) {
+  waitFor(matchDeleteChecklist(idChecklist, field, idCheckItem, filter));
 }
 function waitForAnyChecklistDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ checklist\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ checklist\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ checklist\ with\ idChecklist\ (.+) and field\ (.+) and idCheckItem\ (.+) and filter\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ checklist\ with\ idChecklist\ (.+) and field\ (.+) and idCheckItem\ (.+) and filter\ (.+)$/);
+    return { idChecklist: m[1], field: m[2], idCheckItem: m[3], filter: m[4] };
 }
-function waitForChecklistUpdated(id) {
-  waitFor(matchUpdateChecklist(id));
+function waitForChecklistUpdated(idChecklist, field, idCheckItem, filter) {
+  waitFor(matchUpdateChecklist(idChecklist, field, idCheckItem, filter));
 }
 function waitForAnyChecklistUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ checklist\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ checklist\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ checklist\ with\ idChecklist\ (.+) and field\ (.+) and idCheckItem\ (.+) and filter\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ checklist\ with\ idChecklist\ (.+) and field\ (.+) and idCheckItem\ (.+) and filter\ (.+)$/);
+    return { idChecklist: m[1], field: m[2], idCheckItem: m[3], filter: m[4] };
 }
 
 // Verify updated (presence-by-list)
-function verifyChecklistUpdated(id) {
+function verifyChecklistUpdated(idChecklist, field, idCheckItem, filter) {
   svc.get("/checklists", {
     callback: function (response) {
       checklist = JSON.parse(response.body);
       for (let i = 0; i < checklist.length; i++) {
-        if (checklist[i].id === id) {
+        if (checklist[i].idChecklist === idChecklist && checklist[i].field === field && checklist[i].idCheckItem === idCheckItem && checklist[i].filter === filter) {
           return pvg.success("Checklist updated (present)");
         }
       }
       return pvg.fail("Expected a checklist to be present after update, but it is not");
     },
-    parameters: { description: "Verify checklist with " + "id " + id + " exists" }
+    parameters: { description: "Verify checklist with " + "idChecklist " + idChecklist + " and " + "field " + field + " and " + "idCheckItem " + idCheckItem + " and " + "filter " + filter + " exists" }
   });
 }
 
@@ -523,43 +688,43 @@ function verifyChecklistUpdated(id) {
 /** === Label Operations === */
 
 // CREATE
-function addLabel(id) {
-  svc.post("/labels", { body: JSON.stringify({ id: id }), parameters: { description: "Add a label with " + "id " + id } });
+function addLabel(idLabel, field) {
+  svc.post("/labels", { body: JSON.stringify({ idLabel: idLabel, field: field }), parameters: { description: "Add a label with " + "idLabel " + idLabel + " and " + "field " + field } });
 }
 
 // DELETE
-function deleteLabel(id) {
-  svc.delete("/labels/" + id, {
-    parameters: { description: "Delete a label with " + "id " + id }
+function deleteLabel(idLabel, field) {
+  svc.delete("/labels/" + idLabel + "/"+ field, {
+    parameters: { description: "Delete a label with " + "idLabel " + idLabel + " and " + "field " + field }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingLabel(id) {
-  svc.delete("/labels/" + id, {
+function tryToDeleteANonExistingLabel(idLabel, field) {
+  svc.delete("/labels/" + idLabel + "/"+ field, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a label with " + "id " + id }
+    parameters: { description: "Delete a label with " + "idLabel " + idLabel + " and " + "field " + field }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingLabel(id) {
+function tryToAddExistingLabel(idLabel, field) {
   svc.post("/labels", {
-    body: JSON.stringify({ id: id }),
-    parameters: { description: "Add a label with " + "id " + id },
+    body: JSON.stringify({ idLabel: idLabel, field: field }),
+    parameters: { description: "Add a label with " + "idLabel " + idLabel + " and " + "field " + field },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateLabel(id) {
-  svc.put("/labels/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a label with " + "id " + id } });
+function updateLabel(idLabel, field) {
+  svc.put("/labels/" + idLabel + "/"+ field, { body: JSON.stringify({ idLabel: idLabel, field: field }), parameters: { description: "Update a label with " + "idLabel " + idLabel + " and " + "field " + field } });
 }
 
 // GET one
-function getLabel(id) {
-  svc.get("/labels/" + id, {
-    parameters: { description: "Get a label with " + "id " + id }
+function getLabel(idLabel, field) {
+  svc.get("/labels/" + idLabel + "/"+ field, {
+    parameters: { description: "Get a label with " + "idLabel " + idLabel + " and " + "field " + field }
   });
 }
 
@@ -571,34 +736,34 @@ function listLabels() {
 }
 
 // Verify exists (by list)
-function verifyLabelExists(id) {
+function verifyLabelExists(idLabel, field) {
   svc.get("/labels", {
     callback: function (response) {
       label = JSON.parse(response.body);
       for (let i = 0; i < label.length; i++) {
-        if (label[i].id === id) {
+        if (label[i].idLabel === idLabel && label[i].field === field) {
           return pvg.success("Label exists");
         }
       }
       return pvg.fail("Expected a label to exist but it does not");
     },
-    parameters: { description: "Verify label with " + "id " + id + " exists" }
+    parameters: { description: "Verify label with " + "idLabel " + idLabel + " and " + "field " + field + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyLabelDoesNotExist(id) {
+function verifyLabelDoesNotExist(idLabel, field) {
   svc.get("/labels", {
     callback: function (response) {
       label = JSON.parse(response.body);
       for (let i = 0; i < label.length; i++) {
-        if (label[i].id === id) {
+        if (label[i].idLabel === idLabel && label[i].field === field) {
           return pvg.fail("Expected a label to not exist but it does");
         }
       }
       return pvg.success("Label does not exist");
     },
-    parameters: { description: "Verify label with " + "id " + id + " does not exist" }
+    parameters: { description: "Verify label with " + "idLabel " + idLabel + " and " + "field " + field + " does not exist" }
   });
 }
 
@@ -609,10 +774,10 @@ function matchAnyAddLabel() {
     return e.data.parameters.description.startsWith("Add a label");
   });
 }
-function matchAddLabel(id) {
+function matchAddLabel(idLabel, field) {
   return bp.EventSet("add-label", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a label with " + "id " + id;
+    return e.data.parameters.description === "Add a label with " + "idLabel " + idLabel + " and " + "field " + field;
   });
 }
 function matchAnyDeleteLabel() {
@@ -621,10 +786,10 @@ function matchAnyDeleteLabel() {
     return e.data.parameters.description.startsWith("Delete a label");
   });
 }
-function matchDeleteLabel(id) {
+function matchDeleteLabel(idLabel, field) {
   return bp.EventSet("del-label", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a label with " + "id " + id;
+    return e.data.parameters.description === "Delete a label with " + "idLabel " + idLabel + " and " + "field " + field;
   });
 }
 
@@ -635,52 +800,52 @@ function matchAnyUpdateLabel() {
     return e.data.parameters.description.startsWith("Update a label");
   });
 }
-function matchUpdateLabel(id) {
+function matchUpdateLabel(idLabel, field) {
   return bp.EventSet("update-label", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a label with " + "id " + id;
+    return e.data.parameters.description === "Update a label with " + "idLabel " + idLabel + " and " + "field " + field;
   });
 }
 
 // Wait helpers
 function waitForAnyLabelAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ label\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ label\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ label\ with\ idLabel\ (.+) and field\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ label\ with\ idLabel\ (.+) and field\ (.+)$/);
+    return { idLabel: m[1], field: m[2] };
 }
-function waitForLabelAdded(id) {
-  waitFor(matchAddLabel(id));
+function waitForLabelAdded(idLabel, field) {
+  waitFor(matchAddLabel(idLabel, field));
 }
-function waitForLabelDeleted(id) {
-  waitFor(matchDeleteLabel(id));
+function waitForLabelDeleted(idLabel, field) {
+  waitFor(matchDeleteLabel(idLabel, field));
 }
 function waitForAnyLabelDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ label\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ label\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ label\ with\ idLabel\ (.+) and field\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ label\ with\ idLabel\ (.+) and field\ (.+)$/);
+    return { idLabel: m[1], field: m[2] };
 }
-function waitForLabelUpdated(id) {
-  waitFor(matchUpdateLabel(id));
+function waitForLabelUpdated(idLabel, field) {
+  waitFor(matchUpdateLabel(idLabel, field));
 }
 function waitForAnyLabelUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ label\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ label\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ label\ with\ idLabel\ (.+) and field\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ label\ with\ idLabel\ (.+) and field\ (.+)$/);
+    return { idLabel: m[1], field: m[2] };
 }
 
 // Verify updated (presence-by-list)
-function verifyLabelUpdated(id) {
+function verifyLabelUpdated(idLabel, field) {
   svc.get("/labels", {
     callback: function (response) {
       label = JSON.parse(response.body);
       for (let i = 0; i < label.length; i++) {
-        if (label[i].id === id) {
+        if (label[i].idLabel === idLabel && label[i].field === field) {
           return pvg.success("Label updated (present)");
         }
       }
       return pvg.fail("Expected a label to be present after update, but it is not");
     },
-    parameters: { description: "Verify label with " + "id " + id + " exists" }
+    parameters: { description: "Verify label with " + "idLabel " + idLabel + " and " + "field " + field + " exists" }
   });
 }
 
@@ -1671,6 +1836,171 @@ function verifySessionUpdated(idSession) {
       return pvg.fail("Expected a session to be present after update, but it is not");
     },
     parameters: { description: "Verify session with " + "idSession " + idSession + " exists" }
+  });
+}
+
+
+/** === Token Operations === */
+
+// CREATE
+function addToken(id) {
+  svc.post("/tokens", { body: JSON.stringify({ id: id }), parameters: { description: "Add a token with " + "id " + id } });
+}
+
+// DELETE
+function deleteToken(id) {
+  svc.delete("/tokens/" + id, {
+    parameters: { description: "Delete a token with " + "id " + id }
+  });
+}
+
+// Negative: delete non-existing (codes from spec/defaults)
+function tryToDeleteANonExistingToken(id) {
+  svc.delete("/tokens/" + id, {
+    expectedResponseCodes: [200, 404, 401],
+    parameters: { description: "Delete a token with " + "id " + id }
+  });
+}
+
+// Negative: add existing (codes from spec/defaults)
+function tryToAddExistingToken(id) {
+  svc.post("/tokens", {
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a token with " + "id " + id },
+    expectedResponseCodes: [409, 400]
+  });
+}
+
+// UPDATE
+function updateToken(id) {
+  svc.put("/tokens/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a token with " + "id " + id } });
+}
+
+// GET one
+function getToken(id) {
+  svc.get("/tokens/" + id, {
+    parameters: { description: "Get a token with " + "id " + id }
+  });
+}
+
+// LIST all
+function listTokens() {
+  svc.get("/tokens", {
+    parameters: { description: "List tokens" }
+  });
+}
+
+// Verify exists (by list)
+function verifyTokenExists(id) {
+  svc.get("/tokens", {
+    callback: function (response) {
+      token = JSON.parse(response.body);
+      for (let i = 0; i < token.length; i++) {
+        if (token[i].id === id) {
+          return pvg.success("Token exists");
+        }
+      }
+      return pvg.fail("Expected a token to exist but it does not");
+    },
+    parameters: { description: "Verify token with " + "id " + id + " exists" }
+  });
+}
+
+// Verify NOT exists (by list)
+function verifyTokenDoesNotExist(id) {
+  svc.get("/tokens", {
+    callback: function (response) {
+      token = JSON.parse(response.body);
+      for (let i = 0; i < token.length; i++) {
+        if (token[i].id === id) {
+          return pvg.fail("Expected a token to not exist but it does");
+        }
+      }
+      return pvg.success("Token does not exist");
+    },
+    parameters: { description: "Verify token with " + "id " + id + " does not exist" }
+  });
+}
+
+// Match helpers
+function matchAnyAddToken() {
+  return bp.EventSet("any-add-token", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Add a token");
+  });
+}
+function matchAddToken(id) {
+  return bp.EventSet("add-token", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Add a token with " + "id " + id;
+  });
+}
+function matchAnyDeleteToken() {
+  return bp.EventSet("any-del-token", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Delete a token");
+  });
+}
+function matchDeleteToken(id) {
+  return bp.EventSet("del-token", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Delete a token with " + "id " + id;
+  });
+}
+
+// UPDATE passive helpers (matchers, waits, verify)
+function matchAnyUpdateToken() {
+  return bp.EventSet("any-update-token", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a token");
+  });
+}
+function matchUpdateToken(id) {
+  return bp.EventSet("update-token", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a token with " + "id " + id;
+  });
+}
+
+// Wait helpers
+function waitForAnyTokenAdded() {
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ token\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ token\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+function waitForTokenAdded(id) {
+  waitFor(matchAddToken(id));
+}
+function waitForTokenDeleted(id) {
+  waitFor(matchDeleteToken(id));
+}
+function waitForAnyTokenDeleted() {
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ token\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ token\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+function waitForTokenUpdated(id) {
+  waitFor(matchUpdateToken(id));
+}
+function waitForAnyTokenUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ token\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ token\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+
+// Verify updated (presence-by-list)
+function verifyTokenUpdated(id) {
+  svc.get("/tokens", {
+    callback: function (response) {
+      token = JSON.parse(response.body);
+      for (let i = 0; i < token.length; i++) {
+        if (token[i].id === id) {
+          return pvg.success("Token updated (present)");
+        }
+      }
+      return pvg.fail("Expected a token to be present after update, but it is not");
+    },
+    parameters: { description: "Verify token with " + "id " + id + " exists" }
   });
 }
 

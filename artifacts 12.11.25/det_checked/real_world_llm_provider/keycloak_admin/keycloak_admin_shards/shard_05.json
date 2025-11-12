@@ -1,0 +1,56 @@
+{
+  "ops": [
+    {
+      "method": "PUT",
+      "path": "/{realm}"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/authentication/flows/{flowAlias}/executions"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/client-scopes"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/client-templates"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/clients-initial-access"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/clients/{id}/evaluate-scopes/generate-example-userinfo"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/clients/{id}/roles/{role-name}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/clients/{id}/user-sessions"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/groups/count"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/identity-provider/instances/{alias}"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/roles"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/testSMTPConnection"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/users/{id}/groups"
+    }
+  ]
+}

@@ -14,7 +14,7 @@
       "operationId": "repoSearch",
       "summary": "",
       "user": "user456",
-      "ideal": "Search for repositories based on specified criteria."
+      "ideal": "Search for repositories based on a query."
     },
     {
       "path": "/repos/{owner}/{repo}",
@@ -22,7 +22,7 @@
       "operationId": "repoGet",
       "summary": "",
       "user": "user789",
-      "ideal": "Retrieve detailed information about a specific repository."
+      "ideal": "Retrieve details of a specific repository."
     },
     {
       "path": "/repos/{owner}/{repo}",
@@ -30,7 +30,7 @@
       "operationId": "repoDelete",
       "summary": "",
       "user": "user101",
-      "ideal": "Delete a specified repository from Gitea."
+      "ideal": "Delete a specific repository."
     },
     {
       "path": "/repos/{owner}/{repo}",
@@ -38,7 +38,7 @@
       "operationId": "repoEdit",
       "summary": "",
       "user": "user202",
-      "ideal": "Edit the details of a specified repository."
+      "ideal": "Edit the details of a specific repository."
     },
     {
       "path": "/repos/{owner}/{repo}/actions/secrets",
@@ -46,7 +46,7 @@
       "operationId": "repoListActionsSecrets",
       "summary": "",
       "user": "user303",
-      "ideal": "List all secrets for the repository's actions."
+      "ideal": "List all action secrets for a repository."
     },
     {
       "path": "/repos/{owner}/{repo}/actions/secrets/{secretname}",
@@ -54,7 +54,7 @@
       "operationId": "updateRepoSecret",
       "summary": "",
       "user": "user404",
-      "ideal": "Update a specific secret for the repository's actions."
+      "ideal": "Update a specific action secret for a repository."
     },
     {
       "path": "/repos/{owner}/{repo}/branches",
@@ -62,7 +62,7 @@
       "operationId": "repoListBranches",
       "summary": "",
       "user": "user505",
-      "ideal": "List all branches in the specified repository."
+      "ideal": "List all branches in a repository."
     },
     {
       "path": "/repos/{owner}/{repo}/branches/{branch}",
@@ -70,7 +70,7 @@
       "operationId": "repoDeleteBranch",
       "summary": "",
       "user": "user606",
-      "ideal": "Delete a specific branch from the repository."
+      "ideal": "Delete a specific branch from a repository."
     },
     {
       "path": "/repos/{owner}/{repo}/pulls",
@@ -78,7 +78,7 @@
       "operationId": "repoCreatePullRequest",
       "summary": "",
       "user": "user707",
-      "ideal": "Create a new pull request for the specified repository."
+      "ideal": "Create a new pull request in a repository."
     },
     {
       "path": "/repos/{owner}/{repo}/pulls/{index}",
@@ -94,23 +94,23 @@
       "operationId": "repoListReleases",
       "summary": "",
       "user": "user909",
-      "ideal": "List all releases for the specified repository."
+      "ideal": "List all releases for a repository."
     },
     {
-      "path": "/repos/{owner}/{repo}/releases/latest",
-      "method": "GET",
-      "operationId": "repoGetLatestRelease",
+      "path": "/repos/{owner}/{repo}/releases",
+      "method": "POST",
+      "operationId": "repoCreateRelease",
       "summary": "",
       "user": "user1010",
-      "ideal": "Get the latest release information for the repository."
+      "ideal": "Create a new release for a repository."
     },
     {
-      "path": "/repos/{owner}/{repo}/topics",
+      "path": "/repos/{owner}/{repo}/tags",
       "method": "GET",
-      "operationId": "repoListTopics",
+      "operationId": "repoListTags",
       "summary": "",
       "user": "user1111",
-      "ideal": "List all topics associated with the repository."
+      "ideal": "List all tags in a repository."
     },
     {
       "path": "/repos/{owner}/{repo}/topics",
@@ -118,7 +118,7 @@
       "operationId": "repoUpdateTopics",
       "summary": "",
       "user": "user1212",
-      "ideal": "Update the topics associated with the repository."
+      "ideal": "Update topics for a repository."
     }
   ]
 }

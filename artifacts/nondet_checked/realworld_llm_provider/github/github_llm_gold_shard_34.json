@@ -46,7 +46,7 @@
       "operationId": "projects-classic/move-column",
       "summary": "",
       "user": "user123",
-      "ideal": "Move a column to a different position in the project."
+      "ideal": "Move a column to a different position within a project."
     },
     {
       "path": "/projects/67890",
@@ -102,7 +102,7 @@
       "operationId": "projects-classic/get-permission-for-user",
       "summary": "",
       "user": "user123",
-      "ideal": "Get the permission level of a specific user on a project."
+      "ideal": "Get the permission level for a specific collaborator on a project."
     },
     {
       "path": "/projects/67890/columns",
@@ -150,7 +150,7 @@
       "operationId": "projects-classic/list-for-user",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve a list of projects for a specific user."
+      "ideal": "Retrieve a list of projects for the specified user."
     }
   ]
 }

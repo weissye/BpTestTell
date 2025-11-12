@@ -1,0 +1,56 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/config/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/authentication/required-actions/{alias}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/client-scopes/{id}/scope-mappings"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/client-templates/{id}/scope-mappings"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/clients/{id}/certificates/{attr}/generate"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/clients/{id}/optional-client-scopes"
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/clients/{id}/scope-mappings/clients/{client}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/default-groups"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/groups/{id}/role-mappings/clients/{client}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/keys"
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/roles/{role-name}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/users/{id}/configured-user-storage-credential-types"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/users/{id}/role-mappings/clients/{client}"
+    }
+  ]
+}

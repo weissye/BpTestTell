@@ -1,0 +1,72 @@
+{
+  "ops": [
+    {
+      "method": "PATCH",
+      "path": "/admin/hooks/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/markdown"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/activities/feeds"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/repos"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/actions/variables/{variablename}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/commits/{ref}/statuses"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/hooks/git/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/pinned"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{index}/labels/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/labels"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{index}/commits"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases/latest"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/tag_protections/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{template_owner}/{template_repo}/generate"
+    },
+    {
+      "method": "GET",
+      "path": "/user/actions/variables"
+    },
+    {
+      "method": "GET",
+      "path": "/user/gpg_key_token"
+    },
+    {
+      "method": "GET",
+      "path": "/user/stopwatches"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/customFieldOption/12345",
+      "method": "GET",
+      "operationId": "getCustomFieldOption",
+      "summary": "",
+      "user": "User requests details for a specific custom field option to verify its properties and values.",
+      "ideal": "Returns the details of the custom field option with ID 12345."
+    },
+    {
+      "path": "/rest/api/3/field/67890/context/54321/option",
+      "method": "GET",
+      "operationId": "getOptionsForContext",
+      "summary": "",
+      "user": "User wants to retrieve all options available for a specific field context to understand what choices are available.",
+      "ideal": "Returns a list of options for the field with ID 67890 in the context with ID 54321."
+    },
+    {
+      "path": "/rest/api/3/field/67890/context/54321/option",
+      "method": "POST",
+      "operationId": "createCustomFieldOption",
+      "summary": "",
+      "user": "User is adding a new option to a custom field context to expand the choices available for users.",
+      "ideal": "Creates a new custom field option in the context with ID 54321 for the field with ID 67890."
+    },
+    {
+      "path": "/rest/api/3/field/67890/context/54321/option",
+      "method": "PUT",
+      "operationId": "updateCustomFieldOption",
+      "summary": "",
+      "user": "User needs to update an existing custom field option to correct a mistake in the option's name.",
+      "ideal": "Updates the custom field option in the context with ID 54321 for the field with ID 67890."
+    },
+    {
+      "path": "/rest/api/3/field/67890/context/54321/option/move",
+      "method": "PUT",
+      "operationId": "reorderCustomFieldOptions",
+      "summary": "",
+      "user": "User wants to reorder the options for a custom field context to improve user experience.",
+      "ideal": "Reorders the custom field options in the context with ID 54321 for the field with ID 67890."
+    },
+    {
+      "path": "/rest/api/3/field/67890/context/54321/option/98765",
+      "method": "DELETE",
+      "operationId": "deleteCustomFieldOption",
+      "summary": "",
+      "user": "User is removing an outdated option from a custom field context to clean up the choices available.",
+      "ideal": "Deletes the custom field option with ID 98765 from the context with ID 54321 for the field with ID 67890."
+    },
+    {
+      "path": "/rest/api/3/field/67890/context/54321/option/98765/issue",
+      "method": "DELETE",
+      "operationId": "replaceCustomFieldOption",
+      "summary": "",
+      "user": "User is replacing a custom field option in issues to ensure data consistency across the project.",
+      "ideal": "Replaces the custom field option with ID 98765 in the context with ID 54321 for the field with ID 67890."
+    }
+  ]
+}

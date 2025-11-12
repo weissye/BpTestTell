@@ -6,14 +6,14 @@
       "operationId": "getFlows",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve a list of all flows in the system."
+      "ideal": "Retrieve a list of all flows available in the system."
     },
     {
       "path": "/flows",
       "method": "POST",
       "operationId": "createFlow",
       "summary": "",
-      "user": "editor",
+      "user": "admin",
       "ideal": "Create a new flow with the specified parameters."
     },
     {
@@ -30,14 +30,14 @@
       "operationId": "deleteFlows",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete all flows that match the criteria."
+      "ideal": "Delete specified flows from the system."
     },
     {
       "path": "/flows/{id}",
       "method": "GET",
       "operationId": "getFlow",
       "summary": "",
-      "user": "viewer",
+      "user": "admin",
       "ideal": "Retrieve detailed information about a specific flow by its ID."
     },
     {
@@ -45,8 +45,8 @@
       "method": "PATCH",
       "operationId": "updateFlow",
       "summary": "",
-      "user": "editor",
-      "ideal": "Update a specific flow identified by its ID."
+      "user": "admin",
+      "ideal": "Update the details of a specific flow identified by its ID."
     },
     {
       "path": "/flows/{id}",

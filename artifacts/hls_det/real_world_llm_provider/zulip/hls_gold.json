@@ -3,10 +3,10 @@
   "deterministic": true,
   "provider": "real_world_llm_provider",
   "sut": "zulip",
-  "generated_at": "2025-11-09T13:50:08.953764Z",
+  "generated_at": "2025-11-12T20:06:42.476250Z",
   "source": {
-    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\zulip\\graph.json",
-    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\zulip\\dsl_map.json"
+    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\zulip\\graph.json",
+    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\zulip\\dsl_map.json"
   },
   "entities": [
     {
@@ -472,25 +472,25 @@
       "name": "CRUD alert_word",
       "desc": "Deterministic CRUD flow for entity 'alert_word' inferred from graph.",
       "entity": "alert_word",
-      "js": "// Deterministic CRUD flow for entity: alert_word\nbp.registerBThread(\"HLS: CRUD alert_word\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/users/me/alert_words\", {})});\n  bp.sync({request: REST.GET(\"/users/me/alert_words\", {})});\n  bp.sync({request: REST.GET(\"/users/me/alert_words\", {})});\n  bp.sync({request: REST.DELETE(\"/users/me/alert_words\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: alert_word\nbthread(\"HLS: CRUD alert_word\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/users/me/alert_words\", {})});\n  bp.sync({request: REST.GET(\"/users/me/alert_words\", {})});\n  bp.sync({request: REST.GET(\"/users/me/alert_words\", {})});\n  bp.sync({request: REST.DELETE(\"/users/me/alert_words\", {})});\n});"
     },
     {
       "name": "CRUD android_gcm_reg_id",
       "desc": "Deterministic CRUD flow for entity 'android_gcm_reg_id' inferred from graph.",
       "entity": "android_gcm_reg_id",
-      "js": "// Deterministic CRUD flow for entity: android_gcm_reg_id\nbp.registerBThread(\"HLS: CRUD android_gcm_reg_id\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/users/me/android_gcm_reg_id\", {})});\n  bp.sync({request: REST.DELETE(\"/users/me/android_gcm_reg_id\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: android_gcm_reg_id\nbthread(\"HLS: CRUD android_gcm_reg_id\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/users/me/android_gcm_reg_id\", {})});\n  bp.sync({request: REST.DELETE(\"/users/me/android_gcm_reg_id\", {})});\n});"
     },
     {
       "name": "CRUD apns_device_token",
       "desc": "Deterministic CRUD flow for entity 'apns_device_token' inferred from graph.",
       "entity": "apns_device_token",
-      "js": "// Deterministic CRUD flow for entity: apns_device_token\nbp.registerBThread(\"HLS: CRUD apns_device_token\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/users/me/apns_device_token\", {})});\n  bp.sync({request: REST.DELETE(\"/users/me/apns_device_token\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: apns_device_token\nbthread(\"HLS: CRUD apns_device_token\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/users/me/apns_device_token\", {})});\n  bp.sync({request: REST.DELETE(\"/users/me/apns_device_token\", {})});\n});"
     },
     {
       "name": "CRUD attachment",
       "desc": "Deterministic CRUD flow for entity 'attachment' inferred from graph.",
       "entity": "attachment",
-      "js": "// Deterministic CRUD flow for entity: attachment\nbp.registerBThread(\"HLS: CRUD attachment\", function () {\n  bp.sync({request: REST.GET(\"/attachments\", {})});\n  bp.sync({request: REST.GET(\"/attachments\", {})});\n  bp.sync({request: REST.DELETE(\"/attachments/{attachment_id}\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: attachment\nbthread(\"HLS: CRUD attachment\", function () {\n  bp.sync({request: REST.GET(\"/attachments\", {})});\n  bp.sync({request: REST.GET(\"/attachments\", {})});\n  bp.sync({request: REST.DELETE(\"/attachments/{attachment_id}\", {})});\n});"
     }
   ]
 }

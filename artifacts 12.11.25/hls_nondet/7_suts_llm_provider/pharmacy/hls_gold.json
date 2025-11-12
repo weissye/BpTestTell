@@ -1,0 +1,185 @@
+{
+  "mode": "nondet",
+  "provider": "7_suts_llm_provider",
+  "sut": "pharmacy",
+  "entities": [
+    {
+      "plural": "drugs",
+      "singular": "drug",
+      "Plural": "Drugs",
+      "Singular": "Drug",
+      "keys": [
+        "id"
+      ],
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "plural": "inventory",
+      "singular": "inventory",
+      "Plural": "Inventory",
+      "Singular": "Inventory",
+      "keys": [
+        "ndc"
+      ],
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "plural": "orders",
+      "singular": "order",
+      "Plural": "Orders",
+      "Singular": "Order",
+      "keys": [
+        "id"
+      ],
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "plural": "patients",
+      "singular": "patient",
+      "Plural": "Patients",
+      "Singular": "Patient",
+      "keys": [
+        "id"
+      ],
+      "methods": [
+        "POST"
+      ]
+    },
+    {
+      "plural": "prescriptions",
+      "singular": "prescription",
+      "Plural": "Prescriptions",
+      "Singular": "Prescription",
+      "keys": [
+        "id"
+      ],
+      "methods": [
+        "POST"
+      ]
+    },
+    {
+      "plural": "reset",
+      "singular": "reset",
+      "Plural": "Reset",
+      "Singular": "Reset",
+      "keys": [
+        "id"
+      ],
+      "methods": [
+        "POST"
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "name": "crud:drug:nondet:1:1",
+      "js": "// ---- crud:drug:nondet:1:1 ----\nbp.registerBThread(\"crud:drug:nondet:1:1\", function () {\n  let id = 200;\n  addDrug(id);\n  tryToAddExistingDrug(id);\n  verifyDrugExists(id);\n  updateDrug(id);\n  deleteDrug(id);\n  tryToDeleteANonExistingDrug(id);\n  verifyDrugDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:drug:nondet:1:2",
+      "js": "// ---- crud:drug:nondet:1:2 ----\nbp.registerBThread(\"crud:drug:nondet:1:2\", function () {\n  let id = 200;\n  addDrug(id);\n  tryToAddExistingDrug(id);\n  updateDrug(id);\n  verifyDrugExists(id);\n  deleteDrug(id);\n  tryToDeleteANonExistingDrug(id);\n  verifyDrugDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:drug:nondet:1:3",
+      "js": "// ---- crud:drug:nondet:1:3 ----\nbp.registerBThread(\"crud:drug:nondet:1:3\", function () {\n  let id = 200;\n  addDrug(id);\n  tryToAddExistingDrug(id);\n  verifyDrugExists(id);\n  deleteDrug(id);\n  tryToDeleteANonExistingDrug(id);\n  verifyDrugDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:drug:nondet:1:4",
+      "js": "// ---- crud:drug:nondet:1:4 ----\nbp.registerBThread(\"crud:drug:nondet:1:4\", function () {\n  let id = 201;\n  addDrug(id);\n  tryToAddExistingDrug(id);\n  deleteDrug(id);\n  tryToDeleteANonExistingDrug(id);\n  verifyDrugDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:inventory:nondet:2:1",
+      "js": "// ---- crud:inventory:nondet:2:1 ----\nbp.registerBThread(\"crud:inventory:nondet:2:1\", function () {\n  let ndc = \"ndc_201\";\n  addInventory(ndc);\n  tryToAddExistingInventory(ndc);\n  verifyInventoryExists(ndc);\n  updateInventory(ndc);\n  deleteInventory(ndc);\n  tryToDeleteANonExistingInventory(ndc);\n  verifyInventoryDoesNotExist(ndc);\n  \n});\n"
+    },
+    {
+      "name": "crud:inventory:nondet:2:2",
+      "js": "// ---- crud:inventory:nondet:2:2 ----\nbp.registerBThread(\"crud:inventory:nondet:2:2\", function () {\n  let ndc = \"ndc_201\";\n  addInventory(ndc);\n  tryToAddExistingInventory(ndc);\n  updateInventory(ndc);\n  verifyInventoryExists(ndc);\n  deleteInventory(ndc);\n  tryToDeleteANonExistingInventory(ndc);\n  verifyInventoryDoesNotExist(ndc);\n  \n});\n"
+    },
+    {
+      "name": "crud:inventory:nondet:2:3",
+      "js": "// ---- crud:inventory:nondet:2:3 ----\nbp.registerBThread(\"crud:inventory:nondet:2:3\", function () {\n  let ndc = \"ndc_201\";\n  addInventory(ndc);\n  tryToAddExistingInventory(ndc);\n  verifyInventoryExists(ndc);\n  deleteInventory(ndc);\n  tryToDeleteANonExistingInventory(ndc);\n  verifyInventoryDoesNotExist(ndc);\n  \n});\n"
+    },
+    {
+      "name": "crud:inventory:nondet:2:4",
+      "js": "// ---- crud:inventory:nondet:2:4 ----\nbp.registerBThread(\"crud:inventory:nondet:2:4\", function () {\n  let ndc = \"ndc_202\";\n  addInventory(ndc);\n  tryToAddExistingInventory(ndc);\n  deleteInventory(ndc);\n  tryToDeleteANonExistingInventory(ndc);\n  verifyInventoryDoesNotExist(ndc);\n  \n});\n"
+    },
+    {
+      "name": "crud:order:nondet:3:1",
+      "js": "// ---- crud:order:nondet:3:1 ----\nbp.registerBThread(\"crud:order:nondet:3:1\", function () {\n  let id = 202;\n  addOrder(id);\n  tryToAddExistingOrder(id);\n  verifyOrderExists(id);\n  updateOrder(id);\n  deleteOrder(id);\n  tryToDeleteANonExistingOrder(id);\n  verifyOrderDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:order:nondet:3:2",
+      "js": "// ---- crud:order:nondet:3:2 ----\nbp.registerBThread(\"crud:order:nondet:3:2\", function () {\n  let id = 202;\n  addOrder(id);\n  tryToAddExistingOrder(id);\n  updateOrder(id);\n  verifyOrderExists(id);\n  deleteOrder(id);\n  tryToDeleteANonExistingOrder(id);\n  verifyOrderDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:order:nondet:3:3",
+      "js": "// ---- crud:order:nondet:3:3 ----\nbp.registerBThread(\"crud:order:nondet:3:3\", function () {\n  let id = 202;\n  addOrder(id);\n  tryToAddExistingOrder(id);\n  verifyOrderExists(id);\n  deleteOrder(id);\n  tryToDeleteANonExistingOrder(id);\n  verifyOrderDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:order:nondet:3:4",
+      "js": "// ---- crud:order:nondet:3:4 ----\nbp.registerBThread(\"crud:order:nondet:3:4\", function () {\n  let id = 203;\n  addOrder(id);\n  tryToAddExistingOrder(id);\n  deleteOrder(id);\n  tryToDeleteANonExistingOrder(id);\n  verifyOrderDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:patient:nondet:4:1",
+      "js": "// ---- crud:patient:nondet:4:1 ----\nbp.registerBThread(\"crud:patient:nondet:4:1\", function () {\n  let id = 203;\n  addPatient(id);\n  tryToAddExistingPatient(id);\n  verifyPatientExists(id);\n  updatePatient(id);\n  deletePatient(id);\n  tryToDeleteANonExistingPatient(id);\n  verifyPatientDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:patient:nondet:4:2",
+      "js": "// ---- crud:patient:nondet:4:2 ----\nbp.registerBThread(\"crud:patient:nondet:4:2\", function () {\n  let id = 203;\n  addPatient(id);\n  tryToAddExistingPatient(id);\n  updatePatient(id);\n  verifyPatientExists(id);\n  deletePatient(id);\n  tryToDeleteANonExistingPatient(id);\n  verifyPatientDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:patient:nondet:4:3",
+      "js": "// ---- crud:patient:nondet:4:3 ----\nbp.registerBThread(\"crud:patient:nondet:4:3\", function () {\n  let id = 203;\n  addPatient(id);\n  tryToAddExistingPatient(id);\n  verifyPatientExists(id);\n  deletePatient(id);\n  tryToDeleteANonExistingPatient(id);\n  verifyPatientDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:patient:nondet:4:4",
+      "js": "// ---- crud:patient:nondet:4:4 ----\nbp.registerBThread(\"crud:patient:nondet:4:4\", function () {\n  let id = 204;\n  addPatient(id);\n  tryToAddExistingPatient(id);\n  deletePatient(id);\n  tryToDeleteANonExistingPatient(id);\n  verifyPatientDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:prescription:nondet:5:1",
+      "js": "// ---- crud:prescription:nondet:5:1 ----\nbp.registerBThread(\"crud:prescription:nondet:5:1\", function () {\n  let id = 204;\n  addPrescription(id);\n  tryToAddExistingPrescription(id);\n  verifyPrescriptionExists(id);\n  updatePrescription(id);\n  deletePrescription(id);\n  tryToDeleteANonExistingPrescription(id);\n  verifyPrescriptionDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:prescription:nondet:5:2",
+      "js": "// ---- crud:prescription:nondet:5:2 ----\nbp.registerBThread(\"crud:prescription:nondet:5:2\", function () {\n  let id = 204;\n  addPrescription(id);\n  tryToAddExistingPrescription(id);\n  updatePrescription(id);\n  verifyPrescriptionExists(id);\n  deletePrescription(id);\n  tryToDeleteANonExistingPrescription(id);\n  verifyPrescriptionDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:prescription:nondet:5:3",
+      "js": "// ---- crud:prescription:nondet:5:3 ----\nbp.registerBThread(\"crud:prescription:nondet:5:3\", function () {\n  let id = 204;\n  addPrescription(id);\n  tryToAddExistingPrescription(id);\n  verifyPrescriptionExists(id);\n  deletePrescription(id);\n  tryToDeleteANonExistingPrescription(id);\n  verifyPrescriptionDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:prescription:nondet:5:4",
+      "js": "// ---- crud:prescription:nondet:5:4 ----\nbp.registerBThread(\"crud:prescription:nondet:5:4\", function () {\n  let id = 205;\n  addPrescription(id);\n  tryToAddExistingPrescription(id);\n  deletePrescription(id);\n  tryToDeleteANonExistingPrescription(id);\n  verifyPrescriptionDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:reset:nondet:6:1",
+      "js": "// ---- crud:reset:nondet:6:1 ----\nbp.registerBThread(\"crud:reset:nondet:6:1\", function () {\n  let id = 205;\n  addReset(id);\n  tryToAddExistingReset(id);\n  verifyResetExists(id);\n  updateReset(id);\n  deleteReset(id);\n  tryToDeleteANonExistingReset(id);\n  verifyResetDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:reset:nondet:6:2",
+      "js": "// ---- crud:reset:nondet:6:2 ----\nbp.registerBThread(\"crud:reset:nondet:6:2\", function () {\n  let id = 205;\n  addReset(id);\n  tryToAddExistingReset(id);\n  updateReset(id);\n  verifyResetExists(id);\n  deleteReset(id);\n  tryToDeleteANonExistingReset(id);\n  verifyResetDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:reset:nondet:6:3",
+      "js": "// ---- crud:reset:nondet:6:3 ----\nbp.registerBThread(\"crud:reset:nondet:6:3\", function () {\n  let id = 205;\n  addReset(id);\n  tryToAddExistingReset(id);\n  verifyResetExists(id);\n  deleteReset(id);\n  tryToDeleteANonExistingReset(id);\n  verifyResetDoesNotExist(id);\n  \n});\n"
+    },
+    {
+      "name": "crud:reset:nondet:6:4",
+      "js": "// ---- crud:reset:nondet:6:4 ----\nbp.registerBThread(\"crud:reset:nondet:6:4\", function () {\n  let id = 206;\n  addReset(id);\n  tryToAddExistingReset(id);\n  deleteReset(id);\n  tryToDeleteANonExistingReset(id);\n  verifyResetDoesNotExist(id);\n  \n});\n"
+    }
+  ],
+  "stories_js": "// ---- crud:drug:nondet:1:1 ----\nbp.registerBThread(\"crud:drug:nondet:1:1\", function () {\n  let id = 200;\n  addDrug(id);\n  tryToAddExistingDrug(id);\n  verifyDrugExists(id);\n  updateDrug(id);\n  deleteDrug(id);\n  tryToDeleteANonExistingDrug(id);\n  verifyDrugDoesNotExist(id);\n  \n});\n\n// ---- crud:drug:nondet:1:2 ----\nbp.registerBThread(\"crud:drug:nondet:1:2\", function () {\n  let id = 200;\n  addDrug(id);\n  tryToAddExistingDrug(id);\n  updateDrug(id);\n  verifyDrugExists(id);\n  deleteDrug(id);\n  tryToDeleteANonExistingDrug(id);\n  verifyDrugDoesNotExist(id);\n  \n});\n\n// ---- crud:drug:nondet:1:3 ----\nbp.registerBThread(\"crud:drug:nondet:1:3\", function () {\n  let id = 200;\n  addDrug(id);\n  tryToAddExistingDrug(id);\n  verifyDrugExists(id);\n  deleteDrug(id);\n  tryToDeleteANonExistingDrug(id);\n  verifyDrugDoesNotExist(id);\n  \n});\n\n// ---- crud:drug:nondet:1:4 ----\nbp.registerBThread(\"crud:drug:nondet:1:4\", function () {\n  let id = 201;\n  addDrug(id);\n  tryToAddExistingDrug(id);\n  deleteDrug(id);\n  tryToDeleteANonExistingDrug(id);\n  verifyDrugDoesNotExist(id);\n  \n});\n\n// ---- crud:inventory:nondet:2:1 ----\nbp.registerBThread(\"crud:inventory:nondet:2:1\", function () {\n  let ndc = \"ndc_201\";\n  addInventory(ndc);\n  tryToAddExistingInventory(ndc);\n  verifyInventoryExists(ndc);\n  updateInventory(ndc);\n  deleteInventory(ndc);\n  tryToDeleteANonExistingInventory(ndc);\n  verifyInventoryDoesNotExist(ndc);\n  \n});\n\n// ---- crud:inventory:nondet:2:2 ----\nbp.registerBThread(\"crud:inventory:nondet:2:2\", function () {\n  let ndc = \"ndc_201\";\n  addInventory(ndc);\n  tryToAddExistingInventory(ndc);\n  updateInventory(ndc);\n  verifyInventoryExists(ndc);\n  deleteInventory(ndc);\n  tryToDeleteANonExistingInventory(ndc);\n  verifyInventoryDoesNotExist(ndc);\n  \n});\n\n// ---- crud:inventory:nondet:2:3 ----\nbp.registerBThread(\"crud:inventory:nondet:2:3\", function () {\n  let ndc = \"ndc_201\";\n  addInventory(ndc);\n  tryToAddExistingInventory(ndc);\n  verifyInventoryExists(ndc);\n  deleteInventory(ndc);\n  tryToDeleteANonExistingInventory(ndc);\n  verifyInventoryDoesNotExist(ndc);\n  \n});\n\n// ---- crud:inventory:nondet:2:4 ----\nbp.registerBThread(\"crud:inventory:nondet:2:4\", function () {\n  let ndc = \"ndc_202\";\n  addInventory(ndc);\n  tryToAddExistingInventory(ndc);\n  deleteInventory(ndc);\n  tryToDeleteANonExistingInventory(ndc);\n  verifyInventoryDoesNotExist(ndc);\n  \n});\n\n// ---- crud:order:nondet:3:1 ----\nbp.registerBThread(\"crud:order:nondet:3:1\", function () {\n  let id = 202;\n  addOrder(id);\n  tryToAddExistingOrder(id);\n  verifyOrderExists(id);\n  updateOrder(id);\n  deleteOrder(id);\n  tryToDeleteANonExistingOrder(id);\n  verifyOrderDoesNotExist(id);\n  \n});\n\n// ---- crud:order:nondet:3:2 ----\nbp.registerBThread(\"crud:order:nondet:3:2\", function () {\n  let id = 202;\n  addOrder(id);\n  tryToAddExistingOrder(id);\n  updateOrder(id);\n  verifyOrderExists(id);\n  deleteOrder(id);\n  tryToDeleteANonExistingOrder(id);\n  verifyOrderDoesNotExist(id);\n  \n});\n\n// ---- crud:order:nondet:3:3 ----\nbp.registerBThread(\"crud:order:nondet:3:3\", function () {\n  let id = 202;\n  addOrder(id);\n  tryToAddExistingOrder(id);\n  verifyOrderExists(id);\n  deleteOrder(id);\n  tryToDeleteANonExistingOrder(id);\n  verifyOrderDoesNotExist(id);\n  \n});\n\n// ---- crud:order:nondet:3:4 ----\nbp.registerBThread(\"crud:order:nondet:3:4\", function () {\n  let id = 203;\n  addOrder(id);\n  tryToAddExistingOrder(id);\n  deleteOrder(id);\n  tryToDeleteANonExistingOrder(id);\n  verifyOrderDoesNotExist(id);\n  \n});\n\n// ---- crud:patient:nondet:4:1 ----\nbp.registerBThread(\"crud:patient:nondet:4:1\", function () {\n  let id = 203;\n  addPatient(id);\n  tryToAddExistingPatient(id);\n  verifyPatientExists(id);\n  updatePatient(id);\n  deletePatient(id);\n  tryToDeleteANonExistingPatient(id);\n  verifyPatientDoesNotExist(id);\n  \n});\n\n// ---- crud:patient:nondet:4:2 ----\nbp.registerBThread(\"crud:patient:nondet:4:2\", function () {\n  let id = 203;\n  addPatient(id);\n  tryToAddExistingPatient(id);\n  updatePatient(id);\n  verifyPatientExists(id);\n  deletePatient(id);\n  tryToDeleteANonExistingPatient(id);\n  verifyPatientDoesNotExist(id);\n  \n});\n\n// ---- crud:patient:nondet:4:3 ----\nbp.registerBThread(\"crud:patient:nondet:4:3\", function () {\n  let id = 203;\n  addPatient(id);\n  tryToAddExistingPatient(id);\n  verifyPatientExists(id);\n  deletePatient(id);\n  tryToDeleteANonExistingPatient(id);\n  verifyPatientDoesNotExist(id);\n  \n});\n\n// ---- crud:patient:nondet:4:4 ----\nbp.registerBThread(\"crud:patient:nondet:4:4\", function () {\n  let id = 204;\n  addPatient(id);\n  tryToAddExistingPatient(id);\n  deletePatient(id);\n  tryToDeleteANonExistingPatient(id);\n  verifyPatientDoesNotExist(id);\n  \n});\n\n// ---- crud:prescription:nondet:5:1 ----\nbp.registerBThread(\"crud:prescription:nondet:5:1\", function () {\n  let id = 204;\n  addPrescription(id);\n  tryToAddExistingPrescription(id);\n  verifyPrescriptionExists(id);\n  updatePrescription(id);\n  deletePrescription(id);\n  tryToDeleteANonExistingPrescription(id);\n  verifyPrescriptionDoesNotExist(id);\n  \n});\n\n// ---- crud:prescription:nondet:5:2 ----\nbp.registerBThread(\"crud:prescription:nondet:5:2\", function () {\n  let id = 204;\n  addPrescription(id);\n  tryToAddExistingPrescription(id);\n  updatePrescription(id);\n  verifyPrescriptionExists(id);\n  deletePrescription(id);\n  tryToDeleteANonExistingPrescription(id);\n  verifyPrescriptionDoesNotExist(id);\n  \n});\n\n// ---- crud:prescription:nondet:5:3 ----\nbp.registerBThread(\"crud:prescription:nondet:5:3\", function () {\n  let id = 204;\n  addPrescription(id);\n  tryToAddExistingPrescription(id);\n  verifyPrescriptionExists(id);\n  deletePrescription(id);\n  tryToDeleteANonExistingPrescription(id);\n  verifyPrescriptionDoesNotExist(id);\n  \n});\n\n// ---- crud:prescription:nondet:5:4 ----\nbp.registerBThread(\"crud:prescription:nondet:5:4\", function () {\n  let id = 205;\n  addPrescription(id);\n  tryToAddExistingPrescription(id);\n  deletePrescription(id);\n  tryToDeleteANonExistingPrescription(id);\n  verifyPrescriptionDoesNotExist(id);\n  \n});\n\n// ---- crud:reset:nondet:6:1 ----\nbp.registerBThread(\"crud:reset:nondet:6:1\", function () {\n  let id = 205;\n  addReset(id);\n  tryToAddExistingReset(id);\n  verifyResetExists(id);\n  updateReset(id);\n  deleteReset(id);\n  tryToDeleteANonExistingReset(id);\n  verifyResetDoesNotExist(id);\n  \n});\n\n// ---- crud:reset:nondet:6:2 ----\nbp.registerBThread(\"crud:reset:nondet:6:2\", function () {\n  let id = 205;\n  addReset(id);\n  tryToAddExistingReset(id);\n  updateReset(id);\n  verifyResetExists(id);\n  deleteReset(id);\n  tryToDeleteANonExistingReset(id);\n  verifyResetDoesNotExist(id);\n  \n});\n\n// ---- crud:reset:nondet:6:3 ----\nbp.registerBThread(\"crud:reset:nondet:6:3\", function () {\n  let id = 205;\n  addReset(id);\n  tryToAddExistingReset(id);\n  verifyResetExists(id);\n  deleteReset(id);\n  tryToDeleteANonExistingReset(id);\n  verifyResetDoesNotExist(id);\n  \n});\n\n// ---- crud:reset:nondet:6:4 ----\nbp.registerBThread(\"crud:reset:nondet:6:4\", function () {\n  let id = 206;\n  addReset(id);\n  tryToAddExistingReset(id);\n  deleteReset(id);\n  tryToDeleteANonExistingReset(id);\n  verifyResetDoesNotExist(id);\n  \n});\n",
+  "source": {
+    "graph": "artifacts\\analysis\\7_suts_llm_provider\\pharmacy\\graph.json",
+    "dsl": "models\\hls\\SUTs\\pharmacy\\dsl_map.json",
+    "merge_model": ""
+  }
+}

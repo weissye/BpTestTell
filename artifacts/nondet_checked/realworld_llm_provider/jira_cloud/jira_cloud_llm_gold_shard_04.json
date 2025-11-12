@@ -5,64 +5,64 @@
       "method": "GET",
       "operationId": "AddonPropertiesResource.getAddonProperties_get",
       "summary": "",
-      "user": "User requests to retrieve all properties for the specified addon.",
-      "ideal": "Returns a list of properties associated with the addon."
+      "user": "user123",
+      "ideal": "Retrieve all properties for the specified addon."
     },
     {
-      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/myProperty",
       "method": "DELETE",
       "operationId": "AddonPropertiesResource.deleteAddonProperty_delete",
       "summary": "",
-      "user": "User wants to delete a specific property from the addon.",
-      "ideal": "Confirms the deletion of the specified property."
+      "user": "user456",
+      "ideal": "Delete the specified property from the addon."
     },
     {
-      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/myProperty",
       "method": "GET",
       "operationId": "AddonPropertiesResource.getAddonProperty_get",
       "summary": "",
-      "user": "User requests to get the value of a specific property for the addon.",
-      "ideal": "Returns the value of the specified property."
+      "user": "user789",
+      "ideal": "Fetch the value of a specific property for the addon."
     },
     {
-      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/myProperty",
       "method": "PUT",
       "operationId": "AddonPropertiesResource.putAddonProperty_put",
       "summary": "",
-      "user": "User wants to update the value of a specific property for the addon.",
-      "ideal": "Updates the property with the new value and confirms the update."
+      "user": "user101",
+      "ideal": "Update or create a property for the addon."
     },
     {
       "path": "/rest/forge/1/app/properties",
       "method": "GET",
       "operationId": "getForgeAppPropertyKeys",
       "summary": "",
-      "user": "User requests to retrieve all property keys for the Forge app.",
-      "ideal": "Returns a list of property keys associated with the Forge app."
+      "user": "user202",
+      "ideal": "Retrieve all property keys for the Forge app."
     },
     {
-      "path": "/rest/forge/1/app/properties/my-property",
+      "path": "/rest/forge/1/app/properties/myProperty",
       "method": "DELETE",
       "operationId": "deleteForgeAppProperty",
       "summary": "",
-      "user": "User wants to delete a specific property from the Forge app.",
-      "ideal": "Confirms the deletion of the specified property."
+      "user": "user303",
+      "ideal": "Remove a specific property from the Forge app."
     },
     {
-      "path": "/rest/forge/1/app/properties/my-property",
+      "path": "/rest/forge/1/app/properties/myProperty",
       "method": "GET",
       "operationId": "getForgeAppProperty",
       "summary": "",
-      "user": "User requests to get the value of a specific property for the Forge app.",
-      "ideal": "Returns the value of the specified property."
+      "user": "user404",
+      "ideal": "Get the value of a specific property in the Forge app."
     },
     {
-      "path": "/rest/forge/1/app/properties/my-property",
+      "path": "/rest/forge/1/app/properties/myProperty",
       "method": "PUT",
       "operationId": "putForgeAppProperty",
       "summary": "",
-      "user": "User wants to update the value of a specific property for the Forge app.",
-      "ideal": "Updates the property with the new value and confirms the update."
+      "user": "user505",
+      "ideal": "Set or update a property for the Forge app."
     }
   ]
 }

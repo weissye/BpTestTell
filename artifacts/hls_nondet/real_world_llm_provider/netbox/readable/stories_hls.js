@@ -1,5 +1,5 @@
 // ---- crud:api:nondet:1:1 ----
-bp.registerBThread("crud:api:nondet:1:1", function () {
+bthread("crud:api:nondet:1:1", function () {
   let id = 200;
   let name = "name_200";
   addApi(id, name);
@@ -13,7 +13,7 @@ bp.registerBThread("crud:api:nondet:1:1", function () {
 });
 
 // ---- crud:api:nondet:1:2 ----
-bp.registerBThread("crud:api:nondet:1:2", function () {
+bthread("crud:api:nondet:1:2", function () {
   let id = 200;
   let name = "name_200";
   addApi(id, name);
@@ -27,7 +27,7 @@ bp.registerBThread("crud:api:nondet:1:2", function () {
 });
 
 // ---- crud:api:nondet:1:3 ----
-bp.registerBThread("crud:api:nondet:1:3", function () {
+bthread("crud:api:nondet:1:3", function () {
   let id = 200;
   let name = "name_200";
   addApi(id, name);
@@ -40,7 +40,7 @@ bp.registerBThread("crud:api:nondet:1:3", function () {
 });
 
 // ---- crud:api:nondet:1:4 ----
-bp.registerBThread("crud:api:nondet:1:4", function () {
+bthread("crud:api:nondet:1:4", function () {
   let id = 201;
   let name = "name_201";
   addApi(id, name);

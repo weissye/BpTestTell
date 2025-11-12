@@ -1,0 +1,144 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/fieldconfiguration",
+      "method": "GET",
+      "tags": [
+        "Issue field configurations"
+      ],
+      "summary": "Get all field configurations",
+      "operationId": "getAllFieldConfigurations"
+    },
+    {
+      "path": "/rest/api/3/fieldconfiguration",
+      "method": "POST",
+      "tags": [
+        "Issue field configurations"
+      ],
+      "summary": "Create field configuration",
+      "operationId": "createFieldConfiguration"
+    },
+    {
+      "path": "/rest/api/3/fieldconfiguration/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Issue field configurations"
+      ],
+      "summary": "Delete field configuration",
+      "operationId": "deleteFieldConfiguration"
+    },
+    {
+      "path": "/rest/api/3/fieldconfiguration/{id}",
+      "method": "PUT",
+      "tags": [
+        "Issue field configurations"
+      ],
+      "summary": "Update field configuration",
+      "operationId": "updateFieldConfiguration"
+    },
+    {
+      "path": "/rest/api/3/fieldconfiguration/{id}/fields",
+      "method": "GET",
+      "tags": [
+        "Issue field configurations"
+      ],
+      "summary": "Get field configuration items",
+      "operationId": "getFieldConfigurationItems"
+    },
+    {
+      "path": "/rest/api/3/fieldconfiguration/{id}/fields",
+      "method": "PUT",
+      "tags": [
+        "Issue field configurations"
+      ],
+      "summary": "Update field configuration items",
+      "operationId": "updateFieldConfigurationItems"
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme",
+      "method": "GET",
+      "tags": [
+        "Issue field configurations"
+      ],
+      "summary": "Get all field configuration schemes",
+      "operationId": "getAllFieldConfigurationSchemes"
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme",
+      "method": "POST",
+      "tags": [
+        "Issue field configurations"
+      ],
+      "summary": "Create field configuration scheme",
+      "operationId": "createFieldConfigurationScheme"
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme/mapping",
+      "method": "GET",
+      "tags": [
+        "Issue field configurations"
+      ],
+      "summary": "Get field configuration issue type items",
+      "operationId": "getFieldConfigurationSchemeMappings"
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme/project",
+      "method": "GET",
+      "tags": [
+        "Issue field configurations"
+      ],
+      "summary": "Get field configuration schemes for projects",
+      "operationId": "getFieldConfigurationSchemeProjectMapping"
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme/project",
+      "method": "PUT",
+      "tags": [
+        "Issue field configurations"
+      ],
+      "summary": "Assign field configuration scheme to project",
+      "operationId": "assignFieldConfigurationSchemeToProject"
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Issue field configurations"
+      ],
+      "summary": "Delete field configuration scheme",
+      "operationId": "deleteFieldConfigurationScheme"
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}",
+      "method": "PUT",
+      "tags": [
+        "Issue field configurations"
+      ],
+      "summary": "Update field configuration scheme",
+      "operationId": "updateFieldConfigurationScheme"
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping",
+      "method": "PUT",
+      "tags": [
+        "Issue field configurations"
+      ],
+      "summary": "Assign issue types to field configurations",
+      "operationId": "setFieldConfigurationSchemeMapping"
+    },
+    {
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping/delete",
+      "method": "POST",
+      "tags": [
+        "Issue field configurations"
+      ],
+      "summary": "Remove issue types from field configuration scheme",
+      "operationId": "removeIssueTypesFromGlobalFieldConfigurationScheme"
+    }
+  ]
+}

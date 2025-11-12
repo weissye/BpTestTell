@@ -5,120 +5,80 @@
       "method": "GET",
       "operationId": "extras_bookmarks_list",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve a list of all bookmarks."
+      "user": "User A requests a list of all bookmarks to manage their saved links.",
+      "ideal": "A JSON array of bookmark objects, each containing id, name, and URL."
     },
     {
       "path": "/api/extras/bookmarks/",
       "method": "POST",
       "operationId": "extras_bookmarks_create",
       "summary": "",
-      "user": "user123",
-      "ideal": "Create a new bookmark with the provided details."
+      "user": "User B wants to create a new bookmark for a frequently visited site.",
+      "ideal": "A JSON object representing the created bookmark with id, name, and URL."
     },
     {
-      "path": "/api/extras/bookmarks/{id}/",
+      "path": "/api/extras/bookmarks/1/",
       "method": "GET",
       "operationId": "extras_bookmarks_retrieve",
       "summary": "",
-      "user": "user456",
-      "ideal": "Retrieve details of a specific bookmark by ID."
+      "user": "User C retrieves details of a specific bookmark to edit it.",
+      "ideal": "A JSON object containing the bookmark's id, name, and URL."
     },
     {
-      "path": "/api/extras/bookmarks/{id}/",
+      "path": "/api/extras/bookmarks/1/",
       "method": "PUT",
       "operationId": "extras_bookmarks_update",
       "summary": "",
-      "user": "admin",
-      "ideal": "Update the details of a specific bookmark by ID."
+      "user": "User D updates the name and URL of an existing bookmark.",
+      "ideal": "A JSON object representing the updated bookmark with id, name, and URL."
     },
     {
-      "path": "/api/extras/bookmarks/{id}/",
+      "path": "/api/extras/bookmarks/1/",
       "method": "DELETE",
       "operationId": "extras_bookmarks_destroy",
       "summary": "",
-      "user": "admin",
-      "ideal": "Delete a specific bookmark by ID."
+      "user": "User E deletes a bookmark that is no longer needed.",
+      "ideal": "A confirmation message indicating the bookmark has been deleted."
     },
     {
       "path": "/api/extras/config-context-profiles/",
       "method": "GET",
       "operationId": "extras_config_context_profiles_list",
       "summary": "",
-      "user": "user789",
-      "ideal": "Retrieve a list of all configuration context profiles."
+      "user": "User F wants to see all configuration context profiles available.",
+      "ideal": "A JSON array of configuration context profile objects."
     },
     {
-      "path": "/api/extras/config-contexts/{id}/",
-      "method": "PATCH",
-      "operationId": "extras_config_contexts_partial_update",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Partially update a specific configuration context by ID."
-    },
-    {
-      "path": "/api/extras/custom-fields/",
+      "path": "/api/extras/config-context-profiles/",
       "method": "POST",
-      "operationId": "extras_custom_fields_create",
+      "operationId": "extras_config_context_profiles_create",
       "summary": "",
-      "user": "admin",
-      "ideal": "Create a new custom field with specified attributes."
+      "user": "User G creates a new configuration context profile for a project.",
+      "ideal": "A JSON object representing the created configuration context profile."
     },
     {
-      "path": "/api/extras/custom-links/{id}/",
+      "path": "/api/extras/config-context-profiles/1/",
+      "method": "GET",
+      "operationId": "extras_config_context_profiles_retrieve",
+      "summary": "",
+      "user": "User H retrieves a specific configuration context profile for review.",
+      "ideal": "A JSON object containing the details of the configuration context profile."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/1/",
+      "method": "PATCH",
+      "operationId": "extras_config_context_profiles_partial_update",
+      "summary": "",
+      "user": "User I updates a specific field in a configuration context profile.",
+      "ideal": "A JSON object representing the updated configuration context profile."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/1/",
       "method": "DELETE",
-      "operationId": "extras_custom_links_destroy",
+      "operationId": "extras_config_context_profiles_destroy",
       "summary": "",
-      "user": "user456",
-      "ideal": "Delete a specific custom link by ID."
-    },
-    {
-      "path": "/api/extras/notifications/",
-      "method": "GET",
-      "operationId": "extras_notifications_list",
-      "summary": "",
-      "user": "user789",
-      "ideal": "Retrieve a list of all notifications."
-    },
-    {
-      "path": "/api/extras/webhooks/{id}/",
-      "method": "PUT",
-      "operationId": "extras_webhooks_update",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Update the details of a specific webhook by ID."
-    },
-    {
-      "path": "/api/extras/tags/",
-      "method": "POST",
-      "operationId": "extras_tags_create",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Create a new tag with the provided name."
-    },
-    {
-      "path": "/api/extras/image-attachments/{id}/",
-      "method": "GET",
-      "operationId": "extras_image_attachments_retrieve",
-      "summary": "",
-      "user": "user456",
-      "ideal": "Retrieve details of a specific image attachment by ID."
-    },
-    {
-      "path": "/api/extras/journal-entries/",
-      "method": "POST",
-      "operationId": "extras_journal_entries_create",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Create a new journal entry with the specified content."
-    },
-    {
-      "path": "/api/extras/saved-filters/{id}/",
-      "method": "PATCH",
-      "operationId": "extras_saved_filters_partial_update",
-      "summary": "",
-      "user": "user789",
-      "ideal": "Partially update a specific saved filter by ID."
+      "user": "User J deletes an obsolete configuration context profile.",
+      "ideal": "A confirmation message indicating the configuration context profile has been deleted."
     }
   ]
 }

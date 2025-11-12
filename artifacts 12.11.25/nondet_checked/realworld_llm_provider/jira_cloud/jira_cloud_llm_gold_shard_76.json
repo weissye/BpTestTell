@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/screens/tabs",
+      "method": "GET",
+      "operationId": "getBulkScreenTabs",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all available screen tabs to understand the layout of my Jira screens.",
+      "ideal": "Retrieve a list of all screen tabs available in the Jira instance."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/tabs",
+      "method": "GET",
+      "operationId": "getAllScreenTabs",
+      "summary": "",
+      "user": "As a developer, I need to get all tabs for a specific screen to ensure I am using the correct fields in my issue creation form.",
+      "ideal": "Fetch all tabs associated with the specified screen ID."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/tabs",
+      "method": "POST",
+      "operationId": "addScreenTab",
+      "summary": "",
+      "user": "As a product owner, I want to add a new tab to my screen to organize related fields better.",
+      "ideal": "Create a new tab in the specified screen with the provided details."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}",
+      "method": "DELETE",
+      "operationId": "deleteScreenTab",
+      "summary": "",
+      "user": "As an administrator, I need to remove an outdated tab from a screen to keep the interface clean and relevant.",
+      "ideal": "Delete the specified tab from the given screen."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}",
+      "method": "PUT",
+      "operationId": "renameScreenTab",
+      "summary": "",
+      "user": "As a team lead, I want to rename a tab to better reflect its purpose after a recent project update.",
+      "ideal": "Update the name of the specified tab in the given screen."
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}/move/{pos}",
+      "method": "POST",
+      "operationId": "moveScreenTab",
+      "summary": "",
+      "user": "As a UI designer, I want to rearrange the order of tabs on the screen to improve user experience.",
+      "ideal": "Move the specified tab to a new position within the screen's tab order."
+    }
+  ]
+}

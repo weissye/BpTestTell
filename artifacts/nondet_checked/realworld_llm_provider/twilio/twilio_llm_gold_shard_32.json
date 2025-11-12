@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "ListIncomingPhoneNumberMobile",
       "summary": "",
-      "user": "As a Twilio user, I want to retrieve a list of my mobile incoming phone numbers so that I can manage them effectively.",
-      "ideal": "The API should return a JSON array of mobile phone numbers associated with my account, including details like phone number, friendly name, and status."
+      "user": "As a developer, I want to retrieve a list of mobile incoming phone numbers associated with my Twilio account so that I can manage them effectively.",
+      "ideal": "The API should return a JSON array of mobile phone numbers, including details such as SID, friendly name, and status."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json",
       "method": "POST",
       "operationId": "CreateIncomingPhoneNumberMobile",
       "summary": "",
-      "user": "As a Twilio user, I want to create a new mobile incoming phone number so that I can receive calls and messages on it.",
-      "ideal": "The API should accept parameters such as the phone number and friendly name, and return a confirmation of the newly created mobile number with its details."
+      "user": "As a user, I want to create a new mobile incoming phone number for my Twilio account so that I can receive calls and messages on it.",
+      "ideal": "The API should accept parameters such as phone number and friendly name, and return the SID and details of the newly created mobile phone number."
     }
   ]
 }

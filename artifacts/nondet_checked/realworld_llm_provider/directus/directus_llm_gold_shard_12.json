@@ -5,56 +5,56 @@
       "method": "GET",
       "operationId": "getOperations",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve a list of all operations available in the system."
+      "user": "Admin user requesting a list of all operations to review current tasks and their statuses.",
+      "ideal": "Returns a list of operations with their details, including status and assigned users."
     },
     {
       "path": "/operations",
       "method": "POST",
       "operationId": "createOperation",
       "summary": "",
-      "user": "admin",
-      "ideal": "Create a new operation with the specified parameters."
+      "user": "Project manager creating a new operation for the upcoming project phase.",
+      "ideal": "Creates a new operation and returns the details of the created operation, including its ID."
     },
     {
       "path": "/operations",
       "method": "PATCH",
       "operationId": "updateOperations",
       "summary": "",
-      "user": "admin",
-      "ideal": "Update multiple operations based on the provided criteria."
+      "user": "Team lead updating multiple operations to reflect changes in deadlines.",
+      "ideal": "Updates the specified operations and returns the updated details of each operation."
     },
     {
       "path": "/operations",
       "method": "DELETE",
       "operationId": "deleteOperations",
       "summary": "",
-      "user": "admin",
-      "ideal": "Delete multiple operations from the system."
+      "user": "Admin user removing obsolete operations that are no longer needed.",
+      "ideal": "Deletes the specified operations and confirms the deletion with a success message."
     },
     {
       "path": "/operations/{id}",
       "method": "GET",
       "operationId": "getOperation",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve details of a specific operation by its ID."
+      "user": "User looking for details on a specific operation to understand its current status.",
+      "ideal": "Returns the details of the specified operation, including its status and assigned users."
     },
     {
       "path": "/operations/{id}",
       "method": "PATCH",
       "operationId": "updateOperation",
       "summary": "",
-      "user": "admin",
-      "ideal": "Update a specific operation identified by its ID."
+      "user": "User updating the details of a specific operation to reflect new information.",
+      "ideal": "Updates the specified operation and returns the updated details of that operation."
     },
     {
       "path": "/operations/{id}",
       "method": "DELETE",
       "operationId": "deleteOperation",
       "summary": "",
-      "user": "admin",
-      "ideal": "Delete a specific operation identified by its ID."
+      "user": "Admin user deleting a specific operation that has been completed.",
+      "ideal": "Deletes the specified operation and confirms the deletion with a success message."
     }
   ]
 }

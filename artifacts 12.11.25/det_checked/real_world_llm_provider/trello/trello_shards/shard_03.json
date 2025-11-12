@@ -1,0 +1,60 @@
+{
+  "ops": [
+    {
+      "method": "PUT",
+      "path": "/actions/{idAction}"
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/cards"
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/members"
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/calendarFeedEnabled"
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/checkItemStates"
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/labels/{color}"
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/cards/{filter}"
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/cards"
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boardStars/{idBoardStar}"
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/initials"
+    },
+    {
+      "method": "PUT",
+      "path": "/notifications/{idNotification}"
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/deltas"
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/externalMembersDisabled"
+    },
+    {
+      "method": "POST",
+      "path": "/webhooks"
+    }
+  ]
+}

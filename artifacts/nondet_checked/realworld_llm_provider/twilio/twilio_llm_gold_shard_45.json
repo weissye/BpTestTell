@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "ListUsageRecordMonthly",
       "summary": "",
-      "user": "User requests monthly usage records for their Twilio account to analyze SMS and call usage patterns for budgeting purposes.",
-      "ideal": "Returns a list of monthly usage records including details such as the number of SMS sent, calls made, and total charges for the specified account."
+      "user": "User wants to retrieve monthly usage records for their Twilio account to analyze SMS and voice call usage over the past month.",
+      "ideal": "The API should return a JSON object containing an array of usage records, each with details such as the type of usage (SMS, voice), the total count, and the total cost for the month."
     }
   ]
 }

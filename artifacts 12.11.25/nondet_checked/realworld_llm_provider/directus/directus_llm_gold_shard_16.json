@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/revisions",
+      "method": "GET",
+      "operationId": "getRevisions",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all revisions in the system."
+    },
+    {
+      "path": "/revisions/{id}",
+      "method": "GET",
+      "operationId": "getRevision",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Fetch details of a specific revision by its ID."
+    }
+  ]
+}

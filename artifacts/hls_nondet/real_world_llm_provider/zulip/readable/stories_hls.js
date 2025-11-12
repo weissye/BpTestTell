@@ -1,5 +1,5 @@
 // ---- crud:attachment:nondet:1:1 ----
-bp.registerBThread("crud:attachment:nondet:1:1", function () {
+bthread("crud:attachment:nondet:1:1", function () {
   let attachment_id = 200;
   addAttachment(attachment_id);
   tryToAddExistingAttachment(attachment_id);
@@ -12,7 +12,7 @@ bp.registerBThread("crud:attachment:nondet:1:1", function () {
 });
 
 // ---- crud:attachment:nondet:1:2 ----
-bp.registerBThread("crud:attachment:nondet:1:2", function () {
+bthread("crud:attachment:nondet:1:2", function () {
   let attachment_id = 200;
   addAttachment(attachment_id);
   tryToAddExistingAttachment(attachment_id);
@@ -25,7 +25,7 @@ bp.registerBThread("crud:attachment:nondet:1:2", function () {
 });
 
 // ---- crud:attachment:nondet:1:3 ----
-bp.registerBThread("crud:attachment:nondet:1:3", function () {
+bthread("crud:attachment:nondet:1:3", function () {
   let attachment_id = 200;
   addAttachment(attachment_id);
   tryToAddExistingAttachment(attachment_id);
@@ -37,7 +37,7 @@ bp.registerBThread("crud:attachment:nondet:1:3", function () {
 });
 
 // ---- crud:attachment:nondet:1:4 ----
-bp.registerBThread("crud:attachment:nondet:1:4", function () {
+bthread("crud:attachment:nondet:1:4", function () {
   let attachment_id = 201;
   addAttachment(attachment_id);
   tryToAddExistingAttachment(attachment_id);
@@ -48,7 +48,7 @@ bp.registerBThread("crud:attachment:nondet:1:4", function () {
 });
 
 // ---- crud:call:nondet:2:1 ----
-bp.registerBThread("crud:call:nondet:2:1", function () {
+bthread("crud:call:nondet:2:1", function () {
   let id = 201;
   addCall(id);
   tryToAddExistingCall(id);
@@ -61,7 +61,7 @@ bp.registerBThread("crud:call:nondet:2:1", function () {
 });
 
 // ---- crud:call:nondet:2:2 ----
-bp.registerBThread("crud:call:nondet:2:2", function () {
+bthread("crud:call:nondet:2:2", function () {
   let id = 201;
   addCall(id);
   tryToAddExistingCall(id);
@@ -74,7 +74,7 @@ bp.registerBThread("crud:call:nondet:2:2", function () {
 });
 
 // ---- crud:call:nondet:2:3 ----
-bp.registerBThread("crud:call:nondet:2:3", function () {
+bthread("crud:call:nondet:2:3", function () {
   let id = 201;
   addCall(id);
   tryToAddExistingCall(id);
@@ -86,7 +86,7 @@ bp.registerBThread("crud:call:nondet:2:3", function () {
 });
 
 // ---- crud:call:nondet:2:4 ----
-bp.registerBThread("crud:call:nondet:2:4", function () {
+bthread("crud:call:nondet:2:4", function () {
   let id = 202;
   addCall(id);
   tryToAddExistingCall(id);
@@ -97,7 +97,7 @@ bp.registerBThread("crud:call:nondet:2:4", function () {
 });
 
 // ---- crud:channel_folder:nondet:3:1 ----
-bp.registerBThread("crud:channel_folder:nondet:3:1", function () {
+bthread("crud:channel_folder:nondet:3:1", function () {
   let channel_folder_id = 202;
   addChannel_folder(channel_folder_id);
   tryToAddExistingChannel_folder(channel_folder_id);
@@ -110,7 +110,7 @@ bp.registerBThread("crud:channel_folder:nondet:3:1", function () {
 });
 
 // ---- crud:channel_folder:nondet:3:2 ----
-bp.registerBThread("crud:channel_folder:nondet:3:2", function () {
+bthread("crud:channel_folder:nondet:3:2", function () {
   let channel_folder_id = 202;
   addChannel_folder(channel_folder_id);
   tryToAddExistingChannel_folder(channel_folder_id);
@@ -123,7 +123,7 @@ bp.registerBThread("crud:channel_folder:nondet:3:2", function () {
 });
 
 // ---- crud:channel_folder:nondet:3:3 ----
-bp.registerBThread("crud:channel_folder:nondet:3:3", function () {
+bthread("crud:channel_folder:nondet:3:3", function () {
   let channel_folder_id = 202;
   addChannel_folder(channel_folder_id);
   tryToAddExistingChannel_folder(channel_folder_id);
@@ -135,7 +135,7 @@ bp.registerBThread("crud:channel_folder:nondet:3:3", function () {
 });
 
 // ---- crud:channel_folder:nondet:3:4 ----
-bp.registerBThread("crud:channel_folder:nondet:3:4", function () {
+bthread("crud:channel_folder:nondet:3:4", function () {
   let channel_folder_id = 203;
   addChannel_folder(channel_folder_id);
   tryToAddExistingChannel_folder(channel_folder_id);
@@ -146,7 +146,7 @@ bp.registerBThread("crud:channel_folder:nondet:3:4", function () {
 });
 
 // ---- crud:channel:nondet:4:1 ----
-bp.registerBThread("crud:channel:nondet:4:1", function () {
+bthread("crud:channel:nondet:4:1", function () {
   let id = 203;
   addChannel(id);
   tryToAddExistingChannel(id);
@@ -159,7 +159,7 @@ bp.registerBThread("crud:channel:nondet:4:1", function () {
 });
 
 // ---- crud:channel:nondet:4:2 ----
-bp.registerBThread("crud:channel:nondet:4:2", function () {
+bthread("crud:channel:nondet:4:2", function () {
   let id = 203;
   addChannel(id);
   tryToAddExistingChannel(id);
@@ -172,7 +172,7 @@ bp.registerBThread("crud:channel:nondet:4:2", function () {
 });
 
 // ---- crud:channel:nondet:4:3 ----
-bp.registerBThread("crud:channel:nondet:4:3", function () {
+bthread("crud:channel:nondet:4:3", function () {
   let id = 203;
   addChannel(id);
   tryToAddExistingChannel(id);
@@ -184,7 +184,7 @@ bp.registerBThread("crud:channel:nondet:4:3", function () {
 });
 
 // ---- crud:channel:nondet:4:4 ----
-bp.registerBThread("crud:channel:nondet:4:4", function () {
+bthread("crud:channel:nondet:4:4", function () {
   let id = 204;
   addChannel(id);
   tryToAddExistingChannel(id);
@@ -195,7 +195,7 @@ bp.registerBThread("crud:channel:nondet:4:4", function () {
 });
 
 // ---- crud:default_stream:nondet:5:1 ----
-bp.registerBThread("crud:default_stream:nondet:5:1", function () {
+bthread("crud:default_stream:nondet:5:1", function () {
   let id = 204;
   addDefault_stream(id);
   tryToAddExistingDefault_stream(id);
@@ -208,7 +208,7 @@ bp.registerBThread("crud:default_stream:nondet:5:1", function () {
 });
 
 // ---- crud:default_stream:nondet:5:2 ----
-bp.registerBThread("crud:default_stream:nondet:5:2", function () {
+bthread("crud:default_stream:nondet:5:2", function () {
   let id = 204;
   addDefault_stream(id);
   tryToAddExistingDefault_stream(id);
@@ -221,7 +221,7 @@ bp.registerBThread("crud:default_stream:nondet:5:2", function () {
 });
 
 // ---- crud:default_stream:nondet:5:3 ----
-bp.registerBThread("crud:default_stream:nondet:5:3", function () {
+bthread("crud:default_stream:nondet:5:3", function () {
   let id = 204;
   addDefault_stream(id);
   tryToAddExistingDefault_stream(id);
@@ -233,7 +233,7 @@ bp.registerBThread("crud:default_stream:nondet:5:3", function () {
 });
 
 // ---- crud:default_stream:nondet:5:4 ----
-bp.registerBThread("crud:default_stream:nondet:5:4", function () {
+bthread("crud:default_stream:nondet:5:4", function () {
   let id = 205;
   addDefault_stream(id);
   tryToAddExistingDefault_stream(id);
@@ -244,7 +244,7 @@ bp.registerBThread("crud:default_stream:nondet:5:4", function () {
 });
 
 // ---- crud:dev_fetch_api_key:nondet:6:1 ----
-bp.registerBThread("crud:dev_fetch_api_key:nondet:6:1", function () {
+bthread("crud:dev_fetch_api_key:nondet:6:1", function () {
   let id = 205;
   addDev_fetch_api_key(id);
   tryToAddExistingDev_fetch_api_key(id);
@@ -257,7 +257,7 @@ bp.registerBThread("crud:dev_fetch_api_key:nondet:6:1", function () {
 });
 
 // ---- crud:dev_fetch_api_key:nondet:6:2 ----
-bp.registerBThread("crud:dev_fetch_api_key:nondet:6:2", function () {
+bthread("crud:dev_fetch_api_key:nondet:6:2", function () {
   let id = 205;
   addDev_fetch_api_key(id);
   tryToAddExistingDev_fetch_api_key(id);
@@ -270,7 +270,7 @@ bp.registerBThread("crud:dev_fetch_api_key:nondet:6:2", function () {
 });
 
 // ---- crud:dev_fetch_api_key:nondet:6:3 ----
-bp.registerBThread("crud:dev_fetch_api_key:nondet:6:3", function () {
+bthread("crud:dev_fetch_api_key:nondet:6:3", function () {
   let id = 205;
   addDev_fetch_api_key(id);
   tryToAddExistingDev_fetch_api_key(id);
@@ -282,7 +282,7 @@ bp.registerBThread("crud:dev_fetch_api_key:nondet:6:3", function () {
 });
 
 // ---- crud:dev_fetch_api_key:nondet:6:4 ----
-bp.registerBThread("crud:dev_fetch_api_key:nondet:6:4", function () {
+bthread("crud:dev_fetch_api_key:nondet:6:4", function () {
   let id = 206;
   addDev_fetch_api_key(id);
   tryToAddExistingDev_fetch_api_key(id);
@@ -293,7 +293,7 @@ bp.registerBThread("crud:dev_fetch_api_key:nondet:6:4", function () {
 });
 
 // ---- crud:draft:nondet:7:1 ----
-bp.registerBThread("crud:draft:nondet:7:1", function () {
+bthread("crud:draft:nondet:7:1", function () {
   let draft_id = 206;
   addDraft(draft_id);
   tryToAddExistingDraft(draft_id);
@@ -306,7 +306,7 @@ bp.registerBThread("crud:draft:nondet:7:1", function () {
 });
 
 // ---- crud:draft:nondet:7:2 ----
-bp.registerBThread("crud:draft:nondet:7:2", function () {
+bthread("crud:draft:nondet:7:2", function () {
   let draft_id = 206;
   addDraft(draft_id);
   tryToAddExistingDraft(draft_id);
@@ -319,7 +319,7 @@ bp.registerBThread("crud:draft:nondet:7:2", function () {
 });
 
 // ---- crud:draft:nondet:7:3 ----
-bp.registerBThread("crud:draft:nondet:7:3", function () {
+bthread("crud:draft:nondet:7:3", function () {
   let draft_id = 206;
   addDraft(draft_id);
   tryToAddExistingDraft(draft_id);
@@ -331,7 +331,7 @@ bp.registerBThread("crud:draft:nondet:7:3", function () {
 });
 
 // ---- crud:draft:nondet:7:4 ----
-bp.registerBThread("crud:draft:nondet:7:4", function () {
+bthread("crud:draft:nondet:7:4", function () {
   let draft_id = 207;
   addDraft(draft_id);
   tryToAddExistingDraft(draft_id);
@@ -342,7 +342,7 @@ bp.registerBThread("crud:draft:nondet:7:4", function () {
 });
 
 // ---- crud:event:nondet:8:1 ----
-bp.registerBThread("crud:event:nondet:8:1", function () {
+bthread("crud:event:nondet:8:1", function () {
   let id = 207;
   addEvent(id);
   tryToAddExistingEvent(id);
@@ -355,7 +355,7 @@ bp.registerBThread("crud:event:nondet:8:1", function () {
 });
 
 // ---- crud:event:nondet:8:2 ----
-bp.registerBThread("crud:event:nondet:8:2", function () {
+bthread("crud:event:nondet:8:2", function () {
   let id = 207;
   addEvent(id);
   tryToAddExistingEvent(id);
@@ -368,7 +368,7 @@ bp.registerBThread("crud:event:nondet:8:2", function () {
 });
 
 // ---- crud:event:nondet:8:3 ----
-bp.registerBThread("crud:event:nondet:8:3", function () {
+bthread("crud:event:nondet:8:3", function () {
   let id = 207;
   addEvent(id);
   tryToAddExistingEvent(id);
@@ -380,7 +380,7 @@ bp.registerBThread("crud:event:nondet:8:3", function () {
 });
 
 // ---- crud:event:nondet:8:4 ----
-bp.registerBThread("crud:event:nondet:8:4", function () {
+bthread("crud:event:nondet:8:4", function () {
   let id = 208;
   addEvent(id);
   tryToAddExistingEvent(id);
@@ -391,7 +391,7 @@ bp.registerBThread("crud:event:nondet:8:4", function () {
 });
 
 // ---- crud:export:nondet:9:1 ----
-bp.registerBThread("crud:export:nondet:9:1", function () {
+bthread("crud:export:nondet:9:1", function () {
   let id = 208;
   addExport(id);
   tryToAddExistingExport(id);
@@ -404,7 +404,7 @@ bp.registerBThread("crud:export:nondet:9:1", function () {
 });
 
 // ---- crud:export:nondet:9:2 ----
-bp.registerBThread("crud:export:nondet:9:2", function () {
+bthread("crud:export:nondet:9:2", function () {
   let id = 208;
   addExport(id);
   tryToAddExistingExport(id);
@@ -417,7 +417,7 @@ bp.registerBThread("crud:export:nondet:9:2", function () {
 });
 
 // ---- crud:export:nondet:9:3 ----
-bp.registerBThread("crud:export:nondet:9:3", function () {
+bthread("crud:export:nondet:9:3", function () {
   let id = 208;
   addExport(id);
   tryToAddExistingExport(id);
@@ -429,7 +429,7 @@ bp.registerBThread("crud:export:nondet:9:3", function () {
 });
 
 // ---- crud:export:nondet:9:4 ----
-bp.registerBThread("crud:export:nondet:9:4", function () {
+bthread("crud:export:nondet:9:4", function () {
   let id = 209;
   addExport(id);
   tryToAddExistingExport(id);
@@ -440,7 +440,7 @@ bp.registerBThread("crud:export:nondet:9:4", function () {
 });
 
 // ---- crud:fetch_api_key:nondet:10:1 ----
-bp.registerBThread("crud:fetch_api_key:nondet:10:1", function () {
+bthread("crud:fetch_api_key:nondet:10:1", function () {
   let id = 209;
   addFetch_api_key(id);
   tryToAddExistingFetch_api_key(id);
@@ -453,7 +453,7 @@ bp.registerBThread("crud:fetch_api_key:nondet:10:1", function () {
 });
 
 // ---- crud:fetch_api_key:nondet:10:2 ----
-bp.registerBThread("crud:fetch_api_key:nondet:10:2", function () {
+bthread("crud:fetch_api_key:nondet:10:2", function () {
   let id = 209;
   addFetch_api_key(id);
   tryToAddExistingFetch_api_key(id);
@@ -466,7 +466,7 @@ bp.registerBThread("crud:fetch_api_key:nondet:10:2", function () {
 });
 
 // ---- crud:fetch_api_key:nondet:10:3 ----
-bp.registerBThread("crud:fetch_api_key:nondet:10:3", function () {
+bthread("crud:fetch_api_key:nondet:10:3", function () {
   let id = 209;
   addFetch_api_key(id);
   tryToAddExistingFetch_api_key(id);
@@ -478,7 +478,7 @@ bp.registerBThread("crud:fetch_api_key:nondet:10:3", function () {
 });
 
 // ---- crud:fetch_api_key:nondet:10:4 ----
-bp.registerBThread("crud:fetch_api_key:nondet:10:4", function () {
+bthread("crud:fetch_api_key:nondet:10:4", function () {
   let id = 210;
   addFetch_api_key(id);
   tryToAddExistingFetch_api_key(id);
@@ -489,7 +489,7 @@ bp.registerBThread("crud:fetch_api_key:nondet:10:4", function () {
 });
 
 // ---- crud:get_stream_id:nondet:11:1 ----
-bp.registerBThread("crud:get_stream_id:nondet:11:1", function () {
+bthread("crud:get_stream_id:nondet:11:1", function () {
   let id = 210;
   addGet_stream_id(id);
   tryToAddExistingGet_stream_id(id);
@@ -502,7 +502,7 @@ bp.registerBThread("crud:get_stream_id:nondet:11:1", function () {
 });
 
 // ---- crud:get_stream_id:nondet:11:2 ----
-bp.registerBThread("crud:get_stream_id:nondet:11:2", function () {
+bthread("crud:get_stream_id:nondet:11:2", function () {
   let id = 210;
   addGet_stream_id(id);
   tryToAddExistingGet_stream_id(id);
@@ -515,7 +515,7 @@ bp.registerBThread("crud:get_stream_id:nondet:11:2", function () {
 });
 
 // ---- crud:get_stream_id:nondet:11:3 ----
-bp.registerBThread("crud:get_stream_id:nondet:11:3", function () {
+bthread("crud:get_stream_id:nondet:11:3", function () {
   let id = 210;
   addGet_stream_id(id);
   tryToAddExistingGet_stream_id(id);
@@ -527,7 +527,7 @@ bp.registerBThread("crud:get_stream_id:nondet:11:3", function () {
 });
 
 // ---- crud:get_stream_id:nondet:11:4 ----
-bp.registerBThread("crud:get_stream_id:nondet:11:4", function () {
+bthread("crud:get_stream_id:nondet:11:4", function () {
   let id = 211;
   addGet_stream_id(id);
   tryToAddExistingGet_stream_id(id);
@@ -538,7 +538,7 @@ bp.registerBThread("crud:get_stream_id:nondet:11:4", function () {
 });
 
 // ---- crud:invite:nondet:12:1 ----
-bp.registerBThread("crud:invite:nondet:12:1", function () {
+bthread("crud:invite:nondet:12:1", function () {
   let invite_id = 211;
   addInvite(invite_id);
   tryToAddExistingInvite(invite_id);
@@ -551,7 +551,7 @@ bp.registerBThread("crud:invite:nondet:12:1", function () {
 });
 
 // ---- crud:invite:nondet:12:2 ----
-bp.registerBThread("crud:invite:nondet:12:2", function () {
+bthread("crud:invite:nondet:12:2", function () {
   let invite_id = 211;
   addInvite(invite_id);
   tryToAddExistingInvite(invite_id);
@@ -564,7 +564,7 @@ bp.registerBThread("crud:invite:nondet:12:2", function () {
 });
 
 // ---- crud:invite:nondet:12:3 ----
-bp.registerBThread("crud:invite:nondet:12:3", function () {
+bthread("crud:invite:nondet:12:3", function () {
   let invite_id = 211;
   addInvite(invite_id);
   tryToAddExistingInvite(invite_id);
@@ -576,7 +576,7 @@ bp.registerBThread("crud:invite:nondet:12:3", function () {
 });
 
 // ---- crud:invite:nondet:12:4 ----
-bp.registerBThread("crud:invite:nondet:12:4", function () {
+bthread("crud:invite:nondet:12:4", function () {
   let invite_id = 212;
   addInvite(invite_id);
   tryToAddExistingInvite(invite_id);
@@ -587,7 +587,7 @@ bp.registerBThread("crud:invite:nondet:12:4", function () {
 });
 
 // ---- crud:mark_all_as_read:nondet:13:1 ----
-bp.registerBThread("crud:mark_all_as_read:nondet:13:1", function () {
+bthread("crud:mark_all_as_read:nondet:13:1", function () {
   let id = 212;
   addMark_all_as_read(id);
   tryToAddExistingMark_all_as_read(id);
@@ -600,7 +600,7 @@ bp.registerBThread("crud:mark_all_as_read:nondet:13:1", function () {
 });
 
 // ---- crud:mark_all_as_read:nondet:13:2 ----
-bp.registerBThread("crud:mark_all_as_read:nondet:13:2", function () {
+bthread("crud:mark_all_as_read:nondet:13:2", function () {
   let id = 212;
   addMark_all_as_read(id);
   tryToAddExistingMark_all_as_read(id);
@@ -613,7 +613,7 @@ bp.registerBThread("crud:mark_all_as_read:nondet:13:2", function () {
 });
 
 // ---- crud:mark_all_as_read:nondet:13:3 ----
-bp.registerBThread("crud:mark_all_as_read:nondet:13:3", function () {
+bthread("crud:mark_all_as_read:nondet:13:3", function () {
   let id = 212;
   addMark_all_as_read(id);
   tryToAddExistingMark_all_as_read(id);
@@ -625,7 +625,7 @@ bp.registerBThread("crud:mark_all_as_read:nondet:13:3", function () {
 });
 
 // ---- crud:mark_all_as_read:nondet:13:4 ----
-bp.registerBThread("crud:mark_all_as_read:nondet:13:4", function () {
+bthread("crud:mark_all_as_read:nondet:13:4", function () {
   let id = 213;
   addMark_all_as_read(id);
   tryToAddExistingMark_all_as_read(id);
@@ -636,7 +636,7 @@ bp.registerBThread("crud:mark_all_as_read:nondet:13:4", function () {
 });
 
 // ---- crud:mark_stream_as_read:nondet:14:1 ----
-bp.registerBThread("crud:mark_stream_as_read:nondet:14:1", function () {
+bthread("crud:mark_stream_as_read:nondet:14:1", function () {
   let id = 213;
   addMark_stream_as_read(id);
   tryToAddExistingMark_stream_as_read(id);
@@ -649,7 +649,7 @@ bp.registerBThread("crud:mark_stream_as_read:nondet:14:1", function () {
 });
 
 // ---- crud:mark_stream_as_read:nondet:14:2 ----
-bp.registerBThread("crud:mark_stream_as_read:nondet:14:2", function () {
+bthread("crud:mark_stream_as_read:nondet:14:2", function () {
   let id = 213;
   addMark_stream_as_read(id);
   tryToAddExistingMark_stream_as_read(id);
@@ -662,7 +662,7 @@ bp.registerBThread("crud:mark_stream_as_read:nondet:14:2", function () {
 });
 
 // ---- crud:mark_stream_as_read:nondet:14:3 ----
-bp.registerBThread("crud:mark_stream_as_read:nondet:14:3", function () {
+bthread("crud:mark_stream_as_read:nondet:14:3", function () {
   let id = 213;
   addMark_stream_as_read(id);
   tryToAddExistingMark_stream_as_read(id);
@@ -674,7 +674,7 @@ bp.registerBThread("crud:mark_stream_as_read:nondet:14:3", function () {
 });
 
 // ---- crud:mark_stream_as_read:nondet:14:4 ----
-bp.registerBThread("crud:mark_stream_as_read:nondet:14:4", function () {
+bthread("crud:mark_stream_as_read:nondet:14:4", function () {
   let id = 214;
   addMark_stream_as_read(id);
   tryToAddExistingMark_stream_as_read(id);
@@ -685,7 +685,7 @@ bp.registerBThread("crud:mark_stream_as_read:nondet:14:4", function () {
 });
 
 // ---- crud:mark_topic_as_read:nondet:15:1 ----
-bp.registerBThread("crud:mark_topic_as_read:nondet:15:1", function () {
+bthread("crud:mark_topic_as_read:nondet:15:1", function () {
   let id = 214;
   addMark_topic_as_read(id);
   tryToAddExistingMark_topic_as_read(id);
@@ -698,7 +698,7 @@ bp.registerBThread("crud:mark_topic_as_read:nondet:15:1", function () {
 });
 
 // ---- crud:mark_topic_as_read:nondet:15:2 ----
-bp.registerBThread("crud:mark_topic_as_read:nondet:15:2", function () {
+bthread("crud:mark_topic_as_read:nondet:15:2", function () {
   let id = 214;
   addMark_topic_as_read(id);
   tryToAddExistingMark_topic_as_read(id);
@@ -711,7 +711,7 @@ bp.registerBThread("crud:mark_topic_as_read:nondet:15:2", function () {
 });
 
 // ---- crud:mark_topic_as_read:nondet:15:3 ----
-bp.registerBThread("crud:mark_topic_as_read:nondet:15:3", function () {
+bthread("crud:mark_topic_as_read:nondet:15:3", function () {
   let id = 214;
   addMark_topic_as_read(id);
   tryToAddExistingMark_topic_as_read(id);
@@ -723,7 +723,7 @@ bp.registerBThread("crud:mark_topic_as_read:nondet:15:3", function () {
 });
 
 // ---- crud:mark_topic_as_read:nondet:15:4 ----
-bp.registerBThread("crud:mark_topic_as_read:nondet:15:4", function () {
+bthread("crud:mark_topic_as_read:nondet:15:4", function () {
   let id = 215;
   addMark_topic_as_read(id);
   tryToAddExistingMark_topic_as_read(id);
@@ -734,7 +734,7 @@ bp.registerBThread("crud:mark_topic_as_read:nondet:15:4", function () {
 });
 
 // ---- crud:message:nondet:16:1 ----
-bp.registerBThread("crud:message:nondet:16:1", function () {
+bthread("crud:message:nondet:16:1", function () {
   let message_id = 215;
   addMessage(message_id);
   tryToAddExistingMessage(message_id);
@@ -747,7 +747,7 @@ bp.registerBThread("crud:message:nondet:16:1", function () {
 });
 
 // ---- crud:message:nondet:16:2 ----
-bp.registerBThread("crud:message:nondet:16:2", function () {
+bthread("crud:message:nondet:16:2", function () {
   let message_id = 215;
   addMessage(message_id);
   tryToAddExistingMessage(message_id);
@@ -760,7 +760,7 @@ bp.registerBThread("crud:message:nondet:16:2", function () {
 });
 
 // ---- crud:message:nondet:16:3 ----
-bp.registerBThread("crud:message:nondet:16:3", function () {
+bthread("crud:message:nondet:16:3", function () {
   let message_id = 215;
   addMessage(message_id);
   tryToAddExistingMessage(message_id);
@@ -772,7 +772,7 @@ bp.registerBThread("crud:message:nondet:16:3", function () {
 });
 
 // ---- crud:message:nondet:16:4 ----
-bp.registerBThread("crud:message:nondet:16:4", function () {
+bthread("crud:message:nondet:16:4", function () {
   let message_id = 216;
   addMessage(message_id);
   tryToAddExistingMessage(message_id);
@@ -783,7 +783,7 @@ bp.registerBThread("crud:message:nondet:16:4", function () {
 });
 
 // ---- crud:mobile_push:nondet:17:1 ----
-bp.registerBThread("crud:mobile_push:nondet:17:1", function () {
+bthread("crud:mobile_push:nondet:17:1", function () {
   let id = 216;
   addMobile_push(id);
   tryToAddExistingMobile_push(id);
@@ -796,7 +796,7 @@ bp.registerBThread("crud:mobile_push:nondet:17:1", function () {
 });
 
 // ---- crud:mobile_push:nondet:17:2 ----
-bp.registerBThread("crud:mobile_push:nondet:17:2", function () {
+bthread("crud:mobile_push:nondet:17:2", function () {
   let id = 216;
   addMobile_push(id);
   tryToAddExistingMobile_push(id);
@@ -809,7 +809,7 @@ bp.registerBThread("crud:mobile_push:nondet:17:2", function () {
 });
 
 // ---- crud:mobile_push:nondet:17:3 ----
-bp.registerBThread("crud:mobile_push:nondet:17:3", function () {
+bthread("crud:mobile_push:nondet:17:3", function () {
   let id = 216;
   addMobile_push(id);
   tryToAddExistingMobile_push(id);
@@ -821,7 +821,7 @@ bp.registerBThread("crud:mobile_push:nondet:17:3", function () {
 });
 
 // ---- crud:mobile_push:nondet:17:4 ----
-bp.registerBThread("crud:mobile_push:nondet:17:4", function () {
+bthread("crud:mobile_push:nondet:17:4", function () {
   let id = 217;
   addMobile_push(id);
   tryToAddExistingMobile_push(id);
@@ -832,7 +832,7 @@ bp.registerBThread("crud:mobile_push:nondet:17:4", function () {
 });
 
 // ---- crud:navigation_view:nondet:18:1 ----
-bp.registerBThread("crud:navigation_view:nondet:18:1", function () {
+bthread("crud:navigation_view:nondet:18:1", function () {
   let fragment = "fragment_217";
   addNavigation_view(fragment);
   tryToAddExistingNavigation_view(fragment);
@@ -845,7 +845,7 @@ bp.registerBThread("crud:navigation_view:nondet:18:1", function () {
 });
 
 // ---- crud:navigation_view:nondet:18:2 ----
-bp.registerBThread("crud:navigation_view:nondet:18:2", function () {
+bthread("crud:navigation_view:nondet:18:2", function () {
   let fragment = "fragment_217";
   addNavigation_view(fragment);
   tryToAddExistingNavigation_view(fragment);
@@ -858,7 +858,7 @@ bp.registerBThread("crud:navigation_view:nondet:18:2", function () {
 });
 
 // ---- crud:navigation_view:nondet:18:3 ----
-bp.registerBThread("crud:navigation_view:nondet:18:3", function () {
+bthread("crud:navigation_view:nondet:18:3", function () {
   let fragment = "fragment_217";
   addNavigation_view(fragment);
   tryToAddExistingNavigation_view(fragment);
@@ -870,7 +870,7 @@ bp.registerBThread("crud:navigation_view:nondet:18:3", function () {
 });
 
 // ---- crud:navigation_view:nondet:18:4 ----
-bp.registerBThread("crud:navigation_view:nondet:18:4", function () {
+bthread("crud:navigation_view:nondet:18:4", function () {
   let fragment = "fragment_218";
   addNavigation_view(fragment);
   tryToAddExistingNavigation_view(fragment);
@@ -881,7 +881,7 @@ bp.registerBThread("crud:navigation_view:nondet:18:4", function () {
 });
 
 // ---- crud:real_time:nondet:19:1 ----
-bp.registerBThread("crud:real_time:nondet:19:1", function () {
+bthread("crud:real_time:nondet:19:1", function () {
   let id = 218;
   addReal_time(id);
   tryToAddExistingReal_time(id);
@@ -894,7 +894,7 @@ bp.registerBThread("crud:real_time:nondet:19:1", function () {
 });
 
 // ---- crud:real_time:nondet:19:2 ----
-bp.registerBThread("crud:real_time:nondet:19:2", function () {
+bthread("crud:real_time:nondet:19:2", function () {
   let id = 218;
   addReal_time(id);
   tryToAddExistingReal_time(id);
@@ -907,7 +907,7 @@ bp.registerBThread("crud:real_time:nondet:19:2", function () {
 });
 
 // ---- crud:real_time:nondet:19:3 ----
-bp.registerBThread("crud:real_time:nondet:19:3", function () {
+bthread("crud:real_time:nondet:19:3", function () {
   let id = 218;
   addReal_time(id);
   tryToAddExistingReal_time(id);
@@ -919,7 +919,7 @@ bp.registerBThread("crud:real_time:nondet:19:3", function () {
 });
 
 // ---- crud:real_time:nondet:19:4 ----
-bp.registerBThread("crud:real_time:nondet:19:4", function () {
+bthread("crud:real_time:nondet:19:4", function () {
   let id = 219;
   addReal_time(id);
   tryToAddExistingReal_time(id);
@@ -930,7 +930,7 @@ bp.registerBThread("crud:real_time:nondet:19:4", function () {
 });
 
 // ---- crud:realm:nondet:20:1 ----
-bp.registerBThread("crud:realm:nondet:20:1", function () {
+bthread("crud:realm:nondet:20:1", function () {
   let emoji_name = "emoji_name_219";
   let filter_id = 219;
   let playground_id = 219;
@@ -945,7 +945,7 @@ bp.registerBThread("crud:realm:nondet:20:1", function () {
 });
 
 // ---- crud:realm:nondet:20:2 ----
-bp.registerBThread("crud:realm:nondet:20:2", function () {
+bthread("crud:realm:nondet:20:2", function () {
   let emoji_name = "emoji_name_219";
   let filter_id = 219;
   let playground_id = 219;
@@ -960,7 +960,7 @@ bp.registerBThread("crud:realm:nondet:20:2", function () {
 });
 
 // ---- crud:realm:nondet:20:3 ----
-bp.registerBThread("crud:realm:nondet:20:3", function () {
+bthread("crud:realm:nondet:20:3", function () {
   let emoji_name = "emoji_name_219";
   let filter_id = 219;
   let playground_id = 219;
@@ -974,7 +974,7 @@ bp.registerBThread("crud:realm:nondet:20:3", function () {
 });
 
 // ---- crud:realm:nondet:20:4 ----
-bp.registerBThread("crud:realm:nondet:20:4", function () {
+bthread("crud:realm:nondet:20:4", function () {
   let emoji_name = "emoji_name_220";
   let filter_id = 220;
   let playground_id = 220;
@@ -987,7 +987,7 @@ bp.registerBThread("crud:realm:nondet:20:4", function () {
 });
 
 // ---- crud:register:nondet:21:1 ----
-bp.registerBThread("crud:register:nondet:21:1", function () {
+bthread("crud:register:nondet:21:1", function () {
   let id = 220;
   addRegister(id);
   tryToAddExistingRegister(id);
@@ -1000,7 +1000,7 @@ bp.registerBThread("crud:register:nondet:21:1", function () {
 });
 
 // ---- crud:register:nondet:21:2 ----
-bp.registerBThread("crud:register:nondet:21:2", function () {
+bthread("crud:register:nondet:21:2", function () {
   let id = 220;
   addRegister(id);
   tryToAddExistingRegister(id);
@@ -1013,7 +1013,7 @@ bp.registerBThread("crud:register:nondet:21:2", function () {
 });
 
 // ---- crud:register:nondet:21:3 ----
-bp.registerBThread("crud:register:nondet:21:3", function () {
+bthread("crud:register:nondet:21:3", function () {
   let id = 220;
   addRegister(id);
   tryToAddExistingRegister(id);
@@ -1025,7 +1025,7 @@ bp.registerBThread("crud:register:nondet:21:3", function () {
 });
 
 // ---- crud:register:nondet:21:4 ----
-bp.registerBThread("crud:register:nondet:21:4", function () {
+bthread("crud:register:nondet:21:4", function () {
   let id = 221;
   addRegister(id);
   tryToAddExistingRegister(id);
@@ -1036,7 +1036,7 @@ bp.registerBThread("crud:register:nondet:21:4", function () {
 });
 
 // ---- crud:reminder:nondet:22:1 ----
-bp.registerBThread("crud:reminder:nondet:22:1", function () {
+bthread("crud:reminder:nondet:22:1", function () {
   let reminder_id = 221;
   addReminder(reminder_id);
   tryToAddExistingReminder(reminder_id);
@@ -1049,7 +1049,7 @@ bp.registerBThread("crud:reminder:nondet:22:1", function () {
 });
 
 // ---- crud:reminder:nondet:22:2 ----
-bp.registerBThread("crud:reminder:nondet:22:2", function () {
+bthread("crud:reminder:nondet:22:2", function () {
   let reminder_id = 221;
   addReminder(reminder_id);
   tryToAddExistingReminder(reminder_id);
@@ -1062,7 +1062,7 @@ bp.registerBThread("crud:reminder:nondet:22:2", function () {
 });
 
 // ---- crud:reminder:nondet:22:3 ----
-bp.registerBThread("crud:reminder:nondet:22:3", function () {
+bthread("crud:reminder:nondet:22:3", function () {
   let reminder_id = 221;
   addReminder(reminder_id);
   tryToAddExistingReminder(reminder_id);
@@ -1074,7 +1074,7 @@ bp.registerBThread("crud:reminder:nondet:22:3", function () {
 });
 
 // ---- crud:reminder:nondet:22:4 ----
-bp.registerBThread("crud:reminder:nondet:22:4", function () {
+bthread("crud:reminder:nondet:22:4", function () {
   let reminder_id = 222;
   addReminder(reminder_id);
   tryToAddExistingReminder(reminder_id);
@@ -1085,7 +1085,7 @@ bp.registerBThread("crud:reminder:nondet:22:4", function () {
 });
 
 // ---- crud:remote:nondet:23:1 ----
-bp.registerBThread("crud:remote:nondet:23:1", function () {
+bthread("crud:remote:nondet:23:1", function () {
   let id = 222;
   addRemote(id);
   tryToAddExistingRemote(id);
@@ -1098,7 +1098,7 @@ bp.registerBThread("crud:remote:nondet:23:1", function () {
 });
 
 // ---- crud:remote:nondet:23:2 ----
-bp.registerBThread("crud:remote:nondet:23:2", function () {
+bthread("crud:remote:nondet:23:2", function () {
   let id = 222;
   addRemote(id);
   tryToAddExistingRemote(id);
@@ -1111,7 +1111,7 @@ bp.registerBThread("crud:remote:nondet:23:2", function () {
 });
 
 // ---- crud:remote:nondet:23:3 ----
-bp.registerBThread("crud:remote:nondet:23:3", function () {
+bthread("crud:remote:nondet:23:3", function () {
   let id = 222;
   addRemote(id);
   tryToAddExistingRemote(id);
@@ -1123,7 +1123,7 @@ bp.registerBThread("crud:remote:nondet:23:3", function () {
 });
 
 // ---- crud:remote:nondet:23:4 ----
-bp.registerBThread("crud:remote:nondet:23:4", function () {
+bthread("crud:remote:nondet:23:4", function () {
   let id = 223;
   addRemote(id);
   tryToAddExistingRemote(id);
@@ -1134,7 +1134,7 @@ bp.registerBThread("crud:remote:nondet:23:4", function () {
 });
 
 // ---- crud:rest_error_handling:nondet:24:1 ----
-bp.registerBThread("crud:rest_error_handling:nondet:24:1", function () {
+bthread("crud:rest_error_handling:nondet:24:1", function () {
   let id = 223;
   addRest_error_handling(id);
   tryToAddExistingRest_error_handling(id);
@@ -1147,7 +1147,7 @@ bp.registerBThread("crud:rest_error_handling:nondet:24:1", function () {
 });
 
 // ---- crud:rest_error_handling:nondet:24:2 ----
-bp.registerBThread("crud:rest_error_handling:nondet:24:2", function () {
+bthread("crud:rest_error_handling:nondet:24:2", function () {
   let id = 223;
   addRest_error_handling(id);
   tryToAddExistingRest_error_handling(id);
@@ -1160,7 +1160,7 @@ bp.registerBThread("crud:rest_error_handling:nondet:24:2", function () {
 });
 
 // ---- crud:rest_error_handling:nondet:24:3 ----
-bp.registerBThread("crud:rest_error_handling:nondet:24:3", function () {
+bthread("crud:rest_error_handling:nondet:24:3", function () {
   let id = 223;
   addRest_error_handling(id);
   tryToAddExistingRest_error_handling(id);
@@ -1172,7 +1172,7 @@ bp.registerBThread("crud:rest_error_handling:nondet:24:3", function () {
 });
 
 // ---- crud:rest_error_handling:nondet:24:4 ----
-bp.registerBThread("crud:rest_error_handling:nondet:24:4", function () {
+bthread("crud:rest_error_handling:nondet:24:4", function () {
   let id = 224;
   addRest_error_handling(id);
   tryToAddExistingRest_error_handling(id);
@@ -1183,7 +1183,7 @@ bp.registerBThread("crud:rest_error_handling:nondet:24:4", function () {
 });
 
 // ---- crud:saved_snippet:nondet:25:1 ----
-bp.registerBThread("crud:saved_snippet:nondet:25:1", function () {
+bthread("crud:saved_snippet:nondet:25:1", function () {
   let saved_snippet_id = 224;
   addSaved_snippet(saved_snippet_id);
   tryToAddExistingSaved_snippet(saved_snippet_id);
@@ -1196,7 +1196,7 @@ bp.registerBThread("crud:saved_snippet:nondet:25:1", function () {
 });
 
 // ---- crud:saved_snippet:nondet:25:2 ----
-bp.registerBThread("crud:saved_snippet:nondet:25:2", function () {
+bthread("crud:saved_snippet:nondet:25:2", function () {
   let saved_snippet_id = 224;
   addSaved_snippet(saved_snippet_id);
   tryToAddExistingSaved_snippet(saved_snippet_id);
@@ -1209,7 +1209,7 @@ bp.registerBThread("crud:saved_snippet:nondet:25:2", function () {
 });
 
 // ---- crud:saved_snippet:nondet:25:3 ----
-bp.registerBThread("crud:saved_snippet:nondet:25:3", function () {
+bthread("crud:saved_snippet:nondet:25:3", function () {
   let saved_snippet_id = 224;
   addSaved_snippet(saved_snippet_id);
   tryToAddExistingSaved_snippet(saved_snippet_id);
@@ -1221,7 +1221,7 @@ bp.registerBThread("crud:saved_snippet:nondet:25:3", function () {
 });
 
 // ---- crud:saved_snippet:nondet:25:4 ----
-bp.registerBThread("crud:saved_snippet:nondet:25:4", function () {
+bthread("crud:saved_snippet:nondet:25:4", function () {
   let saved_snippet_id = 225;
   addSaved_snippet(saved_snippet_id);
   tryToAddExistingSaved_snippet(saved_snippet_id);
@@ -1232,7 +1232,7 @@ bp.registerBThread("crud:saved_snippet:nondet:25:4", function () {
 });
 
 // ---- crud:scheduled_message:nondet:26:1 ----
-bp.registerBThread("crud:scheduled_message:nondet:26:1", function () {
+bthread("crud:scheduled_message:nondet:26:1", function () {
   let scheduled_message_id = 225;
   addScheduled_message(scheduled_message_id);
   tryToAddExistingScheduled_message(scheduled_message_id);
@@ -1245,7 +1245,7 @@ bp.registerBThread("crud:scheduled_message:nondet:26:1", function () {
 });
 
 // ---- crud:scheduled_message:nondet:26:2 ----
-bp.registerBThread("crud:scheduled_message:nondet:26:2", function () {
+bthread("crud:scheduled_message:nondet:26:2", function () {
   let scheduled_message_id = 225;
   addScheduled_message(scheduled_message_id);
   tryToAddExistingScheduled_message(scheduled_message_id);
@@ -1258,7 +1258,7 @@ bp.registerBThread("crud:scheduled_message:nondet:26:2", function () {
 });
 
 // ---- crud:scheduled_message:nondet:26:3 ----
-bp.registerBThread("crud:scheduled_message:nondet:26:3", function () {
+bthread("crud:scheduled_message:nondet:26:3", function () {
   let scheduled_message_id = 225;
   addScheduled_message(scheduled_message_id);
   tryToAddExistingScheduled_message(scheduled_message_id);
@@ -1270,7 +1270,7 @@ bp.registerBThread("crud:scheduled_message:nondet:26:3", function () {
 });
 
 // ---- crud:scheduled_message:nondet:26:4 ----
-bp.registerBThread("crud:scheduled_message:nondet:26:4", function () {
+bthread("crud:scheduled_message:nondet:26:4", function () {
   let scheduled_message_id = 226;
   addScheduled_message(scheduled_message_id);
   tryToAddExistingScheduled_message(scheduled_message_id);
@@ -1281,7 +1281,7 @@ bp.registerBThread("crud:scheduled_message:nondet:26:4", function () {
 });
 
 // ---- crud:server_setting:nondet:27:1 ----
-bp.registerBThread("crud:server_setting:nondet:27:1", function () {
+bthread("crud:server_setting:nondet:27:1", function () {
   let id = 226;
   addServer_setting(id);
   tryToAddExistingServer_setting(id);
@@ -1294,7 +1294,7 @@ bp.registerBThread("crud:server_setting:nondet:27:1", function () {
 });
 
 // ---- crud:server_setting:nondet:27:2 ----
-bp.registerBThread("crud:server_setting:nondet:27:2", function () {
+bthread("crud:server_setting:nondet:27:2", function () {
   let id = 226;
   addServer_setting(id);
   tryToAddExistingServer_setting(id);
@@ -1307,7 +1307,7 @@ bp.registerBThread("crud:server_setting:nondet:27:2", function () {
 });
 
 // ---- crud:server_setting:nondet:27:3 ----
-bp.registerBThread("crud:server_setting:nondet:27:3", function () {
+bthread("crud:server_setting:nondet:27:3", function () {
   let id = 226;
   addServer_setting(id);
   tryToAddExistingServer_setting(id);
@@ -1319,7 +1319,7 @@ bp.registerBThread("crud:server_setting:nondet:27:3", function () {
 });
 
 // ---- crud:server_setting:nondet:27:4 ----
-bp.registerBThread("crud:server_setting:nondet:27:4", function () {
+bthread("crud:server_setting:nondet:27:4", function () {
   let id = 227;
   addServer_setting(id);
   tryToAddExistingServer_setting(id);
@@ -1330,7 +1330,7 @@ bp.registerBThread("crud:server_setting:nondet:27:4", function () {
 });
 
 // ---- crud:setting:nondet:28:1 ----
-bp.registerBThread("crud:setting:nondet:28:1", function () {
+bthread("crud:setting:nondet:28:1", function () {
   let id = 227;
   addSetting(id);
   tryToAddExistingSetting(id);
@@ -1343,7 +1343,7 @@ bp.registerBThread("crud:setting:nondet:28:1", function () {
 });
 
 // ---- crud:setting:nondet:28:2 ----
-bp.registerBThread("crud:setting:nondet:28:2", function () {
+bthread("crud:setting:nondet:28:2", function () {
   let id = 227;
   addSetting(id);
   tryToAddExistingSetting(id);
@@ -1356,7 +1356,7 @@ bp.registerBThread("crud:setting:nondet:28:2", function () {
 });
 
 // ---- crud:setting:nondet:28:3 ----
-bp.registerBThread("crud:setting:nondet:28:3", function () {
+bthread("crud:setting:nondet:28:3", function () {
   let id = 227;
   addSetting(id);
   tryToAddExistingSetting(id);
@@ -1368,7 +1368,7 @@ bp.registerBThread("crud:setting:nondet:28:3", function () {
 });
 
 // ---- crud:setting:nondet:28:4 ----
-bp.registerBThread("crud:setting:nondet:28:4", function () {
+bthread("crud:setting:nondet:28:4", function () {
   let id = 228;
   addSetting(id);
   tryToAddExistingSetting(id);
@@ -1379,7 +1379,7 @@ bp.registerBThread("crud:setting:nondet:28:4", function () {
 });
 
 // ---- crud:stream:nondet:29:1 ----
-bp.registerBThread("crud:stream:nondet:29:1", function () {
+bthread("crud:stream:nondet:29:1", function () {
   let stream_id = 228;
   addStream(stream_id);
   tryToAddExistingStream(stream_id);
@@ -1392,7 +1392,7 @@ bp.registerBThread("crud:stream:nondet:29:1", function () {
 });
 
 // ---- crud:stream:nondet:29:2 ----
-bp.registerBThread("crud:stream:nondet:29:2", function () {
+bthread("crud:stream:nondet:29:2", function () {
   let stream_id = 228;
   addStream(stream_id);
   tryToAddExistingStream(stream_id);
@@ -1405,7 +1405,7 @@ bp.registerBThread("crud:stream:nondet:29:2", function () {
 });
 
 // ---- crud:stream:nondet:29:3 ----
-bp.registerBThread("crud:stream:nondet:29:3", function () {
+bthread("crud:stream:nondet:29:3", function () {
   let stream_id = 228;
   addStream(stream_id);
   tryToAddExistingStream(stream_id);
@@ -1417,7 +1417,7 @@ bp.registerBThread("crud:stream:nondet:29:3", function () {
 });
 
 // ---- crud:stream:nondet:29:4 ----
-bp.registerBThread("crud:stream:nondet:29:4", function () {
+bthread("crud:stream:nondet:29:4", function () {
   let stream_id = 229;
   addStream(stream_id);
   tryToAddExistingStream(stream_id);
@@ -1428,7 +1428,7 @@ bp.registerBThread("crud:stream:nondet:29:4", function () {
 });
 
 // ---- crud:typing:nondet:30:1 ----
-bp.registerBThread("crud:typing:nondet:30:1", function () {
+bthread("crud:typing:nondet:30:1", function () {
   let id = 229;
   addTyping(id);
   tryToAddExistingTyping(id);
@@ -1441,7 +1441,7 @@ bp.registerBThread("crud:typing:nondet:30:1", function () {
 });
 
 // ---- crud:typing:nondet:30:2 ----
-bp.registerBThread("crud:typing:nondet:30:2", function () {
+bthread("crud:typing:nondet:30:2", function () {
   let id = 229;
   addTyping(id);
   tryToAddExistingTyping(id);
@@ -1454,7 +1454,7 @@ bp.registerBThread("crud:typing:nondet:30:2", function () {
 });
 
 // ---- crud:typing:nondet:30:3 ----
-bp.registerBThread("crud:typing:nondet:30:3", function () {
+bthread("crud:typing:nondet:30:3", function () {
   let id = 229;
   addTyping(id);
   tryToAddExistingTyping(id);
@@ -1466,7 +1466,7 @@ bp.registerBThread("crud:typing:nondet:30:3", function () {
 });
 
 // ---- crud:typing:nondet:30:4 ----
-bp.registerBThread("crud:typing:nondet:30:4", function () {
+bthread("crud:typing:nondet:30:4", function () {
   let id = 230;
   addTyping(id);
   tryToAddExistingTyping(id);
@@ -1477,7 +1477,7 @@ bp.registerBThread("crud:typing:nondet:30:4", function () {
 });
 
 // ---- crud:user_group:nondet:31:1 ----
-bp.registerBThread("crud:user_group:nondet:31:1", function () {
+bthread("crud:user_group:nondet:31:1", function () {
   let user_group_id = 230;
   let user_id = 230;
   addUser_group(user_group_id, user_id);
@@ -1491,7 +1491,7 @@ bp.registerBThread("crud:user_group:nondet:31:1", function () {
 });
 
 // ---- crud:user_group:nondet:31:2 ----
-bp.registerBThread("crud:user_group:nondet:31:2", function () {
+bthread("crud:user_group:nondet:31:2", function () {
   let user_group_id = 230;
   let user_id = 230;
   addUser_group(user_group_id, user_id);
@@ -1505,7 +1505,7 @@ bp.registerBThread("crud:user_group:nondet:31:2", function () {
 });
 
 // ---- crud:user_group:nondet:31:3 ----
-bp.registerBThread("crud:user_group:nondet:31:3", function () {
+bthread("crud:user_group:nondet:31:3", function () {
   let user_group_id = 230;
   let user_id = 230;
   addUser_group(user_group_id, user_id);
@@ -1518,7 +1518,7 @@ bp.registerBThread("crud:user_group:nondet:31:3", function () {
 });
 
 // ---- crud:user_group:nondet:31:4 ----
-bp.registerBThread("crud:user_group:nondet:31:4", function () {
+bthread("crud:user_group:nondet:31:4", function () {
   let user_group_id = 231;
   let user_id = 231;
   addUser_group(user_group_id, user_id);
@@ -1530,7 +1530,7 @@ bp.registerBThread("crud:user_group:nondet:31:4", function () {
 });
 
 // ---- crud:user_topic:nondet:32:1 ----
-bp.registerBThread("crud:user_topic:nondet:32:1", function () {
+bthread("crud:user_topic:nondet:32:1", function () {
   let id = 231;
   addUser_topic(id);
   tryToAddExistingUser_topic(id);
@@ -1543,7 +1543,7 @@ bp.registerBThread("crud:user_topic:nondet:32:1", function () {
 });
 
 // ---- crud:user_topic:nondet:32:2 ----
-bp.registerBThread("crud:user_topic:nondet:32:2", function () {
+bthread("crud:user_topic:nondet:32:2", function () {
   let id = 231;
   addUser_topic(id);
   tryToAddExistingUser_topic(id);
@@ -1556,7 +1556,7 @@ bp.registerBThread("crud:user_topic:nondet:32:2", function () {
 });
 
 // ---- crud:user_topic:nondet:32:3 ----
-bp.registerBThread("crud:user_topic:nondet:32:3", function () {
+bthread("crud:user_topic:nondet:32:3", function () {
   let id = 231;
   addUser_topic(id);
   tryToAddExistingUser_topic(id);
@@ -1568,7 +1568,7 @@ bp.registerBThread("crud:user_topic:nondet:32:3", function () {
 });
 
 // ---- crud:user_topic:nondet:32:4 ----
-bp.registerBThread("crud:user_topic:nondet:32:4", function () {
+bthread("crud:user_topic:nondet:32:4", function () {
   let id = 232;
   addUser_topic(id);
   tryToAddExistingUser_topic(id);
@@ -1579,7 +1579,7 @@ bp.registerBThread("crud:user_topic:nondet:32:4", function () {
 });
 
 // ---- crud:user_upload:nondet:33:1 ----
-bp.registerBThread("crud:user_upload:nondet:33:1", function () {
+bthread("crud:user_upload:nondet:33:1", function () {
   let realm_id_str = "realm_id_str_232";
   let filename = "filename_232";
   addUser_upload(realm_id_str, filename);
@@ -1593,7 +1593,7 @@ bp.registerBThread("crud:user_upload:nondet:33:1", function () {
 });
 
 // ---- crud:user_upload:nondet:33:2 ----
-bp.registerBThread("crud:user_upload:nondet:33:2", function () {
+bthread("crud:user_upload:nondet:33:2", function () {
   let realm_id_str = "realm_id_str_232";
   let filename = "filename_232";
   addUser_upload(realm_id_str, filename);
@@ -1607,7 +1607,7 @@ bp.registerBThread("crud:user_upload:nondet:33:2", function () {
 });
 
 // ---- crud:user_upload:nondet:33:3 ----
-bp.registerBThread("crud:user_upload:nondet:33:3", function () {
+bthread("crud:user_upload:nondet:33:3", function () {
   let realm_id_str = "realm_id_str_232";
   let filename = "filename_232";
   addUser_upload(realm_id_str, filename);
@@ -1620,7 +1620,7 @@ bp.registerBThread("crud:user_upload:nondet:33:3", function () {
 });
 
 // ---- crud:user_upload:nondet:33:4 ----
-bp.registerBThread("crud:user_upload:nondet:33:4", function () {
+bthread("crud:user_upload:nondet:33:4", function () {
   let realm_id_str = "realm_id_str_233";
   let filename = "filename_233";
   addUser_upload(realm_id_str, filename);
@@ -1632,7 +1632,7 @@ bp.registerBThread("crud:user_upload:nondet:33:4", function () {
 });
 
 // ---- crud:user:nondet:34:1 ----
-bp.registerBThread("crud:user:nondet:34:1", function () {
+bthread("crud:user:nondet:34:1", function () {
   let user_id = 233;
   let stream_id = 233;
   let muted_user_id = 233;
@@ -1649,7 +1649,7 @@ bp.registerBThread("crud:user:nondet:34:1", function () {
 });
 
 // ---- crud:user:nondet:34:2 ----
-bp.registerBThread("crud:user:nondet:34:2", function () {
+bthread("crud:user:nondet:34:2", function () {
   let user_id = 233;
   let stream_id = 233;
   let muted_user_id = 233;
@@ -1666,7 +1666,7 @@ bp.registerBThread("crud:user:nondet:34:2", function () {
 });
 
 // ---- crud:user:nondet:34:3 ----
-bp.registerBThread("crud:user:nondet:34:3", function () {
+bthread("crud:user:nondet:34:3", function () {
   let user_id = 233;
   let stream_id = 233;
   let muted_user_id = 233;
@@ -1682,7 +1682,7 @@ bp.registerBThread("crud:user:nondet:34:3", function () {
 });
 
 // ---- crud:user:nondet:34:4 ----
-bp.registerBThread("crud:user:nondet:34:4", function () {
+bthread("crud:user:nondet:34:4", function () {
   let user_id = 234;
   let stream_id = 234;
   let muted_user_id = 234;
@@ -1697,7 +1697,7 @@ bp.registerBThread("crud:user:nondet:34:4", function () {
 });
 
 // ---- crud:zulip_outgoing_webhook:nondet:35:1 ----
-bp.registerBThread("crud:zulip_outgoing_webhook:nondet:35:1", function () {
+bthread("crud:zulip_outgoing_webhook:nondet:35:1", function () {
   let id = 234;
   addZulip_outgoing_webhook(id);
   tryToAddExistingZulip_outgoing_webhook(id);
@@ -1710,7 +1710,7 @@ bp.registerBThread("crud:zulip_outgoing_webhook:nondet:35:1", function () {
 });
 
 // ---- crud:zulip_outgoing_webhook:nondet:35:2 ----
-bp.registerBThread("crud:zulip_outgoing_webhook:nondet:35:2", function () {
+bthread("crud:zulip_outgoing_webhook:nondet:35:2", function () {
   let id = 234;
   addZulip_outgoing_webhook(id);
   tryToAddExistingZulip_outgoing_webhook(id);
@@ -1723,7 +1723,7 @@ bp.registerBThread("crud:zulip_outgoing_webhook:nondet:35:2", function () {
 });
 
 // ---- crud:zulip_outgoing_webhook:nondet:35:3 ----
-bp.registerBThread("crud:zulip_outgoing_webhook:nondet:35:3", function () {
+bthread("crud:zulip_outgoing_webhook:nondet:35:3", function () {
   let id = 234;
   addZulip_outgoing_webhook(id);
   tryToAddExistingZulip_outgoing_webhook(id);
@@ -1735,7 +1735,7 @@ bp.registerBThread("crud:zulip_outgoing_webhook:nondet:35:3", function () {
 });
 
 // ---- crud:zulip_outgoing_webhook:nondet:35:4 ----
-bp.registerBThread("crud:zulip_outgoing_webhook:nondet:35:4", function () {
+bthread("crud:zulip_outgoing_webhook:nondet:35:4", function () {
   let id = 235;
   addZulip_outgoing_webhook(id);
   tryToAddExistingZulip_outgoing_webhook(id);

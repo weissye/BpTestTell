@@ -14,7 +14,7 @@
       "operationId": "createWebhook",
       "summary": "",
       "user": "admin",
-      "ideal": "Create a new webhook with specified parameters."
+      "ideal": "Create a new webhook with the specified configuration."
     },
     {
       "path": "/webhooks",

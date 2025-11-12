@@ -1,0 +1,243 @@
+{
+  "openapi_meta": {
+    "title": "Gitea API",
+    "version": "{{AppVer | JSEscape}}"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/admin/cron",
+      "method": "GET",
+      "tags": [
+        "admin"
+      ],
+      "summary": "List cron tasks",
+      "operationId": "adminCronList"
+    },
+    {
+      "path": "/admin/cron/{task}",
+      "method": "POST",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Run cron task",
+      "operationId": "adminCronRun"
+    },
+    {
+      "path": "/admin/emails",
+      "method": "GET",
+      "tags": [
+        "admin"
+      ],
+      "summary": "List all emails",
+      "operationId": "adminGetAllEmails"
+    },
+    {
+      "path": "/admin/emails/search",
+      "method": "GET",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Search all emails",
+      "operationId": "adminSearchEmails"
+    },
+    {
+      "path": "/admin/hooks",
+      "method": "GET",
+      "tags": [
+        "admin"
+      ],
+      "summary": "List system's webhooks",
+      "operationId": "adminListHooks"
+    },
+    {
+      "path": "/admin/hooks",
+      "method": "POST",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Create a hook",
+      "operationId": "adminCreateHook"
+    },
+    {
+      "path": "/admin/hooks/{id}",
+      "method": "GET",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Get a hook",
+      "operationId": "adminGetHook"
+    },
+    {
+      "path": "/admin/hooks/{id}",
+      "method": "DELETE",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Delete a hook",
+      "operationId": "adminDeleteHook"
+    },
+    {
+      "path": "/admin/hooks/{id}",
+      "method": "PATCH",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Update a hook",
+      "operationId": "adminEditHook"
+    },
+    {
+      "path": "/admin/orgs",
+      "method": "GET",
+      "tags": [
+        "admin"
+      ],
+      "summary": "List all organizations",
+      "operationId": "adminGetAllOrgs"
+    },
+    {
+      "path": "/admin/runners/registration-token",
+      "method": "GET",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Get an global actions runner registration token",
+      "operationId": "adminGetRunnerRegistrationToken"
+    },
+    {
+      "path": "/admin/unadopted",
+      "method": "GET",
+      "tags": [
+        "admin"
+      ],
+      "summary": "List unadopted repositories",
+      "operationId": "adminUnadoptedList"
+    },
+    {
+      "path": "/admin/unadopted/{owner}/{repo}",
+      "method": "POST",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Adopt unadopted files as a repository",
+      "operationId": "adminAdoptRepository"
+    },
+    {
+      "path": "/admin/unadopted/{owner}/{repo}",
+      "method": "DELETE",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Delete unadopted files",
+      "operationId": "adminDeleteUnadoptedRepository"
+    },
+    {
+      "path": "/admin/users",
+      "method": "GET",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Search users according filter conditions",
+      "operationId": "adminSearchUsers"
+    },
+    {
+      "path": "/admin/users",
+      "method": "POST",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Create a user",
+      "operationId": "adminCreateUser"
+    },
+    {
+      "path": "/admin/users/{username}",
+      "method": "DELETE",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Delete a user",
+      "operationId": "adminDeleteUser"
+    },
+    {
+      "path": "/admin/users/{username}",
+      "method": "PATCH",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Edit an existing user",
+      "operationId": "adminEditUser"
+    },
+    {
+      "path": "/admin/users/{username}/badges",
+      "method": "GET",
+      "tags": [
+        "admin"
+      ],
+      "summary": "List a user's badges",
+      "operationId": "adminListUserBadges"
+    },
+    {
+      "path": "/admin/users/{username}/badges",
+      "method": "POST",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Add a badge to a user",
+      "operationId": "adminAddUserBadges"
+    },
+    {
+      "path": "/admin/users/{username}/badges",
+      "method": "DELETE",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Remove a badge from a user",
+      "operationId": "adminDeleteUserBadges"
+    },
+    {
+      "path": "/admin/users/{username}/keys",
+      "method": "POST",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Add a public key on behalf of a user",
+      "operationId": "adminCreatePublicKey"
+    },
+    {
+      "path": "/admin/users/{username}/keys/{id}",
+      "method": "DELETE",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Delete a user's public key",
+      "operationId": "adminDeleteUserPublicKey"
+    },
+    {
+      "path": "/admin/users/{username}/orgs",
+      "method": "POST",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Create an organization",
+      "operationId": "adminCreateOrg"
+    },
+    {
+      "path": "/admin/users/{username}/rename",
+      "method": "POST",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Rename a user",
+      "operationId": "adminRenameUser"
+    },
+    {
+      "path": "/admin/users/{username}/repos",
+      "method": "POST",
+      "tags": [
+        "admin"
+      ],
+      "summary": "Create a repository on behalf of a user",
+      "operationId": "adminCreateRepo"
+    }
+  ]
+}

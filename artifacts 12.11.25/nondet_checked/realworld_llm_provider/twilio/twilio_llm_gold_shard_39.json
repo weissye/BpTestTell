@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/MachineToMachine.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberMachineToMachine",
+      "summary": "",
+      "user": "A developer looking to integrate Twilio's API into their application to find available machine-to-machine phone numbers in the US for a new IoT project.",
+      "ideal": "The API should return a list of available phone numbers suitable for machine-to-machine communication in the specified country."
+    }
+  ]
+}

@@ -27,13 +27,13 @@ function lifecycle_health(id) {
   verifyHealthDoesNotExist(id);
 }
 
-function lifecycle_indexe(documentId) {
-  try { tryToDeleteANonExistingIndexe(documentId); } catch (_e) {}
-  addIndexe(documentId);
-  verifyIndexeExists(documentId);
-  tryToAddExistingIndexe(documentId);
-  deleteIndexe(documentId);
-  verifyIndexeDoesNotExist(documentId);
+function lifecycle_indexe(indexUid) {
+  try { tryToDeleteANonExistingIndexe(indexUid); } catch (_e) {}
+  addIndexe(indexUid);
+  verifyIndexeExists(indexUid);
+  tryToAddExistingIndexe(indexUid);
+  deleteIndexe(indexUid);
+  verifyIndexeDoesNotExist(indexUid);
 }
 
 function lifecycle_key(uid_or_key) {

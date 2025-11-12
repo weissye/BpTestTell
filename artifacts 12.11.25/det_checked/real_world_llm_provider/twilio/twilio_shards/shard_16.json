@@ -1,0 +1,36 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json"
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams.json"
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json"
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings.json"
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json"
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json"
+    }
+  ]
+}

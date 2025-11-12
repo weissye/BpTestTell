@@ -1,0 +1,2004 @@
+{
+  "kind": "hls_gold",
+  "deterministic": true,
+  "provider": "real_world_llm_provider",
+  "sut": "github",
+  "generated_at": "2025-11-09T13:50:06.645102Z",
+  "source": {
+    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\github\\graph.json",
+    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\github\\dsl_map.json"
+  },
+  "entities": [
+    {
+      "name": "accepted_assignment",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "access",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "access_token",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "account",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "action",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "activity",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "add",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "advisory",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "alert",
+      "verbs": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "analyse",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "annotation",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "app",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "approval",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "approve",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "archive",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "artifact",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "artifact_and_log_retention",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "asset",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "assignee",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "assignment",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "attach",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "attempt",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "attestation",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "author",
+      "verbs": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "autofix",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "autolink",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "automated_security_fixe",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "billing",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "blob",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "block",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "blocked_by",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "blocking",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "branche",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "branches_where_head",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "build",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "bulk_list",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "cache",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "campaign",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "cancel",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "check_run",
+      "verbs": [
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "check_suite",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "classroom",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "clone",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "code",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "code_frequency",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "code_security_configuration",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "codes_of_conduct",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "codespace",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "collaborator",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "column",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "comment",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "commit",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "commit_activity",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "compare",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "config",
+      "verbs": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "configuration",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "conflict",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "content",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "context",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "contributor",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "conversion",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "copilot",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "cve",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "database",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "default",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "default_level",
+      "verbs": [
+        "PUT"
+      ]
+    },
+    {
+      "name": "default_setup",
+      "verbs": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "delete_request",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "delivery",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "deployment",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "deployment_branch_policy",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "deployment_protection_rule",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "detach",
+      "verbs": [
+        "DELETE"
+      ]
+    },
+    {
+      "name": "devcontainer",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "digest",
+      "verbs": [
+        "DELETE"
+      ]
+    },
+    {
+      "name": "disable",
+      "verbs": [
+        "PUT"
+      ]
+    },
+    {
+      "name": "discussion",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "dismissal",
+      "verbs": [
+        "PUT"
+      ]
+    },
+    {
+      "name": "dispatche",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "download",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "email",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "emoji",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "enable",
+      "verbs": [
+        "PUT"
+      ]
+    },
+    {
+      "name": "enforce_admin",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "environment",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "error",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "event",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "export",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "failed_invitation",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "feed",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "field",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "file",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "follower",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "following",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "force_cancel",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "fork",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "fork_pr_contributor_approval",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "fork_pr_workflows_private_repo",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "generate",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "generate_jitconfig",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "generate_note",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "gist",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "github_owned",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "gpg_key",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "grade",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "grant",
+      "verbs": [
+        "DELETE"
+      ]
+    },
+    {
+      "name": "health",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "history",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "hook",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "hosted_runner",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "hovercard",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "immutable_release",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "import",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "PUT"
+      ]
+    },
+    {
+      "name": "installation",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "installation_request",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "instance",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "interaction_limit",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "invitation",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "issue",
+      "verbs": [
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "issue_type",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "item",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "job",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "key",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "label",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "language",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "large_file",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "latest",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "lf",
+      "verbs": [
+        "PATCH"
+      ]
+    },
+    {
+      "name": "license",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "limit",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "location",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "lock",
+      "verbs": [
+        "DELETE",
+        "PUT"
+      ]
+    },
+    {
+      "name": "log",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "machine",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "machine_size",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "markdown",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "marketplace_purchase",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "matching_ref",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "member",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "membership",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "merge",
+      "verbs": [
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "merge_upstream",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "meta",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "metric",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "migration",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "milestone",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "move",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "network_configuration",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "network_setting",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "new",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "notification",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "octocat",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "org",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "organization",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "organization_role",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "organization_secret",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "organization_variable",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "outside_collaborator",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "package",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "page",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "parent",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "participation",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "partner",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "path",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "pattern_configuration",
+      "verbs": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "pending_deployment",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "permission",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "permissions_check",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "personal_access_token",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "personal_access_token_request",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "ping",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "plan",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "platform",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "preference",
+      "verbs": [
+        "PATCH"
+      ]
+    },
+    {
+      "name": "priority",
+      "verbs": [
+        "PATCH"
+      ]
+    },
+    {
+      "name": "private_registry",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "private_vulnerability_reporting",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "profile",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "project",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "projectsv2",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "protection",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "public",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "public_email",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "public_key",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "public_member",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "publish",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "pull",
+      "verbs": [
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "punch_card",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "push_protection_bypasse",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "rate_limit",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "raw",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "reaction",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "readme",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "received_event",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "ref",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "referrer",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "registration_token",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "release",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "remove",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "remove_token",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "rename",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "reply",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "repo",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "report",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "repository",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "repository_access",
+      "verbs": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "repository_invitation",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "requested_reviewer",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "required_pull_request_review",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "required_signature",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "required_status_check",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "rerequest",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "rerun",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "rerun_failed_job",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "restore",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "restriction",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "review",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "revoke",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "route_stat",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "rule_suite",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "ruleset",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "run",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "runner",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "runner_group",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "sarif",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "sbom",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "scan_history",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "schema",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "PUT"
+      ]
+    },
+    {
+      "name": "scoped",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "seat",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "secret",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "security_advisory",
+      "verbs": [
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "security_manager",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "selected_action",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "selected_team",
+      "verbs": [
+        "DELETE",
+        "POST"
+      ]
+    },
+    {
+      "name": "selected_user",
+      "verbs": [
+        "DELETE",
+        "POST"
+      ]
+    },
+    {
+      "name": "self_hosted_runner",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "shared_storage",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "snapshot",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "social_account",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "ssh_signing_key",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "star",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "stargazer",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "starred",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "start",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "statu",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "statuse",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "stop",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "storage_record",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "stubbed",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "sub",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "sub_issue",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "subject_stat",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "subscriber",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "subscription",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "summary_stat",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "suspended",
+      "verbs": [
+        "DELETE",
+        "PUT"
+      ]
+    },
+    {
+      "name": "tag",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "tarball",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "team",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "template",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "test",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "thread",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "time_stat",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "timeline",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "timing",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "token",
+      "verbs": [
+        "DELETE",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "topic",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "transfer",
+      "verbs": [
+        "POST"
+      ]
+    },
+    {
+      "name": "tree",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "update_branch",
+      "verbs": [
+        "PUT"
+      ]
+    },
+    {
+      "name": "usage",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "usage_by_repository",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "user",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST",
+        "PUT"
+      ]
+    },
+    {
+      "name": "user_stat",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "value",
+      "verbs": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "name": "variable",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PATCH",
+        "POST"
+      ]
+    },
+    {
+      "name": "variant_analyse",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "version",
+      "verbs": [
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "name": "view",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "visibility",
+      "verbs": [
+        "PATCH"
+      ]
+    },
+    {
+      "name": "vulnerability_alert",
+      "verbs": [
+        "DELETE",
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "workflow",
+      "verbs": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "name": "zen",
+      "verbs": [
+        "GET"
+      ]
+    },
+    {
+      "name": "zipball",
+      "verbs": [
+        "GET"
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "name": "CRUD accepted_assignment",
+      "desc": "Deterministic CRUD flow for entity 'accepted_assignment' inferred from graph.",
+      "entity": "accepted_assignment",
+      "js": "// Deterministic CRUD flow for entity: accepted_assignment\nbp.registerBThread(\"HLS: CRUD accepted_assignment\", function () {\n  bp.sync({request: REST.GET(\"/assignments/{assignment_id}/accepted_assignments\", {})});\n  bp.sync({request: REST.GET(\"/assignments/{assignment_id}/accepted_assignments\", {})});\n});"
+    },
+    {
+      "name": "CRUD access",
+      "desc": "Deterministic CRUD flow for entity 'access' inferred from graph.",
+      "entity": "access",
+      "js": "// Deterministic CRUD flow for entity: access\nbp.registerBThread(\"HLS: CRUD access\", function () {\n  bp.sync({request: REST.GET(\"/repos/{owner}/{repo}/actions/permissions/access\", {})});\n  bp.sync({request: REST.PUT(\"/orgs/{org}/codespaces/access\", {})});\n  bp.sync({request: REST.GET(\"/repos/{owner}/{repo}/actions/permissions/access\", {})});\n});"
+    },
+    {
+      "name": "CRUD access_token",
+      "desc": "Deterministic CRUD flow for entity 'access_token' inferred from graph.",
+      "entity": "access_token",
+      "js": "// Deterministic CRUD flow for entity: access_token\nbp.registerBThread(\"HLS: CRUD access_token\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/app/installations/{installation_id}/access_tokens\", {})});\n});"
+    },
+    {
+      "name": "CRUD account",
+      "desc": "Deterministic CRUD flow for entity 'account' inferred from graph.",
+      "entity": "account",
+      "js": "// Deterministic CRUD flow for entity: account\nbp.registerBThread(\"HLS: CRUD account\", function () {\n  bp.sync({request: REST.GET(\"/marketplace_listing/accounts/{account_id}\", {})});\n  bp.sync({request: REST.GET(\"/marketplace_listing/accounts/{account_id}\", {})});\n});"
+    }
+  ]
+}

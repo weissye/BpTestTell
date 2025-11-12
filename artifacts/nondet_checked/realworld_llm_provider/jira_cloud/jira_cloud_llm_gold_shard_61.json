@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "getDefaultProjectClassification",
       "summary": "",
-      "user": "As a project manager, I want to retrieve the default classification level for my project to ensure it aligns with our organizational standards.",
-      "ideal": "The API should return the current default classification level for the specified project, including details such as the classification name and description."
+      "user": "Project manager looking to retrieve the default classification level for a specific project to ensure it aligns with organizational standards.",
+      "ideal": "Returns the current default classification level for the specified project."
     },
     {
       "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
       "method": "PUT",
       "operationId": "updateDefaultProjectClassification",
       "summary": "",
-      "user": "As a project administrator, I need to update the default classification level for a project to reflect recent changes in our classification system.",
-      "ideal": "The API should accept the new classification level details and confirm the update, returning the updated classification level information."
+      "user": "System administrator updating the default classification level for a project to reflect new compliance requirements.",
+      "ideal": "Successfully updates the default classification level for the specified project and returns a confirmation message."
     },
     {
       "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
       "method": "DELETE",
       "operationId": "removeDefaultProjectClassification",
       "summary": "",
-      "user": "As a compliance officer, I want to remove the default classification level for a project that is no longer applicable to ensure our projects are correctly classified.",
-      "ideal": "The API should successfully delete the default classification level for the specified project and return a confirmation message indicating the deletion was successful."
+      "user": "Compliance officer removing the default classification level from a project that is no longer applicable.",
+      "ideal": "Successfully removes the default classification level for the specified project and returns a success status."
     }
   ]
 }

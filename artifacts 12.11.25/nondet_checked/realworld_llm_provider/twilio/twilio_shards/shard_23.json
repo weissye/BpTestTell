@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401CredentialListMapping"
+      ],
+      "summary": "Create a CredentialListMapping resource for an account.",
+      "operationId": "CreateSipCredentialListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401CredentialListMapping"
+      ],
+      "summary": "Read multiple CredentialListMapping resources from an account.",
+      "operationId": "ListSipCredentialListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401CredentialListMapping"
+      ],
+      "summary": "Fetch a single CredentialListMapping resource from an account.",
+      "operationId": "FetchSipCredentialListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401CredentialListMapping"
+      ],
+      "summary": "Delete a CredentialListMapping resource from an account.",
+      "operationId": "DeleteSipCredentialListMapping"
+    }
+  ]
+}

@@ -22,15 +22,15 @@
       "operationId": "getBulkPermissions",
       "summary": "",
       "user": "user789",
-      "ideal": "Check multiple permissions for the current user in a single request."
+      "ideal": "Check multiple permissions for the current user in one request."
     },
     {
       "path": "/rest/api/3/permissions/project",
       "method": "POST",
       "operationId": "getPermittedProjects",
       "summary": "",
-      "user": "projectManager101",
-      "ideal": "Get a list of projects that the user has permissions to access."
+      "user": "projectManager321",
+      "ideal": "Get a list of projects the user has permissions to access."
     }
   ]
 }

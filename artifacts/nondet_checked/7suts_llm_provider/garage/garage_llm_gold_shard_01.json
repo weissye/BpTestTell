@@ -1,260 +1,268 @@
 {
   "gold": [
     {
-      "path": "/v1/chains",
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "resetSystem",
+      "summary": "",
+      "user": "Admin user resets the system to its initial state.",
+      "ideal": "System should be reset successfully without errors."
+    },
+    {
+      "path": "/chains",
       "method": "POST",
       "operationId": "createChain",
       "summary": "",
-      "user": "Admin user creating a new chain for managing garages.",
-      "ideal": "Successfully creates a new chain and returns the chain details."
+      "user": "User creates a new chain with valid details.",
+      "ideal": "Chain is created successfully and returns the new chain ID."
     },
     {
-      "path": "/v1/chains",
+      "path": "/chains",
       "method": "GET",
-      "operationId": "listChains",
+      "operationId": "getChains",
       "summary": "",
-      "user": "Admin user retrieving a list of all chains.",
-      "ideal": "Returns a list of all chains with their details."
+      "user": "User retrieves a list of all chains.",
+      "ideal": "Returns a list of chains with their details."
     },
     {
-      "path": "/v1/chains/{chainId}",
+      "path": "/chains/{chainId}",
       "method": "GET",
       "operationId": "getChainById",
       "summary": "",
-      "user": "Admin user looking for details of a specific chain.",
+      "user": "User requests details of a specific chain by ID.",
       "ideal": "Returns the details of the specified chain."
     },
     {
-      "path": "/v1/chains/{chainId}",
+      "path": "/chains/{chainId}",
       "method": "PUT",
       "operationId": "updateChain",
       "summary": "",
-      "user": "Admin user updating the details of an existing chain.",
-      "ideal": "Successfully updates the chain and returns the updated details."
+      "user": "User updates the details of an existing chain.",
+      "ideal": "Chain details are updated successfully."
     },
     {
-      "path": "/v1/chains/{chainId}",
+      "path": "/chains/{chainId}",
       "method": "DELETE",
       "operationId": "deleteChain",
       "summary": "",
-      "user": "Admin user deleting a specific chain.",
-      "ideal": "Successfully deletes the chain and returns a confirmation message."
+      "user": "User deletes a specific chain by ID.",
+      "ideal": "Chain is deleted successfully."
     },
     {
-      "path": "/v1/garages",
+      "path": "/garages",
       "method": "POST",
       "operationId": "createGarage",
       "summary": "",
-      "user": "Admin user adding a new garage to the system.",
-      "ideal": "Successfully creates a new garage and returns its details."
+      "user": "User creates a new garage with valid information.",
+      "ideal": "Garage is created successfully and returns the new garage ID."
     },
     {
-      "path": "/v1/garages",
+      "path": "/garages",
       "method": "GET",
-      "operationId": "listGarages",
+      "operationId": "getGarages",
       "summary": "",
-      "user": "Admin user retrieving a list of all garages.",
-      "ideal": "Returns a list of all garages with their details."
+      "user": "User retrieves a list of all garages.",
+      "ideal": "Returns a list of garages with their details."
     },
     {
-      "path": "/v1/garages/{garageId}",
+      "path": "/garages/{garageId}",
       "method": "GET",
       "operationId": "getGarageById",
       "summary": "",
-      "user": "Admin user looking for details of a specific garage.",
+      "user": "User requests details of a specific garage by ID.",
       "ideal": "Returns the details of the specified garage."
     },
     {
-      "path": "/v1/garages/{garageId}",
+      "path": "/garages/{garageId}",
       "method": "PUT",
       "operationId": "updateGarage",
       "summary": "",
-      "user": "Admin user updating the details of an existing garage.",
-      "ideal": "Successfully updates the garage and returns the updated details."
+      "user": "User updates the details of an existing garage.",
+      "ideal": "Garage details are updated successfully."
     },
     {
-      "path": "/v1/garages/{garageId}",
+      "path": "/garages/{garageId}",
       "method": "DELETE",
       "operationId": "deleteGarage",
       "summary": "",
-      "user": "Admin user deleting a specific garage.",
-      "ideal": "Successfully deletes the garage and returns a confirmation message."
+      "user": "User deletes a specific garage by ID.",
+      "ideal": "Garage is deleted successfully."
     },
     {
-      "path": "/v1/customers",
+      "path": "/customers",
       "method": "POST",
       "operationId": "createCustomer",
       "summary": "",
-      "user": "Admin user adding a new customer to the system.",
-      "ideal": "Successfully creates a new customer and returns their details."
+      "user": "User creates a new customer profile.",
+      "ideal": "Customer profile is created successfully and returns the new customer ID."
     },
     {
-      "path": "/v1/customers",
+      "path": "/customers",
       "method": "GET",
-      "operationId": "listCustomers",
+      "operationId": "getCustomers",
       "summary": "",
-      "user": "Admin user retrieving a list of all customers.",
-      "ideal": "Returns a list of all customers with their details."
+      "user": "User retrieves a list of all customers.",
+      "ideal": "Returns a list of customers with their details."
     },
     {
-      "path": "/v1/customers/{customerId}",
+      "path": "/customers/{customerId}",
       "method": "GET",
       "operationId": "getCustomerById",
       "summary": "",
-      "user": "Admin user looking for details of a specific customer.",
+      "user": "User requests details of a specific customer by ID.",
       "ideal": "Returns the details of the specified customer."
     },
     {
-      "path": "/v1/customers/{customerId}",
+      "path": "/customers/{customerId}",
       "method": "PUT",
       "operationId": "updateCustomer",
       "summary": "",
-      "user": "Admin user updating the details of an existing customer.",
-      "ideal": "Successfully updates the customer and returns the updated details."
+      "user": "User updates the details of an existing customer.",
+      "ideal": "Customer details are updated successfully."
     },
     {
-      "path": "/v1/customers/{customerId}",
+      "path": "/customers/{customerId}",
       "method": "DELETE",
       "operationId": "deleteCustomer",
       "summary": "",
-      "user": "Admin user deleting a specific customer.",
-      "ideal": "Successfully deletes the customer and returns a confirmation message."
+      "user": "User deletes a specific customer by ID.",
+      "ideal": "Customer is deleted successfully."
     },
     {
-      "path": "/v1/cars",
+      "path": "/cars",
       "method": "POST",
       "operationId": "createCar",
       "summary": "",
-      "user": "Admin user adding a new car to the system.",
-      "ideal": "Successfully creates a new car and returns its details."
+      "user": "User adds a new car to the system.",
+      "ideal": "Car is added successfully and returns the new car ID."
     },
     {
-      "path": "/v1/cars",
+      "path": "/cars",
       "method": "GET",
-      "operationId": "listCars",
+      "operationId": "getCars",
       "summary": "",
-      "user": "Admin user retrieving a list of all cars.",
-      "ideal": "Returns a list of all cars with their details."
+      "user": "User retrieves a list of all cars.",
+      "ideal": "Returns a list of cars with their details."
     },
     {
-      "path": "/v1/cars/{vin}",
+      "path": "/cars/{vin}",
       "method": "GET",
       "operationId": "getCarByVin",
       "summary": "",
-      "user": "Admin user looking for details of a specific car by VIN.",
+      "user": "User requests details of a specific car by VIN.",
       "ideal": "Returns the details of the specified car."
     },
     {
-      "path": "/v1/cars/{vin}",
+      "path": "/cars/{vin}",
       "method": "PUT",
       "operationId": "updateCar",
       "summary": "",
-      "user": "Admin user updating the details of an existing car.",
-      "ideal": "Successfully updates the car and returns the updated details."
+      "user": "User updates the details of an existing car.",
+      "ideal": "Car details are updated successfully."
     },
     {
-      "path": "/v1/cars/{vin}",
+      "path": "/cars/{vin}",
       "method": "DELETE",
       "operationId": "deleteCar",
       "summary": "",
-      "user": "Admin user deleting a specific car.",
-      "ideal": "Successfully deletes the car and returns a confirmation message."
+      "user": "User deletes a specific car by VIN.",
+      "ideal": "Car is deleted successfully."
     },
     {
-      "path": "/v1/periodic-maintenance",
+      "path": "/periodic-maintenance",
       "method": "POST",
       "operationId": "createPeriodicMaintenance",
       "summary": "",
-      "user": "Admin user scheduling a new periodic maintenance.",
-      "ideal": "Successfully creates a new periodic maintenance record and returns its details."
+      "user": "User schedules a new periodic maintenance.",
+      "ideal": "Periodic maintenance is scheduled successfully and returns the new maintenance ID."
     },
     {
-      "path": "/v1/periodic-maintenance",
+      "path": "/periodic-maintenance",
       "method": "GET",
-      "operationId": "listPeriodicMaintenance",
+      "operationId": "getPeriodicMaintenance",
       "summary": "",
-      "user": "Admin user retrieving a list of all periodic maintenance records.",
-      "ideal": "Returns a list of all periodic maintenance records with their details."
+      "user": "User retrieves a list of all periodic maintenance records.",
+      "ideal": "Returns a list of periodic maintenance records with their details."
     },
     {
-      "path": "/v1/periodic-maintenance/{pmId}",
+      "path": "/periodic-maintenance/{pmId}",
       "method": "GET",
       "operationId": "getPeriodicMaintenanceById",
       "summary": "",
-      "user": "Admin user looking for details of a specific periodic maintenance record.",
-      "ideal": "Returns the details of the specified periodic maintenance record."
+      "user": "User requests details of a specific periodic maintenance by ID.",
+      "ideal": "Returns the details of the specified periodic maintenance."
     },
     {
-      "path": "/v1/periodic-maintenance/{pmId}",
+      "path": "/periodic-maintenance/{pmId}",
       "method": "PUT",
       "operationId": "updatePeriodicMaintenance",
       "summary": "",
-      "user": "Admin user updating the details of an existing periodic maintenance record.",
-      "ideal": "Successfully updates the periodic maintenance record and returns the updated details."
+      "user": "User updates the details of an existing periodic maintenance.",
+      "ideal": "Periodic maintenance details are updated successfully."
     },
     {
-      "path": "/v1/periodic-maintenance/{pmId}",
+      "path": "/periodic-maintenance/{pmId}",
       "method": "DELETE",
       "operationId": "deletePeriodicMaintenance",
       "summary": "",
-      "user": "Admin user deleting a specific periodic maintenance record.",
-      "ideal": "Successfully deletes the periodic maintenance record and returns a confirmation message."
+      "user": "User deletes a specific periodic maintenance by ID.",
+      "ideal": "Periodic maintenance record is deleted successfully."
     },
     {
-      "path": "/v1/repair-orders",
+      "path": "/repair-orders",
       "method": "POST",
       "operationId": "createRepairOrder",
       "summary": "",
-      "user": "Admin user creating a new repair order.",
-      "ideal": "Successfully creates a new repair order and returns its details."
+      "user": "User creates a new repair order.",
+      "ideal": "Repair order is created successfully and returns the new order ID."
     },
     {
-      "path": "/v1/repair-orders",
+      "path": "/repair-orders",
       "method": "GET",
-      "operationId": "listRepairOrders",
+      "operationId": "getRepairOrders",
       "summary": "",
-      "user": "Admin user retrieving a list of all repair orders.",
-      "ideal": "Returns a list of all repair orders with their details."
+      "user": "User retrieves a list of all repair orders.",
+      "ideal": "Returns a list of repair orders with their details."
     },
     {
-      "path": "/v1/repair-orders/{roId}",
+      "path": "/repair-orders/{roId}",
       "method": "GET",
       "operationId": "getRepairOrderById",
       "summary": "",
-      "user": "Admin user looking for details of a specific repair order.",
+      "user": "User requests details of a specific repair order by ID.",
       "ideal": "Returns the details of the specified repair order."
     },
     {
-      "path": "/v1/repair-orders/{roId}",
+      "path": "/repair-orders/{roId}",
       "method": "PUT",
       "operationId": "updateRepairOrder",
       "summary": "",
-      "user": "Admin user updating the details of an existing repair order.",
-      "ideal": "Successfully updates the repair order and returns the updated details."
+      "user": "User updates the details of an existing repair order.",
+      "ideal": "Repair order details are updated successfully."
     },
     {
-      "path": "/v1/repair-orders/{roId}",
+      "path": "/repair-orders/{roId}",
       "method": "DELETE",
       "operationId": "deleteRepairOrder",
       "summary": "",
-      "user": "Admin user deleting a specific repair order.",
-      "ideal": "Successfully deletes the repair order and returns a confirmation message."
+      "user": "User deletes a specific repair order by ID.",
+      "ideal": "Repair order is deleted successfully."
     },
     {
-      "path": "/v1/repair-orders/{roId}/approve",
+      "path": "/repair-orders/{roId}/approve",
       "method": "POST",
       "operationId": "approveRepairOrder",
       "summary": "",
-      "user": "Admin user approving a specific repair order.",
-      "ideal": "Successfully approves the repair order and returns a confirmation message."
+      "user": "User approves a specific repair order.",
+      "ideal": "Repair order is approved successfully."
     },
     {
-      "path": "/v1/repair-orders/{roId}/close",
+      "path": "/repair-orders/{roId}/close",
       "method": "POST",
       "operationId": "closeRepairOrder",
       "summary": "",
-      "user": "Admin user closing a specific repair order.",
-      "ideal": "Successfully closes the repair order and returns a confirmation message."
+      "user": "User closes a specific repair order.",
+      "ideal": "Repair order is closed successfully."
     }
   ]
 }

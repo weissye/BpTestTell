@@ -1,0 +1,16 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents"
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/filterable-attributes"
+    },
+    {
+      "method": "POST",
+      "path": "/keys"
+    }
+  ]
+}

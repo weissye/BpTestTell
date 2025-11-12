@@ -358,43 +358,43 @@ function verifyAssetUpdated(id) {
 /** === Auth Operations === */
 
 // CREATE
-function addAuth(provider) {
-  svc.post("/auth", { body: JSON.stringify({ provider: provider }), parameters: { description: "Add a auth with " + "provider " + provider } });
+function addAuth(id) {
+  svc.post("/auth", { body: JSON.stringify({ id: id }), parameters: { description: "Add a auth with " + "id " + id } });
 }
 
 // DELETE
-function deleteAuth(provider) {
-  svc.delete("/auth/" + provider, {
-    parameters: { description: "Delete a auth with " + "provider " + provider }
+function deleteAuth(id) {
+  svc.delete("/auth/" + id, {
+    parameters: { description: "Delete a auth with " + "id " + id }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingAuth(provider) {
-  svc.delete("/auth/" + provider, {
+function tryToDeleteANonExistingAuth(id) {
+  svc.delete("/auth/" + id, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a auth with " + "provider " + provider }
+    parameters: { description: "Delete a auth with " + "id " + id }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingAuth(provider) {
+function tryToAddExistingAuth(id) {
   svc.post("/auth", {
-    body: JSON.stringify({ provider: provider }),
-    parameters: { description: "Add a auth with " + "provider " + provider },
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a auth with " + "id " + id },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateAuth(provider) {
-  svc.put("/auth/" + provider, { body: JSON.stringify({ provider: provider }), parameters: { description: "Update a auth with " + "provider " + provider } });
+function updateAuth(id) {
+  svc.put("/auth/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a auth with " + "id " + id } });
 }
 
 // GET one
-function getAuth(provider) {
-  svc.get("/auth/" + provider, {
-    parameters: { description: "Get a auth with " + "provider " + provider }
+function getAuth(id) {
+  svc.get("/auth/" + id, {
+    parameters: { description: "Get a auth with " + "id " + id }
   });
 }
 
@@ -406,34 +406,34 @@ function listAuth() {
 }
 
 // Verify exists (by list)
-function verifyAuthExists(provider) {
+function verifyAuthExists(id) {
   svc.get("/auth", {
     callback: function (response) {
       auth = JSON.parse(response.body);
       for (let i = 0; i < auth.length; i++) {
-        if (auth[i].provider === provider) {
+        if (auth[i].id === id) {
           return pvg.success("Auth exists");
         }
       }
       return pvg.fail("Expected a auth to exist but it does not");
     },
-    parameters: { description: "Verify auth with " + "provider " + provider + " exists" }
+    parameters: { description: "Verify auth with " + "id " + id + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyAuthDoesNotExist(provider) {
+function verifyAuthDoesNotExist(id) {
   svc.get("/auth", {
     callback: function (response) {
       auth = JSON.parse(response.body);
       for (let i = 0; i < auth.length; i++) {
-        if (auth[i].provider === provider) {
+        if (auth[i].id === id) {
           return pvg.fail("Expected a auth to not exist but it does");
         }
       }
       return pvg.success("Auth does not exist");
     },
-    parameters: { description: "Verify auth with " + "provider " + provider + " does not exist" }
+    parameters: { description: "Verify auth with " + "id " + id + " does not exist" }
   });
 }
 
@@ -444,10 +444,10 @@ function matchAnyAddAuth() {
     return e.data.parameters.description.startsWith("Add a auth");
   });
 }
-function matchAddAuth(provider) {
+function matchAddAuth(id) {
   return bp.EventSet("add-auth", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a auth with " + "provider " + provider;
+    return e.data.parameters.description === "Add a auth with " + "id " + id;
   });
 }
 function matchAnyDeleteAuth() {
@@ -456,10 +456,10 @@ function matchAnyDeleteAuth() {
     return e.data.parameters.description.startsWith("Delete a auth");
   });
 }
-function matchDeleteAuth(provider) {
+function matchDeleteAuth(id) {
   return bp.EventSet("del-auth", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a auth with " + "provider " + provider;
+    return e.data.parameters.description === "Delete a auth with " + "id " + id;
   });
 }
 
@@ -470,52 +470,52 @@ function matchAnyUpdateAuth() {
     return e.data.parameters.description.startsWith("Update a auth");
   });
 }
-function matchUpdateAuth(provider) {
+function matchUpdateAuth(id) {
   return bp.EventSet("update-auth", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a auth with " + "provider " + provider;
+    return e.data.parameters.description === "Update a auth with " + "id " + id;
   });
 }
 
 // Wait helpers
 function waitForAnyAuthAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ auth\ with\ provider\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ auth\ with\ provider\ (.+)$/);
-    return { provider: m[1] };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ auth\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ auth\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
 }
-function waitForAuthAdded(provider) {
-  waitFor(matchAddAuth(provider));
+function waitForAuthAdded(id) {
+  waitFor(matchAddAuth(id));
 }
-function waitForAuthDeleted(provider) {
-  waitFor(matchDeleteAuth(provider));
+function waitForAuthDeleted(id) {
+  waitFor(matchDeleteAuth(id));
 }
 function waitForAnyAuthDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ auth\ with\ provider\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ auth\ with\ provider\ (.+)$/);
-    return { provider: m[1] };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ auth\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ auth\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
 }
-function waitForAuthUpdated(provider) {
-  waitFor(matchUpdateAuth(provider));
+function waitForAuthUpdated(id) {
+  waitFor(matchUpdateAuth(id));
 }
 function waitForAnyAuthUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ auth\ with\ provider\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ auth\ with\ provider\ (.+)$/);
-    return { provider: m[1] };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ auth\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ auth\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
 }
 
 // Verify updated (presence-by-list)
-function verifyAuthUpdated(provider) {
+function verifyAuthUpdated(id) {
   svc.get("/auth", {
     callback: function (response) {
       auth = JSON.parse(response.body);
       for (let i = 0; i < auth.length; i++) {
-        if (auth[i].provider === provider) {
+        if (auth[i].id === id) {
           return pvg.success("Auth updated (present)");
         }
       }
       return pvg.fail("Expected a auth to be present after update, but it is not");
     },
-    parameters: { description: "Verify auth with " + "provider " + provider + " exists" }
+    parameters: { description: "Verify auth with " + "id " + id + " exists" }
   });
 }
 

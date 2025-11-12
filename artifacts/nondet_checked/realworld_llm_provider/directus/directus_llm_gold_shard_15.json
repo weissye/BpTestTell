@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "getRelations",
       "summary": "",
-      "user": "A developer wants to retrieve a list of all existing relations in the Directus database to understand how different collections are linked.",
-      "ideal": "The response should include an array of relation objects, each detailing the source and target collections, as well as the type of relation."
+      "user": "A developer wants to retrieve all existing relations in the Directus database to understand how different collections are linked together.",
+      "ideal": "Returns a list of all relations with their details, including source and target collections."
     },
     {
       "path": "/relations",
@@ -14,31 +14,31 @@
       "operationId": "createRelation",
       "summary": "",
       "user": "A database administrator needs to create a new relation between the 'users' and 'posts' collections to establish a one-to-many relationship.",
-      "ideal": "The response should confirm the creation of the relation and return the newly created relation object with its ID and details."
+      "ideal": "Successfully creates a new relation and returns the details of the created relation, including its ID."
     },
     {
       "path": "/relations/{id}",
       "method": "GET",
       "operationId": "getRelation",
       "summary": "",
-      "user": "A data analyst wants to fetch details of a specific relation by its ID to analyze how it affects data integrity between collections.",
-      "ideal": "The response should return the relation object corresponding to the provided ID, including all relevant metadata."
+      "user": "A data analyst wants to fetch the details of a specific relation by its ID to analyze its configuration and usage.",
+      "ideal": "Returns the details of the specified relation, including source and target collections and any additional metadata."
     },
     {
       "path": "/relations/{id}",
       "method": "PATCH",
       "operationId": "updateRelation",
       "summary": "",
-      "user": "A software engineer needs to update an existing relation to change its type from 'one-to-many' to 'many-to-many' to better reflect the data model.",
-      "ideal": "The response should indicate success and return the updated relation object with the new type and any other modified attributes."
+      "user": "A developer needs to update an existing relation to change its target collection from 'comments' to 'feedback' for better data organization.",
+      "ideal": "Successfully updates the relation and returns the updated details of the relation."
     },
     {
       "path": "/relations/{id}",
       "method": "DELETE",
       "operationId": "deleteRelation",
       "summary": "",
-      "user": "A project manager decides to remove an obsolete relation between 'products' and 'categories' as it is no longer relevant to the current data structure.",
-      "ideal": "The response should confirm the deletion of the relation and return a success message."
+      "user": "A system administrator wants to remove an obsolete relation that is no longer needed in the database schema.",
+      "ideal": "Successfully deletes the specified relation and confirms the deletion with a success message."
     }
   ]
 }

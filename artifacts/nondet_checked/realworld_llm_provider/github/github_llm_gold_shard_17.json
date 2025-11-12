@@ -25,27 +25,27 @@
       "ideal": "Remove multiple users from the specified team in the enterprise."
     },
     {
-      "path": "/enterprises/my-enterprise/teams/my-team/memberships/user123",
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
       "method": "GET",
       "operationId": "enterprise-team-memberships/get",
       "summary": "",
-      "user": "user123",
+      "user": "user101",
       "ideal": "Get the membership details for a specific user in the specified team."
     },
     {
-      "path": "/enterprises/my-enterprise/teams/my-team/memberships/user456",
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
       "method": "PUT",
       "operationId": "enterprise-team-memberships/add",
       "summary": "",
-      "user": "user456",
+      "user": "user202",
       "ideal": "Add a specific user to the specified team in the enterprise."
     },
     {
-      "path": "/enterprises/my-enterprise/teams/my-team/memberships/user789",
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
       "method": "DELETE",
       "operationId": "enterprise-team-memberships/remove",
       "summary": "",
-      "user": "user789",
+      "user": "user303",
       "ideal": "Remove a specific user from the specified team in the enterprise."
     }
   ]

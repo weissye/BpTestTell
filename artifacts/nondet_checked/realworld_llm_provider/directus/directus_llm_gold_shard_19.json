@@ -6,7 +6,7 @@
       "operationId": "serverInfo",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve detailed information about the Directus server, including its version, environment, and other relevant metadata."
+      "ideal": "Retrieve detailed information about the Directus server, including version, environment, and configuration settings."
     },
     {
       "path": "/server/ping",

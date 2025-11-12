@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Key"
+      ],
+      "summary": "",
+      "operationId": "FetchKey"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Key"
+      ],
+      "summary": "",
+      "operationId": "UpdateKey"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Key"
+      ],
+      "summary": "",
+      "operationId": "DeleteKey"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Key"
+      ],
+      "summary": "",
+      "operationId": "ListKey"
+    }
+  ]
+}

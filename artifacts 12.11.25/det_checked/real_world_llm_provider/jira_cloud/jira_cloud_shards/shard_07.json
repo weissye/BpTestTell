@@ -1,0 +1,104 @@
+{
+  "ops": [
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/app/field/{fieldIdOrKey}/value"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/changelog/bulkfetch"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/dashboard/search"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/search/trashed"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/{fieldKey}/option"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping/delete"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/group/member"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/{issueIdOrKey}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/votes"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetype/{id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/notificationscheme"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/plans/plan/{planId}/archive"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/priorityscheme/{schemeId}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatars"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectId}/email"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/resolution/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}/fields/{id}/move"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses/search"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/columns"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/version/{id}/move"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflow/{workflowId}/project/{projectId}/issueTypeUsages"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{id}/default"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/worklog/updated"
+    }
+  ]
+}

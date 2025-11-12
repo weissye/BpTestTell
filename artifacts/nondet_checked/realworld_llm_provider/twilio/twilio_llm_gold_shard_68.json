@@ -6,7 +6,7 @@
       "operationId": "FetchTranscription",
       "summary": "",
       "user": "user123",
-      "ideal": "Fetches the transcription for the specified transcription SID."
+      "ideal": "Fetch the transcription details for a specific transcription identified by Sid."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json",
@@ -14,7 +14,7 @@
       "operationId": "DeleteTranscription",
       "summary": "",
       "user": "user456",
-      "ideal": "Deletes the transcription with the specified SID."
+      "ideal": "Delete the transcription identified by Sid from the account."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json",
@@ -22,7 +22,7 @@
       "operationId": "ListTranscription",
       "summary": "",
       "user": "user789",
-      "ideal": "Lists all transcriptions for the specified account."
+      "ideal": "Retrieve a list of all transcriptions for the account."
     }
   ]
 }

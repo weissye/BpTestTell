@@ -1,180 +1,180 @@
 {
   "gold": [
     {
-      "path": "/enterprises/{enterprise}/dependabot/alerts",
+      "path": "/enterprises/my-enterprise/dependabot/alerts",
       "method": "GET",
       "operationId": "dependabot/list-alerts-for-enterprise",
       "summary": "",
-      "user": "User wants to retrieve all Dependabot alerts for their enterprise to assess security vulnerabilities across multiple repositories.",
-      "ideal": "Returns a list of alerts with details such as the repository name, alert status, and dependency information."
+      "user": "User123",
+      "ideal": "Retrieve all Dependabot alerts for the specified enterprise."
     },
     {
-      "path": "/organizations/{org}/dependabot/repository-access",
+      "path": "/organizations/my-org/dependabot/repository-access",
       "method": "GET",
       "operationId": "dependabot/repository-access-for-org",
       "summary": "",
-      "user": "User needs to check which repositories in their organization have Dependabot access enabled.",
-      "ideal": "Provides a list of repositories along with their current access status for Dependabot."
+      "user": "User456",
+      "ideal": "Get the repository access settings for the organization."
     },
     {
-      "path": "/organizations/{org}/dependabot/repository-access",
+      "path": "/organizations/my-org/dependabot/repository-access",
       "method": "PATCH",
       "operationId": "dependabot/update-repository-access-for-org",
       "summary": "",
-      "user": "User wants to update the repository access settings for Dependabot in their organization to enhance security.",
-      "ideal": "Successfully updates the access settings and returns a confirmation message."
+      "user": "User789",
+      "ideal": "Update the repository access settings for the organization."
     },
     {
-      "path": "/organizations/{org}/dependabot/repository-access/default-level",
+      "path": "/organizations/my-org/dependabot/repository-access/default-level",
       "method": "PUT",
       "operationId": "dependabot/set-repository-access-default-level",
       "summary": "",
-      "user": "User is setting the default access level for Dependabot across all repositories in their organization.",
-      "ideal": "Confirms the new default access level has been set successfully."
+      "user": "User101",
+      "ideal": "Set the default repository access level for the organization."
     },
     {
-      "path": "/orgs/{org}/dependabot/alerts",
+      "path": "/orgs/my-org/dependabot/alerts",
       "method": "GET",
       "operationId": "dependabot/list-alerts-for-org",
       "summary": "",
-      "user": "User wants to view all Dependabot alerts for their organization to prioritize fixes.",
-      "ideal": "Returns a detailed list of alerts with severity levels and affected dependencies."
+      "user": "User202",
+      "ideal": "List all Dependabot alerts for the specified organization."
     },
     {
-      "path": "/orgs/{org}/dependabot/secrets",
+      "path": "/orgs/my-org/dependabot/secrets",
       "method": "GET",
       "operationId": "dependabot/list-org-secrets",
       "summary": "",
-      "user": "User needs to retrieve all secrets stored for their organization to manage access to sensitive data.",
-      "ideal": "Provides a list of secrets with their names and creation dates."
+      "user": "User303",
+      "ideal": "Retrieve all secrets for the organization."
     },
     {
-      "path": "/orgs/{org}/dependabot/secrets/public-key",
+      "path": "/orgs/my-org/dependabot/secrets/public-key",
       "method": "GET",
       "operationId": "dependabot/get-org-public-key",
       "summary": "",
-      "user": "User wants to obtain the public key for encrypting secrets for their organization.",
-      "ideal": "Returns the public key needed for encrypting organization secrets."
+      "user": "User404",
+      "ideal": "Get the public key for encrypting secrets in the organization."
     },
     {
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret",
       "method": "GET",
       "operationId": "dependabot/get-org-secret",
       "summary": "",
-      "user": "User is looking to retrieve a specific secret by name to review its contents.",
-      "ideal": "Returns the secret value securely, if the user has the necessary permissions."
+      "user": "User505",
+      "ideal": "Retrieve a specific secret for the organization."
     },
     {
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret",
       "method": "PUT",
       "operationId": "dependabot/create-or-update-org-secret",
       "summary": "",
-      "user": "User wants to create or update an organization secret to ensure sensitive data is stored securely.",
-      "ideal": "Confirms the secret has been created or updated successfully."
+      "user": "User606",
+      "ideal": "Create or update a secret for the organization."
     },
     {
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret",
       "method": "DELETE",
       "operationId": "dependabot/delete-org-secret",
       "summary": "",
-      "user": "User needs to delete an organization secret that is no longer needed for security purposes.",
-      "ideal": "Confirms the secret has been deleted successfully."
+      "user": "User707",
+      "ideal": "Delete a specific secret from the organization."
     },
     {
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories",
       "method": "GET",
       "operationId": "dependabot/list-selected-repos-for-org-secret",
       "summary": "",
-      "user": "User wants to see which repositories are using a specific organization secret.",
-      "ideal": "Returns a list of repositories associated with the specified secret."
+      "user": "User808",
+      "ideal": "List repositories that have access to the specified organization secret."
     },
     {
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories",
       "method": "PUT",
       "operationId": "dependabot/set-selected-repos-for-org-secret",
       "summary": "",
-      "user": "User is updating the list of repositories that can access a specific organization secret.",
-      "ideal": "Confirms the selected repositories have been updated successfully."
+      "user": "User909",
+      "ideal": "Set the repositories that can access the specified organization secret."
     },
     {
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories/my-repo-id",
       "method": "PUT",
       "operationId": "dependabot/add-selected-repo-to-org-secret",
       "summary": "",
-      "user": "User wants to add a specific repository to the list of those that can access a certain organization secret.",
-      "ideal": "Confirms the repository has been added successfully."
+      "user": "User1010",
+      "ideal": "Add a repository to the list of those that can access the specified organization secret."
     },
     {
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories/my-repo-id",
       "method": "DELETE",
       "operationId": "dependabot/remove-selected-repo-from-org-secret",
       "summary": "",
-      "user": "User needs to remove a repository from accessing a specific organization secret for security reasons.",
-      "ideal": "Confirms the repository has been removed successfully."
+      "user": "User1111",
+      "ideal": "Remove a repository from the list of those that can access the specified organization secret."
     },
     {
-      "path": "/repos/{owner}/{repo}/dependabot/alerts",
+      "path": "/repos/my-owner/my-repo/dependabot/alerts",
       "method": "GET",
       "operationId": "dependabot/list-alerts-for-repo",
       "summary": "",
-      "user": "User wants to check Dependabot alerts for a specific repository to address vulnerabilities.",
-      "ideal": "Returns a list of alerts specific to the repository with relevant details."
+      "user": "User1212",
+      "ideal": "List all Dependabot alerts for the specified repository."
     },
     {
-      "path": "/repos/{owner}/{repo}/dependabot/alerts/{alert_number}",
+      "path": "/repos/my-owner/my-repo/dependabot/alerts/1",
       "method": "GET",
       "operationId": "dependabot/get-alert",
       "summary": "",
-      "user": "User is looking for detailed information about a specific Dependabot alert.",
-      "ideal": "Returns detailed information about the specified alert, including its status and recommendations."
+      "user": "User1313",
+      "ideal": "Retrieve details of a specific Dependabot alert for the repository."
     },
     {
-      "path": "/repos/{owner}/{repo}/dependabot/alerts/{alert_number}",
+      "path": "/repos/my-owner/my-repo/dependabot/alerts/1",
       "method": "PATCH",
       "operationId": "dependabot/update-alert",
       "summary": "",
-      "user": "User wants to update the status of a specific Dependabot alert after addressing the issue.",
-      "ideal": "Confirms the alert status has been updated successfully."
+      "user": "User1414",
+      "ideal": "Update a specific Dependabot alert for the repository."
     },
     {
-      "path": "/repos/{owner}/{repo}/dependabot/secrets",
+      "path": "/repos/my-owner/my-repo/dependabot/secrets",
       "method": "GET",
       "operationId": "dependabot/list-repo-secrets",
       "summary": "",
-      "user": "User needs to retrieve all secrets for a specific repository to manage sensitive information.",
-      "ideal": "Provides a list of repository secrets with their names and creation dates."
+      "user": "User1515",
+      "ideal": "Retrieve all secrets for the specified repository."
     },
     {
-      "path": "/repos/{owner}/{repo}/dependabot/secrets/public-key",
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/public-key",
       "method": "GET",
       "operationId": "dependabot/get-repo-public-key",
       "summary": "",
-      "user": "User wants to obtain the public key for encrypting secrets for a specific repository.",
-      "ideal": "Returns the public key needed for encrypting repository secrets."
+      "user": "User1616",
+      "ideal": "Get the public key for encrypting secrets in the repository."
     },
     {
-      "path": "/repos/{owner}/{repo}/dependabot/secrets/{secret_name}",
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/my-secret",
       "method": "GET",
       "operationId": "dependabot/get-repo-secret",
       "summary": "",
-      "user": "User is looking to retrieve a specific repository secret by name to review its contents.",
-      "ideal": "Returns the secret value securely, if the user has the necessary permissions."
+      "user": "User1717",
+      "ideal": "Retrieve a specific secret for the repository."
     },
     {
-      "path": "/repos/{owner}/{repo}/dependabot/secrets/{secret_name}",
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/my-secret",
       "method": "PUT",
       "operationId": "dependabot/create-or-update-repo-secret",
       "summary": "",
-      "user": "User wants to create or update a repository secret to ensure sensitive data is stored securely.",
-      "ideal": "Confirms the secret has been created or updated successfully."
+      "user": "User1818",
+      "ideal": "Create or update a secret for the repository."
     },
     {
-      "path": "/repos/{owner}/{repo}/dependabot/secrets/{secret_name}",
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/my-secret",
       "method": "DELETE",
       "operationId": "dependabot/delete-repo-secret",
       "summary": "",
-      "user": "User needs to delete a repository secret that is no longer needed for security purposes.",
-      "ideal": "Confirms the secret has been deleted successfully."
+      "user": "User1919",
+      "ideal": "Delete a specific secret from the repository."
     }
   ]
 }

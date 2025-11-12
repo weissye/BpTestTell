@@ -5,7 +5,7 @@
       "method": "POST",
       "operationId": "CreateMessageFeedback",
       "summary": "",
-      "user": "User123: I want to provide feedback on a message I received. The message was not relevant to me, and I believe it should be flagged as spam. My Account SID is ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, and the Message SID is SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.",
+      "user": "User123: I want to provide feedback on a message I received. The message was unsolicited and I believe it was spam. Please ensure that this feedback is recorded for future reference.",
       "ideal": "{\"feedback\":\"spam\"}"
     }
   ]

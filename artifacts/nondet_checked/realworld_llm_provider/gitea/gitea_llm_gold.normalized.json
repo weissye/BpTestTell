@@ -2,12 +2,12 @@
   "ops": [
     {
       "method": "GET",
-      "path": "/activitypub/user-id/12345",
+      "path": "/activitypub/user-id/johndoe",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/activitypub/user-id/12345/inbox",
+      "path": "/activitypub/user-id/johndoe/inbox",
       "body": null
     },
     {
@@ -26,38 +26,38 @@
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/admin/users/johndoe/badges",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/admin/hooks/123",
+      "method": "DELETE",
+      "path": "/admin/users/{username}",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/admin/users/johndoe/repos",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/admin/users/johndoe/keys",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/admin/users/johndoe/orgs",
-      "body": null
-    },
-    {
-      "method": "PATCH",
-      "path": "/admin/users/johndoe",
+      "path": "/admin/users/{username}/repos",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/admin/hooks/123",
+      "path": "/admin/hooks/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/unadopted",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users/{username}/badges",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users/{username}/keys",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orgs",
       "body": null
     },
     {
@@ -101,8 +101,8 @@
       "body": null
     },
     {
-      "method": "PUT",
-      "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions/{user}",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions",
       "body": null
     },
     {
@@ -187,22 +187,22 @@
     },
     {
       "method": "GET",
-      "path": "/notifications/threads/1",
+      "path": "/notifications/threads/{id}",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/notifications/threads/1",
+      "path": "/notifications/threads/{id}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/user123/test-repo/notifications",
+      "path": "/repos/{owner}/{repo}/notifications",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/user123/test-repo/notifications",
+      "path": "/repos/{owner}/{repo}/notifications",
       "body": null
     },
     {
@@ -336,13 +336,13 @@
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/repos/{owner}/{repo}/releases/latest",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/releases",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/{owner}/{repo}/topics",
+      "path": "/repos/{owner}/{repo}/tags",
       "body": null
     },
     {
@@ -408,6 +408,11 @@
     {
       "method": "POST",
       "path": "/user/avatar",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/blocks",
       "body": null
     },
     {
@@ -457,12 +462,12 @@
     },
     {
       "method": "GET",
-      "path": "/activitypub/user-id/12345",
+      "path": "/activitypub/user-id/johndoe",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/activitypub/user-id/12345/inbox",
+      "path": "/activitypub/user-id/johndoe/inbox",
       "body": null
     },
     {
@@ -481,38 +486,38 @@
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/admin/users/johndoe/badges",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/admin/hooks/123",
+      "method": "DELETE",
+      "path": "/admin/users/{username}",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/admin/users/johndoe/repos",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/admin/users/johndoe/keys",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/admin/users/johndoe/orgs",
-      "body": null
-    },
-    {
-      "method": "PATCH",
-      "path": "/admin/users/johndoe",
+      "path": "/admin/users/{username}/repos",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/admin/hooks/123",
+      "path": "/admin/hooks/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/unadopted",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users/{username}/badges",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users/{username}/keys",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orgs",
       "body": null
     },
     {
@@ -556,8 +561,8 @@
       "body": null
     },
     {
-      "method": "PUT",
-      "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions/{user}",
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions",
       "body": null
     },
     {
@@ -642,22 +647,22 @@
     },
     {
       "method": "GET",
-      "path": "/notifications/threads/1",
+      "path": "/notifications/threads/{id}",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/notifications/threads/1",
+      "path": "/notifications/threads/{id}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/user123/test-repo/notifications",
+      "path": "/repos/{owner}/{repo}/notifications",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/user123/test-repo/notifications",
+      "path": "/repos/{owner}/{repo}/notifications",
       "body": null
     },
     {
@@ -791,13 +796,13 @@
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/repos/{owner}/{repo}/releases/latest",
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/releases",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/{owner}/{repo}/topics",
+      "path": "/repos/{owner}/{repo}/tags",
       "body": null
     },
     {
@@ -863,6 +868,11 @@
     {
       "method": "POST",
       "path": "/user/avatar",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/blocks",
       "body": null
     },
     {

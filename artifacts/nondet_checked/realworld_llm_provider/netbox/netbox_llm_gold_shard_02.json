@@ -5,111 +5,111 @@
       "method": "GET",
       "operationId": "core_background_queues_retrieve",
       "summary": "",
-      "user": "Admin user requesting the list of background queues for monitoring system performance.",
-      "ideal": "Returns a list of all background queues with their current status and metrics."
+      "user": "Admin user requesting the list of background queues for monitoring purposes.",
+      "ideal": "Returns a list of all background queues with their statuses."
     },
     {
       "path": "/api/core/background-queues/{name}/",
       "method": "GET",
       "operationId": "core_background_queues_retrieve_by_name",
       "summary": "",
-      "user": "DevOps engineer checking the status of a specific background queue named 'task_queue'.",
-      "ideal": "Returns detailed information about the 'task_queue', including its current job count and processing state."
+      "user": "System operator checking the status of a specific background queue named 'queue1'.",
+      "ideal": "Returns detailed information about the specified background queue."
     },
     {
       "path": "/api/core/background-tasks/",
       "method": "GET",
       "operationId": "core_background_tasks_retrieve",
       "summary": "",
-      "user": "Data analyst looking to retrieve all background tasks for analysis.",
-      "ideal": "Provides a comprehensive list of all background tasks with their statuses and execution times."
+      "user": "Developer looking to retrieve all background tasks for debugging.",
+      "ideal": "Returns a list of all background tasks with their current statuses."
     },
     {
       "path": "/api/core/background-tasks/{id}/",
       "method": "GET",
       "operationId": "core_background_tasks_retrieve_by_id",
       "summary": "",
-      "user": "System administrator retrieving details of a specific background task with ID 123.",
-      "ideal": "Returns detailed information about the background task with ID 123, including its history and logs."
+      "user": "Support staff investigating a specific background task with ID 123.",
+      "ideal": "Returns detailed information about the specified background task."
     },
     {
       "path": "/api/core/background-tasks/{id}/delete/",
       "method": "POST",
       "operationId": "core_background_tasks_delete_create",
       "summary": "",
-      "user": "Support staff needing to delete a failed background task with ID 456.",
-      "ideal": "Successfully deletes the background task with ID 456 and returns a confirmation message."
+      "user": "Admin user attempting to delete a background task with ID 456.",
+      "ideal": "Successfully deletes the specified background task and returns a confirmation."
     },
     {
       "path": "/api/core/background-tasks/{id}/enqueue/",
       "method": "POST",
       "operationId": "core_background_tasks_enqueue_create",
       "summary": "",
-      "user": "Developer re-enqueuing a background task with ID 789 for immediate processing.",
-      "ideal": "Enqueues the background task with ID 789 and returns the updated status."
+      "user": "User enqueuing a background task with ID 789 for immediate execution.",
+      "ideal": "Enqueues the specified background task and returns its updated status."
     },
     {
       "path": "/api/core/background-tasks/{id}/requeue/",
       "method": "POST",
       "operationId": "core_background_tasks_requeue_create",
       "summary": "",
-      "user": "Operations manager requeuing a previously failed task with ID 321.",
-      "ideal": "Requeues the failed task with ID 321 and provides a success message."
+      "user": "User requeuing a failed background task with ID 321.",
+      "ideal": "Requeues the specified background task and returns its new status."
     },
     {
       "path": "/api/core/background-tasks/{id}/stop/",
       "method": "POST",
       "operationId": "core_background_tasks_stop_create",
       "summary": "",
-      "user": "System administrator stopping a long-running background task with ID 654.",
-      "ideal": "Stops the background task with ID 654 and returns the current status."
+      "user": "Admin user stopping a long-running background task with ID 654.",
+      "ideal": "Stops the specified background task and returns a confirmation message."
     },
     {
       "path": "/api/core/background-workers/",
       "method": "GET",
       "operationId": "core_background_workers_retrieve",
       "summary": "",
-      "user": "DevOps team member checking the status of all background workers.",
-      "ideal": "Returns a list of all background workers with their current load and status."
+      "user": "System administrator checking the status of all background workers.",
+      "ideal": "Returns a list of all background workers with their current statuses."
     },
     {
       "path": "/api/core/background-workers/{name}/",
       "method": "GET",
       "operationId": "core_background_workers_retrieve_by_name",
       "summary": "",
-      "user": "System administrator checking the status of a specific worker named 'worker1'.",
-      "ideal": "Returns detailed information about 'worker1', including its current tasks and performance metrics."
+      "user": "User looking for details on a specific background worker named 'worker1'.",
+      "ideal": "Returns detailed information about the specified background worker."
     },
     {
       "path": "/api/core/data-files/",
       "method": "GET",
       "operationId": "core_data_files_list",
       "summary": "",
-      "user": "Data scientist retrieving a list of all uploaded data files for analysis.",
-      "ideal": "Provides a list of all data files with metadata such as upload date and file size."
+      "user": "Data analyst retrieving a list of all uploaded data files.",
+      "ideal": "Returns a list of all data files available in the system."
     },
     {
       "path": "/api/core/data-files/{id}/",
       "method": "GET",
       "operationId": "core_data_files_retrieve",
       "summary": "",
-      "user": "Researcher accessing details of a specific data file with ID 101.",
-      "ideal": "Returns detailed information about the data file with ID 101, including its content type and processing status."
+      "user": "User requesting details on a specific data file with ID 111.",
+      "ideal": "Returns detailed information about the specified data file."
     },
     {
       "path": "/api/core/data-sources/",
       "method": "GET",
       "operationId": "core_data_sources_list",
       "summary": "",
-      "user": "Database administrator listing all configured data sources in the system.",
-      "ideal": "Returns a list of all data sources with their connection statuses and types."
+      "user": "Data engineer listing all configured data sources for integration.",
+      "ideal": "Returns a list of all data sources configured in the system."
     },
     {
       "path": "/api/core/data-sources/",
       "method": "POST",
       "operationId": "core_data_sources_create",
       "summary": "",
-      "user": "Data engineer creating a new data source for a new database.",
+      "user": "User creating a new data source for a new database connection.",
       "ideal": "Successfully creates a new data source and returns its details."
     },
     {
@@ -117,112 +117,112 @@
       "method": "PUT",
       "operationId": "core_data_sources_bulk_update",
       "summary": "",
-      "user": "Admin updating multiple data sources with new configurations.",
-      "ideal": "Successfully updates all specified data sources and returns a summary of changes."
+      "user": "Admin user performing a bulk update on multiple data sources.",
+      "ideal": "Successfully updates the specified data sources and returns a summary."
     },
     {
       "path": "/api/core/data-sources/",
       "method": "PATCH",
       "operationId": "core_data_sources_bulk_partial_update",
       "summary": "",
-      "user": "Admin making partial updates to several data sources.",
-      "ideal": "Successfully applies partial updates to the specified data sources and returns a summary."
+      "user": "User making partial updates to several data sources.",
+      "ideal": "Successfully applies partial updates to the specified data sources."
     },
     {
       "path": "/api/core/data-sources/",
       "method": "DELETE",
       "operationId": "core_data_sources_bulk_destroy",
       "summary": "",
-      "user": "Admin deleting multiple obsolete data sources.",
-      "ideal": "Successfully deletes the specified data sources and returns a confirmation message."
+      "user": "Admin user deleting multiple data sources that are no longer needed.",
+      "ideal": "Successfully deletes the specified data sources and returns a confirmation."
     },
     {
       "path": "/api/core/data-sources/{id}/",
       "method": "GET",
       "operationId": "core_data_sources_retrieve",
       "summary": "",
-      "user": "Data analyst retrieving details of a specific data source with ID 202.",
-      "ideal": "Returns detailed information about the data source with ID 202, including its schema and connection details."
+      "user": "User retrieving details of a specific data source with ID 222.",
+      "ideal": "Returns detailed information about the specified data source."
     },
     {
       "path": "/api/core/data-sources/{id}/",
       "method": "PUT",
       "operationId": "core_data_sources_update",
       "summary": "",
-      "user": "Data engineer updating the configuration of a data source with ID 303.",
-      "ideal": "Successfully updates the data source with ID 303 and returns the updated details."
+      "user": "User updating the configuration of a data source with ID 333.",
+      "ideal": "Successfully updates the specified data source and returns its new details."
     },
     {
       "path": "/api/core/data-sources/{id}/",
       "method": "PATCH",
       "operationId": "core_data_sources_partial_update",
       "summary": "",
-      "user": "Admin making a partial update to a data source with ID 404.",
-      "ideal": "Successfully applies the partial update to the data source with ID 404 and returns the updated details."
+      "user": "User making partial updates to a data source with ID 444.",
+      "ideal": "Successfully applies partial updates to the specified data source."
     },
     {
       "path": "/api/core/data-sources/{id}/",
       "method": "DELETE",
       "operationId": "core_data_sources_destroy",
       "summary": "",
-      "user": "Admin deleting a data source with ID 505.",
-      "ideal": "Successfully deletes the data source with ID 505 and returns a confirmation message."
+      "user": "Admin user deleting a data source with ID 555 that is no longer in use.",
+      "ideal": "Successfully deletes the specified data source and returns a confirmation."
     },
     {
       "path": "/api/core/data-sources/{id}/sync/",
       "method": "POST",
       "operationId": "core_data_sources_sync_create",
       "summary": "",
-      "user": "Data engineer syncing a data source with ID 606 to ensure data is up-to-date.",
-      "ideal": "Successfully initiates a sync for the data source with ID 606 and returns the sync status."
+      "user": "User syncing data from a data source with ID 666.",
+      "ideal": "Successfully initiates a sync operation for the specified data source."
     },
     {
       "path": "/api/core/jobs/",
       "method": "GET",
       "operationId": "core_jobs_list",
       "summary": "",
-      "user": "Project manager reviewing the list of all jobs in the system.",
-      "ideal": "Returns a list of all jobs with their statuses and execution times."
+      "user": "Admin user retrieving a list of all scheduled jobs.",
+      "ideal": "Returns a list of all jobs with their current statuses."
     },
     {
       "path": "/api/core/jobs/{id}/",
       "method": "GET",
       "operationId": "core_jobs_retrieve",
       "summary": "",
-      "user": "Admin retrieving details of a specific job with ID 707.",
-      "ideal": "Returns detailed information about the job with ID 707, including its history and logs."
+      "user": "User checking the status of a specific job with ID 777.",
+      "ideal": "Returns detailed information about the specified job."
     },
     {
       "path": "/api/core/object-changes/",
       "method": "GET",
       "operationId": "core_object_changes_list",
       "summary": "",
-      "user": "Auditor reviewing all object changes for compliance purposes.",
-      "ideal": "Provides a list of all object changes with timestamps and user information."
+      "user": "User reviewing all object changes for auditing purposes.",
+      "ideal": "Returns a list of all object changes recorded in the system."
     },
     {
       "path": "/api/core/object-changes/{id}/",
       "method": "GET",
       "operationId": "core_object_changes_retrieve",
       "summary": "",
-      "user": "Compliance officer accessing details of a specific object change with ID 808.",
-      "ideal": "Returns detailed information about the object change with ID 808, including the previous and new values."
+      "user": "Admin user retrieving details of a specific object change with ID 888.",
+      "ideal": "Returns detailed information about the specified object change."
     },
     {
       "path": "/api/core/object-types/",
       "method": "GET",
       "operationId": "core_object_types_list",
       "summary": "",
-      "user": "Developer retrieving a list of all object types in the system.",
-      "ideal": "Returns a list of all object types with their descriptions and attributes."
+      "user": "Developer listing all object types available in the system.",
+      "ideal": "Returns a list of all object types defined in the API."
     },
     {
       "path": "/api/core/object-types/{id}/",
       "method": "GET",
       "operationId": "core_object_types_retrieve",
       "summary": "",
-      "user": "Data architect accessing details of a specific object type with ID 909.",
-      "ideal": "Returns detailed information about the object type with ID 909, including its schema and relationships."
+      "user": "User retrieving details of a specific object type with ID 999.",
+      "ideal": "Returns detailed information about the specified object type."
     }
   ]
 }

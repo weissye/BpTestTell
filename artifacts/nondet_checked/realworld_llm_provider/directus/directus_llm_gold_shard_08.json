@@ -14,14 +14,14 @@
       "operationId": "createFile",
       "summary": "",
       "user": "editor",
-      "ideal": "Upload a new file to the system with necessary metadata."
+      "ideal": "Upload a new file to the system with metadata."
     },
     {
       "path": "/files",
       "method": "PATCH",
       "operationId": "updateFiles",
       "summary": "",
-      "user": "admin",
+      "user": "editor",
       "ideal": "Update metadata for multiple files in the system."
     },
     {
@@ -30,7 +30,7 @@
       "operationId": "deleteFiles",
       "summary": "",
       "user": "admin",
-      "ideal": "Remove multiple files from the system."
+      "ideal": "Delete multiple files from the system."
     },
     {
       "path": "/files/{id}",
@@ -46,7 +46,7 @@
       "operationId": "updateFile",
       "summary": "",
       "user": "editor",
-      "ideal": "Update metadata for a specific file identified by its ID."
+      "ideal": "Update metadata for a specific file by its ID."
     },
     {
       "path": "/files/{id}",
@@ -54,7 +54,7 @@
       "operationId": "deleteFile",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete a specific file from the system by its ID."
+      "ideal": "Delete a specific file by its ID."
     }
   ]
 }

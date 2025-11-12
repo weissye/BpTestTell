@@ -14,7 +14,7 @@
       "operationId": "getPreference",
       "summary": "",
       "user": "user123",
-      "ideal": "Returns the current user preferences."
+      "ideal": "Retrieved user preferences successfully."
     },
     {
       "path": "/rest/api/3/mypreferences",
@@ -22,7 +22,7 @@
       "operationId": "setPreference",
       "summary": "",
       "user": "user123",
-      "ideal": "Successfully updated user preferences."
+      "ideal": "User preferences updated successfully."
     },
     {
       "path": "/rest/api/3/mypreferences/locale",
@@ -30,7 +30,7 @@
       "operationId": "getLocale",
       "summary": "",
       "user": "user123",
-      "ideal": "Returns the current locale setting for the user."
+      "ideal": "Retrieved user locale successfully."
     },
     {
       "path": "/rest/api/3/mypreferences/locale",
@@ -38,7 +38,7 @@
       "operationId": "setLocale",
       "summary": "",
       "user": "user123",
-      "ideal": "Successfully updated the locale setting."
+      "ideal": "User locale updated successfully."
     },
     {
       "path": "/rest/api/3/myself",
@@ -46,7 +46,7 @@
       "operationId": "getCurrentUser",
       "summary": "",
       "user": "user123",
-      "ideal": "Returns the details of the current user."
+      "ideal": "Retrieved current user information successfully."
     }
   ]
 }

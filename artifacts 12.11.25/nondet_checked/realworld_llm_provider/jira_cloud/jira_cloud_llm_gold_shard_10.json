@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/atlassian-connect/1/app/module/dynamic",
+      "method": "GET",
+      "operationId": "DynamicModulesResource.getModules_get",
+      "summary": "",
+      "user": "User requests to retrieve the list of dynamic modules currently registered in the Jira Cloud platform.",
+      "ideal": "A successful response with a list of dynamic modules in JSON format, including their IDs and configurations."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/app/module/dynamic",
+      "method": "POST",
+      "operationId": "DynamicModulesResource.registerModules_post",
+      "summary": "",
+      "user": "User submits a request to register a new dynamic module with specific configuration details for their app.",
+      "ideal": "A successful response indicating that the dynamic module has been registered, along with its unique ID."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/app/module/dynamic",
+      "method": "DELETE",
+      "operationId": "DynamicModulesResource.removeModules_delete",
+      "summary": "",
+      "user": "User requests to remove a previously registered dynamic module by providing its ID.",
+      "ideal": "A successful response confirming that the dynamic module has been removed from the Jira Cloud platform."
+    }
+  ]
+}

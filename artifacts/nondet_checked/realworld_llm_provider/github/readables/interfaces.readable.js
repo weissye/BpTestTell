@@ -193,43 +193,43 @@ function verifyAdvisorieUpdated(ghsa_id) {
 /** === App Operations === */
 
 // CREATE
-function addApp(id) {
-  svc.post("/app", { body: JSON.stringify({ id: id }), parameters: { description: "Add a app with " + "id " + id } });
+function addApp(installation_id, delivery_id) {
+  svc.post("/app", { body: JSON.stringify({ installation_id: installation_id, delivery_id: delivery_id }), parameters: { description: "Add a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id } });
 }
 
 // DELETE
-function deleteApp(id) {
-  svc.delete("/app/" + id, {
-    parameters: { description: "Delete a app with " + "id " + id }
+function deleteApp(installation_id, delivery_id) {
+  svc.delete("/app/" + installation_id + "/"+ delivery_id, {
+    parameters: { description: "Delete a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingApp(id) {
-  svc.delete("/app/" + id, {
+function tryToDeleteANonExistingApp(installation_id, delivery_id) {
+  svc.delete("/app/" + installation_id + "/"+ delivery_id, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a app with " + "id " + id }
+    parameters: { description: "Delete a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingApp(id) {
+function tryToAddExistingApp(installation_id, delivery_id) {
   svc.post("/app", {
-    body: JSON.stringify({ id: id }),
-    parameters: { description: "Add a app with " + "id " + id },
+    body: JSON.stringify({ installation_id: installation_id, delivery_id: delivery_id }),
+    parameters: { description: "Add a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateApp(id) {
-  svc.put("/app/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a app with " + "id " + id } });
+function updateApp(installation_id, delivery_id) {
+  svc.put("/app/" + installation_id + "/"+ delivery_id, { body: JSON.stringify({ installation_id: installation_id, delivery_id: delivery_id }), parameters: { description: "Update a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id } });
 }
 
 // GET one
-function getApp(id) {
-  svc.get("/app/" + id, {
-    parameters: { description: "Get a app with " + "id " + id }
+function getApp(installation_id, delivery_id) {
+  svc.get("/app/" + installation_id + "/"+ delivery_id, {
+    parameters: { description: "Get a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id }
   });
 }
 
@@ -241,34 +241,34 @@ function listApp() {
 }
 
 // Verify exists (by list)
-function verifyAppExists(id) {
+function verifyAppExists(installation_id, delivery_id) {
   svc.get("/app", {
     callback: function (response) {
       app = JSON.parse(response.body);
       for (let i = 0; i < app.length; i++) {
-        if (app[i].id === id) {
+        if (app[i].installation_id === installation_id && app[i].delivery_id === delivery_id) {
           return pvg.success("App exists");
         }
       }
       return pvg.fail("Expected a app to exist but it does not");
     },
-    parameters: { description: "Verify app with " + "id " + id + " exists" }
+    parameters: { description: "Verify app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyAppDoesNotExist(id) {
+function verifyAppDoesNotExist(installation_id, delivery_id) {
   svc.get("/app", {
     callback: function (response) {
       app = JSON.parse(response.body);
       for (let i = 0; i < app.length; i++) {
-        if (app[i].id === id) {
+        if (app[i].installation_id === installation_id && app[i].delivery_id === delivery_id) {
           return pvg.fail("Expected a app to not exist but it does");
         }
       }
       return pvg.success("App does not exist");
     },
-    parameters: { description: "Verify app with " + "id " + id + " does not exist" }
+    parameters: { description: "Verify app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id + " does not exist" }
   });
 }
 
@@ -279,10 +279,10 @@ function matchAnyAddApp() {
     return e.data.parameters.description.startsWith("Add a app");
   });
 }
-function matchAddApp(id) {
+function matchAddApp(installation_id, delivery_id) {
   return bp.EventSet("add-app", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a app with " + "id " + id;
+    return e.data.parameters.description === "Add a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id;
   });
 }
 function matchAnyDeleteApp() {
@@ -291,10 +291,10 @@ function matchAnyDeleteApp() {
     return e.data.parameters.description.startsWith("Delete a app");
   });
 }
-function matchDeleteApp(id) {
+function matchDeleteApp(installation_id, delivery_id) {
   return bp.EventSet("del-app", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a app with " + "id " + id;
+    return e.data.parameters.description === "Delete a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id;
   });
 }
 
@@ -305,52 +305,52 @@ function matchAnyUpdateApp() {
     return e.data.parameters.description.startsWith("Update a app");
   });
 }
-function matchUpdateApp(id) {
+function matchUpdateApp(installation_id, delivery_id) {
   return bp.EventSet("update-app", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a app with " + "id " + id;
+    return e.data.parameters.description === "Update a app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id;
   });
 }
 
 // Wait helpers
 function waitForAnyAppAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ app\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ app\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ app\ with\ installation_id\ (.+) and delivery_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ app\ with\ installation_id\ (.+) and delivery_id\ (.+)$/);
+    return { installation_id: parseInt(m[1]), delivery_id: parseInt(m[2]) };
 }
-function waitForAppAdded(id) {
-  waitFor(matchAddApp(id));
+function waitForAppAdded(installation_id, delivery_id) {
+  waitFor(matchAddApp(installation_id, delivery_id));
 }
-function waitForAppDeleted(id) {
-  waitFor(matchDeleteApp(id));
+function waitForAppDeleted(installation_id, delivery_id) {
+  waitFor(matchDeleteApp(installation_id, delivery_id));
 }
 function waitForAnyAppDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ app\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ app\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ app\ with\ installation_id\ (.+) and delivery_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ app\ with\ installation_id\ (.+) and delivery_id\ (.+)$/);
+    return { installation_id: parseInt(m[1]), delivery_id: parseInt(m[2]) };
 }
-function waitForAppUpdated(id) {
-  waitFor(matchUpdateApp(id));
+function waitForAppUpdated(installation_id, delivery_id) {
+  waitFor(matchUpdateApp(installation_id, delivery_id));
 }
 function waitForAnyAppUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ app\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ app\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ app\ with\ installation_id\ (.+) and delivery_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ app\ with\ installation_id\ (.+) and delivery_id\ (.+)$/);
+    return { installation_id: parseInt(m[1]), delivery_id: parseInt(m[2]) };
 }
 
 // Verify updated (presence-by-list)
-function verifyAppUpdated(id) {
+function verifyAppUpdated(installation_id, delivery_id) {
   svc.get("/app", {
     callback: function (response) {
       app = JSON.parse(response.body);
       for (let i = 0; i < app.length; i++) {
-        if (app[i].id === id) {
+        if (app[i].installation_id === installation_id && app[i].delivery_id === delivery_id) {
           return pvg.success("App updated (present)");
         }
       }
       return pvg.fail("Expected a app to be present after update, but it is not");
     },
-    parameters: { description: "Verify app with " + "id " + id + " exists" }
+    parameters: { description: "Verify app with " + "installation_id " + installation_id + " and " + "delivery_id " + delivery_id + " exists" }
   });
 }
 
@@ -358,43 +358,43 @@ function verifyAppUpdated(id) {
 /** === App_manifest Operations === */
 
 // CREATE
-function addApp_manifest(id) {
-  svc.post("/app_manifests", { body: JSON.stringify({ id: id }), parameters: { description: "Add a app_manifest with " + "id " + id } });
+function addApp_manifest(code) {
+  svc.post("/app_manifests", { body: JSON.stringify({ code: code }), parameters: { description: "Add a app_manifest with " + "code " + code } });
 }
 
 // DELETE
-function deleteApp_manifest(id) {
-  svc.delete("/app_manifests/" + id, {
-    parameters: { description: "Delete a app_manifest with " + "id " + id }
+function deleteApp_manifest(code) {
+  svc.delete("/app_manifests/" + code, {
+    parameters: { description: "Delete a app_manifest with " + "code " + code }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingApp_manifest(id) {
-  svc.delete("/app_manifests/" + id, {
+function tryToDeleteANonExistingApp_manifest(code) {
+  svc.delete("/app_manifests/" + code, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a app_manifest with " + "id " + id }
+    parameters: { description: "Delete a app_manifest with " + "code " + code }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingApp_manifest(id) {
+function tryToAddExistingApp_manifest(code) {
   svc.post("/app_manifests", {
-    body: JSON.stringify({ id: id }),
-    parameters: { description: "Add a app_manifest with " + "id " + id },
+    body: JSON.stringify({ code: code }),
+    parameters: { description: "Add a app_manifest with " + "code " + code },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateApp_manifest(id) {
-  svc.put("/app_manifests/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a app_manifest with " + "id " + id } });
+function updateApp_manifest(code) {
+  svc.put("/app_manifests/" + code, { body: JSON.stringify({ code: code }), parameters: { description: "Update a app_manifest with " + "code " + code } });
 }
 
 // GET one
-function getApp_manifest(id) {
-  svc.get("/app_manifests/" + id, {
-    parameters: { description: "Get a app_manifest with " + "id " + id }
+function getApp_manifest(code) {
+  svc.get("/app_manifests/" + code, {
+    parameters: { description: "Get a app_manifest with " + "code " + code }
   });
 }
 
@@ -406,34 +406,34 @@ function listApp_manifests() {
 }
 
 // Verify exists (by list)
-function verifyApp_manifestExists(id) {
+function verifyApp_manifestExists(code) {
   svc.get("/app_manifests", {
     callback: function (response) {
       app_manifest = JSON.parse(response.body);
       for (let i = 0; i < app_manifest.length; i++) {
-        if (app_manifest[i].id === id) {
+        if (app_manifest[i].code === code) {
           return pvg.success("App_manifest exists");
         }
       }
       return pvg.fail("Expected a app_manifest to exist but it does not");
     },
-    parameters: { description: "Verify app_manifest with " + "id " + id + " exists" }
+    parameters: { description: "Verify app_manifest with " + "code " + code + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyApp_manifestDoesNotExist(id) {
+function verifyApp_manifestDoesNotExist(code) {
   svc.get("/app_manifests", {
     callback: function (response) {
       app_manifest = JSON.parse(response.body);
       for (let i = 0; i < app_manifest.length; i++) {
-        if (app_manifest[i].id === id) {
+        if (app_manifest[i].code === code) {
           return pvg.fail("Expected a app_manifest to not exist but it does");
         }
       }
       return pvg.success("App_manifest does not exist");
     },
-    parameters: { description: "Verify app_manifest with " + "id " + id + " does not exist" }
+    parameters: { description: "Verify app_manifest with " + "code " + code + " does not exist" }
   });
 }
 
@@ -444,10 +444,10 @@ function matchAnyAddApp_manifest() {
     return e.data.parameters.description.startsWith("Add a app_manifest");
   });
 }
-function matchAddApp_manifest(id) {
+function matchAddApp_manifest(code) {
   return bp.EventSet("add-app_manifest", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a app_manifest with " + "id " + id;
+    return e.data.parameters.description === "Add a app_manifest with " + "code " + code;
   });
 }
 function matchAnyDeleteApp_manifest() {
@@ -456,10 +456,10 @@ function matchAnyDeleteApp_manifest() {
     return e.data.parameters.description.startsWith("Delete a app_manifest");
   });
 }
-function matchDeleteApp_manifest(id) {
+function matchDeleteApp_manifest(code) {
   return bp.EventSet("del-app_manifest", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a app_manifest with " + "id " + id;
+    return e.data.parameters.description === "Delete a app_manifest with " + "code " + code;
   });
 }
 
@@ -470,52 +470,52 @@ function matchAnyUpdateApp_manifest() {
     return e.data.parameters.description.startsWith("Update a app_manifest");
   });
 }
-function matchUpdateApp_manifest(id) {
+function matchUpdateApp_manifest(code) {
   return bp.EventSet("update-app_manifest", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a app_manifest with " + "id " + id;
+    return e.data.parameters.description === "Update a app_manifest with " + "code " + code;
   });
 }
 
 // Wait helpers
 function waitForAnyApp_manifestAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ app_manifest\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ app_manifest\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ app_manifest\ with\ code\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ app_manifest\ with\ code\ (.+)$/);
+    return { code: parseInt(m[1]) };
 }
-function waitForApp_manifestAdded(id) {
-  waitFor(matchAddApp_manifest(id));
+function waitForApp_manifestAdded(code) {
+  waitFor(matchAddApp_manifest(code));
 }
-function waitForApp_manifestDeleted(id) {
-  waitFor(matchDeleteApp_manifest(id));
+function waitForApp_manifestDeleted(code) {
+  waitFor(matchDeleteApp_manifest(code));
 }
 function waitForAnyApp_manifestDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ app_manifest\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ app_manifest\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ app_manifest\ with\ code\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ app_manifest\ with\ code\ (.+)$/);
+    return { code: parseInt(m[1]) };
 }
-function waitForApp_manifestUpdated(id) {
-  waitFor(matchUpdateApp_manifest(id));
+function waitForApp_manifestUpdated(code) {
+  waitFor(matchUpdateApp_manifest(code));
 }
 function waitForAnyApp_manifestUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ app_manifest\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ app_manifest\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ app_manifest\ with\ code\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ app_manifest\ with\ code\ (.+)$/);
+    return { code: parseInt(m[1]) };
 }
 
 // Verify updated (presence-by-list)
-function verifyApp_manifestUpdated(id) {
+function verifyApp_manifestUpdated(code) {
   svc.get("/app_manifests", {
     callback: function (response) {
       app_manifest = JSON.parse(response.body);
       for (let i = 0; i < app_manifest.length; i++) {
-        if (app_manifest[i].id === id) {
+        if (app_manifest[i].code === code) {
           return pvg.success("App_manifest updated (present)");
         }
       }
       return pvg.fail("Expected a app_manifest to be present after update, but it is not");
     },
-    parameters: { description: "Verify app_manifest with " + "id " + id + " exists" }
+    parameters: { description: "Verify app_manifest with " + "code " + code + " exists" }
   });
 }
 
@@ -523,43 +523,43 @@ function verifyApp_manifestUpdated(id) {
 /** === Application Operations === */
 
 // CREATE
-function addApplication(id) {
-  svc.post("/applications", { body: JSON.stringify({ id: id }), parameters: { description: "Add a application with " + "id " + id } });
+function addApplication(client_id) {
+  svc.post("/applications", { body: JSON.stringify({ client_id: client_id }), parameters: { description: "Add a application with " + "client_id " + client_id } });
 }
 
 // DELETE
-function deleteApplication(id) {
-  svc.delete("/applications/" + id, {
-    parameters: { description: "Delete a application with " + "id " + id }
+function deleteApplication(client_id) {
+  svc.delete("/applications/" + client_id, {
+    parameters: { description: "Delete a application with " + "client_id " + client_id }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingApplication(id) {
-  svc.delete("/applications/" + id, {
+function tryToDeleteANonExistingApplication(client_id) {
+  svc.delete("/applications/" + client_id, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a application with " + "id " + id }
+    parameters: { description: "Delete a application with " + "client_id " + client_id }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingApplication(id) {
+function tryToAddExistingApplication(client_id) {
   svc.post("/applications", {
-    body: JSON.stringify({ id: id }),
-    parameters: { description: "Add a application with " + "id " + id },
+    body: JSON.stringify({ client_id: client_id }),
+    parameters: { description: "Add a application with " + "client_id " + client_id },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateApplication(id) {
-  svc.put("/applications/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a application with " + "id " + id } });
+function updateApplication(client_id) {
+  svc.put("/applications/" + client_id, { body: JSON.stringify({ client_id: client_id }), parameters: { description: "Update a application with " + "client_id " + client_id } });
 }
 
 // GET one
-function getApplication(id) {
-  svc.get("/applications/" + id, {
-    parameters: { description: "Get a application with " + "id " + id }
+function getApplication(client_id) {
+  svc.get("/applications/" + client_id, {
+    parameters: { description: "Get a application with " + "client_id " + client_id }
   });
 }
 
@@ -571,34 +571,34 @@ function listApplications() {
 }
 
 // Verify exists (by list)
-function verifyApplicationExists(id) {
+function verifyApplicationExists(client_id) {
   svc.get("/applications", {
     callback: function (response) {
       application = JSON.parse(response.body);
       for (let i = 0; i < application.length; i++) {
-        if (application[i].id === id) {
+        if (application[i].client_id === client_id) {
           return pvg.success("Application exists");
         }
       }
       return pvg.fail("Expected a application to exist but it does not");
     },
-    parameters: { description: "Verify application with " + "id " + id + " exists" }
+    parameters: { description: "Verify application with " + "client_id " + client_id + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyApplicationDoesNotExist(id) {
+function verifyApplicationDoesNotExist(client_id) {
   svc.get("/applications", {
     callback: function (response) {
       application = JSON.parse(response.body);
       for (let i = 0; i < application.length; i++) {
-        if (application[i].id === id) {
+        if (application[i].client_id === client_id) {
           return pvg.fail("Expected a application to not exist but it does");
         }
       }
       return pvg.success("Application does not exist");
     },
-    parameters: { description: "Verify application with " + "id " + id + " does not exist" }
+    parameters: { description: "Verify application with " + "client_id " + client_id + " does not exist" }
   });
 }
 
@@ -609,10 +609,10 @@ function matchAnyAddApplication() {
     return e.data.parameters.description.startsWith("Add a application");
   });
 }
-function matchAddApplication(id) {
+function matchAddApplication(client_id) {
   return bp.EventSet("add-application", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a application with " + "id " + id;
+    return e.data.parameters.description === "Add a application with " + "client_id " + client_id;
   });
 }
 function matchAnyDeleteApplication() {
@@ -621,10 +621,10 @@ function matchAnyDeleteApplication() {
     return e.data.parameters.description.startsWith("Delete a application");
   });
 }
-function matchDeleteApplication(id) {
+function matchDeleteApplication(client_id) {
   return bp.EventSet("del-application", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a application with " + "id " + id;
+    return e.data.parameters.description === "Delete a application with " + "client_id " + client_id;
   });
 }
 
@@ -635,52 +635,52 @@ function matchAnyUpdateApplication() {
     return e.data.parameters.description.startsWith("Update a application");
   });
 }
-function matchUpdateApplication(id) {
+function matchUpdateApplication(client_id) {
   return bp.EventSet("update-application", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a application with " + "id " + id;
+    return e.data.parameters.description === "Update a application with " + "client_id " + client_id;
   });
 }
 
 // Wait helpers
 function waitForAnyApplicationAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ application\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ application\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ application\ with\ client_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ application\ with\ client_id\ (.+)$/);
+    return { client_id: parseInt(m[1]) };
 }
-function waitForApplicationAdded(id) {
-  waitFor(matchAddApplication(id));
+function waitForApplicationAdded(client_id) {
+  waitFor(matchAddApplication(client_id));
 }
-function waitForApplicationDeleted(id) {
-  waitFor(matchDeleteApplication(id));
+function waitForApplicationDeleted(client_id) {
+  waitFor(matchDeleteApplication(client_id));
 }
 function waitForAnyApplicationDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ application\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ application\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ application\ with\ client_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ application\ with\ client_id\ (.+)$/);
+    return { client_id: parseInt(m[1]) };
 }
-function waitForApplicationUpdated(id) {
-  waitFor(matchUpdateApplication(id));
+function waitForApplicationUpdated(client_id) {
+  waitFor(matchUpdateApplication(client_id));
 }
 function waitForAnyApplicationUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ application\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ application\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ application\ with\ client_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ application\ with\ client_id\ (.+)$/);
+    return { client_id: parseInt(m[1]) };
 }
 
 // Verify updated (presence-by-list)
-function verifyApplicationUpdated(id) {
+function verifyApplicationUpdated(client_id) {
   svc.get("/applications", {
     callback: function (response) {
       application = JSON.parse(response.body);
       for (let i = 0; i < application.length; i++) {
-        if (application[i].id === id) {
+        if (application[i].client_id === client_id) {
           return pvg.success("Application updated (present)");
         }
       }
       return pvg.fail("Expected a application to be present after update, but it is not");
     },
-    parameters: { description: "Verify application with " + "id " + id + " exists" }
+    parameters: { description: "Verify application with " + "client_id " + client_id + " exists" }
   });
 }
 
@@ -688,43 +688,43 @@ function verifyApplicationUpdated(id) {
 /** === App Operations === */
 
 // CREATE
-function addApp(id) {
-  svc.post("/apps", { body: JSON.stringify({ id: id }), parameters: { description: "Add a app with " + "id " + id } });
+function addApp(app_slug) {
+  svc.post("/apps", { body: JSON.stringify({ app_slug: app_slug }), parameters: { description: "Add a app with " + "app_slug " + app_slug } });
 }
 
 // DELETE
-function deleteApp(id) {
-  svc.delete("/apps/" + id, {
-    parameters: { description: "Delete a app with " + "id " + id }
+function deleteApp(app_slug) {
+  svc.delete("/apps/" + app_slug, {
+    parameters: { description: "Delete a app with " + "app_slug " + app_slug }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingApp(id) {
-  svc.delete("/apps/" + id, {
+function tryToDeleteANonExistingApp(app_slug) {
+  svc.delete("/apps/" + app_slug, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a app with " + "id " + id }
+    parameters: { description: "Delete a app with " + "app_slug " + app_slug }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingApp(id) {
+function tryToAddExistingApp(app_slug) {
   svc.post("/apps", {
-    body: JSON.stringify({ id: id }),
-    parameters: { description: "Add a app with " + "id " + id },
+    body: JSON.stringify({ app_slug: app_slug }),
+    parameters: { description: "Add a app with " + "app_slug " + app_slug },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateApp(id) {
-  svc.put("/apps/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a app with " + "id " + id } });
+function updateApp(app_slug) {
+  svc.put("/apps/" + app_slug, { body: JSON.stringify({ app_slug: app_slug }), parameters: { description: "Update a app with " + "app_slug " + app_slug } });
 }
 
 // GET one
-function getApp(id) {
-  svc.get("/apps/" + id, {
-    parameters: { description: "Get a app with " + "id " + id }
+function getApp(app_slug) {
+  svc.get("/apps/" + app_slug, {
+    parameters: { description: "Get a app with " + "app_slug " + app_slug }
   });
 }
 
@@ -736,34 +736,34 @@ function listApps() {
 }
 
 // Verify exists (by list)
-function verifyAppExists(id) {
+function verifyAppExists(app_slug) {
   svc.get("/apps", {
     callback: function (response) {
       app = JSON.parse(response.body);
       for (let i = 0; i < app.length; i++) {
-        if (app[i].id === id) {
+        if (app[i].app_slug === app_slug) {
           return pvg.success("App exists");
         }
       }
       return pvg.fail("Expected a app to exist but it does not");
     },
-    parameters: { description: "Verify app with " + "id " + id + " exists" }
+    parameters: { description: "Verify app with " + "app_slug " + app_slug + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyAppDoesNotExist(id) {
+function verifyAppDoesNotExist(app_slug) {
   svc.get("/apps", {
     callback: function (response) {
       app = JSON.parse(response.body);
       for (let i = 0; i < app.length; i++) {
-        if (app[i].id === id) {
+        if (app[i].app_slug === app_slug) {
           return pvg.fail("Expected a app to not exist but it does");
         }
       }
       return pvg.success("App does not exist");
     },
-    parameters: { description: "Verify app with " + "id " + id + " does not exist" }
+    parameters: { description: "Verify app with " + "app_slug " + app_slug + " does not exist" }
   });
 }
 
@@ -774,10 +774,10 @@ function matchAnyAddApp() {
     return e.data.parameters.description.startsWith("Add a app");
   });
 }
-function matchAddApp(id) {
+function matchAddApp(app_slug) {
   return bp.EventSet("add-app", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a app with " + "id " + id;
+    return e.data.parameters.description === "Add a app with " + "app_slug " + app_slug;
   });
 }
 function matchAnyDeleteApp() {
@@ -786,10 +786,10 @@ function matchAnyDeleteApp() {
     return e.data.parameters.description.startsWith("Delete a app");
   });
 }
-function matchDeleteApp(id) {
+function matchDeleteApp(app_slug) {
   return bp.EventSet("del-app", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a app with " + "id " + id;
+    return e.data.parameters.description === "Delete a app with " + "app_slug " + app_slug;
   });
 }
 
@@ -800,52 +800,52 @@ function matchAnyUpdateApp() {
     return e.data.parameters.description.startsWith("Update a app");
   });
 }
-function matchUpdateApp(id) {
+function matchUpdateApp(app_slug) {
   return bp.EventSet("update-app", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a app with " + "id " + id;
+    return e.data.parameters.description === "Update a app with " + "app_slug " + app_slug;
   });
 }
 
 // Wait helpers
 function waitForAnyAppAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ app\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ app\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ app\ with\ app_slug\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ app\ with\ app_slug\ (.+)$/);
+    return { app_slug: m[1] };
 }
-function waitForAppAdded(id) {
-  waitFor(matchAddApp(id));
+function waitForAppAdded(app_slug) {
+  waitFor(matchAddApp(app_slug));
 }
-function waitForAppDeleted(id) {
-  waitFor(matchDeleteApp(id));
+function waitForAppDeleted(app_slug) {
+  waitFor(matchDeleteApp(app_slug));
 }
 function waitForAnyAppDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ app\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ app\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ app\ with\ app_slug\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ app\ with\ app_slug\ (.+)$/);
+    return { app_slug: m[1] };
 }
-function waitForAppUpdated(id) {
-  waitFor(matchUpdateApp(id));
+function waitForAppUpdated(app_slug) {
+  waitFor(matchUpdateApp(app_slug));
 }
 function waitForAnyAppUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ app\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ app\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ app\ with\ app_slug\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ app\ with\ app_slug\ (.+)$/);
+    return { app_slug: m[1] };
 }
 
 // Verify updated (presence-by-list)
-function verifyAppUpdated(id) {
+function verifyAppUpdated(app_slug) {
   svc.get("/apps", {
     callback: function (response) {
       app = JSON.parse(response.body);
       for (let i = 0; i < app.length; i++) {
-        if (app[i].id === id) {
+        if (app[i].app_slug === app_slug) {
           return pvg.success("App updated (present)");
         }
       }
       return pvg.fail("Expected a app to be present after update, but it is not");
     },
-    parameters: { description: "Verify app with " + "id " + id + " exists" }
+    parameters: { description: "Verify app with " + "app_slug " + app_slug + " exists" }
   });
 }
 
@@ -2998,43 +2998,43 @@ function verifyMarkdownUpdated(id) {
 /** === Marketplace_listing Operations === */
 
 // CREATE
-function addMarketplace_listing(id) {
-  svc.post("/marketplace_listing", { body: JSON.stringify({ id: id }), parameters: { description: "Add a marketplace_listing with " + "id " + id } });
+function addMarketplace_listing(account_id, plan_id) {
+  svc.post("/marketplace_listing", { body: JSON.stringify({ account_id: account_id, plan_id: plan_id }), parameters: { description: "Add a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id } });
 }
 
 // DELETE
-function deleteMarketplace_listing(id) {
-  svc.delete("/marketplace_listing/" + id, {
-    parameters: { description: "Delete a marketplace_listing with " + "id " + id }
+function deleteMarketplace_listing(account_id, plan_id) {
+  svc.delete("/marketplace_listing/" + account_id + "/"+ plan_id, {
+    parameters: { description: "Delete a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingMarketplace_listing(id) {
-  svc.delete("/marketplace_listing/" + id, {
+function tryToDeleteANonExistingMarketplace_listing(account_id, plan_id) {
+  svc.delete("/marketplace_listing/" + account_id + "/"+ plan_id, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a marketplace_listing with " + "id " + id }
+    parameters: { description: "Delete a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingMarketplace_listing(id) {
+function tryToAddExistingMarketplace_listing(account_id, plan_id) {
   svc.post("/marketplace_listing", {
-    body: JSON.stringify({ id: id }),
-    parameters: { description: "Add a marketplace_listing with " + "id " + id },
+    body: JSON.stringify({ account_id: account_id, plan_id: plan_id }),
+    parameters: { description: "Add a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateMarketplace_listing(id) {
-  svc.put("/marketplace_listing/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a marketplace_listing with " + "id " + id } });
+function updateMarketplace_listing(account_id, plan_id) {
+  svc.put("/marketplace_listing/" + account_id + "/"+ plan_id, { body: JSON.stringify({ account_id: account_id, plan_id: plan_id }), parameters: { description: "Update a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id } });
 }
 
 // GET one
-function getMarketplace_listing(id) {
-  svc.get("/marketplace_listing/" + id, {
-    parameters: { description: "Get a marketplace_listing with " + "id " + id }
+function getMarketplace_listing(account_id, plan_id) {
+  svc.get("/marketplace_listing/" + account_id + "/"+ plan_id, {
+    parameters: { description: "Get a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id }
   });
 }
 
@@ -3046,34 +3046,34 @@ function listMarketplace_listing() {
 }
 
 // Verify exists (by list)
-function verifyMarketplace_listingExists(id) {
+function verifyMarketplace_listingExists(account_id, plan_id) {
   svc.get("/marketplace_listing", {
     callback: function (response) {
       marketplace_listing = JSON.parse(response.body);
       for (let i = 0; i < marketplace_listing.length; i++) {
-        if (marketplace_listing[i].id === id) {
+        if (marketplace_listing[i].account_id === account_id && marketplace_listing[i].plan_id === plan_id) {
           return pvg.success("Marketplace_listing exists");
         }
       }
       return pvg.fail("Expected a marketplace_listing to exist but it does not");
     },
-    parameters: { description: "Verify marketplace_listing with " + "id " + id + " exists" }
+    parameters: { description: "Verify marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyMarketplace_listingDoesNotExist(id) {
+function verifyMarketplace_listingDoesNotExist(account_id, plan_id) {
   svc.get("/marketplace_listing", {
     callback: function (response) {
       marketplace_listing = JSON.parse(response.body);
       for (let i = 0; i < marketplace_listing.length; i++) {
-        if (marketplace_listing[i].id === id) {
+        if (marketplace_listing[i].account_id === account_id && marketplace_listing[i].plan_id === plan_id) {
           return pvg.fail("Expected a marketplace_listing to not exist but it does");
         }
       }
       return pvg.success("Marketplace_listing does not exist");
     },
-    parameters: { description: "Verify marketplace_listing with " + "id " + id + " does not exist" }
+    parameters: { description: "Verify marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id + " does not exist" }
   });
 }
 
@@ -3084,10 +3084,10 @@ function matchAnyAddMarketplace_listing() {
     return e.data.parameters.description.startsWith("Add a marketplace_listing");
   });
 }
-function matchAddMarketplace_listing(id) {
+function matchAddMarketplace_listing(account_id, plan_id) {
   return bp.EventSet("add-marketplace_listing", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a marketplace_listing with " + "id " + id;
+    return e.data.parameters.description === "Add a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id;
   });
 }
 function matchAnyDeleteMarketplace_listing() {
@@ -3096,10 +3096,10 @@ function matchAnyDeleteMarketplace_listing() {
     return e.data.parameters.description.startsWith("Delete a marketplace_listing");
   });
 }
-function matchDeleteMarketplace_listing(id) {
+function matchDeleteMarketplace_listing(account_id, plan_id) {
   return bp.EventSet("del-marketplace_listing", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a marketplace_listing with " + "id " + id;
+    return e.data.parameters.description === "Delete a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id;
   });
 }
 
@@ -3110,52 +3110,52 @@ function matchAnyUpdateMarketplace_listing() {
     return e.data.parameters.description.startsWith("Update a marketplace_listing");
   });
 }
-function matchUpdateMarketplace_listing(id) {
+function matchUpdateMarketplace_listing(account_id, plan_id) {
   return bp.EventSet("update-marketplace_listing", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a marketplace_listing with " + "id " + id;
+    return e.data.parameters.description === "Update a marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id;
   });
 }
 
 // Wait helpers
 function waitForAnyMarketplace_listingAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ marketplace_listing\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ marketplace_listing\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ marketplace_listing\ with\ account_id\ (.+) and plan_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ marketplace_listing\ with\ account_id\ (.+) and plan_id\ (.+)$/);
+    return { account_id: parseInt(m[1]), plan_id: parseInt(m[2]) };
 }
-function waitForMarketplace_listingAdded(id) {
-  waitFor(matchAddMarketplace_listing(id));
+function waitForMarketplace_listingAdded(account_id, plan_id) {
+  waitFor(matchAddMarketplace_listing(account_id, plan_id));
 }
-function waitForMarketplace_listingDeleted(id) {
-  waitFor(matchDeleteMarketplace_listing(id));
+function waitForMarketplace_listingDeleted(account_id, plan_id) {
+  waitFor(matchDeleteMarketplace_listing(account_id, plan_id));
 }
 function waitForAnyMarketplace_listingDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ marketplace_listing\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ marketplace_listing\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ marketplace_listing\ with\ account_id\ (.+) and plan_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ marketplace_listing\ with\ account_id\ (.+) and plan_id\ (.+)$/);
+    return { account_id: parseInt(m[1]), plan_id: parseInt(m[2]) };
 }
-function waitForMarketplace_listingUpdated(id) {
-  waitFor(matchUpdateMarketplace_listing(id));
+function waitForMarketplace_listingUpdated(account_id, plan_id) {
+  waitFor(matchUpdateMarketplace_listing(account_id, plan_id));
 }
 function waitForAnyMarketplace_listingUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ marketplace_listing\ with\ id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ marketplace_listing\ with\ id\ (.+)$/);
-    return { id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ marketplace_listing\ with\ account_id\ (.+) and plan_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ marketplace_listing\ with\ account_id\ (.+) and plan_id\ (.+)$/);
+    return { account_id: parseInt(m[1]), plan_id: parseInt(m[2]) };
 }
 
 // Verify updated (presence-by-list)
-function verifyMarketplace_listingUpdated(id) {
+function verifyMarketplace_listingUpdated(account_id, plan_id) {
   svc.get("/marketplace_listing", {
     callback: function (response) {
       marketplace_listing = JSON.parse(response.body);
       for (let i = 0; i < marketplace_listing.length; i++) {
-        if (marketplace_listing[i].id === id) {
+        if (marketplace_listing[i].account_id === account_id && marketplace_listing[i].plan_id === plan_id) {
           return pvg.success("Marketplace_listing updated (present)");
         }
       }
       return pvg.fail("Expected a marketplace_listing to be present after update, but it is not");
     },
-    parameters: { description: "Verify marketplace_listing with " + "id " + id + " exists" }
+    parameters: { description: "Verify marketplace_listing with " + "account_id " + account_id + " and " + "plan_id " + plan_id + " exists" }
   });
 }
 
@@ -3658,43 +3658,43 @@ function verifyOctocatUpdated(id) {
 /** === Organization Operations === */
 
 // CREATE
-function addOrganization(org) {
-  svc.post("/organizations", { body: JSON.stringify({ org: org }), parameters: { description: "Add a organization with " + "org " + org } });
+function addOrganization(id) {
+  svc.post("/organizations", { body: JSON.stringify({ id: id }), parameters: { description: "Add a organization with " + "id " + id } });
 }
 
 // DELETE
-function deleteOrganization(org) {
-  svc.delete("/organizations/" + org, {
-    parameters: { description: "Delete a organization with " + "org " + org }
+function deleteOrganization(id) {
+  svc.delete("/organizations/" + id, {
+    parameters: { description: "Delete a organization with " + "id " + id }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingOrganization(org) {
-  svc.delete("/organizations/" + org, {
+function tryToDeleteANonExistingOrganization(id) {
+  svc.delete("/organizations/" + id, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a organization with " + "org " + org }
+    parameters: { description: "Delete a organization with " + "id " + id }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingOrganization(org) {
+function tryToAddExistingOrganization(id) {
   svc.post("/organizations", {
-    body: JSON.stringify({ org: org }),
-    parameters: { description: "Add a organization with " + "org " + org },
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a organization with " + "id " + id },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateOrganization(org) {
-  svc.put("/organizations/" + org, { body: JSON.stringify({ org: org }), parameters: { description: "Update a organization with " + "org " + org } });
+function updateOrganization(id) {
+  svc.put("/organizations/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a organization with " + "id " + id } });
 }
 
 // GET one
-function getOrganization(org) {
-  svc.get("/organizations/" + org, {
-    parameters: { description: "Get a organization with " + "org " + org }
+function getOrganization(id) {
+  svc.get("/organizations/" + id, {
+    parameters: { description: "Get a organization with " + "id " + id }
   });
 }
 
@@ -3706,34 +3706,34 @@ function listOrganizations() {
 }
 
 // Verify exists (by list)
-function verifyOrganizationExists(org) {
+function verifyOrganizationExists(id) {
   svc.get("/organizations", {
     callback: function (response) {
       organization = JSON.parse(response.body);
       for (let i = 0; i < organization.length; i++) {
-        if (organization[i].org === org) {
+        if (organization[i].id === id) {
           return pvg.success("Organization exists");
         }
       }
       return pvg.fail("Expected a organization to exist but it does not");
     },
-    parameters: { description: "Verify organization with " + "org " + org + " exists" }
+    parameters: { description: "Verify organization with " + "id " + id + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyOrganizationDoesNotExist(org) {
+function verifyOrganizationDoesNotExist(id) {
   svc.get("/organizations", {
     callback: function (response) {
       organization = JSON.parse(response.body);
       for (let i = 0; i < organization.length; i++) {
-        if (organization[i].org === org) {
+        if (organization[i].id === id) {
           return pvg.fail("Expected a organization to not exist but it does");
         }
       }
       return pvg.success("Organization does not exist");
     },
-    parameters: { description: "Verify organization with " + "org " + org + " does not exist" }
+    parameters: { description: "Verify organization with " + "id " + id + " does not exist" }
   });
 }
 
@@ -3744,10 +3744,10 @@ function matchAnyAddOrganization() {
     return e.data.parameters.description.startsWith("Add a organization");
   });
 }
-function matchAddOrganization(org) {
+function matchAddOrganization(id) {
   return bp.EventSet("add-organization", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a organization with " + "org " + org;
+    return e.data.parameters.description === "Add a organization with " + "id " + id;
   });
 }
 function matchAnyDeleteOrganization() {
@@ -3756,10 +3756,10 @@ function matchAnyDeleteOrganization() {
     return e.data.parameters.description.startsWith("Delete a organization");
   });
 }
-function matchDeleteOrganization(org) {
+function matchDeleteOrganization(id) {
   return bp.EventSet("del-organization", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a organization with " + "org " + org;
+    return e.data.parameters.description === "Delete a organization with " + "id " + id;
   });
 }
 
@@ -3770,52 +3770,52 @@ function matchAnyUpdateOrganization() {
     return e.data.parameters.description.startsWith("Update a organization");
   });
 }
-function matchUpdateOrganization(org) {
+function matchUpdateOrganization(id) {
   return bp.EventSet("update-organization", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a organization with " + "org " + org;
+    return e.data.parameters.description === "Update a organization with " + "id " + id;
   });
 }
 
 // Wait helpers
 function waitForAnyOrganizationAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ organization\ with\ org\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ organization\ with\ org\ (.+)$/);
-    return { org: m[1] };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ organization\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ organization\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
 }
-function waitForOrganizationAdded(org) {
-  waitFor(matchAddOrganization(org));
+function waitForOrganizationAdded(id) {
+  waitFor(matchAddOrganization(id));
 }
-function waitForOrganizationDeleted(org) {
-  waitFor(matchDeleteOrganization(org));
+function waitForOrganizationDeleted(id) {
+  waitFor(matchDeleteOrganization(id));
 }
 function waitForAnyOrganizationDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ organization\ with\ org\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ organization\ with\ org\ (.+)$/);
-    return { org: m[1] };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ organization\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ organization\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
 }
-function waitForOrganizationUpdated(org) {
-  waitFor(matchUpdateOrganization(org));
+function waitForOrganizationUpdated(id) {
+  waitFor(matchUpdateOrganization(id));
 }
 function waitForAnyOrganizationUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ organization\ with\ org\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ organization\ with\ org\ (.+)$/);
-    return { org: m[1] };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ organization\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ organization\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
 }
 
 // Verify updated (presence-by-list)
-function verifyOrganizationUpdated(org) {
+function verifyOrganizationUpdated(id) {
   svc.get("/organizations", {
     callback: function (response) {
       organization = JSON.parse(response.body);
       for (let i = 0; i < organization.length; i++) {
-        if (organization[i].org === org) {
+        if (organization[i].id === id) {
           return pvg.success("Organization updated (present)");
         }
       }
       return pvg.fail("Expected a organization to be present after update, but it is not");
     },
-    parameters: { description: "Verify organization with " + "org " + org + " exists" }
+    parameters: { description: "Verify organization with " + "id " + id + " exists" }
   });
 }
 
@@ -3823,43 +3823,43 @@ function verifyOrganizationUpdated(org) {
 /** === Org Operations === */
 
 // CREATE
-function addOrg(org, secret_name, repository_id) {
-  svc.post("/orgs", { body: JSON.stringify({ org: org, secret_name: secret_name, repository_id: repository_id }), parameters: { description: "Add a org with " + "org " + org + " and " + "secret_name " + secret_name + " and " + "repository_id " + repository_id } });
+function addOrg(org) {
+  svc.post("/orgs", { body: JSON.stringify({ org: org }), parameters: { description: "Add a org with " + "org " + org } });
 }
 
 // DELETE
-function deleteOrg(org, secret_name, repository_id) {
-  svc.delete("/orgs/" + org + "/"+ secret_name + "/"+ repository_id, {
-    parameters: { description: "Delete a org with " + "org " + org + " and " + "secret_name " + secret_name + " and " + "repository_id " + repository_id }
+function deleteOrg(org) {
+  svc.delete("/orgs/" + org, {
+    parameters: { description: "Delete a org with " + "org " + org }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingOrg(org, secret_name, repository_id) {
-  svc.delete("/orgs/" + org + "/"+ secret_name + "/"+ repository_id, {
+function tryToDeleteANonExistingOrg(org) {
+  svc.delete("/orgs/" + org, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a org with " + "org " + org + " and " + "secret_name " + secret_name + " and " + "repository_id " + repository_id }
+    parameters: { description: "Delete a org with " + "org " + org }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingOrg(org, secret_name, repository_id) {
+function tryToAddExistingOrg(org) {
   svc.post("/orgs", {
-    body: JSON.stringify({ org: org, secret_name: secret_name, repository_id: repository_id }),
-    parameters: { description: "Add a org with " + "org " + org + " and " + "secret_name " + secret_name + " and " + "repository_id " + repository_id },
+    body: JSON.stringify({ org: org }),
+    parameters: { description: "Add a org with " + "org " + org },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateOrg(org, secret_name, repository_id) {
-  svc.put("/orgs/" + org + "/"+ secret_name + "/"+ repository_id, { body: JSON.stringify({ org: org, secret_name: secret_name, repository_id: repository_id }), parameters: { description: "Update a org with " + "org " + org + " and " + "secret_name " + secret_name + " and " + "repository_id " + repository_id } });
+function updateOrg(org) {
+  svc.put("/orgs/" + org, { body: JSON.stringify({ org: org }), parameters: { description: "Update a org with " + "org " + org } });
 }
 
 // GET one
-function getOrg(org, secret_name, repository_id) {
-  svc.get("/orgs/" + org + "/"+ secret_name + "/"+ repository_id, {
-    parameters: { description: "Get a org with " + "org " + org + " and " + "secret_name " + secret_name + " and " + "repository_id " + repository_id }
+function getOrg(org) {
+  svc.get("/orgs/" + org, {
+    parameters: { description: "Get a org with " + "org " + org }
   });
 }
 
@@ -3871,34 +3871,34 @@ function listOrgs() {
 }
 
 // Verify exists (by list)
-function verifyOrgExists(org, secret_name, repository_id) {
+function verifyOrgExists(org) {
   svc.get("/orgs", {
     callback: function (response) {
       org = JSON.parse(response.body);
       for (let i = 0; i < org.length; i++) {
-        if (org[i].org === org && org[i].secret_name === secret_name && org[i].repository_id === repository_id) {
+        if (org[i].org === org) {
           return pvg.success("Org exists");
         }
       }
       return pvg.fail("Expected a org to exist but it does not");
     },
-    parameters: { description: "Verify org with " + "org " + org + " and " + "secret_name " + secret_name + " and " + "repository_id " + repository_id + " exists" }
+    parameters: { description: "Verify org with " + "org " + org + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyOrgDoesNotExist(org, secret_name, repository_id) {
+function verifyOrgDoesNotExist(org) {
   svc.get("/orgs", {
     callback: function (response) {
       org = JSON.parse(response.body);
       for (let i = 0; i < org.length; i++) {
-        if (org[i].org === org && org[i].secret_name === secret_name && org[i].repository_id === repository_id) {
+        if (org[i].org === org) {
           return pvg.fail("Expected a org to not exist but it does");
         }
       }
       return pvg.success("Org does not exist");
     },
-    parameters: { description: "Verify org with " + "org " + org + " and " + "secret_name " + secret_name + " and " + "repository_id " + repository_id + " does not exist" }
+    parameters: { description: "Verify org with " + "org " + org + " does not exist" }
   });
 }
 
@@ -3909,10 +3909,10 @@ function matchAnyAddOrg() {
     return e.data.parameters.description.startsWith("Add a org");
   });
 }
-function matchAddOrg(org, secret_name, repository_id) {
+function matchAddOrg(org) {
   return bp.EventSet("add-org", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a org with " + "org " + org + " and " + "secret_name " + secret_name + " and " + "repository_id " + repository_id;
+    return e.data.parameters.description === "Add a org with " + "org " + org;
   });
 }
 function matchAnyDeleteOrg() {
@@ -3921,10 +3921,10 @@ function matchAnyDeleteOrg() {
     return e.data.parameters.description.startsWith("Delete a org");
   });
 }
-function matchDeleteOrg(org, secret_name, repository_id) {
+function matchDeleteOrg(org) {
   return bp.EventSet("del-org", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a org with " + "org " + org + " and " + "secret_name " + secret_name + " and " + "repository_id " + repository_id;
+    return e.data.parameters.description === "Delete a org with " + "org " + org;
   });
 }
 
@@ -3935,52 +3935,52 @@ function matchAnyUpdateOrg() {
     return e.data.parameters.description.startsWith("Update a org");
   });
 }
-function matchUpdateOrg(org, secret_name, repository_id) {
+function matchUpdateOrg(org) {
   return bp.EventSet("update-org", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a org with " + "org " + org + " and " + "secret_name " + secret_name + " and " + "repository_id " + repository_id;
+    return e.data.parameters.description === "Update a org with " + "org " + org;
   });
 }
 
 // Wait helpers
 function waitForAnyOrgAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ org\ with\ org\ (.+) and secret_name\ (.+) and repository_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ org\ with\ org\ (.+) and secret_name\ (.+) and repository_id\ (.+)$/);
-    return { org: m[1], secret_name: m[2], repository_id: parseInt(m[3]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ org\ with\ org\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ org\ with\ org\ (.+)$/);
+    return { org: m[1] };
 }
-function waitForOrgAdded(org, secret_name, repository_id) {
-  waitFor(matchAddOrg(org, secret_name, repository_id));
+function waitForOrgAdded(org) {
+  waitFor(matchAddOrg(org));
 }
-function waitForOrgDeleted(org, secret_name, repository_id) {
-  waitFor(matchDeleteOrg(org, secret_name, repository_id));
+function waitForOrgDeleted(org) {
+  waitFor(matchDeleteOrg(org));
 }
 function waitForAnyOrgDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ org\ with\ org\ (.+) and secret_name\ (.+) and repository_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ org\ with\ org\ (.+) and secret_name\ (.+) and repository_id\ (.+)$/);
-    return { org: m[1], secret_name: m[2], repository_id: parseInt(m[3]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ org\ with\ org\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ org\ with\ org\ (.+)$/);
+    return { org: m[1] };
 }
-function waitForOrgUpdated(org, secret_name, repository_id) {
-  waitFor(matchUpdateOrg(org, secret_name, repository_id));
+function waitForOrgUpdated(org) {
+  waitFor(matchUpdateOrg(org));
 }
 function waitForAnyOrgUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ org\ with\ org\ (.+) and secret_name\ (.+) and repository_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ org\ with\ org\ (.+) and secret_name\ (.+) and repository_id\ (.+)$/);
-    return { org: m[1], secret_name: m[2], repository_id: parseInt(m[3]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ org\ with\ org\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ org\ with\ org\ (.+)$/);
+    return { org: m[1] };
 }
 
 // Verify updated (presence-by-list)
-function verifyOrgUpdated(org, secret_name, repository_id) {
+function verifyOrgUpdated(org) {
   svc.get("/orgs", {
     callback: function (response) {
       org = JSON.parse(response.body);
       for (let i = 0; i < org.length; i++) {
-        if (org[i].org === org && org[i].secret_name === secret_name && org[i].repository_id === repository_id) {
+        if (org[i].org === org) {
           return pvg.success("Org updated (present)");
         }
       }
       return pvg.fail("Expected a org to be present after update, but it is not");
     },
-    parameters: { description: "Verify org with " + "org " + org + " and " + "secret_name " + secret_name + " and " + "repository_id " + repository_id + " exists" }
+    parameters: { description: "Verify org with " + "org " + org + " exists" }
   });
 }
 
@@ -4318,43 +4318,43 @@ function verifyRate_limitUpdated(id) {
 /** === Repo Operations === */
 
 // CREATE
-function addRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
-  svc.post("/repos", { body: JSON.stringify({ owner: owner, repo: repo, alert_number: alert_number, secret_name: secret_name, ghsa_id: ghsa_id, analysis_id: analysis_id, language: language, codeql_variant_analysis_id: codeql_variant_analysis_id, run_id: run_id, name: name, repo_owner: repo_owner, repo_name: repo_name, sarif_id: sarif_id }), parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "secret_name " + secret_name + " and " + "ghsa_id " + ghsa_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "run_id " + run_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id } });
+function addRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
+  svc.post("/repos", { body: JSON.stringify({ owner: owner, repo: repo, alert_number: alert_number, ghsa_id: ghsa_id, run_id: run_id, analysis_id: analysis_id, language: language, codeql_variant_analysis_id: codeql_variant_analysis_id, name: name, repo_owner: repo_owner, repo_name: repo_name, sarif_id: sarif_id }), parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "ghsa_id " + ghsa_id + " and " + "run_id " + run_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id } });
 }
 
 // DELETE
-function deleteRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
-  svc.delete("/repos/" + owner + "/"+ repo + "/"+ alert_number + "/"+ secret_name + "/"+ ghsa_id + "/"+ analysis_id + "/"+ language + "/"+ codeql_variant_analysis_id + "/"+ run_id + "/"+ name + "/"+ repo_owner + "/"+ repo_name + "/"+ sarif_id, {
-    parameters: { description: "Delete a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "secret_name " + secret_name + " and " + "ghsa_id " + ghsa_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "run_id " + run_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id }
+function deleteRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
+  svc.delete("/repos/" + owner + "/"+ repo + "/"+ alert_number + "/"+ ghsa_id + "/"+ run_id + "/"+ analysis_id + "/"+ language + "/"+ codeql_variant_analysis_id + "/"+ name + "/"+ repo_owner + "/"+ repo_name + "/"+ sarif_id, {
+    parameters: { description: "Delete a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "ghsa_id " + ghsa_id + " and " + "run_id " + run_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
-  svc.delete("/repos/" + owner + "/"+ repo + "/"+ alert_number + "/"+ secret_name + "/"+ ghsa_id + "/"+ analysis_id + "/"+ language + "/"+ codeql_variant_analysis_id + "/"+ run_id + "/"+ name + "/"+ repo_owner + "/"+ repo_name + "/"+ sarif_id, {
+function tryToDeleteANonExistingRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
+  svc.delete("/repos/" + owner + "/"+ repo + "/"+ alert_number + "/"+ ghsa_id + "/"+ run_id + "/"+ analysis_id + "/"+ language + "/"+ codeql_variant_analysis_id + "/"+ name + "/"+ repo_owner + "/"+ repo_name + "/"+ sarif_id, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "secret_name " + secret_name + " and " + "ghsa_id " + ghsa_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "run_id " + run_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id }
+    parameters: { description: "Delete a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "ghsa_id " + ghsa_id + " and " + "run_id " + run_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
+function tryToAddExistingRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
   svc.post("/repos", {
-    body: JSON.stringify({ owner: owner, repo: repo, alert_number: alert_number, secret_name: secret_name, ghsa_id: ghsa_id, analysis_id: analysis_id, language: language, codeql_variant_analysis_id: codeql_variant_analysis_id, run_id: run_id, name: name, repo_owner: repo_owner, repo_name: repo_name, sarif_id: sarif_id }),
-    parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "secret_name " + secret_name + " and " + "ghsa_id " + ghsa_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "run_id " + run_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id },
+    body: JSON.stringify({ owner: owner, repo: repo, alert_number: alert_number, ghsa_id: ghsa_id, run_id: run_id, analysis_id: analysis_id, language: language, codeql_variant_analysis_id: codeql_variant_analysis_id, name: name, repo_owner: repo_owner, repo_name: repo_name, sarif_id: sarif_id }),
+    parameters: { description: "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "ghsa_id " + ghsa_id + " and " + "run_id " + run_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
-  svc.put("/repos/" + owner + "/"+ repo + "/"+ alert_number + "/"+ secret_name + "/"+ ghsa_id + "/"+ analysis_id + "/"+ language + "/"+ codeql_variant_analysis_id + "/"+ run_id + "/"+ name + "/"+ repo_owner + "/"+ repo_name + "/"+ sarif_id, { body: JSON.stringify({ owner: owner, repo: repo, alert_number: alert_number, secret_name: secret_name, ghsa_id: ghsa_id, analysis_id: analysis_id, language: language, codeql_variant_analysis_id: codeql_variant_analysis_id, run_id: run_id, name: name, repo_owner: repo_owner, repo_name: repo_name, sarif_id: sarif_id }), parameters: { description: "Update a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "secret_name " + secret_name + " and " + "ghsa_id " + ghsa_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "run_id " + run_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id } });
+function updateRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
+  svc.put("/repos/" + owner + "/"+ repo + "/"+ alert_number + "/"+ ghsa_id + "/"+ run_id + "/"+ analysis_id + "/"+ language + "/"+ codeql_variant_analysis_id + "/"+ name + "/"+ repo_owner + "/"+ repo_name + "/"+ sarif_id, { body: JSON.stringify({ owner: owner, repo: repo, alert_number: alert_number, ghsa_id: ghsa_id, run_id: run_id, analysis_id: analysis_id, language: language, codeql_variant_analysis_id: codeql_variant_analysis_id, name: name, repo_owner: repo_owner, repo_name: repo_name, sarif_id: sarif_id }), parameters: { description: "Update a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "ghsa_id " + ghsa_id + " and " + "run_id " + run_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id } });
 }
 
 // GET one
-function getRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
-  svc.get("/repos/" + owner + "/"+ repo + "/"+ alert_number + "/"+ secret_name + "/"+ ghsa_id + "/"+ analysis_id + "/"+ language + "/"+ codeql_variant_analysis_id + "/"+ run_id + "/"+ name + "/"+ repo_owner + "/"+ repo_name + "/"+ sarif_id, {
-    parameters: { description: "Get a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "secret_name " + secret_name + " and " + "ghsa_id " + ghsa_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "run_id " + run_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id }
+function getRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
+  svc.get("/repos/" + owner + "/"+ repo + "/"+ alert_number + "/"+ ghsa_id + "/"+ run_id + "/"+ analysis_id + "/"+ language + "/"+ codeql_variant_analysis_id + "/"+ name + "/"+ repo_owner + "/"+ repo_name + "/"+ sarif_id, {
+    parameters: { description: "Get a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "ghsa_id " + ghsa_id + " and " + "run_id " + run_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id }
   });
 }
 
@@ -4366,34 +4366,34 @@ function listRepos() {
 }
 
 // Verify exists (by list)
-function verifyRepoExists(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
+function verifyRepoExists(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
   svc.get("/repos", {
     callback: function (response) {
       repo = JSON.parse(response.body);
       for (let i = 0; i < repo.length; i++) {
-        if (repo[i].owner === owner && repo[i].repo === repo && repo[i].alert_number === alert_number && repo[i].secret_name === secret_name && repo[i].ghsa_id === ghsa_id && repo[i].analysis_id === analysis_id && repo[i].language === language && repo[i].codeql_variant_analysis_id === codeql_variant_analysis_id && repo[i].run_id === run_id && repo[i].name === name && repo[i].repo_owner === repo_owner && repo[i].repo_name === repo_name && repo[i].sarif_id === sarif_id) {
+        if (repo[i].owner === owner && repo[i].repo === repo && repo[i].alert_number === alert_number && repo[i].ghsa_id === ghsa_id && repo[i].run_id === run_id && repo[i].analysis_id === analysis_id && repo[i].language === language && repo[i].codeql_variant_analysis_id === codeql_variant_analysis_id && repo[i].name === name && repo[i].repo_owner === repo_owner && repo[i].repo_name === repo_name && repo[i].sarif_id === sarif_id) {
           return pvg.success("Repo exists");
         }
       }
       return pvg.fail("Expected a repo to exist but it does not");
     },
-    parameters: { description: "Verify repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "secret_name " + secret_name + " and " + "ghsa_id " + ghsa_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "run_id " + run_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id + " exists" }
+    parameters: { description: "Verify repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "ghsa_id " + ghsa_id + " and " + "run_id " + run_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyRepoDoesNotExist(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
+function verifyRepoDoesNotExist(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
   svc.get("/repos", {
     callback: function (response) {
       repo = JSON.parse(response.body);
       for (let i = 0; i < repo.length; i++) {
-        if (repo[i].owner === owner && repo[i].repo === repo && repo[i].alert_number === alert_number && repo[i].secret_name === secret_name && repo[i].ghsa_id === ghsa_id && repo[i].analysis_id === analysis_id && repo[i].language === language && repo[i].codeql_variant_analysis_id === codeql_variant_analysis_id && repo[i].run_id === run_id && repo[i].name === name && repo[i].repo_owner === repo_owner && repo[i].repo_name === repo_name && repo[i].sarif_id === sarif_id) {
+        if (repo[i].owner === owner && repo[i].repo === repo && repo[i].alert_number === alert_number && repo[i].ghsa_id === ghsa_id && repo[i].run_id === run_id && repo[i].analysis_id === analysis_id && repo[i].language === language && repo[i].codeql_variant_analysis_id === codeql_variant_analysis_id && repo[i].name === name && repo[i].repo_owner === repo_owner && repo[i].repo_name === repo_name && repo[i].sarif_id === sarif_id) {
           return pvg.fail("Expected a repo to not exist but it does");
         }
       }
       return pvg.success("Repo does not exist");
     },
-    parameters: { description: "Verify repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "secret_name " + secret_name + " and " + "ghsa_id " + ghsa_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "run_id " + run_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id + " does not exist" }
+    parameters: { description: "Verify repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "ghsa_id " + ghsa_id + " and " + "run_id " + run_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id + " does not exist" }
   });
 }
 
@@ -4404,10 +4404,10 @@ function matchAnyAddRepo() {
     return e.data.parameters.description.startsWith("Add a repo");
   });
 }
-function matchAddRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
+function matchAddRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
   return bp.EventSet("add-repo", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "secret_name " + secret_name + " and " + "ghsa_id " + ghsa_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "run_id " + run_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id;
+    return e.data.parameters.description === "Add a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "ghsa_id " + ghsa_id + " and " + "run_id " + run_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id;
   });
 }
 function matchAnyDeleteRepo() {
@@ -4416,10 +4416,10 @@ function matchAnyDeleteRepo() {
     return e.data.parameters.description.startsWith("Delete a repo");
   });
 }
-function matchDeleteRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
+function matchDeleteRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
   return bp.EventSet("del-repo", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "secret_name " + secret_name + " and " + "ghsa_id " + ghsa_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "run_id " + run_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id;
+    return e.data.parameters.description === "Delete a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "ghsa_id " + ghsa_id + " and " + "run_id " + run_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id;
   });
 }
 
@@ -4430,52 +4430,52 @@ function matchAnyUpdateRepo() {
     return e.data.parameters.description.startsWith("Update a repo");
   });
 }
-function matchUpdateRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
+function matchUpdateRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
   return bp.EventSet("update-repo", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "secret_name " + secret_name + " and " + "ghsa_id " + ghsa_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "run_id " + run_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id;
+    return e.data.parameters.description === "Update a repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "ghsa_id " + ghsa_id + " and " + "run_id " + run_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id;
   });
 }
 
 // Wait helpers
 function waitForAnyRepoAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and alert_number\ (.+) and secret_name\ (.+) and ghsa_id\ (.+) and analysis_id\ (.+) and language\ (.+) and codeql_variant_analysis_id\ (.+) and run_id\ (.+) and name\ (.+) and repo_owner\ (.+) and repo_name\ (.+) and sarif_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and alert_number\ (.+) and secret_name\ (.+) and ghsa_id\ (.+) and analysis_id\ (.+) and language\ (.+) and codeql_variant_analysis_id\ (.+) and run_id\ (.+) and name\ (.+) and repo_owner\ (.+) and repo_name\ (.+) and sarif_id\ (.+)$/);
-    return { owner: m[1], repo: m[2], alert_number: m[3], secret_name: m[4], ghsa_id: parseInt(m[5]), analysis_id: parseInt(m[6]), language: m[7], codeql_variant_analysis_id: parseInt(m[8]), run_id: parseInt(m[9]), name: m[10], repo_owner: m[11], repo_name: m[12], sarif_id: parseInt(m[13]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and alert_number\ (.+) and ghsa_id\ (.+) and run_id\ (.+) and analysis_id\ (.+) and language\ (.+) and codeql_variant_analysis_id\ (.+) and name\ (.+) and repo_owner\ (.+) and repo_name\ (.+) and sarif_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and alert_number\ (.+) and ghsa_id\ (.+) and run_id\ (.+) and analysis_id\ (.+) and language\ (.+) and codeql_variant_analysis_id\ (.+) and name\ (.+) and repo_owner\ (.+) and repo_name\ (.+) and sarif_id\ (.+)$/);
+    return { owner: m[1], repo: m[2], alert_number: m[3], ghsa_id: parseInt(m[4]), run_id: parseInt(m[5]), analysis_id: parseInt(m[6]), language: m[7], codeql_variant_analysis_id: parseInt(m[8]), name: m[9], repo_owner: m[10], repo_name: m[11], sarif_id: parseInt(m[12]) };
 }
-function waitForRepoAdded(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
-  waitFor(matchAddRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id));
+function waitForRepoAdded(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
+  waitFor(matchAddRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id));
 }
-function waitForRepoDeleted(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
-  waitFor(matchDeleteRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id));
+function waitForRepoDeleted(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
+  waitFor(matchDeleteRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id));
 }
 function waitForAnyRepoDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and alert_number\ (.+) and secret_name\ (.+) and ghsa_id\ (.+) and analysis_id\ (.+) and language\ (.+) and codeql_variant_analysis_id\ (.+) and run_id\ (.+) and name\ (.+) and repo_owner\ (.+) and repo_name\ (.+) and sarif_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and alert_number\ (.+) and secret_name\ (.+) and ghsa_id\ (.+) and analysis_id\ (.+) and language\ (.+) and codeql_variant_analysis_id\ (.+) and run_id\ (.+) and name\ (.+) and repo_owner\ (.+) and repo_name\ (.+) and sarif_id\ (.+)$/);
-    return { owner: m[1], repo: m[2], alert_number: m[3], secret_name: m[4], ghsa_id: parseInt(m[5]), analysis_id: parseInt(m[6]), language: m[7], codeql_variant_analysis_id: parseInt(m[8]), run_id: parseInt(m[9]), name: m[10], repo_owner: m[11], repo_name: m[12], sarif_id: parseInt(m[13]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and alert_number\ (.+) and ghsa_id\ (.+) and run_id\ (.+) and analysis_id\ (.+) and language\ (.+) and codeql_variant_analysis_id\ (.+) and name\ (.+) and repo_owner\ (.+) and repo_name\ (.+) and sarif_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and alert_number\ (.+) and ghsa_id\ (.+) and run_id\ (.+) and analysis_id\ (.+) and language\ (.+) and codeql_variant_analysis_id\ (.+) and name\ (.+) and repo_owner\ (.+) and repo_name\ (.+) and sarif_id\ (.+)$/);
+    return { owner: m[1], repo: m[2], alert_number: m[3], ghsa_id: parseInt(m[4]), run_id: parseInt(m[5]), analysis_id: parseInt(m[6]), language: m[7], codeql_variant_analysis_id: parseInt(m[8]), name: m[9], repo_owner: m[10], repo_name: m[11], sarif_id: parseInt(m[12]) };
 }
-function waitForRepoUpdated(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
-  waitFor(matchUpdateRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id));
+function waitForRepoUpdated(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
+  waitFor(matchUpdateRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id));
 }
 function waitForAnyRepoUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and alert_number\ (.+) and secret_name\ (.+) and ghsa_id\ (.+) and analysis_id\ (.+) and language\ (.+) and codeql_variant_analysis_id\ (.+) and run_id\ (.+) and name\ (.+) and repo_owner\ (.+) and repo_name\ (.+) and sarif_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and alert_number\ (.+) and secret_name\ (.+) and ghsa_id\ (.+) and analysis_id\ (.+) and language\ (.+) and codeql_variant_analysis_id\ (.+) and run_id\ (.+) and name\ (.+) and repo_owner\ (.+) and repo_name\ (.+) and sarif_id\ (.+)$/);
-    return { owner: m[1], repo: m[2], alert_number: m[3], secret_name: m[4], ghsa_id: parseInt(m[5]), analysis_id: parseInt(m[6]), language: m[7], codeql_variant_analysis_id: parseInt(m[8]), run_id: parseInt(m[9]), name: m[10], repo_owner: m[11], repo_name: m[12], sarif_id: parseInt(m[13]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and alert_number\ (.+) and ghsa_id\ (.+) and run_id\ (.+) and analysis_id\ (.+) and language\ (.+) and codeql_variant_analysis_id\ (.+) and name\ (.+) and repo_owner\ (.+) and repo_name\ (.+) and sarif_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ repo\ with\ owner\ (.+) and repo\ (.+) and alert_number\ (.+) and ghsa_id\ (.+) and run_id\ (.+) and analysis_id\ (.+) and language\ (.+) and codeql_variant_analysis_id\ (.+) and name\ (.+) and repo_owner\ (.+) and repo_name\ (.+) and sarif_id\ (.+)$/);
+    return { owner: m[1], repo: m[2], alert_number: m[3], ghsa_id: parseInt(m[4]), run_id: parseInt(m[5]), analysis_id: parseInt(m[6]), language: m[7], codeql_variant_analysis_id: parseInt(m[8]), name: m[9], repo_owner: m[10], repo_name: m[11], sarif_id: parseInt(m[12]) };
 }
 
 // Verify updated (presence-by-list)
-function verifyRepoUpdated(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
+function verifyRepoUpdated(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
   svc.get("/repos", {
     callback: function (response) {
       repo = JSON.parse(response.body);
       for (let i = 0; i < repo.length; i++) {
-        if (repo[i].owner === owner && repo[i].repo === repo && repo[i].alert_number === alert_number && repo[i].secret_name === secret_name && repo[i].ghsa_id === ghsa_id && repo[i].analysis_id === analysis_id && repo[i].language === language && repo[i].codeql_variant_analysis_id === codeql_variant_analysis_id && repo[i].run_id === run_id && repo[i].name === name && repo[i].repo_owner === repo_owner && repo[i].repo_name === repo_name && repo[i].sarif_id === sarif_id) {
+        if (repo[i].owner === owner && repo[i].repo === repo && repo[i].alert_number === alert_number && repo[i].ghsa_id === ghsa_id && repo[i].run_id === run_id && repo[i].analysis_id === analysis_id && repo[i].language === language && repo[i].codeql_variant_analysis_id === codeql_variant_analysis_id && repo[i].name === name && repo[i].repo_owner === repo_owner && repo[i].repo_name === repo_name && repo[i].sarif_id === sarif_id) {
           return pvg.success("Repo updated (present)");
         }
       }
       return pvg.fail("Expected a repo to be present after update, but it is not");
     },
-    parameters: { description: "Verify repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "secret_name " + secret_name + " and " + "ghsa_id " + ghsa_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "run_id " + run_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id + " exists" }
+    parameters: { description: "Verify repo with " + "owner " + owner + " and " + "repo " + repo + " and " + "alert_number " + alert_number + " and " + "ghsa_id " + ghsa_id + " and " + "run_id " + run_id + " and " + "analysis_id " + analysis_id + " and " + "language " + language + " and " + "codeql_variant_analysis_id " + codeql_variant_analysis_id + " and " + "name " + name + " and " + "repo_owner " + repo_owner + " and " + "repo_name " + repo_name + " and " + "sarif_id " + sarif_id + " exists" }
   });
 }
 
@@ -4978,43 +4978,43 @@ function verifyTeamUpdated(id) {
 /** === User Operations === */
 
 // CREATE
-function addUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
-  svc.post("/user", { body: JSON.stringify({ username: username, codespace_name: codespace_name, gpg_key_id: gpg_key_id, key_id: key_id, secret_name: secret_name, account_id: account_id }), parameters: { description: "Add a user with " + "username " + username + " and " + "codespace_name " + codespace_name + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "secret_name " + secret_name + " and " + "account_id " + account_id } });
+function addUser(installation_id, repository_id, codespace_name, secret_name) {
+  svc.post("/user", { body: JSON.stringify({ installation_id: installation_id, repository_id: repository_id, codespace_name: codespace_name, secret_name: secret_name }), parameters: { description: "Add a user with " + "installation_id " + installation_id + " and " + "repository_id " + repository_id + " and " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name } });
 }
 
 // DELETE
-function deleteUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
-  svc.delete("/user/" + username + "/"+ codespace_name + "/"+ gpg_key_id + "/"+ key_id + "/"+ secret_name + "/"+ account_id, {
-    parameters: { description: "Delete a user with " + "username " + username + " and " + "codespace_name " + codespace_name + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "secret_name " + secret_name + " and " + "account_id " + account_id }
+function deleteUser(installation_id, repository_id, codespace_name, secret_name) {
+  svc.delete("/user/" + installation_id + "/"+ repository_id + "/"+ codespace_name + "/"+ secret_name, {
+    parameters: { description: "Delete a user with " + "installation_id " + installation_id + " and " + "repository_id " + repository_id + " and " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
-  svc.delete("/user/" + username + "/"+ codespace_name + "/"+ gpg_key_id + "/"+ key_id + "/"+ secret_name + "/"+ account_id, {
+function tryToDeleteANonExistingUser(installation_id, repository_id, codespace_name, secret_name) {
+  svc.delete("/user/" + installation_id + "/"+ repository_id + "/"+ codespace_name + "/"+ secret_name, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a user with " + "username " + username + " and " + "codespace_name " + codespace_name + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "secret_name " + secret_name + " and " + "account_id " + account_id }
+    parameters: { description: "Delete a user with " + "installation_id " + installation_id + " and " + "repository_id " + repository_id + " and " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
+function tryToAddExistingUser(installation_id, repository_id, codespace_name, secret_name) {
   svc.post("/user", {
-    body: JSON.stringify({ username: username, codespace_name: codespace_name, gpg_key_id: gpg_key_id, key_id: key_id, secret_name: secret_name, account_id: account_id }),
-    parameters: { description: "Add a user with " + "username " + username + " and " + "codespace_name " + codespace_name + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "secret_name " + secret_name + " and " + "account_id " + account_id },
+    body: JSON.stringify({ installation_id: installation_id, repository_id: repository_id, codespace_name: codespace_name, secret_name: secret_name }),
+    parameters: { description: "Add a user with " + "installation_id " + installation_id + " and " + "repository_id " + repository_id + " and " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
-  svc.put("/user/" + username + "/"+ codespace_name + "/"+ gpg_key_id + "/"+ key_id + "/"+ secret_name + "/"+ account_id, { body: JSON.stringify({ username: username, codespace_name: codespace_name, gpg_key_id: gpg_key_id, key_id: key_id, secret_name: secret_name, account_id: account_id }), parameters: { description: "Update a user with " + "username " + username + " and " + "codespace_name " + codespace_name + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "secret_name " + secret_name + " and " + "account_id " + account_id } });
+function updateUser(installation_id, repository_id, codespace_name, secret_name) {
+  svc.put("/user/" + installation_id + "/"+ repository_id + "/"+ codespace_name + "/"+ secret_name, { body: JSON.stringify({ installation_id: installation_id, repository_id: repository_id, codespace_name: codespace_name, secret_name: secret_name }), parameters: { description: "Update a user with " + "installation_id " + installation_id + " and " + "repository_id " + repository_id + " and " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name } });
 }
 
 // GET one
-function getUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
-  svc.get("/user/" + username + "/"+ codespace_name + "/"+ gpg_key_id + "/"+ key_id + "/"+ secret_name + "/"+ account_id, {
-    parameters: { description: "Get a user with " + "username " + username + " and " + "codespace_name " + codespace_name + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "secret_name " + secret_name + " and " + "account_id " + account_id }
+function getUser(installation_id, repository_id, codespace_name, secret_name) {
+  svc.get("/user/" + installation_id + "/"+ repository_id + "/"+ codespace_name + "/"+ secret_name, {
+    parameters: { description: "Get a user with " + "installation_id " + installation_id + " and " + "repository_id " + repository_id + " and " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name }
   });
 }
 
@@ -5026,34 +5026,34 @@ function listUser() {
 }
 
 // Verify exists (by list)
-function verifyUserExists(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
+function verifyUserExists(installation_id, repository_id, codespace_name, secret_name) {
   svc.get("/user", {
     callback: function (response) {
       user = JSON.parse(response.body);
       for (let i = 0; i < user.length; i++) {
-        if (user[i].username === username && user[i].codespace_name === codespace_name && user[i].gpg_key_id === gpg_key_id && user[i].key_id === key_id && user[i].secret_name === secret_name && user[i].account_id === account_id) {
+        if (user[i].installation_id === installation_id && user[i].repository_id === repository_id && user[i].codespace_name === codespace_name && user[i].secret_name === secret_name) {
           return pvg.success("User exists");
         }
       }
       return pvg.fail("Expected a user to exist but it does not");
     },
-    parameters: { description: "Verify user with " + "username " + username + " and " + "codespace_name " + codespace_name + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "secret_name " + secret_name + " and " + "account_id " + account_id + " exists" }
+    parameters: { description: "Verify user with " + "installation_id " + installation_id + " and " + "repository_id " + repository_id + " and " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyUserDoesNotExist(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
+function verifyUserDoesNotExist(installation_id, repository_id, codespace_name, secret_name) {
   svc.get("/user", {
     callback: function (response) {
       user = JSON.parse(response.body);
       for (let i = 0; i < user.length; i++) {
-        if (user[i].username === username && user[i].codespace_name === codespace_name && user[i].gpg_key_id === gpg_key_id && user[i].key_id === key_id && user[i].secret_name === secret_name && user[i].account_id === account_id) {
+        if (user[i].installation_id === installation_id && user[i].repository_id === repository_id && user[i].codespace_name === codespace_name && user[i].secret_name === secret_name) {
           return pvg.fail("Expected a user to not exist but it does");
         }
       }
       return pvg.success("User does not exist");
     },
-    parameters: { description: "Verify user with " + "username " + username + " and " + "codespace_name " + codespace_name + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "secret_name " + secret_name + " and " + "account_id " + account_id + " does not exist" }
+    parameters: { description: "Verify user with " + "installation_id " + installation_id + " and " + "repository_id " + repository_id + " and " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name + " does not exist" }
   });
 }
 
@@ -5064,10 +5064,10 @@ function matchAnyAddUser() {
     return e.data.parameters.description.startsWith("Add a user");
   });
 }
-function matchAddUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
+function matchAddUser(installation_id, repository_id, codespace_name, secret_name) {
   return bp.EventSet("add-user", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a user with " + "username " + username + " and " + "codespace_name " + codespace_name + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "secret_name " + secret_name + " and " + "account_id " + account_id;
+    return e.data.parameters.description === "Add a user with " + "installation_id " + installation_id + " and " + "repository_id " + repository_id + " and " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name;
   });
 }
 function matchAnyDeleteUser() {
@@ -5076,10 +5076,10 @@ function matchAnyDeleteUser() {
     return e.data.parameters.description.startsWith("Delete a user");
   });
 }
-function matchDeleteUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
+function matchDeleteUser(installation_id, repository_id, codespace_name, secret_name) {
   return bp.EventSet("del-user", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a user with " + "username " + username + " and " + "codespace_name " + codespace_name + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "secret_name " + secret_name + " and " + "account_id " + account_id;
+    return e.data.parameters.description === "Delete a user with " + "installation_id " + installation_id + " and " + "repository_id " + repository_id + " and " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name;
   });
 }
 
@@ -5090,52 +5090,52 @@ function matchAnyUpdateUser() {
     return e.data.parameters.description.startsWith("Update a user");
   });
 }
-function matchUpdateUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
+function matchUpdateUser(installation_id, repository_id, codespace_name, secret_name) {
   return bp.EventSet("update-user", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a user with " + "username " + username + " and " + "codespace_name " + codespace_name + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "secret_name " + secret_name + " and " + "account_id " + account_id;
+    return e.data.parameters.description === "Update a user with " + "installation_id " + installation_id + " and " + "repository_id " + repository_id + " and " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name;
   });
 }
 
 // Wait helpers
 function waitForAnyUserAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ user\ with\ username\ (.+) and codespace_name\ (.+) and gpg_key_id\ (.+) and key_id\ (.+) and secret_name\ (.+) and account_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ user\ with\ username\ (.+) and codespace_name\ (.+) and gpg_key_id\ (.+) and key_id\ (.+) and secret_name\ (.+) and account_id\ (.+)$/);
-    return { username: m[1], codespace_name: m[2], gpg_key_id: parseInt(m[3]), key_id: parseInt(m[4]), secret_name: m[5], account_id: parseInt(m[6]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ user\ with\ installation_id\ (.+) and repository_id\ (.+) and codespace_name\ (.+) and secret_name\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ user\ with\ installation_id\ (.+) and repository_id\ (.+) and codespace_name\ (.+) and secret_name\ (.+)$/);
+    return { installation_id: parseInt(m[1]), repository_id: parseInt(m[2]), codespace_name: m[3], secret_name: m[4] };
 }
-function waitForUserAdded(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
-  waitFor(matchAddUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id));
+function waitForUserAdded(installation_id, repository_id, codespace_name, secret_name) {
+  waitFor(matchAddUser(installation_id, repository_id, codespace_name, secret_name));
 }
-function waitForUserDeleted(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
-  waitFor(matchDeleteUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id));
+function waitForUserDeleted(installation_id, repository_id, codespace_name, secret_name) {
+  waitFor(matchDeleteUser(installation_id, repository_id, codespace_name, secret_name));
 }
 function waitForAnyUserDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ user\ with\ username\ (.+) and codespace_name\ (.+) and gpg_key_id\ (.+) and key_id\ (.+) and secret_name\ (.+) and account_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ user\ with\ username\ (.+) and codespace_name\ (.+) and gpg_key_id\ (.+) and key_id\ (.+) and secret_name\ (.+) and account_id\ (.+)$/);
-    return { username: m[1], codespace_name: m[2], gpg_key_id: parseInt(m[3]), key_id: parseInt(m[4]), secret_name: m[5], account_id: parseInt(m[6]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ user\ with\ installation_id\ (.+) and repository_id\ (.+) and codespace_name\ (.+) and secret_name\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ user\ with\ installation_id\ (.+) and repository_id\ (.+) and codespace_name\ (.+) and secret_name\ (.+)$/);
+    return { installation_id: parseInt(m[1]), repository_id: parseInt(m[2]), codespace_name: m[3], secret_name: m[4] };
 }
-function waitForUserUpdated(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
-  waitFor(matchUpdateUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id));
+function waitForUserUpdated(installation_id, repository_id, codespace_name, secret_name) {
+  waitFor(matchUpdateUser(installation_id, repository_id, codespace_name, secret_name));
 }
 function waitForAnyUserUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ user\ with\ username\ (.+) and codespace_name\ (.+) and gpg_key_id\ (.+) and key_id\ (.+) and secret_name\ (.+) and account_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ user\ with\ username\ (.+) and codespace_name\ (.+) and gpg_key_id\ (.+) and key_id\ (.+) and secret_name\ (.+) and account_id\ (.+)$/);
-    return { username: m[1], codespace_name: m[2], gpg_key_id: parseInt(m[3]), key_id: parseInt(m[4]), secret_name: m[5], account_id: parseInt(m[6]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ user\ with\ installation_id\ (.+) and repository_id\ (.+) and codespace_name\ (.+) and secret_name\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ user\ with\ installation_id\ (.+) and repository_id\ (.+) and codespace_name\ (.+) and secret_name\ (.+)$/);
+    return { installation_id: parseInt(m[1]), repository_id: parseInt(m[2]), codespace_name: m[3], secret_name: m[4] };
 }
 
 // Verify updated (presence-by-list)
-function verifyUserUpdated(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
+function verifyUserUpdated(installation_id, repository_id, codespace_name, secret_name) {
   svc.get("/user", {
     callback: function (response) {
       user = JSON.parse(response.body);
       for (let i = 0; i < user.length; i++) {
-        if (user[i].username === username && user[i].codespace_name === codespace_name && user[i].gpg_key_id === gpg_key_id && user[i].key_id === key_id && user[i].secret_name === secret_name && user[i].account_id === account_id) {
+        if (user[i].installation_id === installation_id && user[i].repository_id === repository_id && user[i].codespace_name === codespace_name && user[i].secret_name === secret_name) {
           return pvg.success("User updated (present)");
         }
       }
       return pvg.fail("Expected a user to be present after update, but it is not");
     },
-    parameters: { description: "Verify user with " + "username " + username + " and " + "codespace_name " + codespace_name + " and " + "gpg_key_id " + gpg_key_id + " and " + "key_id " + key_id + " and " + "secret_name " + secret_name + " and " + "account_id " + account_id + " exists" }
+    parameters: { description: "Verify user with " + "installation_id " + installation_id + " and " + "repository_id " + repository_id + " and " + "codespace_name " + codespace_name + " and " + "secret_name " + secret_name + " exists" }
   });
 }
 

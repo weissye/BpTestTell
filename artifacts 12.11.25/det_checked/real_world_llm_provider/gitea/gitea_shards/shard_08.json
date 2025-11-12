@@ -1,0 +1,76 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/admin/hooks"
+    },
+    {
+      "method": "GET",
+      "path": "/label/templates/{name}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/variables/{variablename}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/public_members/{username}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/actions/variables/{variablename}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/collaborators/{collaborator}/permission"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/hooks"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}/reactions"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{index}/labels"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/keys/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{index}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/raw/{filepath}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/tag_protections"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/wiki/page/{pageName}"
+    },
+    {
+      "method": "GET",
+      "path": "/user/actions/runners/registration-token"
+    },
+    {
+      "method": "DELETE",
+      "path": "/user/following/{username}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/user/starred/{owner}/{repo}"
+    },
+    {
+      "method": "GET",
+      "path": "/version"
+    }
+  ]
+}

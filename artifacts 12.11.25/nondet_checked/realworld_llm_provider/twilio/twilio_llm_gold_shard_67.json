@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json",
+      "method": "GET",
+      "operationId": "ListAvailablePhoneNumberTollFree",
+      "summary": "",
+      "user": "User wants to retrieve a list of available toll-free phone numbers in the specified country to assess options for business communication.",
+      "ideal": "A JSON response containing an array of available toll-free phone numbers, including details such as the phone number, friendly name, and any associated pricing information."
+    }
+  ]
+}

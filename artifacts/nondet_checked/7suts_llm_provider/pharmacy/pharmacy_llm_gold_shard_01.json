@@ -1,68 +1,252 @@
 {
   "gold": [
     {
-      "path": "/reset",
-      "method": "POST",
-      "operationId": "resetSystem",
+      "path": "/drugs",
+      "method": "GET",
+      "operationId": "getDrugs",
       "summary": "",
-      "user": "admin",
-      "ideal": "Resets the pharmacy system to its initial state."
+      "user": "pharmacist123",
+      "ideal": "Retrieve a list of all available drugs in the pharmacy."
+    },
+    {
+      "path": "/drugs",
+      "method": "POST",
+      "operationId": "createDrug",
+      "summary": "",
+      "user": "pharmacist123",
+      "ideal": "Add a new drug to the pharmacy inventory."
+    },
+    {
+      "path": "/drugs/{id}",
+      "method": "GET",
+      "operationId": "getDrugById",
+      "summary": "",
+      "user": "pharmacist123",
+      "ideal": "Retrieve details of a specific drug by its ID."
+    },
+    {
+      "path": "/drugs/{id}",
+      "method": "PUT",
+      "operationId": "updateDrug",
+      "summary": "",
+      "user": "pharmacist123",
+      "ideal": "Update the details of an existing drug."
+    },
+    {
+      "path": "/drugs/{id}",
+      "method": "DELETE",
+      "operationId": "deleteDrug",
+      "summary": "",
+      "user": "pharmacist123",
+      "ideal": "Remove a drug from the pharmacy inventory."
+    },
+    {
+      "path": "/patients",
+      "method": "GET",
+      "operationId": "getPatients",
+      "summary": "",
+      "user": "nurse456",
+      "ideal": "Retrieve a list of all patients registered in the system."
     },
     {
       "path": "/patients",
       "method": "POST",
       "operationId": "createPatient",
       "summary": "",
-      "user": "nurse",
-      "ideal": "Adds a new patient record to the system."
+      "user": "nurse456",
+      "ideal": "Register a new patient in the system."
     },
     {
-      "path": "/drugs",
+      "path": "/patients/{id}",
       "method": "GET",
-      "operationId": "getDrugs",
+      "operationId": "getPatientById",
       "summary": "",
-      "user": "pharmacist",
-      "ideal": "Retrieves a list of all available drugs in the pharmacy."
+      "user": "nurse456",
+      "ideal": "Retrieve details of a specific patient by their ID."
     },
     {
-      "path": "/drugs",
-      "method": "POST",
-      "operationId": "addDrug",
+      "path": "/patients/{id}",
+      "method": "PUT",
+      "operationId": "updatePatient",
       "summary": "",
-      "user": "pharmacist",
-      "ideal": "Adds a new drug to the pharmacy inventory."
+      "user": "nurse456",
+      "ideal": "Update the details of an existing patient."
     },
     {
-      "path": "/prescriptions",
-      "method": "POST",
-      "operationId": "createPrescription",
+      "path": "/patients/{id}",
+      "method": "DELETE",
+      "operationId": "deletePatient",
       "summary": "",
-      "user": "doctor",
-      "ideal": "Creates a new prescription for a patient."
+      "user": "nurse456",
+      "ideal": "Remove a patient from the system."
     },
     {
       "path": "/orders",
       "method": "GET",
       "operationId": "getOrders",
       "summary": "",
-      "user": "pharmacist",
-      "ideal": "Fetches all orders placed in the pharmacy."
+      "user": "pharmacist123",
+      "ideal": "Retrieve a list of all orders placed for drugs."
     },
     {
       "path": "/orders",
       "method": "POST",
       "operationId": "createOrder",
       "summary": "",
-      "user": "pharmacist",
-      "ideal": "Places a new order for drugs from suppliers."
+      "user": "pharmacist123",
+      "ideal": "Place a new order for drugs."
+    },
+    {
+      "path": "/orders/{id}",
+      "method": "GET",
+      "operationId": "getOrderById",
+      "summary": "",
+      "user": "pharmacist123",
+      "ideal": "Retrieve details of a specific order by its ID."
+    },
+    {
+      "path": "/orders/{id}",
+      "method": "PUT",
+      "operationId": "updateOrder",
+      "summary": "",
+      "user": "pharmacist123",
+      "ideal": "Update the details of an existing order."
+    },
+    {
+      "path": "/orders/{id}",
+      "method": "DELETE",
+      "operationId": "deleteOrder",
+      "summary": "",
+      "user": "pharmacist123",
+      "ideal": "Cancel an existing order."
+    },
+    {
+      "path": "/prescriptions",
+      "method": "GET",
+      "operationId": "getPrescriptions",
+      "summary": "",
+      "user": "doctor789",
+      "ideal": "Retrieve a list of all prescriptions issued."
+    },
+    {
+      "path": "/prescriptions",
+      "method": "POST",
+      "operationId": "createPrescription",
+      "summary": "",
+      "user": "doctor789",
+      "ideal": "Issue a new prescription for a patient."
+    },
+    {
+      "path": "/prescriptions/{id}",
+      "method": "GET",
+      "operationId": "getPrescriptionById",
+      "summary": "",
+      "user": "doctor789",
+      "ideal": "Retrieve details of a specific prescription by its ID."
+    },
+    {
+      "path": "/prescriptions/{id}",
+      "method": "PUT",
+      "operationId": "updatePrescription",
+      "summary": "",
+      "user": "doctor789",
+      "ideal": "Update the details of an existing prescription."
+    },
+    {
+      "path": "/prescriptions/{id}",
+      "method": "DELETE",
+      "operationId": "deletePrescription",
+      "summary": "",
+      "user": "doctor789",
+      "ideal": "Cancel an existing prescription."
+    },
+    {
+      "path": "/inventory",
+      "method": "GET",
+      "operationId": "getInventory",
+      "summary": "",
+      "user": "pharmacist123",
+      "ideal": "Retrieve a list of all items in the pharmacy inventory."
+    },
+    {
+      "path": "/inventory",
+      "method": "POST",
+      "operationId": "addInventoryItem",
+      "summary": "",
+      "user": "pharmacist123",
+      "ideal": "Add a new item to the pharmacy inventory."
     },
     {
       "path": "/inventory/{ndc}",
       "method": "GET",
-      "operationId": "getInventoryByNDC",
+      "operationId": "getInventoryItemByNDC",
       "summary": "",
-      "user": "pharmacist",
-      "ideal": "Retrieves inventory details for a specific drug using its NDC."
+      "user": "pharmacist123",
+      "ideal": "Retrieve details of a specific inventory item by its NDC."
+    },
+    {
+      "path": "/inventory/{ndc}",
+      "method": "PUT",
+      "operationId": "updateInventoryItem",
+      "summary": "",
+      "user": "pharmacist123",
+      "ideal": "Update the details of an existing inventory item."
+    },
+    {
+      "path": "/inventory/{ndc}",
+      "method": "DELETE",
+      "operationId": "deleteInventoryItem",
+      "summary": "",
+      "user": "pharmacist123",
+      "ideal": "Remove an item from the pharmacy inventory."
+    },
+    {
+      "path": "/reset",
+      "method": "GET",
+      "operationId": "resetSystem",
+      "summary": "",
+      "user": "admin001",
+      "ideal": "Reset the pharmacy system to its initial state."
+    },
+    {
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "performReset",
+      "summary": "",
+      "user": "admin001",
+      "ideal": "Execute a system reset operation."
+    },
+    {
+      "path": "/reset/{id}",
+      "method": "GET",
+      "operationId": "getResetById",
+      "summary": "",
+      "user": "admin001",
+      "ideal": "Retrieve details of a specific reset operation by its ID."
+    },
+    {
+      "path": "/reset/{id}",
+      "method": "PUT",
+      "operationId": "updateReset",
+      "summary": "",
+      "user": "admin001",
+      "ideal": "Update the details of a specific reset operation."
+    },
+    {
+      "path": "/reset/{id}",
+      "method": "DELETE",
+      "operationId": "deleteReset",
+      "summary": "",
+      "user": "admin001",
+      "ideal": "Cancel a specific reset operation."
+    },
+    {
+      "path": "/reset-all",
+      "method": "POST",
+      "operationId": "resetAllSystems",
+      "summary": "",
+      "user": "admin001",
+      "ideal": "Perform a complete reset of all systems in the pharmacy."
     }
   ]
 }

@@ -5,32 +5,32 @@
       "method": "POST",
       "operationId": "addSessions",
       "summary": "",
-      "user": "User wants to create a new session for a project in Trello, providing necessary details such as title, description, and due date.",
-      "ideal": "User successfully creates a new session and receives a confirmation with session details."
+      "user": "User123: I want to create a new session for my team to collaborate on our project. The session should include a description and a list of participants.",
+      "ideal": "Create a new session with the provided details and return the session ID."
     },
     {
       "path": "/sessions/socket",
       "method": "GET",
       "operationId": "getSessionsSocket",
       "summary": "",
-      "user": "User is looking to establish a WebSocket connection to receive real-time updates about their sessions in Trello.",
-      "ideal": "User successfully connects to the WebSocket and starts receiving live updates about session changes."
+      "user": "User456: I need to connect to the session socket to receive real-time updates about my team's activities.",
+      "ideal": "Establish a WebSocket connection to receive live updates for the current session."
     },
     {
       "path": "/sessions/{idSession}",
       "method": "PUT",
       "operationId": "updateSessionsByIdSession",
       "summary": "",
-      "user": "User wants to update an existing session's details, such as changing the title and adding new members to the session.",
-      "ideal": "User successfully updates the session and receives the updated session details in response."
+      "user": "User789: I want to update the details of an existing session, including changing the title and adding more participants.",
+      "ideal": "Update the specified session with the new details and confirm the update."
     },
     {
       "path": "/sessions/{idSession}/status",
       "method": "PUT",
       "operationId": "updateSessionsStatusByIdSession",
       "summary": "",
-      "user": "User needs to change the status of a session from 'active' to 'completed' after finishing the tasks associated with it.",
-      "ideal": "User successfully updates the session status and receives confirmation of the status change."
+      "user": "User101: I need to change the status of the session to 'completed' after our meeting has ended.",
+      "ideal": "Update the status of the specified session and return the updated status."
     }
   ]
 }

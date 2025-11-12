@@ -5,40 +5,40 @@
       "method": "GET",
       "operationId": "keys.list",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve a list of all API keys available in the Meilisearch instance."
+      "user": "Admin user requesting to list all API keys for managing access to the Meilisearch instance.",
+      "ideal": "Returns a list of all API keys with their respective details."
     },
     {
       "path": "/keys",
       "method": "POST",
       "operationId": "keys.create",
       "summary": "",
-      "user": "admin",
-      "ideal": "Create a new API key with specified permissions for accessing the Meilisearch instance."
+      "user": "Admin user creating a new API key with specific permissions for a developer.",
+      "ideal": "Creates a new API key and returns the key details including uid and permissions."
     },
     {
       "path": "/keys/{uid_or_key}",
       "method": "GET",
       "operationId": "keys.get",
       "summary": "",
-      "user": "admin",
-      "ideal": "Fetch details of a specific API key using its unique identifier."
+      "user": "Admin user retrieving details of a specific API key using its uid.",
+      "ideal": "Returns the details of the specified API key including its permissions and creation date."
     },
     {
       "path": "/keys/{uid_or_key}",
       "method": "DELETE",
       "operationId": "keys.delete",
       "summary": "",
-      "user": "admin",
-      "ideal": "Remove a specific API key from the Meilisearch instance."
+      "user": "Admin user deleting an API key that is no longer needed.",
+      "ideal": "Successfully deletes the specified API key and returns a confirmation message."
     },
     {
       "path": "/keys/{uid_or_key}",
       "method": "PATCH",
       "operationId": "keys.update",
       "summary": "",
-      "user": "admin",
-      "ideal": "Update the permissions or details of an existing API key."
+      "user": "Admin user updating the permissions of an existing API key.",
+      "ideal": "Updates the specified API key's permissions and returns the updated key details."
     }
   ]
 }

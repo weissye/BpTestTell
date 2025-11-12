@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "getAllLabels",
       "summary": "",
-      "user": "A project manager looking to retrieve all labels associated with various issues in the Jira Cloud platform to better organize and categorize tasks for the team.",
-      "ideal": "Returns a list of all labels available in the Jira instance, allowing the user to see how issues are categorized and to facilitate better project management."
+      "user": "user123",
+      "ideal": "Retrieve a list of all labels available in the Jira instance."
     }
   ]
 }

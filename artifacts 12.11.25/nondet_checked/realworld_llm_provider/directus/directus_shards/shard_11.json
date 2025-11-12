@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/items/{collection}",
+      "method": "GET",
+      "tags": [
+        "Items"
+      ],
+      "summary": "List Items",
+      "operationId": "getItems"
+    },
+    {
+      "path": "/items/{collection}",
+      "method": "POST",
+      "tags": [
+        "Items"
+      ],
+      "summary": "Create an Item",
+      "operationId": "createItem"
+    },
+    {
+      "path": "/items/{collection}",
+      "method": "PATCH",
+      "tags": [
+        "Items"
+      ],
+      "summary": "Update Multiple Items",
+      "operationId": "updateItems"
+    },
+    {
+      "path": "/items/{collection}",
+      "method": "DELETE",
+      "tags": [
+        "Items"
+      ],
+      "summary": "Delete Multiple Items",
+      "operationId": "deleteItems"
+    },
+    {
+      "path": "/items/{collection}/{id}",
+      "method": "GET",
+      "tags": [
+        "Items"
+      ],
+      "summary": "Retrieve an Item",
+      "operationId": "getItem"
+    },
+    {
+      "path": "/items/{collection}/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Items"
+      ],
+      "summary": "Update an Item",
+      "operationId": "updateItem"
+    },
+    {
+      "path": "/items/{collection}/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Items"
+      ],
+      "summary": "Delete an Item",
+      "operationId": "deleteItem"
+    }
+  ]
+}

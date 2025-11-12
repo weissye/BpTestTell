@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "oidc/get-oidc-custom-sub-template-for-org",
       "summary": "",
-      "user": "As a developer, I want to retrieve the OIDC custom subject template for my organization to ensure that it aligns with our identity management policies.",
-      "ideal": "The API should return the current OIDC custom subject template for the specified organization, including any relevant details about its configuration."
+      "user": "user123",
+      "ideal": "Retrieve the OIDC custom subject template for the specified organization."
     },
     {
       "path": "/orgs/{org}/actions/oidc/customization/sub",
       "method": "PUT",
       "operationId": "oidc/update-oidc-custom-sub-template-for-org",
       "summary": "",
-      "user": "As an admin, I need to update the OIDC custom subject template for my organization to reflect changes in our user identification strategy.",
-      "ideal": "The API should successfully update the OIDC custom subject template for the specified organization and return a confirmation message along with the updated template details."
+      "user": "user456",
+      "ideal": "Update the OIDC custom subject template for the specified organization with new values."
     }
   ]
 }

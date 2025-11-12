@@ -305,12 +305,12 @@ def main(argv: Optional[List[str]] = None) -> int:
     dump_json(args.out, dsl, pretty=args.pretty)
 
     print(f"[OK] wrote DSL map -> {args.out}")
-    legacy = mirror_legacy(args.out, args.sut)
-    if legacy:
-        print(f"[OK] mirrored legacy -> {os.path.abspath(legacy)}")
-    else:
-        print("[WARN] legacy mirror failed (non-fatal)")
-    return 0
+    # legacy = mirror_legacy(args.out, args.sut)
+    # if legacy:
+    #     print(f"[OK] mirrored legacy -> {os.path.abspath(legacy)}")
+    # else:
+    #     print("[WARN] legacy mirror failed (non-fatal)")
+    # return 0
 
 if __name__ == "__main__":
     raise SystemExit(main())

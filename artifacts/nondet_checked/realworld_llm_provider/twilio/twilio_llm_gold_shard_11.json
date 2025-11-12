@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "FetchAuthorizedConnectApp",
       "summary": "",
-      "user": "As a developer, I want to retrieve details about a specific authorized connect app using its SID, so that I can verify its permissions and settings.",
-      "ideal": "The response should include the connect app's name, description, and the permissions it has been granted."
+      "user": "User wants to retrieve details about a specific authorized connect app using its unique ConnectAppSid.",
+      "ideal": "Retrieve the authorized connect app details for the given AccountSid and ConnectAppSid."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json",
       "method": "GET",
       "operationId": "ListAuthorizedConnectApp",
       "summary": "",
-      "user": "As an admin, I need to list all authorized connect apps for my account to manage integrations and ensure compliance with our security policies.",
-      "ideal": "The response should return a list of all authorized connect apps, including their SIDs, names, and statuses."
+      "user": "User needs to list all authorized connect apps associated with their Twilio account to manage integrations.",
+      "ideal": "Fetch a list of all authorized connect apps for the specified AccountSid."
     }
   ]
 }

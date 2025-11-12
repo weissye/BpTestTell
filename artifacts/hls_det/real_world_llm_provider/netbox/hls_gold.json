@@ -3,10 +3,10 @@
   "deterministic": true,
   "provider": "real_world_llm_provider",
   "sut": "netbox",
-  "generated_at": "2025-11-09T13:50:07.970601Z",
+  "generated_at": "2025-11-12T20:06:42.172304Z",
   "source": {
-    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\netbox\\graph.json",
-    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\netbox\\dsl_map.json"
+    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\netbox\\graph.json",
+    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\netbox\\dsl_map.json"
   },
   "entities": [
     {
@@ -1406,25 +1406,25 @@
       "name": "CRUD aggregate",
       "desc": "Deterministic CRUD flow for entity 'aggregate' inferred from graph.",
       "entity": "aggregate",
-      "js": "// Deterministic CRUD flow for entity: aggregate\nbp.registerBThread(\"HLS: CRUD aggregate\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/api/ipam/aggregates/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/aggregates/\", {})});\n  bp.sync({request: REST.PUT(\"/api/ipam/aggregates/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/aggregates/\", {})});\n  bp.sync({request: REST.DELETE(\"/api/ipam/aggregates/\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: aggregate\nbthread(\"HLS: CRUD aggregate\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/api/ipam/aggregates/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/aggregates/\", {})});\n  bp.sync({request: REST.PUT(\"/api/ipam/aggregates/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/aggregates/\", {})});\n  bp.sync({request: REST.DELETE(\"/api/ipam/aggregates/\", {})});\n});"
     },
     {
       "name": "CRUD asn",
       "desc": "Deterministic CRUD flow for entity 'asn' inferred from graph.",
       "entity": "asn",
-      "js": "// Deterministic CRUD flow for entity: asn\nbp.registerBThread(\"HLS: CRUD asn\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/api/ipam/asns/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/asns/\", {})});\n  bp.sync({request: REST.PUT(\"/api/ipam/asns/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/asns/\", {})});\n  bp.sync({request: REST.DELETE(\"/api/ipam/asns/\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: asn\nbthread(\"HLS: CRUD asn\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/api/ipam/asns/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/asns/\", {})});\n  bp.sync({request: REST.PUT(\"/api/ipam/asns/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/asns/\", {})});\n  bp.sync({request: REST.DELETE(\"/api/ipam/asns/\", {})});\n});"
     },
     {
       "name": "CRUD asn_range",
       "desc": "Deterministic CRUD flow for entity 'asn_range' inferred from graph.",
       "entity": "asn_range",
-      "js": "// Deterministic CRUD flow for entity: asn_range\nbp.registerBThread(\"HLS: CRUD asn_range\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/api/ipam/asn-ranges/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/asn-ranges/\", {})});\n  bp.sync({request: REST.PUT(\"/api/ipam/asn-ranges/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/asn-ranges/\", {})});\n  bp.sync({request: REST.DELETE(\"/api/ipam/asn-ranges/\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: asn_range\nbthread(\"HLS: CRUD asn_range\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/api/ipam/asn-ranges/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/asn-ranges/\", {})});\n  bp.sync({request: REST.PUT(\"/api/ipam/asn-ranges/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/asn-ranges/\", {})});\n  bp.sync({request: REST.DELETE(\"/api/ipam/asn-ranges/\", {})});\n});"
     },
     {
       "name": "CRUD available_asn",
       "desc": "Deterministic CRUD flow for entity 'available_asn' inferred from graph.",
       "entity": "available_asn",
-      "js": "// Deterministic CRUD flow for entity: available_asn\nbp.registerBThread(\"HLS: CRUD available_asn\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/api/ipam/asn-ranges/{id}/available-asns/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/asn-ranges/{id}/available-asns/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/asn-ranges/{id}/available-asns/\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: available_asn\nbthread(\"HLS: CRUD available_asn\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/api/ipam/asn-ranges/{id}/available-asns/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/asn-ranges/{id}/available-asns/\", {})});\n  bp.sync({request: REST.GET(\"/api/ipam/asn-ranges/{id}/available-asns/\", {})});\n});"
     }
   ]
 }

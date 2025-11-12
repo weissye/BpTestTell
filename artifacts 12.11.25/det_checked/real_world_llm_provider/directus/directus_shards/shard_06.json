@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/auth/oauth"
+    },
+    {
+      "method": "GET",
+      "path": "/fields/{collection}/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/items/{collection}"
+    },
+    {
+      "method": "POST",
+      "path": "/presets"
+    },
+    {
+      "method": "PATCH",
+      "path": "/settings"
+    },
+    {
+      "method": "PATCH",
+      "path": "/versions"
+    }
+  ]
+}

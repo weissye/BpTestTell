@@ -1,0 +1,56 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/boards"
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/labels/{idLabel}"
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/name"
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/attachments"
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/idList"
+    },
+    {
+      "method": "DELETE",
+      "path": "/checklists/{idChecklist}"
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}"
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/customStickers"
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/query"
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/{idOrg}"
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/name"
+    },
+    {
+      "method": "POST",
+      "path": "/tokens/{token}/webhooks"
+    }
+  ]
+}

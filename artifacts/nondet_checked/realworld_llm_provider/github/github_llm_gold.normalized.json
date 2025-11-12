@@ -47,7 +47,7 @@
     },
     {
       "method": "GET",
-      "path": "/repos/{owner}/{repo}/actions/secrets/{secret_name}",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}/jobs",
       "body": null
     },
     {
@@ -92,7 +92,7 @@
     },
     {
       "method": "GET",
-      "path": "/users/user123/events/public",
+      "path": "/users/octocat/events/public",
       "body": null
     },
     {
@@ -107,7 +107,7 @@
     },
     {
       "method": "POST",
-      "path": "/app-manifests/abc123/conversions",
+      "path": "/app-manifests/{code}/conversions",
       "body": null
     },
     {
@@ -127,12 +127,12 @@
     },
     {
       "method": "GET",
-      "path": "/app/hook/deliveries/12345",
+      "path": "/app/hook/deliveries/{delivery_id}",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/app/hook/deliveries/12345/attempts",
+      "path": "/app/hook/deliveries/{delivery_id}/attempts",
       "body": null
     },
     {
@@ -147,57 +147,57 @@
     },
     {
       "method": "GET",
-      "path": "/app/installations/789",
+      "path": "/app/installations/{installation_id}",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/app/installations/789",
+      "path": "/app/installations/{installation_id}",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/app/installations/789/access_tokens",
+      "path": "/app/installations/{installation_id}/access_tokens",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/app/installations/789/suspended",
+      "path": "/app/installations/{installation_id}/suspended",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/app/installations/789/suspended",
+      "path": "/app/installations/{installation_id}/suspended",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/applications/xyz123/grant",
+      "path": "/applications/{client_id}/grant",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/applications/xyz123/token",
+      "path": "/applications/{client_id}/token",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/applications/xyz123/token",
+      "path": "/applications/{client_id}/token",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/applications/xyz123/token",
+      "path": "/applications/{client_id}/token",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/applications/xyz123/token/scoped",
+      "path": "/applications/{client_id}/token/scoped",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/apps/my-app",
+      "path": "/apps/{app_slug}",
       "body": null
     },
     {
@@ -212,7 +212,7 @@
     },
     {
       "method": "GET",
-      "path": "/marketplace_listing/accounts/12345",
+      "path": "/marketplace_listing/accounts/{account_id}",
       "body": null
     },
     {
@@ -222,12 +222,12 @@
     },
     {
       "method": "GET",
-      "path": "/marketplace_listing/plans/plan123/accounts",
+      "path": "/marketplace_listing/plans/{plan_id}/accounts",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/marketplace_listing/stubbed/accounts/12345",
+      "path": "/marketplace_listing/stubbed/accounts/{account_id}",
       "body": null
     },
     {
@@ -237,17 +237,17 @@
     },
     {
       "method": "GET",
-      "path": "/marketplace_listing/stubbed/plans/plan123/accounts",
+      "path": "/marketplace_listing/stubbed/plans/{plan_id}/accounts",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/installation",
+      "path": "/orgs/{org}/installation",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/my-repo/installation",
+      "path": "/repos/{owner}/{repo}/installation",
       "body": null
     },
     {
@@ -257,17 +257,17 @@
     },
     {
       "method": "GET",
-      "path": "/user/installations/789/repositories",
+      "path": "/user/installations/{installation_id}/repositories",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/user/installations/789/repositories/456",
+      "path": "/user/installations/{installation_id}/repositories/{repository_id}",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/user/installations/789/repositories/456",
+      "path": "/user/installations/{installation_id}/repositories/{repository_id}",
       "body": null
     },
     {
@@ -282,7 +282,7 @@
     },
     {
       "method": "GET",
-      "path": "/users/username123/installation",
+      "path": "/users/{username}/installation",
       "body": null
     },
     {
@@ -616,6 +616,11 @@
       "body": null
     },
     {
+      "method": "DELETE",
+      "path": "/orgs/my-org/code-security/configurations/detach",
+      "body": null
+    },
+    {
       "method": "GET",
       "path": "/orgs/my-org/code-security/configurations/12345",
       "body": null
@@ -676,7 +681,7 @@
       "body": null
     },
     {
-      "method": "GET",
+      "method": "POST",
       "path": "/repos/my-repo/codespaces",
       "body": null
     },
@@ -696,63 +701,63 @@
       "body": null
     },
     {
+      "method": "PUT",
+      "path": "/user/codespaces/secrets/{secret_name}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/my-org/members/user123/codespaces",
+      "body": null
+    },
+    {
       "method": "POST",
       "path": "/user/codespaces/{codespace_name}/start",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/members/user456/codespaces",
+      "path": "/orgs/my-org/copilot/billing",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/user/codespaces/secrets/{secret_name}",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/orgs/example-org/copilot/billing",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/orgs/example-org/copilot/billing/seats",
+      "path": "/orgs/my-org/copilot/billing/seats",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orgs/example-org/copilot/billing/selected_teams",
+      "path": "/orgs/my-org/copilot/billing/selected_teams",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/example-org/copilot/billing/selected_teams",
+      "path": "/orgs/my-org/copilot/billing/selected_teams",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orgs/example-org/copilot/billing/selected_users",
+      "path": "/orgs/my-org/copilot/billing/selected_users",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/example-org/copilot/billing/selected_users",
+      "path": "/orgs/my-org/copilot/billing/selected_users",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/copilot/metrics",
+      "path": "/orgs/my-org/copilot/metrics",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/members/johndoe/copilot",
+      "path": "/orgs/my-org/members/john_doe/copilot",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/team/example-team/copilot/metrics",
+      "path": "/orgs/my-org/team/my-team/copilot/metrics",
       "body": null
     },
     {
@@ -762,112 +767,112 @@
     },
     {
       "method": "GET",
-      "path": "/enterprises/{enterprise}/dependabot/alerts",
+      "path": "/enterprises/my-enterprise/dependabot/alerts",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/{org}/dependabot/repository-access",
+      "path": "/organizations/my-org/dependabot/repository-access",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/organizations/{org}/dependabot/repository-access",
+      "path": "/organizations/my-org/dependabot/repository-access",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{org}/dependabot/repository-access/default-level",
+      "path": "/organizations/my-org/dependabot/repository-access/default-level",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/{org}/dependabot/alerts",
+      "path": "/orgs/my-org/dependabot/alerts",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/{org}/dependabot/secrets",
+      "path": "/orgs/my-org/dependabot/secrets",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/{org}/dependabot/secrets/public-key",
+      "path": "/orgs/my-org/dependabot/secrets/public-key",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories/my-repo-id",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories/my-repo-id",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/{owner}/{repo}/dependabot/alerts",
+      "path": "/repos/my-owner/my-repo/dependabot/alerts",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/{owner}/{repo}/dependabot/alerts/{alert_number}",
+      "path": "/repos/my-owner/my-repo/dependabot/alerts/1",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/repos/{owner}/{repo}/dependabot/alerts/{alert_number}",
+      "path": "/repos/my-owner/my-repo/dependabot/alerts/1",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/{owner}/{repo}/dependabot/secrets",
+      "path": "/repos/my-owner/my-repo/dependabot/secrets",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/{owner}/{repo}/dependabot/secrets/public-key",
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/public-key",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/{owner}/{repo}/dependabot/secrets/{secret_name}",
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/my-secret",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/{owner}/{repo}/dependabot/secrets/{secret_name}",
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/my-secret",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/{owner}/{repo}/dependabot/secrets/{secret_name}",
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/my-secret",
       "body": null
     },
     {
@@ -907,17 +912,17 @@
     },
     {
       "method": "GET",
-      "path": "/enterprises/my-enterprise/teams/my-team/memberships/user123",
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/enterprises/my-enterprise/teams/my-team/memberships/user456",
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/enterprises/my-enterprise/teams/my-team/memberships/user789",
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
       "body": null
     },
     {
@@ -1067,7 +1072,7 @@
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/git/matching-refs/heads",
+      "path": "/repos/octocat/Hello-World/git/matching-refs/heads/main",
       "body": null
     },
     {
@@ -1082,12 +1087,12 @@
     },
     {
       "method": "PATCH",
-      "path": "/repos/octocat/Hello-World/git/refs/heads/feature",
+      "path": "/repos/octocat/Hello-World/git/refs/heads/feature-branch",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/octocat/Hello-World/git/refs/heads/feature",
+      "path": "/repos/octocat/Hello-World/git/refs/heads/feature-branch",
       "body": null
     },
     {
@@ -1202,12 +1207,17 @@
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/issues/42/comments",
+      "path": "/repos/octocat/Hello-World/issues/1/comments",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/issues/42",
+      "path": "/repos/octocat/Hello-World/issues/1/assignees",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/octocat/Hello-World/issues/1",
       "body": null
     },
     {
@@ -1217,32 +1227,27 @@
     },
     {
       "method": "POST",
-      "path": "/repos/octocat/Hello-World/issues/42/assignees",
+      "path": "/repos/octocat/Hello-World/issues/1/comments",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/octocat/Hello-World/issues/1/assignees",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/octocat/Hello-World/issues/1/labels",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/octocat/Hello-World/issues/42/labels",
-      "body": null
-    },
-    {
-      "method": "PUT",
-      "path": "/repos/octocat/Hello-World/issues/42/lock",
-      "body": null
-    },
-    {
-      "method": "PATCH",
-      "path": "/repos/octocat/Hello-World/issues/42/comments/1",
+      "path": "/repos/octocat/Hello-World/issues/1/lock",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/octocat/Hello-World/issues/42/comments/1",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/repos/octocat/Hello-World/milestones",
+      "path": "/repos/octocat/Hello-World/issues/1/lock",
       "body": null
     },
     {
@@ -1297,77 +1302,77 @@
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/migrations",
+      "path": "/orgs/example-org/migrations",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orgs/my-org/migrations",
+      "path": "/orgs/example-org/migrations",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/migrations/12345",
+      "path": "/orgs/example-org/migrations/12345",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/migrations/12345/archive",
+      "path": "/orgs/example-org/migrations/12345/archive",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/my-org/migrations/12345/archive",
+      "path": "/orgs/example-org/migrations/12345/archive",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/my-org/migrations/12345/repos/my-repo/lock",
+      "path": "/orgs/example-org/migrations/12345/repos/example-repo/lock",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/migrations/12345/repositories",
+      "path": "/orgs/example-org/migrations/12345/repositories",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/my-owner/my-repo/import",
+      "path": "/repos/example-owner/example-repo/import",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/my-owner/my-repo/import",
+      "path": "/repos/example-owner/example-repo/import",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/repos/my-owner/my-repo/import",
+      "path": "/repos/example-owner/example-repo/import",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/my-owner/my-repo/import",
+      "path": "/repos/example-owner/example-repo/import",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/my-owner/my-repo/import/authors",
+      "path": "/repos/example-owner/example-repo/import/authors",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/repos/my-owner/my-repo/import/authors/1",
+      "path": "/repos/example-owner/example-repo/import/authors/1",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/my-owner/my-repo/import/large_files",
+      "path": "/repos/example-owner/example-repo/import/large_files",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/repos/my-owner/my-repo/import/lfs",
+      "path": "/repos/example-owner/example-repo/import/lfs",
       "body": null
     },
     {
@@ -1397,7 +1402,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/user/migrations/67890/repos/my-repo/lock",
+      "path": "/user/migrations/67890/repos/example-repo/lock",
       "body": null
     },
     {
@@ -1432,12 +1437,12 @@
     },
     {
       "method": "PUT",
-      "path": "/orgs/example-org/blocks/user123",
+      "path": "/orgs/example-org/blocks/johndoe",
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/orgs/example-org/attestations",
+      "method": "POST",
+      "path": "/orgs/example-org/attestations/bulk-list",
       "body": null
     },
     {
@@ -1447,22 +1452,22 @@
     },
     {
       "method": "GET",
+      "path": "/orgs/example-org/memberships/johndoe",
+      "body": null
+    },
+    {
+      "method": "GET",
       "path": "/orgs/example-org/personal-access-tokens",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orgs/example-org/issue-types",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/orgs/example-org/memberships/user456",
+      "path": "/orgs/example-org/artifacts/metadata/storage-record",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/rulesets/ruleset123/history",
+      "path": "/orgs/example-org/rulesets/ruleset_id/history",
       "body": null
     },
     {
@@ -1477,17 +1482,47 @@
     },
     {
       "method": "GET",
-      "path": "/users/johndoe/packages/npm/my-package",
+      "path": "/users/johndoe/packages",
       "body": null
     },
     {
-      "method": "DELETE",
+      "method": "GET",
       "path": "/orgs/my-org/packages/npm/my-package",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/user/packages/docker/my-docker-image/versions",
+      "path": "/user/packages/npm/my-package",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/johndoe/packages/npm/my-package",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/my-org/packages/npm/my-package/versions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/packages/npm/my-package/versions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/johndoe/packages/npm/my-package/versions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/my-org/packages/npm/my-package/versions/1.0.0",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/packages/npm/my-package/versions/1.0.0",
       "body": null
     },
     {
@@ -1501,13 +1536,28 @@
       "body": null
     },
     {
+      "method": "DELETE",
+      "path": "/user/packages/npm/my-package/versions/1.0.0",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/johndoe/packages/npm/my-package/versions/1.0.0",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/my-org/packages/npm/my-package/restore",
+      "body": null
+    },
+    {
       "method": "POST",
       "path": "/user/packages/npm/my-package/restore",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/users/johndoe/packages/npm/my-package/versions/1.0.0/restore",
+      "path": "/users/johndoe/packages/npm/my-package/restore",
       "body": null
     },
     {
@@ -1547,42 +1597,42 @@
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/projectsV2/1",
+      "path": "/orgs/my-org/projectsV2/123",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/projectsV2/1/fields",
+      "path": "/orgs/my-org/projectsV2/123/fields",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/projectsV2/1/fields/field-1",
+      "path": "/orgs/my-org/projectsV2/123/fields/456",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/projectsV2/1/items",
+      "path": "/orgs/my-org/projectsV2/123/items",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orgs/my-org/projectsV2/1/items",
+      "path": "/orgs/my-org/projectsV2/123/items",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/projectsV2/1/items/item-1",
+      "path": "/orgs/my-org/projectsV2/123/items/789",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/orgs/my-org/projectsV2/1/items/item-1",
+      "path": "/orgs/my-org/projectsV2/123/items/789",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/my-org/projectsV2/1/items/item-1",
+      "path": "/orgs/my-org/projectsV2/123/items/789",
       "body": null
     },
     {
@@ -1592,42 +1642,42 @@
     },
     {
       "method": "GET",
-      "path": "/users/johndoe/projectsV2/1",
+      "path": "/users/johndoe/projectsV2/456",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/users/johndoe/projectsV2/1/fields",
+      "path": "/users/johndoe/projectsV2/456/fields",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/users/johndoe/projectsV2/1/fields/field-1",
+      "path": "/users/johndoe/projectsV2/456/fields/101",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/users/johndoe/projectsV2/1/items",
+      "path": "/users/johndoe/projectsV2/456/items",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/users/johndoe/projectsV2/1/items",
+      "path": "/users/johndoe/projectsV2/456/items",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/users/johndoe/projectsV2/1/items/item-1",
+      "path": "/users/johndoe/projectsV2/456/items/202",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/users/johndoe/projectsV2/1/items/item-1",
+      "path": "/users/johndoe/projectsV2/456/items/202",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/users/johndoe/projectsV2/1/items/item-1",
+      "path": "/users/johndoe/projectsV2/456/items/202",
       "body": null
     },
     {
@@ -1742,122 +1792,122 @@
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/comments/1",
+      "path": "/repos/octocat/Hello-World/pulls/comments/12345",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/repos/octocat/Hello-World/pulls/comments/1",
+      "path": "/repos/octocat/Hello-World/pulls/comments/12345",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/octocat/Hello-World/pulls/comments/1",
+      "path": "/repos/octocat/Hello-World/pulls/comments/12345",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42",
+      "path": "/repos/octocat/Hello-World/pulls/1",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/repos/octocat/Hello-World/pulls/42",
+      "path": "/repos/octocat/Hello-World/pulls/1",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/comments",
+      "path": "/repos/octocat/Hello-World/pulls/1/comments",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/octocat/Hello-World/pulls/42/comments",
+      "path": "/repos/octocat/Hello-World/pulls/1/comments",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/octocat/Hello-World/pulls/42/comments/1/replies",
+      "path": "/repos/octocat/Hello-World/pulls/1/comments/12345/replies",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/commits",
+      "path": "/repos/octocat/Hello-World/pulls/1/commits",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/files",
+      "path": "/repos/octocat/Hello-World/pulls/1/files",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/merge",
+      "path": "/repos/octocat/Hello-World/pulls/1/merge",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/octocat/Hello-World/pulls/42/merge",
+      "path": "/repos/octocat/Hello-World/pulls/1/merge",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/requested_reviewers",
+      "path": "/repos/octocat/Hello-World/pulls/1/requested_reviewers",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/octocat/Hello-World/pulls/42/requested_reviewers",
+      "path": "/repos/octocat/Hello-World/pulls/1/requested_reviewers",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/octocat/Hello-World/pulls/42/requested_reviewers",
+      "path": "/repos/octocat/Hello-World/pulls/1/requested_reviewers",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1/comments",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345/comments",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1/dismissals",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345/dismissals",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1/events",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345/events",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/octocat/Hello-World/pulls/42/update-branch",
+      "path": "/repos/octocat/Hello-World/pulls/1/update-branch",
       "body": null
     },
     {
@@ -1882,87 +1932,92 @@
     },
     {
       "method": "GET",
-      "path": "/repos/my-user/my-repo/issues/1/reactions",
+      "path": "/repos/my-repo-owner/my-repo/issues/1/reactions",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/my-user/my-repo/issues/1/reactions",
+      "path": "/repos/my-repo-owner/my-repo/issues/1/reactions",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/my-user/my-repo/issues/1/reactions/456",
+      "path": "/repos/my-repo-owner/my-repo/issues/1/reactions/456",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/my-user/my-repo/releases/1/reactions",
+      "path": "/repos/my-repo-owner/my-repo/releases/1/reactions",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/my-user/my-repo/releases/1/reactions",
+      "path": "/repos/my-repo-owner/my-repo/releases/1/reactions",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/my-user/my-repo/releases/1/reactions/789",
+      "path": "/repos/my-repo-owner/my-repo/releases/1/reactions/789",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/octocat/repos",
+      "path": "/teams/123/discussions/1/comments/2/reactions",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orgs/octocat/repos",
+      "path": "/teams/123/discussions/1/comments/2/reactions",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World",
+      "path": "/orgs/example-org/repos",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/example-org/repos",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/example-owner/example-repo",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/repos/octocat/Hello-World",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/repos/octocat/Hello-World",
+      "path": "/repos/example-owner/example-repo",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/branches",
+      "path": "/repos/example-owner/example-repo/branches",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/releases",
+      "path": "/repos/example-owner/example-repo/releases",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/octocat/Hello-World/releases",
+      "path": "/repos/example-owner/example-repo/releases",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/commits",
+      "path": "/repos/example-owner/example-repo/commits",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/branches/main/protection",
+      "path": "/repos/example-owner/example-repo/branches/main/protection",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/octocat/Hello-World/branches/main/protection",
+      "path": "/repos/example-owner/example-repo/branches/main/protection",
       "body": null
     },
     {
@@ -2102,52 +2157,72 @@
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/teams",
+      "path": "/orgs/my-org/teams",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/my-org/teams",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/teams/example-team",
+      "path": "/orgs/my-org/teams/my-team",
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/orgs/example-org/teams/example-team/members",
+      "method": "PATCH",
+      "path": "/orgs/my-org/teams/my-team",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/example-org/teams/example-team/memberships/user123",
+      "path": "/orgs/my-org/teams/my-team",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/teams/example-team/discussions",
+      "path": "/orgs/my-org/teams/my-team/discussions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/my-org/teams/my-team/discussions",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/teams/example-team/discussions/1",
+      "path": "/orgs/my-org/teams/my-team/discussions/1",
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/orgs/example-org/teams/example-team/projects",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/orgs/example-org/teams/example-team/repos",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/teams/1/members",
+      "method": "PATCH",
+      "path": "/orgs/my-org/teams/my-team/discussions/1",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/teams/1/members/user123",
+      "path": "/orgs/my-org/teams/my-team/discussions/1",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/my-org/teams/my-team/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/my-org/teams/my-team/memberships/user123",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/my-org/teams/my-team/memberships/user123",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/my-org/teams/my-team/memberships/user123",
       "body": null
     },
     {
@@ -2167,17 +2242,17 @@
     },
     {
       "method": "GET",
-      "path": "/user/blocks/{username}",
+      "path": "/user/blocks/jane_smith",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/user/blocks/{username}",
+      "path": "/user/blocks/jane_smith",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/user/blocks/{username}",
+      "path": "/user/blocks/jane_smith",
       "body": null
     },
     {
@@ -2207,17 +2282,17 @@
     },
     {
       "method": "GET",
-      "path": "/user/following/{username}",
+      "path": "/user/following/jane_smith",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/user/following/{username}",
+      "path": "/user/following/jane_smith",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/user/following/{username}",
+      "path": "/user/following/jane_smith",
       "body": null
     },
     {
@@ -2232,12 +2307,12 @@
     },
     {
       "method": "GET",
-      "path": "/user/gpg_keys/{gpg_key_id}",
+      "path": "/user/gpg_keys/12345",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/user/gpg_keys/{gpg_key_id}",
+      "path": "/user/gpg_keys/12345",
       "body": null
     },
     {
@@ -2252,12 +2327,12 @@
     },
     {
       "method": "GET",
-      "path": "/user/keys/{key_id}",
+      "path": "/user/keys/67890",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/user/keys/{key_id}",
+      "path": "/user/keys/67890",
       "body": null
     },
     {
@@ -2273,41 +2348,6 @@
     {
       "method": "DELETE",
       "path": "/user/social_accounts",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/user/{account_id}",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/users",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/users/{username}",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/users/{username}/followers",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/users/{username}/following",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/users/{username}/gpg_keys",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/users/{username}/social_accounts",
       "body": null
     },
     {
@@ -2357,7 +2397,7 @@
     },
     {
       "method": "GET",
-      "path": "/repos/{owner}/{repo}/actions/secrets/{secret_name}",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}/jobs",
       "body": null
     },
     {
@@ -2402,7 +2442,7 @@
     },
     {
       "method": "GET",
-      "path": "/users/user123/events/public",
+      "path": "/users/octocat/events/public",
       "body": null
     },
     {
@@ -2417,7 +2457,7 @@
     },
     {
       "method": "POST",
-      "path": "/app-manifests/abc123/conversions",
+      "path": "/app-manifests/{code}/conversions",
       "body": null
     },
     {
@@ -2437,12 +2477,12 @@
     },
     {
       "method": "GET",
-      "path": "/app/hook/deliveries/12345",
+      "path": "/app/hook/deliveries/{delivery_id}",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/app/hook/deliveries/12345/attempts",
+      "path": "/app/hook/deliveries/{delivery_id}/attempts",
       "body": null
     },
     {
@@ -2457,57 +2497,57 @@
     },
     {
       "method": "GET",
-      "path": "/app/installations/789",
+      "path": "/app/installations/{installation_id}",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/app/installations/789",
+      "path": "/app/installations/{installation_id}",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/app/installations/789/access_tokens",
+      "path": "/app/installations/{installation_id}/access_tokens",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/app/installations/789/suspended",
+      "path": "/app/installations/{installation_id}/suspended",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/app/installations/789/suspended",
+      "path": "/app/installations/{installation_id}/suspended",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/applications/xyz123/grant",
+      "path": "/applications/{client_id}/grant",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/applications/xyz123/token",
+      "path": "/applications/{client_id}/token",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/applications/xyz123/token",
+      "path": "/applications/{client_id}/token",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/applications/xyz123/token",
+      "path": "/applications/{client_id}/token",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/applications/xyz123/token/scoped",
+      "path": "/applications/{client_id}/token/scoped",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/apps/my-app",
+      "path": "/apps/{app_slug}",
       "body": null
     },
     {
@@ -2522,7 +2562,7 @@
     },
     {
       "method": "GET",
-      "path": "/marketplace_listing/accounts/12345",
+      "path": "/marketplace_listing/accounts/{account_id}",
       "body": null
     },
     {
@@ -2532,12 +2572,12 @@
     },
     {
       "method": "GET",
-      "path": "/marketplace_listing/plans/plan123/accounts",
+      "path": "/marketplace_listing/plans/{plan_id}/accounts",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/marketplace_listing/stubbed/accounts/12345",
+      "path": "/marketplace_listing/stubbed/accounts/{account_id}",
       "body": null
     },
     {
@@ -2547,17 +2587,17 @@
     },
     {
       "method": "GET",
-      "path": "/marketplace_listing/stubbed/plans/plan123/accounts",
+      "path": "/marketplace_listing/stubbed/plans/{plan_id}/accounts",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/installation",
+      "path": "/orgs/{org}/installation",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/my-repo/installation",
+      "path": "/repos/{owner}/{repo}/installation",
       "body": null
     },
     {
@@ -2567,17 +2607,17 @@
     },
     {
       "method": "GET",
-      "path": "/user/installations/789/repositories",
+      "path": "/user/installations/{installation_id}/repositories",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/user/installations/789/repositories/456",
+      "path": "/user/installations/{installation_id}/repositories/{repository_id}",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/user/installations/789/repositories/456",
+      "path": "/user/installations/{installation_id}/repositories/{repository_id}",
       "body": null
     },
     {
@@ -2592,7 +2632,7 @@
     },
     {
       "method": "GET",
-      "path": "/users/username123/installation",
+      "path": "/users/{username}/installation",
       "body": null
     },
     {
@@ -2926,6 +2966,11 @@
       "body": null
     },
     {
+      "method": "DELETE",
+      "path": "/orgs/my-org/code-security/configurations/detach",
+      "body": null
+    },
+    {
       "method": "GET",
       "path": "/orgs/my-org/code-security/configurations/12345",
       "body": null
@@ -2986,7 +3031,7 @@
       "body": null
     },
     {
-      "method": "GET",
+      "method": "POST",
       "path": "/repos/my-repo/codespaces",
       "body": null
     },
@@ -3006,63 +3051,63 @@
       "body": null
     },
     {
+      "method": "PUT",
+      "path": "/user/codespaces/secrets/{secret_name}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/my-org/members/user123/codespaces",
+      "body": null
+    },
+    {
       "method": "POST",
       "path": "/user/codespaces/{codespace_name}/start",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/members/user456/codespaces",
+      "path": "/orgs/my-org/copilot/billing",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/user/codespaces/secrets/{secret_name}",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/orgs/example-org/copilot/billing",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/orgs/example-org/copilot/billing/seats",
+      "path": "/orgs/my-org/copilot/billing/seats",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orgs/example-org/copilot/billing/selected_teams",
+      "path": "/orgs/my-org/copilot/billing/selected_teams",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/example-org/copilot/billing/selected_teams",
+      "path": "/orgs/my-org/copilot/billing/selected_teams",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orgs/example-org/copilot/billing/selected_users",
+      "path": "/orgs/my-org/copilot/billing/selected_users",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/example-org/copilot/billing/selected_users",
+      "path": "/orgs/my-org/copilot/billing/selected_users",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/copilot/metrics",
+      "path": "/orgs/my-org/copilot/metrics",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/members/johndoe/copilot",
+      "path": "/orgs/my-org/members/john_doe/copilot",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/team/example-team/copilot/metrics",
+      "path": "/orgs/my-org/team/my-team/copilot/metrics",
       "body": null
     },
     {
@@ -3072,112 +3117,112 @@
     },
     {
       "method": "GET",
-      "path": "/enterprises/{enterprise}/dependabot/alerts",
+      "path": "/enterprises/my-enterprise/dependabot/alerts",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/{org}/dependabot/repository-access",
+      "path": "/organizations/my-org/dependabot/repository-access",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/organizations/{org}/dependabot/repository-access",
+      "path": "/organizations/my-org/dependabot/repository-access",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{org}/dependabot/repository-access/default-level",
+      "path": "/organizations/my-org/dependabot/repository-access/default-level",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/{org}/dependabot/alerts",
+      "path": "/orgs/my-org/dependabot/alerts",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/{org}/dependabot/secrets",
+      "path": "/orgs/my-org/dependabot/secrets",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/{org}/dependabot/secrets/public-key",
+      "path": "/orgs/my-org/dependabot/secrets/public-key",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories/my-repo-id",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}",
+      "path": "/orgs/my-org/dependabot/secrets/my-secret/repositories/my-repo-id",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/{owner}/{repo}/dependabot/alerts",
+      "path": "/repos/my-owner/my-repo/dependabot/alerts",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/{owner}/{repo}/dependabot/alerts/{alert_number}",
+      "path": "/repos/my-owner/my-repo/dependabot/alerts/1",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/repos/{owner}/{repo}/dependabot/alerts/{alert_number}",
+      "path": "/repos/my-owner/my-repo/dependabot/alerts/1",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/{owner}/{repo}/dependabot/secrets",
+      "path": "/repos/my-owner/my-repo/dependabot/secrets",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/{owner}/{repo}/dependabot/secrets/public-key",
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/public-key",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/{owner}/{repo}/dependabot/secrets/{secret_name}",
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/my-secret",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/{owner}/{repo}/dependabot/secrets/{secret_name}",
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/my-secret",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/{owner}/{repo}/dependabot/secrets/{secret_name}",
+      "path": "/repos/my-owner/my-repo/dependabot/secrets/my-secret",
       "body": null
     },
     {
@@ -3217,17 +3262,17 @@
     },
     {
       "method": "GET",
-      "path": "/enterprises/my-enterprise/teams/my-team/memberships/user123",
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/enterprises/my-enterprise/teams/my-team/memberships/user456",
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/enterprises/my-enterprise/teams/my-team/memberships/user789",
+      "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
       "body": null
     },
     {
@@ -3377,7 +3422,7 @@
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/git/matching-refs/heads",
+      "path": "/repos/octocat/Hello-World/git/matching-refs/heads/main",
       "body": null
     },
     {
@@ -3392,12 +3437,12 @@
     },
     {
       "method": "PATCH",
-      "path": "/repos/octocat/Hello-World/git/refs/heads/feature",
+      "path": "/repos/octocat/Hello-World/git/refs/heads/feature-branch",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/octocat/Hello-World/git/refs/heads/feature",
+      "path": "/repos/octocat/Hello-World/git/refs/heads/feature-branch",
       "body": null
     },
     {
@@ -3512,12 +3557,17 @@
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/issues/42/comments",
+      "path": "/repos/octocat/Hello-World/issues/1/comments",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/issues/42",
+      "path": "/repos/octocat/Hello-World/issues/1/assignees",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/octocat/Hello-World/issues/1",
       "body": null
     },
     {
@@ -3527,32 +3577,27 @@
     },
     {
       "method": "POST",
-      "path": "/repos/octocat/Hello-World/issues/42/assignees",
+      "path": "/repos/octocat/Hello-World/issues/1/comments",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/octocat/Hello-World/issues/1/assignees",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repos/octocat/Hello-World/issues/1/labels",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/octocat/Hello-World/issues/42/labels",
-      "body": null
-    },
-    {
-      "method": "PUT",
-      "path": "/repos/octocat/Hello-World/issues/42/lock",
-      "body": null
-    },
-    {
-      "method": "PATCH",
-      "path": "/repos/octocat/Hello-World/issues/42/comments/1",
+      "path": "/repos/octocat/Hello-World/issues/1/lock",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/octocat/Hello-World/issues/42/comments/1",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/repos/octocat/Hello-World/milestones",
+      "path": "/repos/octocat/Hello-World/issues/1/lock",
       "body": null
     },
     {
@@ -3607,77 +3652,77 @@
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/migrations",
+      "path": "/orgs/example-org/migrations",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orgs/my-org/migrations",
+      "path": "/orgs/example-org/migrations",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/migrations/12345",
+      "path": "/orgs/example-org/migrations/12345",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/migrations/12345/archive",
+      "path": "/orgs/example-org/migrations/12345/archive",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/my-org/migrations/12345/archive",
+      "path": "/orgs/example-org/migrations/12345/archive",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/my-org/migrations/12345/repos/my-repo/lock",
+      "path": "/orgs/example-org/migrations/12345/repos/example-repo/lock",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/migrations/12345/repositories",
+      "path": "/orgs/example-org/migrations/12345/repositories",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/my-owner/my-repo/import",
+      "path": "/repos/example-owner/example-repo/import",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/my-owner/my-repo/import",
+      "path": "/repos/example-owner/example-repo/import",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/repos/my-owner/my-repo/import",
+      "path": "/repos/example-owner/example-repo/import",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/my-owner/my-repo/import",
+      "path": "/repos/example-owner/example-repo/import",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/my-owner/my-repo/import/authors",
+      "path": "/repos/example-owner/example-repo/import/authors",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/repos/my-owner/my-repo/import/authors/1",
+      "path": "/repos/example-owner/example-repo/import/authors/1",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/my-owner/my-repo/import/large_files",
+      "path": "/repos/example-owner/example-repo/import/large_files",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/repos/my-owner/my-repo/import/lfs",
+      "path": "/repos/example-owner/example-repo/import/lfs",
       "body": null
     },
     {
@@ -3707,7 +3752,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/user/migrations/67890/repos/my-repo/lock",
+      "path": "/user/migrations/67890/repos/example-repo/lock",
       "body": null
     },
     {
@@ -3742,12 +3787,12 @@
     },
     {
       "method": "PUT",
-      "path": "/orgs/example-org/blocks/user123",
+      "path": "/orgs/example-org/blocks/johndoe",
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/orgs/example-org/attestations",
+      "method": "POST",
+      "path": "/orgs/example-org/attestations/bulk-list",
       "body": null
     },
     {
@@ -3757,22 +3802,22 @@
     },
     {
       "method": "GET",
+      "path": "/orgs/example-org/memberships/johndoe",
+      "body": null
+    },
+    {
+      "method": "GET",
       "path": "/orgs/example-org/personal-access-tokens",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orgs/example-org/issue-types",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/orgs/example-org/memberships/user456",
+      "path": "/orgs/example-org/artifacts/metadata/storage-record",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/rulesets/ruleset123/history",
+      "path": "/orgs/example-org/rulesets/ruleset_id/history",
       "body": null
     },
     {
@@ -3787,17 +3832,47 @@
     },
     {
       "method": "GET",
-      "path": "/users/johndoe/packages/npm/my-package",
+      "path": "/users/johndoe/packages",
       "body": null
     },
     {
-      "method": "DELETE",
+      "method": "GET",
       "path": "/orgs/my-org/packages/npm/my-package",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/user/packages/docker/my-docker-image/versions",
+      "path": "/user/packages/npm/my-package",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/johndoe/packages/npm/my-package",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/my-org/packages/npm/my-package/versions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/packages/npm/my-package/versions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users/johndoe/packages/npm/my-package/versions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/my-org/packages/npm/my-package/versions/1.0.0",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/user/packages/npm/my-package/versions/1.0.0",
       "body": null
     },
     {
@@ -3811,13 +3886,28 @@
       "body": null
     },
     {
+      "method": "DELETE",
+      "path": "/user/packages/npm/my-package/versions/1.0.0",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/johndoe/packages/npm/my-package/versions/1.0.0",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/my-org/packages/npm/my-package/restore",
+      "body": null
+    },
+    {
       "method": "POST",
       "path": "/user/packages/npm/my-package/restore",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/users/johndoe/packages/npm/my-package/versions/1.0.0/restore",
+      "path": "/users/johndoe/packages/npm/my-package/restore",
       "body": null
     },
     {
@@ -3857,42 +3947,42 @@
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/projectsV2/1",
+      "path": "/orgs/my-org/projectsV2/123",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/projectsV2/1/fields",
+      "path": "/orgs/my-org/projectsV2/123/fields",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/projectsV2/1/fields/field-1",
+      "path": "/orgs/my-org/projectsV2/123/fields/456",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/projectsV2/1/items",
+      "path": "/orgs/my-org/projectsV2/123/items",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orgs/my-org/projectsV2/1/items",
+      "path": "/orgs/my-org/projectsV2/123/items",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/my-org/projectsV2/1/items/item-1",
+      "path": "/orgs/my-org/projectsV2/123/items/789",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/orgs/my-org/projectsV2/1/items/item-1",
+      "path": "/orgs/my-org/projectsV2/123/items/789",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/my-org/projectsV2/1/items/item-1",
+      "path": "/orgs/my-org/projectsV2/123/items/789",
       "body": null
     },
     {
@@ -3902,42 +3992,42 @@
     },
     {
       "method": "GET",
-      "path": "/users/johndoe/projectsV2/1",
+      "path": "/users/johndoe/projectsV2/456",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/users/johndoe/projectsV2/1/fields",
+      "path": "/users/johndoe/projectsV2/456/fields",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/users/johndoe/projectsV2/1/fields/field-1",
+      "path": "/users/johndoe/projectsV2/456/fields/101",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/users/johndoe/projectsV2/1/items",
+      "path": "/users/johndoe/projectsV2/456/items",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/users/johndoe/projectsV2/1/items",
+      "path": "/users/johndoe/projectsV2/456/items",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/users/johndoe/projectsV2/1/items/item-1",
+      "path": "/users/johndoe/projectsV2/456/items/202",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/users/johndoe/projectsV2/1/items/item-1",
+      "path": "/users/johndoe/projectsV2/456/items/202",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/users/johndoe/projectsV2/1/items/item-1",
+      "path": "/users/johndoe/projectsV2/456/items/202",
       "body": null
     },
     {
@@ -4052,122 +4142,122 @@
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/comments/1",
+      "path": "/repos/octocat/Hello-World/pulls/comments/12345",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/repos/octocat/Hello-World/pulls/comments/1",
+      "path": "/repos/octocat/Hello-World/pulls/comments/12345",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/octocat/Hello-World/pulls/comments/1",
+      "path": "/repos/octocat/Hello-World/pulls/comments/12345",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42",
+      "path": "/repos/octocat/Hello-World/pulls/1",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/repos/octocat/Hello-World/pulls/42",
+      "path": "/repos/octocat/Hello-World/pulls/1",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/comments",
+      "path": "/repos/octocat/Hello-World/pulls/1/comments",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/octocat/Hello-World/pulls/42/comments",
+      "path": "/repos/octocat/Hello-World/pulls/1/comments",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/octocat/Hello-World/pulls/42/comments/1/replies",
+      "path": "/repos/octocat/Hello-World/pulls/1/comments/12345/replies",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/commits",
+      "path": "/repos/octocat/Hello-World/pulls/1/commits",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/files",
+      "path": "/repos/octocat/Hello-World/pulls/1/files",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/merge",
+      "path": "/repos/octocat/Hello-World/pulls/1/merge",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/octocat/Hello-World/pulls/42/merge",
+      "path": "/repos/octocat/Hello-World/pulls/1/merge",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/requested_reviewers",
+      "path": "/repos/octocat/Hello-World/pulls/1/requested_reviewers",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/octocat/Hello-World/pulls/42/requested_reviewers",
+      "path": "/repos/octocat/Hello-World/pulls/1/requested_reviewers",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/octocat/Hello-World/pulls/42/requested_reviewers",
+      "path": "/repos/octocat/Hello-World/pulls/1/requested_reviewers",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1/comments",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345/comments",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1/dismissals",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345/dismissals",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/octocat/Hello-World/pulls/42/reviews/1/events",
+      "path": "/repos/octocat/Hello-World/pulls/1/reviews/12345/events",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/octocat/Hello-World/pulls/42/update-branch",
+      "path": "/repos/octocat/Hello-World/pulls/1/update-branch",
       "body": null
     },
     {
@@ -4192,87 +4282,92 @@
     },
     {
       "method": "GET",
-      "path": "/repos/my-user/my-repo/issues/1/reactions",
+      "path": "/repos/my-repo-owner/my-repo/issues/1/reactions",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/my-user/my-repo/issues/1/reactions",
+      "path": "/repos/my-repo-owner/my-repo/issues/1/reactions",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/my-user/my-repo/issues/1/reactions/456",
+      "path": "/repos/my-repo-owner/my-repo/issues/1/reactions/456",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/my-user/my-repo/releases/1/reactions",
+      "path": "/repos/my-repo-owner/my-repo/releases/1/reactions",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/my-user/my-repo/releases/1/reactions",
+      "path": "/repos/my-repo-owner/my-repo/releases/1/reactions",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repos/my-user/my-repo/releases/1/reactions/789",
+      "path": "/repos/my-repo-owner/my-repo/releases/1/reactions/789",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/octocat/repos",
+      "path": "/teams/123/discussions/1/comments/2/reactions",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orgs/octocat/repos",
+      "path": "/teams/123/discussions/1/comments/2/reactions",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World",
+      "path": "/orgs/example-org/repos",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/example-org/repos",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repos/example-owner/example-repo",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/repos/octocat/Hello-World",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/repos/octocat/Hello-World",
+      "path": "/repos/example-owner/example-repo",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/branches",
+      "path": "/repos/example-owner/example-repo/branches",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/releases",
+      "path": "/repos/example-owner/example-repo/releases",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/repos/octocat/Hello-World/releases",
+      "path": "/repos/example-owner/example-repo/releases",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/commits",
+      "path": "/repos/example-owner/example-repo/commits",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/repos/octocat/Hello-World/branches/main/protection",
+      "path": "/repos/example-owner/example-repo/branches/main/protection",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/repos/octocat/Hello-World/branches/main/protection",
+      "path": "/repos/example-owner/example-repo/branches/main/protection",
       "body": null
     },
     {
@@ -4412,52 +4507,72 @@
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/teams",
+      "path": "/orgs/my-org/teams",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/my-org/teams",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/teams/example-team",
+      "path": "/orgs/my-org/teams/my-team",
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/orgs/example-org/teams/example-team/members",
+      "method": "PATCH",
+      "path": "/orgs/my-org/teams/my-team",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/orgs/example-org/teams/example-team/memberships/user123",
+      "path": "/orgs/my-org/teams/my-team",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/teams/example-team/discussions",
+      "path": "/orgs/my-org/teams/my-team/discussions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/my-org/teams/my-team/discussions",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/orgs/example-org/teams/example-team/discussions/1",
+      "path": "/orgs/my-org/teams/my-team/discussions/1",
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/orgs/example-org/teams/example-team/projects",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/orgs/example-org/teams/example-team/repos",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/teams/1/members",
+      "method": "PATCH",
+      "path": "/orgs/my-org/teams/my-team/discussions/1",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/teams/1/members/user123",
+      "path": "/orgs/my-org/teams/my-team/discussions/1",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/my-org/teams/my-team/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/my-org/teams/my-team/memberships/user123",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/my-org/teams/my-team/memberships/user123",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/my-org/teams/my-team/memberships/user123",
       "body": null
     },
     {
@@ -4477,17 +4592,17 @@
     },
     {
       "method": "GET",
-      "path": "/user/blocks/{username}",
+      "path": "/user/blocks/jane_smith",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/user/blocks/{username}",
+      "path": "/user/blocks/jane_smith",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/user/blocks/{username}",
+      "path": "/user/blocks/jane_smith",
       "body": null
     },
     {
@@ -4517,17 +4632,17 @@
     },
     {
       "method": "GET",
-      "path": "/user/following/{username}",
+      "path": "/user/following/jane_smith",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/user/following/{username}",
+      "path": "/user/following/jane_smith",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/user/following/{username}",
+      "path": "/user/following/jane_smith",
       "body": null
     },
     {
@@ -4542,12 +4657,12 @@
     },
     {
       "method": "GET",
-      "path": "/user/gpg_keys/{gpg_key_id}",
+      "path": "/user/gpg_keys/12345",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/user/gpg_keys/{gpg_key_id}",
+      "path": "/user/gpg_keys/12345",
       "body": null
     },
     {
@@ -4562,12 +4677,12 @@
     },
     {
       "method": "GET",
-      "path": "/user/keys/{key_id}",
+      "path": "/user/keys/67890",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/user/keys/{key_id}",
+      "path": "/user/keys/67890",
       "body": null
     },
     {
@@ -4583,41 +4698,6 @@
     {
       "method": "DELETE",
       "path": "/user/social_accounts",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/user/{account_id}",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/users",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/users/{username}",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/users/{username}/followers",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/users/{username}/following",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/users/{username}/gpg_keys",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/users/{username}/social_accounts",
       "body": null
     }
   ]

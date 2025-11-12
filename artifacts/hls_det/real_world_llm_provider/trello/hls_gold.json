@@ -3,10 +3,10 @@
   "deterministic": true,
   "provider": "real_world_llm_provider",
   "sut": "trello",
-  "generated_at": "2025-11-09T13:50:08.297558Z",
+  "generated_at": "2025-11-12T20:06:42.273716Z",
   "source": {
-    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\trello\\graph.json",
-    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\trello\\dsl_map.json"
+    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\trello\\graph.json",
+    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\trello\\dsl_map.json"
   },
   "entities": [
     {
@@ -742,25 +742,25 @@
       "name": "CRUD action",
       "desc": "Deterministic CRUD flow for entity 'action' inferred from graph.",
       "entity": "action",
-      "js": "// Deterministic CRUD flow for entity: action\nbp.registerBThread(\"HLS: CRUD action\", function () {\n  bp.sync({request: REST.GET(\"/actions/{idAction}\", {})});\n  bp.sync({request: REST.PUT(\"/actions/{idAction}\", {})});\n  bp.sync({request: REST.GET(\"/actions/{idAction}\", {})});\n  bp.sync({request: REST.DELETE(\"/actions/{idAction}\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: action\nbthread(\"HLS: CRUD action\", function () {\n  bp.sync({request: REST.GET(\"/actions/{idAction}\", {})});\n  bp.sync({request: REST.PUT(\"/actions/{idAction}\", {})});\n  bp.sync({request: REST.GET(\"/actions/{idAction}\", {})});\n  bp.sync({request: REST.DELETE(\"/actions/{idAction}\", {})});\n});"
     },
     {
       "name": "CRUD active",
       "desc": "Deterministic CRUD flow for entity 'active' inferred from graph.",
       "entity": "active",
-      "js": "// Deterministic CRUD flow for entity: active\nbp.registerBThread(\"HLS: CRUD active\", function () {\n  bp.sync({request: REST.PUT(\"/webhooks/{idWebhook}/active\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: active\nbthread(\"HLS: CRUD active\", function () {\n  bp.sync({request: REST.PUT(\"/webhooks/{idWebhook}/active\", {})});\n});"
     },
     {
       "name": "CRUD all",
       "desc": "Deterministic CRUD flow for entity 'all' inferred from graph.",
       "entity": "all",
-      "js": "// Deterministic CRUD flow for entity: all\nbp.registerBThread(\"HLS: CRUD all\", function () {\n  bp.sync({request: REST.DELETE(\"/organizations/{idOrg}/members/{idMember}/all\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: all\nbthread(\"HLS: CRUD all\", function () {\n  bp.sync({request: REST.DELETE(\"/organizations/{idOrg}/members/{idMember}/all\", {})});\n});"
     },
     {
       "name": "CRUD archiveallcard",
       "desc": "Deterministic CRUD flow for entity 'archiveallcard' inferred from graph.",
       "entity": "archiveallcard",
-      "js": "// Deterministic CRUD flow for entity: archiveallcard\nbp.registerBThread(\"HLS: CRUD archiveallcard\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/lists/{idList}/archiveAllCards\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: archiveallcard\nbthread(\"HLS: CRUD archiveallcard\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/lists/{idList}/archiveAllCards\", {})});\n});"
     }
   ]
 }

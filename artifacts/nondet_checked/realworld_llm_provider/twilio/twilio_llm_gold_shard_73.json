@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "ListAvailablePhoneNumberVoip",
       "summary": "",
-      "user": "A developer looking to integrate VoIP phone numbers into their application for a startup focused on providing communication solutions.",
-      "ideal": "Retrieve a list of available VoIP phone numbers in the specified country."
+      "user": "user_12345",
+      "ideal": "Retrieve a list of available VoIP phone numbers for a specified country."
     }
   ]
 }

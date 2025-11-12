@@ -14,7 +14,7 @@
       "operationId": "activity/get-feeds",
       "summary": "",
       "user": "user456",
-      "ideal": "Get the feed of events for the authenticated user."
+      "ideal": "Get the feeds for the authenticated user."
     },
     {
       "path": "/repos/octocat/Hello-World/events",
@@ -30,7 +30,7 @@
       "operationId": "activity/list-notifications-for-authenticated-user",
       "summary": "",
       "user": "user101",
-      "ideal": "List all notifications for the authenticated user."
+      "ideal": "List notifications for the authenticated user."
     },
     {
       "path": "/notifications/threads/12345",
@@ -62,15 +62,15 @@
       "operationId": "activity/get-repo-subscription",
       "summary": "",
       "user": "user505",
-      "ideal": "Check the subscription status for the repository."
+      "ideal": "Check the subscription status for the specified repository."
     },
     {
-      "path": "/users/user123/events/public",
+      "path": "/users/octocat/events/public",
       "method": "GET",
       "operationId": "activity/list-public-events-for-user",
       "summary": "",
       "user": "user606",
-      "ideal": "Retrieve public events for the user 'user123'."
+      "ideal": "Retrieve public events for the user 'octocat'."
     },
     {
       "path": "/notifications/threads/12345/subscription",
@@ -78,7 +78,7 @@
       "operationId": "activity/get-thread-subscription-for-authenticated-user",
       "summary": "",
       "user": "user707",
-      "ideal": "Get subscription status for a specific notification thread."
+      "ideal": "Get the subscription status for a specific notification thread."
     }
   ]
 }

@@ -3,10 +3,10 @@
   "deterministic": true,
   "provider": "real_world_llm_provider",
   "sut": "directus",
-  "generated_at": "2025-11-09T13:50:05.988884Z",
+  "generated_at": "2025-11-12T20:06:41.538337Z",
   "source": {
-    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\directus\\graph.json",
-    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\directus\\dsl_map.json"
+    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\directus\\graph.json",
+    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\directus\\dsl_map.json"
   },
   "entities": [
     {
@@ -345,25 +345,25 @@
       "name": "CRUD accept",
       "desc": "Deterministic CRUD flow for entity 'accept' inferred from graph.",
       "entity": "accept",
-      "js": "// Deterministic CRUD flow for entity: accept\nbp.registerBThread(\"HLS: CRUD accept\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/users/invite/accept\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: accept\nbthread(\"HLS: CRUD accept\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/users/invite/accept\", {})});\n});"
     },
     {
       "name": "CRUD activity",
       "desc": "Deterministic CRUD flow for entity 'activity' inferred from graph.",
       "entity": "activity",
-      "js": "// Deterministic CRUD flow for entity: activity\nbp.registerBThread(\"HLS: CRUD activity\", function () {\n  bp.sync({request: REST.GET(\"/activity\", {})});\n  bp.sync({request: REST.GET(\"/activity\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: activity\nbthread(\"HLS: CRUD activity\", function () {\n  bp.sync({request: REST.GET(\"/activity\", {})});\n  bp.sync({request: REST.GET(\"/activity\", {})});\n});"
     },
     {
       "name": "CRUD apply",
       "desc": "Deterministic CRUD flow for entity 'apply' inferred from graph.",
       "entity": "apply",
-      "js": "// Deterministic CRUD flow for entity: apply\nbp.registerBThread(\"HLS: CRUD apply\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/schema/apply\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: apply\nbthread(\"HLS: CRUD apply\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/schema/apply\", {})});\n});"
     },
     {
       "name": "CRUD asset",
       "desc": "Deterministic CRUD flow for entity 'asset' inferred from graph.",
       "entity": "asset",
-      "js": "// Deterministic CRUD flow for entity: asset\nbp.registerBThread(\"HLS: CRUD asset\", function () {\n  bp.sync({request: REST.GET(\"/assets/{id}\", {})});\n  bp.sync({request: REST.GET(\"/assets/{id}\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: asset\nbthread(\"HLS: CRUD asset\", function () {\n  bp.sync({request: REST.GET(\"/assets/{id}\", {})});\n  bp.sync({request: REST.GET(\"/assets/{id}\", {})});\n});"
     }
   ]
 }

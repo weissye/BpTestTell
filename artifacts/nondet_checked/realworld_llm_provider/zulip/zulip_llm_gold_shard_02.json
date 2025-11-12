@@ -38,7 +38,7 @@
       "operationId": "get-subscriptions",
       "summary": "",
       "user": "user202",
-      "ideal": "Get a list of all subscriptions for the user."
+      "ideal": "Get a list of subscriptions for the user."
     },
     {
       "path": "/users/me/subscriptions",
@@ -78,7 +78,7 @@
       "operationId": "update-user-topic",
       "summary": "",
       "user": "user707",
-      "ideal": "Update the user's topic preferences."
+      "ideal": "Update the topic for a specific user."
     },
     {
       "path": "/users/{user_id}/subscriptions/{stream_id}",
@@ -101,31 +101,31 @@
       "method": "GET",
       "operationId": "get-subscribers",
       "summary": "",
-      "user": "user1010",
-      "ideal": "Retrieve the list of subscribers for a stream."
+      "user": "user010",
+      "ideal": "Retrieve the members subscribed to a specific stream."
     },
     {
       "path": "/streams",
       "method": "GET",
       "operationId": "get-streams",
       "summary": "",
-      "user": "user1111",
-      "ideal": "Get a list of all available streams."
+      "user": "user111",
+      "ideal": "Get a list of all streams available."
     },
     {
       "path": "/streams/{stream_id}",
       "method": "GET",
       "operationId": "get-stream-by-id",
       "summary": "",
-      "user": "user1212",
-      "ideal": "Fetch details of a specific stream by its ID."
+      "user": "user222",
+      "ideal": "Retrieve details of a specific stream by its ID."
     },
     {
       "path": "/streams/{stream_id}",
       "method": "DELETE",
       "operationId": "archive-stream",
       "summary": "",
-      "user": "user1313",
+      "user": "user333",
       "ideal": "Archive a specific stream."
     },
     {
@@ -133,7 +133,7 @@
       "method": "PATCH",
       "operationId": "update-stream",
       "summary": "",
-      "user": "user1414",
+      "user": "user444",
       "ideal": "Update the details of a specific stream."
     },
     {
@@ -141,15 +141,15 @@
       "method": "GET",
       "operationId": "get-stream-email-address",
       "summary": "",
-      "user": "user1515",
-      "ideal": "Retrieve the email address associated with a stream."
+      "user": "user555",
+      "ideal": "Get the email address associated with a specific stream."
     },
     {
       "path": "/streams/{stream_id}/delete_topic",
       "method": "POST",
       "operationId": "delete-topic",
       "summary": "",
-      "user": "user1616",
+      "user": "user666",
       "ideal": "Delete a specific topic from a stream."
     },
     {
@@ -157,7 +157,7 @@
       "method": "POST",
       "operationId": "create-channel",
       "summary": "",
-      "user": "user1717",
+      "user": "user777",
       "ideal": "Create a new channel."
     },
     {
@@ -165,7 +165,7 @@
       "method": "POST",
       "operationId": "create-channel-folder",
       "summary": "",
-      "user": "user1818",
+      "user": "user888",
       "ideal": "Create a new folder for channels."
     },
     {
@@ -173,23 +173,23 @@
       "method": "GET",
       "operationId": "get-channel-folders",
       "summary": "",
-      "user": "user1919",
-      "ideal": "Retrieve a list of all channel folders."
+      "user": "user999",
+      "ideal": "Retrieve a list of channel folders."
     },
     {
       "path": "/channel_folders",
       "method": "PATCH",
       "operationId": "patch-channel-folders",
       "summary": "",
-      "user": "user2020",
-      "ideal": "Update properties of existing channel folders."
+      "user": "user000",
+      "ideal": "Patch existing channel folders."
     },
     {
       "path": "/channel_folders/{channel_folder_id}",
       "method": "PATCH",
       "operationId": "update-channel-folder",
       "summary": "",
-      "user": "user2121",
+      "user": "user1111",
       "ideal": "Update a specific channel folder."
     },
     {

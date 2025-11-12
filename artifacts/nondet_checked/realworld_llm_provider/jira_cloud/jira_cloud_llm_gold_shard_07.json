@@ -5,56 +5,56 @@
       "method": "GET",
       "operationId": "getAllSystemAvatars",
       "summary": "",
-      "user": "As a user, I want to retrieve all available system avatars for use in my Jira projects.",
-      "ideal": "The response should include a list of all system avatars with their respective IDs and URLs."
+      "user": "As a user, I want to retrieve all available system avatars so that I can choose one for my profile.",
+      "ideal": "The API should return a list of all system avatars in a structured format, including their IDs and image URLs."
     },
     {
       "path": "/rest/api/3/universal_avatar/type/user/owner/12345",
       "method": "GET",
       "operationId": "getAvatars",
       "summary": "",
-      "user": "As a project manager, I need to get the avatars associated with a specific user to ensure they are correctly displayed in the project.",
-      "ideal": "The response should return the avatars linked to the user with ID 12345, including their types and URLs."
+      "user": "As a user, I want to get all avatars associated with my account so that I can manage them.",
+      "ideal": "The API should return a list of avatars for the specified user ID, including details like avatar type and image URL."
     },
     {
       "path": "/rest/api/3/universal_avatar/type/user/owner/12345",
       "method": "POST",
       "operationId": "storeAvatar",
       "summary": "",
-      "user": "As a user, I want to upload a new avatar for my profile to personalize my experience in Jira.",
-      "ideal": "The response should confirm the successful upload of the avatar and return the new avatar ID."
+      "user": "As a user, I want to upload a new avatar for my profile so that I can personalize my account.",
+      "ideal": "The API should accept the avatar image and return a confirmation along with the new avatar ID."
     },
     {
       "path": "/rest/api/3/universal_avatar/type/user/owner/12345/avatar/67890",
       "method": "DELETE",
       "operationId": "deleteAvatar",
       "summary": "",
-      "user": "As a user, I want to remove an outdated avatar from my profile to keep my appearance current.",
-      "ideal": "The response should confirm that the avatar with ID 67890 has been successfully deleted."
+      "user": "As a user, I want to delete an avatar that I no longer want to use.",
+      "ideal": "The API should confirm the deletion of the specified avatar and return a success message."
     },
     {
       "path": "/rest/api/3/universal_avatar/view/type/user",
       "method": "GET",
       "operationId": "getAvatarImageByType",
       "summary": "",
-      "user": "As a user, I want to view all available user avatars to choose one for my profile.",
-      "ideal": "The response should return a list of user avatars with their images and IDs."
+      "user": "As a user, I want to view all available user avatars so that I can select one for my profile.",
+      "ideal": "The API should return a list of user avatars with their respective image URLs."
     },
     {
       "path": "/rest/api/3/universal_avatar/view/type/user/avatar/67890",
       "method": "GET",
       "operationId": "getAvatarImageByID",
       "summary": "",
-      "user": "As a user, I want to see a specific avatar image by its ID to decide if I want to use it.",
-      "ideal": "The response should return the image of the avatar with ID 67890."
+      "user": "As a user, I want to view a specific avatar by its ID to see if it fits my profile.",
+      "ideal": "The API should return the image of the specified avatar along with its metadata."
     },
     {
       "path": "/rest/api/3/universal_avatar/view/type/user/owner/12345",
       "method": "GET",
       "operationId": "getAvatarImageByOwner",
       "summary": "",
-      "user": "As a team lead, I want to view the avatar of a specific team member to recognize their contributions visually.",
-      "ideal": "The response should return the avatar image of the user with ID 12345."
+      "user": "As a user, I want to see my current avatar so that I can decide if I want to change it.",
+      "ideal": "The API should return the current avatar image for the specified user ID along with any relevant details."
     }
   ]
 }

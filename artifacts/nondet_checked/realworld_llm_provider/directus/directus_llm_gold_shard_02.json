@@ -6,7 +6,7 @@
       "operationId": "getAsset",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve the asset with ID 123, which should return the asset details including its metadata, URL, and associated fields."
+      "ideal": "Retrieve the asset with ID 123, including its metadata such as title, description, and file type."
     },
     {
       "path": "/assets/456",
@@ -14,7 +14,7 @@
       "operationId": "getAsset",
       "summary": "",
       "user": "editor",
-      "ideal": "Fetch the asset with ID 456 to display its information in the asset management interface, ensuring that all relevant data is included."
+      "ideal": "Fetch the asset with ID 456 to display in the content management system, ensuring it has the correct permissions for the editor role."
     },
     {
       "path": "/assets/789",
@@ -22,7 +22,7 @@
       "operationId": "getAsset",
       "summary": "",
       "user": "viewer",
-      "ideal": "Access the asset with ID 789 to view its details, ensuring that the response includes the asset's name, type, and any available previews."
+      "ideal": "Access the asset with ID 789 to view its details, but without the ability to edit or delete it."
     }
   ]
 }

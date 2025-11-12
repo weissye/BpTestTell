@@ -6,7 +6,7 @@
       "operationId": "listPackages",
       "summary": "",
       "user": "johndoe",
-      "ideal": "Retrieve a list of all packages owned by johndoe."
+      "ideal": "Retrieve a list of all packages owned by user 'johndoe'."
     },
     {
       "path": "/packages/johndoe/npm/my-package/1.0.0",
@@ -14,7 +14,7 @@
       "operationId": "getPackage",
       "summary": "",
       "user": "johndoe",
-      "ideal": "Fetch details of the package 'my-package' version '1.0.0' owned by johndoe."
+      "ideal": "Get details of the package 'my-package' version '1.0.0' owned by 'johndoe' in npm format."
     },
     {
       "path": "/packages/johndoe/npm/my-package/1.0.0",
@@ -22,7 +22,7 @@
       "operationId": "deletePackage",
       "summary": "",
       "user": "johndoe",
-      "ideal": "Delete the package 'my-package' version '1.0.0' owned by johndoe."
+      "ideal": "Delete the package 'my-package' version '1.0.0' owned by 'johndoe' in npm format."
     },
     {
       "path": "/packages/johndoe/npm/my-package/1.0.0/files",
@@ -30,7 +30,7 @@
       "operationId": "listPackageFiles",
       "summary": "",
       "user": "johndoe",
-      "ideal": "List all files associated with the package 'my-package' version '1.0.0' owned by johndoe."
+      "ideal": "List all files associated with the package 'my-package' version '1.0.0' owned by 'johndoe' in npm format."
     }
   ]
 }

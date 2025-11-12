@@ -5,40 +5,40 @@
       "method": "GET",
       "operationId": "FetchQueue",
       "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve details of a specific queue using its SID."
+      "user": "User requests to fetch details of a specific queue using the Account SID and Queue SID.",
+      "ideal": "Returns the details of the specified queue in JSON format."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateQueue",
       "summary": "",
-      "user": "User456",
-      "ideal": "Update properties of a specific queue identified by its SID."
+      "user": "User wants to update the properties of a specific queue, providing the new settings in the request body.",
+      "ideal": "Successfully updates the queue and returns the updated queue details."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
       "method": "DELETE",
       "operationId": "DeleteQueue",
       "summary": "",
-      "user": "User789",
-      "ideal": "Delete a specific queue using its SID."
+      "user": "User intends to delete a specific queue identified by its SID.",
+      "ideal": "Confirms the deletion of the queue and returns a success message."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
       "method": "GET",
       "operationId": "ListQueue",
       "summary": "",
-      "user": "User101",
-      "ideal": "List all queues associated with the account."
+      "user": "User requests to list all queues associated with their account to manage them effectively.",
+      "ideal": "Returns a list of all queues in JSON format, including their details."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
       "method": "POST",
       "operationId": "CreateQueue",
       "summary": "",
-      "user": "User202",
-      "ideal": "Create a new queue with specified parameters."
+      "user": "User wants to create a new queue with specific parameters such as name and max size.",
+      "ideal": "Successfully creates the queue and returns the details of the newly created queue."
     }
   ]
 }

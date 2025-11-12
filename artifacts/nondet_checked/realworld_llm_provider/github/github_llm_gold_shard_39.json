@@ -3,58 +3,58 @@
     {
       "path": "/search/code",
       "method": "GET",
-      "operationId": "search/code",
+      "operationId": "searchCode",
       "summary": "",
       "user": "developer123",
-      "ideal": "Search for code snippets across GitHub repositories."
+      "ideal": "Search for code snippets containing the term 'authentication' in public repositories."
     },
     {
       "path": "/search/commits",
       "method": "GET",
-      "operationId": "search/commits",
+      "operationId": "searchCommits",
       "summary": "",
       "user": "codeHistorian",
-      "ideal": "Retrieve commit history based on specific search criteria."
+      "ideal": "Find commits that mention 'bug fix' in the last month."
     },
     {
       "path": "/search/issues",
       "method": "GET",
-      "operationId": "search/issues-and-pull-requests",
+      "operationId": "searchIssues",
       "summary": "",
       "user": "issueTracker",
-      "ideal": "Find issues and pull requests that match the given search parameters."
+      "ideal": "Retrieve open issues related to 'performance' in the repository 'octocat/Hello-World'."
     },
     {
       "path": "/search/labels",
       "method": "GET",
-      "operationId": "search/labels",
+      "operationId": "searchLabels",
       "summary": "",
       "user": "labelMaster",
-      "ideal": "Search for labels used in repositories."
+      "ideal": "List all labels in the repository 'octocat/Hello-World'."
     },
     {
       "path": "/search/repositories",
       "method": "GET",
-      "operationId": "search/repos",
+      "operationId": "searchRepositories",
       "summary": "",
       "user": "repoExplorer",
-      "ideal": "Search for repositories based on keywords and filters."
+      "ideal": "Search for repositories with the topic 'machine-learning'."
     },
     {
       "path": "/search/topics",
       "method": "GET",
-      "operationId": "search/topics",
+      "operationId": "searchTopics",
       "summary": "",
-      "user": "topicFinder",
-      "ideal": "Find topics associated with repositories."
+      "user": "topicSeeker",
+      "ideal": "Get topics related to 'web development'."
     },
     {
       "path": "/search/users",
       "method": "GET",
-      "operationId": "search/users",
+      "operationId": "searchUsers",
       "summary": "",
-      "user": "userScout",
-      "ideal": "Search for GitHub users based on usernames or other criteria."
+      "user": "userFinder",
+      "ideal": "Find GitHub users with the name 'Alice'."
     }
   ]
 }

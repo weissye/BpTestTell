@@ -1,0 +1,76 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/activitypub/user-id/{user-id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/users/{username}/keys/{id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/orgs/{org}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/labels/{id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/git/commits/{sha}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{index}/comments/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{index}/timeline"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/new_pin_allowed"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}/undismissals"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/statuses/{sha}"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/topics/{topic}"
+    },
+    {
+      "method": "PUT",
+      "path": "/teams/{id}/members/{username}"
+    },
+    {
+      "method": "GET",
+      "path": "/user/blocks/{username}"
+    },
+    {
+      "method": "GET",
+      "path": "/user/keys/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/orgs/{org}/permissions"
+    }
+  ]
+}

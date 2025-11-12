@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/markdown",
+      "method": "POST",
+      "operationId": "markdown/render",
+      "summary": "",
+      "user": "User123: I want to convert my Markdown text into HTML format. Here is my Markdown: # Hello World\nThis is a sample Markdown text with **bold** and *italic* formatting.",
+      "ideal": "<h1>Hello World</h1>\n<p>This is a sample Markdown text with <strong>bold</strong> and <em>italic</em> formatting.</p>"
+    },
+    {
+      "path": "/markdown/raw",
+      "method": "POST",
+      "operationId": "markdown/render-raw",
+      "summary": "",
+      "user": "User456: I have a raw Markdown string that I need to convert. The string is: ## Sample Title\n- Item 1\n- Item 2\n- Item 3",
+      "ideal": "<h2>Sample Title</h2>\n<ul>\n<li>Item 1</li>\n<li>Item 2</li>\n<li>Item 3</li>\n</ul>"
+    }
+  ]
+}

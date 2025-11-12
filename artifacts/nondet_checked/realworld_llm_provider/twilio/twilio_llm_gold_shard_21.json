@@ -13,32 +13,32 @@
       "method": "POST",
       "operationId": "CreateSipCredential",
       "summary": "",
-      "user": "User submits a request to create a new SIP credential with a username and password.",
-      "ideal": "Returns the created SIP credential details including SID."
+      "user": "User wants to create a new SIP credential with a username and password.",
+      "ideal": "Creates a new SIP credential and returns the details of the created credential."
     },
     {
       "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXX/Credentials/CRXXXXXXXXXXXXXXXXX.json",
       "method": "GET",
       "operationId": "FetchSipCredential",
       "summary": "",
-      "user": "User wants to fetch details of a specific SIP credential using its SID.",
-      "ideal": "Returns the details of the specified SIP credential."
+      "user": "User needs to fetch details of a specific SIP credential by its SID.",
+      "ideal": "Returns the details of the specified SIP credential in JSON format."
     },
     {
       "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXX/Credentials/CRXXXXXXXXXXXXXXXXX.json",
       "method": "POST",
       "operationId": "UpdateSipCredential",
       "summary": "",
-      "user": "User sends a request to update the password of an existing SIP credential.",
-      "ideal": "Returns the updated SIP credential details."
+      "user": "User wants to update an existing SIP credential's password.",
+      "ideal": "Updates the specified SIP credential and returns the updated details."
     },
     {
       "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXX/Credentials/CRXXXXXXXXXXXXXXXXX.json",
       "method": "DELETE",
       "operationId": "DeleteSipCredential",
       "summary": "",
-      "user": "User requests to delete a specific SIP credential by its SID.",
-      "ideal": "Returns a confirmation that the SIP credential has been deleted."
+      "user": "User intends to delete a specific SIP credential by its SID.",
+      "ideal": "Deletes the specified SIP credential and confirms the deletion."
     }
   ]
 }

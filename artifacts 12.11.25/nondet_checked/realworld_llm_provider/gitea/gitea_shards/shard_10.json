@@ -1,0 +1,640 @@
+{
+  "openapi_meta": {
+    "title": "Gitea API",
+    "version": "{{AppVer | JSEscape}}"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/user",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get the authenticated user",
+      "operationId": "userGetCurrent"
+    },
+    {
+      "path": "/user/actions/runners/registration-token",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get an user's actions runner registration token",
+      "operationId": "userGetRunnerRegistrationToken"
+    },
+    {
+      "path": "/user/actions/secrets/{secretname}",
+      "method": "PUT",
+      "tags": [
+        "user"
+      ],
+      "summary": "Create or Update a secret value in a user scope",
+      "operationId": "updateUserSecret"
+    },
+    {
+      "path": "/user/actions/secrets/{secretname}",
+      "method": "DELETE",
+      "tags": [
+        "user"
+      ],
+      "summary": "Delete a secret in a user scope",
+      "operationId": "deleteUserSecret"
+    },
+    {
+      "path": "/user/actions/variables",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get the user-level list of variables which is created by current doer",
+      "operationId": "getUserVariablesList"
+    },
+    {
+      "path": "/user/actions/variables/{variablename}",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get a user-level variable which is created by current doer",
+      "operationId": "getUserVariable"
+    },
+    {
+      "path": "/user/actions/variables/{variablename}",
+      "method": "PUT",
+      "tags": [
+        "user"
+      ],
+      "summary": "Update a user-level variable which is created by current doer",
+      "operationId": "updateUserVariable"
+    },
+    {
+      "path": "/user/actions/variables/{variablename}",
+      "method": "POST",
+      "tags": [
+        "user"
+      ],
+      "summary": "Create a user-level variable",
+      "operationId": "createUserVariable"
+    },
+    {
+      "path": "/user/actions/variables/{variablename}",
+      "method": "DELETE",
+      "tags": [
+        "user"
+      ],
+      "summary": "Delete a user-level variable which is created by current doer",
+      "operationId": "deleteUserVariable"
+    },
+    {
+      "path": "/user/applications/oauth2",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the authenticated user's oauth2 applications",
+      "operationId": "userGetOauth2Application"
+    },
+    {
+      "path": "/user/applications/oauth2",
+      "method": "POST",
+      "tags": [
+        "user"
+      ],
+      "summary": "creates a new OAuth2 application",
+      "operationId": "userCreateOAuth2Application"
+    },
+    {
+      "path": "/user/applications/oauth2/{id}",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "get an OAuth2 Application",
+      "operationId": "userGetOAuth2Application"
+    },
+    {
+      "path": "/user/applications/oauth2/{id}",
+      "method": "DELETE",
+      "tags": [
+        "user"
+      ],
+      "summary": "delete an OAuth2 Application",
+      "operationId": "userDeleteOAuth2Application"
+    },
+    {
+      "path": "/user/applications/oauth2/{id}",
+      "method": "PATCH",
+      "tags": [
+        "user"
+      ],
+      "summary": "update an OAuth2 Application, this includes regenerating the client secret",
+      "operationId": "userUpdateOAuth2Application"
+    },
+    {
+      "path": "/user/avatar",
+      "method": "POST",
+      "tags": [
+        "user"
+      ],
+      "summary": "Update Avatar",
+      "operationId": "userUpdateAvatar"
+    },
+    {
+      "path": "/user/avatar",
+      "method": "DELETE",
+      "tags": [
+        "user"
+      ],
+      "summary": "Delete Avatar",
+      "operationId": "userDeleteAvatar"
+    },
+    {
+      "path": "/user/blocks",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List users blocked by the authenticated user",
+      "operationId": "userListBlocks"
+    },
+    {
+      "path": "/user/blocks/{username}",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Check if a user is blocked by the authenticated user",
+      "operationId": "userCheckUserBlock"
+    },
+    {
+      "path": "/user/blocks/{username}",
+      "method": "PUT",
+      "tags": [
+        "user"
+      ],
+      "summary": "Block a user",
+      "operationId": "userBlockUser"
+    },
+    {
+      "path": "/user/blocks/{username}",
+      "method": "DELETE",
+      "tags": [
+        "user"
+      ],
+      "summary": "Unblock a user",
+      "operationId": "userUnblockUser"
+    },
+    {
+      "path": "/user/emails",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the authenticated user's email addresses",
+      "operationId": "userListEmails"
+    },
+    {
+      "path": "/user/emails",
+      "method": "POST",
+      "tags": [
+        "user"
+      ],
+      "summary": "Add email addresses",
+      "operationId": "userAddEmail"
+    },
+    {
+      "path": "/user/emails",
+      "method": "DELETE",
+      "tags": [
+        "user"
+      ],
+      "summary": "Delete email addresses",
+      "operationId": "userDeleteEmail"
+    },
+    {
+      "path": "/user/followers",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the authenticated user's followers",
+      "operationId": "userCurrentListFollowers"
+    },
+    {
+      "path": "/user/following",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the users that the authenticated user is following",
+      "operationId": "userCurrentListFollowing"
+    },
+    {
+      "path": "/user/following/{username}",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Check whether a user is followed by the authenticated user",
+      "operationId": "userCurrentCheckFollowing"
+    },
+    {
+      "path": "/user/following/{username}",
+      "method": "PUT",
+      "tags": [
+        "user"
+      ],
+      "summary": "Follow a user",
+      "operationId": "userCurrentPutFollow"
+    },
+    {
+      "path": "/user/following/{username}",
+      "method": "DELETE",
+      "tags": [
+        "user"
+      ],
+      "summary": "Unfollow a user",
+      "operationId": "userCurrentDeleteFollow"
+    },
+    {
+      "path": "/user/gpg_key_token",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get a Token to verify",
+      "operationId": "getVerificationToken"
+    },
+    {
+      "path": "/user/gpg_key_verify",
+      "method": "POST",
+      "tags": [
+        "user"
+      ],
+      "summary": "Verify a GPG key",
+      "operationId": "userVerifyGPGKey"
+    },
+    {
+      "path": "/user/gpg_keys",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the authenticated user's GPG keys",
+      "operationId": "userCurrentListGPGKeys"
+    },
+    {
+      "path": "/user/gpg_keys",
+      "method": "POST",
+      "tags": [
+        "user"
+      ],
+      "summary": "Create a GPG key",
+      "operationId": "userCurrentPostGPGKey"
+    },
+    {
+      "path": "/user/gpg_keys/{id}",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get a GPG key",
+      "operationId": "userCurrentGetGPGKey"
+    },
+    {
+      "path": "/user/gpg_keys/{id}",
+      "method": "DELETE",
+      "tags": [
+        "user"
+      ],
+      "summary": "Remove a GPG key",
+      "operationId": "userCurrentDeleteGPGKey"
+    },
+    {
+      "path": "/user/hooks",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the authenticated user's webhooks",
+      "operationId": "userListHooks"
+    },
+    {
+      "path": "/user/hooks",
+      "method": "POST",
+      "tags": [
+        "user"
+      ],
+      "summary": "Create a hook",
+      "operationId": "userCreateHook"
+    },
+    {
+      "path": "/user/hooks/{id}",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get a hook",
+      "operationId": "userGetHook"
+    },
+    {
+      "path": "/user/hooks/{id}",
+      "method": "DELETE",
+      "tags": [
+        "user"
+      ],
+      "summary": "Delete a hook",
+      "operationId": "userDeleteHook"
+    },
+    {
+      "path": "/user/hooks/{id}",
+      "method": "PATCH",
+      "tags": [
+        "user"
+      ],
+      "summary": "Update a hook",
+      "operationId": "userEditHook"
+    },
+    {
+      "path": "/user/keys",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the authenticated user's public keys",
+      "operationId": "userCurrentListKeys"
+    },
+    {
+      "path": "/user/keys",
+      "method": "POST",
+      "tags": [
+        "user"
+      ],
+      "summary": "Create a public key",
+      "operationId": "userCurrentPostKey"
+    },
+    {
+      "path": "/user/keys/{id}",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get a public key",
+      "operationId": "userCurrentGetKey"
+    },
+    {
+      "path": "/user/keys/{id}",
+      "method": "DELETE",
+      "tags": [
+        "user"
+      ],
+      "summary": "Delete a public key",
+      "operationId": "userCurrentDeleteKey"
+    },
+    {
+      "path": "/user/repos",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the repos that the authenticated user owns",
+      "operationId": "userCurrentListRepos"
+    },
+    {
+      "path": "/user/repos",
+      "method": "POST",
+      "tags": [
+        "repository",
+        "user"
+      ],
+      "summary": "Create a repository",
+      "operationId": "createCurrentUserRepo"
+    },
+    {
+      "path": "/user/settings",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get user settings",
+      "operationId": "getUserSettings"
+    },
+    {
+      "path": "/user/settings",
+      "method": "PATCH",
+      "tags": [
+        "user"
+      ],
+      "summary": "Update user settings",
+      "operationId": "updateUserSettings"
+    },
+    {
+      "path": "/user/starred",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "The repos that the authenticated user has starred",
+      "operationId": "userCurrentListStarred"
+    },
+    {
+      "path": "/user/starred/{owner}/{repo}",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Whether the authenticated is starring the repo",
+      "operationId": "userCurrentCheckStarring"
+    },
+    {
+      "path": "/user/starred/{owner}/{repo}",
+      "method": "PUT",
+      "tags": [
+        "user"
+      ],
+      "summary": "Star the given repo",
+      "operationId": "userCurrentPutStar"
+    },
+    {
+      "path": "/user/starred/{owner}/{repo}",
+      "method": "DELETE",
+      "tags": [
+        "user"
+      ],
+      "summary": "Unstar the given repo",
+      "operationId": "userCurrentDeleteStar"
+    },
+    {
+      "path": "/user/stopwatches",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get list of all existing stopwatches",
+      "operationId": "userGetStopWatches"
+    },
+    {
+      "path": "/user/subscriptions",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List repositories watched by the authenticated user",
+      "operationId": "userCurrentListSubscriptions"
+    },
+    {
+      "path": "/user/teams",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List all the teams a user belongs to",
+      "operationId": "userListTeams"
+    },
+    {
+      "path": "/user/times",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the current user's tracked times",
+      "operationId": "userCurrentTrackedTimes"
+    },
+    {
+      "path": "/users/search",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Search for users",
+      "operationId": "userSearch"
+    },
+    {
+      "path": "/users/{username}",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get a user",
+      "operationId": "userGet"
+    },
+    {
+      "path": "/users/{username}/activities/feeds",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List a user's activity feeds",
+      "operationId": "userListActivityFeeds"
+    },
+    {
+      "path": "/users/{username}/followers",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the given user's followers",
+      "operationId": "userListFollowers"
+    },
+    {
+      "path": "/users/{username}/following",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the users that the given user is following",
+      "operationId": "userListFollowing"
+    },
+    {
+      "path": "/users/{username}/following/{target}",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Check if one user is following another user",
+      "operationId": "userCheckFollowing"
+    },
+    {
+      "path": "/users/{username}/gpg_keys",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the given user's GPG keys",
+      "operationId": "userListGPGKeys"
+    },
+    {
+      "path": "/users/{username}/heatmap",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get a user's heatmap",
+      "operationId": "userGetHeatmapData"
+    },
+    {
+      "path": "/users/{username}/keys",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the given user's public keys",
+      "operationId": "userListKeys"
+    },
+    {
+      "path": "/users/{username}/repos",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the repos owned by the given user",
+      "operationId": "userListRepos"
+    },
+    {
+      "path": "/users/{username}/starred",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "The repos that the given user has starred",
+      "operationId": "userListStarred"
+    },
+    {
+      "path": "/users/{username}/subscriptions",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the repositories watched by a user",
+      "operationId": "userListSubscriptions"
+    },
+    {
+      "path": "/users/{username}/tokens",
+      "method": "GET",
+      "tags": [
+        "user"
+      ],
+      "summary": "List the authenticated user's access tokens",
+      "operationId": "userGetTokens"
+    },
+    {
+      "path": "/users/{username}/tokens",
+      "method": "POST",
+      "tags": [
+        "user"
+      ],
+      "summary": "Create an access token",
+      "operationId": "userCreateToken"
+    },
+    {
+      "path": "/users/{username}/tokens/{token}",
+      "method": "DELETE",
+      "tags": [
+        "user"
+      ],
+      "summary": "delete an access token",
+      "operationId": "userDeleteAccessToken"
+    }
+  ]
+}

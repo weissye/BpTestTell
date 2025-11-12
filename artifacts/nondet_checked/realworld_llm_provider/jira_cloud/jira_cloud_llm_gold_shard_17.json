@@ -13,7 +13,7 @@
       "method": "GET",
       "operationId": "getCommentProperty",
       "summary": "",
-      "user": "User needs to fetch a specific property value for a comment to check its status or additional information.",
+      "user": "User needs to fetch a specific property value for a comment to check its status or details.",
       "ideal": "Returns the value of the specified property key for the comment."
     },
     {
@@ -22,15 +22,15 @@
       "operationId": "setCommentProperty",
       "summary": "",
       "user": "User wants to update a property for a comment to reflect new information or changes.",
-      "ideal": "Successfully sets the specified property key with the new value for the comment."
+      "ideal": "Updates the specified property key with a new value for the comment."
     },
     {
       "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}",
       "method": "DELETE",
       "operationId": "deleteCommentProperty",
       "summary": "",
-      "user": "User intends to remove a specific property from a comment to clean up unnecessary metadata.",
-      "ideal": "Successfully deletes the specified property key from the comment."
+      "user": "User intends to remove a specific property from a comment to clean up unnecessary data.",
+      "ideal": "Deletes the specified property key from the comment."
     }
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/experimental-features"
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/displayed-attributes"
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/stop-words"
+    }
+  ]
+}

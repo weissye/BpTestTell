@@ -1,0 +1,36 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json"
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json"
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json"
+    }
+  ]
+}

@@ -5,56 +5,56 @@
       "method": "GET",
       "operationId": "getIssueAllTypes",
       "summary": "",
-      "user": "As a project manager, I want to retrieve all issue types available in Jira so that I can understand the different categories of work items.",
-      "ideal": "The response should include a list of all issue types with their IDs, names, and descriptions."
+      "user": "As a project manager, I want to retrieve all available issue types in Jira to understand the options for categorizing tasks.",
+      "ideal": "A successful response with a list of all issue types, including their IDs, names, and descriptions."
     },
     {
       "path": "/rest/api/3/issuetype",
       "method": "POST",
       "operationId": "createIssueType",
       "summary": "",
-      "user": "As a product owner, I want to create a new issue type for feature requests to better categorize our work items.",
-      "ideal": "The response should confirm the creation of the new issue type and return its ID and details."
+      "user": "As a developer, I want to create a new issue type for feature requests so that we can better track and manage them.",
+      "ideal": "A successful response confirming the creation of the new issue type, including its ID and details."
     },
     {
       "path": "/rest/api/3/issuetype/project",
       "method": "GET",
       "operationId": "getIssueTypesForProject",
       "summary": "",
-      "user": "As a team lead, I want to get the issue types associated with my project to ensure we are using the correct types for our tasks.",
-      "ideal": "The response should list all issue types linked to the specified project, including their IDs and names."
+      "user": "As a team lead, I want to fetch the issue types available for my specific project to ensure we are using the correct categories.",
+      "ideal": "A successful response with a list of issue types specific to the project, including their IDs and names."
     },
     {
       "path": "/rest/api/3/issuetype/{id}",
       "method": "DELETE",
       "operationId": "deleteIssueType",
       "summary": "",
-      "user": "As an admin, I want to delete an obsolete issue type to clean up our project configurations.",
-      "ideal": "The response should confirm the successful deletion of the issue type."
+      "user": "As an admin, I want to delete an obsolete issue type to clean up our project management system.",
+      "ideal": "A successful response indicating that the issue type has been deleted."
     },
     {
       "path": "/rest/api/3/issuetype/{id}",
       "method": "GET",
       "operationId": "getIssueType",
       "summary": "",
-      "user": "As a developer, I want to retrieve details of a specific issue type to understand its configuration and usage.",
-      "ideal": "The response should provide detailed information about the specified issue type, including its name, description, and fields."
+      "user": "As a product owner, I want to retrieve details of a specific issue type to review its configuration and usage.",
+      "ideal": "A successful response with detailed information about the specified issue type, including its name and description."
     },
     {
       "path": "/rest/api/3/issuetype/{id}",
       "method": "PUT",
       "operationId": "updateIssueType",
       "summary": "",
-      "user": "As a project administrator, I want to update the name and description of an existing issue type to reflect recent changes in our workflow.",
-      "ideal": "The response should confirm the update and return the modified issue type details."
+      "user": "As a project administrator, I want to update the name and description of an existing issue type to better reflect its purpose.",
+      "ideal": "A successful response confirming the update of the issue type with the new details."
     },
     {
       "path": "/rest/api/3/issuetype/{id}/alternatives",
       "method": "GET",
       "operationId": "getAlternativeIssueTypes",
       "summary": "",
-      "user": "As a business analyst, I want to find alternative issue types for a specific issue type to suggest better categorization options.",
-      "ideal": "The response should list alternative issue types that can be used instead of the specified one."
+      "user": "As a scrum master, I want to find alternative issue types for a specific task to explore different categorization options.",
+      "ideal": "A successful response with a list of alternative issue types that can be used instead of the specified one."
     },
     {
       "path": "/rest/api/3/issuetype/{id}/avatar2",
@@ -62,7 +62,7 @@
       "operationId": "createIssueTypeAvatar",
       "summary": "",
       "user": "As a designer, I want to upload a custom avatar for a new issue type to enhance its visual representation in the project.",
-      "ideal": "The response should confirm the successful upload of the avatar and provide its URL."
+      "ideal": "A successful response confirming the upload of the avatar for the specified issue type."
     }
   ]
 }

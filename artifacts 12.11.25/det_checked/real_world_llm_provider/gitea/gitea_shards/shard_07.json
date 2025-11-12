@@ -1,0 +1,76 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/admin/hooks"
+    },
+    {
+      "method": "GET",
+      "path": "/label/templates"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/actions/variables/{variablename}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/public_members"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/variables"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/collaborators/{collaborator}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/git/trees/{sha}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{index}/labels"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/keys"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{base}/{head}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/push_mirrors/{name}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/tag_protections"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/wiki/page/{pageName}"
+    },
+    {
+      "method": "GET",
+      "path": "/user"
+    },
+    {
+      "method": "GET",
+      "path": "/user/following"
+    },
+    {
+      "method": "GET",
+      "path": "/user/starred"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/{username}/tokens/{token}"
+    }
+  ]
+}

@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "security-advisories/list-global-advisories",
       "summary": "",
-      "user": "As a security analyst, I want to retrieve a list of all global security advisories to stay informed about potential vulnerabilities affecting multiple projects.",
+      "user": "As a security researcher, I want to retrieve a list of all global security advisories to stay informed about vulnerabilities affecting various projects.",
       "ideal": "The response should include a comprehensive list of global advisories with details such as GHSA ID, summary, and severity."
     },
     {
@@ -14,71 +14,71 @@
       "operationId": "security-advisories/get-global-advisory",
       "summary": "",
       "user": "As a developer, I need to access detailed information about a specific global advisory using its GHSA ID to understand its impact on my project.",
-      "ideal": "The response should provide detailed information about the advisory, including description, affected versions, and recommendations."
+      "ideal": "The response should provide detailed information about the advisory, including affected versions, references, and remediation steps."
     },
     {
       "path": "/orgs/{org}/security-advisories",
       "method": "GET",
       "operationId": "security-advisories/list-org-repository-advisories",
       "summary": "",
-      "user": "As an organization security officer, I want to list all security advisories related to my organization's repositories to ensure compliance and security.",
-      "ideal": "The response should return a list of advisories specific to the organization, including relevant repositories and advisory statuses."
+      "user": "As an organization admin, I want to list all security advisories related to my organization's repositories to manage vulnerabilities effectively.",
+      "ideal": "The response should list all advisories associated with the organization's repositories, including their status and severity."
     },
     {
       "path": "/repos/{owner}/{repo}/security-advisories",
       "method": "GET",
       "operationId": "security-advisories/list-repository-advisories",
       "summary": "",
-      "user": "As a repository maintainer, I want to see all security advisories for my repository to address any vulnerabilities promptly.",
-      "ideal": "The response should include all advisories linked to the repository, with details on severity and resolution status."
+      "user": "As a repository maintainer, I want to see all security advisories for my repository to ensure that I address any vulnerabilities promptly.",
+      "ideal": "The response should include a list of advisories specific to the repository, detailing their severity and status."
     },
     {
       "path": "/repos/{owner}/{repo}/security-advisories",
       "method": "POST",
       "operationId": "security-advisories/create-repository-advisory",
       "summary": "",
-      "user": "As a security engineer, I need to create a new security advisory for my repository to inform users about a critical vulnerability.",
-      "ideal": "The response should confirm the creation of the advisory and return the newly created advisory's details, including its GHSA ID."
+      "user": "As a security officer, I need to create a new security advisory for my repository to inform users about a recently discovered vulnerability.",
+      "ideal": "The response should confirm the creation of the advisory and provide the newly assigned GHSA ID."
     },
     {
       "path": "/repos/{owner}/{repo}/security-advisories/reports",
       "method": "POST",
       "operationId": "security-advisories/create-private-vulnerability-report",
       "summary": "",
-      "user": "As a security researcher, I want to submit a private vulnerability report for a repository to notify the maintainers of a discovered issue.",
-      "ideal": "The response should acknowledge the submission and provide a reference ID for tracking the report."
+      "user": "As a security researcher, I want to submit a private vulnerability report for a repository to notify the maintainers about a critical issue.",
+      "ideal": "The response should acknowledge the receipt of the report and provide a reference ID for follow-up."
     },
     {
       "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
       "method": "GET",
       "operationId": "security-advisories/get-repository-advisory",
       "summary": "",
-      "user": "As a project manager, I need to retrieve information about a specific advisory affecting my repository to assess its risk.",
-      "ideal": "The response should include detailed information about the advisory, including its status and any recommended actions."
+      "user": "As a developer, I want to retrieve details about a specific repository advisory using its GHSA ID to assess its relevance to my work.",
+      "ideal": "The response should include comprehensive details about the advisory, including affected versions and mitigation strategies."
     },
     {
       "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
       "method": "PATCH",
       "operationId": "security-advisories/update-repository-advisory",
       "summary": "",
-      "user": "As a repository owner, I want to update an existing security advisory to reflect new information or changes in the vulnerability status.",
-      "ideal": "The response should confirm the update and return the updated advisory details."
+      "user": "As a repository maintainer, I need to update an existing security advisory to reflect new information or changes in the vulnerability status.",
+      "ideal": "The response should confirm the successful update of the advisory and provide the updated details."
     },
     {
       "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/cve",
       "method": "POST",
       "operationId": "security-advisories/create-repository-advisory-cve-request",
       "summary": "",
-      "user": "As a security analyst, I need to request a CVE ID for a newly created advisory to ensure it is properly tracked in the security community.",
-      "ideal": "The response should confirm the request and provide the assigned CVE ID."
+      "user": "As a security analyst, I want to request a CVE ID for a repository advisory to ensure proper tracking and reporting of the vulnerability.",
+      "ideal": "The response should confirm the request and provide the assigned CVE ID for future reference."
     },
     {
       "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/forks",
       "method": "POST",
       "operationId": "security-advisories/create-fork",
       "summary": "",
-      "user": "As a developer, I want to create a fork of a repository with an existing security advisory to work on a fix without affecting the original project.",
-      "ideal": "The response should confirm the creation of the fork and provide the URL to the new repository."
+      "user": "As a developer, I want to create a fork of a repository advisory to make modifications or add additional context for my team.",
+      "ideal": "The response should confirm the creation of the fork and provide the details of the new advisory fork."
     }
   ]
 }

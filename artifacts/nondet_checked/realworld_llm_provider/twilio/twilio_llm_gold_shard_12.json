@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "ListAvailablePhoneNumberCountry",
       "summary": "",
-      "user": "A developer wants to retrieve a list of available phone numbers for their Twilio account to use in a new application. They provide their Account SID and expect a JSON response with available numbers.",
-      "ideal": "The API returns a list of available phone numbers in JSON format, including details such as area codes, phone number types, and pricing information."
+      "user": "A developer is looking to find available phone numbers for their Twilio account. They want to retrieve a list of all available phone numbers across different countries to assess their options for expanding their communication services.",
+      "ideal": "The API should return a JSON response containing an array of available phone numbers, including details such as the phone number, country code, and capabilities."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json",
       "method": "GET",
       "operationId": "FetchAvailablePhoneNumberCountry",
       "summary": "",
-      "user": "A user is looking to find available phone numbers specifically for the United States. They input their Account SID and the country code 'US' to get a tailored list of options.",
-      "ideal": "The API responds with a JSON object containing available phone numbers for the specified country code, including relevant details like the number type and capabilities."
+      "user": "A business owner wants to acquire a local phone number in Canada for their new branch. They need to fetch available phone numbers specifically for the Canadian market to ensure they can establish a local presence.",
+      "ideal": "The API should return a JSON response with a list of available phone numbers in Canada, including relevant details like area codes and capabilities for each number."
     }
   ]
 }

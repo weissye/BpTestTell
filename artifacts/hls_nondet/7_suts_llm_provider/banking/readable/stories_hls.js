@@ -1,5 +1,5 @@
 // ---- crud:account:nondet:1:1 ----
-bp.registerBThread("crud:account:nondet:1:1", function () {
+bthread("crud:account:nondet:1:1", function () {
   let accountId = 200;
   addAccount(accountId);
   tryToAddExistingAccount(accountId);
@@ -12,7 +12,7 @@ bp.registerBThread("crud:account:nondet:1:1", function () {
 });
 
 // ---- crud:account:nondet:1:2 ----
-bp.registerBThread("crud:account:nondet:1:2", function () {
+bthread("crud:account:nondet:1:2", function () {
   let accountId = 200;
   addAccount(accountId);
   tryToAddExistingAccount(accountId);
@@ -25,7 +25,7 @@ bp.registerBThread("crud:account:nondet:1:2", function () {
 });
 
 // ---- crud:account:nondet:1:3 ----
-bp.registerBThread("crud:account:nondet:1:3", function () {
+bthread("crud:account:nondet:1:3", function () {
   let accountId = 200;
   addAccount(accountId);
   tryToAddExistingAccount(accountId);
@@ -37,7 +37,7 @@ bp.registerBThread("crud:account:nondet:1:3", function () {
 });
 
 // ---- crud:account:nondet:1:4 ----
-bp.registerBThread("crud:account:nondet:1:4", function () {
+bthread("crud:account:nondet:1:4", function () {
   let accountId = 201;
   addAccount(accountId);
   tryToAddExistingAccount(accountId);
@@ -48,7 +48,7 @@ bp.registerBThread("crud:account:nondet:1:4", function () {
 });
 
 // ---- crud:card:nondet:2:1 ----
-bp.registerBThread("crud:card:nondet:2:1", function () {
+bthread("crud:card:nondet:2:1", function () {
   let id = 201;
   addCard(id);
   tryToAddExistingCard(id);
@@ -61,7 +61,7 @@ bp.registerBThread("crud:card:nondet:2:1", function () {
 });
 
 // ---- crud:card:nondet:2:2 ----
-bp.registerBThread("crud:card:nondet:2:2", function () {
+bthread("crud:card:nondet:2:2", function () {
   let id = 201;
   addCard(id);
   tryToAddExistingCard(id);
@@ -74,7 +74,7 @@ bp.registerBThread("crud:card:nondet:2:2", function () {
 });
 
 // ---- crud:card:nondet:2:3 ----
-bp.registerBThread("crud:card:nondet:2:3", function () {
+bthread("crud:card:nondet:2:3", function () {
   let id = 201;
   addCard(id);
   tryToAddExistingCard(id);
@@ -86,7 +86,7 @@ bp.registerBThread("crud:card:nondet:2:3", function () {
 });
 
 // ---- crud:card:nondet:2:4 ----
-bp.registerBThread("crud:card:nondet:2:4", function () {
+bthread("crud:card:nondet:2:4", function () {
   let id = 202;
   addCard(id);
   tryToAddExistingCard(id);
@@ -97,7 +97,7 @@ bp.registerBThread("crud:card:nondet:2:4", function () {
 });
 
 // ---- crud:customer:nondet:3:1 ----
-bp.registerBThread("crud:customer:nondet:3:1", function () {
+bthread("crud:customer:nondet:3:1", function () {
   let id = 202;
   addCustomer(id);
   tryToAddExistingCustomer(id);
@@ -110,7 +110,7 @@ bp.registerBThread("crud:customer:nondet:3:1", function () {
 });
 
 // ---- crud:customer:nondet:3:2 ----
-bp.registerBThread("crud:customer:nondet:3:2", function () {
+bthread("crud:customer:nondet:3:2", function () {
   let id = 202;
   addCustomer(id);
   tryToAddExistingCustomer(id);
@@ -123,7 +123,7 @@ bp.registerBThread("crud:customer:nondet:3:2", function () {
 });
 
 // ---- crud:customer:nondet:3:3 ----
-bp.registerBThread("crud:customer:nondet:3:3", function () {
+bthread("crud:customer:nondet:3:3", function () {
   let id = 202;
   addCustomer(id);
   tryToAddExistingCustomer(id);
@@ -135,7 +135,7 @@ bp.registerBThread("crud:customer:nondet:3:3", function () {
 });
 
 // ---- crud:customer:nondet:3:4 ----
-bp.registerBThread("crud:customer:nondet:3:4", function () {
+bthread("crud:customer:nondet:3:4", function () {
   let id = 203;
   addCustomer(id);
   tryToAddExistingCustomer(id);
@@ -146,7 +146,7 @@ bp.registerBThread("crud:customer:nondet:3:4", function () {
 });
 
 // ---- crud:loan:nondet:4:1 ----
-bp.registerBThread("crud:loan:nondet:4:1", function () {
+bthread("crud:loan:nondet:4:1", function () {
   let id = 203;
   addLoan(id);
   tryToAddExistingLoan(id);
@@ -159,7 +159,7 @@ bp.registerBThread("crud:loan:nondet:4:1", function () {
 });
 
 // ---- crud:loan:nondet:4:2 ----
-bp.registerBThread("crud:loan:nondet:4:2", function () {
+bthread("crud:loan:nondet:4:2", function () {
   let id = 203;
   addLoan(id);
   tryToAddExistingLoan(id);
@@ -172,7 +172,7 @@ bp.registerBThread("crud:loan:nondet:4:2", function () {
 });
 
 // ---- crud:loan:nondet:4:3 ----
-bp.registerBThread("crud:loan:nondet:4:3", function () {
+bthread("crud:loan:nondet:4:3", function () {
   let id = 203;
   addLoan(id);
   tryToAddExistingLoan(id);
@@ -184,7 +184,7 @@ bp.registerBThread("crud:loan:nondet:4:3", function () {
 });
 
 // ---- crud:loan:nondet:4:4 ----
-bp.registerBThread("crud:loan:nondet:4:4", function () {
+bthread("crud:loan:nondet:4:4", function () {
   let id = 204;
   addLoan(id);
   tryToAddExistingLoan(id);
@@ -195,7 +195,7 @@ bp.registerBThread("crud:loan:nondet:4:4", function () {
 });
 
 // ---- crud:reset:nondet:5:1 ----
-bp.registerBThread("crud:reset:nondet:5:1", function () {
+bthread("crud:reset:nondet:5:1", function () {
   let id = 204;
   addReset(id);
   tryToAddExistingReset(id);
@@ -208,7 +208,7 @@ bp.registerBThread("crud:reset:nondet:5:1", function () {
 });
 
 // ---- crud:reset:nondet:5:2 ----
-bp.registerBThread("crud:reset:nondet:5:2", function () {
+bthread("crud:reset:nondet:5:2", function () {
   let id = 204;
   addReset(id);
   tryToAddExistingReset(id);
@@ -221,7 +221,7 @@ bp.registerBThread("crud:reset:nondet:5:2", function () {
 });
 
 // ---- crud:reset:nondet:5:3 ----
-bp.registerBThread("crud:reset:nondet:5:3", function () {
+bthread("crud:reset:nondet:5:3", function () {
   let id = 204;
   addReset(id);
   tryToAddExistingReset(id);
@@ -233,7 +233,7 @@ bp.registerBThread("crud:reset:nondet:5:3", function () {
 });
 
 // ---- crud:reset:nondet:5:4 ----
-bp.registerBThread("crud:reset:nondet:5:4", function () {
+bthread("crud:reset:nondet:5:4", function () {
   let id = 205;
   addReset(id);
   tryToAddExistingReset(id);
@@ -244,7 +244,7 @@ bp.registerBThread("crud:reset:nondet:5:4", function () {
 });
 
 // ---- crud:transfer:nondet:6:1 ----
-bp.registerBThread("crud:transfer:nondet:6:1", function () {
+bthread("crud:transfer:nondet:6:1", function () {
   let id = 205;
   addTransfer(id);
   tryToAddExistingTransfer(id);
@@ -257,7 +257,7 @@ bp.registerBThread("crud:transfer:nondet:6:1", function () {
 });
 
 // ---- crud:transfer:nondet:6:2 ----
-bp.registerBThread("crud:transfer:nondet:6:2", function () {
+bthread("crud:transfer:nondet:6:2", function () {
   let id = 205;
   addTransfer(id);
   tryToAddExistingTransfer(id);
@@ -270,7 +270,7 @@ bp.registerBThread("crud:transfer:nondet:6:2", function () {
 });
 
 // ---- crud:transfer:nondet:6:3 ----
-bp.registerBThread("crud:transfer:nondet:6:3", function () {
+bthread("crud:transfer:nondet:6:3", function () {
   let id = 205;
   addTransfer(id);
   tryToAddExistingTransfer(id);
@@ -282,7 +282,7 @@ bp.registerBThread("crud:transfer:nondet:6:3", function () {
 });
 
 // ---- crud:transfer:nondet:6:4 ----
-bp.registerBThread("crud:transfer:nondet:6:4", function () {
+bthread("crud:transfer:nondet:6:4", function () {
   let id = 206;
   addTransfer(id);
   tryToAddExistingTransfer(id);

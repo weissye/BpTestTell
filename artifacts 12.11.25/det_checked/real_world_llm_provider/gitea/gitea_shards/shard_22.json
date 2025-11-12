@@ -1,0 +1,72 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/admin/users/{username}/badges"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs"
+    },
+    {
+      "method": "PATCH",
+      "path": "/orgs/{org}/hooks/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/search"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/branch_protections/{name}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/forks"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{index}/blocks"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions/check"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/milestones/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/reviewers"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/topics"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{id}/members"
+    },
+    {
+      "method": "POST",
+      "path": "/user/avatar"
+    },
+    {
+      "method": "GET",
+      "path": "/user/keys"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/heatmap"
+    }
+  ]
+}

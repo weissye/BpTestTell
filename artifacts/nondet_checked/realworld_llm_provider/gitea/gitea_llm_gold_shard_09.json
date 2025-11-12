@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "getGeneralAPISettings",
       "summary": "",
-      "user": "Alice is a developer who uses the Gitea API to manage her repositories and automate tasks. She wants to retrieve the general API settings to ensure her application is configured correctly.",
-      "ideal": "Returns the current API settings including rate limits, authentication methods, and any other relevant configurations."
+      "user": "admin",
+      "ideal": "Retrieve the general API settings for the Gitea instance."
     },
     {
       "path": "/settings/attachment",
       "method": "GET",
       "operationId": "getGeneralAttachmentSettings",
       "summary": "",
-      "user": "Bob is a project manager who needs to understand how attachments are handled in Gitea. He wants to fetch the attachment settings to guide his team on file uploads.",
-      "ideal": "Provides details on attachment size limits, allowed file types, and any other settings related to file uploads."
+      "user": "user123",
+      "ideal": "Fetch the general settings related to attachments in the Gitea instance."
     },
     {
       "path": "/settings/repository",
       "method": "GET",
       "operationId": "getGeneralRepositorySettings",
       "summary": "",
-      "user": "Charlie is a system administrator responsible for configuring repository settings in Gitea. He needs to check the general repository settings to ensure compliance with company policies.",
-      "ideal": "Returns repository settings such as default branch, visibility options, and permission settings for users."
+      "user": "dev_team",
+      "ideal": "Obtain the general repository settings for managing repositories in Gitea."
     },
     {
       "path": "/settings/ui",
       "method": "GET",
       "operationId": "getGeneralUISettings",
       "summary": "",
-      "user": "Dana is a UX designer who wants to customize the user interface of Gitea for her team. She needs to access the UI settings to understand what can be modified.",
-      "ideal": "Provides information on UI customization options, theme settings, and layout preferences available in Gitea."
+      "user": "guest_user",
+      "ideal": "Access the general UI settings for the Gitea interface."
     }
   ]
 }

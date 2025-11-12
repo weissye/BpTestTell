@@ -1,44 +1,44 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
       "method": "GET",
       "operationId": "ListSipIpAccessControlList",
       "summary": "",
-      "user": "User requests to list all SIP IP Access Control Lists for their account.",
-      "ideal": "Returns a list of SIP IP Access Control Lists associated with the specified Account SID."
+      "user": "As a developer, I want to retrieve a list of all SIP IP Access Control Lists associated with my Twilio account to manage access control for my SIP endpoints.",
+      "ideal": "The API should return a JSON array of SIP IP Access Control Lists, including their unique SIDs, friendly names, and associated IP addresses."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json",
       "method": "POST",
       "operationId": "CreateSipIpAccessControlList",
       "summary": "",
-      "user": "User wants to create a new SIP IP Access Control List with specific parameters.",
-      "ideal": "Creates a new SIP IP Access Control List and returns its details."
+      "user": "As a developer, I need to create a new SIP IP Access Control List to restrict access to my SIP services for specific IP addresses.",
+      "ideal": "The API should accept a JSON payload with the name of the access control list and an array of IP addresses, and return the SID of the newly created list."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "method": "GET",
       "operationId": "FetchSipIpAccessControlList",
       "summary": "",
-      "user": "User needs to fetch details of a specific SIP IP Access Control List by its SID.",
-      "ideal": "Returns the details of the specified SIP IP Access Control List."
+      "user": "As a developer, I want to fetch details of a specific SIP IP Access Control List to review its configuration and the IP addresses it contains.",
+      "ideal": "The API should return a JSON object with the details of the specified access control list, including its SID, friendly name, and list of IP addresses."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "method": "POST",
       "operationId": "UpdateSipIpAccessControlList",
       "summary": "",
-      "user": "User wants to update an existing SIP IP Access Control List with new settings.",
-      "ideal": "Updates the specified SIP IP Access Control List and returns the updated details."
+      "user": "As a developer, I need to update an existing SIP IP Access Control List to add or remove IP addresses based on changing requirements.",
+      "ideal": "The API should accept a JSON payload with the updated friendly name and IP addresses, and return the updated details of the access control list."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "method": "DELETE",
       "operationId": "DeleteSipIpAccessControlList",
       "summary": "",
-      "user": "User intends to delete a specific SIP IP Access Control List by its SID.",
-      "ideal": "Deletes the specified SIP IP Access Control List and confirms the deletion."
+      "user": "As a developer, I want to delete a specific SIP IP Access Control List that is no longer needed to keep my account organized and secure.",
+      "ideal": "The API should confirm the deletion of the specified access control list and return a success message."
     }
   ]
 }

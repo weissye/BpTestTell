@@ -6,7 +6,7 @@
       "operationId": "getItems",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve a list of all posts from the posts collection."
+      "ideal": "Retrieve a list of all posts from the 'posts' collection."
     },
     {
       "path": "/items/posts",
@@ -14,7 +14,7 @@
       "operationId": "createItem",
       "summary": "",
       "user": "editor",
-      "ideal": "Create a new post in the posts collection with title and content."
+      "ideal": "Create a new post in the 'posts' collection with title and content."
     },
     {
       "path": "/items/posts",
@@ -22,7 +22,7 @@
       "operationId": "updateItems",
       "summary": "",
       "user": "editor",
-      "ideal": "Update multiple posts in the posts collection with new data."
+      "ideal": "Update multiple posts in the 'posts' collection with new data."
     },
     {
       "path": "/items/posts/123",
@@ -30,7 +30,7 @@
       "operationId": "deleteItems",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete the post with ID 123 from the posts collection."
+      "ideal": "Delete the post with ID 123 from the 'posts' collection."
     },
     {
       "path": "/items/posts/123",
@@ -38,7 +38,7 @@
       "operationId": "getItem",
       "summary": "",
       "user": "viewer",
-      "ideal": "Retrieve the details of the post with ID 123."
+      "ideal": "Retrieve the details of the post with ID 123 from the 'posts' collection."
     },
     {
       "path": "/items/posts/123",
@@ -46,7 +46,7 @@
       "operationId": "updateItem",
       "summary": "",
       "user": "editor",
-      "ideal": "Update the post with ID 123 with new title and content."
+      "ideal": "Update the post with ID 123 in the 'posts' collection with new content."
     },
     {
       "path": "/items/posts/123",
@@ -54,7 +54,7 @@
       "operationId": "deleteItem",
       "summary": "",
       "user": "admin",
-      "ideal": "Permanently delete the post with ID 123."
+      "ideal": "Permanently delete the post with ID 123 from the 'posts' collection."
     }
   ]
 }

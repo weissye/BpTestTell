@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "ListUsageRecordAllTime",
       "summary": "",
-      "user": "user_12345",
+      "user": "User123",
       "ideal": "Retrieve all-time usage records for the specified account."
     }
   ]

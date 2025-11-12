@@ -1,8 +1,33 @@
 {
   "ops": [
     {
+      "method": "GET",
+      "path": "/drugs",
+      "body": null
+    },
+    {
       "method": "POST",
-      "path": "/reset",
+      "path": "/drugs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/drugs/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/drugs/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/drugs/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/patients",
       "body": null
     },
     {
@@ -12,12 +37,47 @@
     },
     {
       "method": "GET",
-      "path": "/drugs",
+      "path": "/patients/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/patients/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/patients/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orders",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/drugs",
+      "path": "/orders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orders/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/orders/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/orders/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/prescriptions",
       "body": null
     },
     {
@@ -27,12 +87,27 @@
     },
     {
       "method": "GET",
-      "path": "/orders",
+      "path": "/prescriptions/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/prescriptions/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/prescriptions/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/inventory",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orders",
+      "path": "/inventory",
       "body": null
     },
     {
@@ -41,8 +116,73 @@
       "body": null
     },
     {
+      "method": "PUT",
+      "path": "/inventory/{ndc}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/inventory/{ndc}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/reset",
+      "body": null
+    },
+    {
       "method": "POST",
       "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/reset/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/reset/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/reset/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset-all",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/drugs",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/drugs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/drugs/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/drugs/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/drugs/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/patients",
       "body": null
     },
     {
@@ -52,12 +192,47 @@
     },
     {
       "method": "GET",
-      "path": "/drugs",
+      "path": "/patients/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/patients/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/patients/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orders",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/drugs",
+      "path": "/orders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orders/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/orders/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/orders/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/prescriptions",
       "body": null
     },
     {
@@ -67,17 +242,72 @@
     },
     {
       "method": "GET",
-      "path": "/orders",
+      "path": "/prescriptions/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/prescriptions/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/prescriptions/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/inventory",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orders",
+      "path": "/inventory",
       "body": null
     },
     {
       "method": "GET",
       "path": "/inventory/{ndc}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/inventory/{ndc}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/inventory/{ndc}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/reset/{id}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/reset/{id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/reset/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset-all",
       "body": null
     }
   ]

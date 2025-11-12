@@ -22,10 +22,10 @@
       "operationId": "notifyNewAvailable",
       "summary": "",
       "user": "user123",
-      "ideal": "Check if there are new notifications available for the authenticated user."
+      "ideal": "Check if there are any new notifications for the authenticated user."
     },
     {
-      "path": "/notifications/threads/1",
+      "path": "/notifications/threads/{id}",
       "method": "GET",
       "operationId": "notifyGetThread",
       "summary": "",
@@ -33,7 +33,7 @@
       "ideal": "Retrieve a specific notification thread by its ID."
     },
     {
-      "path": "/notifications/threads/1",
+      "path": "/notifications/threads/{id}",
       "method": "PATCH",
       "operationId": "notifyReadThread",
       "summary": "",
@@ -41,7 +41,7 @@
       "ideal": "Mark a specific notification thread as read by its ID."
     },
     {
-      "path": "/repos/user123/test-repo/notifications",
+      "path": "/repos/{owner}/{repo}/notifications",
       "method": "GET",
       "operationId": "notifyGetRepoList",
       "summary": "",
@@ -49,7 +49,7 @@
       "ideal": "Retrieve a list of notifications for a specific repository."
     },
     {
-      "path": "/repos/user123/test-repo/notifications",
+      "path": "/repos/{owner}/{repo}/notifications",
       "method": "PUT",
       "operationId": "notifyReadRepoList",
       "summary": "",

@@ -37,12 +37,12 @@
     },
     {
       "method": "GET",
-      "path": "/indexes/myIndex/documents/{documentId}",
+      "path": "/indexes/myIndex/documents/123",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/myIndex/documents/{documentId}",
+      "path": "/indexes/myIndex/documents/123",
       "body": null
     },
     {
@@ -87,17 +87,17 @@
     },
     {
       "method": "GET",
-      "path": "/indexes/my_index",
+      "path": "/indexes/{indexUid}",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/indexes/my_index",
+      "path": "/indexes/{indexUid}",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/my_index",
+      "path": "/indexes/{indexUid}",
       "body": null
     },
     {
@@ -177,6 +177,11 @@
     },
     {
       "method": "GET",
+      "path": "/indexes/myIndex/settings/pagination",
+      "body": null
+    },
+    {
+      "method": "GET",
       "path": "/indexes/myIndex/settings/faceting",
       "body": null
     },
@@ -187,17 +192,17 @@
     },
     {
       "method": "GET",
+      "path": "/indexes/myIndex/settings/distinct-attribute",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/searchable-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
       "path": "/indexes/myIndex/settings/displayed-attributes",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/indexes/myIndex/settings/typo-tolerance",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/indexes/myIndex/settings/pagination",
       "body": null
     },
     {
@@ -282,12 +287,12 @@
     },
     {
       "method": "GET",
-      "path": "/indexes/myIndex/documents/{documentId}",
+      "path": "/indexes/myIndex/documents/123",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/myIndex/documents/{documentId}",
+      "path": "/indexes/myIndex/documents/123",
       "body": null
     },
     {
@@ -332,17 +337,17 @@
     },
     {
       "method": "GET",
-      "path": "/indexes/my_index",
+      "path": "/indexes/{indexUid}",
       "body": null
     },
     {
       "method": "PATCH",
-      "path": "/indexes/my_index",
+      "path": "/indexes/{indexUid}",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/my_index",
+      "path": "/indexes/{indexUid}",
       "body": null
     },
     {
@@ -422,6 +427,11 @@
     },
     {
       "method": "GET",
+      "path": "/indexes/myIndex/settings/pagination",
+      "body": null
+    },
+    {
+      "method": "GET",
       "path": "/indexes/myIndex/settings/faceting",
       "body": null
     },
@@ -432,17 +442,17 @@
     },
     {
       "method": "GET",
+      "path": "/indexes/myIndex/settings/distinct-attribute",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/myIndex/settings/searchable-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
       "path": "/indexes/myIndex/settings/displayed-attributes",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/indexes/myIndex/settings/typo-tolerance",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/indexes/myIndex/settings/pagination",
       "body": null
     },
     {

@@ -14,7 +14,7 @@
       "operationId": "create-drafts",
       "summary": "",
       "user": "user456",
-      "ideal": "Create a new draft with the provided content and metadata."
+      "ideal": "Create a new draft with the provided content and title."
     },
     {
       "path": "/drafts/1",
@@ -22,7 +22,7 @@
       "operationId": "edit-draft",
       "summary": "",
       "user": "user789",
-      "ideal": "Update the content of the draft with ID 1."
+      "ideal": "Update the draft with ID 1 to change its content."
     },
     {
       "path": "/drafts/2",
@@ -49,20 +49,20 @@
       "ideal": "Save a new snippet with the specified content."
     },
     {
-      "path": "/saved_snippets/1",
+      "path": "/saved_snippets/4",
       "method": "PATCH",
       "operationId": "edit-saved-snippet",
       "summary": "",
       "user": "user404",
-      "ideal": "Modify the saved snippet with ID 1."
+      "ideal": "Edit the saved snippet with ID 4 to update its content."
     },
     {
-      "path": "/saved_snippets/2",
+      "path": "/saved_snippets/5",
       "method": "DELETE",
       "operationId": "delete-saved-snippet",
       "summary": "",
       "user": "user505",
-      "ideal": "Remove the saved snippet with ID 2 from the user's collection."
+      "ideal": "Remove the saved snippet with ID 5 from the user's collection."
     }
   ]
 }

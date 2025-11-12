@@ -1,0 +1,10 @@
+/** === Lifecycle smoke per entity (add→verify→tryAddExisting→delete→verifyNotExist) === */
+
+function lifecycle_2010_04_01(AccountSid, Sid, CallSid, DomainSid, ConferenceSid, CountryCode, ReferenceSid, ResourceSid, CredentialListSid, IpAccessControlListSid, MessageSid, AddOnResultSid, QueueSid, RecordingSid, AssignedAddOnSid, AddressSid, ConnectAppSid, PayloadSid) {
+  try { tryToDeleteANonExisting2010_04_01(AccountSid, Sid, CallSid, DomainSid, ConferenceSid, CountryCode, ReferenceSid, ResourceSid, CredentialListSid, IpAccessControlListSid, MessageSid, AddOnResultSid, QueueSid, RecordingSid, AssignedAddOnSid, AddressSid, ConnectAppSid, PayloadSid); } catch (_e) {}
+  add2010_04_01(AccountSid, Sid, CallSid, DomainSid, ConferenceSid, CountryCode, ReferenceSid, ResourceSid, CredentialListSid, IpAccessControlListSid, MessageSid, AddOnResultSid, QueueSid, RecordingSid, AssignedAddOnSid, AddressSid, ConnectAppSid, PayloadSid);
+  verify2010_04_01Exists(AccountSid, Sid, CallSid, DomainSid, ConferenceSid, CountryCode, ReferenceSid, ResourceSid, CredentialListSid, IpAccessControlListSid, MessageSid, AddOnResultSid, QueueSid, RecordingSid, AssignedAddOnSid, AddressSid, ConnectAppSid, PayloadSid);
+  tryToAddExisting2010_04_01(AccountSid, Sid, CallSid, DomainSid, ConferenceSid, CountryCode, ReferenceSid, ResourceSid, CredentialListSid, IpAccessControlListSid, MessageSid, AddOnResultSid, QueueSid, RecordingSid, AssignedAddOnSid, AddressSid, ConnectAppSid, PayloadSid);
+  delete2010_04_01(AccountSid, Sid, CallSid, DomainSid, ConferenceSid, CountryCode, ReferenceSid, ResourceSid, CredentialListSid, IpAccessControlListSid, MessageSid, AddOnResultSid, QueueSid, RecordingSid, AssignedAddOnSid, AddressSid, ConnectAppSid, PayloadSid);
+  verify2010_04_01DoesNotExist(AccountSid, Sid, CallSid, DomainSid, ConferenceSid, CountryCode, ReferenceSid, ResourceSid, CredentialListSid, IpAccessControlListSid, MessageSid, AddOnResultSid, QueueSid, RecordingSid, AssignedAddOnSid, AddressSid, ConnectAppSid, PayloadSid);
+}

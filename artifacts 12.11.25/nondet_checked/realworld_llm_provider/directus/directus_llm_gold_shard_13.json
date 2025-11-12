@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/permissions",
+      "method": "GET",
+      "operationId": "getPermissions",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve a list of all permissions available in the system."
+    },
+    {
+      "path": "/permissions",
+      "method": "POST",
+      "operationId": "createPermission",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new permission for users to access specific resources."
+    },
+    {
+      "path": "/permissions",
+      "method": "PATCH",
+      "operationId": "updatePermissions",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Update existing permissions to modify access levels."
+    },
+    {
+      "path": "/permissions",
+      "method": "DELETE",
+      "operationId": "deletePermissions",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete specific permissions that are no longer needed."
+    },
+    {
+      "path": "/permissions/me",
+      "method": "GET",
+      "operationId": "getMyPermissions",
+      "summary": "",
+      "user": "regular_user",
+      "ideal": "Retrieve the permissions assigned to the current user."
+    },
+    {
+      "path": "/permissions/{id}",
+      "method": "GET",
+      "operationId": "getPermission",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Get details of a specific permission by its ID."
+    },
+    {
+      "path": "/permissions/{id}",
+      "method": "PATCH",
+      "operationId": "updatePermission",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Update a specific permission's details by its ID."
+    },
+    {
+      "path": "/permissions/{id}",
+      "method": "DELETE",
+      "operationId": "deletePermission",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete a specific permission by its ID."
+    }
+  ]
+}

@@ -167,12 +167,12 @@
     },
     {
       "method": "PATCH",
-      "path": "/saved_snippets/1",
+      "path": "/saved_snippets/4",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/saved_snippets/2",
+      "path": "/saved_snippets/5",
       "body": null
     },
     {
@@ -512,11 +512,6 @@
     },
     {
       "method": "POST",
-      "path": "/users/{user_id}/reactivate",
-      "body": null
-    },
-    {
-      "method": "POST",
       "path": "/users/{user_id}/status",
       "body": null
     },
@@ -536,8 +531,8 @@
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/users/{email}",
+      "method": "PATCH",
+      "path": "/users/{user_id}",
       "body": null
     },
     {
@@ -547,6 +542,11 @@
     },
     {
       "method": "GET",
+      "path": "/user_groups/{user_group_id}/members",
+      "body": null
+    },
+    {
+      "method": "POST",
       "path": "/user_groups/{user_group_id}/members",
       "body": null
     },
@@ -722,12 +722,12 @@
     },
     {
       "method": "PATCH",
-      "path": "/saved_snippets/1",
+      "path": "/saved_snippets/4",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/saved_snippets/2",
+      "path": "/saved_snippets/5",
       "body": null
     },
     {
@@ -1067,11 +1067,6 @@
     },
     {
       "method": "POST",
-      "path": "/users/{user_id}/reactivate",
-      "body": null
-    },
-    {
-      "method": "POST",
       "path": "/users/{user_id}/status",
       "body": null
     },
@@ -1091,8 +1086,8 @@
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/users/{email}",
+      "method": "PATCH",
+      "path": "/users/{user_id}",
       "body": null
     },
     {
@@ -1102,6 +1097,11 @@
     },
     {
       "method": "GET",
+      "path": "/user_groups/{user_group_id}/members",
+      "body": null
+    },
+    {
+      "method": "POST",
       "path": "/user_groups/{user_group_id}/members",
       "body": null
     },

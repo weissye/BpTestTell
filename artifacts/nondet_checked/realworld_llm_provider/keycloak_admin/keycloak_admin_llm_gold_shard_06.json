@@ -5,80 +5,80 @@
       "method": "GET",
       "operationId": "getGroupRoleMappingsClient",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve role mappings for group with ID 123 in realm 'myrealm' for client 'myclient'."
+      "user": "Admin user requesting role mappings for a specific group.",
+      "ideal": "Returns the role mappings for the group with ID 123 in the realm 'myrealm' for the client 'myclient'."
     },
     {
       "path": "/myrealm/groups/123/role-mappings/clients/myclient",
       "method": "POST",
       "operationId": "postGroupRoleMappingsClient",
       "summary": "",
-      "user": "admin",
-      "ideal": "Add role mappings for group with ID 123 in realm 'myrealm' for client 'myclient'."
+      "user": "Admin user adding new role mappings for a group.",
+      "ideal": "Successfully adds role mappings for the group with ID 123 in the realm 'myrealm' for the client 'myclient'."
     },
     {
       "path": "/myrealm/groups/123/role-mappings/clients/myclient",
       "method": "DELETE",
       "operationId": "deleteGroupRoleMappingsClient",
       "summary": "",
-      "user": "admin",
-      "ideal": "Remove role mappings for group with ID 123 in realm 'myrealm' for client 'myclient'."
+      "user": "Admin user removing role mappings from a group.",
+      "ideal": "Successfully deletes role mappings for the group with ID 123 in the realm 'myrealm' for the client 'myclient'."
     },
     {
       "path": "/myrealm/groups/123/role-mappings/clients/myclient/available",
       "method": "GET",
       "operationId": "getGroupRoleMappingsClientAvailable",
       "summary": "",
-      "user": "admin",
-      "ideal": "Fetch available role mappings for group with ID 123 in realm 'myrealm' for client 'myclient'."
+      "user": "Admin user checking available role mappings for a group.",
+      "ideal": "Returns a list of available role mappings for the group with ID 123 in the realm 'myrealm' for the client 'myclient'."
     },
     {
       "path": "/myrealm/groups/123/role-mappings/clients/myclient/composite",
       "method": "GET",
       "operationId": "getGroupRoleMappingsClientComposite",
       "summary": "",
-      "user": "admin",
-      "ideal": "Get composite role mappings for group with ID 123 in realm 'myrealm' for client 'myclient'."
+      "user": "Admin user retrieving composite role mappings for a group.",
+      "ideal": "Returns composite role mappings for the group with ID 123 in the realm 'myrealm' for the client 'myclient'."
     },
     {
       "path": "/myrealm/users/456/role-mappings/clients/myclient",
       "method": "GET",
       "operationId": "getUserRoleMappingsClient",
       "summary": "",
-      "user": "user1",
-      "ideal": "Retrieve role mappings for user with ID 456 in realm 'myrealm' for client 'myclient'."
+      "user": "Admin user requesting role mappings for a specific user.",
+      "ideal": "Returns the role mappings for the user with ID 456 in the realm 'myrealm' for the client 'myclient'."
     },
     {
       "path": "/myrealm/users/456/role-mappings/clients/myclient",
       "method": "POST",
       "operationId": "postUserRoleMappingsClient",
       "summary": "",
-      "user": "user1",
-      "ideal": "Add role mappings for user with ID 456 in realm 'myrealm' for client 'myclient'."
+      "user": "Admin user adding new role mappings for a user.",
+      "ideal": "Successfully adds role mappings for the user with ID 456 in the realm 'myrealm' for the client 'myclient'."
     },
     {
       "path": "/myrealm/users/456/role-mappings/clients/myclient",
       "method": "DELETE",
       "operationId": "deleteUserRoleMappingsClient",
       "summary": "",
-      "user": "user1",
-      "ideal": "Remove role mappings for user with ID 456 in realm 'myrealm' for client 'myclient'."
+      "user": "Admin user removing role mappings from a user.",
+      "ideal": "Successfully deletes role mappings for the user with ID 456 in the realm 'myrealm' for the client 'myclient'."
     },
     {
       "path": "/myrealm/users/456/role-mappings/clients/myclient/available",
       "method": "GET",
       "operationId": "getUserRoleMappingsClientAvailable",
       "summary": "",
-      "user": "user1",
-      "ideal": "Fetch available role mappings for user with ID 456 in realm 'myrealm' for client 'myclient'."
+      "user": "Admin user checking available role mappings for a user.",
+      "ideal": "Returns a list of available role mappings for the user with ID 456 in the realm 'myrealm' for the client 'myclient'."
     },
     {
       "path": "/myrealm/users/456/role-mappings/clients/myclient/composite",
       "method": "GET",
       "operationId": "getUserRoleMappingsClientComposite",
       "summary": "",
-      "user": "user1",
-      "ideal": "Get composite role mappings for user with ID 456 in realm 'myrealm' for client 'myclient'."
+      "user": "Admin user retrieving composite role mappings for a user.",
+      "ideal": "Returns composite role mappings for the user with ID 456 in the realm 'myrealm' for the client 'myclient'."
     }
   ]
 }

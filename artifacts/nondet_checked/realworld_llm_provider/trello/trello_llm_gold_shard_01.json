@@ -5,72 +5,80 @@
       "method": "GET",
       "operationId": "getActionsByIdAction",
       "summary": "",
-      "user": "User requested details for action with ID 12345 to review its history.",
-      "ideal": "Returns the action details including type, date, and associated card."
+      "user": "User123",
+      "ideal": "Retrieve the action details for the action with ID 12345."
     },
     {
       "path": "/actions/12345/board",
       "method": "GET",
       "operationId": "getActionsBoardByIdAction",
       "summary": "",
-      "user": "User wants to know which board the action with ID 12345 belongs to.",
-      "ideal": "Returns the board details associated with the action."
+      "user": "User456",
+      "ideal": "Get the board associated with the action ID 12345."
     },
     {
       "path": "/actions/12345/card",
       "method": "GET",
       "operationId": "getActionsCardByIdAction",
       "summary": "",
-      "user": "User is checking the card linked to action ID 12345 for updates.",
-      "ideal": "Returns the card details related to the action."
+      "user": "User789",
+      "ideal": "Fetch the card related to the action with ID 12345."
     },
     {
       "path": "/actions/12345/member",
       "method": "GET",
       "operationId": "getActionsMemberByIdAction",
       "summary": "",
-      "user": "User wants to find out which member performed the action with ID 12345.",
-      "ideal": "Returns the member details who executed the action."
+      "user": "User101",
+      "ideal": "Retrieve the member who performed the action with ID 12345."
     },
     {
       "path": "/actions/12345/memberCreator",
       "method": "GET",
       "operationId": "getActionsMemberCreatorByIdAction",
       "summary": "",
-      "user": "User is interested in knowing who created the action with ID 12345.",
-      "ideal": "Returns the member details who created the action."
+      "user": "User202",
+      "ideal": "Get the member who created the action with ID 12345."
     },
     {
       "path": "/actions/12345/list",
       "method": "GET",
       "operationId": "getActionsListByIdAction",
       "summary": "",
-      "user": "User needs to check the list associated with action ID 12345.",
-      "ideal": "Returns the list details related to the action."
+      "user": "User303",
+      "ideal": "Fetch the list associated with the action ID 12345."
     },
     {
       "path": "/actions/12345/organization",
       "method": "GET",
       "operationId": "getActionsOrganizationByIdAction",
       "summary": "",
-      "user": "User is looking for the organization linked to action ID 12345.",
-      "ideal": "Returns the organization details associated with the action."
-    },
-    {
-      "path": "/actions/12345",
-      "method": "DELETE",
-      "operationId": "deleteActionsByIdAction",
-      "summary": "",
-      "user": "User wants to delete action with ID 12345 due to a mistake.",
-      "ideal": "Confirms deletion of the action with ID 12345."
+      "user": "User404",
+      "ideal": "Retrieve the organization linked to the action with ID 12345."
     },
     {
       "path": "/actions/12345/text",
       "method": "PUT",
       "operationId": "updateActionsTextByIdAction",
       "summary": "",
-      "user": "User is updating the text of action ID 12345 to reflect new information.",
-      "ideal": "Returns confirmation of the text update for action ID 12345."
+      "user": "User505",
+      "ideal": "Update the text of the action with ID 12345."
+    },
+    {
+      "path": "/actions/12345",
+      "method": "DELETE",
+      "operationId": "deleteActionsByIdAction",
+      "summary": "",
+      "user": "User606",
+      "ideal": "Delete the action with ID 12345."
+    },
+    {
+      "path": "/actions/12345/display",
+      "method": "GET",
+      "operationId": "getActionsDisplayByIdAction",
+      "summary": "",
+      "user": "User707",
+      "ideal": "Retrieve the display information for the action with ID 12345."
     }
   ]
 }

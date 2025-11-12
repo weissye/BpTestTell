@@ -5,23 +5,23 @@
       "method": "GET",
       "operationId": "getIssuePickerResource",
       "summary": "",
-      "user": "User wants to quickly find issues by typing keywords in the picker interface.",
-      "ideal": "Returns a list of issues matching the input keywords."
+      "user": "User wants to quickly find issues to link in a comment.",
+      "ideal": "Returns a list of issues that match the provided query parameters."
     },
     {
       "path": "/rest/api/3/jql/match",
       "method": "POST",
       "operationId": "matchIssues",
       "summary": "",
-      "user": "User needs to match issues based on a specific JQL query to filter results.",
-      "ideal": "Returns a list of issues that match the provided JQL query."
+      "user": "User needs to match issues based on a specific JQL query.",
+      "ideal": "Returns a list of issues that match the JQL query provided in the request body."
     },
     {
       "path": "/rest/api/3/search",
       "method": "GET",
       "operationId": "searchForIssuesUsingJql",
       "summary": "",
-      "user": "User wants to retrieve issues using a JQL search to find specific tasks.",
+      "user": "User wants to retrieve issues based on a JQL search.",
       "ideal": "Returns a paginated list of issues that match the JQL search criteria."
     },
     {
@@ -29,32 +29,32 @@
       "method": "POST",
       "operationId": "searchForIssuesUsingJqlPost",
       "summary": "",
-      "user": "User needs to perform a complex search with multiple filters using JQL.",
-      "ideal": "Returns a detailed list of issues based on the complex JQL query provided."
+      "user": "User wants to perform a complex search using JQL with additional parameters.",
+      "ideal": "Returns a list of issues based on the JQL query and additional filters provided in the request body."
     },
     {
       "path": "/rest/api/3/search/approximate-count",
       "method": "POST",
       "operationId": "countIssues",
       "summary": "",
-      "user": "User wants to know the approximate number of issues matching a specific JQL query.",
-      "ideal": "Returns an approximate count of issues that match the provided JQL."
+      "user": "User needs to know the approximate number of issues that match a JQL query.",
+      "ideal": "Returns an approximate count of issues that match the specified JQL query."
     },
     {
       "path": "/rest/api/3/search/jql",
       "method": "GET",
       "operationId": "searchAndReconsileIssuesUsingJql",
       "summary": "",
-      "user": "User needs to reconcile issues based on a JQL search to ensure data consistency.",
-      "ideal": "Returns a reconciled list of issues based on the JQL search criteria."
+      "user": "User wants to reconcile issues based on a JQL query.",
+      "ideal": "Returns a list of issues that match the JQL query, including reconciled data."
     },
     {
       "path": "/rest/api/3/search/jql",
       "method": "POST",
       "operationId": "searchAndReconsileIssuesUsingJqlPost",
       "summary": "",
-      "user": "User wants to submit a JQL query to reconcile issues and update their status.",
-      "ideal": "Returns a list of issues that have been reconciled based on the submitted JQL."
+      "user": "User wants to reconcile issues with a more complex JQL query.",
+      "ideal": "Returns a list of reconciled issues based on the JQL query provided in the request body."
     }
   ]
 }

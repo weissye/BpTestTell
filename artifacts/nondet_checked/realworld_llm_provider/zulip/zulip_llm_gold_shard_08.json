@@ -5,40 +5,40 @@
       "method": "GET",
       "operationId": "get-events",
       "summary": "",
-      "user": "Alice wants to retrieve the latest events from the Zulip server to stay updated on the discussions happening in her team.",
-      "ideal": "Returns a list of events including message updates, user presence changes, and other relevant notifications."
+      "user": "user123",
+      "ideal": "Retrieve a list of events from the Zulip server."
     },
     {
       "path": "/events",
       "method": "DELETE",
       "operationId": "delete-queue",
       "summary": "",
-      "user": "Bob needs to clear his event queue after processing all the events to ensure he doesn't receive duplicates.",
-      "ideal": "Successfully deletes the event queue, confirming that all events have been cleared."
+      "user": "user456",
+      "ideal": "Delete the current event queue for the user."
     },
     {
       "path": "/register",
       "method": "POST",
       "operationId": "register-queue",
       "summary": "",
-      "user": "Charlie is a new user who wants to register his event queue with the Zulip server to start receiving events.",
-      "ideal": "Returns a confirmation of successful registration along with the necessary credentials for event subscription."
+      "user": "user789",
+      "ideal": "Register a new event queue for receiving events."
     },
     {
       "path": "/real-time",
       "method": "POST",
       "operationId": "POST /real-time",
       "summary": "",
-      "user": "Dana is looking to establish a real-time connection to the Zulip server to receive live updates on messages and events.",
-      "ideal": "Establishes a real-time connection and provides a stream of events as they occur."
+      "user": "user101",
+      "ideal": "Establish a real-time connection to receive events."
     },
     {
       "path": "/rest-error-handling",
       "method": "POST",
       "operationId": "rest-error-handling",
       "summary": "",
-      "user": "Eve is testing the error handling capabilities of the API and wants to see how it responds to invalid requests.",
-      "ideal": "Returns appropriate error messages and status codes for various invalid request scenarios."
+      "user": "user202",
+      "ideal": "Test the error handling mechanism of the REST API."
     }
   ]
 }

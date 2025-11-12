@@ -1,0 +1,128 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/drugs"
+    },
+    {
+      "method": "POST",
+      "path": "/drugs"
+    },
+    {
+      "method": "GET",
+      "path": "/drugs/{id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/drugs/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/drugs/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/inventory"
+    },
+    {
+      "method": "POST",
+      "path": "/inventory"
+    },
+    {
+      "method": "GET",
+      "path": "/inventory/{ndc}"
+    },
+    {
+      "method": "PUT",
+      "path": "/inventory/{ndc}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/inventory/{ndc}"
+    },
+    {
+      "method": "GET",
+      "path": "/orders"
+    },
+    {
+      "method": "POST",
+      "path": "/orders"
+    },
+    {
+      "method": "GET",
+      "path": "/orders/{id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/orders/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orders/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/patients"
+    },
+    {
+      "method": "POST",
+      "path": "/patients"
+    },
+    {
+      "method": "GET",
+      "path": "/patients/{id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/patients/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/patients/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/prescriptions"
+    },
+    {
+      "method": "POST",
+      "path": "/prescriptions"
+    },
+    {
+      "method": "GET",
+      "path": "/prescriptions/{id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/prescriptions/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/prescriptions/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/reset"
+    },
+    {
+      "method": "POST",
+      "path": "/reset"
+    },
+    {
+      "method": "POST",
+      "path": "/reset-all"
+    },
+    {
+      "method": "GET",
+      "path": "/reset/{id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/reset/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/reset/{id}"
+    }
+  ]
+}

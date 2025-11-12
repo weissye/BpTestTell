@@ -3,10 +3,10 @@
   "deterministic": true,
   "provider": "real_world_llm_provider",
   "sut": "keycloak_admin",
-  "generated_at": "2025-11-09T13:50:07.307104Z",
+  "generated_at": "2025-11-12T20:06:41.958026Z",
   "source": {
-    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\keycloak_admin\\graph.json",
-    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\keycloak_admin\\dsl_map.json"
+    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\keycloak_admin\\graph.json",
+    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\keycloak_admin\\dsl_map.json"
   },
   "entities": [
     {
@@ -706,25 +706,25 @@
       "name": "CRUD add_model",
       "desc": "Deterministic CRUD flow for entity 'add_model' inferred from graph.",
       "entity": "add_model",
-      "js": "// Deterministic CRUD flow for entity: add_model\nbp.registerBThread(\"HLS: CRUD add_model\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/{realm}/client-scopes/{id}/protocol-mappers/add-models\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: add_model\nbthread(\"HLS: CRUD add_model\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/{realm}/client-scopes/{id}/protocol-mappers/add-models\", {})});\n});"
     },
     {
       "name": "CRUD admin_event",
       "desc": "Deterministic CRUD flow for entity 'admin_event' inferred from graph.",
       "entity": "admin_event",
-      "js": "// Deterministic CRUD flow for entity: admin_event\nbp.registerBThread(\"HLS: CRUD admin_event\", function () {\n  bp.sync({request: REST.GET(\"/{realm}/admin-events\", {})});\n  bp.sync({request: REST.GET(\"/{realm}/admin-events\", {})});\n  bp.sync({request: REST.DELETE(\"/{realm}/admin-events\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: admin_event\nbthread(\"HLS: CRUD admin_event\", function () {\n  bp.sync({request: REST.GET(\"/{realm}/admin-events\", {})});\n  bp.sync({request: REST.GET(\"/{realm}/admin-events\", {})});\n  bp.sync({request: REST.DELETE(\"/{realm}/admin-events\", {})});\n});"
     },
     {
       "name": "CRUD authenticator_provider",
       "desc": "Deterministic CRUD flow for entity 'authenticator_provider' inferred from graph.",
       "entity": "authenticator_provider",
-      "js": "// Deterministic CRUD flow for entity: authenticator_provider\nbp.registerBThread(\"HLS: CRUD authenticator_provider\", function () {\n  bp.sync({request: REST.GET(\"/{realm}/authentication/authenticator-providers\", {})});\n  bp.sync({request: REST.GET(\"/{realm}/authentication/authenticator-providers\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: authenticator_provider\nbthread(\"HLS: CRUD authenticator_provider\", function () {\n  bp.sync({request: REST.GET(\"/{realm}/authentication/authenticator-providers\", {})});\n  bp.sync({request: REST.GET(\"/{realm}/authentication/authenticator-providers\", {})});\n});"
     },
     {
       "name": "CRUD available",
       "desc": "Deterministic CRUD flow for entity 'available' inferred from graph.",
       "entity": "available",
-      "js": "// Deterministic CRUD flow for entity: available\nbp.registerBThread(\"HLS: CRUD available\", function () {\n  bp.sync({request: REST.GET(\"/{realm}/client-scopes/{id}/scope-mappings/clients/{client}/available\", {})});\n  bp.sync({request: REST.GET(\"/{realm}/client-scopes/{id}/scope-mappings/clients/{client}/available\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: available\nbthread(\"HLS: CRUD available\", function () {\n  bp.sync({request: REST.GET(\"/{realm}/client-scopes/{id}/scope-mappings/clients/{client}/available\", {})});\n  bp.sync({request: REST.GET(\"/{realm}/client-scopes/{id}/scope-mappings/clients/{client}/available\", {})});\n});"
     }
   ]
 }

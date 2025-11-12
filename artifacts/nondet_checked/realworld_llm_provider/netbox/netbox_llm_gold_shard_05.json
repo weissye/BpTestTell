@@ -5,96 +5,88 @@
       "method": "GET",
       "operationId": "ipam_aggregates_list",
       "summary": "",
-      "user": "User requests a list of all IP address aggregates in the system.",
-      "ideal": "Returns a JSON array of aggregate objects with details such as ID, prefix, and associated VLAN."
+      "user": "Retrieve a list of all IP address aggregates in the system.",
+      "ideal": "A JSON array of aggregate objects, each containing details like id, prefix, and description."
     },
     {
       "path": "/api/ipam/aggregates/",
       "method": "POST",
       "operationId": "ipam_aggregates_create",
       "summary": "",
-      "user": "User submits a new aggregate with prefix '192.168.0.0/16' and associated VLAN ID 10.",
-      "ideal": "Returns the created aggregate object with its ID and details."
+      "user": "Create a new IP address aggregate with the specified prefix and description.",
+      "ideal": "A JSON object representing the created aggregate, including its id and other details."
     },
     {
       "path": "/api/ipam/aggregates/{id}/",
       "method": "GET",
       "operationId": "ipam_aggregates_retrieve",
       "summary": "",
-      "user": "User wants to retrieve details for aggregate with ID 1.",
-      "ideal": "Returns the aggregate object with ID 1, including its prefix and VLAN association."
+      "user": "Fetch details of a specific aggregate by its ID.",
+      "ideal": "A JSON object containing the details of the specified aggregate."
     },
     {
       "path": "/api/ipam/asn-ranges/",
       "method": "GET",
       "operationId": "ipam_asn_ranges_list",
       "summary": "",
-      "user": "User requests a list of all ASN ranges available in the system.",
-      "ideal": "Returns a JSON array of ASN range objects with details such as ID and range."
+      "user": "List all ASN ranges available in the system.",
+      "ideal": "A JSON array of ASN range objects with details like id, range, and description."
     },
     {
-      "path": "/api/ipam/asn-ranges/",
-      "method": "POST",
-      "operationId": "ipam_asn_ranges_create",
-      "summary": "",
-      "user": "User submits a new ASN range from 65000 to 65010.",
-      "ideal": "Returns the created ASN range object with its ID and details."
-    },
-    {
-      "path": "/api/ipam/asns/{id}/",
+      "path": "/api/ipam/asn-ranges/{id}/available-asns/",
       "method": "GET",
-      "operationId": "ipam_asns_retrieve",
+      "operationId": "ipam_asn_ranges_available_asns_list",
       "summary": "",
-      "user": "User wants to retrieve details for ASN with ID 100.",
-      "ideal": "Returns the ASN object with ID 100, including its name and associated details."
-    },
-    {
-      "path": "/api/ipam/ip-addresses/",
-      "method": "GET",
-      "operationId": "ipam_ip_addresses_list",
-      "summary": "",
-      "user": "User requests a list of all IP addresses in the system.",
-      "ideal": "Returns a JSON array of IP address objects with details such as ID, address, and status."
+      "user": "Get a list of available ASNs for a specific ASN range.",
+      "ideal": "A JSON array of available ASN objects."
     },
     {
       "path": "/api/ipam/ip-addresses/",
       "method": "POST",
       "operationId": "ipam_ip_addresses_create",
       "summary": "",
-      "user": "User submits a new IP address '192.168.1.1' with status 'active'.",
-      "ideal": "Returns the created IP address object with its ID and details."
+      "user": "Add a new IP address to the system with its associated details.",
+      "ideal": "A JSON object representing the created IP address, including its id and other attributes."
     },
     {
       "path": "/api/ipam/ip-addresses/{id}/",
-      "method": "GET",
-      "operationId": "ipam_ip_addresses_retrieve",
+      "method": "DELETE",
+      "operationId": "ipam_ip_addresses_destroy",
       "summary": "",
-      "user": "User wants to retrieve details for IP address with ID 5.",
-      "ideal": "Returns the IP address object with ID 5, including its status and associated VLAN."
+      "user": "Remove an IP address from the system by its ID.",
+      "ideal": "A success message confirming the deletion of the IP address."
     },
     {
-      "path": "/api/ipam/vlans/",
+      "path": "/api/ipam/prefixes/",
       "method": "GET",
-      "operationId": "ipam_vlans_list",
+      "operationId": "ipam_prefixes_list",
       "summary": "",
-      "user": "User requests a list of all VLANs in the system.",
-      "ideal": "Returns a JSON array of VLAN objects with details such as ID, name, and associated group."
+      "user": "Retrieve a list of all IP address prefixes in the system.",
+      "ideal": "A JSON array of prefix objects, each containing details like id, prefix, and description."
     },
     {
       "path": "/api/ipam/vlans/",
       "method": "POST",
       "operationId": "ipam_vlans_create",
       "summary": "",
-      "user": "User submits a new VLAN with ID 100 and name 'Sales VLAN'.",
-      "ideal": "Returns the created VLAN object with its ID and details."
+      "user": "Create a new VLAN with the specified parameters.",
+      "ideal": "A JSON object representing the created VLAN, including its id and other relevant details."
     },
     {
-      "path": "/api/ipam/vlans/{id}/",
-      "method": "GET",
-      "operationId": "ipam_vlans_retrieve",
+      "path": "/api/ipam/vrfs/{id}/",
+      "method": "PATCH",
+      "operationId": "ipam_vrfs_partial_update",
       "summary": "",
-      "user": "User wants to retrieve details for VLAN with ID 100.",
-      "ideal": "Returns the VLAN object with ID 100, including its name and associated details."
+      "user": "Update specific fields of a VRF identified by its ID.",
+      "ideal": "A JSON object representing the updated VRF with the modified fields."
+    },
+    {
+      "path": "/api/ipam/route-targets/{id}/",
+      "method": "PUT",
+      "operationId": "ipam_route_targets_update",
+      "summary": "",
+      "user": "Replace the details of a specific route target identified by its ID.",
+      "ideal": "A JSON object representing the updated route target."
     }
   ]
 }

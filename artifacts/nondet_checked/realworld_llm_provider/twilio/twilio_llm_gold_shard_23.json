@@ -1,36 +1,36 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/CredentialListMappings.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialListMappings.json",
       "method": "POST",
       "operationId": "CreateSipCredentialListMapping",
       "summary": "",
-      "user": "User wants to create a new SIP credential list mapping for their domain to manage access control for SIP endpoints.",
-      "ideal": "Successfully created a SIP credential list mapping."
+      "user": "User wants to create a new SIP credential list mapping for their domain to manage access control effectively.",
+      "ideal": "Successfully creates a new SIP credential list mapping and returns the mapping details."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/CredentialListMappings.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialListMappings.json",
       "method": "GET",
       "operationId": "ListSipCredentialListMapping",
       "summary": "",
-      "user": "User needs to retrieve all SIP credential list mappings for their domain to review current configurations.",
-      "ideal": "List of all SIP credential list mappings retrieved successfully."
+      "user": "User needs to retrieve all SIP credential list mappings associated with their domain to review current configurations.",
+      "ideal": "Returns a list of all SIP credential list mappings for the specified domain."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/CredentialListMappings/CLXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialListMappings/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "method": "GET",
       "operationId": "FetchSipCredentialListMapping",
       "summary": "",
       "user": "User wants to fetch details of a specific SIP credential list mapping to verify its settings.",
-      "ideal": "Details of the specified SIP credential list mapping retrieved successfully."
+      "ideal": "Returns the details of the specified SIP credential list mapping."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/CredentialListMappings/CLXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialListMappings/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
       "method": "DELETE",
       "operationId": "DeleteSipCredentialListMapping",
       "summary": "",
       "user": "User intends to delete a specific SIP credential list mapping that is no longer needed.",
-      "ideal": "Successfully deleted the specified SIP credential list mapping."
+      "ideal": "Successfully deletes the specified SIP credential list mapping and confirms the deletion."
     }
   ]
 }

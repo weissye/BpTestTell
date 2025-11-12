@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "getMembersByIdMember",
       "summary": "",
-      "user": "User requests details of member with ID 12345.",
-      "ideal": "Returns member details including name, email, and avatar."
+      "user": "User requests details for member with ID 12345.",
+      "ideal": "Returns member information including name, email, and avatar."
     },
     {
       "path": "/members/12345",
@@ -14,7 +14,7 @@
       "operationId": "updateMembersByIdMember",
       "summary": "",
       "user": "User updates member 12345's information with new email and name.",
-      "ideal": "Successfully updates member details and returns updated information."
+      "ideal": "Successfully updates member details and returns updated member object."
     },
     {
       "path": "/members/12345/actions",
@@ -37,8 +37,8 @@
       "method": "PUT",
       "operationId": "updateMembersBioByIdMember",
       "summary": "",
-      "user": "User updates the bio of member 12345 to include new information.",
-      "ideal": "Successfully updates the bio and returns the updated bio text."
+      "user": "User updates the bio for member 12345 to 'Loves coding and coffee.'",
+      "ideal": "Successfully updates the bio and returns the updated member object."
     },
     {
       "path": "/members/12345/boards",
@@ -46,39 +46,39 @@
       "operationId": "getMembersBoardsByIdMember",
       "summary": "",
       "user": "User retrieves all boards associated with member 12345.",
-      "ideal": "Returns a list of boards with details such as board names and IDs."
+      "ideal": "Returns a list of boards with their names and IDs."
     },
     {
       "path": "/members/12345/boardsInvited",
       "method": "GET",
       "operationId": "getMembersBoardsInvitedByIdMember",
       "summary": "",
-      "user": "User checks boards to which member 12345 has been invited.",
+      "user": "User checks boards that member 12345 has been invited to.",
       "ideal": "Returns a list of boards with invitation status."
     },
     {
-      "path": "/members/12345/cards",
-      "method": "GET",
-      "operationId": "getMembersCardsByIdMember",
-      "summary": "",
-      "user": "User wants to see all cards assigned to member 12345.",
-      "ideal": "Returns a list of cards with details including titles and due dates."
-    },
-    {
       "path": "/members/12345/customEmoji",
-      "method": "GET",
-      "operationId": "getMembersCustomEmojiByIdMember",
+      "method": "POST",
+      "operationId": "addMembersCustomEmojiByIdMember",
       "summary": "",
-      "user": "User retrieves custom emojis created by member 12345.",
-      "ideal": "Returns a list of custom emojis with their IDs and names."
+      "user": "User adds a custom emoji for member 12345.",
+      "ideal": "Successfully adds the custom emoji and returns its details."
     },
     {
       "path": "/members/12345/notifications",
       "method": "GET",
       "operationId": "getMembersNotificationsByIdMember",
       "summary": "",
-      "user": "User checks notifications for member 12345.",
-      "ideal": "Returns a list of notifications with details such as type and date."
+      "user": "User wants to see notifications for member 12345.",
+      "ideal": "Returns a list of notifications with types and timestamps."
+    },
+    {
+      "path": "/members/12345/savedSearches",
+      "method": "POST",
+      "operationId": "addMembersSavedSearchesByIdMember",
+      "summary": "",
+      "user": "User saves a new search query for member 12345.",
+      "ideal": "Successfully saves the search and returns the saved search object."
     }
   ]
 }

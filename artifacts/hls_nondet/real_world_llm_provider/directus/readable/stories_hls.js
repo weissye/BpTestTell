@@ -1,5 +1,5 @@
 // ---- crud:activity:nondet:1:1 ----
-bp.registerBThread("crud:activity:nondet:1:1", function () {
+bthread("crud:activity:nondet:1:1", function () {
   let id = 200;
   addActivity(id);
   tryToAddExistingActivity(id);
@@ -12,7 +12,7 @@ bp.registerBThread("crud:activity:nondet:1:1", function () {
 });
 
 // ---- crud:activity:nondet:1:2 ----
-bp.registerBThread("crud:activity:nondet:1:2", function () {
+bthread("crud:activity:nondet:1:2", function () {
   let id = 200;
   addActivity(id);
   tryToAddExistingActivity(id);
@@ -25,7 +25,7 @@ bp.registerBThread("crud:activity:nondet:1:2", function () {
 });
 
 // ---- crud:activity:nondet:1:3 ----
-bp.registerBThread("crud:activity:nondet:1:3", function () {
+bthread("crud:activity:nondet:1:3", function () {
   let id = 200;
   addActivity(id);
   tryToAddExistingActivity(id);
@@ -37,7 +37,7 @@ bp.registerBThread("crud:activity:nondet:1:3", function () {
 });
 
 // ---- crud:activity:nondet:1:4 ----
-bp.registerBThread("crud:activity:nondet:1:4", function () {
+bthread("crud:activity:nondet:1:4", function () {
   let id = 201;
   addActivity(id);
   tryToAddExistingActivity(id);
@@ -48,7 +48,7 @@ bp.registerBThread("crud:activity:nondet:1:4", function () {
 });
 
 // ---- crud:asset:nondet:2:1 ----
-bp.registerBThread("crud:asset:nondet:2:1", function () {
+bthread("crud:asset:nondet:2:1", function () {
   let id = 201;
   addAsset(id);
   tryToAddExistingAsset(id);
@@ -61,7 +61,7 @@ bp.registerBThread("crud:asset:nondet:2:1", function () {
 });
 
 // ---- crud:asset:nondet:2:2 ----
-bp.registerBThread("crud:asset:nondet:2:2", function () {
+bthread("crud:asset:nondet:2:2", function () {
   let id = 201;
   addAsset(id);
   tryToAddExistingAsset(id);
@@ -74,7 +74,7 @@ bp.registerBThread("crud:asset:nondet:2:2", function () {
 });
 
 // ---- crud:asset:nondet:2:3 ----
-bp.registerBThread("crud:asset:nondet:2:3", function () {
+bthread("crud:asset:nondet:2:3", function () {
   let id = 201;
   addAsset(id);
   tryToAddExistingAsset(id);
@@ -86,7 +86,7 @@ bp.registerBThread("crud:asset:nondet:2:3", function () {
 });
 
 // ---- crud:asset:nondet:2:4 ----
-bp.registerBThread("crud:asset:nondet:2:4", function () {
+bthread("crud:asset:nondet:2:4", function () {
   let id = 202;
   addAsset(id);
   tryToAddExistingAsset(id);
@@ -97,7 +97,7 @@ bp.registerBThread("crud:asset:nondet:2:4", function () {
 });
 
 // ---- crud:auth:nondet:3:1 ----
-bp.registerBThread("crud:auth:nondet:3:1", function () {
+bthread("crud:auth:nondet:3:1", function () {
   let provider = "provider_202";
   addAuth(provider);
   tryToAddExistingAuth(provider);
@@ -110,7 +110,7 @@ bp.registerBThread("crud:auth:nondet:3:1", function () {
 });
 
 // ---- crud:auth:nondet:3:2 ----
-bp.registerBThread("crud:auth:nondet:3:2", function () {
+bthread("crud:auth:nondet:3:2", function () {
   let provider = "provider_202";
   addAuth(provider);
   tryToAddExistingAuth(provider);
@@ -123,7 +123,7 @@ bp.registerBThread("crud:auth:nondet:3:2", function () {
 });
 
 // ---- crud:auth:nondet:3:3 ----
-bp.registerBThread("crud:auth:nondet:3:3", function () {
+bthread("crud:auth:nondet:3:3", function () {
   let provider = "provider_202";
   addAuth(provider);
   tryToAddExistingAuth(provider);
@@ -135,7 +135,7 @@ bp.registerBThread("crud:auth:nondet:3:3", function () {
 });
 
 // ---- crud:auth:nondet:3:4 ----
-bp.registerBThread("crud:auth:nondet:3:4", function () {
+bthread("crud:auth:nondet:3:4", function () {
   let provider = "provider_203";
   addAuth(provider);
   tryToAddExistingAuth(provider);
@@ -146,7 +146,7 @@ bp.registerBThread("crud:auth:nondet:3:4", function () {
 });
 
 // ---- crud:collection:nondet:4:1 ----
-bp.registerBThread("crud:collection:nondet:4:1", function () {
+bthread("crud:collection:nondet:4:1", function () {
   let id = 203;
   addCollection(id);
   tryToAddExistingCollection(id);
@@ -159,7 +159,7 @@ bp.registerBThread("crud:collection:nondet:4:1", function () {
 });
 
 // ---- crud:collection:nondet:4:2 ----
-bp.registerBThread("crud:collection:nondet:4:2", function () {
+bthread("crud:collection:nondet:4:2", function () {
   let id = 203;
   addCollection(id);
   tryToAddExistingCollection(id);
@@ -172,7 +172,7 @@ bp.registerBThread("crud:collection:nondet:4:2", function () {
 });
 
 // ---- crud:collection:nondet:4:3 ----
-bp.registerBThread("crud:collection:nondet:4:3", function () {
+bthread("crud:collection:nondet:4:3", function () {
   let id = 203;
   addCollection(id);
   tryToAddExistingCollection(id);
@@ -184,7 +184,7 @@ bp.registerBThread("crud:collection:nondet:4:3", function () {
 });
 
 // ---- crud:collection:nondet:4:4 ----
-bp.registerBThread("crud:collection:nondet:4:4", function () {
+bthread("crud:collection:nondet:4:4", function () {
   let id = 204;
   addCollection(id);
   tryToAddExistingCollection(id);
@@ -195,7 +195,7 @@ bp.registerBThread("crud:collection:nondet:4:4", function () {
 });
 
 // ---- crud:comment:nondet:5:1 ----
-bp.registerBThread("crud:comment:nondet:5:1", function () {
+bthread("crud:comment:nondet:5:1", function () {
   let id = 204;
   addComment(id);
   tryToAddExistingComment(id);
@@ -208,7 +208,7 @@ bp.registerBThread("crud:comment:nondet:5:1", function () {
 });
 
 // ---- crud:comment:nondet:5:2 ----
-bp.registerBThread("crud:comment:nondet:5:2", function () {
+bthread("crud:comment:nondet:5:2", function () {
   let id = 204;
   addComment(id);
   tryToAddExistingComment(id);
@@ -221,7 +221,7 @@ bp.registerBThread("crud:comment:nondet:5:2", function () {
 });
 
 // ---- crud:comment:nondet:5:3 ----
-bp.registerBThread("crud:comment:nondet:5:3", function () {
+bthread("crud:comment:nondet:5:3", function () {
   let id = 204;
   addComment(id);
   tryToAddExistingComment(id);
@@ -233,7 +233,7 @@ bp.registerBThread("crud:comment:nondet:5:3", function () {
 });
 
 // ---- crud:comment:nondet:5:4 ----
-bp.registerBThread("crud:comment:nondet:5:4", function () {
+bthread("crud:comment:nondet:5:4", function () {
   let id = 205;
   addComment(id);
   tryToAddExistingComment(id);
@@ -244,7 +244,7 @@ bp.registerBThread("crud:comment:nondet:5:4", function () {
 });
 
 // ---- crud:extension:nondet:6:1 ----
-bp.registerBThread("crud:extension:nondet:6:1", function () {
+bthread("crud:extension:nondet:6:1", function () {
   let name = "name_205";
   let bundle = "bundle_205";
   addExtension(name, bundle);
@@ -258,7 +258,7 @@ bp.registerBThread("crud:extension:nondet:6:1", function () {
 });
 
 // ---- crud:extension:nondet:6:2 ----
-bp.registerBThread("crud:extension:nondet:6:2", function () {
+bthread("crud:extension:nondet:6:2", function () {
   let name = "name_205";
   let bundle = "bundle_205";
   addExtension(name, bundle);
@@ -272,7 +272,7 @@ bp.registerBThread("crud:extension:nondet:6:2", function () {
 });
 
 // ---- crud:extension:nondet:6:3 ----
-bp.registerBThread("crud:extension:nondet:6:3", function () {
+bthread("crud:extension:nondet:6:3", function () {
   let name = "name_205";
   let bundle = "bundle_205";
   addExtension(name, bundle);
@@ -285,7 +285,7 @@ bp.registerBThread("crud:extension:nondet:6:3", function () {
 });
 
 // ---- crud:extension:nondet:6:4 ----
-bp.registerBThread("crud:extension:nondet:6:4", function () {
+bthread("crud:extension:nondet:6:4", function () {
   let name = "name_206";
   let bundle = "bundle_206";
   addExtension(name, bundle);
@@ -297,7 +297,7 @@ bp.registerBThread("crud:extension:nondet:6:4", function () {
 });
 
 // ---- crud:field:nondet:7:1 ----
-bp.registerBThread("crud:field:nondet:7:1", function () {
+bthread("crud:field:nondet:7:1", function () {
   let collection = "collection_206";
   let id = 206;
   addField(collection, id);
@@ -311,7 +311,7 @@ bp.registerBThread("crud:field:nondet:7:1", function () {
 });
 
 // ---- crud:field:nondet:7:2 ----
-bp.registerBThread("crud:field:nondet:7:2", function () {
+bthread("crud:field:nondet:7:2", function () {
   let collection = "collection_206";
   let id = 206;
   addField(collection, id);
@@ -325,7 +325,7 @@ bp.registerBThread("crud:field:nondet:7:2", function () {
 });
 
 // ---- crud:field:nondet:7:3 ----
-bp.registerBThread("crud:field:nondet:7:3", function () {
+bthread("crud:field:nondet:7:3", function () {
   let collection = "collection_206";
   let id = 206;
   addField(collection, id);
@@ -338,7 +338,7 @@ bp.registerBThread("crud:field:nondet:7:3", function () {
 });
 
 // ---- crud:field:nondet:7:4 ----
-bp.registerBThread("crud:field:nondet:7:4", function () {
+bthread("crud:field:nondet:7:4", function () {
   let collection = "collection_207";
   let id = 207;
   addField(collection, id);
@@ -350,7 +350,7 @@ bp.registerBThread("crud:field:nondet:7:4", function () {
 });
 
 // ---- crud:file:nondet:8:1 ----
-bp.registerBThread("crud:file:nondet:8:1", function () {
+bthread("crud:file:nondet:8:1", function () {
   let id = 207;
   addFile(id);
   tryToAddExistingFile(id);
@@ -363,7 +363,7 @@ bp.registerBThread("crud:file:nondet:8:1", function () {
 });
 
 // ---- crud:file:nondet:8:2 ----
-bp.registerBThread("crud:file:nondet:8:2", function () {
+bthread("crud:file:nondet:8:2", function () {
   let id = 207;
   addFile(id);
   tryToAddExistingFile(id);
@@ -376,7 +376,7 @@ bp.registerBThread("crud:file:nondet:8:2", function () {
 });
 
 // ---- crud:file:nondet:8:3 ----
-bp.registerBThread("crud:file:nondet:8:3", function () {
+bthread("crud:file:nondet:8:3", function () {
   let id = 207;
   addFile(id);
   tryToAddExistingFile(id);
@@ -388,7 +388,7 @@ bp.registerBThread("crud:file:nondet:8:3", function () {
 });
 
 // ---- crud:file:nondet:8:4 ----
-bp.registerBThread("crud:file:nondet:8:4", function () {
+bthread("crud:file:nondet:8:4", function () {
   let id = 208;
   addFile(id);
   tryToAddExistingFile(id);
@@ -399,7 +399,7 @@ bp.registerBThread("crud:file:nondet:8:4", function () {
 });
 
 // ---- crud:flow:nondet:9:1 ----
-bp.registerBThread("crud:flow:nondet:9:1", function () {
+bthread("crud:flow:nondet:9:1", function () {
   let id = 208;
   addFlow(id);
   tryToAddExistingFlow(id);
@@ -412,7 +412,7 @@ bp.registerBThread("crud:flow:nondet:9:1", function () {
 });
 
 // ---- crud:flow:nondet:9:2 ----
-bp.registerBThread("crud:flow:nondet:9:2", function () {
+bthread("crud:flow:nondet:9:2", function () {
   let id = 208;
   addFlow(id);
   tryToAddExistingFlow(id);
@@ -425,7 +425,7 @@ bp.registerBThread("crud:flow:nondet:9:2", function () {
 });
 
 // ---- crud:flow:nondet:9:3 ----
-bp.registerBThread("crud:flow:nondet:9:3", function () {
+bthread("crud:flow:nondet:9:3", function () {
   let id = 208;
   addFlow(id);
   tryToAddExistingFlow(id);
@@ -437,7 +437,7 @@ bp.registerBThread("crud:flow:nondet:9:3", function () {
 });
 
 // ---- crud:flow:nondet:9:4 ----
-bp.registerBThread("crud:flow:nondet:9:4", function () {
+bthread("crud:flow:nondet:9:4", function () {
   let id = 209;
   addFlow(id);
   tryToAddExistingFlow(id);
@@ -448,7 +448,7 @@ bp.registerBThread("crud:flow:nondet:9:4", function () {
 });
 
 // ---- crud:folder:nondet:10:1 ----
-bp.registerBThread("crud:folder:nondet:10:1", function () {
+bthread("crud:folder:nondet:10:1", function () {
   let id = 209;
   addFolder(id);
   tryToAddExistingFolder(id);
@@ -461,7 +461,7 @@ bp.registerBThread("crud:folder:nondet:10:1", function () {
 });
 
 // ---- crud:folder:nondet:10:2 ----
-bp.registerBThread("crud:folder:nondet:10:2", function () {
+bthread("crud:folder:nondet:10:2", function () {
   let id = 209;
   addFolder(id);
   tryToAddExistingFolder(id);
@@ -474,7 +474,7 @@ bp.registerBThread("crud:folder:nondet:10:2", function () {
 });
 
 // ---- crud:folder:nondet:10:3 ----
-bp.registerBThread("crud:folder:nondet:10:3", function () {
+bthread("crud:folder:nondet:10:3", function () {
   let id = 209;
   addFolder(id);
   tryToAddExistingFolder(id);
@@ -486,7 +486,7 @@ bp.registerBThread("crud:folder:nondet:10:3", function () {
 });
 
 // ---- crud:folder:nondet:10:4 ----
-bp.registerBThread("crud:folder:nondet:10:4", function () {
+bthread("crud:folder:nondet:10:4", function () {
   let id = 210;
   addFolder(id);
   tryToAddExistingFolder(id);
@@ -497,7 +497,7 @@ bp.registerBThread("crud:folder:nondet:10:4", function () {
 });
 
 // ---- crud:item:nondet:11:1 ----
-bp.registerBThread("crud:item:nondet:11:1", function () {
+bthread("crud:item:nondet:11:1", function () {
   let collection = "collection_210";
   let id = 210;
   addItem(collection, id);
@@ -511,7 +511,7 @@ bp.registerBThread("crud:item:nondet:11:1", function () {
 });
 
 // ---- crud:item:nondet:11:2 ----
-bp.registerBThread("crud:item:nondet:11:2", function () {
+bthread("crud:item:nondet:11:2", function () {
   let collection = "collection_210";
   let id = 210;
   addItem(collection, id);
@@ -525,7 +525,7 @@ bp.registerBThread("crud:item:nondet:11:2", function () {
 });
 
 // ---- crud:item:nondet:11:3 ----
-bp.registerBThread("crud:item:nondet:11:3", function () {
+bthread("crud:item:nondet:11:3", function () {
   let collection = "collection_210";
   let id = 210;
   addItem(collection, id);
@@ -538,7 +538,7 @@ bp.registerBThread("crud:item:nondet:11:3", function () {
 });
 
 // ---- crud:item:nondet:11:4 ----
-bp.registerBThread("crud:item:nondet:11:4", function () {
+bthread("crud:item:nondet:11:4", function () {
   let collection = "collection_211";
   let id = 211;
   addItem(collection, id);
@@ -550,7 +550,7 @@ bp.registerBThread("crud:item:nondet:11:4", function () {
 });
 
 // ---- crud:operation:nondet:12:1 ----
-bp.registerBThread("crud:operation:nondet:12:1", function () {
+bthread("crud:operation:nondet:12:1", function () {
   let id = 211;
   addOperation(id);
   tryToAddExistingOperation(id);
@@ -563,7 +563,7 @@ bp.registerBThread("crud:operation:nondet:12:1", function () {
 });
 
 // ---- crud:operation:nondet:12:2 ----
-bp.registerBThread("crud:operation:nondet:12:2", function () {
+bthread("crud:operation:nondet:12:2", function () {
   let id = 211;
   addOperation(id);
   tryToAddExistingOperation(id);
@@ -576,7 +576,7 @@ bp.registerBThread("crud:operation:nondet:12:2", function () {
 });
 
 // ---- crud:operation:nondet:12:3 ----
-bp.registerBThread("crud:operation:nondet:12:3", function () {
+bthread("crud:operation:nondet:12:3", function () {
   let id = 211;
   addOperation(id);
   tryToAddExistingOperation(id);
@@ -588,7 +588,7 @@ bp.registerBThread("crud:operation:nondet:12:3", function () {
 });
 
 // ---- crud:operation:nondet:12:4 ----
-bp.registerBThread("crud:operation:nondet:12:4", function () {
+bthread("crud:operation:nondet:12:4", function () {
   let id = 212;
   addOperation(id);
   tryToAddExistingOperation(id);
@@ -599,7 +599,7 @@ bp.registerBThread("crud:operation:nondet:12:4", function () {
 });
 
 // ---- crud:permission:nondet:13:1 ----
-bp.registerBThread("crud:permission:nondet:13:1", function () {
+bthread("crud:permission:nondet:13:1", function () {
   let id = 212;
   addPermission(id);
   tryToAddExistingPermission(id);
@@ -612,7 +612,7 @@ bp.registerBThread("crud:permission:nondet:13:1", function () {
 });
 
 // ---- crud:permission:nondet:13:2 ----
-bp.registerBThread("crud:permission:nondet:13:2", function () {
+bthread("crud:permission:nondet:13:2", function () {
   let id = 212;
   addPermission(id);
   tryToAddExistingPermission(id);
@@ -625,7 +625,7 @@ bp.registerBThread("crud:permission:nondet:13:2", function () {
 });
 
 // ---- crud:permission:nondet:13:3 ----
-bp.registerBThread("crud:permission:nondet:13:3", function () {
+bthread("crud:permission:nondet:13:3", function () {
   let id = 212;
   addPermission(id);
   tryToAddExistingPermission(id);
@@ -637,7 +637,7 @@ bp.registerBThread("crud:permission:nondet:13:3", function () {
 });
 
 // ---- crud:permission:nondet:13:4 ----
-bp.registerBThread("crud:permission:nondet:13:4", function () {
+bthread("crud:permission:nondet:13:4", function () {
   let id = 213;
   addPermission(id);
   tryToAddExistingPermission(id);
@@ -648,7 +648,7 @@ bp.registerBThread("crud:permission:nondet:13:4", function () {
 });
 
 // ---- crud:preset:nondet:14:1 ----
-bp.registerBThread("crud:preset:nondet:14:1", function () {
+bthread("crud:preset:nondet:14:1", function () {
   let id = 213;
   addPreset(id);
   tryToAddExistingPreset(id);
@@ -661,7 +661,7 @@ bp.registerBThread("crud:preset:nondet:14:1", function () {
 });
 
 // ---- crud:preset:nondet:14:2 ----
-bp.registerBThread("crud:preset:nondet:14:2", function () {
+bthread("crud:preset:nondet:14:2", function () {
   let id = 213;
   addPreset(id);
   tryToAddExistingPreset(id);
@@ -674,7 +674,7 @@ bp.registerBThread("crud:preset:nondet:14:2", function () {
 });
 
 // ---- crud:preset:nondet:14:3 ----
-bp.registerBThread("crud:preset:nondet:14:3", function () {
+bthread("crud:preset:nondet:14:3", function () {
   let id = 213;
   addPreset(id);
   tryToAddExistingPreset(id);
@@ -686,7 +686,7 @@ bp.registerBThread("crud:preset:nondet:14:3", function () {
 });
 
 // ---- crud:preset:nondet:14:4 ----
-bp.registerBThread("crud:preset:nondet:14:4", function () {
+bthread("crud:preset:nondet:14:4", function () {
   let id = 214;
   addPreset(id);
   tryToAddExistingPreset(id);
@@ -697,7 +697,7 @@ bp.registerBThread("crud:preset:nondet:14:4", function () {
 });
 
 // ---- crud:relation:nondet:15:1 ----
-bp.registerBThread("crud:relation:nondet:15:1", function () {
+bthread("crud:relation:nondet:15:1", function () {
   let id = 214;
   addRelation(id);
   tryToAddExistingRelation(id);
@@ -710,7 +710,7 @@ bp.registerBThread("crud:relation:nondet:15:1", function () {
 });
 
 // ---- crud:relation:nondet:15:2 ----
-bp.registerBThread("crud:relation:nondet:15:2", function () {
+bthread("crud:relation:nondet:15:2", function () {
   let id = 214;
   addRelation(id);
   tryToAddExistingRelation(id);
@@ -723,7 +723,7 @@ bp.registerBThread("crud:relation:nondet:15:2", function () {
 });
 
 // ---- crud:relation:nondet:15:3 ----
-bp.registerBThread("crud:relation:nondet:15:3", function () {
+bthread("crud:relation:nondet:15:3", function () {
   let id = 214;
   addRelation(id);
   tryToAddExistingRelation(id);
@@ -735,7 +735,7 @@ bp.registerBThread("crud:relation:nondet:15:3", function () {
 });
 
 // ---- crud:relation:nondet:15:4 ----
-bp.registerBThread("crud:relation:nondet:15:4", function () {
+bthread("crud:relation:nondet:15:4", function () {
   let id = 215;
   addRelation(id);
   tryToAddExistingRelation(id);
@@ -746,7 +746,7 @@ bp.registerBThread("crud:relation:nondet:15:4", function () {
 });
 
 // ---- crud:revision:nondet:16:1 ----
-bp.registerBThread("crud:revision:nondet:16:1", function () {
+bthread("crud:revision:nondet:16:1", function () {
   let id = 215;
   addRevision(id);
   tryToAddExistingRevision(id);
@@ -759,7 +759,7 @@ bp.registerBThread("crud:revision:nondet:16:1", function () {
 });
 
 // ---- crud:revision:nondet:16:2 ----
-bp.registerBThread("crud:revision:nondet:16:2", function () {
+bthread("crud:revision:nondet:16:2", function () {
   let id = 215;
   addRevision(id);
   tryToAddExistingRevision(id);
@@ -772,7 +772,7 @@ bp.registerBThread("crud:revision:nondet:16:2", function () {
 });
 
 // ---- crud:revision:nondet:16:3 ----
-bp.registerBThread("crud:revision:nondet:16:3", function () {
+bthread("crud:revision:nondet:16:3", function () {
   let id = 215;
   addRevision(id);
   tryToAddExistingRevision(id);
@@ -784,7 +784,7 @@ bp.registerBThread("crud:revision:nondet:16:3", function () {
 });
 
 // ---- crud:revision:nondet:16:4 ----
-bp.registerBThread("crud:revision:nondet:16:4", function () {
+bthread("crud:revision:nondet:16:4", function () {
   let id = 216;
   addRevision(id);
   tryToAddExistingRevision(id);
@@ -795,7 +795,7 @@ bp.registerBThread("crud:revision:nondet:16:4", function () {
 });
 
 // ---- crud:role:nondet:17:1 ----
-bp.registerBThread("crud:role:nondet:17:1", function () {
+bthread("crud:role:nondet:17:1", function () {
   let id = 216;
   addRole(id);
   tryToAddExistingRole(id);
@@ -808,7 +808,7 @@ bp.registerBThread("crud:role:nondet:17:1", function () {
 });
 
 // ---- crud:role:nondet:17:2 ----
-bp.registerBThread("crud:role:nondet:17:2", function () {
+bthread("crud:role:nondet:17:2", function () {
   let id = 216;
   addRole(id);
   tryToAddExistingRole(id);
@@ -821,7 +821,7 @@ bp.registerBThread("crud:role:nondet:17:2", function () {
 });
 
 // ---- crud:role:nondet:17:3 ----
-bp.registerBThread("crud:role:nondet:17:3", function () {
+bthread("crud:role:nondet:17:3", function () {
   let id = 216;
   addRole(id);
   tryToAddExistingRole(id);
@@ -833,7 +833,7 @@ bp.registerBThread("crud:role:nondet:17:3", function () {
 });
 
 // ---- crud:role:nondet:17:4 ----
-bp.registerBThread("crud:role:nondet:17:4", function () {
+bthread("crud:role:nondet:17:4", function () {
   let id = 217;
   addRole(id);
   tryToAddExistingRole(id);
@@ -844,7 +844,7 @@ bp.registerBThread("crud:role:nondet:17:4", function () {
 });
 
 // ---- crud:schema:nondet:18:1 ----
-bp.registerBThread("crud:schema:nondet:18:1", function () {
+bthread("crud:schema:nondet:18:1", function () {
   let id = 217;
   addSchema(id);
   tryToAddExistingSchema(id);
@@ -857,7 +857,7 @@ bp.registerBThread("crud:schema:nondet:18:1", function () {
 });
 
 // ---- crud:schema:nondet:18:2 ----
-bp.registerBThread("crud:schema:nondet:18:2", function () {
+bthread("crud:schema:nondet:18:2", function () {
   let id = 217;
   addSchema(id);
   tryToAddExistingSchema(id);
@@ -870,7 +870,7 @@ bp.registerBThread("crud:schema:nondet:18:2", function () {
 });
 
 // ---- crud:schema:nondet:18:3 ----
-bp.registerBThread("crud:schema:nondet:18:3", function () {
+bthread("crud:schema:nondet:18:3", function () {
   let id = 217;
   addSchema(id);
   tryToAddExistingSchema(id);
@@ -882,7 +882,7 @@ bp.registerBThread("crud:schema:nondet:18:3", function () {
 });
 
 // ---- crud:schema:nondet:18:4 ----
-bp.registerBThread("crud:schema:nondet:18:4", function () {
+bthread("crud:schema:nondet:18:4", function () {
   let id = 218;
   addSchema(id);
   tryToAddExistingSchema(id);
@@ -893,7 +893,7 @@ bp.registerBThread("crud:schema:nondet:18:4", function () {
 });
 
 // ---- crud:server:nondet:19:1 ----
-bp.registerBThread("crud:server:nondet:19:1", function () {
+bthread("crud:server:nondet:19:1", function () {
   let id = 218;
   addServer(id);
   tryToAddExistingServer(id);
@@ -906,7 +906,7 @@ bp.registerBThread("crud:server:nondet:19:1", function () {
 });
 
 // ---- crud:server:nondet:19:2 ----
-bp.registerBThread("crud:server:nondet:19:2", function () {
+bthread("crud:server:nondet:19:2", function () {
   let id = 218;
   addServer(id);
   tryToAddExistingServer(id);
@@ -919,7 +919,7 @@ bp.registerBThread("crud:server:nondet:19:2", function () {
 });
 
 // ---- crud:server:nondet:19:3 ----
-bp.registerBThread("crud:server:nondet:19:3", function () {
+bthread("crud:server:nondet:19:3", function () {
   let id = 218;
   addServer(id);
   tryToAddExistingServer(id);
@@ -931,7 +931,7 @@ bp.registerBThread("crud:server:nondet:19:3", function () {
 });
 
 // ---- crud:server:nondet:19:4 ----
-bp.registerBThread("crud:server:nondet:19:4", function () {
+bthread("crud:server:nondet:19:4", function () {
   let id = 219;
   addServer(id);
   tryToAddExistingServer(id);
@@ -942,7 +942,7 @@ bp.registerBThread("crud:server:nondet:19:4", function () {
 });
 
 // ---- crud:setting:nondet:20:1 ----
-bp.registerBThread("crud:setting:nondet:20:1", function () {
+bthread("crud:setting:nondet:20:1", function () {
   let id = 219;
   addSetting(id);
   tryToAddExistingSetting(id);
@@ -955,7 +955,7 @@ bp.registerBThread("crud:setting:nondet:20:1", function () {
 });
 
 // ---- crud:setting:nondet:20:2 ----
-bp.registerBThread("crud:setting:nondet:20:2", function () {
+bthread("crud:setting:nondet:20:2", function () {
   let id = 219;
   addSetting(id);
   tryToAddExistingSetting(id);
@@ -968,7 +968,7 @@ bp.registerBThread("crud:setting:nondet:20:2", function () {
 });
 
 // ---- crud:setting:nondet:20:3 ----
-bp.registerBThread("crud:setting:nondet:20:3", function () {
+bthread("crud:setting:nondet:20:3", function () {
   let id = 219;
   addSetting(id);
   tryToAddExistingSetting(id);
@@ -980,7 +980,7 @@ bp.registerBThread("crud:setting:nondet:20:3", function () {
 });
 
 // ---- crud:setting:nondet:20:4 ----
-bp.registerBThread("crud:setting:nondet:20:4", function () {
+bthread("crud:setting:nondet:20:4", function () {
   let id = 220;
   addSetting(id);
   tryToAddExistingSetting(id);
@@ -991,7 +991,7 @@ bp.registerBThread("crud:setting:nondet:20:4", function () {
 });
 
 // ---- crud:user:nondet:21:1 ----
-bp.registerBThread("crud:user:nondet:21:1", function () {
+bthread("crud:user:nondet:21:1", function () {
   let id = 220;
   addUser(id);
   tryToAddExistingUser(id);
@@ -1004,7 +1004,7 @@ bp.registerBThread("crud:user:nondet:21:1", function () {
 });
 
 // ---- crud:user:nondet:21:2 ----
-bp.registerBThread("crud:user:nondet:21:2", function () {
+bthread("crud:user:nondet:21:2", function () {
   let id = 220;
   addUser(id);
   tryToAddExistingUser(id);
@@ -1017,7 +1017,7 @@ bp.registerBThread("crud:user:nondet:21:2", function () {
 });
 
 // ---- crud:user:nondet:21:3 ----
-bp.registerBThread("crud:user:nondet:21:3", function () {
+bthread("crud:user:nondet:21:3", function () {
   let id = 220;
   addUser(id);
   tryToAddExistingUser(id);
@@ -1029,7 +1029,7 @@ bp.registerBThread("crud:user:nondet:21:3", function () {
 });
 
 // ---- crud:user:nondet:21:4 ----
-bp.registerBThread("crud:user:nondet:21:4", function () {
+bthread("crud:user:nondet:21:4", function () {
   let id = 221;
   addUser(id);
   tryToAddExistingUser(id);
@@ -1040,7 +1040,7 @@ bp.registerBThread("crud:user:nondet:21:4", function () {
 });
 
 // ---- crud:util:nondet:22:1 ----
-bp.registerBThread("crud:util:nondet:22:1", function () {
+bthread("crud:util:nondet:22:1", function () {
   let collection = "collection_221";
   addUtil(collection);
   tryToAddExistingUtil(collection);
@@ -1053,7 +1053,7 @@ bp.registerBThread("crud:util:nondet:22:1", function () {
 });
 
 // ---- crud:util:nondet:22:2 ----
-bp.registerBThread("crud:util:nondet:22:2", function () {
+bthread("crud:util:nondet:22:2", function () {
   let collection = "collection_221";
   addUtil(collection);
   tryToAddExistingUtil(collection);
@@ -1066,7 +1066,7 @@ bp.registerBThread("crud:util:nondet:22:2", function () {
 });
 
 // ---- crud:util:nondet:22:3 ----
-bp.registerBThread("crud:util:nondet:22:3", function () {
+bthread("crud:util:nondet:22:3", function () {
   let collection = "collection_221";
   addUtil(collection);
   tryToAddExistingUtil(collection);
@@ -1078,7 +1078,7 @@ bp.registerBThread("crud:util:nondet:22:3", function () {
 });
 
 // ---- crud:util:nondet:22:4 ----
-bp.registerBThread("crud:util:nondet:22:4", function () {
+bthread("crud:util:nondet:22:4", function () {
   let collection = "collection_222";
   addUtil(collection);
   tryToAddExistingUtil(collection);
@@ -1089,7 +1089,7 @@ bp.registerBThread("crud:util:nondet:22:4", function () {
 });
 
 // ---- crud:version:nondet:23:1 ----
-bp.registerBThread("crud:version:nondet:23:1", function () {
+bthread("crud:version:nondet:23:1", function () {
   let id = 222;
   addVersion(id);
   tryToAddExistingVersion(id);
@@ -1102,7 +1102,7 @@ bp.registerBThread("crud:version:nondet:23:1", function () {
 });
 
 // ---- crud:version:nondet:23:2 ----
-bp.registerBThread("crud:version:nondet:23:2", function () {
+bthread("crud:version:nondet:23:2", function () {
   let id = 222;
   addVersion(id);
   tryToAddExistingVersion(id);
@@ -1115,7 +1115,7 @@ bp.registerBThread("crud:version:nondet:23:2", function () {
 });
 
 // ---- crud:version:nondet:23:3 ----
-bp.registerBThread("crud:version:nondet:23:3", function () {
+bthread("crud:version:nondet:23:3", function () {
   let id = 222;
   addVersion(id);
   tryToAddExistingVersion(id);
@@ -1127,7 +1127,7 @@ bp.registerBThread("crud:version:nondet:23:3", function () {
 });
 
 // ---- crud:version:nondet:23:4 ----
-bp.registerBThread("crud:version:nondet:23:4", function () {
+bthread("crud:version:nondet:23:4", function () {
   let id = 223;
   addVersion(id);
   tryToAddExistingVersion(id);
@@ -1138,7 +1138,7 @@ bp.registerBThread("crud:version:nondet:23:4", function () {
 });
 
 // ---- crud:webhook:nondet:24:1 ----
-bp.registerBThread("crud:webhook:nondet:24:1", function () {
+bthread("crud:webhook:nondet:24:1", function () {
   let id = 223;
   addWebhook(id);
   tryToAddExistingWebhook(id);
@@ -1151,7 +1151,7 @@ bp.registerBThread("crud:webhook:nondet:24:1", function () {
 });
 
 // ---- crud:webhook:nondet:24:2 ----
-bp.registerBThread("crud:webhook:nondet:24:2", function () {
+bthread("crud:webhook:nondet:24:2", function () {
   let id = 223;
   addWebhook(id);
   tryToAddExistingWebhook(id);
@@ -1164,7 +1164,7 @@ bp.registerBThread("crud:webhook:nondet:24:2", function () {
 });
 
 // ---- crud:webhook:nondet:24:3 ----
-bp.registerBThread("crud:webhook:nondet:24:3", function () {
+bthread("crud:webhook:nondet:24:3", function () {
   let id = 223;
   addWebhook(id);
   tryToAddExistingWebhook(id);
@@ -1176,7 +1176,7 @@ bp.registerBThread("crud:webhook:nondet:24:3", function () {
 });
 
 // ---- crud:webhook:nondet:24:4 ----
-bp.registerBThread("crud:webhook:nondet:24:4", function () {
+bthread("crud:webhook:nondet:24:4", function () {
   let id = 224;
   addWebhook(id);
   tryToAddExistingWebhook(id);

@@ -14,7 +14,7 @@
       "operationId": "code-scanning/list-alerts-for-repo",
       "summary": "",
       "user": "user456",
-      "ideal": "Get a list of code scanning alerts for the given repository."
+      "ideal": "Fetch all code scanning alerts for a specific repository."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}",
@@ -22,7 +22,7 @@
       "operationId": "code-scanning/get-alert",
       "summary": "",
       "user": "user789",
-      "ideal": "Fetch details of a specific code scanning alert by its number."
+      "ideal": "Get detailed information about a specific code scanning alert."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}",
@@ -70,7 +70,7 @@
       "operationId": "code-scanning/list-recent-analyses",
       "summary": "",
       "user": "user606",
-      "ideal": "Get a list of recent code scanning analyses for the repository."
+      "ideal": "Get a list of recent code scanning analyses for a repository."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}",
@@ -86,7 +86,7 @@
       "operationId": "code-scanning/delete-analysis",
       "summary": "",
       "user": "user808",
-      "ideal": "Delete a specific code scanning analysis by its ID."
+      "ideal": "Delete a specific code scanning analysis."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/codeql/databases",
@@ -94,7 +94,7 @@
       "operationId": "code-scanning/list-codeql-databases",
       "summary": "",
       "user": "user909",
-      "ideal": "List all CodeQL databases available for the repository."
+      "ideal": "List all CodeQL databases for a repository."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/codeql/databases/{language}",
@@ -102,7 +102,7 @@
       "operationId": "code-scanning/get-codeql-database",
       "summary": "",
       "user": "user1010",
-      "ideal": "Retrieve a specific CodeQL database for the given language."
+      "ideal": "Get details of a specific CodeQL database for a given language."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/codeql/databases/{language}",
@@ -110,7 +110,7 @@
       "operationId": "code-scanning/delete-codeql-database",
       "summary": "",
       "user": "user1111",
-      "ideal": "Delete a specific CodeQL database for the given language."
+      "ideal": "Delete a specific CodeQL database for a repository."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses",
@@ -118,7 +118,7 @@
       "operationId": "code-scanning/create-variant-analysis",
       "summary": "",
       "user": "user1212",
-      "ideal": "Create a new variant analysis for the repository."
+      "ideal": "Create a new variant analysis for a repository."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses/{codeql_variant_analysis_id}",
@@ -126,7 +126,7 @@
       "operationId": "code-scanning/get-variant-analysis",
       "summary": "",
       "user": "user1313",
-      "ideal": "Fetch details of a specific variant analysis."
+      "ideal": "Retrieve details of a specific variant analysis."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses/{codeql_variant_analysis_id}/repos/{repo_owner}/{repo_name}",
@@ -142,7 +142,7 @@
       "operationId": "code-scanning/get-default-setup",
       "summary": "",
       "user": "user1515",
-      "ideal": "Retrieve the default setup for code scanning in the repository."
+      "ideal": "Retrieve the default setup for code scanning in a repository."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/default-setup",
@@ -150,7 +150,7 @@
       "operationId": "code-scanning/update-default-setup",
       "summary": "",
       "user": "user1616",
-      "ideal": "Update the default setup for code scanning in the repository."
+      "ideal": "Update the default setup configuration for code scanning."
     },
     {
       "path": "/repos/{owner}/{repo}/code-scanning/sarifs",
@@ -166,7 +166,7 @@
       "operationId": "code-scanning/get-sarif",
       "summary": "",
       "user": "user1818",
-      "ideal": "Retrieve details of a specific SARIF file."
+      "ideal": "Get details of a specific SARIF file."
     }
   ]
 }

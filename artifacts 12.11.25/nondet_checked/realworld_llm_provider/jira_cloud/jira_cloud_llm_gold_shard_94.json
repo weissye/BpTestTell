@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/workflow/transitions/123/properties",
+      "method": "DELETE",
+      "operationId": "deleteWorkflowTransitionProperty",
+      "summary": "",
+      "user": "Admin user attempting to remove a specific property from a workflow transition to streamline the process.",
+      "ideal": "Successfully deleted the property from the transition."
+    },
+    {
+      "path": "/rest/api/3/workflow/transitions/123/properties",
+      "method": "GET",
+      "operationId": "getWorkflowTransitionProperties",
+      "summary": "",
+      "user": "Project manager checking the properties of a workflow transition to ensure all necessary configurations are in place.",
+      "ideal": "Retrieved the list of properties associated with the specified workflow transition."
+    },
+    {
+      "path": "/rest/api/3/workflow/transitions/123/properties",
+      "method": "POST",
+      "operationId": "createWorkflowTransitionProperty",
+      "summary": "",
+      "user": "Developer adding a new property to a workflow transition to support a new feature in the project.",
+      "ideal": "Successfully created a new property for the workflow transition."
+    },
+    {
+      "path": "/rest/api/3/workflow/transitions/123/properties",
+      "method": "PUT",
+      "operationId": "updateWorkflowTransitionProperty",
+      "summary": "",
+      "user": "Team lead updating an existing property of a workflow transition to reflect changes in the project requirements.",
+      "ideal": "Successfully updated the property for the workflow transition."
+    }
+  ]
+}

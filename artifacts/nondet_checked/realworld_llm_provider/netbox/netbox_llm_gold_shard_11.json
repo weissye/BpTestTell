@@ -5,15 +5,15 @@
       "method": "GET",
       "operationId": "vpn_ike_policies_list",
       "summary": "",
-      "user": "Admin user requesting a list of IKE policies for VPN configuration.",
-      "ideal": "Returns a list of all IKE policies in the system."
+      "user": "Admin user requesting a list of all IKE policies for VPN configuration.",
+      "ideal": "Returns a list of IKE policies with their details."
     },
     {
       "path": "/api/vpn/ike-policies/",
       "method": "POST",
       "operationId": "vpn_ike_policies_create",
       "summary": "",
-      "user": "Network engineer creating a new IKE policy for site-to-site VPN.",
+      "user": "Network engineer creating a new IKE policy for secure VPN connections.",
       "ideal": "Creates a new IKE policy and returns the created policy details."
     },
     {
@@ -21,7 +21,7 @@
       "method": "GET",
       "operationId": "vpn_ike_policies_retrieve",
       "summary": "",
-      "user": "Support staff retrieving details of a specific IKE policy.",
+      "user": "Support staff retrieving details of a specific IKE policy by ID.",
       "ideal": "Returns the details of the specified IKE policy."
     },
     {
@@ -45,71 +45,55 @@
       "method": "GET",
       "operationId": "vpn_ipsec_policies_list",
       "summary": "",
-      "user": "Network engineer reviewing all IPSec policies for compliance.",
-      "ideal": "Returns a list of all IPSec policies in the system."
+      "user": "Network engineer checking the list of all IPSec policies for VPN.",
+      "ideal": "Returns a list of IPSec policies with their configurations."
     },
     {
       "path": "/api/vpn/ipsec-policies/",
       "method": "POST",
       "operationId": "vpn_ipsec_policies_create",
       "summary": "",
-      "user": "Admin creating a new IPSec policy for a new VPN connection.",
+      "user": "Admin creating a new IPSec policy for enhanced data security.",
       "ideal": "Creates a new IPSec policy and returns the created policy details."
     },
     {
       "path": "/api/vpn/ipsec-policies/{id}/",
-      "method": "GET",
-      "operationId": "vpn_ipsec_policies_retrieve",
+      "method": "PATCH",
+      "operationId": "vpn_ipsec_policies_partial_update",
       "summary": "",
-      "user": "Support staff retrieving details of a specific IPSec policy.",
-      "ideal": "Returns the details of the specified IPSec policy."
-    },
-    {
-      "path": "/api/vpn/ipsec-policies/{id}/",
-      "method": "PUT",
-      "operationId": "vpn_ipsec_policies_update",
-      "summary": "",
-      "user": "Network engineer updating an IPSec policy for improved performance.",
-      "ideal": "Updates the specified IPSec policy and returns the updated policy details."
+      "user": "Network engineer making minor adjustments to an existing IPSec policy.",
+      "ideal": "Partially updates the specified IPSec policy and returns the updated details."
     },
     {
       "path": "/api/vpn/ipsec-policies/{id}/",
       "method": "DELETE",
       "operationId": "vpn_ipsec_policies_destroy",
       "summary": "",
-      "user": "Admin removing an outdated IPSec policy.",
-      "ideal": "Deletes the specified IPSec policy and confirms deletion."
+      "user": "Admin removing an outdated IPSec policy from the system.",
+      "ideal": "Deletes the specified IPSec policy and confirms the action."
     },
     {
       "path": "/api/vpn/tunnels/",
       "method": "GET",
       "operationId": "vpn_tunnels_list",
       "summary": "",
-      "user": "Network administrator listing all active VPN tunnels.",
-      "ideal": "Returns a list of all active VPN tunnels."
+      "user": "Network administrator reviewing the current VPN tunnels.",
+      "ideal": "Returns a list of all active VPN tunnels with their statuses."
     },
     {
       "path": "/api/vpn/tunnels/",
       "method": "POST",
       "operationId": "vpn_tunnels_create",
       "summary": "",
-      "user": "Network engineer creating a new VPN tunnel for a client.",
+      "user": "Network engineer setting up a new VPN tunnel for remote access.",
       "ideal": "Creates a new VPN tunnel and returns the tunnel details."
-    },
-    {
-      "path": "/api/vpn/tunnels/{id}/",
-      "method": "GET",
-      "operationId": "vpn_tunnels_retrieve",
-      "summary": "",
-      "user": "Support staff retrieving details of a specific VPN tunnel.",
-      "ideal": "Returns the details of the specified VPN tunnel."
     },
     {
       "path": "/api/vpn/tunnels/{id}/",
       "method": "PUT",
       "operationId": "vpn_tunnels_update",
       "summary": "",
-      "user": "Admin updating a VPN tunnel configuration for better security.",
+      "user": "Admin updating the configuration of an existing VPN tunnel.",
       "ideal": "Updates the specified VPN tunnel and returns the updated tunnel details."
     },
     {
@@ -118,7 +102,7 @@
       "operationId": "vpn_tunnels_destroy",
       "summary": "",
       "user": "Network administrator deleting an unused VPN tunnel.",
-      "ideal": "Deletes the specified VPN tunnel and confirms deletion."
+      "ideal": "Deletes the specified VPN tunnel and confirms the deletion."
     }
   ]
 }

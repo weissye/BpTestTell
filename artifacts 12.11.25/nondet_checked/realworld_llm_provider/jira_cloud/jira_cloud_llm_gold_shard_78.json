@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/serverInfo",
+      "method": "GET",
+      "operationId": "getServerInfo",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve server information from the Jira Cloud platform to ensure that I have the latest updates on the server status and capabilities for my team.",
+      "ideal": "The response should include the server's version, build number, and other relevant details that indicate the current state of the server."
+    }
+  ]
+}

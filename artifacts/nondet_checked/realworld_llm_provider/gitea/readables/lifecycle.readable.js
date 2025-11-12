@@ -9,13 +9,13 @@ function lifecycle_activitypub(id) {
   verifyActivitypubDoesNotExist(id);
 }
 
-function lifecycle_admin(id) {
-  try { tryToDeleteANonExistingAdmin(id); } catch (_e) {}
-  addAdmin(id);
-  verifyAdminExists(id);
-  tryToAddExistingAdmin(id);
-  deleteAdmin(id);
-  verifyAdminDoesNotExist(id);
+function lifecycle_admin(username, id) {
+  try { tryToDeleteANonExistingAdmin(username, id); } catch (_e) {}
+  addAdmin(username, id);
+  verifyAdminExists(username, id);
+  tryToAddExistingAdmin(username, id);
+  deleteAdmin(username, id);
+  verifyAdminDoesNotExist(username, id);
 }
 
 function lifecycle_gitignore(id) {
@@ -99,13 +99,13 @@ function lifecycle_package(id) {
   verifyPackageDoesNotExist(id);
 }
 
-function lifecycle_repo(owner, repo, index, id, user, secretname, branch) {
-  try { tryToDeleteANonExistingRepo(owner, repo, index, id, user, secretname, branch); } catch (_e) {}
-  addRepo(owner, repo, index, id, user, secretname, branch);
-  verifyRepoExists(owner, repo, index, id, user, secretname, branch);
-  tryToAddExistingRepo(owner, repo, index, id, user, secretname, branch);
-  deleteRepo(owner, repo, index, id, user, secretname, branch);
-  verifyRepoDoesNotExist(owner, repo, index, id, user, secretname, branch);
+function lifecycle_repo(owner, repo, index, id, secretname, branch) {
+  try { tryToDeleteANonExistingRepo(owner, repo, index, id, secretname, branch); } catch (_e) {}
+  addRepo(owner, repo, index, id, secretname, branch);
+  verifyRepoExists(owner, repo, index, id, secretname, branch);
+  tryToAddExistingRepo(owner, repo, index, id, secretname, branch);
+  deleteRepo(owner, repo, index, id, secretname, branch);
+  verifyRepoDoesNotExist(owner, repo, index, id, secretname, branch);
 }
 
 function lifecycle_setting(id) {

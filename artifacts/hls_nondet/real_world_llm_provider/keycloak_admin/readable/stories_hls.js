@@ -1,5 +1,5 @@
 // ---- crud:root:nondet:1:1 ----
-bp.registerBThread("crud:root:nondet:1:1", function () {
+bthread("crud:root:nondet:1:1", function () {
   let id = 200;
   addRoot(id);
   tryToAddExistingRoot(id);
@@ -12,7 +12,7 @@ bp.registerBThread("crud:root:nondet:1:1", function () {
 });
 
 // ---- crud:root:nondet:1:2 ----
-bp.registerBThread("crud:root:nondet:1:2", function () {
+bthread("crud:root:nondet:1:2", function () {
   let id = 200;
   addRoot(id);
   tryToAddExistingRoot(id);
@@ -25,7 +25,7 @@ bp.registerBThread("crud:root:nondet:1:2", function () {
 });
 
 // ---- crud:root:nondet:1:3 ----
-bp.registerBThread("crud:root:nondet:1:3", function () {
+bthread("crud:root:nondet:1:3", function () {
   let id = 200;
   addRoot(id);
   tryToAddExistingRoot(id);
@@ -37,7 +37,7 @@ bp.registerBThread("crud:root:nondet:1:3", function () {
 });
 
 // ---- crud:root:nondet:1:4 ----
-bp.registerBThread("crud:root:nondet:1:4", function () {
+bthread("crud:root:nondet:1:4", function () {
   let id = 201;
   addRoot(id);
   tryToAddExistingRoot(id);
@@ -48,7 +48,7 @@ bp.registerBThread("crud:root:nondet:1:4", function () {
 });
 
 // ---- crud:{realm}:nondet:2:1 ----
-bp.registerBThread("crud:{realm}:nondet:2:1", function () {
+bthread("crud:{realm}:nondet:2:1", function () {
   let realm = "realm_201";
   let id = 201;
   let client = "client_201";
@@ -87,7 +87,7 @@ bp.registerBThread("crud:{realm}:nondet:2:1", function () {
 });
 
 // ---- crud:{realm}:nondet:2:2 ----
-bp.registerBThread("crud:{realm}:nondet:2:2", function () {
+bthread("crud:{realm}:nondet:2:2", function () {
   let realm = "realm_201";
   let id = 201;
   let client = "client_201";
@@ -126,7 +126,7 @@ bp.registerBThread("crud:{realm}:nondet:2:2", function () {
 });
 
 // ---- crud:{realm}:nondet:2:3 ----
-bp.registerBThread("crud:{realm}:nondet:2:3", function () {
+bthread("crud:{realm}:nondet:2:3", function () {
   let realm = "realm_201";
   let id = 201;
   let client = "client_201";
@@ -164,7 +164,7 @@ bp.registerBThread("crud:{realm}:nondet:2:3", function () {
 });
 
 // ---- crud:{realm}:nondet:2:4 ----
-bp.registerBThread("crud:{realm}:nondet:2:4", function () {
+bthread("crud:{realm}:nondet:2:4", function () {
   let realm = "realm_202";
   let id = 202;
   let client = "client_202";

@@ -9,12 +9,12 @@
       "ideal": "Retrieve all property keys associated with the user."
     },
     {
-      "path": "/rest/api/3/user/properties/notification-preferences",
+      "path": "/rest/api/3/user/properties/notificationPreference",
       "method": "DELETE",
       "operationId": "deleteUserProperty",
       "summary": "",
       "user": "jane.smith@example.com",
-      "ideal": "Delete the user's notification preferences property."
+      "ideal": "Delete the user's notification preference property."
     },
     {
       "path": "/rest/api/3/user/properties/theme",
@@ -30,7 +30,7 @@
       "operationId": "setUserProperty",
       "summary": "",
       "user": "bob.johnson@example.com",
-      "ideal": "Update the user's language preference to Spanish."
+      "ideal": "Update the user's language preference to French."
     }
   ]
 }

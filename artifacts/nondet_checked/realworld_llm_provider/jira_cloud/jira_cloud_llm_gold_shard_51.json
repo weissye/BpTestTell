@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "getApplicationProperty",
       "summary": "",
-      "user": "User wants to retrieve the current application properties for the Jira Cloud instance to check configurations.",
+      "user": "User requests to retrieve the current application properties to check configurations.",
       "ideal": "Returns a list of application properties with their current values."
     },
     {
@@ -13,24 +13,24 @@
       "method": "GET",
       "operationId": "getAdvancedSettings",
       "summary": "",
-      "user": "User needs to access advanced settings to modify specific configurations for integrations.",
-      "ideal": "Returns the current advanced settings for the Jira application."
+      "user": "User wants to access advanced settings to modify application behavior.",
+      "ideal": "Returns advanced settings related to the application properties."
     },
     {
       "path": "/rest/api/3/application-properties/{id}",
       "method": "PUT",
       "operationId": "setApplicationProperty",
       "summary": "",
-      "user": "User wants to update a specific application property to enable a feature in Jira.",
-      "ideal": "Successfully updates the specified application property and returns the updated value."
+      "user": "User updates a specific application property to change its value.",
+      "ideal": "Successfully updates the specified application property and returns a confirmation."
     },
     {
       "path": "/rest/api/3/configuration",
       "method": "GET",
       "operationId": "getConfiguration",
       "summary": "",
-      "user": "User is looking to retrieve the current configuration settings of the Jira Cloud instance for auditing purposes.",
-      "ideal": "Returns the current configuration settings of the Jira application."
+      "user": "User retrieves the current configuration settings of the application.",
+      "ideal": "Returns the current configuration settings including system and user preferences."
     }
   ]
 }

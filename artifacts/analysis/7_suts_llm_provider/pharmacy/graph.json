@@ -1,9 +1,157 @@
 {
-  "entities": [],
+  "entities": [
+    {
+      "name": "Drug",
+      "required": [
+        "id"
+      ],
+      "properties": [
+        "id",
+        "name"
+      ]
+    },
+    {
+      "name": "Patient",
+      "required": [
+        "id"
+      ],
+      "properties": [
+        "id",
+        "name"
+      ]
+    },
+    {
+      "name": "Order",
+      "required": [
+        "id"
+      ],
+      "properties": [
+        "id"
+      ]
+    },
+    {
+      "name": "Prescription",
+      "required": [
+        "id"
+      ],
+      "properties": [
+        "id"
+      ]
+    },
+    {
+      "name": "Inventory",
+      "required": [
+        "ndc"
+      ],
+      "properties": [
+        "ndc"
+      ]
+    },
+    {
+      "name": "InventoryCreate",
+      "required": [
+        "ndc"
+      ],
+      "properties": [
+        "ndc"
+      ]
+    },
+    {
+      "name": "Reset",
+      "required": [
+        "id"
+      ],
+      "properties": [
+        "id"
+      ]
+    },
+    {
+      "name": "Deleted",
+      "required": [],
+      "properties": [
+        "deleted"
+      ]
+    },
+    {
+      "name": "Ok",
+      "required": [],
+      "properties": [
+        "ok"
+      ]
+    },
+    {
+      "name": "Error",
+      "required": [],
+      "properties": [
+        "error"
+      ]
+    }
+  ],
   "ops": [
     {
+      "method": "GET",
+      "path": "/drugs",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
       "method": "POST",
-      "path": "/reset",
+      "path": "/drugs",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "201",
+        "400",
+        "409"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/drugs/{id}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/drugs/{id}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/drugs/{id}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/patients",
       "operationId": null,
       "tags": [],
       "params": [],
@@ -18,14 +166,53 @@
       "operationId": null,
       "tags": [],
       "params": [],
-      "requestBodyCT": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
       "responses": [
-        "201"
+        "201",
+        "400",
+        "409"
       ]
     },
     {
       "method": "GET",
-      "path": "/drugs",
+      "path": "/patients/{id}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/patients/{id}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/patients/{id}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/orders",
       "operationId": null,
       "tags": [],
       "params": [],
@@ -36,13 +223,63 @@
     },
     {
       "method": "POST",
-      "path": "/drugs",
+      "path": "/orders",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "201",
+        "400",
+        "409"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/orders/{id}",
       "operationId": null,
       "tags": [],
       "params": [],
       "requestBodyCT": [],
       "responses": [
-        "201"
+        "200"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/orders/{id}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/orders/{id}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/prescriptions",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
       ]
     },
     {
@@ -51,14 +288,53 @@
       "operationId": null,
       "tags": [],
       "params": [],
-      "requestBodyCT": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
       "responses": [
-        "201"
+        "201",
+        "400",
+        "409"
       ]
     },
     {
       "method": "GET",
-      "path": "/orders",
+      "path": "/prescriptions/{id}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/prescriptions/{id}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/prescriptions/{id}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/inventory",
       "operationId": null,
       "tags": [],
       "params": [],
@@ -69,18 +345,118 @@
     },
     {
       "method": "POST",
-      "path": "/orders",
+      "path": "/inventory",
       "operationId": null,
       "tags": [],
       "params": [],
-      "requestBodyCT": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
       "responses": [
-        "201"
+        "201",
+        "400",
+        "409"
       ]
     },
     {
       "method": "GET",
       "path": "/inventory/{ndc}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/inventory/{ndc}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/inventory/{ndc}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reset",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "201",
+        "400",
+        "409"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reset/{id}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/reset/{id}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/reset/{id}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset-all",
       "operationId": null,
       "tags": [],
       "params": [],

@@ -1,0 +1,76 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/activitypub/user-id/{user-id}/inbox"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/users/{username}/orgs"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/runners/registration-token"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/labels/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runners/registration-token"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches/{branch}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/git/commits/{sha}.{diffType}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/issues/{index}/comments/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{index}/times"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/notifications"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls/{index}/update"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/statuses/{sha}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/transfer"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{id}/repos"
+    },
+    {
+      "method": "PUT",
+      "path": "/user/blocks/{username}"
+    },
+    {
+      "method": "GET",
+      "path": "/user/orgs"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/repos"
+    }
+  ]
+}

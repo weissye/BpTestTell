@@ -5,31 +5,31 @@
       "method": "GET",
       "operationId": "ListConferenceRecording",
       "summary": "",
-      "user": "As a conference organizer, I want to retrieve a list of all recordings for a specific conference so that I can review the discussions that took place.",
-      "ideal": "The API should return a JSON array of recordings, including details such as the recording SID, duration, and date created."
+      "user": "As a conference organizer, I want to retrieve a list of all recordings for a specific conference so that I can review the discussions and share them with participants.",
+      "ideal": "The API should return a JSON array of recordings, including details such as recording SID, duration, and date created."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateConferenceRecording",
       "summary": "",
-      "user": "As a conference administrator, I need to update the metadata of a specific recording to include additional notes and change its status to 'archived'.",
-      "ideal": "The API should accept a JSON payload with the updated metadata and return the updated recording details."
+      "user": "As a conference administrator, I need to update the metadata of a specific recording to include additional notes and change its status to 'reviewed'.",
+      "ideal": "The API should accept a JSON payload with updated metadata and return the updated recording details."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
       "method": "GET",
       "operationId": "FetchConferenceRecording",
       "summary": "",
-      "user": "As a user who participated in a conference, I want to fetch a specific recording to listen to my contributions and feedback.",
-      "ideal": "The API should return the details of the specified recording, including the URL to access the audio file."
+      "user": "As a participant, I want to fetch a specific recording of a conference to listen to my contributions and understand the context better.",
+      "ideal": "The API should return the details of the requested recording, including a URL to access the audio file."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
       "method": "DELETE",
       "operationId": "DeleteConferenceRecording",
       "summary": "",
-      "user": "As a conference manager, I want to delete a specific recording that is no longer needed to keep our storage organized.",
+      "user": "As a privacy-conscious user, I want to delete a specific recording of a conference that I no longer want to retain for compliance reasons.",
       "ideal": "The API should confirm the deletion of the recording and return a success message."
     }
   ]

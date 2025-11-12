@@ -1,124 +1,84 @@
 {
   "gold": [
     {
-      "path": "/v1/",
+      "path": "/v1/{realm}",
       "method": "GET",
       "operationId": "get",
       "summary": "",
-      "user": "Admin user requesting the root endpoint to check API availability.",
-      "ideal": "Successful response with API metadata."
+      "user": "Admin user requesting realm information.",
+      "ideal": "Returns the details of the specified realm."
     },
     {
       "path": "/v1/{realm}",
       "method": "POST",
       "operationId": "post",
       "summary": "",
-      "user": "A user creating a new realm with necessary configurations.",
-      "ideal": "Realm created successfully with a confirmation message."
-    },
-    {
-      "path": "/v1/{realm}",
-      "method": "PUT",
-      "operationId": "putByRealm",
-      "summary": "",
-      "user": "Admin updating the realm settings to enable two-factor authentication.",
-      "ideal": "Realm updated successfully with new settings."
-    },
-    {
-      "path": "/v1/{realm}",
-      "method": "DELETE",
-      "operationId": "deleteByRealm",
-      "summary": "",
-      "user": "A user deleting a realm that is no longer needed.",
-      "ideal": "Realm deleted successfully with a confirmation message."
+      "user": "Admin user creating a new realm.",
+      "ideal": "Creates a new realm with the provided configuration."
     },
     {
       "path": "/v1/{realm}/admin-events",
       "method": "GET",
       "operationId": "getAdminEvents",
       "summary": "",
-      "user": "Admin reviewing recent administrative events for security audits.",
-      "ideal": "List of recent admin events returned successfully."
+      "user": "Admin user retrieving admin events for auditing.",
+      "ideal": "Returns a list of admin events for the specified realm."
     },
     {
       "path": "/v1/{realm}/client-policies/policies",
       "method": "GET",
       "operationId": "getPolicies",
       "summary": "",
-      "user": "A user retrieving the current client policies for review.",
-      "ideal": "List of client policies returned successfully."
-    },
-    {
-      "path": "/v1/{realm}/client-policies/policies",
-      "method": "PUT",
-      "operationId": "putPolicies",
-      "summary": "",
-      "user": "Admin updating client policies to enforce stricter access controls.",
-      "ideal": "Client policies updated successfully."
+      "user": "Admin user checking client policies.",
+      "ideal": "Retrieves the client policies defined in the realm."
     },
     {
       "path": "/v1/{realm}/default-groups",
       "method": "GET",
       "operationId": "getDefaultGroups",
       "summary": "",
-      "user": "A user checking the default groups configured in the realm.",
-      "ideal": "List of default groups returned successfully."
+      "user": "Admin user listing default groups in the realm.",
+      "ideal": "Returns a list of default groups for the specified realm."
     },
     {
       "path": "/v1/{realm}/localization/en",
-      "method": "POST",
-      "operationId": "postLocalization",
+      "method": "GET",
+      "operationId": "getLocalizationByRealmByLocale",
       "summary": "",
-      "user": "Admin adding new localization entries for the English locale.",
-      "ideal": "Localization entries added successfully."
+      "user": "Admin user fetching localization for English locale.",
+      "ideal": "Returns localization strings for the specified locale."
     },
     {
       "path": "/v1/{realm}/localization/en/welcome",
-      "method": "PUT",
-      "operationId": "putLocalization",
+      "method": "GET",
+      "operationId": "getLocalizationByRealmByLocaleByKey",
       "summary": "",
-      "user": "A user updating the welcome message localization key.",
-      "ideal": "Localization key updated successfully."
-    },
-    {
-      "path": "/v1/{realm}/localization/en/welcome",
-      "method": "DELETE",
-      "operationId": "deleteLocalizationByRealmByLocaleByKey",
-      "summary": "",
-      "user": "Admin removing the outdated welcome message localization key.",
-      "ideal": "Localization key deleted successfully."
+      "user": "Admin user retrieving a specific localization key.",
+      "ideal": "Returns the localization string for the specified key."
     },
     {
       "path": "/v1/{realm}/logout-all",
       "method": "POST",
       "operationId": "postLogoutAll",
       "summary": "",
-      "user": "Admin logging out all users from the realm for security reasons.",
-      "ideal": "All users logged out successfully."
+      "user": "Admin user logging out all users from the realm.",
+      "ideal": "Logs out all active sessions in the specified realm."
+    },
+    {
+      "path": "/v1/{realm}/sessions/{session}",
+      "method": "DELETE",
+      "operationId": "deleteSession",
+      "summary": "",
+      "user": "Admin user terminating a specific user session.",
+      "ideal": "Deletes the specified user session from the realm."
     },
     {
       "path": "/v1/{realm}/testSMTPConnection",
       "method": "POST",
       "operationId": "postTestSmtpConnection",
       "summary": "",
-      "user": "Admin testing SMTP connection settings for email notifications.",
-      "ideal": "SMTP connection tested successfully with confirmation."
-    },
-    {
-      "path": "/v1/{realm}/users-management-permissions",
-      "method": "GET",
-      "operationId": "getUsersManagementPermissions",
-      "summary": "",
-      "user": "A user checking the current permissions for user management.",
-      "ideal": "List of user management permissions returned successfully."
-    },
-    {
-      "path": "/v1/{realm}/users-management-permissions",
-      "method": "PUT",
-      "operationId": "putUsersManagementPermissions",
-      "summary": "",
-      "user": "Admin updating user management permissions to restrict access.",
-      "ideal": "User management permissions updated successfully."
+      "user": "Admin user testing SMTP connection settings.",
+      "ideal": "Tests the SMTP connection with the provided configuration."
     }
   ]
 }

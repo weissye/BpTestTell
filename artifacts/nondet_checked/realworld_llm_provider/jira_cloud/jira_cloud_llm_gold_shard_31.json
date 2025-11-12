@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "getPriorities",
       "summary": "",
-      "user": "As a project manager, I want to retrieve all priority levels available in Jira so that I can assign the appropriate priority to issues.",
-      "ideal": "Returns a list of all priority levels with their respective IDs and descriptions."
+      "user": "As a project manager, I want to retrieve all priority levels available in Jira so that I can assign the correct priority to issues.",
+      "ideal": "Returns a list of all priority levels with their details."
     },
     {
       "path": "/rest/api/3/priority",
       "method": "POST",
       "operationId": "createPriority",
       "summary": "",
-      "user": "As a Jira administrator, I want to create a new priority level for issues to better categorize them based on urgency.",
-      "ideal": "Creates a new priority level and returns the created priority object with its ID."
+      "user": "As a Jira administrator, I want to create a new priority level for issues to better categorize tasks.",
+      "ideal": "Creates a new priority level and returns the details of the created priority."
     },
     {
       "path": "/rest/api/3/priority/default",
       "method": "PUT",
       "operationId": "setDefaultPriority",
       "summary": "",
-      "user": "As a Jira administrator, I want to set a default priority level for new issues to ensure consistency in issue handling.",
-      "ideal": "Sets the specified priority as the default and returns the updated priority object."
+      "user": "As a project lead, I want to set a default priority for new issues to streamline the issue creation process.",
+      "ideal": "Sets the specified priority as the default and confirms the change."
     },
     {
       "path": "/rest/api/3/priority/move",
       "method": "PUT",
       "operationId": "movePriorities",
       "summary": "",
-      "user": "As a project manager, I want to reorder the priority levels to reflect the current workflow and urgency of tasks.",
-      "ideal": "Updates the order of the priority levels and returns the new order of priorities."
+      "user": "As a project manager, I want to reorder the priority levels to reflect their importance in our workflow.",
+      "ideal": "Updates the order of the priority levels and returns the new order."
     },
     {
       "path": "/rest/api/3/priority/search",
@@ -45,24 +45,24 @@
       "method": "DELETE",
       "operationId": "deletePriority",
       "summary": "",
-      "user": "As a Jira administrator, I want to delete a priority level that is no longer needed to keep the system clean.",
-      "ideal": "Deletes the specified priority level and returns a confirmation of the deletion."
+      "user": "As a Jira administrator, I want to delete an obsolete priority level to keep the system clean and organized.",
+      "ideal": "Deletes the specified priority level and confirms the deletion."
     },
     {
       "path": "/rest/api/3/priority/{id}",
       "method": "GET",
       "operationId": "getPriority",
       "summary": "",
-      "user": "As a project manager, I want to retrieve details of a specific priority level to understand its significance.",
-      "ideal": "Returns the details of the specified priority level including its ID and description."
+      "user": "As a project manager, I want to retrieve details of a specific priority level to understand its attributes.",
+      "ideal": "Returns the details of the specified priority level."
     },
     {
       "path": "/rest/api/3/priority/{id}",
       "method": "PUT",
       "operationId": "updatePriority",
       "summary": "",
-      "user": "As a Jira administrator, I want to update the details of an existing priority level to reflect changes in our workflow.",
-      "ideal": "Updates the specified priority level and returns the updated priority object."
+      "user": "As a Jira administrator, I want to update the details of an existing priority level to reflect changes in our processes.",
+      "ideal": "Updates the specified priority level and returns the updated details."
     }
   ]
 }

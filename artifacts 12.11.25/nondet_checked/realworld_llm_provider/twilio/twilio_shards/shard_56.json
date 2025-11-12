@@ -1,0 +1,36 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Recording"
+      ],
+      "summary": "Fetch an instance of a recording",
+      "operationId": "FetchRecording"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Recording"
+      ],
+      "summary": "Delete a recording from your account",
+      "operationId": "DeleteRecording"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Recording"
+      ],
+      "summary": "Retrieve a list of recordings belonging to the account used to make the request",
+      "operationId": "ListRecording"
+    }
+  ]
+}

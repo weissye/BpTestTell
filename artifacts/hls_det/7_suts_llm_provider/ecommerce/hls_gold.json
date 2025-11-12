@@ -3,10 +3,10 @@
   "deterministic": true,
   "provider": "7_suts_llm_provider",
   "sut": "ecommerce",
-  "generated_at": "2025-11-09T13:49:32.999832Z",
+  "generated_at": "2025-11-12T20:05:54.025592Z",
   "source": {
-    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\7_suts_llm_provider\\ecommerce\\graph.json",
-    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\SUTs\\ecommerce\\dsl_map.json"
+    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\7_suts_llm_provider\\ecommerce\\graph.json",
+    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\SUTs\\ecommerce\\dsl_map.json"
   },
   "entities": [
     {
@@ -53,25 +53,25 @@
       "name": "CRUD drug",
       "desc": "Deterministic CRUD flow for entity 'drug' inferred from graph.",
       "entity": "drug",
-      "js": "// Deterministic CRUD flow for entity: drug\nbp.registerBThread(\"HLS: CRUD drug\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/drugs\", {})});\n  bp.sync({request: REST.GET(\"/drugs\", {})});\n  bp.sync({request: REST.GET(\"/drugs\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: drug\nbthread(\"HLS: CRUD drug\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/drugs\", {})});\n  bp.sync({request: REST.GET(\"/drugs\", {})});\n  bp.sync({request: REST.GET(\"/drugs\", {})});\n});"
     },
     {
       "name": "CRUD inventory",
       "desc": "Deterministic CRUD flow for entity 'inventory' inferred from graph.",
       "entity": "inventory",
-      "js": "// Deterministic CRUD flow for entity: inventory\nbp.registerBThread(\"HLS: CRUD inventory\", function () {\n  bp.sync({request: REST.GET(\"/inventory/{ndc}\", {})});\n  bp.sync({request: REST.GET(\"/inventory/{ndc}\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: inventory\nbthread(\"HLS: CRUD inventory\", function () {\n  bp.sync({request: REST.GET(\"/inventory/{ndc}\", {})});\n  bp.sync({request: REST.GET(\"/inventory/{ndc}\", {})});\n});"
     },
     {
       "name": "CRUD order",
       "desc": "Deterministic CRUD flow for entity 'order' inferred from graph.",
       "entity": "order",
-      "js": "// Deterministic CRUD flow for entity: order\nbp.registerBThread(\"HLS: CRUD order\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/orders\", {})});\n  bp.sync({request: REST.GET(\"/orders\", {})});\n  bp.sync({request: REST.GET(\"/orders\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: order\nbthread(\"HLS: CRUD order\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/orders\", {})});\n  bp.sync({request: REST.GET(\"/orders\", {})});\n  bp.sync({request: REST.GET(\"/orders\", {})});\n});"
     },
     {
       "name": "CRUD patient",
       "desc": "Deterministic CRUD flow for entity 'patient' inferred from graph.",
       "entity": "patient",
-      "js": "// Deterministic CRUD flow for entity: patient\nbp.registerBThread(\"HLS: CRUD patient\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/patients\", {})});\n});"
+      "js": "// Deterministic CRUD flow for entity: patient\nbthread(\"HLS: CRUD patient\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/patients\", {})});\n});"
     }
   ]
 }

@@ -14,15 +14,15 @@
       "operationId": "updateExtensions",
       "summary": "",
       "user": "developer",
-      "ideal": "Update the configuration or metadata of the specified extension 'my-extension'."
+      "ideal": "Update the configuration or properties of the specified extension named 'my-extension'."
     },
     {
-      "path": "/extensions/bundle1/my-extension",
+      "path": "/extensions/my-bundle/my-extension",
       "method": "PATCH",
       "operationId": "updateExtensionBundle",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the bundle configuration for the extension 'my-extension' under 'bundle1'."
+      "ideal": "Update the bundle configuration for the extension 'my-extension' within the 'my-bundle'."
     }
   ]
 }

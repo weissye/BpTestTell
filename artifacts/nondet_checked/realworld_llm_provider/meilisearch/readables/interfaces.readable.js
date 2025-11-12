@@ -523,43 +523,43 @@ function verifyHealthUpdated(id) {
 /** === Indexe Operations === */
 
 // CREATE
-function addIndexe(documentId) {
-  svc.post("/indexes", { body: JSON.stringify({ documentId: documentId }), parameters: { description: "Add a indexe with " + "documentId " + documentId } });
+function addIndexe(indexUid) {
+  svc.post("/indexes", { body: JSON.stringify({ indexUid: indexUid }), parameters: { description: "Add a indexe with " + "indexUid " + indexUid } });
 }
 
 // DELETE
-function deleteIndexe(documentId) {
-  svc.delete("/indexes/" + documentId, {
-    parameters: { description: "Delete a indexe with " + "documentId " + documentId }
+function deleteIndexe(indexUid) {
+  svc.delete("/indexes/" + indexUid, {
+    parameters: { description: "Delete a indexe with " + "indexUid " + indexUid }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingIndexe(documentId) {
-  svc.delete("/indexes/" + documentId, {
+function tryToDeleteANonExistingIndexe(indexUid) {
+  svc.delete("/indexes/" + indexUid, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a indexe with " + "documentId " + documentId }
+    parameters: { description: "Delete a indexe with " + "indexUid " + indexUid }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingIndexe(documentId) {
+function tryToAddExistingIndexe(indexUid) {
   svc.post("/indexes", {
-    body: JSON.stringify({ documentId: documentId }),
-    parameters: { description: "Add a indexe with " + "documentId " + documentId },
+    body: JSON.stringify({ indexUid: indexUid }),
+    parameters: { description: "Add a indexe with " + "indexUid " + indexUid },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateIndexe(documentId) {
-  svc.put("/indexes/" + documentId, { body: JSON.stringify({ documentId: documentId }), parameters: { description: "Update a indexe with " + "documentId " + documentId } });
+function updateIndexe(indexUid) {
+  svc.put("/indexes/" + indexUid, { body: JSON.stringify({ indexUid: indexUid }), parameters: { description: "Update a indexe with " + "indexUid " + indexUid } });
 }
 
 // GET one
-function getIndexe(documentId) {
-  svc.get("/indexes/" + documentId, {
-    parameters: { description: "Get a indexe with " + "documentId " + documentId }
+function getIndexe(indexUid) {
+  svc.get("/indexes/" + indexUid, {
+    parameters: { description: "Get a indexe with " + "indexUid " + indexUid }
   });
 }
 
@@ -571,34 +571,34 @@ function listIndexes() {
 }
 
 // Verify exists (by list)
-function verifyIndexeExists(documentId) {
+function verifyIndexeExists(indexUid) {
   svc.get("/indexes", {
     callback: function (response) {
       indexe = JSON.parse(response.body);
       for (let i = 0; i < indexe.length; i++) {
-        if (indexe[i].documentId === documentId) {
+        if (indexe[i].indexUid === indexUid) {
           return pvg.success("Indexe exists");
         }
       }
       return pvg.fail("Expected a indexe to exist but it does not");
     },
-    parameters: { description: "Verify indexe with " + "documentId " + documentId + " exists" }
+    parameters: { description: "Verify indexe with " + "indexUid " + indexUid + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyIndexeDoesNotExist(documentId) {
+function verifyIndexeDoesNotExist(indexUid) {
   svc.get("/indexes", {
     callback: function (response) {
       indexe = JSON.parse(response.body);
       for (let i = 0; i < indexe.length; i++) {
-        if (indexe[i].documentId === documentId) {
+        if (indexe[i].indexUid === indexUid) {
           return pvg.fail("Expected a indexe to not exist but it does");
         }
       }
       return pvg.success("Indexe does not exist");
     },
-    parameters: { description: "Verify indexe with " + "documentId " + documentId + " does not exist" }
+    parameters: { description: "Verify indexe with " + "indexUid " + indexUid + " does not exist" }
   });
 }
 
@@ -609,10 +609,10 @@ function matchAnyAddIndexe() {
     return e.data.parameters.description.startsWith("Add a indexe");
   });
 }
-function matchAddIndexe(documentId) {
+function matchAddIndexe(indexUid) {
   return bp.EventSet("add-indexe", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a indexe with " + "documentId " + documentId;
+    return e.data.parameters.description === "Add a indexe with " + "indexUid " + indexUid;
   });
 }
 function matchAnyDeleteIndexe() {
@@ -621,10 +621,10 @@ function matchAnyDeleteIndexe() {
     return e.data.parameters.description.startsWith("Delete a indexe");
   });
 }
-function matchDeleteIndexe(documentId) {
+function matchDeleteIndexe(indexUid) {
   return bp.EventSet("del-indexe", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a indexe with " + "documentId " + documentId;
+    return e.data.parameters.description === "Delete a indexe with " + "indexUid " + indexUid;
   });
 }
 
@@ -635,52 +635,52 @@ function matchAnyUpdateIndexe() {
     return e.data.parameters.description.startsWith("Update a indexe");
   });
 }
-function matchUpdateIndexe(documentId) {
+function matchUpdateIndexe(indexUid) {
   return bp.EventSet("update-indexe", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a indexe with " + "documentId " + documentId;
+    return e.data.parameters.description === "Update a indexe with " + "indexUid " + indexUid;
   });
 }
 
 // Wait helpers
 function waitForAnyIndexeAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ indexe\ with\ documentId\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ indexe\ with\ documentId\ (.+)$/);
-    return { documentId: m[1] };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ indexe\ with\ indexUid\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ indexe\ with\ indexUid\ (.+)$/);
+    return { indexUid: m[1] };
 }
-function waitForIndexeAdded(documentId) {
-  waitFor(matchAddIndexe(documentId));
+function waitForIndexeAdded(indexUid) {
+  waitFor(matchAddIndexe(indexUid));
 }
-function waitForIndexeDeleted(documentId) {
-  waitFor(matchDeleteIndexe(documentId));
+function waitForIndexeDeleted(indexUid) {
+  waitFor(matchDeleteIndexe(indexUid));
 }
 function waitForAnyIndexeDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ indexe\ with\ documentId\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ indexe\ with\ documentId\ (.+)$/);
-    return { documentId: m[1] };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ indexe\ with\ indexUid\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ indexe\ with\ indexUid\ (.+)$/);
+    return { indexUid: m[1] };
 }
-function waitForIndexeUpdated(documentId) {
-  waitFor(matchUpdateIndexe(documentId));
+function waitForIndexeUpdated(indexUid) {
+  waitFor(matchUpdateIndexe(indexUid));
 }
 function waitForAnyIndexeUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ indexe\ with\ documentId\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ indexe\ with\ documentId\ (.+)$/);
-    return { documentId: m[1] };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ indexe\ with\ indexUid\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ indexe\ with\ indexUid\ (.+)$/);
+    return { indexUid: m[1] };
 }
 
 // Verify updated (presence-by-list)
-function verifyIndexeUpdated(documentId) {
+function verifyIndexeUpdated(indexUid) {
   svc.get("/indexes", {
     callback: function (response) {
       indexe = JSON.parse(response.body);
       for (let i = 0; i < indexe.length; i++) {
-        if (indexe[i].documentId === documentId) {
+        if (indexe[i].indexUid === indexUid) {
           return pvg.success("Indexe updated (present)");
         }
       }
       return pvg.fail("Expected a indexe to be present after update, but it is not");
     },
-    parameters: { description: "Verify indexe with " + "documentId " + documentId + " exists" }
+    parameters: { description: "Verify indexe with " + "indexUid " + indexUid + " exists" }
   });
 }
 

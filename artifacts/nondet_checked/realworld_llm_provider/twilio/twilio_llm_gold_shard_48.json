@@ -5,8 +5,8 @@
       "method": "POST",
       "operationId": "CreateNewSigningKey",
       "summary": "",
-      "user": "User wants to create a new signing key for their Twilio account to enhance security and manage access to their API resources. They have already authenticated and have their AccountSid ready.",
-      "ideal": "The API should return a 201 Created status with the details of the newly created signing key, including the key SID and any relevant metadata."
+      "user": "User wants to create a new signing key for their Twilio account to enhance security for their API requests.",
+      "ideal": "The API should return a success message with the details of the newly created signing key, including its SID and secret."
     }
   ]
 }

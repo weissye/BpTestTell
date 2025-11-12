@@ -1,0 +1,99 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/roles-by-id/{role-id}",
+      "method": "GET",
+      "tags": [
+        "Roles (by ID)"
+      ],
+      "summary": "",
+      "operationId": "getRolesById"
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}",
+      "method": "PUT",
+      "tags": [
+        "Roles (by ID)"
+      ],
+      "summary": "",
+      "operationId": "putRolesById"
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}",
+      "method": "DELETE",
+      "tags": [
+        "Roles (by ID)"
+      ],
+      "summary": "",
+      "operationId": "deleteRolesById"
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "method": "GET",
+      "tags": [
+        "Roles (by ID)"
+      ],
+      "summary": "",
+      "operationId": "getRolesByIdComposites"
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "method": "POST",
+      "tags": [
+        "Roles (by ID)"
+      ],
+      "summary": "",
+      "operationId": "postRolesByIdComposites"
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
+      "method": "DELETE",
+      "tags": [
+        "Roles (by ID)"
+      ],
+      "summary": "",
+      "operationId": "deleteRolesByIdComposites"
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/composites/clients/{clientUuid}",
+      "method": "GET",
+      "tags": [
+        "Roles (by ID)"
+      ],
+      "summary": "",
+      "operationId": "getRolesByIdCompositesClient"
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/composites/realm",
+      "method": "GET",
+      "tags": [
+        "Roles (by ID)"
+      ],
+      "summary": "",
+      "operationId": "getRolesByIdCompositesRealm"
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/management/permissions",
+      "method": "GET",
+      "tags": [
+        "Roles (by ID)"
+      ],
+      "summary": "",
+      "operationId": "getRolesByIdManagementPermissions"
+    },
+    {
+      "path": "/{realm}/roles-by-id/{role-id}/management/permissions",
+      "method": "PUT",
+      "tags": [
+        "Roles (by ID)"
+      ],
+      "summary": "",
+      "operationId": "putRolesByIdManagementPermissions"
+    }
+  ]
+}

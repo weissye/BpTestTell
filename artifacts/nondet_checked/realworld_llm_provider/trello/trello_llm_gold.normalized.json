@@ -36,13 +36,18 @@
       "body": null
     },
     {
+      "method": "PUT",
+      "path": "/actions/12345/text",
+      "body": null
+    },
+    {
       "method": "DELETE",
       "path": "/actions/12345",
       "body": null
     },
     {
-      "method": "PUT",
-      "path": "/actions/12345/text",
+      "method": "GET",
+      "path": "/actions/12345/display",
       "body": null
     },
     {
@@ -52,52 +57,52 @@
     },
     {
       "method": "POST",
-      "path": "/v1/boards",
+      "path": "/boards",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b",
+      "path": "/boards/{idBoard}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b",
+      "path": "/boards/{idBoard}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b/actions",
+      "path": "/boards/{idBoard}/actions",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b/cards",
+      "path": "/boards/{idBoard}/cards",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b/checklists",
+      "path": "/boards/{idBoard}/checklists",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b/members",
-      "body": null
-    },
-    {
-      "method": "PUT",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b/prefs/background",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b/labels",
+      "path": "/boards/{idBoard}/members",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b/lists",
+      "path": "/boards/{idBoard}/labels",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/lists",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/background",
       "body": null
     },
     {
@@ -157,77 +162,77 @@
     },
     {
       "method": "DELETE",
-      "path": "/checklists/12345",
+      "path": "/checklists/{idChecklist}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345",
+      "path": "/checklists/{idChecklist}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/checklists/12345",
+      "path": "/checklists/{idChecklist}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345/board",
+      "path": "/checklists/{idChecklist}/board",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345/board/name",
+      "path": "/checklists/{idChecklist}/board/{field}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345/cards",
+      "path": "/checklists/{idChecklist}/cards",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345/cards/active",
+      "path": "/checklists/{idChecklist}/cards/{filter}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345/checkItems",
+      "path": "/checklists/{idChecklist}/checkItems",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/checklists/12345/checkItems",
+      "path": "/checklists/{idChecklist}/checkItems",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/checklists/12345/checkItems/67890",
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345/checkItems/67890",
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/checklists/12345/idCard",
+      "path": "/checklists/{idChecklist}/idCard",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/checklists/12345/name",
+      "path": "/checklists/{idChecklist}/name",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/checklists/12345/pos",
+      "path": "/checklists/{idChecklist}/pos",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345/name",
+      "path": "/checklists/{idChecklist}/{field}",
       "body": null
     },
     {
@@ -236,18 +241,38 @@
       "body": null
     },
     {
-      "method": "PUT",
-      "path": "/labels/12345",
+      "method": "DELETE",
+      "path": "/labels/{idLabel}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/labels/{idLabel}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/labels/12345/color",
+      "path": "/labels/{idLabel}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/labels/{idLabel}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/labels/{idLabel}/board/{field}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/labels/12345/name",
+      "path": "/labels/{idLabel}/color",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/labels/{idLabel}/name",
       "body": null
     },
     {
@@ -371,12 +396,7 @@
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/members/12345/cards",
-      "body": null
-    },
-    {
-      "method": "GET",
+      "method": "POST",
       "path": "/members/12345/customEmoji",
       "body": null
     },
@@ -387,97 +407,102 @@
     },
     {
       "method": "POST",
+      "path": "/members/12345/savedSearches",
+      "body": null
+    },
+    {
+      "method": "POST",
       "path": "/notifications/all/read",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/456",
+      "path": "/notifications/1",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/notifications/789",
+      "path": "/notifications/2",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/123/board",
+      "path": "/notifications/3/board",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/321/board/name",
+      "path": "/notifications/4/board/name",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/654/card",
+      "path": "/notifications/5/card",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/987/card/title",
+      "path": "/notifications/6/card/title",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/111/display",
+      "path": "/notifications/7/display",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/222/entities",
+      "path": "/notifications/8/entities",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/333/list",
+      "path": "/notifications/9/list",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/444/list/name",
+      "path": "/notifications/10/list/name",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/555/member",
+      "path": "/notifications/11/member",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/666/member/email",
+      "path": "/notifications/12/member/email",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/777/memberCreator",
+      "path": "/notifications/13/memberCreator",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/888/memberCreator/username",
+      "path": "/notifications/14/memberCreator/username",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/999/organization",
+      "path": "/notifications/15/organization",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/101/organization/name",
+      "path": "/notifications/16/organization/name",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/notifications/202/unread",
+      "path": "/notifications/17/unread",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/303/createdAt",
+      "path": "/notifications/18/createdAt",
       "body": null
     },
     {
@@ -491,13 +516,13 @@
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/organizations/12345/boards",
+      "method": "DELETE",
+      "path": "/organizations/12345/members/67890",
       "body": null
     },
     {
-      "method": "DELETE",
-      "path": "/organizations/12345/members/67890",
+      "method": "GET",
+      "path": "/organizations/12345/boards",
       "body": null
     },
     {
@@ -511,23 +536,23 @@
       "body": null
     },
     {
-      "method": "POST",
-      "path": "/organizations/12345/logo",
-      "body": null
-    },
-    {
       "method": "GET",
       "path": "/organizations/12345/membersInvited",
       "body": null
     },
     {
+      "method": "POST",
+      "path": "/organizations/12345/logo",
+      "body": null
+    },
+    {
       "method": "PUT",
-      "path": "/organizations/12345/prefs/permissionLevel",
+      "path": "/organizations/12345/desc",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/12345/boards/active",
+      "path": "/organizations/12345/members/67890/cards",
       "body": null
     },
     {
@@ -562,52 +587,52 @@
     },
     {
       "method": "DELETE",
-      "path": "/v1/tokens/abc123",
+      "path": "/tokens/abc123",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/tokens/abc123",
+      "path": "/tokens/abc123",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/tokens/abc123/member",
+      "path": "/tokens/abc123/member",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/tokens/abc123/member/email",
+      "path": "/tokens/abc123/member/username",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/tokens/abc123/webhooks",
+      "path": "/tokens/abc123/webhooks",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/v1/tokens/abc123/webhooks",
+      "path": "/tokens/abc123/webhooks",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/v1/tokens/abc123/webhooks",
+      "path": "/tokens/abc123/webhooks",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/v1/tokens/abc123/webhooks/456def",
+      "path": "/tokens/abc123/webhooks/456",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/tokens/abc123/webhooks/456def",
+      "path": "/tokens/abc123/webhooks/456",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/tokens/abc123/permissions",
+      "path": "/tokens/abc123/expiration",
       "body": null
     },
     {
@@ -701,13 +726,18 @@
       "body": null
     },
     {
+      "method": "PUT",
+      "path": "/actions/12345/text",
+      "body": null
+    },
+    {
       "method": "DELETE",
       "path": "/actions/12345",
       "body": null
     },
     {
-      "method": "PUT",
-      "path": "/actions/12345/text",
+      "method": "GET",
+      "path": "/actions/12345/display",
       "body": null
     },
     {
@@ -717,52 +747,52 @@
     },
     {
       "method": "POST",
-      "path": "/v1/boards",
+      "path": "/boards",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b",
+      "path": "/boards/{idBoard}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b",
+      "path": "/boards/{idBoard}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b/actions",
+      "path": "/boards/{idBoard}/actions",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b/cards",
+      "path": "/boards/{idBoard}/cards",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b/checklists",
+      "path": "/boards/{idBoard}/checklists",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b/members",
-      "body": null
-    },
-    {
-      "method": "PUT",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b/prefs/background",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b/labels",
+      "path": "/boards/{idBoard}/members",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/boards/60d5ec49f1c2b7001c8e4f5b/lists",
+      "path": "/boards/{idBoard}/labels",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/lists",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/background",
       "body": null
     },
     {
@@ -822,77 +852,77 @@
     },
     {
       "method": "DELETE",
-      "path": "/checklists/12345",
+      "path": "/checklists/{idChecklist}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345",
+      "path": "/checklists/{idChecklist}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/checklists/12345",
+      "path": "/checklists/{idChecklist}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345/board",
+      "path": "/checklists/{idChecklist}/board",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345/board/name",
+      "path": "/checklists/{idChecklist}/board/{field}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345/cards",
+      "path": "/checklists/{idChecklist}/cards",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345/cards/active",
+      "path": "/checklists/{idChecklist}/cards/{filter}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345/checkItems",
+      "path": "/checklists/{idChecklist}/checkItems",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/checklists/12345/checkItems",
+      "path": "/checklists/{idChecklist}/checkItems",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/checklists/12345/checkItems/67890",
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345/checkItems/67890",
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/checklists/12345/idCard",
+      "path": "/checklists/{idChecklist}/idCard",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/checklists/12345/name",
+      "path": "/checklists/{idChecklist}/name",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/checklists/12345/pos",
+      "path": "/checklists/{idChecklist}/pos",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/12345/name",
+      "path": "/checklists/{idChecklist}/{field}",
       "body": null
     },
     {
@@ -901,18 +931,38 @@
       "body": null
     },
     {
-      "method": "PUT",
-      "path": "/labels/12345",
+      "method": "DELETE",
+      "path": "/labels/{idLabel}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/labels/{idLabel}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/labels/12345/color",
+      "path": "/labels/{idLabel}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/labels/{idLabel}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/labels/{idLabel}/board/{field}",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/labels/12345/name",
+      "path": "/labels/{idLabel}/color",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/labels/{idLabel}/name",
       "body": null
     },
     {
@@ -1036,12 +1086,7 @@
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/members/12345/cards",
-      "body": null
-    },
-    {
-      "method": "GET",
+      "method": "POST",
       "path": "/members/12345/customEmoji",
       "body": null
     },
@@ -1052,97 +1097,102 @@
     },
     {
       "method": "POST",
+      "path": "/members/12345/savedSearches",
+      "body": null
+    },
+    {
+      "method": "POST",
       "path": "/notifications/all/read",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/456",
+      "path": "/notifications/1",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/notifications/789",
+      "path": "/notifications/2",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/123/board",
+      "path": "/notifications/3/board",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/321/board/name",
+      "path": "/notifications/4/board/name",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/654/card",
+      "path": "/notifications/5/card",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/987/card/title",
+      "path": "/notifications/6/card/title",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/111/display",
+      "path": "/notifications/7/display",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/222/entities",
+      "path": "/notifications/8/entities",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/333/list",
+      "path": "/notifications/9/list",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/444/list/name",
+      "path": "/notifications/10/list/name",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/555/member",
+      "path": "/notifications/11/member",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/666/member/email",
+      "path": "/notifications/12/member/email",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/777/memberCreator",
+      "path": "/notifications/13/memberCreator",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/888/memberCreator/username",
+      "path": "/notifications/14/memberCreator/username",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/999/organization",
+      "path": "/notifications/15/organization",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/101/organization/name",
+      "path": "/notifications/16/organization/name",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/notifications/202/unread",
+      "path": "/notifications/17/unread",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/303/createdAt",
+      "path": "/notifications/18/createdAt",
       "body": null
     },
     {
@@ -1156,13 +1206,13 @@
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/organizations/12345/boards",
+      "method": "DELETE",
+      "path": "/organizations/12345/members/67890",
       "body": null
     },
     {
-      "method": "DELETE",
-      "path": "/organizations/12345/members/67890",
+      "method": "GET",
+      "path": "/organizations/12345/boards",
       "body": null
     },
     {
@@ -1176,23 +1226,23 @@
       "body": null
     },
     {
-      "method": "POST",
-      "path": "/organizations/12345/logo",
-      "body": null
-    },
-    {
       "method": "GET",
       "path": "/organizations/12345/membersInvited",
       "body": null
     },
     {
+      "method": "POST",
+      "path": "/organizations/12345/logo",
+      "body": null
+    },
+    {
       "method": "PUT",
-      "path": "/organizations/12345/prefs/permissionLevel",
+      "path": "/organizations/12345/desc",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/12345/boards/active",
+      "path": "/organizations/12345/members/67890/cards",
       "body": null
     },
     {
@@ -1227,52 +1277,52 @@
     },
     {
       "method": "DELETE",
-      "path": "/v1/tokens/abc123",
+      "path": "/tokens/abc123",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/tokens/abc123",
+      "path": "/tokens/abc123",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/tokens/abc123/member",
+      "path": "/tokens/abc123/member",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/tokens/abc123/member/email",
+      "path": "/tokens/abc123/member/username",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/tokens/abc123/webhooks",
+      "path": "/tokens/abc123/webhooks",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/v1/tokens/abc123/webhooks",
+      "path": "/tokens/abc123/webhooks",
       "body": null
     },
     {
       "method": "PUT",
-      "path": "/v1/tokens/abc123/webhooks",
+      "path": "/tokens/abc123/webhooks",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/v1/tokens/abc123/webhooks/456def",
+      "path": "/tokens/abc123/webhooks/456",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/tokens/abc123/webhooks/456def",
+      "path": "/tokens/abc123/webhooks/456",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/v1/tokens/abc123/permissions",
+      "path": "/tokens/abc123/expiration",
       "body": null
     },
     {

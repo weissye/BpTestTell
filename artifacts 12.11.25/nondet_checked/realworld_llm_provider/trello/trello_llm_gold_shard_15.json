@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/webhooks",
+      "method": "POST",
+      "operationId": "addWebhooks",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Create a new webhook for a specified model."
+    },
+    {
+      "path": "/webhooks/",
+      "method": "PUT",
+      "operationId": "updateWebhooks",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Update the existing webhook settings."
+    },
+    {
+      "path": "/webhooks/{idWebhook}",
+      "method": "DELETE",
+      "operationId": "deleteWebhooksByIdWebhook",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Delete a webhook by its ID."
+    },
+    {
+      "path": "/webhooks/{idWebhook}",
+      "method": "GET",
+      "operationId": "getWebhooksByIdWebhook",
+      "summary": "",
+      "user": "user101",
+      "ideal": "Retrieve details of a specific webhook by its ID."
+    },
+    {
+      "path": "/webhooks/{idWebhook}",
+      "method": "PUT",
+      "operationId": "updateWebhooksByIdWebhook",
+      "summary": "",
+      "user": "user112",
+      "ideal": "Update the properties of a specific webhook."
+    },
+    {
+      "path": "/webhooks/{idWebhook}/active",
+      "method": "PUT",
+      "operationId": "updateWebhooksActiveByIdWebhook",
+      "summary": "",
+      "user": "user131",
+      "ideal": "Activate or deactivate a specific webhook."
+    },
+    {
+      "path": "/webhooks/{idWebhook}/callbackURL",
+      "method": "PUT",
+      "operationId": "updateWebhooksCallbackURLByIdWebhook",
+      "summary": "",
+      "user": "user415",
+      "ideal": "Change the callback URL for a specific webhook."
+    },
+    {
+      "path": "/webhooks/{idWebhook}/description",
+      "method": "PUT",
+      "operationId": "updateWebhooksDescriptionByIdWebhook",
+      "summary": "",
+      "user": "user161",
+      "ideal": "Update the description of a specific webhook."
+    },
+    {
+      "path": "/webhooks/{idWebhook}/idModel",
+      "method": "PUT",
+      "operationId": "updateWebhooksIdModelByIdWebhook",
+      "summary": "",
+      "user": "user718",
+      "ideal": "Change the model ID associated with a specific webhook."
+    },
+    {
+      "path": "/webhooks/{idWebhook}/{field}",
+      "method": "GET",
+      "operationId": "getWebhooksByIdWebhookByField",
+      "summary": "",
+      "user": "user192",
+      "ideal": "Retrieve a specific field of a webhook by its ID."
+    }
+  ]
+}

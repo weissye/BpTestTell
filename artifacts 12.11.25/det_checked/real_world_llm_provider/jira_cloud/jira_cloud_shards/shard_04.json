@@ -1,0 +1,104 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/rest/api/3/app/field/value"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/bulk/issues/unwatch"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/dashboard"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/association"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/{fieldId}/contexts"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/group"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/watching"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink/{linkId}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issueLinkType"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype/project"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescreenscheme/project"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/mypreferences/locale"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/plans/plan"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/priorityscheme"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/version"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/resolution/search"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}/fields"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/statuses"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/bulk"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/version/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflow/transitions/{transitionId}/properties"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{workflowSchemeId}/projectUsages"
+    }
+  ]
+}

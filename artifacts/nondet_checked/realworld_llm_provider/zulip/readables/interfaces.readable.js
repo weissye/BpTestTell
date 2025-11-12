@@ -4978,43 +4978,43 @@ function verifyUser_uploadUpdated(realm_id_str, filename) {
 /** === User Operations === */
 
 // CREATE
-function addUser(user_id, stream_id, email) {
-  svc.post("/users", { body: JSON.stringify({ user_id: user_id, stream_id: stream_id, email: email }), parameters: { description: "Add a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email } });
+function addUser(user_id, stream_id) {
+  svc.post("/users", { body: JSON.stringify({ user_id: user_id, stream_id: stream_id }), parameters: { description: "Add a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id } });
 }
 
 // DELETE
-function deleteUser(user_id, stream_id, email) {
-  svc.delete("/users/" + user_id + "/"+ stream_id + "/"+ email, {
-    parameters: { description: "Delete a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email }
+function deleteUser(user_id, stream_id) {
+  svc.delete("/users/" + user_id + "/"+ stream_id, {
+    parameters: { description: "Delete a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id }
   });
 }
 
 // Negative: delete non-existing (codes from spec/defaults)
-function tryToDeleteANonExistingUser(user_id, stream_id, email) {
-  svc.delete("/users/" + user_id + "/"+ stream_id + "/"+ email, {
+function tryToDeleteANonExistingUser(user_id, stream_id) {
+  svc.delete("/users/" + user_id + "/"+ stream_id, {
     expectedResponseCodes: [200, 404, 401],
-    parameters: { description: "Delete a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email }
+    parameters: { description: "Delete a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id }
   });
 }
 
 // Negative: add existing (codes from spec/defaults)
-function tryToAddExistingUser(user_id, stream_id, email) {
+function tryToAddExistingUser(user_id, stream_id) {
   svc.post("/users", {
-    body: JSON.stringify({ user_id: user_id, stream_id: stream_id, email: email }),
-    parameters: { description: "Add a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email },
+    body: JSON.stringify({ user_id: user_id, stream_id: stream_id }),
+    parameters: { description: "Add a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id },
     expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateUser(user_id, stream_id, email) {
-  svc.put("/users/" + user_id + "/"+ stream_id + "/"+ email, { body: JSON.stringify({ user_id: user_id, stream_id: stream_id, email: email }), parameters: { description: "Update a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email } });
+function updateUser(user_id, stream_id) {
+  svc.put("/users/" + user_id + "/"+ stream_id, { body: JSON.stringify({ user_id: user_id, stream_id: stream_id }), parameters: { description: "Update a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id } });
 }
 
 // GET one
-function getUser(user_id, stream_id, email) {
-  svc.get("/users/" + user_id + "/"+ stream_id + "/"+ email, {
-    parameters: { description: "Get a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email }
+function getUser(user_id, stream_id) {
+  svc.get("/users/" + user_id + "/"+ stream_id, {
+    parameters: { description: "Get a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id }
   });
 }
 
@@ -5026,34 +5026,34 @@ function listUsers() {
 }
 
 // Verify exists (by list)
-function verifyUserExists(user_id, stream_id, email) {
+function verifyUserExists(user_id, stream_id) {
   svc.get("/users", {
     callback: function (response) {
       user = JSON.parse(response.body);
       for (let i = 0; i < user.length; i++) {
-        if (user[i].user_id === user_id && user[i].stream_id === stream_id && user[i].email === email) {
+        if (user[i].user_id === user_id && user[i].stream_id === stream_id) {
           return pvg.success("User exists");
         }
       }
       return pvg.fail("Expected a user to exist but it does not");
     },
-    parameters: { description: "Verify user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email + " exists" }
+    parameters: { description: "Verify user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyUserDoesNotExist(user_id, stream_id, email) {
+function verifyUserDoesNotExist(user_id, stream_id) {
   svc.get("/users", {
     callback: function (response) {
       user = JSON.parse(response.body);
       for (let i = 0; i < user.length; i++) {
-        if (user[i].user_id === user_id && user[i].stream_id === stream_id && user[i].email === email) {
+        if (user[i].user_id === user_id && user[i].stream_id === stream_id) {
           return pvg.fail("Expected a user to not exist but it does");
         }
       }
       return pvg.success("User does not exist");
     },
-    parameters: { description: "Verify user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email + " does not exist" }
+    parameters: { description: "Verify user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " does not exist" }
   });
 }
 
@@ -5064,10 +5064,10 @@ function matchAnyAddUser() {
     return e.data.parameters.description.startsWith("Add a user");
   });
 }
-function matchAddUser(user_id, stream_id, email) {
+function matchAddUser(user_id, stream_id) {
   return bp.EventSet("add-user", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email;
+    return e.data.parameters.description === "Add a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id;
   });
 }
 function matchAnyDeleteUser() {
@@ -5076,10 +5076,10 @@ function matchAnyDeleteUser() {
     return e.data.parameters.description.startsWith("Delete a user");
   });
 }
-function matchDeleteUser(user_id, stream_id, email) {
+function matchDeleteUser(user_id, stream_id) {
   return bp.EventSet("del-user", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email;
+    return e.data.parameters.description === "Delete a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id;
   });
 }
 
@@ -5090,52 +5090,52 @@ function matchAnyUpdateUser() {
     return e.data.parameters.description.startsWith("Update a user");
   });
 }
-function matchUpdateUser(user_id, stream_id, email) {
+function matchUpdateUser(user_id, stream_id) {
   return bp.EventSet("update-user", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email;
+    return e.data.parameters.description === "Update a user with " + "user_id " + user_id + " and " + "stream_id " + stream_id;
   });
 }
 
 // Wait helpers
 function waitForAnyUserAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+) and email\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+) and email\ (.+)$/);
-    return { user_id: parseInt(m[1]), stream_id: parseInt(m[2]), email: m[3] };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+)$/);
+    return { user_id: parseInt(m[1]), stream_id: parseInt(m[2]) };
 }
-function waitForUserAdded(user_id, stream_id, email) {
-  waitFor(matchAddUser(user_id, stream_id, email));
+function waitForUserAdded(user_id, stream_id) {
+  waitFor(matchAddUser(user_id, stream_id));
 }
-function waitForUserDeleted(user_id, stream_id, email) {
-  waitFor(matchDeleteUser(user_id, stream_id, email));
+function waitForUserDeleted(user_id, stream_id) {
+  waitFor(matchDeleteUser(user_id, stream_id));
 }
 function waitForAnyUserDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+) and email\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+) and email\ (.+)$/);
-    return { user_id: parseInt(m[1]), stream_id: parseInt(m[2]), email: m[3] };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+)$/);
+    return { user_id: parseInt(m[1]), stream_id: parseInt(m[2]) };
 }
-function waitForUserUpdated(user_id, stream_id, email) {
-  waitFor(matchUpdateUser(user_id, stream_id, email));
+function waitForUserUpdated(user_id, stream_id) {
+  waitFor(matchUpdateUser(user_id, stream_id));
 }
 function waitForAnyUserUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+) and email\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+) and email\ (.+)$/);
-    return { user_id: parseInt(m[1]), stream_id: parseInt(m[2]), email: m[3] };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ user\ with\ user_id\ (.+) and stream_id\ (.+)$/);
+    return { user_id: parseInt(m[1]), stream_id: parseInt(m[2]) };
 }
 
 // Verify updated (presence-by-list)
-function verifyUserUpdated(user_id, stream_id, email) {
+function verifyUserUpdated(user_id, stream_id) {
   svc.get("/users", {
     callback: function (response) {
       user = JSON.parse(response.body);
       for (let i = 0; i < user.length; i++) {
-        if (user[i].user_id === user_id && user[i].stream_id === stream_id && user[i].email === email) {
+        if (user[i].user_id === user_id && user[i].stream_id === stream_id) {
           return pvg.success("User updated (present)");
         }
       }
       return pvg.fail("Expected a user to be present after update, but it is not");
     },
-    parameters: { description: "Verify user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " and " + "email " + email + " exists" }
+    parameters: { description: "Verify user with " + "user_id " + user_id + " and " + "stream_id " + stream_id + " exists" }
   });
 }
 

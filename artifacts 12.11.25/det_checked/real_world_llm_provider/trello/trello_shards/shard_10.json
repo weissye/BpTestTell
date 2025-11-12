@@ -1,0 +1,60 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/list"
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/desc"
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/memberships"
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/voting"
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/state"
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/membersVoted/{idMember}"
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/{idChecklist}/pos"
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/pos"
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boardsInvited/{field}"
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/organizationsInvited/{field}"
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/list"
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/members/{filter}"
+    },
+    {
+      "method": "GET",
+      "path": "/search"
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/description"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "kind": "hls_gold",
+  "deterministic": true,
+  "provider": "7_suts_llm_provider",
+  "sut": "config_control",
+  "generated_at": "2025-11-09T13:49:32.658453Z",
+  "source": {
+    "graph": "C:\\work\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\7_suts_llm_provider\\config_control\\graph.json",
+    "dsl": "C:\\work\\Yeshayahu\\BpTestTell\\models\\hls\\SUTs\\config_control\\dsl_map.json"
+  },
+  "entities": [
+    {
+      "name": "app",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "config",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "env",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "policy",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "release",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "name": "reset",
+      "verbs": [
+        "POST"
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "name": "CRUD app",
+      "desc": "Deterministic CRUD flow for entity 'app' inferred from graph.",
+      "entity": "app",
+      "js": "// Deterministic CRUD flow for entity: app\nbp.registerBThread(\"HLS: CRUD app\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/apps\", {})});\n  bp.sync({request: REST.GET(\"/apps\", {})});\n  bp.sync({request: REST.GET(\"/apps\", {})});\n});"
+    },
+    {
+      "name": "CRUD config",
+      "desc": "Deterministic CRUD flow for entity 'config' inferred from graph.",
+      "entity": "config",
+      "js": "// Deterministic CRUD flow for entity: config\nbp.registerBThread(\"HLS: CRUD config\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/configs\", {})});\n  bp.sync({request: REST.GET(\"/configs\", {})});\n  bp.sync({request: REST.GET(\"/configs\", {})});\n});"
+    },
+    {
+      "name": "CRUD env",
+      "desc": "Deterministic CRUD flow for entity 'env' inferred from graph.",
+      "entity": "env",
+      "js": "// Deterministic CRUD flow for entity: env\nbp.registerBThread(\"HLS: CRUD env\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/envs\", {})});\n  bp.sync({request: REST.GET(\"/envs\", {})});\n  bp.sync({request: REST.GET(\"/envs\", {})});\n});"
+    },
+    {
+      "name": "CRUD policy",
+      "desc": "Deterministic CRUD flow for entity 'policy' inferred from graph.",
+      "entity": "policy",
+      "js": "// Deterministic CRUD flow for entity: policy\nbp.registerBThread(\"HLS: CRUD policy\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/policies\", {})});\n  bp.sync({request: REST.GET(\"/policies\", {})});\n  bp.sync({request: REST.GET(\"/policies\", {})});\n});"
+    }
+  ]
+}

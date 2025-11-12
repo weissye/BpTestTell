@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401IpAccessControlListMapping"
+      ],
+      "summary": "Fetch an IpAccessControlListMapping resource.",
+      "operationId": "FetchSipIpAccessControlListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401IpAccessControlListMapping"
+      ],
+      "summary": "Delete an IpAccessControlListMapping resource.",
+      "operationId": "DeleteSipIpAccessControlListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401IpAccessControlListMapping"
+      ],
+      "summary": "Create a new IpAccessControlListMapping resource.",
+      "operationId": "CreateSipIpAccessControlListMapping"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401IpAccessControlListMapping"
+      ],
+      "summary": "Retrieve a list of IpAccessControlListMapping resources.",
+      "operationId": "ListSipIpAccessControlListMapping"
+    }
+  ]
+}

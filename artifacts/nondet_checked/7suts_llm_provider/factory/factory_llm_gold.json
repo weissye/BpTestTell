@@ -6,7 +6,7 @@
       "operationId": "resetFactory",
       "summary": "",
       "user": "admin",
-      "ideal": "Resets the factory state to the initial configuration."
+      "ideal": "Resets the factory state to initial configuration."
     },
     {
       "path": "/machines",
@@ -14,7 +14,7 @@
       "operationId": "getMachines",
       "summary": "",
       "user": "operator",
-      "ideal": "Retrieves a list of all machines currently in the factory."
+      "ideal": "Retrieves a list of all machines in the factory."
     },
     {
       "path": "/machines",
@@ -22,7 +22,7 @@
       "operationId": "addMachine",
       "summary": "",
       "user": "admin",
-      "ideal": "Adds a new machine to the factory with specified parameters."
+      "ideal": "Adds a new machine to the factory."
     },
     {
       "path": "/workorders",
@@ -46,7 +46,7 @@
       "operationId": "getMaintenanceTickets",
       "summary": "",
       "user": "technician",
-      "ideal": "Lists all maintenance tickets that require attention."
+      "ideal": "Lists all maintenance tickets currently open."
     },
     {
       "path": "/maintenance-tickets",
@@ -54,7 +54,7 @@
       "operationId": "createMaintenanceTicket",
       "summary": "",
       "user": "technician",
-      "ideal": "Submits a new maintenance ticket for a machine issue."
+      "ideal": "Submits a new maintenance ticket for a machine."
     },
     {
       "path": "/sensor-readings",
@@ -62,7 +62,7 @@
       "operationId": "getSensorReadings",
       "summary": "",
       "user": "operator",
-      "ideal": "Retrieves the latest sensor readings from all machines."
+      "ideal": "Retrieves the latest sensor readings from machines."
     },
     {
       "path": "/sensor-readings",

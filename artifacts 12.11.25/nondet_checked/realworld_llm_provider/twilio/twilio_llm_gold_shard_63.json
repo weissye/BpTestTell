@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams.json",
+      "method": "POST",
+      "operationId": "CreateStream",
+      "summary": "",
+      "user": "User wants to create a new stream for a specific call using their Account SID and Call SID.",
+      "ideal": "Create a stream for the specified call."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateStream",
+      "summary": "",
+      "user": "User needs to update an existing stream with new parameters using the Account SID, Call SID, and Stream SID.",
+      "ideal": "Update the specified stream for the call."
+    }
+  ]
+}

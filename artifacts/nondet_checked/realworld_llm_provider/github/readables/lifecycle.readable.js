@@ -9,40 +9,40 @@ function lifecycle_advisorie(ghsa_id) {
   verifyAdvisorieDoesNotExist(ghsa_id);
 }
 
-function lifecycle_app(id) {
-  try { tryToDeleteANonExistingApp(id); } catch (_e) {}
-  addApp(id);
-  verifyAppExists(id);
-  tryToAddExistingApp(id);
-  deleteApp(id);
-  verifyAppDoesNotExist(id);
+function lifecycle_app(installation_id, delivery_id) {
+  try { tryToDeleteANonExistingApp(installation_id, delivery_id); } catch (_e) {}
+  addApp(installation_id, delivery_id);
+  verifyAppExists(installation_id, delivery_id);
+  tryToAddExistingApp(installation_id, delivery_id);
+  deleteApp(installation_id, delivery_id);
+  verifyAppDoesNotExist(installation_id, delivery_id);
 }
 
-function lifecycle_app_manifest(id) {
-  try { tryToDeleteANonExistingApp_manifest(id); } catch (_e) {}
-  addApp_manifest(id);
-  verifyApp_manifestExists(id);
-  tryToAddExistingApp_manifest(id);
-  deleteApp_manifest(id);
-  verifyApp_manifestDoesNotExist(id);
+function lifecycle_app_manifest(code) {
+  try { tryToDeleteANonExistingApp_manifest(code); } catch (_e) {}
+  addApp_manifest(code);
+  verifyApp_manifestExists(code);
+  tryToAddExistingApp_manifest(code);
+  deleteApp_manifest(code);
+  verifyApp_manifestDoesNotExist(code);
 }
 
-function lifecycle_application(id) {
-  try { tryToDeleteANonExistingApplication(id); } catch (_e) {}
-  addApplication(id);
-  verifyApplicationExists(id);
-  tryToAddExistingApplication(id);
-  deleteApplication(id);
-  verifyApplicationDoesNotExist(id);
+function lifecycle_application(client_id) {
+  try { tryToDeleteANonExistingApplication(client_id); } catch (_e) {}
+  addApplication(client_id);
+  verifyApplicationExists(client_id);
+  tryToAddExistingApplication(client_id);
+  deleteApplication(client_id);
+  verifyApplicationDoesNotExist(client_id);
 }
 
-function lifecycle_app(id) {
-  try { tryToDeleteANonExistingApp(id); } catch (_e) {}
-  addApp(id);
-  verifyAppExists(id);
-  tryToAddExistingApp(id);
-  deleteApp(id);
-  verifyAppDoesNotExist(id);
+function lifecycle_app(app_slug) {
+  try { tryToDeleteANonExistingApp(app_slug); } catch (_e) {}
+  addApp(app_slug);
+  verifyAppExists(app_slug);
+  tryToAddExistingApp(app_slug);
+  deleteApp(app_slug);
+  verifyAppDoesNotExist(app_slug);
 }
 
 function lifecycle_assignment(id) {
@@ -162,13 +162,13 @@ function lifecycle_markdown(id) {
   verifyMarkdownDoesNotExist(id);
 }
 
-function lifecycle_marketplace_listing(id) {
-  try { tryToDeleteANonExistingMarketplace_listing(id); } catch (_e) {}
-  addMarketplace_listing(id);
-  verifyMarketplace_listingExists(id);
-  tryToAddExistingMarketplace_listing(id);
-  deleteMarketplace_listing(id);
-  verifyMarketplace_listingDoesNotExist(id);
+function lifecycle_marketplace_listing(account_id, plan_id) {
+  try { tryToDeleteANonExistingMarketplace_listing(account_id, plan_id); } catch (_e) {}
+  addMarketplace_listing(account_id, plan_id);
+  verifyMarketplace_listingExists(account_id, plan_id);
+  tryToAddExistingMarketplace_listing(account_id, plan_id);
+  deleteMarketplace_listing(account_id, plan_id);
+  verifyMarketplace_listingDoesNotExist(account_id, plan_id);
 }
 
 function lifecycle_meta(id) {
@@ -198,22 +198,22 @@ function lifecycle_octocat(id) {
   verifyOctocatDoesNotExist(id);
 }
 
-function lifecycle_organization(org) {
-  try { tryToDeleteANonExistingOrganization(org); } catch (_e) {}
-  addOrganization(org);
-  verifyOrganizationExists(org);
-  tryToAddExistingOrganization(org);
-  deleteOrganization(org);
-  verifyOrganizationDoesNotExist(org);
+function lifecycle_organization(id) {
+  try { tryToDeleteANonExistingOrganization(id); } catch (_e) {}
+  addOrganization(id);
+  verifyOrganizationExists(id);
+  tryToAddExistingOrganization(id);
+  deleteOrganization(id);
+  verifyOrganizationDoesNotExist(id);
 }
 
-function lifecycle_org(org, secret_name, repository_id) {
-  try { tryToDeleteANonExistingOrg(org, secret_name, repository_id); } catch (_e) {}
-  addOrg(org, secret_name, repository_id);
-  verifyOrgExists(org, secret_name, repository_id);
-  tryToAddExistingOrg(org, secret_name, repository_id);
-  deleteOrg(org, secret_name, repository_id);
-  verifyOrgDoesNotExist(org, secret_name, repository_id);
+function lifecycle_org(org) {
+  try { tryToDeleteANonExistingOrg(org); } catch (_e) {}
+  addOrg(org);
+  verifyOrgExists(org);
+  tryToAddExistingOrg(org);
+  deleteOrg(org);
+  verifyOrgDoesNotExist(org);
 }
 
 function lifecycle_project(id) {
@@ -234,13 +234,13 @@ function lifecycle_rate_limit(id) {
   verifyRate_limitDoesNotExist(id);
 }
 
-function lifecycle_repo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id) {
-  try { tryToDeleteANonExistingRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id); } catch (_e) {}
-  addRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id);
-  verifyRepoExists(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id);
-  tryToAddExistingRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id);
-  deleteRepo(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id);
-  verifyRepoDoesNotExist(owner, repo, alert_number, secret_name, ghsa_id, analysis_id, language, codeql_variant_analysis_id, run_id, name, repo_owner, repo_name, sarif_id);
+function lifecycle_repo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id) {
+  try { tryToDeleteANonExistingRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id); } catch (_e) {}
+  addRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id);
+  verifyRepoExists(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id);
+  tryToAddExistingRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id);
+  deleteRepo(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id);
+  verifyRepoDoesNotExist(owner, repo, alert_number, ghsa_id, run_id, analysis_id, language, codeql_variant_analysis_id, name, repo_owner, repo_name, sarif_id);
 }
 
 function lifecycle_root(id) {
@@ -270,13 +270,13 @@ function lifecycle_team(id) {
   verifyTeamDoesNotExist(id);
 }
 
-function lifecycle_user(username, codespace_name, gpg_key_id, key_id, secret_name, account_id) {
-  try { tryToDeleteANonExistingUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id); } catch (_e) {}
-  addUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id);
-  verifyUserExists(username, codespace_name, gpg_key_id, key_id, secret_name, account_id);
-  tryToAddExistingUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id);
-  deleteUser(username, codespace_name, gpg_key_id, key_id, secret_name, account_id);
-  verifyUserDoesNotExist(username, codespace_name, gpg_key_id, key_id, secret_name, account_id);
+function lifecycle_user(installation_id, repository_id, codespace_name, secret_name) {
+  try { tryToDeleteANonExistingUser(installation_id, repository_id, codespace_name, secret_name); } catch (_e) {}
+  addUser(installation_id, repository_id, codespace_name, secret_name);
+  verifyUserExists(installation_id, repository_id, codespace_name, secret_name);
+  tryToAddExistingUser(installation_id, repository_id, codespace_name, secret_name);
+  deleteUser(installation_id, repository_id, codespace_name, secret_name);
+  verifyUserDoesNotExist(installation_id, repository_id, codespace_name, secret_name);
 }
 
 function lifecycle_user(username) {
