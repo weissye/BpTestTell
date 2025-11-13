@@ -1,267 +1,395 @@
 {
-  "kind": "hls_gold",
-  "deterministic": true,
-  "provider": "real_world_llm_provider",
   "sut": "meilisearch",
-  "generated_at": "2025-11-12T20:06:42.055932Z",
+  "provider": "real_world_llm_provider",
+  "mode": "det",
   "source": {
-    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\real_world_llm_provider\\meilisearch\\graph.json",
-    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\RWs\\meilisearch\\dsl_map.json"
+    "created_by": "build_hls_gold_det.py"
   },
-  "entities": [
-    {
-      "name": "_taskuid",
-      "verbs": [
-        "GET"
-      ]
-    },
-    {
-      "name": "cancel",
-      "verbs": [
-        "POST"
-      ]
-    },
-    {
-      "name": "delete",
-      "verbs": [
-        "POST"
-      ]
-    },
-    {
-      "name": "delete_batch",
-      "verbs": [
-        "POST"
-      ]
-    },
-    {
-      "name": "displayed_attribute",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "PUT"
-      ]
-    },
-    {
-      "name": "distinct_attribute",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "PUT"
-      ]
-    },
-    {
-      "name": "document",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "POST",
-        "PUT"
-      ]
-    },
-    {
-      "name": "dump",
-      "verbs": [
-        "POST"
-      ]
-    },
-    {
-      "name": "experimental_feature",
-      "verbs": [
-        "GET",
-        "PATCH"
-      ]
-    },
-    {
-      "name": "facet_search",
-      "verbs": [
-        "POST"
-      ]
-    },
-    {
-      "name": "faceting",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "PATCH"
-      ]
-    },
-    {
-      "name": "fetch",
-      "verbs": [
-        "POST"
-      ]
-    },
-    {
-      "name": "filterable_attribute",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "PUT"
-      ]
-    },
-    {
-      "name": "health",
-      "verbs": [
-        "GET"
-      ]
-    },
-    {
-      "name": "indexe",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "PATCH",
-        "POST"
-      ]
-    },
-    {
-      "name": "key",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "PATCH",
-        "POST"
-      ]
-    },
-    {
-      "name": "metric",
-      "verbs": [
-        "GET"
-      ]
-    },
-    {
-      "name": "multi_search",
-      "verbs": [
-        "POST"
-      ]
-    },
-    {
-      "name": "pagination",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "PATCH"
-      ]
-    },
-    {
-      "name": "ranking_rule",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "PUT"
-      ]
-    },
-    {
-      "name": "search",
-      "verbs": [
-        "GET",
-        "POST"
-      ]
-    },
-    {
-      "name": "searchable_attribute",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "PUT"
-      ]
-    },
-    {
-      "name": "setting",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "PATCH"
-      ]
-    },
-    {
-      "name": "snapshot",
-      "verbs": [
-        "POST"
-      ]
-    },
-    {
-      "name": "sortable_attribute",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "PUT"
-      ]
-    },
-    {
-      "name": "stat",
-      "verbs": [
-        "GET"
-      ]
-    },
-    {
-      "name": "stop_word",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "PUT"
-      ]
-    },
-    {
-      "name": "swap_indexe",
-      "verbs": [
-        "POST"
-      ]
-    },
-    {
-      "name": "synonym",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "PUT"
-      ]
-    },
-    {
-      "name": "task",
-      "verbs": [
-        "DELETE",
-        "GET"
-      ]
-    },
-    {
-      "name": "typo_tolerance",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "PATCH"
-      ]
-    },
-    {
-      "name": "version",
-      "verbs": [
-        "GET"
-      ]
-    }
-  ],
   "stories": [
     {
-      "name": "CRUD _taskuid",
-      "desc": "Deterministic CRUD flow for entity '_taskuid' inferred from graph.",
-      "entity": "_taskuid",
-      "js": "// Deterministic CRUD flow for entity: _taskuid\nbthread(\"HLS: CRUD _taskuid\", function () {\n  bp.sync({request: REST.GET(\"/tasks/:taskUid\", {})});\n  bp.sync({request: REST.GET(\"/tasks/:taskUid\", {})});\n});"
+      "name": "crud::taskuid:det:1:1",
+      "js": "// ---- crud::taskuid:det:1:1 ----\nbthread(\"crud::taskuid:det:1:1\", function() {\n  const id = uniqueId(\":taskuid\");\n  verify:TaskuidDoesNotExist(id);\n  create:Taskuid(id, seed:Taskuid());\n  verify:TaskuidExists(id);\n});\n"
     },
     {
-      "name": "CRUD cancel",
-      "desc": "Deterministic CRUD flow for entity 'cancel' inferred from graph.",
-      "entity": "cancel",
-      "js": "// Deterministic CRUD flow for entity: cancel\nbthread(\"HLS: CRUD cancel\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/tasks/cancel\", {})});\n});"
+      "name": "crud::taskuid:det:2:1",
+      "js": "// ---- crud::taskuid:det:2:1 ----\nbthread(\"crud::taskuid:det:2:1\", function() {\n  const id = uniqueId(\":taskuid\");\n  create:Taskuid(id, seed:Taskuid());\n  update:Taskuid(id, patch:Taskuid());\n  verify:TaskuidUpdated(id);\n});\n"
     },
     {
-      "name": "CRUD delete",
-      "desc": "Deterministic CRUD flow for entity 'delete' inferred from graph.",
-      "entity": "delete",
-      "js": "// Deterministic CRUD flow for entity: delete\nbthread(\"HLS: CRUD delete\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/indexes/{indexUid}/documents/delete\", {})});\n});"
+      "name": "crud::taskuid:det:3:1",
+      "js": "// ---- crud::taskuid:det:3:1 ----\nbthread(\"crud::taskuid:det:3:1\", function() {\n  const id = uniqueId(\":taskuid\");\n  create:Taskuid(id, seed:Taskuid());\n  delete:Taskuid(id);\n  verify:TaskuidDoesNotExist(id);\n});\n"
     },
     {
-      "name": "CRUD delete_batch",
-      "desc": "Deterministic CRUD flow for entity 'delete_batch' inferred from graph.",
-      "entity": "delete_batch",
-      "js": "// Deterministic CRUD flow for entity: delete_batch\nbthread(\"HLS: CRUD delete_batch\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/indexes/{indexUid}/documents/delete-batch\", {})});\n});"
+      "name": "crud:cancel:det:1:2",
+      "js": "// ---- crud:cancel:det:1:2 ----\nbthread(\"crud:cancel:det:1:2\", function() {\n  const id = uniqueId(\"cancel\");\n  verifyCancelDoesNotExist(id);\n  createCancel(id, seedCancel());\n  verifyCancelExists(id);\n});\n"
+    },
+    {
+      "name": "crud:cancel:det:2:2",
+      "js": "// ---- crud:cancel:det:2:2 ----\nbthread(\"crud:cancel:det:2:2\", function() {\n  const id = uniqueId(\"cancel\");\n  createCancel(id, seedCancel());\n  updateCancel(id, patchCancel());\n  verifyCancelUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:cancel:det:3:2",
+      "js": "// ---- crud:cancel:det:3:2 ----\nbthread(\"crud:cancel:det:3:2\", function() {\n  const id = uniqueId(\"cancel\");\n  createCancel(id, seedCancel());\n  deleteCancel(id);\n  verifyCancelDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:delete:det:1:3",
+      "js": "// ---- crud:delete:det:1:3 ----\nbthread(\"crud:delete:det:1:3\", function() {\n  const id = uniqueId(\"delete\");\n  verifyDeleteDoesNotExist(id);\n  createDelete(id, seedDelete());\n  verifyDeleteExists(id);\n});\n"
+    },
+    {
+      "name": "crud:delete:det:2:3",
+      "js": "// ---- crud:delete:det:2:3 ----\nbthread(\"crud:delete:det:2:3\", function() {\n  const id = uniqueId(\"delete\");\n  createDelete(id, seedDelete());\n  updateDelete(id, patchDelete());\n  verifyDeleteUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:delete:det:3:3",
+      "js": "// ---- crud:delete:det:3:3 ----\nbthread(\"crud:delete:det:3:3\", function() {\n  const id = uniqueId(\"delete\");\n  createDelete(id, seedDelete());\n  deleteDelete(id);\n  verifyDeleteDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:delete_batch:det:1:4",
+      "js": "// ---- crud:delete_batch:det:1:4 ----\nbthread(\"crud:delete_batch:det:1:4\", function() {\n  const id = uniqueId(\"delete_batch\");\n  verifyDelete_BatchDoesNotExist(id);\n  createDelete_Batch(id, seedDelete_Batch());\n  verifyDelete_BatchExists(id);\n});\n"
+    },
+    {
+      "name": "crud:delete_batch:det:2:4",
+      "js": "// ---- crud:delete_batch:det:2:4 ----\nbthread(\"crud:delete_batch:det:2:4\", function() {\n  const id = uniqueId(\"delete_batch\");\n  createDelete_Batch(id, seedDelete_Batch());\n  updateDelete_Batch(id, patchDelete_Batch());\n  verifyDelete_BatchUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:delete_batch:det:3:4",
+      "js": "// ---- crud:delete_batch:det:3:4 ----\nbthread(\"crud:delete_batch:det:3:4\", function() {\n  const id = uniqueId(\"delete_batch\");\n  createDelete_Batch(id, seedDelete_Batch());\n  deleteDelete_Batch(id);\n  verifyDelete_BatchDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:displayed_attribute:det:1:5",
+      "js": "// ---- crud:displayed_attribute:det:1:5 ----\nbthread(\"crud:displayed_attribute:det:1:5\", function() {\n  const id = uniqueId(\"displayed_attribute\");\n  verifyDisplayed_AttributeDoesNotExist(id);\n  createDisplayed_Attribute(id, seedDisplayed_Attribute());\n  verifyDisplayed_AttributeExists(id);\n});\n"
+    },
+    {
+      "name": "crud:displayed_attribute:det:2:5",
+      "js": "// ---- crud:displayed_attribute:det:2:5 ----\nbthread(\"crud:displayed_attribute:det:2:5\", function() {\n  const id = uniqueId(\"displayed_attribute\");\n  createDisplayed_Attribute(id, seedDisplayed_Attribute());\n  updateDisplayed_Attribute(id, patchDisplayed_Attribute());\n  verifyDisplayed_AttributeUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:displayed_attribute:det:3:5",
+      "js": "// ---- crud:displayed_attribute:det:3:5 ----\nbthread(\"crud:displayed_attribute:det:3:5\", function() {\n  const id = uniqueId(\"displayed_attribute\");\n  createDisplayed_Attribute(id, seedDisplayed_Attribute());\n  deleteDisplayed_Attribute(id);\n  verifyDisplayed_AttributeDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:distinct_attribute:det:1:6",
+      "js": "// ---- crud:distinct_attribute:det:1:6 ----\nbthread(\"crud:distinct_attribute:det:1:6\", function() {\n  const id = uniqueId(\"distinct_attribute\");\n  verifyDistinct_AttributeDoesNotExist(id);\n  createDistinct_Attribute(id, seedDistinct_Attribute());\n  verifyDistinct_AttributeExists(id);\n});\n"
+    },
+    {
+      "name": "crud:distinct_attribute:det:2:6",
+      "js": "// ---- crud:distinct_attribute:det:2:6 ----\nbthread(\"crud:distinct_attribute:det:2:6\", function() {\n  const id = uniqueId(\"distinct_attribute\");\n  createDistinct_Attribute(id, seedDistinct_Attribute());\n  updateDistinct_Attribute(id, patchDistinct_Attribute());\n  verifyDistinct_AttributeUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:distinct_attribute:det:3:6",
+      "js": "// ---- crud:distinct_attribute:det:3:6 ----\nbthread(\"crud:distinct_attribute:det:3:6\", function() {\n  const id = uniqueId(\"distinct_attribute\");\n  createDistinct_Attribute(id, seedDistinct_Attribute());\n  deleteDistinct_Attribute(id);\n  verifyDistinct_AttributeDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:document:det:1:7",
+      "js": "// ---- crud:document:det:1:7 ----\nbthread(\"crud:document:det:1:7\", function() {\n  const id = uniqueId(\"document\");\n  verifyDocumentDoesNotExist(id);\n  createDocument(id, seedDocument());\n  verifyDocumentExists(id);\n});\n"
+    },
+    {
+      "name": "crud:document:det:2:7",
+      "js": "// ---- crud:document:det:2:7 ----\nbthread(\"crud:document:det:2:7\", function() {\n  const id = uniqueId(\"document\");\n  createDocument(id, seedDocument());\n  updateDocument(id, patchDocument());\n  verifyDocumentUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:document:det:3:7",
+      "js": "// ---- crud:document:det:3:7 ----\nbthread(\"crud:document:det:3:7\", function() {\n  const id = uniqueId(\"document\");\n  createDocument(id, seedDocument());\n  deleteDocument(id);\n  verifyDocumentDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:dump:det:1:8",
+      "js": "// ---- crud:dump:det:1:8 ----\nbthread(\"crud:dump:det:1:8\", function() {\n  const id = uniqueId(\"dump\");\n  verifyDumpDoesNotExist(id);\n  createDump(id, seedDump());\n  verifyDumpExists(id);\n});\n"
+    },
+    {
+      "name": "crud:dump:det:2:8",
+      "js": "// ---- crud:dump:det:2:8 ----\nbthread(\"crud:dump:det:2:8\", function() {\n  const id = uniqueId(\"dump\");\n  createDump(id, seedDump());\n  updateDump(id, patchDump());\n  verifyDumpUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:dump:det:3:8",
+      "js": "// ---- crud:dump:det:3:8 ----\nbthread(\"crud:dump:det:3:8\", function() {\n  const id = uniqueId(\"dump\");\n  createDump(id, seedDump());\n  deleteDump(id);\n  verifyDumpDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:experimental_feature:det:1:9",
+      "js": "// ---- crud:experimental_feature:det:1:9 ----\nbthread(\"crud:experimental_feature:det:1:9\", function() {\n  const id = uniqueId(\"experimental_feature\");\n  verifyExperimental_FeatureDoesNotExist(id);\n  createExperimental_Feature(id, seedExperimental_Feature());\n  verifyExperimental_FeatureExists(id);\n});\n"
+    },
+    {
+      "name": "crud:experimental_feature:det:2:9",
+      "js": "// ---- crud:experimental_feature:det:2:9 ----\nbthread(\"crud:experimental_feature:det:2:9\", function() {\n  const id = uniqueId(\"experimental_feature\");\n  createExperimental_Feature(id, seedExperimental_Feature());\n  updateExperimental_Feature(id, patchExperimental_Feature());\n  verifyExperimental_FeatureUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:experimental_feature:det:3:9",
+      "js": "// ---- crud:experimental_feature:det:3:9 ----\nbthread(\"crud:experimental_feature:det:3:9\", function() {\n  const id = uniqueId(\"experimental_feature\");\n  createExperimental_Feature(id, seedExperimental_Feature());\n  deleteExperimental_Feature(id);\n  verifyExperimental_FeatureDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:facet_search:det:1:10",
+      "js": "// ---- crud:facet_search:det:1:10 ----\nbthread(\"crud:facet_search:det:1:10\", function() {\n  const id = uniqueId(\"facet_search\");\n  verifyFacet_SearchDoesNotExist(id);\n  createFacet_Search(id, seedFacet_Search());\n  verifyFacet_SearchExists(id);\n});\n"
+    },
+    {
+      "name": "crud:facet_search:det:2:10",
+      "js": "// ---- crud:facet_search:det:2:10 ----\nbthread(\"crud:facet_search:det:2:10\", function() {\n  const id = uniqueId(\"facet_search\");\n  createFacet_Search(id, seedFacet_Search());\n  updateFacet_Search(id, patchFacet_Search());\n  verifyFacet_SearchUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:facet_search:det:3:10",
+      "js": "// ---- crud:facet_search:det:3:10 ----\nbthread(\"crud:facet_search:det:3:10\", function() {\n  const id = uniqueId(\"facet_search\");\n  createFacet_Search(id, seedFacet_Search());\n  deleteFacet_Search(id);\n  verifyFacet_SearchDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:faceting:det:1:11",
+      "js": "// ---- crud:faceting:det:1:11 ----\nbthread(\"crud:faceting:det:1:11\", function() {\n  const id = uniqueId(\"faceting\");\n  verifyFacetingDoesNotExist(id);\n  createFaceting(id, seedFaceting());\n  verifyFacetingExists(id);\n});\n"
+    },
+    {
+      "name": "crud:faceting:det:2:11",
+      "js": "// ---- crud:faceting:det:2:11 ----\nbthread(\"crud:faceting:det:2:11\", function() {\n  const id = uniqueId(\"faceting\");\n  createFaceting(id, seedFaceting());\n  updateFaceting(id, patchFaceting());\n  verifyFacetingUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:faceting:det:3:11",
+      "js": "// ---- crud:faceting:det:3:11 ----\nbthread(\"crud:faceting:det:3:11\", function() {\n  const id = uniqueId(\"faceting\");\n  createFaceting(id, seedFaceting());\n  deleteFaceting(id);\n  verifyFacetingDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:fetch:det:1:12",
+      "js": "// ---- crud:fetch:det:1:12 ----\nbthread(\"crud:fetch:det:1:12\", function() {\n  const id = uniqueId(\"fetch\");\n  verifyFetchDoesNotExist(id);\n  createFetch(id, seedFetch());\n  verifyFetchExists(id);\n});\n"
+    },
+    {
+      "name": "crud:fetch:det:2:12",
+      "js": "// ---- crud:fetch:det:2:12 ----\nbthread(\"crud:fetch:det:2:12\", function() {\n  const id = uniqueId(\"fetch\");\n  createFetch(id, seedFetch());\n  updateFetch(id, patchFetch());\n  verifyFetchUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:fetch:det:3:12",
+      "js": "// ---- crud:fetch:det:3:12 ----\nbthread(\"crud:fetch:det:3:12\", function() {\n  const id = uniqueId(\"fetch\");\n  createFetch(id, seedFetch());\n  deleteFetch(id);\n  verifyFetchDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:filterable_attribute:det:1:13",
+      "js": "// ---- crud:filterable_attribute:det:1:13 ----\nbthread(\"crud:filterable_attribute:det:1:13\", function() {\n  const id = uniqueId(\"filterable_attribute\");\n  verifyFilterable_AttributeDoesNotExist(id);\n  createFilterable_Attribute(id, seedFilterable_Attribute());\n  verifyFilterable_AttributeExists(id);\n});\n"
+    },
+    {
+      "name": "crud:filterable_attribute:det:2:13",
+      "js": "// ---- crud:filterable_attribute:det:2:13 ----\nbthread(\"crud:filterable_attribute:det:2:13\", function() {\n  const id = uniqueId(\"filterable_attribute\");\n  createFilterable_Attribute(id, seedFilterable_Attribute());\n  updateFilterable_Attribute(id, patchFilterable_Attribute());\n  verifyFilterable_AttributeUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:filterable_attribute:det:3:13",
+      "js": "// ---- crud:filterable_attribute:det:3:13 ----\nbthread(\"crud:filterable_attribute:det:3:13\", function() {\n  const id = uniqueId(\"filterable_attribute\");\n  createFilterable_Attribute(id, seedFilterable_Attribute());\n  deleteFilterable_Attribute(id);\n  verifyFilterable_AttributeDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:health:det:1:14",
+      "js": "// ---- crud:health:det:1:14 ----\nbthread(\"crud:health:det:1:14\", function() {\n  const id = uniqueId(\"health\");\n  verifyHealthDoesNotExist(id);\n  createHealth(id, seedHealth());\n  verifyHealthExists(id);\n});\n"
+    },
+    {
+      "name": "crud:health:det:2:14",
+      "js": "// ---- crud:health:det:2:14 ----\nbthread(\"crud:health:det:2:14\", function() {\n  const id = uniqueId(\"health\");\n  createHealth(id, seedHealth());\n  updateHealth(id, patchHealth());\n  verifyHealthUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:health:det:3:14",
+      "js": "// ---- crud:health:det:3:14 ----\nbthread(\"crud:health:det:3:14\", function() {\n  const id = uniqueId(\"health\");\n  createHealth(id, seedHealth());\n  deleteHealth(id);\n  verifyHealthDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:indexe:det:1:15",
+      "js": "// ---- crud:indexe:det:1:15 ----\nbthread(\"crud:indexe:det:1:15\", function() {\n  const id = uniqueId(\"indexe\");\n  verifyIndexeDoesNotExist(id);\n  createIndexe(id, seedIndexe());\n  verifyIndexeExists(id);\n});\n"
+    },
+    {
+      "name": "crud:indexe:det:2:15",
+      "js": "// ---- crud:indexe:det:2:15 ----\nbthread(\"crud:indexe:det:2:15\", function() {\n  const id = uniqueId(\"indexe\");\n  createIndexe(id, seedIndexe());\n  updateIndexe(id, patchIndexe());\n  verifyIndexeUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:indexe:det:3:15",
+      "js": "// ---- crud:indexe:det:3:15 ----\nbthread(\"crud:indexe:det:3:15\", function() {\n  const id = uniqueId(\"indexe\");\n  createIndexe(id, seedIndexe());\n  deleteIndexe(id);\n  verifyIndexeDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:key:det:1:16",
+      "js": "// ---- crud:key:det:1:16 ----\nbthread(\"crud:key:det:1:16\", function() {\n  const id = uniqueId(\"key\");\n  verifyKeyDoesNotExist(id);\n  createKey(id, seedKey());\n  verifyKeyExists(id);\n});\n"
+    },
+    {
+      "name": "crud:key:det:2:16",
+      "js": "// ---- crud:key:det:2:16 ----\nbthread(\"crud:key:det:2:16\", function() {\n  const id = uniqueId(\"key\");\n  createKey(id, seedKey());\n  updateKey(id, patchKey());\n  verifyKeyUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:key:det:3:16",
+      "js": "// ---- crud:key:det:3:16 ----\nbthread(\"crud:key:det:3:16\", function() {\n  const id = uniqueId(\"key\");\n  createKey(id, seedKey());\n  deleteKey(id);\n  verifyKeyDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:metric:det:1:17",
+      "js": "// ---- crud:metric:det:1:17 ----\nbthread(\"crud:metric:det:1:17\", function() {\n  const id = uniqueId(\"metric\");\n  verifyMetricDoesNotExist(id);\n  createMetric(id, seedMetric());\n  verifyMetricExists(id);\n});\n"
+    },
+    {
+      "name": "crud:metric:det:2:17",
+      "js": "// ---- crud:metric:det:2:17 ----\nbthread(\"crud:metric:det:2:17\", function() {\n  const id = uniqueId(\"metric\");\n  createMetric(id, seedMetric());\n  updateMetric(id, patchMetric());\n  verifyMetricUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:metric:det:3:17",
+      "js": "// ---- crud:metric:det:3:17 ----\nbthread(\"crud:metric:det:3:17\", function() {\n  const id = uniqueId(\"metric\");\n  createMetric(id, seedMetric());\n  deleteMetric(id);\n  verifyMetricDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:multi_search:det:1:18",
+      "js": "// ---- crud:multi_search:det:1:18 ----\nbthread(\"crud:multi_search:det:1:18\", function() {\n  const id = uniqueId(\"multi_search\");\n  verifyMulti_SearchDoesNotExist(id);\n  createMulti_Search(id, seedMulti_Search());\n  verifyMulti_SearchExists(id);\n});\n"
+    },
+    {
+      "name": "crud:multi_search:det:2:18",
+      "js": "// ---- crud:multi_search:det:2:18 ----\nbthread(\"crud:multi_search:det:2:18\", function() {\n  const id = uniqueId(\"multi_search\");\n  createMulti_Search(id, seedMulti_Search());\n  updateMulti_Search(id, patchMulti_Search());\n  verifyMulti_SearchUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:multi_search:det:3:18",
+      "js": "// ---- crud:multi_search:det:3:18 ----\nbthread(\"crud:multi_search:det:3:18\", function() {\n  const id = uniqueId(\"multi_search\");\n  createMulti_Search(id, seedMulti_Search());\n  deleteMulti_Search(id);\n  verifyMulti_SearchDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:pagination:det:1:19",
+      "js": "// ---- crud:pagination:det:1:19 ----\nbthread(\"crud:pagination:det:1:19\", function() {\n  const id = uniqueId(\"pagination\");\n  verifyPaginationDoesNotExist(id);\n  createPagination(id, seedPagination());\n  verifyPaginationExists(id);\n});\n"
+    },
+    {
+      "name": "crud:pagination:det:2:19",
+      "js": "// ---- crud:pagination:det:2:19 ----\nbthread(\"crud:pagination:det:2:19\", function() {\n  const id = uniqueId(\"pagination\");\n  createPagination(id, seedPagination());\n  updatePagination(id, patchPagination());\n  verifyPaginationUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:pagination:det:3:19",
+      "js": "// ---- crud:pagination:det:3:19 ----\nbthread(\"crud:pagination:det:3:19\", function() {\n  const id = uniqueId(\"pagination\");\n  createPagination(id, seedPagination());\n  deletePagination(id);\n  verifyPaginationDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:ranking_rule:det:1:20",
+      "js": "// ---- crud:ranking_rule:det:1:20 ----\nbthread(\"crud:ranking_rule:det:1:20\", function() {\n  const id = uniqueId(\"ranking_rule\");\n  verifyRanking_RuleDoesNotExist(id);\n  createRanking_Rule(id, seedRanking_Rule());\n  verifyRanking_RuleExists(id);\n});\n"
+    },
+    {
+      "name": "crud:ranking_rule:det:2:20",
+      "js": "// ---- crud:ranking_rule:det:2:20 ----\nbthread(\"crud:ranking_rule:det:2:20\", function() {\n  const id = uniqueId(\"ranking_rule\");\n  createRanking_Rule(id, seedRanking_Rule());\n  updateRanking_Rule(id, patchRanking_Rule());\n  verifyRanking_RuleUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:ranking_rule:det:3:20",
+      "js": "// ---- crud:ranking_rule:det:3:20 ----\nbthread(\"crud:ranking_rule:det:3:20\", function() {\n  const id = uniqueId(\"ranking_rule\");\n  createRanking_Rule(id, seedRanking_Rule());\n  deleteRanking_Rule(id);\n  verifyRanking_RuleDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:search:det:1:21",
+      "js": "// ---- crud:search:det:1:21 ----\nbthread(\"crud:search:det:1:21\", function() {\n  const id = uniqueId(\"search\");\n  verifySearchDoesNotExist(id);\n  createSearch(id, seedSearch());\n  verifySearchExists(id);\n});\n"
+    },
+    {
+      "name": "crud:search:det:2:21",
+      "js": "// ---- crud:search:det:2:21 ----\nbthread(\"crud:search:det:2:21\", function() {\n  const id = uniqueId(\"search\");\n  createSearch(id, seedSearch());\n  updateSearch(id, patchSearch());\n  verifySearchUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:search:det:3:21",
+      "js": "// ---- crud:search:det:3:21 ----\nbthread(\"crud:search:det:3:21\", function() {\n  const id = uniqueId(\"search\");\n  createSearch(id, seedSearch());\n  deleteSearch(id);\n  verifySearchDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:searchable_attribute:det:1:22",
+      "js": "// ---- crud:searchable_attribute:det:1:22 ----\nbthread(\"crud:searchable_attribute:det:1:22\", function() {\n  const id = uniqueId(\"searchable_attribute\");\n  verifySearchable_AttributeDoesNotExist(id);\n  createSearchable_Attribute(id, seedSearchable_Attribute());\n  verifySearchable_AttributeExists(id);\n});\n"
+    },
+    {
+      "name": "crud:searchable_attribute:det:2:22",
+      "js": "// ---- crud:searchable_attribute:det:2:22 ----\nbthread(\"crud:searchable_attribute:det:2:22\", function() {\n  const id = uniqueId(\"searchable_attribute\");\n  createSearchable_Attribute(id, seedSearchable_Attribute());\n  updateSearchable_Attribute(id, patchSearchable_Attribute());\n  verifySearchable_AttributeUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:searchable_attribute:det:3:22",
+      "js": "// ---- crud:searchable_attribute:det:3:22 ----\nbthread(\"crud:searchable_attribute:det:3:22\", function() {\n  const id = uniqueId(\"searchable_attribute\");\n  createSearchable_Attribute(id, seedSearchable_Attribute());\n  deleteSearchable_Attribute(id);\n  verifySearchable_AttributeDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:setting:det:1:23",
+      "js": "// ---- crud:setting:det:1:23 ----\nbthread(\"crud:setting:det:1:23\", function() {\n  const id = uniqueId(\"setting\");\n  verifySettingDoesNotExist(id);\n  createSetting(id, seedSetting());\n  verifySettingExists(id);\n});\n"
+    },
+    {
+      "name": "crud:setting:det:2:23",
+      "js": "// ---- crud:setting:det:2:23 ----\nbthread(\"crud:setting:det:2:23\", function() {\n  const id = uniqueId(\"setting\");\n  createSetting(id, seedSetting());\n  updateSetting(id, patchSetting());\n  verifySettingUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:setting:det:3:23",
+      "js": "// ---- crud:setting:det:3:23 ----\nbthread(\"crud:setting:det:3:23\", function() {\n  const id = uniqueId(\"setting\");\n  createSetting(id, seedSetting());\n  deleteSetting(id);\n  verifySettingDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:snapshot:det:1:24",
+      "js": "// ---- crud:snapshot:det:1:24 ----\nbthread(\"crud:snapshot:det:1:24\", function() {\n  const id = uniqueId(\"snapshot\");\n  verifySnapshotDoesNotExist(id);\n  createSnapshot(id, seedSnapshot());\n  verifySnapshotExists(id);\n});\n"
+    },
+    {
+      "name": "crud:snapshot:det:2:24",
+      "js": "// ---- crud:snapshot:det:2:24 ----\nbthread(\"crud:snapshot:det:2:24\", function() {\n  const id = uniqueId(\"snapshot\");\n  createSnapshot(id, seedSnapshot());\n  updateSnapshot(id, patchSnapshot());\n  verifySnapshotUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:snapshot:det:3:24",
+      "js": "// ---- crud:snapshot:det:3:24 ----\nbthread(\"crud:snapshot:det:3:24\", function() {\n  const id = uniqueId(\"snapshot\");\n  createSnapshot(id, seedSnapshot());\n  deleteSnapshot(id);\n  verifySnapshotDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:sortable_attribute:det:1:25",
+      "js": "// ---- crud:sortable_attribute:det:1:25 ----\nbthread(\"crud:sortable_attribute:det:1:25\", function() {\n  const id = uniqueId(\"sortable_attribute\");\n  verifySortable_AttributeDoesNotExist(id);\n  createSortable_Attribute(id, seedSortable_Attribute());\n  verifySortable_AttributeExists(id);\n});\n"
+    },
+    {
+      "name": "crud:sortable_attribute:det:2:25",
+      "js": "// ---- crud:sortable_attribute:det:2:25 ----\nbthread(\"crud:sortable_attribute:det:2:25\", function() {\n  const id = uniqueId(\"sortable_attribute\");\n  createSortable_Attribute(id, seedSortable_Attribute());\n  updateSortable_Attribute(id, patchSortable_Attribute());\n  verifySortable_AttributeUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:sortable_attribute:det:3:25",
+      "js": "// ---- crud:sortable_attribute:det:3:25 ----\nbthread(\"crud:sortable_attribute:det:3:25\", function() {\n  const id = uniqueId(\"sortable_attribute\");\n  createSortable_Attribute(id, seedSortable_Attribute());\n  deleteSortable_Attribute(id);\n  verifySortable_AttributeDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:stat:det:1:26",
+      "js": "// ---- crud:stat:det:1:26 ----\nbthread(\"crud:stat:det:1:26\", function() {\n  const id = uniqueId(\"stat\");\n  verifyStatDoesNotExist(id);\n  createStat(id, seedStat());\n  verifyStatExists(id);\n});\n"
+    },
+    {
+      "name": "crud:stat:det:2:26",
+      "js": "// ---- crud:stat:det:2:26 ----\nbthread(\"crud:stat:det:2:26\", function() {\n  const id = uniqueId(\"stat\");\n  createStat(id, seedStat());\n  updateStat(id, patchStat());\n  verifyStatUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:stat:det:3:26",
+      "js": "// ---- crud:stat:det:3:26 ----\nbthread(\"crud:stat:det:3:26\", function() {\n  const id = uniqueId(\"stat\");\n  createStat(id, seedStat());\n  deleteStat(id);\n  verifyStatDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:stop_word:det:1:27",
+      "js": "// ---- crud:stop_word:det:1:27 ----\nbthread(\"crud:stop_word:det:1:27\", function() {\n  const id = uniqueId(\"stop_word\");\n  verifyStop_WordDoesNotExist(id);\n  createStop_Word(id, seedStop_Word());\n  verifyStop_WordExists(id);\n});\n"
+    },
+    {
+      "name": "crud:stop_word:det:2:27",
+      "js": "// ---- crud:stop_word:det:2:27 ----\nbthread(\"crud:stop_word:det:2:27\", function() {\n  const id = uniqueId(\"stop_word\");\n  createStop_Word(id, seedStop_Word());\n  updateStop_Word(id, patchStop_Word());\n  verifyStop_WordUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:stop_word:det:3:27",
+      "js": "// ---- crud:stop_word:det:3:27 ----\nbthread(\"crud:stop_word:det:3:27\", function() {\n  const id = uniqueId(\"stop_word\");\n  createStop_Word(id, seedStop_Word());\n  deleteStop_Word(id);\n  verifyStop_WordDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:swap_indexe:det:1:28",
+      "js": "// ---- crud:swap_indexe:det:1:28 ----\nbthread(\"crud:swap_indexe:det:1:28\", function() {\n  const id = uniqueId(\"swap_indexe\");\n  verifySwap_IndexeDoesNotExist(id);\n  createSwap_Indexe(id, seedSwap_Indexe());\n  verifySwap_IndexeExists(id);\n});\n"
+    },
+    {
+      "name": "crud:swap_indexe:det:2:28",
+      "js": "// ---- crud:swap_indexe:det:2:28 ----\nbthread(\"crud:swap_indexe:det:2:28\", function() {\n  const id = uniqueId(\"swap_indexe\");\n  createSwap_Indexe(id, seedSwap_Indexe());\n  updateSwap_Indexe(id, patchSwap_Indexe());\n  verifySwap_IndexeUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:swap_indexe:det:3:28",
+      "js": "// ---- crud:swap_indexe:det:3:28 ----\nbthread(\"crud:swap_indexe:det:3:28\", function() {\n  const id = uniqueId(\"swap_indexe\");\n  createSwap_Indexe(id, seedSwap_Indexe());\n  deleteSwap_Indexe(id);\n  verifySwap_IndexeDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:synonym:det:1:29",
+      "js": "// ---- crud:synonym:det:1:29 ----\nbthread(\"crud:synonym:det:1:29\", function() {\n  const id = uniqueId(\"synonym\");\n  verifySynonymDoesNotExist(id);\n  createSynonym(id, seedSynonym());\n  verifySynonymExists(id);\n});\n"
+    },
+    {
+      "name": "crud:synonym:det:2:29",
+      "js": "// ---- crud:synonym:det:2:29 ----\nbthread(\"crud:synonym:det:2:29\", function() {\n  const id = uniqueId(\"synonym\");\n  createSynonym(id, seedSynonym());\n  updateSynonym(id, patchSynonym());\n  verifySynonymUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:synonym:det:3:29",
+      "js": "// ---- crud:synonym:det:3:29 ----\nbthread(\"crud:synonym:det:3:29\", function() {\n  const id = uniqueId(\"synonym\");\n  createSynonym(id, seedSynonym());\n  deleteSynonym(id);\n  verifySynonymDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:task:det:1:30",
+      "js": "// ---- crud:task:det:1:30 ----\nbthread(\"crud:task:det:1:30\", function() {\n  const id = uniqueId(\"task\");\n  verifyTaskDoesNotExist(id);\n  createTask(id, seedTask());\n  verifyTaskExists(id);\n});\n"
+    },
+    {
+      "name": "crud:task:det:2:30",
+      "js": "// ---- crud:task:det:2:30 ----\nbthread(\"crud:task:det:2:30\", function() {\n  const id = uniqueId(\"task\");\n  createTask(id, seedTask());\n  updateTask(id, patchTask());\n  verifyTaskUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:task:det:3:30",
+      "js": "// ---- crud:task:det:3:30 ----\nbthread(\"crud:task:det:3:30\", function() {\n  const id = uniqueId(\"task\");\n  createTask(id, seedTask());\n  deleteTask(id);\n  verifyTaskDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:typo_tolerance:det:1:31",
+      "js": "// ---- crud:typo_tolerance:det:1:31 ----\nbthread(\"crud:typo_tolerance:det:1:31\", function() {\n  const id = uniqueId(\"typo_tolerance\");\n  verifyTypo_ToleranceDoesNotExist(id);\n  createTypo_Tolerance(id, seedTypo_Tolerance());\n  verifyTypo_ToleranceExists(id);\n});\n"
+    },
+    {
+      "name": "crud:typo_tolerance:det:2:31",
+      "js": "// ---- crud:typo_tolerance:det:2:31 ----\nbthread(\"crud:typo_tolerance:det:2:31\", function() {\n  const id = uniqueId(\"typo_tolerance\");\n  createTypo_Tolerance(id, seedTypo_Tolerance());\n  updateTypo_Tolerance(id, patchTypo_Tolerance());\n  verifyTypo_ToleranceUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:typo_tolerance:det:3:31",
+      "js": "// ---- crud:typo_tolerance:det:3:31 ----\nbthread(\"crud:typo_tolerance:det:3:31\", function() {\n  const id = uniqueId(\"typo_tolerance\");\n  createTypo_Tolerance(id, seedTypo_Tolerance());\n  deleteTypo_Tolerance(id);\n  verifyTypo_ToleranceDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:version:det:1:32",
+      "js": "// ---- crud:version:det:1:32 ----\nbthread(\"crud:version:det:1:32\", function() {\n  const id = uniqueId(\"version\");\n  verifyVersionDoesNotExist(id);\n  createVersion(id, seedVersion());\n  verifyVersionExists(id);\n});\n"
+    },
+    {
+      "name": "crud:version:det:2:32",
+      "js": "// ---- crud:version:det:2:32 ----\nbthread(\"crud:version:det:2:32\", function() {\n  const id = uniqueId(\"version\");\n  createVersion(id, seedVersion());\n  updateVersion(id, patchVersion());\n  verifyVersionUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:version:det:3:32",
+      "js": "// ---- crud:version:det:3:32 ----\nbthread(\"crud:version:det:3:32\", function() {\n  const id = uniqueId(\"version\");\n  createVersion(id, seedVersion());\n  deleteVersion(id);\n  verifyVersionDoesNotExist(id);\n});\n"
     }
-  ]
+  ],
+  "stories_js": "// ---- crud::taskuid:det:1:1 ----\nbthread(\"crud::taskuid:det:1:1\", function() {\n  const id = uniqueId(\":taskuid\");\n  verify:TaskuidDoesNotExist(id);\n  create:Taskuid(id, seed:Taskuid());\n  verify:TaskuidExists(id);\n});\n\n// ---- crud::taskuid:det:2:1 ----\nbthread(\"crud::taskuid:det:2:1\", function() {\n  const id = uniqueId(\":taskuid\");\n  create:Taskuid(id, seed:Taskuid());\n  update:Taskuid(id, patch:Taskuid());\n  verify:TaskuidUpdated(id);\n});\n\n// ---- crud::taskuid:det:3:1 ----\nbthread(\"crud::taskuid:det:3:1\", function() {\n  const id = uniqueId(\":taskuid\");\n  create:Taskuid(id, seed:Taskuid());\n  delete:Taskuid(id);\n  verify:TaskuidDoesNotExist(id);\n});\n\n// ---- crud:cancel:det:1:2 ----\nbthread(\"crud:cancel:det:1:2\", function() {\n  const id = uniqueId(\"cancel\");\n  verifyCancelDoesNotExist(id);\n  createCancel(id, seedCancel());\n  verifyCancelExists(id);\n});\n\n// ---- crud:cancel:det:2:2 ----\nbthread(\"crud:cancel:det:2:2\", function() {\n  const id = uniqueId(\"cancel\");\n  createCancel(id, seedCancel());\n  updateCancel(id, patchCancel());\n  verifyCancelUpdated(id);\n});\n\n// ---- crud:cancel:det:3:2 ----\nbthread(\"crud:cancel:det:3:2\", function() {\n  const id = uniqueId(\"cancel\");\n  createCancel(id, seedCancel());\n  deleteCancel(id);\n  verifyCancelDoesNotExist(id);\n});\n\n// ---- crud:delete:det:1:3 ----\nbthread(\"crud:delete:det:1:3\", function() {\n  const id = uniqueId(\"delete\");\n  verifyDeleteDoesNotExist(id);\n  createDelete(id, seedDelete());\n  verifyDeleteExists(id);\n});\n\n// ---- crud:delete:det:2:3 ----\nbthread(\"crud:delete:det:2:3\", function() {\n  const id = uniqueId(\"delete\");\n  createDelete(id, seedDelete());\n  updateDelete(id, patchDelete());\n  verifyDeleteUpdated(id);\n});\n\n// ---- crud:delete:det:3:3 ----\nbthread(\"crud:delete:det:3:3\", function() {\n  const id = uniqueId(\"delete\");\n  createDelete(id, seedDelete());\n  deleteDelete(id);\n  verifyDeleteDoesNotExist(id);\n});\n\n// ---- crud:delete_batch:det:1:4 ----\nbthread(\"crud:delete_batch:det:1:4\", function() {\n  const id = uniqueId(\"delete_batch\");\n  verifyDelete_BatchDoesNotExist(id);\n  createDelete_Batch(id, seedDelete_Batch());\n  verifyDelete_BatchExists(id);\n});\n\n// ---- crud:delete_batch:det:2:4 ----\nbthread(\"crud:delete_batch:det:2:4\", function() {\n  const id = uniqueId(\"delete_batch\");\n  createDelete_Batch(id, seedDelete_Batch());\n  updateDelete_Batch(id, patchDelete_Batch());\n  verifyDelete_BatchUpdated(id);\n});\n\n// ---- crud:delete_batch:det:3:4 ----\nbthread(\"crud:delete_batch:det:3:4\", function() {\n  const id = uniqueId(\"delete_batch\");\n  createDelete_Batch(id, seedDelete_Batch());\n  deleteDelete_Batch(id);\n  verifyDelete_BatchDoesNotExist(id);\n});\n\n// ---- crud:displayed_attribute:det:1:5 ----\nbthread(\"crud:displayed_attribute:det:1:5\", function() {\n  const id = uniqueId(\"displayed_attribute\");\n  verifyDisplayed_AttributeDoesNotExist(id);\n  createDisplayed_Attribute(id, seedDisplayed_Attribute());\n  verifyDisplayed_AttributeExists(id);\n});\n\n// ---- crud:displayed_attribute:det:2:5 ----\nbthread(\"crud:displayed_attribute:det:2:5\", function() {\n  const id = uniqueId(\"displayed_attribute\");\n  createDisplayed_Attribute(id, seedDisplayed_Attribute());\n  updateDisplayed_Attribute(id, patchDisplayed_Attribute());\n  verifyDisplayed_AttributeUpdated(id);\n});\n\n// ---- crud:displayed_attribute:det:3:5 ----\nbthread(\"crud:displayed_attribute:det:3:5\", function() {\n  const id = uniqueId(\"displayed_attribute\");\n  createDisplayed_Attribute(id, seedDisplayed_Attribute());\n  deleteDisplayed_Attribute(id);\n  verifyDisplayed_AttributeDoesNotExist(id);\n});\n\n// ---- crud:distinct_attribute:det:1:6 ----\nbthread(\"crud:distinct_attribute:det:1:6\", function() {\n  const id = uniqueId(\"distinct_attribute\");\n  verifyDistinct_AttributeDoesNotExist(id);\n  createDistinct_Attribute(id, seedDistinct_Attribute());\n  verifyDistinct_AttributeExists(id);\n});\n\n// ---- crud:distinct_attribute:det:2:6 ----\nbthread(\"crud:distinct_attribute:det:2:6\", function() {\n  const id = uniqueId(\"distinct_attribute\");\n  createDistinct_Attribute(id, seedDistinct_Attribute());\n  updateDistinct_Attribute(id, patchDistinct_Attribute());\n  verifyDistinct_AttributeUpdated(id);\n});\n\n// ---- crud:distinct_attribute:det:3:6 ----\nbthread(\"crud:distinct_attribute:det:3:6\", function() {\n  const id = uniqueId(\"distinct_attribute\");\n  createDistinct_Attribute(id, seedDistinct_Attribute());\n  deleteDistinct_Attribute(id);\n  verifyDistinct_AttributeDoesNotExist(id);\n});\n\n// ---- crud:document:det:1:7 ----\nbthread(\"crud:document:det:1:7\", function() {\n  const id = uniqueId(\"document\");\n  verifyDocumentDoesNotExist(id);\n  createDocument(id, seedDocument());\n  verifyDocumentExists(id);\n});\n\n// ---- crud:document:det:2:7 ----\nbthread(\"crud:document:det:2:7\", function() {\n  const id = uniqueId(\"document\");\n  createDocument(id, seedDocument());\n  updateDocument(id, patchDocument());\n  verifyDocumentUpdated(id);\n});\n\n// ---- crud:document:det:3:7 ----\nbthread(\"crud:document:det:3:7\", function() {\n  const id = uniqueId(\"document\");\n  createDocument(id, seedDocument());\n  deleteDocument(id);\n  verifyDocumentDoesNotExist(id);\n});\n\n// ---- crud:dump:det:1:8 ----\nbthread(\"crud:dump:det:1:8\", function() {\n  const id = uniqueId(\"dump\");\n  verifyDumpDoesNotExist(id);\n  createDump(id, seedDump());\n  verifyDumpExists(id);\n});\n\n// ---- crud:dump:det:2:8 ----\nbthread(\"crud:dump:det:2:8\", function() {\n  const id = uniqueId(\"dump\");\n  createDump(id, seedDump());\n  updateDump(id, patchDump());\n  verifyDumpUpdated(id);\n});\n\n// ---- crud:dump:det:3:8 ----\nbthread(\"crud:dump:det:3:8\", function() {\n  const id = uniqueId(\"dump\");\n  createDump(id, seedDump());\n  deleteDump(id);\n  verifyDumpDoesNotExist(id);\n});\n\n// ---- crud:experimental_feature:det:1:9 ----\nbthread(\"crud:experimental_feature:det:1:9\", function() {\n  const id = uniqueId(\"experimental_feature\");\n  verifyExperimental_FeatureDoesNotExist(id);\n  createExperimental_Feature(id, seedExperimental_Feature());\n  verifyExperimental_FeatureExists(id);\n});\n\n// ---- crud:experimental_feature:det:2:9 ----\nbthread(\"crud:experimental_feature:det:2:9\", function() {\n  const id = uniqueId(\"experimental_feature\");\n  createExperimental_Feature(id, seedExperimental_Feature());\n  updateExperimental_Feature(id, patchExperimental_Feature());\n  verifyExperimental_FeatureUpdated(id);\n});\n\n// ---- crud:experimental_feature:det:3:9 ----\nbthread(\"crud:experimental_feature:det:3:9\", function() {\n  const id = uniqueId(\"experimental_feature\");\n  createExperimental_Feature(id, seedExperimental_Feature());\n  deleteExperimental_Feature(id);\n  verifyExperimental_FeatureDoesNotExist(id);\n});\n\n// ---- crud:facet_search:det:1:10 ----\nbthread(\"crud:facet_search:det:1:10\", function() {\n  const id = uniqueId(\"facet_search\");\n  verifyFacet_SearchDoesNotExist(id);\n  createFacet_Search(id, seedFacet_Search());\n  verifyFacet_SearchExists(id);\n});\n\n// ---- crud:facet_search:det:2:10 ----\nbthread(\"crud:facet_search:det:2:10\", function() {\n  const id = uniqueId(\"facet_search\");\n  createFacet_Search(id, seedFacet_Search());\n  updateFacet_Search(id, patchFacet_Search());\n  verifyFacet_SearchUpdated(id);\n});\n\n// ---- crud:facet_search:det:3:10 ----\nbthread(\"crud:facet_search:det:3:10\", function() {\n  const id = uniqueId(\"facet_search\");\n  createFacet_Search(id, seedFacet_Search());\n  deleteFacet_Search(id);\n  verifyFacet_SearchDoesNotExist(id);\n});\n\n// ---- crud:faceting:det:1:11 ----\nbthread(\"crud:faceting:det:1:11\", function() {\n  const id = uniqueId(\"faceting\");\n  verifyFacetingDoesNotExist(id);\n  createFaceting(id, seedFaceting());\n  verifyFacetingExists(id);\n});\n\n// ---- crud:faceting:det:2:11 ----\nbthread(\"crud:faceting:det:2:11\", function() {\n  const id = uniqueId(\"faceting\");\n  createFaceting(id, seedFaceting());\n  updateFaceting(id, patchFaceting());\n  verifyFacetingUpdated(id);\n});\n\n// ---- crud:faceting:det:3:11 ----\nbthread(\"crud:faceting:det:3:11\", function() {\n  const id = uniqueId(\"faceting\");\n  createFaceting(id, seedFaceting());\n  deleteFaceting(id);\n  verifyFacetingDoesNotExist(id);\n});\n\n// ---- crud:fetch:det:1:12 ----\nbthread(\"crud:fetch:det:1:12\", function() {\n  const id = uniqueId(\"fetch\");\n  verifyFetchDoesNotExist(id);\n  createFetch(id, seedFetch());\n  verifyFetchExists(id);\n});\n\n// ---- crud:fetch:det:2:12 ----\nbthread(\"crud:fetch:det:2:12\", function() {\n  const id = uniqueId(\"fetch\");\n  createFetch(id, seedFetch());\n  updateFetch(id, patchFetch());\n  verifyFetchUpdated(id);\n});\n\n// ---- crud:fetch:det:3:12 ----\nbthread(\"crud:fetch:det:3:12\", function() {\n  const id = uniqueId(\"fetch\");\n  createFetch(id, seedFetch());\n  deleteFetch(id);\n  verifyFetchDoesNotExist(id);\n});\n\n// ---- crud:filterable_attribute:det:1:13 ----\nbthread(\"crud:filterable_attribute:det:1:13\", function() {\n  const id = uniqueId(\"filterable_attribute\");\n  verifyFilterable_AttributeDoesNotExist(id);\n  createFilterable_Attribute(id, seedFilterable_Attribute());\n  verifyFilterable_AttributeExists(id);\n});\n\n// ---- crud:filterable_attribute:det:2:13 ----\nbthread(\"crud:filterable_attribute:det:2:13\", function() {\n  const id = uniqueId(\"filterable_attribute\");\n  createFilterable_Attribute(id, seedFilterable_Attribute());\n  updateFilterable_Attribute(id, patchFilterable_Attribute());\n  verifyFilterable_AttributeUpdated(id);\n});\n\n// ---- crud:filterable_attribute:det:3:13 ----\nbthread(\"crud:filterable_attribute:det:3:13\", function() {\n  const id = uniqueId(\"filterable_attribute\");\n  createFilterable_Attribute(id, seedFilterable_Attribute());\n  deleteFilterable_Attribute(id);\n  verifyFilterable_AttributeDoesNotExist(id);\n});\n\n// ---- crud:health:det:1:14 ----\nbthread(\"crud:health:det:1:14\", function() {\n  const id = uniqueId(\"health\");\n  verifyHealthDoesNotExist(id);\n  createHealth(id, seedHealth());\n  verifyHealthExists(id);\n});\n\n// ---- crud:health:det:2:14 ----\nbthread(\"crud:health:det:2:14\", function() {\n  const id = uniqueId(\"health\");\n  createHealth(id, seedHealth());\n  updateHealth(id, patchHealth());\n  verifyHealthUpdated(id);\n});\n\n// ---- crud:health:det:3:14 ----\nbthread(\"crud:health:det:3:14\", function() {\n  const id = uniqueId(\"health\");\n  createHealth(id, seedHealth());\n  deleteHealth(id);\n  verifyHealthDoesNotExist(id);\n});\n\n// ---- crud:indexe:det:1:15 ----\nbthread(\"crud:indexe:det:1:15\", function() {\n  const id = uniqueId(\"indexe\");\n  verifyIndexeDoesNotExist(id);\n  createIndexe(id, seedIndexe());\n  verifyIndexeExists(id);\n});\n\n// ---- crud:indexe:det:2:15 ----\nbthread(\"crud:indexe:det:2:15\", function() {\n  const id = uniqueId(\"indexe\");\n  createIndexe(id, seedIndexe());\n  updateIndexe(id, patchIndexe());\n  verifyIndexeUpdated(id);\n});\n\n// ---- crud:indexe:det:3:15 ----\nbthread(\"crud:indexe:det:3:15\", function() {\n  const id = uniqueId(\"indexe\");\n  createIndexe(id, seedIndexe());\n  deleteIndexe(id);\n  verifyIndexeDoesNotExist(id);\n});\n\n// ---- crud:key:det:1:16 ----\nbthread(\"crud:key:det:1:16\", function() {\n  const id = uniqueId(\"key\");\n  verifyKeyDoesNotExist(id);\n  createKey(id, seedKey());\n  verifyKeyExists(id);\n});\n\n// ---- crud:key:det:2:16 ----\nbthread(\"crud:key:det:2:16\", function() {\n  const id = uniqueId(\"key\");\n  createKey(id, seedKey());\n  updateKey(id, patchKey());\n  verifyKeyUpdated(id);\n});\n\n// ---- crud:key:det:3:16 ----\nbthread(\"crud:key:det:3:16\", function() {\n  const id = uniqueId(\"key\");\n  createKey(id, seedKey());\n  deleteKey(id);\n  verifyKeyDoesNotExist(id);\n});\n\n// ---- crud:metric:det:1:17 ----\nbthread(\"crud:metric:det:1:17\", function() {\n  const id = uniqueId(\"metric\");\n  verifyMetricDoesNotExist(id);\n  createMetric(id, seedMetric());\n  verifyMetricExists(id);\n});\n\n// ---- crud:metric:det:2:17 ----\nbthread(\"crud:metric:det:2:17\", function() {\n  const id = uniqueId(\"metric\");\n  createMetric(id, seedMetric());\n  updateMetric(id, patchMetric());\n  verifyMetricUpdated(id);\n});\n\n// ---- crud:metric:det:3:17 ----\nbthread(\"crud:metric:det:3:17\", function() {\n  const id = uniqueId(\"metric\");\n  createMetric(id, seedMetric());\n  deleteMetric(id);\n  verifyMetricDoesNotExist(id);\n});\n\n// ---- crud:multi_search:det:1:18 ----\nbthread(\"crud:multi_search:det:1:18\", function() {\n  const id = uniqueId(\"multi_search\");\n  verifyMulti_SearchDoesNotExist(id);\n  createMulti_Search(id, seedMulti_Search());\n  verifyMulti_SearchExists(id);\n});\n\n// ---- crud:multi_search:det:2:18 ----\nbthread(\"crud:multi_search:det:2:18\", function() {\n  const id = uniqueId(\"multi_search\");\n  createMulti_Search(id, seedMulti_Search());\n  updateMulti_Search(id, patchMulti_Search());\n  verifyMulti_SearchUpdated(id);\n});\n\n// ---- crud:multi_search:det:3:18 ----\nbthread(\"crud:multi_search:det:3:18\", function() {\n  const id = uniqueId(\"multi_search\");\n  createMulti_Search(id, seedMulti_Search());\n  deleteMulti_Search(id);\n  verifyMulti_SearchDoesNotExist(id);\n});\n\n// ---- crud:pagination:det:1:19 ----\nbthread(\"crud:pagination:det:1:19\", function() {\n  const id = uniqueId(\"pagination\");\n  verifyPaginationDoesNotExist(id);\n  createPagination(id, seedPagination());\n  verifyPaginationExists(id);\n});\n\n// ---- crud:pagination:det:2:19 ----\nbthread(\"crud:pagination:det:2:19\", function() {\n  const id = uniqueId(\"pagination\");\n  createPagination(id, seedPagination());\n  updatePagination(id, patchPagination());\n  verifyPaginationUpdated(id);\n});\n\n// ---- crud:pagination:det:3:19 ----\nbthread(\"crud:pagination:det:3:19\", function() {\n  const id = uniqueId(\"pagination\");\n  createPagination(id, seedPagination());\n  deletePagination(id);\n  verifyPaginationDoesNotExist(id);\n});\n\n// ---- crud:ranking_rule:det:1:20 ----\nbthread(\"crud:ranking_rule:det:1:20\", function() {\n  const id = uniqueId(\"ranking_rule\");\n  verifyRanking_RuleDoesNotExist(id);\n  createRanking_Rule(id, seedRanking_Rule());\n  verifyRanking_RuleExists(id);\n});\n\n// ---- crud:ranking_rule:det:2:20 ----\nbthread(\"crud:ranking_rule:det:2:20\", function() {\n  const id = uniqueId(\"ranking_rule\");\n  createRanking_Rule(id, seedRanking_Rule());\n  updateRanking_Rule(id, patchRanking_Rule());\n  verifyRanking_RuleUpdated(id);\n});\n\n// ---- crud:ranking_rule:det:3:20 ----\nbthread(\"crud:ranking_rule:det:3:20\", function() {\n  const id = uniqueId(\"ranking_rule\");\n  createRanking_Rule(id, seedRanking_Rule());\n  deleteRanking_Rule(id);\n  verifyRanking_RuleDoesNotExist(id);\n});\n\n// ---- crud:search:det:1:21 ----\nbthread(\"crud:search:det:1:21\", function() {\n  const id = uniqueId(\"search\");\n  verifySearchDoesNotExist(id);\n  createSearch(id, seedSearch());\n  verifySearchExists(id);\n});\n\n// ---- crud:search:det:2:21 ----\nbthread(\"crud:search:det:2:21\", function() {\n  const id = uniqueId(\"search\");\n  createSearch(id, seedSearch());\n  updateSearch(id, patchSearch());\n  verifySearchUpdated(id);\n});\n\n// ---- crud:search:det:3:21 ----\nbthread(\"crud:search:det:3:21\", function() {\n  const id = uniqueId(\"search\");\n  createSearch(id, seedSearch());\n  deleteSearch(id);\n  verifySearchDoesNotExist(id);\n});\n\n// ---- crud:searchable_attribute:det:1:22 ----\nbthread(\"crud:searchable_attribute:det:1:22\", function() {\n  const id = uniqueId(\"searchable_attribute\");\n  verifySearchable_AttributeDoesNotExist(id);\n  createSearchable_Attribute(id, seedSearchable_Attribute());\n  verifySearchable_AttributeExists(id);\n});\n\n// ---- crud:searchable_attribute:det:2:22 ----\nbthread(\"crud:searchable_attribute:det:2:22\", function() {\n  const id = uniqueId(\"searchable_attribute\");\n  createSearchable_Attribute(id, seedSearchable_Attribute());\n  updateSearchable_Attribute(id, patchSearchable_Attribute());\n  verifySearchable_AttributeUpdated(id);\n});\n\n// ---- crud:searchable_attribute:det:3:22 ----\nbthread(\"crud:searchable_attribute:det:3:22\", function() {\n  const id = uniqueId(\"searchable_attribute\");\n  createSearchable_Attribute(id, seedSearchable_Attribute());\n  deleteSearchable_Attribute(id);\n  verifySearchable_AttributeDoesNotExist(id);\n});\n\n// ---- crud:setting:det:1:23 ----\nbthread(\"crud:setting:det:1:23\", function() {\n  const id = uniqueId(\"setting\");\n  verifySettingDoesNotExist(id);\n  createSetting(id, seedSetting());\n  verifySettingExists(id);\n});\n\n// ---- crud:setting:det:2:23 ----\nbthread(\"crud:setting:det:2:23\", function() {\n  const id = uniqueId(\"setting\");\n  createSetting(id, seedSetting());\n  updateSetting(id, patchSetting());\n  verifySettingUpdated(id);\n});\n\n// ---- crud:setting:det:3:23 ----\nbthread(\"crud:setting:det:3:23\", function() {\n  const id = uniqueId(\"setting\");\n  createSetting(id, seedSetting());\n  deleteSetting(id);\n  verifySettingDoesNotExist(id);\n});\n\n// ---- crud:snapshot:det:1:24 ----\nbthread(\"crud:snapshot:det:1:24\", function() {\n  const id = uniqueId(\"snapshot\");\n  verifySnapshotDoesNotExist(id);\n  createSnapshot(id, seedSnapshot());\n  verifySnapshotExists(id);\n});\n\n// ---- crud:snapshot:det:2:24 ----\nbthread(\"crud:snapshot:det:2:24\", function() {\n  const id = uniqueId(\"snapshot\");\n  createSnapshot(id, seedSnapshot());\n  updateSnapshot(id, patchSnapshot());\n  verifySnapshotUpdated(id);\n});\n\n// ---- crud:snapshot:det:3:24 ----\nbthread(\"crud:snapshot:det:3:24\", function() {\n  const id = uniqueId(\"snapshot\");\n  createSnapshot(id, seedSnapshot());\n  deleteSnapshot(id);\n  verifySnapshotDoesNotExist(id);\n});\n\n// ---- crud:sortable_attribute:det:1:25 ----\nbthread(\"crud:sortable_attribute:det:1:25\", function() {\n  const id = uniqueId(\"sortable_attribute\");\n  verifySortable_AttributeDoesNotExist(id);\n  createSortable_Attribute(id, seedSortable_Attribute());\n  verifySortable_AttributeExists(id);\n});\n\n// ---- crud:sortable_attribute:det:2:25 ----\nbthread(\"crud:sortable_attribute:det:2:25\", function() {\n  const id = uniqueId(\"sortable_attribute\");\n  createSortable_Attribute(id, seedSortable_Attribute());\n  updateSortable_Attribute(id, patchSortable_Attribute());\n  verifySortable_AttributeUpdated(id);\n});\n\n// ---- crud:sortable_attribute:det:3:25 ----\nbthread(\"crud:sortable_attribute:det:3:25\", function() {\n  const id = uniqueId(\"sortable_attribute\");\n  createSortable_Attribute(id, seedSortable_Attribute());\n  deleteSortable_Attribute(id);\n  verifySortable_AttributeDoesNotExist(id);\n});\n\n// ---- crud:stat:det:1:26 ----\nbthread(\"crud:stat:det:1:26\", function() {\n  const id = uniqueId(\"stat\");\n  verifyStatDoesNotExist(id);\n  createStat(id, seedStat());\n  verifyStatExists(id);\n});\n\n// ---- crud:stat:det:2:26 ----\nbthread(\"crud:stat:det:2:26\", function() {\n  const id = uniqueId(\"stat\");\n  createStat(id, seedStat());\n  updateStat(id, patchStat());\n  verifyStatUpdated(id);\n});\n\n// ---- crud:stat:det:3:26 ----\nbthread(\"crud:stat:det:3:26\", function() {\n  const id = uniqueId(\"stat\");\n  createStat(id, seedStat());\n  deleteStat(id);\n  verifyStatDoesNotExist(id);\n});\n\n// ---- crud:stop_word:det:1:27 ----\nbthread(\"crud:stop_word:det:1:27\", function() {\n  const id = uniqueId(\"stop_word\");\n  verifyStop_WordDoesNotExist(id);\n  createStop_Word(id, seedStop_Word());\n  verifyStop_WordExists(id);\n});\n\n// ---- crud:stop_word:det:2:27 ----\nbthread(\"crud:stop_word:det:2:27\", function() {\n  const id = uniqueId(\"stop_word\");\n  createStop_Word(id, seedStop_Word());\n  updateStop_Word(id, patchStop_Word());\n  verifyStop_WordUpdated(id);\n});\n\n// ---- crud:stop_word:det:3:27 ----\nbthread(\"crud:stop_word:det:3:27\", function() {\n  const id = uniqueId(\"stop_word\");\n  createStop_Word(id, seedStop_Word());\n  deleteStop_Word(id);\n  verifyStop_WordDoesNotExist(id);\n});\n\n// ---- crud:swap_indexe:det:1:28 ----\nbthread(\"crud:swap_indexe:det:1:28\", function() {\n  const id = uniqueId(\"swap_indexe\");\n  verifySwap_IndexeDoesNotExist(id);\n  createSwap_Indexe(id, seedSwap_Indexe());\n  verifySwap_IndexeExists(id);\n});\n\n// ---- crud:swap_indexe:det:2:28 ----\nbthread(\"crud:swap_indexe:det:2:28\", function() {\n  const id = uniqueId(\"swap_indexe\");\n  createSwap_Indexe(id, seedSwap_Indexe());\n  updateSwap_Indexe(id, patchSwap_Indexe());\n  verifySwap_IndexeUpdated(id);\n});\n\n// ---- crud:swap_indexe:det:3:28 ----\nbthread(\"crud:swap_indexe:det:3:28\", function() {\n  const id = uniqueId(\"swap_indexe\");\n  createSwap_Indexe(id, seedSwap_Indexe());\n  deleteSwap_Indexe(id);\n  verifySwap_IndexeDoesNotExist(id);\n});\n\n// ---- crud:synonym:det:1:29 ----\nbthread(\"crud:synonym:det:1:29\", function() {\n  const id = uniqueId(\"synonym\");\n  verifySynonymDoesNotExist(id);\n  createSynonym(id, seedSynonym());\n  verifySynonymExists(id);\n});\n\n// ---- crud:synonym:det:2:29 ----\nbthread(\"crud:synonym:det:2:29\", function() {\n  const id = uniqueId(\"synonym\");\n  createSynonym(id, seedSynonym());\n  updateSynonym(id, patchSynonym());\n  verifySynonymUpdated(id);\n});\n\n// ---- crud:synonym:det:3:29 ----\nbthread(\"crud:synonym:det:3:29\", function() {\n  const id = uniqueId(\"synonym\");\n  createSynonym(id, seedSynonym());\n  deleteSynonym(id);\n  verifySynonymDoesNotExist(id);\n});\n\n// ---- crud:task:det:1:30 ----\nbthread(\"crud:task:det:1:30\", function() {\n  const id = uniqueId(\"task\");\n  verifyTaskDoesNotExist(id);\n  createTask(id, seedTask());\n  verifyTaskExists(id);\n});\n\n// ---- crud:task:det:2:30 ----\nbthread(\"crud:task:det:2:30\", function() {\n  const id = uniqueId(\"task\");\n  createTask(id, seedTask());\n  updateTask(id, patchTask());\n  verifyTaskUpdated(id);\n});\n\n// ---- crud:task:det:3:30 ----\nbthread(\"crud:task:det:3:30\", function() {\n  const id = uniqueId(\"task\");\n  createTask(id, seedTask());\n  deleteTask(id);\n  verifyTaskDoesNotExist(id);\n});\n\n// ---- crud:typo_tolerance:det:1:31 ----\nbthread(\"crud:typo_tolerance:det:1:31\", function() {\n  const id = uniqueId(\"typo_tolerance\");\n  verifyTypo_ToleranceDoesNotExist(id);\n  createTypo_Tolerance(id, seedTypo_Tolerance());\n  verifyTypo_ToleranceExists(id);\n});\n\n// ---- crud:typo_tolerance:det:2:31 ----\nbthread(\"crud:typo_tolerance:det:2:31\", function() {\n  const id = uniqueId(\"typo_tolerance\");\n  createTypo_Tolerance(id, seedTypo_Tolerance());\n  updateTypo_Tolerance(id, patchTypo_Tolerance());\n  verifyTypo_ToleranceUpdated(id);\n});\n\n// ---- crud:typo_tolerance:det:3:31 ----\nbthread(\"crud:typo_tolerance:det:3:31\", function() {\n  const id = uniqueId(\"typo_tolerance\");\n  createTypo_Tolerance(id, seedTypo_Tolerance());\n  deleteTypo_Tolerance(id);\n  verifyTypo_ToleranceDoesNotExist(id);\n});\n\n// ---- crud:version:det:1:32 ----\nbthread(\"crud:version:det:1:32\", function() {\n  const id = uniqueId(\"version\");\n  verifyVersionDoesNotExist(id);\n  createVersion(id, seedVersion());\n  verifyVersionExists(id);\n});\n\n// ---- crud:version:det:2:32 ----\nbthread(\"crud:version:det:2:32\", function() {\n  const id = uniqueId(\"version\");\n  createVersion(id, seedVersion());\n  updateVersion(id, patchVersion());\n  verifyVersionUpdated(id);\n});\n\n// ---- crud:version:det:3:32 ----\nbthread(\"crud:version:det:3:32\", function() {\n  const id = uniqueId(\"version\");\n  createVersion(id, seedVersion());\n  deleteVersion(id);\n  verifyVersionDoesNotExist(id);\n});\n"
 }

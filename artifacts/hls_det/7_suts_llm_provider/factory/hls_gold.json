@@ -1,73 +1,71 @@
 {
-  "kind": "hls_gold",
-  "deterministic": true,
-  "provider": "7_suts_llm_provider",
   "sut": "factory",
-  "generated_at": "2025-11-12T20:05:54.126229Z",
+  "provider": "7_suts_llm_provider",
+  "mode": "det",
   "source": {
-    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\7_suts_llm_provider\\factory\\graph.json",
-    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\SUTs\\factory\\dsl_map.json"
+    "created_by": "build_hls_gold_det.py"
   },
-  "entities": [
-    {
-      "name": "machine",
-      "verbs": [
-        "GET",
-        "POST"
-      ]
-    },
-    {
-      "name": "maintenance_ticket",
-      "verbs": [
-        "GET",
-        "POST"
-      ]
-    },
-    {
-      "name": "reset",
-      "verbs": [
-        "POST"
-      ]
-    },
-    {
-      "name": "sensor_reading",
-      "verbs": [
-        "GET",
-        "POST"
-      ]
-    },
-    {
-      "name": "workorder",
-      "verbs": [
-        "GET",
-        "POST"
-      ]
-    }
-  ],
   "stories": [
     {
-      "name": "CRUD machine",
-      "desc": "Deterministic CRUD flow for entity 'machine' inferred from graph.",
-      "entity": "machine",
-      "js": "// Deterministic CRUD flow for entity: machine\nbthread(\"HLS: CRUD machine\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/machines\", {})});\n  bp.sync({request: REST.GET(\"/machines\", {})});\n  bp.sync({request: REST.GET(\"/machines\", {})});\n});"
+      "name": "crud:machine:det:1:1",
+      "js": "// ---- crud:machine:det:1:1 ----\nbthread(\"crud:machine:det:1:1\", function() {\n  const id = uniqueId(\"machine\");\n  verifyMachineDoesNotExist(id);\n  createMachine(id, seedMachine());\n  verifyMachineExists(id);\n});\n"
     },
     {
-      "name": "CRUD maintenance_ticket",
-      "desc": "Deterministic CRUD flow for entity 'maintenance_ticket' inferred from graph.",
-      "entity": "maintenance_ticket",
-      "js": "// Deterministic CRUD flow for entity: maintenance_ticket\nbthread(\"HLS: CRUD maintenance_ticket\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/maintenance-tickets\", {})});\n  bp.sync({request: REST.GET(\"/maintenance-tickets\", {})});\n  bp.sync({request: REST.GET(\"/maintenance-tickets\", {})});\n});"
+      "name": "crud:machine:det:2:1",
+      "js": "// ---- crud:machine:det:2:1 ----\nbthread(\"crud:machine:det:2:1\", function() {\n  const id = uniqueId(\"machine\");\n  createMachine(id, seedMachine());\n  updateMachine(id, patchMachine());\n  verifyMachineUpdated(id);\n});\n"
     },
     {
-      "name": "CRUD reset",
-      "desc": "Deterministic CRUD flow for entity 'reset' inferred from graph.",
-      "entity": "reset",
-      "js": "// Deterministic CRUD flow for entity: reset\nbthread(\"HLS: CRUD reset\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/reset\", {})});\n});"
+      "name": "crud:machine:det:3:1",
+      "js": "// ---- crud:machine:det:3:1 ----\nbthread(\"crud:machine:det:3:1\", function() {\n  const id = uniqueId(\"machine\");\n  createMachine(id, seedMachine());\n  deleteMachine(id);\n  verifyMachineDoesNotExist(id);\n});\n"
     },
     {
-      "name": "CRUD sensor_reading",
-      "desc": "Deterministic CRUD flow for entity 'sensor_reading' inferred from graph.",
-      "entity": "sensor_reading",
-      "js": "// Deterministic CRUD flow for entity: sensor_reading\nbthread(\"HLS: CRUD sensor_reading\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/sensor-readings\", {})});\n  bp.sync({request: REST.GET(\"/sensor-readings\", {})});\n  bp.sync({request: REST.GET(\"/sensor-readings\", {})});\n});"
+      "name": "crud:maintenance_ticket:det:1:2",
+      "js": "// ---- crud:maintenance_ticket:det:1:2 ----\nbthread(\"crud:maintenance_ticket:det:1:2\", function() {\n  const id = uniqueId(\"maintenance_ticket\");\n  verifyMaintenance_TicketDoesNotExist(id);\n  createMaintenance_Ticket(id, seedMaintenance_Ticket());\n  verifyMaintenance_TicketExists(id);\n});\n"
+    },
+    {
+      "name": "crud:maintenance_ticket:det:2:2",
+      "js": "// ---- crud:maintenance_ticket:det:2:2 ----\nbthread(\"crud:maintenance_ticket:det:2:2\", function() {\n  const id = uniqueId(\"maintenance_ticket\");\n  createMaintenance_Ticket(id, seedMaintenance_Ticket());\n  updateMaintenance_Ticket(id, patchMaintenance_Ticket());\n  verifyMaintenance_TicketUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:maintenance_ticket:det:3:2",
+      "js": "// ---- crud:maintenance_ticket:det:3:2 ----\nbthread(\"crud:maintenance_ticket:det:3:2\", function() {\n  const id = uniqueId(\"maintenance_ticket\");\n  createMaintenance_Ticket(id, seedMaintenance_Ticket());\n  deleteMaintenance_Ticket(id);\n  verifyMaintenance_TicketDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:reset:det:1:3",
+      "js": "// ---- crud:reset:det:1:3 ----\nbthread(\"crud:reset:det:1:3\", function() {\n  const id = uniqueId(\"reset\");\n  verifyResetDoesNotExist(id);\n  createReset(id, seedReset());\n  verifyResetExists(id);\n});\n"
+    },
+    {
+      "name": "crud:reset:det:2:3",
+      "js": "// ---- crud:reset:det:2:3 ----\nbthread(\"crud:reset:det:2:3\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  updateReset(id, patchReset());\n  verifyResetUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:reset:det:3:3",
+      "js": "// ---- crud:reset:det:3:3 ----\nbthread(\"crud:reset:det:3:3\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  deleteReset(id);\n  verifyResetDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:sensor_reading:det:1:4",
+      "js": "// ---- crud:sensor_reading:det:1:4 ----\nbthread(\"crud:sensor_reading:det:1:4\", function() {\n  const id = uniqueId(\"sensor_reading\");\n  verifySensor_ReadingDoesNotExist(id);\n  createSensor_Reading(id, seedSensor_Reading());\n  verifySensor_ReadingExists(id);\n});\n"
+    },
+    {
+      "name": "crud:sensor_reading:det:2:4",
+      "js": "// ---- crud:sensor_reading:det:2:4 ----\nbthread(\"crud:sensor_reading:det:2:4\", function() {\n  const id = uniqueId(\"sensor_reading\");\n  createSensor_Reading(id, seedSensor_Reading());\n  updateSensor_Reading(id, patchSensor_Reading());\n  verifySensor_ReadingUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:sensor_reading:det:3:4",
+      "js": "// ---- crud:sensor_reading:det:3:4 ----\nbthread(\"crud:sensor_reading:det:3:4\", function() {\n  const id = uniqueId(\"sensor_reading\");\n  createSensor_Reading(id, seedSensor_Reading());\n  deleteSensor_Reading(id);\n  verifySensor_ReadingDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:workorder:det:1:5",
+      "js": "// ---- crud:workorder:det:1:5 ----\nbthread(\"crud:workorder:det:1:5\", function() {\n  const id = uniqueId(\"workorder\");\n  verifyWorkorderDoesNotExist(id);\n  createWorkorder(id, seedWorkorder());\n  verifyWorkorderExists(id);\n});\n"
+    },
+    {
+      "name": "crud:workorder:det:2:5",
+      "js": "// ---- crud:workorder:det:2:5 ----\nbthread(\"crud:workorder:det:2:5\", function() {\n  const id = uniqueId(\"workorder\");\n  createWorkorder(id, seedWorkorder());\n  updateWorkorder(id, patchWorkorder());\n  verifyWorkorderUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:workorder:det:3:5",
+      "js": "// ---- crud:workorder:det:3:5 ----\nbthread(\"crud:workorder:det:3:5\", function() {\n  const id = uniqueId(\"workorder\");\n  createWorkorder(id, seedWorkorder());\n  deleteWorkorder(id);\n  verifyWorkorderDoesNotExist(id);\n});\n"
     }
-  ]
+  ],
+  "stories_js": "// ---- crud:machine:det:1:1 ----\nbthread(\"crud:machine:det:1:1\", function() {\n  const id = uniqueId(\"machine\");\n  verifyMachineDoesNotExist(id);\n  createMachine(id, seedMachine());\n  verifyMachineExists(id);\n});\n\n// ---- crud:machine:det:2:1 ----\nbthread(\"crud:machine:det:2:1\", function() {\n  const id = uniqueId(\"machine\");\n  createMachine(id, seedMachine());\n  updateMachine(id, patchMachine());\n  verifyMachineUpdated(id);\n});\n\n// ---- crud:machine:det:3:1 ----\nbthread(\"crud:machine:det:3:1\", function() {\n  const id = uniqueId(\"machine\");\n  createMachine(id, seedMachine());\n  deleteMachine(id);\n  verifyMachineDoesNotExist(id);\n});\n\n// ---- crud:maintenance_ticket:det:1:2 ----\nbthread(\"crud:maintenance_ticket:det:1:2\", function() {\n  const id = uniqueId(\"maintenance_ticket\");\n  verifyMaintenance_TicketDoesNotExist(id);\n  createMaintenance_Ticket(id, seedMaintenance_Ticket());\n  verifyMaintenance_TicketExists(id);\n});\n\n// ---- crud:maintenance_ticket:det:2:2 ----\nbthread(\"crud:maintenance_ticket:det:2:2\", function() {\n  const id = uniqueId(\"maintenance_ticket\");\n  createMaintenance_Ticket(id, seedMaintenance_Ticket());\n  updateMaintenance_Ticket(id, patchMaintenance_Ticket());\n  verifyMaintenance_TicketUpdated(id);\n});\n\n// ---- crud:maintenance_ticket:det:3:2 ----\nbthread(\"crud:maintenance_ticket:det:3:2\", function() {\n  const id = uniqueId(\"maintenance_ticket\");\n  createMaintenance_Ticket(id, seedMaintenance_Ticket());\n  deleteMaintenance_Ticket(id);\n  verifyMaintenance_TicketDoesNotExist(id);\n});\n\n// ---- crud:reset:det:1:3 ----\nbthread(\"crud:reset:det:1:3\", function() {\n  const id = uniqueId(\"reset\");\n  verifyResetDoesNotExist(id);\n  createReset(id, seedReset());\n  verifyResetExists(id);\n});\n\n// ---- crud:reset:det:2:3 ----\nbthread(\"crud:reset:det:2:3\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  updateReset(id, patchReset());\n  verifyResetUpdated(id);\n});\n\n// ---- crud:reset:det:3:3 ----\nbthread(\"crud:reset:det:3:3\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  deleteReset(id);\n  verifyResetDoesNotExist(id);\n});\n\n// ---- crud:sensor_reading:det:1:4 ----\nbthread(\"crud:sensor_reading:det:1:4\", function() {\n  const id = uniqueId(\"sensor_reading\");\n  verifySensor_ReadingDoesNotExist(id);\n  createSensor_Reading(id, seedSensor_Reading());\n  verifySensor_ReadingExists(id);\n});\n\n// ---- crud:sensor_reading:det:2:4 ----\nbthread(\"crud:sensor_reading:det:2:4\", function() {\n  const id = uniqueId(\"sensor_reading\");\n  createSensor_Reading(id, seedSensor_Reading());\n  updateSensor_Reading(id, patchSensor_Reading());\n  verifySensor_ReadingUpdated(id);\n});\n\n// ---- crud:sensor_reading:det:3:4 ----\nbthread(\"crud:sensor_reading:det:3:4\", function() {\n  const id = uniqueId(\"sensor_reading\");\n  createSensor_Reading(id, seedSensor_Reading());\n  deleteSensor_Reading(id);\n  verifySensor_ReadingDoesNotExist(id);\n});\n\n// ---- crud:workorder:det:1:5 ----\nbthread(\"crud:workorder:det:1:5\", function() {\n  const id = uniqueId(\"workorder\");\n  verifyWorkorderDoesNotExist(id);\n  createWorkorder(id, seedWorkorder());\n  verifyWorkorderExists(id);\n});\n\n// ---- crud:workorder:det:2:5 ----\nbthread(\"crud:workorder:det:2:5\", function() {\n  const id = uniqueId(\"workorder\");\n  createWorkorder(id, seedWorkorder());\n  updateWorkorder(id, patchWorkorder());\n  verifyWorkorderUpdated(id);\n});\n\n// ---- crud:workorder:det:3:5 ----\nbthread(\"crud:workorder:det:3:5\", function() {\n  const id = uniqueId(\"workorder\");\n  createWorkorder(id, seedWorkorder());\n  deleteWorkorder(id);\n  verifyWorkorderDoesNotExist(id);\n});\n"
 }

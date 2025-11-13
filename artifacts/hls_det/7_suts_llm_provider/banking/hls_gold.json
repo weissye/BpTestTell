@@ -1,83 +1,95 @@
 {
-  "kind": "hls_gold",
-  "deterministic": true,
-  "provider": "7_suts_llm_provider",
   "sut": "banking",
-  "generated_at": "2025-11-12T20:05:53.830651Z",
+  "provider": "7_suts_llm_provider",
+  "mode": "det",
   "source": {
-    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\7_suts_llm_provider\\banking\\graph.json",
-    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\SUTs\\banking\\dsl_map.json"
+    "created_by": "build_hls_gold_det.py"
   },
-  "entities": [
-    {
-      "name": "account",
-      "verbs": [
-        "GET",
-        "POST"
-      ]
-    },
-    {
-      "name": "card",
-      "verbs": [
-        "POST"
-      ]
-    },
-    {
-      "name": "customer",
-      "verbs": [
-        "POST"
-      ]
-    },
-    {
-      "name": "loan",
-      "verbs": [
-        "GET",
-        "POST"
-      ]
-    },
-    {
-      "name": "reset",
-      "verbs": [
-        "POST"
-      ]
-    },
-    {
-      "name": "transaction",
-      "verbs": [
-        "GET"
-      ]
-    },
-    {
-      "name": "transfer",
-      "verbs": [
-        "POST"
-      ]
-    }
-  ],
   "stories": [
     {
-      "name": "CRUD account",
-      "desc": "Deterministic CRUD flow for entity 'account' inferred from graph.",
-      "entity": "account",
-      "js": "// Deterministic CRUD flow for entity: account\nbthread(\"HLS: CRUD account\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/accounts\", {})});\n  bp.sync({request: REST.GET(\"/accounts\", {})});\n  bp.sync({request: REST.GET(\"/accounts\", {})});\n});"
+      "name": "crud:account:det:1:1",
+      "js": "// ---- crud:account:det:1:1 ----\nbthread(\"crud:account:det:1:1\", function() {\n  const id = uniqueId(\"account\");\n  verifyAccountDoesNotExist(id);\n  createAccount(id, seedAccount());\n  verifyAccountExists(id);\n});\n"
     },
     {
-      "name": "CRUD card",
-      "desc": "Deterministic CRUD flow for entity 'card' inferred from graph.",
-      "entity": "card",
-      "js": "// Deterministic CRUD flow for entity: card\nbthread(\"HLS: CRUD card\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/cards\", {})});\n});"
+      "name": "crud:account:det:2:1",
+      "js": "// ---- crud:account:det:2:1 ----\nbthread(\"crud:account:det:2:1\", function() {\n  const id = uniqueId(\"account\");\n  createAccount(id, seedAccount());\n  updateAccount(id, patchAccount());\n  verifyAccountUpdated(id);\n});\n"
     },
     {
-      "name": "CRUD customer",
-      "desc": "Deterministic CRUD flow for entity 'customer' inferred from graph.",
-      "entity": "customer",
-      "js": "// Deterministic CRUD flow for entity: customer\nbthread(\"HLS: CRUD customer\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/customers\", {})});\n});"
+      "name": "crud:account:det:3:1",
+      "js": "// ---- crud:account:det:3:1 ----\nbthread(\"crud:account:det:3:1\", function() {\n  const id = uniqueId(\"account\");\n  createAccount(id, seedAccount());\n  deleteAccount(id);\n  verifyAccountDoesNotExist(id);\n});\n"
     },
     {
-      "name": "CRUD loan",
-      "desc": "Deterministic CRUD flow for entity 'loan' inferred from graph.",
-      "entity": "loan",
-      "js": "// Deterministic CRUD flow for entity: loan\nbthread(\"HLS: CRUD loan\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/loans\", {})});\n  bp.sync({request: REST.GET(\"/loans\", {})});\n  bp.sync({request: REST.GET(\"/loans\", {})});\n});"
+      "name": "crud:card:det:1:2",
+      "js": "// ---- crud:card:det:1:2 ----\nbthread(\"crud:card:det:1:2\", function() {\n  const id = uniqueId(\"card\");\n  verifyCardDoesNotExist(id);\n  createCard(id, seedCard());\n  verifyCardExists(id);\n});\n"
+    },
+    {
+      "name": "crud:card:det:2:2",
+      "js": "// ---- crud:card:det:2:2 ----\nbthread(\"crud:card:det:2:2\", function() {\n  const id = uniqueId(\"card\");\n  createCard(id, seedCard());\n  updateCard(id, patchCard());\n  verifyCardUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:card:det:3:2",
+      "js": "// ---- crud:card:det:3:2 ----\nbthread(\"crud:card:det:3:2\", function() {\n  const id = uniqueId(\"card\");\n  createCard(id, seedCard());\n  deleteCard(id);\n  verifyCardDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:customer:det:1:3",
+      "js": "// ---- crud:customer:det:1:3 ----\nbthread(\"crud:customer:det:1:3\", function() {\n  const id = uniqueId(\"customer\");\n  verifyCustomerDoesNotExist(id);\n  createCustomer(id, seedCustomer());\n  verifyCustomerExists(id);\n});\n"
+    },
+    {
+      "name": "crud:customer:det:2:3",
+      "js": "// ---- crud:customer:det:2:3 ----\nbthread(\"crud:customer:det:2:3\", function() {\n  const id = uniqueId(\"customer\");\n  createCustomer(id, seedCustomer());\n  updateCustomer(id, patchCustomer());\n  verifyCustomerUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:customer:det:3:3",
+      "js": "// ---- crud:customer:det:3:3 ----\nbthread(\"crud:customer:det:3:3\", function() {\n  const id = uniqueId(\"customer\");\n  createCustomer(id, seedCustomer());\n  deleteCustomer(id);\n  verifyCustomerDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:loan:det:1:4",
+      "js": "// ---- crud:loan:det:1:4 ----\nbthread(\"crud:loan:det:1:4\", function() {\n  const id = uniqueId(\"loan\");\n  verifyLoanDoesNotExist(id);\n  createLoan(id, seedLoan());\n  verifyLoanExists(id);\n});\n"
+    },
+    {
+      "name": "crud:loan:det:2:4",
+      "js": "// ---- crud:loan:det:2:4 ----\nbthread(\"crud:loan:det:2:4\", function() {\n  const id = uniqueId(\"loan\");\n  createLoan(id, seedLoan());\n  updateLoan(id, patchLoan());\n  verifyLoanUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:loan:det:3:4",
+      "js": "// ---- crud:loan:det:3:4 ----\nbthread(\"crud:loan:det:3:4\", function() {\n  const id = uniqueId(\"loan\");\n  createLoan(id, seedLoan());\n  deleteLoan(id);\n  verifyLoanDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:reset:det:1:5",
+      "js": "// ---- crud:reset:det:1:5 ----\nbthread(\"crud:reset:det:1:5\", function() {\n  const id = uniqueId(\"reset\");\n  verifyResetDoesNotExist(id);\n  createReset(id, seedReset());\n  verifyResetExists(id);\n});\n"
+    },
+    {
+      "name": "crud:reset:det:2:5",
+      "js": "// ---- crud:reset:det:2:5 ----\nbthread(\"crud:reset:det:2:5\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  updateReset(id, patchReset());\n  verifyResetUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:reset:det:3:5",
+      "js": "// ---- crud:reset:det:3:5 ----\nbthread(\"crud:reset:det:3:5\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  deleteReset(id);\n  verifyResetDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:transaction:det:1:6",
+      "js": "// ---- crud:transaction:det:1:6 ----\nbthread(\"crud:transaction:det:1:6\", function() {\n  const id = uniqueId(\"transaction\");\n  verifyTransactionDoesNotExist(id);\n  createTransaction(id, seedTransaction());\n  verifyTransactionExists(id);\n});\n"
+    },
+    {
+      "name": "crud:transaction:det:2:6",
+      "js": "// ---- crud:transaction:det:2:6 ----\nbthread(\"crud:transaction:det:2:6\", function() {\n  const id = uniqueId(\"transaction\");\n  createTransaction(id, seedTransaction());\n  updateTransaction(id, patchTransaction());\n  verifyTransactionUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:transaction:det:3:6",
+      "js": "// ---- crud:transaction:det:3:6 ----\nbthread(\"crud:transaction:det:3:6\", function() {\n  const id = uniqueId(\"transaction\");\n  createTransaction(id, seedTransaction());\n  deleteTransaction(id);\n  verifyTransactionDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:transfer:det:1:7",
+      "js": "// ---- crud:transfer:det:1:7 ----\nbthread(\"crud:transfer:det:1:7\", function() {\n  const id = uniqueId(\"transfer\");\n  verifyTransferDoesNotExist(id);\n  createTransfer(id, seedTransfer());\n  verifyTransferExists(id);\n});\n"
+    },
+    {
+      "name": "crud:transfer:det:2:7",
+      "js": "// ---- crud:transfer:det:2:7 ----\nbthread(\"crud:transfer:det:2:7\", function() {\n  const id = uniqueId(\"transfer\");\n  createTransfer(id, seedTransfer());\n  updateTransfer(id, patchTransfer());\n  verifyTransferUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:transfer:det:3:7",
+      "js": "// ---- crud:transfer:det:3:7 ----\nbthread(\"crud:transfer:det:3:7\", function() {\n  const id = uniqueId(\"transfer\");\n  createTransfer(id, seedTransfer());\n  deleteTransfer(id);\n  verifyTransferDoesNotExist(id);\n});\n"
     }
-  ]
+  ],
+  "stories_js": "// ---- crud:account:det:1:1 ----\nbthread(\"crud:account:det:1:1\", function() {\n  const id = uniqueId(\"account\");\n  verifyAccountDoesNotExist(id);\n  createAccount(id, seedAccount());\n  verifyAccountExists(id);\n});\n\n// ---- crud:account:det:2:1 ----\nbthread(\"crud:account:det:2:1\", function() {\n  const id = uniqueId(\"account\");\n  createAccount(id, seedAccount());\n  updateAccount(id, patchAccount());\n  verifyAccountUpdated(id);\n});\n\n// ---- crud:account:det:3:1 ----\nbthread(\"crud:account:det:3:1\", function() {\n  const id = uniqueId(\"account\");\n  createAccount(id, seedAccount());\n  deleteAccount(id);\n  verifyAccountDoesNotExist(id);\n});\n\n// ---- crud:card:det:1:2 ----\nbthread(\"crud:card:det:1:2\", function() {\n  const id = uniqueId(\"card\");\n  verifyCardDoesNotExist(id);\n  createCard(id, seedCard());\n  verifyCardExists(id);\n});\n\n// ---- crud:card:det:2:2 ----\nbthread(\"crud:card:det:2:2\", function() {\n  const id = uniqueId(\"card\");\n  createCard(id, seedCard());\n  updateCard(id, patchCard());\n  verifyCardUpdated(id);\n});\n\n// ---- crud:card:det:3:2 ----\nbthread(\"crud:card:det:3:2\", function() {\n  const id = uniqueId(\"card\");\n  createCard(id, seedCard());\n  deleteCard(id);\n  verifyCardDoesNotExist(id);\n});\n\n// ---- crud:customer:det:1:3 ----\nbthread(\"crud:customer:det:1:3\", function() {\n  const id = uniqueId(\"customer\");\n  verifyCustomerDoesNotExist(id);\n  createCustomer(id, seedCustomer());\n  verifyCustomerExists(id);\n});\n\n// ---- crud:customer:det:2:3 ----\nbthread(\"crud:customer:det:2:3\", function() {\n  const id = uniqueId(\"customer\");\n  createCustomer(id, seedCustomer());\n  updateCustomer(id, patchCustomer());\n  verifyCustomerUpdated(id);\n});\n\n// ---- crud:customer:det:3:3 ----\nbthread(\"crud:customer:det:3:3\", function() {\n  const id = uniqueId(\"customer\");\n  createCustomer(id, seedCustomer());\n  deleteCustomer(id);\n  verifyCustomerDoesNotExist(id);\n});\n\n// ---- crud:loan:det:1:4 ----\nbthread(\"crud:loan:det:1:4\", function() {\n  const id = uniqueId(\"loan\");\n  verifyLoanDoesNotExist(id);\n  createLoan(id, seedLoan());\n  verifyLoanExists(id);\n});\n\n// ---- crud:loan:det:2:4 ----\nbthread(\"crud:loan:det:2:4\", function() {\n  const id = uniqueId(\"loan\");\n  createLoan(id, seedLoan());\n  updateLoan(id, patchLoan());\n  verifyLoanUpdated(id);\n});\n\n// ---- crud:loan:det:3:4 ----\nbthread(\"crud:loan:det:3:4\", function() {\n  const id = uniqueId(\"loan\");\n  createLoan(id, seedLoan());\n  deleteLoan(id);\n  verifyLoanDoesNotExist(id);\n});\n\n// ---- crud:reset:det:1:5 ----\nbthread(\"crud:reset:det:1:5\", function() {\n  const id = uniqueId(\"reset\");\n  verifyResetDoesNotExist(id);\n  createReset(id, seedReset());\n  verifyResetExists(id);\n});\n\n// ---- crud:reset:det:2:5 ----\nbthread(\"crud:reset:det:2:5\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  updateReset(id, patchReset());\n  verifyResetUpdated(id);\n});\n\n// ---- crud:reset:det:3:5 ----\nbthread(\"crud:reset:det:3:5\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  deleteReset(id);\n  verifyResetDoesNotExist(id);\n});\n\n// ---- crud:transaction:det:1:6 ----\nbthread(\"crud:transaction:det:1:6\", function() {\n  const id = uniqueId(\"transaction\");\n  verifyTransactionDoesNotExist(id);\n  createTransaction(id, seedTransaction());\n  verifyTransactionExists(id);\n});\n\n// ---- crud:transaction:det:2:6 ----\nbthread(\"crud:transaction:det:2:6\", function() {\n  const id = uniqueId(\"transaction\");\n  createTransaction(id, seedTransaction());\n  updateTransaction(id, patchTransaction());\n  verifyTransactionUpdated(id);\n});\n\n// ---- crud:transaction:det:3:6 ----\nbthread(\"crud:transaction:det:3:6\", function() {\n  const id = uniqueId(\"transaction\");\n  createTransaction(id, seedTransaction());\n  deleteTransaction(id);\n  verifyTransactionDoesNotExist(id);\n});\n\n// ---- crud:transfer:det:1:7 ----\nbthread(\"crud:transfer:det:1:7\", function() {\n  const id = uniqueId(\"transfer\");\n  verifyTransferDoesNotExist(id);\n  createTransfer(id, seedTransfer());\n  verifyTransferExists(id);\n});\n\n// ---- crud:transfer:det:2:7 ----\nbthread(\"crud:transfer:det:2:7\", function() {\n  const id = uniqueId(\"transfer\");\n  createTransfer(id, seedTransfer());\n  updateTransfer(id, patchTransfer());\n  verifyTransferUpdated(id);\n});\n\n// ---- crud:transfer:det:3:7 ----\nbthread(\"crud:transfer:det:3:7\", function() {\n  const id = uniqueId(\"transfer\");\n  createTransfer(id, seedTransfer());\n  deleteTransfer(id);\n  verifyTransferDoesNotExist(id);\n});\n"
 }

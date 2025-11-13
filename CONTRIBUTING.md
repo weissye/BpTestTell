@@ -37,9 +37,17 @@ REM python -m venv .venv && .venv\Scripts\activate && pip install -r requirement
   ```bat
   scripts\pipelines\run_det_all_7suts.bat
   ```
+- Generate DET for RWs:
+  ```bat
+  scripts\pipelines\run_det__real_world_all.bat
+  ```
 - Run RW DET/E2E:
   ```bat
-  scripts\training\e2e_train_7suts_real*.bat
+  scripts\training\e2e_train_7suts_rw_all.bat
+  ```
+- Generate interfaces.readable.js (DET/NONDET):
+  ```bat
+  scripts\readable\run_js_all_from_gold.bat
   ```
 
 ## Submitting a PR

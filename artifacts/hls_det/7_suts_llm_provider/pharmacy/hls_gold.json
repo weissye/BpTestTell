@@ -1,99 +1,95 @@
 {
-  "kind": "hls_gold",
-  "deterministic": true,
-  "provider": "7_suts_llm_provider",
   "sut": "pharmacy",
-  "generated_at": "2025-11-12T20:05:54.427382Z",
+  "provider": "7_suts_llm_provider",
+  "mode": "det",
   "source": {
-    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\7_suts_llm_provider\\pharmacy\\graph.json",
-    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\SUTs\\pharmacy\\dsl_map.json"
+    "created_by": "build_hls_gold_det.py"
   },
-  "entities": [
-    {
-      "name": "drug",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "POST",
-        "PUT"
-      ]
-    },
-    {
-      "name": "inventory",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "POST",
-        "PUT"
-      ]
-    },
-    {
-      "name": "order",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "POST",
-        "PUT"
-      ]
-    },
-    {
-      "name": "patient",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "POST",
-        "PUT"
-      ]
-    },
-    {
-      "name": "prescription",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "POST",
-        "PUT"
-      ]
-    },
-    {
-      "name": "reset",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "POST",
-        "PUT"
-      ]
-    },
-    {
-      "name": "reset_all",
-      "verbs": [
-        "POST"
-      ]
-    }
-  ],
   "stories": [
     {
-      "name": "CRUD drug",
-      "desc": "Deterministic CRUD flow for entity 'drug' inferred from graph.",
-      "entity": "drug",
-      "js": "// Deterministic CRUD flow for entity: drug\nbthread(\"HLS: CRUD drug\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/drugs\", {})});\n  bp.sync({request: REST.GET(\"/drugs\", {})});\n  bp.sync({request: REST.PUT(\"/drugs/{id}\", {})});\n  bp.sync({request: REST.GET(\"/drugs\", {})});\n  bp.sync({request: REST.DELETE(\"/drugs/{id}\", {})});\n});"
+      "name": "crud:drug:det:1:1",
+      "js": "// ---- crud:drug:det:1:1 ----\nbthread(\"crud:drug:det:1:1\", function() {\n  const id = uniqueId(\"drug\");\n  verifyDrugDoesNotExist(id);\n  createDrug(id, seedDrug());\n  verifyDrugExists(id);\n});\n"
     },
     {
-      "name": "CRUD inventory",
-      "desc": "Deterministic CRUD flow for entity 'inventory' inferred from graph.",
-      "entity": "inventory",
-      "js": "// Deterministic CRUD flow for entity: inventory\nbthread(\"HLS: CRUD inventory\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/inventory\", {})});\n  bp.sync({request: REST.GET(\"/inventory\", {})});\n  bp.sync({request: REST.PUT(\"/inventory/{ndc}\", {})});\n  bp.sync({request: REST.GET(\"/inventory\", {})});\n  bp.sync({request: REST.DELETE(\"/inventory/{ndc}\", {})});\n});"
+      "name": "crud:drug:det:2:1",
+      "js": "// ---- crud:drug:det:2:1 ----\nbthread(\"crud:drug:det:2:1\", function() {\n  const id = uniqueId(\"drug\");\n  createDrug(id, seedDrug());\n  updateDrug(id, patchDrug());\n  verifyDrugUpdated(id);\n});\n"
     },
     {
-      "name": "CRUD order",
-      "desc": "Deterministic CRUD flow for entity 'order' inferred from graph.",
-      "entity": "order",
-      "js": "// Deterministic CRUD flow for entity: order\nbthread(\"HLS: CRUD order\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/orders\", {})});\n  bp.sync({request: REST.GET(\"/orders\", {})});\n  bp.sync({request: REST.PUT(\"/orders/{id}\", {})});\n  bp.sync({request: REST.GET(\"/orders\", {})});\n  bp.sync({request: REST.DELETE(\"/orders/{id}\", {})});\n});"
+      "name": "crud:drug:det:3:1",
+      "js": "// ---- crud:drug:det:3:1 ----\nbthread(\"crud:drug:det:3:1\", function() {\n  const id = uniqueId(\"drug\");\n  createDrug(id, seedDrug());\n  deleteDrug(id);\n  verifyDrugDoesNotExist(id);\n});\n"
     },
     {
-      "name": "CRUD patient",
-      "desc": "Deterministic CRUD flow for entity 'patient' inferred from graph.",
-      "entity": "patient",
-      "js": "// Deterministic CRUD flow for entity: patient\nbthread(\"HLS: CRUD patient\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/patients\", {})});\n  bp.sync({request: REST.GET(\"/patients\", {})});\n  bp.sync({request: REST.PUT(\"/patients/{id}\", {})});\n  bp.sync({request: REST.GET(\"/patients\", {})});\n  bp.sync({request: REST.DELETE(\"/patients/{id}\", {})});\n});"
+      "name": "crud:inventory:det:1:2",
+      "js": "// ---- crud:inventory:det:1:2 ----\nbthread(\"crud:inventory:det:1:2\", function() {\n  const id = uniqueId(\"inventory\");\n  verifyInventoryDoesNotExist(id);\n  createInventory(id, seedInventory());\n  verifyInventoryExists(id);\n});\n"
+    },
+    {
+      "name": "crud:inventory:det:2:2",
+      "js": "// ---- crud:inventory:det:2:2 ----\nbthread(\"crud:inventory:det:2:2\", function() {\n  const id = uniqueId(\"inventory\");\n  createInventory(id, seedInventory());\n  updateInventory(id, patchInventory());\n  verifyInventoryUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:inventory:det:3:2",
+      "js": "// ---- crud:inventory:det:3:2 ----\nbthread(\"crud:inventory:det:3:2\", function() {\n  const id = uniqueId(\"inventory\");\n  createInventory(id, seedInventory());\n  deleteInventory(id);\n  verifyInventoryDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:order:det:1:3",
+      "js": "// ---- crud:order:det:1:3 ----\nbthread(\"crud:order:det:1:3\", function() {\n  const id = uniqueId(\"order\");\n  verifyOrderDoesNotExist(id);\n  createOrder(id, seedOrder());\n  verifyOrderExists(id);\n});\n"
+    },
+    {
+      "name": "crud:order:det:2:3",
+      "js": "// ---- crud:order:det:2:3 ----\nbthread(\"crud:order:det:2:3\", function() {\n  const id = uniqueId(\"order\");\n  createOrder(id, seedOrder());\n  updateOrder(id, patchOrder());\n  verifyOrderUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:order:det:3:3",
+      "js": "// ---- crud:order:det:3:3 ----\nbthread(\"crud:order:det:3:3\", function() {\n  const id = uniqueId(\"order\");\n  createOrder(id, seedOrder());\n  deleteOrder(id);\n  verifyOrderDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:patient:det:1:4",
+      "js": "// ---- crud:patient:det:1:4 ----\nbthread(\"crud:patient:det:1:4\", function() {\n  const id = uniqueId(\"patient\");\n  verifyPatientDoesNotExist(id);\n  createPatient(id, seedPatient());\n  verifyPatientExists(id);\n});\n"
+    },
+    {
+      "name": "crud:patient:det:2:4",
+      "js": "// ---- crud:patient:det:2:4 ----\nbthread(\"crud:patient:det:2:4\", function() {\n  const id = uniqueId(\"patient\");\n  createPatient(id, seedPatient());\n  updatePatient(id, patchPatient());\n  verifyPatientUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:patient:det:3:4",
+      "js": "// ---- crud:patient:det:3:4 ----\nbthread(\"crud:patient:det:3:4\", function() {\n  const id = uniqueId(\"patient\");\n  createPatient(id, seedPatient());\n  deletePatient(id);\n  verifyPatientDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:prescription:det:1:5",
+      "js": "// ---- crud:prescription:det:1:5 ----\nbthread(\"crud:prescription:det:1:5\", function() {\n  const id = uniqueId(\"prescription\");\n  verifyPrescriptionDoesNotExist(id);\n  createPrescription(id, seedPrescription());\n  verifyPrescriptionExists(id);\n});\n"
+    },
+    {
+      "name": "crud:prescription:det:2:5",
+      "js": "// ---- crud:prescription:det:2:5 ----\nbthread(\"crud:prescription:det:2:5\", function() {\n  const id = uniqueId(\"prescription\");\n  createPrescription(id, seedPrescription());\n  updatePrescription(id, patchPrescription());\n  verifyPrescriptionUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:prescription:det:3:5",
+      "js": "// ---- crud:prescription:det:3:5 ----\nbthread(\"crud:prescription:det:3:5\", function() {\n  const id = uniqueId(\"prescription\");\n  createPrescription(id, seedPrescription());\n  deletePrescription(id);\n  verifyPrescriptionDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:reset:det:1:6",
+      "js": "// ---- crud:reset:det:1:6 ----\nbthread(\"crud:reset:det:1:6\", function() {\n  const id = uniqueId(\"reset\");\n  verifyResetDoesNotExist(id);\n  createReset(id, seedReset());\n  verifyResetExists(id);\n});\n"
+    },
+    {
+      "name": "crud:reset:det:2:6",
+      "js": "// ---- crud:reset:det:2:6 ----\nbthread(\"crud:reset:det:2:6\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  updateReset(id, patchReset());\n  verifyResetUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:reset:det:3:6",
+      "js": "// ---- crud:reset:det:3:6 ----\nbthread(\"crud:reset:det:3:6\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  deleteReset(id);\n  verifyResetDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:reset_all:det:1:7",
+      "js": "// ---- crud:reset_all:det:1:7 ----\nbthread(\"crud:reset_all:det:1:7\", function() {\n  const id = uniqueId(\"reset_all\");\n  verifyReset_AllDoesNotExist(id);\n  createReset_All(id, seedReset_All());\n  verifyReset_AllExists(id);\n});\n"
+    },
+    {
+      "name": "crud:reset_all:det:2:7",
+      "js": "// ---- crud:reset_all:det:2:7 ----\nbthread(\"crud:reset_all:det:2:7\", function() {\n  const id = uniqueId(\"reset_all\");\n  createReset_All(id, seedReset_All());\n  updateReset_All(id, patchReset_All());\n  verifyReset_AllUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:reset_all:det:3:7",
+      "js": "// ---- crud:reset_all:det:3:7 ----\nbthread(\"crud:reset_all:det:3:7\", function() {\n  const id = uniqueId(\"reset_all\");\n  createReset_All(id, seedReset_All());\n  deleteReset_All(id);\n  verifyReset_AllDoesNotExist(id);\n});\n"
     }
-  ]
+  ],
+  "stories_js": "// ---- crud:drug:det:1:1 ----\nbthread(\"crud:drug:det:1:1\", function() {\n  const id = uniqueId(\"drug\");\n  verifyDrugDoesNotExist(id);\n  createDrug(id, seedDrug());\n  verifyDrugExists(id);\n});\n\n// ---- crud:drug:det:2:1 ----\nbthread(\"crud:drug:det:2:1\", function() {\n  const id = uniqueId(\"drug\");\n  createDrug(id, seedDrug());\n  updateDrug(id, patchDrug());\n  verifyDrugUpdated(id);\n});\n\n// ---- crud:drug:det:3:1 ----\nbthread(\"crud:drug:det:3:1\", function() {\n  const id = uniqueId(\"drug\");\n  createDrug(id, seedDrug());\n  deleteDrug(id);\n  verifyDrugDoesNotExist(id);\n});\n\n// ---- crud:inventory:det:1:2 ----\nbthread(\"crud:inventory:det:1:2\", function() {\n  const id = uniqueId(\"inventory\");\n  verifyInventoryDoesNotExist(id);\n  createInventory(id, seedInventory());\n  verifyInventoryExists(id);\n});\n\n// ---- crud:inventory:det:2:2 ----\nbthread(\"crud:inventory:det:2:2\", function() {\n  const id = uniqueId(\"inventory\");\n  createInventory(id, seedInventory());\n  updateInventory(id, patchInventory());\n  verifyInventoryUpdated(id);\n});\n\n// ---- crud:inventory:det:3:2 ----\nbthread(\"crud:inventory:det:3:2\", function() {\n  const id = uniqueId(\"inventory\");\n  createInventory(id, seedInventory());\n  deleteInventory(id);\n  verifyInventoryDoesNotExist(id);\n});\n\n// ---- crud:order:det:1:3 ----\nbthread(\"crud:order:det:1:3\", function() {\n  const id = uniqueId(\"order\");\n  verifyOrderDoesNotExist(id);\n  createOrder(id, seedOrder());\n  verifyOrderExists(id);\n});\n\n// ---- crud:order:det:2:3 ----\nbthread(\"crud:order:det:2:3\", function() {\n  const id = uniqueId(\"order\");\n  createOrder(id, seedOrder());\n  updateOrder(id, patchOrder());\n  verifyOrderUpdated(id);\n});\n\n// ---- crud:order:det:3:3 ----\nbthread(\"crud:order:det:3:3\", function() {\n  const id = uniqueId(\"order\");\n  createOrder(id, seedOrder());\n  deleteOrder(id);\n  verifyOrderDoesNotExist(id);\n});\n\n// ---- crud:patient:det:1:4 ----\nbthread(\"crud:patient:det:1:4\", function() {\n  const id = uniqueId(\"patient\");\n  verifyPatientDoesNotExist(id);\n  createPatient(id, seedPatient());\n  verifyPatientExists(id);\n});\n\n// ---- crud:patient:det:2:4 ----\nbthread(\"crud:patient:det:2:4\", function() {\n  const id = uniqueId(\"patient\");\n  createPatient(id, seedPatient());\n  updatePatient(id, patchPatient());\n  verifyPatientUpdated(id);\n});\n\n// ---- crud:patient:det:3:4 ----\nbthread(\"crud:patient:det:3:4\", function() {\n  const id = uniqueId(\"patient\");\n  createPatient(id, seedPatient());\n  deletePatient(id);\n  verifyPatientDoesNotExist(id);\n});\n\n// ---- crud:prescription:det:1:5 ----\nbthread(\"crud:prescription:det:1:5\", function() {\n  const id = uniqueId(\"prescription\");\n  verifyPrescriptionDoesNotExist(id);\n  createPrescription(id, seedPrescription());\n  verifyPrescriptionExists(id);\n});\n\n// ---- crud:prescription:det:2:5 ----\nbthread(\"crud:prescription:det:2:5\", function() {\n  const id = uniqueId(\"prescription\");\n  createPrescription(id, seedPrescription());\n  updatePrescription(id, patchPrescription());\n  verifyPrescriptionUpdated(id);\n});\n\n// ---- crud:prescription:det:3:5 ----\nbthread(\"crud:prescription:det:3:5\", function() {\n  const id = uniqueId(\"prescription\");\n  createPrescription(id, seedPrescription());\n  deletePrescription(id);\n  verifyPrescriptionDoesNotExist(id);\n});\n\n// ---- crud:reset:det:1:6 ----\nbthread(\"crud:reset:det:1:6\", function() {\n  const id = uniqueId(\"reset\");\n  verifyResetDoesNotExist(id);\n  createReset(id, seedReset());\n  verifyResetExists(id);\n});\n\n// ---- crud:reset:det:2:6 ----\nbthread(\"crud:reset:det:2:6\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  updateReset(id, patchReset());\n  verifyResetUpdated(id);\n});\n\n// ---- crud:reset:det:3:6 ----\nbthread(\"crud:reset:det:3:6\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  deleteReset(id);\n  verifyResetDoesNotExist(id);\n});\n\n// ---- crud:reset_all:det:1:7 ----\nbthread(\"crud:reset_all:det:1:7\", function() {\n  const id = uniqueId(\"reset_all\");\n  verifyReset_AllDoesNotExist(id);\n  createReset_All(id, seedReset_All());\n  verifyReset_AllExists(id);\n});\n\n// ---- crud:reset_all:det:2:7 ----\nbthread(\"crud:reset_all:det:2:7\", function() {\n  const id = uniqueId(\"reset_all\");\n  createReset_All(id, seedReset_All());\n  updateReset_All(id, patchReset_All());\n  verifyReset_AllUpdated(id);\n});\n\n// ---- crud:reset_all:det:3:7 ----\nbthread(\"crud:reset_all:det:3:7\", function() {\n  const id = uniqueId(\"reset_all\");\n  createReset_All(id, seedReset_All());\n  deleteReset_All(id);\n  verifyReset_AllDoesNotExist(id);\n});\n"
 }

@@ -1,71 +1,59 @@
 {
-  "kind": "hls_gold",
-  "deterministic": true,
-  "provider": "7_suts_llm_provider",
   "sut": "library",
-  "generated_at": "2025-11-12T20:05:54.324301Z",
+  "provider": "7_suts_llm_provider",
+  "mode": "det",
   "source": {
-    "graph": "D:\\Yeshayahu\\BpTestTell\\artifacts\\analysis\\7_suts_llm_provider\\library\\graph.json",
-    "dsl": "D:\\Yeshayahu\\BpTestTell\\models\\hls\\SUTs\\library\\dsl_map.json"
+    "created_by": "build_hls_gold_det.py"
   },
-  "entities": [
-    {
-      "name": "book",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "POST"
-      ]
-    },
-    {
-      "name": "hold",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "POST"
-      ]
-    },
-    {
-      "name": "loan",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "POST"
-      ]
-    },
-    {
-      "name": "user",
-      "verbs": [
-        "DELETE",
-        "GET",
-        "POST"
-      ]
-    }
-  ],
   "stories": [
     {
-      "name": "CRUD book",
-      "desc": "Deterministic CRUD flow for entity 'book' inferred from graph.",
-      "entity": "book",
-      "js": "// Deterministic CRUD flow for entity: book\nbthread(\"HLS: CRUD book\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/books\", {})});\n  bp.sync({request: REST.GET(\"/books\", {})});\n  bp.sync({request: REST.GET(\"/books\", {})});\n  bp.sync({request: REST.DELETE(\"/books/{book_id}\", {})});\n});"
+      "name": "crud:book:det:1:1",
+      "js": "// ---- crud:book:det:1:1 ----\nbthread(\"crud:book:det:1:1\", function() {\n  const id = uniqueId(\"book\");\n  verifyBookDoesNotExist(id);\n  createBook(id, seedBook());\n  verifyBookExists(id);\n});\n"
     },
     {
-      "name": "CRUD hold",
-      "desc": "Deterministic CRUD flow for entity 'hold' inferred from graph.",
-      "entity": "hold",
-      "js": "// Deterministic CRUD flow for entity: hold\nbthread(\"HLS: CRUD hold\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/holds\", {})});\n  bp.sync({request: REST.GET(\"/holds\", {})});\n  bp.sync({request: REST.GET(\"/holds\", {})});\n  bp.sync({request: REST.DELETE(\"/holds/{hold_id}\", {})});\n});"
+      "name": "crud:book:det:2:1",
+      "js": "// ---- crud:book:det:2:1 ----\nbthread(\"crud:book:det:2:1\", function() {\n  const id = uniqueId(\"book\");\n  createBook(id, seedBook());\n  updateBook(id, patchBook());\n  verifyBookUpdated(id);\n});\n"
     },
     {
-      "name": "CRUD loan",
-      "desc": "Deterministic CRUD flow for entity 'loan' inferred from graph.",
-      "entity": "loan",
-      "js": "// Deterministic CRUD flow for entity: loan\nbthread(\"HLS: CRUD loan\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/loans\", {})});\n  bp.sync({request: REST.GET(\"/loans\", {})});\n  bp.sync({request: REST.GET(\"/loans\", {})});\n  bp.sync({request: REST.DELETE(\"/loans/{user_id}/{book_id}\", {})});\n});"
+      "name": "crud:book:det:3:1",
+      "js": "// ---- crud:book:det:3:1 ----\nbthread(\"crud:book:det:3:1\", function() {\n  const id = uniqueId(\"book\");\n  createBook(id, seedBook());\n  deleteBook(id);\n  verifyBookDoesNotExist(id);\n});\n"
     },
     {
-      "name": "CRUD user",
-      "desc": "Deterministic CRUD flow for entity 'user' inferred from graph.",
-      "entity": "user",
-      "js": "// Deterministic CRUD flow for entity: user\nbthread(\"HLS: CRUD user\", function () {\n  let id = \"ID1\";\n  bp.sync({request: REST.POST(\"/users\", {})});\n  bp.sync({request: REST.GET(\"/users\", {})});\n  bp.sync({request: REST.GET(\"/users\", {})});\n  bp.sync({request: REST.DELETE(\"/users/{user_id}\", {})});\n});"
+      "name": "crud:hold:det:1:2",
+      "js": "// ---- crud:hold:det:1:2 ----\nbthread(\"crud:hold:det:1:2\", function() {\n  const id = uniqueId(\"hold\");\n  verifyHoldDoesNotExist(id);\n  createHold(id, seedHold());\n  verifyHoldExists(id);\n});\n"
+    },
+    {
+      "name": "crud:hold:det:2:2",
+      "js": "// ---- crud:hold:det:2:2 ----\nbthread(\"crud:hold:det:2:2\", function() {\n  const id = uniqueId(\"hold\");\n  createHold(id, seedHold());\n  updateHold(id, patchHold());\n  verifyHoldUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:hold:det:3:2",
+      "js": "// ---- crud:hold:det:3:2 ----\nbthread(\"crud:hold:det:3:2\", function() {\n  const id = uniqueId(\"hold\");\n  createHold(id, seedHold());\n  deleteHold(id);\n  verifyHoldDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:loan:det:1:3",
+      "js": "// ---- crud:loan:det:1:3 ----\nbthread(\"crud:loan:det:1:3\", function() {\n  const id = uniqueId(\"loan\");\n  verifyLoanDoesNotExist(id);\n  createLoan(id, seedLoan());\n  verifyLoanExists(id);\n});\n"
+    },
+    {
+      "name": "crud:loan:det:2:3",
+      "js": "// ---- crud:loan:det:2:3 ----\nbthread(\"crud:loan:det:2:3\", function() {\n  const id = uniqueId(\"loan\");\n  createLoan(id, seedLoan());\n  updateLoan(id, patchLoan());\n  verifyLoanUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:loan:det:3:3",
+      "js": "// ---- crud:loan:det:3:3 ----\nbthread(\"crud:loan:det:3:3\", function() {\n  const id = uniqueId(\"loan\");\n  createLoan(id, seedLoan());\n  deleteLoan(id);\n  verifyLoanDoesNotExist(id);\n});\n"
+    },
+    {
+      "name": "crud:user:det:1:4",
+      "js": "// ---- crud:user:det:1:4 ----\nbthread(\"crud:user:det:1:4\", function() {\n  const id = uniqueId(\"user\");\n  verifyUserDoesNotExist(id);\n  createUser(id, seedUser());\n  verifyUserExists(id);\n});\n"
+    },
+    {
+      "name": "crud:user:det:2:4",
+      "js": "// ---- crud:user:det:2:4 ----\nbthread(\"crud:user:det:2:4\", function() {\n  const id = uniqueId(\"user\");\n  createUser(id, seedUser());\n  updateUser(id, patchUser());\n  verifyUserUpdated(id);\n});\n"
+    },
+    {
+      "name": "crud:user:det:3:4",
+      "js": "// ---- crud:user:det:3:4 ----\nbthread(\"crud:user:det:3:4\", function() {\n  const id = uniqueId(\"user\");\n  createUser(id, seedUser());\n  deleteUser(id);\n  verifyUserDoesNotExist(id);\n});\n"
     }
-  ]
+  ],
+  "stories_js": "// ---- crud:book:det:1:1 ----\nbthread(\"crud:book:det:1:1\", function() {\n  const id = uniqueId(\"book\");\n  verifyBookDoesNotExist(id);\n  createBook(id, seedBook());\n  verifyBookExists(id);\n});\n\n// ---- crud:book:det:2:1 ----\nbthread(\"crud:book:det:2:1\", function() {\n  const id = uniqueId(\"book\");\n  createBook(id, seedBook());\n  updateBook(id, patchBook());\n  verifyBookUpdated(id);\n});\n\n// ---- crud:book:det:3:1 ----\nbthread(\"crud:book:det:3:1\", function() {\n  const id = uniqueId(\"book\");\n  createBook(id, seedBook());\n  deleteBook(id);\n  verifyBookDoesNotExist(id);\n});\n\n// ---- crud:hold:det:1:2 ----\nbthread(\"crud:hold:det:1:2\", function() {\n  const id = uniqueId(\"hold\");\n  verifyHoldDoesNotExist(id);\n  createHold(id, seedHold());\n  verifyHoldExists(id);\n});\n\n// ---- crud:hold:det:2:2 ----\nbthread(\"crud:hold:det:2:2\", function() {\n  const id = uniqueId(\"hold\");\n  createHold(id, seedHold());\n  updateHold(id, patchHold());\n  verifyHoldUpdated(id);\n});\n\n// ---- crud:hold:det:3:2 ----\nbthread(\"crud:hold:det:3:2\", function() {\n  const id = uniqueId(\"hold\");\n  createHold(id, seedHold());\n  deleteHold(id);\n  verifyHoldDoesNotExist(id);\n});\n\n// ---- crud:loan:det:1:3 ----\nbthread(\"crud:loan:det:1:3\", function() {\n  const id = uniqueId(\"loan\");\n  verifyLoanDoesNotExist(id);\n  createLoan(id, seedLoan());\n  verifyLoanExists(id);\n});\n\n// ---- crud:loan:det:2:3 ----\nbthread(\"crud:loan:det:2:3\", function() {\n  const id = uniqueId(\"loan\");\n  createLoan(id, seedLoan());\n  updateLoan(id, patchLoan());\n  verifyLoanUpdated(id);\n});\n\n// ---- crud:loan:det:3:3 ----\nbthread(\"crud:loan:det:3:3\", function() {\n  const id = uniqueId(\"loan\");\n  createLoan(id, seedLoan());\n  deleteLoan(id);\n  verifyLoanDoesNotExist(id);\n});\n\n// ---- crud:user:det:1:4 ----\nbthread(\"crud:user:det:1:4\", function() {\n  const id = uniqueId(\"user\");\n  verifyUserDoesNotExist(id);\n  createUser(id, seedUser());\n  verifyUserExists(id);\n});\n\n// ---- crud:user:det:2:4 ----\nbthread(\"crud:user:det:2:4\", function() {\n  const id = uniqueId(\"user\");\n  createUser(id, seedUser());\n  updateUser(id, patchUser());\n  verifyUserUpdated(id);\n});\n\n// ---- crud:user:det:3:4 ----\nbthread(\"crud:user:det:3:4\", function() {\n  const id = uniqueId(\"user\");\n  createUser(id, seedUser());\n  deleteUser(id);\n  verifyUserDoesNotExist(id);\n});\n"
 }

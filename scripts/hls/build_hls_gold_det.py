@@ -1,3 +1,5 @@
+
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
@@ -70,6 +72,57 @@ bthread("crud:{entity}:det:3:{idx}", function() {{
     stories.append((name, js))
 
     return stories
+def _extract_entity_names(dsl: dict) -> list[str]:
+    """
+    Accepts multiple DSL shapes and returns a clean, deduped, ordered list of entity names.
+    Supported shapes:
+      - {"entities": ["order", "customer", ...]}
+      - {"entities": [{"name":"order"}, {"name":"customer"}, ...]}
+      - {"entity_names": [...]}
+    Fallback: ["record"]
+    """
+    names: list[str] = []
+
+    raw = dsl.get("entities")
+    if raw is None:
+        raw = dsl.get("entity_names")
+
+    # Normalize
+    if isinstance(raw, str):
+        names = [raw.strip()]
+    elif isinstance(raw, list):
+        for item in raw:
+            if isinstance(item, str):
+                names.append(item.strip())
+            elif isinstance(item, dict):
+                # Try common keys for the entity label
+                for key in ("name", "entity", "singular", "title", "id"):
+                    val = item.get(key)
+                    if isinstance(val, str) and val.strip():
+                        names.append(val.strip())
+                        break
+                else:
+                    # optional: if someone provided {"names": ["a","b"]}
+                    val = item.get("names")
+                    if isinstance(val, list):
+                        for v in val:
+                            if isinstance(v, str) and v.strip():
+                                names.append(v.strip())
+    elif raw is not None:
+        # Unknown shape; ignore and fall back below
+        pass
+
+    if not names:
+        names = ["record"]
+
+    # De-dupe while preserving order
+    seen = set()
+    ordered = []
+    for n in names:
+        if n and n not in seen:
+            seen.add(n)
+            ordered.append(n)
+    return ordered
 
 def main():
     ap = argparse.ArgumentParser()
@@ -81,7 +134,7 @@ def main():
 
     dsl = load_json(args.dsl_map)
     # Try to infer entities from the DSL map (fallback to ["record"])
-    entities = list(sorted(set(dsl.get("entities") or dsl.get("entity_names") or ["record"])))
+    entities = _extract_entity_names(dsl)
 
     stories = []
     for idx, ent in enumerate(entities, start=1):
