@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/projectvalidate/key",
+      "method": "GET",
+      "operationId": "validateProjectKey",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Validates the provided project key against existing keys in Jira."
+    },
+    {
+      "path": "/rest/api/3/projectvalidate/validProjectKey",
+      "method": "GET",
+      "operationId": "getValidProjectKey",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Retrieves a valid project key based on the provided input."
+    },
+    {
+      "path": "/rest/api/3/projectvalidate/validProjectName",
+      "method": "GET",
+      "operationId": "getValidProjectName",
+      "summary": "",
+      "user": "user789",
+      "ideal": "Checks if the provided project name is valid and not already in use."
+    }
+  ]
+}

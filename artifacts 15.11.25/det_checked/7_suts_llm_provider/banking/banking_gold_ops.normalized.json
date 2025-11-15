@@ -1,0 +1,49 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/accounts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/accounts",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/accounts/{accountId}/transactions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/customers",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/loans",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/loans",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/transfers",
+      "body": null
+    }
+  ]
+}

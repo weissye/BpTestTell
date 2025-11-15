@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "PATCH",
+      "path": "/drafts/{draft_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/messages/{message_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/realm/playgrounds"
+    },
+    {
+      "method": "GET",
+      "path": "/streams"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/alert_words"
+    },
+    {
+      "method": "POST",
+      "path": "/users/{user_id}/reactivate"
+    }
+  ]
+}

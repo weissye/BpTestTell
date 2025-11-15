@@ -6,7 +6,7 @@
       "operationId": "FetchRecordingAddOnResultPayload",
       "summary": "",
       "user": "User123",
-      "ideal": "Fetches the payload for a specific add-on result associated with a recording."
+      "ideal": "Fetch the payload of a specific add-on result for a recording."
     },
     {
       "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX/Payloads/PYXXXXXXXXXXXXXXXXX.json",
@@ -14,7 +14,7 @@
       "operationId": "DeleteRecordingAddOnResultPayload",
       "summary": "",
       "user": "User456",
-      "ideal": "Deletes the specified payload for an add-on result of a recording."
+      "ideal": "Delete a specific payload associated with an add-on result for a recording."
     },
     {
       "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Recordings/RXXXXXXXXXXXXXXXXXX/AddOnResults/AXXXXXXXXXXXXXXXXXX/Payloads.json",
@@ -22,7 +22,7 @@
       "operationId": "ListRecordingAddOnResultPayload",
       "summary": "",
       "user": "User789",
-      "ideal": "Lists all payloads for a specific add-on result associated with a recording."
+      "ideal": "List all payloads associated with a specific add-on result for a recording."
     }
   ]
 }

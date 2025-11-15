@@ -22,7 +22,7 @@
       "operationId": "packages/list-packages-for-user",
       "summary": "",
       "user": "public_user_1",
-      "ideal": "List all packages for the user 'johndoe'."
+      "ideal": "Fetch all packages for the user 'johndoe'."
     },
     {
       "path": "/orgs/my-org/packages/npm/my-package",
@@ -30,7 +30,7 @@
       "operationId": "packages/get-package-for-organization",
       "summary": "",
       "user": "org_user_2",
-      "ideal": "Retrieve details of the 'my-package' npm package for the organization 'my-org'."
+      "ideal": "Retrieve details of the 'my-package' npm package for organization 'my-org'."
     },
     {
       "path": "/user/packages/npm/my-package",
@@ -46,7 +46,7 @@
       "operationId": "packages/get-package-for-user",
       "summary": "",
       "user": "public_user_2",
-      "ideal": "Retrieve details of the 'my-package' npm package for the user 'johndoe'."
+      "ideal": "Retrieve details of the 'my-package' npm package for user 'johndoe'."
     },
     {
       "path": "/orgs/my-org/packages/npm/my-package/versions",
@@ -54,7 +54,7 @@
       "operationId": "packages/get-all-package-versions-for-package-owned-by-org",
       "summary": "",
       "user": "org_user_3",
-      "ideal": "List all versions of the 'my-package' npm package for the organization 'my-org'."
+      "ideal": "List all versions of the 'my-package' npm package for organization 'my-org'."
     },
     {
       "path": "/user/packages/npm/my-package/versions",
@@ -70,7 +70,7 @@
       "operationId": "packages/get-all-package-versions-for-package-owned-by-user",
       "summary": "",
       "user": "public_user_3",
-      "ideal": "List all versions of the 'my-package' npm package for the user 'johndoe'."
+      "ideal": "Retrieve all versions of the 'my-package' npm package for user 'johndoe'."
     },
     {
       "path": "/orgs/my-org/packages/npm/my-package/versions/1.0.0",
@@ -78,7 +78,7 @@
       "operationId": "packages/get-package-version-for-organization",
       "summary": "",
       "user": "org_user_4",
-      "ideal": "Retrieve details of version 1.0.0 of 'my-package' npm package for the organization 'my-org'."
+      "ideal": "Get details of version 1.0.0 of 'my-package' npm package for organization 'my-org'."
     },
     {
       "path": "/user/packages/npm/my-package/versions/1.0.0",
@@ -86,7 +86,7 @@
       "operationId": "packages/get-package-version-for-authenticated-user",
       "summary": "",
       "user": "auth_user_4",
-      "ideal": "Get details of version 1.0.0 of 'my-package' npm package owned by the authenticated user."
+      "ideal": "Retrieve details of version 1.0.0 of 'my-package' npm package owned by the authenticated user."
     },
     {
       "path": "/users/johndoe/packages/npm/my-package/versions/1.0.0",
@@ -94,7 +94,7 @@
       "operationId": "packages/get-package-version-for-user",
       "summary": "",
       "user": "public_user_4",
-      "ideal": "Retrieve details of version 1.0.0 of 'my-package' npm package for the user 'johndoe'."
+      "ideal": "Get details of version 1.0.0 of 'my-package' npm package for user 'johndoe'."
     },
     {
       "path": "/orgs/my-org/packages/npm/my-package/versions/1.0.0",
@@ -102,7 +102,7 @@
       "operationId": "packages/delete-package-version-for-org",
       "summary": "",
       "user": "org_user_5",
-      "ideal": "Delete version 1.0.0 of 'my-package' npm package for the organization 'my-org'."
+      "ideal": "Delete version 1.0.0 of 'my-package' npm package for organization 'my-org'."
     },
     {
       "path": "/user/packages/npm/my-package/versions/1.0.0",
@@ -118,7 +118,7 @@
       "operationId": "packages/delete-package-version-for-user",
       "summary": "",
       "user": "public_user_5",
-      "ideal": "Delete version 1.0.0 of 'my-package' npm package for the user 'johndoe'."
+      "ideal": "Delete version 1.0.0 of 'my-package' npm package for user 'johndoe'."
     },
     {
       "path": "/orgs/my-org/packages/npm/my-package/restore",
@@ -126,7 +126,7 @@
       "operationId": "packages/restore-package-for-org",
       "summary": "",
       "user": "org_user_6",
-      "ideal": "Restore the 'my-package' npm package for the organization 'my-org'."
+      "ideal": "Restore the 'my-package' npm package for organization 'my-org'."
     },
     {
       "path": "/user/packages/npm/my-package/restore",
@@ -142,7 +142,7 @@
       "operationId": "packages/restore-package-for-user",
       "summary": "",
       "user": "public_user_6",
-      "ideal": "Restore the 'my-package' npm package for the user 'johndoe'."
+      "ideal": "Restore the 'my-package' npm package for user 'johndoe'."
     }
   ]
 }

@@ -1,0 +1,56 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/{realm}/authentication/config"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/per-client-config-description"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/client-scopes/{id}/protocol-mappers/models"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/client-templates/{id}/protocol-mappers/models"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/clients/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/clients/{id}/nodes/{node}"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/clients/{id}/roles/{role-name}/management/permissions"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/default-default-client-scopes"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/groups/{id}/role-mappings"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/roles-by-id/{role-id}/composites/realm"
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/users/{id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/users/{id}/reset-password-email"
+    }
+  ]
+}

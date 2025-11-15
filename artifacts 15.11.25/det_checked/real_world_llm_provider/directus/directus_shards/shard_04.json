@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/auth/login"
+    },
+    {
+      "method": "POST",
+      "path": "/fields/{collection}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/folders/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/presets"
+    },
+    {
+      "method": "GET",
+      "path": "/server/ping"
+    },
+    {
+      "method": "DELETE",
+      "path": "/versions"
+    }
+  ]
+}

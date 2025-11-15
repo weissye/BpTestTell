@@ -5,64 +5,64 @@
       "method": "GET",
       "operationId": "getAttachmentContent",
       "summary": "",
-      "user": "user123",
-      "ideal": "Fetches the content of the attachment with ID 12345."
+      "user": "User requests the content of an attachment with ID 12345 to view the file directly.",
+      "ideal": "The response should return the binary content of the attachment."
     },
     {
       "path": "/rest/api/3/attachment/meta",
       "method": "GET",
       "operationId": "getAttachmentMeta",
       "summary": "",
-      "user": "user456",
-      "ideal": "Retrieves metadata for all attachments in the current context."
+      "user": "User wants to retrieve metadata for all attachments associated with their issues.",
+      "ideal": "The response should include a list of attachments with their metadata such as size, filename, and created date."
     },
     {
-      "path": "/rest/api/3/attachment/thumbnail/12345",
+      "path": "/rest/api/3/attachment/thumbnail/67890",
       "method": "GET",
       "operationId": "getAttachmentThumbnail",
       "summary": "",
-      "user": "user789",
-      "ideal": "Gets the thumbnail image for the attachment with ID 12345."
+      "user": "User is looking for a thumbnail preview of an attachment with ID 67890.",
+      "ideal": "The response should return the thumbnail image of the specified attachment."
     },
     {
       "path": "/rest/api/3/attachment/12345",
       "method": "DELETE",
       "operationId": "removeAttachment",
       "summary": "",
-      "user": "user101",
-      "ideal": "Deletes the attachment with ID 12345 from the issue."
+      "user": "User wants to delete an attachment with ID 12345 from an issue.",
+      "ideal": "The response should confirm that the attachment has been successfully deleted."
     },
     {
       "path": "/rest/api/3/attachment/12345",
       "method": "GET",
       "operationId": "getAttachment",
       "summary": "",
-      "user": "user202",
-      "ideal": "Retrieves the attachment details for the attachment with ID 12345."
+      "user": "User requests details about an attachment with ID 12345 to check its properties.",
+      "ideal": "The response should return detailed information about the attachment, including its URL and metadata."
     },
     {
       "path": "/rest/api/3/attachment/12345/expand/human",
       "method": "GET",
       "operationId": "expandAttachmentForHumans",
       "summary": "",
-      "user": "user303",
-      "ideal": "Expands the attachment details in a human-readable format for ID 12345."
+      "user": "User wants a human-readable version of the attachment details for ID 12345.",
+      "ideal": "The response should provide a user-friendly representation of the attachment's information."
     },
     {
       "path": "/rest/api/3/attachment/12345/expand/raw",
       "method": "GET",
       "operationId": "expandAttachmentForMachines",
       "summary": "",
-      "user": "user404",
-      "ideal": "Expands the attachment details in a raw format for ID 12345."
+      "user": "User needs a raw data format of the attachment details for ID 12345 for processing.",
+      "ideal": "The response should return the attachment details in a machine-readable format."
     },
     {
-      "path": "/rest/api/3/issue/ISSUE-123/attachments",
+      "path": "/rest/api/3/issue/ISSUE-1/attachments",
       "method": "POST",
       "operationId": "addAttachment",
       "summary": "",
-      "user": "user505",
-      "ideal": "Adds a new attachment to the issue with key ISSUE-123."
+      "user": "User wants to upload a new attachment to the issue with key ISSUE-1.",
+      "ideal": "The response should confirm the successful upload of the attachment and provide its ID."
     }
   ]
 }

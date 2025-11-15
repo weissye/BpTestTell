@@ -1,44 +1,44 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Applications.json",
       "method": "POST",
       "operationId": "CreateApplication",
       "summary": "",
-      "user": "A user wants to create a new Twilio application to handle incoming calls and SMS messages. They provide the necessary parameters such as the application name, voice URL, and messaging URL.",
-      "ideal": "The application is successfully created, and the response includes the application SID and other relevant details."
+      "user": "User wants to create a new Twilio application to handle incoming calls and SMS messages.",
+      "ideal": "A new application is created successfully with a unique SID."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Applications.json",
       "method": "GET",
       "operationId": "ListApplication",
       "summary": "",
-      "user": "A user needs to retrieve a list of all Twilio applications associated with their account to manage them effectively.",
-      "ideal": "The response returns a list of applications with their SIDs, names, and URLs."
+      "user": "User needs to list all applications associated with their Twilio account to manage them effectively.",
+      "ideal": "A list of all applications is returned with their respective SIDs and details."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXX.json",
       "method": "DELETE",
       "operationId": "DeleteApplication",
       "summary": "",
-      "user": "A user wants to delete an outdated Twilio application that is no longer in use to keep their account organized.",
-      "ideal": "The application is successfully deleted, and the response confirms the deletion."
+      "user": "User wants to delete an application that is no longer needed to keep their account organized.",
+      "ideal": "The application is deleted successfully, and a confirmation message is returned."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXX.json",
       "method": "GET",
       "operationId": "FetchApplication",
       "summary": "",
-      "user": "A user needs to fetch the details of a specific Twilio application to review its configuration and settings.",
-      "ideal": "The response provides detailed information about the application, including its SID, name, and URLs."
+      "user": "User wants to fetch details of a specific application to review its configuration.",
+      "ideal": "The details of the specified application are returned, including its SID and settings."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXX.json",
       "method": "POST",
       "operationId": "UpdateApplication",
       "summary": "",
-      "user": "A user wants to update the voice URL of an existing Twilio application to point to a new endpoint for handling calls.",
-      "ideal": "The application is successfully updated, and the response includes the updated application details."
+      "user": "User needs to update the webhook URL for an application to change how it handles incoming messages.",
+      "ideal": "The application is updated successfully with the new configuration."
     }
   ]
 }

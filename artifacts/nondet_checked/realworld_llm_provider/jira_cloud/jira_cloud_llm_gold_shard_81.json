@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "getTask",
       "summary": "",
-      "user": "As a project manager, I want to retrieve the details of a specific task by its ID so that I can review its status and any associated comments.",
-      "ideal": "The API should return a JSON object containing the task details, including the task ID, title, description, status, assignee, and any comments."
+      "user": "As a project manager, I want to retrieve the details of a specific task by its ID so that I can review its status and assigned resources.",
+      "ideal": "The response should include the task ID, title, description, status, assignee, and any comments associated with the task."
     },
     {
       "path": "/rest/api/3/task/12345/cancel",
       "method": "POST",
       "operationId": "cancelTask",
       "summary": "",
-      "user": "As a team lead, I need to cancel a task that is no longer relevant to our project, so that it does not clutter our task list.",
-      "ideal": "The API should accept the request and return a success message indicating that the task has been successfully canceled, along with the updated status of the task."
+      "user": "As a team lead, I need to cancel a task that is no longer relevant to our project goals, ensuring that all stakeholders are informed of this change.",
+      "ideal": "The response should confirm the cancellation of the task and provide any relevant information regarding the next steps or reassignment of resources."
     }
   ]
 }

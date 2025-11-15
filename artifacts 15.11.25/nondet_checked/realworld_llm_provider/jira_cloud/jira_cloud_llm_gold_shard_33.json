@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/redact",
+      "method": "POST",
+      "operationId": "redact",
+      "summary": "",
+      "user": "User A is a project manager who needs to redact sensitive information from a set of documents before sharing them with external stakeholders. They prepare the documents and submit them for redaction using the API.",
+      "ideal": "The API successfully processes the redaction request and returns a job ID for tracking the status of the redaction."
+    },
+    {
+      "path": "/rest/api/3/redact/status/{jobId}",
+      "method": "GET",
+      "operationId": "getRedactionStatus",
+      "summary": "",
+      "user": "User B is a compliance officer who submitted a redaction job earlier. They want to check the status of the redaction process to ensure it is completed before the documents are shared.",
+      "ideal": "The API returns the current status of the redaction job, indicating whether it is still processing, completed, or failed."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/comments"
+    },
+    {
+      "method": "DELETE",
+      "path": "/flows/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/permissions"
+    },
+    {
+      "method": "PATCH",
+      "path": "/roles"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks/{id}"
+    }
+  ]
+}

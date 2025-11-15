@@ -1,0 +1,234 @@
+{
+  "openapi_meta": {
+    "title": "Zulip REST API",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/get_stream_id",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Get channel ID",
+      "operationId": "get-stream-id"
+    },
+    {
+      "path": "/default_streams",
+      "method": "POST",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Add a default channel",
+      "operationId": "add-default-stream"
+    },
+    {
+      "path": "/default_streams",
+      "method": "DELETE",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Remove a default channel",
+      "operationId": "remove-default-stream"
+    },
+    {
+      "path": "/users/me/{stream_id}/topics",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Get topics in a channel",
+      "operationId": "get-stream-topics"
+    },
+    {
+      "path": "/users/me/subscriptions",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Get subscribed channels",
+      "operationId": "get-subscriptions"
+    },
+    {
+      "path": "/users/me/subscriptions",
+      "method": "POST",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Subscribe to a channel",
+      "operationId": "subscribe"
+    },
+    {
+      "path": "/users/me/subscriptions",
+      "method": "PATCH",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Update subscriptions",
+      "operationId": "update-subscriptions"
+    },
+    {
+      "path": "/users/me/subscriptions",
+      "method": "DELETE",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Unsubscribe from a channel",
+      "operationId": "unsubscribe"
+    },
+    {
+      "path": "/users/me/subscriptions/muted_topics",
+      "method": "PATCH",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Topic muting",
+      "operationId": "mute-topic"
+    },
+    {
+      "path": "/user_topics",
+      "method": "POST",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Update personal preferences for a topic",
+      "operationId": "update-user-topic"
+    },
+    {
+      "path": "/users/{user_id}/subscriptions/{stream_id}",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Get subscription status",
+      "operationId": "get-subscription-status"
+    },
+    {
+      "path": "/users/me/subscriptions/properties",
+      "method": "POST",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Update subscription settings",
+      "operationId": "update-subscription-settings"
+    },
+    {
+      "path": "/streams/{stream_id}/members",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Get channel subscribers",
+      "operationId": "get-subscribers"
+    },
+    {
+      "path": "/streams",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Get all channels",
+      "operationId": "get-streams"
+    },
+    {
+      "path": "/streams/{stream_id}",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Get a channel by ID",
+      "operationId": "get-stream-by-id"
+    },
+    {
+      "path": "/streams/{stream_id}",
+      "method": "DELETE",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Archive a channel",
+      "operationId": "archive-stream"
+    },
+    {
+      "path": "/streams/{stream_id}",
+      "method": "PATCH",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Update a channel",
+      "operationId": "update-stream"
+    },
+    {
+      "path": "/streams/{stream_id}/email_address",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Get channel's email address",
+      "operationId": "get-stream-email-address"
+    },
+    {
+      "path": "/streams/{stream_id}/delete_topic",
+      "method": "POST",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Delete a topic",
+      "operationId": "delete-topic"
+    },
+    {
+      "path": "/channels/create",
+      "method": "POST",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Create a channel",
+      "operationId": "create-channel"
+    },
+    {
+      "path": "/channel_folders/create",
+      "method": "POST",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Create a channel folder",
+      "operationId": "create-channel-folder"
+    },
+    {
+      "path": "/channel_folders",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Get channel folders",
+      "operationId": "get-channel-folders"
+    },
+    {
+      "path": "/channel_folders",
+      "method": "PATCH",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Reorder channel folders",
+      "operationId": "patch-channel-folders"
+    },
+    {
+      "path": "/channel_folders/{channel_folder_id}",
+      "method": "PATCH",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Update a channel folder",
+      "operationId": "update-channel-folder"
+    },
+    {
+      "path": "/calls/bigbluebutton/create",
+      "method": "GET",
+      "tags": [
+        "channels"
+      ],
+      "summary": "Create BigBlueButton video call",
+      "operationId": "create-big-blue-button-video-call"
+    }
+  ]
+}

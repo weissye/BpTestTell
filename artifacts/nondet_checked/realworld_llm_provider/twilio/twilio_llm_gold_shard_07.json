@@ -1,20 +1,20 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/AddonSid/Extensions/ExtSid.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json",
       "method": "GET",
       "operationId": "FetchIncomingPhoneNumberAssignedAddOnExtension",
       "summary": "",
-      "user": "User requested details for a specific extension associated with an assigned add-on for their Twilio phone number.",
-      "ideal": "Successfully fetched the extension details including its SID, friendly name, and configuration."
+      "user": "User123 wants to retrieve the details of a specific extension associated with an assigned add-on for their Twilio phone number. They have the AccountSid, ResourceSid, AssignedAddOnSid, and Sid ready.",
+      "ideal": "The API should return a JSON object containing the details of the specified extension, including its SID, friendly name, and any other relevant properties."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXX/AssignedAddOns/AddonSid/Extensions.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json",
       "method": "GET",
       "operationId": "ListIncomingPhoneNumberAssignedAddOnExtension",
       "summary": "",
-      "user": "User wants to retrieve a list of all extensions associated with a specific assigned add-on for their Twilio phone number.",
-      "ideal": "Received a list of extensions with their SIDs and friendly names, allowing the user to manage them effectively."
+      "user": "User456 needs to list all extensions associated with a specific assigned add-on for their Twilio phone number. They have the necessary AccountSid, ResourceSid, and AssignedAddOnSid.",
+      "ideal": "The API should return a JSON array of extension objects, each containing details such as SID, friendly name, and status for all extensions linked to the specified add-on."
     }
   ]
 }

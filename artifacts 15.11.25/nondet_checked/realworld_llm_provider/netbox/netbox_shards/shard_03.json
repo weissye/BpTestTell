@@ -1,0 +1,3672 @@
+{
+  "openapi_meta": {
+    "title": "NetBox REST API",
+    "version": "4.4.2 (4.4)"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/api/dcim/cable-terminations/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cable_terminations_list"
+    },
+    {
+      "path": "/api/dcim/cable-terminations/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cable_terminations_create"
+    },
+    {
+      "path": "/api/dcim/cable-terminations/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cable_terminations_bulk_update"
+    },
+    {
+      "path": "/api/dcim/cable-terminations/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cable_terminations_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/cable-terminations/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cable_terminations_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/cable-terminations/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cable_terminations_retrieve"
+    },
+    {
+      "path": "/api/dcim/cable-terminations/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cable_terminations_update"
+    },
+    {
+      "path": "/api/dcim/cable-terminations/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cable_terminations_partial_update"
+    },
+    {
+      "path": "/api/dcim/cable-terminations/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cable_terminations_destroy"
+    },
+    {
+      "path": "/api/dcim/cables/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cables_list"
+    },
+    {
+      "path": "/api/dcim/cables/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cables_create"
+    },
+    {
+      "path": "/api/dcim/cables/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cables_bulk_update"
+    },
+    {
+      "path": "/api/dcim/cables/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cables_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/cables/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cables_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/cables/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cables_retrieve"
+    },
+    {
+      "path": "/api/dcim/cables/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cables_update"
+    },
+    {
+      "path": "/api/dcim/cables/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cables_partial_update"
+    },
+    {
+      "path": "/api/dcim/cables/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_cables_destroy"
+    },
+    {
+      "path": "/api/dcim/connected-device/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_connected_device_list"
+    },
+    {
+      "path": "/api/dcim/console-port-templates/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_port_templates_list"
+    },
+    {
+      "path": "/api/dcim/console-port-templates/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_port_templates_create"
+    },
+    {
+      "path": "/api/dcim/console-port-templates/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_port_templates_bulk_update"
+    },
+    {
+      "path": "/api/dcim/console-port-templates/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_port_templates_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/console-port-templates/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_port_templates_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/console-port-templates/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_port_templates_retrieve"
+    },
+    {
+      "path": "/api/dcim/console-port-templates/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_port_templates_update"
+    },
+    {
+      "path": "/api/dcim/console-port-templates/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_port_templates_partial_update"
+    },
+    {
+      "path": "/api/dcim/console-port-templates/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_port_templates_destroy"
+    },
+    {
+      "path": "/api/dcim/console-ports/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_ports_list"
+    },
+    {
+      "path": "/api/dcim/console-ports/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_ports_create"
+    },
+    {
+      "path": "/api/dcim/console-ports/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_ports_bulk_update"
+    },
+    {
+      "path": "/api/dcim/console-ports/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_ports_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/console-ports/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_ports_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/console-ports/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_ports_retrieve"
+    },
+    {
+      "path": "/api/dcim/console-ports/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_ports_update"
+    },
+    {
+      "path": "/api/dcim/console-ports/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_ports_partial_update"
+    },
+    {
+      "path": "/api/dcim/console-ports/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_ports_destroy"
+    },
+    {
+      "path": "/api/dcim/console-ports/{id}/trace/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_ports_trace_retrieve"
+    },
+    {
+      "path": "/api/dcim/console-server-port-templates/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_port_templates_list"
+    },
+    {
+      "path": "/api/dcim/console-server-port-templates/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_port_templates_create"
+    },
+    {
+      "path": "/api/dcim/console-server-port-templates/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_port_templates_bulk_update"
+    },
+    {
+      "path": "/api/dcim/console-server-port-templates/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_port_templates_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/console-server-port-templates/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_port_templates_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/console-server-port-templates/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_port_templates_retrieve"
+    },
+    {
+      "path": "/api/dcim/console-server-port-templates/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_port_templates_update"
+    },
+    {
+      "path": "/api/dcim/console-server-port-templates/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_port_templates_partial_update"
+    },
+    {
+      "path": "/api/dcim/console-server-port-templates/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_port_templates_destroy"
+    },
+    {
+      "path": "/api/dcim/console-server-ports/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_ports_list"
+    },
+    {
+      "path": "/api/dcim/console-server-ports/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_ports_create"
+    },
+    {
+      "path": "/api/dcim/console-server-ports/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_ports_bulk_update"
+    },
+    {
+      "path": "/api/dcim/console-server-ports/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_ports_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/console-server-ports/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_ports_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/console-server-ports/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_ports_retrieve"
+    },
+    {
+      "path": "/api/dcim/console-server-ports/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_ports_update"
+    },
+    {
+      "path": "/api/dcim/console-server-ports/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_ports_partial_update"
+    },
+    {
+      "path": "/api/dcim/console-server-ports/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_ports_destroy"
+    },
+    {
+      "path": "/api/dcim/console-server-ports/{id}/trace/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_console_server_ports_trace_retrieve"
+    },
+    {
+      "path": "/api/dcim/device-bay-templates/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bay_templates_list"
+    },
+    {
+      "path": "/api/dcim/device-bay-templates/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bay_templates_create"
+    },
+    {
+      "path": "/api/dcim/device-bay-templates/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bay_templates_bulk_update"
+    },
+    {
+      "path": "/api/dcim/device-bay-templates/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bay_templates_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/device-bay-templates/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bay_templates_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/device-bay-templates/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bay_templates_retrieve"
+    },
+    {
+      "path": "/api/dcim/device-bay-templates/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bay_templates_update"
+    },
+    {
+      "path": "/api/dcim/device-bay-templates/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bay_templates_partial_update"
+    },
+    {
+      "path": "/api/dcim/device-bay-templates/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bay_templates_destroy"
+    },
+    {
+      "path": "/api/dcim/device-bays/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bays_list"
+    },
+    {
+      "path": "/api/dcim/device-bays/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bays_create"
+    },
+    {
+      "path": "/api/dcim/device-bays/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bays_bulk_update"
+    },
+    {
+      "path": "/api/dcim/device-bays/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bays_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/device-bays/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bays_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/device-bays/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bays_retrieve"
+    },
+    {
+      "path": "/api/dcim/device-bays/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bays_update"
+    },
+    {
+      "path": "/api/dcim/device-bays/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bays_partial_update"
+    },
+    {
+      "path": "/api/dcim/device-bays/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_bays_destroy"
+    },
+    {
+      "path": "/api/dcim/device-roles/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_roles_list"
+    },
+    {
+      "path": "/api/dcim/device-roles/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_roles_create"
+    },
+    {
+      "path": "/api/dcim/device-roles/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_roles_bulk_update"
+    },
+    {
+      "path": "/api/dcim/device-roles/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_roles_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/device-roles/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_roles_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/device-roles/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_roles_retrieve"
+    },
+    {
+      "path": "/api/dcim/device-roles/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_roles_update"
+    },
+    {
+      "path": "/api/dcim/device-roles/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_roles_partial_update"
+    },
+    {
+      "path": "/api/dcim/device-roles/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_roles_destroy"
+    },
+    {
+      "path": "/api/dcim/device-types/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_types_list"
+    },
+    {
+      "path": "/api/dcim/device-types/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_types_create"
+    },
+    {
+      "path": "/api/dcim/device-types/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_types_bulk_update"
+    },
+    {
+      "path": "/api/dcim/device-types/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_types_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/device-types/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_types_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/device-types/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_types_retrieve"
+    },
+    {
+      "path": "/api/dcim/device-types/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_types_update"
+    },
+    {
+      "path": "/api/dcim/device-types/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_types_partial_update"
+    },
+    {
+      "path": "/api/dcim/device-types/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_device_types_destroy"
+    },
+    {
+      "path": "/api/dcim/devices/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_devices_list"
+    },
+    {
+      "path": "/api/dcim/devices/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_devices_create"
+    },
+    {
+      "path": "/api/dcim/devices/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_devices_bulk_update"
+    },
+    {
+      "path": "/api/dcim/devices/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_devices_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/devices/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_devices_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/devices/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_devices_retrieve"
+    },
+    {
+      "path": "/api/dcim/devices/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_devices_update"
+    },
+    {
+      "path": "/api/dcim/devices/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_devices_partial_update"
+    },
+    {
+      "path": "/api/dcim/devices/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_devices_destroy"
+    },
+    {
+      "path": "/api/dcim/devices/{id}/render-config/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_devices_render_config_create"
+    },
+    {
+      "path": "/api/dcim/front-port-templates/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_port_templates_list"
+    },
+    {
+      "path": "/api/dcim/front-port-templates/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_port_templates_create"
+    },
+    {
+      "path": "/api/dcim/front-port-templates/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_port_templates_bulk_update"
+    },
+    {
+      "path": "/api/dcim/front-port-templates/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_port_templates_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/front-port-templates/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_port_templates_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/front-port-templates/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_port_templates_retrieve"
+    },
+    {
+      "path": "/api/dcim/front-port-templates/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_port_templates_update"
+    },
+    {
+      "path": "/api/dcim/front-port-templates/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_port_templates_partial_update"
+    },
+    {
+      "path": "/api/dcim/front-port-templates/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_port_templates_destroy"
+    },
+    {
+      "path": "/api/dcim/front-ports/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_ports_list"
+    },
+    {
+      "path": "/api/dcim/front-ports/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_ports_create"
+    },
+    {
+      "path": "/api/dcim/front-ports/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_ports_bulk_update"
+    },
+    {
+      "path": "/api/dcim/front-ports/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_ports_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/front-ports/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_ports_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/front-ports/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_ports_retrieve"
+    },
+    {
+      "path": "/api/dcim/front-ports/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_ports_update"
+    },
+    {
+      "path": "/api/dcim/front-ports/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_ports_partial_update"
+    },
+    {
+      "path": "/api/dcim/front-ports/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_ports_destroy"
+    },
+    {
+      "path": "/api/dcim/front-ports/{id}/paths/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_front_ports_paths_retrieve"
+    },
+    {
+      "path": "/api/dcim/interface-templates/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interface_templates_list"
+    },
+    {
+      "path": "/api/dcim/interface-templates/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interface_templates_create"
+    },
+    {
+      "path": "/api/dcim/interface-templates/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interface_templates_bulk_update"
+    },
+    {
+      "path": "/api/dcim/interface-templates/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interface_templates_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/interface-templates/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interface_templates_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/interface-templates/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interface_templates_retrieve"
+    },
+    {
+      "path": "/api/dcim/interface-templates/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interface_templates_update"
+    },
+    {
+      "path": "/api/dcim/interface-templates/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interface_templates_partial_update"
+    },
+    {
+      "path": "/api/dcim/interface-templates/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interface_templates_destroy"
+    },
+    {
+      "path": "/api/dcim/interfaces/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interfaces_list"
+    },
+    {
+      "path": "/api/dcim/interfaces/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interfaces_create"
+    },
+    {
+      "path": "/api/dcim/interfaces/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interfaces_bulk_update"
+    },
+    {
+      "path": "/api/dcim/interfaces/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interfaces_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/interfaces/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interfaces_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/interfaces/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interfaces_retrieve"
+    },
+    {
+      "path": "/api/dcim/interfaces/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interfaces_update"
+    },
+    {
+      "path": "/api/dcim/interfaces/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interfaces_partial_update"
+    },
+    {
+      "path": "/api/dcim/interfaces/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interfaces_destroy"
+    },
+    {
+      "path": "/api/dcim/interfaces/{id}/trace/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_interfaces_trace_retrieve"
+    },
+    {
+      "path": "/api/dcim/inventory-item-roles/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_roles_list"
+    },
+    {
+      "path": "/api/dcim/inventory-item-roles/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_roles_create"
+    },
+    {
+      "path": "/api/dcim/inventory-item-roles/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_roles_bulk_update"
+    },
+    {
+      "path": "/api/dcim/inventory-item-roles/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_roles_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/inventory-item-roles/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_roles_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/inventory-item-roles/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_roles_retrieve"
+    },
+    {
+      "path": "/api/dcim/inventory-item-roles/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_roles_update"
+    },
+    {
+      "path": "/api/dcim/inventory-item-roles/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_roles_partial_update"
+    },
+    {
+      "path": "/api/dcim/inventory-item-roles/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_roles_destroy"
+    },
+    {
+      "path": "/api/dcim/inventory-item-templates/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_templates_list"
+    },
+    {
+      "path": "/api/dcim/inventory-item-templates/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_templates_create"
+    },
+    {
+      "path": "/api/dcim/inventory-item-templates/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_templates_bulk_update"
+    },
+    {
+      "path": "/api/dcim/inventory-item-templates/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_templates_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/inventory-item-templates/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_templates_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/inventory-item-templates/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_templates_retrieve"
+    },
+    {
+      "path": "/api/dcim/inventory-item-templates/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_templates_update"
+    },
+    {
+      "path": "/api/dcim/inventory-item-templates/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_templates_partial_update"
+    },
+    {
+      "path": "/api/dcim/inventory-item-templates/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_item_templates_destroy"
+    },
+    {
+      "path": "/api/dcim/inventory-items/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_items_list"
+    },
+    {
+      "path": "/api/dcim/inventory-items/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_items_create"
+    },
+    {
+      "path": "/api/dcim/inventory-items/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_items_bulk_update"
+    },
+    {
+      "path": "/api/dcim/inventory-items/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_items_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/inventory-items/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_items_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/inventory-items/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_items_retrieve"
+    },
+    {
+      "path": "/api/dcim/inventory-items/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_items_update"
+    },
+    {
+      "path": "/api/dcim/inventory-items/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_items_partial_update"
+    },
+    {
+      "path": "/api/dcim/inventory-items/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_inventory_items_destroy"
+    },
+    {
+      "path": "/api/dcim/locations/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_locations_list"
+    },
+    {
+      "path": "/api/dcim/locations/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_locations_create"
+    },
+    {
+      "path": "/api/dcim/locations/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_locations_bulk_update"
+    },
+    {
+      "path": "/api/dcim/locations/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_locations_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/locations/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_locations_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/locations/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_locations_retrieve"
+    },
+    {
+      "path": "/api/dcim/locations/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_locations_update"
+    },
+    {
+      "path": "/api/dcim/locations/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_locations_partial_update"
+    },
+    {
+      "path": "/api/dcim/locations/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_locations_destroy"
+    },
+    {
+      "path": "/api/dcim/mac-addresses/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_mac_addresses_list"
+    },
+    {
+      "path": "/api/dcim/mac-addresses/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_mac_addresses_create"
+    },
+    {
+      "path": "/api/dcim/mac-addresses/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_mac_addresses_bulk_update"
+    },
+    {
+      "path": "/api/dcim/mac-addresses/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_mac_addresses_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/mac-addresses/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_mac_addresses_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/mac-addresses/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_mac_addresses_retrieve"
+    },
+    {
+      "path": "/api/dcim/mac-addresses/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_mac_addresses_update"
+    },
+    {
+      "path": "/api/dcim/mac-addresses/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_mac_addresses_partial_update"
+    },
+    {
+      "path": "/api/dcim/mac-addresses/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_mac_addresses_destroy"
+    },
+    {
+      "path": "/api/dcim/manufacturers/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_manufacturers_list"
+    },
+    {
+      "path": "/api/dcim/manufacturers/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_manufacturers_create"
+    },
+    {
+      "path": "/api/dcim/manufacturers/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_manufacturers_bulk_update"
+    },
+    {
+      "path": "/api/dcim/manufacturers/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_manufacturers_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/manufacturers/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_manufacturers_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/manufacturers/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_manufacturers_retrieve"
+    },
+    {
+      "path": "/api/dcim/manufacturers/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_manufacturers_update"
+    },
+    {
+      "path": "/api/dcim/manufacturers/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_manufacturers_partial_update"
+    },
+    {
+      "path": "/api/dcim/manufacturers/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_manufacturers_destroy"
+    },
+    {
+      "path": "/api/dcim/module-bay-templates/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bay_templates_list"
+    },
+    {
+      "path": "/api/dcim/module-bay-templates/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bay_templates_create"
+    },
+    {
+      "path": "/api/dcim/module-bay-templates/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bay_templates_bulk_update"
+    },
+    {
+      "path": "/api/dcim/module-bay-templates/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bay_templates_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/module-bay-templates/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bay_templates_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/module-bay-templates/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bay_templates_retrieve"
+    },
+    {
+      "path": "/api/dcim/module-bay-templates/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bay_templates_update"
+    },
+    {
+      "path": "/api/dcim/module-bay-templates/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bay_templates_partial_update"
+    },
+    {
+      "path": "/api/dcim/module-bay-templates/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bay_templates_destroy"
+    },
+    {
+      "path": "/api/dcim/module-bays/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bays_list"
+    },
+    {
+      "path": "/api/dcim/module-bays/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bays_create"
+    },
+    {
+      "path": "/api/dcim/module-bays/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bays_bulk_update"
+    },
+    {
+      "path": "/api/dcim/module-bays/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bays_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/module-bays/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bays_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/module-bays/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bays_retrieve"
+    },
+    {
+      "path": "/api/dcim/module-bays/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bays_update"
+    },
+    {
+      "path": "/api/dcim/module-bays/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bays_partial_update"
+    },
+    {
+      "path": "/api/dcim/module-bays/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_bays_destroy"
+    },
+    {
+      "path": "/api/dcim/module-type-profiles/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_type_profiles_list"
+    },
+    {
+      "path": "/api/dcim/module-type-profiles/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_type_profiles_create"
+    },
+    {
+      "path": "/api/dcim/module-type-profiles/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_type_profiles_bulk_update"
+    },
+    {
+      "path": "/api/dcim/module-type-profiles/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_type_profiles_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/module-type-profiles/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_type_profiles_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/module-type-profiles/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_type_profiles_retrieve"
+    },
+    {
+      "path": "/api/dcim/module-type-profiles/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_type_profiles_update"
+    },
+    {
+      "path": "/api/dcim/module-type-profiles/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_type_profiles_partial_update"
+    },
+    {
+      "path": "/api/dcim/module-type-profiles/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_type_profiles_destroy"
+    },
+    {
+      "path": "/api/dcim/module-types/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_types_list"
+    },
+    {
+      "path": "/api/dcim/module-types/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_types_create"
+    },
+    {
+      "path": "/api/dcim/module-types/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_types_bulk_update"
+    },
+    {
+      "path": "/api/dcim/module-types/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_types_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/module-types/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_types_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/module-types/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_types_retrieve"
+    },
+    {
+      "path": "/api/dcim/module-types/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_types_update"
+    },
+    {
+      "path": "/api/dcim/module-types/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_types_partial_update"
+    },
+    {
+      "path": "/api/dcim/module-types/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_module_types_destroy"
+    },
+    {
+      "path": "/api/dcim/modules/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_modules_list"
+    },
+    {
+      "path": "/api/dcim/modules/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_modules_create"
+    },
+    {
+      "path": "/api/dcim/modules/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_modules_bulk_update"
+    },
+    {
+      "path": "/api/dcim/modules/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_modules_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/modules/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_modules_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/modules/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_modules_retrieve"
+    },
+    {
+      "path": "/api/dcim/modules/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_modules_update"
+    },
+    {
+      "path": "/api/dcim/modules/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_modules_partial_update"
+    },
+    {
+      "path": "/api/dcim/modules/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_modules_destroy"
+    },
+    {
+      "path": "/api/dcim/platforms/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_platforms_list"
+    },
+    {
+      "path": "/api/dcim/platforms/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_platforms_create"
+    },
+    {
+      "path": "/api/dcim/platforms/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_platforms_bulk_update"
+    },
+    {
+      "path": "/api/dcim/platforms/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_platforms_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/platforms/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_platforms_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/platforms/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_platforms_retrieve"
+    },
+    {
+      "path": "/api/dcim/platforms/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_platforms_update"
+    },
+    {
+      "path": "/api/dcim/platforms/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_platforms_partial_update"
+    },
+    {
+      "path": "/api/dcim/platforms/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_platforms_destroy"
+    },
+    {
+      "path": "/api/dcim/power-feeds/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_feeds_list"
+    },
+    {
+      "path": "/api/dcim/power-feeds/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_feeds_create"
+    },
+    {
+      "path": "/api/dcim/power-feeds/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_feeds_bulk_update"
+    },
+    {
+      "path": "/api/dcim/power-feeds/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_feeds_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/power-feeds/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_feeds_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/power-feeds/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_feeds_retrieve"
+    },
+    {
+      "path": "/api/dcim/power-feeds/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_feeds_update"
+    },
+    {
+      "path": "/api/dcim/power-feeds/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_feeds_partial_update"
+    },
+    {
+      "path": "/api/dcim/power-feeds/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_feeds_destroy"
+    },
+    {
+      "path": "/api/dcim/power-feeds/{id}/trace/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_feeds_trace_retrieve"
+    },
+    {
+      "path": "/api/dcim/power-outlet-templates/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlet_templates_list"
+    },
+    {
+      "path": "/api/dcim/power-outlet-templates/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlet_templates_create"
+    },
+    {
+      "path": "/api/dcim/power-outlet-templates/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlet_templates_bulk_update"
+    },
+    {
+      "path": "/api/dcim/power-outlet-templates/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlet_templates_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/power-outlet-templates/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlet_templates_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/power-outlet-templates/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlet_templates_retrieve"
+    },
+    {
+      "path": "/api/dcim/power-outlet-templates/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlet_templates_update"
+    },
+    {
+      "path": "/api/dcim/power-outlet-templates/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlet_templates_partial_update"
+    },
+    {
+      "path": "/api/dcim/power-outlet-templates/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlet_templates_destroy"
+    },
+    {
+      "path": "/api/dcim/power-outlets/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlets_list"
+    },
+    {
+      "path": "/api/dcim/power-outlets/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlets_create"
+    },
+    {
+      "path": "/api/dcim/power-outlets/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlets_bulk_update"
+    },
+    {
+      "path": "/api/dcim/power-outlets/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlets_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/power-outlets/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlets_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/power-outlets/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlets_retrieve"
+    },
+    {
+      "path": "/api/dcim/power-outlets/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlets_update"
+    },
+    {
+      "path": "/api/dcim/power-outlets/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlets_partial_update"
+    },
+    {
+      "path": "/api/dcim/power-outlets/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlets_destroy"
+    },
+    {
+      "path": "/api/dcim/power-outlets/{id}/trace/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_outlets_trace_retrieve"
+    },
+    {
+      "path": "/api/dcim/power-panels/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_panels_list"
+    },
+    {
+      "path": "/api/dcim/power-panels/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_panels_create"
+    },
+    {
+      "path": "/api/dcim/power-panels/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_panels_bulk_update"
+    },
+    {
+      "path": "/api/dcim/power-panels/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_panels_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/power-panels/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_panels_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/power-panels/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_panels_retrieve"
+    },
+    {
+      "path": "/api/dcim/power-panels/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_panels_update"
+    },
+    {
+      "path": "/api/dcim/power-panels/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_panels_partial_update"
+    },
+    {
+      "path": "/api/dcim/power-panels/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_panels_destroy"
+    },
+    {
+      "path": "/api/dcim/power-port-templates/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_port_templates_list"
+    },
+    {
+      "path": "/api/dcim/power-port-templates/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_port_templates_create"
+    },
+    {
+      "path": "/api/dcim/power-port-templates/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_port_templates_bulk_update"
+    },
+    {
+      "path": "/api/dcim/power-port-templates/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_port_templates_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/power-port-templates/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_port_templates_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/power-port-templates/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_port_templates_retrieve"
+    },
+    {
+      "path": "/api/dcim/power-port-templates/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_port_templates_update"
+    },
+    {
+      "path": "/api/dcim/power-port-templates/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_port_templates_partial_update"
+    },
+    {
+      "path": "/api/dcim/power-port-templates/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_port_templates_destroy"
+    },
+    {
+      "path": "/api/dcim/power-ports/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_ports_list"
+    },
+    {
+      "path": "/api/dcim/power-ports/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_ports_create"
+    },
+    {
+      "path": "/api/dcim/power-ports/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_ports_bulk_update"
+    },
+    {
+      "path": "/api/dcim/power-ports/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_ports_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/power-ports/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_ports_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/power-ports/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_ports_retrieve"
+    },
+    {
+      "path": "/api/dcim/power-ports/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_ports_update"
+    },
+    {
+      "path": "/api/dcim/power-ports/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_ports_partial_update"
+    },
+    {
+      "path": "/api/dcim/power-ports/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_ports_destroy"
+    },
+    {
+      "path": "/api/dcim/power-ports/{id}/trace/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_power_ports_trace_retrieve"
+    },
+    {
+      "path": "/api/dcim/rack-reservations/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_reservations_list"
+    },
+    {
+      "path": "/api/dcim/rack-reservations/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_reservations_create"
+    },
+    {
+      "path": "/api/dcim/rack-reservations/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_reservations_bulk_update"
+    },
+    {
+      "path": "/api/dcim/rack-reservations/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_reservations_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/rack-reservations/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_reservations_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/rack-reservations/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_reservations_retrieve"
+    },
+    {
+      "path": "/api/dcim/rack-reservations/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_reservations_update"
+    },
+    {
+      "path": "/api/dcim/rack-reservations/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_reservations_partial_update"
+    },
+    {
+      "path": "/api/dcim/rack-reservations/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_reservations_destroy"
+    },
+    {
+      "path": "/api/dcim/rack-roles/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_roles_list"
+    },
+    {
+      "path": "/api/dcim/rack-roles/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_roles_create"
+    },
+    {
+      "path": "/api/dcim/rack-roles/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_roles_bulk_update"
+    },
+    {
+      "path": "/api/dcim/rack-roles/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_roles_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/rack-roles/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_roles_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/rack-roles/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_roles_retrieve"
+    },
+    {
+      "path": "/api/dcim/rack-roles/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_roles_update"
+    },
+    {
+      "path": "/api/dcim/rack-roles/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_roles_partial_update"
+    },
+    {
+      "path": "/api/dcim/rack-roles/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_roles_destroy"
+    },
+    {
+      "path": "/api/dcim/rack-types/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_types_list"
+    },
+    {
+      "path": "/api/dcim/rack-types/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_types_create"
+    },
+    {
+      "path": "/api/dcim/rack-types/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_types_bulk_update"
+    },
+    {
+      "path": "/api/dcim/rack-types/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_types_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/rack-types/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_types_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/rack-types/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_types_retrieve"
+    },
+    {
+      "path": "/api/dcim/rack-types/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_types_update"
+    },
+    {
+      "path": "/api/dcim/rack-types/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_types_partial_update"
+    },
+    {
+      "path": "/api/dcim/rack-types/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rack_types_destroy"
+    },
+    {
+      "path": "/api/dcim/racks/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_racks_list"
+    },
+    {
+      "path": "/api/dcim/racks/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_racks_create"
+    },
+    {
+      "path": "/api/dcim/racks/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_racks_bulk_update"
+    },
+    {
+      "path": "/api/dcim/racks/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_racks_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/racks/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_racks_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/racks/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_racks_retrieve"
+    },
+    {
+      "path": "/api/dcim/racks/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_racks_update"
+    },
+    {
+      "path": "/api/dcim/racks/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_racks_partial_update"
+    },
+    {
+      "path": "/api/dcim/racks/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_racks_destroy"
+    },
+    {
+      "path": "/api/dcim/racks/{id}/elevation/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_racks_elevation_retrieve"
+    },
+    {
+      "path": "/api/dcim/rear-port-templates/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_port_templates_list"
+    },
+    {
+      "path": "/api/dcim/rear-port-templates/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_port_templates_create"
+    },
+    {
+      "path": "/api/dcim/rear-port-templates/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_port_templates_bulk_update"
+    },
+    {
+      "path": "/api/dcim/rear-port-templates/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_port_templates_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/rear-port-templates/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_port_templates_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/rear-port-templates/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_port_templates_retrieve"
+    },
+    {
+      "path": "/api/dcim/rear-port-templates/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_port_templates_update"
+    },
+    {
+      "path": "/api/dcim/rear-port-templates/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_port_templates_partial_update"
+    },
+    {
+      "path": "/api/dcim/rear-port-templates/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_port_templates_destroy"
+    },
+    {
+      "path": "/api/dcim/rear-ports/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_ports_list"
+    },
+    {
+      "path": "/api/dcim/rear-ports/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_ports_create"
+    },
+    {
+      "path": "/api/dcim/rear-ports/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_ports_bulk_update"
+    },
+    {
+      "path": "/api/dcim/rear-ports/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_ports_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/rear-ports/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_ports_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/rear-ports/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_ports_retrieve"
+    },
+    {
+      "path": "/api/dcim/rear-ports/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_ports_update"
+    },
+    {
+      "path": "/api/dcim/rear-ports/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_ports_partial_update"
+    },
+    {
+      "path": "/api/dcim/rear-ports/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_ports_destroy"
+    },
+    {
+      "path": "/api/dcim/rear-ports/{id}/paths/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_rear_ports_paths_retrieve"
+    },
+    {
+      "path": "/api/dcim/regions/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_regions_list"
+    },
+    {
+      "path": "/api/dcim/regions/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_regions_create"
+    },
+    {
+      "path": "/api/dcim/regions/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_regions_bulk_update"
+    },
+    {
+      "path": "/api/dcim/regions/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_regions_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/regions/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_regions_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/regions/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_regions_retrieve"
+    },
+    {
+      "path": "/api/dcim/regions/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_regions_update"
+    },
+    {
+      "path": "/api/dcim/regions/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_regions_partial_update"
+    },
+    {
+      "path": "/api/dcim/regions/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_regions_destroy"
+    },
+    {
+      "path": "/api/dcim/site-groups/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_site_groups_list"
+    },
+    {
+      "path": "/api/dcim/site-groups/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_site_groups_create"
+    },
+    {
+      "path": "/api/dcim/site-groups/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_site_groups_bulk_update"
+    },
+    {
+      "path": "/api/dcim/site-groups/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_site_groups_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/site-groups/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_site_groups_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/site-groups/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_site_groups_retrieve"
+    },
+    {
+      "path": "/api/dcim/site-groups/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_site_groups_update"
+    },
+    {
+      "path": "/api/dcim/site-groups/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_site_groups_partial_update"
+    },
+    {
+      "path": "/api/dcim/site-groups/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_site_groups_destroy"
+    },
+    {
+      "path": "/api/dcim/sites/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_sites_list"
+    },
+    {
+      "path": "/api/dcim/sites/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_sites_create"
+    },
+    {
+      "path": "/api/dcim/sites/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_sites_bulk_update"
+    },
+    {
+      "path": "/api/dcim/sites/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_sites_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/sites/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_sites_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/sites/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_sites_retrieve"
+    },
+    {
+      "path": "/api/dcim/sites/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_sites_update"
+    },
+    {
+      "path": "/api/dcim/sites/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_sites_partial_update"
+    },
+    {
+      "path": "/api/dcim/sites/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_sites_destroy"
+    },
+    {
+      "path": "/api/dcim/virtual-chassis/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_chassis_list"
+    },
+    {
+      "path": "/api/dcim/virtual-chassis/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_chassis_create"
+    },
+    {
+      "path": "/api/dcim/virtual-chassis/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_chassis_bulk_update"
+    },
+    {
+      "path": "/api/dcim/virtual-chassis/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_chassis_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/virtual-chassis/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_chassis_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/virtual-chassis/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_chassis_retrieve"
+    },
+    {
+      "path": "/api/dcim/virtual-chassis/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_chassis_update"
+    },
+    {
+      "path": "/api/dcim/virtual-chassis/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_chassis_partial_update"
+    },
+    {
+      "path": "/api/dcim/virtual-chassis/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_chassis_destroy"
+    },
+    {
+      "path": "/api/dcim/virtual-device-contexts/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_device_contexts_list"
+    },
+    {
+      "path": "/api/dcim/virtual-device-contexts/",
+      "method": "POST",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_device_contexts_create"
+    },
+    {
+      "path": "/api/dcim/virtual-device-contexts/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_device_contexts_bulk_update"
+    },
+    {
+      "path": "/api/dcim/virtual-device-contexts/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_device_contexts_bulk_partial_update"
+    },
+    {
+      "path": "/api/dcim/virtual-device-contexts/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_device_contexts_bulk_destroy"
+    },
+    {
+      "path": "/api/dcim/virtual-device-contexts/{id}/",
+      "method": "GET",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_device_contexts_retrieve"
+    },
+    {
+      "path": "/api/dcim/virtual-device-contexts/{id}/",
+      "method": "PUT",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_device_contexts_update"
+    },
+    {
+      "path": "/api/dcim/virtual-device-contexts/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_device_contexts_partial_update"
+    },
+    {
+      "path": "/api/dcim/virtual-device-contexts/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "dcim"
+      ],
+      "summary": "",
+      "operationId": "dcim_virtual_device_contexts_destroy"
+    }
+  ]
+}

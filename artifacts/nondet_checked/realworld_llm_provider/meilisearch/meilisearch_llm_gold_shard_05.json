@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "health.check",
       "summary": "",
-      "user": "As a developer, I want to ensure that the Meilisearch server is running and responsive so that I can integrate it into my application without issues.",
-      "ideal": "The response should indicate the health status of the Meilisearch server, confirming that it is operational."
+      "user": "A developer checking the health status of the Meilisearch server to ensure it is running properly before proceeding with further integration tests.",
+      "ideal": "The response should indicate whether the server is healthy, typically returning a status code of 200 and a JSON object with a message like {'status': 'available'}."
     }
   ]
 }

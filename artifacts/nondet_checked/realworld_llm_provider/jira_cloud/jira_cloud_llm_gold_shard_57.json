@@ -5,56 +5,56 @@
       "method": "GET",
       "operationId": "getPlans",
       "summary": "",
-      "user": "A project manager wants to retrieve a list of all plans available in the Jira Cloud platform to assess their current status and progress.",
-      "ideal": "Returns a list of plans with their details including ID, name, and status."
+      "user": "User wants to retrieve a list of all plans available in their Jira Cloud instance.",
+      "ideal": "A successful response with a list of plans, including their IDs, names, and statuses."
     },
     {
       "path": "/rest/api/3/plans/plan",
       "method": "POST",
       "operationId": "createPlan",
       "summary": "",
-      "user": "A team lead needs to create a new plan for an upcoming project that includes specific tasks and timelines.",
-      "ideal": "Creates a new plan and returns the created plan's details including its ID and status."
+      "user": "User is creating a new plan for their project, specifying the necessary details such as name and associated issues.",
+      "ideal": "A successful response indicating the plan has been created, along with the new plan ID."
     },
     {
       "path": "/rest/api/3/plans/plan/{planId}",
       "method": "GET",
       "operationId": "getPlan",
       "summary": "",
-      "user": "A developer wants to view the details of a specific plan to understand its requirements and deadlines.",
-      "ideal": "Returns the details of the specified plan including tasks, timelines, and assigned members."
+      "user": "User wants to view the details of a specific plan identified by its plan ID.",
+      "ideal": "A successful response with detailed information about the specified plan, including its configuration and associated issues."
     },
     {
       "path": "/rest/api/3/plans/plan/{planId}",
       "method": "PUT",
       "operationId": "updatePlan",
       "summary": "",
-      "user": "A project manager needs to update the details of an existing plan to reflect changes in project scope and deadlines.",
-      "ideal": "Updates the specified plan and returns the updated plan's details."
+      "user": "User is updating an existing plan to change its name and modify its settings.",
+      "ideal": "A successful response confirming that the plan has been updated with the new details."
     },
     {
       "path": "/rest/api/3/plans/plan/{planId}/archive",
       "method": "PUT",
       "operationId": "archivePlan",
       "summary": "",
-      "user": "A project manager wants to archive a completed plan to keep the workspace organized and reduce clutter.",
-      "ideal": "Archives the specified plan and confirms the action with a success message."
+      "user": "User wants to archive a plan that is no longer in active use to keep their workspace organized.",
+      "ideal": "A successful response indicating that the plan has been archived."
     },
     {
       "path": "/rest/api/3/plans/plan/{planId}/duplicate",
       "method": "POST",
       "operationId": "duplicatePlan",
       "summary": "",
-      "user": "A team lead wants to create a duplicate of an existing plan to use as a template for a new project.",
-      "ideal": "Duplicates the specified plan and returns the details of the new plan created."
+      "user": "User needs to create a duplicate of an existing plan to use as a template for a new project.",
+      "ideal": "A successful response with the details of the newly created duplicate plan."
     },
     {
       "path": "/rest/api/3/plans/plan/{planId}/trash",
       "method": "PUT",
       "operationId": "trashPlan",
       "summary": "",
-      "user": "A project manager needs to remove an outdated plan from the active plans list to streamline project management.",
-      "ideal": "Moves the specified plan to the trash and confirms the action with a success message."
+      "user": "User wants to move a plan to the trash as it is no longer needed.",
+      "ideal": "A successful response confirming that the plan has been moved to the trash."
     }
   ]
 }

@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/settings",
+      "method": "GET",
+      "operationId": "getSettings",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the current settings of the Directus application."
+    },
+    {
+      "path": "/settings",
+      "method": "PATCH",
+      "operationId": "updateSetting",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update a specific setting in the Directus application."
+    }
+  ]
+}

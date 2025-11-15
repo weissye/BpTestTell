@@ -2,135 +2,498 @@
   "ops": [
     {
       "method": "POST",
-      "path": "/cars"
+      "path": "/cars",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cars"
+      "path": "/cars",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cars/{vin}"
+      "path": "/cars/{vin}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cars/{vin}"
+      "path": "/cars/{vin}",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/cars/{vin}"
+      "path": "/cars/{vin}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/chains"
+      "path": "/chains",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/chains"
+      "path": "/chains",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/chains/{chainId}"
+      "path": "/chains/{chainId}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/chains/{chainId}"
+      "path": "/chains/{chainId}",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/chains/{chainId}"
+      "path": "/chains/{chainId}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/customers"
+      "path": "/customers",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/customers"
+      "path": "/customers",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/customers/{customerId}"
+      "path": "/customers/{customerId}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/customers/{customerId}"
+      "path": "/customers/{customerId}",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/customers/{customerId}"
+      "path": "/customers/{customerId}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/garages"
+      "path": "/garages",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/garages"
+      "path": "/garages",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/garages/{garageId}"
+      "path": "/garages/{garageId}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/garages/{garageId}"
+      "path": "/garages/{garageId}",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/garages/{garageId}"
+      "path": "/garages/{garageId}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/periodic-maintenance"
+      "path": "/periodic-maintenance",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/periodic-maintenance"
+      "path": "/periodic-maintenance",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/periodic-maintenance/{pmId}"
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/periodic-maintenance/{pmId}"
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/periodic-maintenance/{pmId}"
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/repair-orders"
+      "path": "/repair-orders",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/repair-orders"
+      "path": "/repair-orders",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/repair-orders/{roId}"
+      "path": "/repair-orders/{roId}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/repair-orders/{roId}"
+      "path": "/repair-orders/{roId}",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/repair-orders/{roId}"
+      "path": "/repair-orders/{roId}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/repair-orders/{roId}/approve"
+      "path": "/repair-orders/{roId}/approve",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/repair-orders/{roId}/close"
+      "path": "/repair-orders/{roId}/close",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/reset"
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cars",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cars",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cars",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cars",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cars/{vin}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cars/{vin}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cars/{vin}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cars/{vin}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cars/{vin}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cars/{vin}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/chains",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/chains",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/chains",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/chains",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/chains/{chainId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/chains/{chainId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/chains/{chainId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/chains/{chainId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/chains/{chainId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/chains/{chainId}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/customers",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/customers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/customers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/customers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/customers/{customerId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/customers/{customerId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/customers/{customerId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/customers/{customerId}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/garages",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/garages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/garages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/garages",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/garages/{garageId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/garages/{garageId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/garages/{garageId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/garages/{garageId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/garages/{garageId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/garages/{garageId}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/periodic-maintenance",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/periodic-maintenance",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders/{roId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders/{roId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/repair-orders/{roId}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/repair-orders/{roId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repair-orders/{roId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/repair-orders/{roId}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/{roId}/approve",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/{roId}/approve",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/{roId}/close",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/{roId}/close",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
     }
   ]
 }

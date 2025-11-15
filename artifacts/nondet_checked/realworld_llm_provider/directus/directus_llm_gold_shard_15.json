@@ -5,40 +5,40 @@
       "method": "GET",
       "operationId": "getRelations",
       "summary": "",
-      "user": "A developer wants to retrieve all existing relations in the Directus database to understand how different collections are linked together.",
-      "ideal": "Returns a list of all relations with their details, including source and target collections."
+      "user": "admin",
+      "ideal": "Retrieve a list of all relations in the system."
     },
     {
       "path": "/relations",
       "method": "POST",
       "operationId": "createRelation",
       "summary": "",
-      "user": "A database administrator needs to create a new relation between the 'users' and 'posts' collections to establish a one-to-many relationship.",
-      "ideal": "Successfully creates a new relation and returns the details of the created relation, including its ID."
+      "user": "editor",
+      "ideal": "Create a new relation between two collections."
     },
     {
       "path": "/relations/{id}",
       "method": "GET",
       "operationId": "getRelation",
       "summary": "",
-      "user": "A data analyst wants to fetch the details of a specific relation by its ID to analyze its configuration and usage.",
-      "ideal": "Returns the details of the specified relation, including source and target collections and any additional metadata."
+      "user": "viewer",
+      "ideal": "Fetch details of a specific relation by its ID."
     },
     {
       "path": "/relations/{id}",
       "method": "PATCH",
       "operationId": "updateRelation",
       "summary": "",
-      "user": "A developer needs to update an existing relation to change its target collection from 'comments' to 'feedback' for better data organization.",
-      "ideal": "Successfully updates the relation and returns the updated details of the relation."
+      "user": "editor",
+      "ideal": "Update an existing relation's properties."
     },
     {
       "path": "/relations/{id}",
       "method": "DELETE",
       "operationId": "deleteRelation",
       "summary": "",
-      "user": "A system administrator wants to remove an obsolete relation that is no longer needed in the database schema.",
-      "ideal": "Successfully deletes the specified relation and confirms the deletion with a success message."
+      "user": "admin",
+      "ideal": "Remove a relation from the system by its ID."
     }
   ]
 }

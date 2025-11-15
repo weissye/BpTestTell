@@ -1,28 +1,28 @@
 {
   "gold": [
     {
-      "path": "/repos/octocat/Hello-World/dependency-graph/compare/main...feature",
+      "path": "/repos/octocat/Hello-World/dependency-graph/compare/main...feature-branch",
       "method": "GET",
       "operationId": "dependency-graph/diff-range",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Retrieve the differences in the dependency graph between the main branch and the feature branch."
+      "user": "User wants to compare the dependency graph between the main branch and a feature branch to see any changes in dependencies.",
+      "ideal": "The response should include a detailed comparison of dependencies, highlighting any additions, removals, or updates."
     },
     {
       "path": "/repos/octocat/Hello-World/dependency-graph/sbom",
       "method": "GET",
       "operationId": "dependency-graph/export-sbom",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Export the Software Bill of Materials (SBOM) for the repository to understand its dependencies."
+      "user": "User needs to export the Software Bill of Materials (SBOM) for the repository to comply with security regulations.",
+      "ideal": "The response should provide a structured SBOM in a standard format, including all dependencies and their versions."
     },
     {
       "path": "/repos/octocat/Hello-World/dependency-graph/snapshots",
       "method": "POST",
       "operationId": "dependency-graph/create-repository-snapshot",
       "summary": "",
-      "user": "octocat",
-      "ideal": "Create a snapshot of the current state of the dependency graph for the repository."
+      "user": "User wants to create a snapshot of the current state of dependencies in the repository for future reference.",
+      "ideal": "The response should confirm the successful creation of the snapshot and provide a unique identifier for it."
     }
   ]
 }

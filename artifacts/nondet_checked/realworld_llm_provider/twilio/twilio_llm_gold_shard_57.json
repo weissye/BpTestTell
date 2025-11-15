@@ -6,7 +6,7 @@
       "operationId": "FetchRecordingTranscription",
       "summary": "",
       "user": "User123",
-      "ideal": "Fetch the transcription for a specific recording using the AccountSid, RecordingSid, and Sid."
+      "ideal": "Retrieve the transcription for a specific recording using the Account SID, Recording SID, and Transcription SID."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
@@ -14,7 +14,7 @@
       "operationId": "DeleteRecordingTranscription",
       "summary": "",
       "user": "User456",
-      "ideal": "Delete a specific transcription associated with a recording using the AccountSid, RecordingSid, and Sid."
+      "ideal": "Delete a specific transcription associated with a recording by providing the Account SID, Recording SID, and Transcription SID."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json",
@@ -22,7 +22,7 @@
       "operationId": "ListRecordingTranscription",
       "summary": "",
       "user": "User789",
-      "ideal": "List all transcriptions for a specific recording using the AccountSid and RecordingSid."
+      "ideal": "List all transcriptions for a specific recording by using the Account SID and Recording SID."
     }
   ]
 }

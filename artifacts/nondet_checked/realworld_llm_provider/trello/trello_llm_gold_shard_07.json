@@ -5,40 +5,40 @@
       "method": "POST",
       "operationId": "addLists",
       "summary": "",
-      "user": "User wants to create a new list in Trello for organizing tasks related to a project.",
-      "ideal": "Successfully adds a new list with the specified name and returns the list details."
+      "user": "User wants to create a new list in Trello for organizing tasks.",
+      "ideal": "User successfully creates a new list with a title and receives a confirmation response."
     },
     {
       "path": "/lists/{idList}",
       "method": "GET",
       "operationId": "getListsByIdList",
       "summary": "",
-      "user": "User needs to retrieve details of a specific list by its ID to check its contents.",
-      "ideal": "Returns the details of the list including its name, cards, and other metadata."
+      "user": "User wants to retrieve details of a specific list using its ID.",
+      "ideal": "User receives the details of the list including its title, cards, and other metadata."
     },
     {
       "path": "/lists/{idList}",
       "method": "PUT",
       "operationId": "updateListsByIdList",
       "summary": "",
-      "user": "User wants to update the name of an existing list to better reflect its purpose.",
-      "ideal": "Successfully updates the list name and returns the updated list details."
+      "user": "User wants to update the title of an existing list.",
+      "ideal": "User successfully updates the list title and receives the updated list details."
     },
     {
       "path": "/lists/{idList}/actions",
       "method": "GET",
       "operationId": "getListsActionsByIdList",
       "summary": "",
-      "user": "User wants to see the activity log for a specific list to track changes made over time.",
-      "ideal": "Returns a list of actions performed on the specified list, including timestamps and action types."
+      "user": "User wants to see the actions taken on a specific list.",
+      "ideal": "User receives a list of actions performed on the specified list."
     },
     {
       "path": "/lists/{idList}/archiveAllCards",
       "method": "POST",
       "operationId": "addListsArchiveAllCardsByIdList",
       "summary": "",
-      "user": "User needs to archive all cards in a list to clean up the workspace.",
-      "ideal": "Successfully archives all cards in the list and returns a confirmation message."
+      "user": "User wants to archive all cards in a specific list.",
+      "ideal": "User successfully archives all cards and receives a confirmation response."
     },
     {
       "path": "/lists/{idList}/board",
@@ -46,95 +46,95 @@
       "operationId": "getListsBoardByIdList",
       "summary": "",
       "user": "User wants to find out which board a specific list belongs to.",
-      "ideal": "Returns the board details associated with the specified list."
+      "ideal": "User receives the board details associated with the specified list."
     },
     {
       "path": "/lists/{idList}/board/{field}",
       "method": "GET",
       "operationId": "getListsBoardByIdListByField",
       "summary": "",
-      "user": "User is interested in retrieving a specific field of the board that contains the list.",
-      "ideal": "Returns the requested field value of the board associated with the list."
+      "user": "User wants to retrieve a specific field of the board associated with a list.",
+      "ideal": "User receives the requested field information of the board."
     },
     {
       "path": "/lists/{idList}/cards",
       "method": "GET",
       "operationId": "getListsCardsByIdList",
       "summary": "",
-      "user": "User wants to view all cards in a specific list to manage tasks effectively.",
-      "ideal": "Returns a list of all cards contained in the specified list."
+      "user": "User wants to see all cards in a specific list.",
+      "ideal": "User receives a list of all cards contained in the specified list."
     },
     {
       "path": "/lists/{idList}/cards",
       "method": "POST",
       "operationId": "addListsCardsByIdList",
       "summary": "",
-      "user": "User wants to add a new card to a list to track a new task.",
-      "ideal": "Successfully adds a new card to the list and returns the card details."
+      "user": "User wants to add a new card to a specific list.",
+      "ideal": "User successfully adds a new card to the list and receives the card details."
     },
     {
       "path": "/lists/{idList}/cards/{filter}",
       "method": "GET",
       "operationId": "getListsCardsByIdListByFilter",
       "summary": "",
-      "user": "User needs to filter cards in a list based on specific criteria to find relevant tasks.",
-      "ideal": "Returns a filtered list of cards based on the specified criteria."
+      "user": "User wants to filter cards in a list based on a specific criterion.",
+      "ideal": "User receives a filtered list of cards based on the specified filter."
     },
     {
       "path": "/lists/{idList}/closed",
       "method": "PUT",
       "operationId": "updateListsClosedByIdList",
       "summary": "",
-      "user": "User wants to close a list to indicate that it is no longer active.",
-      "ideal": "Successfully updates the list status to closed and returns the updated list details."
+      "user": "User wants to close a specific list.",
+      "ideal": "User successfully closes the list and receives confirmation of the action."
     },
     {
       "path": "/lists/{idList}/idBoard",
       "method": "PUT",
       "operationId": "updateListsIdBoardByIdList",
       "summary": "",
-      "user": "User needs to move a list to a different board for better organization.",
-      "ideal": "Successfully updates the board association of the list and returns the updated list details."
+      "user": "User wants to move a list to a different board.",
+      "ideal": "User successfully updates the list's board association and receives the updated list details."
     },
     {
       "path": "/lists/{idList}/moveAllCards",
       "method": "POST",
       "operationId": "addListsMoveAllCardsByIdList",
       "summary": "",
-      "user": "User wants to move all cards from one list to another to reorganize tasks.",
-      "ideal": "Successfully moves all cards to the specified list and returns a confirmation message."
+      "user": "User wants to move all cards from one list to another.",
+      "ideal": "User successfully moves all cards and receives confirmation of the action."
     },
     {
       "path": "/lists/{idList}/name",
       "method": "PUT",
       "operationId": "updateListsNameByIdList",
       "summary": "",
-      "user": "User wants to rename a list to better reflect its current focus.",
-      "ideal": "Successfully updates the list name and returns the updated list details."
+      "user": "User wants to change the name of a list.",
+      "ideal": "User successfully updates the list name and receives the updated list details."
     },
     {
       "path": "/lists/{idList}/pos",
       "method": "PUT",
       "operationId": "updateListsPosByIdList",
       "summary": "",
-      "user": "User wants to change the position of a list within a board to prioritize it.",
-      "ideal": "Successfully updates the position of the list and returns the updated list details."
+      "user": "User wants to change the position of a list within a board.",
+      "ideal": "User successfully updates the list position and receives the updated list details."
     },
     {
       "path": "/lists/{idList}/subscribed",
       "method": "PUT",
       "operationId": "updateListsSubscribedByIdList",
       "summary": "",
-      "user": "User wants to subscribe to a list to receive notifications about its activities.",
-      "ideal": "Successfully updates the subscription status and returns the updated list details."
+      "user": "User wants to subscribe or unsubscribe from a list's updates.",
+      "ideal": "User successfully updates their subscription status for the list."
     },
     {
       "path": "/lists/{idList}/{field}",
       "method": "GET",
       "operationId": "getListsByIdListByField",
       "summary": "",
-      "user": "User is interested in retrieving a specific field of a list to check its details.",
-      "ideal": "Returns the requested field value of the specified list."
+      "user": "User wants to retrieve a specific field of a list using its ID.",
+      "ideal": "User receives the requested field information of the list."
     }
   ]
 }

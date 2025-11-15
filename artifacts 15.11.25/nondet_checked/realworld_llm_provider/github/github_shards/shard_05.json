@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/orgs/{org}/campaigns",
+      "method": "GET",
+      "tags": [
+        "campaigns"
+      ],
+      "summary": "List campaigns for an organization",
+      "operationId": "campaigns/list-org-campaigns"
+    },
+    {
+      "path": "/orgs/{org}/campaigns",
+      "method": "POST",
+      "tags": [
+        "campaigns"
+      ],
+      "summary": "Create a campaign for an organization",
+      "operationId": "campaigns/create-campaign"
+    },
+    {
+      "path": "/orgs/{org}/campaigns/{campaign_number}",
+      "method": "GET",
+      "tags": [
+        "campaigns"
+      ],
+      "summary": "Get a campaign for an organization",
+      "operationId": "campaigns/get-campaign-summary"
+    },
+    {
+      "path": "/orgs/{org}/campaigns/{campaign_number}",
+      "method": "PATCH",
+      "tags": [
+        "campaigns"
+      ],
+      "summary": "Update a campaign",
+      "operationId": "campaigns/update-campaign"
+    },
+    {
+      "path": "/orgs/{org}/campaigns/{campaign_number}",
+      "method": "DELETE",
+      "tags": [
+        "campaigns"
+      ],
+      "summary": "Delete a campaign for an organization",
+      "operationId": "campaigns/delete-campaign"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "ops": [
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/announcementBanner"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/bulk/issues/transition"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/customFieldOption/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/{fieldId}/context/{contextId}/project"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/fieldconfigurationscheme/project"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/{id}/permission/{permissionId}"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issue/properties/{propertyKey}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink/{linkId}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issueLink/{linkId}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescreenscheme/mapping"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/mypreferences"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/permissionscheme/{schemeId}/permission/{permissionId}"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/priority/{id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectIdOrKey}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/roledetails"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/resolution/default"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/statuses"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/assignable/multiProjectSearch"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/version"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflow/transitions/{transitionId}/properties"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{id}/workflow"
+    }
+  ]
+}

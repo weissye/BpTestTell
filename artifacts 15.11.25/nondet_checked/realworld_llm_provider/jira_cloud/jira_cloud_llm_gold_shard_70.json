@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project-template",
+      "method": "POST",
+      "operationId": "createProjectWithCustomTemplate",
+      "summary": "",
+      "user": "As a project manager, I want to create a new project using a custom template so that I can streamline the setup process.",
+      "ideal": "The project is created successfully with the specified custom template, and a confirmation message is returned."
+    },
+    {
+      "path": "/rest/api/3/project-template/edit-template",
+      "method": "PUT",
+      "operationId": "editTemplate",
+      "summary": "",
+      "user": "As a template designer, I want to edit an existing project template to update its configurations and improve usability.",
+      "ideal": "The template is updated successfully, and the updated template details are returned."
+    },
+    {
+      "path": "/rest/api/3/project-template/live-template",
+      "method": "GET",
+      "operationId": "liveTemplate",
+      "summary": "",
+      "user": "As a developer, I want to retrieve the live project template to ensure I am using the most current version for my projects.",
+      "ideal": "The current live template details are returned, including all relevant configurations and settings."
+    },
+    {
+      "path": "/rest/api/3/project-template/remove-template",
+      "method": "DELETE",
+      "operationId": "removeTemplate",
+      "summary": "",
+      "user": "As an administrator, I want to remove an outdated project template to keep the template list clean and relevant.",
+      "ideal": "The specified template is deleted successfully, and a confirmation message is returned."
+    },
+    {
+      "path": "/rest/api/3/project-template/save-template",
+      "method": "POST",
+      "operationId": "saveTemplate",
+      "summary": "",
+      "user": "As a project coordinator, I want to save a new project template so that it can be reused for future projects.",
+      "ideal": "The new template is saved successfully, and the saved template details are returned."
+    }
+  ]
+}

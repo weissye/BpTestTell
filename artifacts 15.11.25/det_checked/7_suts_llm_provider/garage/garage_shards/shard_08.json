@@ -1,0 +1,12 @@
+{
+  "ops": [
+    {
+      "method": "DELETE",
+      "path": "/chains/{chainId}"
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/{roId}/close"
+    }
+  ]
+}

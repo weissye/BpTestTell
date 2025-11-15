@@ -5,32 +5,32 @@
       "method": "POST",
       "operationId": "CreateAccount",
       "summary": "",
-      "user": "A user wants to create a new Twilio account to start sending SMS messages for their business. They provide necessary details such as account name, email, and password.",
-      "ideal": "The API should return a success message with the account SID and relevant account details."
+      "user": "A user wants to create a new Twilio account to start sending SMS messages. They provide their email, password, and account type.",
+      "ideal": "The API should return a success message with the account SID and a confirmation that the account has been created."
     },
     {
       "path": "/2010-04-01/Accounts.json",
       "method": "GET",
       "operationId": "ListAccount",
       "summary": "",
-      "user": "A user needs to retrieve a list of all Twilio accounts associated with their credentials to manage them effectively.",
-      "ideal": "The API should return a list of accounts with their SIDs, names, and statuses."
+      "user": "A user needs to retrieve a list of all their Twilio accounts to manage them effectively. They want to see account SIDs and friendly names.",
+      "ideal": "The API should return a list of accounts with their respective SIDs and friendly names."
     },
     {
       "path": "/2010-04-01/Accounts/{Sid}.json",
       "method": "GET",
       "operationId": "FetchAccount",
       "summary": "",
-      "user": "A user wants to fetch details of a specific Twilio account using its SID to check its current status and settings.",
-      "ideal": "The API should return detailed information about the specified account, including its SID, status, and any associated phone numbers."
+      "user": "A user wants to fetch details of a specific Twilio account using its SID to check its status and settings.",
+      "ideal": "The API should return detailed information about the account, including its status, balance, and any associated phone numbers."
     },
     {
       "path": "/2010-04-01/Accounts/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateAccount",
       "summary": "",
-      "user": "A user needs to update the settings of a specific Twilio account, such as changing the account name or updating the email address.",
-      "ideal": "The API should return a success message confirming the updates made to the account."
+      "user": "A user needs to update their Twilio account's friendly name to better reflect its purpose for internal organization.",
+      "ideal": "The API should return a success message confirming that the account has been updated with the new friendly name."
     }
   ]
 }

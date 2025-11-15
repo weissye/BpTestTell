@@ -1,0 +1,18 @@
+{
+  "openapi_meta": {
+    "title": "Meilisearch Core API",
+    "version": "1.7.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/health",
+      "method": "GET",
+      "tags": [
+        "Health"
+      ],
+      "summary": "Get health",
+      "operationId": "health.check"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/ABC/role/123",
+      "method": "DELETE",
+      "operationId": "deleteActor",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Successfully deleted the actor from the project role."
+    },
+    {
+      "path": "/rest/api/3/project/ABC/role/123",
+      "method": "POST",
+      "operationId": "addActorUsers",
+      "summary": "",
+      "user": "project_manager",
+      "ideal": "Successfully added users to the project role."
+    },
+    {
+      "path": "/rest/api/3/project/ABC/role/123",
+      "method": "PUT",
+      "operationId": "setActors",
+      "summary": "",
+      "user": "team_lead",
+      "ideal": "Successfully updated the actors for the project role."
+    },
+    {
+      "path": "/rest/api/3/role/123/actors",
+      "method": "DELETE",
+      "operationId": "deleteProjectRoleActorsFromRole",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Successfully removed actors from the specified role."
+    },
+    {
+      "path": "/rest/api/3/role/123/actors",
+      "method": "GET",
+      "operationId": "getProjectRoleActorsForRole",
+      "summary": "",
+      "user": "project_manager",
+      "ideal": "Successfully retrieved the list of actors for the project role."
+    },
+    {
+      "path": "/rest/api/3/role/123/actors",
+      "method": "POST",
+      "operationId": "addProjectRoleActorsToRole",
+      "summary": "",
+      "user": "team_lead",
+      "ideal": "Successfully added actors to the specified role."
+    }
+  ]
+}

@@ -6,31 +6,31 @@
       "operationId": "getClientScopeProtocolMappersModel",
       "summary": "",
       "user": "Admin user requesting details of a specific protocol mapper model.",
-      "ideal": "Returns the details of the protocol mapper model with ID 456 for client scope 123 in realm 'myrealm'."
+      "ideal": "Returns the details of the protocol mapper model with ID 456 for the client scope with ID 123 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/client-scopes/123/protocol-mappers/models/456",
       "method": "PUT",
       "operationId": "putClientScopeProtocolMappersModel",
       "summary": "",
-      "user": "Admin user updating the protocol mapper model with new configurations.",
-      "ideal": "Updates the protocol mapper model with ID 456 for client scope 123 in realm 'myrealm'."
+      "user": "Admin user updating the protocol mapper model for a client scope.",
+      "ideal": "Updates the protocol mapper model with ID 456 for the client scope with ID 123 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/client-scopes/123/protocol-mappers/models/456",
       "method": "DELETE",
       "operationId": "deleteClientScopeProtocolMappersModel",
       "summary": "",
-      "user": "Admin user deleting an obsolete protocol mapper model.",
-      "ideal": "Deletes the protocol mapper model with ID 456 for client scope 123 in realm 'myrealm'."
+      "user": "Admin user deleting a protocol mapper model.",
+      "ideal": "Deletes the protocol mapper model with ID 456 for the client scope with ID 123 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/client-scopes/123/protocol-mappers/add-models",
       "method": "POST",
       "operationId": "postClientScopeProtocolMappersAddModels",
       "summary": "",
-      "user": "Admin user adding new protocol mapper models to the client scope.",
-      "ideal": "Adds new protocol mapper models to client scope 123 in realm 'myrealm'."
+      "user": "Admin user adding new protocol mapper models to a client scope.",
+      "ideal": "Adds new protocol mapper models to the client scope with ID 123 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/client-scopes/123/protocol-mappers/models",
@@ -38,15 +38,15 @@
       "operationId": "getClientScopeProtocolMappersModels",
       "summary": "",
       "user": "Admin user retrieving all protocol mapper models for a client scope.",
-      "ideal": "Returns a list of all protocol mapper models for client scope 123 in realm 'myrealm'."
+      "ideal": "Returns a list of all protocol mapper models for the client scope with ID 123 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/client-scopes/123/protocol-mappers/models",
       "method": "POST",
       "operationId": "postClientScopeProtocolMappersModels",
       "summary": "",
-      "user": "Admin user creating multiple protocol mapper models for a client scope.",
-      "ideal": "Creates multiple protocol mapper models for client scope 123 in realm 'myrealm'."
+      "user": "Admin user creating new protocol mapper models for a client scope.",
+      "ideal": "Creates new protocol mapper models for the client scope with ID 123 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/client-scopes/123/protocol-mappers/protocol/saml",
@@ -54,7 +54,7 @@
       "operationId": "getClientScopeProtocolMappersProtocol",
       "summary": "",
       "user": "Admin user checking protocol mappers for a specific protocol.",
-      "ideal": "Returns protocol mappers associated with the SAML protocol for client scope 123 in realm 'myrealm'."
+      "ideal": "Returns protocol mappers associated with the 'saml' protocol for the client scope with ID 123 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/client-templates/abc/protocol-mappers/models/def",
@@ -62,7 +62,7 @@
       "operationId": "getClientTemplateProtocolMappersModel",
       "summary": "",
       "user": "Admin user retrieving a specific protocol mapper model from a client template.",
-      "ideal": "Returns the details of the protocol mapper model with ID def for client template abc in realm 'myrealm'."
+      "ideal": "Returns details of the protocol mapper model with ID 'def' for the client template with ID 'abc' in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/client-templates/abc/protocol-mappers/models/def",
@@ -70,15 +70,15 @@
       "operationId": "putClientTemplateProtocolMappersModel",
       "summary": "",
       "user": "Admin user updating a protocol mapper model in a client template.",
-      "ideal": "Updates the protocol mapper model with ID def for client template abc in realm 'myrealm'."
+      "ideal": "Updates the protocol mapper model with ID 'def' for the client template with ID 'abc' in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/client-templates/abc/protocol-mappers/models/def",
       "method": "DELETE",
       "operationId": "deleteClientTemplateProtocolMappersModel",
       "summary": "",
-      "user": "Admin user removing an outdated protocol mapper model from a client template.",
-      "ideal": "Deletes the protocol mapper model with ID def for client template abc in realm 'myrealm'."
+      "user": "Admin user deleting a protocol mapper model from a client template.",
+      "ideal": "Deletes the protocol mapper model with ID 'def' for the client template with ID 'abc' in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/client-templates/abc/protocol-mappers/add-models",
@@ -86,7 +86,7 @@
       "operationId": "postClientTemplateProtocolMappersAddModels",
       "summary": "",
       "user": "Admin user adding new protocol mapper models to a client template.",
-      "ideal": "Adds new protocol mapper models to client template abc in realm 'myrealm'."
+      "ideal": "Adds new protocol mapper models to the client template with ID 'abc' in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/client-templates/abc/protocol-mappers/models",
@@ -94,47 +94,47 @@
       "operationId": "getClientTemplateProtocolMappersModels",
       "summary": "",
       "user": "Admin user retrieving all protocol mapper models for a client template.",
-      "ideal": "Returns a list of all protocol mapper models for client template abc in realm 'myrealm'."
+      "ideal": "Returns a list of all protocol mapper models for the client template with ID 'abc' in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/client-templates/abc/protocol-mappers/models",
       "method": "POST",
       "operationId": "postClientTemplateProtocolMappersModels",
       "summary": "",
-      "user": "Admin user creating multiple protocol mapper models for a client template.",
-      "ideal": "Creates multiple protocol mapper models for client template abc in realm 'myrealm'."
+      "user": "Admin user creating new protocol mapper models for a client template.",
+      "ideal": "Creates new protocol mapper models for the client template with ID 'abc' in the realm 'myrealm'."
     },
     {
-      "path": "/myrealm/client-templates/abc/protocol-mappers/protocol/saml",
+      "path": "/myrealm/client-templates/abc/protocol-mappers/protocol/openid-connect",
       "method": "GET",
       "operationId": "getClientTemplateProtocolMappersProtocol",
       "summary": "",
       "user": "Admin user checking protocol mappers for a specific protocol in a client template.",
-      "ideal": "Returns protocol mappers associated with the SAML protocol for client template abc in realm 'myrealm'."
+      "ideal": "Returns protocol mappers associated with the 'openid-connect' protocol for the client template with ID 'abc' in the realm 'myrealm'."
     },
     {
-      "path": "/myrealm/clients/789/protocol-mappers/models/012",
+      "path": "/myrealm/clients/789/protocol-mappers/models/101",
       "method": "GET",
       "operationId": "getClientProtocolMappersModel",
       "summary": "",
       "user": "Admin user retrieving a specific protocol mapper model for a client.",
-      "ideal": "Returns the details of the protocol mapper model with ID 012 for client 789 in realm 'myrealm'."
+      "ideal": "Returns details of the protocol mapper model with ID 101 for the client with ID 789 in the realm 'myrealm'."
     },
     {
-      "path": "/myrealm/clients/789/protocol-mappers/models/012",
+      "path": "/myrealm/clients/789/protocol-mappers/models/101",
       "method": "PUT",
       "operationId": "putClientProtocolMappersModel",
       "summary": "",
       "user": "Admin user updating a protocol mapper model for a client.",
-      "ideal": "Updates the protocol mapper model with ID 012 for client 789 in realm 'myrealm'."
+      "ideal": "Updates the protocol mapper model with ID 101 for the client with ID 789 in the realm 'myrealm'."
     },
     {
-      "path": "/myrealm/clients/789/protocol-mappers/models/012",
+      "path": "/myrealm/clients/789/protocol-mappers/models/101",
       "method": "DELETE",
       "operationId": "deleteClientProtocolMappersModel",
       "summary": "",
-      "user": "Admin user deleting an unnecessary protocol mapper model.",
-      "ideal": "Deletes the protocol mapper model with ID 012 for client 789 in realm 'myrealm'."
+      "user": "Admin user deleting a protocol mapper model from a client.",
+      "ideal": "Deletes the protocol mapper model with ID 101 for the client with ID 789 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/clients/789/protocol-mappers/add-models",
@@ -142,7 +142,7 @@
       "operationId": "postClientProtocolMappersAddModels",
       "summary": "",
       "user": "Admin user adding new protocol mapper models to a client.",
-      "ideal": "Adds new protocol mapper models to client 789 in realm 'myrealm'."
+      "ideal": "Adds new protocol mapper models to the client with ID 789 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/clients/789/protocol-mappers/models",
@@ -150,23 +150,23 @@
       "operationId": "getClientProtocolMappersModels",
       "summary": "",
       "user": "Admin user retrieving all protocol mapper models for a client.",
-      "ideal": "Returns a list of all protocol mapper models for client 789 in realm 'myrealm'."
+      "ideal": "Returns a list of all protocol mapper models for the client with ID 789 in the realm 'myrealm'."
     },
     {
       "path": "/myrealm/clients/789/protocol-mappers/models",
       "method": "POST",
       "operationId": "postClientProtocolMappersModels",
       "summary": "",
-      "user": "Admin user creating multiple protocol mapper models for a client.",
-      "ideal": "Creates multiple protocol mapper models for client 789 in realm 'myrealm'."
+      "user": "Admin user creating new protocol mapper models for a client.",
+      "ideal": "Creates new protocol mapper models for the client with ID 789 in the realm 'myrealm'."
     },
     {
-      "path": "/myrealm/clients/789/protocol-mappers/protocol/saml",
+      "path": "/myrealm/clients/789/protocol-mappers/protocol/oauth2",
       "method": "GET",
       "operationId": "getClientProtocolMappersProtocol",
       "summary": "",
       "user": "Admin user checking protocol mappers for a specific protocol in a client.",
-      "ideal": "Returns protocol mappers associated with the SAML protocol for client 789 in realm 'myrealm'."
+      "ideal": "Returns protocol mappers associated with the 'oauth2' protocol for the client with ID 789 in the realm 'myrealm'."
     }
   ]
 }

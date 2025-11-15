@@ -2,21 +2,6 @@
   "ops": [
     {
       "method": "POST",
-      "path": "/users",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/users",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/users/{user_id}",
-      "body": null
-    },
-    {
-      "method": "POST",
       "path": "/books",
       "body": null
     },
@@ -33,21 +18,6 @@
     {
       "method": "DELETE",
       "path": "/books/{book_id}",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/loans",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/loans",
-      "body": null
-    },
-    {
-      "method": "DELETE",
-      "path": "/loans/{user_id}/{book_id}",
       "body": null
     },
     {
@@ -63,6 +33,21 @@
     {
       "method": "DELETE",
       "path": "/holds/{hold_id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/loans",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/loans",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/loans/{user_id}/{book_id}",
       "body": null
     },
     {
@@ -86,8 +71,23 @@
       "body": null
     },
     {
+      "method": "POST",
+      "path": "/books",
+      "body": null
+    },
+    {
       "method": "GET",
       "path": "/books",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/books",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/books/{book_id}",
       "body": null
     },
     {
@@ -101,7 +101,52 @@
       "body": null
     },
     {
+      "method": "DELETE",
+      "path": "/books/{book_id}",
+      "body": null
+    },
+    {
       "method": "POST",
+      "path": "/holds",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/holds",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/holds",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/holds",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/holds/{hold_id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/holds/{hold_id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/loans",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/loans",
+      "body": null
+    },
+    {
+      "method": "GET",
       "path": "/loans",
       "body": null
     },
@@ -116,18 +161,38 @@
       "body": null
     },
     {
+      "method": "DELETE",
+      "path": "/loans/{user_id}/{book_id}",
+      "body": null
+    },
+    {
       "method": "POST",
-      "path": "/holds",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/users",
       "body": null
     },
     {
       "method": "GET",
-      "path": "/holds",
+      "path": "/users",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/users",
       "body": null
     },
     {
       "method": "DELETE",
-      "path": "/holds/{hold_id}",
+      "path": "/users/{user_id}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/{user_id}",
       "body": null
     }
   ]

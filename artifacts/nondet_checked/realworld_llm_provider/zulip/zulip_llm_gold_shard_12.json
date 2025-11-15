@@ -14,7 +14,23 @@
       "operationId": "create-user",
       "summary": "",
       "user": "admin",
-      "ideal": "Create a new user with the specified details."
+      "ideal": "Create a new user with the provided details."
+    },
+    {
+      "path": "/users/me",
+      "method": "GET",
+      "operationId": "get-own-user",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Get the details of the currently authenticated user."
+    },
+    {
+      "path": "/users/me/alert_words",
+      "method": "POST",
+      "operationId": "add-alert-words",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "Add new alert words for the current user."
     },
     {
       "path": "/users/{user_id}/status",
@@ -25,36 +41,20 @@
       "ideal": "Update the status message for a specific user."
     },
     {
-      "path": "/users/me",
+      "path": "/users/{user_id}/presence",
       "method": "GET",
-      "operationId": "get-own-user",
+      "operationId": "get-user-presence",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve the details of the currently authenticated user."
-    },
-    {
-      "path": "/users/me/alert_words",
-      "method": "POST",
-      "operationId": "add-alert-words",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Add new alert words for the current user."
+      "user": "admin",
+      "ideal": "Check the presence status of a specific user."
     },
     {
       "path": "/users/me/presence",
       "method": "POST",
       "operationId": "update-presence",
       "summary": "",
-      "user": "user123",
+      "user": "john_doe",
       "ideal": "Update the presence status of the current user."
-    },
-    {
-      "path": "/users/{user_id}",
-      "method": "PATCH",
-      "operationId": "update-user",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Update the details of a specific user."
     },
     {
       "path": "/user_groups",
@@ -73,12 +73,12 @@
       "ideal": "Get the members of a specific user group."
     },
     {
-      "path": "/user_groups/{user_group_id}/members",
-      "method": "POST",
-      "operationId": "update-user-group-members",
+      "path": "/attachments",
+      "method": "GET",
+      "operationId": "get-attachments",
       "summary": "",
-      "user": "admin",
-      "ideal": "Add or remove members from a specific user group."
+      "user": "john_doe",
+      "ideal": "Retrieve a list of all attachments uploaded by the user."
     }
   ]
 }

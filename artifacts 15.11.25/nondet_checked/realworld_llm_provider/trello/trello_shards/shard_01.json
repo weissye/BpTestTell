@@ -1,0 +1,180 @@
+{
+  "openapi_meta": {
+    "title": "Trello",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/actions/{idAction}",
+      "method": "DELETE",
+      "tags": [
+        "action"
+      ],
+      "summary": "deleteActionsByIdAction()",
+      "operationId": "deleteActionsByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsByIdAction()",
+      "operationId": "getActionsByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}",
+      "method": "PUT",
+      "tags": [
+        "action"
+      ],
+      "summary": "updateActionsByIdAction()",
+      "operationId": "updateActionsByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}/board",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsBoardByIdAction()",
+      "operationId": "getActionsBoardByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}/board/{field}",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsBoardByIdActionByField()",
+      "operationId": "getActionsBoardByIdActionByField"
+    },
+    {
+      "path": "/actions/{idAction}/card",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsCardByIdAction()",
+      "operationId": "getActionsCardByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}/card/{field}",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsCardByIdActionByField()",
+      "operationId": "getActionsCardByIdActionByField"
+    },
+    {
+      "path": "/actions/{idAction}/display",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsDisplayByIdAction()",
+      "operationId": "getActionsDisplayByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}/entities",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsEntitiesByIdAction()",
+      "operationId": "getActionsEntitiesByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}/list",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsListByIdAction()",
+      "operationId": "getActionsListByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}/list/{field}",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsListByIdActionByField()",
+      "operationId": "getActionsListByIdActionByField"
+    },
+    {
+      "path": "/actions/{idAction}/member",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsMemberByIdAction()",
+      "operationId": "getActionsMemberByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}/member/{field}",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsMemberByIdActionByField()",
+      "operationId": "getActionsMemberByIdActionByField"
+    },
+    {
+      "path": "/actions/{idAction}/memberCreator",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsMemberCreatorByIdAction()",
+      "operationId": "getActionsMemberCreatorByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}/memberCreator/{field}",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsMemberCreatorByIdActionByField()",
+      "operationId": "getActionsMemberCreatorByIdActionByField"
+    },
+    {
+      "path": "/actions/{idAction}/organization",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsOrganizationByIdAction()",
+      "operationId": "getActionsOrganizationByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}/organization/{field}",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsOrganizationByIdActionByField()",
+      "operationId": "getActionsOrganizationByIdActionByField"
+    },
+    {
+      "path": "/actions/{idAction}/text",
+      "method": "PUT",
+      "tags": [
+        "action"
+      ],
+      "summary": "updateActionsTextByIdAction()",
+      "operationId": "updateActionsTextByIdAction"
+    },
+    {
+      "path": "/actions/{idAction}/{field}",
+      "method": "GET",
+      "tags": [
+        "action"
+      ],
+      "summary": "getActionsByIdActionByField()",
+      "operationId": "getActionsByIdActionByField"
+    }
+  ]
+}

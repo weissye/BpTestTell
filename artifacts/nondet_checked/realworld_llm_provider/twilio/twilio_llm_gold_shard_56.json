@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "FetchRecording",
       "summary": "",
-      "user": "User wants to retrieve a specific recording using the Account SID and the recording SID to access details such as duration, date created, and the URL for playback.",
-      "ideal": "The API should return a JSON object containing the recording details, including 'sid', 'duration', 'date_created', and 'playback_url'."
+      "user": "user123",
+      "ideal": "Retrieve the details of a specific recording using its SID."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
       "method": "DELETE",
       "operationId": "DeleteRecording",
       "summary": "",
-      "user": "User intends to delete a specific recording from their account using the Account SID and the recording SID, ensuring that the recording is no longer accessible.",
-      "ideal": "The API should return a success message confirming the deletion of the recording and a status code indicating the operation was successful."
+      "user": "user456",
+      "ideal": "Delete a specific recording identified by its SID."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Recordings.json",
       "method": "GET",
       "operationId": "ListRecording",
       "summary": "",
-      "user": "User wants to list all recordings associated with their account by providing the Account SID, to review or manage their recorded calls.",
-      "ideal": "The API should return a JSON array of recordings, each containing 'sid', 'duration', 'date_created', and 'playback_url', along with pagination details if applicable."
+      "user": "user789",
+      "ideal": "List all recordings associated with the account."
     }
   ]
 }

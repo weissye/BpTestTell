@@ -1,252 +1,1627 @@
 {
-  "gold": [
+  "ops": [
     {
+      "method": "GET",
       "path": "/drugs",
-      "method": "GET",
-      "operationId": "getDrugs",
-      "summary": "",
-      "user": "pharmacist123",
-      "ideal": "Retrieve a list of all available drugs in the pharmacy."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
+      "method": "POST",
       "path": "/drugs",
-      "method": "POST",
-      "operationId": "createDrug",
-      "summary": "",
-      "user": "pharmacist123",
-      "ideal": "Add a new drug to the pharmacy inventory."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
     },
     {
+      "method": "GET",
       "path": "/drugs/{id}",
-      "method": "GET",
-      "operationId": "getDrugById",
-      "summary": "",
-      "user": "pharmacist123",
-      "ideal": "Retrieve details of a specific drug by its ID."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
+      "method": "PUT",
       "path": "/drugs/{id}",
-      "method": "PUT",
-      "operationId": "updateDrug",
-      "summary": "",
-      "user": "pharmacist123",
-      "ideal": "Update the details of an existing drug."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
     },
     {
+      "method": "DELETE",
       "path": "/drugs/{id}",
-      "method": "DELETE",
-      "operationId": "deleteDrug",
-      "summary": "",
-      "user": "pharmacist123",
-      "ideal": "Remove a drug from the pharmacy inventory."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/patients",
       "method": "GET",
-      "operationId": "getPatients",
-      "summary": "",
-      "user": "nurse456",
-      "ideal": "Retrieve a list of all patients registered in the system."
-    },
-    {
-      "path": "/patients",
-      "method": "POST",
-      "operationId": "createPatient",
-      "summary": "",
-      "user": "nurse456",
-      "ideal": "Register a new patient in the system."
-    },
-    {
-      "path": "/patients/{id}",
-      "method": "GET",
-      "operationId": "getPatientById",
-      "summary": "",
-      "user": "nurse456",
-      "ideal": "Retrieve details of a specific patient by their ID."
-    },
-    {
-      "path": "/patients/{id}",
-      "method": "PUT",
-      "operationId": "updatePatient",
-      "summary": "",
-      "user": "nurse456",
-      "ideal": "Update the details of an existing patient."
-    },
-    {
-      "path": "/patients/{id}",
-      "method": "DELETE",
-      "operationId": "deletePatient",
-      "summary": "",
-      "user": "nurse456",
-      "ideal": "Remove a patient from the system."
-    },
-    {
-      "path": "/orders",
-      "method": "GET",
-      "operationId": "getOrders",
-      "summary": "",
-      "user": "pharmacist123",
-      "ideal": "Retrieve a list of all orders placed for drugs."
-    },
-    {
-      "path": "/orders",
-      "method": "POST",
-      "operationId": "createOrder",
-      "summary": "",
-      "user": "pharmacist123",
-      "ideal": "Place a new order for drugs."
-    },
-    {
-      "path": "/orders/{id}",
-      "method": "GET",
-      "operationId": "getOrderById",
-      "summary": "",
-      "user": "pharmacist123",
-      "ideal": "Retrieve details of a specific order by its ID."
-    },
-    {
-      "path": "/orders/{id}",
-      "method": "PUT",
-      "operationId": "updateOrder",
-      "summary": "",
-      "user": "pharmacist123",
-      "ideal": "Update the details of an existing order."
-    },
-    {
-      "path": "/orders/{id}",
-      "method": "DELETE",
-      "operationId": "deleteOrder",
-      "summary": "",
-      "user": "pharmacist123",
-      "ideal": "Cancel an existing order."
-    },
-    {
-      "path": "/prescriptions",
-      "method": "GET",
-      "operationId": "getPrescriptions",
-      "summary": "",
-      "user": "doctor789",
-      "ideal": "Retrieve a list of all prescriptions issued."
-    },
-    {
-      "path": "/prescriptions",
-      "method": "POST",
-      "operationId": "createPrescription",
-      "summary": "",
-      "user": "doctor789",
-      "ideal": "Issue a new prescription for a patient."
-    },
-    {
-      "path": "/prescriptions/{id}",
-      "method": "GET",
-      "operationId": "getPrescriptionById",
-      "summary": "",
-      "user": "doctor789",
-      "ideal": "Retrieve details of a specific prescription by its ID."
-    },
-    {
-      "path": "/prescriptions/{id}",
-      "method": "PUT",
-      "operationId": "updatePrescription",
-      "summary": "",
-      "user": "doctor789",
-      "ideal": "Update the details of an existing prescription."
-    },
-    {
-      "path": "/prescriptions/{id}",
-      "method": "DELETE",
-      "operationId": "deletePrescription",
-      "summary": "",
-      "user": "doctor789",
-      "ideal": "Cancel an existing prescription."
-    },
-    {
       "path": "/inventory",
-      "method": "GET",
-      "operationId": "getInventory",
-      "summary": "",
-      "user": "pharmacist123",
-      "ideal": "Retrieve a list of all items in the pharmacy inventory."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
+      "method": "POST",
       "path": "/inventory",
-      "method": "POST",
-      "operationId": "addInventoryItem",
-      "summary": "",
-      "user": "pharmacist123",
-      "ideal": "Add a new item to the pharmacy inventory."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_ndc",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
     },
     {
-      "path": "/inventory/{ndc}",
       "method": "GET",
-      "operationId": "getInventoryItemByNDC",
-      "summary": "",
-      "user": "pharmacist123",
-      "ideal": "Retrieve details of a specific inventory item by its NDC."
+      "path": "/inventory/{ndc}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/inventory/{ndc}",
       "method": "PUT",
-      "operationId": "updateInventoryItem",
-      "summary": "",
-      "user": "pharmacist123",
-      "ideal": "Update the details of an existing inventory item."
-    },
-    {
       "path": "/inventory/{ndc}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_ndc",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
       "method": "DELETE",
-      "operationId": "deleteInventoryItem",
-      "summary": "",
-      "user": "pharmacist123",
-      "ideal": "Remove an item from the pharmacy inventory."
+      "path": "/inventory/{ndc}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/reset",
       "method": "GET",
-      "operationId": "resetSystem",
-      "summary": "",
-      "user": "admin001",
-      "ideal": "Reset the pharmacy system to its initial state."
+      "path": "/orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/reset",
       "method": "POST",
-      "operationId": "performReset",
-      "summary": "",
-      "user": "admin001",
-      "ideal": "Execute a system reset operation."
+      "path": "/orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
     },
     {
-      "path": "/reset/{id}",
       "method": "GET",
-      "operationId": "getResetById",
-      "summary": "",
-      "user": "admin001",
-      "ideal": "Retrieve details of a specific reset operation by its ID."
+      "path": "/orders/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/reset/{id}",
       "method": "PUT",
-      "operationId": "updateReset",
-      "summary": "",
-      "user": "admin001",
-      "ideal": "Update the details of a specific reset operation."
+      "path": "/orders/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
     },
     {
-      "path": "/reset/{id}",
       "method": "DELETE",
-      "operationId": "deleteReset",
-      "summary": "",
-      "user": "admin001",
-      "ideal": "Cancel a specific reset operation."
+      "path": "/orders/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
+      "method": "GET",
+      "path": "/patients",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/patients",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/patients/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/patients/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/patients/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/prescriptions",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/prescriptions",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/prescriptions/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/prescriptions/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/prescriptions/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "POST",
       "path": "/reset-all",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reset/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/reset/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/reset/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/drugs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/drugs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
       "method": "POST",
-      "operationId": "resetAllSystems",
-      "summary": "",
-      "user": "admin001",
-      "ideal": "Perform a complete reset of all systems in the pharmacy."
+      "path": "/drugs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/drugs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/drugs/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/drugs/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/drugs/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/drugs/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/drugs/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/drugs/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/inventory",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/inventory",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/inventory",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_ndc",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/inventory",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_ndc",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/inventory/{ndc}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/inventory/{ndc}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/inventory/{ndc}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_ndc",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/inventory/{ndc}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_ndc",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/inventory/{ndc}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/inventory/{ndc}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/orders/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/orders/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/orders/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/orders/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/orders/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/orders/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/patients",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/patients",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/patients",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/patients",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/patients/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/patients/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/patients/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/patients/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/patients/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/patients/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/prescriptions",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/prescriptions",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/prescriptions",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/prescriptions",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/prescriptions/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/prescriptions/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/prescriptions/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/prescriptions/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/prescriptions/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/prescriptions/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset-all",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset-all",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reset/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reset/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/reset/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/reset/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_id",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/reset/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/reset/{id}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     }
   ]
 }

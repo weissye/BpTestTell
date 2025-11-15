@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/channel_folders"
+    },
+    {
+      "method": "POST",
+      "path": "/invites/{invite_id}/resend"
+    },
+    {
+      "method": "DELETE",
+      "path": "/navigation_views/{fragment}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest-error-handling"
+    },
+    {
+      "method": "POST",
+      "path": "/user_groups/{user_group_id}/members"
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/me/subscriptions"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "ops": [
+    {
+      "method": "DELETE",
+      "path": "/drugs/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/reset"
+    }
+  ]
+}

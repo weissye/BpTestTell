@@ -1,0 +1,495 @@
+{
+  "openapi_meta": {
+    "title": "NetBox REST API",
+    "version": "4.4.2 (4.4)"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/api/tenancy/contact-assignments/",
+      "method": "GET",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_assignments_list"
+    },
+    {
+      "path": "/api/tenancy/contact-assignments/",
+      "method": "POST",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_assignments_create"
+    },
+    {
+      "path": "/api/tenancy/contact-assignments/",
+      "method": "PUT",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_assignments_bulk_update"
+    },
+    {
+      "path": "/api/tenancy/contact-assignments/",
+      "method": "PATCH",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_assignments_bulk_partial_update"
+    },
+    {
+      "path": "/api/tenancy/contact-assignments/",
+      "method": "DELETE",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_assignments_bulk_destroy"
+    },
+    {
+      "path": "/api/tenancy/contact-assignments/{id}/",
+      "method": "GET",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_assignments_retrieve"
+    },
+    {
+      "path": "/api/tenancy/contact-assignments/{id}/",
+      "method": "PUT",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_assignments_update"
+    },
+    {
+      "path": "/api/tenancy/contact-assignments/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_assignments_partial_update"
+    },
+    {
+      "path": "/api/tenancy/contact-assignments/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_assignments_destroy"
+    },
+    {
+      "path": "/api/tenancy/contact-groups/",
+      "method": "GET",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_groups_list"
+    },
+    {
+      "path": "/api/tenancy/contact-groups/",
+      "method": "POST",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_groups_create"
+    },
+    {
+      "path": "/api/tenancy/contact-groups/",
+      "method": "PUT",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_groups_bulk_update"
+    },
+    {
+      "path": "/api/tenancy/contact-groups/",
+      "method": "PATCH",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_groups_bulk_partial_update"
+    },
+    {
+      "path": "/api/tenancy/contact-groups/",
+      "method": "DELETE",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_groups_bulk_destroy"
+    },
+    {
+      "path": "/api/tenancy/contact-groups/{id}/",
+      "method": "GET",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_groups_retrieve"
+    },
+    {
+      "path": "/api/tenancy/contact-groups/{id}/",
+      "method": "PUT",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_groups_update"
+    },
+    {
+      "path": "/api/tenancy/contact-groups/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_groups_partial_update"
+    },
+    {
+      "path": "/api/tenancy/contact-groups/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_groups_destroy"
+    },
+    {
+      "path": "/api/tenancy/contact-roles/",
+      "method": "GET",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_roles_list"
+    },
+    {
+      "path": "/api/tenancy/contact-roles/",
+      "method": "POST",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_roles_create"
+    },
+    {
+      "path": "/api/tenancy/contact-roles/",
+      "method": "PUT",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_roles_bulk_update"
+    },
+    {
+      "path": "/api/tenancy/contact-roles/",
+      "method": "PATCH",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_roles_bulk_partial_update"
+    },
+    {
+      "path": "/api/tenancy/contact-roles/",
+      "method": "DELETE",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_roles_bulk_destroy"
+    },
+    {
+      "path": "/api/tenancy/contact-roles/{id}/",
+      "method": "GET",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_roles_retrieve"
+    },
+    {
+      "path": "/api/tenancy/contact-roles/{id}/",
+      "method": "PUT",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_roles_update"
+    },
+    {
+      "path": "/api/tenancy/contact-roles/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_roles_partial_update"
+    },
+    {
+      "path": "/api/tenancy/contact-roles/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contact_roles_destroy"
+    },
+    {
+      "path": "/api/tenancy/contacts/",
+      "method": "GET",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contacts_list"
+    },
+    {
+      "path": "/api/tenancy/contacts/",
+      "method": "POST",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contacts_create"
+    },
+    {
+      "path": "/api/tenancy/contacts/",
+      "method": "PUT",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contacts_bulk_update"
+    },
+    {
+      "path": "/api/tenancy/contacts/",
+      "method": "PATCH",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contacts_bulk_partial_update"
+    },
+    {
+      "path": "/api/tenancy/contacts/",
+      "method": "DELETE",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contacts_bulk_destroy"
+    },
+    {
+      "path": "/api/tenancy/contacts/{id}/",
+      "method": "GET",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contacts_retrieve"
+    },
+    {
+      "path": "/api/tenancy/contacts/{id}/",
+      "method": "PUT",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contacts_update"
+    },
+    {
+      "path": "/api/tenancy/contacts/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contacts_partial_update"
+    },
+    {
+      "path": "/api/tenancy/contacts/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_contacts_destroy"
+    },
+    {
+      "path": "/api/tenancy/tenant-groups/",
+      "method": "GET",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenant_groups_list"
+    },
+    {
+      "path": "/api/tenancy/tenant-groups/",
+      "method": "POST",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenant_groups_create"
+    },
+    {
+      "path": "/api/tenancy/tenant-groups/",
+      "method": "PUT",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenant_groups_bulk_update"
+    },
+    {
+      "path": "/api/tenancy/tenant-groups/",
+      "method": "PATCH",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenant_groups_bulk_partial_update"
+    },
+    {
+      "path": "/api/tenancy/tenant-groups/",
+      "method": "DELETE",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenant_groups_bulk_destroy"
+    },
+    {
+      "path": "/api/tenancy/tenant-groups/{id}/",
+      "method": "GET",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenant_groups_retrieve"
+    },
+    {
+      "path": "/api/tenancy/tenant-groups/{id}/",
+      "method": "PUT",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenant_groups_update"
+    },
+    {
+      "path": "/api/tenancy/tenant-groups/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenant_groups_partial_update"
+    },
+    {
+      "path": "/api/tenancy/tenant-groups/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenant_groups_destroy"
+    },
+    {
+      "path": "/api/tenancy/tenants/",
+      "method": "GET",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenants_list"
+    },
+    {
+      "path": "/api/tenancy/tenants/",
+      "method": "POST",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenants_create"
+    },
+    {
+      "path": "/api/tenancy/tenants/",
+      "method": "PUT",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenants_bulk_update"
+    },
+    {
+      "path": "/api/tenancy/tenants/",
+      "method": "PATCH",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenants_bulk_partial_update"
+    },
+    {
+      "path": "/api/tenancy/tenants/",
+      "method": "DELETE",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenants_bulk_destroy"
+    },
+    {
+      "path": "/api/tenancy/tenants/{id}/",
+      "method": "GET",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenants_retrieve"
+    },
+    {
+      "path": "/api/tenancy/tenants/{id}/",
+      "method": "PUT",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenants_update"
+    },
+    {
+      "path": "/api/tenancy/tenants/{id}/",
+      "method": "PATCH",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenants_partial_update"
+    },
+    {
+      "path": "/api/tenancy/tenants/{id}/",
+      "method": "DELETE",
+      "tags": [
+        "tenancy"
+      ],
+      "summary": "",
+      "operationId": "tenancy_tenants_destroy"
+    }
+  ]
+}

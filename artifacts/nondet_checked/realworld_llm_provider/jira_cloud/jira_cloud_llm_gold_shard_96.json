@@ -5,56 +5,56 @@
       "method": "GET",
       "operationId": "getAllWorkflows",
       "summary": "",
-      "user": "As a project manager, I want to retrieve all workflows in the system to understand the current workflow configurations.",
-      "ideal": "The response should include a list of all workflows with their details such as ID, name, and status."
+      "user": "As a project manager, I want to retrieve all workflows in the system to understand the current processes and configurations.",
+      "ideal": "The API should return a list of all workflows with their details, including IDs, names, and statuses."
     },
     {
       "path": "/rest/api/3/workflow",
       "method": "POST",
       "operationId": "createWorkflow",
       "summary": "",
-      "user": "As a developer, I need to create a new workflow for our project to streamline our issue tracking process.",
-      "ideal": "The response should confirm the creation of the workflow and return the new workflow ID and details."
+      "user": "As a developer, I want to create a new workflow for our project to streamline our issue tracking process.",
+      "ideal": "The API should accept a workflow definition and return the created workflow's ID and details."
     },
     {
       "path": "/rest/api/3/workflow/search",
       "method": "GET",
       "operationId": "getWorkflowsPaginated",
       "summary": "",
-      "user": "As a product owner, I want to search for workflows with pagination to easily navigate through a large number of workflows.",
-      "ideal": "The response should include a paginated list of workflows with total count and current page information."
+      "user": "As a product owner, I want to search for workflows by name to quickly find the one I need.",
+      "ideal": "The API should return a paginated list of workflows matching the search criteria, including total count."
     },
     {
       "path": "/rest/api/3/workflow/{entityId}",
       "method": "DELETE",
       "operationId": "deleteInactiveWorkflow",
       "summary": "",
-      "user": "As an admin, I want to delete inactive workflows to keep the system clean and organized.",
-      "ideal": "The response should confirm the deletion of the workflow and return a success message."
+      "user": "As an admin, I want to delete an inactive workflow to keep our system clean and organized.",
+      "ideal": "The API should confirm the deletion of the specified workflow and return a success message."
     },
     {
       "path": "/rest/api/3/workflow/{workflowId}/project/{projectId}/issueTypeUsages",
       "method": "GET",
       "operationId": "getWorkflowProjectIssueTypeUsages",
       "summary": "",
-      "user": "As a business analyst, I need to see how a specific workflow is used across different issue types in a project.",
-      "ideal": "The response should provide details on issue type usages for the specified workflow and project."
+      "user": "As a team lead, I want to see which issue types are using a specific workflow in a project to assess its applicability.",
+      "ideal": "The API should return a list of issue types associated with the specified workflow and project."
     },
     {
       "path": "/rest/api/3/workflow/{workflowId}/projectUsages",
       "method": "GET",
       "operationId": "getProjectUsagesForWorkflow",
       "summary": "",
-      "user": "As a team lead, I want to know which projects are using a specific workflow to assess its impact.",
-      "ideal": "The response should list all projects that are currently using the specified workflow."
+      "user": "As a project manager, I want to know which projects are using a specific workflow to evaluate its effectiveness.",
+      "ideal": "The API should return a list of projects that are currently using the specified workflow."
     },
     {
       "path": "/rest/api/3/workflow/{workflowId}/workflowSchemes",
       "method": "GET",
       "operationId": "getWorkflowSchemeUsagesForWorkflow",
       "summary": "",
-      "user": "As a system administrator, I need to check which workflow schemes are associated with a specific workflow.",
-      "ideal": "The response should provide a list of workflow schemes linked to the specified workflow."
+      "user": "As a system administrator, I want to find out which workflow schemes are associated with a specific workflow.",
+      "ideal": "The API should return a list of workflow schemes linked to the specified workflow."
     },
     {
       "path": "/rest/api/3/workflows",
@@ -62,71 +62,71 @@
       "operationId": "readWorkflows",
       "summary": "",
       "user": "As a developer, I want to read multiple workflows at once to analyze their configurations.",
-      "ideal": "The response should return the details of the requested workflows."
+      "ideal": "The API should accept a list of workflow IDs and return their corresponding details."
     },
     {
       "path": "/rest/api/3/workflows/capabilities",
       "method": "GET",
       "operationId": "workflowCapabilities",
       "summary": "",
-      "user": "As a product manager, I want to understand the capabilities of workflows to leverage their features effectively.",
-      "ideal": "The response should list all capabilities available for workflows in the system."
+      "user": "As a product manager, I want to know the capabilities of workflows to understand what features we can utilize.",
+      "ideal": "The API should return a list of capabilities available for workflows in the system."
     },
     {
       "path": "/rest/api/3/workflows/create",
       "method": "POST",
       "operationId": "createWorkflows",
       "summary": "",
-      "user": "As a project coordinator, I need to create multiple workflows at once to expedite the setup process.",
-      "ideal": "The response should confirm the creation of the workflows and return their IDs and details."
+      "user": "As a project manager, I want to create multiple workflows at once to expedite our setup process.",
+      "ideal": "The API should accept a batch of workflow definitions and return the IDs of the created workflows."
     },
     {
       "path": "/rest/api/3/workflows/create/validation",
       "method": "POST",
       "operationId": "validateCreateWorkflows",
       "summary": "",
-      "user": "As a QA engineer, I want to validate the workflow creation input before submission to avoid errors.",
-      "ideal": "The response should indicate whether the input is valid or provide error messages for any issues."
+      "user": "As a developer, I want to validate my workflow definitions before creating them to avoid errors.",
+      "ideal": "The API should return validation results indicating whether the workflows are valid or if there are issues."
     },
     {
       "path": "/rest/api/3/workflows/defaultEditor",
       "method": "GET",
       "operationId": "getDefaultEditor",
       "summary": "",
-      "user": "As a designer, I want to know the default editor for workflows to ensure consistency in our designs.",
-      "ideal": "The response should return the default editor settings for workflows."
+      "user": "As a system administrator, I want to retrieve the default editor for workflows to ensure consistency in our configurations.",
+      "ideal": "The API should return the default editor settings for workflows."
     },
     {
       "path": "/rest/api/3/workflows/preview",
       "method": "POST",
       "operationId": "readWorkflowPreviews",
       "summary": "",
-      "user": "As a stakeholder, I want to preview workflows before they are finalized to ensure they meet our requirements.",
-      "ideal": "The response should provide a preview of the workflow based on the provided configuration."
+      "user": "As a product owner, I want to preview workflows before finalizing them to ensure they meet our requirements.",
+      "ideal": "The API should return a preview of the workflow based on the provided definition."
     },
     {
       "path": "/rest/api/3/workflows/search",
       "method": "GET",
       "operationId": "searchWorkflows",
       "summary": "",
-      "user": "As a project manager, I want to search for specific workflows by name to quickly find what I need.",
-      "ideal": "The response should return a list of workflows matching the search criteria."
+      "user": "As a project manager, I want to search for workflows by various criteria to find the most relevant ones.",
+      "ideal": "The API should return a list of workflows matching the search criteria with their details."
     },
     {
       "path": "/rest/api/3/workflows/update",
       "method": "POST",
       "operationId": "updateWorkflows",
       "summary": "",
-      "user": "As a team lead, I need to update existing workflows to reflect changes in our processes.",
-      "ideal": "The response should confirm the updates made to the workflows and return their updated details."
+      "user": "As a developer, I want to update existing workflows to reflect changes in our processes.",
+      "ideal": "The API should accept updated workflow definitions and return the updated workflow details."
     },
     {
       "path": "/rest/api/3/workflows/update/validation",
       "method": "POST",
       "operationId": "validateUpdateWorkflows",
       "summary": "",
-      "user": "As a developer, I want to validate the updates to workflows before applying them to prevent issues.",
-      "ideal": "The response should indicate whether the update input is valid or provide error messages for any issues."
+      "user": "As a developer, I want to validate my updates to workflows before applying them to prevent issues.",
+      "ideal": "The API should return validation results indicating whether the updates are valid or if there are issues."
     }
   ]
 }

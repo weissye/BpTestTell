@@ -14,7 +14,7 @@
       "operationId": "pulls/create",
       "summary": "",
       "user": "octocat",
-      "ideal": "Create a new pull request for the specified repository."
+      "ideal": "Create a new pull request in the specified repository."
     },
     {
       "path": "/repos/octocat/Hello-World/pulls/comments",
@@ -54,7 +54,7 @@
       "operationId": "pulls/get",
       "summary": "",
       "user": "octocat",
-      "ideal": "Retrieve details of a specific pull request."
+      "ideal": "Retrieve details of a specific pull request by its number."
     },
     {
       "path": "/repos/octocat/Hello-World/pulls/1",
@@ -62,7 +62,7 @@
       "operationId": "pulls/update",
       "summary": "",
       "user": "octocat",
-      "ideal": "Update a specific pull request."
+      "ideal": "Update a specific pull request by its number."
     },
     {
       "path": "/repos/octocat/Hello-World/pulls/1/comments",
@@ -214,7 +214,7 @@
       "operationId": "pulls/update-branch",
       "summary": "",
       "user": "octocat",
-      "ideal": "Update the branch for a specific pull request."
+      "ideal": "Update the branch of a specific pull request."
     }
   ]
 }

@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "ListAvailablePhoneNumberNational",
       "summary": "",
-      "user": "User wants to retrieve a list of available national phone numbers in the US for their Twilio account.",
-      "ideal": "A successful response with a list of available national phone numbers in the US, including details such as phone number, friendly name, and capabilities."
+      "user": "A small business owner looking to expand their operations in the US and needs to find available national phone numbers for their new marketing campaign.",
+      "ideal": "Returns a list of available national phone numbers in the US for the specified account."
     }
   ]
 }

@@ -1,0 +1,56 @@
+{
+  "ops": [
+    {
+      "method": "DELETE",
+      "path": "/{realm}/authentication/config/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/required-actions"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/client-scopes/{id}/protocol-mappers/protocol/{protocol}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/client-templates/{id}/protocol-mappers/protocol/{protocol}"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/clients/{id}/certificates/{attr}/download"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/clients/{id}/offline-sessions"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/clients/{id}/scope-mappings"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/default-default-client-scopes/{clientScopeId}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/groups/{id}/role-mappings/clients/{client}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/identity-provider/providers/{provider_id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/roles-by-id/{role-id}/management/permissions"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/users/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/users/{id}/role-mappings/clients/{client}"
+    }
+  ]
+}

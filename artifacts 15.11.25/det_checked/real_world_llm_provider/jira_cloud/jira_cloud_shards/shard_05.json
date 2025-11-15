@@ -1,0 +1,104 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/rest/api/3/app/field/{fieldIdOrKey}/context/configuration"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/bulk/issues/watch"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/dashboard/bulk/edit"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/field/association"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/{fieldId}/screens"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/group"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuetype/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/mypreferences/locale"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/plans/plan/{planId}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/priorityscheme/mappings"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/versions"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/resolution/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}/fields"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/statuses"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/bulk/migration"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/version/{id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflow/transitions/{transitionId}/properties"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflowscheme/{id}/createdraft"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/worklog/deleted"
+    }
+  ]
+}

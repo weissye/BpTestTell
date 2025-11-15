@@ -1,0 +1,8 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/machines"
+    }
+  ]
+}

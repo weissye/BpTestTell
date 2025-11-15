@@ -2,295 +2,1098 @@
   "ops": [
     {
       "method": "POST",
-      "path": "/dumps"
+      "path": "/dumps",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/experimental-features"
+      "path": "/experimental-features",
+      "body": null
     },
     {
       "method": "PATCH",
-      "path": "/experimental-features"
+      "path": "/experimental-features",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/health"
+      "path": "/health",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes"
+      "path": "/indexes",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/indexes"
+      "path": "/indexes",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}"
+      "path": "/indexes/{indexUid}",
+      "body": null
     },
     {
       "method": "PATCH",
-      "path": "/indexes/{indexUid}"
+      "path": "/indexes/{indexUid}",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/{indexUid}"
+      "path": "/indexes/{indexUid}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/documents"
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/indexes/{indexUid}/documents"
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/indexes/{indexUid}/documents"
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/{indexUid}/documents"
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/indexes/{indexUid}/documents/delete"
+      "path": "/indexes/{indexUid}/documents/delete",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/indexes/{indexUid}/documents/delete-batch"
+      "path": "/indexes/{indexUid}/documents/delete-batch",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/indexes/{indexUid}/documents/fetch"
+      "path": "/indexes/{indexUid}/documents/fetch",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/documents/{documentId}"
+      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/{indexUid}/documents/{documentId}"
+      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/indexes/{indexUid}/facet-search"
+      "path": "/indexes/{indexUid}/facet-search",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/search"
+      "path": "/indexes/{indexUid}/search",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/indexes/{indexUid}/search"
+      "path": "/indexes/{indexUid}/search",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/settings"
+      "path": "/indexes/{indexUid}/settings",
+      "body": null
     },
     {
       "method": "PATCH",
-      "path": "/indexes/{indexUid}/settings"
+      "path": "/indexes/{indexUid}/settings",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/{indexUid}/settings"
+      "path": "/indexes/{indexUid}/settings",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/settings/displayed-attributes"
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/indexes/{indexUid}/settings/displayed-attributes"
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/{indexUid}/settings/displayed-attributes"
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/settings/distinct-attribute"
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/indexes/{indexUid}/settings/distinct-attribute"
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/{indexUid}/settings/distinct-attribute"
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/settings/faceting"
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "body": null
     },
     {
       "method": "PATCH",
-      "path": "/indexes/{indexUid}/settings/faceting"
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/{indexUid}/settings/faceting"
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/settings/filterable-attributes"
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/indexes/{indexUid}/settings/filterable-attributes"
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/{indexUid}/settings/filterable-attributes"
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/settings/pagination"
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "body": null
     },
     {
       "method": "PATCH",
-      "path": "/indexes/{indexUid}/settings/pagination"
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/{indexUid}/settings/pagination"
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/settings/ranking-rules"
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/indexes/{indexUid}/settings/ranking-rules"
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/{indexUid}/settings/ranking-rules"
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/settings/searchable-attributes"
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/indexes/{indexUid}/settings/searchable-attributes"
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/{indexUid}/settings/searchable-attributes"
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/settings/sortable-attributes"
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/indexes/{indexUid}/settings/sortable-attributes"
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/{indexUid}/settings/sortable-attributes"
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/settings/stop-words"
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/indexes/{indexUid}/settings/stop-words"
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/{indexUid}/settings/stop-words"
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/settings/synonyms"
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/indexes/{indexUid}/settings/synonyms"
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/{indexUid}/settings/synonyms"
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/settings/typo-tolerance"
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "body": null
     },
     {
       "method": "PATCH",
-      "path": "/indexes/{indexUid}/settings/typo-tolerance"
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/indexes/{indexUid}/settings/typo-tolerance"
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/indexes/{indexUid}/stats"
+      "path": "/indexes/{indexUid}/stats",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/keys"
+      "path": "/keys",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/keys"
+      "path": "/keys",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/keys/{uid_or_key}"
+      "path": "/keys/{uid_or_key}",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/keys/{uid_or_key}"
+      "path": "/keys/{uid_or_key}",
+      "body": null
     },
     {
       "method": "PATCH",
-      "path": "/keys/{uid_or_key}"
+      "path": "/keys/{uid_or_key}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/metrics"
+      "path": "/metrics",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/multi-search"
+      "path": "/multi-search",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/snapshots"
+      "path": "/snapshots",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/stats"
+      "path": "/stats",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/swap-indexes"
+      "path": "/swap-indexes",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/tasks"
+      "path": "/tasks",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/tasks"
+      "path": "/tasks",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/tasks/:taskUid"
+      "path": "/tasks/:taskUid",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/tasks/cancel"
+      "path": "/tasks/cancel",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/version"
+      "path": "/version",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/dumps",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/dumps",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/experimental-features",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/experimental-features",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/experimental-features",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/experimental-features",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/documents",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents/delete",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents/delete",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents/delete-batch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents/delete-batch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents/fetch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents/fetch",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/facet-search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/facet-search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/stats",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/stats",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/keys",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/keys",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/keys",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/keys",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/keys/{uid_or_key}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/keys/{uid_or_key}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/keys/{uid_or_key}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/keys/{uid_or_key}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/keys/{uid_or_key}",
+      "body": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/keys/{uid_or_key}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/metrics",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/metrics",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/multi-search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/multi-search",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/snapshots",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/snapshots",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/stats",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/stats",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/swap-indexes",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/swap-indexes",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tasks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tasks",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/tasks",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/tasks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tasks/:taskUid",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tasks/:taskUid",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/tasks/cancel",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/tasks/cancel",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/version",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/version",
+      "body": null
     }
   ]
 }

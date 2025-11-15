@@ -5,8 +5,8 @@
       "method": "POST",
       "operationId": "CreateNewKey",
       "summary": "",
-      "user": "A developer working on a messaging application needs to generate a new API key for accessing Twilio services securely. They want to ensure that the key is created under their specific account to manage permissions effectively.",
-      "ideal": "The API should return a JSON response containing the new API key details, including the key SID, friendly name, and creation date."
+      "user": "A developer looking to generate a new API key for their Twilio account to enable secure access to Twilio services for their application.",
+      "ideal": "This endpoint allows the user to create a new API key associated with their Twilio account, providing the necessary credentials for authentication."
     }
   ]
 }

@@ -6,7 +6,7 @@
       "operationId": "FetchRecordingAddOnResult",
       "summary": "",
       "user": "User123",
-      "ideal": "Retrieve the add-on results for a specific recording using the Account SID, Recording Reference SID, and Add-On Result SID."
+      "ideal": "Fetches the add-on result for a specific recording using the Account SID, Reference SID, and Add-On SID."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
@@ -14,7 +14,7 @@
       "operationId": "DeleteRecordingAddOnResult",
       "summary": "",
       "user": "User456",
-      "ideal": "Delete a specific add-on result associated with a recording using the Account SID, Recording Reference SID, and Add-On Result SID."
+      "ideal": "Deletes the specified add-on result for a recording, identified by Account SID, Reference SID, and Add-On SID."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json",
@@ -22,7 +22,7 @@
       "operationId": "ListRecordingAddOnResult",
       "summary": "",
       "user": "User789",
-      "ideal": "List all add-on results for a specific recording by providing the Account SID and Recording Reference SID."
+      "ideal": "Lists all add-on results for a specific recording, using the Account SID and Reference SID."
     }
   ]
 }

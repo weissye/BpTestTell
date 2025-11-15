@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/markdown",
+      "method": "POST",
+      "tags": [
+        "markdown"
+      ],
+      "summary": "Render a Markdown document",
+      "operationId": "markdown/render"
+    },
+    {
+      "path": "/markdown/raw",
+      "method": "POST",
+      "tags": [
+        "markdown"
+      ],
+      "summary": "Render a Markdown document in raw mode",
+      "operationId": "markdown/render-raw"
+    }
+  ]
+}

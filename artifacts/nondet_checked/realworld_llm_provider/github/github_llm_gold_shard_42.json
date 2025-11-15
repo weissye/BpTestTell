@@ -6,7 +6,7 @@
       "operationId": "teams/list",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve a list of teams in the organization 'my-org'."
+      "ideal": "Retrieve a list of all teams in the organization 'my-org'."
     },
     {
       "path": "/orgs/my-org/teams",
@@ -14,7 +14,7 @@
       "operationId": "teams/create",
       "summary": "",
       "user": "user123",
-      "ideal": "Create a new team in the organization 'my-org' with specified parameters."
+      "ideal": "Create a new team in the organization 'my-org' with the specified parameters."
     },
     {
       "path": "/orgs/my-org/teams/my-team",
@@ -30,7 +30,7 @@
       "operationId": "teams/update-in-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Update the team 'my-team' in the organization 'my-org' with new data."
+      "ideal": "Update the details of the team 'my-team' in the organization 'my-org'."
     },
     {
       "path": "/orgs/my-org/teams/my-team",
@@ -46,7 +46,7 @@
       "operationId": "teams/list-discussions-in-org",
       "summary": "",
       "user": "user123",
-      "ideal": "List all discussions in the team 'my-team' of organization 'my-org'."
+      "ideal": "List all discussions in the team 'my-team' within the organization 'my-org'."
     },
     {
       "path": "/orgs/my-org/teams/my-team/discussions",
@@ -54,7 +54,7 @@
       "operationId": "teams/create-discussion-in-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Create a new discussion in the team 'my-team' of organization 'my-org'."
+      "ideal": "Create a new discussion in the team 'my-team' within the organization 'my-org'."
     },
     {
       "path": "/orgs/my-org/teams/my-team/discussions/1",
@@ -62,7 +62,7 @@
       "operationId": "teams/get-discussion-in-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve the discussion with number '1' in team 'my-team' of organization 'my-org'."
+      "ideal": "Retrieve the discussion with number '1' in the team 'my-team' within the organization 'my-org'."
     },
     {
       "path": "/orgs/my-org/teams/my-team/discussions/1",
@@ -70,7 +70,7 @@
       "operationId": "teams/update-discussion-in-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Update the discussion with number '1' in team 'my-team' of organization 'my-org'."
+      "ideal": "Update the discussion with number '1' in the team 'my-team' within the organization 'my-org'."
     },
     {
       "path": "/orgs/my-org/teams/my-team/discussions/1",
@@ -78,7 +78,7 @@
       "operationId": "teams/delete-discussion-in-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Delete the discussion with number '1' from team 'my-team' of organization 'my-org'."
+      "ideal": "Delete the discussion with number '1' from the team 'my-team' within the organization 'my-org'."
     },
     {
       "path": "/orgs/my-org/teams/my-team/members",
@@ -86,31 +86,63 @@
       "operationId": "teams/list-members-in-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Get a list of members in the team 'my-team' of organization 'my-org'."
+      "ideal": "List all members of the team 'my-team' in the organization 'my-org'."
     },
     {
-      "path": "/orgs/my-org/teams/my-team/memberships/user123",
+      "path": "/orgs/my-org/teams/my-team/memberships/user456",
       "method": "GET",
       "operationId": "teams/get-membership-for-user-in-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve the membership status of user 'user123' in team 'my-team' of organization 'my-org'."
+      "ideal": "Get the membership details for user 'user456' in the team 'my-team' within the organization 'my-org'."
     },
     {
-      "path": "/orgs/my-org/teams/my-team/memberships/user123",
+      "path": "/orgs/my-org/teams/my-team/memberships/user456",
       "method": "PUT",
       "operationId": "teams/add-or-update-membership-for-user-in-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Add or update the membership for user 'user123' in team 'my-team' of organization 'my-org'."
+      "ideal": "Add or update the membership for user 'user456' in the team 'my-team' within the organization 'my-org'."
     },
     {
-      "path": "/orgs/my-org/teams/my-team/memberships/user123",
+      "path": "/orgs/my-org/teams/my-team/memberships/user456",
       "method": "DELETE",
       "operationId": "teams/remove-membership-for-user-in-org",
       "summary": "",
       "user": "user123",
-      "ideal": "Remove the membership of user 'user123' from team 'my-team' of organization 'my-org'."
+      "ideal": "Remove the membership for user 'user456' from the team 'my-team' within the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/teams/my-team/repos",
+      "method": "GET",
+      "operationId": "teams/list-repos-in-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all repositories associated with the team 'my-team' in the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/teams/my-team/repos/my-repo",
+      "method": "GET",
+      "operationId": "teams/check-permissions-for-repo-in-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Check the permissions for the repository 'my-repo' in the team 'my-team' within the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/teams/my-team/repos/my-repo",
+      "method": "PUT",
+      "operationId": "teams/add-or-update-repo-permissions-in-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add or update permissions for the repository 'my-repo' in the team 'my-team' within the organization 'my-org'."
+    },
+    {
+      "path": "/orgs/my-org/teams/my-team/repos/my-repo",
+      "method": "DELETE",
+      "operationId": "teams/remove-repo-in-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Remove the repository 'my-repo' from the team 'my-team' within the organization 'my-org'."
     }
   ]
 }

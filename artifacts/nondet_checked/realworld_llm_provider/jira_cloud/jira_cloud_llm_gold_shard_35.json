@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "getResolutions",
       "summary": "",
-      "user": "As a project manager, I want to retrieve all available resolutions in Jira to ensure I can assign the correct resolution to issues.",
-      "ideal": "Returns a list of all resolutions with their IDs and names."
+      "user": "As a project manager, I want to retrieve all available resolutions in Jira so that I can understand the options for resolving issues.",
+      "ideal": "The API should return a list of all resolutions with their IDs and names."
     },
     {
       "path": "/rest/api/3/resolution",
       "method": "POST",
       "operationId": "createResolution",
       "summary": "",
-      "user": "As a Jira administrator, I want to create a new resolution so that I can manage issue resolutions effectively.",
-      "ideal": "Creates a new resolution and returns the created resolution object with its ID."
+      "user": "As a team lead, I want to create a new resolution for our project to better categorize issue resolutions.",
+      "ideal": "The API should create a new resolution and return the created resolution object with its ID."
     },
     {
       "path": "/rest/api/3/resolution/default",
       "method": "PUT",
       "operationId": "setDefaultResolution",
       "summary": "",
-      "user": "As a project lead, I want to set a default resolution for my project to streamline issue handling.",
-      "ideal": "Sets the default resolution and returns a confirmation message."
+      "user": "As a system administrator, I want to set a default resolution for issues to streamline the workflow.",
+      "ideal": "The API should update the default resolution and confirm the change."
     },
     {
       "path": "/rest/api/3/resolution/move",
       "method": "PUT",
       "operationId": "moveResolutions",
       "summary": "",
-      "user": "As a system administrator, I need to reorganize resolutions to improve clarity and usability for the team.",
-      "ideal": "Moves specified resolutions to new positions and returns the updated list."
+      "user": "As a project coordinator, I want to reorganize the resolutions to improve clarity for the team.",
+      "ideal": "The API should successfully move the specified resolutions and return the updated list."
     },
     {
       "path": "/rest/api/3/resolution/search",
@@ -38,31 +38,31 @@
       "operationId": "searchResolutions",
       "summary": "",
       "user": "As a developer, I want to search for specific resolutions by name to quickly find the one I need.",
-      "ideal": "Returns a list of resolutions that match the search criteria."
+      "ideal": "The API should return a filtered list of resolutions based on the search criteria."
     },
     {
       "path": "/rest/api/3/resolution/{id}",
       "method": "DELETE",
       "operationId": "deleteResolution",
       "summary": "",
-      "user": "As a project manager, I want to delete obsolete resolutions to keep the resolution list clean and relevant.",
-      "ideal": "Deletes the specified resolution and returns a success message."
+      "user": "As a project manager, I want to delete an outdated resolution to keep our project clean and relevant.",
+      "ideal": "The API should delete the specified resolution and confirm the deletion."
     },
     {
       "path": "/rest/api/3/resolution/{id}",
       "method": "GET",
       "operationId": "getResolution",
       "summary": "",
-      "user": "As a support agent, I want to retrieve details of a specific resolution to assist users effectively.",
-      "ideal": "Returns the details of the specified resolution including its ID and name."
+      "user": "As a QA engineer, I want to retrieve details of a specific resolution to ensure it meets our standards.",
+      "ideal": "The API should return the details of the specified resolution."
     },
     {
       "path": "/rest/api/3/resolution/{id}",
       "method": "PUT",
       "operationId": "updateResolution",
       "summary": "",
-      "user": "As a Jira administrator, I want to update the details of an existing resolution to reflect changes in our processes.",
-      "ideal": "Updates the specified resolution and returns the updated resolution object."
+      "user": "As a product owner, I want to update the details of a resolution to reflect recent changes in our process.",
+      "ideal": "The API should update the resolution and return the updated resolution object."
     }
   ]
 }

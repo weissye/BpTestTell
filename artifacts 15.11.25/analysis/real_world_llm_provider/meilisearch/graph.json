@@ -1,0 +1,2056 @@
+{
+  "entities": [
+    {
+      "name": "limit",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "offset",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "page",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "hitsPerPage",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "totalHits",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "totalPages",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "total",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "from",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "next",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "timestamp",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "index",
+      "required": [
+        "uid",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": [
+        "uid",
+        "primaryKey",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    {
+      "name": "document",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "matchesPosition",
+      "required": [
+        "start",
+        "length"
+      ],
+      "properties": [
+        "start",
+        "length"
+      ]
+    },
+    {
+      "name": "order",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "customRankingRuleDetails",
+      "required": [
+        "order",
+        "value"
+      ],
+      "properties": [
+        "order",
+        "value",
+        "distance",
+        "similarity"
+      ]
+    },
+    {
+      "name": "score",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "rankingScoreDetails",
+      "required": [],
+      "properties": [
+        "words",
+        "typo",
+        "proximity",
+        "attribute",
+        "exactness"
+      ]
+    },
+    {
+      "name": "hit",
+      "required": [],
+      "properties": [
+        "_formatted",
+        "_matchesPosition",
+        "_rankingScore",
+        "_rankingScoreDetails",
+        "attribute",
+        "_geoDistance"
+      ]
+    },
+    {
+      "name": "facetHit",
+      "required": [],
+      "properties": [
+        "value",
+        "count"
+      ]
+    },
+    {
+      "name": "documentId",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "filter",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "sort",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "searchResponse",
+      "required": [
+        "hits",
+        "processingTimeMs",
+        "query"
+      ],
+      "properties": [
+        "hits",
+        "offset",
+        "limit",
+        "estimatedTotalHits",
+        "page",
+        "hitsPerPage",
+        "totalHits",
+        "totalPages",
+        "facetDistribution",
+        "facetStats",
+        "processingTimeMs",
+        "query"
+      ]
+    },
+    {
+      "name": "facetSearchResponse",
+      "required": [
+        "facetHits",
+        "facetQuery",
+        "processingTimeMs"
+      ],
+      "properties": [
+        "facetHits",
+        "facetQuery",
+        "processingTimeMs"
+      ]
+    },
+    {
+      "name": "task",
+      "required": [
+        "uid",
+        "indexUid",
+        "status",
+        "type",
+        "canceledBy",
+        "details",
+        "error",
+        "enqueuedAt",
+        "startedAt",
+        "finishedAt"
+      ],
+      "properties": [
+        "uid",
+        "indexUid",
+        "status",
+        "type",
+        "canceledBy",
+        "details",
+        "error",
+        "duration",
+        "enqueuedAt",
+        "startedAt",
+        "finishedAt"
+      ]
+    },
+    {
+      "name": "summarizedTask",
+      "required": [
+        "uid",
+        "indexUid",
+        "status",
+        "type",
+        "enqueuedAt"
+      ],
+      "properties": [
+        "taskUid",
+        "indexUid",
+        "status",
+        "type",
+        "enqueuedAt"
+      ]
+    },
+    {
+      "name": "synonyms",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "stopWords",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "separatorTokens",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "nonSeparatorTokens",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "dictionary",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "sortableAttributes",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "rankingRules",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "typoTolerance",
+      "required": [],
+      "properties": [
+        "enabled",
+        "disableOnAttributes",
+        "disableOnWords",
+        "minWordSizeForTypos"
+      ]
+    },
+    {
+      "name": "pagination",
+      "required": [],
+      "properties": [
+        "maxTotalHits"
+      ]
+    },
+    {
+      "name": "faceting",
+      "required": [],
+      "properties": [
+        "maxValuesPerFacet",
+        "sortFacetValuesBy"
+      ]
+    },
+    {
+      "name": "filterableAttributes",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "distinctAttribute",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "searchableAttributes",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "displayedAttributes",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "settings",
+      "required": [
+        "synonyms",
+        "stopWords",
+        "rankingRules",
+        "filterableAttributes",
+        "distinctAttribute",
+        "searchableAttributes",
+        "displayedAttributes",
+        "typoTolerance"
+      ],
+      "properties": [
+        "synonyms",
+        "stopWords",
+        "rankingRules",
+        "filterableAttributes",
+        "distinctAttribute",
+        "searchableAttributes",
+        "displayedAttributes",
+        "typoTolerance"
+      ]
+    },
+    {
+      "name": "stats",
+      "required": [
+        "numberOfDocuments",
+        "isIndexing",
+        "fieldDistribution"
+      ],
+      "properties": [
+        "numberOfDocuments",
+        "isIndexing",
+        "fieldDistribution"
+      ]
+    },
+    {
+      "name": "searchQuery",
+      "required": [],
+      "properties": [
+        "q",
+        "vector",
+        "attributesToRetrieve",
+        "attributesToHighlight",
+        "highlightPreTag",
+        "highlightPostTag",
+        "attributesToCrop",
+        "cropMarker",
+        "cropLength",
+        "showMatchesPosition",
+        "showRankingScore",
+        "showRankingScoreDetails",
+        "matchingStrategy",
+        "attributesToSearchOn",
+        "filter",
+        "facets",
+        "offset",
+        "limit",
+        "page",
+        "hitsPerPage",
+        "sort"
+      ]
+    },
+    {
+      "name": "facetSearchQuery",
+      "required": [],
+      "properties": [
+        "facetName",
+        "facetQuery",
+        "q",
+        "matchingStrategy",
+        "filter"
+      ]
+    },
+    {
+      "name": "error",
+      "required": [
+        "message",
+        "code",
+        "type",
+        "link"
+      ],
+      "properties": [
+        "message",
+        "code",
+        "type",
+        "link"
+      ]
+    },
+    {
+      "name": "key",
+      "required": [
+        "actions",
+        "indexes",
+        "expiresAt"
+      ],
+      "properties": [
+        "uid",
+        "key",
+        "actions",
+        "indexes",
+        "name",
+        "description",
+        "expiresAt",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    {
+      "name": "swapOperation",
+      "required": [
+        "indexes"
+      ],
+      "properties": [
+        "indexes"
+      ]
+    },
+    {
+      "name": "swapIndexes",
+      "required": [],
+      "properties": []
+    }
+  ],
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/dumps",
+      "operationId": "dumps.create",
+      "tags": [
+        "Dumps"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/snapshots",
+      "operationId": "snapshots.create",
+      "tags": [
+        "Snapshots"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "operationId": "health.check",
+      "tags": [
+        "Health"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes",
+      "operationId": "indexes.list",
+      "tags": [
+        "Indexes"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/indexes",
+      "operationId": "indexes.create",
+      "tags": [
+        "Indexes"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "400",
+        "401"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}",
+      "operationId": "indexes.get",
+      "tags": [
+        "Indexes"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}",
+      "operationId": "indexes.update",
+      "tags": [
+        "Indexes"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "400",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}",
+      "operationId": "indexes.remove",
+      "tags": [
+        "Indexes"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/documents",
+      "operationId": "indexes.documents.list",
+      "tags": [
+        "Documents"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents",
+      "operationId": "indexes.documents.create",
+      "tags": [
+        "Documents"
+      ],
+      "params": [
+        {
+          "name": "Content-Type",
+          "in": "header",
+          "required": true
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "413"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/documents",
+      "operationId": "indexes.documents.upsert",
+      "tags": [
+        "Documents"
+      ],
+      "params": [
+        {
+          "name": "Content-Type",
+          "in": "header",
+          "required": true
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "413"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/documents",
+      "operationId": "indexes.documents.removeAll",
+      "tags": [
+        "Documents"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents/fetch",
+      "operationId": "indexes.documents.fetch",
+      "tags": [
+        "Documents"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents/delete-batch",
+      "operationId": "indexes.documents.removeBatch",
+      "tags": [
+        "Documents"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/documents/delete",
+      "operationId": "indexes.documents.remove",
+      "tags": [
+        "Documents"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "operationId": "indexes.documents.get",
+      "tags": [
+        "Documents"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/documents/{documentId}",
+      "operationId": "indexes.documents.removeOne",
+      "tags": [
+        "Documents"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/search",
+      "operationId": "indexes.documents.searchGet",
+      "tags": [
+        "Search"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/search",
+      "operationId": "indexes.documents.search",
+      "tags": [
+        "Search"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/facet-search",
+      "operationId": "indexes.documents.facet.search",
+      "tags": [
+        "Search",
+        "Facet"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings",
+      "operationId": "indexes.settings.get",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings",
+      "operationId": "indexes.settings.update",
+      "tags": [
+        "Settings"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings",
+      "operationId": "indexes.settings.reset",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "operationId": "indexes.settings.synonyms.get",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "operationId": "indexes.settings.synonyms.update",
+      "tags": [
+        "Settings"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/synonyms",
+      "operationId": "indexes.settings.synonyms.reset",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "operationId": "indexes.settings.sortable-attributes.get",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "operationId": "indexes.settings.sortable-attributes.update",
+      "tags": [
+        "Settings"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/sortable-attributes",
+      "operationId": "indexes.settings.sortable-attributes.reset",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "operationId": "indexes.settings.stopWords.get",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "operationId": "indexes.settings.stopWords.update",
+      "tags": [
+        "Settings"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/stop-words",
+      "operationId": "indexes.settings.stopWords.reset",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "operationId": "indexes.settings.rankingRules.get",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "operationId": "indexes.settings.rankingRules.update",
+      "tags": [
+        "Settings"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/ranking-rules",
+      "operationId": "indexes.settings.rankingRules.reset",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "operationId": "indexes.settings.typoTolerance.get",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "operationId": "indexes.settings.typoTolerance.update",
+      "tags": [
+        "Settings"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/typo-tolerance",
+      "operationId": "indexes.settings.typoTolerance.reset",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "operationId": "indexes.settings.pagination.get",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "operationId": "indexes.settings.pagination.update",
+      "tags": [
+        "Settings"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/pagination",
+      "operationId": "indexes.settings.pagination.reset",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "operationId": "indexes.settings.faceting.get",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "operationId": "indexes.settings.faceting.update",
+      "tags": [
+        "Settings"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/faceting",
+      "operationId": "indexes.settings.faceting.reset",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "operationId": "indexes.settings.filterableAttributes.get",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "operationId": "indexes.settings.filterableAttributes.update",
+      "tags": [
+        "Settings"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/filterable-attributes",
+      "operationId": "indexes.settings.filterableAttributes.reset",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "operationId": "indexes.settings.distinctAttribute.get",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "operationId": "indexes.settings.distinctAttribute.update",
+      "tags": [
+        "Settings"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/distinct-attribute",
+      "operationId": "indexes.settings.distinctAttribute.reset",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "operationId": "indexes.settings.searchableAttributes.get",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "operationId": "indexes.settings.searchableAttributes.update",
+      "tags": [
+        "Settings"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/searchable-attributes",
+      "operationId": "indexes.settings.searchableAttributes.reset",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "operationId": "indexes.settings.displayedAttributes.get",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "operationId": "indexes.settings.displayedAttributes.update",
+      "tags": [
+        "Settings"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/displayed-attributes",
+      "operationId": "indexes.settings.displayedAttributes.reset",
+      "tags": [
+        "Settings"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/stats",
+      "operationId": "indexes.stats.get",
+      "tags": [
+        "Stats"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/multi-search",
+      "operationId": "multi_search",
+      "tags": [
+        "Search"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200",
+        "401"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/keys",
+      "operationId": "keys.list",
+      "tags": [
+        "Keys"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/keys",
+      "operationId": "keys.create",
+      "tags": [
+        "Keys"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/keys/{uid_or_key}",
+      "operationId": "keys.get",
+      "tags": [
+        "Keys"
+      ],
+      "params": [
+        {
+          "name": "uidOrKey",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/keys/{uid_or_key}",
+      "operationId": "keys.delete",
+      "tags": [
+        "Keys"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/keys/{uid_or_key}",
+      "operationId": "keys.update",
+      "tags": [
+        "Keys"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/stats",
+      "operationId": "stats.list",
+      "tags": [
+        "Stats"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/version",
+      "operationId": "version.get",
+      "tags": [
+        "Version"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/tasks",
+      "operationId": "tasks.list",
+      "tags": [
+        "Tasks"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/tasks",
+      "operationId": "tasks.delete",
+      "tags": [
+        "Tasks"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/tasks/:taskUid",
+      "operationId": "tasks.get",
+      "tags": [
+        "Tasks"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/tasks/cancel",
+      "operationId": "tasks.cancel",
+      "tags": [
+        "Tasks"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        },
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "202",
+        "400",
+        "401"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/swap-indexes",
+      "operationId": "indexes.swap",
+      "tags": [
+        "Indexes"
+      ],
+      "params": [
+        {
+          "name": null,
+          "in": null,
+          "required": false
+        }
+      ],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "202",
+        "401"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/experimental-features",
+      "operationId": "experimental.get",
+      "tags": [
+        "Experimental"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "401"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/experimental-features",
+      "operationId": "experimental.update",
+      "tags": [
+        "Experimental"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200",
+        "401"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics",
+      "operationId": "metrics.get",
+      "tags": [
+        "Stats",
+        "Experimental"
+      ],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    }
+  ]
+}

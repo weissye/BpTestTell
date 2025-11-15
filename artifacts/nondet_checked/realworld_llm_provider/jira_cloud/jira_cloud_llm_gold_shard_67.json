@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "getProjectPropertyKeys",
       "summary": "",
-      "user": "A project manager looking to retrieve all property keys associated with a specific project in Jira to manage project settings effectively.",
-      "ideal": "Returns a list of property keys for the specified project."
+      "user": "A project manager wants to retrieve all property keys associated with a specific project to understand its configuration and custom settings.",
+      "ideal": "The API should return a list of property keys for the specified project, allowing the user to see all custom properties that have been set."
     },
     {
       "path": "/rest/api/3/project/{projectIdOrKey}/properties/{propertyKey}",
       "method": "GET",
       "operationId": "getProjectProperty",
       "summary": "",
-      "user": "A developer wanting to check the value of a specific property in a project to ensure configurations are correct before deployment.",
-      "ideal": "Returns the value of the specified property key for the project."
-    },
-    {
-      "path": "/rest/api/3/project/{projectIdOrKey}/properties/{propertyKey}",
-      "method": "DELETE",
-      "operationId": "deleteProjectProperty",
-      "summary": "",
-      "user": "An administrator who needs to remove an outdated property from a project to clean up the project settings.",
-      "ideal": "Successfully deletes the specified property key from the project."
+      "user": "A developer needs to check the value of a specific property key in a project to ensure that the project settings align with the development requirements.",
+      "ideal": "The API should return the value of the specified property key for the project, enabling the developer to verify the configuration."
     },
     {
       "path": "/rest/api/3/project/{projectIdOrKey}/properties/{propertyKey}",
       "method": "PUT",
       "operationId": "setProjectProperty",
       "summary": "",
-      "user": "A team lead updating a project property to reflect new requirements or configurations for the ongoing project.",
-      "ideal": "Successfully sets or updates the specified property key with the new value for the project."
+      "user": "A team lead wants to update a project property to reflect new requirements after a recent project review.",
+      "ideal": "The API should successfully update the specified property key with the new value, confirming the change has been made."
+    },
+    {
+      "path": "/rest/api/3/project/{projectIdOrKey}/properties/{propertyKey}",
+      "method": "DELETE",
+      "operationId": "deleteProjectProperty",
+      "summary": "",
+      "user": "An administrator decides to remove an outdated property key from a project to clean up the project settings.",
+      "ideal": "The API should successfully delete the specified property key from the project, indicating that it is no longer available."
     }
   ]
 }

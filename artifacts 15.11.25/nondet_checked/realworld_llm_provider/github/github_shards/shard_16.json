@@ -1,0 +1,18 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/emojis",
+      "method": "GET",
+      "tags": [
+        "emojis"
+      ],
+      "summary": "Get emojis",
+      "operationId": "emojis/get"
+    }
+  ]
+}

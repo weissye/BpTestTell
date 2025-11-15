@@ -5,32 +5,32 @@
       "method": "POST",
       "operationId": "test-notify",
       "summary": "",
-      "user": "User123",
-      "ideal": "Send a test notification to verify push notification setup."
+      "user": "user@example.com",
+      "ideal": "Send a test notification to the mobile device to verify push notifications are working."
     },
     {
       "path": "/mobile_push/e2ee/test_notification",
       "method": "POST",
       "operationId": "e2ee-test-notify",
       "summary": "",
-      "user": "User456",
-      "ideal": "Send an end-to-end encrypted test notification to ensure secure delivery."
+      "user": "user@example.com",
+      "ideal": "Send a test end-to-end encrypted notification to ensure secure push notifications are functioning."
     },
     {
       "path": "/mobile_push/register",
       "method": "POST",
       "operationId": "register-push-device",
       "summary": "",
-      "user": "User789",
-      "ideal": "Register a new mobile device for push notifications."
+      "user": "user@example.com",
+      "ideal": "Register a mobile device for push notifications to receive updates from the Zulip server."
     },
     {
       "path": "/remotes/push/e2ee/register",
       "method": "POST",
       "operationId": "register-remote-push-device",
       "summary": "",
-      "user": "User101",
-      "ideal": "Register a remote device for end-to-end encrypted push notifications."
+      "user": "user@example.com",
+      "ideal": "Register a remote device for end-to-end encrypted push notifications to maintain security."
     }
   ]
 }

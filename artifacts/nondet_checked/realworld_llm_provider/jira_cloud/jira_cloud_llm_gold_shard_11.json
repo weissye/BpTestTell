@@ -6,7 +6,7 @@
       "operationId": "getDefaultShareScope",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve the default share scope settings for filters."
+      "ideal": "Retrieve the default share scope for filters."
     },
     {
       "path": "/rest/api/3/filter/defaultShareScope",
@@ -14,7 +14,7 @@
       "operationId": "setDefaultShareScope",
       "summary": "",
       "user": "user456",
-      "ideal": "Update the default share scope settings for filters."
+      "ideal": "Update the default share scope for filters."
     },
     {
       "path": "/rest/api/3/filter/{id}/permission",
@@ -22,7 +22,7 @@
       "operationId": "getSharePermissions",
       "summary": "",
       "user": "user789",
-      "ideal": "Get the share permissions for a specific filter by its ID."
+      "ideal": "Fetch the share permissions for a specific filter by ID."
     },
     {
       "path": "/rest/api/3/filter/{id}/permission",

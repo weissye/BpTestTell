@@ -1,0 +1,772 @@
+{
+  "entities": [
+    {
+      "name": "Error",
+      "required": [],
+      "properties": [
+        "error"
+      ]
+    },
+    {
+      "name": "Chain",
+      "required": [
+        "chainId",
+        "name",
+        "hqAddress",
+        "active",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": [
+        "chainId",
+        "name",
+        "hqAddress",
+        "supportEmail",
+        "active",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    {
+      "name": "ChainCreate",
+      "required": [
+        "chainId",
+        "name",
+        "hqAddress"
+      ],
+      "properties": [
+        "chainId",
+        "name",
+        "hqAddress",
+        "supportEmail",
+        "active"
+      ]
+    },
+    {
+      "name": "ChainUpdate",
+      "required": [],
+      "properties": [
+        "name",
+        "hqAddress",
+        "supportEmail",
+        "active"
+      ]
+    },
+    {
+      "name": "Garage",
+      "required": [
+        "garageId",
+        "chainId",
+        "name",
+        "address",
+        "phone",
+        "active",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": [
+        "garageId",
+        "chainId",
+        "name",
+        "address",
+        "phone",
+        "bayCount",
+        "servicesOffered",
+        "active",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    {
+      "name": "GarageCreate",
+      "required": [
+        "garageId",
+        "chainId",
+        "name",
+        "address",
+        "phone"
+      ],
+      "properties": [
+        "garageId",
+        "chainId",
+        "name",
+        "address",
+        "phone",
+        "bayCount",
+        "servicesOffered",
+        "active"
+      ]
+    },
+    {
+      "name": "GarageUpdate",
+      "required": [],
+      "properties": [
+        "chainId",
+        "name",
+        "address",
+        "phone",
+        "bayCount",
+        "servicesOffered",
+        "active"
+      ]
+    },
+    {
+      "name": "Customer",
+      "required": [
+        "customerId",
+        "type",
+        "fullName",
+        "email",
+        "phone",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": [
+        "customerId",
+        "type",
+        "fullName",
+        "email",
+        "phone",
+        "preferredGarageId",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    {
+      "name": "CustomerCreate",
+      "required": [
+        "customerId",
+        "type",
+        "fullName",
+        "email",
+        "phone"
+      ],
+      "properties": [
+        "customerId",
+        "type",
+        "fullName",
+        "email",
+        "phone",
+        "preferredGarageId"
+      ]
+    },
+    {
+      "name": "CustomerUpdate",
+      "required": [],
+      "properties": [
+        "type",
+        "fullName",
+        "email",
+        "phone",
+        "preferredGarageId"
+      ]
+    },
+    {
+      "name": "Car",
+      "required": [
+        "vin",
+        "make",
+        "model",
+        "year",
+        "mileage",
+        "ownerCustomerId",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": [
+        "vin",
+        "make",
+        "model",
+        "year",
+        "mileage",
+        "ownerCustomerId",
+        "homeGarageId",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    {
+      "name": "CarCreate",
+      "required": [
+        "vin",
+        "make",
+        "model",
+        "year",
+        "mileage",
+        "ownerCustomerId"
+      ],
+      "properties": [
+        "vin",
+        "make",
+        "model",
+        "year",
+        "mileage",
+        "ownerCustomerId",
+        "homeGarageId"
+      ]
+    },
+    {
+      "name": "CarUpdate",
+      "required": [],
+      "properties": [
+        "make",
+        "model",
+        "year",
+        "mileage",
+        "ownerCustomerId",
+        "homeGarageId"
+      ]
+    },
+    {
+      "name": "PeriodicMaintenance",
+      "required": [
+        "pmId",
+        "carVin",
+        "garageId",
+        "planType",
+        "tasks",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": [
+        "pmId",
+        "carVin",
+        "garageId",
+        "planType",
+        "intervalKm",
+        "intervalMonths",
+        "tasks",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    {
+      "name": "PMCreate",
+      "required": [
+        "pmId",
+        "carVin",
+        "garageId",
+        "planType",
+        "tasks"
+      ],
+      "properties": [
+        "pmId",
+        "carVin",
+        "garageId",
+        "planType",
+        "intervalKm",
+        "intervalMonths",
+        "tasks",
+        "status"
+      ]
+    },
+    {
+      "name": "PMUpdate",
+      "required": [],
+      "properties": [
+        "carVin",
+        "garageId",
+        "planType",
+        "intervalKm",
+        "intervalMonths",
+        "tasks",
+        "status"
+      ]
+    },
+    {
+      "name": "RepairOrder",
+      "required": [
+        "roId",
+        "carVin",
+        "customerId",
+        "garageId",
+        "complaint",
+        "status",
+        "openedAt",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": [
+        "roId",
+        "carVin",
+        "customerId",
+        "garageId",
+        "complaint",
+        "status",
+        "openedAt",
+        "closedAt",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    {
+      "name": "ROCreate",
+      "required": [
+        "roId",
+        "carVin",
+        "customerId",
+        "garageId",
+        "complaint"
+      ],
+      "properties": [
+        "roId",
+        "carVin",
+        "customerId",
+        "garageId",
+        "complaint",
+        "status"
+      ]
+    },
+    {
+      "name": "ROUpdate",
+      "required": [],
+      "properties": [
+        "carVin",
+        "customerId",
+        "garageId",
+        "complaint",
+        "status"
+      ]
+    }
+  ],
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/reset",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/chains",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "201",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/chains",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/chains/{chainId}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "404"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/chains/{chainId}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/chains/{chainId}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "204",
+        "400",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/garages",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "201",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/garages",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/garages/{garageId}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "404"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/garages/{garageId}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200",
+        "400",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/garages/{garageId}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "204",
+        "400",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/customers",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "201",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "404"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/customers/{customerId}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200",
+        "400",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/customers/{customerId}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "204",
+        "400",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/cars",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "201",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/cars",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/cars/{vin}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "404"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/cars/{vin}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200",
+        "400",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/cars/{vin}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "204",
+        "400",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/periodic-maintenance",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "201",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance/{pmId}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "404"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/periodic-maintenance/{pmId}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200",
+        "400",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/periodic-maintenance/{pmId}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "204",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "201",
+        "400"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders/{roId}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "404"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/repair-orders/{roId}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [
+        "application/json"
+      ],
+      "responses": [
+        "200",
+        "400",
+        "404"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/repair-orders/{roId}",
+      "operationId": null,
+      "tags": [],
+      "params": [],
+      "requestBodyCT": [],
+      "responses": [
+        "204",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/{roId}/approve",
+      "operationId": null,
+      "tags": [],
+      "params": [
+        {
+          "name": "roId",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400",
+        "404"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/{roId}/close",
+      "operationId": null,
+      "tags": [],
+      "params": [
+        {
+          "name": "roId",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200",
+        "400",
+        "404"
+      ]
+    }
+  ]
+}

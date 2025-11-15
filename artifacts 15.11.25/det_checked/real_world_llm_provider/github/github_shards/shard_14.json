@@ -1,0 +1,188 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/app/installations/{installation_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/gists/{gist_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/marketplace_listing/accounts/{account_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/permissions/repositories"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/runner-groups/{runner_group_id}/runners"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/campaigns/{campaign_number}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/codespaces/secrets/{secret_name}/repositories/{repository_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/hooks/{hook_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/invitations"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/migrations/{migration_id}/repositories"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/personal-access-token-requests/{pat_request_id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/orgs/{org}/properties/schema"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/security-advisories"
+    },
+    {
+      "method": "PATCH",
+      "path": "/orgs/{org}/teams/{team_slug}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/projects/{project_id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/permissions/fork-pr-workflows-private-repos"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/workflows"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/code-scanning/analyses"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/codespaces/secrets/{secret_name}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/community/profile"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/dispatches"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}/variables/{name}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/hooks/{hook_id}/deliveries"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/labels"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/license"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/private-vulnerability-reporting"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/merge"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases/{release_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/security-advisories"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/topics"
+    },
+    {
+      "method": "DELETE",
+      "path": "/teams/{team_id}/discussions/{discussion_number}"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/repos"
+    },
+    {
+      "method": "PATCH",
+      "path": "/user/codespaces/{codespace_name}"
+    },
+    {
+      "method": "PUT",
+      "path": "/user/installations/{installation_id}/repositories/{repository_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/user/packages/{package_type}/{package_name}"
+    },
+    {
+      "method": "GET",
+      "path": "/user/subscriptions"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/{username}/packages/{package_type}/{package_name}"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/settings/billing/usage"
+    }
+  ]
+}

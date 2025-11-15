@@ -9,76 +9,76 @@
       "ideal": "Retrieve the card details for card ID 12345."
     },
     {
-      "path": "/v1/cards/12345",
-      "method": "PUT",
-      "operationId": "updateCardsByIdCard",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Update the card with ID 12345 to change its name and description."
-    },
-    {
       "path": "/v1/cards/12345/actions",
       "method": "GET",
       "operationId": "getCardsActionsByIdCard",
       "summary": "",
-      "user": "user123",
+      "user": "user456",
       "ideal": "Fetch all actions associated with card ID 12345."
     },
     {
-      "path": "/v1/cards/12345/checklists",
-      "method": "POST",
-      "operationId": "addCardsChecklistsByIdCard",
+      "path": "/v1/cards/12345/attachments",
+      "method": "GET",
+      "operationId": "getCardsAttachmentsByIdCard",
       "summary": "",
-      "user": "user123",
-      "ideal": "Add a new checklist to card ID 12345."
+      "user": "user789",
+      "ideal": "List all attachments for card ID 12345."
     },
     {
-      "path": "/v1/cards/12345/attachments",
-      "method": "POST",
-      "operationId": "addCardsAttachmentsByIdCard",
+      "path": "/v1/cards/12345/checklists",
+      "method": "GET",
+      "operationId": "getCardsChecklistsByIdCard",
       "summary": "",
-      "user": "user123",
-      "ideal": "Attach a file to card ID 12345."
+      "user": "user101",
+      "ideal": "Get all checklists associated with card ID 12345."
     },
     {
       "path": "/v1/cards/12345/members",
       "method": "GET",
       "operationId": "getCardsMembersByIdCard",
       "summary": "",
-      "user": "user123",
-      "ideal": "List all members assigned to card ID 12345."
+      "user": "user202",
+      "ideal": "Retrieve all members assigned to card ID 12345."
     },
     {
       "path": "/v1/cards/12345/labels",
-      "method": "PUT",
-      "operationId": "updateCardsLabelsByIdCard",
+      "method": "GET",
+      "operationId": "getCardsLabelsByIdCard",
       "summary": "",
-      "user": "user123",
-      "ideal": "Update the labels on card ID 12345."
+      "user": "user303",
+      "ideal": "Fetch all labels associated with card ID 12345."
     },
     {
-      "path": "/v1/cards/12345/checklist/67890/checkItem/11111",
-      "method": "DELETE",
-      "operationId": "deleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem",
+      "path": "/v1/cards/12345/checkItemStates",
+      "method": "GET",
+      "operationId": "getCardsCheckItemStatesByIdCard",
       "summary": "",
-      "user": "user123",
-      "ideal": "Remove a check item from checklist ID 67890 on card ID 12345."
+      "user": "user404",
+      "ideal": "Get the states of check items for card ID 12345."
     },
     {
       "path": "/v1/cards/12345/stickers",
-      "method": "POST",
-      "operationId": "addCardsStickersByIdCard",
+      "method": "GET",
+      "operationId": "getCardsStickersByIdCard",
       "summary": "",
-      "user": "user123",
-      "ideal": "Add a sticker to card ID 12345."
+      "user": "user505",
+      "ideal": "List all stickers on card ID 12345."
     },
     {
-      "path": "/v1/cards/12345/membersVoted",
-      "method": "POST",
-      "operationId": "addCardsMembersVotedByIdCard",
+      "path": "/v1/cards/12345/board",
+      "method": "GET",
+      "operationId": "getCardsBoardByIdCard",
       "summary": "",
-      "user": "user123",
-      "ideal": "Add a member to the list of voters for card ID 12345."
+      "user": "user606",
+      "ideal": "Retrieve the board information for card ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345/checklist/67890/checkItem/11111",
+      "method": "PUT",
+      "operationId": "updateCardsChecklistCheckItemNameByIdCardByIdChecklistCurrentByIdCheckItem",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Update the name of check item ID 11111 in checklist ID 67890 for card ID 12345."
     }
   ]
 }

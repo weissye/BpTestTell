@@ -5,48 +5,48 @@
       "method": "GET",
       "operationId": "indexes.list",
       "summary": "",
-      "user": "As a developer, I want to retrieve a list of all indexes in my Meilisearch instance so that I can manage them effectively.",
-      "ideal": "The response should include an array of index objects, each containing details such as indexUid, name, and number of documents."
+      "user": "As a developer, I want to retrieve a list of all indexes in my Meilisearch instance so that I can manage and monitor them effectively.",
+      "ideal": "The response should include an array of index objects, each containing details like indexUid, name, and document count."
     },
     {
       "path": "/indexes",
       "method": "POST",
       "operationId": "indexes.create",
       "summary": "",
-      "user": "As a data engineer, I need to create a new index for my dataset so that I can start indexing documents.",
-      "ideal": "The response should confirm the creation of the index and return the indexUid along with its settings."
+      "user": "As a data engineer, I need to create a new index for my dataset to enable efficient searching and retrieval of documents.",
+      "ideal": "The response should confirm the creation of the index with its unique indexUid and a success message."
     },
     {
       "path": "/indexes/{indexUid}",
       "method": "GET",
       "operationId": "indexes.get",
       "summary": "",
-      "user": "As a researcher, I want to get details about a specific index to understand its configuration and status.",
-      "ideal": "The response should include the index's metadata, such as its uid, name, and settings."
+      "user": "As a user, I want to fetch details of a specific index by its UID to understand its configuration and status.",
+      "ideal": "The response should return the index object with properties like indexUid, name, and settings."
     },
     {
       "path": "/indexes/{indexUid}",
       "method": "PATCH",
       "operationId": "indexes.update",
       "summary": "",
-      "user": "As a system administrator, I need to update the settings of an existing index to optimize its performance.",
-      "ideal": "The response should indicate success and return the updated settings of the index."
+      "user": "As an administrator, I need to update the settings of an existing index to optimize its performance for search queries.",
+      "ideal": "The response should indicate the successful update of the index with the updated settings reflected."
     },
     {
       "path": "/indexes/{indexUid}",
       "method": "DELETE",
       "operationId": "indexes.remove",
       "summary": "",
-      "user": "As a product manager, I want to delete an index that is no longer needed to keep our search system clean.",
-      "ideal": "The response should confirm the deletion of the index and indicate that it has been removed successfully."
+      "user": "As a system maintainer, I want to delete an unused index to free up resources and maintain a clean environment.",
+      "ideal": "The response should confirm the deletion of the index with a success message."
     },
     {
       "path": "/swap-indexes",
       "method": "POST",
       "operationId": "indexes.swap",
       "summary": "",
-      "user": "As a developer, I need to swap two indexes to update the search experience without downtime.",
-      "ideal": "The response should confirm that the indexes have been swapped and provide the new indexUids."
+      "user": "As a developer, I need to swap two indexes to facilitate a seamless transition between versions of my search data.",
+      "ideal": "The response should confirm the successful swap of the indexes with their new states reflected."
     }
   ]
 }

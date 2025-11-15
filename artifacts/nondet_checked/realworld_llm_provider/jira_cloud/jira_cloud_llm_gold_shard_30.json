@@ -5,64 +5,64 @@
       "method": "GET",
       "operationId": "getNotificationSchemes",
       "summary": "",
-      "user": "As a project manager, I want to retrieve all notification schemes available in the Jira Cloud platform so that I can understand the current configurations and make necessary adjustments.",
-      "ideal": "The API should return a list of all notification schemes with their respective IDs, names, and descriptions."
+      "user": "As a project manager, I want to retrieve all notification schemes to understand how notifications are configured for different projects.",
+      "ideal": "A successful response with a list of notification schemes, including their IDs and names."
     },
     {
       "path": "/rest/api/3/notificationscheme",
       "method": "POST",
       "operationId": "createNotificationScheme",
       "summary": "",
-      "user": "As a Jira administrator, I want to create a new notification scheme to ensure that team members receive alerts for specific events in our projects.",
-      "ideal": "The API should accept a JSON payload with the scheme details and return the newly created notification scheme's ID and status."
+      "user": "As a Jira administrator, I want to create a new notification scheme to customize notifications for a new project.",
+      "ideal": "A successful response indicating the creation of the notification scheme with its ID."
     },
     {
       "path": "/rest/api/3/notificationscheme/project",
       "method": "GET",
       "operationId": "getNotificationSchemeToProjectMappings",
       "summary": "",
-      "user": "As a project lead, I want to see which notification schemes are mapped to my projects so that I can verify that the correct notifications are being sent.",
-      "ideal": "The API should return a mapping of project IDs to their respective notification scheme IDs."
+      "user": "As a project lead, I need to see which notification schemes are mapped to my projects to ensure proper communication.",
+      "ideal": "A successful response with a mapping of projects to their respective notification schemes."
     },
     {
       "path": "/rest/api/3/notificationscheme/{id}",
       "method": "GET",
       "operationId": "getNotificationScheme",
       "summary": "",
-      "user": "As a developer, I need to retrieve the details of a specific notification scheme to understand its configuration and how it affects my project.",
-      "ideal": "The API should return the notification scheme's details, including its ID, name, and the list of notifications configured."
+      "user": "As a developer, I want to view the details of a specific notification scheme to understand its configuration.",
+      "ideal": "A successful response with the details of the specified notification scheme."
     },
     {
       "path": "/rest/api/3/notificationscheme/{id}",
       "method": "PUT",
       "operationId": "updateNotificationScheme",
       "summary": "",
-      "user": "As a project administrator, I want to update an existing notification scheme to modify the recipients of certain notifications based on team changes.",
-      "ideal": "The API should accept updated details for the notification scheme and return the updated scheme's ID and status."
+      "user": "As a Jira administrator, I want to update an existing notification scheme to add new notification types.",
+      "ideal": "A successful response confirming the update of the notification scheme."
     },
     {
       "path": "/rest/api/3/notificationscheme/{id}/notification",
       "method": "PUT",
       "operationId": "addNotifications",
       "summary": "",
-      "user": "As a team lead, I want to add new notifications to an existing notification scheme to ensure that all relevant team members are informed of critical updates.",
-      "ideal": "The API should accept a list of notifications to be added and return the updated notification scheme details."
+      "user": "As a project manager, I want to add notifications to a scheme to ensure team members are informed of important updates.",
+      "ideal": "A successful response confirming that notifications have been added to the scheme."
     },
     {
       "path": "/rest/api/3/notificationscheme/{notificationSchemeId}",
       "method": "DELETE",
       "operationId": "deleteNotificationScheme",
       "summary": "",
-      "user": "As a Jira administrator, I want to delete an obsolete notification scheme to clean up our configurations and avoid confusion.",
-      "ideal": "The API should confirm the deletion of the notification scheme and return a success message."
+      "user": "As a Jira administrator, I want to delete an obsolete notification scheme to keep the system organized.",
+      "ideal": "A successful response confirming the deletion of the notification scheme."
     },
     {
       "path": "/rest/api/3/notificationscheme/{notificationSchemeId}/notification/{notificationId}",
       "method": "DELETE",
       "operationId": "removeNotificationFromNotificationScheme",
       "summary": "",
-      "user": "As a project manager, I want to remove a specific notification from a notification scheme to prevent unnecessary alerts from being sent to team members.",
-      "ideal": "The API should confirm the removal of the notification and return the updated notification scheme details."
+      "user": "As a project lead, I want to remove a specific notification from a scheme to reduce unnecessary alerts.",
+      "ideal": "A successful response confirming the removal of the notification from the scheme."
     }
   ]
 }

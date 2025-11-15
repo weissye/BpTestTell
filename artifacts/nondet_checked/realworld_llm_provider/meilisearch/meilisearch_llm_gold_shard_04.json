@@ -1,12 +1,12 @@
 {
   "gold": [
     {
-      "path": "/indexes/myIndex/facet-search",
+      "path": "/indexes/my_index/facet-search",
       "method": "POST",
       "operationId": "indexes.documents.facet.search",
       "summary": "",
-      "user": "{\"facetName\":\"category\",\"facetValue\":\"electronics\",\"limit\":10}",
-      "ideal": "{\"hits\":[{\"id\":\"1\",\"name\":\"Smartphone\",\"category\":\"electronics\"},{\"id\":\"2\",\"name\":\"Laptop\",\"category\":\"electronics\"}],\"limit\":10,\"estimatedTotalHits\":50}"
+      "user": "User wants to search for specific facets in the 'my_index' index to filter results based on certain criteria. They are looking for facets related to product categories and want to refine their search results accordingly.",
+      "ideal": "The API should return a list of facets that match the search criteria, including the count of documents for each facet."
     }
   ]
 }

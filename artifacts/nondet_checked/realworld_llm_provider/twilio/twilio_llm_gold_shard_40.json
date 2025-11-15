@@ -6,7 +6,7 @@
       "operationId": "ListMedia",
       "summary": "",
       "user": "User123",
-      "ideal": "Retrieve a list of media associated with a specific message in Twilio."
+      "ideal": "Retrieve a list of media associated with a specific message."
     }
   ]
 }

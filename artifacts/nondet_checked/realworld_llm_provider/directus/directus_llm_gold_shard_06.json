@@ -14,7 +14,7 @@
       "operationId": "updateExtensions",
       "summary": "",
       "user": "developer",
-      "ideal": "Update the configuration or properties of the specified extension named 'my-extension'."
+      "ideal": "Update the configuration of the existing extension 'my-extension' with new settings."
     },
     {
       "path": "/extensions/my-bundle/my-extension",
@@ -22,7 +22,7 @@
       "operationId": "updateExtensionBundle",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the bundle configuration for the extension 'my-extension' within the 'my-bundle'."
+      "ideal": "Update the bundle configuration for the extension 'my-extension' within the 'my-bundle' package."
     }
   ]
 }

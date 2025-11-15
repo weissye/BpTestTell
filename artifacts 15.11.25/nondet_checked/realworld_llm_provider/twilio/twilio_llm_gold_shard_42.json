@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "method": "GET",
+      "operationId": "FetchMember",
+      "summary": "",
+      "user": "A user wants to retrieve the details of a specific member in a queue using their CallSid.",
+      "ideal": "The API should return the member's details, including their position in the queue and status."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "method": "POST",
+      "operationId": "UpdateMember",
+      "summary": "",
+      "user": "A user needs to update the status of a member in a queue to 'completed' after a call ends.",
+      "ideal": "The API should successfully update the member's status and return a confirmation response."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json",
+      "method": "GET",
+      "operationId": "ListMember",
+      "summary": "",
+      "user": "A user wants to list all members currently in a specific queue to monitor their statuses.",
+      "ideal": "The API should return a list of all members in the queue along with their statuses and positions."
+    }
+  ]
+}

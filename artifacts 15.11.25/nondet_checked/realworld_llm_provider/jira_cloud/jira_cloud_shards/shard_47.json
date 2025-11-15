@@ -1,0 +1,216 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/changelog/bulkfetch",
+      "method": "POST",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Bulk fetch changelogs",
+      "operationId": "getBulkChangelogs"
+    },
+    {
+      "path": "/rest/api/3/events",
+      "method": "GET",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Get events",
+      "operationId": "getEvents"
+    },
+    {
+      "path": "/rest/api/3/issue",
+      "method": "POST",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Create issue",
+      "operationId": "createIssue"
+    },
+    {
+      "path": "/rest/api/3/issue/archive",
+      "method": "POST",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Archive issue(s) by JQL",
+      "operationId": "archiveIssuesAsync"
+    },
+    {
+      "path": "/rest/api/3/issue/archive",
+      "method": "PUT",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Archive issue(s) by issue ID/key",
+      "operationId": "archiveIssues"
+    },
+    {
+      "path": "/rest/api/3/issue/bulk",
+      "method": "POST",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Bulk create issue",
+      "operationId": "createIssues"
+    },
+    {
+      "path": "/rest/api/3/issue/bulkfetch",
+      "method": "POST",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Bulk fetch issues",
+      "operationId": "bulkFetchIssues"
+    },
+    {
+      "path": "/rest/api/3/issue/createmeta",
+      "method": "GET",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Get create issue metadata",
+      "operationId": "getCreateIssueMeta"
+    },
+    {
+      "path": "/rest/api/3/issue/createmeta/{projectIdOrKey}/issuetypes",
+      "method": "GET",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Get create metadata issue types for a project",
+      "operationId": "getCreateIssueMetaIssueTypes"
+    },
+    {
+      "path": "/rest/api/3/issue/createmeta/{projectIdOrKey}/issuetypes/{issueTypeId}",
+      "method": "GET",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Get create field metadata for a project and issue type id",
+      "operationId": "getCreateIssueMetaIssueTypeId"
+    },
+    {
+      "path": "/rest/api/3/issue/limit/report",
+      "method": "GET",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Get issue limit report",
+      "operationId": "getIssueLimitReport"
+    },
+    {
+      "path": "/rest/api/3/issue/unarchive",
+      "method": "PUT",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Unarchive issue(s) by issue keys/ID",
+      "operationId": "unarchiveIssues"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "method": "DELETE",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Delete issue",
+      "operationId": "deleteIssue"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "method": "GET",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Get issue",
+      "operationId": "getIssue"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}",
+      "method": "PUT",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Edit issue",
+      "operationId": "editIssue"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/assignee",
+      "method": "PUT",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Assign issue",
+      "operationId": "assignIssue"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/changelog",
+      "method": "GET",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Get changelogs",
+      "operationId": "getChangeLogs"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/changelog/list",
+      "method": "POST",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Get changelogs by IDs",
+      "operationId": "getChangeLogsByIds"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/editmeta",
+      "method": "GET",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Get edit issue metadata",
+      "operationId": "getEditIssueMeta"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/notify",
+      "method": "POST",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Send notification for issue",
+      "operationId": "notify"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "method": "GET",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Get transitions",
+      "operationId": "getTransitions"
+    },
+    {
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions",
+      "method": "POST",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Transition issue",
+      "operationId": "doTransition"
+    },
+    {
+      "path": "/rest/api/3/issues/archive/export",
+      "method": "PUT",
+      "tags": [
+        "Issues"
+      ],
+      "summary": "Export archived issue(s)",
+      "operationId": "exportArchivedIssues"
+    }
+  ]
+}

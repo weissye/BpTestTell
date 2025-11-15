@@ -5,32 +5,32 @@
       "method": "POST",
       "operationId": "addSessions",
       "summary": "",
-      "user": "User123: I want to create a new session for my team to collaborate on our project. The session should include a description and a list of participants.",
-      "ideal": "Create a new session with the provided details and return the session ID."
+      "user": "User123 is creating a new session for a team meeting to discuss project updates and assign tasks.",
+      "ideal": "A new session is created successfully with a unique session ID and relevant details."
     },
     {
       "path": "/sessions/socket",
       "method": "GET",
       "operationId": "getSessionsSocket",
       "summary": "",
-      "user": "User456: I need to connect to the session socket to receive real-time updates about my team's activities.",
-      "ideal": "Establish a WebSocket connection to receive live updates for the current session."
+      "user": "User456 wants to retrieve real-time updates about ongoing sessions to stay informed about team activities.",
+      "ideal": "Real-time updates are received, including session status and participant information."
     },
     {
       "path": "/sessions/{idSession}",
       "method": "PUT",
       "operationId": "updateSessionsByIdSession",
       "summary": "",
-      "user": "User789: I want to update the details of an existing session, including changing the title and adding more participants.",
-      "ideal": "Update the specified session with the new details and confirm the update."
+      "user": "User789 needs to update the session details for the upcoming project review meeting, including the date and time.",
+      "ideal": "The session details are updated successfully, reflecting the new date and time."
     },
     {
       "path": "/sessions/{idSession}/status",
       "method": "PUT",
       "operationId": "updateSessionsStatusByIdSession",
       "summary": "",
-      "user": "User101: I need to change the status of the session to 'completed' after our meeting has ended.",
-      "ideal": "Update the status of the specified session and return the updated status."
+      "user": "User101 is changing the status of a session to 'completed' after the meeting has concluded.",
+      "ideal": "The session status is updated to 'completed', and all participants are notified."
     }
   ]
 }

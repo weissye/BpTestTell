@@ -5,64 +5,64 @@
       "method": "GET",
       "operationId": "findComponentsForProjects",
       "summary": "",
-      "user": "As a project manager, I want to retrieve all components associated with my projects so that I can manage them effectively.",
-      "ideal": "Returns a list of components for the specified projects."
+      "user": "A project manager looking to retrieve all components associated with their projects to ensure proper organization and management.",
+      "ideal": "Retrieve a list of components for specified projects to facilitate better project tracking."
     },
     {
       "path": "/rest/api/3/component",
       "method": "POST",
       "operationId": "createComponent",
       "summary": "",
-      "user": "As a developer, I want to create a new component for my project to organize my work better.",
-      "ideal": "Creates a new component and returns the created component details."
+      "user": "A developer creating a new component for a project to enhance modularity and code reuse.",
+      "ideal": "Create a new component that can be utilized across multiple issues within the project."
     },
     {
       "path": "/rest/api/3/component/{id}",
       "method": "DELETE",
       "operationId": "deleteComponent",
       "summary": "",
-      "user": "As a team lead, I want to delete a component that is no longer needed to keep the project clean.",
-      "ideal": "Deletes the specified component and returns a success message."
+      "user": "An administrator removing an obsolete component from the system to maintain a clean project environment.",
+      "ideal": "Delete a specified component that is no longer needed in the project."
     },
     {
       "path": "/rest/api/3/component/{id}",
       "method": "GET",
       "operationId": "getComponent",
       "summary": "",
-      "user": "As a user, I want to view the details of a specific component to understand its purpose and usage.",
-      "ideal": "Returns the details of the specified component."
+      "user": "A team lead checking the details of a specific component to understand its purpose and usage.",
+      "ideal": "Retrieve detailed information about a specific component to assess its relevance."
     },
     {
       "path": "/rest/api/3/component/{id}",
       "method": "PUT",
       "operationId": "updateComponent",
       "summary": "",
-      "user": "As a project administrator, I want to update the details of a component to reflect changes in the project.",
-      "ideal": "Updates the specified component and returns the updated component details."
+      "user": "A developer updating the details of an existing component to reflect changes in project requirements.",
+      "ideal": "Update the properties of a component to align with the latest project specifications."
     },
     {
       "path": "/rest/api/3/component/{id}/relatedIssueCounts",
       "method": "GET",
       "operationId": "getComponentRelatedIssues",
       "summary": "",
-      "user": "As a product owner, I want to see how many issues are related to a component to prioritize my backlog.",
-      "ideal": "Returns the count of issues related to the specified component."
+      "user": "A project manager analyzing the number of issues related to a specific component to prioritize development efforts.",
+      "ideal": "Retrieve counts of issues associated with a component to better allocate resources."
     },
     {
       "path": "/rest/api/3/project/{projectIdOrKey}/component",
       "method": "GET",
       "operationId": "getProjectComponentsPaginated",
       "summary": "",
-      "user": "As a scrum master, I want to retrieve components for a project in a paginated format to manage large lists.",
-      "ideal": "Returns a paginated list of components for the specified project."
+      "user": "A product owner reviewing components of a project in a paginated format for easier navigation.",
+      "ideal": "Fetch a paginated list of components for a specific project to streamline project management."
     },
     {
       "path": "/rest/api/3/project/{projectIdOrKey}/components",
       "method": "GET",
       "operationId": "getProjectComponents",
       "summary": "",
-      "user": "As a developer, I want to get all components for my project to ensure I am using the correct ones.",
-      "ideal": "Returns a complete list of components for the specified project."
+      "user": "A software architect examining all components of a project to ensure architectural integrity.",
+      "ideal": "Retrieve all components associated with a project to assess the overall structure."
     }
   ]
 }

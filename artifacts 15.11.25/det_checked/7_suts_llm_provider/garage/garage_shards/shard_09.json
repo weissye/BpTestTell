@@ -1,0 +1,12 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/chains/{chainId}"
+    },
+    {
+      "method": "POST",
+      "path": "/reset"
+    }
+  ]
+}

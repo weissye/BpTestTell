@@ -1,0 +1,124 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/project/ABC/version",
+      "method": "GET",
+      "operationId": "getProjectVersionsPaginated",
+      "summary": "",
+      "user": "User A is looking to retrieve all versions associated with project ABC to assess the current development cycle.",
+      "ideal": "Returns a paginated list of versions for project ABC."
+    },
+    {
+      "path": "/rest/api/3/project/ABC/versions",
+      "method": "GET",
+      "operationId": "getProjectVersions",
+      "summary": "",
+      "user": "User B wants to get a complete list of all versions for project ABC to plan the upcoming releases.",
+      "ideal": "Returns a complete list of versions for project ABC."
+    },
+    {
+      "path": "/rest/api/3/version",
+      "method": "POST",
+      "operationId": "createVersion",
+      "summary": "",
+      "user": "User C is creating a new version for project ABC to track the new features being developed.",
+      "ideal": "Creates a new version and returns the details of the created version."
+    },
+    {
+      "path": "/rest/api/3/version/12345",
+      "method": "DELETE",
+      "operationId": "deleteVersion",
+      "summary": "",
+      "user": "User D needs to delete version 12345 as it was created by mistake.",
+      "ideal": "Successfully deletes version 12345 and returns a confirmation message."
+    },
+    {
+      "path": "/rest/api/3/version/12345",
+      "method": "GET",
+      "operationId": "getVersion",
+      "summary": "",
+      "user": "User E is checking the details of version 12345 to understand its scope and features.",
+      "ideal": "Returns the details of version 12345."
+    },
+    {
+      "path": "/rest/api/3/version/12345",
+      "method": "PUT",
+      "operationId": "updateVersion",
+      "summary": "",
+      "user": "User F is updating version 12345 to include additional features and fix bugs.",
+      "ideal": "Successfully updates version 12345 and returns the updated details."
+    },
+    {
+      "path": "/rest/api/3/version/12345/mergeto/67890",
+      "method": "PUT",
+      "operationId": "mergeVersions",
+      "summary": "",
+      "user": "User G is merging version 12345 into version 67890 to consolidate the development efforts.",
+      "ideal": "Successfully merges version 12345 into version 67890 and returns the updated version details."
+    },
+    {
+      "path": "/rest/api/3/version/12345/move",
+      "method": "POST",
+      "operationId": "moveVersion",
+      "summary": "",
+      "user": "User H is moving version 12345 to a different project to better align with the team's workflow.",
+      "ideal": "Successfully moves version 12345 to the specified project and returns the new version details."
+    },
+    {
+      "path": "/rest/api/3/version/12345/relatedIssueCounts",
+      "method": "GET",
+      "operationId": "getVersionRelatedIssues",
+      "summary": "",
+      "user": "User I wants to see how many issues are related to version 12345 to prioritize the backlog.",
+      "ideal": "Returns the count of issues related to version 12345."
+    },
+    {
+      "path": "/rest/api/3/version/12345/relatedwork",
+      "method": "GET",
+      "operationId": "getRelatedWork",
+      "summary": "",
+      "user": "User J is reviewing the related work for version 12345 to ensure all tasks are accounted for.",
+      "ideal": "Returns a list of related work for version 12345."
+    },
+    {
+      "path": "/rest/api/3/version/12345/relatedwork",
+      "method": "POST",
+      "operationId": "createRelatedWork",
+      "summary": "",
+      "user": "User K is adding new related work to version 12345 to track additional tasks.",
+      "ideal": "Successfully creates related work for version 12345 and returns the details."
+    },
+    {
+      "path": "/rest/api/3/version/12345/relatedwork",
+      "method": "PUT",
+      "operationId": "updateRelatedWork",
+      "summary": "",
+      "user": "User L is updating the details of related work for version 12345 to reflect recent changes.",
+      "ideal": "Successfully updates related work for version 12345 and returns the updated details."
+    },
+    {
+      "path": "/rest/api/3/version/12345/removeAndSwap",
+      "method": "POST",
+      "operationId": "deleteAndReplaceVersion",
+      "summary": "",
+      "user": "User M is replacing version 12345 with a new version to streamline the release process.",
+      "ideal": "Successfully deletes version 12345 and replaces it with the new version, returning the new version details."
+    },
+    {
+      "path": "/rest/api/3/version/12345/unresolvedIssueCount",
+      "method": "GET",
+      "operationId": "getVersionUnresolvedIssues",
+      "summary": "",
+      "user": "User N is checking the unresolved issues count for version 12345 to assess readiness for release.",
+      "ideal": "Returns the count of unresolved issues for version 12345."
+    },
+    {
+      "path": "/rest/api/3/version/12345/relatedwork/67890",
+      "method": "DELETE",
+      "operationId": "deleteRelatedWork",
+      "summary": "",
+      "user": "User O is removing related work 67890 from version 12345 as it is no longer relevant.",
+      "ideal": "Successfully deletes related work 67890 from version 12345 and returns a confirmation message."
+    }
+  ]
+}

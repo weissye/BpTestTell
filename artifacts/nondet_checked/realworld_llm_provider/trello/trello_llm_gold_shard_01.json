@@ -5,80 +5,80 @@
       "method": "GET",
       "operationId": "getActionsByIdAction",
       "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve the action details for the action with ID 12345."
+      "user": "user123",
+      "ideal": "Retrieve the action details for action ID 12345."
     },
     {
       "path": "/actions/12345/board",
       "method": "GET",
       "operationId": "getActionsBoardByIdAction",
       "summary": "",
-      "user": "User456",
-      "ideal": "Get the board associated with the action ID 12345."
+      "user": "user456",
+      "ideal": "Get the board associated with action ID 12345."
     },
     {
       "path": "/actions/12345/card",
       "method": "GET",
       "operationId": "getActionsCardByIdAction",
       "summary": "",
-      "user": "User789",
-      "ideal": "Fetch the card related to the action with ID 12345."
+      "user": "user789",
+      "ideal": "Fetch the card linked to action ID 12345."
     },
     {
       "path": "/actions/12345/member",
       "method": "GET",
       "operationId": "getActionsMemberByIdAction",
       "summary": "",
-      "user": "User101",
-      "ideal": "Retrieve the member who performed the action with ID 12345."
-    },
-    {
-      "path": "/actions/12345/memberCreator",
-      "method": "GET",
-      "operationId": "getActionsMemberCreatorByIdAction",
-      "summary": "",
-      "user": "User202",
-      "ideal": "Get the member who created the action with ID 12345."
-    },
-    {
-      "path": "/actions/12345/list",
-      "method": "GET",
-      "operationId": "getActionsListByIdAction",
-      "summary": "",
-      "user": "User303",
-      "ideal": "Fetch the list associated with the action ID 12345."
+      "user": "user101",
+      "ideal": "Retrieve the member associated with action ID 12345."
     },
     {
       "path": "/actions/12345/organization",
       "method": "GET",
       "operationId": "getActionsOrganizationByIdAction",
       "summary": "",
-      "user": "User404",
-      "ideal": "Retrieve the organization linked to the action with ID 12345."
+      "user": "user202",
+      "ideal": "Get the organization related to action ID 12345."
     },
     {
       "path": "/actions/12345/text",
       "method": "PUT",
       "operationId": "updateActionsTextByIdAction",
       "summary": "",
-      "user": "User505",
-      "ideal": "Update the text of the action with ID 12345."
+      "user": "user303",
+      "ideal": "Update the text of action ID 12345."
     },
     {
-      "path": "/actions/12345",
-      "method": "DELETE",
-      "operationId": "deleteActionsByIdAction",
+      "path": "/actions/12345/list",
+      "method": "GET",
+      "operationId": "getActionsListByIdAction",
       "summary": "",
-      "user": "User606",
-      "ideal": "Delete the action with ID 12345."
+      "user": "user404",
+      "ideal": "Retrieve the list associated with action ID 12345."
+    },
+    {
+      "path": "/actions/12345/memberCreator",
+      "method": "GET",
+      "operationId": "getActionsMemberCreatorByIdAction",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Fetch the member who created action ID 12345."
     },
     {
       "path": "/actions/12345/display",
       "method": "GET",
       "operationId": "getActionsDisplayByIdAction",
       "summary": "",
-      "user": "User707",
-      "ideal": "Retrieve the display information for the action with ID 12345."
+      "user": "user606",
+      "ideal": "Get the display information for action ID 12345."
+    },
+    {
+      "path": "/actions/12345/entities",
+      "method": "GET",
+      "operationId": "getActionsEntitiesByIdAction",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Retrieve the entities related to action ID 12345."
     }
   ]
 }

@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/orgs/{org}/actions/oidc/customization/sub",
+      "method": "GET",
+      "operationId": "oidc/get-oidc-custom-sub-template-for-org",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the OIDC custom subject template for the specified organization."
+    },
+    {
+      "path": "/orgs/{org}/actions/oidc/customization/sub",
+      "method": "PUT",
+      "operationId": "oidc/update-oidc-custom-sub-template-for-org",
+      "summary": "",
+      "user": "user456",
+      "ideal": "Update the OIDC custom subject template for the specified organization with new values."
+    }
+  ]
+}

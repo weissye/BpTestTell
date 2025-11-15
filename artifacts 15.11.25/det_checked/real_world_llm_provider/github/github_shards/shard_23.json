@@ -1,0 +1,184 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/apps/{app_slug}"
+    },
+    {
+      "method": "GET",
+      "path": "/enterprises/{enterprise}/teams/{enterprise-team}/memberships"
+    },
+    {
+      "method": "GET",
+      "path": "/gists/{gist_id}/forks"
+    },
+    {
+      "method": "PUT",
+      "path": "/notifications"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/hosted-runners/machine-sizes"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/actions/permissions/self-hosted-runners/repositories"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/actions/runners/{runner_id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/actions/variables/{name}/repositories/{repository_id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/dependabot/alerts"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/insights/api/route-stats/{actor_type}/{actor_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/members/{username}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/organization-roles/{role_id}/teams"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/private-registries/{secret_name}"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/public_members/{username}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/settings/immutable-releases/repositories"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}"
+    },
+    {
+      "method": "GET",
+      "path": "/projects/columns/{column_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/jobs/{job_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/actions/runners/registration-token"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/assignees/{assignee}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/check-runs/{check_run_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/code-scanning/default-setup"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/comments/{comment_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/dependabot/secrets"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}/deployment-branch-policies/{branch_policy_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/git/ref/{ref}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/import"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/events/{event_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/sub_issue"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/notifications"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/rulesets"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/stats/contributors"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/zipball/{ref}"
+    },
+    {
+      "method": "POST",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions"
+    },
+    {
+      "method": "GET",
+      "path": "/user/blocks/{username}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/user/emails"
+    },
+    {
+      "method": "GET",
+      "path": "/user/marketplace_purchases"
+    },
+    {
+      "method": "POST",
+      "path": "/user/repos"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/attestations/{subject_digest}"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/projectsV2/{project_number}"
+    }
+  ]
+}

@@ -1,0 +1,3150 @@
+[
+  {
+    "method": "POST",
+    "path": "/auth/login",
+    "operationId": "login",
+    "required": [
+      "email",
+      "password"
+    ],
+    "optional": [
+      "mode",
+      "otp"
+    ],
+    "properties": {
+      "email": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "password": {
+        "type": "string",
+        "format": "password",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "mode": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "json",
+          "cookie",
+          "session"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "otp": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/auth/refresh",
+    "operationId": "refresh",
+    "required": [],
+    "optional": [
+      "mode",
+      "refresh_token"
+    ],
+    "properties": {
+      "refresh_token": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "mode": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "json",
+          "cookie",
+          "session"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/auth/logout",
+    "operationId": "logout",
+    "required": [],
+    "optional": [
+      "mode",
+      "refresh_token"
+    ],
+    "properties": {
+      "refresh_token": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "mode": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "json",
+          "cookie",
+          "session"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/auth/password/request",
+    "operationId": "passwordRequest",
+    "required": [
+      "email"
+    ],
+    "optional": [],
+    "properties": {
+      "email": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/auth/password/reset",
+    "operationId": "passwordReset",
+    "required": [
+      "password",
+      "token"
+    ],
+    "optional": [],
+    "properties": {
+      "token": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "password": {
+        "type": "string",
+        "format": "password",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/items/{collection}/{id}",
+    "operationId": "updateItem",
+    "required": [],
+    "optional": [],
+    "properties": {}
+  },
+  {
+    "method": "POST",
+    "path": "/presets",
+    "operationId": "createPreset",
+    "required": [
+      "collection"
+    ],
+    "optional": [
+      "filters",
+      "layout",
+      "layout_options",
+      "layout_query",
+      "role",
+      "search",
+      "title"
+    ],
+    "properties": {
+      "collection": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "title": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "role": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "search": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "filters": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "layout": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "layout_query": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "layout_options": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/presets",
+    "operationId": "updatePresets",
+    "required": [],
+    "optional": [
+      "data",
+      "keys"
+    ],
+    "properties": {
+      "keys": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "data": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/presets/{id}",
+    "operationId": "updatePreset",
+    "required": [
+      "collection"
+    ],
+    "optional": [
+      "filters",
+      "role",
+      "search_query",
+      "title",
+      "translation",
+      "view_options",
+      "view_query",
+      "view_type"
+    ],
+    "properties": {
+      "collection": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "title": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "role": {
+        "type": "integer",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "search_query": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "filters": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "view_type": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "view_query": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "view_options": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "translation": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/collections",
+    "operationId": "createCollection",
+    "required": [
+      "collection",
+      "fields"
+    ],
+    "optional": [
+      "archive_app_filter",
+      "archive_field",
+      "archive_value",
+      "display_template",
+      "hidden",
+      "icon",
+      "note",
+      "singleton",
+      "sort_field",
+      "translation",
+      "unarchive_value",
+      "versioning"
+    ],
+    "properties": {
+      "collection": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "fields": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "icon": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "note": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "display_template": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "hidden": {
+        "type": "boolean",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "singleton": {
+        "type": "boolean",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "translation": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "versioning": {
+        "type": "boolean",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "archive_field": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "archive_app_filter": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "archive_value": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "unarchive_value": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "sort_field": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/collections/{id}",
+    "operationId": "updateCollection",
+    "required": [],
+    "optional": [
+      "meta"
+    ],
+    "properties": {
+      "meta": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/comments",
+    "operationId": "createComment",
+    "required": [
+      "collection",
+      "comment",
+      "item"
+    ],
+    "optional": [],
+    "properties": {
+      "collection": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "item": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "comment": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/comments",
+    "operationId": "updateComments",
+    "required": [],
+    "optional": [
+      "data",
+      "keys"
+    ],
+    "properties": {
+      "keys": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "data": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/comments/{id}",
+    "operationId": "updateComment",
+    "required": [
+      "collection"
+    ],
+    "optional": [
+      "comment",
+      "item"
+    ],
+    "properties": {
+      "collection": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "item": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "comment": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/extensions/{name}",
+    "operationId": "updateExtensions",
+    "required": [],
+    "optional": [
+      "meta"
+    ],
+    "properties": {
+      "meta": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/extensions/{bundle}/{name}",
+    "operationId": "updateExtensionBundle",
+    "required": [],
+    "optional": [
+      "meta"
+    ],
+    "properties": {
+      "meta": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/fields/{collection}",
+    "operationId": "createField",
+    "required": [
+      "datatype",
+      "field",
+      "length",
+      "type"
+    ],
+    "optional": [
+      "meta",
+      "schema"
+    ],
+    "properties": {
+      "field": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "type": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "schema": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "meta": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/fields/{collection}/{id}",
+    "operationId": "updateField",
+    "required": [],
+    "optional": [
+      "field",
+      "meta",
+      "schema",
+      "type"
+    ],
+    "properties": {
+      "field": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "type": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "schema": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "meta": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/files",
+    "operationId": "createFile",
+    "required": [],
+    "optional": [
+      "data"
+    ],
+    "properties": {
+      "data": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/files",
+    "operationId": "updateFiles",
+    "required": [],
+    "optional": [
+      "data",
+      "keys"
+    ],
+    "properties": {
+      "data": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "keys": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/files/{id}",
+    "operationId": "updateFile",
+    "required": [],
+    "optional": [
+      "description",
+      "filename_download",
+      "folder",
+      "tags",
+      "title"
+    ],
+    "properties": {
+      "title": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "filename_download": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "description": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "folder": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "tags": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/flows",
+    "operationId": "createFlow",
+    "required": [],
+    "optional": [
+      "accountability",
+      "color",
+      "date_created",
+      "icon",
+      "id",
+      "name",
+      "note",
+      "operation",
+      "options",
+      "status",
+      "trigger",
+      "user_created"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "icon": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "color": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "note": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "status": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "active",
+          "inactive"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "trigger": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "options": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "accountability": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "date_created": {
+        "type": "string",
+        "format": "date-time",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "user_created": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "operation": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/flows",
+    "operationId": "updateFlows",
+    "required": [],
+    "optional": [
+      "data",
+      "keys"
+    ],
+    "properties": {
+      "data": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "keys": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/flows/{id}",
+    "operationId": "updateFlow",
+    "required": [],
+    "optional": [
+      "accountability",
+      "color",
+      "date_created",
+      "icon",
+      "id",
+      "name",
+      "note",
+      "operation",
+      "options",
+      "status",
+      "trigger",
+      "user_created"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "icon": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "color": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "note": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "status": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "active",
+          "inactive"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "trigger": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "options": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "accountability": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "date_created": {
+        "type": "string",
+        "format": "date-time",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "user_created": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "operation": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/folders",
+    "operationId": "createFolder",
+    "required": [
+      "name"
+    ],
+    "optional": [
+      "parent"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "parent": {
+        "type": "integer",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/folders",
+    "operationId": "updateFolders",
+    "required": [],
+    "optional": [
+      "data",
+      "keys"
+    ],
+    "properties": {
+      "data": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "keys": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/folders/{id}",
+    "operationId": "updateFolder",
+    "required": [],
+    "optional": [
+      "name",
+      "parent"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "parent": {
+        "type": "integer",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/operations",
+    "operationId": "createOperation",
+    "required": [],
+    "optional": [
+      "date_created",
+      "id",
+      "key",
+      "name",
+      "operation",
+      "options",
+      "position_x",
+      "position_y",
+      "reject",
+      "resolve",
+      "type",
+      "user_created"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "key": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "type": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "options": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "position_x": {
+        "type": "integer",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "position_y": {
+        "type": "integer",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "date_created": {
+        "type": "string",
+        "format": "date-time",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "user_created": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "resolve": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "reject": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "operation": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/operations",
+    "operationId": "updateOperations",
+    "required": [],
+    "optional": [
+      "data",
+      "keys"
+    ],
+    "properties": {
+      "data": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "keys": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/operations/{id}",
+    "operationId": "updateOperation",
+    "required": [],
+    "optional": [
+      "date_created",
+      "id",
+      "key",
+      "name",
+      "operation",
+      "options",
+      "position_x",
+      "position_y",
+      "reject",
+      "resolve",
+      "type",
+      "user_created"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "key": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "type": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "options": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "position_x": {
+        "type": "integer",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "position_y": {
+        "type": "integer",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "date_created": {
+        "type": "string",
+        "format": "date-time",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "user_created": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "resolve": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "reject": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "operation": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/permissions",
+    "operationId": "createPermission",
+    "required": [],
+    "optional": [
+      "collection",
+      "comment",
+      "create",
+      "delete",
+      "explain",
+      "read",
+      "read_field_blacklist",
+      "role",
+      "status",
+      "status_blacklist",
+      "update",
+      "write_field_blacklist"
+    ],
+    "properties": {
+      "collection": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "comment": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "none",
+          "create",
+          "update",
+          "full"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "create": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "none",
+          "full"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "delete": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "none",
+          "mine",
+          "role",
+          "full"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "explain": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "none",
+          "create",
+          "update",
+          "always"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "read": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "none",
+          "mine",
+          "role",
+          "full"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "role": {
+        "type": "integer",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "read_field_blacklist": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "status": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "status_blacklist": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "update": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "none",
+          "mine",
+          "role",
+          "full"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "write_field_blacklist": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/permissions",
+    "operationId": "updatePermissions",
+    "required": [],
+    "optional": [
+      "data",
+      "keys"
+    ],
+    "properties": {
+      "keys": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "data": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/permissions/{id}",
+    "operationId": "updatePermission",
+    "required": [],
+    "optional": [
+      "collection",
+      "comment",
+      "create",
+      "delete",
+      "explain",
+      "read",
+      "read_field_blacklist",
+      "role",
+      "status",
+      "status_blacklist",
+      "update",
+      "write_field_blacklist"
+    ],
+    "properties": {
+      "collection": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "comment": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "none",
+          "create",
+          "update"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "create": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "none",
+          "full"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "delete": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "none",
+          "mine",
+          "role",
+          "full"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "explain": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "none",
+          "create",
+          "update",
+          "always"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "read": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "none",
+          "mine",
+          "role",
+          "full"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "read_field_blacklist": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "role": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "status": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "status_blacklist": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "update": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "none",
+          "mine",
+          "role",
+          "full"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "write_field_blacklist": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/relations",
+    "operationId": "createRelation",
+    "required": [],
+    "optional": [
+      "collection_many",
+      "collection_one",
+      "field_many",
+      "field_one",
+      "junction_field"
+    ],
+    "properties": {
+      "collection_many": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "collection_one": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "field_many": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "field_one": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "junction_field": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/relations/{id}",
+    "operationId": "updateRelation",
+    "required": [],
+    "optional": [
+      "collection_many",
+      "collection_one",
+      "field_many",
+      "field_one",
+      "junction_field"
+    ],
+    "properties": {
+      "collection_many": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "collection_one": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "field_many": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "field_one": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "junction_field": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/roles",
+    "operationId": "createRole",
+    "required": [],
+    "optional": [
+      "description",
+      "enforce_tfa",
+      "external_id",
+      "ip_access",
+      "module_listing",
+      "name"
+    ],
+    "properties": {
+      "description": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "enforce_tfa": {
+        "type": "boolean",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "external_id": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "ip_access": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "module_listing": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/roles",
+    "operationId": "updateRoles",
+    "required": [],
+    "optional": [
+      "data",
+      "keys"
+    ],
+    "properties": {
+      "keys": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "data": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/roles/{id}",
+    "operationId": "updateRole",
+    "required": [],
+    "optional": [
+      "description",
+      "enforce_tfa",
+      "external_id",
+      "ip_access",
+      "module_listing",
+      "name"
+    ],
+    "properties": {
+      "description": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "enforce_tfa": {
+        "type": "boolean",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "external_id": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "ip_access": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "module_listing": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/schema/apply",
+    "operationId": "schemaApply",
+    "required": [],
+    "optional": [
+      "data"
+    ],
+    "properties": {
+      "data": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/schema/diff",
+    "operationId": "schemaDiff",
+    "required": [],
+    "optional": [
+      "data"
+    ],
+    "properties": {
+      "data": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/settings",
+    "operationId": "updateSetting",
+    "required": [],
+    "optional": [],
+    "properties": {}
+  },
+  {
+    "method": "POST",
+    "path": "/users",
+    "operationId": "createUser",
+    "required": [],
+    "optional": [
+      "avatar",
+      "description",
+      "email",
+      "first_name",
+      "id",
+      "language",
+      "last_access",
+      "last_name",
+      "last_page",
+      "location",
+      "password",
+      "role",
+      "status",
+      "tags",
+      "tfa_secret",
+      "theme",
+      "title",
+      "token"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "first_name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "last_name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "email": {
+        "type": "string",
+        "format": "email",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "password": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "location": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "title": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "description": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "tags": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "avatar": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "language": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "theme": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "light",
+          "dark",
+          "auto"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "tfa_secret": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "status": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "active",
+          "invited",
+          "draft",
+          "suspended",
+          "deleted"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "role": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "token": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "last_access": {
+        "type": "string",
+        "format": "date-time",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "last_page": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/users",
+    "operationId": "updateUsers",
+    "required": [],
+    "optional": [
+      "data",
+      "keys"
+    ],
+    "properties": {
+      "data": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "keys": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/users/{id}",
+    "operationId": "updateUser",
+    "required": [],
+    "optional": [
+      "avatar",
+      "description",
+      "email",
+      "first_name",
+      "id",
+      "language",
+      "last_access",
+      "last_name",
+      "last_page",
+      "location",
+      "password",
+      "role",
+      "status",
+      "tags",
+      "tfa_secret",
+      "theme",
+      "title",
+      "token"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "first_name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "last_name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "email": {
+        "type": "string",
+        "format": "email",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "password": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "location": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "title": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "description": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "tags": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "avatar": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "language": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "theme": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "light",
+          "dark",
+          "auto"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "tfa_secret": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "status": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "active",
+          "invited",
+          "draft",
+          "suspended",
+          "deleted"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "role": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "token": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "last_access": {
+        "type": "string",
+        "format": "date-time",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "last_page": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/users/invite",
+    "operationId": "invite",
+    "required": [],
+    "optional": [
+      "email"
+    ],
+    "properties": {
+      "email": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/users/invite/accept",
+    "operationId": "acceptInvite",
+    "required": [],
+    "optional": [
+      "password",
+      "token"
+    ],
+    "properties": {
+      "token": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "password": {
+        "type": "string",
+        "format": "password",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/users/me/track/page",
+    "operationId": "updateLastUsedPageMe",
+    "required": [],
+    "optional": [
+      "last_page"
+    ],
+    "properties": {
+      "last_page": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/utils/hash/generate",
+    "operationId": "hash-generate",
+    "required": [
+      "string"
+    ],
+    "optional": [],
+    "properties": {
+      "string": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/utils/hash/verify",
+    "operationId": "hash-verify",
+    "required": [
+      "hash",
+      "string"
+    ],
+    "optional": [],
+    "properties": {
+      "string": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "hash": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/utils/sort/{collection}",
+    "operationId": "sort",
+    "required": [],
+    "optional": [
+      "item",
+      "to"
+    ],
+    "properties": {
+      "item": {
+        "type": "number",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "to": {
+        "type": "number",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/utils/import/{collection}",
+    "operationId": "import",
+    "required": [],
+    "optional": [
+      "file"
+    ],
+    "properties": {
+      "file": {
+        "type": "string",
+        "format": "binary",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/utils/export/{collection}",
+    "operationId": "export",
+    "required": [
+      "file",
+      "format",
+      "query"
+    ],
+    "optional": [],
+    "properties": {
+      "format": {
+        "type": "string",
+        "format": null,
+        "enum": [
+          "csv",
+          "xml",
+          "json"
+        ],
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "query": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "file": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/versions",
+    "operationId": "createContentVersion",
+    "required": [],
+    "optional": [
+      "collection",
+      "date_created",
+      "date_updated",
+      "delta",
+      "id",
+      "item",
+      "key",
+      "name",
+      "user_created",
+      "user_updated"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "key": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "collection": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "item": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "date_created": {
+        "type": "string",
+        "format": "date-time",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "date_updated": {
+        "type": "string",
+        "format": "date-time",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "user_created": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "user_updated": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "delta": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/versions",
+    "operationId": "updateContentVersions",
+    "required": [],
+    "optional": [
+      "data",
+      "keys"
+    ],
+    "properties": {
+      "data": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "keys": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/versions/{id}",
+    "operationId": "updateContentVersion",
+    "required": [],
+    "optional": [
+      "collection",
+      "date_created",
+      "date_updated",
+      "delta",
+      "id",
+      "item",
+      "key",
+      "name",
+      "user_created",
+      "user_updated"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "key": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "collection": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "item": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "date_created": {
+        "type": "string",
+        "format": "date-time",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "date_updated": {
+        "type": "string",
+        "format": "date-time",
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "user_created": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "user_updated": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "delta": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/versions/{id}/save",
+    "operationId": "saveContentVersion",
+    "required": [],
+    "optional": [],
+    "properties": {}
+  },
+  {
+    "method": "POST",
+    "path": "/versions/{id}/promote",
+    "operationId": "promoteContentVersion",
+    "required": [],
+    "optional": [
+      "fields",
+      "mainHash"
+    ],
+    "properties": {
+      "mainHash": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "fields": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/webhooks",
+    "operationId": "createWebhook",
+    "required": [],
+    "optional": [
+      "actions",
+      "data",
+      "method",
+      "name",
+      "status",
+      "system-collections",
+      "url"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "method": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "url": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "status": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "data": {
+        "type": "boolean",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "actions": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "system-collections": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/webhooks",
+    "operationId": "updateWebhooks",
+    "required": [],
+    "optional": [
+      "data",
+      "keys"
+    ],
+    "properties": {
+      "data": {
+        "type": "object",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "keys": {
+        "type": "array",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  },
+  {
+    "method": "PATCH",
+    "path": "/webhooks/{id}",
+    "operationId": "updateWebhook",
+    "required": [],
+    "optional": [
+      "actions",
+      "data",
+      "method",
+      "name",
+      "status",
+      "system-collections",
+      "url"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "method": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "url": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "status": {
+        "type": "string",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "data": {
+        "type": "boolean",
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "actions": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      },
+      "system-collections": {
+        "type": null,
+        "format": null,
+        "enum": null,
+        "minimum": null,
+        "maximum": null,
+        "pattern": null
+      }
+    }
+  }
+]

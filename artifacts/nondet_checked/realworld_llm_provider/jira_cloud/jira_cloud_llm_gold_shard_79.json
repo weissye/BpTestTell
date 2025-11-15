@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "ServiceRegistryResource.services_get",
       "summary": "",
-      "user": "A project manager looking to integrate various services with Jira to enhance project tracking and collaboration.",
-      "ideal": "Retrieve a list of registered services in the Jira Cloud platform to ensure all necessary integrations are available for the team's workflow."
+      "user": "A project manager looking to integrate various services with Jira Cloud wants to retrieve the list of registered services in the service registry. This will help them understand which services are currently available for integration and how they can enhance their project management workflows.",
+      "ideal": "The response should include a list of services with their names, statuses, and any relevant metadata that indicates their availability and functionality."
     }
   ]
 }

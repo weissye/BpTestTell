@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "FetchConference",
       "summary": "",
-      "user": "User wants to retrieve details about a specific conference using its Sid.",
-      "ideal": "Returns the details of the conference including its status, participants, and other relevant information."
+      "user": "User wants to retrieve details about a specific conference using its SID.",
+      "ideal": "The response should include the conference's status, participants, and other relevant details."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateConference",
       "summary": "",
-      "user": "User needs to update the status of a conference, such as ending it or changing its settings.",
-      "ideal": "Successfully updates the conference with the new settings and returns the updated conference details."
+      "user": "User needs to update the conference settings, such as adding a participant or changing the status.",
+      "ideal": "The response should confirm the update and return the updated conference details."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Conferences.json",
@@ -22,7 +22,7 @@
       "operationId": "ListConference",
       "summary": "",
       "user": "User wants to list all conferences associated with their account to manage them effectively.",
-      "ideal": "Returns a list of all conferences with their basic details such as Sid, status, and start time."
+      "ideal": "The response should provide a list of conferences with their respective details like SID, status, and start time."
     }
   ]
 }

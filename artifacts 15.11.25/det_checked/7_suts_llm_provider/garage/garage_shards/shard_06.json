@@ -1,0 +1,12 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/chains"
+    },
+    {
+      "method": "PUT",
+      "path": "/repair-orders/{roId}"
+    }
+  ]
+}

@@ -6,7 +6,7 @@
       "operationId": "validateProjectKey",
       "summary": "",
       "user": "user123",
-      "ideal": "Validates the provided project key against existing keys in Jira."
+      "ideal": "Validates the provided project key against existing keys in the Jira instance."
     },
     {
       "path": "/rest/api/3/projectvalidate/validProjectKey",
@@ -14,7 +14,7 @@
       "operationId": "getValidProjectKey",
       "summary": "",
       "user": "user456",
-      "ideal": "Retrieves a valid project key based on the provided input."
+      "ideal": "Retrieves a valid project key based on the input provided, ensuring it meets the naming conventions."
     },
     {
       "path": "/rest/api/3/projectvalidate/validProjectName",
@@ -22,7 +22,7 @@
       "operationId": "getValidProjectName",
       "summary": "",
       "user": "user789",
-      "ideal": "Checks if the provided project name is valid and not already in use."
+      "ideal": "Checks if the provided project name is valid and not already in use by another project."
     }
   ]
 }

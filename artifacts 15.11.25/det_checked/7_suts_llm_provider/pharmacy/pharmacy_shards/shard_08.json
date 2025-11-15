@@ -1,0 +1,8 @@
+{
+  "ops": [
+    {
+      "method": "DELETE",
+      "path": "/inventory/{ndc}"
+    }
+  ]
+}

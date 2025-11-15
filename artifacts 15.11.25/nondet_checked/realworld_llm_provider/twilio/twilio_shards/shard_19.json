@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401ConferenceRecording"
+      ],
+      "summary": "Retrieve a list of recordings belonging to the call used to make the request",
+      "operationId": "ListConferenceRecording"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401ConferenceRecording"
+      ],
+      "summary": "Changes the status of the recording to paused, stopped, or in-progress. Note: To use `Twilio.CURRENT`, pass it as recording sid.",
+      "operationId": "UpdateConferenceRecording"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401ConferenceRecording"
+      ],
+      "summary": "Fetch an instance of a recording for a call",
+      "operationId": "FetchConferenceRecording"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401ConferenceRecording"
+      ],
+      "summary": "Delete a recording from your account",
+      "operationId": "DeleteConferenceRecording"
+    }
+  ]
+}

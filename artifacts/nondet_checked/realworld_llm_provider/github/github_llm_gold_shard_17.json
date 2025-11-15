@@ -6,7 +6,7 @@
       "operationId": "enterprise-team-memberships/list",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve a list of all team memberships for the specified team in the enterprise."
+      "ideal": "Retrieve a list of all team memberships for the specified enterprise team."
     },
     {
       "path": "/enterprises/my-enterprise/teams/my-team/memberships/add",
@@ -14,7 +14,7 @@
       "operationId": "enterprise-team-memberships/bulk-add",
       "summary": "",
       "user": "user456",
-      "ideal": "Add multiple users to the specified team in the enterprise."
+      "ideal": "Add multiple users to the specified enterprise team in a single request."
     },
     {
       "path": "/enterprises/my-enterprise/teams/my-team/memberships/remove",
@@ -22,7 +22,7 @@
       "operationId": "enterprise-team-memberships/bulk-remove",
       "summary": "",
       "user": "user789",
-      "ideal": "Remove multiple users from the specified team in the enterprise."
+      "ideal": "Remove multiple users from the specified enterprise team in a single request."
     },
     {
       "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
@@ -30,7 +30,7 @@
       "operationId": "enterprise-team-memberships/get",
       "summary": "",
       "user": "user101",
-      "ideal": "Get the membership details for a specific user in the specified team."
+      "ideal": "Retrieve the membership details for the user 'johndoe' in the specified enterprise team."
     },
     {
       "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
@@ -38,7 +38,7 @@
       "operationId": "enterprise-team-memberships/add",
       "summary": "",
       "user": "user202",
-      "ideal": "Add a specific user to the specified team in the enterprise."
+      "ideal": "Add the user 'johndoe' to the specified enterprise team."
     },
     {
       "path": "/enterprises/my-enterprise/teams/my-team/memberships/johndoe",
@@ -46,7 +46,7 @@
       "operationId": "enterprise-team-memberships/remove",
       "summary": "",
       "user": "user303",
-      "ideal": "Remove a specific user from the specified team in the enterprise."
+      "ideal": "Remove the user 'johndoe' from the specified enterprise team."
     }
   ]
 }

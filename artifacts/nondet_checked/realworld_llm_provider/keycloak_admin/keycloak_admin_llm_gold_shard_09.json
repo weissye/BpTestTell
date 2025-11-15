@@ -22,7 +22,7 @@
       "operationId": "getComponent",
       "summary": "",
       "user": "admin",
-      "ideal": "Fetch the details of the component with ID 12345 in the specified realm."
+      "ideal": "Fetch details of the component with ID 12345 in the specified realm."
     },
     {
       "path": "/myrealm/components/12345",
@@ -30,7 +30,7 @@
       "operationId": "putComponent",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the component with ID 12345 in the specified realm with new configuration."
+      "ideal": "Update the configuration of the component with ID 12345 in the specified realm."
     },
     {
       "path": "/myrealm/components/12345",
@@ -38,7 +38,7 @@
       "operationId": "deleteComponent",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete the component with ID 12345 from the specified realm."
+      "ideal": "Remove the component with ID 12345 from the specified realm."
     },
     {
       "path": "/myrealm/components/12345/sub-component-types",

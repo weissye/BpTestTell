@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/instance/license",
+      "method": "GET",
+      "operationId": "getLicense",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve the current license information for the Jira instance."
+    },
+    {
+      "path": "/rest/api/3/license/approximateLicenseCount",
+      "method": "GET",
+      "operationId": "getApproximateLicenseCount",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Get the approximate number of licenses used in the Jira instance."
+    },
+    {
+      "path": "/rest/api/3/license/approximateLicenseCount/product/{applicationKey}",
+      "method": "GET",
+      "operationId": "getApproximateApplicationLicenseCount",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Fetch the approximate license count for a specific application identified by its application key."
+    }
+  ]
+}

@@ -5,80 +5,96 @@
       "method": "GET",
       "operationId": "tenancy_contact_assignments_list",
       "summary": "",
-      "user": "Admin user requesting a list of all contact assignments.",
-      "ideal": "Returns a list of contact assignments with their details."
+      "user": "Admin user requesting a list of all contact assignments to manage tenant relationships.",
+      "ideal": "A JSON array of contact assignment objects, each containing id, contact_id, and tenant_id."
     },
     {
       "path": "/api/tenancy/contact-assignments/",
       "method": "POST",
       "operationId": "tenancy_contact_assignments_create",
       "summary": "",
-      "user": "User creating a new contact assignment for a tenant.",
-      "ideal": "Creates a new contact assignment and returns the created object."
+      "user": "Tenant manager creating a new contact assignment for a specific tenant.",
+      "ideal": "A JSON object representing the newly created contact assignment with id, contact_id, and tenant_id."
     },
     {
-      "path": "/api/tenancy/contact-assignments/1/",
+      "path": "/api/tenancy/contact-assignments/{id}/",
       "method": "PUT",
       "operationId": "tenancy_contact_assignments_update",
       "summary": "",
-      "user": "User updating an existing contact assignment with new details.",
-      "ideal": "Updates the specified contact assignment and returns the updated object."
+      "user": "Admin updating an existing contact assignment to reflect changes in tenant relationships.",
+      "ideal": "A JSON object representing the updated contact assignment with the same id and modified fields."
+    },
+    {
+      "path": "/api/tenancy/contact-assignments/{id}/",
+      "method": "DELETE",
+      "operationId": "tenancy_contact_assignments_destroy",
+      "summary": "",
+      "user": "Admin removing a contact assignment that is no longer needed.",
+      "ideal": "A success message confirming the deletion of the contact assignment."
     },
     {
       "path": "/api/tenancy/contact-groups/",
       "method": "GET",
       "operationId": "tenancy_contact_groups_list",
       "summary": "",
-      "user": "Admin user fetching all contact groups.",
-      "ideal": "Returns a list of all contact groups."
+      "user": "User retrieving a list of contact groups for better organization of tenant contacts.",
+      "ideal": "A JSON array of contact group objects, each containing id and name."
     },
     {
-      "path": "/api/tenancy/contact-groups/1/",
-      "method": "DELETE",
-      "operationId": "tenancy_contact_groups_destroy",
+      "path": "/api/tenancy/contact-groups/",
+      "method": "POST",
+      "operationId": "tenancy_contact_groups_create",
       "summary": "",
-      "user": "User deleting a specific contact group.",
-      "ideal": "Deletes the specified contact group and returns a success message."
+      "user": "User creating a new contact group to categorize tenant contacts.",
+      "ideal": "A JSON object representing the newly created contact group with id and name."
+    },
+    {
+      "path": "/api/tenancy/contact-groups/{id}/",
+      "method": "PATCH",
+      "operationId": "tenancy_contact_groups_partial_update",
+      "summary": "",
+      "user": "User updating the name of an existing contact group.",
+      "ideal": "A JSON object representing the updated contact group with the same id and modified name."
+    },
+    {
+      "path": "/api/tenancy/contact-roles/",
+      "method": "GET",
+      "operationId": "tenancy_contact_roles_list",
+      "summary": "",
+      "user": "User fetching a list of contact roles to assign to tenant contacts.",
+      "ideal": "A JSON array of contact role objects, each containing id and name."
     },
     {
       "path": "/api/tenancy/contacts/",
       "method": "POST",
       "operationId": "tenancy_contacts_create",
       "summary": "",
-      "user": "User adding a new contact to the system.",
-      "ideal": "Creates a new contact and returns the created contact object."
-    },
-    {
-      "path": "/api/tenancy/contacts/1/",
-      "method": "PATCH",
-      "operationId": "tenancy_contacts_partial_update",
-      "summary": "",
-      "user": "User updating specific fields of an existing contact.",
-      "ideal": "Partially updates the specified contact and returns the updated object."
+      "user": "User adding a new contact for a tenant to manage communication.",
+      "ideal": "A JSON object representing the newly created contact with id, name, and email."
     },
     {
       "path": "/api/tenancy/tenants/",
       "method": "GET",
       "operationId": "tenancy_tenants_list",
       "summary": "",
-      "user": "Admin user retrieving a list of all tenants.",
-      "ideal": "Returns a list of all tenants with their details."
+      "user": "Admin retrieving a list of all tenants for management purposes.",
+      "ideal": "A JSON array of tenant objects, each containing id, name, and status."
     },
     {
-      "path": "/api/tenancy/tenants/1/",
+      "path": "/api/tenancy/tenants/{id}/",
       "method": "PUT",
       "operationId": "tenancy_tenants_update",
       "summary": "",
-      "user": "User updating tenant information.",
-      "ideal": "Updates the specified tenant and returns the updated tenant object."
+      "user": "Admin updating tenant information to reflect changes in status or contact details.",
+      "ideal": "A JSON object representing the updated tenant with the same id and modified fields."
     },
     {
-      "path": "/api/tenancy/contact-roles/",
-      "method": "POST",
-      "operationId": "tenancy_contact_roles_create",
+      "path": "/api/tenancy/tenants/{id}/",
+      "method": "DELETE",
+      "operationId": "tenancy_tenants_destroy",
       "summary": "",
-      "user": "User creating a new contact role.",
-      "ideal": "Creates a new contact role and returns the created role object."
+      "user": "Admin deleting a tenant that is no longer active.",
+      "ideal": "A success message confirming the deletion of the tenant."
     }
   ]
 }

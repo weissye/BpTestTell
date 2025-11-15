@@ -13,15 +13,15 @@
       "method": "PATCH",
       "operationId": "experimental.update",
       "summary": "",
-      "user": "admin",
-      "ideal": "Update the experimental features settings to enable or disable specific features."
+      "user": "developer",
+      "ideal": "Update the configuration of experimental features in the Meilisearch instance."
     },
     {
       "path": "/metrics",
       "method": "GET",
       "operationId": "metrics.get",
       "summary": "",
-      "user": "monitoring-service",
+      "user": "monitoring",
       "ideal": "Fetch the current metrics of the Meilisearch instance for performance monitoring."
     }
   ]

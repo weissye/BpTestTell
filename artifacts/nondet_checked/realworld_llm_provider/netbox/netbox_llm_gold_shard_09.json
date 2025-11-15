@@ -14,7 +14,7 @@
       "operationId": "users_groups_list",
       "summary": "",
       "user": "admin",
-      "ideal": "List all user groups in the system."
+      "ideal": "List all user groups available in the system."
     },
     {
       "path": "/api/users/groups/",
@@ -38,7 +38,7 @@
       "operationId": "users_groups_update",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the details of a specific user group."
+      "ideal": "Update the attributes of a specific user group."
     },
     {
       "path": "/api/users/groups/{id}/",
@@ -54,7 +54,7 @@
       "operationId": "users_permissions_list",
       "summary": "",
       "user": "admin",
-      "ideal": "List all permissions available in the system."
+      "ideal": "List all user permissions available in the system."
     },
     {
       "path": "/api/users/permissions/{id}/",
@@ -62,7 +62,7 @@
       "operationId": "users_permissions_retrieve",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve details of a specific permission by ID."
+      "ideal": "Retrieve details of a specific user permission by ID."
     },
     {
       "path": "/api/users/tokens/",
@@ -70,7 +70,7 @@
       "operationId": "users_tokens_list",
       "summary": "",
       "user": "admin",
-      "ideal": "List all user tokens in the system."
+      "ideal": "List all user tokens available in the system."
     },
     {
       "path": "/api/users/tokens/{id}/",
@@ -110,7 +110,7 @@
       "operationId": "users_users_update",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the details of a specific user."
+      "ideal": "Update the attributes of a specific user."
     },
     {
       "path": "/api/users/users/{id}/",

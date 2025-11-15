@@ -1,12 +1,12 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/AvailablePhoneNumbers/US/TollFree.json",
       "method": "GET",
       "operationId": "ListAvailablePhoneNumberTollFree",
       "summary": "",
-      "user": "user_12345",
-      "ideal": "Retrieve a list of available toll-free phone numbers in the specified country."
+      "user": "User wants to find available toll-free phone numbers in the US for their business.",
+      "ideal": "Returns a list of available toll-free phone numbers in the specified country."
     }
   ]
 }

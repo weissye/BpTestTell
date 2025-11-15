@@ -1,0 +1,198 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/client-scopes/{id1}/protocol-mappers/models/{id2}",
+      "method": "GET",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeProtocolMappersModel"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id1}/protocol-mappers/models/{id2}",
+      "method": "PUT",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "putClientScopeProtocolMappersModel"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id1}/protocol-mappers/models/{id2}",
+      "method": "DELETE",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "deleteClientScopeProtocolMappersModel"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/protocol-mappers/add-models",
+      "method": "POST",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "postClientScopeProtocolMappersAddModels"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/protocol-mappers/models",
+      "method": "GET",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeProtocolMappersModels"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/protocol-mappers/models",
+      "method": "POST",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "postClientScopeProtocolMappersModels"
+    },
+    {
+      "path": "/{realm}/client-scopes/{id}/protocol-mappers/protocol/{protocol}",
+      "method": "GET",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "getClientScopeProtocolMappersProtocol"
+    },
+    {
+      "path": "/{realm}/client-templates/{id1}/protocol-mappers/models/{id2}",
+      "method": "GET",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplateProtocolMappersModel"
+    },
+    {
+      "path": "/{realm}/client-templates/{id1}/protocol-mappers/models/{id2}",
+      "method": "PUT",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "putClientTemplateProtocolMappersModel"
+    },
+    {
+      "path": "/{realm}/client-templates/{id1}/protocol-mappers/models/{id2}",
+      "method": "DELETE",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "deleteClientTemplateProtocolMappersModel"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/protocol-mappers/add-models",
+      "method": "POST",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "postClientTemplateProtocolMappersAddModels"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/protocol-mappers/models",
+      "method": "GET",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplateProtocolMappersModels"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/protocol-mappers/models",
+      "method": "POST",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "postClientTemplateProtocolMappersModels"
+    },
+    {
+      "path": "/{realm}/client-templates/{id}/protocol-mappers/protocol/{protocol}",
+      "method": "GET",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "getClientTemplateProtocolMappersProtocol"
+    },
+    {
+      "path": "/{realm}/clients/{id1}/protocol-mappers/models/{id2}",
+      "method": "GET",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "getClientProtocolMappersModel"
+    },
+    {
+      "path": "/{realm}/clients/{id1}/protocol-mappers/models/{id2}",
+      "method": "PUT",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "putClientProtocolMappersModel"
+    },
+    {
+      "path": "/{realm}/clients/{id1}/protocol-mappers/models/{id2}",
+      "method": "DELETE",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "deleteClientProtocolMappersModel"
+    },
+    {
+      "path": "/{realm}/clients/{id}/protocol-mappers/add-models",
+      "method": "POST",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "postClientProtocolMappersAddModels"
+    },
+    {
+      "path": "/{realm}/clients/{id}/protocol-mappers/models",
+      "method": "GET",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "getClientProtocolMappersModels"
+    },
+    {
+      "path": "/{realm}/clients/{id}/protocol-mappers/models",
+      "method": "POST",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "postClientProtocolMappersModels"
+    },
+    {
+      "path": "/{realm}/clients/{id}/protocol-mappers/protocol/{protocol}",
+      "method": "GET",
+      "tags": [
+        "Protocol Mappers"
+      ],
+      "summary": "",
+      "operationId": "getClientProtocolMappersProtocol"
+    }
+  ]
+}

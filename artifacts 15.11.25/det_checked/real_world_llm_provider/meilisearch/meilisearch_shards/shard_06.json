@@ -1,0 +1,16 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/indexes"
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/distinct-attribute"
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/synonyms"
+    }
+  ]
+}

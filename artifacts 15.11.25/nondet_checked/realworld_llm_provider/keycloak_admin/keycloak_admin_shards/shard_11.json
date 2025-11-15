@@ -1,0 +1,153 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/identity-provider/import-config",
+      "method": "POST",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "postImportConfig"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances",
+      "method": "GET",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "getInstances"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances",
+      "method": "POST",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "postInstances"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}",
+      "method": "GET",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "getInstance"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}",
+      "method": "PUT",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "putInstance"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}",
+      "method": "DELETE",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "deleteInstance"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/export",
+      "method": "GET",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "getExport"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/management/permissions",
+      "method": "GET",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "getInstanceManagementPermissions"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/management/permissions",
+      "method": "PUT",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "putInstanceManagementPermissions"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/mapper-types",
+      "method": "GET",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "getMapperTypes"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/mappers",
+      "method": "GET",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "getMappers"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/mappers",
+      "method": "POST",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "postMappers"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}",
+      "method": "GET",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "getMapper"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}",
+      "method": "PUT",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "putMapper"
+    },
+    {
+      "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "deleteMapper"
+    },
+    {
+      "path": "/{realm}/identity-provider/providers/{provider_id}",
+      "method": "GET",
+      "tags": [
+        "Identity Providers"
+      ],
+      "summary": "",
+      "operationId": "getIdentityProviderProvider"
+    }
+  ]
+}

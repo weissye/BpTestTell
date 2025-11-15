@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "Gitea API",
+    "version": "{{AppVer | JSEscape}}"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/notifications",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "List users's notification threads",
+      "operationId": "notifyGetList"
+    },
+    {
+      "path": "/notifications",
+      "method": "PUT",
+      "tags": [
+        "notification"
+      ],
+      "summary": "Mark notification threads as read, pinned or unread",
+      "operationId": "notifyReadList"
+    },
+    {
+      "path": "/notifications/new",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "Check if unread notifications exist",
+      "operationId": "notifyNewAvailable"
+    },
+    {
+      "path": "/notifications/threads/{id}",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "Get notification thread by ID",
+      "operationId": "notifyGetThread"
+    },
+    {
+      "path": "/notifications/threads/{id}",
+      "method": "PATCH",
+      "tags": [
+        "notification"
+      ],
+      "summary": "Mark notification thread as read by ID",
+      "operationId": "notifyReadThread"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/notifications",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "List users's notification threads on a specific repo",
+      "operationId": "notifyGetRepoList"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/notifications",
+      "method": "PUT",
+      "tags": [
+        "notification"
+      ],
+      "summary": "Mark notification threads as read, pinned or unread on a specific repo",
+      "operationId": "notifyReadRepoList"
+    }
+  ]
+}

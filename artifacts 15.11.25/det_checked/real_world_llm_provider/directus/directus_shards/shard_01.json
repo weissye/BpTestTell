@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/activity"
+    },
+    {
+      "method": "PATCH",
+      "path": "/extensions/{name}"
+    },
+    {
+      "method": "POST",
+      "path": "/folders"
+    },
+    {
+      "method": "GET",
+      "path": "/permissions/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/schema/diff"
+    },
+    {
+      "method": "POST",
+      "path": "/utils/import/{collection}"
+    }
+  ]
+}

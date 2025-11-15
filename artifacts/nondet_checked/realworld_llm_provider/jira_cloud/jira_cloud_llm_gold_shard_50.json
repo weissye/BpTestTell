@@ -5,24 +5,24 @@
       "method": "POST",
       "operationId": "analyseExpression",
       "summary": "",
-      "user": "A project manager wants to analyze a JIRA expression to ensure it meets the project requirements before implementation.",
-      "ideal": "The response should provide a detailed analysis of the expression, including any potential issues or suggestions for improvement."
+      "user": "{\"expression\": \"issue.status == 'Done'\", \"context\": {\"issue\": {\"status\": \"Done\"}}}",
+      "ideal": "{\"valid\": true, \"errors\": []}"
     },
     {
       "path": "/rest/api/3/expression/eval",
       "method": "POST",
       "operationId": "evaluateJiraExpression",
       "summary": "",
-      "user": "A developer needs to evaluate a JIRA expression to check if it returns the expected results for a specific issue type.",
-      "ideal": "The response should return the evaluated result of the expression, along with any relevant context or error messages if the evaluation fails."
+      "user": "{\"expression\": \"issue.priority == 'High'\", \"context\": {\"issue\": {\"priority\": \"High\"}}}",
+      "ideal": "{\"result\": true}"
     },
     {
       "path": "/rest/api/3/expression/evaluate",
       "method": "POST",
       "operationId": "evaluateJSISJiraExpression",
       "summary": "",
-      "user": "An automation engineer is testing a JSIS JIRA expression to automate ticket transitions based on certain conditions.",
-      "ideal": "The response should indicate whether the expression evaluated successfully and provide the output or any errors encountered during evaluation."
+      "user": "{\"expression\": \"issue.assignee != null\", \"context\": {\"issue\": {\"assignee\": {\"name\": \"john.doe\"}}}}",
+      "ideal": "{\"result\": true}"
     }
   ]
 }

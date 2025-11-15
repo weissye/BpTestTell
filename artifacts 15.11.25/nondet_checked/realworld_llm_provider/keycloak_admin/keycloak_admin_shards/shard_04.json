@@ -1,0 +1,36 @@
+{
+  "openapi_meta": {
+    "title": "Keycloak Admin REST API",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/{realm}/clients-initial-access",
+      "method": "GET",
+      "tags": [
+        "Client Initial Access"
+      ],
+      "summary": "",
+      "operationId": "getClientsInitialAccess"
+    },
+    {
+      "path": "/{realm}/clients-initial-access",
+      "method": "POST",
+      "tags": [
+        "Client Initial Access"
+      ],
+      "summary": "",
+      "operationId": "postClientsInitialAccess"
+    },
+    {
+      "path": "/{realm}/clients-initial-access/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Client Initial Access"
+      ],
+      "summary": "",
+      "operationId": "deleteClientsInitialAcces"
+    }
+  ]
+}

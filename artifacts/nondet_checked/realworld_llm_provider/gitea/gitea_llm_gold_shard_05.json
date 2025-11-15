@@ -6,7 +6,7 @@
       "operationId": "notifyGetList",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve a list of notifications for the authenticated user."
+      "ideal": "Retrieve a list of all notifications for the authenticated user."
     },
     {
       "path": "/notifications",

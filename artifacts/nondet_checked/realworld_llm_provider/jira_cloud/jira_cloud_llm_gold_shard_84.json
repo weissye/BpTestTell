@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "getUiModifications",
       "summary": "",
-      "user": "As a project manager, I want to retrieve the current UI modifications applied to my Jira project so that I can review the changes made to the user interface.",
-      "ideal": "The API should return a list of all UI modifications, including their IDs, types, and statuses."
+      "user": "admin_user",
+      "ideal": "Retrieve the current UI modifications applied to the Jira instance."
     },
     {
       "path": "/rest/api/3/uiModifications",
       "method": "POST",
       "operationId": "createUiModification",
       "summary": "",
-      "user": "As a developer, I want to create a new UI modification for my project to enhance user experience by adding a custom button to the issue view.",
-      "ideal": "The API should accept the modification details and return the created modification's ID and confirmation of success."
+      "user": "project_manager",
+      "ideal": "Create a new UI modification to enhance user experience in the project dashboard."
     },
     {
       "path": "/rest/api/3/uiModifications/{uiModificationId}",
       "method": "DELETE",
       "operationId": "deleteUiModification",
       "summary": "",
-      "user": "As an admin, I want to delete a specific UI modification that is no longer needed to keep the interface clean and user-friendly.",
-      "ideal": "The API should confirm the deletion of the specified UI modification and return a success message."
+      "user": "admin_user",
+      "ideal": "Remove a specific UI modification that is no longer needed."
     },
     {
       "path": "/rest/api/3/uiModifications/{uiModificationId}",
       "method": "PUT",
       "operationId": "updateUiModification",
       "summary": "",
-      "user": "As a UI designer, I want to update an existing UI modification to improve its functionality based on user feedback.",
-      "ideal": "The API should accept the updated details and return the modified UI modification's ID along with a success confirmation."
+      "user": "ui_designer",
+      "ideal": "Update an existing UI modification to improve its functionality and appearance."
     }
   ]
 }

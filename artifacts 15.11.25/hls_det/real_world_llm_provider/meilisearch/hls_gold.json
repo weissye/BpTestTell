@@ -1,0 +1,167 @@
+{
+  "sut": "meilisearch",
+  "provider": "real_world_llm_provider",
+  "generated_at": "2025-11-13T21:08:38.042277Z",
+  "stories": [
+    {
+      "name": "CRUD_cancel",
+      "entity": "cancel",
+      "steps": []
+    },
+    {
+      "name": "CRUD_delete",
+      "entity": "delete",
+      "steps": []
+    },
+    {
+      "name": "CRUD_delete_batch",
+      "entity": "delete_batch",
+      "steps": []
+    },
+    {
+      "name": "CRUD_displayed_attribute",
+      "entity": "displayed_attribute",
+      "steps": []
+    },
+    {
+      "name": "CRUD_distinct_attribute",
+      "entity": "distinct_attribute",
+      "steps": []
+    },
+    {
+      "name": "CRUD_document",
+      "entity": "document",
+      "steps": []
+    },
+    {
+      "name": "CRUD_dump",
+      "entity": "dump",
+      "steps": []
+    },
+    {
+      "name": "CRUD_experimental_feature",
+      "entity": "experimental_feature",
+      "steps": []
+    },
+    {
+      "name": "CRUD_facet_search",
+      "entity": "facet_search",
+      "steps": []
+    },
+    {
+      "name": "CRUD_faceting",
+      "entity": "faceting",
+      "steps": []
+    },
+    {
+      "name": "CRUD_fetch",
+      "entity": "fetch",
+      "steps": []
+    },
+    {
+      "name": "CRUD_filterable_attribute",
+      "entity": "filterable_attribute",
+      "steps": []
+    },
+    {
+      "name": "CRUD_health",
+      "entity": "health",
+      "steps": []
+    },
+    {
+      "name": "CRUD_indexe",
+      "entity": "indexe",
+      "steps": []
+    },
+    {
+      "name": "CRUD_key",
+      "entity": "key",
+      "steps": []
+    },
+    {
+      "name": "CRUD_metric",
+      "entity": "metric",
+      "steps": []
+    },
+    {
+      "name": "CRUD_multi_search",
+      "entity": "multi_search",
+      "steps": []
+    },
+    {
+      "name": "CRUD_pagination",
+      "entity": "pagination",
+      "steps": []
+    },
+    {
+      "name": "CRUD_ranking_rule",
+      "entity": "ranking_rule",
+      "steps": []
+    },
+    {
+      "name": "CRUD_search",
+      "entity": "search",
+      "steps": []
+    },
+    {
+      "name": "CRUD_searchable_attribute",
+      "entity": "searchable_attribute",
+      "steps": []
+    },
+    {
+      "name": "CRUD_setting",
+      "entity": "setting",
+      "steps": []
+    },
+    {
+      "name": "CRUD_snapshot",
+      "entity": "snapshot",
+      "steps": []
+    },
+    {
+      "name": "CRUD_sortable_attribute",
+      "entity": "sortable_attribute",
+      "steps": []
+    },
+    {
+      "name": "CRUD_stat",
+      "entity": "stat",
+      "steps": []
+    },
+    {
+      "name": "CRUD_stop_word",
+      "entity": "stop_word",
+      "steps": []
+    },
+    {
+      "name": "CRUD_swap_indexe",
+      "entity": "swap_indexe",
+      "steps": []
+    },
+    {
+      "name": "CRUD_synonym",
+      "entity": "synonym",
+      "steps": []
+    },
+    {
+      "name": "CRUD_task",
+      "entity": "task",
+      "steps": []
+    },
+    {
+      "name": "CRUD_taskuid",
+      "entity": "taskuid",
+      "steps": []
+    },
+    {
+      "name": "CRUD_typo_tolerance",
+      "entity": "typo_tolerance",
+      "steps": []
+    },
+    {
+      "name": "CRUD_version",
+      "entity": "version",
+      "steps": []
+    }
+  ]
+}

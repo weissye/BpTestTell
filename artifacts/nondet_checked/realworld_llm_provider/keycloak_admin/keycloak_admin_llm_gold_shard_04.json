@@ -14,7 +14,7 @@
       "operationId": "postClientsInitialAccess",
       "summary": "",
       "user": "admin",
-      "ideal": "Create a new initial access token for the specified realm."
+      "ideal": "Create a new initial access token for the specified realm with a defined expiration."
     },
     {
       "path": "/myrealm/clients-initial-access/12345",

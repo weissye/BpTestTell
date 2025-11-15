@@ -1,0 +1,99 @@
+{
+  "openapi_meta": {
+    "title": "Trello",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/webhooks",
+      "method": "POST",
+      "tags": [
+        "webhook"
+      ],
+      "summary": "addWebhooks()",
+      "operationId": "addWebhooks"
+    },
+    {
+      "path": "/webhooks/",
+      "method": "PUT",
+      "tags": [
+        "webhook"
+      ],
+      "summary": "updateWebhooks()",
+      "operationId": "updateWebhooks"
+    },
+    {
+      "path": "/webhooks/{idWebhook}",
+      "method": "DELETE",
+      "tags": [
+        "webhook"
+      ],
+      "summary": "deleteWebhooksByIdWebhook()",
+      "operationId": "deleteWebhooksByIdWebhook"
+    },
+    {
+      "path": "/webhooks/{idWebhook}",
+      "method": "GET",
+      "tags": [
+        "webhook"
+      ],
+      "summary": "getWebhooksByIdWebhook()",
+      "operationId": "getWebhooksByIdWebhook"
+    },
+    {
+      "path": "/webhooks/{idWebhook}",
+      "method": "PUT",
+      "tags": [
+        "webhook"
+      ],
+      "summary": "updateWebhooksByIdWebhook()",
+      "operationId": "updateWebhooksByIdWebhook"
+    },
+    {
+      "path": "/webhooks/{idWebhook}/active",
+      "method": "PUT",
+      "tags": [
+        "webhook"
+      ],
+      "summary": "updateWebhooksActiveByIdWebhook()",
+      "operationId": "updateWebhooksActiveByIdWebhook"
+    },
+    {
+      "path": "/webhooks/{idWebhook}/callbackURL",
+      "method": "PUT",
+      "tags": [
+        "webhook"
+      ],
+      "summary": "updateWebhooksCallbackURLByIdWebhook()",
+      "operationId": "updateWebhooksCallbackURLByIdWebhook"
+    },
+    {
+      "path": "/webhooks/{idWebhook}/description",
+      "method": "PUT",
+      "tags": [
+        "webhook"
+      ],
+      "summary": "updateWebhooksDescriptionByIdWebhook()",
+      "operationId": "updateWebhooksDescriptionByIdWebhook"
+    },
+    {
+      "path": "/webhooks/{idWebhook}/idModel",
+      "method": "PUT",
+      "tags": [
+        "webhook"
+      ],
+      "summary": "updateWebhooksIdModelByIdWebhook()",
+      "operationId": "updateWebhooksIdModelByIdWebhook"
+    },
+    {
+      "path": "/webhooks/{idWebhook}/{field}",
+      "method": "GET",
+      "tags": [
+        "webhook"
+      ],
+      "summary": "getWebhooksByIdWebhookByField()",
+      "operationId": "getWebhooksByIdWebhookByField"
+    }
+  ]
+}

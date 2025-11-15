@@ -1,0 +1,37 @@
+{
+  "sut": "ecommerce",
+  "provider": "7_suts_llm_provider",
+  "generated_at": "2025-11-13T21:08:37.016136Z",
+  "stories": [
+    {
+      "name": "CRUD_drug",
+      "entity": "drug",
+      "steps": []
+    },
+    {
+      "name": "CRUD_inventory",
+      "entity": "inventory",
+      "steps": []
+    },
+    {
+      "name": "CRUD_order",
+      "entity": "order",
+      "steps": []
+    },
+    {
+      "name": "CRUD_patient",
+      "entity": "patient",
+      "steps": []
+    },
+    {
+      "name": "CRUD_prescription",
+      "entity": "prescription",
+      "steps": []
+    },
+    {
+      "name": "CRUD_reset",
+      "entity": "reset",
+      "steps": []
+    }
+  ]
+}

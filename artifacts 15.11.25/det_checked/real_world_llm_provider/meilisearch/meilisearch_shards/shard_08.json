@@ -1,0 +1,16 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}"
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/faceting"
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/typo-tolerance"
+    }
+  ]
+}

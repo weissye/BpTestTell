@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/group",
+      "method": "GET",
+      "operationId": "getGroup",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the details of a specific group."
+    },
+    {
+      "path": "/rest/api/3/group",
+      "method": "POST",
+      "operationId": "createGroup",
+      "summary": "",
+      "user": "adminUser",
+      "ideal": "Create a new group with the specified name."
+    },
+    {
+      "path": "/rest/api/3/group",
+      "method": "DELETE",
+      "operationId": "removeGroup",
+      "summary": "",
+      "user": "adminUser",
+      "ideal": "Remove an existing group by its ID."
+    },
+    {
+      "path": "/rest/api/3/group/bulk",
+      "method": "GET",
+      "operationId": "bulkGetGroups",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Fetch details of multiple groups in a single request."
+    },
+    {
+      "path": "/rest/api/3/group/member",
+      "method": "GET",
+      "operationId": "getUsersFromGroup",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Get a list of users belonging to a specific group."
+    },
+    {
+      "path": "/rest/api/3/group/user",
+      "method": "POST",
+      "operationId": "addUserToGroup",
+      "summary": "",
+      "user": "adminUser",
+      "ideal": "Add a user to a specified group."
+    },
+    {
+      "path": "/rest/api/3/group/user",
+      "method": "DELETE",
+      "operationId": "removeUserFromGroup",
+      "summary": "",
+      "user": "adminUser",
+      "ideal": "Remove a user from a specified group."
+    },
+    {
+      "path": "/rest/api/3/groups/picker",
+      "method": "GET",
+      "operationId": "findGroups",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Find groups based on a search query."
+    }
+  ]
+}

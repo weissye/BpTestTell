@@ -5,56 +5,56 @@
       "method": "GET",
       "operationId": "getItems",
       "summary": "",
-      "user": "admin",
-      "ideal": "Retrieve a list of all posts from the 'posts' collection."
+      "user": "User A wants to retrieve a list of all posts in the 'posts' collection to display on the homepage of their blog.",
+      "ideal": "The API should return a JSON array of post objects, each containing fields like id, title, content, and author."
     },
     {
       "path": "/items/posts",
       "method": "POST",
       "operationId": "createItem",
       "summary": "",
-      "user": "editor",
-      "ideal": "Create a new post in the 'posts' collection with title and content."
+      "user": "User B is a content creator who wants to add a new blog post to the 'posts' collection with a title and content.",
+      "ideal": "The API should accept a JSON object with title and content fields and return the created post object with an id."
     },
     {
       "path": "/items/posts",
       "method": "PATCH",
       "operationId": "updateItems",
       "summary": "",
-      "user": "editor",
-      "ideal": "Update multiple posts in the 'posts' collection with new data."
+      "user": "User C needs to update multiple blog posts in the 'posts' collection to change their status to 'published'.",
+      "ideal": "The API should accept an array of post IDs and a status field, updating the specified posts and returning the updated objects."
     },
     {
-      "path": "/items/posts/123",
+      "path": "/items/posts",
       "method": "DELETE",
       "operationId": "deleteItems",
       "summary": "",
-      "user": "admin",
-      "ideal": "Delete the post with ID 123 from the 'posts' collection."
+      "user": "User D wants to delete several outdated posts from the 'posts' collection to clean up their blog.",
+      "ideal": "The API should accept an array of post IDs and confirm the deletion of those posts with a success message."
     },
     {
-      "path": "/items/posts/123",
+      "path": "/items/posts/1",
       "method": "GET",
       "operationId": "getItem",
       "summary": "",
-      "user": "viewer",
-      "ideal": "Retrieve the details of the post with ID 123 from the 'posts' collection."
+      "user": "User E is looking for detailed information about a specific post with ID 1 in the 'posts' collection.",
+      "ideal": "The API should return a JSON object containing all details of the post with ID 1, including title, content, and author."
     },
     {
-      "path": "/items/posts/123",
+      "path": "/items/posts/1",
       "method": "PATCH",
       "operationId": "updateItem",
       "summary": "",
-      "user": "editor",
-      "ideal": "Update the post with ID 123 in the 'posts' collection with new content."
+      "user": "User F wants to edit the content of the post with ID 1 to correct a typo.",
+      "ideal": "The API should accept a JSON object with the updated content and return the updated post object."
     },
     {
-      "path": "/items/posts/123",
+      "path": "/items/posts/1",
       "method": "DELETE",
       "operationId": "deleteItem",
       "summary": "",
-      "user": "admin",
-      "ideal": "Permanently delete the post with ID 123 from the 'posts' collection."
+      "user": "User G has decided to permanently remove the post with ID 1 from their blog.",
+      "ideal": "The API should confirm the deletion of the post with ID 1 and return a success message."
     }
   ]
 }

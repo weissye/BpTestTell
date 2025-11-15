@@ -6,15 +6,15 @@
       "operationId": "gitignore/get-all-templates",
       "summary": "",
       "user": "developer123",
-      "ideal": "Retrieve a list of all available .gitignore templates."
+      "ideal": "Retrieve a list of all available .gitignore templates from the GitHub API."
     },
     {
-      "path": "/gitignore/templates/{name}",
+      "path": "/gitignore/templates/Python",
       "method": "GET",
       "operationId": "gitignore/get-template",
       "summary": "",
-      "user": "frontendDev",
-      "ideal": "Fetch the specific .gitignore template for the provided name."
+      "user": "pythonDev",
+      "ideal": "Fetch the .gitignore template specifically for Python projects."
     }
   ]
 }

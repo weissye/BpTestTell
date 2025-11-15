@@ -9,12 +9,12 @@
       "ideal": "Retrieve the authenticated app's details."
     },
     {
-      "path": "/app-manifests/{code}/conversions",
+      "path": "/app-manifests/abc123/conversions",
       "method": "POST",
       "operationId": "apps/create-from-manifest",
       "summary": "",
       "user": "user456",
-      "ideal": "Create an app installation from a manifest code."
+      "ideal": "Create an app from the provided manifest code."
     },
     {
       "path": "/app/hook/config",
@@ -37,31 +37,31 @@
       "method": "GET",
       "operationId": "apps/list-webhook-deliveries",
       "summary": "",
-      "user": "user202",
+      "user": "user112",
       "ideal": "List all webhook deliveries for the app."
     },
     {
-      "path": "/app/hook/deliveries/{delivery_id}",
+      "path": "/app/hook/deliveries/12345",
       "method": "GET",
       "operationId": "apps/get-webhook-delivery",
       "summary": "",
-      "user": "user303",
+      "user": "user131",
       "ideal": "Get details of a specific webhook delivery."
     },
     {
-      "path": "/app/hook/deliveries/{delivery_id}/attempts",
+      "path": "/app/hook/deliveries/12345/attempts",
       "method": "POST",
       "operationId": "apps/redeliver-webhook-delivery",
       "summary": "",
-      "user": "user404",
-      "ideal": "Attempt to redeliver a specific webhook delivery."
+      "user": "user415",
+      "ideal": "Redeliver a specific webhook delivery."
     },
     {
       "path": "/app/installation-requests",
       "method": "GET",
       "operationId": "apps/list-installation-requests-for-authenticated-app",
       "summary": "",
-      "user": "user505",
+      "user": "user161",
       "ideal": "List installation requests for the authenticated app."
     },
     {
@@ -69,103 +69,103 @@
       "method": "GET",
       "operationId": "apps/list-installations",
       "summary": "",
-      "user": "user606",
+      "user": "user718",
       "ideal": "Retrieve a list of installations for the app."
     },
     {
-      "path": "/app/installations/{installation_id}",
+      "path": "/app/installations/1",
       "method": "GET",
       "operationId": "apps/get-installation",
       "summary": "",
-      "user": "user707",
+      "user": "user192",
       "ideal": "Get details of a specific installation."
     },
     {
-      "path": "/app/installations/{installation_id}",
+      "path": "/app/installations/1",
       "method": "DELETE",
       "operationId": "apps/delete-installation",
       "summary": "",
-      "user": "user808",
+      "user": "user202",
       "ideal": "Delete a specific installation."
     },
     {
-      "path": "/app/installations/{installation_id}/access_tokens",
+      "path": "/app/installations/1/access_tokens",
       "method": "POST",
       "operationId": "apps/create-installation-access-token",
       "summary": "",
-      "user": "user909",
+      "user": "user212",
       "ideal": "Create an access token for a specific installation."
     },
     {
-      "path": "/app/installations/{installation_id}/suspended",
+      "path": "/app/installations/1/suspended",
       "method": "PUT",
       "operationId": "apps/suspend-installation",
       "summary": "",
-      "user": "user010",
+      "user": "user222",
       "ideal": "Suspend a specific installation."
     },
     {
-      "path": "/app/installations/{installation_id}/suspended",
+      "path": "/app/installations/1/suspended",
       "method": "DELETE",
       "operationId": "apps/unsuspend-installation",
       "summary": "",
-      "user": "user111",
+      "user": "user232",
       "ideal": "Unsuspend a specific installation."
     },
     {
-      "path": "/applications/{client_id}/grant",
+      "path": "/applications/client_id/grant",
       "method": "DELETE",
       "operationId": "apps/delete-authorization",
       "summary": "",
-      "user": "user222",
-      "ideal": "Delete authorization for a specific client."
+      "user": "user242",
+      "ideal": "Delete authorization for a specific client ID."
     },
     {
-      "path": "/applications/{client_id}/token",
+      "path": "/applications/client_id/token",
       "method": "POST",
       "operationId": "apps/check-token",
       "summary": "",
-      "user": "user333",
-      "ideal": "Check the validity of a token for a specific client."
+      "user": "user252",
+      "ideal": "Check the validity of a token for a specific client ID."
     },
     {
-      "path": "/applications/{client_id}/token",
+      "path": "/applications/client_id/token",
       "method": "PATCH",
       "operationId": "apps/reset-token",
       "summary": "",
-      "user": "user444",
-      "ideal": "Reset the token for a specific client."
+      "user": "user262",
+      "ideal": "Reset the token for a specific client ID."
     },
     {
-      "path": "/applications/{client_id}/token",
+      "path": "/applications/client_id/token",
       "method": "DELETE",
       "operationId": "apps/delete-token",
       "summary": "",
-      "user": "user555",
-      "ideal": "Delete the token for a specific client."
+      "user": "user272",
+      "ideal": "Delete the token for a specific client ID."
     },
     {
-      "path": "/applications/{client_id}/token/scoped",
+      "path": "/applications/client_id/token/scoped",
       "method": "POST",
       "operationId": "apps/scope-token",
       "summary": "",
-      "user": "user666",
-      "ideal": "Scope a token for a specific client."
+      "user": "user282",
+      "ideal": "Scope a token for a specific client ID."
     },
     {
-      "path": "/apps/{app_slug}",
+      "path": "/apps/app_slug",
       "method": "GET",
       "operationId": "apps/get-by-slug",
       "summary": "",
-      "user": "user777",
-      "ideal": "Retrieve app details by its slug."
+      "user": "user292",
+      "ideal": "Retrieve app details by slug."
     },
     {
       "path": "/installation/repositories",
       "method": "GET",
       "operationId": "apps/list-repos-accessible-to-installation",
       "summary": "",
-      "user": "user888",
+      "user": "user302",
       "ideal": "List repositories accessible to the installation."
     },
     {
@@ -173,15 +173,15 @@
       "method": "DELETE",
       "operationId": "apps/revoke-installation-access-token",
       "summary": "",
-      "user": "user999",
+      "user": "user312",
       "ideal": "Revoke the access token for the installation."
     },
     {
-      "path": "/marketplace_listing/accounts/{account_id}",
+      "path": "/marketplace_listing/accounts/account_id",
       "method": "GET",
       "operationId": "apps/get-subscription-plan-for-account",
       "summary": "",
-      "user": "user000",
+      "user": "user322",
       "ideal": "Get the subscription plan for a specific account."
     },
     {
@@ -189,23 +189,23 @@
       "method": "GET",
       "operationId": "apps/list-plans",
       "summary": "",
-      "user": "user1234",
+      "user": "user332",
       "ideal": "List all available subscription plans."
     },
     {
-      "path": "/marketplace_listing/plans/{plan_id}/accounts",
+      "path": "/marketplace_listing/plans/plan_id/accounts",
       "method": "GET",
       "operationId": "apps/list-accounts-for-plan",
       "summary": "",
-      "user": "user5678",
+      "user": "user342",
       "ideal": "List accounts subscribed to a specific plan."
     },
     {
-      "path": "/marketplace_listing/stubbed/accounts/{account_id}",
+      "path": "/marketplace_listing/stubbed/accounts/account_id",
       "method": "GET",
       "operationId": "apps/get-subscription-plan-for-account-stubbed",
       "summary": "",
-      "user": "user91011",
+      "user": "user352",
       "ideal": "Get the stubbed subscription plan for a specific account."
     },
     {
@@ -213,31 +213,31 @@
       "method": "GET",
       "operationId": "apps/list-plans-stubbed",
       "summary": "",
-      "user": "user1213",
+      "user": "user362",
       "ideal": "List all stubbed subscription plans."
     },
     {
-      "path": "/marketplace_listing/stubbed/plans/{plan_id}/accounts",
+      "path": "/marketplace_listing/stubbed/plans/plan_id/accounts",
       "method": "GET",
       "operationId": "apps/list-accounts-for-plan-stubbed",
       "summary": "",
-      "user": "user1415",
-      "ideal": "List stubbed accounts for a specific plan."
+      "user": "user372",
+      "ideal": "List accounts for a stubbed subscription plan."
     },
     {
-      "path": "/orgs/{org}/installation",
+      "path": "/orgs/org/installation",
       "method": "GET",
       "operationId": "apps/get-org-installation",
       "summary": "",
-      "user": "user1617",
+      "user": "user382",
       "ideal": "Get installation details for a specific organization."
     },
     {
-      "path": "/repos/{owner}/{repo}/installation",
+      "path": "/repos/owner/repo/installation",
       "method": "GET",
       "operationId": "apps/get-repo-installation",
       "summary": "",
-      "user": "user1819",
+      "user": "user392",
       "ideal": "Get installation details for a specific repository."
     },
     {
@@ -245,31 +245,31 @@
       "method": "GET",
       "operationId": "apps/list-installations-for-authenticated-user",
       "summary": "",
-      "user": "user2021",
+      "user": "user402",
       "ideal": "List installations for the authenticated user."
     },
     {
-      "path": "/user/installations/{installation_id}/repositories",
+      "path": "/user/installations/1/repositories",
       "method": "GET",
       "operationId": "apps/list-installation-repos-for-authenticated-user",
       "summary": "",
-      "user": "user2223",
+      "user": "user412",
       "ideal": "List repositories for a specific installation of the authenticated user."
     },
     {
-      "path": "/user/installations/{installation_id}/repositories/{repository_id}",
+      "path": "/user/installations/1/repositories/repo_id",
       "method": "PUT",
       "operationId": "apps/add-repo-to-installation-for-authenticated-user",
       "summary": "",
-      "user": "user2425",
+      "user": "user422",
       "ideal": "Add a repository to the authenticated user's installation."
     },
     {
-      "path": "/user/installations/{installation_id}/repositories/{repository_id}",
+      "path": "/user/installations/1/repositories/repo_id",
       "method": "DELETE",
       "operationId": "apps/remove-repo-from-installation-for-authenticated-user",
       "summary": "",
-      "user": "user2627",
+      "user": "user432",
       "ideal": "Remove a repository from the authenticated user's installation."
     },
     {
@@ -277,7 +277,7 @@
       "method": "GET",
       "operationId": "apps/list-subscriptions-for-authenticated-user",
       "summary": "",
-      "user": "user2829",
+      "user": "user442",
       "ideal": "List subscriptions for the authenticated user."
     },
     {
@@ -285,15 +285,15 @@
       "method": "GET",
       "operationId": "apps/list-subscriptions-for-authenticated-user-stubbed",
       "summary": "",
-      "user": "user3031",
+      "user": "user452",
       "ideal": "List stubbed subscriptions for the authenticated user."
     },
     {
-      "path": "/users/{username}/installation",
+      "path": "/users/username/installation",
       "method": "GET",
       "operationId": "apps/get-user-installation",
       "summary": "",
-      "user": "user3233",
+      "user": "user462",
       "ideal": "Get installation details for a specific user."
     }
   ]

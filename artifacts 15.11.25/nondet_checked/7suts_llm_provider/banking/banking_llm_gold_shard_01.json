@@ -1,0 +1,76 @@
+{
+  "gold": [
+    {
+      "path": "/reset",
+      "method": "POST",
+      "operationId": "resetSystem",
+      "summary": "",
+      "user": "Admin user initiates a system reset to clear all data and start fresh.",
+      "ideal": "System successfully reset."
+    },
+    {
+      "path": "/customers",
+      "method": "POST",
+      "operationId": "createCustomer",
+      "summary": "",
+      "user": "A bank employee creates a new customer profile with personal details.",
+      "ideal": "Customer profile created successfully with unique customer ID."
+    },
+    {
+      "path": "/accounts",
+      "method": "POST",
+      "operationId": "createAccount",
+      "summary": "",
+      "user": "A customer service representative opens a new savings account for a client.",
+      "ideal": "New account created successfully with account number."
+    },
+    {
+      "path": "/accounts",
+      "method": "GET",
+      "operationId": "getAllAccounts",
+      "summary": "",
+      "user": "A bank manager retrieves a list of all accounts for auditing purposes.",
+      "ideal": "List of all accounts returned successfully."
+    },
+    {
+      "path": "/accounts/{accountId}/transactions",
+      "method": "GET",
+      "operationId": "getAccountTransactions",
+      "summary": "",
+      "user": "A customer checks their transaction history for a specific account.",
+      "ideal": "Transaction history for the account returned successfully."
+    },
+    {
+      "path": "/transfers",
+      "method": "POST",
+      "operationId": "createTransfer",
+      "summary": "",
+      "user": "A customer initiates a fund transfer between their accounts.",
+      "ideal": "Transfer completed successfully with confirmation number."
+    },
+    {
+      "path": "/cards",
+      "method": "POST",
+      "operationId": "issueCard",
+      "summary": "",
+      "user": "A bank employee issues a new debit card to a customer.",
+      "ideal": "Debit card issued successfully with card number."
+    },
+    {
+      "path": "/loans",
+      "method": "POST",
+      "operationId": "applyForLoan",
+      "summary": "",
+      "user": "A customer applies for a personal loan online.",
+      "ideal": "Loan application submitted successfully with application ID."
+    },
+    {
+      "path": "/loans",
+      "method": "GET",
+      "operationId": "getAllLoans",
+      "summary": "",
+      "user": "A bank analyst retrieves a list of all active loans for reporting.",
+      "ideal": "List of all active loans returned successfully."
+    }
+  ]
+}

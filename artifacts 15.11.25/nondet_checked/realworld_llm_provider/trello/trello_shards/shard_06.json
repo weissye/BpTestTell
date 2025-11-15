@@ -1,0 +1,81 @@
+{
+  "openapi_meta": {
+    "title": "Trello",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/labels",
+      "method": "POST",
+      "tags": [
+        "label"
+      ],
+      "summary": "addLabels()",
+      "operationId": "addLabels"
+    },
+    {
+      "path": "/labels/{idLabel}",
+      "method": "DELETE",
+      "tags": [
+        "label"
+      ],
+      "summary": "deleteLabelsByIdLabel()",
+      "operationId": "deleteLabelsByIdLabel"
+    },
+    {
+      "path": "/labels/{idLabel}",
+      "method": "GET",
+      "tags": [
+        "label"
+      ],
+      "summary": "getLabelsByIdLabel()",
+      "operationId": "getLabelsByIdLabel"
+    },
+    {
+      "path": "/labels/{idLabel}",
+      "method": "PUT",
+      "tags": [
+        "label"
+      ],
+      "summary": "updateLabelsByIdLabel()",
+      "operationId": "updateLabelsByIdLabel"
+    },
+    {
+      "path": "/labels/{idLabel}/board",
+      "method": "GET",
+      "tags": [
+        "label"
+      ],
+      "summary": "getLabelsBoardByIdLabel()",
+      "operationId": "getLabelsBoardByIdLabel"
+    },
+    {
+      "path": "/labels/{idLabel}/board/{field}",
+      "method": "GET",
+      "tags": [
+        "label"
+      ],
+      "summary": "getLabelsBoardByIdLabelByField()",
+      "operationId": "getLabelsBoardByIdLabelByField"
+    },
+    {
+      "path": "/labels/{idLabel}/color",
+      "method": "PUT",
+      "tags": [
+        "label"
+      ],
+      "summary": "updateLabelsColorByIdLabel()",
+      "operationId": "updateLabelsColorByIdLabel"
+    },
+    {
+      "path": "/labels/{idLabel}/name",
+      "method": "PUT",
+      "tags": [
+        "label"
+      ],
+      "summary": "updateLabelsNameByIdLabel()",
+      "operationId": "updateLabelsNameByIdLabel"
+    }
+  ]
+}

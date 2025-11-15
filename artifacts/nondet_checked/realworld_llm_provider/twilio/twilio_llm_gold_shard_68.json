@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "FetchTranscription",
       "summary": "",
-      "user": "user123",
-      "ideal": "Fetch the transcription details for a specific transcription identified by Sid."
+      "user": "User wants to retrieve a specific transcription using its unique Sid to review the content of a recorded call.",
+      "ideal": "The response should include the transcription text, status, and metadata related to the transcription."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json",
       "method": "DELETE",
       "operationId": "DeleteTranscription",
       "summary": "",
-      "user": "user456",
-      "ideal": "Delete the transcription identified by Sid from the account."
+      "user": "User needs to delete a transcription that is no longer needed to keep their account organized and free of unnecessary data.",
+      "ideal": "The response should confirm the deletion of the transcription and return a success message."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json",
       "method": "GET",
       "operationId": "ListTranscription",
       "summary": "",
-      "user": "user789",
-      "ideal": "Retrieve a list of all transcriptions for the account."
+      "user": "User wants to list all transcriptions associated with their account to analyze the call data and track communication history.",
+      "ideal": "The response should include an array of transcriptions with details such as Sid, date created, and transcription text."
     }
   ]
 }

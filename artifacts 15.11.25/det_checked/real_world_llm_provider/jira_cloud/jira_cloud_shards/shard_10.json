@@ -1,0 +1,104 @@
+{
+  "ops": [
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/application-properties/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/comment/{commentId}/properties"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/dashboard/{dashboardId}/gadget/{gadgetId}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/field/{fieldId}/context"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/field/{fieldKey}/option/{optionId}"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/filter/defaultShareScope"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/groups/picker"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/changelog"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issuesecurityschemes"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/project"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/notificationscheme/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/plans/plan/{planId}/team/atlassian"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priorityscheme/{schemeId}/projects"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectKeyOrId}/notificationscheme"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/role/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/screenscheme"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses/{statusId}/workflowUsages"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/email/bulk"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/version/{id}/relatedwork"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/workflows"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflowscheme/{id}/draft"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/atlassian-connect/1/addons/{addonKey}/properties/{propertyKey}"
+    }
+  ]
+}

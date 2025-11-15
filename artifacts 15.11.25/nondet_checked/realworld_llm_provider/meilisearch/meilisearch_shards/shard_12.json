@@ -1,0 +1,45 @@
+{
+  "openapi_meta": {
+    "title": "Meilisearch Core API",
+    "version": "1.7.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/tasks",
+      "method": "GET",
+      "tags": [
+        "Tasks"
+      ],
+      "summary": "Get all tasks",
+      "operationId": "tasks.list"
+    },
+    {
+      "path": "/tasks",
+      "method": "DELETE",
+      "tags": [
+        "Tasks"
+      ],
+      "summary": "Delete tasks",
+      "operationId": "tasks.delete"
+    },
+    {
+      "path": "/tasks/:taskUid",
+      "method": "GET",
+      "tags": [
+        "Tasks"
+      ],
+      "summary": "Get a task",
+      "operationId": "tasks.get"
+    },
+    {
+      "path": "/tasks/cancel",
+      "method": "POST",
+      "tags": [
+        "Tasks"
+      ],
+      "summary": "Cancel tasks",
+      "operationId": "tasks.cancel"
+    }
+  ]
+}

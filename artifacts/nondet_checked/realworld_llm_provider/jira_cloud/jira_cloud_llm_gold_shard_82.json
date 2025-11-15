@@ -1,76 +1,76 @@
 {
   "gold": [
     {
-      "path": "/rest/api/3/plans/plan/12345/team",
+      "path": "/rest/api/3/plans/plan/123/team",
       "method": "GET",
       "operationId": "getTeams",
       "summary": "",
-      "user": "User A wants to retrieve the list of teams associated with the plan identified by planId 12345 to manage resources effectively.",
-      "ideal": "Returns a list of teams with their details for the specified plan."
+      "user": "User1",
+      "ideal": "Retrieve the list of teams associated with the specified plan."
     },
     {
-      "path": "/rest/api/3/plans/plan/12345/team/atlassian",
+      "path": "/rest/api/3/plans/plan/123/team/atlassian",
       "method": "POST",
       "operationId": "addAtlassianTeam",
       "summary": "",
-      "user": "User B needs to add an Atlassian team to the plan with planId 12345 to enhance collaboration on the project.",
-      "ideal": "Successfully adds the Atlassian team to the specified plan and returns the team details."
+      "user": "User2",
+      "ideal": "Add a new Atlassian team to the specified plan."
     },
     {
-      "path": "/rest/api/3/plans/plan/12345/team/atlassian/67890",
+      "path": "/rest/api/3/plans/plan/123/team/atlassian/456",
       "method": "DELETE",
       "operationId": "removeAtlassianTeam",
       "summary": "",
-      "user": "User C wants to remove an Atlassian team with ID 67890 from the plan 12345 due to changes in project scope.",
-      "ideal": "Successfully removes the specified Atlassian team from the plan."
+      "user": "User3",
+      "ideal": "Remove the specified Atlassian team from the plan."
     },
     {
-      "path": "/rest/api/3/plans/plan/12345/team/atlassian/67890",
+      "path": "/rest/api/3/plans/plan/123/team/atlassian/456",
       "method": "GET",
       "operationId": "getAtlassianTeam",
       "summary": "",
-      "user": "User D needs to get details about the Atlassian team with ID 67890 in plan 12345 for reporting purposes.",
-      "ideal": "Returns the details of the specified Atlassian team."
+      "user": "User4",
+      "ideal": "Retrieve details of the specified Atlassian team."
     },
     {
-      "path": "/rest/api/3/plans/plan/12345/team/atlassian/67890",
+      "path": "/rest/api/3/plans/plan/123/team/atlassian/456",
       "method": "PUT",
       "operationId": "updateAtlassianTeam",
       "summary": "",
-      "user": "User E wants to update the details of the Atlassian team with ID 67890 in plan 12345 to reflect new team members.",
-      "ideal": "Successfully updates the Atlassian team details and returns the updated information."
+      "user": "User5",
+      "ideal": "Update the details of the specified Atlassian team."
     },
     {
-      "path": "/rest/api/3/plans/plan/12345/team/planonly",
+      "path": "/rest/api/3/plans/plan/123/team/planonly",
       "method": "POST",
       "operationId": "createPlanOnlyTeam",
       "summary": "",
-      "user": "User F is creating a new plan-only team for plan 12345 to focus on specific tasks without external collaboration.",
-      "ideal": "Successfully creates a new plan-only team and returns its details."
+      "user": "User6",
+      "ideal": "Create a new plan-only team for the specified plan."
     },
     {
-      "path": "/rest/api/3/plans/plan/12345/team/planonly/54321",
+      "path": "/rest/api/3/plans/plan/123/team/planonly/789",
       "method": "DELETE",
       "operationId": "deletePlanOnlyTeam",
       "summary": "",
-      "user": "User G needs to delete the plan-only team with ID 54321 from plan 12345 as the project has concluded.",
-      "ideal": "Successfully deletes the specified plan-only team from the plan."
+      "user": "User7",
+      "ideal": "Delete the specified plan-only team from the plan."
     },
     {
-      "path": "/rest/api/3/plans/plan/12345/team/planonly/54321",
+      "path": "/rest/api/3/plans/plan/123/team/planonly/789",
       "method": "GET",
       "operationId": "getPlanOnlyTeam",
       "summary": "",
-      "user": "User H wants to retrieve details of the plan-only team with ID 54321 in plan 12345 for documentation.",
-      "ideal": "Returns the details of the specified plan-only team."
+      "user": "User8",
+      "ideal": "Retrieve details of the specified plan-only team."
     },
     {
-      "path": "/rest/api/3/plans/plan/12345/team/planonly/54321",
+      "path": "/rest/api/3/plans/plan/123/team/planonly/789",
       "method": "PUT",
       "operationId": "updatePlanOnlyTeam",
       "summary": "",
-      "user": "User I is updating the plan-only team with ID 54321 in plan 12345 to include new objectives and timelines.",
-      "ideal": "Successfully updates the plan-only team details and returns the updated information."
+      "user": "User9",
+      "ideal": "Update the details of the specified plan-only team."
     }
   ]
 }

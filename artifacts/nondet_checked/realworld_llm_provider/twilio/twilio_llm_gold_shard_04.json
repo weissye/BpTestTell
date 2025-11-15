@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "ListUsageRecordAllTime",
       "summary": "",
-      "user": "User123",
-      "ideal": "Retrieve all-time usage records for the specified account."
+      "user": "User with Account SID 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' wants to retrieve all time usage records for their Twilio account to analyze their communication costs over the past year.",
+      "ideal": "Retrieve all usage records for the specified account, including SMS, voice, and other usage types, formatted in JSON."
     }
   ]
 }

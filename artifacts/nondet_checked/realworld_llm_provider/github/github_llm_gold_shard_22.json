@@ -1,52 +1,52 @@
 {
   "gold": [
     {
-      "path": "/orgs/example-org/settings/network-configurations",
+      "path": "/orgs/my-org/settings/network-configurations",
       "method": "GET",
       "operationId": "hosted-compute/list-network-configurations-for-org",
       "summary": "",
-      "user": "User wants to retrieve all network configurations for the organization 'example-org' to review current settings and ensure compliance with security policies.",
-      "ideal": "A list of network configurations with details such as ID, name, and status."
+      "user": "User wants to retrieve all network configurations for their organization to review current settings and ensure compliance with security policies.",
+      "ideal": "A list of all network configurations associated with 'my-org' should be returned, including details such as configuration ID, name, and status."
     },
     {
-      "path": "/orgs/example-org/settings/network-configurations",
+      "path": "/orgs/my-org/settings/network-configurations",
       "method": "POST",
       "operationId": "hosted-compute/create-network-configuration-for-org",
       "summary": "",
-      "user": "User needs to create a new network configuration for 'example-org' to enhance the organization's network security and performance.",
-      "ideal": "A confirmation of the newly created network configuration with its ID and details."
+      "user": "User needs to create a new network configuration for their organization to support a new project that requires specific network settings.",
+      "ideal": "A new network configuration should be created for 'my-org', and the response should include the newly created configuration's ID and details."
     },
     {
-      "path": "/orgs/example-org/settings/network-configurations/12345",
+      "path": "/orgs/my-org/settings/network-configurations/12345",
       "method": "GET",
       "operationId": "hosted-compute/get-network-configuration-for-org",
       "summary": "",
-      "user": "User wants to fetch details of a specific network configuration with ID '12345' to troubleshoot connectivity issues.",
-      "ideal": "Detailed information about the network configuration including its settings and status."
+      "user": "User wants to get details about a specific network configuration to troubleshoot connectivity issues affecting their team.",
+      "ideal": "The response should provide detailed information about the network configuration with ID '12345', including its settings and status."
     },
     {
-      "path": "/orgs/example-org/settings/network-configurations/12345",
+      "path": "/orgs/my-org/settings/network-configurations/12345",
       "method": "PATCH",
       "operationId": "hosted-compute/update-network-configuration-for-org",
       "summary": "",
-      "user": "User intends to update the network configuration with ID '12345' to adjust the settings for better performance.",
-      "ideal": "A confirmation of the updated network configuration with the new settings reflected."
+      "user": "User needs to update an existing network configuration to change the IP range to accommodate new devices being added to the network.",
+      "ideal": "The network configuration with ID '12345' should be updated successfully, and the response should confirm the changes made."
     },
     {
-      "path": "/orgs/example-org/settings/network-configurations/12345",
+      "path": "/orgs/my-org/settings/network-configurations/12345",
       "method": "DELETE",
       "operationId": "hosted-compute/delete-network-configuration-from-org",
       "summary": "",
-      "user": "User needs to delete the network configuration with ID '12345' as it is no longer required for the organization.",
-      "ideal": "A confirmation that the network configuration has been successfully deleted."
+      "user": "User wants to delete an outdated network configuration that is no longer in use to keep the organization's settings clean and organized.",
+      "ideal": "The network configuration with ID '12345' should be deleted successfully, and a confirmation message should be returned."
     },
     {
-      "path": "/orgs/example-org/settings/network-settings/67890",
+      "path": "/orgs/my-org/settings/network-settings/67890",
       "method": "GET",
       "operationId": "hosted-compute/get-network-settings-for-org",
       "summary": "",
-      "user": "User wants to retrieve the network settings for the organization 'example-org' to ensure they align with the latest compliance standards.",
-      "ideal": "Detailed information about the network settings including configurations and policies."
+      "user": "User is looking to retrieve the network settings for their organization to ensure they align with the latest compliance requirements.",
+      "ideal": "The response should include the network settings associated with ID '67890', detailing configurations such as firewall rules and access controls."
     }
   ]
 }

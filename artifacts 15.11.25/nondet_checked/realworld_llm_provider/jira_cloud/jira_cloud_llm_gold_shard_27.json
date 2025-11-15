@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/issueLinkType",
+      "method": "GET",
+      "operationId": "getIssueLinkTypes",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all issue link types available in Jira so that I can understand how issues can be related to each other.",
+      "ideal": "The response should return a list of issue link types, including their IDs, names, and descriptions."
+    },
+    {
+      "path": "/rest/api/3/issueLinkType",
+      "method": "POST",
+      "operationId": "createIssueLinkType",
+      "summary": "",
+      "user": "As a developer, I want to create a new issue link type to represent a specific relationship between issues in our project.",
+      "ideal": "The response should confirm the creation of the new issue link type and return its ID, name, and description."
+    },
+    {
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
+      "method": "DELETE",
+      "operationId": "deleteIssueLinkType",
+      "summary": "",
+      "user": "As an admin, I want to delete an obsolete issue link type to clean up our Jira configuration.",
+      "ideal": "The response should confirm the successful deletion of the issue link type."
+    },
+    {
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
+      "method": "GET",
+      "operationId": "getIssueLinkType",
+      "summary": "",
+      "user": "As a team lead, I want to retrieve details of a specific issue link type to ensure it meets our project requirements.",
+      "ideal": "The response should return the details of the specified issue link type, including its ID, name, and description."
+    },
+    {
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}",
+      "method": "PUT",
+      "operationId": "updateIssueLinkType",
+      "summary": "",
+      "user": "As a product owner, I want to update an existing issue link type to better reflect the relationship between issues in our workflow.",
+      "ideal": "The response should confirm the successful update of the issue link type and return the updated details."
+    }
+  ]
+}

@@ -2,1299 +2,4863 @@
   "ops": [
     {
       "method": "DELETE",
-      "path": "/actions/{idAction}"
+      "path": "/actions/{idAction}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}"
+      "path": "/actions/{idAction}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/actions/{idAction}"
+      "path": "/actions/{idAction}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}/board"
+      "path": "/actions/{idAction}/board",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}/board/{field}"
+      "path": "/actions/{idAction}/board/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}/card"
+      "path": "/actions/{idAction}/card",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}/card/{field}"
+      "path": "/actions/{idAction}/card/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}/display"
+      "path": "/actions/{idAction}/display",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}/entities"
+      "path": "/actions/{idAction}/entities",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}/list"
+      "path": "/actions/{idAction}/list",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}/list/{field}"
+      "path": "/actions/{idAction}/list/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}/member"
+      "path": "/actions/{idAction}/member",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}/member/{field}"
+      "path": "/actions/{idAction}/member/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}/memberCreator"
+      "path": "/actions/{idAction}/memberCreator",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}/memberCreator/{field}"
+      "path": "/actions/{idAction}/memberCreator/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}/organization"
+      "path": "/actions/{idAction}/organization",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}/organization/{field}"
+      "path": "/actions/{idAction}/organization/{field}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/actions/{idAction}/text"
+      "path": "/actions/{idAction}/text",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/actions/{idAction}/{field}"
+      "path": "/actions/{idAction}/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/batch"
+      "path": "/batch",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/boards"
+      "path": "/boards",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}"
+      "path": "/boards/{idBoard}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}"
+      "path": "/boards/{idBoard}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/actions"
+      "path": "/boards/{idBoard}/actions",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/boardStars"
+      "path": "/boards/{idBoard}/boardStars",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/boards/{idBoard}/calendarKey/generate"
+      "path": "/boards/{idBoard}/calendarKey/generate",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/cards"
+      "path": "/boards/{idBoard}/cards",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/cards/{filter}"
+      "path": "/boards/{idBoard}/cards/{filter}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/cards/{idCard}"
+      "path": "/boards/{idBoard}/cards/{idCard}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/checklists"
+      "path": "/boards/{idBoard}/checklists",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/boards/{idBoard}/checklists"
+      "path": "/boards/{idBoard}/checklists",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/closed"
+      "path": "/boards/{idBoard}/closed",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/deltas"
+      "path": "/boards/{idBoard}/deltas",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/desc"
+      "path": "/boards/{idBoard}/desc",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/boards/{idBoard}/emailKey/generate"
+      "path": "/boards/{idBoard}/emailKey/generate",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/idOrganization"
+      "path": "/boards/{idBoard}/idOrganization",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/labelNames/blue"
+      "path": "/boards/{idBoard}/labelNames/blue",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/labelNames/green"
+      "path": "/boards/{idBoard}/labelNames/green",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/labelNames/orange"
+      "path": "/boards/{idBoard}/labelNames/orange",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/labelNames/purple"
+      "path": "/boards/{idBoard}/labelNames/purple",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/labelNames/red"
+      "path": "/boards/{idBoard}/labelNames/red",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/labelNames/yellow"
+      "path": "/boards/{idBoard}/labelNames/yellow",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/labels"
+      "path": "/boards/{idBoard}/labels",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/boards/{idBoard}/labels"
+      "path": "/boards/{idBoard}/labels",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/labels/{idLabel}"
+      "path": "/boards/{idBoard}/labels/{idLabel}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/lists"
+      "path": "/boards/{idBoard}/lists",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/boards/{idBoard}/lists"
+      "path": "/boards/{idBoard}/lists",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/lists/{filter}"
+      "path": "/boards/{idBoard}/lists/{filter}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/boards/{idBoard}/markAsViewed"
+      "path": "/boards/{idBoard}/markAsViewed",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/members"
+      "path": "/boards/{idBoard}/members",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/members"
+      "path": "/boards/{idBoard}/members",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/members/{filter}"
+      "path": "/boards/{idBoard}/members/{filter}",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/boards/{idBoard}/members/{idMember}"
+      "path": "/boards/{idBoard}/members/{idMember}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/members/{idMember}"
+      "path": "/boards/{idBoard}/members/{idMember}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/members/{idMember}/cards"
+      "path": "/boards/{idBoard}/members/{idMember}/cards",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/membersInvited"
+      "path": "/boards/{idBoard}/membersInvited",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/membersInvited/{field}"
+      "path": "/boards/{idBoard}/membersInvited/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/memberships"
+      "path": "/boards/{idBoard}/memberships",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/memberships/{idMembership}"
+      "path": "/boards/{idBoard}/memberships/{idMembership}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/memberships/{idMembership}"
+      "path": "/boards/{idBoard}/memberships/{idMembership}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/myPrefs"
+      "path": "/boards/{idBoard}/myPrefs",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/myPrefs/emailPosition"
+      "path": "/boards/{idBoard}/myPrefs/emailPosition",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/myPrefs/idEmailList"
+      "path": "/boards/{idBoard}/myPrefs/idEmailList",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/myPrefs/showListGuide"
+      "path": "/boards/{idBoard}/myPrefs/showListGuide",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/myPrefs/showSidebar"
+      "path": "/boards/{idBoard}/myPrefs/showSidebar",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/myPrefs/showSidebarActivity"
+      "path": "/boards/{idBoard}/myPrefs/showSidebarActivity",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/myPrefs/showSidebarBoardActions"
+      "path": "/boards/{idBoard}/myPrefs/showSidebarBoardActions",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/myPrefs/showSidebarMembers"
+      "path": "/boards/{idBoard}/myPrefs/showSidebarMembers",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/name"
+      "path": "/boards/{idBoard}/name",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/organization"
+      "path": "/boards/{idBoard}/organization",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/organization/{field}"
+      "path": "/boards/{idBoard}/organization/{field}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/boards/{idBoard}/powerUps"
+      "path": "/boards/{idBoard}/powerUps",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/boards/{idBoard}/powerUps/{powerUp}"
+      "path": "/boards/{idBoard}/powerUps/{powerUp}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/prefs/background"
+      "path": "/boards/{idBoard}/prefs/background",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/prefs/calendarFeedEnabled"
+      "path": "/boards/{idBoard}/prefs/calendarFeedEnabled",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/prefs/cardAging"
+      "path": "/boards/{idBoard}/prefs/cardAging",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/prefs/cardCovers"
+      "path": "/boards/{idBoard}/prefs/cardCovers",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/prefs/comments"
+      "path": "/boards/{idBoard}/prefs/comments",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/prefs/invitations"
+      "path": "/boards/{idBoard}/prefs/invitations",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/prefs/permissionLevel"
+      "path": "/boards/{idBoard}/prefs/permissionLevel",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/prefs/selfJoin"
+      "path": "/boards/{idBoard}/prefs/selfJoin",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/prefs/voting"
+      "path": "/boards/{idBoard}/prefs/voting",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/boards/{idBoard}/subscribed"
+      "path": "/boards/{idBoard}/subscribed",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/boards/{idBoard}/{field}"
+      "path": "/boards/{idBoard}/{field}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/cards"
+      "path": "/cards",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/cards/{idCard}"
+      "path": "/cards/{idCard}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cards/{idCard}"
+      "path": "/cards/{idCard}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}"
+      "path": "/cards/{idCard}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cards/{idCard}/actions"
+      "path": "/cards/{idCard}/actions",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/cards/{idCard}/actions/comments"
+      "path": "/cards/{idCard}/actions/comments",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/cards/{idCard}/actions/{idAction}/comments"
+      "path": "/cards/{idCard}/actions/{idAction}/comments",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/actions/{idAction}/comments"
+      "path": "/cards/{idCard}/actions/{idAction}/comments",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cards/{idCard}/attachments"
+      "path": "/cards/{idCard}/attachments",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/cards/{idCard}/attachments"
+      "path": "/cards/{idCard}/attachments",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/cards/{idCard}/attachments/{idAttachment}"
+      "path": "/cards/{idCard}/attachments/{idAttachment}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cards/{idCard}/attachments/{idAttachment}"
+      "path": "/cards/{idCard}/attachments/{idAttachment}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cards/{idCard}/board"
+      "path": "/cards/{idCard}/board",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cards/{idCard}/board/{field}"
+      "path": "/cards/{idCard}/board/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cards/{idCard}/checkItemStates"
+      "path": "/cards/{idCard}/checkItemStates",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/checklist/{idChecklistCurrent}/checkItem/{idCheckItem}"
+      "path": "/cards/{idCard}/checklist/{idChecklistCurrent}/checkItem/{idCheckItem}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem"
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}"
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/convertToCard"
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/convertToCard",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/name"
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/name",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/pos"
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/pos",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/state"
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/state",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cards/{idCard}/checklists"
+      "path": "/cards/{idCard}/checklists",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/cards/{idCard}/checklists"
+      "path": "/cards/{idCard}/checklists",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/cards/{idCard}/checklists/{idChecklist}"
+      "path": "/cards/{idCard}/checklists/{idChecklist}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/closed"
+      "path": "/cards/{idCard}/closed",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/desc"
+      "path": "/cards/{idCard}/desc",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/due"
+      "path": "/cards/{idCard}/due",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/idAttachmentCover"
+      "path": "/cards/{idCard}/idAttachmentCover",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/idBoard"
+      "path": "/cards/{idCard}/idBoard",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/cards/{idCard}/idLabels"
+      "path": "/cards/{idCard}/idLabels",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/cards/{idCard}/idLabels/{idLabel}"
+      "path": "/cards/{idCard}/idLabels/{idLabel}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/idList"
+      "path": "/cards/{idCard}/idList",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/cards/{idCard}/idMembers"
+      "path": "/cards/{idCard}/idMembers",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/idMembers"
+      "path": "/cards/{idCard}/idMembers",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/cards/{idCard}/idMembers/{idMember}"
+      "path": "/cards/{idCard}/idMembers/{idMember}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/cards/{idCard}/labels"
+      "path": "/cards/{idCard}/labels",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/labels"
+      "path": "/cards/{idCard}/labels",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/cards/{idCard}/labels/{color}"
+      "path": "/cards/{idCard}/labels/{color}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cards/{idCard}/list"
+      "path": "/cards/{idCard}/list",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cards/{idCard}/list/{field}"
+      "path": "/cards/{idCard}/list/{field}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/cards/{idCard}/markAssociatedNotificationsRead"
+      "path": "/cards/{idCard}/markAssociatedNotificationsRead",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cards/{idCard}/members"
+      "path": "/cards/{idCard}/members",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cards/{idCard}/membersVoted"
+      "path": "/cards/{idCard}/membersVoted",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/cards/{idCard}/membersVoted"
+      "path": "/cards/{idCard}/membersVoted",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/cards/{idCard}/membersVoted/{idMember}"
+      "path": "/cards/{idCard}/membersVoted/{idMember}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/name"
+      "path": "/cards/{idCard}/name",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/pos"
+      "path": "/cards/{idCard}/pos",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cards/{idCard}/stickers"
+      "path": "/cards/{idCard}/stickers",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/cards/{idCard}/stickers"
+      "path": "/cards/{idCard}/stickers",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/cards/{idCard}/stickers/{idSticker}"
+      "path": "/cards/{idCard}/stickers/{idSticker}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cards/{idCard}/stickers/{idSticker}"
+      "path": "/cards/{idCard}/stickers/{idSticker}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/stickers/{idSticker}"
+      "path": "/cards/{idCard}/stickers/{idSticker}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/cards/{idCard}/subscribed"
+      "path": "/cards/{idCard}/subscribed",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/cards/{idCard}/{field}"
+      "path": "/cards/{idCard}/{field}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/checklists"
+      "path": "/checklists",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/checklists/{idChecklist}"
+      "path": "/checklists/{idChecklist}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/{idChecklist}"
+      "path": "/checklists/{idChecklist}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/checklists/{idChecklist}"
+      "path": "/checklists/{idChecklist}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/{idChecklist}/board"
+      "path": "/checklists/{idChecklist}/board",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/{idChecklist}/board/{field}"
+      "path": "/checklists/{idChecklist}/board/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/{idChecklist}/cards"
+      "path": "/checklists/{idChecklist}/cards",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/{idChecklist}/cards/{filter}"
+      "path": "/checklists/{idChecklist}/cards/{filter}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/{idChecklist}/checkItems"
+      "path": "/checklists/{idChecklist}/checkItems",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/checklists/{idChecklist}/checkItems"
+      "path": "/checklists/{idChecklist}/checkItems",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}"
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}"
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/checklists/{idChecklist}/idCard"
+      "path": "/checklists/{idChecklist}/idCard",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/checklists/{idChecklist}/name"
+      "path": "/checklists/{idChecklist}/name",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/checklists/{idChecklist}/pos"
+      "path": "/checklists/{idChecklist}/pos",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/checklists/{idChecklist}/{field}"
+      "path": "/checklists/{idChecklist}/{field}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/labels"
+      "path": "/labels",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/labels/{idLabel}"
+      "path": "/labels/{idLabel}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/labels/{idLabel}"
+      "path": "/labels/{idLabel}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/labels/{idLabel}"
+      "path": "/labels/{idLabel}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/labels/{idLabel}/board"
+      "path": "/labels/{idLabel}/board",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/labels/{idLabel}/board/{field}"
+      "path": "/labels/{idLabel}/board/{field}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/labels/{idLabel}/color"
+      "path": "/labels/{idLabel}/color",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/labels/{idLabel}/name"
+      "path": "/labels/{idLabel}/name",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/lists"
+      "path": "/lists",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/lists/{idList}"
+      "path": "/lists/{idList}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/lists/{idList}"
+      "path": "/lists/{idList}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/lists/{idList}/actions"
+      "path": "/lists/{idList}/actions",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/lists/{idList}/archiveAllCards"
+      "path": "/lists/{idList}/archiveAllCards",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/lists/{idList}/board"
+      "path": "/lists/{idList}/board",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/lists/{idList}/board/{field}"
+      "path": "/lists/{idList}/board/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/lists/{idList}/cards"
+      "path": "/lists/{idList}/cards",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/lists/{idList}/cards"
+      "path": "/lists/{idList}/cards",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/lists/{idList}/cards/{filter}"
+      "path": "/lists/{idList}/cards/{filter}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/lists/{idList}/closed"
+      "path": "/lists/{idList}/closed",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/lists/{idList}/idBoard"
+      "path": "/lists/{idList}/idBoard",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/lists/{idList}/moveAllCards"
+      "path": "/lists/{idList}/moveAllCards",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/lists/{idList}/name"
+      "path": "/lists/{idList}/name",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/lists/{idList}/pos"
+      "path": "/lists/{idList}/pos",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/lists/{idList}/subscribed"
+      "path": "/lists/{idList}/subscribed",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/lists/{idList}/{field}"
+      "path": "/lists/{idList}/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}"
+      "path": "/members/{idMember}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}"
+      "path": "/members/{idMember}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/actions"
+      "path": "/members/{idMember}/actions",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/members/{idMember}/avatar"
+      "path": "/members/{idMember}/avatar",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/avatarSource"
+      "path": "/members/{idMember}/avatarSource",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/bio"
+      "path": "/members/{idMember}/bio",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/boardBackgrounds"
+      "path": "/members/{idMember}/boardBackgrounds",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/members/{idMember}/boardBackgrounds"
+      "path": "/members/{idMember}/boardBackgrounds",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}"
+      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}"
+      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}"
+      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/boardStars"
+      "path": "/members/{idMember}/boardStars",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/members/{idMember}/boardStars"
+      "path": "/members/{idMember}/boardStars",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/members/{idMember}/boardStars/{idBoardStar}"
+      "path": "/members/{idMember}/boardStars/{idBoardStar}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/boardStars/{idBoardStar}"
+      "path": "/members/{idMember}/boardStars/{idBoardStar}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/boardStars/{idBoardStar}"
+      "path": "/members/{idMember}/boardStars/{idBoardStar}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/boardStars/{idBoardStar}/idBoard"
+      "path": "/members/{idMember}/boardStars/{idBoardStar}/idBoard",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/boardStars/{idBoardStar}/pos"
+      "path": "/members/{idMember}/boardStars/{idBoardStar}/pos",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/boards"
+      "path": "/members/{idMember}/boards",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/boards/{filter}"
+      "path": "/members/{idMember}/boards/{filter}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/boardsInvited"
+      "path": "/members/{idMember}/boardsInvited",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/boardsInvited/{field}"
+      "path": "/members/{idMember}/boardsInvited/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/cards"
+      "path": "/members/{idMember}/cards",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/cards/{filter}"
+      "path": "/members/{idMember}/cards/{filter}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/customBoardBackgrounds"
+      "path": "/members/{idMember}/customBoardBackgrounds",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/members/{idMember}/customBoardBackgrounds"
+      "path": "/members/{idMember}/customBoardBackgrounds",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}"
+      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}"
+      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}"
+      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/customEmoji"
+      "path": "/members/{idMember}/customEmoji",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/members/{idMember}/customEmoji"
+      "path": "/members/{idMember}/customEmoji",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/customEmoji/{idCustomEmoji}"
+      "path": "/members/{idMember}/customEmoji/{idCustomEmoji}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/customStickers"
+      "path": "/members/{idMember}/customStickers",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/members/{idMember}/customStickers"
+      "path": "/members/{idMember}/customStickers",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/members/{idMember}/customStickers/{idCustomSticker}"
+      "path": "/members/{idMember}/customStickers/{idCustomSticker}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/customStickers/{idCustomSticker}"
+      "path": "/members/{idMember}/customStickers/{idCustomSticker}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/deltas"
+      "path": "/members/{idMember}/deltas",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/fullName"
+      "path": "/members/{idMember}/fullName",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/initials"
+      "path": "/members/{idMember}/initials",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/notifications"
+      "path": "/members/{idMember}/notifications",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/notifications/{filter}"
+      "path": "/members/{idMember}/notifications/{filter}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/members/{idMember}/oneTimeMessagesDismissed"
+      "path": "/members/{idMember}/oneTimeMessagesDismissed",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/organizations"
+      "path": "/members/{idMember}/organizations",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/organizations/{filter}"
+      "path": "/members/{idMember}/organizations/{filter}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/organizationsInvited"
+      "path": "/members/{idMember}/organizationsInvited",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/organizationsInvited/{field}"
+      "path": "/members/{idMember}/organizationsInvited/{field}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/prefs/colorBlind"
+      "path": "/members/{idMember}/prefs/colorBlind",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/prefs/locale"
+      "path": "/members/{idMember}/prefs/locale",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/prefs/minutesBetweenSummaries"
+      "path": "/members/{idMember}/prefs/minutesBetweenSummaries",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/savedSearches"
+      "path": "/members/{idMember}/savedSearches",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/members/{idMember}/savedSearches"
+      "path": "/members/{idMember}/savedSearches",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/members/{idMember}/savedSearches/{idSavedSearch}"
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/savedSearches/{idSavedSearch}"
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/savedSearches/{idSavedSearch}"
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/name"
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/name",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/pos"
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/pos",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/query"
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/query",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/tokens"
+      "path": "/members/{idMember}/tokens",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/members/{idMember}/username"
+      "path": "/members/{idMember}/username",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/members/{idMember}/{field}"
+      "path": "/members/{idMember}/{field}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/notifications/all/read"
+      "path": "/notifications/all/read",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}"
+      "path": "/notifications/{idNotification}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/notifications/{idNotification}"
+      "path": "/notifications/{idNotification}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}/board"
+      "path": "/notifications/{idNotification}/board",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}/board/{field}"
+      "path": "/notifications/{idNotification}/board/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}/card"
+      "path": "/notifications/{idNotification}/card",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}/card/{field}"
+      "path": "/notifications/{idNotification}/card/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}/display"
+      "path": "/notifications/{idNotification}/display",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}/entities"
+      "path": "/notifications/{idNotification}/entities",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}/list"
+      "path": "/notifications/{idNotification}/list",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}/list/{field}"
+      "path": "/notifications/{idNotification}/list/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}/member"
+      "path": "/notifications/{idNotification}/member",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}/member/{field}"
+      "path": "/notifications/{idNotification}/member/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}/memberCreator"
+      "path": "/notifications/{idNotification}/memberCreator",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}/memberCreator/{field}"
+      "path": "/notifications/{idNotification}/memberCreator/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}/organization"
+      "path": "/notifications/{idNotification}/organization",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}/organization/{field}"
+      "path": "/notifications/{idNotification}/organization/{field}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/notifications/{idNotification}/unread"
+      "path": "/notifications/{idNotification}/unread",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/notifications/{idNotification}/{field}"
+      "path": "/notifications/{idNotification}/{field}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/organizations"
+      "path": "/organizations",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/organizations/{idOrg}"
+      "path": "/organizations/{idOrg}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/{idOrg}"
+      "path": "/organizations/{idOrg}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}"
+      "path": "/organizations/{idOrg}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/{idOrg}/actions"
+      "path": "/organizations/{idOrg}/actions",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/{idOrg}/boards"
+      "path": "/organizations/{idOrg}/boards",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/{idOrg}/boards/{filter}"
+      "path": "/organizations/{idOrg}/boards/{filter}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/{idOrg}/deltas"
+      "path": "/organizations/{idOrg}/deltas",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/desc"
+      "path": "/organizations/{idOrg}/desc",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/displayName"
+      "path": "/organizations/{idOrg}/displayName",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/organizations/{idOrg}/logo"
+      "path": "/organizations/{idOrg}/logo",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/organizations/{idOrg}/logo"
+      "path": "/organizations/{idOrg}/logo",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/{idOrg}/members"
+      "path": "/organizations/{idOrg}/members",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/members"
+      "path": "/organizations/{idOrg}/members",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/{idOrg}/members/{filter}"
+      "path": "/organizations/{idOrg}/members/{filter}",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/organizations/{idOrg}/members/{idMember}"
+      "path": "/organizations/{idOrg}/members/{idMember}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/members/{idMember}"
+      "path": "/organizations/{idOrg}/members/{idMember}",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/organizations/{idOrg}/members/{idMember}/all"
+      "path": "/organizations/{idOrg}/members/{idMember}/all",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/{idOrg}/members/{idMember}/cards"
+      "path": "/organizations/{idOrg}/members/{idMember}/cards",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/members/{idMember}/deactivated"
+      "path": "/organizations/{idOrg}/members/{idMember}/deactivated",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/{idOrg}/membersInvited"
+      "path": "/organizations/{idOrg}/membersInvited",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/{idOrg}/membersInvited/{field}"
+      "path": "/organizations/{idOrg}/membersInvited/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/{idOrg}/memberships"
+      "path": "/organizations/{idOrg}/memberships",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/{idOrg}/memberships/{idMembership}"
+      "path": "/organizations/{idOrg}/memberships/{idMembership}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/memberships/{idMembership}"
+      "path": "/organizations/{idOrg}/memberships/{idMembership}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/name"
+      "path": "/organizations/{idOrg}/name",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/organizations/{idOrg}/prefs/associatedDomain"
+      "path": "/organizations/{idOrg}/prefs/associatedDomain",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/prefs/associatedDomain"
+      "path": "/organizations/{idOrg}/prefs/associatedDomain",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/org"
+      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/org",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/private"
+      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/private",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/public"
+      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/public",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/prefs/externalMembersDisabled"
+      "path": "/organizations/{idOrg}/prefs/externalMembersDisabled",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/prefs/googleAppsVersion"
+      "path": "/organizations/{idOrg}/prefs/googleAppsVersion",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/organizations/{idOrg}/prefs/orgInviteRestrict"
+      "path": "/organizations/{idOrg}/prefs/orgInviteRestrict",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/prefs/orgInviteRestrict"
+      "path": "/organizations/{idOrg}/prefs/orgInviteRestrict",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/prefs/permissionLevel"
+      "path": "/organizations/{idOrg}/prefs/permissionLevel",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/organizations/{idOrg}/website"
+      "path": "/organizations/{idOrg}/website",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/organizations/{idOrg}/{field}"
+      "path": "/organizations/{idOrg}/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/search"
+      "path": "/search",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/search/members"
+      "path": "/search/members",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/sessions"
+      "path": "/sessions",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/sessions/socket"
+      "path": "/sessions/socket",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/sessions/{idSession}"
+      "path": "/sessions/{idSession}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/sessions/{idSession}/status"
+      "path": "/sessions/{idSession}/status",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/tokens/{token}"
+      "path": "/tokens/{token}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/tokens/{token}"
+      "path": "/tokens/{token}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/tokens/{token}/member"
+      "path": "/tokens/{token}/member",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/tokens/{token}/member/{field}"
+      "path": "/tokens/{token}/member/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/tokens/{token}/webhooks"
+      "path": "/tokens/{token}/webhooks",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/tokens/{token}/webhooks"
+      "path": "/tokens/{token}/webhooks",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/tokens/{token}/webhooks"
+      "path": "/tokens/{token}/webhooks",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/tokens/{token}/webhooks/{idWebhook}"
+      "path": "/tokens/{token}/webhooks/{idWebhook}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/tokens/{token}/webhooks/{idWebhook}"
+      "path": "/tokens/{token}/webhooks/{idWebhook}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/tokens/{token}/{field}"
+      "path": "/tokens/{token}/{field}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/types/{id}"
+      "path": "/types/{id}",
+      "body": null
     },
     {
       "method": "POST",
-      "path": "/webhooks"
+      "path": "/webhooks",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/webhooks/"
+      "path": "/webhooks/",
+      "body": null
     },
     {
       "method": "DELETE",
-      "path": "/webhooks/{idWebhook}"
+      "path": "/webhooks/{idWebhook}",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/webhooks/{idWebhook}"
+      "path": "/webhooks/{idWebhook}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/webhooks/{idWebhook}"
+      "path": "/webhooks/{idWebhook}",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/webhooks/{idWebhook}/active"
+      "path": "/webhooks/{idWebhook}/active",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/webhooks/{idWebhook}/callbackURL"
+      "path": "/webhooks/{idWebhook}/callbackURL",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/webhooks/{idWebhook}/description"
+      "path": "/webhooks/{idWebhook}/description",
+      "body": null
     },
     {
       "method": "PUT",
-      "path": "/webhooks/{idWebhook}/idModel"
+      "path": "/webhooks/{idWebhook}/idModel",
+      "body": null
     },
     {
       "method": "GET",
-      "path": "/webhooks/{idWebhook}/{field}"
+      "path": "/webhooks/{idWebhook}/{field}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/actions/{idAction}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/actions/{idAction}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/actions/{idAction}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/actions/{idAction}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/board/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/board/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/card",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/card",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/card/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/card/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/display",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/display",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/entities",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/entities",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/list/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/list/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/member",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/member",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/member/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/member/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/memberCreator",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/memberCreator",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/memberCreator/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/memberCreator/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/organization",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/organization",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/organization/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/organization/{field}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/actions/{idAction}/text",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/actions/{idAction}/text",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/batch",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/batch",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/boardStars",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/boardStars",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/calendarKey/generate",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/calendarKey/generate",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/cards/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/cards/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/cards/{idCard}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/cards/{idCard}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/checklists",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/checklists",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/checklists",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/checklists",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/closed",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/closed",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/deltas",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/deltas",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/desc",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/desc",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/emailKey/generate",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/emailKey/generate",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/idOrganization",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/idOrganization",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/labelNames/blue",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/labelNames/blue",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/labelNames/green",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/labelNames/green",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/labelNames/orange",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/labelNames/orange",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/labelNames/purple",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/labelNames/purple",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/labelNames/red",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/labelNames/red",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/labelNames/yellow",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/labelNames/yellow",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/labels",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/labels",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/labels",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/labels",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/labels/{idLabel}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/labels/{idLabel}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/lists",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/lists",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/lists",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/lists",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/lists/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/lists/{filter}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/markAsViewed",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/markAsViewed",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/members",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/members",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/members/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/members/{filter}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/boards/{idBoard}/members/{idMember}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/boards/{idBoard}/members/{idMember}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/members/{idMember}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/members/{idMember}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/members/{idMember}/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/members/{idMember}/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/membersInvited",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/membersInvited",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/membersInvited/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/membersInvited/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/memberships",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/memberships",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/memberships/{idMembership}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/memberships/{idMembership}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/memberships/{idMembership}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/memberships/{idMembership}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/myPrefs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/myPrefs",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/emailPosition",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/emailPosition",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/idEmailList",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/idEmailList",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/showListGuide",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/showListGuide",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/showSidebar",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/showSidebar",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/showSidebarActivity",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/showSidebarActivity",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/showSidebarBoardActions",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/showSidebarBoardActions",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/showSidebarMembers",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/showSidebarMembers",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/name",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/organization",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/organization",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/organization/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/organization/{field}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/powerUps",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{idBoard}/powerUps",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/boards/{idBoard}/powerUps/{powerUp}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/boards/{idBoard}/powerUps/{powerUp}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/background",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/background",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/calendarFeedEnabled",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/calendarFeedEnabled",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/cardAging",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/cardAging",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/cardCovers",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/cardCovers",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/comments",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/comments",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/invitations",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/invitations",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/permissionLevel",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/permissionLevel",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/selfJoin",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/selfJoin",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/voting",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/prefs/voting",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/subscribed",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/subscribed",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{idBoard}/{field}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/actions/comments",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/actions/comments",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/actions/{idAction}/comments",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/actions/{idAction}/comments",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/actions/{idAction}/comments",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/actions/{idAction}/comments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/attachments",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/attachments",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/attachments",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/attachments",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/attachments/{idAttachment}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/attachments/{idAttachment}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/attachments/{idAttachment}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/attachments/{idAttachment}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/board/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/board/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/checkItemStates",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/checkItemStates",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/checklist/{idChecklistCurrent}/checkItem/{idCheckItem}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/checklist/{idChecklistCurrent}/checkItem/{idCheckItem}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/convertToCard",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/convertToCard",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/pos",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/pos",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/state",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/checklist/{idChecklist}/checkItem/{idCheckItem}/state",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/checklists",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/checklists",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/checklists",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/checklists",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/checklists/{idChecklist}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/checklists/{idChecklist}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/closed",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/closed",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/desc",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/desc",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/due",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/due",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/idAttachmentCover",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/idAttachmentCover",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/idBoard",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/idBoard",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/idLabels",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/idLabels",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/idLabels/{idLabel}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/idLabels/{idLabel}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/idList",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/idList",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/idMembers",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/idMembers",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/idMembers",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/idMembers",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/idMembers/{idMember}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/idMembers/{idMember}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/labels",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/labels",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/labels",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/labels",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/labels/{color}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/labels/{color}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/list/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/list/{field}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/markAssociatedNotificationsRead",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/markAssociatedNotificationsRead",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/membersVoted",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/membersVoted",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/membersVoted",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/membersVoted",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/membersVoted/{idMember}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/membersVoted/{idMember}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/pos",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/pos",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/stickers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/stickers",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/stickers",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/cards/{idCard}/stickers",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/stickers/{idSticker}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/cards/{idCard}/stickers/{idSticker}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/stickers/{idSticker}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/stickers/{idSticker}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/stickers/{idSticker}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/stickers/{idSticker}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/subscribed",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/subscribed",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/{field}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/checklists",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/checklists",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/checklists/{idChecklist}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/checklists/{idChecklist}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/{idChecklist}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/{idChecklist}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/board/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/board/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/cards/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/cards/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/checkItems",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/checkItems",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/checklists/{idChecklist}/checkItems",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/checklists/{idChecklist}/checkItems",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/{idChecklist}/idCard",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/{idChecklist}/idCard",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/{idChecklist}/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/{idChecklist}/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/{idChecklist}/pos",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/checklists/{idChecklist}/pos",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/checklists/{idChecklist}/{field}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/labels",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/labels",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/labels/{idLabel}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/labels/{idLabel}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/labels/{idLabel}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/labels/{idLabel}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/labels/{idLabel}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/labels/{idLabel}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/labels/{idLabel}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/labels/{idLabel}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/labels/{idLabel}/board/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/labels/{idLabel}/board/{field}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/labels/{idLabel}/color",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/labels/{idLabel}/color",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/labels/{idLabel}/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/labels/{idLabel}/name",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists/{idList}/archiveAllCards",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists/{idList}/archiveAllCards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/board/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/board/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/cards",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists/{idList}/cards",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists/{idList}/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/cards/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/cards/{filter}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/closed",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/closed",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/idBoard",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/idBoard",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists/{idList}/moveAllCards",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/lists/{idList}/moveAllCards",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/pos",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/pos",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/subscribed",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/lists/{idList}/subscribed",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/lists/{idList}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/actions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/avatar",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/avatar",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/avatarSource",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/avatarSource",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/bio",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/bio",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boardBackgrounds",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boardBackgrounds",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/boardBackgrounds",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/boardBackgrounds",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/boardBackgrounds/{idBoardBackground}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boardStars",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boardStars",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/boardStars",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/boardStars",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/members/{idMember}/boardStars/{idBoardStar}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/members/{idMember}/boardStars/{idBoardStar}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boardStars/{idBoardStar}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boardStars/{idBoardStar}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/boardStars/{idBoardStar}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/boardStars/{idBoardStar}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/boardStars/{idBoardStar}/idBoard",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/boardStars/{idBoardStar}/idBoard",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/boardStars/{idBoardStar}/pos",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/boardStars/{idBoardStar}/pos",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boards/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boards/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boardsInvited",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boardsInvited",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boardsInvited/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/boardsInvited/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/cards/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/cards/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/customBoardBackgrounds",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/customBoardBackgrounds",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/customBoardBackgrounds",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/customBoardBackgrounds",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/customEmoji",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/customEmoji",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/customEmoji",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/customEmoji",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/customEmoji/{idCustomEmoji}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/customEmoji/{idCustomEmoji}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/customStickers",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/customStickers",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/customStickers",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/customStickers",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/members/{idMember}/customStickers/{idCustomSticker}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/members/{idMember}/customStickers/{idCustomSticker}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/customStickers/{idCustomSticker}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/customStickers/{idCustomSticker}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/deltas",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/deltas",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/fullName",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/fullName",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/initials",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/initials",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/notifications",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/notifications",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/notifications/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/notifications/{filter}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/oneTimeMessagesDismissed",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/oneTimeMessagesDismissed",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/organizations",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/organizations",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/organizations/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/organizations/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/organizationsInvited",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/organizationsInvited",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/organizationsInvited/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/organizationsInvited/{field}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/prefs/colorBlind",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/prefs/colorBlind",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/prefs/locale",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/prefs/locale",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/prefs/minutesBetweenSummaries",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/prefs/minutesBetweenSummaries",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/savedSearches",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/savedSearches",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/savedSearches",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/savedSearches",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/pos",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/pos",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/query",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}/query",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/tokens",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/tokens",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/username",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/members/{idMember}/username",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/{field}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/notifications/all/read",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/notifications/all/read",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/notifications/{idNotification}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/notifications/{idNotification}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/board",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/board/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/board/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/card",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/card",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/card/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/card/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/display",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/display",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/entities",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/entities",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/list",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/list/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/list/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/member",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/member",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/member/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/member/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/memberCreator",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/memberCreator",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/memberCreator/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/memberCreator/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/organization",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/organization",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/organization/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/organization/{field}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/notifications/{idNotification}/unread",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/notifications/{idNotification}/unread",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/{field}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/organizations",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/organizations",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/{idOrg}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/{idOrg}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/actions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/boards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/boards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/boards/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/boards/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/deltas",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/deltas",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/desc",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/desc",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/displayName",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/displayName",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/{idOrg}/logo",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/{idOrg}/logo",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/organizations/{idOrg}/logo",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/organizations/{idOrg}/logo",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/members",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/members",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/members/{filter}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/members/{filter}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/{idOrg}/members/{idMember}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/{idOrg}/members/{idMember}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/members/{idMember}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/members/{idMember}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/{idOrg}/members/{idMember}/all",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/{idOrg}/members/{idMember}/all",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/members/{idMember}/cards",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/members/{idMember}/cards",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/members/{idMember}/deactivated",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/members/{idMember}/deactivated",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/membersInvited",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/membersInvited",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/membersInvited/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/membersInvited/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/memberships",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/memberships",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/memberships/{idMembership}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/memberships/{idMembership}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/memberships/{idMembership}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/memberships/{idMembership}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/name",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/name",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/{idOrg}/prefs/associatedDomain",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/{idOrg}/prefs/associatedDomain",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/associatedDomain",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/associatedDomain",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/org",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/org",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/private",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/private",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/public",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/boardVisibilityRestrict/public",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/externalMembersDisabled",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/externalMembersDisabled",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/googleAppsVersion",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/googleAppsVersion",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/{idOrg}/prefs/orgInviteRestrict",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/{idOrg}/prefs/orgInviteRestrict",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/orgInviteRestrict",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/orgInviteRestrict",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/permissionLevel",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/prefs/permissionLevel",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/website",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/organizations/{idOrg}/website",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/search",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/search/members",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/search/members",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/sessions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/sessions",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/sessions/socket",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/sessions/socket",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/sessions/{idSession}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/sessions/{idSession}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/sessions/{idSession}/status",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/sessions/{idSession}/status",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/tokens/{token}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/tokens/{token}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tokens/{token}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tokens/{token}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tokens/{token}/member",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tokens/{token}/member",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tokens/{token}/member/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tokens/{token}/member/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tokens/{token}/webhooks",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tokens/{token}/webhooks",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/tokens/{token}/webhooks",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/tokens/{token}/webhooks",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/tokens/{token}/webhooks",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/tokens/{token}/webhooks",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/tokens/{token}/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/tokens/{token}/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tokens/{token}/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tokens/{token}/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tokens/{token}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/tokens/{token}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/types/{id}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/types/{id}",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/webhooks",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/webhooks",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/active",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/active",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/callbackURL",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/callbackURL",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/description",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/description",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/idModel",
+      "body": null
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/{idWebhook}/idModel",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks/{idWebhook}/{field}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks/{idWebhook}/{field}",
+      "body": null
     }
   ]
 }

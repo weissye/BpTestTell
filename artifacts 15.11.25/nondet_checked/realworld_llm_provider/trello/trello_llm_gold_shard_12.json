@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/sessions",
+      "method": "POST",
+      "operationId": "addSessions",
+      "summary": "",
+      "user": "User123: I want to create a new session for my team to collaborate on our project. The session should include a description and a list of participants.",
+      "ideal": "Create a new session with the provided details and return the session ID."
+    },
+    {
+      "path": "/sessions/socket",
+      "method": "GET",
+      "operationId": "getSessionsSocket",
+      "summary": "",
+      "user": "User456: I need to connect to the session socket to receive real-time updates about my team's activities.",
+      "ideal": "Establish a WebSocket connection to receive live updates for the current session."
+    },
+    {
+      "path": "/sessions/{idSession}",
+      "method": "PUT",
+      "operationId": "updateSessionsByIdSession",
+      "summary": "",
+      "user": "User789: I want to update the details of an existing session, including changing the title and adding more participants.",
+      "ideal": "Update the specified session with the new details and confirm the update."
+    },
+    {
+      "path": "/sessions/{idSession}/status",
+      "method": "PUT",
+      "operationId": "updateSessionsStatusByIdSession",
+      "summary": "",
+      "user": "User101: I need to change the status of the session to 'completed' after our meeting has ended.",
+      "ideal": "Update the status of the specified session and return the updated status."
+    }
+  ]
+}

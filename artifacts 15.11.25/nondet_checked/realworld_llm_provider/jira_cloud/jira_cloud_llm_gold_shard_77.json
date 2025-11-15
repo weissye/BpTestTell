@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/field/10000/screens",
+      "method": "GET",
+      "operationId": "getScreensForField",
+      "summary": "",
+      "user": "User requests to see which screens are associated with a specific field in Jira.",
+      "ideal": "Returns a list of screens that include the specified field."
+    },
+    {
+      "path": "/rest/api/3/screens",
+      "method": "GET",
+      "operationId": "getScreens",
+      "summary": "",
+      "user": "User wants to retrieve all available screens in the Jira instance.",
+      "ideal": "Returns a list of all screens with their details."
+    },
+    {
+      "path": "/rest/api/3/screens",
+      "method": "POST",
+      "operationId": "createScreen",
+      "summary": "",
+      "user": "User needs to create a new screen for issue types in Jira.",
+      "ideal": "Creates a new screen and returns the screen details including its ID."
+    },
+    {
+      "path": "/rest/api/3/screens/addToDefault/10000",
+      "method": "POST",
+      "operationId": "addFieldToDefaultScreen",
+      "summary": "",
+      "user": "User wants to add a specific field to the default screen in Jira.",
+      "ideal": "Adds the field to the default screen and confirms the addition."
+    },
+    {
+      "path": "/rest/api/3/screens/20000",
+      "method": "DELETE",
+      "operationId": "deleteScreen",
+      "summary": "",
+      "user": "User intends to delete a specific screen that is no longer needed.",
+      "ideal": "Deletes the specified screen and returns a success message."
+    },
+    {
+      "path": "/rest/api/3/screens/20000",
+      "method": "PUT",
+      "operationId": "updateScreen",
+      "summary": "",
+      "user": "User wants to update the name and description of an existing screen.",
+      "ideal": "Updates the screen details and returns the updated screen information."
+    },
+    {
+      "path": "/rest/api/3/screens/20000/availableFields",
+      "method": "GET",
+      "operationId": "getAvailableScreenFields",
+      "summary": "",
+      "user": "User is looking to find out which fields can be added to a specific screen.",
+      "ideal": "Returns a list of fields that can be added to the specified screen."
+    }
+  ]
+}

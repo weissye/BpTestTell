@@ -1,84 +1,84 @@
 {
   "gold": [
     {
-      "path": "/v1/{realm}",
+      "path": "/v1/{realm}/users-management-permissions",
       "method": "GET",
-      "operationId": "get",
+      "operationId": "getUsersManagementPermissions",
       "summary": "",
-      "user": "Admin user requesting realm information.",
-      "ideal": "Returns the details of the specified realm."
-    },
-    {
-      "path": "/v1/{realm}",
-      "method": "POST",
-      "operationId": "post",
-      "summary": "",
-      "user": "Admin user creating a new realm.",
-      "ideal": "Creates a new realm with the provided configuration."
-    },
-    {
-      "path": "/v1/{realm}/admin-events",
-      "method": "GET",
-      "operationId": "getAdminEvents",
-      "summary": "",
-      "user": "Admin user retrieving admin events for auditing.",
-      "ideal": "Returns a list of admin events for the specified realm."
-    },
-    {
-      "path": "/v1/{realm}/client-policies/policies",
-      "method": "GET",
-      "operationId": "getPolicies",
-      "summary": "",
-      "user": "Admin user checking client policies.",
-      "ideal": "Retrieves the client policies defined in the realm."
-    },
-    {
-      "path": "/v1/{realm}/default-groups",
-      "method": "GET",
-      "operationId": "getDefaultGroups",
-      "summary": "",
-      "user": "Admin user listing default groups in the realm.",
-      "ideal": "Returns a list of default groups for the specified realm."
+      "user": "admin_user",
+      "ideal": "Retrieve the management permissions for users in the specified realm."
     },
     {
       "path": "/v1/{realm}/localization/en",
       "method": "GET",
       "operationId": "getLocalizationByRealmByLocale",
       "summary": "",
-      "user": "Admin user fetching localization for English locale.",
-      "ideal": "Returns localization strings for the specified locale."
+      "user": "localization_manager",
+      "ideal": "Fetch localization settings for the English locale in the specified realm."
+    },
+    {
+      "path": "/v1/{realm}/client-policies/policies",
+      "method": "GET",
+      "operationId": "getPolicies",
+      "summary": "",
+      "user": "policy_admin",
+      "ideal": "Get all client policies defined in the specified realm."
+    },
+    {
+      "path": "/v1/{realm}/default-groups/{groupId}",
+      "method": "DELETE",
+      "operationId": "deleteDefaultGroup",
+      "summary": "",
+      "user": "group_admin",
+      "ideal": "Remove the specified default group from the realm."
+    },
+    {
+      "path": "/v1/{realm}/events/config",
+      "method": "GET",
+      "operationId": "getEventsConfig",
+      "summary": "",
+      "user": "event_manager",
+      "ideal": "Retrieve the current configuration for events in the specified realm."
     },
     {
       "path": "/v1/{realm}/localization/en/welcome",
       "method": "GET",
       "operationId": "getLocalizationByRealmByLocaleByKey",
       "summary": "",
-      "user": "Admin user retrieving a specific localization key.",
-      "ideal": "Returns the localization string for the specified key."
+      "user": "localization_viewer",
+      "ideal": "Get the localization string for the key 'welcome' in the English locale."
+    },
+    {
+      "path": "/v1/{realm}/partial-export",
+      "method": "POST",
+      "operationId": "postPartialExport",
+      "summary": "",
+      "user": "data_exporter",
+      "ideal": "Export a partial set of data from the specified realm."
     },
     {
       "path": "/v1/{realm}/logout-all",
       "method": "POST",
       "operationId": "postLogoutAll",
       "summary": "",
-      "user": "Admin user logging out all users from the realm.",
-      "ideal": "Logs out all active sessions in the specified realm."
+      "user": "session_manager",
+      "ideal": "Log out all users from the specified realm."
     },
     {
-      "path": "/v1/{realm}/sessions/{session}",
-      "method": "DELETE",
-      "operationId": "deleteSession",
+      "path": "/v1/{realm}/client-session-stats",
+      "method": "GET",
+      "operationId": "getClientSessionStats",
       "summary": "",
-      "user": "Admin user terminating a specific user session.",
-      "ideal": "Deletes the specified user session from the realm."
+      "user": "session_statistician",
+      "ideal": "Retrieve statistics about client sessions in the specified realm."
     },
     {
-      "path": "/v1/{realm}/testSMTPConnection",
-      "method": "POST",
-      "operationId": "postTestSmtpConnection",
+      "path": "/v1/{realm}/admin-events",
+      "method": "GET",
+      "operationId": "getAdminEvents",
       "summary": "",
-      "user": "Admin user testing SMTP connection settings.",
-      "ideal": "Tests the SMTP connection with the provided configuration."
+      "user": "admin_auditor",
+      "ideal": "Fetch a list of administrative events that occurred in the specified realm."
     }
   ]
 }

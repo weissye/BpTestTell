@@ -5,8 +5,8 @@
       "method": "POST",
       "operationId": "CreateToken",
       "summary": "",
-      "user": "User wants to generate a new access token for their Twilio account to enable secure communication with Twilio services.",
-      "ideal": "The API should return a JSON response containing the generated token along with its expiration time and associated account SID."
+      "user": "{\"identity\":\"user123\",\"device\":\"web\",\"client\":\"myApp\"}",
+      "ideal": "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMTIzIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\",\"expires\":3600}"
     }
   ]
 }

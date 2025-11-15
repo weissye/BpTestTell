@@ -5,40 +5,40 @@
       "method": "POST",
       "operationId": "UpdateIncomingPhoneNumber",
       "summary": "",
-      "user": "User wants to update the voice URL for an existing incoming phone number to redirect calls to a new endpoint.",
-      "ideal": "The incoming phone number is successfully updated with the new voice URL."
+      "user": "User wants to update the details of a specific incoming phone number associated with their Twilio account, including changing the voice URL and SMS URL.",
+      "ideal": "Successfully updates the incoming phone number with the new details provided."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
       "method": "GET",
       "operationId": "FetchIncomingPhoneNumber",
       "summary": "",
-      "user": "User needs to retrieve details of a specific incoming phone number to check its current configuration.",
-      "ideal": "The details of the incoming phone number are returned, including the voice URL and SMS settings."
+      "user": "User needs to retrieve the details of a specific incoming phone number to check its current configuration and status.",
+      "ideal": "Returns the current configuration and status of the specified incoming phone number."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
       "method": "DELETE",
       "operationId": "DeleteIncomingPhoneNumber",
       "summary": "",
-      "user": "User wants to delete an incoming phone number that is no longer needed for their application.",
-      "ideal": "The incoming phone number is successfully deleted, and a confirmation message is returned."
+      "user": "User wants to delete an incoming phone number that is no longer needed for their Twilio account.",
+      "ideal": "Successfully deletes the specified incoming phone number from the account."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
       "method": "GET",
       "operationId": "ListIncomingPhoneNumber",
       "summary": "",
-      "user": "User wants to list all incoming phone numbers associated with their account to manage them effectively.",
-      "ideal": "A list of all incoming phone numbers is returned, along with their configurations."
+      "user": "User wants to list all incoming phone numbers associated with their Twilio account to manage them effectively.",
+      "ideal": "Returns a list of all incoming phone numbers associated with the account."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
       "method": "POST",
       "operationId": "CreateIncomingPhoneNumber",
       "summary": "",
-      "user": "User wants to purchase a new incoming phone number for their business and set it up for SMS and voice.",
-      "ideal": "The new incoming phone number is successfully created and configured with the specified settings."
+      "user": "User wants to create a new incoming phone number for their Twilio account to handle incoming calls and messages.",
+      "ideal": "Successfully creates a new incoming phone number and returns its details."
     }
   ]
 }

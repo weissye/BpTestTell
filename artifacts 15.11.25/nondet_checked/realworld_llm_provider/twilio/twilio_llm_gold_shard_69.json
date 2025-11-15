@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers/UTXXXXXXXXXXXXXXXXX.json",
+      "method": "GET",
+      "operationId": "FetchUsageTrigger",
+      "summary": "",
+      "user": "Retrieve the details of a specific usage trigger using its SID.",
+      "ideal": "Successful retrieval of the usage trigger details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers/UTXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdateUsageTrigger",
+      "summary": "",
+      "user": "Update the threshold for a specific usage trigger to 1000.",
+      "ideal": "The usage trigger is updated successfully with the new threshold."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers/UTXXXXXXXXXXXXXXXXX.json",
+      "method": "DELETE",
+      "operationId": "DeleteUsageTrigger",
+      "summary": "",
+      "user": "Delete a specific usage trigger that is no longer needed.",
+      "ideal": "The usage trigger is deleted successfully."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers.json",
+      "method": "POST",
+      "operationId": "CreateUsageTrigger",
+      "summary": "",
+      "user": "Create a new usage trigger with a threshold of 500 for SMS usage.",
+      "ideal": "The new usage trigger is created successfully."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers.json",
+      "method": "GET",
+      "operationId": "ListUsageTrigger",
+      "summary": "",
+      "user": "List all usage triggers associated with my account.",
+      "ideal": "A list of all usage triggers is returned successfully."
+    }
+  ]
+}

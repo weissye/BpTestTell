@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "getDefaultProjectClassification",
       "summary": "",
-      "user": "Project manager looking to retrieve the default classification level for a specific project to ensure it aligns with organizational standards.",
-      "ideal": "Returns the current default classification level for the specified project."
+      "user": "As a project manager, I want to retrieve the default classification level for my project to ensure it aligns with our organizational standards.",
+      "ideal": "The response should return the current default classification level for the specified project, including its ID and description."
     },
     {
       "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
       "method": "PUT",
       "operationId": "updateDefaultProjectClassification",
       "summary": "",
-      "user": "System administrator updating the default classification level for a project to reflect new compliance requirements.",
-      "ideal": "Successfully updates the default classification level for the specified project and returns a confirmation message."
+      "user": "As a project administrator, I need to update the default classification level for my project to reflect recent changes in our classification criteria.",
+      "ideal": "The response should confirm the successful update of the default classification level and return the updated classification details."
     },
     {
       "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default",
       "method": "DELETE",
       "operationId": "removeDefaultProjectClassification",
       "summary": "",
-      "user": "Compliance officer removing the default classification level from a project that is no longer applicable.",
-      "ideal": "Successfully removes the default classification level for the specified project and returns a success status."
+      "user": "As a compliance officer, I want to remove the default classification level for a project that no longer requires it to maintain accurate project classifications.",
+      "ideal": "The response should confirm the successful removal of the default classification level and indicate that the project is now without a default classification."
     }
   ]
 }
