@@ -40,3 +40,4 @@ OpenAiKey.txt
 !artifacts/**/readable/**
 !artifacts/**/readable/**
 mySetupEnv.bat
+set-OPENAPI-key.bat
