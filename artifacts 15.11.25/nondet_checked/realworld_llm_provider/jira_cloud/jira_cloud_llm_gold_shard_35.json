@@ -1,0 +1,68 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/resolution",
+      "method": "GET",
+      "operationId": "getResolutions",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all available resolutions in Jira to ensure I can assign the correct resolution to issues.",
+      "ideal": "Returns a list of all resolutions with their IDs and names."
+    },
+    {
+      "path": "/rest/api/3/resolution",
+      "method": "POST",
+      "operationId": "createResolution",
+      "summary": "",
+      "user": "As a Jira administrator, I want to create a new resolution so that I can manage issue resolutions effectively.",
+      "ideal": "Creates a new resolution and returns the created resolution object with its ID."
+    },
+    {
+      "path": "/rest/api/3/resolution/default",
+      "method": "PUT",
+      "operationId": "setDefaultResolution",
+      "summary": "",
+      "user": "As a project lead, I want to set a default resolution for my project to streamline issue handling.",
+      "ideal": "Sets the default resolution and returns a confirmation message."
+    },
+    {
+      "path": "/rest/api/3/resolution/move",
+      "method": "PUT",
+      "operationId": "moveResolutions",
+      "summary": "",
+      "user": "As a system administrator, I need to reorganize resolutions to improve clarity and usability for the team.",
+      "ideal": "Moves specified resolutions to new positions and returns the updated list."
+    },
+    {
+      "path": "/rest/api/3/resolution/search",
+      "method": "GET",
+      "operationId": "searchResolutions",
+      "summary": "",
+      "user": "As a developer, I want to search for specific resolutions by name to quickly find the one I need.",
+      "ideal": "Returns a list of resolutions that match the search criteria."
+    },
+    {
+      "path": "/rest/api/3/resolution/{id}",
+      "method": "DELETE",
+      "operationId": "deleteResolution",
+      "summary": "",
+      "user": "As a project manager, I want to delete obsolete resolutions to keep the resolution list clean and relevant.",
+      "ideal": "Deletes the specified resolution and returns a success message."
+    },
+    {
+      "path": "/rest/api/3/resolution/{id}",
+      "method": "GET",
+      "operationId": "getResolution",
+      "summary": "",
+      "user": "As a support agent, I want to retrieve details of a specific resolution to assist users effectively.",
+      "ideal": "Returns the details of the specified resolution including its ID and name."
+    },
+    {
+      "path": "/rest/api/3/resolution/{id}",
+      "method": "PUT",
+      "operationId": "updateResolution",
+      "summary": "",
+      "user": "As a Jira administrator, I want to update the details of an existing resolution to reflect changes in our processes.",
+      "ideal": "Updates the specified resolution and returns the updated resolution object."
+    }
+  ]
+}

@@ -1,44 +1,44 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers/UTXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
       "method": "GET",
       "operationId": "FetchUsageTrigger",
       "summary": "",
-      "user": "Retrieve the details of a specific usage trigger using its SID.",
-      "ideal": "Successful retrieval of the usage trigger details."
+      "user": "As a developer, I want to retrieve the details of a specific usage trigger by its SID so that I can monitor its configuration and status.",
+      "ideal": "The API should return a JSON object containing the details of the usage trigger, including its SID, friendly name, and current usage metrics."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers/UTXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateUsageTrigger",
       "summary": "",
-      "user": "Update the threshold for a specific usage trigger to 1000.",
-      "ideal": "The usage trigger is updated successfully with the new threshold."
+      "user": "As a user, I need to update the settings of an existing usage trigger to adjust its threshold so that I can better manage my account's usage.",
+      "ideal": "The API should accept a JSON payload with the updated settings and return a confirmation that the trigger has been successfully updated."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers/UTXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
       "method": "DELETE",
       "operationId": "DeleteUsageTrigger",
       "summary": "",
-      "user": "Delete a specific usage trigger that is no longer needed.",
-      "ideal": "The usage trigger is deleted successfully."
+      "user": "As an account manager, I want to delete a specific usage trigger that is no longer needed to keep my account organized and avoid unnecessary alerts.",
+      "ideal": "The API should return a success message confirming that the usage trigger has been deleted."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
       "method": "POST",
       "operationId": "CreateUsageTrigger",
       "summary": "",
-      "user": "Create a new usage trigger with a threshold of 500 for SMS usage.",
-      "ideal": "The new usage trigger is created successfully."
+      "user": "As a developer, I want to create a new usage trigger with specific parameters so that I can be alerted when my usage reaches a certain level.",
+      "ideal": "The API should accept a JSON payload with the trigger parameters and return the SID of the newly created usage trigger."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Triggers.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
       "method": "GET",
       "operationId": "ListUsageTrigger",
       "summary": "",
-      "user": "List all usage triggers associated with my account.",
-      "ideal": "A list of all usage triggers is returned successfully."
+      "user": "As a user, I want to list all usage triggers associated with my account to review their configurations and statuses.",
+      "ideal": "The API should return a JSON array containing all usage triggers, including their SIDs, friendly names, and current usage metrics."
     }
   ]
 }

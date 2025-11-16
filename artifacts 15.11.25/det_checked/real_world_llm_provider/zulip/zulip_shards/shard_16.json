@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "DELETE",
+      "path": "/events"
+    },
+    {
+      "method": "PATCH",
+      "path": "/messages/{message_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/realm/playgrounds/{playground_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/streams/{stream_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/alert_words"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{user_id}/status"
+    }
+  ]
+}

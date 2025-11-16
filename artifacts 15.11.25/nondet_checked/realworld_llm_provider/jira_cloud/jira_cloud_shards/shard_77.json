@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/field/{fieldId}/screens",
+      "method": "GET",
+      "tags": [
+        "Screens"
+      ],
+      "summary": "Get screens for a field",
+      "operationId": "getScreensForField"
+    },
+    {
+      "path": "/rest/api/3/screens",
+      "method": "GET",
+      "tags": [
+        "Screens"
+      ],
+      "summary": "Get screens",
+      "operationId": "getScreens"
+    },
+    {
+      "path": "/rest/api/3/screens",
+      "method": "POST",
+      "tags": [
+        "Screens"
+      ],
+      "summary": "Create screen",
+      "operationId": "createScreen"
+    },
+    {
+      "path": "/rest/api/3/screens/addToDefault/{fieldId}",
+      "method": "POST",
+      "tags": [
+        "Screens"
+      ],
+      "summary": "Add field to default screen",
+      "operationId": "addFieldToDefaultScreen"
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}",
+      "method": "DELETE",
+      "tags": [
+        "Screens"
+      ],
+      "summary": "Delete screen",
+      "operationId": "deleteScreen"
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}",
+      "method": "PUT",
+      "tags": [
+        "Screens"
+      ],
+      "summary": "Update screen",
+      "operationId": "updateScreen"
+    },
+    {
+      "path": "/rest/api/3/screens/{screenId}/availableFields",
+      "method": "GET",
+      "tags": [
+        "Screens"
+      ],
+      "summary": "Get available screen fields",
+      "operationId": "getAvailableScreenFields"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/tokens/abc123",
+      "method": "DELETE",
+      "operationId": "deleteTokensByToken",
+      "summary": "",
+      "user": "User requested to delete the token 'abc123' as it is no longer needed.",
+      "ideal": "Token 'abc123' successfully deleted."
+    },
+    {
+      "path": "/tokens/abc123",
+      "method": "GET",
+      "operationId": "getTokensByToken",
+      "summary": "",
+      "user": "User wants to retrieve details for token 'abc123'.",
+      "ideal": "Token details for 'abc123' retrieved successfully."
+    },
+    {
+      "path": "/tokens/abc123/member",
+      "method": "GET",
+      "operationId": "getTokensMemberByToken",
+      "summary": "",
+      "user": "User is looking for the member associated with token 'abc123'.",
+      "ideal": "Member information for token 'abc123' retrieved successfully."
+    },
+    {
+      "path": "/tokens/abc123/member/username",
+      "method": "GET",
+      "operationId": "getTokensMemberByTokenByField",
+      "summary": "",
+      "user": "User wants to get the username of the member associated with token 'abc123'.",
+      "ideal": "Username for token 'abc123' member retrieved successfully."
+    },
+    {
+      "path": "/tokens/abc123/webhooks",
+      "method": "GET",
+      "operationId": "getTokensWebhooksByToken",
+      "summary": "",
+      "user": "User requests a list of webhooks associated with token 'abc123'.",
+      "ideal": "List of webhooks for token 'abc123' retrieved successfully."
+    },
+    {
+      "path": "/tokens/abc123/webhooks",
+      "method": "POST",
+      "operationId": "addTokensWebhooksByToken",
+      "summary": "",
+      "user": "User wants to add a new webhook for token 'abc123'.",
+      "ideal": "New webhook added successfully for token 'abc123'."
+    },
+    {
+      "path": "/tokens/abc123/webhooks",
+      "method": "PUT",
+      "operationId": "updateTokensWebhooksByToken",
+      "summary": "",
+      "user": "User needs to update an existing webhook for token 'abc123'.",
+      "ideal": "Webhook for token 'abc123' updated successfully."
+    },
+    {
+      "path": "/tokens/abc123/webhooks/456",
+      "method": "DELETE",
+      "operationId": "deleteTokensWebhooksByTokenByIdWebhook",
+      "summary": "",
+      "user": "User wants to delete webhook with ID '456' for token 'abc123'.",
+      "ideal": "Webhook with ID '456' for token 'abc123' deleted successfully."
+    },
+    {
+      "path": "/tokens/abc123/webhooks/456",
+      "method": "GET",
+      "operationId": "getTokensWebhooksByTokenByIdWebhook",
+      "summary": "",
+      "user": "User is looking for details of webhook with ID '456' for token 'abc123'.",
+      "ideal": "Details for webhook ID '456' of token 'abc123' retrieved successfully."
+    },
+    {
+      "path": "/tokens/abc123/expiration",
+      "method": "GET",
+      "operationId": "getTokensByTokenByField",
+      "summary": "",
+      "user": "User wants to check the expiration date of token 'abc123'.",
+      "ideal": "Expiration date for token 'abc123' retrieved successfully."
+    }
+  ]
+}

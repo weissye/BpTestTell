@@ -1,36 +1,36 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps/CAXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
       "method": "GET",
       "operationId": "FetchConnectApp",
       "summary": "",
-      "user": "User requested details for a specific Connect App to verify its configuration and status.",
-      "ideal": "Successfully retrieved the Connect App details with status 200."
+      "user": "User wants to retrieve details of a specific Connect App using its SID.",
+      "ideal": "The response should include the Connect App's details such as its name, description, and status."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps/CAXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateConnectApp",
       "summary": "",
-      "user": "User wants to update the settings of a Connect App to change its webhook URL.",
-      "ideal": "Successfully updated the Connect App with status 200."
+      "user": "User needs to update the configuration of an existing Connect App identified by its SID.",
+      "ideal": "The response should confirm the update and return the updated Connect App details."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps/CAXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
       "method": "DELETE",
       "operationId": "DeleteConnectApp",
       "summary": "",
-      "user": "User intends to remove an obsolete Connect App that is no longer in use.",
-      "ideal": "Successfully deleted the Connect App with status 204."
+      "user": "User intends to delete a specific Connect App using its SID.",
+      "ideal": "The response should confirm the deletion of the Connect App."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/ConnectApps.json",
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json",
       "method": "GET",
       "operationId": "ListConnectApp",
       "summary": "",
-      "user": "User needs to list all Connect Apps associated with their account for management purposes.",
-      "ideal": "Successfully retrieved the list of Connect Apps with status 200."
+      "user": "User wants to list all Connect Apps associated with their account.",
+      "ideal": "The response should include an array of Connect Apps with their respective details."
     }
   ]
 }

@@ -1,36 +1,36 @@
 {
   "gold": [
     {
-      "path": "/rest/api/3/project/PROJ-123/issuesecuritylevelscheme",
+      "path": "/rest/api/3/project/ABC/issuesecuritylevelscheme",
       "method": "GET",
       "operationId": "getProjectIssueSecurityScheme",
       "summary": "",
-      "user": "User A is a project manager who needs to retrieve the issue security level scheme for the project identified by 'PROJ-123' to ensure that sensitive issues are properly secured.",
-      "ideal": "The response should include the issue security level scheme details for the specified project."
+      "user": "A project manager looking to understand the issue security levels applied to the project with key 'ABC'.",
+      "ideal": "Retrieve the issue security level scheme for project 'ABC' to ensure compliance with data protection policies."
     },
     {
-      "path": "/rest/api/3/project/PROJ-123/permissionscheme",
+      "path": "/rest/api/3/project/XYZ/permissionscheme",
       "method": "GET",
       "operationId": "getAssignedPermissionScheme",
       "summary": "",
-      "user": "User B is a developer looking to check the permission scheme assigned to the project 'PROJ-123' to understand their access rights.",
-      "ideal": "The response should provide the details of the permission scheme currently assigned to the project."
+      "user": "A team lead wanting to verify the permission scheme assigned to the project 'XYZ' to manage team access.",
+      "ideal": "Fetch the permission scheme for project 'XYZ' to review user access and roles."
     },
     {
-      "path": "/rest/api/3/project/PROJ-123/permissionscheme",
+      "path": "/rest/api/3/project/DEF/permissionscheme",
       "method": "PUT",
       "operationId": "assignPermissionScheme",
       "summary": "",
-      "user": "User C is a system administrator who needs to assign a new permission scheme to the project 'PROJ-123' to update access controls for the team.",
-      "ideal": "The response should confirm that the new permission scheme has been successfully assigned to the project."
+      "user": "An administrator tasked with updating the permission scheme for project 'DEF' to align with new organizational policies.",
+      "ideal": "Assign a new permission scheme to project 'DEF' to enhance security and access control."
     },
     {
-      "path": "/rest/api/3/project/PROJ-123/securitylevel",
+      "path": "/rest/api/3/project/GHI/securitylevel",
       "method": "GET",
       "operationId": "getSecurityLevelsForProject",
       "summary": "",
-      "user": "User D is a compliance officer who wants to retrieve the security levels for project 'PROJ-123' to ensure compliance with data protection regulations.",
-      "ideal": "The response should list all security levels associated with the specified project."
+      "user": "A compliance officer needing to review the security levels for project 'GHI' to ensure sensitive information is protected.",
+      "ideal": "Obtain the security levels for project 'GHI' to assess the adequacy of security measures in place."
     }
   ]
 }

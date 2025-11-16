@@ -1,0 +1,104 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/rest/api/3/applicationrole"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/dashboard/{dashboardId}/gadget/{gadgetId}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/{fieldId}/context/defaultValue"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/{fieldKey}/option/{optionId}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/filter/favourite"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/groupuserpicker"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/changelog/list"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/watchers"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuesecurityschemes/level"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/jql/autocompletedata"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/notificationscheme/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/plans/plan/{planId}/team/atlassian/{atlassianTeamId}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectIdOrKey}/component"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectKeyOrId}/permissionscheme"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/role/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/screenscheme/{screenSchemeId}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/task/{taskId}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/user/groups"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/version/{id}/relatedwork"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/workflows/capabilities"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/workflowscheme/{id}/draft"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/atlassian-connect/1/addons/{addonKey}/properties/{propertyKey}"
+    }
+  ]
+}

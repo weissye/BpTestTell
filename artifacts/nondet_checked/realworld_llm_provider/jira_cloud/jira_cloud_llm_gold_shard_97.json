@@ -6,7 +6,7 @@
       "operationId": "getUserNavProperty",
       "summary": "",
       "user": "user123",
-      "ideal": "Retrieve the user's navigation property for the theme."
+      "ideal": "Retrieve the current theme property for the user."
     },
     {
       "path": "/rest/api/3/user/nav4-opt-property/theme",
@@ -14,7 +14,7 @@
       "operationId": "setUserNavProperty",
       "summary": "",
       "user": "user123",
-      "ideal": "Set the user's navigation property for the theme to 'dark'."
+      "ideal": "Update the theme property for the user to 'dark'."
     }
   ]
 }

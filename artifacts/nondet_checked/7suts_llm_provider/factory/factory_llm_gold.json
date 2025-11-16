@@ -1,76 +1,409 @@
 {
-  "gold": [
+  "ops": [
     {
+      "method": "GET",
+      "path": "/machines",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/machines",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/maintenance-tickets",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/maintenance-tickets",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
       "path": "/reset",
-      "method": "POST",
-      "operationId": "resetFactory",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Resets the factory state to initial configuration."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/machines",
       "method": "GET",
-      "operationId": "getMachines",
-      "summary": "",
-      "user": "operator",
-      "ideal": "Retrieves a list of all machines in the factory."
-    },
-    {
-      "path": "/machines",
-      "method": "POST",
-      "operationId": "addMachine",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Adds a new machine to the factory."
-    },
-    {
-      "path": "/workorders",
-      "method": "GET",
-      "operationId": "getWorkOrders",
-      "summary": "",
-      "user": "manager",
-      "ideal": "Fetches all active work orders in the system."
-    },
-    {
-      "path": "/workorders",
-      "method": "POST",
-      "operationId": "createWorkOrder",
-      "summary": "",
-      "user": "manager",
-      "ideal": "Creates a new work order for production."
-    },
-    {
-      "path": "/maintenance-tickets",
-      "method": "GET",
-      "operationId": "getMaintenanceTickets",
-      "summary": "",
-      "user": "technician",
-      "ideal": "Lists all maintenance tickets currently open."
-    },
-    {
-      "path": "/maintenance-tickets",
-      "method": "POST",
-      "operationId": "createMaintenanceTicket",
-      "summary": "",
-      "user": "technician",
-      "ideal": "Submits a new maintenance ticket for a machine."
-    },
-    {
       "path": "/sensor-readings",
-      "method": "GET",
-      "operationId": "getSensorReadings",
-      "summary": "",
-      "user": "operator",
-      "ideal": "Retrieves the latest sensor readings from machines."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/sensor-readings",
       "method": "POST",
-      "operationId": "submitSensorReading",
-      "summary": "",
-      "user": "operator",
-      "ideal": "Submits a new sensor reading for a specific machine."
+      "path": "/sensor-readings",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workorders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/workorders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/machines",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/machines",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/machines",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/machines",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/maintenance-tickets",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/maintenance-tickets",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/maintenance-tickets",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/maintenance-tickets",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/sensor-readings",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/sensor-readings",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/sensor-readings",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/sensor-readings",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workorders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workorders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/workorders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/workorders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     }
   ]
 }

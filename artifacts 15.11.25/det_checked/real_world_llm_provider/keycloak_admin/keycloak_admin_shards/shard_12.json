@@ -1,0 +1,56 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/client-authenticator-providers"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/authentication/form-providers"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/client-scopes/{id}/protocol-mappers/add-models"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/client-templates/{id}/protocol-mappers/add-models"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/clients/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/{realm}/clients/{id}/nodes"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/clients/{id}/roles/{role-name}/management/permissions"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/credential-registrators"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/groups/{id}/members"
+    },
+    {
+      "method": "DELETE",
+      "path": "/{realm}/identity-provider/instances/{alias}/mappers/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/{realm}/roles-by-id/{role-id}/composites/clients/{clientUuid}"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/users/profile"
+    },
+    {
+      "method": "PUT",
+      "path": "/{realm}/users/{id}/reset-password"
+    }
+  ]
+}

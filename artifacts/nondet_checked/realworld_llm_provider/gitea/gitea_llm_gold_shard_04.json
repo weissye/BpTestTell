@@ -5,96 +5,96 @@
       "method": "GET",
       "operationId": "listGitignoresTemplates",
       "summary": "",
-      "user": "developer123",
-      "ideal": "Retrieve a list of available .gitignore templates."
+      "user": "user123",
+      "ideal": "Retrieve a list of available gitignore templates."
     },
     {
       "path": "/gitignore/templates/Python",
       "method": "GET",
       "operationId": "getGitignoreTemplateInfo",
       "summary": "",
-      "user": "developer123",
-      "ideal": "Get detailed information about the Python .gitignore template."
+      "user": "user456",
+      "ideal": "Fetch information about the Python gitignore template."
     },
     {
       "path": "/label/templates",
       "method": "GET",
       "operationId": "listLabelTemplates",
       "summary": "",
-      "user": "projectManager456",
-      "ideal": "Fetch all available label templates for issues and pull requests."
+      "user": "user789",
+      "ideal": "Get a list of available label templates."
     },
     {
       "path": "/label/templates/bug",
       "method": "GET",
       "operationId": "getLabelTemplateInfo",
       "summary": "",
-      "user": "projectManager456",
-      "ideal": "Retrieve information about the 'bug' label template."
+      "user": "user101",
+      "ideal": "Retrieve details about the 'bug' label template."
     },
     {
       "path": "/licenses",
       "method": "GET",
       "operationId": "listLicenseTemplates",
       "summary": "",
-      "user": "legalTeam789",
-      "ideal": "List all available license templates for projects."
+      "user": "user112",
+      "ideal": "List all available license templates."
     },
     {
       "path": "/licenses/MIT",
       "method": "GET",
       "operationId": "getLicenseTemplateInfo",
       "summary": "",
-      "user": "legalTeam789",
-      "ideal": "Get details about the MIT license template."
+      "user": "user131",
+      "ideal": "Get information about the MIT license template."
     },
     {
       "path": "/markdown",
       "method": "POST",
       "operationId": "renderMarkdown",
       "summary": "",
-      "user": "contentCreator101",
-      "ideal": "Convert Markdown text to HTML format."
+      "user": "user415",
+      "ideal": "Render markdown content to HTML."
     },
     {
       "path": "/markdown/raw",
       "method": "POST",
       "operationId": "renderMarkdownRaw",
       "summary": "",
-      "user": "contentCreator101",
-      "ideal": "Render raw Markdown input to HTML without processing."
+      "user": "user161",
+      "ideal": "Render raw markdown content to HTML without additional processing."
     },
     {
       "path": "/markup",
       "method": "POST",
       "operationId": "renderMarkup",
       "summary": "",
-      "user": "webDeveloper202",
-      "ideal": "Transform markup language into HTML."
+      "user": "user718",
+      "ideal": "Convert markup content to HTML."
     },
     {
       "path": "/nodeinfo",
       "method": "GET",
       "operationId": "getNodeInfo",
       "summary": "",
-      "user": "admin303",
-      "ideal": "Retrieve information about the current Gitea instance."
+      "user": "user192",
+      "ideal": "Retrieve information about the Gitea instance."
     },
     {
       "path": "/signing-key.gpg",
       "method": "GET",
       "operationId": "getSigningKey",
       "summary": "",
-      "user": "securityExpert404",
-      "ideal": "Download the GPG signing key for verifying commits."
+      "user": "user202",
+      "ideal": "Get the GPG signing key for verifying commits."
     },
     {
       "path": "/version",
       "method": "GET",
       "operationId": "getVersion",
       "summary": "",
-      "user": "devOps505",
-      "ideal": "Check the current version of the Gitea API."
+      "user": "user303",
+      "ideal": "Fetch the current version of the Gitea API."
     }
   ]
 }

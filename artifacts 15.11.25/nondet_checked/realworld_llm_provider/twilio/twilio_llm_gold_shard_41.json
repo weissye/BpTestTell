@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteMedia",
+      "summary": "",
+      "user": "User wants to delete a specific media attachment from a message in their Twilio account. They provide the Account SID, Message SID, and Media SID to ensure the correct media is removed.",
+      "ideal": "Successfully deletes the specified media attachment and returns a confirmation response."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchMedia",
+      "summary": "",
+      "user": "User needs to retrieve details about a specific media attachment associated with a message in their Twilio account. They supply the Account SID, Message SID, and Media SID to fetch the correct media information.",
+      "ideal": "Returns the media details including URL, content type, and size of the specified media attachment."
+    }
+  ]
+}

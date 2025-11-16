@@ -38,7 +38,7 @@
       "operationId": "get-subscriptions",
       "summary": "",
       "user": "user202",
-      "ideal": "Get a list of subscriptions for the user."
+      "ideal": "Get a list of all subscriptions for the user."
     },
     {
       "path": "/users/me/subscriptions",
@@ -62,7 +62,7 @@
       "operationId": "unsubscribe",
       "summary": "",
       "user": "user505",
-      "ideal": "Unsubscribe the user from a stream."
+      "ideal": "Unsubscribe the user from a specific stream."
     },
     {
       "path": "/users/me/subscriptions/muted_topics",
@@ -86,7 +86,7 @@
       "operationId": "get-subscription-status",
       "summary": "",
       "user": "user808",
-      "ideal": "Check the subscription status of a user for a stream."
+      "ideal": "Check the subscription status for a user on a specific stream."
     },
     {
       "path": "/users/me/subscriptions/properties",
@@ -101,31 +101,31 @@
       "method": "GET",
       "operationId": "get-subscribers",
       "summary": "",
-      "user": "user010",
-      "ideal": "Retrieve the members subscribed to a specific stream."
+      "user": "user1010",
+      "ideal": "Retrieve a list of subscribers for a specific stream."
     },
     {
       "path": "/streams",
       "method": "GET",
       "operationId": "get-streams",
       "summary": "",
-      "user": "user111",
-      "ideal": "Get a list of all streams available."
+      "user": "user1111",
+      "ideal": "Get a list of all available streams."
     },
     {
       "path": "/streams/{stream_id}",
       "method": "GET",
       "operationId": "get-stream-by-id",
       "summary": "",
-      "user": "user222",
-      "ideal": "Retrieve details of a specific stream by its ID."
+      "user": "user1212",
+      "ideal": "Fetch details of a specific stream by its ID."
     },
     {
       "path": "/streams/{stream_id}",
       "method": "DELETE",
       "operationId": "archive-stream",
       "summary": "",
-      "user": "user333",
+      "user": "user1313",
       "ideal": "Archive a specific stream."
     },
     {
@@ -133,7 +133,7 @@
       "method": "PATCH",
       "operationId": "update-stream",
       "summary": "",
-      "user": "user444",
+      "user": "user1414",
       "ideal": "Update the details of a specific stream."
     },
     {
@@ -141,15 +141,15 @@
       "method": "GET",
       "operationId": "get-stream-email-address",
       "summary": "",
-      "user": "user555",
-      "ideal": "Get the email address associated with a specific stream."
+      "user": "user1515",
+      "ideal": "Retrieve the email address associated with a specific stream."
     },
     {
       "path": "/streams/{stream_id}/delete_topic",
       "method": "POST",
       "operationId": "delete-topic",
       "summary": "",
-      "user": "user666",
+      "user": "user1616",
       "ideal": "Delete a specific topic from a stream."
     },
     {
@@ -157,7 +157,7 @@
       "method": "POST",
       "operationId": "create-channel",
       "summary": "",
-      "user": "user777",
+      "user": "user1717",
       "ideal": "Create a new channel."
     },
     {
@@ -165,7 +165,7 @@
       "method": "POST",
       "operationId": "create-channel-folder",
       "summary": "",
-      "user": "user888",
+      "user": "user1818",
       "ideal": "Create a new folder for channels."
     },
     {
@@ -173,23 +173,23 @@
       "method": "GET",
       "operationId": "get-channel-folders",
       "summary": "",
-      "user": "user999",
-      "ideal": "Retrieve a list of channel folders."
+      "user": "user1919",
+      "ideal": "Retrieve a list of all channel folders."
     },
     {
       "path": "/channel_folders",
       "method": "PATCH",
       "operationId": "patch-channel-folders",
       "summary": "",
-      "user": "user000",
-      "ideal": "Patch existing channel folders."
+      "user": "user2020",
+      "ideal": "Update properties of existing channel folders."
     },
     {
       "path": "/channel_folders/{channel_folder_id}",
       "method": "PATCH",
       "operationId": "update-channel-folder",
       "summary": "",
-      "user": "user1111",
+      "user": "user2121",
       "ideal": "Update a specific channel folder."
     },
     {
@@ -198,7 +198,7 @@
       "operationId": "create-big-blue-button-video-call",
       "summary": "",
       "user": "user2222",
-      "ideal": "Create a Big Blue Button video call."
+      "ideal": "Create a BigBlueButton video call."
     }
   ]
 }

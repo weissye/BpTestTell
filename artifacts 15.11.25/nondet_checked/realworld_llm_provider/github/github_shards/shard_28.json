@@ -1,0 +1,207 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/orgs/{org}/migrations",
+      "method": "GET",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "List organization migrations",
+      "operationId": "migrations/list-for-org"
+    },
+    {
+      "path": "/orgs/{org}/migrations",
+      "method": "POST",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Start an organization migration",
+      "operationId": "migrations/start-for-org"
+    },
+    {
+      "path": "/orgs/{org}/migrations/{migration_id}",
+      "method": "GET",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Get an organization migration status",
+      "operationId": "migrations/get-status-for-org"
+    },
+    {
+      "path": "/orgs/{org}/migrations/{migration_id}/archive",
+      "method": "GET",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Download an organization migration archive",
+      "operationId": "migrations/download-archive-for-org"
+    },
+    {
+      "path": "/orgs/{org}/migrations/{migration_id}/archive",
+      "method": "DELETE",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Delete an organization migration archive",
+      "operationId": "migrations/delete-archive-for-org"
+    },
+    {
+      "path": "/orgs/{org}/migrations/{migration_id}/repos/{repo_name}/lock",
+      "method": "DELETE",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Unlock an organization repository",
+      "operationId": "migrations/unlock-repo-for-org"
+    },
+    {
+      "path": "/orgs/{org}/migrations/{migration_id}/repositories",
+      "method": "GET",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "List repositories in an organization migration",
+      "operationId": "migrations/list-repos-for-org"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/import",
+      "method": "GET",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Get an import status",
+      "operationId": "migrations/get-import-status"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/import",
+      "method": "PUT",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Start an import",
+      "operationId": "migrations/start-import"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/import",
+      "method": "PATCH",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Update an import",
+      "operationId": "migrations/update-import"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/import",
+      "method": "DELETE",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Cancel an import",
+      "operationId": "migrations/cancel-import"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/import/authors",
+      "method": "GET",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Get commit authors",
+      "operationId": "migrations/get-commit-authors"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/import/authors/{author_id}",
+      "method": "PATCH",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Map a commit author",
+      "operationId": "migrations/map-commit-author"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/import/large_files",
+      "method": "GET",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Get large files",
+      "operationId": "migrations/get-large-files"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/import/lfs",
+      "method": "PATCH",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Update Git LFS preference",
+      "operationId": "migrations/set-lfs-preference"
+    },
+    {
+      "path": "/user/migrations",
+      "method": "GET",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "List user migrations",
+      "operationId": "migrations/list-for-authenticated-user"
+    },
+    {
+      "path": "/user/migrations",
+      "method": "POST",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Start a user migration",
+      "operationId": "migrations/start-for-authenticated-user"
+    },
+    {
+      "path": "/user/migrations/{migration_id}",
+      "method": "GET",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Get a user migration status",
+      "operationId": "migrations/get-status-for-authenticated-user"
+    },
+    {
+      "path": "/user/migrations/{migration_id}/archive",
+      "method": "GET",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Download a user migration archive",
+      "operationId": "migrations/get-archive-for-authenticated-user"
+    },
+    {
+      "path": "/user/migrations/{migration_id}/archive",
+      "method": "DELETE",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Delete a user migration archive",
+      "operationId": "migrations/delete-archive-for-authenticated-user"
+    },
+    {
+      "path": "/user/migrations/{migration_id}/repos/{repo_name}/lock",
+      "method": "DELETE",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "Unlock a user repository",
+      "operationId": "migrations/unlock-repo-for-authenticated-user"
+    },
+    {
+      "path": "/user/migrations/{migration_id}/repositories",
+      "method": "GET",
+      "tags": [
+        "migrations"
+      ],
+      "summary": "List repositories for a user migration",
+      "operationId": "migrations/list-repos-for-authenticated-user"
+    }
+  ]
+}

@@ -6,7 +6,7 @@
       "operationId": "credentials/revoke",
       "summary": "",
       "user": "user123",
-      "ideal": "Revoke the credentials for user123."
+      "ideal": "Revokes the specified credentials for the authenticated user."
     }
   ]
 }

@@ -17,68 +17,68 @@
       "ideal": "Create a new webhook for the organization 'example-org' with specified configuration."
     },
     {
-      "path": "/orgs/example-org/invitations",
-      "method": "GET",
-      "operationId": "orgs/list-pending-invitations",
-      "summary": "",
-      "user": "user789",
-      "ideal": "List all pending invitations for the organization 'example-org'."
-    },
-    {
       "path": "/orgs/example-org/blocks/johndoe",
       "method": "PUT",
       "operationId": "orgs/block-user",
       "summary": "",
-      "user": "user123",
+      "user": "user789",
       "ideal": "Block the user 'johndoe' from the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/invitations",
+      "method": "GET",
+      "operationId": "orgs/list-pending-invitations",
+      "summary": "",
+      "user": "user101",
+      "ideal": "List all pending invitations for the organization 'example-org'."
     },
     {
       "path": "/orgs/example-org/attestations/bulk-list",
       "method": "POST",
       "operationId": "orgs/list-attestations-bulk",
       "summary": "",
-      "user": "user456",
+      "user": "user202",
       "ideal": "Retrieve a bulk list of attestations for the organization 'example-org'."
     },
     {
       "path": "/orgs/example-org/settings/immutable-releases",
-      "method": "PUT",
-      "operationId": "orgs/set-immutable-releases-settings",
+      "method": "GET",
+      "operationId": "orgs/get-immutable-releases-settings",
       "summary": "",
-      "user": "user789",
-      "ideal": "Update the immutable releases settings for the organization 'example-org'."
+      "user": "user303",
+      "ideal": "Get the settings for immutable releases in the organization 'example-org'."
     },
     {
-      "path": "/orgs/example-org/memberships/johndoe",
-      "method": "GET",
-      "operationId": "orgs/get-membership-for-user",
+      "path": "/orgs/example-org/issue-types",
+      "method": "POST",
+      "operationId": "orgs/create-issue-type",
       "summary": "",
-      "user": "user123",
-      "ideal": "Get the membership details for user 'johndoe' in the organization 'example-org'."
+      "user": "user404",
+      "ideal": "Create a new issue type for the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/memberships/janedoe",
+      "method": "PUT",
+      "operationId": "orgs/set-membership-for-user",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Set the membership status for user 'janedoe' in the organization 'example-org'."
+    },
+    {
+      "path": "/orgs/example-org/rulesets/ruleset1/history",
+      "method": "GET",
+      "operationId": "orgs/get-org-ruleset-history",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Retrieve the history of the ruleset 'ruleset1' for the organization 'example-org'."
     },
     {
       "path": "/orgs/example-org/personal-access-tokens",
       "method": "GET",
       "operationId": "orgs/list-pat-grants",
       "summary": "",
-      "user": "user456",
+      "user": "user707",
       "ideal": "List all personal access tokens granted for the organization 'example-org'."
-    },
-    {
-      "path": "/orgs/example-org/artifacts/metadata/storage-record",
-      "method": "POST",
-      "operationId": "orgs/create-artifact-storage-record",
-      "summary": "",
-      "user": "user789",
-      "ideal": "Create a new artifact storage record for the organization 'example-org'."
-    },
-    {
-      "path": "/orgs/example-org/rulesets/ruleset_id/history",
-      "method": "GET",
-      "operationId": "orgs/get-org-ruleset-history",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve the history of the ruleset with ID 'ruleset_id' for the organization 'example-org'."
     }
   ]
 }

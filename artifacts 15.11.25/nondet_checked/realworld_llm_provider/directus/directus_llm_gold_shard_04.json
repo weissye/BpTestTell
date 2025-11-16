@@ -1,0 +1,44 @@
+{
+  "gold": [
+    {
+      "path": "/collections",
+      "method": "GET",
+      "operationId": "getCollections",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Retrieve a list of all collections available in the Directus instance."
+    },
+    {
+      "path": "/collections",
+      "method": "POST",
+      "operationId": "createCollection",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Create a new collection with the specified schema and properties."
+    },
+    {
+      "path": "/collections/{id}",
+      "method": "GET",
+      "operationId": "getCollection",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Fetch details of a specific collection by its ID."
+    },
+    {
+      "path": "/collections/{id}",
+      "method": "PATCH",
+      "operationId": "updateCollection",
+      "summary": "",
+      "user": "editor",
+      "ideal": "Update the properties of an existing collection identified by its ID."
+    },
+    {
+      "path": "/collections/{id}",
+      "method": "DELETE",
+      "operationId": "deleteCollection",
+      "summary": "",
+      "user": "admin",
+      "ideal": "Remove a collection from the Directus instance by its ID."
+    }
+  ]
+}

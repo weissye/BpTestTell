@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/v1/cards/12345",
+      "method": "GET",
+      "operationId": "getCardsByIdCard",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the card details for card ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345",
+      "method": "PUT",
+      "operationId": "updateCardsByIdCard",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the card with ID 12345 to change its name and description."
+    },
+    {
+      "path": "/v1/cards/12345/actions",
+      "method": "GET",
+      "operationId": "getCardsActionsByIdCard",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Fetch all actions associated with card ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345/checklists",
+      "method": "POST",
+      "operationId": "addCardsChecklistsByIdCard",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a new checklist to card ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345/attachments",
+      "method": "POST",
+      "operationId": "addCardsAttachmentsByIdCard",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Attach a file to card ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345/members",
+      "method": "GET",
+      "operationId": "getCardsMembersByIdCard",
+      "summary": "",
+      "user": "user123",
+      "ideal": "List all members assigned to card ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345/labels",
+      "method": "PUT",
+      "operationId": "updateCardsLabelsByIdCard",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Update the labels on card ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345/checklist/67890/checkItem/11111",
+      "method": "DELETE",
+      "operationId": "deleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Remove a check item from checklist ID 67890 on card ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345/stickers",
+      "method": "POST",
+      "operationId": "addCardsStickersByIdCard",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a sticker to card ID 12345."
+    },
+    {
+      "path": "/v1/cards/12345/membersVoted",
+      "method": "POST",
+      "operationId": "addCardsMembersVotedByIdCard",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Add a member to the list of voters for card ID 12345."
+    }
+  ]
+}

@@ -1,0 +1,2916 @@
+{
+  "gold": [
+    {
+      "op": {
+        "method": "GET",
+        "path": "/activitypub/user-id/{user-id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/activitypub/user-id/{user-id}/inbox"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/admin/cron"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/admin/cron/{task}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/admin/emails"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/admin/emails/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/admin/hooks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/admin/hooks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/admin/hooks/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/admin/hooks/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/admin/hooks/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/admin/orgs"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/admin/runners/registration-token"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/admin/unadopted"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/admin/unadopted/{owner}/{repo}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/admin/unadopted/{owner}/{repo}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/admin/users"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/admin/users"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/admin/users/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/admin/users/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/admin/users/{username}/badges"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/admin/users/{username}/badges"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/admin/users/{username}/badges"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/admin/users/{username}/keys"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/admin/users/{username}/keys/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/admin/users/{username}/orgs"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/admin/users/{username}/rename"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/admin/users/{username}/repos"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/gitignore/templates"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/gitignore/templates/{name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/label/templates"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/label/templates/{name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/licenses"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/licenses/{name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/markdown"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/markdown/raw"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/markup"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/nodeinfo"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/notifications"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/notifications"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/notifications/new"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/notifications/threads/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/notifications/threads/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/org/{org}/repos"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/orgs"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/orgs/{org}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/orgs/{org}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/actions/runners/registration-token"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/actions/secrets"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/orgs/{org}/actions/secrets/{secretname}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/orgs/{org}/actions/secrets/{secretname}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/actions/variables"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/actions/variables/{variablename}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/orgs/{org}/actions/variables/{variablename}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/orgs/{org}/actions/variables/{variablename}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/orgs/{org}/actions/variables/{variablename}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/activities/feeds"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/orgs/{org}/avatar"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/orgs/{org}/avatar"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/blocks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/blocks/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/orgs/{org}/blocks/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/orgs/{org}/blocks/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/hooks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/orgs/{org}/hooks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/hooks/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/orgs/{org}/hooks/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/orgs/{org}/hooks/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/labels"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/orgs/{org}/labels"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/labels/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/orgs/{org}/labels/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/orgs/{org}/labels/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/members"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/members/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/orgs/{org}/members/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/public_members"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/public_members/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/orgs/{org}/public_members/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/orgs/{org}/public_members/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/repos"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/orgs/{org}/repos"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/teams"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/orgs/{org}/teams"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/orgs/{org}/teams/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/packages/{owner}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/packages/{owner}/{type}/{name}/{version}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/packages/{owner}/{type}/{name}/{version}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/packages/{owner}/{type}/{name}/{version}/files"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/issues/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/migrate"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/actions/runners/registration-token"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/actions/secrets"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/repos/{owner}/{repo}/actions/secrets/{secretname}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/actions/secrets/{secretname}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/actions/tasks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/actions/variables"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/actions/variables/{variablename}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/repos/{owner}/{repo}/actions/variables/{variablename}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/actions/variables/{variablename}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/actions/variables/{variablename}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/activities/feeds"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/archive/{archive}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/assignees"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/avatar"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/avatar"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/branch_protections"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/branch_protections"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/branch_protections/priority"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/branch_protections/{name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/branch_protections/{name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/branch_protections/{name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/branches"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/branches"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/branches/{branch}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/branches/{branch}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/branches/{branch}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/collaborators"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/collaborators/{collaborator}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/repos/{owner}/{repo}/collaborators/{collaborator}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/collaborators/{collaborator}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/collaborators/{collaborator}/permission"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/commits"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/commits/{ref}/status"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/commits/{ref}/statuses"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/commits/{sha}/pull"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/compare/{basehead}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/contents"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/contents"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/contents/{filepath}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/repos/{owner}/{repo}/contents/{filepath}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/contents/{filepath}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/contents/{filepath}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/diffpatch"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/editorconfig/{filepath}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/forks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/forks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/blobs/{sha}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/commits/{sha}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/commits/{sha}.{diffType}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/notes/{sha}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/refs"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/refs/{ref}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/tags/{sha}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/git/trees/{sha}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/hooks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/hooks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/hooks/git"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/hooks/git/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/hooks/git/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/hooks/git/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/hooks/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/hooks/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/hooks/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/hooks/{id}/tests"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issue_config"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issue_config/validate"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issue_templates"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/comments"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/comments/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/comments/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/issues/comments/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/comments/{id}/assets"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/comments/{id}/assets"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/comments/{id}/reactions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/comments/{id}/reactions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/comments/{id}/reactions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/pinned"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/{index}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/{index}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/issues/{index}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/{index}/assets"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/{index}/assets"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/{index}/assets/{attachment_id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/{index}/assets/{attachment_id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/issues/{index}/assets/{attachment_id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/{index}/blocks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/{index}/blocks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/{index}/blocks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/{index}/comments"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/{index}/comments"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/{index}/comments/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/issues/{index}/comments/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/{index}/deadline"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/{index}/dependencies"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/{index}/dependencies"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/{index}/dependencies"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/{index}/labels"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/repos/{owner}/{repo}/issues/{index}/labels"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/{index}/labels"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/{index}/labels"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/{index}/labels/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/{index}/pin"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/{index}/pin"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/issues/{index}/pin/{position}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/{index}/reactions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/{index}/reactions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/{index}/reactions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/delete"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/start"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/stop"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions/check"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions/{user}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions/{user}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/{index}/timeline"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/issues/{index}/times"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/issues/{index}/times"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/{index}/times"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/issues/{index}/times/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/keys"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/keys"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/keys/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/keys/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/labels"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/labels"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/labels/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/labels/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/labels/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/languages"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/licenses"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/media/{filepath}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/merge-upstream"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/milestones"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/milestones"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/milestones/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/milestones/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/milestones/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/mirror-sync"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/new_pin_allowed"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/notifications"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/repos/{owner}/{repo}/notifications"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls/pinned"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls/{base}/{head}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls/{index}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/pulls/{index}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls/{index}.{diffType}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/commits"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/files"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/merge"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/merge"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/merge"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/requested_reviewers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/requested_reviewers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}/comments"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}/dismissals"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}/undismissals"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/pulls/{index}/update"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/push_mirrors"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/push_mirrors"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/push_mirrors-sync"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/push_mirrors/{name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/push_mirrors/{name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/raw/{filepath}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/releases"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/releases"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/releases/latest"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/releases/tags/{tag}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/releases/tags/{tag}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/releases/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/releases/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/releases/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/releases/{id}/assets"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/releases/{id}/assets"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/releases/{id}/assets/{attachment_id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/releases/{id}/assets/{attachment_id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/releases/{id}/assets/{attachment_id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/reviewers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/signing-key.gpg"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/stargazers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/statuses/{sha}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/statuses/{sha}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/subscribers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/subscription"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/repos/{owner}/{repo}/subscription"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/subscription"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/tag_protections"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/tag_protections"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/tag_protections/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/tag_protections/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/tag_protections/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/tags"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/tags"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/tags/{tag}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/tags/{tag}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/teams"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/teams/{team}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/repos/{owner}/{repo}/teams/{team}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/teams/{team}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/times"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/times/{user}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/topics"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/repos/{owner}/{repo}/topics"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/repos/{owner}/{repo}/topics/{topic}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/topics/{topic}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/transfer"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/transfer/accept"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/transfer/reject"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{owner}/{repo}/wiki/new"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/wiki/page/{pageName}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/repos/{owner}/{repo}/wiki/page/{pageName}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/repos/{owner}/{repo}/wiki/page/{pageName}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/wiki/pages"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repos/{owner}/{repo}/wiki/revisions/{pageName}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/repos/{template_owner}/{template_repo}/generate"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/repositories/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/settings/api"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/settings/attachment"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/settings/repository"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/settings/ui"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/signing-key.gpg"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/teams/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/teams/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/teams/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/teams/{id}/activities/feeds"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/teams/{id}/members"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/teams/{id}/members/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/teams/{id}/members/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/teams/{id}/members/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/teams/{id}/repos"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/teams/{id}/repos/{org}/{repo}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/teams/{id}/repos/{org}/{repo}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/teams/{id}/repos/{org}/{repo}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/topics/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/actions/runners/registration-token"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/user/actions/secrets/{secretname}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/user/actions/secrets/{secretname}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/actions/variables"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/actions/variables/{variablename}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/user/actions/variables/{variablename}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/user/actions/variables/{variablename}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/user/actions/variables/{variablename}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/applications/oauth2"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/user/applications/oauth2"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/applications/oauth2/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/user/applications/oauth2/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/user/applications/oauth2/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/user/avatar"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/user/avatar"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/blocks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/blocks/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/user/blocks/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/user/blocks/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/emails"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/user/emails"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/user/emails"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/followers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/following"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/following/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/user/following/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/user/following/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/gpg_key_token"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/user/gpg_key_verify"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/gpg_keys"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/user/gpg_keys"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/gpg_keys/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/user/gpg_keys/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/hooks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/user/hooks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/hooks/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/user/hooks/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/user/hooks/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/keys"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/user/keys"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/keys/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/user/keys/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/orgs"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/repos"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/user/repos"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/settings"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/user/settings"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/starred"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/starred/{owner}/{repo}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/user/starred/{owner}/{repo}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/user/starred/{owner}/{repo}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/stopwatches"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/subscriptions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/teams"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/user/times"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/{username}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/{username}/activities/feeds"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/{username}/followers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/{username}/following"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/{username}/following/{target}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/{username}/gpg_keys"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/{username}/heatmap"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/{username}/keys"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/{username}/orgs"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/{username}/orgs/{org}/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/{username}/repos"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/{username}/starred"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/{username}/subscriptions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/{username}/tokens"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/users/{username}/tokens"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/users/{username}/tokens/{token}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/version"
+      },
+      "source": "openapi-det"
+    }
+  ]
+}

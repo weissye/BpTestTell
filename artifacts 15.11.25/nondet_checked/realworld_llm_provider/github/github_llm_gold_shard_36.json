@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/rate_limit",
+      "method": "GET",
+      "operationId": "getRateLimit",
+      "summary": "",
+      "user": "octocat",
+      "ideal": "Returns the current rate limit status for the authenticated user."
+    }
+  ]
+}

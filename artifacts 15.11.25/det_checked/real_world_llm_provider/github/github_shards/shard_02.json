@@ -1,0 +1,188 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/advisories"
+    },
+    {
+      "method": "GET",
+      "path": "/assignments/{assignment_id}/grades"
+    },
+    {
+      "method": "DELETE",
+      "path": "/enterprises/{enterprise}/teams/{enterprise-team}/memberships/{username}"
+    },
+    {
+      "method": "GET",
+      "path": "/gists/{gist_id}/star"
+    },
+    {
+      "method": "PATCH",
+      "path": "/notifications/threads/{thread_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/hosted-runners/{hosted_runner_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/permissions/workflow"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/runners/{runner_id}/labels"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/attestations/bulk-list"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}/repositories"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/dependabot/secrets/{secret_name}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/insights/api/summary-stats/users/{user_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/members/{username}/codespaces/{codespace_name}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/outside_collaborators/{username}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/projects"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/rulesets"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/settings/immutable-releases/repositories/{repository_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions"
+    },
+    {
+      "method": "DELETE",
+      "path": "/projects/{project_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/oidc/customization/sub"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/runners/{runner_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}/rerun-failed-jobs"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/autolinks"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/check-suites"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/comments/{comment_id}/reactions"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/dependabot/secrets/{secret_name}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules/apps"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/git/refs/{ref}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/import/authors"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/assignees"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/sub_issues/priority"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pages"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/update-branch"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/rulesets/{ruleset_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/statuses/{sha}"
+    },
+    {
+      "method": "GET",
+      "path": "/search/code"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/invitations"
+    },
+    {
+      "method": "POST",
+      "path": "/user/codespaces"
+    },
+    {
+      "method": "GET",
+      "path": "/user/followers"
+    },
+    {
+      "method": "GET",
+      "path": "/user/memberships/orgs/{org}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/user/repository_invitations/{invitation_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/events/orgs/{org}"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/projectsV2/{project_number}/items"
+    }
+  ]
+}

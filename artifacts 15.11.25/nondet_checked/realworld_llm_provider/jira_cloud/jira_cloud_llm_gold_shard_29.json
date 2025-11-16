@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/settings/columns",
+      "method": "GET",
+      "operationId": "getIssueNavigatorDefaultColumns",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve the default columns set for the issue navigator so that I can ensure the visibility of important fields for my team.",
+      "ideal": "The response should include a list of the default columns currently configured for the issue navigator, along with their respective settings."
+    },
+    {
+      "path": "/rest/api/3/settings/columns",
+      "method": "PUT",
+      "operationId": "setIssueNavigatorDefaultColumns",
+      "summary": "",
+      "user": "As a system administrator, I need to update the default columns in the issue navigator to reflect the new workflow requirements, ensuring that all team members have access to the most relevant information.",
+      "ideal": "The request should successfully update the default columns and return a confirmation message indicating that the changes have been applied."
+    }
+  ]
+}

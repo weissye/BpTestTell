@@ -1,0 +1,36 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401ShortCode"
+      ],
+      "summary": "Fetch an instance of a short code",
+      "operationId": "FetchShortCode"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401ShortCode"
+      ],
+      "summary": "Update a short code with the following parameters",
+      "operationId": "UpdateShortCode"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401ShortCode"
+      ],
+      "summary": "Retrieve a list of short-codes belonging to the account used to make the request",
+      "operationId": "ListShortCode"
+    }
+  ]
+}

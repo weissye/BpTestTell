@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "getIssueSecurityLevelMembers",
       "summary": "",
-      "user": "project_manager",
+      "user": "user123",
       "ideal": "Retrieve the members associated with the issue security scheme identified by ID 123."
     },
     {
@@ -13,8 +13,8 @@
       "method": "GET",
       "operationId": "getIssueSecurityLevel",
       "summary": "",
-      "user": "developer",
-      "ideal": "Fetch the details of the security level with ID 456 to understand its permissions and restrictions."
+      "user": "user456",
+      "ideal": "Fetch the details of the security level with ID 456."
     }
   ]
 }

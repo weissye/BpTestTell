@@ -13,7 +13,7 @@
       "method": "GET",
       "operationId": "getActivity",
       "summary": "",
-      "user": "admin",
+      "user": "editor",
       "ideal": "Fetch details of a specific activity by its ID."
     }
   ]

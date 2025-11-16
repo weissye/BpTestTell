@@ -1,0 +1,16 @@
+{
+  "ops": [
+    {
+      "method": "PATCH",
+      "path": "/indexes/{indexUid}/settings"
+    },
+    {
+      "method": "PUT",
+      "path": "/indexes/{indexUid}/settings/sortable-attributes"
+    },
+    {
+      "method": "POST",
+      "path": "/tasks/cancel"
+    }
+  ]
+}

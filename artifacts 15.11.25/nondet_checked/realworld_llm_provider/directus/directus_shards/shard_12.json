@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/operations",
+      "method": "GET",
+      "tags": [
+        "Operations"
+      ],
+      "summary": "List Operations",
+      "operationId": "getOperations"
+    },
+    {
+      "path": "/operations",
+      "method": "POST",
+      "tags": [
+        "Operations"
+      ],
+      "summary": "Create an Operation",
+      "operationId": "createOperation"
+    },
+    {
+      "path": "/operations",
+      "method": "PATCH",
+      "tags": [
+        "Operations"
+      ],
+      "summary": "Update Multiple Operations",
+      "operationId": "updateOperations"
+    },
+    {
+      "path": "/operations",
+      "method": "DELETE",
+      "tags": [
+        "Operations"
+      ],
+      "summary": "Delete Multiple Operations",
+      "operationId": "deleteOperations"
+    },
+    {
+      "path": "/operations/{id}",
+      "method": "GET",
+      "tags": [
+        "Operations"
+      ],
+      "summary": "Retrieve an Operation",
+      "operationId": "getOperation"
+    },
+    {
+      "path": "/operations/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Operations"
+      ],
+      "summary": "Update an Operation",
+      "operationId": "updateOperation"
+    },
+    {
+      "path": "/operations/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Operations"
+      ],
+      "summary": "Delete an Operation",
+      "operationId": "deleteOperation"
+    }
+  ]
+}

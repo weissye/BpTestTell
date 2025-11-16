@@ -1,0 +1,180 @@
+{
+  "openapi_meta": {
+    "title": "Trello",
+    "version": "1.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/notifications/all/read",
+      "method": "POST",
+      "tags": [
+        "notification"
+      ],
+      "summary": "addNotificationsAllRead()",
+      "operationId": "addNotificationsAllRead"
+    },
+    {
+      "path": "/notifications/{idNotification}",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsByIdNotification()",
+      "operationId": "getNotificationsByIdNotification"
+    },
+    {
+      "path": "/notifications/{idNotification}",
+      "method": "PUT",
+      "tags": [
+        "notification"
+      ],
+      "summary": "updateNotificationsByIdNotification()",
+      "operationId": "updateNotificationsByIdNotification"
+    },
+    {
+      "path": "/notifications/{idNotification}/board",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsBoardByIdNotification()",
+      "operationId": "getNotificationsBoardByIdNotification"
+    },
+    {
+      "path": "/notifications/{idNotification}/board/{field}",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsBoardByIdNotificationByField()",
+      "operationId": "getNotificationsBoardByIdNotificationByField"
+    },
+    {
+      "path": "/notifications/{idNotification}/card",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsCardByIdNotification()",
+      "operationId": "getNotificationsCardByIdNotification"
+    },
+    {
+      "path": "/notifications/{idNotification}/card/{field}",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsCardByIdNotificationByField()",
+      "operationId": "getNotificationsCardByIdNotificationByField"
+    },
+    {
+      "path": "/notifications/{idNotification}/display",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsDisplayByIdNotification()",
+      "operationId": "getNotificationsDisplayByIdNotification"
+    },
+    {
+      "path": "/notifications/{idNotification}/entities",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsEntitiesByIdNotification()",
+      "operationId": "getNotificationsEntitiesByIdNotification"
+    },
+    {
+      "path": "/notifications/{idNotification}/list",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsListByIdNotification()",
+      "operationId": "getNotificationsListByIdNotification"
+    },
+    {
+      "path": "/notifications/{idNotification}/list/{field}",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsListByIdNotificationByField()",
+      "operationId": "getNotificationsListByIdNotificationByField"
+    },
+    {
+      "path": "/notifications/{idNotification}/member",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsMemberByIdNotification()",
+      "operationId": "getNotificationsMemberByIdNotification"
+    },
+    {
+      "path": "/notifications/{idNotification}/member/{field}",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsMemberByIdNotificationByField()",
+      "operationId": "getNotificationsMemberByIdNotificationByField"
+    },
+    {
+      "path": "/notifications/{idNotification}/memberCreator",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsMemberCreatorByIdNotification()",
+      "operationId": "getNotificationsMemberCreatorByIdNotification"
+    },
+    {
+      "path": "/notifications/{idNotification}/memberCreator/{field}",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsMemberCreatorByIdNotificationByField()",
+      "operationId": "getNotificationsMemberCreatorByIdNotificationByField"
+    },
+    {
+      "path": "/notifications/{idNotification}/organization",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsOrganizationByIdNotification()",
+      "operationId": "getNotificationsOrganizationByIdNotification"
+    },
+    {
+      "path": "/notifications/{idNotification}/organization/{field}",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsOrganizationByIdNotificationByField()",
+      "operationId": "getNotificationsOrganizationByIdNotificationByField"
+    },
+    {
+      "path": "/notifications/{idNotification}/unread",
+      "method": "PUT",
+      "tags": [
+        "notification"
+      ],
+      "summary": "updateNotificationsUnreadByIdNotification()",
+      "operationId": "updateNotificationsUnreadByIdNotification"
+    },
+    {
+      "path": "/notifications/{idNotification}/{field}",
+      "method": "GET",
+      "tags": [
+        "notification"
+      ],
+      "summary": "getNotificationsByIdNotificationByField()",
+      "operationId": "getNotificationsByIdNotificationByField"
+    }
+  ]
+}

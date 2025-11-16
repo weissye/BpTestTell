@@ -1,0 +1,36 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json"
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json"
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json"
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json"
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/channels/create"
+    },
+    {
+      "method": "GET",
+      "path": "/messages"
+    },
+    {
+      "method": "DELETE",
+      "path": "/realm/emoji/{emoji_name}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/saved_snippets/{saved_snippet_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/user_topics"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/{stream_id}/topics"
+    }
+  ]
+}

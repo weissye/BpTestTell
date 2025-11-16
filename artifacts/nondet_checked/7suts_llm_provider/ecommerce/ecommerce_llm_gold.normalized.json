@@ -1,16 +1,6 @@
 {
   "ops": [
     {
-      "method": "POST",
-      "path": "/reset",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/patients",
-      "body": null
-    },
-    {
       "method": "GET",
       "path": "/drugs",
       "body": null
@@ -18,21 +8,6 @@
     {
       "method": "POST",
       "path": "/drugs",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/prescriptions",
-      "body": null
-    },
-    {
-      "method": "GET",
-      "path": "/orders",
-      "body": null
-    },
-    {
-      "method": "POST",
-      "path": "/orders",
       "body": null
     },
     {
@@ -41,8 +16,13 @@
       "body": null
     },
     {
+      "method": "GET",
+      "path": "/orders",
+      "body": null
+    },
+    {
       "method": "POST",
-      "path": "/reset",
+      "path": "/orders",
       "body": null
     },
     {
@@ -51,6 +31,21 @@
       "body": null
     },
     {
+      "method": "POST",
+      "path": "/prescriptions",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/drugs",
+      "body": null
+    },
+    {
       "method": "GET",
       "path": "/drugs",
       "body": null
@@ -58,6 +53,51 @@
     {
       "method": "POST",
       "path": "/drugs",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/drugs",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/inventory/{ndc}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/inventory/{ndc}",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orders",
+      "body": null
+    },
+    {
+      "method": "GET",
+      "path": "/orders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/orders",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/patients",
+      "body": null
+    },
+    {
+      "method": "POST",
+      "path": "/patients",
       "body": null
     },
     {
@@ -66,18 +106,18 @@
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/orders",
+      "method": "POST",
+      "path": "/prescriptions",
       "body": null
     },
     {
       "method": "POST",
-      "path": "/orders",
+      "path": "/reset",
       "body": null
     },
     {
-      "method": "GET",
-      "path": "/inventory/{ndc}",
+      "method": "POST",
+      "path": "/reset",
       "body": null
     }
   ]

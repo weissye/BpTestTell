@@ -1,3 +1,12 @@
 {
-  "ops": []
+  "source": "artifacts/hls_det/7_suts_llm_provider/library/hls_gold.json",
+  "provider": "7_suts_llm_provider",
+  "sut": "library",
+  "stories_total": 4,
+  "by_entity": {
+    "book": 1,
+    "hold": 1,
+    "loan": 1,
+    "user": 1
+  }
 }

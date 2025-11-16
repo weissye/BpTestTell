@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/collections",
+      "method": "GET",
+      "tags": [
+        "Collections"
+      ],
+      "summary": "List Collections",
+      "operationId": "getCollections"
+    },
+    {
+      "path": "/collections",
+      "method": "POST",
+      "tags": [
+        "Collections"
+      ],
+      "summary": "Create a Collection",
+      "operationId": "createCollection"
+    },
+    {
+      "path": "/collections/{id}",
+      "method": "GET",
+      "tags": [
+        "Collections"
+      ],
+      "summary": "Retrieve a Collection",
+      "operationId": "getCollection"
+    },
+    {
+      "path": "/collections/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Collections"
+      ],
+      "summary": "Update a Collection",
+      "operationId": "updateCollection"
+    },
+    {
+      "path": "/collections/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Collections"
+      ],
+      "summary": "Delete a Collection",
+      "operationId": "deleteCollection"
+    }
+  ]
+}

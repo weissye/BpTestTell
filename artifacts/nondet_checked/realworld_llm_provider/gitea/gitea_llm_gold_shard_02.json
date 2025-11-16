@@ -6,7 +6,31 @@
       "operationId": "adminCronList",
       "summary": "",
       "user": "admin_user",
-      "ideal": "Retrieve a list of all scheduled cron jobs in the Gitea instance."
+      "ideal": "Retrieve a list of all scheduled cron jobs."
+    },
+    {
+      "path": "/admin/cron/task1",
+      "method": "POST",
+      "operationId": "adminCronRun",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Execute the specified cron job immediately."
+    },
+    {
+      "path": "/admin/emails",
+      "method": "GET",
+      "operationId": "adminGetAllEmails",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Fetch all registered email addresses in the system."
+    },
+    {
+      "path": "/admin/emails/search",
+      "method": "GET",
+      "operationId": "adminSearchEmails",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Search for specific email addresses based on query parameters."
     },
     {
       "path": "/admin/hooks",
@@ -14,63 +38,39 @@
       "operationId": "adminListHooks",
       "summary": "",
       "user": "admin_user",
-      "ideal": "Fetch all webhooks configured in the Gitea instance."
+      "ideal": "List all webhooks configured in the system."
     },
     {
-      "path": "/admin/users",
-      "method": "GET",
-      "operationId": "adminSearchUsers",
-      "summary": "",
-      "user": "admin_user",
-      "ideal": "Search for users in the Gitea instance based on query parameters."
-    },
-    {
-      "path": "/admin/users/{username}",
-      "method": "DELETE",
-      "operationId": "adminDeleteUser",
-      "summary": "",
-      "user": "admin_user",
-      "ideal": "Remove a user from the Gitea instance by their username."
-    },
-    {
-      "path": "/admin/users/{username}/repos",
+      "path": "/admin/hooks",
       "method": "POST",
-      "operationId": "adminCreateRepo",
+      "operationId": "adminCreateHook",
       "summary": "",
       "user": "admin_user",
-      "ideal": "Create a new repository under the specified user's account."
+      "ideal": "Create a new webhook with the specified configuration."
     },
     {
-      "path": "/admin/hooks/{id}",
+      "path": "/admin/hooks/1",
+      "method": "GET",
+      "operationId": "adminGetHook",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Retrieve details of a specific webhook by ID."
+    },
+    {
+      "path": "/admin/hooks/1",
       "method": "DELETE",
       "operationId": "adminDeleteHook",
       "summary": "",
       "user": "admin_user",
-      "ideal": "Delete a specific webhook by its ID."
+      "ideal": "Delete a specific webhook by ID."
     },
     {
-      "path": "/admin/unadopted",
-      "method": "GET",
-      "operationId": "adminUnadoptedList",
+      "path": "/admin/hooks/1",
+      "method": "PATCH",
+      "operationId": "adminEditHook",
       "summary": "",
       "user": "admin_user",
-      "ideal": "List all repositories that are unadopted in the Gitea instance."
-    },
-    {
-      "path": "/admin/users/{username}/badges",
-      "method": "POST",
-      "operationId": "adminAddUserBadges",
-      "summary": "",
-      "user": "admin_user",
-      "ideal": "Add badges to a user's profile in the Gitea instance."
-    },
-    {
-      "path": "/admin/users/{username}/keys",
-      "method": "POST",
-      "operationId": "adminCreatePublicKey",
-      "summary": "",
-      "user": "admin_user",
-      "ideal": "Create a new SSH public key for a user."
+      "ideal": "Update the configuration of a specific webhook."
     },
     {
       "path": "/admin/orgs",
@@ -78,7 +78,135 @@
       "operationId": "adminGetAllOrgs",
       "summary": "",
       "user": "admin_user",
-      "ideal": "Retrieve a list of all organizations in the Gitea instance."
+      "ideal": "Retrieve a list of all organizations in the system."
+    },
+    {
+      "path": "/admin/runners/registration-token",
+      "method": "GET",
+      "operationId": "adminGetRunnerRegistrationToken",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Get a registration token for adding new runners."
+    },
+    {
+      "path": "/admin/unadopted",
+      "method": "GET",
+      "operationId": "adminUnadoptedList",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "List all unadopted repositories."
+    },
+    {
+      "path": "/admin/unadopted/owner/repo",
+      "method": "POST",
+      "operationId": "adminAdoptRepository",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Adopt a specified unadopted repository."
+    },
+    {
+      "path": "/admin/unadopted/owner/repo",
+      "method": "DELETE",
+      "operationId": "adminDeleteUnadoptedRepository",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete a specified unadopted repository."
+    },
+    {
+      "path": "/admin/users",
+      "method": "GET",
+      "operationId": "adminSearchUsers",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Search for users in the system."
+    },
+    {
+      "path": "/admin/users",
+      "method": "POST",
+      "operationId": "adminCreateUser",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new user in the system."
+    },
+    {
+      "path": "/admin/users/username",
+      "method": "DELETE",
+      "operationId": "adminDeleteUser",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete a user by their username."
+    },
+    {
+      "path": "/admin/users/username",
+      "method": "PATCH",
+      "operationId": "adminEditUser",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Update user details for a specified username."
+    },
+    {
+      "path": "/admin/users/username/badges",
+      "method": "GET",
+      "operationId": "adminListUserBadges",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "List all badges for a specified user."
+    },
+    {
+      "path": "/admin/users/username/badges",
+      "method": "POST",
+      "operationId": "adminAddUserBadges",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Add badges to a specified user."
+    },
+    {
+      "path": "/admin/users/username/badges",
+      "method": "DELETE",
+      "operationId": "adminDeleteUserBadges",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Remove badges from a specified user."
+    },
+    {
+      "path": "/admin/users/username/keys",
+      "method": "POST",
+      "operationId": "adminCreatePublicKey",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new public key for a specified user."
+    },
+    {
+      "path": "/admin/users/username/keys/id",
+      "method": "DELETE",
+      "operationId": "adminDeleteUserPublicKey",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Delete a specific public key for a user."
+    },
+    {
+      "path": "/admin/users/username/orgs",
+      "method": "POST",
+      "operationId": "adminCreateOrg",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new organization for a specified user."
+    },
+    {
+      "path": "/admin/users/username/rename",
+      "method": "POST",
+      "operationId": "adminRenameUser",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Rename a specified user."
+    },
+    {
+      "path": "/admin/users/username/repos",
+      "method": "POST",
+      "operationId": "adminCreateRepo",
+      "summary": "",
+      "user": "admin_user",
+      "ideal": "Create a new repository for a specified user."
     }
   ]
 }

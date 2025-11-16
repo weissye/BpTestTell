@@ -1,12 +1,12 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Usage/Records/Daily.json",
       "method": "GET",
       "operationId": "ListUsageRecordDaily",
       "summary": "",
-      "user": "user_12345",
-      "ideal": "Retrieve daily usage records for a specific account."
+      "user": "As a Twilio user, I want to retrieve daily usage records for my account to monitor my spending and usage patterns over time.",
+      "ideal": "The API should return a JSON response containing an array of daily usage records, including the date, usage category, and the amount used."
     }
   ]
 }

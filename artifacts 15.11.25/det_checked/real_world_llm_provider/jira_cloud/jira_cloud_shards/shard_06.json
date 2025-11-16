@@ -1,0 +1,104 @@
+{
+  "ops": [
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/app/field/{fieldIdOrKey}/context/configuration"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/bulk/queue/{taskId}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/dashboard/gadgets"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/search"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/field/{fieldKey}/option"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/group/bulk"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issue/{issueIdOrKey}"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/issue/{issueIdOrKey}/transitions"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/issuetype/{id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/myself"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/plans/plan/{planId}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/priorityscheme/priorities/available"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/project/{projectIdOrKey}/avatar2"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/project/{projectId}/email"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/resolution/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}/fields/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/rest/api/3/statuses/byNames"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/user/columns"
+    },
+    {
+      "method": "PUT",
+      "path": "/rest/api/3/version/{id}/mergeto/{moveIssuesTo}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflow/{entityId}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/api/3/workflowscheme/{id}/default"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/api/3/worklog/list"
+    }
+  ]
+}

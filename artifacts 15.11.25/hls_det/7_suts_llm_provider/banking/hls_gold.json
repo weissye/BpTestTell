@@ -1,0 +1,42 @@
+{
+  "sut": "banking",
+  "provider": "7_suts_llm_provider",
+  "generated_at": "2025-11-13T21:08:36.802375Z",
+  "stories": [
+    {
+      "name": "CRUD_account",
+      "entity": "account",
+      "steps": []
+    },
+    {
+      "name": "CRUD_card",
+      "entity": "card",
+      "steps": []
+    },
+    {
+      "name": "CRUD_customer",
+      "entity": "customer",
+      "steps": []
+    },
+    {
+      "name": "CRUD_loan",
+      "entity": "loan",
+      "steps": []
+    },
+    {
+      "name": "CRUD_reset",
+      "entity": "reset",
+      "steps": []
+    },
+    {
+      "name": "CRUD_transaction",
+      "entity": "transaction",
+      "steps": []
+    },
+    {
+      "name": "CRUD_transfer",
+      "entity": "transfer",
+      "steps": []
+    }
+  ]
+}

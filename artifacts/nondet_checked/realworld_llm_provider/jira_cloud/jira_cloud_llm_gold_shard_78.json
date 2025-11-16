@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "getServerInfo",
       "summary": "",
-      "user": "A project manager looking to retrieve the current server information for the Jira Cloud platform to ensure that the system is up and running smoothly before starting a new sprint planning session.",
-      "ideal": "The response should include the server's version, build number, and other relevant details to confirm the server's status."
+      "user": "As a project manager, I want to retrieve the server information of my Jira Cloud instance to ensure that I have the latest updates and features available for my team.",
+      "ideal": "The response should include the server's version, build number, and other relevant details about the Jira instance."
     }
   ]
 }

@@ -25,28 +25,28 @@
       "ideal": "List all users blocked by the authenticated user."
     },
     {
-      "path": "/user/blocks/jane_smith",
+      "path": "/user/blocks/{username}",
       "method": "GET",
       "operationId": "users/check-blocked",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Check if the user 'jane_smith' is blocked by the authenticated user."
+      "ideal": "Check if a specific user is blocked by the authenticated user."
     },
     {
-      "path": "/user/blocks/jane_smith",
+      "path": "/user/blocks/{username}",
       "method": "PUT",
       "operationId": "users/block",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Block the user 'jane_smith'."
+      "ideal": "Block a specific user."
     },
     {
-      "path": "/user/blocks/jane_smith",
+      "path": "/user/blocks/{username}",
       "method": "DELETE",
       "operationId": "users/unblock",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Unblock the user 'jane_smith'."
+      "ideal": "Unblock a specific user."
     },
     {
       "path": "/user/emails",
@@ -89,28 +89,28 @@
       "ideal": "List all users followed by the authenticated user."
     },
     {
-      "path": "/user/following/jane_smith",
+      "path": "/user/following/{username}",
       "method": "GET",
       "operationId": "users/check-person-is-followed-by-authenticated",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Check if the authenticated user is following 'jane_smith'."
+      "ideal": "Check if the authenticated user is following a specific user."
     },
     {
-      "path": "/user/following/jane_smith",
+      "path": "/user/following/{username}",
       "method": "PUT",
       "operationId": "users/follow",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Follow the user 'jane_smith'."
+      "ideal": "Follow a specific user."
     },
     {
-      "path": "/user/following/jane_smith",
+      "path": "/user/following/{username}",
       "method": "DELETE",
       "operationId": "users/unfollow",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Unfollow the user 'jane_smith'."
+      "ideal": "Unfollow a specific user."
     },
     {
       "path": "/user/gpg_keys",
@@ -129,20 +129,20 @@
       "ideal": "Create a new GPG key for the authenticated user."
     },
     {
-      "path": "/user/gpg_keys/12345",
+      "path": "/user/gpg_keys/{gpg_key_id}",
       "method": "GET",
       "operationId": "users/get-gpg-key-for-authenticated-user",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Retrieve the GPG key with ID 12345 for the authenticated user."
+      "ideal": "Retrieve a specific GPG key for the authenticated user."
     },
     {
-      "path": "/user/gpg_keys/12345",
+      "path": "/user/gpg_keys/{gpg_key_id}",
       "method": "DELETE",
       "operationId": "users/delete-gpg-key-for-authenticated-user",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Delete the GPG key with ID 12345 from the authenticated user's account."
+      "ideal": "Delete a specific GPG key from the authenticated user's account."
     },
     {
       "path": "/user/keys",
@@ -161,20 +161,20 @@
       "ideal": "Create a new public SSH key for the authenticated user."
     },
     {
-      "path": "/user/keys/67890",
+      "path": "/user/keys/{key_id}",
       "method": "GET",
       "operationId": "users/get-public-ssh-key-for-authenticated-user",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Retrieve the public SSH key with ID 67890 for the authenticated user."
+      "ideal": "Retrieve a specific public SSH key for the authenticated user."
     },
     {
-      "path": "/user/keys/67890",
+      "path": "/user/keys/{key_id}",
       "method": "DELETE",
       "operationId": "users/delete-public-ssh-key-for-authenticated-user",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Delete the public SSH key with ID 67890 from the authenticated user's account."
+      "ideal": "Delete a specific public SSH key from the authenticated user's account."
     },
     {
       "path": "/user/social_accounts",
@@ -182,7 +182,7 @@
       "operationId": "users/list-social-accounts-for-authenticated-user",
       "summary": "",
       "user": "john_doe",
-      "ideal": "List all social accounts linked to the authenticated user's account."
+      "ideal": "List all social accounts linked to the authenticated user's profile."
     },
     {
       "path": "/user/social_accounts",
@@ -198,7 +198,7 @@
       "operationId": "users/delete-social-account-for-authenticated-user",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Delete a social account from the authenticated user's profile."
+      "ideal": "Remove a social account from the authenticated user's profile."
     }
   ]
 }

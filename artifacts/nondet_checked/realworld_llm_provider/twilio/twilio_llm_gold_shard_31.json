@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "ListIncomingPhoneNumberLocal",
       "summary": "",
-      "user": "As a user, I want to retrieve a list of local incoming phone numbers associated with my Twilio account so that I can manage my phone numbers effectively.",
-      "ideal": "The API should return a JSON array of local incoming phone numbers, including details such as the phone number, friendly name, and status."
+      "user": "As a user, I want to retrieve a list of local incoming phone numbers associated with my Twilio account, so that I can manage them effectively.",
+      "ideal": "The response should include an array of local phone numbers, each with details such as the phone number, friendly name, and status."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json",
       "method": "POST",
       "operationId": "CreateIncomingPhoneNumberLocal",
       "summary": "",
-      "user": "As a user, I want to create a new local incoming phone number for my Twilio account so that I can receive calls and messages on it.",
-      "ideal": "The API should accept parameters for the desired area code and return the details of the newly created local phone number, including its SID and status."
+      "user": "As a user, I want to create a new local incoming phone number for my Twilio account, so that I can receive calls and messages on it.",
+      "ideal": "The response should confirm the creation of the new phone number, including its SID, phone number, and any relevant metadata."
     }
   ]
 }

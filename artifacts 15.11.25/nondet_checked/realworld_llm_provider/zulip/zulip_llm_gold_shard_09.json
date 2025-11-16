@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/reminders",
+      "method": "GET",
+      "operationId": "get-reminders",
+      "summary": "",
+      "user": "Alice wants to check all her reminders for the upcoming week to ensure she doesn't miss any important tasks.",
+      "ideal": "Returns a list of reminders set by the user, including details like the reminder text, time, and status."
+    },
+    {
+      "path": "/reminders",
+      "method": "POST",
+      "operationId": "create-message-reminder",
+      "summary": "",
+      "user": "Bob needs to set a reminder for his meeting with the marketing team tomorrow at 10 AM.",
+      "ideal": "Creates a new reminder with the specified message and time, returning the created reminder's details."
+    },
+    {
+      "path": "/reminders/{reminder_id}",
+      "method": "DELETE",
+      "operationId": "delete-reminder",
+      "summary": "",
+      "user": "Charlie realizes he no longer needs the reminder for his dentist appointment and wants to delete it.",
+      "ideal": "Successfully deletes the specified reminder and returns a confirmation message."
+    }
+  ]
+}

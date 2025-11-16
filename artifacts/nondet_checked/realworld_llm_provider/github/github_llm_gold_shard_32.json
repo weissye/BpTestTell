@@ -5,48 +5,48 @@
       "method": "GET",
       "operationId": "private-registries/list-org-private-registries",
       "summary": "",
-      "user": "As a developer, I want to retrieve a list of all private registries associated with my organization, so that I can manage them effectively.",
-      "ideal": "The response should include an array of private registries with their details such as name, URL, and creation date."
+      "user": "User wants to retrieve a list of all private registries associated with the organization 'my-org' to manage their resources effectively.",
+      "ideal": "A JSON response containing an array of private registries with their details."
     },
     {
       "path": "/orgs/my-org/private-registries",
       "method": "POST",
       "operationId": "private-registries/create-org-private-registry",
       "summary": "",
-      "user": "As an admin, I want to create a new private registry for my organization to store sensitive packages securely.",
-      "ideal": "The response should confirm the creation of the private registry and return its details, including a unique identifier."
+      "user": "User needs to create a new private registry for the organization 'my-org' to store sensitive information securely.",
+      "ideal": "A JSON response confirming the creation of the private registry with its details."
     },
     {
       "path": "/orgs/my-org/private-registries/public-key",
       "method": "GET",
       "operationId": "private-registries/get-org-public-key",
       "summary": "",
-      "user": "As a security officer, I need to obtain the public key for my organization's private registries to ensure secure communication.",
-      "ideal": "The response should return the public key in a format suitable for encryption."
+      "user": "User wants to obtain the public key for the organization 'my-org' to encrypt sensitive data before sending it to the private registry.",
+      "ideal": "A JSON response containing the public key for the organization."
     },
     {
       "path": "/orgs/my-org/private-registries/my-secret",
       "method": "GET",
       "operationId": "private-registries/get-org-private-registry",
       "summary": "",
-      "user": "As a developer, I want to retrieve the details of a specific private registry to check its configuration and settings.",
-      "ideal": "The response should include all relevant details of the specified private registry, such as its name, URL, and access permissions."
+      "user": "User is looking to retrieve the details of the private registry named 'my-secret' for the organization 'my-org'.",
+      "ideal": "A JSON response with the details of the private registry 'my-secret'."
     },
     {
       "path": "/orgs/my-org/private-registries/my-secret",
       "method": "PATCH",
       "operationId": "private-registries/update-org-private-registry",
       "summary": "",
-      "user": "As an admin, I want to update the settings of an existing private registry to change its access permissions.",
-      "ideal": "The response should confirm the update and return the updated details of the private registry."
+      "user": "User wants to update the configuration of the private registry 'my-secret' for the organization 'my-org' to enhance security settings.",
+      "ideal": "A JSON response confirming the update of the private registry with the new configuration details."
     },
     {
       "path": "/orgs/my-org/private-registries/my-secret",
       "method": "DELETE",
       "operationId": "private-registries/delete-org-private-registry",
       "summary": "",
-      "user": "As an admin, I want to delete a private registry that is no longer needed to keep our organization clean and organized.",
-      "ideal": "The response should confirm the deletion of the private registry and indicate that it has been successfully removed."
+      "user": "User needs to delete the private registry 'my-secret' for the organization 'my-org' as it is no longer needed.",
+      "ideal": "A JSON response confirming the deletion of the private registry 'my-secret'."
     }
   ]
 }

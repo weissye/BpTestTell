@@ -5,15 +5,15 @@
       "method": "GET",
       "operationId": "interactions/get-restrictions-for-org",
       "summary": "",
-      "user": "User requests the interaction limits for the organization 'example-org' to understand how they can interact with repositories.",
-      "ideal": "Returns the current interaction limits set for the organization."
+      "user": "User requests the interaction limits for the organization 'example-org' to understand the restrictions in place.",
+      "ideal": "Returns the current interaction limits for the specified organization."
     },
     {
       "path": "/orgs/example-org/interaction-limits",
       "method": "PUT",
       "operationId": "interactions/set-restrictions-for-org",
       "summary": "",
-      "user": "User updates the interaction limits for 'example-org' to restrict interactions from certain users.",
+      "user": "User updates the interaction limits for 'example-org' to allow more interactions with specific users.",
       "ideal": "Successfully updates the interaction limits for the organization."
     },
     {
@@ -21,7 +21,7 @@
       "method": "DELETE",
       "operationId": "interactions/remove-restrictions-for-org",
       "summary": "",
-      "user": "User removes all interaction restrictions for 'example-org' to allow free interactions.",
+      "user": "User removes all interaction limits for 'example-org' to enable unrestricted interactions.",
       "ideal": "Successfully removes all interaction restrictions for the organization."
     },
     {
@@ -30,14 +30,14 @@
       "operationId": "interactions/get-restrictions-for-repo",
       "summary": "",
       "user": "User checks the interaction limits for the repository 'example-repo' owned by 'example-owner'.",
-      "ideal": "Returns the current interaction limits set for the repository."
+      "ideal": "Returns the current interaction limits for the specified repository."
     },
     {
       "path": "/repos/example-owner/example-repo/interaction-limits",
       "method": "PUT",
       "operationId": "interactions/set-restrictions-for-repo",
       "summary": "",
-      "user": "User sets new interaction limits for 'example-repo' to manage user interactions effectively.",
+      "user": "User sets new interaction limits for 'example-repo' to restrict interactions from certain users.",
       "ideal": "Successfully updates the interaction limits for the repository."
     },
     {
@@ -45,7 +45,7 @@
       "method": "DELETE",
       "operationId": "interactions/remove-restrictions-for-repo",
       "summary": "",
-      "user": "User removes interaction restrictions for 'example-repo' to enable unrestricted access.",
+      "user": "User deletes the interaction limits for 'example-repo' to allow all interactions.",
       "ideal": "Successfully removes all interaction restrictions for the repository."
     },
     {
@@ -53,15 +53,15 @@
       "method": "GET",
       "operationId": "interactions/get-restrictions-for-authenticated-user",
       "summary": "",
-      "user": "User wants to view their own interaction limits to see how they can engage with other repositories.",
-      "ideal": "Returns the current interaction limits set for the authenticated user."
+      "user": "User wants to view their own interaction limits to see what restrictions are applied.",
+      "ideal": "Returns the current interaction limits for the authenticated user."
     },
     {
       "path": "/user/interaction-limits",
       "method": "PUT",
       "operationId": "interactions/set-restrictions-for-authenticated-user",
       "summary": "",
-      "user": "User updates their own interaction limits to restrict interactions with specific organizations.",
+      "user": "User updates their own interaction limits to restrict interactions from specific users.",
       "ideal": "Successfully updates the interaction limits for the authenticated user."
     },
     {
@@ -69,7 +69,7 @@
       "method": "DELETE",
       "operationId": "interactions/remove-restrictions-for-authenticated-user",
       "summary": "",
-      "user": "User removes all their interaction restrictions to allow full engagement with the community.",
+      "user": "User removes all their interaction limits to enable unrestricted interactions.",
       "ideal": "Successfully removes all interaction restrictions for the authenticated user."
     }
   ]

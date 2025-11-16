@@ -1,0 +1,132 @@
+{
+  "gold": [
+    {
+      "path": "/checklists",
+      "method": "POST",
+      "operationId": "addChecklists",
+      "summary": "",
+      "user": "User123",
+      "ideal": "Create a new checklist for a specific board."
+    },
+    {
+      "path": "/checklists/{idChecklist}",
+      "method": "DELETE",
+      "operationId": "deleteChecklistsByIdChecklist",
+      "summary": "",
+      "user": "User456",
+      "ideal": "Remove a checklist by its ID."
+    },
+    {
+      "path": "/checklists/{idChecklist}",
+      "method": "GET",
+      "operationId": "getChecklistsByIdChecklist",
+      "summary": "",
+      "user": "User789",
+      "ideal": "Retrieve details of a specific checklist."
+    },
+    {
+      "path": "/checklists/{idChecklist}",
+      "method": "PUT",
+      "operationId": "updateChecklistsByIdChecklist",
+      "summary": "",
+      "user": "User101",
+      "ideal": "Update the properties of a specific checklist."
+    },
+    {
+      "path": "/checklists/{idChecklist}/board",
+      "method": "GET",
+      "operationId": "getChecklistsBoardByIdChecklist",
+      "summary": "",
+      "user": "User112",
+      "ideal": "Get the board associated with a specific checklist."
+    },
+    {
+      "path": "/checklists/{idChecklist}/board/{field}",
+      "method": "GET",
+      "operationId": "getChecklistsBoardByIdChecklistByField",
+      "summary": "",
+      "user": "User131",
+      "ideal": "Retrieve a specific field from the board of a checklist."
+    },
+    {
+      "path": "/checklists/{idChecklist}/cards",
+      "method": "GET",
+      "operationId": "getChecklistsCardsByIdChecklist",
+      "summary": "",
+      "user": "User415",
+      "ideal": "Fetch all cards associated with a specific checklist."
+    },
+    {
+      "path": "/checklists/{idChecklist}/cards/{filter}",
+      "method": "GET",
+      "operationId": "getChecklistsCardsByIdChecklistByFilter",
+      "summary": "",
+      "user": "User161",
+      "ideal": "Get filtered cards from a checklist based on criteria."
+    },
+    {
+      "path": "/checklists/{idChecklist}/checkItems",
+      "method": "GET",
+      "operationId": "getChecklistsCheckItemsByIdChecklist",
+      "summary": "",
+      "user": "User718",
+      "ideal": "Retrieve all check items from a specific checklist."
+    },
+    {
+      "path": "/checklists/{idChecklist}/checkItems",
+      "method": "POST",
+      "operationId": "addChecklistsCheckItemsByIdChecklist",
+      "summary": "",
+      "user": "User192",
+      "ideal": "Add new check items to a specific checklist."
+    },
+    {
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+      "method": "DELETE",
+      "operationId": "deleteChecklistsCheckItemsByIdChecklistByIdCheckItem",
+      "summary": "",
+      "user": "User202",
+      "ideal": "Delete a specific check item from a checklist."
+    },
+    {
+      "path": "/checklists/{idChecklist}/checkItems/{idCheckItem}",
+      "method": "GET",
+      "operationId": "getChecklistsCheckItemsByIdChecklistByIdCheckItem",
+      "summary": "",
+      "user": "User303",
+      "ideal": "Get details of a specific check item in a checklist."
+    },
+    {
+      "path": "/checklists/{idChecklist}/idCard",
+      "method": "PUT",
+      "operationId": "updateChecklistsIdCardByIdChecklist",
+      "summary": "",
+      "user": "User404",
+      "ideal": "Update the card ID associated with a checklist."
+    },
+    {
+      "path": "/checklists/{idChecklist}/name",
+      "method": "PUT",
+      "operationId": "updateChecklistsNameByIdChecklist",
+      "summary": "",
+      "user": "User505",
+      "ideal": "Change the name of a specific checklist."
+    },
+    {
+      "path": "/checklists/{idChecklist}/pos",
+      "method": "PUT",
+      "operationId": "updateChecklistsPosByIdChecklist",
+      "summary": "",
+      "user": "User606",
+      "ideal": "Update the position of a checklist."
+    },
+    {
+      "path": "/checklists/{idChecklist}/{field}",
+      "method": "GET",
+      "operationId": "getChecklistsByIdChecklistByField",
+      "summary": "",
+      "user": "User707",
+      "ideal": "Retrieve a specific field from a checklist."
+    }
+  ]
+}

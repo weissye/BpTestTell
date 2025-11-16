@@ -14,7 +14,7 @@
       "operationId": "getAsset",
       "summary": "",
       "user": "editor",
-      "ideal": "Fetch the asset with ID 456 to display in the content management system, ensuring it has the correct permissions for the editor role."
+      "ideal": "Fetch the asset with ID 456 to display in the content management system, ensuring that the asset's URL and dimensions are included."
     },
     {
       "path": "/assets/789",
@@ -22,7 +22,7 @@
       "operationId": "getAsset",
       "summary": "",
       "user": "viewer",
-      "ideal": "Access the asset with ID 789 to view its details, but without the ability to edit or delete it."
+      "ideal": "Access the asset with ID 789 for viewing purposes, ensuring that only public information is returned."
     }
   ]
 }

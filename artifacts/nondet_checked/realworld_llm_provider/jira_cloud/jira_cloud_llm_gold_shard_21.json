@@ -5,15 +5,15 @@
       "method": "GET",
       "operationId": "getContextsForField",
       "summary": "",
-      "user": "User requests to retrieve all contexts associated with the custom field identified by fieldId 10000.",
-      "ideal": "Returns a list of contexts for the specified custom field."
+      "user": "User requests to retrieve all contexts for the custom field with ID 10000 to understand its configurations.",
+      "ideal": "Returns a list of contexts associated with the specified custom field."
     },
     {
       "path": "/rest/api/3/field/10000/context",
       "method": "POST",
       "operationId": "createCustomFieldContext",
       "summary": "",
-      "user": "User wants to create a new context for the custom field with fieldId 10000, specifying the context details.",
+      "user": "User wants to create a new context for the custom field with ID 10000 to better categorize issues.",
       "ideal": "Creates a new context for the specified custom field and returns the created context details."
     },
     {
@@ -21,15 +21,15 @@
       "method": "GET",
       "operationId": "getDefaultValues",
       "summary": "",
-      "user": "User requests the default values for the custom field with fieldId 10000.",
-      "ideal": "Returns the default values set for the specified custom field."
+      "user": "User needs to fetch the default values set for the custom field with ID 10000.",
+      "ideal": "Returns the default values for the specified custom field."
     },
     {
       "path": "/rest/api/3/field/10000/context/defaultValue",
       "method": "PUT",
       "operationId": "setDefaultValues",
       "summary": "",
-      "user": "User wants to update the default values for the custom field with fieldId 10000.",
+      "user": "User intends to update the default values for the custom field with ID 10000 to reflect new requirements.",
       "ideal": "Updates the default values for the specified custom field and confirms the update."
     },
     {
@@ -37,7 +37,7 @@
       "method": "GET",
       "operationId": "getIssueTypeMappingsForContexts",
       "summary": "",
-      "user": "User requests to get issue type mappings for contexts associated with the custom field identified by fieldId 10000.",
+      "user": "User wants to check the issue type mappings for contexts associated with the custom field with ID 10000.",
       "ideal": "Returns the issue type mappings for the specified custom field contexts."
     },
     {
@@ -45,23 +45,23 @@
       "method": "POST",
       "operationId": "getCustomFieldContextsForProjectsAndIssueTypes",
       "summary": "",
-      "user": "User wants to retrieve custom field contexts based on specific projects and issue types for fieldId 10000.",
-      "ideal": "Returns the custom field contexts that match the specified projects and issue types."
+      "user": "User is looking to retrieve custom field contexts based on specific projects and issue types.",
+      "ideal": "Returns the relevant custom field contexts for the specified projects and issue types."
     },
     {
       "path": "/rest/api/3/field/10000/context/projectmapping",
       "method": "GET",
       "operationId": "getProjectContextMapping",
       "summary": "",
-      "user": "User requests to get the project mapping for the custom field with fieldId 10000.",
-      "ideal": "Returns the project mapping for the specified custom field."
+      "user": "User needs to obtain the project mappings for the custom field with ID 10000 to analyze its usage.",
+      "ideal": "Returns the project mappings for the specified custom field."
     },
     {
       "path": "/rest/api/3/field/10000/context/1",
       "method": "DELETE",
       "operationId": "deleteCustomFieldContext",
       "summary": "",
-      "user": "User wants to delete the context with contextId 1 for the custom field with fieldId 10000.",
+      "user": "User wants to delete the context with ID 1 for the custom field with ID 10000 as it is no longer needed.",
       "ideal": "Deletes the specified context for the custom field and confirms the deletion."
     },
     {
@@ -69,7 +69,7 @@
       "method": "PUT",
       "operationId": "updateCustomFieldContext",
       "summary": "",
-      "user": "User wants to update the context with contextId 1 for the custom field with fieldId 10000.",
+      "user": "User intends to update the context with ID 1 for the custom field with ID 10000 to adjust its settings.",
       "ideal": "Updates the specified context for the custom field and returns the updated context details."
     },
     {
@@ -77,7 +77,7 @@
       "method": "PUT",
       "operationId": "addIssueTypesToContext",
       "summary": "",
-      "user": "User wants to add new issue types to the context with contextId 1 for the custom field with fieldId 10000.",
+      "user": "User wants to add new issue types to the context with ID 1 for the custom field with ID 10000.",
       "ideal": "Adds the specified issue types to the context and confirms the addition."
     },
     {
@@ -85,7 +85,7 @@
       "method": "POST",
       "operationId": "removeIssueTypesFromContext",
       "summary": "",
-      "user": "User wants to remove specific issue types from the context with contextId 1 for the custom field with fieldId 10000.",
+      "user": "User needs to remove certain issue types from the context with ID 1 for the custom field with ID 10000.",
       "ideal": "Removes the specified issue types from the context and confirms the removal."
     },
     {
@@ -93,7 +93,7 @@
       "method": "PUT",
       "operationId": "assignProjectsToCustomFieldContext",
       "summary": "",
-      "user": "User wants to assign new projects to the context with contextId 1 for the custom field with fieldId 10000.",
+      "user": "User is looking to assign new projects to the context with ID 1 for the custom field with ID 10000.",
       "ideal": "Assigns the specified projects to the context and confirms the assignment."
     },
     {
@@ -101,7 +101,7 @@
       "method": "POST",
       "operationId": "removeCustomFieldContextFromProjects",
       "summary": "",
-      "user": "User wants to remove the context with contextId 1 from specific projects for the custom field with fieldId 10000.",
+      "user": "User wants to remove the context with ID 1 from certain projects associated with the custom field with ID 10000.",
       "ideal": "Removes the specified context from the projects and confirms the removal."
     }
   ]

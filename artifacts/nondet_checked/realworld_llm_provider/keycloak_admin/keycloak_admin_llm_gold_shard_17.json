@@ -1,84 +1,84 @@
 {
   "gold": [
     {
-      "path": "/myrealm/roles-by-id/12345",
+      "path": "/{realm}/roles-by-id/{role-id}",
       "method": "GET",
       "operationId": "getRolesById",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve the role with ID 12345 from the realm 'myrealm'."
+      "ideal": "Retrieve the role details by its ID in the specified realm."
     },
     {
-      "path": "/myrealm/roles-by-id/12345",
+      "path": "/{realm}/roles-by-id/{role-id}",
       "method": "PUT",
       "operationId": "putRolesById",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the role with ID 12345 in the realm 'myrealm' with new attributes."
+      "ideal": "Update the role details by its ID in the specified realm."
     },
     {
-      "path": "/myrealm/roles-by-id/12345",
+      "path": "/{realm}/roles-by-id/{role-id}",
       "method": "DELETE",
       "operationId": "deleteRolesById",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete the role with ID 12345 from the realm 'myrealm'."
+      "ideal": "Delete the role by its ID in the specified realm."
     },
     {
-      "path": "/myrealm/roles-by-id/12345/composites",
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
       "method": "GET",
       "operationId": "getRolesByIdComposites",
       "summary": "",
       "user": "admin",
-      "ideal": "Fetch all composite roles associated with the role ID 12345 in the realm 'myrealm'."
+      "ideal": "Retrieve the composite roles associated with the specified role ID."
     },
     {
-      "path": "/myrealm/roles-by-id/12345/composites",
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
       "method": "POST",
       "operationId": "postRolesByIdComposites",
       "summary": "",
       "user": "admin",
-      "ideal": "Add composite roles to the role with ID 12345 in the realm 'myrealm'."
+      "ideal": "Add composite roles to the specified role ID."
     },
     {
-      "path": "/myrealm/roles-by-id/12345/composites",
+      "path": "/{realm}/roles-by-id/{role-id}/composites",
       "method": "DELETE",
       "operationId": "deleteRolesByIdComposites",
       "summary": "",
       "user": "admin",
-      "ideal": "Remove composite roles from the role with ID 12345 in the realm 'myrealm'."
+      "ideal": "Remove composite roles from the specified role ID."
     },
     {
-      "path": "/myrealm/roles-by-id/12345/composites/clients/abcde-12345",
+      "path": "/{realm}/roles-by-id/{role-id}/composites/clients/{clientUuid}",
       "method": "GET",
       "operationId": "getRolesByIdCompositesClient",
       "summary": "",
       "user": "admin",
-      "ideal": "Get composite roles for the role ID 12345 specific to the client with UUID 'abcde-12345' in the realm 'myrealm'."
+      "ideal": "Retrieve the composite roles for the specified role ID and client UUID."
     },
     {
-      "path": "/myrealm/roles-by-id/12345/composites/realm",
+      "path": "/{realm}/roles-by-id/{role-id}/composites/realm",
       "method": "GET",
       "operationId": "getRolesByIdCompositesRealm",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve all composite roles for the role ID 12345 at the realm level in 'myrealm'."
+      "ideal": "Retrieve the composite roles for the specified role ID in the realm."
     },
     {
-      "path": "/myrealm/roles-by-id/12345/management/permissions",
+      "path": "/{realm}/roles-by-id/{role-id}/management/permissions",
       "method": "GET",
       "operationId": "getRolesByIdManagementPermissions",
       "summary": "",
       "user": "admin",
-      "ideal": "Fetch management permissions associated with the role ID 12345 in the realm 'myrealm'."
+      "ideal": "Retrieve management permissions for the specified role ID."
     },
     {
-      "path": "/myrealm/roles-by-id/12345/management/permissions",
+      "path": "/{realm}/roles-by-id/{role-id}/management/permissions",
       "method": "PUT",
       "operationId": "putRolesByIdManagementPermissions",
       "summary": "",
       "user": "admin",
-      "ideal": "Update management permissions for the role ID 12345 in the realm 'myrealm'."
+      "ideal": "Update management permissions for the specified role ID."
     }
   ]
 }

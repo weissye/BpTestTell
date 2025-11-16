@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/collections"
+    },
+    {
+      "method": "POST",
+      "path": "/files"
+    },
+    {
+      "method": "PATCH",
+      "path": "/items/{collection}/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/relations"
+    },
+    {
+      "method": "POST",
+      "path": "/users/invite"
+    },
+    {
+      "method": "GET",
+      "path": "/versions/{id}/compare"
+    }
+  ]
+}

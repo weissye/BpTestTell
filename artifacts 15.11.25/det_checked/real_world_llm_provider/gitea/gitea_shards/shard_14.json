@@ -1,0 +1,72 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/admin/unadopted"
+    },
+    {
+      "method": "GET",
+      "path": "/nodeinfo"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/blocks"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/teams"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/assignees"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/contents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/hooks/{id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/issues/{index}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/issues/{index}/pin/{position}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/labels/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{index}/merge"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/releases/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/tags/{tag}"
+    },
+    {
+      "method": "GET",
+      "path": "/settings/attachment"
+    },
+    {
+      "method": "POST",
+      "path": "/user/actions/variables/{variablename}"
+    },
+    {
+      "method": "POST",
+      "path": "/user/gpg_keys"
+    },
+    {
+      "method": "GET",
+      "path": "/user/times"
+    }
+  ]
+}

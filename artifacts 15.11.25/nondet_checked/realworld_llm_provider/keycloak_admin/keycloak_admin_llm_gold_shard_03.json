@@ -1,0 +1,52 @@
+{
+  "gold": [
+    {
+      "path": "/myrealm/clients/123/certificates/public",
+      "method": "GET",
+      "operationId": "getCertificate",
+      "summary": "",
+      "user": "Admin user requesting the public certificate for client ID 123 in the realm 'myrealm'.",
+      "ideal": "Returns the public certificate for the specified client."
+    },
+    {
+      "path": "/myrealm/clients/123/certificates/private/download",
+      "method": "POST",
+      "operationId": "postDownload",
+      "summary": "",
+      "user": "Admin user attempting to download the private certificate for client ID 123 in the realm 'myrealm'.",
+      "ideal": "Successfully downloads the private certificate for the specified client."
+    },
+    {
+      "path": "/myrealm/clients/123/certificates/private/generate",
+      "method": "POST",
+      "operationId": "postGenerate",
+      "summary": "",
+      "user": "Admin user generating a new private certificate for client ID 123 in the realm 'myrealm'.",
+      "ideal": "Generates a new private certificate for the specified client."
+    },
+    {
+      "path": "/myrealm/clients/123/certificates/private/generate-and-download",
+      "method": "POST",
+      "operationId": "postGenerateAndDownload",
+      "summary": "",
+      "user": "Admin user generating and downloading a new private certificate for client ID 123 in the realm 'myrealm'.",
+      "ideal": "Generates and immediately downloads the new private certificate for the specified client."
+    },
+    {
+      "path": "/myrealm/clients/123/certificates/private/upload",
+      "method": "POST",
+      "operationId": "postUpload",
+      "summary": "",
+      "user": "Admin user uploading a new private certificate for client ID 123 in the realm 'myrealm'.",
+      "ideal": "Successfully uploads the new private certificate for the specified client."
+    },
+    {
+      "path": "/myrealm/clients/123/certificates/private/upload-certificate",
+      "method": "POST",
+      "operationId": "postUploadCertificate",
+      "summary": "",
+      "user": "Admin user uploading a specific certificate for client ID 123 in the realm 'myrealm'.",
+      "ideal": "Successfully uploads the specified certificate for the client."
+    }
+  ]
+}

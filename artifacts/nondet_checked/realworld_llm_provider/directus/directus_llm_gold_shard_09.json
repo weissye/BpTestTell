@@ -22,7 +22,7 @@
       "operationId": "updateFlows",
       "summary": "",
       "user": "admin",
-      "ideal": "Update multiple flows based on the provided data."
+      "ideal": "Update multiple flows with the given data."
     },
     {
       "path": "/flows",
@@ -46,7 +46,7 @@
       "operationId": "updateFlow",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the details of a specific flow identified by its ID."
+      "ideal": "Update a specific flow identified by its ID."
     },
     {
       "path": "/flows/{id}",

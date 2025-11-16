@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/export/realm"
+    },
+    {
+      "method": "DELETE",
+      "path": "/messages/{message_id}/reactions"
+    },
+    {
+      "method": "GET",
+      "path": "/realm/profile_fields"
+    },
+    {
+      "method": "PATCH",
+      "path": "/streams/{stream_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/android_gcm_reg_id"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{user_id}/subscriptions/{stream_id}"
+    }
+  ]
+}

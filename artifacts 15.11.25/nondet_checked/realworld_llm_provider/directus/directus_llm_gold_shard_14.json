@@ -1,0 +1,60 @@
+{
+  "gold": [
+    {
+      "path": "/presets",
+      "method": "GET",
+      "operationId": "getPresets",
+      "summary": "",
+      "user": "Admin user requesting all presets to review current configurations.",
+      "ideal": "Returns a list of all presets available in the system."
+    },
+    {
+      "path": "/presets",
+      "method": "POST",
+      "operationId": "createPreset",
+      "summary": "",
+      "user": "Content manager creating a new preset for a specific project.",
+      "ideal": "Creates a new preset with the provided data and returns the created preset."
+    },
+    {
+      "path": "/presets",
+      "method": "PATCH",
+      "operationId": "updatePresets",
+      "summary": "",
+      "user": "Admin user updating multiple presets to reflect new design standards.",
+      "ideal": "Updates the specified presets and returns the updated presets."
+    },
+    {
+      "path": "/presets",
+      "method": "DELETE",
+      "operationId": "deletePresets",
+      "summary": "",
+      "user": "Admin user deleting obsolete presets from the system.",
+      "ideal": "Deletes the specified presets and confirms deletion."
+    },
+    {
+      "path": "/presets/{id}",
+      "method": "GET",
+      "operationId": "getPreset",
+      "summary": "",
+      "user": "User looking for details on a specific preset for troubleshooting.",
+      "ideal": "Returns the details of the specified preset."
+    },
+    {
+      "path": "/presets/{id}",
+      "method": "PATCH",
+      "operationId": "updatePreset",
+      "summary": "",
+      "user": "Content manager updating a specific preset to include new features.",
+      "ideal": "Updates the specified preset and returns the updated preset."
+    },
+    {
+      "path": "/presets/{id}",
+      "method": "DELETE",
+      "operationId": "deletePreset",
+      "summary": "",
+      "user": "Admin user removing a specific preset that is no longer needed.",
+      "ideal": "Deletes the specified preset and confirms deletion."
+    }
+  ]
+}

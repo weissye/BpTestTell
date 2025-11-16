@@ -1,268 +1,3100 @@
 {
-  "gold": [
+  "ops": [
     {
-      "path": "/reset",
       "method": "POST",
-      "operationId": "resetSystem",
-      "summary": "",
-      "user": "Admin user resets the system to its initial state.",
-      "ideal": "System should be reset successfully without errors."
-    },
-    {
-      "path": "/chains",
-      "method": "POST",
-      "operationId": "createChain",
-      "summary": "",
-      "user": "User creates a new chain with valid details.",
-      "ideal": "Chain is created successfully and returns the new chain ID."
-    },
-    {
-      "path": "/chains",
-      "method": "GET",
-      "operationId": "getChains",
-      "summary": "",
-      "user": "User retrieves a list of all chains.",
-      "ideal": "Returns a list of chains with their details."
-    },
-    {
-      "path": "/chains/{chainId}",
-      "method": "GET",
-      "operationId": "getChainById",
-      "summary": "",
-      "user": "User requests details of a specific chain by ID.",
-      "ideal": "Returns the details of the specified chain."
-    },
-    {
-      "path": "/chains/{chainId}",
-      "method": "PUT",
-      "operationId": "updateChain",
-      "summary": "",
-      "user": "User updates the details of an existing chain.",
-      "ideal": "Chain details are updated successfully."
-    },
-    {
-      "path": "/chains/{chainId}",
-      "method": "DELETE",
-      "operationId": "deleteChain",
-      "summary": "",
-      "user": "User deletes a specific chain by ID.",
-      "ideal": "Chain is deleted successfully."
-    },
-    {
-      "path": "/garages",
-      "method": "POST",
-      "operationId": "createGarage",
-      "summary": "",
-      "user": "User creates a new garage with valid information.",
-      "ideal": "Garage is created successfully and returns the new garage ID."
-    },
-    {
-      "path": "/garages",
-      "method": "GET",
-      "operationId": "getGarages",
-      "summary": "",
-      "user": "User retrieves a list of all garages.",
-      "ideal": "Returns a list of garages with their details."
-    },
-    {
-      "path": "/garages/{garageId}",
-      "method": "GET",
-      "operationId": "getGarageById",
-      "summary": "",
-      "user": "User requests details of a specific garage by ID.",
-      "ideal": "Returns the details of the specified garage."
-    },
-    {
-      "path": "/garages/{garageId}",
-      "method": "PUT",
-      "operationId": "updateGarage",
-      "summary": "",
-      "user": "User updates the details of an existing garage.",
-      "ideal": "Garage details are updated successfully."
-    },
-    {
-      "path": "/garages/{garageId}",
-      "method": "DELETE",
-      "operationId": "deleteGarage",
-      "summary": "",
-      "user": "User deletes a specific garage by ID.",
-      "ideal": "Garage is deleted successfully."
-    },
-    {
-      "path": "/customers",
-      "method": "POST",
-      "operationId": "createCustomer",
-      "summary": "",
-      "user": "User creates a new customer profile.",
-      "ideal": "Customer profile is created successfully and returns the new customer ID."
-    },
-    {
-      "path": "/customers",
-      "method": "GET",
-      "operationId": "getCustomers",
-      "summary": "",
-      "user": "User retrieves a list of all customers.",
-      "ideal": "Returns a list of customers with their details."
-    },
-    {
-      "path": "/customers/{customerId}",
-      "method": "GET",
-      "operationId": "getCustomerById",
-      "summary": "",
-      "user": "User requests details of a specific customer by ID.",
-      "ideal": "Returns the details of the specified customer."
-    },
-    {
-      "path": "/customers/{customerId}",
-      "method": "PUT",
-      "operationId": "updateCustomer",
-      "summary": "",
-      "user": "User updates the details of an existing customer.",
-      "ideal": "Customer details are updated successfully."
-    },
-    {
-      "path": "/customers/{customerId}",
-      "method": "DELETE",
-      "operationId": "deleteCustomer",
-      "summary": "",
-      "user": "User deletes a specific customer by ID.",
-      "ideal": "Customer is deleted successfully."
-    },
-    {
       "path": "/cars",
-      "method": "POST",
-      "operationId": "createCar",
-      "summary": "",
-      "user": "User adds a new car to the system.",
-      "ideal": "Car is added successfully and returns the new car ID."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_make",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_mileage",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_model",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_ownerCustomerId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_vin",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_year",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
     },
     {
+      "method": "GET",
       "path": "/cars",
-      "method": "GET",
-      "operationId": "getCars",
-      "summary": "",
-      "user": "User retrieves a list of all cars.",
-      "ideal": "Returns a list of cars with their details."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/cars/{vin}",
       "method": "GET",
-      "operationId": "getCarByVin",
-      "summary": "",
-      "user": "User requests details of a specific car by VIN.",
-      "ideal": "Returns the details of the specified car."
+      "path": "/cars/{vin}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/cars/{vin}",
       "method": "PUT",
-      "operationId": "updateCar",
-      "summary": "",
-      "user": "User updates the details of an existing car.",
-      "ideal": "Car details are updated successfully."
-    },
-    {
       "path": "/cars/{vin}",
-      "method": "DELETE",
-      "operationId": "deleteCar",
-      "summary": "",
-      "user": "User deletes a specific car by VIN.",
-      "ideal": "Car is deleted successfully."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId",
+          "body": {}
+        },
+        {
+          "name": "opt_make",
+          "body": {}
+        },
+        {
+          "name": "opt_mileage",
+          "body": {}
+        },
+        {
+          "name": "opt_model",
+          "body": {}
+        },
+        {
+          "name": "opt_ownerCustomerId",
+          "body": {}
+        },
+        {
+          "name": "opt_year",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId_make",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId_mileage",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId_model",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId_ownerCustomerId",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId_year",
+          "body": {}
+        },
+        {
+          "name": "opt_make_mileage",
+          "body": {}
+        },
+        {
+          "name": "opt_make_model",
+          "body": {}
+        },
+        {
+          "name": "opt_make_ownerCustomerId",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/periodic-maintenance",
+      "method": "DELETE",
+      "path": "/cars/{vin}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
       "method": "POST",
-      "operationId": "createPeriodicMaintenance",
-      "summary": "",
-      "user": "User schedules a new periodic maintenance.",
-      "ideal": "Periodic maintenance is scheduled successfully and returns the new maintenance ID."
+      "path": "/chains",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_active",
+          "body": {}
+        },
+        {
+          "name": "opt_supportEmail",
+          "body": {}
+        },
+        {
+          "name": "opt_active_supportEmail",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_chainId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_hqAddress",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_name",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
     },
     {
-      "path": "/periodic-maintenance",
       "method": "GET",
-      "operationId": "getPeriodicMaintenance",
-      "summary": "",
-      "user": "User retrieves a list of all periodic maintenance records.",
-      "ideal": "Returns a list of periodic maintenance records with their details."
+      "path": "/chains",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/periodic-maintenance/{pmId}",
       "method": "GET",
-      "operationId": "getPeriodicMaintenanceById",
-      "summary": "",
-      "user": "User requests details of a specific periodic maintenance by ID.",
-      "ideal": "Returns the details of the specified periodic maintenance."
+      "path": "/chains/{chainId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/periodic-maintenance/{pmId}",
       "method": "PUT",
-      "operationId": "updatePeriodicMaintenance",
-      "summary": "",
-      "user": "User updates the details of an existing periodic maintenance.",
-      "ideal": "Periodic maintenance details are updated successfully."
+      "path": "/chains/{chainId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_active",
+          "body": {}
+        },
+        {
+          "name": "opt_hqAddress",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "opt_supportEmail",
+          "body": {}
+        },
+        {
+          "name": "opt_active_hqAddress",
+          "body": {}
+        },
+        {
+          "name": "opt_active_name",
+          "body": {}
+        },
+        {
+          "name": "opt_active_supportEmail",
+          "body": {}
+        },
+        {
+          "name": "opt_hqAddress_name",
+          "body": {}
+        },
+        {
+          "name": "opt_hqAddress_supportEmail",
+          "body": {}
+        },
+        {
+          "name": "opt_name_supportEmail",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/periodic-maintenance/{pmId}",
       "method": "DELETE",
-      "operationId": "deletePeriodicMaintenance",
-      "summary": "",
-      "user": "User deletes a specific periodic maintenance by ID.",
-      "ideal": "Periodic maintenance record is deleted successfully."
+      "path": "/chains/{chainId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/repair-orders",
       "method": "POST",
-      "operationId": "createRepairOrder",
-      "summary": "",
-      "user": "User creates a new repair order.",
-      "ideal": "Repair order is created successfully and returns the new order ID."
+      "path": "/customers",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_preferredGarageId",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_customerId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_email",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_fullName",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_phone",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_type",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
     },
     {
-      "path": "/repair-orders",
       "method": "GET",
-      "operationId": "getRepairOrders",
-      "summary": "",
-      "user": "User retrieves a list of all repair orders.",
-      "ideal": "Returns a list of repair orders with their details."
+      "path": "/customers",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/repair-orders/{roId}",
       "method": "GET",
-      "operationId": "getRepairOrderById",
-      "summary": "",
-      "user": "User requests details of a specific repair order by ID.",
-      "ideal": "Returns the details of the specified repair order."
+      "path": "/customers/{customerId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/repair-orders/{roId}",
       "method": "PUT",
-      "operationId": "updateRepairOrder",
-      "summary": "",
-      "user": "User updates the details of an existing repair order.",
-      "ideal": "Repair order details are updated successfully."
+      "path": "/customers/{customerId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_email",
+          "body": {}
+        },
+        {
+          "name": "opt_fullName",
+          "body": {}
+        },
+        {
+          "name": "opt_phone",
+          "body": {}
+        },
+        {
+          "name": "opt_preferredGarageId",
+          "body": {}
+        },
+        {
+          "name": "opt_type",
+          "body": {}
+        },
+        {
+          "name": "opt_email_fullName",
+          "body": {}
+        },
+        {
+          "name": "opt_email_phone",
+          "body": {}
+        },
+        {
+          "name": "opt_email_preferredGarageId",
+          "body": {}
+        },
+        {
+          "name": "opt_email_type",
+          "body": {}
+        },
+        {
+          "name": "opt_fullName_phone",
+          "body": {}
+        },
+        {
+          "name": "opt_fullName_preferredGarageId",
+          "body": {}
+        },
+        {
+          "name": "opt_fullName_type",
+          "body": {}
+        },
+        {
+          "name": "opt_phone_preferredGarageId",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/repair-orders/{roId}",
       "method": "DELETE",
-      "operationId": "deleteRepairOrder",
-      "summary": "",
-      "user": "User deletes a specific repair order by ID.",
-      "ideal": "Repair order is deleted successfully."
+      "path": "/customers/{customerId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
+      "method": "POST",
+      "path": "/garages",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_active",
+          "body": {}
+        },
+        {
+          "name": "opt_bayCount",
+          "body": {}
+        },
+        {
+          "name": "opt_servicesOffered",
+          "body": {}
+        },
+        {
+          "name": "opt_active_bayCount",
+          "body": {}
+        },
+        {
+          "name": "opt_active_servicesOffered",
+          "body": {}
+        },
+        {
+          "name": "opt_bayCount_servicesOffered",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_address",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_chainId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_garageId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_name",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_phone",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/garages",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/garages/{garageId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/garages/{garageId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_active",
+          "body": {}
+        },
+        {
+          "name": "opt_address",
+          "body": {}
+        },
+        {
+          "name": "opt_bayCount",
+          "body": {}
+        },
+        {
+          "name": "opt_chainId",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "opt_phone",
+          "body": {}
+        },
+        {
+          "name": "opt_servicesOffered",
+          "body": {}
+        },
+        {
+          "name": "opt_active_address",
+          "body": {}
+        },
+        {
+          "name": "opt_active_bayCount",
+          "body": {}
+        },
+        {
+          "name": "opt_active_chainId",
+          "body": {}
+        },
+        {
+          "name": "opt_active_name",
+          "body": {}
+        },
+        {
+          "name": "opt_active_phone",
+          "body": {}
+        },
+        {
+          "name": "opt_active_servicesOffered",
+          "body": {}
+        },
+        {
+          "name": "opt_address_bayCount",
+          "body": {}
+        },
+        {
+          "name": "opt_address_chainId",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/garages/{garageId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/periodic-maintenance",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalKm",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalMonths",
+          "body": {}
+        },
+        {
+          "name": "opt_status",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalKm_intervalMonths",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalKm_status",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalMonths_status",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_carVin",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_garageId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_planType",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_pmId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_tasks",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin",
+          "body": {}
+        },
+        {
+          "name": "opt_garageId",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalKm",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalMonths",
+          "body": {}
+        },
+        {
+          "name": "opt_planType",
+          "body": {}
+        },
+        {
+          "name": "opt_status",
+          "body": {}
+        },
+        {
+          "name": "opt_tasks",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_garageId",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_intervalKm",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_intervalMonths",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_planType",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_status",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_tasks",
+          "body": {}
+        },
+        {
+          "name": "opt_garageId_intervalKm",
+          "body": {}
+        },
+        {
+          "name": "opt_garageId_intervalMonths",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_status",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_carVin",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_complaint",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_customerId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_garageId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_roId",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders/{roId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/repair-orders/{roId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin",
+          "body": {}
+        },
+        {
+          "name": "opt_complaint",
+          "body": {}
+        },
+        {
+          "name": "opt_customerId",
+          "body": {}
+        },
+        {
+          "name": "opt_garageId",
+          "body": {}
+        },
+        {
+          "name": "opt_status",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_complaint",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_customerId",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_garageId",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_status",
+          "body": {}
+        },
+        {
+          "name": "opt_complaint_customerId",
+          "body": {}
+        },
+        {
+          "name": "opt_complaint_garageId",
+          "body": {}
+        },
+        {
+          "name": "opt_complaint_status",
+          "body": {}
+        },
+        {
+          "name": "opt_customerId_garageId",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/repair-orders/{roId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
       "path": "/repair-orders/{roId}/approve",
-      "method": "POST",
-      "operationId": "approveRepairOrder",
-      "summary": "",
-      "user": "User approves a specific repair order.",
-      "ideal": "Repair order is approved successfully."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/repair-orders/{roId}/close",
       "method": "POST",
-      "operationId": "closeRepairOrder",
-      "summary": "",
-      "user": "User closes a specific repair order.",
-      "ideal": "Repair order is closed successfully."
+      "path": "/repair-orders/{roId}/close",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/cars",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_make",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_mileage",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_model",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_ownerCustomerId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_vin",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_year",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/cars",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_make",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_mileage",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_model",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_ownerCustomerId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_vin",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_year",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/cars",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/cars",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/cars/{vin}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/cars/{vin}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/cars/{vin}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId",
+          "body": {}
+        },
+        {
+          "name": "opt_make",
+          "body": {}
+        },
+        {
+          "name": "opt_mileage",
+          "body": {}
+        },
+        {
+          "name": "opt_model",
+          "body": {}
+        },
+        {
+          "name": "opt_ownerCustomerId",
+          "body": {}
+        },
+        {
+          "name": "opt_year",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId_make",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId_mileage",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId_model",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId_ownerCustomerId",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId_year",
+          "body": {}
+        },
+        {
+          "name": "opt_make_mileage",
+          "body": {}
+        },
+        {
+          "name": "opt_make_model",
+          "body": {}
+        },
+        {
+          "name": "opt_make_ownerCustomerId",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/cars/{vin}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId",
+          "body": {}
+        },
+        {
+          "name": "opt_make",
+          "body": {}
+        },
+        {
+          "name": "opt_mileage",
+          "body": {}
+        },
+        {
+          "name": "opt_model",
+          "body": {}
+        },
+        {
+          "name": "opt_ownerCustomerId",
+          "body": {}
+        },
+        {
+          "name": "opt_year",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId_make",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId_mileage",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId_model",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId_ownerCustomerId",
+          "body": {}
+        },
+        {
+          "name": "opt_homeGarageId_year",
+          "body": {}
+        },
+        {
+          "name": "opt_make_mileage",
+          "body": {}
+        },
+        {
+          "name": "opt_make_model",
+          "body": {}
+        },
+        {
+          "name": "opt_make_ownerCustomerId",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/cars/{vin}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/cars/{vin}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/chains",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_active",
+          "body": {}
+        },
+        {
+          "name": "opt_supportEmail",
+          "body": {}
+        },
+        {
+          "name": "opt_active_supportEmail",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_chainId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_hqAddress",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_name",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/chains",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_active",
+          "body": {}
+        },
+        {
+          "name": "opt_supportEmail",
+          "body": {}
+        },
+        {
+          "name": "opt_active_supportEmail",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_chainId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_hqAddress",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_name",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/chains",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/chains",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/chains/{chainId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/chains/{chainId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/chains/{chainId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_active",
+          "body": {}
+        },
+        {
+          "name": "opt_hqAddress",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "opt_supportEmail",
+          "body": {}
+        },
+        {
+          "name": "opt_active_hqAddress",
+          "body": {}
+        },
+        {
+          "name": "opt_active_name",
+          "body": {}
+        },
+        {
+          "name": "opt_active_supportEmail",
+          "body": {}
+        },
+        {
+          "name": "opt_hqAddress_name",
+          "body": {}
+        },
+        {
+          "name": "opt_hqAddress_supportEmail",
+          "body": {}
+        },
+        {
+          "name": "opt_name_supportEmail",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/chains/{chainId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_active",
+          "body": {}
+        },
+        {
+          "name": "opt_hqAddress",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "opt_supportEmail",
+          "body": {}
+        },
+        {
+          "name": "opt_active_hqAddress",
+          "body": {}
+        },
+        {
+          "name": "opt_active_name",
+          "body": {}
+        },
+        {
+          "name": "opt_active_supportEmail",
+          "body": {}
+        },
+        {
+          "name": "opt_hqAddress_name",
+          "body": {}
+        },
+        {
+          "name": "opt_hqAddress_supportEmail",
+          "body": {}
+        },
+        {
+          "name": "opt_name_supportEmail",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/chains/{chainId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/chains/{chainId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/customers",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_preferredGarageId",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_customerId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_email",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_fullName",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_phone",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_type",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/customers",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_preferredGarageId",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_customerId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_email",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_fullName",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_phone",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_type",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/customers/{customerId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_email",
+          "body": {}
+        },
+        {
+          "name": "opt_fullName",
+          "body": {}
+        },
+        {
+          "name": "opt_phone",
+          "body": {}
+        },
+        {
+          "name": "opt_preferredGarageId",
+          "body": {}
+        },
+        {
+          "name": "opt_type",
+          "body": {}
+        },
+        {
+          "name": "opt_email_fullName",
+          "body": {}
+        },
+        {
+          "name": "opt_email_phone",
+          "body": {}
+        },
+        {
+          "name": "opt_email_preferredGarageId",
+          "body": {}
+        },
+        {
+          "name": "opt_email_type",
+          "body": {}
+        },
+        {
+          "name": "opt_fullName_phone",
+          "body": {}
+        },
+        {
+          "name": "opt_fullName_preferredGarageId",
+          "body": {}
+        },
+        {
+          "name": "opt_fullName_type",
+          "body": {}
+        },
+        {
+          "name": "opt_phone_preferredGarageId",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/customers/{customerId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_email",
+          "body": {}
+        },
+        {
+          "name": "opt_fullName",
+          "body": {}
+        },
+        {
+          "name": "opt_phone",
+          "body": {}
+        },
+        {
+          "name": "opt_preferredGarageId",
+          "body": {}
+        },
+        {
+          "name": "opt_type",
+          "body": {}
+        },
+        {
+          "name": "opt_email_fullName",
+          "body": {}
+        },
+        {
+          "name": "opt_email_phone",
+          "body": {}
+        },
+        {
+          "name": "opt_email_preferredGarageId",
+          "body": {}
+        },
+        {
+          "name": "opt_email_type",
+          "body": {}
+        },
+        {
+          "name": "opt_fullName_phone",
+          "body": {}
+        },
+        {
+          "name": "opt_fullName_preferredGarageId",
+          "body": {}
+        },
+        {
+          "name": "opt_fullName_type",
+          "body": {}
+        },
+        {
+          "name": "opt_phone_preferredGarageId",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/customers/{customerId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/customers/{customerId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/garages",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_active",
+          "body": {}
+        },
+        {
+          "name": "opt_bayCount",
+          "body": {}
+        },
+        {
+          "name": "opt_servicesOffered",
+          "body": {}
+        },
+        {
+          "name": "opt_active_bayCount",
+          "body": {}
+        },
+        {
+          "name": "opt_active_servicesOffered",
+          "body": {}
+        },
+        {
+          "name": "opt_bayCount_servicesOffered",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_address",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_chainId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_garageId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_name",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_phone",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/garages",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_active",
+          "body": {}
+        },
+        {
+          "name": "opt_bayCount",
+          "body": {}
+        },
+        {
+          "name": "opt_servicesOffered",
+          "body": {}
+        },
+        {
+          "name": "opt_active_bayCount",
+          "body": {}
+        },
+        {
+          "name": "opt_active_servicesOffered",
+          "body": {}
+        },
+        {
+          "name": "opt_bayCount_servicesOffered",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_address",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_chainId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_garageId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_name",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_phone",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/garages",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/garages",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/garages/{garageId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/garages/{garageId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/garages/{garageId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_active",
+          "body": {}
+        },
+        {
+          "name": "opt_address",
+          "body": {}
+        },
+        {
+          "name": "opt_bayCount",
+          "body": {}
+        },
+        {
+          "name": "opt_chainId",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "opt_phone",
+          "body": {}
+        },
+        {
+          "name": "opt_servicesOffered",
+          "body": {}
+        },
+        {
+          "name": "opt_active_address",
+          "body": {}
+        },
+        {
+          "name": "opt_active_bayCount",
+          "body": {}
+        },
+        {
+          "name": "opt_active_chainId",
+          "body": {}
+        },
+        {
+          "name": "opt_active_name",
+          "body": {}
+        },
+        {
+          "name": "opt_active_phone",
+          "body": {}
+        },
+        {
+          "name": "opt_active_servicesOffered",
+          "body": {}
+        },
+        {
+          "name": "opt_address_bayCount",
+          "body": {}
+        },
+        {
+          "name": "opt_address_chainId",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/garages/{garageId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_active",
+          "body": {}
+        },
+        {
+          "name": "opt_address",
+          "body": {}
+        },
+        {
+          "name": "opt_bayCount",
+          "body": {}
+        },
+        {
+          "name": "opt_chainId",
+          "body": {}
+        },
+        {
+          "name": "opt_name",
+          "body": {}
+        },
+        {
+          "name": "opt_phone",
+          "body": {}
+        },
+        {
+          "name": "opt_servicesOffered",
+          "body": {}
+        },
+        {
+          "name": "opt_active_address",
+          "body": {}
+        },
+        {
+          "name": "opt_active_bayCount",
+          "body": {}
+        },
+        {
+          "name": "opt_active_chainId",
+          "body": {}
+        },
+        {
+          "name": "opt_active_name",
+          "body": {}
+        },
+        {
+          "name": "opt_active_phone",
+          "body": {}
+        },
+        {
+          "name": "opt_active_servicesOffered",
+          "body": {}
+        },
+        {
+          "name": "opt_address_bayCount",
+          "body": {}
+        },
+        {
+          "name": "opt_address_chainId",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/garages/{garageId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/garages/{garageId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/periodic-maintenance",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalKm",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalMonths",
+          "body": {}
+        },
+        {
+          "name": "opt_status",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalKm_intervalMonths",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalKm_status",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalMonths_status",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_carVin",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_garageId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_planType",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_pmId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_tasks",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/periodic-maintenance",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalKm",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalMonths",
+          "body": {}
+        },
+        {
+          "name": "opt_status",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalKm_intervalMonths",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalKm_status",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalMonths_status",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_carVin",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_garageId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_planType",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_pmId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_tasks",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin",
+          "body": {}
+        },
+        {
+          "name": "opt_garageId",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalKm",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalMonths",
+          "body": {}
+        },
+        {
+          "name": "opt_planType",
+          "body": {}
+        },
+        {
+          "name": "opt_status",
+          "body": {}
+        },
+        {
+          "name": "opt_tasks",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_garageId",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_intervalKm",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_intervalMonths",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_planType",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_status",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_tasks",
+          "body": {}
+        },
+        {
+          "name": "opt_garageId_intervalKm",
+          "body": {}
+        },
+        {
+          "name": "opt_garageId_intervalMonths",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin",
+          "body": {}
+        },
+        {
+          "name": "opt_garageId",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalKm",
+          "body": {}
+        },
+        {
+          "name": "opt_intervalMonths",
+          "body": {}
+        },
+        {
+          "name": "opt_planType",
+          "body": {}
+        },
+        {
+          "name": "opt_status",
+          "body": {}
+        },
+        {
+          "name": "opt_tasks",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_garageId",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_intervalKm",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_intervalMonths",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_planType",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_status",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_tasks",
+          "body": {}
+        },
+        {
+          "name": "opt_garageId_intervalKm",
+          "body": {}
+        },
+        {
+          "name": "opt_garageId_intervalMonths",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/periodic-maintenance/{pmId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_status",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_carVin",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_complaint",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_customerId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_garageId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_roId",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_status",
+          "body": {}
+        },
+        {
+          "name": "neg_missing_carVin",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_complaint",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_customerId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_garageId",
+          "body": {},
+          "expect_status": 400
+        },
+        {
+          "name": "neg_missing_roId",
+          "body": {},
+          "expect_status": 400
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders/{roId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/repair-orders/{roId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/repair-orders/{roId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin",
+          "body": {}
+        },
+        {
+          "name": "opt_complaint",
+          "body": {}
+        },
+        {
+          "name": "opt_customerId",
+          "body": {}
+        },
+        {
+          "name": "opt_garageId",
+          "body": {}
+        },
+        {
+          "name": "opt_status",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_complaint",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_customerId",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_garageId",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_status",
+          "body": {}
+        },
+        {
+          "name": "opt_complaint_customerId",
+          "body": {}
+        },
+        {
+          "name": "opt_complaint_garageId",
+          "body": {}
+        },
+        {
+          "name": "opt_complaint_status",
+          "body": {}
+        },
+        {
+          "name": "opt_customerId_garageId",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/repair-orders/{roId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin",
+          "body": {}
+        },
+        {
+          "name": "opt_complaint",
+          "body": {}
+        },
+        {
+          "name": "opt_customerId",
+          "body": {}
+        },
+        {
+          "name": "opt_garageId",
+          "body": {}
+        },
+        {
+          "name": "opt_status",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_complaint",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_customerId",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_garageId",
+          "body": {}
+        },
+        {
+          "name": "opt_carVin_status",
+          "body": {}
+        },
+        {
+          "name": "opt_complaint_customerId",
+          "body": {}
+        },
+        {
+          "name": "opt_complaint_garageId",
+          "body": {}
+        },
+        {
+          "name": "opt_complaint_status",
+          "body": {}
+        },
+        {
+          "name": "opt_customerId_garageId",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/repair-orders/{roId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/repair-orders/{roId}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/{roId}/approve",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/{roId}/approve",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/{roId}/close",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/repair-orders/{roId}/close",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     }
   ]
 }

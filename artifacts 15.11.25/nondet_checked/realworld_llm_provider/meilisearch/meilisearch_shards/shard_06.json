@@ -1,0 +1,63 @@
+{
+  "openapi_meta": {
+    "title": "Meilisearch Core API",
+    "version": "1.7.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/indexes",
+      "method": "GET",
+      "tags": [
+        "Indexes"
+      ],
+      "summary": "List Indexes",
+      "operationId": "indexes.list"
+    },
+    {
+      "path": "/indexes",
+      "method": "POST",
+      "tags": [
+        "Indexes"
+      ],
+      "summary": "Create Index",
+      "operationId": "indexes.create"
+    },
+    {
+      "path": "/indexes/{indexUid}",
+      "method": "GET",
+      "tags": [
+        "Indexes"
+      ],
+      "summary": "Get Index",
+      "operationId": "indexes.get"
+    },
+    {
+      "path": "/indexes/{indexUid}",
+      "method": "PATCH",
+      "tags": [
+        "Indexes"
+      ],
+      "summary": "Update Index",
+      "operationId": "indexes.update"
+    },
+    {
+      "path": "/indexes/{indexUid}",
+      "method": "DELETE",
+      "tags": [
+        "Indexes"
+      ],
+      "summary": "Delete Index",
+      "operationId": "indexes.remove"
+    },
+    {
+      "path": "/swap-indexes",
+      "method": "POST",
+      "tags": [
+        "Indexes"
+      ],
+      "summary": "Swap Indexes",
+      "operationId": "indexes.swap"
+    }
+  ]
+}

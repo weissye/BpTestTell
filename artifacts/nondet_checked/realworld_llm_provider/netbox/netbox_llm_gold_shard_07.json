@@ -6,7 +6,7 @@
       "operationId": "status_retrieve",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve the current status of the NetBox API, including uptime and any relevant operational information."
+      "ideal": "Retrieve the current status of the NetBox API, including uptime and any potential issues."
     }
   ]
 }

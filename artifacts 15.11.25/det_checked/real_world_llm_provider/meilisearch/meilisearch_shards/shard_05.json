@@ -1,0 +1,16 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/indexes"
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/distinct-attribute"
+    },
+    {
+      "method": "GET",
+      "path": "/indexes/{indexUid}/settings/synonyms"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+      "method": "GET",
+      "operationId": "ListSigningKey",
+      "summary": "",
+      "user": "User123 is looking to retrieve a list of all signing keys associated with their Twilio account to manage access and security for their applications.",
+      "ideal": "A successful response with a JSON array of signing keys, including details like Sid, friendly name, and date created."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "method": "GET",
+      "operationId": "FetchSigningKey",
+      "summary": "",
+      "user": "User456 needs to fetch a specific signing key to verify its details before making any updates.",
+      "ideal": "A successful response with the details of the specified signing key, including its Sid, friendly name, and associated account."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "method": "POST",
+      "operationId": "UpdateSigningKey",
+      "summary": "",
+      "user": "User789 wants to update the friendly name of an existing signing key for better identification in their application.",
+      "ideal": "A successful response confirming the update of the signing key with the new friendly name and other unchanged details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "method": "DELETE",
+      "operationId": "DeleteSigningKey",
+      "summary": "",
+      "user": "User321 is looking to delete an outdated signing key that is no longer in use to maintain security and organization.",
+      "ideal": "A successful response indicating that the signing key has been deleted, with a confirmation message."
+    }
+  ]
+}

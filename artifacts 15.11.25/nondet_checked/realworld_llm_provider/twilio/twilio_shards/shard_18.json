@@ -1,0 +1,36 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Conference"
+      ],
+      "summary": "Fetch an instance of a conference",
+      "operationId": "FetchConference"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Conference"
+      ],
+      "summary": "",
+      "operationId": "UpdateConference"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Conference"
+      ],
+      "summary": "Retrieve a list of conferences belonging to the account used to make the request",
+      "operationId": "ListConference"
+    }
+  ]
+}

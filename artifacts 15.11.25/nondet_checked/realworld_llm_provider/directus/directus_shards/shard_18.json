@@ -1,0 +1,36 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/schema/snapshot",
+      "method": "GET",
+      "tags": [
+        "Schema"
+      ],
+      "summary": "Retrieve Schema Snapshot",
+      "operationId": "schemaSnapshot"
+    },
+    {
+      "path": "/schema/apply",
+      "method": "POST",
+      "tags": [
+        "Schema"
+      ],
+      "summary": "Apply Schema Difference",
+      "operationId": "schemaApply"
+    },
+    {
+      "path": "/schema/diff",
+      "method": "POST",
+      "tags": [
+        "Schema"
+      ],
+      "summary": "Retrieve Schema Difference",
+      "operationId": "schemaDiff"
+    }
+  ]
+}

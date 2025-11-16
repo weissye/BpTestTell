@@ -5,32 +5,32 @@
       "method": "GET",
       "operationId": "indexes.documents.searchGet",
       "summary": "",
-      "user": "A user wants to retrieve documents from the 'myIndex' index based on a specific query. They are looking for documents that contain the term 'AI' and want to see the results sorted by relevance.",
-      "ideal": "The API should return a list of documents that match the search term 'AI', including their IDs, titles, and snippets of content, sorted by relevance."
+      "user": "A user wants to retrieve documents from the 'myIndex' index based on a specific query. They are looking for documents that contain the term 'AI' in the title or body.",
+      "ideal": "The API should return a list of documents that match the search criteria, including relevant fields such as title, body, and any other metadata."
     },
     {
       "path": "/indexes/myIndex/search",
       "method": "POST",
       "operationId": "indexes.documents.search",
       "summary": "",
-      "user": "A developer is implementing a search feature in their application. They need to send a search query to the 'myIndex' index to find documents related to 'machine learning'.",
-      "ideal": "The API should accept the search query and return a JSON response containing the matching documents, their metadata, and any relevant facets."
+      "user": "A developer is implementing a feature that allows users to search for products in an e-commerce application. They send a POST request to search for products related to 'laptop'.",
+      "ideal": "The API should return a JSON response with a list of products that match the search term 'laptop', including product names, prices, and descriptions."
     },
     {
       "path": "/indexes/myIndex/facet-search",
       "method": "POST",
       "operationId": "indexes.documents.facet.search",
       "summary": "",
-      "user": "An analyst wants to perform a facet search on the 'myIndex' index to filter documents by category and date range. They are interested in documents categorized under 'technology' from the last year.",
-      "ideal": "The API should return documents that match the facet criteria, including the total count of documents and the facets available for further filtering."
+      "user": "An analyst is interested in understanding the distribution of product categories in their index. They want to perform a facet search to get counts of each category.",
+      "ideal": "The API should return a response with the counts of each category available in the index, allowing the analyst to visualize the data effectively."
     },
     {
       "path": "/multi-search",
       "method": "POST",
       "operationId": "multi_search",
       "summary": "",
-      "user": "A product manager wants to perform multiple searches across different indexes in one request. They need to find documents related to 'cloud computing' in 'index1' and 'data science' in 'index2'.",
-      "ideal": "The API should process the multi-search request and return a combined response with results from both indexes, including relevant documents and their details."
+      "user": "A user wants to perform multiple searches in one request to improve performance. They send a POST request with queries for 'shoes', 'hats', and 'jackets'.",
+      "ideal": "The API should return a consolidated response containing the results for all three queries, allowing the user to see all relevant documents in a single response."
     }
   ]
 }

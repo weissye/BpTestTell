@@ -1,92 +1,499 @@
 {
-  "gold": [
+  "ops": [
     {
+      "method": "POST",
+      "path": "/apps",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apps",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/configs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/configs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/envs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/envs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/policies",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/policies",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/releases",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/releases",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
       "path": "/reset",
-      "method": "POST",
-      "operationId": "resetSystem",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Resets the entire system to its default state."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
+      "method": "POST",
       "path": "/apps",
-      "method": "POST",
-      "operationId": "createApp",
-      "summary": "",
-      "user": "developer",
-      "ideal": "Creates a new application with the specified parameters."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
+      "method": "POST",
       "path": "/apps",
-      "method": "GET",
-      "operationId": "listApps",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Retrieves a list of all applications in the system."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/envs",
+      "method": "GET",
+      "path": "/apps",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apps",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
       "method": "POST",
-      "operationId": "createEnv",
-      "summary": "",
-      "user": "developer",
-      "ideal": "Creates a new environment for the application."
-    },
-    {
-      "path": "/envs",
-      "method": "GET",
-      "operationId": "listEnvs",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Retrieves a list of all environments available."
-    },
-    {
       "path": "/configs",
-      "method": "POST",
-      "operationId": "createConfig",
-      "summary": "",
-      "user": "developer",
-      "ideal": "Creates a new configuration for the specified application."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
+      "method": "POST",
       "path": "/configs",
-      "method": "GET",
-      "operationId": "listConfigs",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Retrieves a list of all configurations in the system."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/releases",
+      "method": "GET",
+      "path": "/configs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/configs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
       "method": "POST",
-      "operationId": "createRelease",
-      "summary": "",
-      "user": "developer",
-      "ideal": "Creates a new release for the specified application."
+      "path": "/envs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/releases",
-      "method": "GET",
-      "operationId": "listReleases",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Retrieves a list of all releases for applications."
-    },
-    {
-      "path": "/policies",
       "method": "POST",
-      "operationId": "createPolicy",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Creates a new policy for application management."
+      "path": "/envs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/policies",
       "method": "GET",
-      "operationId": "listPolicies",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Retrieves a list of all policies defined in the system."
+      "path": "/envs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/envs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/policies",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/policies",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/policies",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/policies",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/releases",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/releases",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/releases",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/releases",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     }
   ]
 }

@@ -5,8 +5,8 @@
       "method": "POST",
       "operationId": "dumps.create",
       "summary": "",
-      "user": "{\"indexUid\":\"my_index\",\"fileName\":\"my_dump.zip\"}",
-      "ideal": "{\"status\":\"success\",\"message\":\"Dump created successfully\",\"fileName\":\"my_dump.zip\"}"
+      "user": "admin",
+      "ideal": "Create a new dump of the Meilisearch database."
     }
   ]
 }

@@ -30,7 +30,7 @@
       "operationId": "getProfile",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve the profile information for the specified realm."
+      "ideal": "Retrieve the profile information for the realm."
     },
     {
       "path": "/myrealm/users/profile",
@@ -38,7 +38,7 @@
       "operationId": "putProfile",
       "summary": "",
       "user": "admin",
-      "ideal": "Update the profile information for the specified realm."
+      "ideal": "Update the profile information for the realm."
     },
     {
       "path": "/myrealm/users/12345",
@@ -54,7 +54,7 @@
       "operationId": "putUser",
       "summary": "",
       "user": "admin",
-      "ideal": "Update user details by user ID in the specified realm."
+      "ideal": "Update user information by user ID in the specified realm."
     },
     {
       "path": "/myrealm/users/12345",
@@ -97,7 +97,7 @@
       "ideal": "Retrieve credentials for a user."
     },
     {
-      "path": "/myrealm/users/12345/credentials/credentialId",
+      "path": "/myrealm/users/12345/credentials/cred1",
       "method": "DELETE",
       "operationId": "deleteCredential",
       "summary": "",
@@ -105,15 +105,15 @@
       "ideal": "Delete a specific credential for a user."
     },
     {
-      "path": "/myrealm/users/12345/credentials/credentialId/moveAfter/newCredentialId",
+      "path": "/myrealm/users/12345/credentials/cred1/moveAfter/cred2",
       "method": "POST",
       "operationId": "postMoveAfter",
       "summary": "",
       "user": "admin",
-      "ideal": "Move a credential after another specified credential."
+      "ideal": "Move a credential after another credential."
     },
     {
-      "path": "/myrealm/users/12345/credentials/credentialId/moveToFirst",
+      "path": "/myrealm/users/12345/credentials/cred1/moveToFirst",
       "method": "POST",
       "operationId": "postMoveToFirst",
       "summary": "",
@@ -121,7 +121,7 @@
       "ideal": "Move a credential to the first position."
     },
     {
-      "path": "/myrealm/users/12345/credentials/credentialId/userLabel",
+      "path": "/myrealm/users/12345/credentials/cred1/userLabel",
       "method": "PUT",
       "operationId": "putUserLabel",
       "summary": "",
@@ -134,7 +134,7 @@
       "operationId": "putDisableCredentialTypes",
       "summary": "",
       "user": "admin",
-      "ideal": "Disable specified credential types for a user."
+      "ideal": "Disable specific credential types for a user."
     },
     {
       "path": "/myrealm/users/12345/execute-actions-email",
@@ -185,20 +185,20 @@
       "ideal": "Get the count of groups associated with a user."
     },
     {
-      "path": "/myrealm/users/12345/groups/groupId",
+      "path": "/myrealm/users/12345/groups/mygroup",
       "method": "PUT",
       "operationId": "putUserGroup",
       "summary": "",
       "user": "admin",
-      "ideal": "Add a user to a specified group."
+      "ideal": "Add a user to a specific group."
     },
     {
-      "path": "/myrealm/users/12345/groups/groupId",
+      "path": "/myrealm/users/12345/groups/mygroup",
       "method": "DELETE",
       "operationId": "deleteUserGroup",
       "summary": "",
       "user": "admin",
-      "ideal": "Remove a user from a specified group."
+      "ideal": "Remove a user from a specific group."
     },
     {
       "path": "/myrealm/users/12345/impersonation",
@@ -217,7 +217,7 @@
       "ideal": "Log out a user."
     },
     {
-      "path": "/myrealm/users/12345/offline-sessions/clientUuid",
+      "path": "/myrealm/users/12345/offline-sessions/myclientuuid",
       "method": "GET",
       "operationId": "getOfflineSession",
       "summary": "",

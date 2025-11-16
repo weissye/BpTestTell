@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Payments.json",
+      "method": "POST",
+      "operationId": "CreatePayments",
+      "summary": "",
+      "user": "User wants to create a payment for a specific call using their Twilio account.",
+      "ideal": "The payment is successfully created with the specified amount and details."
+    },
+    {
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Payments/PNXXXXXXXXXXXXXXXXX.json",
+      "method": "POST",
+      "operationId": "UpdatePayments",
+      "summary": "",
+      "user": "User needs to update the payment details for a specific payment associated with a call.",
+      "ideal": "The payment details are successfully updated with the new information provided."
+    }
+  ]
+}

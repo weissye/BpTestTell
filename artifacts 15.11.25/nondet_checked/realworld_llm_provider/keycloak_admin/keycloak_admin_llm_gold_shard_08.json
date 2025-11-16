@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/{realm}/clients",
+      "method": "GET",
+      "operationId": "getClients",
+      "summary": "",
+      "user": "Admin user requesting the list of clients in the specified realm.",
+      "ideal": "Returns a list of all clients configured in the specified realm."
+    },
+    {
+      "path": "/{realm}/clients",
+      "method": "POST",
+      "operationId": "postClients",
+      "summary": "",
+      "user": "Admin user creating a new client in the specified realm.",
+      "ideal": "Creates a new client and returns the created client details."
+    },
+    {
+      "path": "/{realm}/clients/{id}",
+      "method": "GET",
+      "operationId": "getClientByRealmById",
+      "summary": "",
+      "user": "Admin user retrieving details of a specific client by its ID.",
+      "ideal": "Returns the details of the client identified by the given ID."
+    },
+    {
+      "path": "/{realm}/clients/{id}",
+      "method": "PUT",
+      "operationId": "putClient",
+      "summary": "",
+      "user": "Admin user updating the configuration of a specific client.",
+      "ideal": "Updates the client configuration and returns the updated client details."
+    },
+    {
+      "path": "/{realm}/clients/{id}",
+      "method": "DELETE",
+      "operationId": "deleteClientByRealmById",
+      "summary": "",
+      "user": "Admin user deleting a specific client by its ID.",
+      "ideal": "Deletes the specified client and returns a confirmation message."
+    },
+    {
+      "path": "/{realm}/clients/{id}/client-secret",
+      "method": "GET",
+      "operationId": "getClientSecret",
+      "summary": "",
+      "user": "Admin user retrieving the client secret for a specific client.",
+      "ideal": "Returns the client secret for the specified client."
+    },
+    {
+      "path": "/{realm}/clients/{id}/client-secret",
+      "method": "POST",
+      "operationId": "postClientSecret",
+      "summary": "",
+      "user": "Admin user generating a new client secret for a specific client.",
+      "ideal": "Generates a new client secret and returns it."
+    },
+    {
+      "path": "/{realm}/clients/{id}/client-secret/rotated",
+      "method": "GET",
+      "operationId": "getRotated",
+      "summary": "",
+      "user": "Admin user checking if the client secret has been rotated.",
+      "ideal": "Returns the status of the client secret rotation."
+    },
+    {
+      "path": "/{realm}/clients/{id}/client-secret/rotated",
+      "method": "DELETE",
+      "operationId": "deleteRotated",
+      "summary": "",
+      "user": "Admin user deleting the rotated client secret.",
+      "ideal": "Deletes the rotated client secret and returns a confirmation message."
+    },
+    {
+      "path": "/{realm}/clients/{id}/default-client-scopes",
+      "method": "GET",
+      "operationId": "getDefaultClientScopes",
+      "summary": "",
+      "user": "Admin user retrieving default client scopes for a specific client.",
+      "ideal": "Returns the list of default client scopes associated with the client."
+    }
+  ]
+}

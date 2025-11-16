@@ -5,16 +5,16 @@
       "method": "POST",
       "operationId": "markdown/render",
       "summary": "",
-      "user": "{\"text\":\"# Hello World\\nThis is a sample markdown text that will be rendered to HTML.\\n\\n## Features\\n- Easy to use\\n- Supports various markdown syntax\\n- Can be integrated into applications easily.\"}",
-      "ideal": "{\"html\":\"<h1>Hello World</h1>\\n<p>This is a sample markdown text that will be rendered to HTML.</p>\\n<h2>Features</h2>\\n<ul>\\n<li>Easy to use</li>\\n<li>Supports various markdown syntax</li>\\n<li>Can be integrated into applications easily</li>\\n</ul>\"}"
+      "user": "User wants to convert Markdown text into HTML format for a project documentation page. They provide a Markdown string that includes headers, lists, and links.",
+      "ideal": "{\"text\":\"# Sample Header\\nThis is a sample paragraph with a [link](http://example.com).\\n- Item 1\\n- Item 2\"}"
     },
     {
       "path": "/markdown/raw",
       "method": "POST",
       "operationId": "markdown/render-raw",
       "summary": "",
-      "user": "{\"text\":\"# Raw Markdown Example\\nThis is a raw markdown example that will be processed without any additional formatting.\"}",
-      "ideal": "{\"html\":\"<h1>Raw Markdown Example</h1>\\n<p>This is a raw markdown example that will be processed without any additional formatting.</p>\"}"
+      "user": "User needs to render a raw Markdown string directly into HTML for a quick preview in their Markdown editor. They send a plain Markdown string without any additional formatting.",
+      "ideal": "{\"text\":\"## Another Header\\nThis is a raw Markdown text without any extra processing.\\n1. First item\\n2. Second item\"}"
     }
   ]
 }

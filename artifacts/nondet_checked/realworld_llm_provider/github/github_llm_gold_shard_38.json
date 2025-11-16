@@ -21,31 +21,23 @@
       "method": "GET",
       "operationId": "repos/get",
       "summary": "",
-      "user": "user123",
-      "ideal": "Fetch details about the specified repository."
-    },
-    {
-      "path": "/repos/example-owner/example-repo",
-      "method": "PATCH",
-      "operationId": "repos/update",
-      "summary": "",
-      "user": "user123",
-      "ideal": "Update the specified repository's settings."
+      "user": "user456",
+      "ideal": "Fetch details of a specific repository."
     },
     {
       "path": "/repos/example-owner/example-repo/branches",
       "method": "GET",
       "operationId": "repos/list-branches",
       "summary": "",
-      "user": "user123",
-      "ideal": "List all branches in the specified repository."
+      "user": "user789",
+      "ideal": "List all branches for the specified repository."
     },
     {
       "path": "/repos/example-owner/example-repo/releases",
       "method": "GET",
       "operationId": "repos/list-releases",
       "summary": "",
-      "user": "user123",
+      "user": "user101",
       "ideal": "Get a list of releases for the specified repository."
     },
     {
@@ -53,7 +45,7 @@
       "method": "POST",
       "operationId": "repos/create-release",
       "summary": "",
-      "user": "user123",
+      "user": "user101",
       "ideal": "Create a new release for the specified repository."
     },
     {
@@ -61,7 +53,7 @@
       "method": "GET",
       "operationId": "repos/list-commits",
       "summary": "",
-      "user": "user123",
+      "user": "user202",
       "ideal": "Retrieve a list of commits for the specified repository."
     },
     {
@@ -69,16 +61,96 @@
       "method": "GET",
       "operationId": "repos/get-branch-protection",
       "summary": "",
-      "user": "user123",
-      "ideal": "Get the protection settings for the main branch."
+      "user": "user303",
+      "ideal": "Get branch protection settings for the specified branch."
     },
     {
       "path": "/repos/example-owner/example-repo/branches/main/protection",
       "method": "PUT",
       "operationId": "repos/update-branch-protection",
       "summary": "",
-      "user": "user123",
-      "ideal": "Update the protection settings for the main branch."
+      "user": "user303",
+      "ideal": "Update branch protection settings for the specified branch."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/keys",
+      "method": "POST",
+      "operationId": "repos/create-deploy-key",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Add a new deploy key to the specified repository."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/keys/1",
+      "method": "DELETE",
+      "operationId": "repos/delete-deploy-key",
+      "summary": "",
+      "user": "user404",
+      "ideal": "Remove a deploy key from the specified repository."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/topics",
+      "method": "GET",
+      "operationId": "repos/get-all-topics",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Retrieve all topics for the specified repository."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/topics",
+      "method": "PUT",
+      "operationId": "repos/replace-all-topics",
+      "summary": "",
+      "user": "user505",
+      "ideal": "Replace all topics for the specified repository."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/traffic/views",
+      "method": "GET",
+      "operationId": "repos/get-views",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Get the number of views for the specified repository."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/traffic/clones",
+      "method": "GET",
+      "operationId": "repos/get-clones",
+      "summary": "",
+      "user": "user606",
+      "ideal": "Get the number of clones for the specified repository."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/pages",
+      "method": "GET",
+      "operationId": "repos/get-pages",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Retrieve information about the GitHub Pages site for the repository."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/pages",
+      "method": "POST",
+      "operationId": "repos/create-pages-site",
+      "summary": "",
+      "user": "user707",
+      "ideal": "Create a new GitHub Pages site for the repository."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/pages/builds/latest",
+      "method": "GET",
+      "operationId": "repos/get-latest-pages-build",
+      "summary": "",
+      "user": "user808",
+      "ideal": "Get the latest build information for the GitHub Pages site."
+    },
+    {
+      "path": "/repos/example-owner/example-repo/pages/deployments",
+      "method": "POST",
+      "operationId": "repos/create-pages-deployment",
+      "summary": "",
+      "user": "user909",
+      "ideal": "Create a new deployment for the GitHub Pages site."
     }
   ]
 }

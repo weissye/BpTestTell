@@ -1,0 +1,12 @@
+{
+  "gold": [
+    {
+      "path": "/rest/atlassian-connect/1/service-registry",
+      "method": "GET",
+      "operationId": "ServiceRegistryResource.services_get",
+      "summary": "",
+      "user": "A project manager looking to integrate various services with Jira to enhance project tracking and collaboration.",
+      "ideal": "Retrieve a list of registered services in the Jira Cloud platform to ensure all necessary integrations are available for the team's workflow."
+    }
+  ]
+}

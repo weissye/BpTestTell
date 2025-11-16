@@ -1,0 +1,16 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/indexes/{indexUid}/facet-search"
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/searchable-attributes"
+    },
+    {
+      "method": "GET",
+      "path": "/stats"
+    }
+  ]
+}

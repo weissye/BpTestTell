@@ -1,0 +1,4190 @@
+{
+  "gold": [
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/announcementBanner"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/announcementBanner"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/app/field/context/configuration/list"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/app/field/value"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/app/field/{fieldIdOrKey}/context/configuration"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/app/field/{fieldIdOrKey}/context/configuration"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/app/field/{fieldIdOrKey}/value"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/application-properties"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/application-properties/advanced-settings"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/application-properties/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/applicationrole"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/applicationrole/{key}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/attachment/content/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/attachment/meta"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/attachment/thumbnail/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/attachment/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/attachment/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/attachment/{id}/expand/human"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/attachment/{id}/expand/raw"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/auditing/record"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/avatar/{type}/system"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/bulk/issues/delete"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/bulk/issues/fields"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/bulk/issues/fields"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/bulk/issues/move"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/bulk/issues/transition"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/bulk/issues/transition"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/bulk/issues/unwatch"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/bulk/issues/watch"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/bulk/queue/{taskId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/changelog/bulkfetch"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/classification-levels"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/comment/list"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/comment/{commentId}/properties"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/comment/{commentId}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/component"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/component"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/component/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/component/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/component/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/component/{id}/relatedIssueCounts"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/configuration"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/configuration/timetracking"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/configuration/timetracking"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/configuration/timetracking/list"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/configuration/timetracking/options"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/configuration/timetracking/options"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/customFieldOption/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/dashboard"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/dashboard"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/dashboard/bulk/edit"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/dashboard/gadgets"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/dashboard/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/dashboard/{dashboardId}/gadget"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/dashboard/{dashboardId}/gadget"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/dashboard/{dashboardId}/gadget/{gadgetId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/dashboard/{dashboardId}/gadget/{gadgetId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/dashboard/{dashboardId}/items/{itemId}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/dashboard/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/dashboard/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/dashboard/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/dashboard/{id}/copy"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/data-policy"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/data-policy/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/events"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/expression/analyse"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/expression/eval"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/expression/evaluate"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/field"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/field"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/field/association"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/field/association"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/field/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/field/search/trashed"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/field/{fieldId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/field/{fieldId}/context"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/field/{fieldId}/context"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/field/{fieldId}/context/defaultValue"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/field/{fieldId}/context/defaultValue"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/field/{fieldId}/context/issuetypemapping"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/field/{fieldId}/context/mapping"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/field/{fieldId}/context/projectmapping"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/field/{fieldId}/context/{contextId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/field/{fieldId}/context/{contextId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/field/{fieldId}/context/{contextId}/issuetype"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/field/{fieldId}/context/{contextId}/issuetype/remove"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/field/{fieldId}/context/{contextId}/option"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/field/{fieldId}/context/{contextId}/option"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/field/{fieldId}/context/{contextId}/option"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/field/{fieldId}/context/{contextId}/option/move"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/field/{fieldId}/context/{contextId}/option/{optionId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/field/{fieldId}/context/{contextId}/option/{optionId}/issue"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/field/{fieldId}/context/{contextId}/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/field/{fieldId}/context/{contextId}/project/remove"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/field/{fieldId}/contexts"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/field/{fieldId}/screens"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/field/{fieldKey}/option"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/field/{fieldKey}/option"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/field/{fieldKey}/option/suggestions/edit"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/field/{fieldKey}/option/suggestions/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/field/{fieldKey}/option/{optionId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/field/{fieldKey}/option/{optionId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/field/{fieldKey}/option/{optionId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/field/{fieldKey}/option/{optionId}/issue"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/field/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/field/{id}/restore"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/field/{id}/trash"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/fieldconfiguration"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/fieldconfiguration"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/fieldconfiguration/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/fieldconfiguration/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/fieldconfiguration/{id}/fields"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/fieldconfiguration/{id}/fields"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/fieldconfigurationscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/fieldconfigurationscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/fieldconfigurationscheme/mapping"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/fieldconfigurationscheme/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/fieldconfigurationscheme/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/fieldconfigurationscheme/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/fieldconfigurationscheme/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/fieldconfigurationscheme/{id}/mapping/delete"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/filter"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/filter/defaultShareScope"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/filter/defaultShareScope"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/filter/favourite"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/filter/my"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/filter/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/filter/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/filter/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/filter/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/filter/{id}/columns"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/filter/{id}/columns"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/filter/{id}/columns"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/filter/{id}/favourite"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/filter/{id}/favourite"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/filter/{id}/owner"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/filter/{id}/permission"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/filter/{id}/permission"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/filter/{id}/permission/{permissionId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/filter/{id}/permission/{permissionId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/group"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/group"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/group"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/group/bulk"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/group/member"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/group/user"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/group/user"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/groups/picker"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/groupuserpicker"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/instance/license"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/archive"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issue/archive"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/bulk"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/bulkfetch"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/createmeta"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/createmeta/{projectIdOrKey}/issuetypes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/createmeta/{projectIdOrKey}/issuetypes/{issueTypeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/limit/report"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/picker"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/properties"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/properties/multi"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issue/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issue/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issue/unarchive"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/watching"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issue/{issueIdOrKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issue/{issueIdOrKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/assignee"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/attachments"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/changelog"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/changelog/list"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/comment"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/comment"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/comment/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/comment/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/comment/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/editmeta"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/notify"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/properties"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink/{linkId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink/{linkId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/remotelink/{linkId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/transitions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/transitions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/votes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/votes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/votes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/watchers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/watchers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/watchers"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/worklog"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/worklog"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/worklog"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/move"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/{worklogId}/properties"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/{worklogId}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/{worklogId}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issue/{issueIdOrKey}/worklog/{worklogId}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issueLink"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issueLink/{linkId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issueLink/{linkId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issueLinkType"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issueLinkType"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issueLinkType/{issueLinkTypeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issues/archive/export"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuesecurityschemes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issuesecurityschemes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuesecurityschemes/level"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuesecurityschemes/level/default"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuesecurityschemes/level/member"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuesecurityschemes/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuesecurityschemes/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuesecurityschemes/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuesecurityschemes/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuesecurityschemes/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuesecurityschemes/{issueSecuritySchemeId}/members"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issuesecurityschemes/{schemeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}/member"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issuesecurityschemes/{schemeId}/level/{levelId}/member/{memberId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuetype"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issuetype"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuetype/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issuetype/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuetype/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuetype/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuetype/{id}/alternatives"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issuetype/{id}/avatar2"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuetype/{issueTypeId}/properties"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuetype/{issueTypeId}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuetypescheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issuetypescheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuetypescheme/mapping"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuetypescheme/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuetypescheme/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype/move"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issuetypescheme/{issueTypeSchemeId}/issuetype/{issueTypeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuetypescreenscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issuetypescreenscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuetypescreenscheme/mapping"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuetypescreenscheme/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuetypescreenscheme/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping/default"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/mapping/remove"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/issuetypescreenscheme/{issueTypeScreenSchemeId}/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/jql/autocompletedata"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/jql/autocompletedata"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/jql/autocompletedata/suggestions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/jql/function/computation"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/jql/function/computation"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/jql/function/computation/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/jql/match"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/jql/parse"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/jql/pdcleaner"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/jql/sanitize"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/label"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/license/approximateLicenseCount"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/license/approximateLicenseCount/product/{applicationKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/mypermissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/mypreferences"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/mypreferences"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/mypreferences"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/mypreferences/locale"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/mypreferences/locale"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/myself"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/notificationscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/notificationscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/notificationscheme/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/notificationscheme/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/notificationscheme/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/notificationscheme/{id}/notification"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/notificationscheme/{notificationSchemeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/notificationscheme/{notificationSchemeId}/notification/{notificationId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/permissions/check"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/permissions/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/permissionscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/permissionscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/permissionscheme/{schemeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/permissionscheme/{schemeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/permissionscheme/{schemeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/permissionscheme/{schemeId}/permission"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/permissionscheme/{schemeId}/permission"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/permissionscheme/{schemeId}/permission/{permissionId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/permissionscheme/{schemeId}/permission/{permissionId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/plans/plan"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/plans/plan"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/plans/plan/{planId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/plans/plan/{planId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/plans/plan/{planId}/archive"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/plans/plan/{planId}/duplicate"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/plans/plan/{planId}/team"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/plans/plan/{planId}/team/atlassian"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/plans/plan/{planId}/team/atlassian/{atlassianTeamId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/plans/plan/{planId}/team/atlassian/{atlassianTeamId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/plans/plan/{planId}/team/atlassian/{atlassianTeamId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/plans/plan/{planId}/team/planonly"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/plans/plan/{planId}/team/planonly/{planOnlyTeamId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/plans/plan/{planId}/team/planonly/{planOnlyTeamId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/plans/plan/{planId}/team/planonly/{planOnlyTeamId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/plans/plan/{planId}/trash"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/priority"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/priority"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/priority/default"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/priority/move"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/priority/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/priority/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/priority/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/priority/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/priorityscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/priorityscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/priorityscheme/mappings"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/priorityscheme/priorities/available"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/priorityscheme/{schemeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/priorityscheme/{schemeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/priorityscheme/{schemeId}/priorities"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/priorityscheme/{schemeId}/projects"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/project-template"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/project-template/edit-template"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project-template/live-template"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/project-template/remove-template"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/project-template/save-template"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/recent"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/type"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/type/accessible"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/type/{projectTypeKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/type/{projectTypeKey}/accessible"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/project/{projectIdOrKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectIdOrKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/project/{projectIdOrKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/project/{projectIdOrKey}/archive"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/project/{projectIdOrKey}/avatar"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/project/{projectIdOrKey}/avatar/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/project/{projectIdOrKey}/avatar2"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectIdOrKey}/avatars"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/project/{projectIdOrKey}/classification-level/default"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectIdOrKey}/component"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectIdOrKey}/components"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/project/{projectIdOrKey}/delete"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectIdOrKey}/features"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/project/{projectIdOrKey}/features/{featureKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectIdOrKey}/properties"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/project/{projectIdOrKey}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectIdOrKey}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/project/{projectIdOrKey}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/project/{projectIdOrKey}/restore"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectIdOrKey}/role"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/project/{projectIdOrKey}/role/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectIdOrKey}/roledetails"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectIdOrKey}/statuses"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectIdOrKey}/version"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectIdOrKey}/versions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectId}/email"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/project/{projectId}/email"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectId}/hierarchy"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectKeyOrId}/issuesecuritylevelscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectKeyOrId}/notificationscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectKeyOrId}/permissionscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/project/{projectKeyOrId}/permissionscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/project/{projectKeyOrId}/securitylevel"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/projectCategory"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/projectCategory"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/projectCategory/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/projectCategory/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/projectCategory/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/projectvalidate/key"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/projectvalidate/validProjectKey"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/projectvalidate/validProjectName"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/redact"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/redact/status/{jobId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/resolution"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/resolution"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/resolution/default"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/resolution/move"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/resolution/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/resolution/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/resolution/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/resolution/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/role"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/role"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/role/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/role/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/role/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/role/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/role/{id}/actors"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/role/{id}/actors"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/role/{id}/actors"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/screens"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/screens"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/screens/addToDefault/{fieldId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/screens/tabs"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/screens/{screenId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/screens/{screenId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/screens/{screenId}/availableFields"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/screens/{screenId}/tabs"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/screens/{screenId}/tabs"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}/fields"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}/fields"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}/fields/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}/fields/{id}/move"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/screens/{screenId}/tabs/{tabId}/move/{pos}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/screenscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/screenscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/screenscheme/{screenSchemeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/screenscheme/{screenSchemeId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/search/approximate-count"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/search/jql"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/search/jql"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/securitylevel/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/serverInfo"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/settings/columns"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/settings/columns"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/status"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/status/{idOrName}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/statuscategory"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/statuscategory/{idOrKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/statuses"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/statuses"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/statuses"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/statuses"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/statuses/byNames"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/statuses/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/statuses/{statusId}/project/{projectId}/issueTypeUsages"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/statuses/{statusId}/projectUsages"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/statuses/{statusId}/workflowUsages"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/task/{taskId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/task/{taskId}/cancel"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/uiModifications"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/uiModifications"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/uiModifications/{uiModificationId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/uiModifications/{uiModificationId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/universal_avatar/type/{type}/owner/{entityId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/universal_avatar/type/{type}/owner/{entityId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/universal_avatar/type/{type}/owner/{owningObjectId}/avatar/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/universal_avatar/view/type/{type}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/universal_avatar/view/type/{type}/avatar/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/universal_avatar/view/type/{type}/owner/{entityId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/user"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/user"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/assignable/multiProjectSearch"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/assignable/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/bulk"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/bulk/migration"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/user/columns"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/columns"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/user/columns"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/email"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/email/bulk"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/groups"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/nav4-opt-property/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/user/nav4-opt-property/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/permission/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/picker"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/properties"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/user/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/user/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/search/query"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/search/query/key"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/user/viewissue/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/users"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/users/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/version"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/version/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/version/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/version/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/version/{id}/mergeto/{moveIssuesTo}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/version/{id}/move"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/version/{id}/relatedIssueCounts"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/version/{id}/relatedwork"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/version/{id}/relatedwork"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/version/{id}/relatedwork"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/version/{id}/removeAndSwap"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/version/{id}/unresolvedIssueCount"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/version/{versionId}/relatedwork/{relatedWorkId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/webhook"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/webhook"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/webhook"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/webhook/failed"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/webhook/refresh"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflow"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/workflow"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflow/rule/config"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/workflow/rule/config"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/workflow/rule/config/delete"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflow/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/workflow/transitions/{transitionId}/properties"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflow/transitions/{transitionId}/properties"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/workflow/transitions/{transitionId}/properties"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/workflow/transitions/{transitionId}/properties"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/workflow/{entityId}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflow/{workflowId}/project/{projectId}/issueTypeUsages"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflow/{workflowId}/projectUsages"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflow/{workflowId}/workflowSchemes"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/workflows"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflows/capabilities"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/workflows/create"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/workflows/create/validation"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflows/defaultEditor"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/workflows/preview"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflows/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/workflows/update"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/workflows/update/validation"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflowscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/workflowscheme"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflowscheme/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/workflowscheme/project"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/workflowscheme/read"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/workflowscheme/update"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/workflowscheme/update/mappings"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/workflowscheme/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflowscheme/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/workflowscheme/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/workflowscheme/{id}/createdraft"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/workflowscheme/{id}/default"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflowscheme/{id}/default"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/workflowscheme/{id}/default"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/workflowscheme/{id}/draft"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflowscheme/{id}/draft"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/workflowscheme/{id}/draft"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/workflowscheme/{id}/draft/default"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflowscheme/{id}/draft/default"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/workflowscheme/{id}/draft/default"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/workflowscheme/{id}/draft/issuetype/{issueType}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflowscheme/{id}/draft/issuetype/{issueType}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/workflowscheme/{id}/draft/issuetype/{issueType}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/workflowscheme/{id}/draft/publish"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/workflowscheme/{id}/draft/workflow"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflowscheme/{id}/draft/workflow"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/workflowscheme/{id}/draft/workflow"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/api/3/workflowscheme/{id}/workflow"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflowscheme/{id}/workflow"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/api/3/workflowscheme/{id}/workflow"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/workflowscheme/{workflowSchemeId}/projectUsages"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/worklog/deleted"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/api/3/worklog/list"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/api/3/worklog/updated"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/atlassian-connect/1/addons/{addonKey}/properties"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/atlassian-connect/1/addons/{addonKey}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/atlassian-connect/1/addons/{addonKey}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/atlassian-connect/1/addons/{addonKey}/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/atlassian-connect/1/app/module/dynamic"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/atlassian-connect/1/app/module/dynamic"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/atlassian-connect/1/app/module/dynamic"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/atlassian-connect/1/migration/field"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/atlassian-connect/1/migration/properties/{entityType}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/rest/atlassian-connect/1/migration/workflow/rule/search"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/atlassian-connect/1/service-registry"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/forge/1/app/properties"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/rest/forge/1/app/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/rest/forge/1/app/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PUT",
+        "path": "/rest/forge/1/app/properties/{propertyKey}"
+      },
+      "source": "openapi-det"
+    }
+  ]
+}

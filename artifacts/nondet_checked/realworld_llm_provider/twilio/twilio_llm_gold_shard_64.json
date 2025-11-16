@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "ListUsageRecordThisMonth",
       "summary": "",
-      "user": "User with AccountSid 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' wants to retrieve the usage records for the current month to analyze their SMS and voice call usage for budgeting purposes.",
-      "ideal": "Returns a JSON object containing the usage records for the current month, including details such as the total number of messages sent, total duration of calls, and any other relevant usage metrics."
+      "user": "User123",
+      "ideal": "Retrieve the usage records for the current month for the specified Account SID."
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXX.json",
       "method": "GET",
       "operationId": "FetchParticipant",
       "summary": "",
@@ -9,7 +9,7 @@
       "ideal": "Returns participant details including status, muted state, and other relevant information."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXX.json",
       "method": "POST",
       "operationId": "UpdateParticipant",
       "summary": "",
@@ -17,28 +17,28 @@
       "ideal": "Successfully updates the participant's status and returns the updated participant details."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXX.json",
       "method": "DELETE",
       "operationId": "DeleteParticipant",
       "summary": "",
       "user": "User removes a participant from a conference using their CallSid.",
-      "ideal": "Confirms the participant has been removed and returns a success message."
+      "ideal": "Confirms the participant has been removed from the conference."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants.json",
       "method": "POST",
       "operationId": "CreateParticipant",
       "summary": "",
       "user": "User adds a new participant to a conference with their phone number and other details.",
-      "ideal": "Successfully adds the participant and returns their details including a new CallSid."
+      "ideal": "Successfully creates the participant and returns their details including CallSid."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Conferences/CAXXXXXXXXXXXXXXXXXX/Participants.json",
       "method": "GET",
       "operationId": "ListParticipant",
       "summary": "",
       "user": "User retrieves a list of all participants currently in a conference.",
-      "ideal": "Returns a list of participants with their CallSids, statuses, and other relevant information."
+      "ideal": "Returns a list of participants with their respective CallSids and statuses."
     }
   ]
 }

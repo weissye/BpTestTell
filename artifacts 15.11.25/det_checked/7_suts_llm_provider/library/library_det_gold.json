@@ -1,0 +1,95 @@
+{
+  "gold": [
+    {
+      "op": {
+        "method": "POST",
+        "path": "/books"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/books"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/books/{book_id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/books/{book_id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/holds"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/holds"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/holds/{hold_id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/loans"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/loans"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/loans/{user_id}/{book_id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/users"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/users/{user_id}"
+      },
+      "source": "openapi-det"
+    }
+  ]
+}

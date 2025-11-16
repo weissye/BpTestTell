@@ -1,0 +1,72 @@
+{
+  "ops": [
+    {
+      "method": "DELETE",
+      "path": "/admin/hooks/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/licenses"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/actions/variables/{variablename}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/public_members/{username}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/variables/{variablename}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/commits"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/hooks"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/comments/{id}/reactions"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{index}/labels"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/keys/{id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/pulls/{index}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/tag_protections/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/wiki/pages"
+    },
+    {
+      "method": "DELETE",
+      "path": "/user/actions/secrets/{secretname}"
+    },
+    {
+      "method": "GET",
+      "path": "/user/following/{username}"
+    },
+    {
+      "method": "GET",
+      "path": "/user/starred/{owner}/{repo}"
+    }
+  ]
+}

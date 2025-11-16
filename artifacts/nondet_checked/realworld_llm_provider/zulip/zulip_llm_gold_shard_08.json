@@ -14,7 +14,7 @@
       "operationId": "delete-queue",
       "summary": "",
       "user": "user456",
-      "ideal": "Delete the current event queue for the user."
+      "ideal": "Delete all events from the event queue."
     },
     {
       "path": "/register",
@@ -22,7 +22,7 @@
       "operationId": "register-queue",
       "summary": "",
       "user": "user789",
-      "ideal": "Register a new event queue for receiving events."
+      "ideal": "Register a new user to the Zulip server."
     },
     {
       "path": "/real-time",
@@ -38,7 +38,7 @@
       "operationId": "rest-error-handling",
       "summary": "",
       "user": "user202",
-      "ideal": "Test the error handling mechanism of the REST API."
+      "ideal": "Test the error handling mechanism of the Zulip API."
     }
   ]
 }

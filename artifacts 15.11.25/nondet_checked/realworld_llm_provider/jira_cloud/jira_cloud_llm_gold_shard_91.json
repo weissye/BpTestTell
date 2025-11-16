@@ -1,0 +1,140 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/workflowscheme",
+      "method": "GET",
+      "operationId": "getAllWorkflowSchemes",
+      "summary": "",
+      "user": "As a project manager, I want to retrieve all workflow schemes to understand the current configurations across projects.",
+      "ideal": "Returns a list of all workflow schemes available in the Jira instance."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme",
+      "method": "POST",
+      "operationId": "createWorkflowScheme",
+      "summary": "",
+      "user": "As a Jira administrator, I want to create a new workflow scheme to associate with my project.",
+      "ideal": "Creates a new workflow scheme and returns the details of the created scheme."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/read",
+      "method": "POST",
+      "operationId": "readWorkflowSchemes",
+      "summary": "",
+      "user": "As a developer, I need to read specific workflow schemes to analyze their configurations for integration.",
+      "ideal": "Reads and returns the specified workflow schemes based on the provided criteria."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/update",
+      "method": "POST",
+      "operationId": "updateSchemes",
+      "summary": "",
+      "user": "As a project lead, I want to update existing workflow schemes to reflect changes in our processes.",
+      "ideal": "Updates the specified workflow schemes and returns the updated details."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "method": "DELETE",
+      "operationId": "deleteWorkflowScheme",
+      "summary": "",
+      "user": "As a system admin, I need to delete obsolete workflow schemes to keep the system clean.",
+      "ideal": "Deletes the specified workflow scheme and confirms the deletion."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "method": "GET",
+      "operationId": "getWorkflowScheme",
+      "summary": "",
+      "user": "As a business analyst, I want to view the details of a specific workflow scheme to ensure it meets our requirements.",
+      "ideal": "Returns the details of the specified workflow scheme."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}",
+      "method": "PUT",
+      "operationId": "updateWorkflowScheme",
+      "summary": "",
+      "user": "As a project manager, I need to update the workflow scheme to include new steps.",
+      "ideal": "Updates the specified workflow scheme and returns the updated scheme."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/default",
+      "method": "DELETE",
+      "operationId": "deleteDefaultWorkflow",
+      "summary": "",
+      "user": "As a Jira admin, I want to remove the default workflow from a scheme that is no longer in use.",
+      "ideal": "Deletes the default workflow from the specified workflow scheme."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/default",
+      "method": "GET",
+      "operationId": "getDefaultWorkflow",
+      "summary": "",
+      "user": "As a project manager, I want to check the default workflow for a scheme to ensure it aligns with our processes.",
+      "ideal": "Returns the default workflow associated with the specified workflow scheme."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/default",
+      "method": "PUT",
+      "operationId": "updateDefaultWorkflow",
+      "summary": "",
+      "user": "As a system administrator, I need to set a new default workflow for a workflow scheme.",
+      "ideal": "Updates the default workflow for the specified workflow scheme."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+      "method": "DELETE",
+      "operationId": "deleteWorkflowSchemeIssueType",
+      "summary": "",
+      "user": "As a project lead, I want to remove an issue type from a workflow scheme that is no longer relevant.",
+      "ideal": "Deletes the specified issue type from the workflow scheme."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+      "method": "GET",
+      "operationId": "getWorkflowSchemeIssueType",
+      "summary": "",
+      "user": "As a developer, I need to check which workflow scheme is associated with a specific issue type.",
+      "ideal": "Returns the workflow scheme associated with the specified issue type."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/issuetype/{issueType}",
+      "method": "PUT",
+      "operationId": "setWorkflowSchemeIssueType",
+      "summary": "",
+      "user": "As a project manager, I want to associate a new issue type with a workflow scheme.",
+      "ideal": "Sets the specified issue type for the workflow scheme."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "method": "DELETE",
+      "operationId": "deleteWorkflowMapping",
+      "summary": "",
+      "user": "As a system admin, I need to remove a workflow mapping that is no longer used.",
+      "ideal": "Deletes the workflow mapping from the specified workflow scheme."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "method": "GET",
+      "operationId": "getWorkflow",
+      "summary": "",
+      "user": "As a business analyst, I want to view the workflow associated with a specific workflow scheme.",
+      "ideal": "Returns the workflow associated with the specified workflow scheme."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{id}/workflow",
+      "method": "PUT",
+      "operationId": "updateWorkflowMapping",
+      "summary": "",
+      "user": "As a project manager, I need to update the workflow mapping to reflect new project requirements.",
+      "ideal": "Updates the workflow mapping for the specified workflow scheme."
+    },
+    {
+      "path": "/rest/api/3/workflowscheme/{workflowSchemeId}/projectUsages",
+      "method": "GET",
+      "operationId": "getProjectUsagesForWorkflowScheme",
+      "summary": "",
+      "user": "As a project manager, I want to see which projects are using a specific workflow scheme.",
+      "ideal": "Returns a list of projects that are currently using the specified workflow scheme."
+    }
+  ]
+}

@@ -1,0 +1,984 @@
+{
+  "gold": [
+    {
+      "op": {
+        "method": "GET",
+        "path": "/activity"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/activity/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/assets/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/auth/login"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/auth/logout"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/auth/oauth"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/auth/oauth/{provider}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/auth/password/request"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/auth/password/reset"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/auth/refresh"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/collections"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/collections"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/collections/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/collections/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/collections/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/comments"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/comments"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/comments"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/comments"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/comments/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/comments/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/comments/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/extensions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/extensions/{bundle}/{name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/extensions/{name}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/fields"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/fields/{collection}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/fields/{collection}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/fields/{collection}/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/fields/{collection}/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/fields/{collection}/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/files"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/files"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/files"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/files"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/files/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/files/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/files/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/flows"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/flows"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/flows"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/flows"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/flows/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/flows/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/flows/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/folders"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/folders"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/folders"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/folders"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/folders/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/folders/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/folders/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/items/{collection}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/items/{collection}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/items/{collection}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/items/{collection}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/items/{collection}/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/items/{collection}/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/items/{collection}/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/operations"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/operations"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/operations"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/operations"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/operations/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/operations/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/operations/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/permissions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/permissions/me"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/permissions/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/permissions/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/permissions/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/presets"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/presets"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/presets"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/presets"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/presets/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/presets/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/presets/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/relations"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/relations"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/relations/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/relations/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/relations/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/revisions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/revisions/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/roles"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/roles"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/roles"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/roles"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/roles/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/roles/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/roles/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/schema/apply"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/schema/diff"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/schema/snapshot"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/server/info"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/server/ping"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/settings"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/settings"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/users"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/users"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/users"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/users/invite"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/users/invite/accept"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/me"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/users/me"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/users/me/tfa/disable"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/users/me/tfa/enable"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/users/me/track/page"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/users/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/users/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/users/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/utils/cache/clear"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/utils/export/{collection}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/utils/hash/generate"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/utils/hash/verify"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/utils/import/{collection}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/utils/random/string"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/utils/sort/{collection}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/versions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/versions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/versions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/versions"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/versions/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/versions/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/versions/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/versions/{id}/compare"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/versions/{id}/promote"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/versions/{id}/save"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/webhooks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "POST",
+        "path": "/webhooks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/webhooks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/webhooks"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "GET",
+        "path": "/webhooks/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "PATCH",
+        "path": "/webhooks/{id}"
+      },
+      "source": "openapi-det"
+    },
+    {
+      "op": {
+        "method": "DELETE",
+        "path": "/webhooks/{id}"
+      },
+      "source": "openapi-det"
+    }
+  ]
+}

@@ -1,44 +1,44 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages.json",
       "method": "POST",
       "operationId": "CreateMessage",
       "summary": "",
-      "user": "User wants to send a new SMS message to a recipient with a specific body content.",
-      "ideal": "The API should return a success response with the details of the created message, including the SID."
+      "user": "User wants to send a new SMS message to a recipient's phone number with a specific body content.",
+      "ideal": "The API should return a success response with the SID of the created message."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages.json",
       "method": "GET",
       "operationId": "ListMessage",
       "summary": "",
-      "user": "User wants to retrieve a list of all messages sent from their account to review message history.",
-      "ideal": "The API should return a list of messages with their details, including SIDs, statuses, and timestamps."
+      "user": "User wants to retrieve a list of all messages sent from their Twilio account.",
+      "ideal": "The API should return a list of messages with details such as SID, status, and date sent."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXX.json",
       "method": "DELETE",
       "operationId": "DeleteMessage",
       "summary": "",
-      "user": "User wants to delete a specific message by its SID to remove it from their message history.",
-      "ideal": "The API should confirm the deletion of the message and return a success response."
+      "user": "User wants to delete a specific message using its SID to clean up their message history.",
+      "ideal": "The API should return a success response confirming the deletion of the message."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXX.json",
       "method": "GET",
       "operationId": "FetchMessage",
       "summary": "",
       "user": "User wants to fetch the details of a specific message using its SID to check its status and content.",
-      "ideal": "The API should return the details of the requested message, including its status and body."
+      "ideal": "The API should return the message details including the body, status, and date sent."
     },
     {
-      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXX.json",
       "method": "POST",
       "operationId": "UpdateMessage",
       "summary": "",
-      "user": "User wants to update the body of a specific message identified by its SID to correct an error.",
-      "ideal": "The API should return the updated message details, confirming the changes made."
+      "user": "User wants to update the body of a previously sent message to correct a mistake.",
+      "ideal": "The API should return a success response with the updated message details."
     }
   ]
 }

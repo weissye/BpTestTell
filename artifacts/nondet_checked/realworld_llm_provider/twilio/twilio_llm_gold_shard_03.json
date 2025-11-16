@@ -5,40 +5,40 @@
       "method": "POST",
       "operationId": "CreateAddress",
       "summary": "",
-      "user": "A user wants to create a new address for their Twilio account to manage shipping and billing information.",
-      "ideal": "The API should return a success message with the details of the created address, including a unique identifier."
+      "user": "User wants to create a new address for their Twilio account to manage shipping and billing.",
+      "ideal": "User sends a POST request with the required address details in the body."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
       "method": "GET",
       "operationId": "ListAddress",
       "summary": "",
-      "user": "A user needs to retrieve a list of all addresses associated with their Twilio account for review and management.",
-      "ideal": "The API should return a list of addresses with their details, including identifiers and associated metadata."
+      "user": "User needs to retrieve a list of all addresses associated with their Twilio account for review.",
+      "ideal": "User sends a GET request to fetch all addresses."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
       "method": "DELETE",
       "operationId": "DeleteAddress",
       "summary": "",
-      "user": "A user wants to delete an outdated address from their Twilio account to keep their records up to date.",
-      "ideal": "The API should confirm the deletion of the address and return a success message."
+      "user": "User wants to remove an outdated address from their Twilio account to keep their records clean.",
+      "ideal": "User sends a DELETE request with the specific address Sid to remove it."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
       "method": "GET",
       "operationId": "FetchAddress",
       "summary": "",
-      "user": "A user needs to fetch the details of a specific address to verify its information before making updates.",
-      "ideal": "The API should return the details of the requested address, including all relevant fields."
+      "user": "User needs to fetch details of a specific address to verify its information before making updates.",
+      "ideal": "User sends a GET request with the address Sid to retrieve its details."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateAddress",
       "summary": "",
-      "user": "A user wants to update the details of an existing address to correct inaccuracies or changes.",
-      "ideal": "The API should return a success message with the updated address details, confirming the changes."
+      "user": "User wants to update the details of an existing address to correct an error or change information.",
+      "ideal": "User sends a POST request with the updated address details and the address Sid."
     }
   ]
 }

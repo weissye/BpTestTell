@@ -1,0 +1,1072 @@
+{
+  "sut": "jira_cloud",
+  "provider": "real_world_llm_provider",
+  "generated_at": "2025-11-13T21:08:37.832518Z",
+  "stories": [
+    {
+      "name": "CRUD_1",
+      "entity": "1",
+      "steps": []
+    },
+    {
+      "name": "CRUD_3",
+      "entity": "3",
+      "steps": []
+    },
+    {
+      "name": "CRUD_accessible",
+      "entity": "accessible",
+      "steps": []
+    },
+    {
+      "name": "CRUD_actor",
+      "entity": "actor",
+      "steps": []
+    },
+    {
+      "name": "CRUD_addon",
+      "entity": "addon",
+      "steps": []
+    },
+    {
+      "name": "CRUD_addtodefault",
+      "entity": "addtodefault",
+      "steps": []
+    },
+    {
+      "name": "CRUD_advanced_setting",
+      "entity": "advanced_setting",
+      "steps": []
+    },
+    {
+      "name": "CRUD_alternative",
+      "entity": "alternative",
+      "steps": []
+    },
+    {
+      "name": "CRUD_analyse",
+      "entity": "analyse",
+      "steps": []
+    },
+    {
+      "name": "CRUD_announcementbanner",
+      "entity": "announcementbanner",
+      "steps": []
+    },
+    {
+      "name": "CRUD_api",
+      "entity": "api",
+      "steps": []
+    },
+    {
+      "name": "CRUD_app",
+      "entity": "app",
+      "steps": []
+    },
+    {
+      "name": "CRUD_application_property",
+      "entity": "application_property",
+      "steps": []
+    },
+    {
+      "name": "CRUD_applicationrole",
+      "entity": "applicationrole",
+      "steps": []
+    },
+    {
+      "name": "CRUD_approximate_count",
+      "entity": "approximate_count",
+      "steps": []
+    },
+    {
+      "name": "CRUD_approximatelicensecount",
+      "entity": "approximatelicensecount",
+      "steps": []
+    },
+    {
+      "name": "CRUD_archive",
+      "entity": "archive",
+      "steps": []
+    },
+    {
+      "name": "CRUD_assignable",
+      "entity": "assignable",
+      "steps": []
+    },
+    {
+      "name": "CRUD_assignee",
+      "entity": "assignee",
+      "steps": []
+    },
+    {
+      "name": "CRUD_association",
+      "entity": "association",
+      "steps": []
+    },
+    {
+      "name": "CRUD_atlassian",
+      "entity": "atlassian",
+      "steps": []
+    },
+    {
+      "name": "CRUD_atlassian_connect",
+      "entity": "atlassian_connect",
+      "steps": []
+    },
+    {
+      "name": "CRUD_attachment",
+      "entity": "attachment",
+      "steps": []
+    },
+    {
+      "name": "CRUD_auditing",
+      "entity": "auditing",
+      "steps": []
+    },
+    {
+      "name": "CRUD_autocompletedata",
+      "entity": "autocompletedata",
+      "steps": []
+    },
+    {
+      "name": "CRUD_available",
+      "entity": "available",
+      "steps": []
+    },
+    {
+      "name": "CRUD_availablefield",
+      "entity": "availablefield",
+      "steps": []
+    },
+    {
+      "name": "CRUD_avatar",
+      "entity": "avatar",
+      "steps": []
+    },
+    {
+      "name": "CRUD_avatar2",
+      "entity": "avatar2",
+      "steps": []
+    },
+    {
+      "name": "CRUD_bulk",
+      "entity": "bulk",
+      "steps": []
+    },
+    {
+      "name": "CRUD_bulkfetch",
+      "entity": "bulkfetch",
+      "steps": []
+    },
+    {
+      "name": "CRUD_byname",
+      "entity": "byname",
+      "steps": []
+    },
+    {
+      "name": "CRUD_cancel",
+      "entity": "cancel",
+      "steps": []
+    },
+    {
+      "name": "CRUD_capability",
+      "entity": "capability",
+      "steps": []
+    },
+    {
+      "name": "CRUD_changelog",
+      "entity": "changelog",
+      "steps": []
+    },
+    {
+      "name": "CRUD_check",
+      "entity": "check",
+      "steps": []
+    },
+    {
+      "name": "CRUD_classification_level",
+      "entity": "classification_level",
+      "steps": []
+    },
+    {
+      "name": "CRUD_column",
+      "entity": "column",
+      "steps": []
+    },
+    {
+      "name": "CRUD_comment",
+      "entity": "comment",
+      "steps": []
+    },
+    {
+      "name": "CRUD_component",
+      "entity": "component",
+      "steps": []
+    },
+    {
+      "name": "CRUD_computation",
+      "entity": "computation",
+      "steps": []
+    },
+    {
+      "name": "CRUD_config",
+      "entity": "config",
+      "steps": []
+    },
+    {
+      "name": "CRUD_configuration",
+      "entity": "configuration",
+      "steps": []
+    },
+    {
+      "name": "CRUD_content",
+      "entity": "content",
+      "steps": []
+    },
+    {
+      "name": "CRUD_context",
+      "entity": "context",
+      "steps": []
+    },
+    {
+      "name": "CRUD_copy",
+      "entity": "copy",
+      "steps": []
+    },
+    {
+      "name": "CRUD_create",
+      "entity": "create",
+      "steps": []
+    },
+    {
+      "name": "CRUD_createdraft",
+      "entity": "createdraft",
+      "steps": []
+    },
+    {
+      "name": "CRUD_createmeta",
+      "entity": "createmeta",
+      "steps": []
+    },
+    {
+      "name": "CRUD_customfieldoption",
+      "entity": "customfieldoption",
+      "steps": []
+    },
+    {
+      "name": "CRUD_dashboard",
+      "entity": "dashboard",
+      "steps": []
+    },
+    {
+      "name": "CRUD_data_policy",
+      "entity": "data_policy",
+      "steps": []
+    },
+    {
+      "name": "CRUD_default",
+      "entity": "default",
+      "steps": []
+    },
+    {
+      "name": "CRUD_defaulteditor",
+      "entity": "defaulteditor",
+      "steps": []
+    },
+    {
+      "name": "CRUD_defaultsharescope",
+      "entity": "defaultsharescope",
+      "steps": []
+    },
+    {
+      "name": "CRUD_defaultvalue",
+      "entity": "defaultvalue",
+      "steps": []
+    },
+    {
+      "name": "CRUD_delete",
+      "entity": "delete",
+      "steps": []
+    },
+    {
+      "name": "CRUD_deleted",
+      "entity": "deleted",
+      "steps": []
+    },
+    {
+      "name": "CRUD_draft",
+      "entity": "draft",
+      "steps": []
+    },
+    {
+      "name": "CRUD_duplicate",
+      "entity": "duplicate",
+      "steps": []
+    },
+    {
+      "name": "CRUD_dynamic",
+      "entity": "dynamic",
+      "steps": []
+    },
+    {
+      "name": "CRUD_edit",
+      "entity": "edit",
+      "steps": []
+    },
+    {
+      "name": "CRUD_edit_template",
+      "entity": "edit_template",
+      "steps": []
+    },
+    {
+      "name": "CRUD_editmeta",
+      "entity": "editmeta",
+      "steps": []
+    },
+    {
+      "name": "CRUD_email",
+      "entity": "email",
+      "steps": []
+    },
+    {
+      "name": "CRUD_eval",
+      "entity": "eval",
+      "steps": []
+    },
+    {
+      "name": "CRUD_evaluate",
+      "entity": "evaluate",
+      "steps": []
+    },
+    {
+      "name": "CRUD_event",
+      "entity": "event",
+      "steps": []
+    },
+    {
+      "name": "CRUD_expand",
+      "entity": "expand",
+      "steps": []
+    },
+    {
+      "name": "CRUD_export",
+      "entity": "export",
+      "steps": []
+    },
+    {
+      "name": "CRUD_expression",
+      "entity": "expression",
+      "steps": []
+    },
+    {
+      "name": "CRUD_failed",
+      "entity": "failed",
+      "steps": []
+    },
+    {
+      "name": "CRUD_favourite",
+      "entity": "favourite",
+      "steps": []
+    },
+    {
+      "name": "CRUD_feature",
+      "entity": "feature",
+      "steps": []
+    },
+    {
+      "name": "CRUD_field",
+      "entity": "field",
+      "steps": []
+    },
+    {
+      "name": "CRUD_fieldconfiguration",
+      "entity": "fieldconfiguration",
+      "steps": []
+    },
+    {
+      "name": "CRUD_fieldconfigurationscheme",
+      "entity": "fieldconfigurationscheme",
+      "steps": []
+    },
+    {
+      "name": "CRUD_filter",
+      "entity": "filter",
+      "steps": []
+    },
+    {
+      "name": "CRUD_forge",
+      "entity": "forge",
+      "steps": []
+    },
+    {
+      "name": "CRUD_function",
+      "entity": "function",
+      "steps": []
+    },
+    {
+      "name": "CRUD_gadget",
+      "entity": "gadget",
+      "steps": []
+    },
+    {
+      "name": "CRUD_group",
+      "entity": "group",
+      "steps": []
+    },
+    {
+      "name": "CRUD_groupuserpicker",
+      "entity": "groupuserpicker",
+      "steps": []
+    },
+    {
+      "name": "CRUD_hierarchy",
+      "entity": "hierarchy",
+      "steps": []
+    },
+    {
+      "name": "CRUD_human",
+      "entity": "human",
+      "steps": []
+    },
+    {
+      "name": "CRUD_instance",
+      "entity": "instance",
+      "steps": []
+    },
+    {
+      "name": "CRUD_issue",
+      "entity": "issue",
+      "steps": []
+    },
+    {
+      "name": "CRUD_issuelink",
+      "entity": "issuelink",
+      "steps": []
+    },
+    {
+      "name": "CRUD_issuelinktype",
+      "entity": "issuelinktype",
+      "steps": []
+    },
+    {
+      "name": "CRUD_issuesecuritylevelscheme",
+      "entity": "issuesecuritylevelscheme",
+      "steps": []
+    },
+    {
+      "name": "CRUD_issuesecurityscheme",
+      "entity": "issuesecurityscheme",
+      "steps": []
+    },
+    {
+      "name": "CRUD_issuetype",
+      "entity": "issuetype",
+      "steps": []
+    },
+    {
+      "name": "CRUD_issuetypemapping",
+      "entity": "issuetypemapping",
+      "steps": []
+    },
+    {
+      "name": "CRUD_issuetypescheme",
+      "entity": "issuetypescheme",
+      "steps": []
+    },
+    {
+      "name": "CRUD_issuetypescreenscheme",
+      "entity": "issuetypescreenscheme",
+      "steps": []
+    },
+    {
+      "name": "CRUD_issuetypeusage",
+      "entity": "issuetypeusage",
+      "steps": []
+    },
+    {
+      "name": "CRUD_item",
+      "entity": "item",
+      "steps": []
+    },
+    {
+      "name": "CRUD_jql",
+      "entity": "jql",
+      "steps": []
+    },
+    {
+      "name": "CRUD_key",
+      "entity": "key",
+      "steps": []
+    },
+    {
+      "name": "CRUD_label",
+      "entity": "label",
+      "steps": []
+    },
+    {
+      "name": "CRUD_level",
+      "entity": "level",
+      "steps": []
+    },
+    {
+      "name": "CRUD_license",
+      "entity": "license",
+      "steps": []
+    },
+    {
+      "name": "CRUD_limit",
+      "entity": "limit",
+      "steps": []
+    },
+    {
+      "name": "CRUD_list",
+      "entity": "list",
+      "steps": []
+    },
+    {
+      "name": "CRUD_live_template",
+      "entity": "live_template",
+      "steps": []
+    },
+    {
+      "name": "CRUD_locale",
+      "entity": "locale",
+      "steps": []
+    },
+    {
+      "name": "CRUD_mapping",
+      "entity": "mapping",
+      "steps": []
+    },
+    {
+      "name": "CRUD_match",
+      "entity": "match",
+      "steps": []
+    },
+    {
+      "name": "CRUD_member",
+      "entity": "member",
+      "steps": []
+    },
+    {
+      "name": "CRUD_mergeto",
+      "entity": "mergeto",
+      "steps": []
+    },
+    {
+      "name": "CRUD_meta",
+      "entity": "meta",
+      "steps": []
+    },
+    {
+      "name": "CRUD_migration",
+      "entity": "migration",
+      "steps": []
+    },
+    {
+      "name": "CRUD_module",
+      "entity": "module",
+      "steps": []
+    },
+    {
+      "name": "CRUD_move",
+      "entity": "move",
+      "steps": []
+    },
+    {
+      "name": "CRUD_multi",
+      "entity": "multi",
+      "steps": []
+    },
+    {
+      "name": "CRUD_multiprojectsearch",
+      "entity": "multiprojectsearch",
+      "steps": []
+    },
+    {
+      "name": "CRUD_my",
+      "entity": "my",
+      "steps": []
+    },
+    {
+      "name": "CRUD_mypermission",
+      "entity": "mypermission",
+      "steps": []
+    },
+    {
+      "name": "CRUD_mypreference",
+      "entity": "mypreference",
+      "steps": []
+    },
+    {
+      "name": "CRUD_myself",
+      "entity": "myself",
+      "steps": []
+    },
+    {
+      "name": "CRUD_nav4_opt_property",
+      "entity": "nav4_opt_property",
+      "steps": []
+    },
+    {
+      "name": "CRUD_notification",
+      "entity": "notification",
+      "steps": []
+    },
+    {
+      "name": "CRUD_notificationscheme",
+      "entity": "notificationscheme",
+      "steps": []
+    },
+    {
+      "name": "CRUD_notify",
+      "entity": "notify",
+      "steps": []
+    },
+    {
+      "name": "CRUD_option",
+      "entity": "option",
+      "steps": []
+    },
+    {
+      "name": "CRUD_owner",
+      "entity": "owner",
+      "steps": []
+    },
+    {
+      "name": "CRUD_parse",
+      "entity": "parse",
+      "steps": []
+    },
+    {
+      "name": "CRUD_pdcleaner",
+      "entity": "pdcleaner",
+      "steps": []
+    },
+    {
+      "name": "CRUD_permission",
+      "entity": "permission",
+      "steps": []
+    },
+    {
+      "name": "CRUD_permissionscheme",
+      "entity": "permissionscheme",
+      "steps": []
+    },
+    {
+      "name": "CRUD_picker",
+      "entity": "picker",
+      "steps": []
+    },
+    {
+      "name": "CRUD_plan",
+      "entity": "plan",
+      "steps": []
+    },
+    {
+      "name": "CRUD_planonly",
+      "entity": "planonly",
+      "steps": []
+    },
+    {
+      "name": "CRUD_preview",
+      "entity": "preview",
+      "steps": []
+    },
+    {
+      "name": "CRUD_priority",
+      "entity": "priority",
+      "steps": []
+    },
+    {
+      "name": "CRUD_priorityscheme",
+      "entity": "priorityscheme",
+      "steps": []
+    },
+    {
+      "name": "CRUD_product",
+      "entity": "product",
+      "steps": []
+    },
+    {
+      "name": "CRUD_project",
+      "entity": "project",
+      "steps": []
+    },
+    {
+      "name": "CRUD_project_template",
+      "entity": "project_template",
+      "steps": []
+    },
+    {
+      "name": "CRUD_projectcategory",
+      "entity": "projectcategory",
+      "steps": []
+    },
+    {
+      "name": "CRUD_projectmapping",
+      "entity": "projectmapping",
+      "steps": []
+    },
+    {
+      "name": "CRUD_projectusage",
+      "entity": "projectusage",
+      "steps": []
+    },
+    {
+      "name": "CRUD_projectvalidate",
+      "entity": "projectvalidate",
+      "steps": []
+    },
+    {
+      "name": "CRUD_property",
+      "entity": "property",
+      "steps": []
+    },
+    {
+      "name": "CRUD_publish",
+      "entity": "publish",
+      "steps": []
+    },
+    {
+      "name": "CRUD_query",
+      "entity": "query",
+      "steps": []
+    },
+    {
+      "name": "CRUD_queue",
+      "entity": "queue",
+      "steps": []
+    },
+    {
+      "name": "CRUD_raw",
+      "entity": "raw",
+      "steps": []
+    },
+    {
+      "name": "CRUD_read",
+      "entity": "read",
+      "steps": []
+    },
+    {
+      "name": "CRUD_recent",
+      "entity": "recent",
+      "steps": []
+    },
+    {
+      "name": "CRUD_record",
+      "entity": "record",
+      "steps": []
+    },
+    {
+      "name": "CRUD_redact",
+      "entity": "redact",
+      "steps": []
+    },
+    {
+      "name": "CRUD_refresh",
+      "entity": "refresh",
+      "steps": []
+    },
+    {
+      "name": "CRUD_relatedissuecount",
+      "entity": "relatedissuecount",
+      "steps": []
+    },
+    {
+      "name": "CRUD_relatedwork",
+      "entity": "relatedwork",
+      "steps": []
+    },
+    {
+      "name": "CRUD_remotelink",
+      "entity": "remotelink",
+      "steps": []
+    },
+    {
+      "name": "CRUD_remove",
+      "entity": "remove",
+      "steps": []
+    },
+    {
+      "name": "CRUD_remove_template",
+      "entity": "remove_template",
+      "steps": []
+    },
+    {
+      "name": "CRUD_removeandswap",
+      "entity": "removeandswap",
+      "steps": []
+    },
+    {
+      "name": "CRUD_report",
+      "entity": "report",
+      "steps": []
+    },
+    {
+      "name": "CRUD_resolution",
+      "entity": "resolution",
+      "steps": []
+    },
+    {
+      "name": "CRUD_rest",
+      "entity": "rest",
+      "steps": []
+    },
+    {
+      "name": "CRUD_restore",
+      "entity": "restore",
+      "steps": []
+    },
+    {
+      "name": "CRUD_role",
+      "entity": "role",
+      "steps": []
+    },
+    {
+      "name": "CRUD_roledetail",
+      "entity": "roledetail",
+      "steps": []
+    },
+    {
+      "name": "CRUD_rule",
+      "entity": "rule",
+      "steps": []
+    },
+    {
+      "name": "CRUD_sanitize",
+      "entity": "sanitize",
+      "steps": []
+    },
+    {
+      "name": "CRUD_save_template",
+      "entity": "save_template",
+      "steps": []
+    },
+    {
+      "name": "CRUD_screen",
+      "entity": "screen",
+      "steps": []
+    },
+    {
+      "name": "CRUD_screenscheme",
+      "entity": "screenscheme",
+      "steps": []
+    },
+    {
+      "name": "CRUD_search",
+      "entity": "search",
+      "steps": []
+    },
+    {
+      "name": "CRUD_securitylevel",
+      "entity": "securitylevel",
+      "steps": []
+    },
+    {
+      "name": "CRUD_serverinfo",
+      "entity": "serverinfo",
+      "steps": []
+    },
+    {
+      "name": "CRUD_service_registry",
+      "entity": "service_registry",
+      "steps": []
+    },
+    {
+      "name": "CRUD_setting",
+      "entity": "setting",
+      "steps": []
+    },
+    {
+      "name": "CRUD_statu",
+      "entity": "statu",
+      "steps": []
+    },
+    {
+      "name": "CRUD_status",
+      "entity": "status",
+      "steps": []
+    },
+    {
+      "name": "CRUD_statuscategory",
+      "entity": "statuscategory",
+      "steps": []
+    },
+    {
+      "name": "CRUD_suggestion",
+      "entity": "suggestion",
+      "steps": []
+    },
+    {
+      "name": "CRUD_system",
+      "entity": "system",
+      "steps": []
+    },
+    {
+      "name": "CRUD_tab",
+      "entity": "tab",
+      "steps": []
+    },
+    {
+      "name": "CRUD_task",
+      "entity": "task",
+      "steps": []
+    },
+    {
+      "name": "CRUD_team",
+      "entity": "team",
+      "steps": []
+    },
+    {
+      "name": "CRUD_thumbnail",
+      "entity": "thumbnail",
+      "steps": []
+    },
+    {
+      "name": "CRUD_timetracking",
+      "entity": "timetracking",
+      "steps": []
+    },
+    {
+      "name": "CRUD_transition",
+      "entity": "transition",
+      "steps": []
+    },
+    {
+      "name": "CRUD_trash",
+      "entity": "trash",
+      "steps": []
+    },
+    {
+      "name": "CRUD_trashed",
+      "entity": "trashed",
+      "steps": []
+    },
+    {
+      "name": "CRUD_type",
+      "entity": "type",
+      "steps": []
+    },
+    {
+      "name": "CRUD_uimodification",
+      "entity": "uimodification",
+      "steps": []
+    },
+    {
+      "name": "CRUD_unarchive",
+      "entity": "unarchive",
+      "steps": []
+    },
+    {
+      "name": "CRUD_universal_avatar",
+      "entity": "universal_avatar",
+      "steps": []
+    },
+    {
+      "name": "CRUD_unresolvedissuecount",
+      "entity": "unresolvedissuecount",
+      "steps": []
+    },
+    {
+      "name": "CRUD_unwatch",
+      "entity": "unwatch",
+      "steps": []
+    },
+    {
+      "name": "CRUD_update",
+      "entity": "update",
+      "steps": []
+    },
+    {
+      "name": "CRUD_updated",
+      "entity": "updated",
+      "steps": []
+    },
+    {
+      "name": "CRUD_user",
+      "entity": "user",
+      "steps": []
+    },
+    {
+      "name": "CRUD_validation",
+      "entity": "validation",
+      "steps": []
+    },
+    {
+      "name": "CRUD_validprojectkey",
+      "entity": "validprojectkey",
+      "steps": []
+    },
+    {
+      "name": "CRUD_validprojectname",
+      "entity": "validprojectname",
+      "steps": []
+    },
+    {
+      "name": "CRUD_value",
+      "entity": "value",
+      "steps": []
+    },
+    {
+      "name": "CRUD_version",
+      "entity": "version",
+      "steps": []
+    },
+    {
+      "name": "CRUD_view",
+      "entity": "view",
+      "steps": []
+    },
+    {
+      "name": "CRUD_viewissue",
+      "entity": "viewissue",
+      "steps": []
+    },
+    {
+      "name": "CRUD_vote",
+      "entity": "vote",
+      "steps": []
+    },
+    {
+      "name": "CRUD_watch",
+      "entity": "watch",
+      "steps": []
+    },
+    {
+      "name": "CRUD_watcher",
+      "entity": "watcher",
+      "steps": []
+    },
+    {
+      "name": "CRUD_watching",
+      "entity": "watching",
+      "steps": []
+    },
+    {
+      "name": "CRUD_webhook",
+      "entity": "webhook",
+      "steps": []
+    },
+    {
+      "name": "CRUD_workflow",
+      "entity": "workflow",
+      "steps": []
+    },
+    {
+      "name": "CRUD_workflowscheme",
+      "entity": "workflowscheme",
+      "steps": []
+    },
+    {
+      "name": "CRUD_workflowusage",
+      "entity": "workflowusage",
+      "steps": []
+    },
+    {
+      "name": "CRUD_worklog",
+      "entity": "worklog",
+      "steps": []
+    }
+  ]
+}

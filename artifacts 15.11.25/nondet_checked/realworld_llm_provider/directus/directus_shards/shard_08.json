@@ -1,0 +1,72 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/files",
+      "method": "GET",
+      "tags": [
+        "Files"
+      ],
+      "summary": "List Files",
+      "operationId": "getFiles"
+    },
+    {
+      "path": "/files",
+      "method": "POST",
+      "tags": [
+        "Files"
+      ],
+      "summary": "Create a File",
+      "operationId": "createFile"
+    },
+    {
+      "path": "/files",
+      "method": "PATCH",
+      "tags": [
+        "Files"
+      ],
+      "summary": "Update Multiple Files",
+      "operationId": "updateFiles"
+    },
+    {
+      "path": "/files",
+      "method": "DELETE",
+      "tags": [
+        "Files"
+      ],
+      "summary": "Delete Multiple Files",
+      "operationId": "deleteFiles"
+    },
+    {
+      "path": "/files/{id}",
+      "method": "GET",
+      "tags": [
+        "Files"
+      ],
+      "summary": "Retrieve a Files",
+      "operationId": "getFile"
+    },
+    {
+      "path": "/files/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Files"
+      ],
+      "summary": "Update a File",
+      "operationId": "updateFile"
+    },
+    {
+      "path": "/files/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Files"
+      ],
+      "summary": "Delete a File",
+      "operationId": "deleteFile"
+    }
+  ]
+}

@@ -5,8 +5,8 @@
       "method": "GET",
       "operationId": "ListAvailablePhoneNumberVoip",
       "summary": "",
-      "user": "user_12345",
-      "ideal": "Retrieve a list of available VoIP phone numbers for a specified country."
+      "user": "user123",
+      "ideal": "Retrieve a list of available VoIP phone numbers for a specific country."
     }
   ]
 }

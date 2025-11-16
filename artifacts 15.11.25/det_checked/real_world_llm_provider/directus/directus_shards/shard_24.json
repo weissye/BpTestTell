@@ -1,0 +1,24 @@
+{
+  "ops": [
+    {
+      "method": "PATCH",
+      "path": "/extensions/{bundle}/{name}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/folders"
+    },
+    {
+      "method": "DELETE",
+      "path": "/permissions/{id}"
+    },
+    {
+      "method": "POST",
+      "path": "/schema/apply"
+    },
+    {
+      "method": "POST",
+      "path": "/utils/hash/verify"
+    }
+  ]
+}

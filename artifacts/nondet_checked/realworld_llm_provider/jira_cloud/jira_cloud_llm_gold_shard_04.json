@@ -5,64 +5,64 @@
       "method": "GET",
       "operationId": "AddonPropertiesResource.getAddonProperties_get",
       "summary": "",
-      "user": "user123",
-      "ideal": "Retrieve all properties for the specified addon."
+      "user": "User requests all properties for the addon identified by 'my-addon'.",
+      "ideal": "Returns a list of properties associated with the specified addon."
     },
     {
-      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/myProperty",
-      "method": "DELETE",
-      "operationId": "AddonPropertiesResource.deleteAddonProperty_delete",
-      "summary": "",
-      "user": "user456",
-      "ideal": "Delete the specified property from the addon."
-    },
-    {
-      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/myProperty",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
       "method": "GET",
       "operationId": "AddonPropertiesResource.getAddonProperty_get",
       "summary": "",
-      "user": "user789",
-      "ideal": "Fetch the value of a specific property for the addon."
+      "user": "User retrieves the value of 'my-property' for the addon 'my-addon'.",
+      "ideal": "Returns the value of the specified property for the addon."
     },
     {
-      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/myProperty",
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
       "method": "PUT",
       "operationId": "AddonPropertiesResource.putAddonProperty_put",
       "summary": "",
-      "user": "user101",
-      "ideal": "Update or create a property for the addon."
+      "user": "User updates the value of 'my-property' for the addon 'my-addon' to 'newValue'.",
+      "ideal": "Updates the specified property with the new value."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/addons/my-addon/properties/my-property",
+      "method": "DELETE",
+      "operationId": "AddonPropertiesResource.deleteAddonProperty_delete",
+      "summary": "",
+      "user": "User deletes the property 'my-property' from the addon 'my-addon'.",
+      "ideal": "Confirms the deletion of the specified property."
     },
     {
       "path": "/rest/forge/1/app/properties",
       "method": "GET",
       "operationId": "getForgeAppPropertyKeys",
       "summary": "",
-      "user": "user202",
-      "ideal": "Retrieve all property keys for the Forge app."
+      "user": "User requests all property keys for the Forge app.",
+      "ideal": "Returns a list of all property keys associated with the Forge app."
     },
     {
-      "path": "/rest/forge/1/app/properties/myProperty",
-      "method": "DELETE",
-      "operationId": "deleteForgeAppProperty",
-      "summary": "",
-      "user": "user303",
-      "ideal": "Remove a specific property from the Forge app."
-    },
-    {
-      "path": "/rest/forge/1/app/properties/myProperty",
+      "path": "/rest/forge/1/app/properties/my-property",
       "method": "GET",
       "operationId": "getForgeAppProperty",
       "summary": "",
-      "user": "user404",
-      "ideal": "Get the value of a specific property in the Forge app."
+      "user": "User retrieves the value of 'my-property' for the Forge app.",
+      "ideal": "Returns the value of the specified property for the Forge app."
     },
     {
-      "path": "/rest/forge/1/app/properties/myProperty",
+      "path": "/rest/forge/1/app/properties/my-property",
       "method": "PUT",
       "operationId": "putForgeAppProperty",
       "summary": "",
-      "user": "user505",
-      "ideal": "Set or update a property for the Forge app."
+      "user": "User updates the value of 'my-property' for the Forge app to 'newValue'.",
+      "ideal": "Updates the specified property with the new value."
+    },
+    {
+      "path": "/rest/forge/1/app/properties/my-property",
+      "method": "DELETE",
+      "operationId": "deleteForgeAppProperty",
+      "summary": "",
+      "user": "User deletes the property 'my-property' from the Forge app.",
+      "ideal": "Confirms the deletion of the specified property."
     }
   ]
 }

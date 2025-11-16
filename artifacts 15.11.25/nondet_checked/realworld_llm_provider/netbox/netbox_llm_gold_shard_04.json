@@ -1,0 +1,84 @@
+{
+  "gold": [
+    {
+      "path": "/api/extras/bookmarks/",
+      "method": "GET",
+      "operationId": "extras_bookmarks_list",
+      "summary": "",
+      "user": "User A requests a list of all bookmarks to manage their saved links.",
+      "ideal": "A JSON array of bookmark objects, each containing id, name, and URL."
+    },
+    {
+      "path": "/api/extras/bookmarks/",
+      "method": "POST",
+      "operationId": "extras_bookmarks_create",
+      "summary": "",
+      "user": "User B wants to create a new bookmark for a frequently visited site.",
+      "ideal": "A JSON object representing the created bookmark with id, name, and URL."
+    },
+    {
+      "path": "/api/extras/bookmarks/1/",
+      "method": "GET",
+      "operationId": "extras_bookmarks_retrieve",
+      "summary": "",
+      "user": "User C retrieves details of a specific bookmark to edit it.",
+      "ideal": "A JSON object containing the bookmark's id, name, and URL."
+    },
+    {
+      "path": "/api/extras/bookmarks/1/",
+      "method": "PUT",
+      "operationId": "extras_bookmarks_update",
+      "summary": "",
+      "user": "User D updates the name and URL of an existing bookmark.",
+      "ideal": "A JSON object representing the updated bookmark with id, name, and URL."
+    },
+    {
+      "path": "/api/extras/bookmarks/1/",
+      "method": "DELETE",
+      "operationId": "extras_bookmarks_destroy",
+      "summary": "",
+      "user": "User E deletes a bookmark that is no longer needed.",
+      "ideal": "A confirmation message indicating the bookmark has been deleted."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/",
+      "method": "GET",
+      "operationId": "extras_config_context_profiles_list",
+      "summary": "",
+      "user": "User F wants to see all configuration context profiles available.",
+      "ideal": "A JSON array of configuration context profile objects."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/",
+      "method": "POST",
+      "operationId": "extras_config_context_profiles_create",
+      "summary": "",
+      "user": "User G creates a new configuration context profile for a project.",
+      "ideal": "A JSON object representing the created configuration context profile."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/1/",
+      "method": "GET",
+      "operationId": "extras_config_context_profiles_retrieve",
+      "summary": "",
+      "user": "User H retrieves a specific configuration context profile for review.",
+      "ideal": "A JSON object containing the details of the configuration context profile."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/1/",
+      "method": "PATCH",
+      "operationId": "extras_config_context_profiles_partial_update",
+      "summary": "",
+      "user": "User I updates a specific field in a configuration context profile.",
+      "ideal": "A JSON object representing the updated configuration context profile."
+    },
+    {
+      "path": "/api/extras/config-context-profiles/1/",
+      "method": "DELETE",
+      "operationId": "extras_config_context_profiles_destroy",
+      "summary": "",
+      "user": "User J deletes an obsolete configuration context profile.",
+      "ideal": "A confirmation message indicating the configuration context profile has been deleted."
+    }
+  ]
+}

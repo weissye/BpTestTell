@@ -30,7 +30,7 @@
       "operationId": "moveScreenTabField",
       "summary": "",
       "user": "User101",
-      "ideal": "Move the specified field to a new position within the screen tab."
+      "ideal": "Move the specified field to a different position within the screen tab."
     }
   ]
 }

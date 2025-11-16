@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/rest/api/3/user/nav4-opt-property/theme",
+      "method": "GET",
+      "operationId": "getUserNavProperty",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Retrieve the user's navigation property for the theme."
+    },
+    {
+      "path": "/rest/api/3/user/nav4-opt-property/theme",
+      "method": "PUT",
+      "operationId": "setUserNavProperty",
+      "summary": "",
+      "user": "user123",
+      "ideal": "Set the user's navigation property for the theme to 'dark'."
+    }
+  ]
+}

@@ -5,56 +5,56 @@
       "method": "GET",
       "operationId": "getPresets",
       "summary": "",
-      "user": "Admin user requesting all presets to review current configurations.",
-      "ideal": "Returns a list of all presets available in the system."
+      "user": "As a user, I want to retrieve a list of all presets available in the system so that I can see the options I have.",
+      "ideal": "The response should include an array of preset objects, each containing an id, name, and description."
     },
     {
       "path": "/presets",
       "method": "POST",
       "operationId": "createPreset",
       "summary": "",
-      "user": "Content manager creating a new preset for a specific project.",
-      "ideal": "Creates a new preset with the provided data and returns the created preset."
+      "user": "As a user, I want to create a new preset by providing a name and description so that I can save my custom settings.",
+      "ideal": "The response should return the newly created preset object with its id, name, and description."
     },
     {
       "path": "/presets",
       "method": "PATCH",
       "operationId": "updatePresets",
       "summary": "",
-      "user": "Admin user updating multiple presets to reflect new design standards.",
-      "ideal": "Updates the specified presets and returns the updated presets."
+      "user": "As an admin, I want to update multiple presets at once by sending an array of preset updates so that I can manage them efficiently.",
+      "ideal": "The response should confirm the number of presets updated and return the updated preset objects."
     },
     {
       "path": "/presets",
       "method": "DELETE",
       "operationId": "deletePresets",
       "summary": "",
-      "user": "Admin user deleting obsolete presets from the system.",
-      "ideal": "Deletes the specified presets and confirms deletion."
+      "user": "As a user, I want to delete multiple presets by providing their ids so that I can clean up my workspace.",
+      "ideal": "The response should confirm the number of presets deleted."
     },
     {
       "path": "/presets/{id}",
       "method": "GET",
       "operationId": "getPreset",
       "summary": "",
-      "user": "User looking for details on a specific preset for troubleshooting.",
-      "ideal": "Returns the details of the specified preset."
+      "user": "As a user, I want to retrieve a specific preset by its id so that I can view its details.",
+      "ideal": "The response should return the preset object with the specified id, including its name and description."
     },
     {
       "path": "/presets/{id}",
       "method": "PATCH",
       "operationId": "updatePreset",
       "summary": "",
-      "user": "Content manager updating a specific preset to include new features.",
-      "ideal": "Updates the specified preset and returns the updated preset."
+      "user": "As a user, I want to update a specific preset by its id with new details so that I can modify my settings.",
+      "ideal": "The response should return the updated preset object with its new name and description."
     },
     {
       "path": "/presets/{id}",
       "method": "DELETE",
       "operationId": "deletePreset",
       "summary": "",
-      "user": "Admin user removing a specific preset that is no longer needed.",
-      "ideal": "Deletes the specified preset and confirms deletion."
+      "user": "As a user, I want to delete a specific preset by its id so that I can remove unwanted settings.",
+      "ideal": "The response should confirm that the preset with the specified id has been deleted."
     }
   ]
 }

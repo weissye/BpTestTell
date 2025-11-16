@@ -46,7 +46,7 @@
       "operationId": "updateUser",
       "summary": "",
       "user": "admin",
-      "ideal": "Update information for a specific user identified by ID."
+      "ideal": "Update the information of a specific user by ID."
     },
     {
       "path": "/users/{id}",
@@ -77,7 +77,7 @@
       "method": "GET",
       "operationId": "getMe",
       "summary": "",
-      "user": "user123",
+      "user": "authenticated_user",
       "ideal": "Retrieve the current user's profile information."
     },
     {
@@ -85,7 +85,7 @@
       "method": "PATCH",
       "operationId": "updateMe",
       "summary": "",
-      "user": "user123",
+      "user": "authenticated_user",
       "ideal": "Update the current user's profile information."
     },
     {
@@ -93,7 +93,7 @@
       "method": "PATCH",
       "operationId": "updateLastUsedPageMe",
       "summary": "",
-      "user": "user123",
+      "user": "authenticated_user",
       "ideal": "Update the last used page for the current user."
     },
     {
@@ -101,7 +101,7 @@
       "method": "POST",
       "operationId": "meTfaEnable",
       "summary": "",
-      "user": "user123",
+      "user": "authenticated_user",
       "ideal": "Enable two-factor authentication for the current user."
     },
     {
@@ -109,7 +109,7 @@
       "method": "POST",
       "operationId": "meTfaDisable",
       "summary": "",
-      "user": "user123",
+      "user": "authenticated_user",
       "ideal": "Disable two-factor authentication for the current user."
     }
   ]

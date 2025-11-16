@@ -1,0 +1,27 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/orgs/{org}/actions/oidc/customization/sub",
+      "method": "GET",
+      "tags": [
+        "oidc"
+      ],
+      "summary": "Get the customization template for an OIDC subject claim for an organization",
+      "operationId": "oidc/get-oidc-custom-sub-template-for-org"
+    },
+    {
+      "path": "/orgs/{org}/actions/oidc/customization/sub",
+      "method": "PUT",
+      "tags": [
+        "oidc"
+      ],
+      "summary": "Set the customization template for an OIDC subject claim for an organization",
+      "operationId": "oidc/update-oidc-custom-sub-template-for-org"
+    }
+  ]
+}

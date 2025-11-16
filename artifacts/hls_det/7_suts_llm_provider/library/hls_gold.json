@@ -1,59 +1,27 @@
 {
   "sut": "library",
   "provider": "7_suts_llm_provider",
-  "mode": "det",
-  "source": {
-    "created_by": "build_hls_gold_det.py"
-  },
+  "generated_at": "2025-11-15T23:45:17.475529Z",
   "stories": [
     {
-      "name": "crud:book:det:1:1",
-      "js": "// ---- crud:book:det:1:1 ----\nbthread(\"crud:book:det:1:1\", function() {\n  const id = uniqueId(\"book\");\n  verifyBookDoesNotExist(id);\n  createBook(id, seedBook());\n  verifyBookExists(id);\n});\n"
+      "name": "CRUD_book",
+      "entity": "book",
+      "steps": []
     },
     {
-      "name": "crud:book:det:2:1",
-      "js": "// ---- crud:book:det:2:1 ----\nbthread(\"crud:book:det:2:1\", function() {\n  const id = uniqueId(\"book\");\n  createBook(id, seedBook());\n  updateBook(id, patchBook());\n  verifyBookUpdated(id);\n});\n"
+      "name": "CRUD_hold",
+      "entity": "hold",
+      "steps": []
     },
     {
-      "name": "crud:book:det:3:1",
-      "js": "// ---- crud:book:det:3:1 ----\nbthread(\"crud:book:det:3:1\", function() {\n  const id = uniqueId(\"book\");\n  createBook(id, seedBook());\n  deleteBook(id);\n  verifyBookDoesNotExist(id);\n});\n"
+      "name": "CRUD_loan",
+      "entity": "loan",
+      "steps": []
     },
     {
-      "name": "crud:hold:det:1:2",
-      "js": "// ---- crud:hold:det:1:2 ----\nbthread(\"crud:hold:det:1:2\", function() {\n  const id = uniqueId(\"hold\");\n  verifyHoldDoesNotExist(id);\n  createHold(id, seedHold());\n  verifyHoldExists(id);\n});\n"
-    },
-    {
-      "name": "crud:hold:det:2:2",
-      "js": "// ---- crud:hold:det:2:2 ----\nbthread(\"crud:hold:det:2:2\", function() {\n  const id = uniqueId(\"hold\");\n  createHold(id, seedHold());\n  updateHold(id, patchHold());\n  verifyHoldUpdated(id);\n});\n"
-    },
-    {
-      "name": "crud:hold:det:3:2",
-      "js": "// ---- crud:hold:det:3:2 ----\nbthread(\"crud:hold:det:3:2\", function() {\n  const id = uniqueId(\"hold\");\n  createHold(id, seedHold());\n  deleteHold(id);\n  verifyHoldDoesNotExist(id);\n});\n"
-    },
-    {
-      "name": "crud:loan:det:1:3",
-      "js": "// ---- crud:loan:det:1:3 ----\nbthread(\"crud:loan:det:1:3\", function() {\n  const id = uniqueId(\"loan\");\n  verifyLoanDoesNotExist(id);\n  createLoan(id, seedLoan());\n  verifyLoanExists(id);\n});\n"
-    },
-    {
-      "name": "crud:loan:det:2:3",
-      "js": "// ---- crud:loan:det:2:3 ----\nbthread(\"crud:loan:det:2:3\", function() {\n  const id = uniqueId(\"loan\");\n  createLoan(id, seedLoan());\n  updateLoan(id, patchLoan());\n  verifyLoanUpdated(id);\n});\n"
-    },
-    {
-      "name": "crud:loan:det:3:3",
-      "js": "// ---- crud:loan:det:3:3 ----\nbthread(\"crud:loan:det:3:3\", function() {\n  const id = uniqueId(\"loan\");\n  createLoan(id, seedLoan());\n  deleteLoan(id);\n  verifyLoanDoesNotExist(id);\n});\n"
-    },
-    {
-      "name": "crud:user:det:1:4",
-      "js": "// ---- crud:user:det:1:4 ----\nbthread(\"crud:user:det:1:4\", function() {\n  const id = uniqueId(\"user\");\n  verifyUserDoesNotExist(id);\n  createUser(id, seedUser());\n  verifyUserExists(id);\n});\n"
-    },
-    {
-      "name": "crud:user:det:2:4",
-      "js": "// ---- crud:user:det:2:4 ----\nbthread(\"crud:user:det:2:4\", function() {\n  const id = uniqueId(\"user\");\n  createUser(id, seedUser());\n  updateUser(id, patchUser());\n  verifyUserUpdated(id);\n});\n"
-    },
-    {
-      "name": "crud:user:det:3:4",
-      "js": "// ---- crud:user:det:3:4 ----\nbthread(\"crud:user:det:3:4\", function() {\n  const id = uniqueId(\"user\");\n  createUser(id, seedUser());\n  deleteUser(id);\n  verifyUserDoesNotExist(id);\n});\n"
+      "name": "CRUD_user",
+      "entity": "user",
+      "steps": []
     }
-  ],
-  "stories_js": "// ---- crud:book:det:1:1 ----\nbthread(\"crud:book:det:1:1\", function() {\n  const id = uniqueId(\"book\");\n  verifyBookDoesNotExist(id);\n  createBook(id, seedBook());\n  verifyBookExists(id);\n});\n\n// ---- crud:book:det:2:1 ----\nbthread(\"crud:book:det:2:1\", function() {\n  const id = uniqueId(\"book\");\n  createBook(id, seedBook());\n  updateBook(id, patchBook());\n  verifyBookUpdated(id);\n});\n\n// ---- crud:book:det:3:1 ----\nbthread(\"crud:book:det:3:1\", function() {\n  const id = uniqueId(\"book\");\n  createBook(id, seedBook());\n  deleteBook(id);\n  verifyBookDoesNotExist(id);\n});\n\n// ---- crud:hold:det:1:2 ----\nbthread(\"crud:hold:det:1:2\", function() {\n  const id = uniqueId(\"hold\");\n  verifyHoldDoesNotExist(id);\n  createHold(id, seedHold());\n  verifyHoldExists(id);\n});\n\n// ---- crud:hold:det:2:2 ----\nbthread(\"crud:hold:det:2:2\", function() {\n  const id = uniqueId(\"hold\");\n  createHold(id, seedHold());\n  updateHold(id, patchHold());\n  verifyHoldUpdated(id);\n});\n\n// ---- crud:hold:det:3:2 ----\nbthread(\"crud:hold:det:3:2\", function() {\n  const id = uniqueId(\"hold\");\n  createHold(id, seedHold());\n  deleteHold(id);\n  verifyHoldDoesNotExist(id);\n});\n\n// ---- crud:loan:det:1:3 ----\nbthread(\"crud:loan:det:1:3\", function() {\n  const id = uniqueId(\"loan\");\n  verifyLoanDoesNotExist(id);\n  createLoan(id, seedLoan());\n  verifyLoanExists(id);\n});\n\n// ---- crud:loan:det:2:3 ----\nbthread(\"crud:loan:det:2:3\", function() {\n  const id = uniqueId(\"loan\");\n  createLoan(id, seedLoan());\n  updateLoan(id, patchLoan());\n  verifyLoanUpdated(id);\n});\n\n// ---- crud:loan:det:3:3 ----\nbthread(\"crud:loan:det:3:3\", function() {\n  const id = uniqueId(\"loan\");\n  createLoan(id, seedLoan());\n  deleteLoan(id);\n  verifyLoanDoesNotExist(id);\n});\n\n// ---- crud:user:det:1:4 ----\nbthread(\"crud:user:det:1:4\", function() {\n  const id = uniqueId(\"user\");\n  verifyUserDoesNotExist(id);\n  createUser(id, seedUser());\n  verifyUserExists(id);\n});\n\n// ---- crud:user:det:2:4 ----\nbthread(\"crud:user:det:2:4\", function() {\n  const id = uniqueId(\"user\");\n  createUser(id, seedUser());\n  updateUser(id, patchUser());\n  verifyUserUpdated(id);\n});\n\n// ---- crud:user:det:3:4 ----\nbthread(\"crud:user:det:3:4\", function() {\n  const id = uniqueId(\"user\");\n  createUser(id, seedUser());\n  deleteUser(id);\n  verifyUserDoesNotExist(id);\n});\n"
+  ]
 }

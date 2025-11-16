@@ -6,7 +6,7 @@
       "operationId": "searchCode",
       "summary": "",
       "user": "developer123",
-      "ideal": "Search for code snippets containing the term 'authentication' in public repositories."
+      "ideal": "Search for code snippets containing 'authentication' in a specific repository."
     },
     {
       "path": "/search/commits",
@@ -14,15 +14,15 @@
       "operationId": "searchCommits",
       "summary": "",
       "user": "codeHistorian",
-      "ideal": "Find commits that mention 'bug fix' in the last month."
+      "ideal": "Retrieve commits related to the 'feature/login' branch in a repository."
     },
     {
       "path": "/search/issues",
       "method": "GET",
       "operationId": "searchIssues",
       "summary": "",
-      "user": "issueTracker",
-      "ideal": "Retrieve open issues related to 'performance' in the repository 'octocat/Hello-World'."
+      "user": "bugHunter",
+      "ideal": "Find open issues in a repository that are labeled 'bug'."
     },
     {
       "path": "/search/labels",
@@ -30,7 +30,7 @@
       "operationId": "searchLabels",
       "summary": "",
       "user": "labelMaster",
-      "ideal": "List all labels in the repository 'octocat/Hello-World'."
+      "ideal": "List all labels in a specific repository."
     },
     {
       "path": "/search/repositories",
@@ -38,14 +38,14 @@
       "operationId": "searchRepositories",
       "summary": "",
       "user": "repoExplorer",
-      "ideal": "Search for repositories with the topic 'machine-learning'."
+      "ideal": "Search for repositories related to 'machine learning'."
     },
     {
       "path": "/search/topics",
       "method": "GET",
       "operationId": "searchTopics",
       "summary": "",
-      "user": "topicSeeker",
+      "user": "topicTracker",
       "ideal": "Get topics related to 'web development'."
     },
     {
@@ -54,7 +54,7 @@
       "operationId": "searchUsers",
       "summary": "",
       "user": "userFinder",
-      "ideal": "Find GitHub users with the name 'Alice'."
+      "ideal": "Search for GitHub users with the username 'johnDoe'."
     }
   ]
 }

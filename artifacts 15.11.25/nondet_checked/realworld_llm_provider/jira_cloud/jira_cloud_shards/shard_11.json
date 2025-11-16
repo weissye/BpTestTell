@@ -1,0 +1,63 @@
+{
+  "openapi_meta": {
+    "title": "The Jira Cloud platform REST API",
+    "version": "1001.0.0-SNAPSHOT-d360dc74b4499acf9adc518f06e5bc933a67b4b8"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/rest/api/3/filter/defaultShareScope",
+      "method": "GET",
+      "tags": [
+        "Filter sharing"
+      ],
+      "summary": "Get default share scope",
+      "operationId": "getDefaultShareScope"
+    },
+    {
+      "path": "/rest/api/3/filter/defaultShareScope",
+      "method": "PUT",
+      "tags": [
+        "Filter sharing"
+      ],
+      "summary": "Set default share scope",
+      "operationId": "setDefaultShareScope"
+    },
+    {
+      "path": "/rest/api/3/filter/{id}/permission",
+      "method": "GET",
+      "tags": [
+        "Filter sharing"
+      ],
+      "summary": "Get share permissions",
+      "operationId": "getSharePermissions"
+    },
+    {
+      "path": "/rest/api/3/filter/{id}/permission",
+      "method": "POST",
+      "tags": [
+        "Filter sharing"
+      ],
+      "summary": "Add share permission",
+      "operationId": "addSharePermission"
+    },
+    {
+      "path": "/rest/api/3/filter/{id}/permission/{permissionId}",
+      "method": "DELETE",
+      "tags": [
+        "Filter sharing"
+      ],
+      "summary": "Delete share permission",
+      "operationId": "deleteSharePermission"
+    },
+    {
+      "path": "/rest/api/3/filter/{id}/permission/{permissionId}",
+      "method": "GET",
+      "tags": [
+        "Filter sharing"
+      ],
+      "summary": "Get share permission",
+      "operationId": "getSharePermission"
+    }
+  ]
+}

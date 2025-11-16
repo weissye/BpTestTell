@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "DELETE",
+      "path": "/default_streams"
+    },
+    {
+      "method": "POST",
+      "path": "/messages"
+    },
+    {
+      "method": "POST",
+      "path": "/realm/emoji/{emoji_name}"
+    },
+    {
+      "method": "GET",
+      "path": "/scheduled_messages"
+    },
+    {
+      "method": "POST",
+      "path": "/user_uploads"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{email}"
+    }
+  ]
+}

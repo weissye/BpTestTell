@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Twilio - Api",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Trigger"
+      ],
+      "summary": "Fetch and instance of a usage-trigger",
+      "operationId": "FetchUsageTrigger"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Trigger"
+      ],
+      "summary": "Update an instance of a usage trigger",
+      "operationId": "UpdateUsageTrigger"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "method": "DELETE",
+      "tags": [
+        "Api20100401Trigger"
+      ],
+      "summary": "",
+      "operationId": "DeleteUsageTrigger"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+      "method": "POST",
+      "tags": [
+        "Api20100401Trigger"
+      ],
+      "summary": "Create a new UsageTrigger",
+      "operationId": "CreateUsageTrigger"
+    },
+    {
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+      "method": "GET",
+      "tags": [
+        "Api20100401Trigger"
+      ],
+      "summary": "Retrieve a list of usage-triggers belonging to the account used to make the request",
+      "operationId": "ListUsageTrigger"
+    }
+  ]
+}

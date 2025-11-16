@@ -1,0 +1,56 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/actions/{idAction}/organization"
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/labelNames/purple"
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/{idBoard}/myPrefs/showListGuide"
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}"
+    },
+    {
+      "method": "PUT",
+      "path": "/cards/{idCard}/due"
+    },
+    {
+      "method": "GET",
+      "path": "/cards/{idCard}/stickers/{idSticker}"
+    },
+    {
+      "method": "GET",
+      "path": "/labels/{idLabel}/board"
+    },
+    {
+      "method": "POST",
+      "path": "/members/{idMember}/avatar"
+    },
+    {
+      "method": "GET",
+      "path": "/members/{idMember}/customBoardBackgrounds/{idBoardBackground}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/members/{idMember}/savedSearches/{idSavedSearch}"
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/{idNotification}/organization"
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{idOrg}/membersInvited"
+    },
+    {
+      "method": "DELETE",
+      "path": "/tokens/{token}"
+    }
+  ]
+}

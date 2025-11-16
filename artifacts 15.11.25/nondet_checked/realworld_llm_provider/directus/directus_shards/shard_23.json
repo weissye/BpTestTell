@@ -1,0 +1,99 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/versions",
+      "method": "GET",
+      "tags": [
+        "Versions"
+      ],
+      "summary": "List Content Versions",
+      "operationId": "getContentVersions"
+    },
+    {
+      "path": "/versions",
+      "method": "POST",
+      "tags": [
+        "Versions"
+      ],
+      "summary": "Create Multiple Content Versions",
+      "operationId": "createContentVersion"
+    },
+    {
+      "path": "/versions",
+      "method": "PATCH",
+      "tags": [
+        "Versions"
+      ],
+      "summary": "Update Multiple Content Versions",
+      "operationId": "updateContentVersions"
+    },
+    {
+      "path": "/versions",
+      "method": "DELETE",
+      "tags": [
+        "Versions"
+      ],
+      "summary": "Delete Multiple Content Versions",
+      "operationId": "deleteContentVersions"
+    },
+    {
+      "path": "/versions/{id}",
+      "method": "GET",
+      "tags": [
+        "Versions"
+      ],
+      "summary": "Retrieve a Content Version",
+      "operationId": "getContentVersion"
+    },
+    {
+      "path": "/versions/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Versions"
+      ],
+      "summary": "Update a Content Version",
+      "operationId": "updateContentVersion"
+    },
+    {
+      "path": "/versions/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Versions"
+      ],
+      "summary": "Delete a Content Version",
+      "operationId": "deleteContentVersion"
+    },
+    {
+      "path": "/versions/{id}/save",
+      "method": "POST",
+      "tags": [
+        "Versions"
+      ],
+      "summary": "Save to a Content Version",
+      "operationId": "saveContentVersion"
+    },
+    {
+      "path": "/versions/{id}/compare",
+      "method": "GET",
+      "tags": [
+        "Versions"
+      ],
+      "summary": "Compare a Content Version",
+      "operationId": "compareContentVersion"
+    },
+    {
+      "path": "/versions/{id}/promote",
+      "method": "POST",
+      "tags": [
+        "Versions"
+      ],
+      "summary": "Promote a Content Version",
+      "operationId": "promoteContentVersion"
+    }
+  ]
+}

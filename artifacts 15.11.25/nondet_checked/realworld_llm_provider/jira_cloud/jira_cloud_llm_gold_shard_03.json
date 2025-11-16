@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/atlassian-connect/1/migration/field",
+      "method": "PUT",
+      "operationId": "AppIssueFieldValueUpdateResource.updateIssueFields_put",
+      "summary": "",
+      "user": "User A is updating the issue fields for a project migration. They want to ensure that all custom fields are correctly mapped to the new system.",
+      "ideal": "The request should successfully update the specified issue fields, returning a 200 OK status with the updated field values."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/migration/properties/{entityType}",
+      "method": "PUT",
+      "operationId": "MigrationResource.updateEntityPropertiesValue_put",
+      "summary": "",
+      "user": "User B is migrating properties for a specific entity type. They need to update the configuration settings to match the new environment.",
+      "ideal": "The request should update the properties for the specified entity type, returning a 204 No Content status to indicate success."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/migration/workflow/rule/search",
+      "method": "POST",
+      "operationId": "MigrationResource.workflowRuleSearch_post",
+      "summary": "",
+      "user": "User C is searching for specific workflow rules that need to be migrated. They want to filter the rules based on certain criteria to streamline the migration process.",
+      "ideal": "The request should return a list of matching workflow rules, with a 200 OK status and the relevant rule details in the response body."
+    }
+  ]
+}

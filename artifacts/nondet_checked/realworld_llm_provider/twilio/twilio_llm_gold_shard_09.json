@@ -6,7 +6,7 @@
       "operationId": "CreateSipAuthCallsIpAccessControlListMapping",
       "summary": "",
       "user": "User123",
-      "ideal": "Create a new IP Access Control List mapping for SIP Auth Calls."
+      "ideal": "Create a new IP Access Control List mapping for SIP authentication calls."
     },
     {
       "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Calls/IpAccessControlListMappings.json",
@@ -14,7 +14,7 @@
       "operationId": "ListSipAuthCallsIpAccessControlListMapping",
       "summary": "",
       "user": "User456",
-      "ideal": "Retrieve a list of all IP Access Control List mappings for SIP Auth Calls."
+      "ideal": "Retrieve a list of all IP Access Control List mappings for SIP authentication calls."
     },
     {
       "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Calls/IpAccessControlListMappings/ALXXXXXXXXXXXXXXXXX.json",
@@ -22,7 +22,7 @@
       "operationId": "FetchSipAuthCallsIpAccessControlListMapping",
       "summary": "",
       "user": "User789",
-      "ideal": "Fetch details of a specific IP Access Control List mapping for SIP Auth Calls."
+      "ideal": "Fetch details of a specific IP Access Control List mapping for SIP authentication calls."
     },
     {
       "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXX/Auth/Calls/IpAccessControlListMappings/ALXXXXXXXXXXXXXXXXX.json",
@@ -30,7 +30,7 @@
       "operationId": "DeleteSipAuthCallsIpAccessControlListMapping",
       "summary": "",
       "user": "User101",
-      "ideal": "Delete a specific IP Access Control List mapping for SIP Auth Calls."
+      "ideal": "Delete a specific IP Access Control List mapping for SIP authentication calls."
     }
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/health"
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/distinct-attribute"
+    },
+    {
+      "method": "DELETE",
+      "path": "/indexes/{indexUid}/settings/synonyms"
+    }
+  ]
+}

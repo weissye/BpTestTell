@@ -1,0 +1,54 @@
+{
+  "openapi_meta": {
+    "title": "Directus",
+    "version": "10"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/relations",
+      "method": "GET",
+      "tags": [
+        "Relations"
+      ],
+      "summary": "List Relations",
+      "operationId": "getRelations"
+    },
+    {
+      "path": "/relations",
+      "method": "POST",
+      "tags": [
+        "Relations"
+      ],
+      "summary": "Create a Relation",
+      "operationId": "createRelation"
+    },
+    {
+      "path": "/relations/{id}",
+      "method": "GET",
+      "tags": [
+        "Relations"
+      ],
+      "summary": "Retrieve a Relation",
+      "operationId": "getRelation"
+    },
+    {
+      "path": "/relations/{id}",
+      "method": "PATCH",
+      "tags": [
+        "Relations"
+      ],
+      "summary": "Update a Relation",
+      "operationId": "updateRelation"
+    },
+    {
+      "path": "/relations/{id}",
+      "method": "DELETE",
+      "tags": [
+        "Relations"
+      ],
+      "summary": "Delete a Relation",
+      "operationId": "deleteRelation"
+    }
+  ]
+}

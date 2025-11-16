@@ -1,7 +1,7 @@
 {
   "gold": [
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXX/Recordings.json",
       "method": "POST",
       "operationId": "CreateCallRecording",
       "summary": "",
@@ -9,36 +9,36 @@
       "ideal": "The API should return a success response with the details of the created recording."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXX/Recordings.json",
       "method": "GET",
       "operationId": "ListCallRecording",
       "summary": "",
-      "user": "User wants to retrieve a list of all recordings for a specific call to manage them effectively.",
-      "ideal": "The API should return a list of recordings associated with the specified call."
+      "user": "User needs to retrieve all recordings associated with a specific call to review them.",
+      "ideal": "The API should return a list of recordings with their details."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXX.json",
       "method": "POST",
       "operationId": "UpdateCallRecording",
       "summary": "",
-      "user": "User needs to update the metadata of a specific recording to include additional notes.",
-      "ideal": "The API should return a success response indicating that the recording has been updated."
+      "user": "User wants to update the metadata of a specific recording for better organization.",
+      "ideal": "The API should confirm the update and return the updated recording details."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXX.json",
       "method": "GET",
       "operationId": "FetchCallRecording",
       "summary": "",
-      "user": "User wants to fetch details of a specific recording to review its content and metadata.",
+      "user": "User is looking to fetch details of a specific recording to check its duration and format.",
       "ideal": "The API should return the details of the requested recording."
     },
     {
-      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXX.json",
+      "path": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXX/Recordings/REXXXXXXXXXXXXXXXXX.json",
       "method": "DELETE",
       "operationId": "DeleteCallRecording",
       "summary": "",
-      "user": "User wishes to delete a specific recording that is no longer needed to free up storage.",
-      "ideal": "The API should return a success response confirming the deletion of the recording."
+      "user": "User wants to delete a specific recording that is no longer needed to free up storage.",
+      "ideal": "The API should confirm the deletion of the recording."
     }
   ]
 }

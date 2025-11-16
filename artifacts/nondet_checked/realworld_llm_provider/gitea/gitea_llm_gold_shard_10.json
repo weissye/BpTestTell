@@ -6,7 +6,7 @@
       "operationId": "userGetCurrent",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Retrieve the current user's information."
+      "ideal": "Retrieve the current authenticated user's information."
     },
     {
       "path": "/user/actions/runners/registration-token",
@@ -57,20 +57,12 @@
       "ideal": "Delete the OAuth2 application with ID 123."
     },
     {
-      "path": "/user/avatar",
-      "method": "POST",
-      "operationId": "userUpdateAvatar",
-      "summary": "",
-      "user": "john_doe",
-      "ideal": "Update the user's avatar."
-    },
-    {
       "path": "/user/blocks",
       "method": "GET",
       "operationId": "userListBlocks",
       "summary": "",
       "user": "john_doe",
-      "ideal": "List all users blocked by the current user."
+      "ideal": "Retrieve a list of users blocked by the current user."
     },
     {
       "path": "/user/emails",
@@ -79,30 +71,6 @@
       "summary": "",
       "user": "john_doe",
       "ideal": "Add a new email address to the user's account."
-    },
-    {
-      "path": "/user/following/jane_doe",
-      "method": "PUT",
-      "operationId": "userCurrentPutFollow",
-      "summary": "",
-      "user": "john_doe",
-      "ideal": "Follow the user 'jane_doe'."
-    },
-    {
-      "path": "/user/gpg_keys",
-      "method": "POST",
-      "operationId": "userCurrentPostGPGKey",
-      "summary": "",
-      "user": "john_doe",
-      "ideal": "Add a new GPG key for the user."
-    },
-    {
-      "path": "/user/hooks",
-      "method": "POST",
-      "operationId": "userCreateHook",
-      "summary": "",
-      "user": "john_doe",
-      "ideal": "Create a new webhook for the user's repository."
     },
     {
       "path": "/user/repos",
@@ -118,15 +86,7 @@
       "operationId": "updateUserSettings",
       "summary": "",
       "user": "john_doe",
-      "ideal": "Update the user's settings."
-    },
-    {
-      "path": "/user/starred",
-      "method": "GET",
-      "operationId": "userCurrentListStarred",
-      "summary": "",
-      "user": "john_doe",
-      "ideal": "List all repositories starred by the user."
+      "ideal": "Update the settings for the current user."
     },
     {
       "path": "/users/jane_doe",
@@ -137,12 +97,28 @@
       "ideal": "Retrieve information about the user 'jane_doe'."
     },
     {
+      "path": "/users/jane_doe/followers",
+      "method": "GET",
+      "operationId": "userListFollowers",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all followers of the user 'jane_doe'."
+    },
+    {
       "path": "/users/jane_doe/repos",
       "method": "GET",
       "operationId": "userListRepos",
       "summary": "",
       "user": "john_doe",
       "ideal": "List all repositories owned by 'jane_doe'."
+    },
+    {
+      "path": "/users/jane_doe/starred",
+      "method": "GET",
+      "operationId": "userListStarred",
+      "summary": "",
+      "user": "john_doe",
+      "ideal": "List all repositories starred by 'jane_doe'."
     }
   ]
 }

@@ -1,0 +1,8694 @@
+{
+  "entities": [
+    {
+      "name": "api.v2010.account",
+      "required": [],
+      "properties": [
+        "auth_token",
+        "date_created",
+        "date_updated",
+        "friendly_name",
+        "owner_account_sid",
+        "sid",
+        "status",
+        "subresource_uris",
+        "type",
+        "uri"
+      ]
+    },
+    {
+      "name": "account_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "account_enum_type",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.address",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "city",
+        "customer_name",
+        "date_created",
+        "date_updated",
+        "friendly_name",
+        "iso_country",
+        "postal_code",
+        "region",
+        "sid",
+        "street",
+        "uri",
+        "emergency_enabled",
+        "validated",
+        "verified",
+        "street_secondary"
+      ]
+    },
+    {
+      "name": "api.v2010.account.application",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "date_created",
+        "date_updated",
+        "friendly_name",
+        "message_status_callback",
+        "sid",
+        "sms_fallback_method",
+        "sms_fallback_url",
+        "sms_method",
+        "sms_status_callback",
+        "sms_url",
+        "status_callback",
+        "status_callback_method",
+        "uri",
+        "voice_caller_id_lookup",
+        "voice_fallback_method",
+        "voice_fallback_url",
+        "voice_method",
+        "voice_url",
+        "public_application_connect_enabled"
+      ]
+    },
+    {
+      "name": "api.v2010.account.authorized_connect_app",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "connect_app_company_name",
+        "connect_app_description",
+        "connect_app_friendly_name",
+        "connect_app_homepage_url",
+        "connect_app_sid",
+        "permissions",
+        "uri"
+      ]
+    },
+    {
+      "name": "authorized_connect_app_enum_permission",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.available_phone_number_country",
+      "required": [],
+      "properties": [
+        "country_code",
+        "country",
+        "uri",
+        "beta",
+        "subresource_uris"
+      ]
+    },
+    {
+      "name": "api.v2010.account.available_phone_number_country.available_phone_number_local",
+      "required": [],
+      "properties": [
+        "friendly_name",
+        "phone_number",
+        "lata",
+        "locality",
+        "rate_center",
+        "latitude",
+        "longitude",
+        "region",
+        "postal_code",
+        "iso_country",
+        "address_requirements",
+        "beta",
+        "capabilities"
+      ]
+    },
+    {
+      "name": "api.v2010.account.available_phone_number_country.available_phone_number_machine_to_machine",
+      "required": [],
+      "properties": [
+        "friendly_name",
+        "phone_number",
+        "lata",
+        "locality",
+        "rate_center",
+        "latitude",
+        "longitude",
+        "region",
+        "postal_code",
+        "iso_country",
+        "address_requirements",
+        "beta",
+        "capabilities"
+      ]
+    },
+    {
+      "name": "api.v2010.account.available_phone_number_country.available_phone_number_mobile",
+      "required": [],
+      "properties": [
+        "friendly_name",
+        "phone_number",
+        "lata",
+        "locality",
+        "rate_center",
+        "latitude",
+        "longitude",
+        "region",
+        "postal_code",
+        "iso_country",
+        "address_requirements",
+        "beta",
+        "capabilities"
+      ]
+    },
+    {
+      "name": "api.v2010.account.available_phone_number_country.available_phone_number_national",
+      "required": [],
+      "properties": [
+        "friendly_name",
+        "phone_number",
+        "lata",
+        "locality",
+        "rate_center",
+        "latitude",
+        "longitude",
+        "region",
+        "postal_code",
+        "iso_country",
+        "address_requirements",
+        "beta",
+        "capabilities"
+      ]
+    },
+    {
+      "name": "api.v2010.account.available_phone_number_country.available_phone_number_shared_cost",
+      "required": [],
+      "properties": [
+        "friendly_name",
+        "phone_number",
+        "lata",
+        "locality",
+        "rate_center",
+        "latitude",
+        "longitude",
+        "region",
+        "postal_code",
+        "iso_country",
+        "address_requirements",
+        "beta",
+        "capabilities"
+      ]
+    },
+    {
+      "name": "api.v2010.account.available_phone_number_country.available_phone_number_toll_free",
+      "required": [],
+      "properties": [
+        "friendly_name",
+        "phone_number",
+        "lata",
+        "locality",
+        "rate_center",
+        "latitude",
+        "longitude",
+        "region",
+        "postal_code",
+        "iso_country",
+        "address_requirements",
+        "beta",
+        "capabilities"
+      ]
+    },
+    {
+      "name": "api.v2010.account.available_phone_number_country.available_phone_number_voip",
+      "required": [],
+      "properties": [
+        "friendly_name",
+        "phone_number",
+        "lata",
+        "locality",
+        "rate_center",
+        "latitude",
+        "longitude",
+        "region",
+        "postal_code",
+        "iso_country",
+        "address_requirements",
+        "beta",
+        "capabilities"
+      ]
+    },
+    {
+      "name": "api.v2010.account.balance",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "balance",
+        "currency"
+      ]
+    },
+    {
+      "name": "api.v2010.account.call",
+      "required": [],
+      "properties": [
+        "sid",
+        "date_created",
+        "date_updated",
+        "parent_call_sid",
+        "account_sid",
+        "to",
+        "to_formatted",
+        "from",
+        "from_formatted",
+        "phone_number_sid",
+        "status",
+        "start_time",
+        "end_time",
+        "duration",
+        "price",
+        "price_unit",
+        "direction",
+        "answered_by",
+        "api_version",
+        "forwarded_from",
+        "group_sid",
+        "caller_name",
+        "queue_time",
+        "trunk_sid",
+        "uri",
+        "subresource_uris"
+      ]
+    },
+    {
+      "name": "call_enum_event",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "call_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "call_enum_update_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.call.call_event",
+      "required": [],
+      "properties": [
+        "request",
+        "response"
+      ]
+    },
+    {
+      "name": "api.v2010.account.call.call_notification",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "call_sid",
+        "date_created",
+        "date_updated",
+        "error_code",
+        "log",
+        "message_date",
+        "message_text",
+        "more_info",
+        "request_method",
+        "request_url",
+        "sid",
+        "uri"
+      ]
+    },
+    {
+      "name": "api.v2010.account.call.call_notification-instance",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "call_sid",
+        "date_created",
+        "date_updated",
+        "error_code",
+        "log",
+        "message_date",
+        "message_text",
+        "more_info",
+        "request_method",
+        "request_url",
+        "request_variables",
+        "response_body",
+        "response_headers",
+        "sid",
+        "uri"
+      ]
+    },
+    {
+      "name": "api.v2010.account.call.call_recording",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "call_sid",
+        "conference_sid",
+        "date_created",
+        "date_updated",
+        "start_time",
+        "duration",
+        "sid",
+        "price",
+        "uri",
+        "encryption_details",
+        "price_unit",
+        "status",
+        "channels",
+        "source",
+        "error_code",
+        "track"
+      ]
+    },
+    {
+      "name": "call_recording_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "call_recording_enum_source",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.conference",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "date_created",
+        "date_updated",
+        "api_version",
+        "friendly_name",
+        "region",
+        "sid",
+        "status",
+        "uri",
+        "subresource_uris",
+        "reason_conference_ended",
+        "call_sid_ending_conference"
+      ]
+    },
+    {
+      "name": "conference_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "conference_enum_update_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "conference_enum_reason_conference_ended",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.conference.conference_recording",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "call_sid",
+        "conference_sid",
+        "date_created",
+        "date_updated",
+        "start_time",
+        "duration",
+        "sid",
+        "price",
+        "price_unit",
+        "status",
+        "channels",
+        "source",
+        "error_code",
+        "encryption_details",
+        "uri"
+      ]
+    },
+    {
+      "name": "conference_recording_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "conference_recording_enum_source",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.connect_app",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "authorize_redirect_url",
+        "company_name",
+        "deauthorize_callback_method",
+        "deauthorize_callback_url",
+        "description",
+        "friendly_name",
+        "homepage_url",
+        "permissions",
+        "sid",
+        "uri"
+      ]
+    },
+    {
+      "name": "connect_app_enum_permission",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.address.dependent_phone_number",
+      "required": [],
+      "properties": [
+        "sid",
+        "account_sid",
+        "friendly_name",
+        "phone_number",
+        "voice_url",
+        "voice_method",
+        "voice_fallback_method",
+        "voice_fallback_url",
+        "voice_caller_id_lookup",
+        "date_created",
+        "date_updated",
+        "sms_fallback_method",
+        "sms_fallback_url",
+        "sms_method",
+        "sms_url",
+        "address_requirements",
+        "capabilities",
+        "status_callback",
+        "status_callback_method",
+        "api_version",
+        "sms_application_sid",
+        "voice_application_sid",
+        "trunk_sid",
+        "emergency_status",
+        "emergency_address_sid",
+        "uri"
+      ]
+    },
+    {
+      "name": "dependent_phone_number_enum_address_requirement",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "dependent_phone_number_enum_emergency_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.incoming_phone_number",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "address_sid",
+        "address_requirements",
+        "api_version",
+        "beta",
+        "capabilities",
+        "date_created",
+        "date_updated",
+        "friendly_name",
+        "identity_sid",
+        "phone_number",
+        "origin",
+        "sid",
+        "sms_application_sid",
+        "sms_fallback_method",
+        "sms_fallback_url",
+        "sms_method",
+        "sms_url",
+        "status_callback",
+        "status_callback_method",
+        "trunk_sid",
+        "uri",
+        "voice_receive_mode",
+        "voice_application_sid",
+        "voice_caller_id_lookup",
+        "voice_fallback_method",
+        "voice_fallback_url",
+        "voice_method",
+        "voice_url",
+        "emergency_status",
+        "emergency_address_sid",
+        "emergency_address_status",
+        "bundle_sid",
+        "status"
+      ]
+    },
+    {
+      "name": "incoming_phone_number_enum_address_requirement",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "incoming_phone_number_enum_emergency_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "incoming_phone_number_enum_emergency_address_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "incoming_phone_number_enum_voice_receive_mode",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on",
+      "required": [],
+      "properties": [
+        "sid",
+        "account_sid",
+        "resource_sid",
+        "friendly_name",
+        "description",
+        "configuration",
+        "unique_name",
+        "date_created",
+        "date_updated",
+        "uri",
+        "subresource_uris"
+      ]
+    },
+    {
+      "name": "api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on.incoming_phone_number_assigned_add_on_extension",
+      "required": [],
+      "properties": [
+        "sid",
+        "account_sid",
+        "resource_sid",
+        "assigned_add_on_sid",
+        "friendly_name",
+        "product_name",
+        "unique_name",
+        "uri",
+        "enabled"
+      ]
+    },
+    {
+      "name": "api.v2010.account.incoming_phone_number.incoming_phone_number_local",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "address_sid",
+        "address_requirements",
+        "api_version",
+        "beta",
+        "capabilities",
+        "date_created",
+        "date_updated",
+        "friendly_name",
+        "identity_sid",
+        "phone_number",
+        "origin",
+        "sid",
+        "sms_application_sid",
+        "sms_fallback_method",
+        "sms_fallback_url",
+        "sms_method",
+        "sms_url",
+        "status_callback",
+        "status_callback_method",
+        "trunk_sid",
+        "uri",
+        "voice_receive_mode",
+        "voice_application_sid",
+        "voice_caller_id_lookup",
+        "voice_fallback_method",
+        "voice_fallback_url",
+        "voice_method",
+        "voice_url",
+        "emergency_status",
+        "emergency_address_sid",
+        "emergency_address_status",
+        "bundle_sid",
+        "status"
+      ]
+    },
+    {
+      "name": "incoming_phone_number_local_enum_address_requirement",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "incoming_phone_number_local_enum_emergency_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "incoming_phone_number_local_enum_emergency_address_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "incoming_phone_number_local_enum_voice_receive_mode",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.incoming_phone_number.incoming_phone_number_mobile",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "address_sid",
+        "address_requirements",
+        "api_version",
+        "beta",
+        "capabilities",
+        "date_created",
+        "date_updated",
+        "friendly_name",
+        "identity_sid",
+        "phone_number",
+        "origin",
+        "sid",
+        "sms_application_sid",
+        "sms_fallback_method",
+        "sms_fallback_url",
+        "sms_method",
+        "sms_url",
+        "status_callback",
+        "status_callback_method",
+        "trunk_sid",
+        "uri",
+        "voice_receive_mode",
+        "voice_application_sid",
+        "voice_caller_id_lookup",
+        "voice_fallback_method",
+        "voice_fallback_url",
+        "voice_method",
+        "voice_url",
+        "emergency_status",
+        "emergency_address_sid",
+        "emergency_address_status",
+        "bundle_sid",
+        "status"
+      ]
+    },
+    {
+      "name": "incoming_phone_number_mobile_enum_address_requirement",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "incoming_phone_number_mobile_enum_emergency_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "incoming_phone_number_mobile_enum_emergency_address_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "incoming_phone_number_mobile_enum_voice_receive_mode",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.incoming_phone_number.incoming_phone_number_toll_free",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "address_sid",
+        "address_requirements",
+        "api_version",
+        "beta",
+        "capabilities",
+        "date_created",
+        "date_updated",
+        "friendly_name",
+        "identity_sid",
+        "phone_number",
+        "origin",
+        "sid",
+        "sms_application_sid",
+        "sms_fallback_method",
+        "sms_fallback_url",
+        "sms_method",
+        "sms_url",
+        "status_callback",
+        "status_callback_method",
+        "trunk_sid",
+        "uri",
+        "voice_receive_mode",
+        "voice_application_sid",
+        "voice_caller_id_lookup",
+        "voice_fallback_method",
+        "voice_fallback_url",
+        "voice_method",
+        "voice_url",
+        "emergency_status",
+        "emergency_address_sid",
+        "emergency_address_status",
+        "bundle_sid",
+        "status"
+      ]
+    },
+    {
+      "name": "incoming_phone_number_toll_free_enum_address_requirement",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "incoming_phone_number_toll_free_enum_emergency_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "incoming_phone_number_toll_free_enum_emergency_address_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "incoming_phone_number_toll_free_enum_voice_receive_mode",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.key",
+      "required": [],
+      "properties": [
+        "sid",
+        "friendly_name",
+        "date_created",
+        "date_updated"
+      ]
+    },
+    {
+      "name": "api.v2010.account.message.media",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "content_type",
+        "date_created",
+        "date_updated",
+        "parent_sid",
+        "sid",
+        "uri"
+      ]
+    },
+    {
+      "name": "api.v2010.account.queue.member",
+      "required": [],
+      "properties": [
+        "call_sid",
+        "date_enqueued",
+        "position",
+        "uri",
+        "wait_time",
+        "queue_sid"
+      ]
+    },
+    {
+      "name": "api.v2010.account.message",
+      "required": [],
+      "properties": [
+        "body",
+        "num_segments",
+        "direction",
+        "from",
+        "to",
+        "date_updated",
+        "price",
+        "error_message",
+        "uri",
+        "account_sid",
+        "num_media",
+        "status",
+        "messaging_service_sid",
+        "sid",
+        "date_sent",
+        "date_created",
+        "error_code",
+        "price_unit",
+        "api_version",
+        "subresource_uris"
+      ]
+    },
+    {
+      "name": "message_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "message_enum_update_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "message_enum_direction",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "message_enum_content_retention",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "message_enum_address_retention",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "message_enum_traffic_type",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "message_enum_schedule_type",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "message_enum_risk_check",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.message.message_feedback",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "message_sid",
+        "outcome",
+        "date_created",
+        "date_updated",
+        "uri"
+      ]
+    },
+    {
+      "name": "message_feedback_enum_outcome",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.new_key",
+      "required": [],
+      "properties": [
+        "sid",
+        "friendly_name",
+        "date_created",
+        "date_updated",
+        "secret"
+      ]
+    },
+    {
+      "name": "api.v2010.account.new_signing_key",
+      "required": [],
+      "properties": [
+        "sid",
+        "friendly_name",
+        "date_created",
+        "date_updated",
+        "secret"
+      ]
+    },
+    {
+      "name": "api.v2010.account.notification",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "call_sid",
+        "date_created",
+        "date_updated",
+        "error_code",
+        "log",
+        "message_date",
+        "message_text",
+        "more_info",
+        "request_method",
+        "request_url",
+        "sid",
+        "uri"
+      ]
+    },
+    {
+      "name": "api.v2010.account.notification-instance",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "call_sid",
+        "date_created",
+        "date_updated",
+        "error_code",
+        "log",
+        "message_date",
+        "message_text",
+        "more_info",
+        "request_method",
+        "request_url",
+        "request_variables",
+        "response_body",
+        "response_headers",
+        "sid",
+        "uri"
+      ]
+    },
+    {
+      "name": "api.v2010.account.outgoing_caller_id",
+      "required": [],
+      "properties": [
+        "sid",
+        "date_created",
+        "date_updated",
+        "friendly_name",
+        "account_sid",
+        "phone_number",
+        "uri"
+      ]
+    },
+    {
+      "name": "api.v2010.account.conference.participant",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "call_sid",
+        "label",
+        "call_sid_to_coach",
+        "coaching",
+        "conference_sid",
+        "date_created",
+        "date_updated",
+        "end_conference_on_exit",
+        "muted",
+        "hold",
+        "start_conference_on_enter",
+        "status",
+        "queue_time",
+        "uri"
+      ]
+    },
+    {
+      "name": "participant_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.call.payments",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "call_sid",
+        "sid",
+        "date_created",
+        "date_updated",
+        "uri"
+      ]
+    },
+    {
+      "name": "payments_enum_payment_method",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "payments_enum_bank_account_type",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "payments_enum_token_type",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "payments_enum_capture",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "payments_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.queue",
+      "required": [],
+      "properties": [
+        "date_updated",
+        "current_size",
+        "friendly_name",
+        "uri",
+        "account_sid",
+        "average_wait_time",
+        "sid",
+        "date_created",
+        "max_size"
+      ]
+    },
+    {
+      "name": "api.v2010.account.call.realtime_transcription",
+      "required": [],
+      "properties": [
+        "sid",
+        "account_sid",
+        "call_sid",
+        "name",
+        "status",
+        "date_updated",
+        "uri"
+      ]
+    },
+    {
+      "name": "realtime_transcription_enum_track",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "realtime_transcription_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "realtime_transcription_enum_update_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.recording",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "call_sid",
+        "conference_sid",
+        "date_created",
+        "date_updated",
+        "start_time",
+        "duration",
+        "sid",
+        "price",
+        "price_unit",
+        "status",
+        "channels",
+        "source",
+        "error_code",
+        "uri",
+        "encryption_details",
+        "subresource_uris",
+        "media_url"
+      ]
+    },
+    {
+      "name": "recording_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "recording_enum_source",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.recording.recording_add_on_result",
+      "required": [],
+      "properties": [
+        "sid",
+        "account_sid",
+        "status",
+        "add_on_sid",
+        "add_on_configuration_sid",
+        "date_created",
+        "date_updated",
+        "date_completed",
+        "reference_sid",
+        "subresource_uris"
+      ]
+    },
+    {
+      "name": "recording_add_on_result_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.recording.recording_add_on_result.recording_add_on_result_payload",
+      "required": [],
+      "properties": [
+        "sid",
+        "add_on_result_sid",
+        "account_sid",
+        "label",
+        "add_on_sid",
+        "add_on_configuration_sid",
+        "content_type",
+        "date_created",
+        "date_updated",
+        "reference_sid",
+        "subresource_uris"
+      ]
+    },
+    {
+      "name": "api.v2010.account.recording.recording_add_on_result.recording_add_on_result_payload.recording_add_on_result_payload_data",
+      "required": [],
+      "properties": [
+        "redirect_to"
+      ]
+    },
+    {
+      "name": "api.v2010.account.recording.recording_transcription",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "date_created",
+        "date_updated",
+        "duration",
+        "price",
+        "price_unit",
+        "recording_sid",
+        "sid",
+        "status",
+        "transcription_text",
+        "type",
+        "uri"
+      ]
+    },
+    {
+      "name": "recording_transcription_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.short_code",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "date_created",
+        "date_updated",
+        "friendly_name",
+        "short_code",
+        "sid",
+        "sms_fallback_method",
+        "sms_fallback_url",
+        "sms_method",
+        "sms_url",
+        "uri"
+      ]
+    },
+    {
+      "name": "api.v2010.account.signing_key",
+      "required": [],
+      "properties": [
+        "sid",
+        "friendly_name",
+        "date_created",
+        "date_updated"
+      ]
+    },
+    {
+      "name": "api.v2010.account.sip",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.sip.sip_domain.sip_auth",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_credential_list_mapping",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "date_created",
+        "date_updated",
+        "friendly_name",
+        "sid"
+      ]
+    },
+    {
+      "name": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_ip_access_control_list_mapping",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "date_created",
+        "date_updated",
+        "friendly_name",
+        "sid"
+      ]
+    },
+    {
+      "name": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_registrations",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_registrations.sip_auth_registrations_credential_list_mapping",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "date_created",
+        "date_updated",
+        "friendly_name",
+        "sid"
+      ]
+    },
+    {
+      "name": "api.v2010.account.sip.sip_credential_list.sip_credential",
+      "required": [],
+      "properties": [
+        "sid",
+        "account_sid",
+        "credential_list_sid",
+        "username",
+        "date_created",
+        "date_updated",
+        "uri"
+      ]
+    },
+    {
+      "name": "api.v2010.account.sip.sip_credential_list",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "date_created",
+        "date_updated",
+        "friendly_name",
+        "sid",
+        "subresource_uris",
+        "uri"
+      ]
+    },
+    {
+      "name": "api.v2010.account.sip.sip_domain.sip_credential_list_mapping",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "date_created",
+        "date_updated",
+        "domain_sid",
+        "friendly_name",
+        "sid",
+        "uri"
+      ]
+    },
+    {
+      "name": "api.v2010.account.sip.sip_domain",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "auth_type",
+        "date_created",
+        "date_updated",
+        "domain_name",
+        "friendly_name",
+        "sid",
+        "uri",
+        "voice_fallback_method",
+        "voice_fallback_url",
+        "voice_method",
+        "voice_status_callback_method",
+        "voice_status_callback_url",
+        "voice_url",
+        "subresource_uris",
+        "sip_registration",
+        "emergency_calling_enabled",
+        "secure",
+        "byoc_trunk_sid",
+        "emergency_caller_sid"
+      ]
+    },
+    {
+      "name": "api.v2010.account.sip.sip_ip_access_control_list",
+      "required": [],
+      "properties": [
+        "sid",
+        "account_sid",
+        "friendly_name",
+        "date_created",
+        "date_updated",
+        "subresource_uris",
+        "uri"
+      ]
+    },
+    {
+      "name": "api.v2010.account.sip.sip_domain.sip_ip_access_control_list_mapping",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "date_created",
+        "date_updated",
+        "domain_sid",
+        "friendly_name",
+        "sid",
+        "uri"
+      ]
+    },
+    {
+      "name": "api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address",
+      "required": [],
+      "properties": [
+        "sid",
+        "account_sid",
+        "friendly_name",
+        "ip_address",
+        "cidr_prefix_length",
+        "ip_access_control_list_sid",
+        "date_created",
+        "date_updated",
+        "uri"
+      ]
+    },
+    {
+      "name": "api.v2010.account.call.siprec",
+      "required": [],
+      "properties": [
+        "sid",
+        "account_sid",
+        "call_sid",
+        "name",
+        "status",
+        "date_updated",
+        "uri"
+      ]
+    },
+    {
+      "name": "siprec_enum_track",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "siprec_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "siprec_enum_update_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "sms_feedback_enum_outcome",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "sms_message_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "sms_message_enum_direction",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.call.stream",
+      "required": [],
+      "properties": [
+        "sid",
+        "account_sid",
+        "call_sid",
+        "name",
+        "status",
+        "date_updated",
+        "uri"
+      ]
+    },
+    {
+      "name": "stream_enum_track",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "stream_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "stream_enum_update_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.token",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "date_created",
+        "date_updated",
+        "ice_servers",
+        "password",
+        "ttl",
+        "username"
+      ]
+    },
+    {
+      "name": "api.v2010.account.transcription",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "date_created",
+        "date_updated",
+        "duration",
+        "price",
+        "price_unit",
+        "recording_sid",
+        "sid",
+        "status",
+        "transcription_text",
+        "type",
+        "uri"
+      ]
+    },
+    {
+      "name": "transcription_enum_status",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.usage",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.usage.usage_record",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "as_of",
+        "category",
+        "count",
+        "count_unit",
+        "description",
+        "end_date",
+        "price",
+        "price_unit",
+        "start_date",
+        "subresource_uris",
+        "uri",
+        "usage",
+        "usage_unit"
+      ]
+    },
+    {
+      "name": "api.v2010.account.usage.usage_record.usage_record_all_time",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "as_of",
+        "category",
+        "count",
+        "count_unit",
+        "description",
+        "end_date",
+        "price",
+        "price_unit",
+        "start_date",
+        "subresource_uris",
+        "uri",
+        "usage",
+        "usage_unit"
+      ]
+    },
+    {
+      "name": "api.v2010.account.usage.usage_record.usage_record_daily",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "as_of",
+        "category",
+        "count",
+        "count_unit",
+        "description",
+        "end_date",
+        "price",
+        "price_unit",
+        "start_date",
+        "subresource_uris",
+        "uri",
+        "usage",
+        "usage_unit"
+      ]
+    },
+    {
+      "name": "api.v2010.account.usage.usage_record.usage_record_last_month",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "as_of",
+        "category",
+        "count",
+        "count_unit",
+        "description",
+        "end_date",
+        "price",
+        "price_unit",
+        "start_date",
+        "subresource_uris",
+        "uri",
+        "usage",
+        "usage_unit"
+      ]
+    },
+    {
+      "name": "api.v2010.account.usage.usage_record.usage_record_monthly",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "as_of",
+        "category",
+        "count",
+        "count_unit",
+        "description",
+        "end_date",
+        "price",
+        "price_unit",
+        "start_date",
+        "subresource_uris",
+        "uri",
+        "usage",
+        "usage_unit"
+      ]
+    },
+    {
+      "name": "api.v2010.account.usage.usage_record.usage_record_this_month",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "as_of",
+        "category",
+        "count",
+        "count_unit",
+        "description",
+        "end_date",
+        "price",
+        "price_unit",
+        "start_date",
+        "subresource_uris",
+        "uri",
+        "usage",
+        "usage_unit"
+      ]
+    },
+    {
+      "name": "api.v2010.account.usage.usage_record.usage_record_today",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "as_of",
+        "category",
+        "count",
+        "count_unit",
+        "description",
+        "end_date",
+        "price",
+        "price_unit",
+        "start_date",
+        "subresource_uris",
+        "uri",
+        "usage",
+        "usage_unit"
+      ]
+    },
+    {
+      "name": "api.v2010.account.usage.usage_record.usage_record_yearly",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "as_of",
+        "category",
+        "count",
+        "count_unit",
+        "description",
+        "end_date",
+        "price",
+        "price_unit",
+        "start_date",
+        "subresource_uris",
+        "uri",
+        "usage",
+        "usage_unit"
+      ]
+    },
+    {
+      "name": "api.v2010.account.usage.usage_record.usage_record_yesterday",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "as_of",
+        "category",
+        "count",
+        "count_unit",
+        "description",
+        "end_date",
+        "price",
+        "price_unit",
+        "start_date",
+        "subresource_uris",
+        "uri",
+        "usage",
+        "usage_unit"
+      ]
+    },
+    {
+      "name": "api.v2010.account.usage.usage_trigger",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "api_version",
+        "callback_method",
+        "callback_url",
+        "current_value",
+        "date_created",
+        "date_fired",
+        "date_updated",
+        "friendly_name",
+        "recurring",
+        "sid",
+        "trigger_by",
+        "trigger_value",
+        "uri",
+        "usage_category",
+        "usage_record_uri"
+      ]
+    },
+    {
+      "name": "usage_trigger_enum_recurring",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "usage_trigger_enum_trigger_field",
+      "required": [],
+      "properties": []
+    },
+    {
+      "name": "api.v2010.account.call.user_defined_message",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "call_sid",
+        "sid",
+        "date_created"
+      ]
+    },
+    {
+      "name": "api.v2010.account.call.user_defined_message_subscription",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "call_sid",
+        "sid",
+        "date_created",
+        "uri"
+      ]
+    },
+    {
+      "name": "api.v2010.account.validation_request",
+      "required": [],
+      "properties": [
+        "account_sid",
+        "call_sid",
+        "friendly_name",
+        "phone_number",
+        "validation_code"
+      ]
+    }
+  ],
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts.json",
+      "operationId": "CreateAccount",
+      "tags": [
+        "Api20100401Account"
+      ],
+      "params": [],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts.json",
+      "operationId": "ListAccount",
+      "tags": [
+        "Api20100401Account"
+      ],
+      "params": [
+        {
+          "name": "FriendlyName",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Status",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "operationId": "FetchAccount",
+      "tags": [
+        "Api20100401Account"
+      ],
+      "params": [
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "operationId": "UpdateAccount",
+      "tags": [
+        "Api20100401Account"
+      ],
+      "params": [
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "operationId": "CreateAddress",
+      "tags": [
+        "Api20100401Address"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "operationId": "ListAddress",
+      "tags": [
+        "Api20100401Address"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CustomerName",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "EmergencyEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "IsoCountry",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "operationId": "DeleteAddress",
+      "tags": [
+        "Api20100401Address"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "operationId": "FetchAddress",
+      "tags": [
+        "Api20100401Address"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "operationId": "UpdateAddress",
+      "tags": [
+        "Api20100401Address"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+      "operationId": "CreateApplication",
+      "tags": [
+        "Api20100401Application"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+      "operationId": "ListApplication",
+      "tags": [
+        "Api20100401Application"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "operationId": "DeleteApplication",
+      "tags": [
+        "Api20100401Application"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "operationId": "FetchApplication",
+      "tags": [
+        "Api20100401Application"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "operationId": "UpdateApplication",
+      "tags": [
+        "Api20100401Application"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json",
+      "operationId": "FetchAuthorizedConnectApp",
+      "tags": [
+        "Api20100401AuthorizedConnectApp"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ConnectAppSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json",
+      "operationId": "ListAuthorizedConnectApp",
+      "tags": [
+        "Api20100401AuthorizedConnectApp"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json",
+      "operationId": "ListAvailablePhoneNumberCountry",
+      "tags": [
+        "Api20100401AvailablePhoneNumberCountry"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json",
+      "operationId": "FetchAvailablePhoneNumberCountry",
+      "tags": [
+        "Api20100401AvailablePhoneNumberCountry"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CountryCode",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json",
+      "operationId": "ListAvailablePhoneNumberLocal",
+      "tags": [
+        "Api20100401Local"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CountryCode",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "AreaCode",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Contains",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "SmsEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "MmsEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "VoiceEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeAllAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeLocalAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeForeignAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Beta",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "NearNumber",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "NearLatLong",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Distance",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InPostalCode",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InRegion",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InRateCenter",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InLata",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InLocality",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "FaxEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json",
+      "operationId": "ListAvailablePhoneNumberMachineToMachine",
+      "tags": [
+        "Api20100401MachineToMachine"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CountryCode",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "AreaCode",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Contains",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "SmsEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "MmsEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "VoiceEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeAllAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeLocalAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeForeignAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Beta",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "NearNumber",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "NearLatLong",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Distance",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InPostalCode",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InRegion",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InRateCenter",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InLata",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InLocality",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "FaxEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json",
+      "operationId": "ListAvailablePhoneNumberMobile",
+      "tags": [
+        "Api20100401Mobile"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CountryCode",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "AreaCode",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Contains",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "SmsEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "MmsEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "VoiceEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeAllAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeLocalAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeForeignAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Beta",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "NearNumber",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "NearLatLong",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Distance",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InPostalCode",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InRegion",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InRateCenter",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InLata",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InLocality",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "FaxEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/National.json",
+      "operationId": "ListAvailablePhoneNumberNational",
+      "tags": [
+        "Api20100401National"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CountryCode",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "AreaCode",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Contains",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "SmsEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "MmsEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "VoiceEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeAllAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeLocalAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeForeignAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Beta",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "NearNumber",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "NearLatLong",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Distance",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InPostalCode",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InRegion",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InRateCenter",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InLata",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InLocality",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "FaxEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json",
+      "operationId": "ListAvailablePhoneNumberSharedCost",
+      "tags": [
+        "Api20100401SharedCost"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CountryCode",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "AreaCode",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Contains",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "SmsEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "MmsEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "VoiceEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeAllAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeLocalAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeForeignAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Beta",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "NearNumber",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "NearLatLong",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Distance",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InPostalCode",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InRegion",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InRateCenter",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InLata",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InLocality",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "FaxEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json",
+      "operationId": "ListAvailablePhoneNumberTollFree",
+      "tags": [
+        "Api20100401TollFree"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CountryCode",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "AreaCode",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Contains",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "SmsEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "MmsEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "VoiceEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeAllAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeLocalAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeForeignAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Beta",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "NearNumber",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "NearLatLong",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Distance",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InPostalCode",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InRegion",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InRateCenter",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InLata",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InLocality",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "FaxEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json",
+      "operationId": "ListAvailablePhoneNumberVoip",
+      "tags": [
+        "Api20100401Voip"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CountryCode",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "AreaCode",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Contains",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "SmsEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "MmsEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "VoiceEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeAllAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeLocalAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ExcludeForeignAddressRequired",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Beta",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "NearNumber",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "NearLatLong",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Distance",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InPostalCode",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InRegion",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InRateCenter",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InLata",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "InLocality",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "FaxEnabled",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Balance.json",
+      "operationId": "FetchBalance",
+      "tags": [
+        "Api20100401Balance"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "operationId": "CreateCall",
+      "tags": [
+        "Api20100401Call"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "operationId": "ListCall",
+      "tags": [
+        "Api20100401Call"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "To",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "From",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ParentCallSid",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Status",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "StartTime",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "StartTime<",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "StartTime>",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "EndTime",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "EndTime<",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "EndTime>",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "operationId": "DeleteCall",
+      "tags": [
+        "Api20100401Call"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "operationId": "FetchCall",
+      "tags": [
+        "Api20100401Call"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "operationId": "UpdateCall",
+      "tags": [
+        "Api20100401Call"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json",
+      "operationId": "ListCallEvent",
+      "tags": [
+        "Api20100401Event"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json",
+      "operationId": "FetchCallNotification",
+      "tags": [
+        "Api20100401CallNotification"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json",
+      "operationId": "ListCallNotification",
+      "tags": [
+        "Api20100401CallNotification"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Log",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "MessageDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "MessageDate<",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "MessageDate>",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "operationId": "CreateCallRecording",
+      "tags": [
+        "Api20100401CallRecording"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200",
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "operationId": "ListCallRecording",
+      "tags": [
+        "Api20100401CallRecording"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateCreated<",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateCreated>",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "operationId": "UpdateCallRecording",
+      "tags": [
+        "Api20100401CallRecording"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "operationId": "FetchCallRecording",
+      "tags": [
+        "Api20100401CallRecording"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "operationId": "DeleteCallRecording",
+      "tags": [
+        "Api20100401CallRecording"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "operationId": "FetchConference",
+      "tags": [
+        "Api20100401Conference"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "operationId": "UpdateConference",
+      "tags": [
+        "Api20100401Conference"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences.json",
+      "operationId": "ListConference",
+      "tags": [
+        "Api20100401Conference"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateCreated<",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateCreated>",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateUpdated",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateUpdated<",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateUpdated>",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Status",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json",
+      "operationId": "ListConferenceRecording",
+      "tags": [
+        "Api20100401ConferenceRecording"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ConferenceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateCreated<",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateCreated>",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "operationId": "UpdateConferenceRecording",
+      "tags": [
+        "Api20100401ConferenceRecording"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ConferenceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "operationId": "FetchConferenceRecording",
+      "tags": [
+        "Api20100401ConferenceRecording"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ConferenceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "operationId": "DeleteConferenceRecording",
+      "tags": [
+        "Api20100401ConferenceRecording"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ConferenceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "operationId": "FetchConnectApp",
+      "tags": [
+        "Api20100401ConnectApp"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "operationId": "UpdateConnectApp",
+      "tags": [
+        "Api20100401ConnectApp"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "operationId": "DeleteConnectApp",
+      "tags": [
+        "Api20100401ConnectApp"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json",
+      "operationId": "ListConnectApp",
+      "tags": [
+        "Api20100401ConnectApp"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json",
+      "operationId": "ListDependentPhoneNumber",
+      "tags": [
+        "Api20100401DependentPhoneNumber"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "AddressSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "operationId": "UpdateIncomingPhoneNumber",
+      "tags": [
+        "Api20100401IncomingPhoneNumber"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "operationId": "FetchIncomingPhoneNumber",
+      "tags": [
+        "Api20100401IncomingPhoneNumber"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "operationId": "DeleteIncomingPhoneNumber",
+      "tags": [
+        "Api20100401IncomingPhoneNumber"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "operationId": "ListIncomingPhoneNumber",
+      "tags": [
+        "Api20100401IncomingPhoneNumber"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Beta",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PhoneNumber",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Origin",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "operationId": "CreateIncomingPhoneNumber",
+      "tags": [
+        "Api20100401IncomingPhoneNumber"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
+      "operationId": "FetchIncomingPhoneNumberAssignedAddOn",
+      "tags": [
+        "Api20100401AssignedAddOn"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ResourceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
+      "operationId": "DeleteIncomingPhoneNumberAssignedAddOn",
+      "tags": [
+        "Api20100401AssignedAddOn"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ResourceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
+      "operationId": "ListIncomingPhoneNumberAssignedAddOn",
+      "tags": [
+        "Api20100401AssignedAddOn"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ResourceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
+      "operationId": "CreateIncomingPhoneNumberAssignedAddOn",
+      "tags": [
+        "Api20100401AssignedAddOn"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ResourceSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json",
+      "operationId": "FetchIncomingPhoneNumberAssignedAddOnExtension",
+      "tags": [
+        "Api20100401AssignedAddOnExtension"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ResourceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "AssignedAddOnSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json",
+      "operationId": "ListIncomingPhoneNumberAssignedAddOnExtension",
+      "tags": [
+        "Api20100401AssignedAddOnExtension"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ResourceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "AssignedAddOnSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json",
+      "operationId": "ListIncomingPhoneNumberLocal",
+      "tags": [
+        "Api20100401IncomingPhoneNumberLocal"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Beta",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PhoneNumber",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Origin",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json",
+      "operationId": "CreateIncomingPhoneNumberLocal",
+      "tags": [
+        "Api20100401IncomingPhoneNumberLocal"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json",
+      "operationId": "ListIncomingPhoneNumberMobile",
+      "tags": [
+        "Api20100401IncomingPhoneNumberMobile"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Beta",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PhoneNumber",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Origin",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json",
+      "operationId": "CreateIncomingPhoneNumberMobile",
+      "tags": [
+        "Api20100401IncomingPhoneNumberMobile"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json",
+      "operationId": "ListIncomingPhoneNumberTollFree",
+      "tags": [
+        "Api20100401IncomingPhoneNumberTollFree"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Beta",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PhoneNumber",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Origin",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json",
+      "operationId": "CreateIncomingPhoneNumberTollFree",
+      "tags": [
+        "Api20100401IncomingPhoneNumberTollFree"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "operationId": "FetchKey",
+      "tags": [
+        "Api20100401Key"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "operationId": "UpdateKey",
+      "tags": [
+        "Api20100401Key"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "operationId": "DeleteKey",
+      "tags": [
+        "Api20100401Key"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys.json",
+      "operationId": "ListKey",
+      "tags": [
+        "Api20100401Key"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys.json",
+      "operationId": "CreateNewKey",
+      "tags": [
+        "Api20100401NewKey"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+      "operationId": "DeleteMedia",
+      "tags": [
+        "Api20100401MediaInstance"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "MessageSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+      "operationId": "FetchMedia",
+      "tags": [
+        "Api20100401MediaInstance"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "MessageSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json",
+      "operationId": "ListMedia",
+      "tags": [
+        "Api20100401Media"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "MessageSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateCreated<",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateCreated>",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "operationId": "FetchMember",
+      "tags": [
+        "Api20100401Member"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "QueueSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "operationId": "UpdateMember",
+      "tags": [
+        "Api20100401Member"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "QueueSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json",
+      "operationId": "ListMember",
+      "tags": [
+        "Api20100401Member"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "QueueSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "operationId": "CreateMessage",
+      "tags": [
+        "Api20100401Message"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "operationId": "ListMessage",
+      "tags": [
+        "Api20100401Message"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "To",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "From",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateSent",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateSent<",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateSent>",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "operationId": "DeleteMessage",
+      "tags": [
+        "Api20100401Message"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "operationId": "FetchMessage",
+      "tags": [
+        "Api20100401Message"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "operationId": "UpdateMessage",
+      "tags": [
+        "Api20100401Message"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json",
+      "operationId": "CreateMessageFeedback",
+      "tags": [
+        "Api20100401Feedback"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "MessageSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+      "operationId": "CreateNewSigningKey",
+      "tags": [
+        "Api20100401NewSigningKey"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+      "operationId": "ListSigningKey",
+      "tags": [
+        "Api20100401SigningKey"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json",
+      "operationId": "FetchNotification",
+      "tags": [
+        "Api20100401Notification"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Notifications.json",
+      "operationId": "ListNotification",
+      "tags": [
+        "Api20100401Notification"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Log",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "MessageDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "MessageDate<",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "MessageDate>",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+      "operationId": "FetchOutgoingCallerId",
+      "tags": [
+        "Api20100401OutgoingCallerId"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+      "operationId": "UpdateOutgoingCallerId",
+      "tags": [
+        "Api20100401OutgoingCallerId"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+      "operationId": "DeleteOutgoingCallerId",
+      "tags": [
+        "Api20100401OutgoingCallerId"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
+      "operationId": "ListOutgoingCallerId",
+      "tags": [
+        "Api20100401OutgoingCallerId"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PhoneNumber",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "FriendlyName",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
+      "operationId": "CreateValidationRequest",
+      "tags": [
+        "Api20100401ValidationRequest"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+      "operationId": "FetchParticipant",
+      "tags": [
+        "Api20100401Participant"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ConferenceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+      "operationId": "UpdateParticipant",
+      "tags": [
+        "Api20100401Participant"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ConferenceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+      "operationId": "DeleteParticipant",
+      "tags": [
+        "Api20100401Participant"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ConferenceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
+      "operationId": "CreateParticipant",
+      "tags": [
+        "Api20100401Participant"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ConferenceSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
+      "operationId": "ListParticipant",
+      "tags": [
+        "Api20100401Participant"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ConferenceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Muted",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Hold",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Coaching",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json",
+      "operationId": "CreatePayments",
+      "tags": [
+        "Api20100401Payment"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json",
+      "operationId": "UpdatePayments",
+      "tags": [
+        "Api20100401Payment"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "202"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "operationId": "FetchQueue",
+      "tags": [
+        "Api20100401Queue"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "operationId": "UpdateQueue",
+      "tags": [
+        "Api20100401Queue"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "operationId": "DeleteQueue",
+      "tags": [
+        "Api20100401Queue"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "operationId": "ListQueue",
+      "tags": [
+        "Api20100401Queue"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "operationId": "CreateQueue",
+      "tags": [
+        "Api20100401Queue"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json",
+      "operationId": "CreateRealtimeTranscription",
+      "tags": [
+        "Api20100401CallTranscription"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions/{Sid}.json",
+      "operationId": "UpdateRealtimeTranscription",
+      "tags": [
+        "Api20100401CallTranscription"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+      "operationId": "FetchRecording",
+      "tags": [
+        "Api20100401Recording"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "IncludeSoftDeleted",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+      "operationId": "DeleteRecording",
+      "tags": [
+        "Api20100401Recording"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings.json",
+      "operationId": "ListRecording",
+      "tags": [
+        "Api20100401Recording"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DateCreated",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateCreated<",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "DateCreated>",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "CallSid",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ConferenceSid",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "IncludeSoftDeleted",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+      "operationId": "FetchRecordingAddOnResult",
+      "tags": [
+        "Api20100401AddOnResult"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ReferenceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+      "operationId": "DeleteRecordingAddOnResult",
+      "tags": [
+        "Api20100401AddOnResult"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ReferenceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json",
+      "operationId": "ListRecordingAddOnResult",
+      "tags": [
+        "Api20100401AddOnResult"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ReferenceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json",
+      "operationId": "FetchRecordingAddOnResultPayload",
+      "tags": [
+        "Api20100401Payload"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ReferenceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "AddOnResultSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json",
+      "operationId": "DeleteRecordingAddOnResultPayload",
+      "tags": [
+        "Api20100401Payload"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ReferenceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "AddOnResultSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json",
+      "operationId": "ListRecordingAddOnResultPayload",
+      "tags": [
+        "Api20100401Payload"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ReferenceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "AddOnResultSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json",
+      "operationId": "FetchRecordingAddOnResultPayloadData",
+      "tags": [
+        "Api20100401Data"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "ReferenceSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "AddOnResultSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PayloadSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "307"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+      "operationId": "FetchRecordingTranscription",
+      "tags": [
+        "Api20100401RecordingTranscription"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "RecordingSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+      "operationId": "DeleteRecordingTranscription",
+      "tags": [
+        "Api20100401RecordingTranscription"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "RecordingSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json",
+      "operationId": "ListRecordingTranscription",
+      "tags": [
+        "Api20100401RecordingTranscription"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "RecordingSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
+      "operationId": "FetchShortCode",
+      "tags": [
+        "Api20100401ShortCode"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
+      "operationId": "UpdateShortCode",
+      "tags": [
+        "Api20100401ShortCode"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json",
+      "operationId": "ListShortCode",
+      "tags": [
+        "Api20100401ShortCode"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "FriendlyName",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "ShortCode",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "operationId": "FetchSigningKey",
+      "tags": [
+        "Api20100401SigningKey"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "operationId": "UpdateSigningKey",
+      "tags": [
+        "Api20100401SigningKey"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "operationId": "DeleteSigningKey",
+      "tags": [
+        "Api20100401SigningKey"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json",
+      "operationId": "CreateSipAuthCallsCredentialListMapping",
+      "tags": [
+        "Api20100401AuthCallsCredentialListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json",
+      "operationId": "ListSipAuthCallsCredentialListMapping",
+      "tags": [
+        "Api20100401AuthCallsCredentialListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json",
+      "operationId": "FetchSipAuthCallsCredentialListMapping",
+      "tags": [
+        "Api20100401AuthCallsCredentialListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json",
+      "operationId": "DeleteSipAuthCallsCredentialListMapping",
+      "tags": [
+        "Api20100401AuthCallsCredentialListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json",
+      "operationId": "CreateSipAuthCallsIpAccessControlListMapping",
+      "tags": [
+        "Api20100401AuthCallsIpAccessControlListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json",
+      "operationId": "ListSipAuthCallsIpAccessControlListMapping",
+      "tags": [
+        "Api20100401AuthCallsIpAccessControlListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json",
+      "operationId": "FetchSipAuthCallsIpAccessControlListMapping",
+      "tags": [
+        "Api20100401AuthCallsIpAccessControlListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json",
+      "operationId": "DeleteSipAuthCallsIpAccessControlListMapping",
+      "tags": [
+        "Api20100401AuthCallsIpAccessControlListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json",
+      "operationId": "CreateSipAuthRegistrationsCredentialListMapping",
+      "tags": [
+        "Api20100401AuthRegistrationsCredentialListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json",
+      "operationId": "ListSipAuthRegistrationsCredentialListMapping",
+      "tags": [
+        "Api20100401AuthRegistrationsCredentialListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json",
+      "operationId": "FetchSipAuthRegistrationsCredentialListMapping",
+      "tags": [
+        "Api20100401AuthRegistrationsCredentialListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json",
+      "operationId": "DeleteSipAuthRegistrationsCredentialListMapping",
+      "tags": [
+        "Api20100401AuthRegistrationsCredentialListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json",
+      "operationId": "ListSipCredential",
+      "tags": [
+        "Api20100401Credential"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CredentialListSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json",
+      "operationId": "CreateSipCredential",
+      "tags": [
+        "Api20100401Credential"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CredentialListSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json",
+      "operationId": "FetchSipCredential",
+      "tags": [
+        "Api20100401Credential"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CredentialListSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json",
+      "operationId": "UpdateSipCredential",
+      "tags": [
+        "Api20100401Credential"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CredentialListSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json",
+      "operationId": "DeleteSipCredential",
+      "tags": [
+        "Api20100401Credential"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CredentialListSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "operationId": "ListSipCredentialList",
+      "tags": [
+        "Api20100401CredentialList"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "operationId": "CreateSipCredentialList",
+      "tags": [
+        "Api20100401CredentialList"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "operationId": "FetchSipCredentialList",
+      "tags": [
+        "Api20100401CredentialList"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "operationId": "UpdateSipCredentialList",
+      "tags": [
+        "Api20100401CredentialList"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "operationId": "DeleteSipCredentialList",
+      "tags": [
+        "Api20100401CredentialList"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json",
+      "operationId": "CreateSipCredentialListMapping",
+      "tags": [
+        "Api20100401CredentialListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json",
+      "operationId": "ListSipCredentialListMapping",
+      "tags": [
+        "Api20100401CredentialListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+      "operationId": "FetchSipCredentialListMapping",
+      "tags": [
+        "Api20100401CredentialListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+      "operationId": "DeleteSipCredentialListMapping",
+      "tags": [
+        "Api20100401CredentialListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+      "operationId": "ListSipDomain",
+      "tags": [
+        "Api20100401Domain"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+      "operationId": "CreateSipDomain",
+      "tags": [
+        "Api20100401Domain"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+      "operationId": "FetchSipDomain",
+      "tags": [
+        "Api20100401Domain"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+      "operationId": "UpdateSipDomain",
+      "tags": [
+        "Api20100401Domain"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+      "operationId": "DeleteSipDomain",
+      "tags": [
+        "Api20100401Domain"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json",
+      "operationId": "ListSipIpAccessControlList",
+      "tags": [
+        "Api20100401IpAccessControlList"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json",
+      "operationId": "CreateSipIpAccessControlList",
+      "tags": [
+        "Api20100401IpAccessControlList"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+      "operationId": "FetchSipIpAccessControlList",
+      "tags": [
+        "Api20100401IpAccessControlList"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+      "operationId": "UpdateSipIpAccessControlList",
+      "tags": [
+        "Api20100401IpAccessControlList"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+      "operationId": "DeleteSipIpAccessControlList",
+      "tags": [
+        "Api20100401IpAccessControlList"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+      "operationId": "FetchSipIpAccessControlListMapping",
+      "tags": [
+        "Api20100401IpAccessControlListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+      "operationId": "DeleteSipIpAccessControlListMapping",
+      "tags": [
+        "Api20100401IpAccessControlListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+      "operationId": "CreateSipIpAccessControlListMapping",
+      "tags": [
+        "Api20100401IpAccessControlListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+      "operationId": "ListSipIpAccessControlListMapping",
+      "tags": [
+        "Api20100401IpAccessControlListMapping"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "DomainSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json",
+      "operationId": "ListSipIpAddress",
+      "tags": [
+        "Api20100401SipIpAddress"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "IpAccessControlListSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json",
+      "operationId": "CreateSipIpAddress",
+      "tags": [
+        "Api20100401SipIpAddress"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "IpAccessControlListSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "operationId": "FetchSipIpAddress",
+      "tags": [
+        "Api20100401SipIpAddress"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "IpAccessControlListSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "operationId": "UpdateSipIpAddress",
+      "tags": [
+        "Api20100401SipIpAddress"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "IpAccessControlListSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "operationId": "DeleteSipIpAddress",
+      "tags": [
+        "Api20100401SipIpAddress"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "IpAccessControlListSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json",
+      "operationId": "CreateSiprec",
+      "tags": [
+        "Api20100401Siprec"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json",
+      "operationId": "UpdateSiprec",
+      "tags": [
+        "Api20100401Siprec"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams.json",
+      "operationId": "CreateStream",
+      "tags": [
+        "Api20100401Stream"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json",
+      "operationId": "UpdateStream",
+      "tags": [
+        "Api20100401Stream"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Tokens.json",
+      "operationId": "CreateToken",
+      "tags": [
+        "Api20100401Token"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json",
+      "operationId": "FetchTranscription",
+      "tags": [
+        "Api20100401Transcription"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json",
+      "operationId": "DeleteTranscription",
+      "tags": [
+        "Api20100401Transcription"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json",
+      "operationId": "ListTranscription",
+      "tags": [
+        "Api20100401Transcription"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json",
+      "operationId": "ListUsageRecord",
+      "tags": [
+        "Api20100401Record"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Category",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "StartDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "EndDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "IncludeSubaccounts",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json",
+      "operationId": "ListUsageRecordAllTime",
+      "tags": [
+        "Api20100401AllTime"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Category",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "StartDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "EndDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "IncludeSubaccounts",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json",
+      "operationId": "ListUsageRecordDaily",
+      "tags": [
+        "Api20100401Daily"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Category",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "StartDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "EndDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "IncludeSubaccounts",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json",
+      "operationId": "ListUsageRecordLastMonth",
+      "tags": [
+        "Api20100401LastMonth"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Category",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "StartDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "EndDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "IncludeSubaccounts",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json",
+      "operationId": "ListUsageRecordMonthly",
+      "tags": [
+        "Api20100401Monthly"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Category",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "StartDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "EndDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "IncludeSubaccounts",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json",
+      "operationId": "ListUsageRecordThisMonth",
+      "tags": [
+        "Api20100401ThisMonth"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Category",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "StartDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "EndDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "IncludeSubaccounts",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Today.json",
+      "operationId": "ListUsageRecordToday",
+      "tags": [
+        "Api20100401Today"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Category",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "StartDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "EndDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "IncludeSubaccounts",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json",
+      "operationId": "ListUsageRecordYearly",
+      "tags": [
+        "Api20100401Yearly"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Category",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "StartDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "EndDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "IncludeSubaccounts",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json",
+      "operationId": "ListUsageRecordYesterday",
+      "tags": [
+        "Api20100401Yesterday"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Category",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "StartDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "EndDate",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "IncludeSubaccounts",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "operationId": "FetchUsageTrigger",
+      "tags": [
+        "Api20100401Trigger"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "operationId": "UpdateUsageTrigger",
+      "tags": [
+        "Api20100401Trigger"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "operationId": "DeleteUsageTrigger",
+      "tags": [
+        "Api20100401Trigger"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+      "operationId": "CreateUsageTrigger",
+      "tags": [
+        "Api20100401Trigger"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+      "operationId": "ListUsageTrigger",
+      "tags": [
+        "Api20100401Trigger"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Recurring",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "TriggerBy",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "UsageCategory",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageSize",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "Page",
+          "in": "query",
+          "required": false
+        },
+        {
+          "name": "PageToken",
+          "in": "query",
+          "required": false
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessages.json",
+      "operationId": "CreateUserDefinedMessage",
+      "tags": [
+        "Api20100401UserDefinedMessage"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json",
+      "operationId": "CreateUserDefinedMessageSubscription",
+      "tags": [
+        "Api20100401UserDefinedMessageSubscription"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [
+        "application/x-www-form-urlencoded"
+      ],
+      "responses": [
+        "201"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json",
+      "operationId": "DeleteUserDefinedMessageSubscription",
+      "tags": [
+        "Api20100401UserDefinedMessageSubscription"
+      ],
+      "params": [
+        {
+          "name": "AccountSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "CallSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "name": "Sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "requestBodyCT": [],
+      "responses": [
+        "204"
+      ]
+    }
+  ]
+}

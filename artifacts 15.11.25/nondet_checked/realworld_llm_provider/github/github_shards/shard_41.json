@@ -1,0 +1,99 @@
+{
+  "openapi_meta": {
+    "title": "GitHub v3 REST API",
+    "version": "1.1.4"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/advisories",
+      "method": "GET",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "List global security advisories",
+      "operationId": "security-advisories/list-global-advisories"
+    },
+    {
+      "path": "/advisories/{ghsa_id}",
+      "method": "GET",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "Get a global security advisory",
+      "operationId": "security-advisories/get-global-advisory"
+    },
+    {
+      "path": "/orgs/{org}/security-advisories",
+      "method": "GET",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "List repository security advisories for an organization",
+      "operationId": "security-advisories/list-org-repository-advisories"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories",
+      "method": "GET",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "List repository security advisories",
+      "operationId": "security-advisories/list-repository-advisories"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories",
+      "method": "POST",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "Create a repository security advisory",
+      "operationId": "security-advisories/create-repository-advisory"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories/reports",
+      "method": "POST",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "Privately report a security vulnerability",
+      "operationId": "security-advisories/create-private-vulnerability-report"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
+      "method": "GET",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "Get a repository security advisory",
+      "operationId": "security-advisories/get-repository-advisory"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
+      "method": "PATCH",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "Update a repository security advisory",
+      "operationId": "security-advisories/update-repository-advisory"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/cve",
+      "method": "POST",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "Request a CVE for a repository security advisory",
+      "operationId": "security-advisories/create-repository-advisory-cve-request"
+    },
+    {
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/forks",
+      "method": "POST",
+      "tags": [
+        "security-advisories"
+      ],
+      "summary": "Create a temporary private fork",
+      "operationId": "security-advisories/create-fork"
+    }
+  ]
+}

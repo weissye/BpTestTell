@@ -14,7 +14,7 @@
       "operationId": "classroom/list-accepted-assignments-for-an-assignment",
       "summary": "",
       "user": "teacher123",
-      "ideal": "Get a list of accepted assignments for the assignment with ID 12345."
+      "ideal": "List all accepted assignments for the assignment with ID 12345."
     },
     {
       "path": "/assignments/12345/grades",
@@ -22,7 +22,7 @@
       "operationId": "classroom/get-assignment-grades",
       "summary": "",
       "user": "teacher123",
-      "ideal": "Fetch the grades for the assignment with ID 12345."
+      "ideal": "Get the grades for the assignment with ID 12345."
     },
     {
       "path": "/classrooms",
@@ -30,7 +30,7 @@
       "operationId": "classroom/list-classrooms",
       "summary": "",
       "user": "admin456",
-      "ideal": "List all classrooms available in the system."
+      "ideal": "Retrieve a list of all classrooms."
     },
     {
       "path": "/classrooms/67890",
@@ -38,7 +38,7 @@
       "operationId": "classroom/get-a-classroom",
       "summary": "",
       "user": "admin456",
-      "ideal": "Retrieve details of the classroom with ID 67890."
+      "ideal": "Get details of the classroom with ID 67890."
     },
     {
       "path": "/classrooms/67890/assignments",
@@ -46,7 +46,7 @@
       "operationId": "classroom/list-assignments-for-a-classroom",
       "summary": "",
       "user": "admin456",
-      "ideal": "Get a list of assignments for the classroom with ID 67890."
+      "ideal": "List all assignments for the classroom with ID 67890."
     }
   ]
 }

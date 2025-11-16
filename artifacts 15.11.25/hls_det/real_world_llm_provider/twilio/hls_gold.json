@@ -1,0 +1,547 @@
+{
+  "sut": "twilio",
+  "provider": "real_world_llm_provider",
+  "generated_at": "2025-11-13T21:08:38.359358Z",
+  "stories": [
+    {
+      "name": "CRUD_2010_04_01",
+      "entity": "2010_04_01",
+      "steps": []
+    },
+    {
+      "name": "CRUD_account",
+      "entity": "account",
+      "steps": []
+    },
+    {
+      "name": "CRUD_accounts_json",
+      "entity": "accounts_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_addonresult",
+      "entity": "addonresult",
+      "steps": []
+    },
+    {
+      "name": "CRUD_addonresults_json",
+      "entity": "addonresults_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_address",
+      "entity": "address",
+      "steps": []
+    },
+    {
+      "name": "CRUD_addresses_json",
+      "entity": "addresses_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_alltime_json",
+      "entity": "alltime_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_application",
+      "entity": "application",
+      "steps": []
+    },
+    {
+      "name": "CRUD_applications_json",
+      "entity": "applications_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_assignedaddon",
+      "entity": "assignedaddon",
+      "steps": []
+    },
+    {
+      "name": "CRUD_assignedaddons_json",
+      "entity": "assignedaddons_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_auth",
+      "entity": "auth",
+      "steps": []
+    },
+    {
+      "name": "CRUD_authorizedconnectapp",
+      "entity": "authorizedconnectapp",
+      "steps": []
+    },
+    {
+      "name": "CRUD_authorizedconnectapps_json",
+      "entity": "authorizedconnectapps_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_availablephonenumber",
+      "entity": "availablephonenumber",
+      "steps": []
+    },
+    {
+      "name": "CRUD_availablephonenumbers_json",
+      "entity": "availablephonenumbers_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_balance_json",
+      "entity": "balance_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_call",
+      "entity": "call",
+      "steps": []
+    },
+    {
+      "name": "CRUD_calls_json",
+      "entity": "calls_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_callsid_json",
+      "entity": "callsid_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_conference",
+      "entity": "conference",
+      "steps": []
+    },
+    {
+      "name": "CRUD_conferences_json",
+      "entity": "conferences_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_connectapp",
+      "entity": "connectapp",
+      "steps": []
+    },
+    {
+      "name": "CRUD_connectapps_json",
+      "entity": "connectapps_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_connectappsid_json",
+      "entity": "connectappsid_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_countrycode_json",
+      "entity": "countrycode_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_credential",
+      "entity": "credential",
+      "steps": []
+    },
+    {
+      "name": "CRUD_credentiallist",
+      "entity": "credentiallist",
+      "steps": []
+    },
+    {
+      "name": "CRUD_credentiallistmapping",
+      "entity": "credentiallistmapping",
+      "steps": []
+    },
+    {
+      "name": "CRUD_credentiallistmappings_json",
+      "entity": "credentiallistmappings_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_credentiallists_json",
+      "entity": "credentiallists_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_credentials_json",
+      "entity": "credentials_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_daily_json",
+      "entity": "daily_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_data_json",
+      "entity": "data_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_dependentphonenumbers_json",
+      "entity": "dependentphonenumbers_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_domain",
+      "entity": "domain",
+      "steps": []
+    },
+    {
+      "name": "CRUD_domains_json",
+      "entity": "domains_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_events_json",
+      "entity": "events_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_extension",
+      "entity": "extension",
+      "steps": []
+    },
+    {
+      "name": "CRUD_extensions_json",
+      "entity": "extensions_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_feedback_json",
+      "entity": "feedback_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_incomingphonenumber",
+      "entity": "incomingphonenumber",
+      "steps": []
+    },
+    {
+      "name": "CRUD_incomingphonenumbers_json",
+      "entity": "incomingphonenumbers_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_ipaccesscontrollist",
+      "entity": "ipaccesscontrollist",
+      "steps": []
+    },
+    {
+      "name": "CRUD_ipaccesscontrollistmapping",
+      "entity": "ipaccesscontrollistmapping",
+      "steps": []
+    },
+    {
+      "name": "CRUD_ipaccesscontrollistmappings_json",
+      "entity": "ipaccesscontrollistmappings_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_ipaccesscontrollists_json",
+      "entity": "ipaccesscontrollists_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_ipaddress",
+      "entity": "ipaddress",
+      "steps": []
+    },
+    {
+      "name": "CRUD_ipaddresses_json",
+      "entity": "ipaddresses_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_key",
+      "entity": "key",
+      "steps": []
+    },
+    {
+      "name": "CRUD_keys_json",
+      "entity": "keys_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_lastmonth_json",
+      "entity": "lastmonth_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_local_json",
+      "entity": "local_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_machinetomachine_json",
+      "entity": "machinetomachine_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_media",
+      "entity": "media",
+      "steps": []
+    },
+    {
+      "name": "CRUD_media_json",
+      "entity": "media_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_member",
+      "entity": "member",
+      "steps": []
+    },
+    {
+      "name": "CRUD_members_json",
+      "entity": "members_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_message",
+      "entity": "message",
+      "steps": []
+    },
+    {
+      "name": "CRUD_messages_json",
+      "entity": "messages_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_mobile_json",
+      "entity": "mobile_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_monthly_json",
+      "entity": "monthly_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_national_json",
+      "entity": "national_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_notification",
+      "entity": "notification",
+      "steps": []
+    },
+    {
+      "name": "CRUD_notifications_json",
+      "entity": "notifications_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_outgoingcallerid",
+      "entity": "outgoingcallerid",
+      "steps": []
+    },
+    {
+      "name": "CRUD_outgoingcallerids_json",
+      "entity": "outgoingcallerids_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_participant",
+      "entity": "participant",
+      "steps": []
+    },
+    {
+      "name": "CRUD_participants_json",
+      "entity": "participants_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_payload",
+      "entity": "payload",
+      "steps": []
+    },
+    {
+      "name": "CRUD_payloads_json",
+      "entity": "payloads_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_payment",
+      "entity": "payment",
+      "steps": []
+    },
+    {
+      "name": "CRUD_payments_json",
+      "entity": "payments_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_queue",
+      "entity": "queue",
+      "steps": []
+    },
+    {
+      "name": "CRUD_queues_json",
+      "entity": "queues_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_record",
+      "entity": "record",
+      "steps": []
+    },
+    {
+      "name": "CRUD_recording",
+      "entity": "recording",
+      "steps": []
+    },
+    {
+      "name": "CRUD_recordings_json",
+      "entity": "recordings_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_records_json",
+      "entity": "records_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_registration",
+      "entity": "registration",
+      "steps": []
+    },
+    {
+      "name": "CRUD_sharedcost_json",
+      "entity": "sharedcost_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_shortcode",
+      "entity": "shortcode",
+      "steps": []
+    },
+    {
+      "name": "CRUD_shortcodes_json",
+      "entity": "shortcodes_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_sid_json",
+      "entity": "sid_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_signingkey",
+      "entity": "signingkey",
+      "steps": []
+    },
+    {
+      "name": "CRUD_signingkeys_json",
+      "entity": "signingkeys_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_sip",
+      "entity": "sip",
+      "steps": []
+    },
+    {
+      "name": "CRUD_siprec",
+      "entity": "siprec",
+      "steps": []
+    },
+    {
+      "name": "CRUD_siprec_json",
+      "entity": "siprec_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_sm",
+      "entity": "sm",
+      "steps": []
+    },
+    {
+      "name": "CRUD_stream",
+      "entity": "stream",
+      "steps": []
+    },
+    {
+      "name": "CRUD_streams_json",
+      "entity": "streams_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_thismonth_json",
+      "entity": "thismonth_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_today_json",
+      "entity": "today_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_tokens_json",
+      "entity": "tokens_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_tollfree_json",
+      "entity": "tollfree_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_transcription",
+      "entity": "transcription",
+      "steps": []
+    },
+    {
+      "name": "CRUD_transcriptions_json",
+      "entity": "transcriptions_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_trigger",
+      "entity": "trigger",
+      "steps": []
+    },
+    {
+      "name": "CRUD_triggers_json",
+      "entity": "triggers_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_usage",
+      "entity": "usage",
+      "steps": []
+    },
+    {
+      "name": "CRUD_userdefinedmessages_json",
+      "entity": "userdefinedmessages_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_userdefinedmessagesubscription",
+      "entity": "userdefinedmessagesubscription",
+      "steps": []
+    },
+    {
+      "name": "CRUD_userdefinedmessagesubscriptions_json",
+      "entity": "userdefinedmessagesubscriptions_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_voip_json",
+      "entity": "voip_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_yearly_json",
+      "entity": "yearly_json",
+      "steps": []
+    },
+    {
+      "name": "CRUD_yesterday_json",
+      "entity": "yesterday_json",
+      "steps": []
+    }
+  ]
+}

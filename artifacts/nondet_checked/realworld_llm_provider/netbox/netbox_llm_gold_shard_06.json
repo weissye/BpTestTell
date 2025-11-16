@@ -6,7 +6,7 @@
       "operationId": "schema_retrieve",
       "summary": "",
       "user": "admin",
-      "ideal": "Retrieve the schema of the NetBox API, including all available endpoints, their parameters, and response formats."
+      "ideal": "Retrieve the current schema of the NetBox API, including all available endpoints and their specifications."
     }
   ]
 }

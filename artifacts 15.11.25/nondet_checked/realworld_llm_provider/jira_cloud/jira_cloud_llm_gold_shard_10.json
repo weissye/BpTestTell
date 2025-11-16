@@ -1,0 +1,28 @@
+{
+  "gold": [
+    {
+      "path": "/rest/atlassian-connect/1/app/module/dynamic",
+      "method": "GET",
+      "operationId": "DynamicModulesResource.getModules_get",
+      "summary": "",
+      "user": "As a developer, I want to retrieve the list of dynamic modules registered in the Jira Cloud platform so that I can manage their configurations.",
+      "ideal": "The API should return a JSON array containing the details of all registered dynamic modules, including their IDs, types, and statuses."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/app/module/dynamic",
+      "method": "POST",
+      "operationId": "DynamicModulesResource.registerModules_post",
+      "summary": "",
+      "user": "As an app administrator, I need to register new dynamic modules for my Jira app to enhance its functionality and user experience.",
+      "ideal": "The API should accept a JSON payload with module details and return a success message along with the ID of the newly registered module."
+    },
+    {
+      "path": "/rest/atlassian-connect/1/app/module/dynamic",
+      "method": "DELETE",
+      "operationId": "DynamicModulesResource.removeModules_delete",
+      "summary": "",
+      "user": "As a system administrator, I want to remove specific dynamic modules from my Jira instance to clean up unused features and improve performance.",
+      "ideal": "The API should accept a module ID and return a confirmation message indicating that the module has been successfully removed."
+    }
+  ]
+}

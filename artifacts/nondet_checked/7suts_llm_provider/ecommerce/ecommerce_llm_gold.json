@@ -1,68 +1,364 @@
 {
-  "gold": [
+  "ops": [
     {
-      "path": "/reset",
-      "method": "POST",
-      "operationId": "resetSystem",
-      "summary": "",
-      "user": "admin",
-      "ideal": "Resets the pharmacy system to its initial state."
-    },
-    {
-      "path": "/patients",
-      "method": "POST",
-      "operationId": "addPatient",
-      "summary": "",
-      "user": "nurse",
-      "ideal": "Adds a new patient to the pharmacy system with necessary details."
-    },
-    {
-      "path": "/drugs",
       "method": "GET",
-      "operationId": "getDrugs",
-      "summary": "",
-      "user": "pharmacist",
-      "ideal": "Retrieves a list of all available drugs in the pharmacy."
-    },
-    {
       "path": "/drugs",
-      "method": "POST",
-      "operationId": "addDrug",
-      "summary": "",
-      "user": "pharmacist",
-      "ideal": "Adds a new drug to the pharmacy inventory with details."
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/prescriptions",
       "method": "POST",
-      "operationId": "createPrescription",
-      "summary": "",
-      "user": "doctor",
-      "ideal": "Creates a new prescription for a patient."
+      "path": "/drugs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     },
     {
-      "path": "/orders",
       "method": "GET",
-      "operationId": "getOrders",
-      "summary": "",
-      "user": "pharmacist",
-      "ideal": "Retrieves a list of all orders placed in the pharmacy."
-    },
-    {
-      "path": "/orders",
-      "method": "POST",
-      "operationId": "placeOrder",
-      "summary": "",
-      "user": "pharmacist",
-      "ideal": "Places a new order for drugs in the pharmacy."
-    },
-    {
       "path": "/inventory/{ndc}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
       "method": "GET",
-      "operationId": "getInventoryByNDC",
-      "summary": "",
-      "user": "pharmacist",
-      "ideal": "Retrieves inventory details for a specific drug using its NDC."
+      "path": "/orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/patients",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/prescriptions",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/drugs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/drugs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/drugs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/drugs",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/inventory/{ndc}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/inventory/{ndc}",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/orders",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/patients",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/patients",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/prescriptions",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/prescriptions",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reset",
+      "body": null,
+      "variants": [
+        {
+          "name": "min",
+          "body": {}
+        },
+        {
+          "name": "all",
+          "body": {}
+        }
+      ]
     }
   ]
 }

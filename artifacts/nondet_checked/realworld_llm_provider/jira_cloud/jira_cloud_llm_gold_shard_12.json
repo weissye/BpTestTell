@@ -14,7 +14,7 @@
       "operationId": "getFavouriteFilters",
       "summary": "",
       "user": "user456",
-      "ideal": "Retrieve a list of filters marked as favourite by the user."
+      "ideal": "Retrieve a list of user's favourite filters."
     },
     {
       "path": "/rest/api/3/filter/my",
@@ -22,7 +22,7 @@
       "operationId": "getMyFilters",
       "summary": "",
       "user": "user789",
-      "ideal": "Get all filters created by the user."
+      "ideal": "Get all filters owned by the user."
     },
     {
       "path": "/rest/api/3/filter/search",
@@ -38,22 +38,22 @@
       "operationId": "deleteFilter",
       "summary": "",
       "user": "user112",
-      "ideal": "Delete a filter by its ID."
+      "ideal": "Delete a specific filter by its ID."
     },
     {
       "path": "/rest/api/3/filter/{id}",
       "method": "GET",
       "operationId": "getFilter",
       "summary": "",
-      "user": "user131",
-      "ideal": "Retrieve details of a specific filter by its ID."
+      "user": "user113",
+      "ideal": "Retrieve details of a specific filter."
     },
     {
       "path": "/rest/api/3/filter/{id}",
       "method": "PUT",
       "operationId": "updateFilter",
       "summary": "",
-      "user": "user415",
+      "user": "user114",
       "ideal": "Update an existing filter with new criteria."
     },
     {
@@ -61,7 +61,7 @@
       "method": "DELETE",
       "operationId": "resetColumns",
       "summary": "",
-      "user": "user161",
+      "user": "user115",
       "ideal": "Reset the columns of a specific filter."
     },
     {
@@ -69,7 +69,7 @@
       "method": "GET",
       "operationId": "getColumns",
       "summary": "",
-      "user": "user718",
+      "user": "user116",
       "ideal": "Get the columns of a specific filter."
     },
     {
@@ -77,7 +77,7 @@
       "method": "PUT",
       "operationId": "setColumns",
       "summary": "",
-      "user": "user192",
+      "user": "user117",
       "ideal": "Set the columns for a specific filter."
     },
     {
@@ -85,7 +85,7 @@
       "method": "DELETE",
       "operationId": "deleteFavouriteForFilter",
       "summary": "",
-      "user": "user202",
+      "user": "user118",
       "ideal": "Remove a filter from the user's favourites."
     },
     {
@@ -93,7 +93,7 @@
       "method": "PUT",
       "operationId": "setFavouriteForFilter",
       "summary": "",
-      "user": "user303",
+      "user": "user119",
       "ideal": "Add a filter to the user's favourites."
     },
     {
@@ -101,7 +101,7 @@
       "method": "PUT",
       "operationId": "changeFilterOwner",
       "summary": "",
-      "user": "user404",
+      "user": "user120",
       "ideal": "Change the owner of a specific filter."
     }
   ]

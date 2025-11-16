@@ -1,0 +1,72 @@
+{
+  "ops": [
+    {
+      "method": "DELETE",
+      "path": "/admin/unadopted/{owner}/{repo}"
+    },
+    {
+      "method": "GET",
+      "path": "/notifications"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/blocks/{username}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/teams/search"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/avatar"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/contents"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/hooks/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues/{index}/assets"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/issues/{index}/reactions"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/languages"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pulls/{index}/merge"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/tags/{tag}"
+    },
+    {
+      "method": "GET",
+      "path": "/settings/repository"
+    },
+    {
+      "method": "PUT",
+      "path": "/user/actions/variables/{variablename}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/user/gpg_keys/{id}"
+    },
+    {
+      "method": "GET",
+      "path": "/users/search"
+    }
+  ]
+}

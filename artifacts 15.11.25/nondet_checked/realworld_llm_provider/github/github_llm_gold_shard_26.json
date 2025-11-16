@@ -1,0 +1,20 @@
+{
+  "gold": [
+    {
+      "path": "/markdown",
+      "method": "POST",
+      "operationId": "markdown/render",
+      "summary": "",
+      "user": "{\"text\":\"# Hello World\\nThis is a sample markdown text that will be rendered to HTML.\\n\\n## Features\\n- Easy to use\\n- Supports various markdown syntax\\n- Can be integrated into applications easily.\"}",
+      "ideal": "{\"html\":\"<h1>Hello World</h1>\\n<p>This is a sample markdown text that will be rendered to HTML.</p>\\n<h2>Features</h2>\\n<ul>\\n<li>Easy to use</li>\\n<li>Supports various markdown syntax</li>\\n<li>Can be integrated into applications easily</li>\\n</ul>\"}"
+    },
+    {
+      "path": "/markdown/raw",
+      "method": "POST",
+      "operationId": "markdown/render-raw",
+      "summary": "",
+      "user": "{\"text\":\"# Raw Markdown Example\\nThis is a raw markdown example that will be processed without any additional formatting.\"}",
+      "ideal": "{\"html\":\"<h1>Raw Markdown Example</h1>\\n<p>This is a raw markdown example that will be processed without any additional formatting.</p>\"}"
+    }
+  ]
+}

@@ -1,0 +1,292 @@
+{
+  "sut": "directus",
+  "provider": "real_world_llm_provider",
+  "generated_at": "2025-11-13T21:08:37.519780Z",
+  "stories": [
+    {
+      "name": "CRUD_accept",
+      "entity": "accept",
+      "steps": []
+    },
+    {
+      "name": "CRUD_activity",
+      "entity": "activity",
+      "steps": []
+    },
+    {
+      "name": "CRUD_apply",
+      "entity": "apply",
+      "steps": []
+    },
+    {
+      "name": "CRUD_asset",
+      "entity": "asset",
+      "steps": []
+    },
+    {
+      "name": "CRUD_auth",
+      "entity": "auth",
+      "steps": []
+    },
+    {
+      "name": "CRUD_cache",
+      "entity": "cache",
+      "steps": []
+    },
+    {
+      "name": "CRUD_clear",
+      "entity": "clear",
+      "steps": []
+    },
+    {
+      "name": "CRUD_collection",
+      "entity": "collection",
+      "steps": []
+    },
+    {
+      "name": "CRUD_comment",
+      "entity": "comment",
+      "steps": []
+    },
+    {
+      "name": "CRUD_compare",
+      "entity": "compare",
+      "steps": []
+    },
+    {
+      "name": "CRUD_diff",
+      "entity": "diff",
+      "steps": []
+    },
+    {
+      "name": "CRUD_disable",
+      "entity": "disable",
+      "steps": []
+    },
+    {
+      "name": "CRUD_enable",
+      "entity": "enable",
+      "steps": []
+    },
+    {
+      "name": "CRUD_export",
+      "entity": "export",
+      "steps": []
+    },
+    {
+      "name": "CRUD_extension",
+      "entity": "extension",
+      "steps": []
+    },
+    {
+      "name": "CRUD_field",
+      "entity": "field",
+      "steps": []
+    },
+    {
+      "name": "CRUD_file",
+      "entity": "file",
+      "steps": []
+    },
+    {
+      "name": "CRUD_flow",
+      "entity": "flow",
+      "steps": []
+    },
+    {
+      "name": "CRUD_folder",
+      "entity": "folder",
+      "steps": []
+    },
+    {
+      "name": "CRUD_generate",
+      "entity": "generate",
+      "steps": []
+    },
+    {
+      "name": "CRUD_hash",
+      "entity": "hash",
+      "steps": []
+    },
+    {
+      "name": "CRUD_import",
+      "entity": "import",
+      "steps": []
+    },
+    {
+      "name": "CRUD_info",
+      "entity": "info",
+      "steps": []
+    },
+    {
+      "name": "CRUD_invite",
+      "entity": "invite",
+      "steps": []
+    },
+    {
+      "name": "CRUD_item",
+      "entity": "item",
+      "steps": []
+    },
+    {
+      "name": "CRUD_login",
+      "entity": "login",
+      "steps": []
+    },
+    {
+      "name": "CRUD_logout",
+      "entity": "logout",
+      "steps": []
+    },
+    {
+      "name": "CRUD_me",
+      "entity": "me",
+      "steps": []
+    },
+    {
+      "name": "CRUD_oauth",
+      "entity": "oauth",
+      "steps": []
+    },
+    {
+      "name": "CRUD_operation",
+      "entity": "operation",
+      "steps": []
+    },
+    {
+      "name": "CRUD_page",
+      "entity": "page",
+      "steps": []
+    },
+    {
+      "name": "CRUD_password",
+      "entity": "password",
+      "steps": []
+    },
+    {
+      "name": "CRUD_permission",
+      "entity": "permission",
+      "steps": []
+    },
+    {
+      "name": "CRUD_ping",
+      "entity": "ping",
+      "steps": []
+    },
+    {
+      "name": "CRUD_preset",
+      "entity": "preset",
+      "steps": []
+    },
+    {
+      "name": "CRUD_promote",
+      "entity": "promote",
+      "steps": []
+    },
+    {
+      "name": "CRUD_random",
+      "entity": "random",
+      "steps": []
+    },
+    {
+      "name": "CRUD_refresh",
+      "entity": "refresh",
+      "steps": []
+    },
+    {
+      "name": "CRUD_relation",
+      "entity": "relation",
+      "steps": []
+    },
+    {
+      "name": "CRUD_request",
+      "entity": "request",
+      "steps": []
+    },
+    {
+      "name": "CRUD_reset",
+      "entity": "reset",
+      "steps": []
+    },
+    {
+      "name": "CRUD_revision",
+      "entity": "revision",
+      "steps": []
+    },
+    {
+      "name": "CRUD_role",
+      "entity": "role",
+      "steps": []
+    },
+    {
+      "name": "CRUD_save",
+      "entity": "save",
+      "steps": []
+    },
+    {
+      "name": "CRUD_schema",
+      "entity": "schema",
+      "steps": []
+    },
+    {
+      "name": "CRUD_server",
+      "entity": "server",
+      "steps": []
+    },
+    {
+      "name": "CRUD_setting",
+      "entity": "setting",
+      "steps": []
+    },
+    {
+      "name": "CRUD_snapshot",
+      "entity": "snapshot",
+      "steps": []
+    },
+    {
+      "name": "CRUD_sort",
+      "entity": "sort",
+      "steps": []
+    },
+    {
+      "name": "CRUD_string",
+      "entity": "string",
+      "steps": []
+    },
+    {
+      "name": "CRUD_tfa",
+      "entity": "tfa",
+      "steps": []
+    },
+    {
+      "name": "CRUD_track",
+      "entity": "track",
+      "steps": []
+    },
+    {
+      "name": "CRUD_user",
+      "entity": "user",
+      "steps": []
+    },
+    {
+      "name": "CRUD_util",
+      "entity": "util",
+      "steps": []
+    },
+    {
+      "name": "CRUD_verify",
+      "entity": "verify",
+      "steps": []
+    },
+    {
+      "name": "CRUD_version",
+      "entity": "version",
+      "steps": []
+    },
+    {
+      "name": "CRUD_webhook",
+      "entity": "webhook",
+      "steps": []
+    }
+  ]
+}

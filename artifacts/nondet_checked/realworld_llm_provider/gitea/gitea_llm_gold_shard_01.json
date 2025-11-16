@@ -5,16 +5,16 @@
       "method": "GET",
       "operationId": "activitypubPerson",
       "summary": "",
-      "user": "{\"id\":\"https://gitea.example.com/activitypub/user/johndoe\",\"type\":\"Person\",\"name\":\"John Doe\",\"preferredUsername\":\"johndoe\",\"summary\":\"A software developer and open-source enthusiast.\",\"inbox\":\"https://gitea.example.com/activitypub/user/johndoe/inbox\",\"outbox\":\"https://gitea.example.com/activitypub/user/johndoe/outbox\",\"followers\":\"https://gitea.example.com/activitypub/user/johndoe/followers\",\"following\":\"https://gitea.example.com/activitypub/user/johndoe/following\"}",
-      "ideal": "{\"id\":\"https://gitea.example.com/activitypub/user/johndoe\",\"type\":\"Person\",\"name\":\"John Doe\",\"preferredUsername\":\"johndoe\",\"summary\":\"A software developer and open-source enthusiast.\",\"inbox\":\"https://gitea.example.com/activitypub/user/johndoe/inbox\",\"outbox\":\"https://gitea.example.com/activitypub/user/johndoe/outbox\",\"followers\":\"https://gitea.example.com/activitypub/user/johndoe/followers\",\"following\":\"https://gitea.example.com/activitypub/user/johndoe/following\"}"
+      "user": "johndoe",
+      "ideal": "Retrieve the ActivityPub profile of the user 'johndoe'."
     },
     {
       "path": "/activitypub/user-id/johndoe/inbox",
       "method": "POST",
       "operationId": "activitypubPersonInbox",
       "summary": "",
-      "user": "{\"type\":\"Create\",\"actor\":\"https://gitea.example.com/activitypub/user/johndoe\",\"object\":{\"type\":\"Note\",\"content\":\"Hello, world! This is my first activity on Gitea!\"}}",
-      "ideal": "{\"type\":\"Create\",\"actor\":\"https://gitea.example.com/activitypub/user/johndoe\",\"object\":{\"type\":\"Note\",\"content\":\"Hello, world! This is my first activity on Gitea!\"}}"
+      "user": "johndoe",
+      "ideal": "Send a message to the inbox of user 'johndoe'."
     }
   ]
 }

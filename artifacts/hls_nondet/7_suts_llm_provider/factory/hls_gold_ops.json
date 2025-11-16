@@ -1,3 +1,7 @@
 {
-  "ops": []
+  "source": "artifacts/hls_nondet/7_suts_llm_provider/factory/hls_gold.json",
+  "provider": "7_suts_llm_provider",
+  "sut": "factory",
+  "stories_total": 20,
+  "by_entity": {}
 }

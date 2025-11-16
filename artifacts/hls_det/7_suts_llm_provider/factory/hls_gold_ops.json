@@ -1,3 +1,13 @@
 {
-  "ops": []
+  "source": "artifacts/hls_det/7_suts_llm_provider/factory/hls_gold.json",
+  "provider": "7_suts_llm_provider",
+  "sut": "factory",
+  "stories_total": 5,
+  "by_entity": {
+    "machine": 1,
+    "maintenance_ticket": 1,
+    "reset": 1,
+    "sensor_reading": 1,
+    "workorder": 1
+  }
 }

@@ -1,164 +1,100 @@
 {
   "gold": [
     {
-      "path": "/enterprises/my-enterprise/code-security/configurations",
+      "path": "/enterprises/{enterprise}/code-security/configurations",
       "method": "GET",
       "operationId": "code-security/get-configurations-for-enterprise",
       "summary": "",
-      "user": "Retrieve all code security configurations for the specified enterprise.",
-      "ideal": "Should return a list of configurations with their details."
+      "user": "Retrieve all code security configurations for the specified enterprise to assess security settings across repositories.",
+      "ideal": "A list of configurations with details such as ID, name, and status."
     },
     {
-      "path": "/enterprises/my-enterprise/code-security/configurations",
+      "path": "/enterprises/{enterprise}/code-security/configurations",
       "method": "POST",
       "operationId": "code-security/create-configuration-for-enterprise",
       "summary": "",
-      "user": "Create a new code security configuration for the enterprise.",
-      "ideal": "Should return the created configuration details."
+      "user": "Create a new code security configuration for the enterprise to enhance security measures.",
+      "ideal": "Confirmation of the created configuration with its ID and initial settings."
     },
     {
-      "path": "/enterprises/my-enterprise/code-security/configurations/defaults",
+      "path": "/enterprises/{enterprise}/code-security/configurations/defaults",
       "method": "GET",
       "operationId": "code-security/get-default-configurations-for-enterprise",
       "summary": "",
-      "user": "Fetch the default code security configurations for the enterprise.",
-      "ideal": "Should return the default configurations."
+      "user": "Fetch the default code security configurations for the enterprise to understand baseline security practices.",
+      "ideal": "A list of default configurations with descriptions and applicable repositories."
     },
     {
-      "path": "/enterprises/my-enterprise/code-security/configurations/12345",
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}",
       "method": "GET",
       "operationId": "code-security/get-single-configuration-for-enterprise",
       "summary": "",
-      "user": "Get details of a specific code security configuration using its ID.",
-      "ideal": "Should return the configuration details for ID 12345."
+      "user": "Get details of a specific code security configuration by its ID to review its settings.",
+      "ideal": "Configuration details including its ID, name, and current status."
     },
     {
-      "path": "/enterprises/my-enterprise/code-security/configurations/12345",
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}",
       "method": "PATCH",
       "operationId": "code-security/update-enterprise-configuration",
       "summary": "",
-      "user": "Update an existing code security configuration for the enterprise.",
-      "ideal": "Should return the updated configuration details."
+      "user": "Update an existing code security configuration to improve security measures based on recent findings.",
+      "ideal": "Confirmation of the updated configuration with the new settings reflected."
     },
     {
-      "path": "/enterprises/my-enterprise/code-security/configurations/12345",
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}",
       "method": "DELETE",
       "operationId": "code-security/delete-configuration-for-enterprise",
       "summary": "",
-      "user": "Delete a specific code security configuration by its ID.",
-      "ideal": "Should confirm the deletion of the configuration."
+      "user": "Remove a specific code security configuration that is no longer needed to streamline security management.",
+      "ideal": "Confirmation of successful deletion of the configuration."
     },
     {
-      "path": "/enterprises/my-enterprise/code-security/configurations/12345/attach",
-      "method": "POST",
-      "operationId": "code-security/attach-enterprise-configuration",
-      "summary": "",
-      "user": "Attach a configuration to the enterprise.",
-      "ideal": "Should return a success message upon successful attachment."
-    },
-    {
-      "path": "/enterprises/my-enterprise/code-security/configurations/12345/defaults",
-      "method": "PUT",
-      "operationId": "code-security/set-configuration-as-default-for-enterprise",
-      "summary": "",
-      "user": "Set a specific configuration as the default for the enterprise.",
-      "ideal": "Should return the updated default configuration."
-    },
-    {
-      "path": "/enterprises/my-enterprise/code-security/configurations/12345/repositories",
-      "method": "GET",
-      "operationId": "code-security/get-repositories-for-enterprise-configuration",
-      "summary": "",
-      "user": "List all repositories associated with a specific configuration.",
-      "ideal": "Should return a list of repositories linked to configuration ID 12345."
-    },
-    {
-      "path": "/orgs/my-org/code-security/configurations",
+      "path": "/orgs/{org}/code-security/configurations",
       "method": "GET",
       "operationId": "code-security/get-configurations-for-org",
       "summary": "",
-      "user": "Retrieve all code security configurations for the specified organization.",
-      "ideal": "Should return a list of configurations for the organization."
+      "user": "Retrieve all code security configurations for the specified organization to evaluate security practices.",
+      "ideal": "A list of configurations with relevant details for each organization repository."
     },
     {
-      "path": "/orgs/my-org/code-security/configurations",
+      "path": "/orgs/{org}/code-security/configurations",
       "method": "POST",
       "operationId": "code-security/create-configuration",
       "summary": "",
-      "user": "Create a new code security configuration for the organization.",
-      "ideal": "Should return the created configuration details."
+      "user": "Create a new code security configuration for the organization to enhance overall security.",
+      "ideal": "Confirmation of the created configuration with its ID and initial settings."
     },
     {
-      "path": "/orgs/my-org/code-security/configurations/defaults",
-      "method": "GET",
-      "operationId": "code-security/get-default-configurations",
-      "summary": "",
-      "user": "Fetch the default code security configurations for the organization.",
-      "ideal": "Should return the default configurations for the organization."
-    },
-    {
-      "path": "/orgs/my-org/code-security/configurations/detach",
-      "method": "DELETE",
-      "operationId": "code-security/detach-configuration",
-      "summary": "",
-      "user": "Detach a configuration from the organization.",
-      "ideal": "Should return a success message upon successful detachment."
-    },
-    {
-      "path": "/orgs/my-org/code-security/configurations/12345",
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}",
       "method": "GET",
       "operationId": "code-security/get-configuration",
       "summary": "",
-      "user": "Get details of a specific code security configuration for the organization.",
-      "ideal": "Should return the configuration details for ID 12345."
+      "user": "Get details of a specific code security configuration by its ID to review its settings.",
+      "ideal": "Configuration details including its ID, name, and current status."
     },
     {
-      "path": "/orgs/my-org/code-security/configurations/12345",
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}",
       "method": "PATCH",
       "operationId": "code-security/update-configuration",
       "summary": "",
-      "user": "Update an existing code security configuration for the organization.",
-      "ideal": "Should return the updated configuration details."
+      "user": "Update an existing code security configuration to address new security vulnerabilities.",
+      "ideal": "Confirmation of the updated configuration with the new settings reflected."
     },
     {
-      "path": "/orgs/my-org/code-security/configurations/12345",
+      "path": "/orgs/{org}/code-security/configurations/{configuration_id}",
       "method": "DELETE",
       "operationId": "code-security/delete-configuration",
       "summary": "",
-      "user": "Delete a specific code security configuration by its ID.",
-      "ideal": "Should confirm the deletion of the configuration."
+      "user": "Remove a specific code security configuration that is outdated or unnecessary.",
+      "ideal": "Confirmation of successful deletion of the configuration."
     },
     {
-      "path": "/orgs/my-org/code-security/configurations/12345/attach",
-      "method": "POST",
-      "operationId": "code-security/attach-configuration",
-      "summary": "",
-      "user": "Attach a configuration to the organization.",
-      "ideal": "Should return a success message upon successful attachment."
-    },
-    {
-      "path": "/orgs/my-org/code-security/configurations/12345/defaults",
-      "method": "PUT",
-      "operationId": "code-security/set-configuration-as-default",
-      "summary": "",
-      "user": "Set a specific configuration as the default for the organization.",
-      "ideal": "Should return the updated default configuration."
-    },
-    {
-      "path": "/orgs/my-org/code-security/configurations/12345/repositories",
-      "method": "GET",
-      "operationId": "code-security/get-repositories-for-configuration",
-      "summary": "",
-      "user": "List all repositories associated with a specific configuration for the organization.",
-      "ideal": "Should return a list of repositories linked to configuration ID 12345."
-    },
-    {
-      "path": "/repos/my-owner/my-repo/code-security-configuration",
+      "path": "/repos/{owner}/{repo}/code-security-configuration",
       "method": "GET",
       "operationId": "code-security/get-configuration-for-repository",
       "summary": "",
-      "user": "Get the code security configuration for a specific repository.",
-      "ideal": "Should return the configuration details for the specified repository."
+      "user": "Fetch the code security configuration for a specific repository to ensure compliance with security standards.",
+      "ideal": "Configuration details including its ID, name, and applicable security measures."
     }
   ]
 }

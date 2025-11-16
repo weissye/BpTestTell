@@ -1,0 +1,12 @@
+{
+  "ops": [
+    {
+      "method": "POST",
+      "path": "/inventory"
+    },
+    {
+      "method": "PUT",
+      "path": "/reset/{id}"
+    }
+  ]
+}

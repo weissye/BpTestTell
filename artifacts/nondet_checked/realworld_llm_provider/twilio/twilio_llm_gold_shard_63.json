@@ -6,15 +6,15 @@
       "operationId": "CreateStream",
       "summary": "",
       "user": "User wants to create a new stream for a specific call to enable audio processing.",
-      "ideal": "The API should return a success response with the details of the created stream, including its Sid and status."
+      "ideal": "The API should return a success response with the details of the created stream."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateStream",
       "summary": "",
-      "user": "User needs to update an existing stream to change its parameters, such as audio direction or status.",
-      "ideal": "The API should return a success response confirming the update, along with the updated stream details."
+      "user": "User needs to update an existing stream to change its status or parameters for ongoing audio processing.",
+      "ideal": "The API should return a success response confirming the update of the stream."
     }
   ]
 }

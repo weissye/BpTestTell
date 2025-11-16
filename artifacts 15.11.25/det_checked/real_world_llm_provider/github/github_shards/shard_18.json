@@ -1,0 +1,188 @@
+{
+  "ops": [
+    {
+      "method": "DELETE",
+      "path": "/applications/{client_id}/grant"
+    },
+    {
+      "method": "GET",
+      "path": "/enterprises/{enterprise}/code-security/configurations/{configuration_id}/repositories"
+    },
+    {
+      "method": "POST",
+      "path": "/gists/{gist_id}/comments"
+    },
+    {
+      "method": "GET",
+      "path": "/marketplace_listing/stubbed/plans"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/hosted-runners"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/permissions/selected-actions"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/runners"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/variables/{name}"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/code-security/configurations"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/copilot/billing/selected_teams"
+    },
+    {
+      "method": "PATCH",
+      "path": "/orgs/{org}/hooks/{hook_id}/config"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/issue-types"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/organization-roles/teams/{team_slug}/{role_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/personal-access-tokens/{pat_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/properties/values"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/settings/billing/actions"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/permissions/workflow"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/actions/runs/{run_id}/deployment_protection_rule"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/code-scanning/codeql/databases/{language}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/collaborators/{username}"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/contents/{path}"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/git/blobs"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/hooks/{hook_id}/tests"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/issues/comments/{comment_id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/lock"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/milestones"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/properties/values"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/releases/{release_id}/reactions"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/cve"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/traffic/views"
+    },
+    {
+      "method": "POST",
+      "path": "/teams/{team_id}/discussions/{discussion_number}/comments"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/teams"
+    },
+    {
+      "method": "POST",
+      "path": "/user/codespaces/{codespace_name}/publish"
+    },
+    {
+      "method": "GET",
+      "path": "/user/issues"
+    },
+    {
+      "method": "GET",
+      "path": "/user/packages/{package_type}/{package_name}/versions/{package_version_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/subscriptions"
+    }
+  ]
+}

@@ -5,24 +5,24 @@
       "method": "GET",
       "operationId": "licenses/get-all-commonly-used",
       "summary": "",
-      "user": "developer123",
-      "ideal": "Retrieve a list of all commonly used licenses available on GitHub."
+      "user": "A developer looking for commonly used open-source licenses to choose from for their new project.",
+      "ideal": "Returns a list of commonly used licenses."
     },
     {
       "path": "/licenses/mit",
       "method": "GET",
       "operationId": "licenses/get",
       "summary": "",
-      "user": "openSourceFan",
-      "ideal": "Fetch detailed information about the MIT license."
+      "user": "A developer who wants to retrieve the details of the MIT license to understand its terms and conditions before applying it to their project.",
+      "ideal": "Returns the details of the MIT license."
     },
     {
       "path": "/repos/octocat/Hello-World/license",
       "method": "GET",
       "operationId": "licenses/get-for-repo",
       "summary": "",
-      "user": "repoExplorer",
-      "ideal": "Get the license information for the 'Hello-World' repository owned by 'octocat'."
+      "user": "A user interested in checking the license type of the 'Hello-World' repository owned by 'octocat' to ensure compliance with its usage.",
+      "ideal": "Returns the license information for the specified repository."
     }
   ]
 }

@@ -14,7 +14,7 @@
       "operationId": "repoSearch",
       "summary": "",
       "user": "user456",
-      "ideal": "Search for repositories based on a query."
+      "ideal": "Search for repositories based on specified criteria."
     },
     {
       "path": "/repos/{owner}/{repo}",
@@ -62,7 +62,7 @@
       "operationId": "repoListBranches",
       "summary": "",
       "user": "user505",
-      "ideal": "List all branches in a repository."
+      "ideal": "List all branches in a specific repository."
     },
     {
       "path": "/repos/{owner}/{repo}/branches/{branch}",
@@ -78,7 +78,7 @@
       "operationId": "repoCreatePullRequest",
       "summary": "",
       "user": "user707",
-      "ideal": "Create a new pull request in a repository."
+      "ideal": "Create a new pull request for a repository."
     },
     {
       "path": "/repos/{owner}/{repo}/pulls/{index}",
@@ -94,7 +94,7 @@
       "operationId": "repoListReleases",
       "summary": "",
       "user": "user909",
-      "ideal": "List all releases for a repository."
+      "ideal": "List all releases for a specific repository."
     },
     {
       "path": "/repos/{owner}/{repo}/releases",
@@ -105,20 +105,20 @@
       "ideal": "Create a new release for a repository."
     },
     {
-      "path": "/repos/{owner}/{repo}/tags",
-      "method": "GET",
-      "operationId": "repoListTags",
-      "summary": "",
-      "user": "user1111",
-      "ideal": "List all tags in a repository."
-    },
-    {
       "path": "/repos/{owner}/{repo}/topics",
       "method": "PUT",
       "operationId": "repoUpdateTopics",
       "summary": "",
+      "user": "user1111",
+      "ideal": "Update topics for a specific repository."
+    },
+    {
+      "path": "/repos/{owner}/{repo}/wiki/page/{pageName}",
+      "method": "DELETE",
+      "operationId": "repoDeleteWikiPage",
+      "summary": "",
       "user": "user1212",
-      "ideal": "Update topics for a repository."
+      "ideal": "Delete a specific wiki page from a repository."
     }
   ]
 }

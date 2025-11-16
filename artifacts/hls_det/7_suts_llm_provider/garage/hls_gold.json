@@ -1,119 +1,52 @@
 {
   "sut": "garage",
   "provider": "7_suts_llm_provider",
-  "mode": "det",
-  "source": {
-    "created_by": "build_hls_gold_det.py"
-  },
+  "generated_at": "2025-11-15T23:45:17.366248Z",
   "stories": [
     {
-      "name": "crud:approve:det:1:1",
-      "js": "// ---- crud:approve:det:1:1 ----\nbthread(\"crud:approve:det:1:1\", function() {\n  const id = uniqueId(\"approve\");\n  verifyApproveDoesNotExist(id);\n  createApprove(id, seedApprove());\n  verifyApproveExists(id);\n});\n"
+      "name": "CRUD_approve",
+      "entity": "approve",
+      "steps": []
     },
     {
-      "name": "crud:approve:det:2:1",
-      "js": "// ---- crud:approve:det:2:1 ----\nbthread(\"crud:approve:det:2:1\", function() {\n  const id = uniqueId(\"approve\");\n  createApprove(id, seedApprove());\n  updateApprove(id, patchApprove());\n  verifyApproveUpdated(id);\n});\n"
+      "name": "CRUD_car",
+      "entity": "car",
+      "steps": []
     },
     {
-      "name": "crud:approve:det:3:1",
-      "js": "// ---- crud:approve:det:3:1 ----\nbthread(\"crud:approve:det:3:1\", function() {\n  const id = uniqueId(\"approve\");\n  createApprove(id, seedApprove());\n  deleteApprove(id);\n  verifyApproveDoesNotExist(id);\n});\n"
+      "name": "CRUD_chain",
+      "entity": "chain",
+      "steps": []
     },
     {
-      "name": "crud:car:det:1:2",
-      "js": "// ---- crud:car:det:1:2 ----\nbthread(\"crud:car:det:1:2\", function() {\n  const id = uniqueId(\"car\");\n  verifyCarDoesNotExist(id);\n  createCar(id, seedCar());\n  verifyCarExists(id);\n});\n"
+      "name": "CRUD_close",
+      "entity": "close",
+      "steps": []
     },
     {
-      "name": "crud:car:det:2:2",
-      "js": "// ---- crud:car:det:2:2 ----\nbthread(\"crud:car:det:2:2\", function() {\n  const id = uniqueId(\"car\");\n  createCar(id, seedCar());\n  updateCar(id, patchCar());\n  verifyCarUpdated(id);\n});\n"
+      "name": "CRUD_customer",
+      "entity": "customer",
+      "steps": []
     },
     {
-      "name": "crud:car:det:3:2",
-      "js": "// ---- crud:car:det:3:2 ----\nbthread(\"crud:car:det:3:2\", function() {\n  const id = uniqueId(\"car\");\n  createCar(id, seedCar());\n  deleteCar(id);\n  verifyCarDoesNotExist(id);\n});\n"
+      "name": "CRUD_garage",
+      "entity": "garage",
+      "steps": []
     },
     {
-      "name": "crud:chain:det:1:3",
-      "js": "// ---- crud:chain:det:1:3 ----\nbthread(\"crud:chain:det:1:3\", function() {\n  const id = uniqueId(\"chain\");\n  verifyChainDoesNotExist(id);\n  createChain(id, seedChain());\n  verifyChainExists(id);\n});\n"
+      "name": "CRUD_periodic_maintenance",
+      "entity": "periodic_maintenance",
+      "steps": []
     },
     {
-      "name": "crud:chain:det:2:3",
-      "js": "// ---- crud:chain:det:2:3 ----\nbthread(\"crud:chain:det:2:3\", function() {\n  const id = uniqueId(\"chain\");\n  createChain(id, seedChain());\n  updateChain(id, patchChain());\n  verifyChainUpdated(id);\n});\n"
+      "name": "CRUD_repair_order",
+      "entity": "repair_order",
+      "steps": []
     },
     {
-      "name": "crud:chain:det:3:3",
-      "js": "// ---- crud:chain:det:3:3 ----\nbthread(\"crud:chain:det:3:3\", function() {\n  const id = uniqueId(\"chain\");\n  createChain(id, seedChain());\n  deleteChain(id);\n  verifyChainDoesNotExist(id);\n});\n"
-    },
-    {
-      "name": "crud:close:det:1:4",
-      "js": "// ---- crud:close:det:1:4 ----\nbthread(\"crud:close:det:1:4\", function() {\n  const id = uniqueId(\"close\");\n  verifyCloseDoesNotExist(id);\n  createClose(id, seedClose());\n  verifyCloseExists(id);\n});\n"
-    },
-    {
-      "name": "crud:close:det:2:4",
-      "js": "// ---- crud:close:det:2:4 ----\nbthread(\"crud:close:det:2:4\", function() {\n  const id = uniqueId(\"close\");\n  createClose(id, seedClose());\n  updateClose(id, patchClose());\n  verifyCloseUpdated(id);\n});\n"
-    },
-    {
-      "name": "crud:close:det:3:4",
-      "js": "// ---- crud:close:det:3:4 ----\nbthread(\"crud:close:det:3:4\", function() {\n  const id = uniqueId(\"close\");\n  createClose(id, seedClose());\n  deleteClose(id);\n  verifyCloseDoesNotExist(id);\n});\n"
-    },
-    {
-      "name": "crud:customer:det:1:5",
-      "js": "// ---- crud:customer:det:1:5 ----\nbthread(\"crud:customer:det:1:5\", function() {\n  const id = uniqueId(\"customer\");\n  verifyCustomerDoesNotExist(id);\n  createCustomer(id, seedCustomer());\n  verifyCustomerExists(id);\n});\n"
-    },
-    {
-      "name": "crud:customer:det:2:5",
-      "js": "// ---- crud:customer:det:2:5 ----\nbthread(\"crud:customer:det:2:5\", function() {\n  const id = uniqueId(\"customer\");\n  createCustomer(id, seedCustomer());\n  updateCustomer(id, patchCustomer());\n  verifyCustomerUpdated(id);\n});\n"
-    },
-    {
-      "name": "crud:customer:det:3:5",
-      "js": "// ---- crud:customer:det:3:5 ----\nbthread(\"crud:customer:det:3:5\", function() {\n  const id = uniqueId(\"customer\");\n  createCustomer(id, seedCustomer());\n  deleteCustomer(id);\n  verifyCustomerDoesNotExist(id);\n});\n"
-    },
-    {
-      "name": "crud:garage:det:1:6",
-      "js": "// ---- crud:garage:det:1:6 ----\nbthread(\"crud:garage:det:1:6\", function() {\n  const id = uniqueId(\"garage\");\n  verifyGarageDoesNotExist(id);\n  createGarage(id, seedGarage());\n  verifyGarageExists(id);\n});\n"
-    },
-    {
-      "name": "crud:garage:det:2:6",
-      "js": "// ---- crud:garage:det:2:6 ----\nbthread(\"crud:garage:det:2:6\", function() {\n  const id = uniqueId(\"garage\");\n  createGarage(id, seedGarage());\n  updateGarage(id, patchGarage());\n  verifyGarageUpdated(id);\n});\n"
-    },
-    {
-      "name": "crud:garage:det:3:6",
-      "js": "// ---- crud:garage:det:3:6 ----\nbthread(\"crud:garage:det:3:6\", function() {\n  const id = uniqueId(\"garage\");\n  createGarage(id, seedGarage());\n  deleteGarage(id);\n  verifyGarageDoesNotExist(id);\n});\n"
-    },
-    {
-      "name": "crud:periodic_maintenance:det:1:7",
-      "js": "// ---- crud:periodic_maintenance:det:1:7 ----\nbthread(\"crud:periodic_maintenance:det:1:7\", function() {\n  const id = uniqueId(\"periodic_maintenance\");\n  verifyPeriodic_MaintenanceDoesNotExist(id);\n  createPeriodic_Maintenance(id, seedPeriodic_Maintenance());\n  verifyPeriodic_MaintenanceExists(id);\n});\n"
-    },
-    {
-      "name": "crud:periodic_maintenance:det:2:7",
-      "js": "// ---- crud:periodic_maintenance:det:2:7 ----\nbthread(\"crud:periodic_maintenance:det:2:7\", function() {\n  const id = uniqueId(\"periodic_maintenance\");\n  createPeriodic_Maintenance(id, seedPeriodic_Maintenance());\n  updatePeriodic_Maintenance(id, patchPeriodic_Maintenance());\n  verifyPeriodic_MaintenanceUpdated(id);\n});\n"
-    },
-    {
-      "name": "crud:periodic_maintenance:det:3:7",
-      "js": "// ---- crud:periodic_maintenance:det:3:7 ----\nbthread(\"crud:periodic_maintenance:det:3:7\", function() {\n  const id = uniqueId(\"periodic_maintenance\");\n  createPeriodic_Maintenance(id, seedPeriodic_Maintenance());\n  deletePeriodic_Maintenance(id);\n  verifyPeriodic_MaintenanceDoesNotExist(id);\n});\n"
-    },
-    {
-      "name": "crud:repair_order:det:1:8",
-      "js": "// ---- crud:repair_order:det:1:8 ----\nbthread(\"crud:repair_order:det:1:8\", function() {\n  const id = uniqueId(\"repair_order\");\n  verifyRepair_OrderDoesNotExist(id);\n  createRepair_Order(id, seedRepair_Order());\n  verifyRepair_OrderExists(id);\n});\n"
-    },
-    {
-      "name": "crud:repair_order:det:2:8",
-      "js": "// ---- crud:repair_order:det:2:8 ----\nbthread(\"crud:repair_order:det:2:8\", function() {\n  const id = uniqueId(\"repair_order\");\n  createRepair_Order(id, seedRepair_Order());\n  updateRepair_Order(id, patchRepair_Order());\n  verifyRepair_OrderUpdated(id);\n});\n"
-    },
-    {
-      "name": "crud:repair_order:det:3:8",
-      "js": "// ---- crud:repair_order:det:3:8 ----\nbthread(\"crud:repair_order:det:3:8\", function() {\n  const id = uniqueId(\"repair_order\");\n  createRepair_Order(id, seedRepair_Order());\n  deleteRepair_Order(id);\n  verifyRepair_OrderDoesNotExist(id);\n});\n"
-    },
-    {
-      "name": "crud:reset:det:1:9",
-      "js": "// ---- crud:reset:det:1:9 ----\nbthread(\"crud:reset:det:1:9\", function() {\n  const id = uniqueId(\"reset\");\n  verifyResetDoesNotExist(id);\n  createReset(id, seedReset());\n  verifyResetExists(id);\n});\n"
-    },
-    {
-      "name": "crud:reset:det:2:9",
-      "js": "// ---- crud:reset:det:2:9 ----\nbthread(\"crud:reset:det:2:9\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  updateReset(id, patchReset());\n  verifyResetUpdated(id);\n});\n"
-    },
-    {
-      "name": "crud:reset:det:3:9",
-      "js": "// ---- crud:reset:det:3:9 ----\nbthread(\"crud:reset:det:3:9\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  deleteReset(id);\n  verifyResetDoesNotExist(id);\n});\n"
+      "name": "CRUD_reset",
+      "entity": "reset",
+      "steps": []
     }
-  ],
-  "stories_js": "// ---- crud:approve:det:1:1 ----\nbthread(\"crud:approve:det:1:1\", function() {\n  const id = uniqueId(\"approve\");\n  verifyApproveDoesNotExist(id);\n  createApprove(id, seedApprove());\n  verifyApproveExists(id);\n});\n\n// ---- crud:approve:det:2:1 ----\nbthread(\"crud:approve:det:2:1\", function() {\n  const id = uniqueId(\"approve\");\n  createApprove(id, seedApprove());\n  updateApprove(id, patchApprove());\n  verifyApproveUpdated(id);\n});\n\n// ---- crud:approve:det:3:1 ----\nbthread(\"crud:approve:det:3:1\", function() {\n  const id = uniqueId(\"approve\");\n  createApprove(id, seedApprove());\n  deleteApprove(id);\n  verifyApproveDoesNotExist(id);\n});\n\n// ---- crud:car:det:1:2 ----\nbthread(\"crud:car:det:1:2\", function() {\n  const id = uniqueId(\"car\");\n  verifyCarDoesNotExist(id);\n  createCar(id, seedCar());\n  verifyCarExists(id);\n});\n\n// ---- crud:car:det:2:2 ----\nbthread(\"crud:car:det:2:2\", function() {\n  const id = uniqueId(\"car\");\n  createCar(id, seedCar());\n  updateCar(id, patchCar());\n  verifyCarUpdated(id);\n});\n\n// ---- crud:car:det:3:2 ----\nbthread(\"crud:car:det:3:2\", function() {\n  const id = uniqueId(\"car\");\n  createCar(id, seedCar());\n  deleteCar(id);\n  verifyCarDoesNotExist(id);\n});\n\n// ---- crud:chain:det:1:3 ----\nbthread(\"crud:chain:det:1:3\", function() {\n  const id = uniqueId(\"chain\");\n  verifyChainDoesNotExist(id);\n  createChain(id, seedChain());\n  verifyChainExists(id);\n});\n\n// ---- crud:chain:det:2:3 ----\nbthread(\"crud:chain:det:2:3\", function() {\n  const id = uniqueId(\"chain\");\n  createChain(id, seedChain());\n  updateChain(id, patchChain());\n  verifyChainUpdated(id);\n});\n\n// ---- crud:chain:det:3:3 ----\nbthread(\"crud:chain:det:3:3\", function() {\n  const id = uniqueId(\"chain\");\n  createChain(id, seedChain());\n  deleteChain(id);\n  verifyChainDoesNotExist(id);\n});\n\n// ---- crud:close:det:1:4 ----\nbthread(\"crud:close:det:1:4\", function() {\n  const id = uniqueId(\"close\");\n  verifyCloseDoesNotExist(id);\n  createClose(id, seedClose());\n  verifyCloseExists(id);\n});\n\n// ---- crud:close:det:2:4 ----\nbthread(\"crud:close:det:2:4\", function() {\n  const id = uniqueId(\"close\");\n  createClose(id, seedClose());\n  updateClose(id, patchClose());\n  verifyCloseUpdated(id);\n});\n\n// ---- crud:close:det:3:4 ----\nbthread(\"crud:close:det:3:4\", function() {\n  const id = uniqueId(\"close\");\n  createClose(id, seedClose());\n  deleteClose(id);\n  verifyCloseDoesNotExist(id);\n});\n\n// ---- crud:customer:det:1:5 ----\nbthread(\"crud:customer:det:1:5\", function() {\n  const id = uniqueId(\"customer\");\n  verifyCustomerDoesNotExist(id);\n  createCustomer(id, seedCustomer());\n  verifyCustomerExists(id);\n});\n\n// ---- crud:customer:det:2:5 ----\nbthread(\"crud:customer:det:2:5\", function() {\n  const id = uniqueId(\"customer\");\n  createCustomer(id, seedCustomer());\n  updateCustomer(id, patchCustomer());\n  verifyCustomerUpdated(id);\n});\n\n// ---- crud:customer:det:3:5 ----\nbthread(\"crud:customer:det:3:5\", function() {\n  const id = uniqueId(\"customer\");\n  createCustomer(id, seedCustomer());\n  deleteCustomer(id);\n  verifyCustomerDoesNotExist(id);\n});\n\n// ---- crud:garage:det:1:6 ----\nbthread(\"crud:garage:det:1:6\", function() {\n  const id = uniqueId(\"garage\");\n  verifyGarageDoesNotExist(id);\n  createGarage(id, seedGarage());\n  verifyGarageExists(id);\n});\n\n// ---- crud:garage:det:2:6 ----\nbthread(\"crud:garage:det:2:6\", function() {\n  const id = uniqueId(\"garage\");\n  createGarage(id, seedGarage());\n  updateGarage(id, patchGarage());\n  verifyGarageUpdated(id);\n});\n\n// ---- crud:garage:det:3:6 ----\nbthread(\"crud:garage:det:3:6\", function() {\n  const id = uniqueId(\"garage\");\n  createGarage(id, seedGarage());\n  deleteGarage(id);\n  verifyGarageDoesNotExist(id);\n});\n\n// ---- crud:periodic_maintenance:det:1:7 ----\nbthread(\"crud:periodic_maintenance:det:1:7\", function() {\n  const id = uniqueId(\"periodic_maintenance\");\n  verifyPeriodic_MaintenanceDoesNotExist(id);\n  createPeriodic_Maintenance(id, seedPeriodic_Maintenance());\n  verifyPeriodic_MaintenanceExists(id);\n});\n\n// ---- crud:periodic_maintenance:det:2:7 ----\nbthread(\"crud:periodic_maintenance:det:2:7\", function() {\n  const id = uniqueId(\"periodic_maintenance\");\n  createPeriodic_Maintenance(id, seedPeriodic_Maintenance());\n  updatePeriodic_Maintenance(id, patchPeriodic_Maintenance());\n  verifyPeriodic_MaintenanceUpdated(id);\n});\n\n// ---- crud:periodic_maintenance:det:3:7 ----\nbthread(\"crud:periodic_maintenance:det:3:7\", function() {\n  const id = uniqueId(\"periodic_maintenance\");\n  createPeriodic_Maintenance(id, seedPeriodic_Maintenance());\n  deletePeriodic_Maintenance(id);\n  verifyPeriodic_MaintenanceDoesNotExist(id);\n});\n\n// ---- crud:repair_order:det:1:8 ----\nbthread(\"crud:repair_order:det:1:8\", function() {\n  const id = uniqueId(\"repair_order\");\n  verifyRepair_OrderDoesNotExist(id);\n  createRepair_Order(id, seedRepair_Order());\n  verifyRepair_OrderExists(id);\n});\n\n// ---- crud:repair_order:det:2:8 ----\nbthread(\"crud:repair_order:det:2:8\", function() {\n  const id = uniqueId(\"repair_order\");\n  createRepair_Order(id, seedRepair_Order());\n  updateRepair_Order(id, patchRepair_Order());\n  verifyRepair_OrderUpdated(id);\n});\n\n// ---- crud:repair_order:det:3:8 ----\nbthread(\"crud:repair_order:det:3:8\", function() {\n  const id = uniqueId(\"repair_order\");\n  createRepair_Order(id, seedRepair_Order());\n  deleteRepair_Order(id);\n  verifyRepair_OrderDoesNotExist(id);\n});\n\n// ---- crud:reset:det:1:9 ----\nbthread(\"crud:reset:det:1:9\", function() {\n  const id = uniqueId(\"reset\");\n  verifyResetDoesNotExist(id);\n  createReset(id, seedReset());\n  verifyResetExists(id);\n});\n\n// ---- crud:reset:det:2:9 ----\nbthread(\"crud:reset:det:2:9\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  updateReset(id, patchReset());\n  verifyResetUpdated(id);\n});\n\n// ---- crud:reset:det:3:9 ----\nbthread(\"crud:reset:det:3:9\", function() {\n  const id = uniqueId(\"reset\");\n  createReset(id, seedReset());\n  deleteReset(id);\n  verifyResetDoesNotExist(id);\n});\n"
+  ]
 }

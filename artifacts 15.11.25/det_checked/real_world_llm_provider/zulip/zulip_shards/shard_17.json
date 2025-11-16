@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/events"
+    },
+    {
+      "method": "GET",
+      "path": "/messages/{message_id}/history"
+    },
+    {
+      "method": "GET",
+      "path": "/realm/presence"
+    },
+    {
+      "method": "GET",
+      "path": "/streams/{stream_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/alert_words"
+    },
+    {
+      "method": "POST",
+      "path": "/users/{user_id}/status"
+    }
+  ]
+}

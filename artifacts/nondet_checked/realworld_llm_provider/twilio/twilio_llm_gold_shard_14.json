@@ -5,40 +5,40 @@
       "method": "POST",
       "operationId": "CreateCall",
       "summary": "",
-      "user": "User wants to initiate a call to a specified number with a given message.",
-      "ideal": "A successful response with the details of the created call."
+      "user": "User wants to initiate a new call to a specified number using Twilio's API.",
+      "ideal": "The API should return a success response with the details of the created call, including the Call SID."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
       "method": "GET",
       "operationId": "ListCall",
       "summary": "",
-      "user": "User needs to retrieve a list of all calls made from their account.",
-      "ideal": "A list of call records with details such as duration, status, and timestamps."
+      "user": "User needs to retrieve a list of all calls made from their Twilio account.",
+      "ideal": "The API should return a paginated list of calls with relevant details such as Call SID, status, and duration."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
       "method": "DELETE",
       "operationId": "DeleteCall",
       "summary": "",
-      "user": "User wants to delete a specific call record by its SID.",
-      "ideal": "A confirmation of successful deletion of the call record."
+      "user": "User wants to delete a specific call from their Twilio account using the Call SID.",
+      "ideal": "The API should confirm the deletion of the call and return a success message."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
       "method": "GET",
       "operationId": "FetchCall",
       "summary": "",
-      "user": "User wants to fetch details of a specific call using its SID.",
-      "ideal": "Detailed information about the call, including status, duration, and timestamps."
+      "user": "User needs to fetch details of a specific call using its Call SID.",
+      "ideal": "The API should return detailed information about the call, including its status and timestamps."
     },
     {
       "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
       "method": "POST",
       "operationId": "UpdateCall",
       "summary": "",
-      "user": "User needs to update the status of a specific call.",
-      "ideal": "A successful response indicating the call has been updated with new parameters."
+      "user": "User wants to update the status of an ongoing call using the Call SID.",
+      "ideal": "The API should return the updated call details, confirming the changes made."
     }
   ]
 }

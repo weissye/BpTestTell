@@ -1,0 +1,81 @@
+{
+  "openapi_meta": {
+    "title": "Zulip REST API",
+    "version": "1.0.0"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/drafts",
+      "method": "GET",
+      "tags": [
+        "drafts"
+      ],
+      "summary": "Get drafts",
+      "operationId": "get-drafts"
+    },
+    {
+      "path": "/drafts",
+      "method": "POST",
+      "tags": [
+        "drafts"
+      ],
+      "summary": "Create drafts",
+      "operationId": "create-drafts"
+    },
+    {
+      "path": "/drafts/{draft_id}",
+      "method": "PATCH",
+      "tags": [
+        "drafts"
+      ],
+      "summary": "Edit a draft",
+      "operationId": "edit-draft"
+    },
+    {
+      "path": "/drafts/{draft_id}",
+      "method": "DELETE",
+      "tags": [
+        "drafts"
+      ],
+      "summary": "Delete a draft",
+      "operationId": "delete-draft"
+    },
+    {
+      "path": "/saved_snippets",
+      "method": "GET",
+      "tags": [
+        "drafts"
+      ],
+      "summary": "Get all saved snippets",
+      "operationId": "get-saved-snippets"
+    },
+    {
+      "path": "/saved_snippets",
+      "method": "POST",
+      "tags": [
+        "drafts"
+      ],
+      "summary": "Create a saved snippet",
+      "operationId": "create-saved-snippet"
+    },
+    {
+      "path": "/saved_snippets/{saved_snippet_id}",
+      "method": "PATCH",
+      "tags": [
+        "drafts"
+      ],
+      "summary": "Edit a saved snippet",
+      "operationId": "edit-saved-snippet"
+    },
+    {
+      "path": "/saved_snippets/{saved_snippet_id}",
+      "method": "DELETE",
+      "tags": [
+        "drafts"
+      ],
+      "summary": "Delete a saved snippet",
+      "operationId": "delete-saved-snippet"
+    }
+  ]
+}

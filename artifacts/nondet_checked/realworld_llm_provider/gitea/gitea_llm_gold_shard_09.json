@@ -13,24 +13,24 @@
       "method": "GET",
       "operationId": "getGeneralAttachmentSettings",
       "summary": "",
-      "user": "user123",
-      "ideal": "Fetch the general settings related to attachments in the Gitea instance."
+      "user": "admin",
+      "ideal": "Fetch the general attachment settings for the Gitea instance."
     },
     {
       "path": "/settings/repository",
       "method": "GET",
       "operationId": "getGeneralRepositorySettings",
       "summary": "",
-      "user": "dev_team",
-      "ideal": "Obtain the general repository settings for managing repositories in Gitea."
+      "user": "admin",
+      "ideal": "Obtain the general repository settings for the Gitea instance."
     },
     {
       "path": "/settings/ui",
       "method": "GET",
       "operationId": "getGeneralUISettings",
       "summary": "",
-      "user": "guest_user",
-      "ideal": "Access the general UI settings for the Gitea interface."
+      "user": "admin",
+      "ideal": "Get the general UI settings for the Gitea instance."
     }
   ]
 }

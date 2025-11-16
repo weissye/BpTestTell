@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "getAllProjectTypes",
       "summary": "",
-      "user": "A project manager looking to retrieve all available project types in Jira to better understand the options for new projects.",
+      "user": "A project manager looking to view all available project types in Jira to determine which type best fits their new project requirements.",
       "ideal": "Returns a list of all project types available in the Jira Cloud platform."
     },
     {
@@ -13,7 +13,7 @@
       "method": "GET",
       "operationId": "getAllAccessibleProjectTypes",
       "summary": "",
-      "user": "A team lead wanting to see which project types are accessible to their team members for creating new projects.",
+      "user": "A team member who needs to check which project types they have access to for creating new projects in Jira.",
       "ideal": "Returns a list of project types that the user has permission to access."
     },
     {
@@ -21,7 +21,7 @@
       "method": "GET",
       "operationId": "getProjectTypeByKey",
       "summary": "",
-      "user": "A developer needing detailed information about a specific project type to ensure compatibility with their current project setup.",
+      "user": "A developer who wants to retrieve detailed information about a specific project type using its key to understand its features and configurations.",
       "ideal": "Returns detailed information about the specified project type identified by the projectTypeKey."
     },
     {
@@ -29,8 +29,8 @@
       "method": "GET",
       "operationId": "getAccessibleProjectTypeByKey",
       "summary": "",
-      "user": "An administrator checking if a specific project type is accessible for a new project setup for a client.",
-      "ideal": "Returns accessibility information for the specified project type, indicating whether the user can create projects of this type."
+      "user": "An administrator who needs to verify if a specific project type is accessible to a certain user or group within the organization.",
+      "ideal": "Returns accessibility information for the specified project type, indicating whether the user has access."
     }
   ]
 }

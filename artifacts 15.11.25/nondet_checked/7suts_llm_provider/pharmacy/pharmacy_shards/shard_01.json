@@ -1,0 +1,226 @@
+{
+  "openapi_meta": {
+    "title": "Pharmacy API (Option 3: Idempotent DELETE + Conflict on Duplicates)",
+    "version": "1.0.3"
+  },
+  "instructions": "Generate LLM GOLD examples for these API operations. Return JSON: {\"gold\": [{\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}...]}",
+  "operations": [
+    {
+      "path": "/drugs",
+      "method": "GET",
+      "tags": [],
+      "summary": "List drugs",
+      "operationId": "GET /drugs"
+    },
+    {
+      "path": "/drugs",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create drug",
+      "operationId": "POST /drugs"
+    },
+    {
+      "path": "/drugs/{id}",
+      "method": "GET",
+      "tags": [],
+      "summary": "Get drug",
+      "operationId": "GET /drugs/{id}"
+    },
+    {
+      "path": "/drugs/{id}",
+      "method": "PUT",
+      "tags": [],
+      "summary": "Update drug",
+      "operationId": "PUT /drugs/{id}"
+    },
+    {
+      "path": "/drugs/{id}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete drug (idempotent)",
+      "operationId": "DELETE /drugs/{id}"
+    },
+    {
+      "path": "/patients",
+      "method": "GET",
+      "tags": [],
+      "summary": "List patients",
+      "operationId": "GET /patients"
+    },
+    {
+      "path": "/patients",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create patient",
+      "operationId": "POST /patients"
+    },
+    {
+      "path": "/patients/{id}",
+      "method": "GET",
+      "tags": [],
+      "summary": "Get patient",
+      "operationId": "GET /patients/{id}"
+    },
+    {
+      "path": "/patients/{id}",
+      "method": "PUT",
+      "tags": [],
+      "summary": "Update patient",
+      "operationId": "PUT /patients/{id}"
+    },
+    {
+      "path": "/patients/{id}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete patient (idempotent)",
+      "operationId": "DELETE /patients/{id}"
+    },
+    {
+      "path": "/orders",
+      "method": "GET",
+      "tags": [],
+      "summary": "List orders",
+      "operationId": "GET /orders"
+    },
+    {
+      "path": "/orders",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create order",
+      "operationId": "POST /orders"
+    },
+    {
+      "path": "/orders/{id}",
+      "method": "GET",
+      "tags": [],
+      "summary": "Get order",
+      "operationId": "GET /orders/{id}"
+    },
+    {
+      "path": "/orders/{id}",
+      "method": "PUT",
+      "tags": [],
+      "summary": "Update order",
+      "operationId": "PUT /orders/{id}"
+    },
+    {
+      "path": "/orders/{id}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete order (idempotent)",
+      "operationId": "DELETE /orders/{id}"
+    },
+    {
+      "path": "/prescriptions",
+      "method": "GET",
+      "tags": [],
+      "summary": "List prescriptions",
+      "operationId": "GET /prescriptions"
+    },
+    {
+      "path": "/prescriptions",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create prescription",
+      "operationId": "POST /prescriptions"
+    },
+    {
+      "path": "/prescriptions/{id}",
+      "method": "GET",
+      "tags": [],
+      "summary": "Get prescription",
+      "operationId": "GET /prescriptions/{id}"
+    },
+    {
+      "path": "/prescriptions/{id}",
+      "method": "PUT",
+      "tags": [],
+      "summary": "Update prescription",
+      "operationId": "PUT /prescriptions/{id}"
+    },
+    {
+      "path": "/prescriptions/{id}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete prescription (idempotent)",
+      "operationId": "DELETE /prescriptions/{id}"
+    },
+    {
+      "path": "/inventory",
+      "method": "GET",
+      "tags": [],
+      "summary": "List inventory",
+      "operationId": "GET /inventory"
+    },
+    {
+      "path": "/inventory",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create inventor",
+      "operationId": "POST /inventory"
+    },
+    {
+      "path": "/inventory/{ndc}",
+      "method": "GET",
+      "tags": [],
+      "summary": "Get inventor",
+      "operationId": "GET /inventory/{ndc}"
+    },
+    {
+      "path": "/inventory/{ndc}",
+      "method": "PUT",
+      "tags": [],
+      "summary": "Update inventor",
+      "operationId": "PUT /inventory/{ndc}"
+    },
+    {
+      "path": "/inventory/{ndc}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete inventor (idempotent)",
+      "operationId": "DELETE /inventory/{ndc}"
+    },
+    {
+      "path": "/reset",
+      "method": "GET",
+      "tags": [],
+      "summary": "List reset",
+      "operationId": "GET /reset"
+    },
+    {
+      "path": "/reset",
+      "method": "POST",
+      "tags": [],
+      "summary": "Create rese",
+      "operationId": "POST /reset"
+    },
+    {
+      "path": "/reset/{id}",
+      "method": "GET",
+      "tags": [],
+      "summary": "Get rese",
+      "operationId": "GET /reset/{id}"
+    },
+    {
+      "path": "/reset/{id}",
+      "method": "PUT",
+      "tags": [],
+      "summary": "Update rese",
+      "operationId": "PUT /reset/{id}"
+    },
+    {
+      "path": "/reset/{id}",
+      "method": "DELETE",
+      "tags": [],
+      "summary": "Delete rese (idempotent)",
+      "operationId": "DELETE /reset/{id}"
+    },
+    {
+      "path": "/reset-all",
+      "method": "POST",
+      "tags": [],
+      "summary": "Clear all state",
+      "operationId": "POST /reset-all"
+    }
+  ]
+}

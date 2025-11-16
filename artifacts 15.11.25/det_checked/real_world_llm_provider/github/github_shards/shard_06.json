@@ -1,0 +1,188 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/app/hook/config"
+    },
+    {
+      "method": "GET",
+      "path": "/codes_of_conduct"
+    },
+    {
+      "method": "GET",
+      "path": "/enterprises/{enterprise}/teams/{team_slug}"
+    },
+    {
+      "method": "GET",
+      "path": "/gitignore/templates/{name}"
+    },
+    {
+      "method": "GET",
+      "path": "/octocat"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/permissions"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/actions/runner-groups/{runner_group_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/actions/secrets"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/attestations/{subject_digest}"
+    },
+    {
+      "method": "POST",
+      "path": "/orgs/{org}/codespaces/access/selected_users"
+    },
+    {
+      "method": "PUT",
+      "path": "/orgs/{org}/dependabot/secrets/{secret_name}/repositories"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/insights/api/time-stats/{actor_type}/{actor_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/memberships/{username}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/packages/{package_type}/{package_name}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/projectsV2/{project_number}/fields"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/rulesets/{ruleset_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/orgs/{org}/settings/network-configurations/{network_configuration_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/projects/{project_id}/collaborators/{username}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/actions/permissions"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/actions/runners/{runner_id}/labels"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/actions/secrets/{secret_name}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/automated-security-fixes"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/codespaces"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/commits/{commit_sha}/comments"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/dependency-graph/snapshots"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/environments/{environment_name}/secrets/public-key"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/git/trees/{tree_sha}"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/installation"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/issues/{issue_number}/comments"
+    },
+    {
+      "method": "DELETE",
+      "path": "/repos/{owner}/{repo}/keys/{key_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/pages/builds"
+    },
+    {
+      "method": "PATCH",
+      "path": "/repos/{owner}/{repo}/pulls/{pull_number}"
+    },
+    {
+      "method": "POST",
+      "path": "/repos/{owner}/{repo}/releases"
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/rulesets/{ruleset_id}/history/{version_id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/repos/{owner}/{repo}/subscription"
+    },
+    {
+      "method": "GET",
+      "path": "/search/repositories"
+    },
+    {
+      "method": "PUT",
+      "path": "/teams/{team_id}/members/{username}"
+    },
+    {
+      "method": "GET",
+      "path": "/user/codespaces/secrets/{secret_name}"
+    },
+    {
+      "method": "PUT",
+      "path": "/user/following/{username}"
+    },
+    {
+      "method": "GET",
+      "path": "/user/migrations/{migration_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/user/ssh_signing_keys"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{username}/following/{target_user}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/{username}/projectsV2/{project_number}/items/{item_id}"
+    }
+  ]
+}

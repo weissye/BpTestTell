@@ -1,0 +1,560 @@
+{
+  "ops": [
+    {
+      "method": "GET",
+      "path": "/attachments"
+    },
+    {
+      "method": "DELETE",
+      "path": "/attachments/{attachment_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/calls/bigbluebutton/create"
+    },
+    {
+      "method": "GET",
+      "path": "/channel_folders"
+    },
+    {
+      "method": "PATCH",
+      "path": "/channel_folders"
+    },
+    {
+      "method": "POST",
+      "path": "/channel_folders/create"
+    },
+    {
+      "method": "PATCH",
+      "path": "/channel_folders/{channel_folder_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/channels/create"
+    },
+    {
+      "method": "POST",
+      "path": "/default_streams"
+    },
+    {
+      "method": "DELETE",
+      "path": "/default_streams"
+    },
+    {
+      "method": "POST",
+      "path": "/dev_fetch_api_key"
+    },
+    {
+      "method": "GET",
+      "path": "/drafts"
+    },
+    {
+      "method": "POST",
+      "path": "/drafts"
+    },
+    {
+      "method": "PATCH",
+      "path": "/drafts/{draft_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/drafts/{draft_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/events"
+    },
+    {
+      "method": "DELETE",
+      "path": "/events"
+    },
+    {
+      "method": "GET",
+      "path": "/export/realm"
+    },
+    {
+      "method": "POST",
+      "path": "/export/realm"
+    },
+    {
+      "method": "GET",
+      "path": "/export/realm/consents"
+    },
+    {
+      "method": "POST",
+      "path": "/fetch_api_key"
+    },
+    {
+      "method": "GET",
+      "path": "/get_stream_id"
+    },
+    {
+      "method": "GET",
+      "path": "/invites"
+    },
+    {
+      "method": "POST",
+      "path": "/invites"
+    },
+    {
+      "method": "POST",
+      "path": "/invites/multiuse"
+    },
+    {
+      "method": "DELETE",
+      "path": "/invites/multiuse/{invite_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/invites/{invite_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/invites/{invite_id}/resend"
+    },
+    {
+      "method": "POST",
+      "path": "/mark_all_as_read"
+    },
+    {
+      "method": "POST",
+      "path": "/mark_stream_as_read"
+    },
+    {
+      "method": "POST",
+      "path": "/mark_topic_as_read"
+    },
+    {
+      "method": "GET",
+      "path": "/messages"
+    },
+    {
+      "method": "POST",
+      "path": "/messages"
+    },
+    {
+      "method": "POST",
+      "path": "/messages/flags"
+    },
+    {
+      "method": "POST",
+      "path": "/messages/flags/narrow"
+    },
+    {
+      "method": "GET",
+      "path": "/messages/matches_narrow"
+    },
+    {
+      "method": "POST",
+      "path": "/messages/render"
+    },
+    {
+      "method": "GET",
+      "path": "/messages/{message_id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/messages/{message_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/messages/{message_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/messages/{message_id}/history"
+    },
+    {
+      "method": "POST",
+      "path": "/messages/{message_id}/reactions"
+    },
+    {
+      "method": "DELETE",
+      "path": "/messages/{message_id}/reactions"
+    },
+    {
+      "method": "GET",
+      "path": "/messages/{message_id}/read_receipts"
+    },
+    {
+      "method": "POST",
+      "path": "/messages/{message_id}/report"
+    },
+    {
+      "method": "POST",
+      "path": "/messages/{message_id}/typing"
+    },
+    {
+      "method": "POST",
+      "path": "/mobile_push/e2ee/test_notification"
+    },
+    {
+      "method": "POST",
+      "path": "/mobile_push/register"
+    },
+    {
+      "method": "POST",
+      "path": "/mobile_push/test_notification"
+    },
+    {
+      "method": "GET",
+      "path": "/navigation_views"
+    },
+    {
+      "method": "POST",
+      "path": "/navigation_views"
+    },
+    {
+      "method": "PATCH",
+      "path": "/navigation_views/{fragment}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/navigation_views/{fragment}"
+    },
+    {
+      "method": "POST",
+      "path": "/real-time"
+    },
+    {
+      "method": "GET",
+      "path": "/realm/emoji"
+    },
+    {
+      "method": "POST",
+      "path": "/realm/emoji/{emoji_name}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/realm/emoji/{emoji_name}"
+    },
+    {
+      "method": "POST",
+      "path": "/realm/filters"
+    },
+    {
+      "method": "DELETE",
+      "path": "/realm/filters/{filter_id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/filters/{filter_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/realm/linkifiers"
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/linkifiers"
+    },
+    {
+      "method": "POST",
+      "path": "/realm/playgrounds"
+    },
+    {
+      "method": "DELETE",
+      "path": "/realm/playgrounds/{playground_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/realm/presence"
+    },
+    {
+      "method": "GET",
+      "path": "/realm/profile_fields"
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/profile_fields"
+    },
+    {
+      "method": "POST",
+      "path": "/realm/profile_fields"
+    },
+    {
+      "method": "POST",
+      "path": "/realm/test_welcome_bot_custom_message"
+    },
+    {
+      "method": "PATCH",
+      "path": "/realm/user_settings_defaults"
+    },
+    {
+      "method": "POST",
+      "path": "/register"
+    },
+    {
+      "method": "GET",
+      "path": "/reminders"
+    },
+    {
+      "method": "POST",
+      "path": "/reminders"
+    },
+    {
+      "method": "DELETE",
+      "path": "/reminders/{reminder_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/remotes/push/e2ee/register"
+    },
+    {
+      "method": "POST",
+      "path": "/rest-error-handling"
+    },
+    {
+      "method": "GET",
+      "path": "/saved_snippets"
+    },
+    {
+      "method": "POST",
+      "path": "/saved_snippets"
+    },
+    {
+      "method": "PATCH",
+      "path": "/saved_snippets/{saved_snippet_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/saved_snippets/{saved_snippet_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/scheduled_messages"
+    },
+    {
+      "method": "POST",
+      "path": "/scheduled_messages"
+    },
+    {
+      "method": "PATCH",
+      "path": "/scheduled_messages/{scheduled_message_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/scheduled_messages/{scheduled_message_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/server_settings"
+    },
+    {
+      "method": "PATCH",
+      "path": "/settings"
+    },
+    {
+      "method": "GET",
+      "path": "/streams"
+    },
+    {
+      "method": "GET",
+      "path": "/streams/{stream_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/streams/{stream_id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/streams/{stream_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/streams/{stream_id}/delete_topic"
+    },
+    {
+      "method": "GET",
+      "path": "/streams/{stream_id}/email_address"
+    },
+    {
+      "method": "GET",
+      "path": "/streams/{stream_id}/members"
+    },
+    {
+      "method": "POST",
+      "path": "/typing"
+    },
+    {
+      "method": "GET",
+      "path": "/user_groups"
+    },
+    {
+      "method": "POST",
+      "path": "/user_groups/create"
+    },
+    {
+      "method": "PATCH",
+      "path": "/user_groups/{user_group_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/user_groups/{user_group_id}/deactivate"
+    },
+    {
+      "method": "POST",
+      "path": "/user_groups/{user_group_id}/members"
+    },
+    {
+      "method": "GET",
+      "path": "/user_groups/{user_group_id}/members"
+    },
+    {
+      "method": "GET",
+      "path": "/user_groups/{user_group_id}/members/{user_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/user_groups/{user_group_id}/subgroups"
+    },
+    {
+      "method": "GET",
+      "path": "/user_groups/{user_group_id}/subgroups"
+    },
+    {
+      "method": "POST",
+      "path": "/user_topics"
+    },
+    {
+      "method": "POST",
+      "path": "/user_uploads"
+    },
+    {
+      "method": "GET",
+      "path": "/user_uploads/{realm_id_str}/{filename}"
+    },
+    {
+      "method": "GET",
+      "path": "/users"
+    },
+    {
+      "method": "POST",
+      "path": "/users"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/alert_words"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/alert_words"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/alert_words"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/android_gcm_reg_id"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/android_gcm_reg_id"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/apns_device_token"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/apns_device_token"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/muted_users/{muted_user_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/muted_users/{muted_user_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/presence"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/status"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/subscriptions"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/subscriptions"
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/me/subscriptions"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/subscriptions"
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/me/subscriptions/muted_topics"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/subscriptions/properties"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/{stream_id}/topics"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{email}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/{email}"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{user_id_or_email}/presence"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{user_id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/{user_id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/{user_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/users/{user_id}/reactivate"
+    },
+    {
+      "method": "POST",
+      "path": "/users/{user_id}/status"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{user_id}/status"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{user_id}/subscriptions/{stream_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/zulip-outgoing-webhook"
+    }
+  ]
+}

@@ -5,7 +5,7 @@
       "method": "GET",
       "operationId": "billing/get-github-billing-premium-request-usage-report-org",
       "summary": "",
-      "user": "admin_user",
+      "user": "admin",
       "ideal": "Retrieve the premium request usage report for the organization 'my-org'."
     },
     {
@@ -13,7 +13,7 @@
       "method": "GET",
       "operationId": "billing/get-github-billing-usage-report-org",
       "summary": "",
-      "user": "admin_user",
+      "user": "admin",
       "ideal": "Get the billing usage report for the organization 'my-org'."
     },
     {
@@ -21,24 +21,24 @@
       "method": "GET",
       "operationId": "billing/get-github-actions-billing-org",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Fetch the billing details for GitHub Actions used by 'my-org'."
+      "user": "admin",
+      "ideal": "Fetch the billing details for GitHub Actions for the organization 'my-org'."
     },
     {
       "path": "/orgs/my-org/settings/billing/packages",
       "method": "GET",
       "operationId": "billing/get-github-packages-billing-org",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Get the billing information for packages used by 'my-org'."
+      "user": "admin",
+      "ideal": "Retrieve the billing information for GitHub Packages for the organization 'my-org'."
     },
     {
       "path": "/orgs/my-org/settings/billing/shared-storage",
       "method": "GET",
       "operationId": "billing/get-shared-storage-billing-org",
       "summary": "",
-      "user": "admin_user",
-      "ideal": "Retrieve shared storage billing details for the organization 'my-org'."
+      "user": "admin",
+      "ideal": "Get the shared storage billing details for the organization 'my-org'."
     },
     {
       "path": "/users/johndoe/settings/billing/actions",
@@ -46,7 +46,7 @@
       "operationId": "billing/get-github-actions-billing-user",
       "summary": "",
       "user": "johndoe",
-      "ideal": "Get billing details for GitHub Actions used by user 'johndoe'."
+      "ideal": "Retrieve the billing details for GitHub Actions for user 'johndoe'."
     },
     {
       "path": "/users/johndoe/settings/billing/packages",
@@ -54,7 +54,7 @@
       "operationId": "billing/get-github-packages-billing-user",
       "summary": "",
       "user": "johndoe",
-      "ideal": "Fetch billing information for packages used by user 'johndoe'."
+      "ideal": "Get the billing information for GitHub Packages for user 'johndoe'."
     },
     {
       "path": "/users/johndoe/settings/billing/premium_request/usage",
@@ -62,7 +62,7 @@
       "operationId": "billing/get-github-billing-premium-request-usage-report-user",
       "summary": "",
       "user": "johndoe",
-      "ideal": "Retrieve the premium request usage report for user 'johndoe'."
+      "ideal": "Fetch the premium request usage report for user 'johndoe'."
     },
     {
       "path": "/users/johndoe/settings/billing/shared-storage",
@@ -70,7 +70,7 @@
       "operationId": "billing/get-shared-storage-billing-user",
       "summary": "",
       "user": "johndoe",
-      "ideal": "Get shared storage billing details for user 'johndoe'."
+      "ideal": "Retrieve the shared storage billing details for user 'johndoe'."
     },
     {
       "path": "/users/johndoe/settings/billing/usage",
@@ -78,7 +78,7 @@
       "operationId": "billing/get-github-billing-usage-report-user",
       "summary": "",
       "user": "johndoe",
-      "ideal": "Fetch the billing usage report for user 'johndoe'."
+      "ideal": "Get the billing usage report for user 'johndoe'."
     }
   ]
 }

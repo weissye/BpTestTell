@@ -14,7 +14,7 @@
       "operationId": "createRole",
       "summary": "",
       "user": "admin",
-      "ideal": "Create a new role with specified permissions and attributes."
+      "ideal": "Create a new role with specified permissions."
     },
     {
       "path": "/roles",
@@ -22,7 +22,7 @@
       "operationId": "updateRoles",
       "summary": "",
       "user": "admin",
-      "ideal": "Update multiple roles with new attributes or permissions."
+      "ideal": "Update multiple roles' permissions in one request."
     },
     {
       "path": "/roles",
@@ -30,7 +30,7 @@
       "operationId": "deleteRoles",
       "summary": "",
       "user": "admin",
-      "ideal": "Delete specified roles from the system."
+      "ideal": "Delete multiple roles from the system."
     },
     {
       "path": "/roles/{id}",
@@ -46,7 +46,7 @@
       "operationId": "updateRole",
       "summary": "",
       "user": "admin",
-      "ideal": "Update attributes or permissions of a specific role by its ID."
+      "ideal": "Update the permissions of a specific role by its ID."
     },
     {
       "path": "/roles/{id}",

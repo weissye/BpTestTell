@@ -1,0 +1,28 @@
+{
+  "ops": [
+    {
+      "method": "PATCH",
+      "path": "/collections/{id}"
+    },
+    {
+      "method": "DELETE",
+      "path": "/flows"
+    },
+    {
+      "method": "POST",
+      "path": "/operations"
+    },
+    {
+      "method": "GET",
+      "path": "/revisions"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/tfa/disable"
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks"
+    }
+  ]
+}
