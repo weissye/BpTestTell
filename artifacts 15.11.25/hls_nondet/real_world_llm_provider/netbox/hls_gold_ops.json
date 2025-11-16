@@ -1,7 +1,0 @@
-{
-  "source": "artifacts/hls_nondet/real_world_llm_provider/netbox/hls_gold.json",
-  "provider": "real_world_llm_provider",
-  "sut": "netbox",
-  "stories_total": 4,
-  "by_entity": {}
-}

@@ -89,6 +89,7 @@ def walk_collect_ops(obj: Any, out: List[Dict[str, Any]]) -> None:
     rec(obj)
 
 def main():
+    print("=== normalize_gold_for_readables.py ===")
     ap = argparse.ArgumentParser(description="Normalize GOLD files into a single ops JSON for readables.")
     ap.add_argument("--out", required=True, help="Output JSON path")
     ap.add_argument("gold_files", nargs="+", help="Input GOLD/GOLD_FIXED JSON/JSONL files")

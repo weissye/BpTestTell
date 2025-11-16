@@ -40,7 +40,7 @@ rem ---- Build a clean provider|sut list with PowerShell (keeps parentheses out 
 set "TMPPAIRS=%TEMP%\hls_pairs_%RANDOM%%RANDOM%.txt"
 del "%TMPPAIRS%" >nul 2>&1
 
-powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+pwsh -NoProfile -ExecutionPolicy Bypass -Command ^
   "$list = [System.IO.Path]::GetFullPath('%LIST%');" ^
   "$mode = '%MODE%';" ^
   "$cur = $null;" ^

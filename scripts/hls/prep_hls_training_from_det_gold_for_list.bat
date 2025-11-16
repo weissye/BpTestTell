@@ -14,6 +14,8 @@ set "ROOT=%~dp0..\.."
 for %%I in ("%ROOT%") do set "ROOT=%%~fI"
 
 set "PY=%ROOT%\.venv\Scripts\python.exe"
+if not exist "%PY%" set "PY=python"
+
 set "OUT_DIR=%ROOT%\artifacts\hls_model\datasets\%PROV%"
 set "OUT=%OUT_DIR%\train.jsonl"
 

@@ -1,7 +1,0 @@
-{
-  "source": "artifacts/hls_nondet/real_world_llm_provider/meilisearch/hls_gold.json",
-  "provider": "real_world_llm_provider",
-  "sut": "meilisearch",
-  "stories_total": 48,
-  "by_entity": {}
-}

@@ -79,9 +79,12 @@ if /I "%BASE%"=="det" (
   echo [DBG ] ND_INPUTS="%RAW%"
 )
 
+set "PY=%ROOT%\.venv\Scripts\python.exe"
+if not exist "%PY%" set "PY=python"
+
 rem ---------- Normalize ----------
-echo [CMD ] "%ROOT%\.venv\Scripts\python.exe" "%ROOT%\scripts\readable\normalize_gold_for_readables.py" --out="%NORM%" "%RAW%"
-"%ROOT%\.venv\Scripts\python.exe" "%ROOT%\scripts\readable\normalize_gold_for_readables.py" --out="%NORM%" "%RAW%"
+echo [CMD ] "%PY%" "%ROOT%\scripts\readable\normalize_gold_for_readables.py" --out="%NORM%" "%RAW%"
+"%PY%" "%ROOT%\scripts\readable\normalize_gold_for_readables.py" --out="%NORM%" "%RAW%"
 if errorlevel 1 (
   echo [ERR ] normalize_gold_for_readables.py failed.
   exit /b 1
@@ -97,8 +100,8 @@ if not exist "%OUT%\." (
 )
 
 rem ---------- Emit readables ----------
-echo [CMD ] "%ROOT%\.venv\Scripts\python.exe" "%ROOT%\scripts\readable\emit_readables_from_gold.py" --gold "%NORM%" --out-dir "%OUT%"
-"%ROOT%\.venv\Scripts\python.exe" "%ROOT%\scripts\readable\emit_readables_from_gold.py" --gold "%NORM%" --out-dir "%OUT%"
+echo [CMD ] "%PY%" "%ROOT%\scripts\readable\emit_readables_from_gold.py" --gold "%NORM%" --out-dir "%OUT%"
+"%PY%" "%ROOT%\scripts\readable\emit_readables_from_gold.py" --gold "%NORM%" --out-dir "%OUT%"
 if errorlevel 1 (
   echo [ERR ] emit_readables_from_gold.py failed.
   exit /b 1
