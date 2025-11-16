@@ -3,10 +3,8 @@
 /**
  * Auto-generated interfaces & lifecycle (readable)
  * From GOLD only – full CRUD + verifications + match/wait helpers.
- * This approximates the "Library SUT" interface style.
  */
 
-// CHANGE (1): add default host/port placeholders before RESTSession
 var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 23242;
 
@@ -30,50 +28,43 @@ function matchesDescriptionRegex(rx) {
 /** === Book Operations === */
 
 // CREATE
-function addBook(book_id) {
-  svc.post("/books", { body: JSON.stringify({ id: book_id }),
-      parameters: { description: "Add a book with " + "book_id " + book_id }
-    });
+function addBook(id) {
+  svc.post("/books", { body: JSON.stringify({ id: id }), parameters: { description: "Add a book with " + "id " + id } });
 }
 
 // DELETE
-function deleteBook(book_id) {
-  svc.delete("/books/" + book_id, {
-    parameters: { description: "Delete a book with " + "book_id " + book_id }
+function deleteBook(id) {
+  svc.delete("/books/" + id, {
+    parameters: { description: "Delete a book with " + "id " + id }
   });
 }
 
-// Negative: delete non-existing (404/401)
-function tryToDeleteANonExistingBook(book_id) {
-  svc.delete("/books/" + book_id, {
-    expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a book with " + "book_id " + book_id }
+// Negative: delete non-existing (codes from spec/defaults)
+function tryToDeleteANonExistingBook(id) {
+  svc.delete("/books/" + id, {
+    expectedResponseCodes: [200, 404, 401],
+    parameters: { description: "Delete a book with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
-function tryToAddExistingBook(book_id) {
+// Negative: create existing (codes from spec/defaults)
+function tryToAddExistingBook(id) {
   svc.post("/books", {
-      body: JSON.stringify({ book_id: book_id }),
-      parameters: { description: "Add a book with " + "book_id " + book_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a book with " + "book_id " + book_id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a book with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateBook(book_id) {
-  svc.put("/books/" + book_id, {
-      body: JSON.stringify({ book_id: book_id }),
-      parameters: { description: "Update a book with " + "book_id " + book_id }
-    });
+function updateBook(id) {
+  svc.put("/books/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a book with " + "id " + id } });
 }
 
 // GET one
-function getBook(book_id) {
-  svc.get("/books/" + book_id, {
-    parameters: { description: "Get a book with " + "book_id " + book_id }
+function getBook(id) {
+  svc.get("/books/" + id, {
+    parameters: { description: "Get a book with " + "id " + id }
   });
 }
 
@@ -85,34 +76,34 @@ function listBooks() {
 }
 
 // Verify exists (by list)
-function verifyBookExists(book_id) {
+function verifyBookExists(id) {
   svc.get("/books", {
     callback: function (response) {
       book = JSON.parse(response.body);
       for (let i = 0; i < book.length; i++) {
-        if (book[i].id === book_id) {
+        if (book[i].id === id) {
           return pvg.success("Book exists");
         }
       }
       return pvg.fail("Expected a book to exist but it does not");
     },
-    parameters: { description: "Verify book with " + "book_id " + book_id + " exists" }
+    parameters: { description: "Verify book with " + "id " + id + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyBookDoesNotExist(book_id) {
+function verifyBookDoesNotExist(id) {
   svc.get("/books", {
     callback: function (response) {
       book = JSON.parse(response.body);
       for (let i = 0; i < book.length; i++) {
-        if (book[i].id === book_id) {
+        if (book[i].id === id) {
           return pvg.fail("Expected a book to not exist but it does");
         }
       }
       return pvg.success("Book does not exist");
     },
-    parameters: { description: "Verify book with " + "book_id " + book_id + " does not exist" }
+    parameters: { description: "Verify book with " + "id " + id + " does not exist" }
   });
 }
 
@@ -123,10 +114,10 @@ function matchAnyAddBook() {
     return e.data.parameters.description.startsWith("Add a book");
   });
 }
-function matchAddBook(book_id) {
+function matchAddBook(id) {
   return bp.EventSet("add-book", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a book with " + "book_id " + book_id;
+    return e.data.parameters.description === "Add a book with " + "id " + id;
   });
 }
 function matchAnyDeleteBook() {
@@ -135,66 +126,66 @@ function matchAnyDeleteBook() {
     return e.data.parameters.description.startsWith("Delete a book");
   });
 }
-function matchDeleteBook(book_id) {
+function matchDeleteBook(id) {
   return bp.EventSet("del-book", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a book with " + "book_id " + book_id;
+    return e.data.parameters.description === "Delete a book with " + "id " + id;
   });
 }
 
-// UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers
 function matchAnyUpdateBook() {
   return bp.EventSet("any-update-book", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
     return e.data.parameters.description.startsWith("Update a book");
   });
 }
-function matchUpdateBook(book_id) {
+function matchUpdateBook(id) {
   return bp.EventSet("update-book", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a book with " + "book_id " + book_id;
+    return e.data.parameters.description === "Update a book with " + "id " + id;
   });
 }
 
 // Wait helpers
 function waitForAnyBookAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ book\ with\ book_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ book\ with\ book_id\ (.+)$/);
-    return { book_id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ book\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ book\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
 }
-function waitForBookAdded(book_id) {
-  waitFor(matchAddBook(book_id));
-}
-function waitForBookDeleted(book_id) {
-  waitFor(matchDeleteBook(book_id));
+function waitForBookAdded(id) {
+  waitFor(matchAddBook(id));
 }
 function waitForAnyBookDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ book\ with\ book_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ book\ with\ book_id\ (.+)$/);
-    return { book_id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ book\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ book\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
 }
-function waitForBookUpdated(book_id) {
-  waitFor(matchUpdateBook(book_id));
+function waitForBookDeleted(id) {
+  waitFor(matchDeleteBook(id));
 }
 function waitForAnyBookUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ book\ with\ book_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ book\ with\ book_id\ (.+)$/);
-    return { book_id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ book\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ book\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+function waitForBookUpdated(id) {
+  waitFor(matchUpdateBook(id));
 }
 
 // Verify updated (presence-by-list)
-function verifyBookUpdated(book_id) {
+function verifyBookUpdated(id) {
   svc.get("/books", {
     callback: function (response) {
       book = JSON.parse(response.body);
       for (let i = 0; i < book.length; i++) {
-        if (book[i].id === book_id) {
+        if (book[i].id === id) {
           return pvg.success("Book updated (present)");
         }
       }
       return pvg.fail("Expected a book to be present after update, but it is not");
     },
-    parameters: { description: "Verify book with " + "book_id " + book_id + " exists" }
+    parameters: { description: "Verify book with " + "id " + id + " exists" }
   });
 }
 
@@ -202,51 +193,43 @@ function verifyBookUpdated(book_id) {
 /** === Hold Operations === */
 
 // CREATE
-function addHold(hold_id) {
-  svc.post("/holds", {
-      body: JSON.stringify({ hold_id: hold_id }),
-      parameters: { description: "Add a hold with " + "hold_id " + hold_id }
-    });
+function addHold(hold_id, userId, bookId) {
+  svc.post("/holds", { body: JSON.stringify({ hold_id: hold_id, userId: userId, bookId: bookId }), parameters: { description: "Add a hold with " + "hold_id " + hold_id + " and " + "userId " + userId + " and " + "bookId " + bookId } });
 }
 
 // DELETE
-function deleteHold(hold_id) {
-  svc.delete("/holds/" + hold_id, {
-    parameters: { description: "Delete a hold with " + "hold_id " + hold_id }
+function deleteHold(hold_id, userId, bookId) {
+  svc.delete("/holds/" + hold_id + "/"+ userId + "/"+ bookId, {
+    parameters: { description: "Delete a hold with " + "hold_id " + hold_id + " and " + "userId " + userId + " and " + "bookId " + bookId }
   });
 }
 
-// Negative: delete non-existing (404/401)
-function tryToDeleteANonExistingHold(hold_id) {
-  svc.delete("/holds/" + hold_id, {
-    expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a hold with " + "hold_id " + hold_id }
+// Negative: delete non-existing (codes from spec/defaults)
+function tryToDeleteANonExistingHold(hold_id, userId, bookId) {
+  svc.delete("/holds/" + hold_id + "/"+ userId + "/"+ bookId, {
+    expectedResponseCodes: [200, 404, 401],
+    parameters: { description: "Delete a hold with " + "hold_id " + hold_id + " and " + "userId " + userId + " and " + "bookId " + bookId }
   });
 }
 
-// Negative: add existing (400/409)
-function tryToAddExistingHold(hold_id) {
+// Negative: create existing (codes from spec/defaults)
+function tryToAddExistingHold(hold_id, userId, bookId) {
   svc.post("/holds", {
-      body: JSON.stringify({ hold_id: hold_id }),
-      parameters: { description: "Add a hold with " + "hold_id " + hold_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a hold with " + "hold_id " + hold_id }
+    body: JSON.stringify({ hold_id: hold_id, userId: userId, bookId: bookId }),
+    parameters: { description: "Add a hold with " + "hold_id " + hold_id + " and " + "userId " + userId + " and " + "bookId " + bookId },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateHold(hold_id) {
-  svc.put("/holds/" + hold_id, {
-      body: JSON.stringify({ hold_id: hold_id }),
-      parameters: { description: "Update a hold with " + "hold_id " + hold_id }
-    });
+function updateHold(hold_id, userId, bookId) {
+  svc.put("/holds/" + hold_id + "/"+ userId + "/"+ bookId, { body: JSON.stringify({ hold_id: hold_id, userId: userId, bookId: bookId }), parameters: { description: "Update a hold with " + "hold_id " + hold_id + " and " + "userId " + userId + " and " + "bookId " + bookId } });
 }
 
 // GET one
-function getHold(hold_id) {
-  svc.get("/holds/" + hold_id, {
-    parameters: { description: "Get a hold with " + "hold_id " + hold_id }
+function getHold(hold_id, userId, bookId) {
+  svc.get("/holds/" + hold_id + "/"+ userId + "/"+ bookId, {
+    parameters: { description: "Get a hold with " + "hold_id " + hold_id + " and " + "userId " + userId + " and " + "bookId " + bookId }
   });
 }
 
@@ -258,34 +241,34 @@ function listHolds() {
 }
 
 // Verify exists (by list)
-function verifyHoldExists(hold_id) {
+function verifyHoldExists(hold_id, userId, bookId) {
   svc.get("/holds", {
     callback: function (response) {
       hold = JSON.parse(response.body);
       for (let i = 0; i < hold.length; i++) {
-        if (hold[i].hold_id === hold_id) {
+        if (hold[i].hold_id === hold_id && hold[i].userId === userId && hold[i].bookId === bookId) {
           return pvg.success("Hold exists");
         }
       }
       return pvg.fail("Expected a hold to exist but it does not");
     },
-    parameters: { description: "Verify hold with " + "hold_id " + hold_id + " exists" }
+    parameters: { description: "Verify hold with " + "hold_id " + hold_id + " and " + "userId " + userId + " and " + "bookId " + bookId + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyHoldDoesNotExist(hold_id) {
+function verifyHoldDoesNotExist(hold_id, userId, bookId) {
   svc.get("/holds", {
     callback: function (response) {
       hold = JSON.parse(response.body);
       for (let i = 0; i < hold.length; i++) {
-        if (hold[i].hold_id === hold_id) {
+        if (hold[i].hold_id === hold_id && hold[i].userId === userId && hold[i].bookId === bookId) {
           return pvg.fail("Expected a hold to not exist but it does");
         }
       }
       return pvg.success("Hold does not exist");
     },
-    parameters: { description: "Verify hold with " + "hold_id " + hold_id + " does not exist" }
+    parameters: { description: "Verify hold with " + "hold_id " + hold_id + " and " + "userId " + userId + " and " + "bookId " + bookId + " does not exist" }
   });
 }
 
@@ -296,10 +279,10 @@ function matchAnyAddHold() {
     return e.data.parameters.description.startsWith("Add a hold");
   });
 }
-function matchAddHold(hold_id) {
+function matchAddHold(hold_id, userId, bookId) {
   return bp.EventSet("add-hold", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a hold with " + "hold_id " + hold_id;
+    return e.data.parameters.description === "Add a hold with " + "hold_id " + hold_id + " and " + "userId " + userId + " and " + "bookId " + bookId;
   });
 }
 function matchAnyDeleteHold() {
@@ -308,66 +291,66 @@ function matchAnyDeleteHold() {
     return e.data.parameters.description.startsWith("Delete a hold");
   });
 }
-function matchDeleteHold(hold_id) {
+function matchDeleteHold(hold_id, userId, bookId) {
   return bp.EventSet("del-hold", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a hold with " + "hold_id " + hold_id;
+    return e.data.parameters.description === "Delete a hold with " + "hold_id " + hold_id + " and " + "userId " + userId + " and " + "bookId " + bookId;
   });
 }
 
-// UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers
 function matchAnyUpdateHold() {
   return bp.EventSet("any-update-hold", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
     return e.data.parameters.description.startsWith("Update a hold");
   });
 }
-function matchUpdateHold(hold_id) {
+function matchUpdateHold(hold_id, userId, bookId) {
   return bp.EventSet("update-hold", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a hold with " + "hold_id " + hold_id;
+    return e.data.parameters.description === "Update a hold with " + "hold_id " + hold_id + " and " + "userId " + userId + " and " + "bookId " + bookId;
   });
 }
 
 // Wait helpers
 function waitForAnyHoldAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ hold\ with\ hold_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ hold\ with\ hold_id\ (.+)$/);
-    return { hold_id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ hold\ with\ hold_id\ (.+) and userId\ (.+) and bookId\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ hold\ with\ hold_id\ (.+) and userId\ (.+) and bookId\ (.+)$/);
+    return { hold_id: parseInt(m[1]), userId: m[2], bookId: m[3] };
 }
-function waitForHoldAdded(hold_id) {
-  waitFor(matchAddHold(hold_id));
-}
-function waitForHoldDeleted(hold_id) {
-  waitFor(matchDeleteHold(hold_id));
+function waitForHoldAdded(hold_id, userId, bookId) {
+  waitFor(matchAddHold(hold_id, userId, bookId));
 }
 function waitForAnyHoldDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ hold\ with\ hold_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ hold\ with\ hold_id\ (.+)$/);
-    return { hold_id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ hold\ with\ hold_id\ (.+) and userId\ (.+) and bookId\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ hold\ with\ hold_id\ (.+) and userId\ (.+) and bookId\ (.+)$/);
+    return { hold_id: parseInt(m[1]), userId: m[2], bookId: m[3] };
 }
-function waitForHoldUpdated(hold_id) {
-  waitFor(matchUpdateHold(hold_id));
+function waitForHoldDeleted(hold_id, userId, bookId) {
+  waitFor(matchDeleteHold(hold_id, userId, bookId));
 }
 function waitForAnyHoldUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ hold\ with\ hold_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ hold\ with\ hold_id\ (.+)$/);
-    return { hold_id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ hold\ with\ hold_id\ (.+) and userId\ (.+) and bookId\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ hold\ with\ hold_id\ (.+) and userId\ (.+) and bookId\ (.+)$/);
+    return { hold_id: parseInt(m[1]), userId: m[2], bookId: m[3] };
+}
+function waitForHoldUpdated(hold_id, userId, bookId) {
+  waitFor(matchUpdateHold(hold_id, userId, bookId));
 }
 
 // Verify updated (presence-by-list)
-function verifyHoldUpdated(hold_id) {
+function verifyHoldUpdated(hold_id, userId, bookId) {
   svc.get("/holds", {
     callback: function (response) {
       hold = JSON.parse(response.body);
       for (let i = 0; i < hold.length; i++) {
-        if (hold[i].hold_id === hold_id) {
+        if (hold[i].hold_id === hold_id && hold[i].userId === userId && hold[i].bookId === bookId) {
           return pvg.success("Hold updated (present)");
         }
       }
       return pvg.fail("Expected a hold to be present after update, but it is not");
     },
-    parameters: { description: "Verify hold with " + "hold_id " + hold_id + " exists" }
+    parameters: { description: "Verify hold with " + "hold_id " + hold_id + " and " + "userId " + userId + " and " + "bookId " + bookId + " exists" }
   });
 }
 
@@ -375,50 +358,43 @@ function verifyHoldUpdated(hold_id) {
 /** === Loan Operations === */
 
 // CREATE
-function addLoan(user_id, book_id) {
-  svc.post("/loans", { body: JSON.stringify({ userId: user_id, bookId: book_id }),
-      parameters: { description: "Add a loan with " + "user_id " + user_id + " and " + "book_id " + book_id }
-    });
+function addLoan(userId, bookId) {
+  svc.post("/loans", { body: JSON.stringify({ userId: userId, bookId: bookId }), parameters: { description: "Add a loan with " + "userId " + userId + " and " + "bookId " + bookId } });
 }
 
 // DELETE
-function deleteLoan(user_id, book_id) {
-  svc.delete("/loans/" + user_id + "/"+ book_id, {
-    parameters: { description: "Delete a loan with " + "user_id " + user_id + " and " + "book_id " + book_id }
+function deleteLoan(userId, bookId) {
+  svc.delete("/loans/" + userId + "/"+ bookId, {
+    parameters: { description: "Delete a loan with " + "userId " + userId + " and " + "bookId " + bookId }
   });
 }
 
-// Negative: delete non-existing (404/401)
-function tryToDeleteANonExistingLoan(user_id, book_id) {
-  svc.delete("/loans/" + user_id + "/"+ book_id, {
-    expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a loan with " + "user_id " + user_id + " and " + "book_id " + book_id }
+// Negative: delete non-existing (codes from spec/defaults)
+function tryToDeleteANonExistingLoan(userId, bookId) {
+  svc.delete("/loans/" + userId + "/"+ bookId, {
+    expectedResponseCodes: [200, 404, 401],
+    parameters: { description: "Delete a loan with " + "userId " + userId + " and " + "bookId " + bookId }
   });
 }
 
-// Negative: add existing (400/409)
-function tryToAddExistingLoan(user_id, book_id) {
+// Negative: create existing (codes from spec/defaults)
+function tryToAddExistingLoan(userId, bookId) {
   svc.post("/loans", {
-      body: JSON.stringify({ user_id: user_id, book_id: book_id }),
-      parameters: { description: "Add a loan with " + "user_id " + user_id + " and " + "book_id " + book_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a loan with " + "user_id " + user_id + " and " + "book_id " + book_id }
+    body: JSON.stringify({ userId: userId, bookId: bookId }),
+    parameters: { description: "Add a loan with " + "userId " + userId + " and " + "bookId " + bookId },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateLoan(user_id, book_id) {
-  svc.put("/loans/" + user_id + "/"+ book_id, {
-      body: JSON.stringify({ user_id: user_id, book_id: book_id }),
-      parameters: { description: "Update a loan with " + "user_id " + user_id + " and " + "book_id " + book_id }
-    });
+function updateLoan(userId, bookId) {
+  svc.put("/loans/" + userId + "/"+ bookId, { body: JSON.stringify({ userId: userId, bookId: bookId }), parameters: { description: "Update a loan with " + "userId " + userId + " and " + "bookId " + bookId } });
 }
 
 // GET one
-function getLoan(user_id, book_id) {
-  svc.get("/loans/" + user_id + "/"+ book_id, {
-    parameters: { description: "Get a loan with " + "user_id " + user_id + " and " + "book_id " + book_id }
+function getLoan(userId, bookId) {
+  svc.get("/loans/" + userId + "/"+ bookId, {
+    parameters: { description: "Get a loan with " + "userId " + userId + " and " + "bookId " + bookId }
   });
 }
 
@@ -430,34 +406,34 @@ function listLoans() {
 }
 
 // Verify exists (by list)
-function verifyLoanExists(user_id, book_id) {
+function verifyLoanExists(userId, bookId) {
   svc.get("/loans", {
     callback: function (response) {
       loan = JSON.parse(response.body);
       for (let i = 0; i < loan.length; i++) {
-        if (loan[i].userId === user_id && loan[i].bookId === book_id) {
+        if (loan[i].userId === userId && loan[i].bookId === bookId) {
           return pvg.success("Loan exists");
         }
       }
       return pvg.fail("Expected a loan to exist but it does not");
     },
-    parameters: { description: "Verify loan with " + "user_id " + user_id + " and " + "book_id " + book_id + " exists" }
+    parameters: { description: "Verify loan with " + "userId " + userId + " and " + "bookId " + bookId + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyLoanDoesNotExist(user_id, book_id) {
+function verifyLoanDoesNotExist(userId, bookId) {
   svc.get("/loans", {
     callback: function (response) {
       loan = JSON.parse(response.body);
       for (let i = 0; i < loan.length; i++) {
-        if (loan[i].userId === user_id && loan[i].bookId === book_id) {
+        if (loan[i].userId === userId && loan[i].bookId === bookId) {
           return pvg.fail("Expected a loan to not exist but it does");
         }
       }
       return pvg.success("Loan does not exist");
     },
-    parameters: { description: "Verify loan with " + "user_id " + user_id + " and " + "book_id " + book_id + " does not exist" }
+    parameters: { description: "Verify loan with " + "userId " + userId + " and " + "bookId " + bookId + " does not exist" }
   });
 }
 
@@ -468,10 +444,10 @@ function matchAnyAddLoan() {
     return e.data.parameters.description.startsWith("Add a loan");
   });
 }
-function matchAddLoan(user_id, book_id) {
+function matchAddLoan(userId, bookId) {
   return bp.EventSet("add-loan", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a loan with " + "user_id " + user_id + " and " + "book_id " + book_id;
+    return e.data.parameters.description === "Add a loan with " + "userId " + userId + " and " + "bookId " + bookId;
   });
 }
 function matchAnyDeleteLoan() {
@@ -480,66 +456,66 @@ function matchAnyDeleteLoan() {
     return e.data.parameters.description.startsWith("Delete a loan");
   });
 }
-function matchDeleteLoan(user_id, book_id) {
+function matchDeleteLoan(userId, bookId) {
   return bp.EventSet("del-loan", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a loan with " + "user_id " + user_id + " and " + "book_id " + book_id;
+    return e.data.parameters.description === "Delete a loan with " + "userId " + userId + " and " + "bookId " + bookId;
   });
 }
 
-// UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers
 function matchAnyUpdateLoan() {
   return bp.EventSet("any-update-loan", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
     return e.data.parameters.description.startsWith("Update a loan");
   });
 }
-function matchUpdateLoan(user_id, book_id) {
+function matchUpdateLoan(userId, bookId) {
   return bp.EventSet("update-loan", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a loan with " + "user_id " + user_id + " and " + "book_id " + book_id;
+    return e.data.parameters.description === "Update a loan with " + "userId " + userId + " and " + "bookId " + bookId;
   });
 }
 
 // Wait helpers
 function waitForAnyLoanAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ loan\ with\ user_id\ (.+) and book_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ loan\ with\ user_id\ (.+) and book_id\ (.+)$/);
-    return { user_id: parseInt(m[1]), book_id: parseInt(m[2]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ loan\ with\ userId\ (.+) and bookId\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ loan\ with\ userId\ (.+) and bookId\ (.+)$/);
+    return { userId: m[1], bookId: m[2] };
 }
-function waitForLoanAdded(user_id, book_id) {
-  waitFor(matchAddLoan(user_id, book_id));
-}
-function waitForLoanDeleted(user_id, book_id) {
-  waitFor(matchDeleteLoan(user_id, book_id));
+function waitForLoanAdded(userId, bookId) {
+  waitFor(matchAddLoan(userId, bookId));
 }
 function waitForAnyLoanDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ loan\ with\ user_id\ (.+) and book_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ loan\ with\ user_id\ (.+) and book_id\ (.+)$/);
-    return { user_id: parseInt(m[1]), book_id: parseInt(m[2]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ loan\ with\ userId\ (.+) and bookId\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ loan\ with\ userId\ (.+) and bookId\ (.+)$/);
+    return { userId: m[1], bookId: m[2] };
 }
-function waitForLoanUpdated(user_id, book_id) {
-  waitFor(matchUpdateLoan(user_id, book_id));
+function waitForLoanDeleted(userId, bookId) {
+  waitFor(matchDeleteLoan(userId, bookId));
 }
 function waitForAnyLoanUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ loan\ with\ user_id\ (.+) and book_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ loan\ with\ user_id\ (.+) and book_id\ (.+)$/);
-    return { user_id: parseInt(m[1]), book_id: parseInt(m[2]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ loan\ with\ userId\ (.+) and bookId\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ loan\ with\ userId\ (.+) and bookId\ (.+)$/);
+    return { userId: m[1], bookId: m[2] };
+}
+function waitForLoanUpdated(userId, bookId) {
+  waitFor(matchUpdateLoan(userId, bookId));
 }
 
 // Verify updated (presence-by-list)
-function verifyLoanUpdated(user_id, book_id) {
+function verifyLoanUpdated(userId, bookId) {
   svc.get("/loans", {
     callback: function (response) {
       loan = JSON.parse(response.body);
       for (let i = 0; i < loan.length; i++) {
-        if (loan[i].userId === user_id && loan[i].bookId === book_id) {
+        if (loan[i].userId === userId && loan[i].bookId === bookId) {
           return pvg.success("Loan updated (present)");
         }
       }
       return pvg.fail("Expected a loan to be present after update, but it is not");
     },
-    parameters: { description: "Verify loan with " + "user_id " + user_id + " and " + "book_id " + book_id + " exists" }
+    parameters: { description: "Verify loan with " + "userId " + userId + " and " + "bookId " + bookId + " exists" }
   });
 }
 
@@ -547,50 +523,43 @@ function verifyLoanUpdated(user_id, book_id) {
 /** === User Operations === */
 
 // CREATE
-function addUser(user_id) {
-  svc.post("/users", { body: JSON.stringify({ id: user_id }),
-      parameters: { description: "Add a user with " + "user_id " + user_id }
-    });
+function addUser(id) {
+  svc.post("/users", { body: JSON.stringify({ id: id }), parameters: { description: "Add a user with " + "id " + id } });
 }
 
 // DELETE
-function deleteUser(user_id) {
-  svc.delete("/users/" + user_id, {
-    parameters: { description: "Delete a user with " + "user_id " + user_id }
+function deleteUser(id) {
+  svc.delete("/users/" + id, {
+    parameters: { description: "Delete a user with " + "id " + id }
   });
 }
 
-// Negative: delete non-existing (404/401)
-function tryToDeleteANonExistingUser(user_id) {
-  svc.delete("/users/" + user_id, {
-    expectedResponseCodes: [404, 401],
-    parameters: { description: "Delete a user with " + "user_id " + user_id }
+// Negative: delete non-existing (codes from spec/defaults)
+function tryToDeleteANonExistingUser(id) {
+  svc.delete("/users/" + id, {
+    expectedResponseCodes: [200, 404, 401],
+    parameters: { description: "Delete a user with " + "id " + id }
   });
 }
 
-// Negative: add existing (400/409)
-function tryToAddExistingUser(user_id) {
+// Negative: create existing (codes from spec/defaults)
+function tryToAddExistingUser(id) {
   svc.post("/users", {
-      body: JSON.stringify({ user_id: user_id }),
-      parameters: { description: "Add a user with " + "user_id " + user_id }
-    , 
-    expectedResponseCodes: [400, 409],
-    parameters: { description: "Add a user with " + "user_id " + user_id }
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a user with " + "id " + id },
+    expectedResponseCodes: [409, 400]
   });
 }
 
 // UPDATE
-function updateUser(user_id) {
-  svc.put("/users/" + user_id, {
-      body: JSON.stringify({ user_id: user_id }),
-      parameters: { description: "Update a user with " + "user_id " + user_id }
-    });
+function updateUser(id) {
+  svc.put("/users/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a user with " + "id " + id } });
 }
 
 // GET one
-function getUser(user_id) {
-  svc.get("/users/" + user_id, {
-    parameters: { description: "Get a user with " + "user_id " + user_id }
+function getUser(id) {
+  svc.get("/users/" + id, {
+    parameters: { description: "Get a user with " + "id " + id }
   });
 }
 
@@ -602,34 +571,34 @@ function listUsers() {
 }
 
 // Verify exists (by list)
-function verifyUserExists(user_id) {
+function verifyUserExists(id) {
   svc.get("/users", {
     callback: function (response) {
       user = JSON.parse(response.body);
       for (let i = 0; i < user.length; i++) {
-        if (user[i].id === user_id) {
+        if (user[i].id === id) {
           return pvg.success("User exists");
         }
       }
       return pvg.fail("Expected a user to exist but it does not");
     },
-    parameters: { description: "Verify user with " + "user_id " + user_id + " exists" }
+    parameters: { description: "Verify user with " + "id " + id + " exists" }
   });
 }
 
 // Verify NOT exists (by list)
-function verifyUserDoesNotExist(user_id) {
+function verifyUserDoesNotExist(id) {
   svc.get("/users", {
     callback: function (response) {
       user = JSON.parse(response.body);
       for (let i = 0; i < user.length; i++) {
-        if (user[i].id === user_id) {
+        if (user[i].id === id) {
           return pvg.fail("Expected a user to not exist but it does");
         }
       }
       return pvg.success("User does not exist");
     },
-    parameters: { description: "Verify user with " + "user_id " + user_id + " does not exist" }
+    parameters: { description: "Verify user with " + "id " + id + " does not exist" }
   });
 }
 
@@ -640,10 +609,10 @@ function matchAnyAddUser() {
     return e.data.parameters.description.startsWith("Add a user");
   });
 }
-function matchAddUser(user_id) {
+function matchAddUser(id) {
   return bp.EventSet("add-user", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Add a user with " + "user_id " + user_id;
+    return e.data.parameters.description === "Add a user with " + "id " + id;
   });
 }
 function matchAnyDeleteUser() {
@@ -652,66 +621,66 @@ function matchAnyDeleteUser() {
     return e.data.parameters.description.startsWith("Delete a user");
   });
 }
-function matchDeleteUser(user_id) {
+function matchDeleteUser(id) {
   return bp.EventSet("del-user", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Delete a user with " + "user_id " + user_id;
+    return e.data.parameters.description === "Delete a user with " + "id " + id;
   });
 }
 
-// UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers
 function matchAnyUpdateUser() {
   return bp.EventSet("any-update-user", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
     return e.data.parameters.description.startsWith("Update a user");
   });
 }
-function matchUpdateUser(user_id) {
+function matchUpdateUser(id) {
   return bp.EventSet("update-user", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    return e.data.parameters.description === "Update a user with " + "user_id " + user_id;
+    return e.data.parameters.description === "Update a user with " + "id " + id;
   });
 }
 
 // Wait helpers
 function waitForAnyUserAdded() {
-  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ user\ with\ user_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Add\ a\ user\ with\ user_id\ (.+)$/);
-    return { user_id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ user\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ user\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
 }
-function waitForUserAdded(user_id) {
-  waitFor(matchAddUser(user_id));
-}
-function waitForUserDeleted(user_id) {
-  waitFor(matchDeleteUser(user_id));
+function waitForUserAdded(id) {
+  waitFor(matchAddUser(id));
 }
 function waitForAnyUserDeleted() {
-  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ user\ with\ user_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Delete\ a\ user\ with\ user_id\ (.+)$/);
-    return { user_id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ user\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ user\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
 }
-function waitForUserUpdated(user_id) {
-  waitFor(matchUpdateUser(user_id));
+function waitForUserDeleted(id) {
+  waitFor(matchDeleteUser(id));
 }
 function waitForAnyUserUpdated() {
-  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ user\ with\ user_id\ (.+)$/));
-    let m = e.data.parameters.description.match(/^Update\ a\ user\ with\ user_id\ (.+)$/);
-    return { user_id: parseInt(m[1]) };
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ user\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ user\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+function waitForUserUpdated(id) {
+  waitFor(matchUpdateUser(id));
 }
 
 // Verify updated (presence-by-list)
-function verifyUserUpdated(user_id) {
+function verifyUserUpdated(id) {
   svc.get("/users", {
     callback: function (response) {
       user = JSON.parse(response.body);
       for (let i = 0; i < user.length; i++) {
-        if (user[i].id === user_id) {
+        if (user[i].id === id) {
           return pvg.success("User updated (present)");
         }
       }
       return pvg.fail("Expected a user to be present after update, but it is not");
     },
-    parameters: { description: "Verify user with " + "user_id " + user_id + " exists" }
+    parameters: { description: "Verify user with " + "id " + id + " exists" }
   });
 }
 

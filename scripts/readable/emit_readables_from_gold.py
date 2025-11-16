@@ -28,7 +28,8 @@ def try_load_openapi(path):
 # -------------------- GOLD extraction --------------------
 
 def is_http_op(d):
-    if not isinstance(d, dict): return False
+    if not isinstance(d, dict):
+        return False
     m = (d.get("method") or d.get("http_method") or "").upper()
     p = d.get("path") or d.get("http_path") or d.get("endpoint") or ""
     return bool(m) and bool(p) and m in ("GET", "POST", "PUT", "PATCH", "DELETE")
@@ -52,7 +53,8 @@ def singularize(n):
 
 def guess_entity(path):
     parts = [p for p in path.split("/") if p]
-    if not parts: return "root"
+    if not parts:
+        return "root"
     return parts[0].replace("-", "_")
 
 def extract_path_keys(path):
@@ -74,44 +76,51 @@ def prefer_keys(path_keys, body_keys):
     scored = []
     for k in body_keys:
         score = 0
-        if k.lower() == "id": score += 5
-        if k.lower().endswith("id"): score += 4
-        if "name" in k.lower(): score += 2
+        if k.lower() == "id":
+            score += 5
+        if k.lower().endswith("id"):
+            score += 4
+        if "name" in k.lower():
+            score += 2
         scored.append((score, k))
     scored.sort(key=lambda t: (-t[0], body_keys.index(t[1])))
     return [k for _, k in scored[:2]]
 
 def unique_preserve(seq):
-    seen=set(); out=[]
+    seen = set()
+    out = []
     for x in seq:
-        if x in seen: continue
-        seen.add(x); out.append(x)
+        if x in seen:
+            continue
+        seen.add(x)
+        out.append(x)
     return out
 
 def collect_ops_from_gold(golds):
-    ops=[]
+    ops = []
     for g in golds:
         walk_ops_anywhere(g, ops)
-    dedup={}
+    dedup = {}
     for o in ops:
         k = (o["method"], o["path"])
         if k not in dedup:
-            dedup[k]=o
+            dedup[k] = o
     return list(dedup.values())
 
 def group_entities(ops):
-    by_ent = defaultdict(lambda: {"paths":set(), "methods":set(), "path_keys":Counter(), "bodies":[]})
+    by_ent = defaultdict(lambda: {"paths": set(), "methods": set(), "path_keys": Counter(), "bodies": []})
     for o in ops:
         ent = guess_entity(o["path"])
         by_ent[ent]["paths"].add(o["path"])
         by_ent[ent]["methods"].add(o["method"])
         for k in extract_path_keys(o["path"]):
-            by_ent[ent]["path_keys"][k]+=1
-        if o.get("body"): by_ent[ent]["bodies"].append(o["body"])
-    entities=[]
+            by_ent[ent]["path_keys"][k] += 1
+        if o.get("body"):
+            by_ent[ent]["bodies"].append(o["body"])
+    entities = []
     for plural, info in by_ent.items():
         singular = singularize(plural)
-        path_keys = [k for k,_ in info["path_keys"].most_common()]
+        path_keys = [k for k, _ in info["path_keys"].most_common()]
         body_keys = []
         for b in info["bodies"]:
             body_keys += body_keys_from_payload(b)
@@ -122,8 +131,8 @@ def group_entities(ops):
         entities.append({
             "plural": plural,
             "singular": singular,
-            "Singular": singular[:1].upper()+singular[1:],
-            "Plural": plural[:1].upper()+plural[1:],
+            "Singular": singular[:1].upper() + singular[1:],
+            "Plural": plural[:1].upper() + plural[1:],
             "keys": keys,
             "methods": sorted(info["methods"]),
         })
@@ -153,7 +162,7 @@ def build_hint_maps_from_openapi(spec):
     try:
         for path, item in spec.get("paths", {}).items():
             parts = [p for p in path.split("/") if p]
-            if not parts: 
+            if not parts:
                 continue
             plural = parts[0].replace("-", "_")
             ent = hints.setdefault(plural, {})
@@ -171,6 +180,110 @@ def build_hint_maps_from_openapi(spec):
     except Exception:
         pass
     return hints
+
+
+def _resolve_schema_ref(schema, spec, max_depth: int = 4):
+    """Resolve simple local $ref (e.g. '#/components/schemas/Foo') in an OpenAPI schema dict."""
+    cur = schema
+    for _ in range(max_depth):
+        if not isinstance(cur, dict):
+            return cur
+        ref = cur.get("$ref")
+        if not ref or not isinstance(ref, str):
+            return cur
+        if not ref.startswith("#/"):
+            return cur
+        parts = ref.lstrip("#/").split("/")
+        target = spec
+        try:
+            for part in parts:
+                target = target[part]
+        except Exception:
+            return cur
+        cur = target
+    return cur
+
+
+def _looks_like_id_field(name: str) -> bool:
+    """Heuristic: treat fields like 'id', 'userId', 'book_id' as ID-ish keys."""
+    if not isinstance(name, str):
+        return False
+    n = name.lower()
+    return n == "id" or n.endswith("id") or n.endswith("_id")
+
+
+def build_body_id_props_from_openapi(spec):
+    """Build mapping plural-entity-name -> ordered list of ID-like body fields.
+
+    We look only at requestBody schemas of POST/PUT/PATCH operations and pick
+    properties whose names look like IDs (id, userId, book_id, ...).  Required
+    fields are preferred for ordering.
+    """
+    from collections import defaultdict
+
+    body_ids = defaultdict(list)
+    try:
+        paths = spec.get("paths", {}) or {}
+        for path, item in paths.items():
+            if not isinstance(item, dict):
+                continue
+            parts = [p for p in path.split("/") if p]
+            if not parts:
+                continue
+            plural = parts[0].replace("-", "_")
+            for method_name, op in item.items():
+                if not isinstance(op, dict):
+                    continue
+                if method_name.lower() not in ("post", "put", "patch"):
+                    continue
+                rb = op.get("requestBody")
+                if not isinstance(rb, dict):
+                    continue
+                content = rb.get("content") or {}
+                for _mt, mt_def in content.items():
+                    if not isinstance(mt_def, dict):
+                        continue
+                    schema = mt_def.get("schema")
+                    if not isinstance(schema, dict):
+                        continue
+                    schema = _resolve_schema_ref(schema, spec)
+                    if not isinstance(schema, dict):
+                        continue
+                    props = schema.get("properties") or {}
+                    if not isinstance(props, dict):
+                        continue
+                    required = schema.get("required") or list(props.keys())
+                    dest = body_ids[plural]
+                    # required first, in declared order
+                    for name in required:
+                        if name in props and _looks_like_id_field(name) and name not in dest:
+                            dest.append(name)
+                    # then optional ID-like fields
+                    for name in props.keys():
+                        if _looks_like_id_field(name) and name not in dest:
+                            dest.append(name)
+    except Exception:
+        # On any error, just fall back to GOLD-derived keys.
+        pass
+    return {k: v for k, v in body_ids.items() if v}
+
+
+def apply_body_id_props_to_entities(entities, body_id_props):
+    """Override entity['keys'] with ID-like body properties when available.
+
+    This makes the generated interfaces trust the OpenAPI request body as the
+    source of truth for JSON field names, instead of path placeholder names.
+    """
+    if not body_id_props:
+        return
+    for e in entities:
+        plural = e.get("plural")
+        if not plural:
+            continue
+        new_keys = body_id_props.get(plural)
+        if new_keys:
+            e["keys"] = new_keys
+
 
 def get_codes(hints, plural, key):
     ent = hints.get(plural, {})
@@ -258,8 +371,10 @@ function matchesDescriptionRegex(rx) {{
     )
 
 def render_entity_block(e, hints):
-    ent = e["singular"]; Ent = e["Singular"]
-    plural = e["plural"]; Plural = e["Plural"]
+    ent = e["singular"]
+    Ent = e["Singular"]
+    plural = e["plural"]
+    Plural = e["Plural"]
     keys = e["keys"]
     params = ", ".join(keys) if keys else ""
     body_fields = ", ".join([f"{k}: {k}" for k in keys]) if keys else ""
@@ -270,11 +385,10 @@ def render_entity_block(e, hints):
     get_desc = desc_expr("Get", ent, keys)
 
     # Codes from hints (OpenAPI or defaults)
-    neg_delete_codes = get_codes(hints, plural, "neg_delete")      # Option-3 default [200,404,401]
-    dup_create_codes = get_codes(hints, plural, "dup_create")      # default [409,400]
-    create_codes     = get_codes(hints, plural, "create")          # default [201,200]
+    neg_delete_codes = get_codes(hints, plural, "neg_delete")  # [200,404,401]
+    dup_create_codes = get_codes(hints, plural, "dup_create")  # [409,400]
+    create_codes     = get_codes(hints, plural, "create")      # [201,200]
 
-    # Build call objects without duplicate 'parameters'
     if body_fields:
         post_obj = f'{{ body: JSON.stringify({{ {body_fields} }}), parameters: {{ description: {add_desc} }} }}'
         put_obj  = f'{{ body: JSON.stringify({{ {body_fields} }}), parameters: {{ description: {upd_desc} }} }}'
@@ -289,11 +403,10 @@ def render_entity_block(e, hints):
     arr_var = ent
     cmp_chain = " && ".join([f'{ent}[i].{k} === {k}' for k in keys]) if keys else "true"
 
-    extract_add   = render_extract_from_desc("Add a", ent, keys)
-    extract_del   = render_extract_from_desc("Delete a", ent, keys)
-    extract_upd   = render_extract_from_desc("Update a", ent, keys)
+    extract_add = render_extract_from_desc("Add a", ent, keys)
+    extract_del = render_extract_from_desc("Delete a", ent, keys)
+    extract_upd = render_extract_from_desc("Update a", ent, keys)
 
-    # Helper to render JS array like [200, 404, 401]
     def js_codes(arr):
         return "[{}]".format(", ".join(str(x) for x in arr))
 
@@ -320,7 +433,7 @@ function tryToDeleteANonExisting{Ent}({params}) {{
   }});
 }}
 
-// Negative: add existing (codes from spec/defaults)
+// Negative: create existing (codes from spec/defaults)
 function tryToAddExisting{Ent}({params}) {{
   svc.post({path_add}, {{
     body: JSON.stringify({{ {body_fields} }}),
@@ -406,7 +519,7 @@ function matchDelete{Ent}({params}) {{
   }});
 }}
 
-// UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers
 function matchAnyUpdate{Ent}() {{
   return bp.EventSet("any-update-{ent}", function (e) {{
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -427,17 +540,17 @@ function waitForAny{Ent}Added() {{
 function waitFor{Ent}Added({params}) {{
   waitFor(matchAdd{Ent}({params}));
 }}
-function waitFor{Ent}Deleted({params}) {{
-  waitFor(matchDelete{Ent}({params}));
-}}
 function waitForAny{Ent}Deleted() {{
   {extract_del}
 }}
-function waitFor{Ent}Updated({params}) {{
-  waitFor(matchUpdate{Ent}({params}));
+function waitFor{Ent}Deleted({params}) {{
+  waitFor(matchDelete{Ent}({params}));
 }}
 function waitForAny{Ent}Updated() {{
   {extract_upd}
+}}
+function waitFor{Ent}Updated({params}) {{
+  waitFor(matchUpdate{Ent}({params}));
 }}
 
 // Verify updated (presence-by-list)
@@ -460,7 +573,9 @@ function verify{Ent}Updated({params}) {{
 def build_lifecycle(entities):
     lines = ['/** === Lifecycle smoke per entity (add→verify→tryAddExisting→delete→verifyNotExist) === */']
     for e in entities:
-        Ent = e["Singular"]; ent=e["singular"]; keys = e["keys"]
+        Ent = e["Singular"]
+        ent = e["singular"]
+        keys = e["keys"]
         params = ", ".join(keys) if keys else ""
         args = ", ".join(keys) if keys else ""
         lines.append(f'''
@@ -490,7 +605,7 @@ def main():
     ap.add_argument("--out-dir", required=True, help="Where to write readables")
     ap.add_argument("--force-crud", action="store_true", help="Always emit full CRUD shells")
     ap.add_argument("--entity-map", help="Optional JSON overrides: { plural: { 'keys': ['id','name'] } }")
-    ap.add_argument("--style", default="library", choices=["library","readable"], help="Kept for compatibility")
+    ap.add_argument("--style", default="library", choices=["library", "readable"], help="Kept for compatibility")
     ap.add_argument("--openapi", help="Optional OpenAPI JSON with x-* hints (Option 3)")
     args = ap.parse_args()
 
@@ -511,22 +626,26 @@ def main():
             if ov and isinstance(ov.get("keys"), list) and ov["keys"]:
                 e["keys"] = ov["keys"]
 
-    # OpenAPI hints (Option 3); defaults hard-coded to Option-3 if spec absent
+    # OpenAPI hints; defaults if spec absent
     spec = try_load_openapi(args.openapi)
     host_default, port_default = ("192.168.225.53", 5014)
-    hints = {"_defaults": {"neg_delete":[200,404,401], "dup_create":[409,400], "create":[201,200]}}
+    hints = {"_defaults": {"neg_delete": [200, 404, 401], "dup_create": [409, 400], "create": [201, 200]}}
     if spec:
         host_default, port_default = parse_server_host_port(spec)
         hints = build_hint_maps_from_openapi(spec)
+        # 🎯 Fun inline fix: trust the OpenAPI requestBody for ID field names
+        body_id_props = build_body_id_props_from_openapi(spec)
+        apply_body_id_props_to_entities(entities, body_id_props)
 
-    out_dir = Path(args.out_dir); out_dir.mkdir(parents=True, exist_ok=True)
+    out_dir = Path(args.out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
 
     js = [js_head(host_default, port_default)]
     for e in entities:
         js.append(render_entity_block(e, hints))
-    (out_dir / "interfaces.readable.js").write_text("\n".join(js)+"\n", encoding="utf-8")
+    (out_dir / "interfaces.readable.js").write_text("\n".join(js) + "\n", encoding="utf-8")
 
-    (out_dir / "lifecycle.readable.js").write_text(build_lifecycle(entities)+"\n", encoding="utf-8")
+    (out_dir / "lifecycle.readable.js").write_text(build_lifecycle(entities) + "\n", encoding="utf-8")
 
     print(f"[OK] Wrote: {out_dir/'interfaces.readable.js'} and {out_dir/'lifecycle.readable.js'}")
 

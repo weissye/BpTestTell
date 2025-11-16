@@ -5,7 +5,7 @@
  * From GOLD only – full CRUD + verifications + match/wait helpers.
  */
 
-var host = (typeof host !== 'undefined') ? host : '192.168.225.21';
+var host = (typeof host !== 'undefined') ? host : '192.168.225.53';
 var port = (typeof port !== 'undefined') ? port : 5014;
 
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
@@ -47,7 +47,7 @@ function tryToDeleteANonExistingDrug(id) {
   });
 }
 
-// Negative: add existing (codes from spec/defaults)
+// Negative: create existing (codes from spec/defaults)
 function tryToAddExistingDrug(id) {
   svc.post("/drugs", {
     body: JSON.stringify({ id: id }),
@@ -133,7 +133,7 @@ function matchDeleteDrug(id) {
   });
 }
 
-// UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers
 function matchAnyUpdateDrug() {
   return bp.EventSet("any-update-drug", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -156,21 +156,21 @@ function waitForAnyDrugAdded() {
 function waitForDrugAdded(id) {
   waitFor(matchAddDrug(id));
 }
-function waitForDrugDeleted(id) {
-  waitFor(matchDeleteDrug(id));
-}
 function waitForAnyDrugDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ drug\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ drug\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
 }
-function waitForDrugUpdated(id) {
-  waitFor(matchUpdateDrug(id));
+function waitForDrugDeleted(id) {
+  waitFor(matchDeleteDrug(id));
 }
 function waitForAnyDrugUpdated() {
   let e = waitFor(matchesDescriptionRegex(/^Update\ a\ drug\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Update\ a\ drug\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForDrugUpdated(id) {
+  waitFor(matchUpdateDrug(id));
 }
 
 // Verify updated (presence-by-list)
@@ -212,7 +212,7 @@ function tryToDeleteANonExistingInventory(ndc) {
   });
 }
 
-// Negative: add existing (codes from spec/defaults)
+// Negative: create existing (codes from spec/defaults)
 function tryToAddExistingInventory(ndc) {
   svc.post("/inventory", {
     body: JSON.stringify({ ndc: ndc }),
@@ -298,7 +298,7 @@ function matchDeleteInventory(ndc) {
   });
 }
 
-// UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers
 function matchAnyUpdateInventory() {
   return bp.EventSet("any-update-inventory", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -321,21 +321,21 @@ function waitForAnyInventoryAdded() {
 function waitForInventoryAdded(ndc) {
   waitFor(matchAddInventory(ndc));
 }
-function waitForInventoryDeleted(ndc) {
-  waitFor(matchDeleteInventory(ndc));
-}
 function waitForAnyInventoryDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ inventory\ with\ ndc\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ inventory\ with\ ndc\ (.+)$/);
     return { ndc: m[1] };
 }
-function waitForInventoryUpdated(ndc) {
-  waitFor(matchUpdateInventory(ndc));
+function waitForInventoryDeleted(ndc) {
+  waitFor(matchDeleteInventory(ndc));
 }
 function waitForAnyInventoryUpdated() {
   let e = waitFor(matchesDescriptionRegex(/^Update\ a\ inventory\ with\ ndc\ (.+)$/));
     let m = e.data.parameters.description.match(/^Update\ a\ inventory\ with\ ndc\ (.+)$/);
     return { ndc: m[1] };
+}
+function waitForInventoryUpdated(ndc) {
+  waitFor(matchUpdateInventory(ndc));
 }
 
 // Verify updated (presence-by-list)
@@ -377,7 +377,7 @@ function tryToDeleteANonExistingOrder(id) {
   });
 }
 
-// Negative: add existing (codes from spec/defaults)
+// Negative: create existing (codes from spec/defaults)
 function tryToAddExistingOrder(id) {
   svc.post("/orders", {
     body: JSON.stringify({ id: id }),
@@ -463,7 +463,7 @@ function matchDeleteOrder(id) {
   });
 }
 
-// UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers
 function matchAnyUpdateOrder() {
   return bp.EventSet("any-update-order", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -486,21 +486,21 @@ function waitForAnyOrderAdded() {
 function waitForOrderAdded(id) {
   waitFor(matchAddOrder(id));
 }
-function waitForOrderDeleted(id) {
-  waitFor(matchDeleteOrder(id));
-}
 function waitForAnyOrderDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ order\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ order\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
 }
-function waitForOrderUpdated(id) {
-  waitFor(matchUpdateOrder(id));
+function waitForOrderDeleted(id) {
+  waitFor(matchDeleteOrder(id));
 }
 function waitForAnyOrderUpdated() {
   let e = waitFor(matchesDescriptionRegex(/^Update\ a\ order\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Update\ a\ order\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForOrderUpdated(id) {
+  waitFor(matchUpdateOrder(id));
 }
 
 // Verify updated (presence-by-list)
@@ -542,7 +542,7 @@ function tryToDeleteANonExistingPatient(id) {
   });
 }
 
-// Negative: add existing (codes from spec/defaults)
+// Negative: create existing (codes from spec/defaults)
 function tryToAddExistingPatient(id) {
   svc.post("/patients", {
     body: JSON.stringify({ id: id }),
@@ -628,7 +628,7 @@ function matchDeletePatient(id) {
   });
 }
 
-// UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers
 function matchAnyUpdatePatient() {
   return bp.EventSet("any-update-patient", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -651,21 +651,21 @@ function waitForAnyPatientAdded() {
 function waitForPatientAdded(id) {
   waitFor(matchAddPatient(id));
 }
-function waitForPatientDeleted(id) {
-  waitFor(matchDeletePatient(id));
-}
 function waitForAnyPatientDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ patient\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ patient\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
 }
-function waitForPatientUpdated(id) {
-  waitFor(matchUpdatePatient(id));
+function waitForPatientDeleted(id) {
+  waitFor(matchDeletePatient(id));
 }
 function waitForAnyPatientUpdated() {
   let e = waitFor(matchesDescriptionRegex(/^Update\ a\ patient\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Update\ a\ patient\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForPatientUpdated(id) {
+  waitFor(matchUpdatePatient(id));
 }
 
 // Verify updated (presence-by-list)
@@ -707,7 +707,7 @@ function tryToDeleteANonExistingPrescription(id) {
   });
 }
 
-// Negative: add existing (codes from spec/defaults)
+// Negative: create existing (codes from spec/defaults)
 function tryToAddExistingPrescription(id) {
   svc.post("/prescriptions", {
     body: JSON.stringify({ id: id }),
@@ -793,7 +793,7 @@ function matchDeletePrescription(id) {
   });
 }
 
-// UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers
 function matchAnyUpdatePrescription() {
   return bp.EventSet("any-update-prescription", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -816,21 +816,21 @@ function waitForAnyPrescriptionAdded() {
 function waitForPrescriptionAdded(id) {
   waitFor(matchAddPrescription(id));
 }
-function waitForPrescriptionDeleted(id) {
-  waitFor(matchDeletePrescription(id));
-}
 function waitForAnyPrescriptionDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ prescription\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ prescription\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
 }
-function waitForPrescriptionUpdated(id) {
-  waitFor(matchUpdatePrescription(id));
+function waitForPrescriptionDeleted(id) {
+  waitFor(matchDeletePrescription(id));
 }
 function waitForAnyPrescriptionUpdated() {
   let e = waitFor(matchesDescriptionRegex(/^Update\ a\ prescription\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Update\ a\ prescription\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForPrescriptionUpdated(id) {
+  waitFor(matchUpdatePrescription(id));
 }
 
 // Verify updated (presence-by-list)
@@ -872,7 +872,7 @@ function tryToDeleteANonExistingReset(id) {
   });
 }
 
-// Negative: add existing (codes from spec/defaults)
+// Negative: create existing (codes from spec/defaults)
 function tryToAddExistingReset(id) {
   svc.post("/reset", {
     body: JSON.stringify({ id: id }),
@@ -958,7 +958,7 @@ function matchDeleteReset(id) {
   });
 }
 
-// UPDATE passive helpers (matchers, waits, verify)
+// UPDATE passive helpers
 function matchAnyUpdateReset() {
   return bp.EventSet("any-update-reset", function (e) {
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
@@ -981,21 +981,21 @@ function waitForAnyResetAdded() {
 function waitForResetAdded(id) {
   waitFor(matchAddReset(id));
 }
-function waitForResetDeleted(id) {
-  waitFor(matchDeleteReset(id));
-}
 function waitForAnyResetDeleted() {
   let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ reset\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Delete\ a\ reset\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
 }
-function waitForResetUpdated(id) {
-  waitFor(matchUpdateReset(id));
+function waitForResetDeleted(id) {
+  waitFor(matchDeleteReset(id));
 }
 function waitForAnyResetUpdated() {
   let e = waitFor(matchesDescriptionRegex(/^Update\ a\ reset\ with\ id\ (.+)$/));
     let m = e.data.parameters.description.match(/^Update\ a\ reset\ with\ id\ (.+)$/);
     return { id: parseInt(m[1]) };
+}
+function waitForResetUpdated(id) {
+  waitFor(matchUpdateReset(id));
 }
 
 // Verify updated (presence-by-list)
@@ -1011,6 +1011,171 @@ function verifyResetUpdated(id) {
       return pvg.fail("Expected a reset to be present after update, but it is not");
     },
     parameters: { description: "Verify reset with " + "id " + id + " exists" }
+  });
+}
+
+
+/** === Reset_all Operations === */
+
+// CREATE
+function addReset_all(id) {
+  svc.post("/reset_all", { body: JSON.stringify({ id: id }), parameters: { description: "Add a reset_all with " + "id " + id } });
+}
+
+// DELETE
+function deleteReset_all(id) {
+  svc.delete("/reset_all/" + id, {
+    parameters: { description: "Delete a reset_all with " + "id " + id }
+  });
+}
+
+// Negative: delete non-existing (codes from spec/defaults)
+function tryToDeleteANonExistingReset_all(id) {
+  svc.delete("/reset_all/" + id, {
+    expectedResponseCodes: [200, 404, 401],
+    parameters: { description: "Delete a reset_all with " + "id " + id }
+  });
+}
+
+// Negative: create existing (codes from spec/defaults)
+function tryToAddExistingReset_all(id) {
+  svc.post("/reset_all", {
+    body: JSON.stringify({ id: id }),
+    parameters: { description: "Add a reset_all with " + "id " + id },
+    expectedResponseCodes: [409, 400]
+  });
+}
+
+// UPDATE
+function updateReset_all(id) {
+  svc.put("/reset_all/" + id, { body: JSON.stringify({ id: id }), parameters: { description: "Update a reset_all with " + "id " + id } });
+}
+
+// GET one
+function getReset_all(id) {
+  svc.get("/reset_all/" + id, {
+    parameters: { description: "Get a reset_all with " + "id " + id }
+  });
+}
+
+// LIST all
+function listReset_all() {
+  svc.get("/reset_all", {
+    parameters: { description: "List reset_all" }
+  });
+}
+
+// Verify exists (by list)
+function verifyReset_allExists(id) {
+  svc.get("/reset_all", {
+    callback: function (response) {
+      reset_all = JSON.parse(response.body);
+      for (let i = 0; i < reset_all.length; i++) {
+        if (reset_all[i].id === id) {
+          return pvg.success("Reset_all exists");
+        }
+      }
+      return pvg.fail("Expected a reset_all to exist but it does not");
+    },
+    parameters: { description: "Verify reset_all with " + "id " + id + " exists" }
+  });
+}
+
+// Verify NOT exists (by list)
+function verifyReset_allDoesNotExist(id) {
+  svc.get("/reset_all", {
+    callback: function (response) {
+      reset_all = JSON.parse(response.body);
+      for (let i = 0; i < reset_all.length; i++) {
+        if (reset_all[i].id === id) {
+          return pvg.fail("Expected a reset_all to not exist but it does");
+        }
+      }
+      return pvg.success("Reset_all does not exist");
+    },
+    parameters: { description: "Verify reset_all with " + "id " + id + " does not exist" }
+  });
+}
+
+// Match helpers
+function matchAnyAddReset_all() {
+  return bp.EventSet("any-add-reset_all", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Add a reset_all");
+  });
+}
+function matchAddReset_all(id) {
+  return bp.EventSet("add-reset_all", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Add a reset_all with " + "id " + id;
+  });
+}
+function matchAnyDeleteReset_all() {
+  return bp.EventSet("any-del-reset_all", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Delete a reset_all");
+  });
+}
+function matchDeleteReset_all(id) {
+  return bp.EventSet("del-reset_all", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Delete a reset_all with " + "id " + id;
+  });
+}
+
+// UPDATE passive helpers
+function matchAnyUpdateReset_all() {
+  return bp.EventSet("any-update-reset_all", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description.startsWith("Update a reset_all");
+  });
+}
+function matchUpdateReset_all(id) {
+  return bp.EventSet("update-reset_all", function (e) {
+    if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
+    return e.data.parameters.description === "Update a reset_all with " + "id " + id;
+  });
+}
+
+// Wait helpers
+function waitForAnyReset_allAdded() {
+  let e = waitFor(matchesDescriptionRegex(/^Add\ a\ reset_all\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Add\ a\ reset_all\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+function waitForReset_allAdded(id) {
+  waitFor(matchAddReset_all(id));
+}
+function waitForAnyReset_allDeleted() {
+  let e = waitFor(matchesDescriptionRegex(/^Delete\ a\ reset_all\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Delete\ a\ reset_all\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+function waitForReset_allDeleted(id) {
+  waitFor(matchDeleteReset_all(id));
+}
+function waitForAnyReset_allUpdated() {
+  let e = waitFor(matchesDescriptionRegex(/^Update\ a\ reset_all\ with\ id\ (.+)$/));
+    let m = e.data.parameters.description.match(/^Update\ a\ reset_all\ with\ id\ (.+)$/);
+    return { id: parseInt(m[1]) };
+}
+function waitForReset_allUpdated(id) {
+  waitFor(matchUpdateReset_all(id));
+}
+
+// Verify updated (presence-by-list)
+function verifyReset_allUpdated(id) {
+  svc.get("/reset_all", {
+    callback: function (response) {
+      reset_all = JSON.parse(response.body);
+      for (let i = 0; i < reset_all.length; i++) {
+        if (reset_all[i].id === id) {
+          return pvg.success("Reset_all updated (present)");
+        }
+      }
+      return pvg.fail("Expected a reset_all to be present after update, but it is not");
+    },
+    parameters: { description: "Verify reset_all with " + "id " + id + " exists" }
   });
 }
 

@@ -191,7 +191,6 @@ artifacts\lle_nondet\<provider>\<sut>\lle_nondet_gold.json
 **DET →**
 ```bat
 scripts\readable\run_js_all_sut_from_gold.bat
-scripts\readable\run_js_all_rw_from_gold.bat
 ```
 **NONDET →** (re‑use the same wrappers if they support NONDET location; otherwise call single‑SUT wrapper and point at NONDET gold)
 ```bat
