@@ -92,22 +92,33 @@ goto :eof
 setlocal EnableExtensions EnableDelayedExpansion
 set "SUT=%~1"
 
+rem Paths for GOLD and output directory
 set "GOLD=%ROOT%\artifacts\hls_%MODE%\%PROV%\%SUT%\hls_gold.json"
-set "OUT=%ROOT%\artifacts\hls_%MODE%\%PROV%\%SUT%\readable\stories_hls.js"
+set "OUT_DIR=%ROOT%\artifacts\hls_%MODE%\%PROV%\%SUT%\readable"
+set "OUT=%OUT_DIR%\stories_hls.js"
 
 if not exist "%GOLD%" (
   echo   [SKIP] %SUT% - missing GOLD: "%GOLD%"
   endlocal & set /a SKIP+=1 & goto :eof
 )
 
-for %%P in ("%OUT%") do if not exist "%%~dpP" mkdir "%%~dpP" >nul 2>&1
-for %%P in ("%GOLD%") do set "GDIR=%%~dpP"
+if not exist "%OUT_DIR%" (
+  md "%OUT_DIR%" >nul 2>&1
+)
 
-pushd "%GDIR%" >nul
+echo   [CMD ] "%PY%" -u "%ROOT%\scripts\readable\emit_hls_all_in_one.py" ^
+  --gold "%GOLD%" ^
+  --sut "%SUT%" ^
+  --provider "%PROV%" ^
+  --mode "%MODE%" ^
+  --out_dir "%OUT_DIR%"
 "%PY%" -u "%ROOT%\scripts\readable\emit_hls_all_in_one.py" ^
-  --sut_dir . --mode %MODE% --out "%OUT%"
+  --gold "%GOLD%" ^
+  --sut "%SUT%" ^
+  --provider "%PROV%" ^
+  --mode "%MODE%" ^
+  --out_dir "%OUT_DIR%"
 set "RC=%ERRORLEVEL%"
-popd >nul
 
 if "%RC%"=="0" (
   echo   [OK ] %SUT%
