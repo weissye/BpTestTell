@@ -71,7 +71,7 @@ if "!COUNT!"=="0" (
   echo [WARN] No SUTs found under %PACKS% with an openapi.json
 ) else (
   echo.
-  echo [DONE] 7-SUT DET (pure OpenAPI; ops + shards + det_gold) completed for !COUNT! SUT(s).
+  echo [DONE] 7-SUT DET ^(pure OpenAPI; ops + shards + det_gold^) completed for !COUNT! SUT^(s^).
 )
 
 popd
