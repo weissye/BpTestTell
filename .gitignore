@@ -36,8 +36,9 @@ old.*/
 # Keys
 OpenAiKey.txt
 
-#Keep anything in 'readable' subfolders
+# Generated artifacts (except readables)
+artifacts/
 !artifacts/**/readable/**
-!artifacts/**/readable/**
+
 mySetupEnv.bat
 set-OPENAPI-key.bat
