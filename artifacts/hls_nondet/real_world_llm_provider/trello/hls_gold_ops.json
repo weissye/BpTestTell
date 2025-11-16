@@ -1,7 +1,0 @@
-{
-  "source": "artifacts/hls_nondet/real_world_llm_provider/trello/hls_gold.json",
-  "provider": "real_world_llm_provider",
-  "sut": "trello",
-  "stories_total": 60,
-  "by_entity": {}
-}

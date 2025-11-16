@@ -1,7 +1,0 @@
-{
-  "source": "artifacts/hls_nondet/real_world_llm_provider/gitea/hls_gold.json",
-  "provider": "real_world_llm_provider",
-  "sut": "gitea",
-  "stories_total": 84,
-  "by_entity": {}
-}

@@ -1,7 +1,0 @@
-{
-  "source": "artifacts/hls_nondet/real_world_llm_provider/zulip/hls_gold.json",
-  "provider": "real_world_llm_provider",
-  "sut": "zulip",
-  "stories_total": 140,
-  "by_entity": {}
-}

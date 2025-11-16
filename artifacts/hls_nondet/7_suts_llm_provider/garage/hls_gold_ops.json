@@ -1,7 +1,0 @@
-{
-  "source": "artifacts/hls_nondet/7_suts_llm_provider/garage/hls_gold.json",
-  "provider": "7_suts_llm_provider",
-  "sut": "garage",
-  "stories_total": 28,
-  "by_entity": {}
-}

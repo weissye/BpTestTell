@@ -1,7 +1,0 @@
-{
-  "source": "artifacts/hls_nondet/real_world_llm_provider/github/hls_gold.json",
-  "provider": "real_world_llm_provider",
-  "sut": "github",
-  "stories_total": 148,
-  "by_entity": {}
-}

@@ -1,7 +1,0 @@
-{
-  "source": "artifacts/hls_nondet/real_world_llm_provider/twilio/hls_gold.json",
-  "provider": "real_world_llm_provider",
-  "sut": "twilio",
-  "stories_total": 4,
-  "by_entity": {}
-}
