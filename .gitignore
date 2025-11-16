@@ -38,7 +38,7 @@ OpenAiKey.txt
 
 # Generated artifacts (except readables)
 artifacts/
-!artifacts/**/readable/**
+model/
 
 mySetupEnv.bat
 set-OPENAPI-key.bat
