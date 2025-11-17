@@ -322,13 +322,38 @@ def synthesize_entity_stories(
     """
     synthetic: List[StorySpec] = []
 
-    entities_meta = meta.get("entities") or {}
+    # meta["entities"] may be:
+    #   - a dict: { "user": {...}, "project": {...} }
+    #   - a list: [ { "entity": "projects", "attrs": [...] }, ... ]
+    entities_meta_raw = meta.get("entities") or {}
+    if isinstance(entities_meta_raw, list):
+        entities_meta: Dict[str, Dict[str, Any]] = {}
+        for e in entities_meta_raw:
+            if not isinstance(e, dict):
+                continue
+            # Try a few possible keys for the entity name
+            candidates = [
+                e.get("entity"),
+                e.get("plural"),
+                e.get("singular"),
+            ]
+            for name in candidates:
+                if not name:
+                    continue
+                if name not in entities_meta:
+                    entities_meta[name] = e
+    elif isinstance(entities_meta_raw, dict):
+        entities_meta = entities_meta_raw
+    else:
+        entities_meta = {}
 
     for ent in sorted(entities):
         ent_cap = pascal_case(ent)
         id_var, next_id = id_base_map.get(ent, (make_id_var(ent), 200))
 
         # Per-entity CRUD args, if provided by the GOLD generator.
+        # (Currently your new builder does not set add_args/update_args,
+        #  so this safely falls back to empty lists.)
         e_meta = entities_meta.get(ent) or {}
         add_args: List[str] = list(e_meta.get("add_args") or [])
         update_args: List[str] = list(e_meta.get("update_args") or [])
@@ -719,6 +744,11 @@ def main(argv=None) -> None:
     sut = args.sut or meta.get("sut") or "unknown_sut"
     provider = args.provider or meta.get("provider") or meta.get("source") or "unknown_provider"
     mode = args.mode or meta.get("mode") or "nondet"
+    # NEW: honor --out_dir if provided; otherwise default to GOLD's folder
+    if args.out_dir:
+        out_dir = Path(args.out_dir).resolve()
+    else:
+        out_dir = gold_path.parent
 
     # Assign IDs to all structured stories.
     assign_unique_ids(stories, base=args.id_base, step=args.id_step)
@@ -758,10 +788,10 @@ def main(argv=None) -> None:
     # Merge original + synthetic.
     all_stories: List[StorySpec] = stories + synthetic
 
-    # We keep the current behavior: write next to GOLD (not under out_dir).
-    out_path = gold_path.with_name("stories_hls.js")
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-
+    # Now: write into out_dir (or GOLD folder if out_dir not provided)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / "stories_hls.js"
+    
     print("[INFO] Emitting HLS stories_hls.js from HLS GOLD...")
     header = emit_header(
         sut, provider, mode, gold_path, num_stories=len(all_stories)

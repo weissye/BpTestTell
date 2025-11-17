@@ -164,13 +164,42 @@ def collect_attrs_from_dsl(dsl: Any, entity: str) -> List[str]:
 
     1) { "entities": { "user": { "attributes": ["name","email"] } } }
     2) { "entities": { "user": { "attributes": [{"name":"name"}, ...] } } }
-    3) Any other structure -> ignored.
+    3) { "entities": [ { "name": "user", "attributes": [...] }, ... ] }
+    4) Any other structure -> ignored.
     """
     if not dsl or not isinstance(dsl, dict):
         return []
 
-    ent_map = dsl.get("entities") or dsl.get("Entities") or {}
-    ent_meta = ent_map.get(entity) or ent_map.get(singularize(entity)) or {}
+    ent_map_raw = dsl.get("entities") or dsl.get("Entities") or {}
+
+    # NEW: normalise list-of-entities into a dict keyed by name/entity/plural/singular
+    if isinstance(ent_map_raw, list):
+        ent_map: Dict[str, Dict[str, Any]] = {}
+        for e in ent_map_raw:
+            if not isinstance(e, dict):
+                continue
+            candidates = [
+                e.get("name"),
+                e.get("entity"),
+                e.get("plural"),
+                e.get("singular"),
+            ]
+            for nm in candidates:
+                if not nm:
+                    continue
+                if nm not in ent_map:
+                    ent_map[nm] = e
+    elif isinstance(ent_map_raw, dict):
+        ent_map = ent_map_raw
+    else:
+        ent_map = {}
+
+    ent_meta = (
+        ent_map.get(entity)
+        or ent_map.get(singularize(entity))
+        or {}
+    )
+
     attrs = ent_meta.get("attributes") or ent_meta.get("fields") or []
     out: List[str] = []
     if isinstance(attrs, list):

@@ -112,7 +112,7 @@ rem set "OUT=!CD!\!SUT!\spec\js\stories_hls.js"
 rem "%PY%" "%EMITTER%" --gold "!GOLD!" --out "!OUT!"
 rem if errorlevel 1 (echo(  [ERR ] emitter failed & goto :eof) else (echo(  [OK  ] wrote !OUT! & goto :eof)
 
-"%PY%" "%EMITTER%" --gold "%GOLD%" --sut "%SUT%" --provider "%PROVIDER%" --mode "%MODE%" --out_dir "%OUT%" --id-base 200 --id-step 1 --complex-entities loan,orderLine
+"%PY%" "%EMITTER%" --gold "%GOLD%" --sut "%SUT%" --provider "%PROVIDER%" --mode "%MODE%" --out_dir "%OUT_DIR%" --id-base 200 --id-step 1 --complex-entities loan,orderLine
 
 if errorlevel 1 (
   echo(  [ERR ] emitter failed
