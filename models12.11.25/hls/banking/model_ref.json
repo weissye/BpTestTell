@@ -1,8 +1,0 @@
-{
-  "sut": "banking",
-  "provider": "openai",
-  "trained": false,
-  "model_id": "gpt-4o-mini",
-  "created": "2025-11-05T21:13:25.169175Z",
-  "source_det": "artifacts\\hls_det\\7_suts_llm_provider\\banking\\hls_det_gold.json"
-}

@@ -104,12 +104,16 @@ if not exist "!OUT_DIR!" mkdir "!OUT_DIR!" >nul 2>nul
 
 echo(  OUT : !OUT_DIR!
 
+REM inside scripts\readable\emit_* .bat just before calling Python:
+set EXTRA_FLAGS=--id-base 200 --id-step 1 --complex-entities loan,orderLine
+
 rem If you want a fixed out path, uncomment and adapt:
 rem set "OUT=!CD!\!SUT!\spec\js\stories_hls.js"
 rem "%PY%" "%EMITTER%" --gold "!GOLD!" --out "!OUT!"
 rem if errorlevel 1 (echo(  [ERR ] emitter failed & goto :eof) else (echo(  [OK  ] wrote !OUT! & goto :eof)
 
-"%PY%" "%EMITTER%" --gold "!GOLD!" --out_dir "!OUT_DIR!"
+"%PY%" "%EMITTER%" --gold "%GOLD%" --sut "%SUT%" --provider "%PROVIDER%" --mode "%MODE%" --out_dir "%OUT%" --id-base 200 --id-step 1 --complex-entities loan,orderLine
+
 if errorlevel 1 (
   echo(  [ERR ] emitter failed
 ) else (

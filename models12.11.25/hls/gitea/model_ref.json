@@ -1,8 +1,0 @@
-{
-  "sut": "gitea",
-  "provider": "openai",
-  "trained": false,
-  "model_id": "gpt-4o-mini",
-  "created": "2025-11-05T21:13:25.906462Z",
-  "source_det": "artifacts\\hls_det\\real_world_llm_provider\\gitea\\hls_det_gold.json"
-}

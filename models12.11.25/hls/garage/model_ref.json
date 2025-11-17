@@ -1,8 +1,0 @@
-{
-  "sut": "garage",
-  "provider": "openai",
-  "trained": false,
-  "model_id": "gpt-4o-mini",
-  "created": "2025-11-05T21:13:25.532637Z",
-  "source_det": "artifacts\\hls_det\\7_suts_llm_provider\\garage\\hls_det_gold.json"
-}
