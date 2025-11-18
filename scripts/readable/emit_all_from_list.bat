@@ -107,12 +107,23 @@ echo(  OUT : !OUT_DIR!
 REM inside scripts\readable\emit_* .bat just before calling Python:
 set EXTRA_FLAGS=--id-base 200 --id-step 1 --complex-entities loan,orderLine
 
+REM Decide which entities are "complex" for this SUT
+set "COMPLEX_ENTITIES="
+
+REM Example: treat 'member' as complex in trello
+if /I "!CURSUT!"=="trello" set "COMPLEX_ENTITIES=member"
+
+REM (Optional) examples if you want to experiment later:
+REM if /I "!CURSUT!"=="github"   set "COMPLEX_ENTITIES=installation,issue"
+REM if /I "!CURSUT!"=="directus" set "COMPLEX_ENTITIES=relation"
+
+
 rem If you want a fixed out path, uncomment and adapt:
 rem set "OUT=!CD!\!SUT!\spec\js\stories_hls.js"
 rem "%PY%" "%EMITTER%" --gold "!GOLD!" --out "!OUT!"
 rem if errorlevel 1 (echo(  [ERR ] emitter failed & goto :eof) else (echo(  [OK  ] wrote !OUT! & goto :eof)
 
-"%PY%" "%EMITTER%" --gold "%GOLD%" --sut "%SUT%" --provider "%PROVIDER%" --mode "%MODE%" --out_dir "%OUT_DIR%" --id-base 200 --id-step 1 --complex-entities loan,orderLine
+"%PY%" "%EMITTER%" --gold "%GOLD%" --sut "%SUT%" --provider "%PROVIDER%" --mode "%MODE%" --out_dir "%OUT_DIR%" --id-base 200 --id-step 1 --complex-entities "!COMPLEX_ENTITIES!"
 
 if errorlevel 1 (
   echo(  [ERR ] emitter failed

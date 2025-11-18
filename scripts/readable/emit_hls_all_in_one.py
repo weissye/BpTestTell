@@ -13,8 +13,8 @@ Generic HLS stories emitter.
 - Synthesizes generic stories per entity:
     * positive:basic          – add → verifyExists → delete → verifyDoesNotExist
     * positive:update         – add → verifyExists → update → verifyExists
-    * negative:dup-add        – tryToAddExisting<Entity> while entity exists
-    * negative:delete-nonexistent – delete non-existing + verifyDoesNotExist
+    * negative:dup-add        – tryToAddExisting<Entity> while exists
+    * negative:delete-nonexistent – tryToDeleteANonExisting<Entity>
     * existing:update         – waitForAny<Entity>Added() → update existing
     * existing:dup-add        – waitForAny<Entity>Added() → dup-add existing
     * passive monitors:
@@ -30,12 +30,18 @@ Generic HLS stories emitter.
 
 In addition, for synthetic CRUD stories, if HLS GOLD meta contains:
 
-  "entities": {
-    "user": {
-      "add_args": ["\"name_1\"", "\"email_1\""],
-      "update_args": ["\"name_2\"", "\"email_2\""]
-    }
-  }
+  "entities": [
+    {
+      "entity": "users",
+      "singular": "user",
+      "plural": "users",
+      "keys": ["idUser"],
+      "attrs": ["name","email"],
+      "add_args": ["\"name_1\"","\"email_1\""],
+      "update_args": ["\"name_2\"","\"email_2\""]
+    },
+    ...
+  ]
 
 then the synthetic stories for 'user' will call:
 
@@ -51,9 +57,11 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple, Set
 from collections import defaultdict
 
+
 # ---------------------------------------------------------------------------
 # Data model
 # ---------------------------------------------------------------------------
+
 
 @dataclass
 class StorySpec:
@@ -77,19 +85,23 @@ class StorySpec:
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def load_json(path: Path) -> Any:
     with path.open("r", encoding="utf-8") as f:
         return json.load(f)
 
+
 def pascal_case(name: str) -> str:
     parts = [p for p in name.replace("-", "_").split("_") if p]
     return "".join(p[:1].upper() + p[1:] for p in parts)
+
 
 def camel_case(name: str) -> str:
     parts = [p for p in name.replace("-", "_").split("_") if p]
     if not parts:
         return "id"
     return parts[0].lower() + "".join(p[:1].upper() + p[1:] for p in parts[1:])
+
 
 def sanitize_js_ident(name: str) -> str:
     """Make a safe JS identifier (generic helper)."""
@@ -98,6 +110,7 @@ def sanitize_js_ident(name: str) -> str:
     if re.match(r"^[0-9]", name):
         name = "_" + name
     return name or "id"
+
 
 def sanitize_var_name(name: str) -> str:
     """
@@ -108,9 +121,11 @@ def sanitize_var_name(name: str) -> str:
     """
     return sanitize_js_ident(name)
 
+
 def make_id_var(entity: str) -> str:
     base = sanitize_var_name(entity)
     return base + "Id" if not base.endswith("Id") else base
+
 
 def normalize_op_name(op: Any) -> str:
     if isinstance(op, str):
@@ -122,6 +137,7 @@ def normalize_op_name(op: Any) -> str:
             return str(op["name"])
     raise ValueError(f"Unsupported op entry in HLS GOLD: {op!r}")
 
+
 def parse_name_for_entity_and_mode(name: str) -> Tuple[Optional[str], Optional[str]]:
     parts = name.split(":")
     if len(parts) >= 3 and parts[0] in ("crud", "hls", "lle"):
@@ -130,8 +146,40 @@ def parse_name_for_entity_and_mode(name: str) -> Tuple[Optional[str], Optional[s
 
 
 # ---------------------------------------------------------------------------
+# Constant value generation for attributes
+# ---------------------------------------------------------------------------
+
+
+def const_val_for_attr(name: str, base: int, variant: int = 0) -> Any:
+    """
+    Generate a realistic-looking constant for an attribute, mirroring the
+    heuristics used in build_hls_gold_nondet.py so that synthetic HLS
+    stories replay the same style of field values.
+    """
+    lname = (name or "").lower()
+    suffix = base + variant
+
+    if any(x in lname for x in ("name", "title")):
+        return f"{name.capitalize()} {suffix}"
+    if "email" in lname:
+        return f"user{suffix}@example.com"
+    if "status" in lname:
+        return "active" if suffix % 2 == 0 else "inactive"
+    if "desc" in lname:
+        return f"{name} description {suffix}"
+    if "date" in lname:
+        return f"2025-01-{(suffix % 28) + 1:02d}"
+    if "flag" in lname or lname.startswith("is_"):
+        return bool(suffix % 2)
+
+    # generic string attribute
+    return f"{name}_{suffix}"
+
+
+# ---------------------------------------------------------------------------
 # GOLD loader
 # ---------------------------------------------------------------------------
+
 
 def load_hls_gold(path: Path):
     data = load_json(path)
@@ -219,6 +267,7 @@ def load_hls_gold(path: Path):
 # Guard injection & ID assignment
 # ---------------------------------------------------------------------------
 
+
 def inject_guards_with_map(
     fn_names: List[str],
     entity: Optional[str],
@@ -272,6 +321,7 @@ def inject_guards_with_map(
 
     return out
 
+
 def assign_unique_ids(stories: List[StorySpec], base: int = 200, step: int = 1) -> None:
     """
     Assigns IDs to structured (non-raw_js) stories per entity.
@@ -293,6 +343,7 @@ def assign_unique_ids(stories: List[StorySpec], base: int = 200, step: int = 1) 
 # Synthetic stories & monitors
 # ---------------------------------------------------------------------------
 
+
 def synthesize_entity_stories(
     entities: Set[str],
     id_base_map: Dict[str, Tuple[str, int]],
@@ -310,15 +361,17 @@ def synthesize_entity_stories(
       - existing:update
       - existing:dup-add
       - passive monitors (add/delete)
-      - complex-key monitors (full+partial, and per field) when entity is in
-        complex_entities.
+      - complex-key monitors (for entities in complex_entities):
+          * monitor:<ent>:complex-keys
+          * monitor:<ent>:complex-keys:by-field
 
     Synthetic CRUD stories are structured stories (ops list, guards injected).
     Monitors and existing-* stories are raw JS.
 
-    If meta["entities"][ent] provides "add_args" / "update_args", they are
-    used as extra JS args for add<Ent> / update<Ent> in these synthetic
-    stories.
+    If meta["entities"] provides "add_args" / "update_args" (per entity),
+    they are used as extra JS args for add<Ent> / update<Ent> in these
+    synthetic stories. If not, we derive them from the entity's "attrs"
+    using const_val_for_attr().
     """
     synthetic: List[StorySpec] = []
 
@@ -326,11 +379,14 @@ def synthesize_entity_stories(
     #   - a dict: { "user": {...}, "project": {...} }
     #   - a list: [ { "entity": "projects", "attrs": [...] }, ... ]
     entities_meta_raw = meta.get("entities") or {}
+    entities_meta: Dict[str, Dict[str, Any]] = {}
+
     if isinstance(entities_meta_raw, list):
-        entities_meta: Dict[str, Dict[str, Any]] = {}
-        for e in entities_meta_raw:
+        for idx, e in enumerate(entities_meta_raw):
             if not isinstance(e, dict):
                 continue
+            if "_index" not in e:
+                e["_index"] = idx
             # Try a few possible keys for the entity name
             candidates = [
                 e.get("entity"),
@@ -344,22 +400,47 @@ def synthesize_entity_stories(
                     entities_meta[name] = e
     elif isinstance(entities_meta_raw, dict):
         entities_meta = entities_meta_raw
-    else:
-        entities_meta = {}
+        for idx, (name, e) in enumerate(list(entities_meta.items())):
+            if isinstance(e, dict) and "_index" not in e:
+                e["_index"] = idx
 
     for ent in sorted(entities):
         ent_cap = pascal_case(ent)
         id_var, next_id = id_base_map.get(ent, (make_id_var(ent), 200))
 
-        # Per-entity CRUD args, if provided by the GOLD generator.
-        # (Currently your new builder does not set add_args/update_args,
-        #  so this safely falls back to empty lists.)
+        # Per-entity CRUD args:
+        #   - If GOLD already provides add_args/update_args, we reuse them.
+        #   - Otherwise, we derive realistic-looking field values from the
+        #     entity's attrs list using const_val_for_attr(), so that HLS
+        #     stories replay the same field *sets* that appear in GOLD.
         e_meta = entities_meta.get(ent) or {}
         add_args: List[str] = list(e_meta.get("add_args") or [])
         update_args: List[str] = list(e_meta.get("update_args") or [])
 
+        if e_meta and (not add_args or not update_args):
+            attrs = e_meta.get("attrs") or []
+            if attrs:
+                base_val = 1000 + int(e_meta.get("_index", 0)) * 10
+                if not add_args:
+                    add_args = [
+                        json.dumps(const_val_for_attr(a, base_val, variant=0))
+                        for a in attrs
+                    ]
+                    e_meta["add_args"] = add_args
+                if not update_args:
+                    # Nudge the base so update-values differ from add-values
+                    update_args = [
+                        json.dumps(const_val_for_attr(a, base_val, variant=1))
+                        for a in attrs
+                    ]
+                    e_meta["update_args"] = update_args
+
         # Helper to allocate unique IDs per synthetic active story.
-        def new(ops: List[str], suffix: str, op_args_override: Optional[Dict[int, List[str]]] = None) -> StorySpec:
+        def new(
+            ops: List[str],
+            suffix: str,
+            op_args_override: Optional[Dict[int, List[str]]] = None,
+        ) -> StorySpec:
             nonlocal next_id
             st = StorySpec(
                 name=f"crud:{ent}:{default_mode}:{suffix}",
@@ -375,7 +456,7 @@ def synthesize_entity_stories(
             return st
 
         # Positive basic: full lifecycle (guards injected later).
-        # If add_args exist, use them for the add<X> call (op index 0).
+        # Index 0: add<X>()
         op_args_basic: Dict[int, List[str]] = {}
         if add_args:
             op_args_basic[0] = add_args
@@ -413,7 +494,6 @@ def synthesize_entity_stories(
         )
 
         # Negative: duplicate add should fail (4xx = PASS).
-        # Only the initial add needs arguments.
         op_args_dup: Dict[int, List[str]] = {}
         if add_args:
             op_args_dup[0] = add_args
@@ -508,7 +588,7 @@ bthread("monitor:{ent}:add", function () {{
             )
         )
 
-        # Passive monitor: delete → block re-add until verifyDoesNotExist.
+        # Passive monitor: delete → block add until verifyDoesNotExist.
         del_mon_js = f"""
 bthread("monitor:{ent}:delete", function () {{
   while (true) {{
@@ -533,30 +613,48 @@ bthread("monitor:{ent}:delete", function () {{
 
         # Complex-key monitors (only for entities listed as complex).
         if ent in complex_entities:
+            # Decide which fields define the composite key for this entity.
+            # Prefer GOLD meta["entities"][ent]["keys"], fall back to "*id"/"*__id" fields.
+            e_keys: List[str] = []
+            if isinstance(e_meta, dict):
+                raw_keys = e_meta.get("keys") or []
+                if isinstance(raw_keys, list):
+                    e_keys = [str(k) for k in raw_keys if k]
+
+            # Pre-render the static part of the key-names array; JS code will
+            # use it when non-empty, otherwise fall back to a dynamic heuristic.
+            keys_js_array = ", ".join(json.dumps(k) for k in e_keys)
+
             # Full + partial composite key duplicates.
             complex_mon_js = f"""
 bthread("monitor:{ent}:complex-keys", function () {{
   let fullSeen = {{}}, partialSeen = {{}};
+  const baseKeyNames = [{keys_js_array}];
   while (true) {{
     let ev = waitForAny{ent_cap}Added();
 
-    // Detect composite-key fields: anything ending with 'id' or '_id' (case-insensitive)
-    let keyNames = [];
-    for (let k in ev) {{
-      if (!Object.prototype.hasOwnProperty.call(ev, k)) continue;
-      let kl = ("" + k).toLowerCase();
-      if (kl.endsWith("id") || kl.endsWith("_id")) keyNames.push(k);
+    // Choose which fields participate in the composite key:
+    //   1) If GOLD provided explicit key fields, use them.
+    //   2) Otherwise, take all properties whose names end with "id" or "_id".
+    let keyNames = baseKeyNames;
+    if (keyNames.length === 0) {{
+      keyNames = [];
+      for (let k in ev) {{
+        if (!Object.prototype.hasOwnProperty.call(ev, k)) continue;
+        let kl = ("" + k).toLowerCase();
+        if (kl.endsWith("id") || kl.endsWith("_id")) keyNames.push(k);
+      }}
     }}
-    if (keyNames.length === 0) continue;
+    if (keyNames.length === 0) return;  // nothing to monitor
 
     let values = keyNames.map(k => String(ev[k]));
 
-    // Full composite key
+    // Full composite key (tuple of all key fields)
     let fullKey = values.join("|");
     if (fullSeen[fullKey]) bp.ASSERT(false, "Duplicate composite {ent} key " + fullKey);
     fullSeen[fullKey] = true;
 
-    // Partial keys
+    // Per-field duplicates for each key component
     for (let i = 0; i < keyNames.length; ++i) {{
       let partKey = keyNames[i] + "=" + values[i];
       if (partialSeen[partKey]) bp.ASSERT(false, "Duplicate partial {ent} key " + partKey);
@@ -575,16 +673,27 @@ bthread("monitor:{ent}:complex-keys", function () {{
                 )
             )
 
-            # Per-field duplicate monitor (more like "loan per user/book").
+            # Per-field duplicate monitor, focused on the same key fields.
             per_key_mon_js = f"""
 bthread("monitor:{ent}:complex-keys:by-field", function () {{
   let seenByField = {{}};
+  const baseKeyNames = [{keys_js_array}];
   while (true) {{
     let ev = waitForAny{ent_cap}Added();
-    for (let k in ev) {{
-      if (!Object.prototype.hasOwnProperty.call(ev, k)) continue;
-      let kl = ("" + k).toLowerCase();
-      if (!(kl.endsWith("id") || kl.endsWith("_id"))) continue;
+
+    let keyNames = baseKeyNames;
+    if (keyNames.length === 0) {{
+      keyNames = [];
+      for (let k in ev) {{
+        if (!Object.prototype.hasOwnProperty.call(ev, k)) continue;
+        let kl = ("" + k).toLowerCase();
+        if (kl.endsWith("id") || kl.endsWith("_id")) keyNames.push(k);
+      }}
+    }}
+    if (keyNames.length === 0) return;
+
+    for (let i = 0; i < keyNames.length; ++i) {{
+      let k = keyNames[i];
       let value = String(ev[k]);
       let key = k + "=" + value;
       if (seenByField[key]) {{
@@ -615,6 +724,7 @@ bthread("monitor:{ent}:complex-keys:by-field", function () {{
 # Emission
 # ---------------------------------------------------------------------------
 
+
 def emit_header(
     sut: str, provider: str, mode: str, src: Path, num_stories: int
 ) -> str:
@@ -630,6 +740,7 @@ def emit_header(
         ]
     )
 
+
 def build_call(fn_name: str, id_var: str, extra_args: Optional[List[str]]) -> str:
     """
     Build a JS call expression.
@@ -640,6 +751,7 @@ def build_call(fn_name: str, id_var: str, extra_args: Optional[List[str]]) -> st
     if extra_args:
         args.extend(extra_args)
     return f"{fn_name}({', '.join(args)})"
+
 
 def emit_story(story: StorySpec) -> str:
     """Render a single StorySpec to JS."""
@@ -667,6 +779,8 @@ def emit_story(story: StorySpec) -> str:
     original_ops = story.ops
     op_args = story.op_args or {}
 
+    # Inject guards: verifyDoesNotExist before first add, verifyExists before
+    # each delete, and verifyDoesNotExist after last delete (if missing).
     ops_with_map = inject_guards_with_map(original_ops, story.entity)
 
     for fn, orig_index in ops_with_map:
@@ -682,6 +796,7 @@ def emit_story(story: StorySpec) -> str:
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
+
 
 def build_arg_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
@@ -732,6 +847,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     )
     return p
 
+
 def main(argv=None) -> None:
     args = build_arg_parser().parse_args(argv)
 
@@ -744,7 +860,7 @@ def main(argv=None) -> None:
     sut = args.sut or meta.get("sut") or "unknown_sut"
     provider = args.provider or meta.get("provider") or meta.get("source") or "unknown_provider"
     mode = args.mode or meta.get("mode") or "nondet"
-    # NEW: honor --out_dir if provided; otherwise default to GOLD's folder
+    # honor --out_dir if provided; otherwise default to GOLD's folder
     if args.out_dir:
         out_dir = Path(args.out_dir).resolve()
     else:
@@ -776,6 +892,7 @@ def main(argv=None) -> None:
         if ent not in id_info:
             id_info[ent] = (make_id_var(ent), args.id_base)
 
+    # Complex entities: from CLI only (you already wired this via BAT).
     complex_entities = {
         e.strip() for e in (args.complex_entities or "").split(",") if e.strip()
     }
@@ -791,7 +908,7 @@ def main(argv=None) -> None:
     # Now: write into out_dir (or GOLD folder if out_dir not provided)
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "stories_hls.js"
-    
+
     print("[INFO] Emitting HLS stories_hls.js from HLS GOLD...")
     header = emit_header(
         sut, provider, mode, gold_path, num_stories=len(all_stories)
@@ -800,6 +917,7 @@ def main(argv=None) -> None:
     out_path.write_text(js_text, encoding="utf-8")
 
     print(f"[OK] Wrote HLS stories to: {out_path}")
+
 
 if __name__ == "__main__":
     main()
