@@ -93,7 +93,9 @@ def extract_ops(graph: Any) -> List[Dict]:
             if not (m and p):
                 continue
             body = o.get("body") or o.get("requestBody") or None
-            ops.append({"method": m, "path": p, "body": body})
+            # Body-level required fields (added by openapi_to_graph.py as 'body_required').
+            body_required = o.get("body_required") or o.get("required_body_fields") or []
+            ops.append({"method": m, "path": p, "body": body, "body_required": body_required})
     if not ops:
         flatten_graph(graph, ops)
 
@@ -272,6 +274,22 @@ def derive_entities(ops: List[Dict], dsl: Any) -> List[Dict]:
                     seen.add(a)
                     attrs_merged.append(a)
 
+        # Required vs optional attributes:
+        # We infer "required" from per-op body_required fields,
+        # then split attrs_merged while preserving their original order.
+        required_counter: Counter = Counter()
+        for o2 in ops:
+            if guess_entity_from_path(o2["path"]) != plural:
+                continue
+            body_req = o2.get("body_required") or []
+            if isinstance(body_req, list):
+                for r in body_req:
+                    if isinstance(r, str):
+                        required_counter[r] += 1
+
+        required_attrs = [a for a in attrs_merged if a in required_counter]
+        optional_attrs = [a for a in attrs_merged if a not in required_counter]
+
         entities.append(
             {
                 "entity": plural,
@@ -279,6 +297,8 @@ def derive_entities(ops: List[Dict], dsl: Any) -> List[Dict]:
                 "plural": plural,
                 "keys": keys,
                 "attrs": attrs_merged,
+                "required_attrs": required_attrs,
+                "optional_attrs": optional_attrs,
                 "methods": sorted(info["methods"]),
                 "paths": sorted(info["paths"]),
             }

@@ -80,9 +80,11 @@ def _merge_schemas(schemas: List[Dict[str, Any]], spec: Dict[str, Any]) -> Dict[
         if not isinstance(s, dict):
             continue
         # Merge required
-        for r in s.get("required") or []:
-            if r not in required:
-                required.append(r)
+        raw_req = s.get("required")
+        if isinstance(raw_req, list):
+            for r in raw_req:
+                if r not in required:
+                    required.append(r)
         # Merge properties
         p = s.get("properties") or {}
         if isinstance(p, dict):
@@ -119,9 +121,10 @@ def resolve_schema(schema: Dict[str, Any], spec: Dict[str, Any]) -> Dict[str, An
     if "allOf" in schema and isinstance(schema["allOf"], list):
         merged = _merge_schemas(schema["allOf"], spec)
         # Local properties/required override/extend merged
-        if "required" in schema:
+        raw_req = schema.get("required")
+        if isinstance(raw_req, list):
             merged.setdefault("required", [])
-            for r in schema["required"]:
+            for r in raw_req:
                 if r not in merged["required"]:
                     merged["required"].append(r)
         if "properties" in schema and isinstance(schema["properties"], dict):
@@ -158,7 +161,12 @@ def guess_entities(spec: Dict[str, Any]) -> List[Dict[str, Any]]:
     for name, schema in sorted(schemas.items(), key=lambda kv: kv[0].lower()):
         schema_resolved = resolve_schema(schema, spec)
         props: Dict[str, Any] = schema_resolved.get("properties") or {}
-        required_list = list(schema_resolved.get("required") or [])
+
+        raw_required = schema_resolved.get("required")
+        if isinstance(raw_required, list):
+            required_list = [str(r) for r in raw_required]
+        else:
+            required_list = []
 
         properties = sorted(list(props.keys()))
         properties_meta: Dict[str, Dict[str, Any]] = {}
@@ -273,7 +281,11 @@ def build_ops(spec: Dict[str, Any]) -> List[Dict[str, Any]]:
                     props = schema_resolved.get("properties") or {}
                     if isinstance(props, dict) and props:
                         body = props
-                        body_required = list(schema_resolved.get("required") or [])
+                        raw_required = schema_resolved.get("required")
+                        if isinstance(raw_required, list):
+                            body_required = [str(r) for r in raw_required]
+                        else:
+                            body_required = []
 
             # Responses: just collect status codes
             responses_obj = op.get("responses") or {}

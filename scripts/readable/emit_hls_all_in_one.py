@@ -408,32 +408,75 @@ def synthesize_entity_stories(
         ent_cap = pascal_case(ent)
         id_var, next_id = id_base_map.get(ent, (make_id_var(ent), 200))
 
+        # Decide which field name carries the primary ID in events.
+        # Default: use the JS id variable name (e.g., 'userId').
+        # If GOLD meta provides explicit key fields, prefer the first one
+        # (e.g., 'idUser'), so monitors align with interfaces.js/events.
+        e_meta = {}
+        id_field_name = sanitize_var_name(id_var)
+
+        # We'll overwrite e_meta below, but we want id_field_name to be
+        # computed even when meta is missing or incomplete.
+
         # Per-entity CRUD args:
         #   - If GOLD already provides add_args/update_args, we reuse them.
         #   - Otherwise, we derive realistic-looking field values from the
         #     entity's attrs list using const_val_for_attr(), so that HLS
         #     stories replay the same field *sets* that appear in GOLD.
+        # Attach GOLD meta (if any) and refine the ID field name.
         e_meta = entities_meta.get(ent) or {}
+        if isinstance(e_meta, dict):
+            raw_keys = e_meta.get("keys") or []
+            if isinstance(raw_keys, list) and raw_keys:
+                # Use the first key as the primary ID field name.
+                # This lets you keep OpenAPI-style IDs like 'idUser'
+                # while our internal JS variable stays 'userId'.
+                id_field_name = str(raw_keys[0])
+
+        # CRUD argument metadata
         add_args: List[str] = list(e_meta.get("add_args") or [])
         update_args: List[str] = list(e_meta.get("update_args") or [])
 
-        if e_meta and (not add_args or not update_args):
-            attrs = e_meta.get("attrs") or []
-            if attrs:
-                base_val = 1000 + int(e_meta.get("_index", 0)) * 10
-                if not add_args:
-                    add_args = [
-                        json.dumps(const_val_for_attr(a, base_val, variant=0))
-                        for a in attrs
-                    ]
-                    e_meta["add_args"] = add_args
-                if not update_args:
-                    # Nudge the base so update-values differ from add-values
-                    update_args = [
-                        json.dumps(const_val_for_attr(a, base_val, variant=1))
-                        for a in attrs
-                    ]
-                    e_meta["update_args"] = update_args
+        # Attribute sets from GOLD:
+        attrs: List[str] = list(e_meta.get("attrs") or [])
+        required_attrs: List[str] = list(e_meta.get("required_attrs") or [])
+        optional_attrs: List[str] = list(e_meta.get("optional_attrs") or [])
+
+        # Synthesize add/update arguments if GOLD didn't provide them.
+        attr_vals_add: Dict[str, str] = {}
+        attr_vals_update: Dict[str, str] = {}
+        if attrs:
+            base_val = 1000 + int(e_meta.get("_index", 0)) * 10
+
+            # If GOLD didn't supply full argument lists, generate them across all attrs.
+            if not add_args:
+                add_args = [
+                    json.dumps(const_val_for_attr(a, base_val, variant=0))
+                    for a in attrs
+                ]
+                e_meta["add_args"] = add_args
+            if not update_args:
+                # Nudge the base so update-values differ from add-values.
+                update_args = [
+                    json.dumps(const_val_for_attr(a, base_val, variant=1))
+                    for a in attrs
+                ]
+                e_meta["update_args"] = update_args
+
+            # Build per-attribute maps (useful for req-only vs with-optional stories).
+            for idx, a in enumerate(attrs):
+                # For robustness, guard against mismatched lengths.
+                aval = add_args[idx] if idx < len(add_args) else json.dumps(
+                    const_val_for_attr(a, base_val, variant=0)
+                )
+                uval = update_args[idx] if idx < len(update_args) else json.dumps(
+                    const_val_for_attr(a, base_val, variant=1)
+                )
+                attr_vals_add[a] = aval
+                attr_vals_update[a] = uval
+
+        # For entities without attrs at all, we keep add_args/update_args as-is (often empty)
+        # and won't try to generate req-only / with-optional variants.
 
         # Helper to allocate unique IDs per synthetic active story.
         def new(
@@ -455,23 +498,76 @@ def synthesize_entity_stories(
             next_id += id_step
             return st
 
-        # Positive basic: full lifecycle (guards injected later).
-        # Index 0: add<X>()
-        op_args_basic: Dict[int, List[str]] = {}
-        if add_args:
-            op_args_basic[0] = add_args
+        # Positive basic stories:
+        # - If we know required vs optional attributes, emit two variants:
+        #     * positive:basic:req-only        – only required attributes
+        #     * positive:basic:with-optional   – required + optional attributes
+        # - Otherwise, emit a single positive:basic using whatever add_args we have.
 
-        synthetic.append(
-            new(
-                [
-                    f"add{ent_cap}",
-                    f"verify{ent_cap}Exists",
-                    f"delete{ent_cap}",
-                ],
-                "positive:basic",
-                op_args_override=op_args_basic or None,
+        # Build a canonical full-args list from attrs/add_args, if available.
+        full_add_args = add_args
+        if attrs and attr_vals_add:
+            full_add_args = [attr_vals_add[a] for a in attrs if a in attr_vals_add]
+
+        if required_attrs or optional_attrs:
+            # req-only variant: restrict to required attributes (if known).
+            if required_attrs and attr_vals_add:
+                req_only_args = [
+                    attr_vals_add[a] for a in required_attrs if a in attr_vals_add
+                ]
+            else:
+                # If we have no explicit required set, treat everything as required.
+                req_only_args = full_add_args
+
+            op_args_basic_req: Dict[int, List[str]] = {}
+            if req_only_args:
+                op_args_basic_req[0] = req_only_args
+
+            synthetic.append(
+                new(
+                    [
+                        f"add{ent_cap}",
+                        f"verify{ent_cap}Exists",
+                        f"delete{ent_cap}",
+                    ],
+                    "positive:basic:req-only",
+                    op_args_override=op_args_basic_req or None,
+                )
             )
-        )
+
+            # with-optional variant: full payload (required + optional).
+            op_args_basic_full: Dict[int, List[str]] = {}
+            if full_add_args:
+                op_args_basic_full[0] = full_add_args
+
+            synthetic.append(
+                new(
+                    [
+                        f"add{ent_cap}",
+                        f"verify{ent_cap}Exists",
+                        f"delete{ent_cap}",
+                    ],
+                    "positive:basic:with-optional",
+                    op_args_override=op_args_basic_full or None,
+                )
+            )
+        else:
+            # Legacy behaviour: single basic story using add_args as-is.
+            op_args_basic: Dict[int, List[str]] = {}
+            if add_args:
+                op_args_basic[0] = add_args
+
+            synthetic.append(
+                new(
+                    [
+                        f"add{ent_cap}",
+                        f"verify{ent_cap}Exists",
+                        f"delete{ent_cap}",
+                    ],
+                    "positive:basic",
+                    op_args_override=op_args_basic or None,
+                )
+            )
 
         # Positive update: add + update while entity exists.
         # Index 0: add<X>, index 2: update<X>.
@@ -570,7 +666,7 @@ bthread("crud:{ent}:{default_mode}:existing:dup-add", function () {{
 bthread("monitor:{ent}:add", function () {{
   while (true) {{
     let ev = waitForAny{ent_cap}Added();
-    let idField = "{sanitize_var_name(id_var)}";
+    let idField = "{id_field_name}";
     let idValue = ev[idField];
     block(matchDelete{ent_cap}(idValue), function () {{
       verify{ent_cap}Exists(idValue);
@@ -593,7 +689,7 @@ bthread("monitor:{ent}:add", function () {{
 bthread("monitor:{ent}:delete", function () {{
   while (true) {{
     let ev = waitForAny{ent_cap}Deleted();
-    let idField = "{sanitize_var_name(id_var)}";
+    let idField = "{id_field_name}";
     let idValue = ev[idField];
     block(matchAdd{ent_cap}(idValue), function () {{
       verify{ent_cap}DoesNotExist(idValue);
