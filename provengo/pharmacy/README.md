@@ -1,8 +1,8 @@
 # pharmacy
 
 ---
-2025-11-10 15:21:54
-74243
+2025-11-19 22:16:13
+USER
 
 Provengo project for spec-ing and testing my system.
 
@@ -28,7 +28,7 @@ Provengo project for spec-ing and testing my system.
 
 ## Useful Commands
 
-⚠️ NOTE: In the below listings, we assume that `provengo` is in the system's PATH variable, and that `C:\work\Yeshayahu\BpTestTell\pharmacy` is the path to this directory.
+⚠️ NOTE: In the below listings, we assume that `provengo` is in the system's PATH variable, and that `D:\Yeshayahu\BpTestTell\provengo\pharmacy` is the path to this directory.
 
 For full documentation go to [https://docs.provengo.tech](docs.provengo.tech).
 
@@ -36,14 +36,14 @@ For full documentation go to [https://docs.provengo.tech](docs.provengo.tech).
 
 Perform a single run through the specification. Good for "Sanity checks", i.e. to see examples of what can happen.
 
-    provengo run --dry C:\work\Yeshayahu\BpTestTell\pharmacy
+    provengo run --dry D:\Yeshayahu\BpTestTell\provengo\pharmacy
 
 
 ### Visualize the Spec
 
 Draw the specification in a PDF file.
 
-    provengo analyze -f pdf C:\work\Yeshayahu\BpTestTell\pharmacy
+    provengo analyze -f pdf D:\Yeshayahu\BpTestTell\provengo\pharmacy
 
 
 ⚠️ NOTE: This requires [Graphviz](http://graphviz.org) to be installed.
@@ -53,7 +53,7 @@ Draw the specification in a PDF file.
 
 Sample 10 scenarios into a file. The scenarios are stored in a file called `samples.json` (this can be changed using the `-o`/`--output-file` switch).
 
-    provengo sample --overwrite --size 10 C:\work\Yeshayahu\BpTestTell\pharmacy
+    provengo sample --overwrite --size 10 D:\Yeshayahu\BpTestTell\provengo\pharmacy
 
 
 ### Create an Optimized Test Suite
@@ -62,19 +62,25 @@ Generate a test suite of 5 tests that provides a good coverage of items in the [
 
 **Requires running `sample` first** (the previous command)**.**
 
-    provengo ensemble --size 5 C:\work\Yeshayahu\BpTestTell\pharmacy
+    provengo ensemble --size 5 D:\Yeshayahu\BpTestTell\provengo\pharmacy
 
 #### Visualize the Spec and the Suite
 
 Draw the specification, and highlight the traces in the optimized test suite create by the previous command.
 
-    provengo analyze -f pdf --highlight ensemble.json C:\work\Yeshayahu\BpTestTell\pharmacy
+    provengo analyze -f pdf --highlight ensemble.json D:\Yeshayahu\BpTestTell\provengo\pharmacy
 
 ### Create Test Scripts for Third Party Systems
 
 Converts the runs in `ensemble.json` to automation test scripts.
 
-    provengo gen-scripts -s ensemble.json C:\work\Yeshayahu\BpTestTell\pharmacy
+    provengo gen-scripts -s ensemble.json D:\Yeshayahu\BpTestTell\provengo\pharmacy
 
 ## AI code completion
 To enable AI code completion, please use a code completion plugin (e.g., [GitHub Copilot](https://github.com/features/copilot)) and keep open the files inside the [config/ai](config/ai) folder.
+
+## Git MCP Support
+To use this, Open your GitHub copilot on `Agent` mode and run the TechDemos MCP server. 
+In the command palette type `MCP: list servers` and then choose `TechDemos`, then click run. 
+GitMCP support Works with all popular MCP-compatible AI tools, including: `Claude` · `Cursor` · `Windsurf` · `Cline` · `Highlight AI` · `Augment Code`
+Check https://gitmcp.io/Provengo/TechDemos for configurations. 

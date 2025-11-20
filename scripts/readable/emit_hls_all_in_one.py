@@ -23,10 +23,6 @@ Generic HLS stories emitter.
     * complex-key monitors (for entities listed in --complex-entities):
         - monitor:<ent>:complex-keys          (full+partial combination)
         - monitor:<ent>:complex-keys:by-field (per-ID-field duplicates)
-- Sanitizes JS identifiers that the emitter introduces (local variables).
-- Optional attributes: if an op in GOLD is of the form
-    { "fn": "addUser", "args": ["\"John\"", "\"john@x\""] }
-  then the generated call will be: addUser(id, "John", "john@x").
 
 In addition, for synthetic CRUD stories, if HLS GOLD meta contains:
 
@@ -46,7 +42,14 @@ In addition, for synthetic CRUD stories, if HLS GOLD meta contains:
 then the synthetic stories for 'user' will call:
 
   addUser(id, "name_1", "email_1");
+  verifyUserExists(id, "name_1", "email_1");
   updateUser(id, "name_2", "email_2");
+  verifyUserExists(id, "name_2", "email_2");
+  deleteUser(id, "name_2", "email_2");
+  verifyUserDoesNotExist(id, "name_2", "email_2");
+
+Note that JS functions may ignore some of the extra args, but the caller-side
+signature is consistent with GOLD.
 """
 
 import argparse
@@ -82,18 +85,13 @@ class StorySpec:
 
 
 # ---------------------------------------------------------------------------
-# Helpers
+# Utility naming helpers
 # ---------------------------------------------------------------------------
-
-
-def load_json(path: Path) -> Any:
-    with path.open("r", encoding="utf-8") as f:
-        return json.load(f)
 
 
 def pascal_case(name: str) -> str:
     parts = [p for p in name.replace("-", "_").split("_") if p]
-    return "".join(p[:1].upper() + p[1:] for p in parts)
+    return "".join(p[:1].upper() + p[1:] for p in parts) if parts else ""
 
 
 def camel_case(name: str) -> str:
@@ -128,105 +126,79 @@ def make_id_var(entity: str) -> str:
 
 
 def normalize_op_name(op: Any) -> str:
+    """
+    Normalize an op entry from GOLD:
+
+      - if it's a string, return as-is;
+      - if it's an object, try "fn" first, then "op".
+    """
     if isinstance(op, str):
         return op
     if isinstance(op, dict):
         if "fn" in op:
             return str(op["fn"])
-        if "name" in op:
-            return str(op["name"])
-    raise ValueError(f"Unsupported op entry in HLS GOLD: {op!r}")
-
-
-def parse_name_for_entity_and_mode(name: str) -> Tuple[Optional[str], Optional[str]]:
-    parts = name.split(":")
-    if len(parts) >= 3 and parts[0] in ("crud", "hls", "lle"):
-        return parts[1], parts[2]
-    return None, None
+        if "op" in op:
+            return str(op["op"])
+    return str(op)
 
 
 # ---------------------------------------------------------------------------
-# Constant value generation for attributes
+# GOLD loading
 # ---------------------------------------------------------------------------
 
 
-def const_val_for_attr(name: str, base: int, variant: int = 0) -> Any:
+def load_hls_gold(path: Path) -> Tuple[Dict[str, Any], List[StorySpec]]:
     """
-    Generate a realistic-looking constant for an attribute, mirroring the
-    heuristics used in build_hls_gold_nondet.py so that synthetic HLS
-    stories replay the same style of field values.
+    Load a single HLS GOLD JSON file and return (meta, stories).
+
+    Expected shape:
+
+      {
+        "meta": { ... },
+        "stories": [ ... ]
+      }
+
+    where a story can be one of:
+      - { "name": "...", "js": "..." }
+      - { "name": "...", "entity": "...", "mode": "...", "ops": [ ... ] }
     """
-    lname = (name or "").lower()
-    suffix = base + variant
+    with path.open("r", encoding="utf-8") as f:
+        data = json.load(f)
 
-    if any(x in lname for x in ("name", "title")):
-        return f"{name.capitalize()} {suffix}"
-    if "email" in lname:
-        return f"user{suffix}@example.com"
-    if "status" in lname:
-        return "active" if suffix % 2 == 0 else "inactive"
-    if "desc" in lname:
-        return f"{name} description {suffix}"
-    if "date" in lname:
-        return f"2025-01-{(suffix % 28) + 1:02d}"
-    if "flag" in lname or lname.startswith("is_"):
-        return bool(suffix % 2)
+    if not isinstance(data, dict):
+        raise ValueError(f"{path}: GOLD root must be an object")
 
-    # generic string attribute
-    return f"{name}_{suffix}"
+    meta = data.get("meta") or {}
+    if not isinstance(meta, dict):
+        meta = {}
 
-
-# ---------------------------------------------------------------------------
-# GOLD loader
-# ---------------------------------------------------------------------------
-
-
-def load_hls_gold(path: Path):
-    data = load_json(path)
-    meta: Dict[str, Any] = {}
-
-    if isinstance(data, dict):
-        meta = {k: v for k, v in data.items() if k != "stories"}
-        stories_raw = data.get("stories") or []
-    elif isinstance(data, list):
-        stories_raw = data
-    else:
-        raise ValueError(f"Unexpected HLS GOLD top-level type: {type(data)}")
+    stories_raw = data.get("stories") or []
+    if not isinstance(stories_raw, list):
+        raise ValueError(f"{path}: 'stories' must be a list")
 
     stories: List[StorySpec] = []
 
     for idx, s in enumerate(stories_raw):
         if not isinstance(s, dict):
-            raise ValueError(f"Story entry #{idx} is not an object: {s!r}")
+            raise ValueError(f"{path}: stories[{idx}] must be an object")
 
-        name = s.get("name") or s.get("id") or s.get("story_name") or f"story_{idx}"
+        name = str(s.get("name") or f"story_{idx}")
         entity = s.get("entity")
-        mode = s.get("mode") or meta.get("mode") or "?"
+        mode = s.get("mode") or "?"
 
-        # Try to infer entity/mode from the name if missing.
-        if not entity or mode == "?":
-            ent2, mode2 = parse_name_for_entity_and_mode(name)
-            if not entity:
-                entity = ent2
-            if mode == "?":
-                mode = mode2 or mode
-
-        js_text = s.get("js")
-        ops_raw = s.get("ops") or s.get("operations") or s.get("steps")
-
-        # Raw JS story – emitter treats as opaque.
-        if js_text and not ops_raw:
+        if "js" in s and s["js"]:
+            # Pre-rendered JS story; passthrough.
             stories.append(
                 StorySpec(
                     name=name,
                     entity=entity,
-                    mode=str(mode or "?"),
-                    raw_js=str(js_text),
+                    mode=str(mode),
+                    raw_js=str(s["js"]),
                 )
             )
             continue
 
-        # Structured story – emitter can inject guards, IDs, etc.
+        ops_raw = s.get("ops")
         if isinstance(ops_raw, list) and ops_raw:
             ops: List[str] = []
             op_args: Dict[int, List[str]] = {}
@@ -243,105 +215,134 @@ def load_hls_gold(path: Path):
                 StorySpec(
                     name=name,
                     entity=entity,
-                    mode=str(mode or "?"),
+                    mode=str(mode),
                     ops=ops,
                     op_args=op_args,
                 )
             )
-            continue
-
-        # Placeholder / unrecognized entry – just keep the name.
-        stories.append(
-            StorySpec(
-                name=name,
-                entity=entity,
-                mode=str(mode or "?"),
-                is_placeholder=True,
+        else:
+            # Placeholder / empty structured story.
+            stories.append(
+                StorySpec(
+                    name=name,
+                    entity=entity,
+                    mode=str(mode),
+                    is_placeholder=True,
+                )
             )
-        )
 
     return meta, stories
 
 
 # ---------------------------------------------------------------------------
-# Guard injection & ID assignment
+# Guard injection for structured stories
 # ---------------------------------------------------------------------------
 
 
-def inject_guards_with_map(
-    fn_names: List[str],
-    entity: Optional[str],
-) -> List[Tuple[str, Optional[int]]]:
+def inject_guards_for_story(story: StorySpec) -> None:
     """
-    Given a list of op names (fn_names) and an entity, inject verification
-    calls according to the standard pattern:
+    For a structured story with ops list, inject standard CRUD guards:
 
-      - before first add<Entity>: verify<Entity>DoesNotExist
-      - before each delete<Entity>: verify<Entity>Exists
-      - after last delete<Entity>: verify<Entity>DoesNotExist (if missing)
+      - verify<Entity>DoesNotExist() before first add<Entity>()
+      - verify<Entity>Exists() before each delete<Entity>()
+      - verify<Entity>DoesNotExist() after last delete<Entity>(), if missing
 
-    Returns:
-      List of (fn_name, orig_index) where orig_index is the index in the
-      original fn_names list, or None if the fn was injected (guard).
+    Entity is taken from story.entity, or inferred from first op name.
     """
-    if not entity:
-        return [(fn, i) for i, fn in enumerate(fn_names)]
+    if story.is_placeholder or not story.ops:
+        return
 
-    ent_cap = pascal_case(entity)
-    add_name = f"add{ent_cap}"
-    delete_name = f"delete{ent_cap}"
-    verify_exists = f"verify{ent_cap}Exists"
-    verify_not_exists = f"verify{ent_cap}DoesNotExist"
+    ops = story.ops
+    op_args = story.op_args
 
-    out: List[Tuple[str, Optional[int]]] = []
-    last_delete_idx: Optional[int] = None
+    ent = story.entity
+    if not ent and ops:
+        m = re.match(r"(add|update|delete|verify|tryToAddExisting|tryToDeleteANonExisting)([A-Z].*)$", ops[0])
+        if m:
+            ent_candidate = m.group(2)
+            ent = ent_candidate[0].lower() + ent_candidate[1:]
 
-    for idx, fn in enumerate(fn_names):
-        if fn == add_name:
-            # Ensure not-exists check immediately before first add.
-            if not out or out[-1][0] != verify_not_exists:
-                out.append((verify_not_exists, None))
-            out.append((fn, idx))
-        elif fn == delete_name:
-            # Ensure exists check immediately before delete.
-            if not out or out[-1][0] != verify_exists:
-                out.append((verify_exists, None))
-            out.append((fn, idx))
-            last_delete_idx = len(out) - 1
-        else:
-            out.append((fn, idx))
+    if not ent:
+        return
 
-    # After last delete, ensure we verify non-existence.
-    if last_delete_idx is not None:
-        has_verify_after_delete = any(
-            fn == verify_not_exists for fn, _ in out[last_delete_idx + 1 :]
-        )
-        if not has_verify_after_delete:
-            out.append((verify_not_exists, None))
+    ent_cap = pascal_case(ent)
 
-    return out
+    first_add_idx: Optional[int] = None
+    delete_indices: List[int] = []
 
+    for i, op_name in enumerate(ops):
+        if op_name.startswith("add" + ent_cap):
+            if first_add_idx is None:
+                first_add_idx = i
+        if op_name.startswith("delete" + ent_cap):
+            delete_indices.append(i)
 
-def assign_unique_ids(stories: List[StorySpec], base: int = 200, step: int = 1) -> None:
-    """
-    Assigns IDs to structured (non-raw_js) stories per entity.
-    Raw JS stories are left untouched, because we can't safely rewrite them.
-    """
-    next_id: Dict[str, int] = defaultdict(lambda: base)
+    if first_add_idx is None and not delete_indices:
+        return
 
-    for st in stories:
-        if st.raw_js is not None or st.is_placeholder or not st.entity:
-            continue  # don't touch raw JS or placeholders
+    def insert_op(pos: int, new_op: str, args_from: Optional[int] = None):
+        ops.insert(pos, new_op)
+        new_op_args: Dict[int, List[str]] = {}
+        for idx, args in op_args.items():
+            if idx >= pos:
+                new_op_args[idx + 1] = args
+            else:
+                new_op_args[idx] = args
+        op_args.clear()
+        op_args.update(new_op_args)
+        if args_from is not None and args_from in op_args:
+            op_args[pos] = list(op_args[args_from])
 
-        ent = st.entity
-        st.id_var = make_id_var(ent)
-        st.id_value = next_id[ent]
-        next_id[ent] += step
+    # 1) Before first add<Entity>(), enforce verifyDoesNotExist.
+    if first_add_idx is not None:
+        guard = f"verify{ent_cap}DoesNotExist"
+        insert_op(first_add_idx, guard, args_from=first_add_idx)
+        first_add_idx += 1
+        delete_indices = [i + 1 for i in delete_indices]
+
+    # 2) Before each delete<Entity>(), enforce verifyExists.
+    for di in list(delete_indices):
+        guard = f"verify{ent_cap}Exists"
+        insert_op(di, guard, args_from=di + 1)
+        delete_indices = [i + 1 if i >= di else i for i in delete_indices]
+
+    # 3) After last delete<Entity>(), ensure verifyDoesNotExist at end.
+    if delete_indices:
+        last_delete_idx = delete_indices[-1]
+        tail_ops = ops[last_delete_idx + 1 :]
+        if not any(op.startswith(f"verify{ent_cap}DoesNotExist") for op in tail_ops):
+            guard = f"verify{ent_cap}DoesNotExist"
+            insert_op(last_delete_idx + 1, guard, args_from=last_delete_idx)
 
 
 # ---------------------------------------------------------------------------
 # Synthetic stories & monitors
 # ---------------------------------------------------------------------------
+
+
+def const_val_for_attr(attr: str, base_val: int, variant: int = 0) -> Any:
+    """
+    Heuristic constant value generator for attrs (for synthetic CRUD stories).
+
+    base_val is typically the entity's base ID; variant=0 used for add_args,
+    variant=1 used for update_args.
+    """
+    attr = str(attr or "").lower()
+    if attr.endswith("id") or attr.endswith("_id"):
+        return base_val + variant
+    if "name" in attr:
+        return f"name_{base_val + variant}"
+    if "email" in attr:
+        return f"user{base_val + variant}@example.com"
+    if "status" in attr:
+        return "active" if variant == 0 else "updated"
+    if "type" in attr:
+        return "primary" if variant == 0 else "secondary"
+    if "code" in attr:
+        return f"CODE_{base_val + variant}"
+    if "amount" in attr or "price" in attr or "total" in attr:
+        return (base_val + variant) * 10
+    return f"val_{base_val + variant}"
 
 
 def synthesize_entity_stories(
@@ -360,24 +361,15 @@ def synthesize_entity_stories(
       - negative:delete-nonexistent
       - existing:update
       - existing:dup-add
-      - passive monitors (add/delete)
-      - complex-key monitors (for entities in complex_entities):
-          * monitor:<ent>:complex-keys
-          * monitor:<ent>:complex-keys:by-field
+      - passive monitors:
+          * monitor:<ent>:add
+          * monitor:<ent>:delete
+      - complex-key monitors for entities listed as complex.
 
-    Synthetic CRUD stories are structured stories (ops list, guards injected).
-    Monitors and existing-* stories are raw JS.
-
-    If meta["entities"] provides "add_args" / "update_args" (per entity),
-    they are used as extra JS args for add<Ent> / update<Ent> in these
-    synthetic stories. If not, we derive them from the entity's "attrs"
-    using const_val_for_attr().
+    Synthetic CRUD stories are structured; existing-* and monitors are raw JS.
     """
     synthetic: List[StorySpec] = []
 
-    # meta["entities"] may be:
-    #   - a dict: { "user": {...}, "project": {...} }
-    #   - a list: [ { "entity": "projects", "attrs": [...] }, ... ]
     entities_meta_raw = meta.get("entities") or {}
     entities_meta: Dict[str, Dict[str, Any]] = {}
 
@@ -387,7 +379,6 @@ def synthesize_entity_stories(
                 continue
             if "_index" not in e:
                 e["_index"] = idx
-            # Try a few possible keys for the entity name
             candidates = [
                 e.get("entity"),
                 e.get("plural"),
@@ -408,23 +399,16 @@ def synthesize_entity_stories(
         ent_cap = pascal_case(ent)
         id_var, next_id = id_base_map.get(ent, (make_id_var(ent), 200))
 
-        # Decide which field name carries the primary ID in events.
-        # Default: use the JS id variable name (e.g., 'userId').
-        # If GOLD meta provides explicit key fields, prefer the first one
-        # (e.g., 'idUser'), so monitors align with interfaces.js/events.
-        e_meta = {}
-        id_field_name = sanitize_var_name(id_var)
-
-        # We'll overwrite e_meta below, but we want id_field_name to be
-        # computed even when meta is missing or incomplete.
-
-        # Per-entity CRUD args:
+        # Per-entity meta
         #   - If GOLD already provides add_args/update_args, we reuse them.
         #   - Otherwise, we derive realistic-looking field values from the
         #     entity's attrs list using const_val_for_attr(), so that HLS
         #     stories replay the same field *sets* that appear in GOLD.
-        # Attach GOLD meta (if any) and refine the ID field name.
         e_meta = entities_meta.get(ent) or {}
+
+        # Decide which field name carries the primary ID in events.
+        # Default: use the JS id variable name (e.g., 'userId').
+        id_field_name = sanitize_var_name(id_var)
         if isinstance(e_meta, dict):
             raw_keys = e_meta.get("keys") or []
             if isinstance(raw_keys, list) and raw_keys:
@@ -456,16 +440,13 @@ def synthesize_entity_stories(
                 ]
                 e_meta["add_args"] = add_args
             if not update_args:
-                # Nudge the base so update-values differ from add-values.
                 update_args = [
                     json.dumps(const_val_for_attr(a, base_val, variant=1))
                     for a in attrs
                 ]
                 e_meta["update_args"] = update_args
 
-            # Build per-attribute maps (useful for req-only vs with-optional stories).
             for idx, a in enumerate(attrs):
-                # For robustness, guard against mismatched lengths.
                 aval = add_args[idx] if idx < len(add_args) else json.dumps(
                     const_val_for_attr(a, base_val, variant=0)
                 )
@@ -475,8 +456,7 @@ def synthesize_entity_stories(
                 attr_vals_add[a] = aval
                 attr_vals_update[a] = uval
 
-        # For entities without attrs at all, we keep add_args/update_args as-is (often empty)
-        # and won't try to generate req-only / with-optional variants.
+        # For entities without attrs at all, we keep add_args/update_args as-is.
 
         # Helper to allocate unique IDs per synthetic active story.
         def new(
@@ -494,115 +474,87 @@ def synthesize_entity_stories(
             st.id_var = id_var
             st.id_value = next_id
             if op_args_override:
-                st.op_args = op_args_override
+                st.op_args.update(op_args_override)
+            else:
+                # Default: add* and update* get full args list (if known).
+                for i, op_name in enumerate(ops):
+                    if op_name.startswith("add" + ent_cap) and add_args:
+                        st.op_args[i] = list(add_args)
+                    elif op_name.startswith("update" + ent_cap) and update_args:
+                        st.op_args[i] = list(update_args)
             next_id += id_step
             return st
 
-        # Positive basic stories:
-        # - If we know required vs optional attributes, emit two variants:
-        #     * positive:basic:req-only        – only required attributes
-        #     * positive:basic:with-optional   – required + optional attributes
-        # - Otherwise, emit a single positive:basic using whatever add_args we have.
-
-        # Build a canonical full-args list from attrs/add_args, if available.
+        # Canonical full-args list from attrs/add_args, if available.
         full_add_args = add_args
         if attrs and attr_vals_add:
             full_add_args = [attr_vals_add[a] for a in attrs if a in attr_vals_add]
 
         if required_attrs or optional_attrs:
-            # req-only variant: restrict to required attributes (if known).
+            # req-only variant.
             if required_attrs and attr_vals_add:
                 req_only_args = [
                     attr_vals_add[a] for a in required_attrs if a in attr_vals_add
                 ]
             else:
-                # If we have no explicit required set, treat everything as required.
                 req_only_args = full_add_args
 
-            op_args_basic_req: Dict[int, List[str]] = {}
-            if req_only_args:
-                op_args_basic_req[0] = req_only_args
+            # full+optional variant.
+            if optional_attrs and attr_vals_add:
+                full_with_opt = [
+                    attr_vals_add[a]
+                    for a in (required_attrs + optional_attrs)
+                    if a in attr_vals_add
+                ]
+            else:
+                full_with_opt = full_add_args
 
+        # --- Synthetic CRUD stories ---
+
+        # Positive: basic CRUD (add → verifyExists → delete → verifyDoesNotExist).
+        if full_add_args:
+            op_args_basic: Dict[int, List[str]] = {0: full_add_args}
             synthetic.append(
                 new(
                     [
                         f"add{ent_cap}",
                         f"verify{ent_cap}Exists",
                         f"delete{ent_cap}",
-                    ],
-                    "positive:basic:req-only",
-                    op_args_override=op_args_basic_req or None,
-                )
-            )
-
-            # with-optional variant: full payload (required + optional).
-            op_args_basic_full: Dict[int, List[str]] = {}
-            if full_add_args:
-                op_args_basic_full[0] = full_add_args
-
-            synthetic.append(
-                new(
-                    [
-                        f"add{ent_cap}",
-                        f"verify{ent_cap}Exists",
-                        f"delete{ent_cap}",
-                    ],
-                    "positive:basic:with-optional",
-                    op_args_override=op_args_basic_full or None,
-                )
-            )
-        else:
-            # Legacy behaviour: single basic story using add_args as-is.
-            op_args_basic: Dict[int, List[str]] = {}
-            if add_args:
-                op_args_basic[0] = add_args
-
-            synthetic.append(
-                new(
-                    [
-                        f"add{ent_cap}",
-                        f"verify{ent_cap}Exists",
-                        f"delete{ent_cap}",
+                        f"verify{ent_cap}DoesNotExist",
                     ],
                     "positive:basic",
-                    op_args_override=op_args_basic or None,
+                    op_args_override=op_args_basic,
                 )
             )
 
-        # Positive update: add + update while entity exists.
-        # Index 0: add<X>, index 2: update<X>.
-        op_args_update: Dict[int, List[str]] = {}
-        if add_args:
-            op_args_update[0] = add_args
-        if update_args:
-            op_args_update[2] = update_args
-
-        synthetic.append(
-            new(
-                [
-                    f"add{ent_cap}",
-                    f"verify{ent_cap}Exists",
-                    f"update{ent_cap}",
-                ],
-                "positive:update",
-                op_args_override=op_args_update or None,
+            # Positive: update scenario (add → verifyExists → update → verifyExists).
+            op_args_update: Dict[int, List[str]] = {
+                0: full_add_args,
+                2: [attr_vals_update[a] for a in attrs if a in attr_vals_update] or full_add_args,
+            }
+            synthetic.append(
+                new(
+                    [
+                        f"add{ent_cap}",
+                        f"verify{ent_cap}Exists",
+                        f"update{ent_cap}",
+                        f"verify{ent_cap}Exists",
+                    ],
+                    "positive:update",
+                    op_args_override=op_args_update,
+                )
             )
-        )
 
-        # Negative: duplicate add should fail (4xx = PASS).
-        op_args_dup: Dict[int, List[str]] = {}
-        if add_args:
-            op_args_dup[0] = add_args
-
+        # Negative: dup-add existing (tryToAddExisting<Entity> while exists).
         synthetic.append(
             new(
                 [
                     f"add{ent_cap}",
                     f"verify{ent_cap}Exists",
                     f"tryToAddExisting{ent_cap}",
+                    f"verify{ent_cap}Exists",
                 ],
                 "negative:dup-add",
-                op_args_override=op_args_dup or None,
             )
         )
 
@@ -621,12 +573,14 @@ def synthesize_entity_stories(
 bthread("crud:{ent}:{default_mode}:existing:update", function () {{
   // Wait for some existing {ent} to be added (from any other story)
   let ev = waitForAny{ent_cap}Added();
-  let id = ev["{sanitize_var_name(id_var)}"];
+  let idField = "{id_field_name}";
+  let idValue = ev[idField];
+  let args = Object.values(ev);
 
-  // Ensure it really exists, then update
-  verify{ent_cap}Exists(id);
-  update{ent_cap}(id);
-  verify{ent_cap}Exists(id);
+  // Ensure it really exists, then update (with all key fields)
+  verify{ent_cap}Exists.apply(null, args);
+  update{ent_cap}.apply(null, args);
+  verify{ent_cap}Exists.apply(null, args);
 }});
 """.strip()
 
@@ -644,11 +598,13 @@ bthread("crud:{ent}:{default_mode}:existing:update", function () {{
 bthread("crud:{ent}:{default_mode}:existing:dup-add", function () {{
   // Wait for some existing {ent} to be added first
   let ev = waitForAny{ent_cap}Added();
-  let id = ev["{sanitize_var_name(id_var)}"];
+  let idField = "{id_field_name}";
+  let idValue = ev[idField];
+  let args = Object.values(ev);
 
-  verify{ent_cap}Exists(id);
-  tryToAddExisting{ent_cap}(id);
-  verify{ent_cap}Exists(id);
+  verify{ent_cap}Exists.apply(null, args);
+  tryToAddExisting{ent_cap}.apply(null, args);
+  verify{ent_cap}Exists.apply(null, args);
 }});
 """.strip()
 
@@ -668,8 +624,9 @@ bthread("monitor:{ent}:add", function () {{
     let ev = waitForAny{ent_cap}Added();
     let idField = "{id_field_name}";
     let idValue = ev[idField];
-    block(matchDelete{ent_cap}(idValue), function () {{
-      verify{ent_cap}Exists(idValue);
+    let args = Object.values(ev);
+    block(matchDelete{ent_cap}.apply(null, args), function () {{
+      verify{ent_cap}Exists.apply(null, args);
     }});
   }}
 }});
@@ -691,8 +648,9 @@ bthread("monitor:{ent}:delete", function () {{
     let ev = waitForAny{ent_cap}Deleted();
     let idField = "{id_field_name}";
     let idValue = ev[idField];
-    block(matchAdd{ent_cap}(idValue), function () {{
-      verify{ent_cap}DoesNotExist(idValue);
+    let args = Object.values(ev);
+    block(matchAdd{ent_cap}.apply(null, args), function () {{
+      verify{ent_cap}DoesNotExist.apply(null, args);
     }});
   }}
 }});
@@ -709,52 +667,37 @@ bthread("monitor:{ent}:delete", function () {{
 
         # Complex-key monitors (only for entities listed as complex).
         if ent in complex_entities:
-            # Decide which fields define the composite key for this entity.
-            # Prefer GOLD meta["entities"][ent]["keys"], fall back to "*id"/"*__id" fields.
             e_keys: List[str] = []
             if isinstance(e_meta, dict):
                 raw_keys = e_meta.get("keys") or []
                 if isinstance(raw_keys, list):
                     e_keys = [str(k) for k in raw_keys if k]
 
-            # Pre-render the static part of the key-names array; JS code will
-            # use it when non-empty, otherwise fall back to a dynamic heuristic.
             keys_js_array = ", ".join(json.dumps(k) for k in e_keys)
 
-            # Full + partial composite key duplicates.
             complex_mon_js = f"""
 bthread("monitor:{ent}:complex-keys", function () {{
-  let fullSeen = {{}}, partialSeen = {{}};
+  let seen = {{}};
   const baseKeyNames = [{keys_js_array}];
+
+  function makeKey(ev) {{
+    // If GOLD meta provides keys, use them in order; otherwise fall back.
+    let keyNames = baseKeyNames;
+    if (!keyNames || keyNames.length === 0) {{
+      keyNames = Object.keys(ev).filter(k => k && (k.endsWith("id") || k.endsWith("_id")));
+    }}
+    keyNames.sort();
+    return keyNames.map(k => k + "=" + ev[k]).join("|");
+  }}
+
   while (true) {{
     let ev = waitForAny{ent_cap}Added();
+    let key = makeKey(ev);
 
-    // Choose which fields participate in the composite key:
-    //   1) If GOLD provided explicit key fields, use them.
-    //   2) Otherwise, take all properties whose names end with "id" or "_id".
-    let keyNames = baseKeyNames;
-    if (keyNames.length === 0) {{
-      keyNames = [];
-      for (let k in ev) {{
-        if (!Object.prototype.hasOwnProperty.call(ev, k)) continue;
-        let kl = ("" + k).toLowerCase();
-        if (kl.endsWith("id") || kl.endsWith("_id")) keyNames.push(k);
-      }}
-    }}
-    if (keyNames.length === 0) return;  // nothing to monitor
-
-    let values = keyNames.map(k => String(ev[k]));
-
-    // Full composite key (tuple of all key fields)
-    let fullKey = values.join("|");
-    if (fullSeen[fullKey]) bp.ASSERT(false, "Duplicate composite {ent} key " + fullKey);
-    fullSeen[fullKey] = true;
-
-    // Per-field duplicates for each key component
-    for (let i = 0; i < keyNames.length; ++i) {{
-      let partKey = keyNames[i] + "=" + values[i];
-      if (partialSeen[partKey]) bp.ASSERT(false, "Duplicate partial {ent} key " + partKey);
-      partialSeen[partKey] = true;
+    if (seen[key]) {{
+      pvg.fail("Duplicate {ent} detected by composite key: " + key);
+    }} else {{
+      seen[key] = true;
     }}
   }}
 }});
@@ -769,7 +712,6 @@ bthread("monitor:{ent}:complex-keys", function () {{
                 )
             )
 
-            # Per-field duplicate monitor, focused on the same key fields.
             per_key_mon_js = f"""
 bthread("monitor:{ent}:complex-keys:by-field", function () {{
   let seenByField = {{}};
@@ -778,24 +720,24 @@ bthread("monitor:{ent}:complex-keys:by-field", function () {{
     let ev = waitForAny{ent_cap}Added();
 
     let keyNames = baseKeyNames;
-    if (keyNames.length === 0) {{
-      keyNames = [];
-      for (let k in ev) {{
-        if (!Object.prototype.hasOwnProperty.call(ev, k)) continue;
-        let kl = ("" + k).toLowerCase();
-        if (kl.endsWith("id") || kl.endsWith("_id")) keyNames.push(k);
-      }}
+    if (!keyNames || keyNames.length === 0) {{
+      keyNames = Object.keys(ev).filter(k => k && (k.endsWith("id") || k.endsWith("_id")));
     }}
-    if (keyNames.length === 0) return;
 
-    for (let i = 0; i < keyNames.length; ++i) {{
-      let k = keyNames[i];
-      let value = String(ev[k]);
-      let key = k + "=" + value;
-      if (seenByField[key]) {{
-        bp.ASSERT(false, "Duplicate {ent} for key " + key);
+    for (let i = 0; i < keyNames.length; i++) {{
+      let field = keyNames[i];
+      let value = ev[field];
+      let key = field + "=" + value;
+
+      if (!seenByField[field]) {{
+        seenByField[field] = {{}};
       }}
-      seenByField[key] = true;
+
+      if (seenByField[field][value]) {{
+        pvg.fail("Duplicate {ent} detected on field " + field + " value " + value);
+      }} else {{
+        seenByField[field][value] = true;
+      }}
     }}
   }}
 }});
@@ -810,38 +752,19 @@ bthread("monitor:{ent}:complex-keys:by-field", function () {{
                 )
             )
 
-        # Update id_base_map so future extensions know where we left off.
         id_base_map[ent] = (id_var, next_id)
 
     return synthetic
 
 
 # ---------------------------------------------------------------------------
-# Emission
+# JS emission
 # ---------------------------------------------------------------------------
 
 
-def emit_header(
-    sut: str, provider: str, mode: str, src: Path, num_stories: int
-) -> str:
-    return "\n".join(
-        [
-            "// ============================================================================",
-            "// Auto-generated Provengo HLS stories",
-            f"// SUT={sut}  Provider={provider}  Mode={mode}",
-            f"// Source GOLD: {src}",
-            f"// Total stories (including synthetic): {num_stories}",
-            "// ============================================================================",
-            "",
-        ]
-    )
-
-
-def build_call(fn_name: str, id_var: str, extra_args: Optional[List[str]]) -> str:
+def build_call(fn_name: str, id_var: str, extra_args: Optional[List[str]] = None) -> str:
     """
-    Build a JS call expression.
-
-    extra_args, if provided, are treated as raw JS expressions from GOLD.
+    Build a JS call expression: fn(id_var, ...extra_args...).
     """
     args: List[str] = [id_var]
     if extra_args:
@@ -851,42 +774,70 @@ def build_call(fn_name: str, id_var: str, extra_args: Optional[List[str]]) -> st
 
 def emit_story(story: StorySpec) -> str:
     """Render a single StorySpec to JS."""
-    # Placeholders are skipped with a comment.
+
     if story.is_placeholder:
-        return f"// [placeholder story skipped] {story.name}\n\n"
+        return f"// [placeholder] {story.name} (no ops/js)"
 
-    # Raw JS stories are emitted verbatim.
     if story.raw_js is not None:
-        js = story.raw_js.strip()
-        if not js.endswith("\n"):
-            js += "\n"
-        return js + "\n\n"
+        return f"// Story: {story.name}\n{story.raw_js}\n"
 
-    # Structured story.
-    ent = story.entity or "entity"
-    id_var = sanitize_var_name(story.id_var or make_id_var(ent))
-    id_value = 0 if story.id_value is None else story.id_value
+    if not story.ops:
+        return f"// [empty] {story.name} (no ops)"
+
+    ent_cap = pascal_case(story.entity or "Entity")
+    id_var = story.id_var or make_id_var(story.entity or "entity")
 
     lines: List[str] = []
-    lines.append(f"// ---- {story.name} ----")
+    lines.append(f"// Story: {story.name}")
     lines.append(f'bthread("{story.name}", function () {{')
-    lines.append(f"  let {id_var} = {json.dumps(id_value)};")
+    lines.append(f"  let {id_var} = {story.id_value if story.id_value is not None else 200};")
 
-    original_ops = story.ops
-    op_args = story.op_args or {}
+    for idx, op_name in enumerate(story.ops):
+        args = story.op_args.get(idx, [])
+        call = build_call(op_name, id_var, args)
+        lines.append(f"  {call};")
 
-    # Inject guards: verifyDoesNotExist before first add, verifyExists before
-    # each delete, and verifyDoesNotExist after last delete (if missing).
-    ops_with_map = inject_guards_with_map(original_ops, story.entity)
-
-    for fn, orig_index in ops_with_map:
-        extra = op_args.get(orig_index) if orig_index is not None else None
-        lines.append(f"  {build_call(fn, id_var, extra)};")
-
-    lines.append("  ")
     lines.append("});")
     lines.append("")
     return "\n".join(lines)
+
+
+def emit_header(sut: str, provider: str, mode: str, gold_path: Path, num_stories: int) -> str:
+    return f"""// Auto-generated HLS stories (readable)
+// DO NOT EDIT MANUALLY – generated by emit_hls_all_in_one.py
+// SUT      : {sut}
+// Provider : {provider}
+// Mode     : {mode}
+// Source   : {gold_path.name}
+// Stories  : {num_stories}
+
+//@provengo summon base
+//@provengo summon rest
+
+""".rstrip() + "\n\n"
+
+
+# ---------------------------------------------------------------------------
+# ID assignment for structured stories
+# ---------------------------------------------------------------------------
+
+
+def assign_unique_ids(stories: List[StorySpec], base: int, step: int) -> None:
+    """
+    Assign ID metadata (id_var, id_value) to all structured stories.
+    """
+    per_entity_counter: Dict[str, int] = defaultdict(lambda: base)
+
+    for st in stories:
+        if st.raw_js or st.is_placeholder:
+            continue
+        ent = st.entity or "entity"
+        if st.id_var is None:
+            st.id_var = make_id_var(ent)
+        if st.id_value is None:
+            current = per_entity_counter[ent]
+            st.id_value = current
+            per_entity_counter[ent] = current + step
 
 
 # ---------------------------------------------------------------------------
