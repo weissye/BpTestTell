@@ -4,7 +4,7 @@
 // Provider : 7_suts_llm_provider
 // Mode     : nondet
 // Source   : hls_gold.json
-// Stories  : 70
+// Stories  : 50
 
 //@provengo summon rest
 
@@ -282,112 +282,6 @@ bthread("crud:prescription:nondet:5:4", function () {
 });
 
 
-// Story: crud:reset:nondet:6:1
-// ---- crud:reset:nondet:6:1 ----
-bthread("crud:reset:nondet:6:1", function () {
-  let id = 250;
-  addReset(id);
-  tryToAddExistingReset(id);
-  verifyResetExists(id);
-  updateReset(id);
-  deleteReset(id);
-  tryToDeleteANonExistingReset(id);
-  verifyResetDoesNotExist(id);
-});
-
-
-// Story: crud:reset:nondet:6:2
-// ---- crud:reset:nondet:6:2 ----
-bthread("crud:reset:nondet:6:2", function () {
-  let id = 251;
-  addReset(id);
-  tryToAddExistingReset(id);
-  updateReset(id);
-  verifyResetExists(id);
-  deleteReset(id);
-  tryToDeleteANonExistingReset(id);
-  verifyResetDoesNotExist(id);
-});
-
-
-// Story: crud:reset:nondet:6:3
-// ---- crud:reset:nondet:6:3 ----
-bthread("crud:reset:nondet:6:3", function () {
-  let id = 252;
-  addReset(id);
-  tryToAddExistingReset(id);
-  verifyResetExists(id);
-  deleteReset(id);
-  tryToDeleteANonExistingReset(id);
-  verifyResetDoesNotExist(id);
-});
-
-
-// Story: crud:reset:nondet:6:4
-// ---- crud:reset:nondet:6:4 ----
-bthread("crud:reset:nondet:6:4", function () {
-  let id = 254;
-  addReset(id);
-  tryToAddExistingReset(id);
-  deleteReset(id);
-  tryToDeleteANonExistingReset(id);
-  verifyResetDoesNotExist(id);
-});
-
-
-// Story: crud:reset-all:nondet:7:1
-// ---- crud:reset-all:nondet:7:1 ----
-bthread("crud:reset-all:nondet:7:1", function () {
-  let id = 260;
-  addReset-all(id);
-  tryToAddExistingReset-all(id);
-  verifyReset-allExists(id);
-  updateReset-all(id);
-  deleteReset-all(id);
-  tryToDeleteANonExistingReset-all(id);
-  verifyReset-allDoesNotExist(id);
-});
-
-
-// Story: crud:reset-all:nondet:7:2
-// ---- crud:reset-all:nondet:7:2 ----
-bthread("crud:reset-all:nondet:7:2", function () {
-  let id = 261;
-  addReset-all(id);
-  tryToAddExistingReset-all(id);
-  updateReset-all(id);
-  verifyReset-allExists(id);
-  deleteReset-all(id);
-  tryToDeleteANonExistingReset-all(id);
-  verifyReset-allDoesNotExist(id);
-});
-
-
-// Story: crud:reset-all:nondet:7:3
-// ---- crud:reset-all:nondet:7:3 ----
-bthread("crud:reset-all:nondet:7:3", function () {
-  let id = 262;
-  addReset-all(id);
-  tryToAddExistingReset-all(id);
-  verifyReset-allExists(id);
-  deleteReset-all(id);
-  tryToDeleteANonExistingReset-all(id);
-  verifyReset-allDoesNotExist(id);
-});
-
-
-// Story: crud:reset-all:nondet:7:4
-// ---- crud:reset-all:nondet:7:4 ----
-bthread("crud:reset-all:nondet:7:4", function () {
-  let id = 264;
-  addReset-all(id);
-  tryToAddExistingReset-all(id);
-  deleteReset-all(id);
-  tryToDeleteANonExistingReset-all(id);
-  verifyReset-allDoesNotExist(id);
-});
-
-
 // Story: crud:drug:nondet:negative:dup-add
 bthread("crud:drug:nondet:negative:dup-add", function () {
   let drugId = 200;
@@ -411,10 +305,13 @@ bthread("crud:drug:nondet:existing:update", function () {
   let idValue = ev[idField];
   let args = Object.values(ev);
 
-  // Ensure it really exists, then update (with all key fields)
-  verifyDrugExists.apply(null, args);
-  updateDrug.apply(null, args);
-  verifyDrugExists.apply(null, args);
+  // Ensure it really exists, then update (with all key fields),
+  // while blocking deletion of this drug during the check
+  block(matchDeleteDrug.apply(null, args), function () {
+    verifyDrugExists.apply(null, args);
+    updateDrug.apply(null, args);
+    verifyDrugExists.apply(null, args);
+  });
 });
 
 // Story: crud:drug:nondet:existing:dup-add
@@ -425,9 +322,12 @@ bthread("crud:drug:nondet:existing:dup-add", function () {
   let idValue = ev[idField];
   let args = Object.values(ev);
 
-  verifyDrugExists.apply(null, args);
-  tryToAddExistingDrug.apply(null, args);
-  verifyDrugExists.apply(null, args);
+  // Block deletion of this drug while we validate duplicate-add semantics
+  block(matchDeleteDrug.apply(null, args), function () {
+    verifyDrugExists.apply(null, args);
+    tryToAddExistingDrug.apply(null, args);
+    verifyDrugExists.apply(null, args);
+  });
 });
 
 // Story: monitor:drug:add
@@ -479,10 +379,13 @@ bthread("crud:inventory:nondet:existing:update", function () {
   let idValue = ev[idField];
   let args = Object.values(ev);
 
-  // Ensure it really exists, then update (with all key fields)
-  verifyInventoryExists.apply(null, args);
-  updateInventory.apply(null, args);
-  verifyInventoryExists.apply(null, args);
+  // Ensure it really exists, then update (with all key fields),
+  // while blocking deletion of this inventory during the check
+  block(matchDeleteInventory.apply(null, args), function () {
+    verifyInventoryExists.apply(null, args);
+    updateInventory.apply(null, args);
+    verifyInventoryExists.apply(null, args);
+  });
 });
 
 // Story: crud:inventory:nondet:existing:dup-add
@@ -493,9 +396,12 @@ bthread("crud:inventory:nondet:existing:dup-add", function () {
   let idValue = ev[idField];
   let args = Object.values(ev);
 
-  verifyInventoryExists.apply(null, args);
-  tryToAddExistingInventory.apply(null, args);
-  verifyInventoryExists.apply(null, args);
+  // Block deletion of this inventory while we validate duplicate-add semantics
+  block(matchDeleteInventory.apply(null, args), function () {
+    verifyInventoryExists.apply(null, args);
+    tryToAddExistingInventory.apply(null, args);
+    verifyInventoryExists.apply(null, args);
+  });
 });
 
 // Story: monitor:inventory:add
@@ -547,10 +453,13 @@ bthread("crud:order:nondet:existing:update", function () {
   let idValue = ev[idField];
   let args = Object.values(ev);
 
-  // Ensure it really exists, then update (with all key fields)
-  verifyOrderExists.apply(null, args);
-  updateOrder.apply(null, args);
-  verifyOrderExists.apply(null, args);
+  // Ensure it really exists, then update (with all key fields),
+  // while blocking deletion of this order during the check
+  block(matchDeleteOrder.apply(null, args), function () {
+    verifyOrderExists.apply(null, args);
+    updateOrder.apply(null, args);
+    verifyOrderExists.apply(null, args);
+  });
 });
 
 // Story: crud:order:nondet:existing:dup-add
@@ -561,9 +470,12 @@ bthread("crud:order:nondet:existing:dup-add", function () {
   let idValue = ev[idField];
   let args = Object.values(ev);
 
-  verifyOrderExists.apply(null, args);
-  tryToAddExistingOrder.apply(null, args);
-  verifyOrderExists.apply(null, args);
+  // Block deletion of this order while we validate duplicate-add semantics
+  block(matchDeleteOrder.apply(null, args), function () {
+    verifyOrderExists.apply(null, args);
+    tryToAddExistingOrder.apply(null, args);
+    verifyOrderExists.apply(null, args);
+  });
 });
 
 // Story: monitor:order:add
@@ -615,10 +527,13 @@ bthread("crud:patient:nondet:existing:update", function () {
   let idValue = ev[idField];
   let args = Object.values(ev);
 
-  // Ensure it really exists, then update (with all key fields)
-  verifyPatientExists.apply(null, args);
-  updatePatient.apply(null, args);
-  verifyPatientExists.apply(null, args);
+  // Ensure it really exists, then update (with all key fields),
+  // while blocking deletion of this patient during the check
+  block(matchDeletePatient.apply(null, args), function () {
+    verifyPatientExists.apply(null, args);
+    updatePatient.apply(null, args);
+    verifyPatientExists.apply(null, args);
+  });
 });
 
 // Story: crud:patient:nondet:existing:dup-add
@@ -629,9 +544,12 @@ bthread("crud:patient:nondet:existing:dup-add", function () {
   let idValue = ev[idField];
   let args = Object.values(ev);
 
-  verifyPatientExists.apply(null, args);
-  tryToAddExistingPatient.apply(null, args);
-  verifyPatientExists.apply(null, args);
+  // Block deletion of this patient while we validate duplicate-add semantics
+  block(matchDeletePatient.apply(null, args), function () {
+    verifyPatientExists.apply(null, args);
+    tryToAddExistingPatient.apply(null, args);
+    verifyPatientExists.apply(null, args);
+  });
 });
 
 // Story: monitor:patient:add
@@ -683,10 +601,13 @@ bthread("crud:prescription:nondet:existing:update", function () {
   let idValue = ev[idField];
   let args = Object.values(ev);
 
-  // Ensure it really exists, then update (with all key fields)
-  verifyPrescriptionExists.apply(null, args);
-  updatePrescription.apply(null, args);
-  verifyPrescriptionExists.apply(null, args);
+  // Ensure it really exists, then update (with all key fields),
+  // while blocking deletion of this prescription during the check
+  block(matchDeletePrescription.apply(null, args), function () {
+    verifyPrescriptionExists.apply(null, args);
+    updatePrescription.apply(null, args);
+    verifyPrescriptionExists.apply(null, args);
+  });
 });
 
 // Story: crud:prescription:nondet:existing:dup-add
@@ -697,9 +618,12 @@ bthread("crud:prescription:nondet:existing:dup-add", function () {
   let idValue = ev[idField];
   let args = Object.values(ev);
 
-  verifyPrescriptionExists.apply(null, args);
-  tryToAddExistingPrescription.apply(null, args);
-  verifyPrescriptionExists.apply(null, args);
+  // Block deletion of this prescription while we validate duplicate-add semantics
+  block(matchDeletePrescription.apply(null, args), function () {
+    verifyPrescriptionExists.apply(null, args);
+    tryToAddExistingPrescription.apply(null, args);
+    verifyPrescriptionExists.apply(null, args);
+  });
 });
 
 // Story: monitor:prescription:add
@@ -727,4 +651,3 @@ bthread("monitor:prescription:delete", function () {
     });
   }
 });
-

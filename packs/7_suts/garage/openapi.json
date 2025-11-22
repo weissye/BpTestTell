@@ -11,46 +11,6 @@
     }
   ],
   "paths": {
-    "/reset": {
-      "post": {
-        "summary": "Reset demo data",
-        "responses": {
-          "200": {
-            "description": "Reset summary",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    },
-                    "chains": {
-                      "type": "integer"
-                    },
-                    "garages": {
-                      "type": "integer"
-                    },
-                    "customers": {
-                      "type": "integer"
-                    },
-                    "cars": {
-                      "type": "integer"
-                    },
-                    "pms": {
-                      "type": "integer"
-                    },
-                    "ros": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/chains": {
       "post": {
         "summary": "Create chain",

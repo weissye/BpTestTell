@@ -3,7 +3,7 @@
   "info": {
     "title": "Pharmacy API (Option 3: Idempotent DELETE + Conflict on Duplicates)",
     "version": "1.0.3",
-    "description": "CRUD demo API. POST enforces required key and returns 409 on duplicates (400 on missing key). DELETE is idempotent (200 even if not found). Suite starts with POST /reset-all."
+    "description": "CRUD demo API. POST enforces required key and returns 409 on duplicates (400 on missing key). DELETE is idempotent (200 even if not found)."
   },
   "servers": [
     {
@@ -11,12 +11,6 @@
     },
     {
       "url": "http://localhost:5014"
-    }
-  ],
-  "x-suite-setup": [
-    {
-      "method": "POST",
-      "path": "/reset-all"
     }
   ],
   "paths": {
@@ -724,164 +718,6 @@
           401
         ]
       }
-    },
-    "/reset": {
-      "x-key": "id",
-      "get": {
-        "summary": "List reset",
-        "responses": {
-          "200": {
-            "description": "list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Reset"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create rese",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Reset"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Reset"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "missing required key (id) or malformed request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "duplicate reset (conflict)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "x-create-expected-codes": [
-          201,
-          200
-        ],
-        "x-duplicate-policy": "conflict",
-        "x-duplicate-expected-codes": [
-          409,
-          400
-        ]
-      }
-    },
-    "/reset/{id}": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "get": {
-        "summary": "Get rese",
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Reset"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "summary": "Update rese",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Reset"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "updated"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete rese (idempotent)",
-        "responses": {
-          "200": {
-            "description": "deleted or did not exist",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Deleted"
-                }
-              }
-            }
-          }
-        },
-        "x-delete-idempotent": true,
-        "x-negative-delete-expected-codes": [
-          200,
-          404,
-          401
-        ]
-      }
-    },
-    "/reset-all": {
-      "post": {
-        "summary": "Clear all state",
-        "responses": {
-          "200": {
-            "description": "everything cleared",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Ok"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
@@ -959,18 +795,6 @@
         ],
         "properties": {
           "ndc": {
-            "type": "string"
-          }
-        },
-        "additionalProperties": true
-      },
-      "Reset": {
-        "type": "object",
-        "required": [
-          "id"
-        ],
-        "properties": {
-          "id": {
             "type": "string"
           }
         },

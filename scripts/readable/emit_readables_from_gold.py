@@ -284,6 +284,83 @@ def apply_body_id_props_to_entities(entities, body_id_props):
         if new_keys:
             e["keys"] = new_keys
 
+def apply_key_types_to_entities(entities, spec):
+    """Attach per-entity key_types (field -> 'string' or 'number').
+
+    OpenAPI requestBody schemas are used as the primary source of truth; when
+    absent or incomplete we fall back to simple name-based heuristics
+    (param_is_numeric) so existing behavior is preserved.
+    """
+    # Start with heuristic defaults based on the key name.
+    for e in entities:
+        keys = e.get("keys") or []
+        key_types = {}
+        for k in keys:
+            key_types[k] = "number" if param_is_numeric(k) else "string"
+        e["key_types"] = key_types
+
+    if not spec:
+        return
+
+    try:
+        paths = spec.get("paths", {}) or {}
+        for path, item in paths.items():
+            if not isinstance(item, dict):
+                continue
+            parts = [p for p in path.split("/") if p]
+            if not parts:
+                continue
+            plural = parts[0].replace("-", "_")
+
+            # Find the matching entity block, if any.
+            target = None
+            for e in entities:
+                if e.get("plural") == plural:
+                    target = e
+                    break
+            if not target:
+                continue
+
+            key_types = target.setdefault("key_types", {})
+            keys = target.get("keys") or []
+
+            for method_name, op in item.items():
+                if not isinstance(op, dict):
+                    continue
+                if method_name.lower() not in ("post", "put", "patch"):
+                    continue
+
+                rb = op.get("requestBody")
+                if not isinstance(rb, dict):
+                    continue
+                content = rb.get("content") or {}
+
+                for _mt, mt_def in content.items():
+                    if not isinstance(mt_def, dict):
+                        continue
+                    schema = mt_def.get("schema")
+                    if not isinstance(schema, dict):
+                        continue
+                    schema = _resolve_schema_ref(schema, spec)
+                    if not isinstance(schema, dict):
+                        continue
+
+                    props = schema.get("properties") or {}
+                    if not isinstance(props, dict):
+                        continue
+
+                    for name, prop in props.items():
+                        if name not in keys:
+                            continue
+                        t = (prop.get("type") or "").lower()
+                        if t in ("integer", "number"):
+                            key_types[name] = "number"
+                        elif t == "string":
+                            key_types[name] = "string"
+    except Exception:
+        # On any error we simply keep the heuristic defaults.
+        return
+
 
 def get_codes(hints, plural, key):
     ent = hints.get(plural, {})
@@ -316,9 +393,16 @@ def js_match_equals_desc(prefix, entity, keys):
 def param_is_numeric(name):
     return bool(NUMERIC_KEY_RX.search(name))
 
-def render_extract_from_desc(prefix, entity, keys):
+def render_extract_from_desc(prefix, entity, keys, key_types=None):
+    """Emit JS that waits for an event matching the textual description and
+    extracts ID fields in the correct OpenAPI-backed type.
+
+    - If key_types is provided, it should map field name -> "string" or "number".
+    - Otherwise we fall back to param_is_numeric() as a heuristic.
+    """
     if not keys:
         return "return {};"
+    key_types = key_types or {}
     rx = "^" + re.escape(prefix + " " + entity + " with ")
     rx += " and ".join([re.escape(k + " ") + "(.+)" for k in keys]) + "$"
     out = []
@@ -326,12 +410,20 @@ def render_extract_from_desc(prefix, entity, keys):
     out.append("let m = e.data.parameters.description.match(/" + rx + "/);")
     assigns = []
     for i, k in enumerate(keys, start=1):
-        if param_is_numeric(k):
-            assigns.append(f"{k}: parseInt(m[{i}])")
-        else:
+        t = key_types.get(k)
+        if t == "number":
+            assigns.append(f"{k}: parseInt(m[{i}], 10)")
+        elif t == "string":
             assigns.append(f"{k}: m[{i}]")
+        else:
+            # Fallback: use name-based heuristic if no explicit type is known.
+            if param_is_numeric(k):
+                assigns.append(f"{k}: parseInt(m[{i}], 10)")
+            else:
+                assigns.append(f"{k}: m[{i}]")
     out.append("return { " + ", ".join(assigns) + " };")
     return "\n    ".join(out)
+
 
 def make_path(plural, keys):
     if not keys:
@@ -376,8 +468,20 @@ def render_entity_block(e, hints):
     plural = e["plural"]
     Plural = e["Plural"]
     keys = e["keys"]
+    key_types = e.get("key_types") or {}
     params = ", ".join(keys) if keys else ""
-    body_fields = ", ".join([f"{k}: {k}" for k in keys]) if keys else ""
+
+    # When constructing the JSON body, normalize ID fields to the OpenAPI type:
+    # - string IDs  -> String(param)
+    # - numeric IDs -> Number(param)
+    body_field_exprs = []
+    for k in keys:
+        t = key_types.get(k)
+        if t == "number":
+            body_field_exprs.append(f"{k}: Number({k})")
+        else:
+            body_field_exprs.append(f"{k}: String({k})")
+    body_fields = ", ".join(body_field_exprs)
 
     add_desc = desc_expr("Add", ent, keys)
     del_desc = delete_desc_expr(ent, keys)
@@ -400,12 +504,20 @@ def render_entity_block(e, hints):
     path_list  = f'"/{plural}"'
     path_item  = make_path(plural, keys)
 
-    arr_var = ent
-    cmp_chain = " && ".join([f'{ent}[i].{k} === {k}' for k in keys]) if keys else "true"
+    # Comparison: normalize both the SUT value and the parameter to the same
+    # canonical type before "===".
+    cmp_terms = []
+    for k in keys:
+        t = key_types.get(k)
+        if t == "number":
+            cmp_terms.append(f"Number({ent}[i].{k}) === Number({k})")
+        else:
+            cmp_terms.append(f"String({ent}[i].{k}) === String({k})")
+    cmp_chain = " && ".join(cmp_terms) if cmp_terms else "true"
 
-    extract_add = render_extract_from_desc("Add a", ent, keys)
-    extract_del = render_extract_from_desc("Delete a", ent, keys)
-    extract_upd = render_extract_from_desc("Update a", ent, keys)
+    extract_add = render_extract_from_desc("Add a", ent, keys, key_types)
+    extract_del = render_extract_from_desc("Delete a", ent, keys, key_types)
+    extract_upd = render_extract_from_desc("Update a", ent, keys, key_types)
 
     def js_codes(arr):
         return "[{}]".format(", ".join(str(x) for x in arr))
@@ -570,6 +682,7 @@ function verify{Ent}Updated({params}) {{
 }}
 '''
 
+
 def build_lifecycle(entities):
     lines = ['/** === Lifecycle smoke per entity (add→verify→tryAddExisting→delete→verifyNotExist) === */']
     for e in entities:
@@ -636,6 +749,7 @@ def main():
         # 🎯 Fun inline fix: trust the OpenAPI requestBody for ID field names
         body_id_props = build_body_id_props_from_openapi(spec)
         apply_body_id_props_to_entities(entities, body_id_props)
+        apply_key_types_to_entities(entities, spec)
 
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)

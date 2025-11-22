@@ -5,15 +5,6 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/reset": {
-      "post": {
-        "responses": {
-          "200": {
-            "description": "ok"
-          }
-        }
-      }
-    },
     "/apps": {
       "post": {
         "responses": {

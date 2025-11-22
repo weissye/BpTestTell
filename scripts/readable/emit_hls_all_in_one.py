@@ -485,10 +485,16 @@ def synthesize_entity_stories(
             next_id += id_step
             return st
 
+
         # Canonical full-args list from attrs/add_args, if available.
         full_add_args = add_args
         if attrs and attr_vals_add:
             full_add_args = [attr_vals_add[a] for a in attrs if a in attr_vals_add]
+
+        # Canonical full-args list for update, if available.
+        full_update_args: List[str] = list(update_args)
+        if attrs and attr_vals_update:
+            full_update_args = [attr_vals_update[a] for a in attrs if a in attr_vals_update]
 
         if required_attrs or optional_attrs:
             # req-only variant.
@@ -513,7 +519,12 @@ def synthesize_entity_stories(
 
         # Positive: basic CRUD (add → verifyExists → delete → verifyDoesNotExist).
         if full_add_args:
-            op_args_basic: Dict[int, List[str]] = {0: full_add_args}
+            op_args_basic: Dict[int, List[str]] = {
+                0: full_add_args,  # add<Entity>
+                1: full_add_args,  # verify<Entity>Exists after add
+                2: full_add_args,  # delete<Entity>
+                3: full_add_args,  # verify<Entity>DoesNotExist after delete
+            }
             synthetic.append(
                 new(
                     [
@@ -528,9 +539,15 @@ def synthesize_entity_stories(
             )
 
             # Positive: update scenario (add → verifyExists → update → verifyExists).
+            # Verifiers follow the same arg pattern:
+            #   - first verify: args from add
+            #   - second verify: args from update (fallback: add)
+            effective_update_args = full_update_args or full_add_args
             op_args_update: Dict[int, List[str]] = {
-                0: full_add_args,
-                2: [attr_vals_update[a] for a in attrs if a in attr_vals_update] or full_add_args,
+                0: full_add_args,          # add<Entity>
+                1: full_add_args,          # verify<Entity>Exists after add
+                2: effective_update_args,  # update<Entity>
+                3: effective_update_args,  # verify<Entity>Exists after update
             }
             synthetic.append(
                 new(
@@ -546,6 +563,19 @@ def synthesize_entity_stories(
             )
 
         # Negative: dup-add existing (tryToAddExisting<Entity> while exists).
+        # Use the same full-argument pattern as positive stories:
+        # add / verifyExists / tryToAddExisting / verifyExists all share full_add_args.
+        if full_add_args:
+            op_args_neg_dup: Dict[int, List[str]] = {
+                0: full_add_args,  # add<Entity>
+                1: full_add_args,  # verify<Entity>Exists after add
+                2: full_add_args,  # tryToAddExisting<Entity>
+                3: full_add_args,  # verify<Entity>Exists after dup-add
+            }
+        else:
+            # Fallback: keep old behavior (ID only) if we don't know extra args.
+            op_args_neg_dup = {}
+
         synthetic.append(
             new(
                 [
@@ -555,6 +585,7 @@ def synthesize_entity_stories(
                     f"verify{ent_cap}Exists",
                 ],
                 "negative:dup-add",
+                op_args_override=op_args_neg_dup,
             )
         )
 
@@ -577,10 +608,13 @@ bthread("crud:{ent}:{default_mode}:existing:update", function () {{
   let idValue = ev[idField];
   let args = Object.values(ev);
 
-  // Ensure it really exists, then update (with all key fields)
-  verify{ent_cap}Exists.apply(null, args);
-  update{ent_cap}.apply(null, args);
-  verify{ent_cap}Exists.apply(null, args);
+  // Ensure it really exists, then update (with all key fields),
+  // while blocking deletion of this {ent} during the check
+  block(matchDelete{ent_cap}.apply(null, args), function () {{
+    verify{ent_cap}Exists.apply(null, args);
+    update{ent_cap}.apply(null, args);
+    verify{ent_cap}Exists.apply(null, args);
+  }});
 }});
 """.strip()
 
@@ -602,9 +636,12 @@ bthread("crud:{ent}:{default_mode}:existing:dup-add", function () {{
   let idValue = ev[idField];
   let args = Object.values(ev);
 
-  verify{ent_cap}Exists.apply(null, args);
-  tryToAddExisting{ent_cap}.apply(null, args);
-  verify{ent_cap}Exists.apply(null, args);
+  // Block deletion of this {ent} while we validate duplicate-add semantics
+  block(matchDelete{ent_cap}.apply(null, args), function () {{
+    verify{ent_cap}Exists.apply(null, args);
+    tryToAddExisting{ent_cap}.apply(null, args);
+    verify{ent_cap}Exists.apply(null, args);
+  }});
 }});
 """.strip()
 
@@ -811,7 +848,6 @@ def emit_header(sut: str, provider: str, mode: str, gold_path: Path, num_stories
 // Source   : {gold_path.name}
 // Stories  : {num_stories}
 
-//@provengo summon base
 //@provengo summon rest
 
 """.rstrip() + "\n\n"
