@@ -1,0 +1,22 @@
+# Netbox Provengo Configuration
+version: 2
+rest-api.ssl.validation: false
+analyze:
+    output:
+        format: pdf
+visualization:
+    order: visual
+    layout: vertical
+output:
+    offline: false
+sample:
+    overwrite: true
+ensemble:
+    size: 5
+selenium:
+    browser: chrome
+    implicit-wait: 5000
+    max-windows: true
+report:
+    suite:
+        query: :last-5
