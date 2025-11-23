@@ -1,6 +1,6 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
-rem Pure deterministic DET from OpenAPI for the 7 SUTs.
+rem DET from graph.json for the 7 SUTs.
 rem Emits: *_llm_gold_ops.json, *_det_gold.json, *_llm_gold.json and *_shards.
 rem No LLM/provider/model/temperature involved.
 
@@ -12,8 +12,8 @@ rem --- python ---
 set "PY=%ROOT%\.venv\Scripts\python.exe"
 if not exist "%PY%" set "PY=python"
 
-rem --- generator (already used by the RW pipeline) ---
-set "GEN=%ROOT%\scripts\pipelines\det_from_openapi.py"
+rem --- generator: graph-based DET (shared ops logic with HLS) ---
+set "GEN=%ROOT%\scripts\pipelines\det_from_graph.py"
 if not exist "%GEN%" (
   echo [ERR] DET generator not found: %GEN%
   popd & exit /b 2
@@ -35,7 +35,7 @@ if not defined PACKS (
 
 echo [INFO] CWD=%ROOT%
 echo [INFO] PACKS=%PACKS%
-echo [INFO] DET generator (no LLM) = %GEN%
+echo [INFO] DET generator (graph) = %GEN%
 echo ------------------------------------------------------------
 
 rem Iterate all subfolders under PACKS that contain openapi.json
@@ -45,24 +45,32 @@ for /d %%D in ("%PACKS%\*") do (
     set /a COUNT+=1
     set "SUT=%%~nD"
     set "SPEC=%%~fD\openapi.json"
+    set "GRAPH=%ROOT%\artifacts\analysis\7_suts_llm_provider\!SUT!\graph.json"
     set "OUT=%ROOT%\artifacts\det_checked\7_suts_llm_provider\!SUT!"
 
-    echo ==== !SUT! ^(7-SUT DET^) ====
-    echo [RUN ] spec="!SPEC!"  outdir="!OUT!"
-    if not exist "!OUT!" mkdir "!OUT!" >nul 2>&1
+    echo ==== !SUT! ^(7-SUT DET from graph^) ====
+    echo [RUN ] spec="!SPEC!"  graph="!GRAPH!"  outdir="!OUT!"
 
-    "%PY%" "%GEN%" "!SPEC!" "!OUT!" --sut "!SUT!" --shards 24 --emit_llm_gold
-    if errorlevel 1 (
-      echo [ERR ] det_from_openapi.py failed for !SUT!
+    if not exist "!GRAPH!" (
+      echo [ERR ] graph.json not found: !GRAPH!
       goto :fail
     )
 
+    if not exist "!OUT!" mkdir "!OUT!" >nul 2>&1
+
+    "%PY%" "%GEN%" "!GRAPH!" "!OUT!" --sut "!SUT!" --shards 24 --emit_llm_gold
+    if errorlevel 1 (
+      echo [ERR ] det_from_graph.py failed for !SUT!
+      goto :fail
+    )
+
+    rem basic JSON sanity check on expected outputs
     for %%F in ("!OUT!\!SUT!_llm_gold_ops.json" "!OUT!\!SUT!_det_gold.json" "!OUT!\!SUT!_llm_gold.json") do (
       if not exist "%%~fF" (
         echo [ERR ] expected "%%~fF" but it does not exist.
         goto :fail
       )
-      "%PY%" -c "import json,os,sys; p=sys.argv[1]; json.load(open(p,'r',encoding='utf-8')); print('[OK  ]', os.path.basename(p), 'valid JSON, size', os.path.getsize(p))" "%%~fF"
+      "%PY%" -c "import json,os,sys,os.path; p=sys.argv[1]; json.load(open(p,'rb')); print(os.path.basename(p),'valid JSON, size',os.path.getsize(p))" "%%~fF"
     )
   )
 )
@@ -71,7 +79,7 @@ if "!COUNT!"=="0" (
   echo [WARN] No SUTs found under %PACKS% with an openapi.json
 ) else (
   echo.
-  echo [DONE] 7-SUT DET ^(pure OpenAPI; ops + shards + det_gold^) completed for !COUNT! SUT^(s^).
+  echo [DONE] 7-SUT DET ^(graph-based; ops + shards + det_gold^) completed for !COUNT! SUT^(s^).
 )
 
 popd

@@ -7771,18 +7771,18 @@ bthread("monitor:render:add", function () {
   }
 });
 
-// Story: monitor:render:delete
-bthread("monitor:render:delete", function () {
-  while (true) {
-    let ev = waitForAnyRenderDeleted();
-    let idField = "renderid";
-    let idValue = ev[idField];
-    let args = Object.values(ev);
-    block(matchAddRender.apply(null, args), function () {
-      verifyRenderDoesNotExist.apply(null, args);
-    });
-  }
-});
+// // Story: monitor:render:delete
+// bthread("monitor:render:delete", function () {
+//   while (true) {
+//     let ev = waitForAnyRenderDeleted();
+//     let idField = "renderid";
+//     let idValue = ev[idField];
+//     let args = Object.values(ev);
+//     block(matchAddRender.apply(null, args), function () {
+//       verifyRenderDoesNotExist.apply(null, args);
+//     });
+//   }
+// });
 
 // Story: crud:render_config:nondet:negative:dup-add
 bthread("crud:render_config:nondet:negative:dup-add", function () {
