@@ -14,13 +14,13 @@
 bthread("crud:drug:nondet:1:1", function () {
   let id = 200;
   let drug_name = "Name 200";
-  addDrug(id, drug_name);
-  tryToAddExistingDrug(id, drug_name);
-  verifyDrugExists(id, drug_name);
-  updateDrug(id, drug_name);
-  deleteDrug(id, drug_name);
-  tryToDeleteANonExistingDrug(id, drug_name);
-  verifyDrugDoesNotExist(id, drug_name);
+  addDrug(id);
+  tryToAddExistingDrug(id);
+  verifyDrugExists(id);
+  updateDrug(id);
+  deleteDrug(id);
+  tryToDeleteANonExistingDrug(id);
+  verifyDrugDoesNotExist(id);
 });
 
 
@@ -29,13 +29,13 @@ bthread("crud:drug:nondet:1:1", function () {
 bthread("crud:drug:nondet:1:2", function () {
   let id = 201;
   let drug_name = "Name 201";
-  addDrug(id, drug_name);
-  tryToAddExistingDrug(id, drug_name);
-  updateDrug(id, drug_name);
-  verifyDrugExists(id, drug_name);
-  deleteDrug(id, drug_name);
-  tryToDeleteANonExistingDrug(id, drug_name);
-  verifyDrugDoesNotExist(id, drug_name);
+  addDrug(id);
+  tryToAddExistingDrug(id);
+  updateDrug(id);
+  verifyDrugExists(id);
+  deleteDrug(id);
+  tryToDeleteANonExistingDrug(id);
+  verifyDrugDoesNotExist(id);
 });
 
 
@@ -44,12 +44,12 @@ bthread("crud:drug:nondet:1:2", function () {
 bthread("crud:drug:nondet:1:3", function () {
   let id = 202;
   let drug_name = "Name 202";
-  addDrug(id, drug_name);
-  tryToAddExistingDrug(id, drug_name);
-  verifyDrugExists(id, drug_name);
-  deleteDrug(id, drug_name);
-  tryToDeleteANonExistingDrug(id, drug_name);
-  verifyDrugDoesNotExist(id, drug_name);
+  addDrug(id);
+  tryToAddExistingDrug(id);
+  verifyDrugExists(id);
+  deleteDrug(id);
+  tryToDeleteANonExistingDrug(id);
+  verifyDrugDoesNotExist(id);
 });
 
 
@@ -58,11 +58,11 @@ bthread("crud:drug:nondet:1:3", function () {
 bthread("crud:drug:nondet:1:4", function () {
   let id = 204;
   let drug_name = "Name 204";
-  addDrug(id, drug_name);
-  tryToAddExistingDrug(id, drug_name);
-  deleteDrug(id, drug_name);
-  tryToDeleteANonExistingDrug(id, drug_name);
-  verifyDrugDoesNotExist(id, drug_name);
+  addDrug(id);
+  tryToAddExistingDrug(id);
+  deleteDrug(id);
+  tryToDeleteANonExistingDrug(id);
+  verifyDrugDoesNotExist(id);
 });
 
 
@@ -177,13 +177,13 @@ bthread("crud:order:nondet:3:4", function () {
 bthread("crud:patient:nondet:4:1", function () {
   let id = 230;
   let patient_name = "Name 230";
-  addPatient(id, patient_name);
-  tryToAddExistingPatient(id, patient_name);
-  verifyPatientExists(id, patient_name);
-  updatePatient(id, patient_name);
-  deletePatient(id, patient_name);
-  tryToDeleteANonExistingPatient(id, patient_name);
-  verifyPatientDoesNotExist(id, patient_name);
+  addPatient(id);
+  tryToAddExistingPatient(id);
+  verifyPatientExists(id);
+  updatePatient(id);
+  deletePatient(id);
+  tryToDeleteANonExistingPatient(id);
+  verifyPatientDoesNotExist(id);
 });
 
 
@@ -192,13 +192,13 @@ bthread("crud:patient:nondet:4:1", function () {
 bthread("crud:patient:nondet:4:2", function () {
   let id = 231;
   let patient_name = "Name 231";
-  addPatient(id, patient_name);
-  tryToAddExistingPatient(id, patient_name);
-  updatePatient(id, patient_name);
-  verifyPatientExists(id, patient_name);
-  deletePatient(id, patient_name);
-  tryToDeleteANonExistingPatient(id, patient_name);
-  verifyPatientDoesNotExist(id, patient_name);
+  addPatient(id);
+  tryToAddExistingPatient(id);
+  updatePatient(id);
+  verifyPatientExists(id);
+  deletePatient(id);
+  tryToDeleteANonExistingPatient(id);
+  verifyPatientDoesNotExist(id);
 });
 
 
@@ -207,12 +207,12 @@ bthread("crud:patient:nondet:4:2", function () {
 bthread("crud:patient:nondet:4:3", function () {
   let id = 232;
   let patient_name = "Name 232";
-  addPatient(id, patient_name);
-  tryToAddExistingPatient(id, patient_name);
-  verifyPatientExists(id, patient_name);
-  deletePatient(id, patient_name);
-  tryToDeleteANonExistingPatient(id, patient_name);
-  verifyPatientDoesNotExist(id, patient_name);
+  addPatient(id);
+  tryToAddExistingPatient(id);
+  verifyPatientExists(id);
+  deletePatient(id);
+  tryToDeleteANonExistingPatient(id);
+  verifyPatientDoesNotExist(id);
 });
 
 
@@ -221,11 +221,11 @@ bthread("crud:patient:nondet:4:3", function () {
 bthread("crud:patient:nondet:4:4", function () {
   let id = 234;
   let patient_name = "Name 234";
-  addPatient(id, patient_name);
-  tryToAddExistingPatient(id, patient_name);
-  deletePatient(id, patient_name);
-  tryToDeleteANonExistingPatient(id, patient_name);
-  verifyPatientDoesNotExist(id, patient_name);
+  addPatient(id);
+  tryToAddExistingPatient(id);
+  deletePatient(id);
+  tryToDeleteANonExistingPatient(id);
+  verifyPatientDoesNotExist(id);
 });
 
 
@@ -282,6 +282,115 @@ bthread("crud:prescription:nondet:5:4", function () {
 });
 
 
+<<<<<<< HEAD
+=======
+// Story: crud:reset:nondet:6:1
+// ---- crud:reset:nondet:6:1 ----
+bthread("crud:reset:nondet:6:1", function () {
+  let id = 250;
+  addReset(id);
+  tryToAddExistingReset(id);
+  verifyResetExists(id);
+  updateReset(id);
+  deleteReset(id);
+  tryToDeleteANonExistingReset(id);
+  verifyResetDoesNotExist(id);
+});
+
+
+// Story: crud:reset:nondet:6:2
+// ---- crud:reset:nondet:6:2 ----
+bthread("crud:reset:nondet:6:2", function () {
+  let id = 251;
+  addReset(id);
+  tryToAddExistingReset(id);
+  updateReset(id);
+  verifyResetExists(id);
+  deleteReset(id);
+  tryToDeleteANonExistingReset(id);
+  verifyResetDoesNotExist(id);
+});
+
+
+// Story: crud:reset:nondet:6:3
+// ---- crud:reset:nondet:6:3 ----
+bthread("crud:reset:nondet:6:3", function () {
+  let id = 252;
+  addReset(id);
+  tryToAddExistingReset(id);
+  verifyResetExists(id);
+  deleteReset(id);
+  tryToDeleteANonExistingReset(id);
+  verifyResetDoesNotExist(id);
+});
+
+
+// Story: crud:reset:nondet:6:4
+// ---- crud:reset:nondet:6:4 ----
+bthread("crud:reset:nondet:6:4", function () {
+  let id = 254;
+  addReset(id);
+  tryToAddExistingReset(id);
+  deleteReset(id);
+  tryToDeleteANonExistingReset(id);
+  verifyResetDoesNotExist(id);
+});
+
+
+// Story: crud:reset-all:nondet:7:1
+// ---- crud:reset-all:nondet:7:1 ----
+bthread("crud:reset-all:nondet:7:1", function () {
+  let id = 260;
+  addReset_all(id);
+  tryToAddExistingReset_all(id);
+  verifyReset_allExists(id);
+  updateReset_all(id);
+  deleteReset_all(id);
+  tryToDeleteANonExistingReset_all(id);
+  verifyReset_allDoesNotExist(id);
+});
+
+
+// Story: crud:reset-all:nondet:7:2
+// ---- crud:reset-all:nondet:7:2 ----
+bthread("crud:reset-all:nondet:7:2", function () {
+  let id = 261;
+  addReset_all(id);
+  tryToAddExistingReset_all(id);
+  updateReset_all(id);
+  verifyReset_allExists(id);
+  deleteReset_all(id);
+  tryToDeleteANonExistingReset_all(id);
+  verifyReset_allDoesNotExist(id);
+});
+
+
+// Story: crud:reset-all:nondet:7:3
+// ---- crud:reset-all:nondet:7:3 ----
+bthread("crud:reset-all:nondet:7:3", function () {
+  let id = 262;
+  addReset_all(id);
+  tryToAddExistingReset_all(id);
+  verifyReset_allExists(id);
+  deleteReset_all(id);
+  tryToDeleteANonExistingReset_all(id);
+  verifyReset_allDoesNotExist(id);
+});
+
+
+// Story: crud:reset-all:nondet:7:4
+// ---- crud:reset-all:nondet:7:4 ----
+bthread("crud:reset-all:nondet:7:4", function () {
+  let id = 264;
+  addReset_all(id);
+  tryToAddExistingReset_all(id);
+  deleteReset_all(id);
+  tryToDeleteANonExistingReset_all(id);
+  verifyReset_allDoesNotExist(id);
+});
+
+
+>>>>>>> 7c0ef43 (comatibility between interfaces and stories)
 // Story: crud:drug:nondet:negative:dup-add
 bthread("crud:drug:nondet:negative:dup-add", function () {
   let drugId = 200;
@@ -301,7 +410,7 @@ bthread("crud:drug:nondet:negative:delete-nonexistent", function () {
 bthread("crud:drug:nondet:existing:update", function () {
   // Wait for some existing drug to be added (from any other story)
   let ev = waitForAnyDrugAdded();
-  let idField = "drugid";
+  let idField = "id";
   let idValue = ev[idField];
   let args = Object.values(ev);
 
@@ -318,7 +427,7 @@ bthread("crud:drug:nondet:existing:update", function () {
 bthread("crud:drug:nondet:existing:dup-add", function () {
   // Wait for some existing drug to be added first
   let ev = waitForAnyDrugAdded();
-  let idField = "drugid";
+  let idField = "id";
   let idValue = ev[idField];
   let args = Object.values(ev);
 
@@ -334,7 +443,7 @@ bthread("crud:drug:nondet:existing:dup-add", function () {
 bthread("monitor:drug:add", function () {
   while (true) {
     let ev = waitForAnyDrugAdded();
-    let idField = "drugid";
+    let idField = "id";
     let idValue = ev[idField];
     let args = Object.values(ev);
     block(matchDeleteDrug.apply(null, args), function () {
@@ -347,7 +456,7 @@ bthread("monitor:drug:add", function () {
 bthread("monitor:drug:delete", function () {
   while (true) {
     let ev = waitForAnyDrugDeleted();
-    let idField = "drugid";
+    let idField = "id";
     let idValue = ev[idField];
     let args = Object.values(ev);
     block(matchAddDrug.apply(null, args), function () {
@@ -375,7 +484,7 @@ bthread("crud:inventory:nondet:negative:delete-nonexistent", function () {
 bthread("crud:inventory:nondet:existing:update", function () {
   // Wait for some existing inventory to be added (from any other story)
   let ev = waitForAnyInventoryAdded();
-  let idField = "inventoryid";
+  let idField = "ndc";
   let idValue = ev[idField];
   let args = Object.values(ev);
 
@@ -392,7 +501,7 @@ bthread("crud:inventory:nondet:existing:update", function () {
 bthread("crud:inventory:nondet:existing:dup-add", function () {
   // Wait for some existing inventory to be added first
   let ev = waitForAnyInventoryAdded();
-  let idField = "inventoryid";
+  let idField = "ndc";
   let idValue = ev[idField];
   let args = Object.values(ev);
 
@@ -408,7 +517,7 @@ bthread("crud:inventory:nondet:existing:dup-add", function () {
 bthread("monitor:inventory:add", function () {
   while (true) {
     let ev = waitForAnyInventoryAdded();
-    let idField = "inventoryid";
+    let idField = "ndc";
     let idValue = ev[idField];
     let args = Object.values(ev);
     block(matchDeleteInventory.apply(null, args), function () {
@@ -421,7 +530,7 @@ bthread("monitor:inventory:add", function () {
 bthread("monitor:inventory:delete", function () {
   while (true) {
     let ev = waitForAnyInventoryDeleted();
-    let idField = "inventoryid";
+    let idField = "ndc";
     let idValue = ev[idField];
     let args = Object.values(ev);
     block(matchAddInventory.apply(null, args), function () {
@@ -449,7 +558,7 @@ bthread("crud:order:nondet:negative:delete-nonexistent", function () {
 bthread("crud:order:nondet:existing:update", function () {
   // Wait for some existing order to be added (from any other story)
   let ev = waitForAnyOrderAdded();
-  let idField = "orderid";
+  let idField = "id";
   let idValue = ev[idField];
   let args = Object.values(ev);
 
@@ -466,7 +575,7 @@ bthread("crud:order:nondet:existing:update", function () {
 bthread("crud:order:nondet:existing:dup-add", function () {
   // Wait for some existing order to be added first
   let ev = waitForAnyOrderAdded();
-  let idField = "orderid";
+  let idField = "id";
   let idValue = ev[idField];
   let args = Object.values(ev);
 
@@ -482,7 +591,7 @@ bthread("crud:order:nondet:existing:dup-add", function () {
 bthread("monitor:order:add", function () {
   while (true) {
     let ev = waitForAnyOrderAdded();
-    let idField = "orderid";
+    let idField = "id";
     let idValue = ev[idField];
     let args = Object.values(ev);
     block(matchDeleteOrder.apply(null, args), function () {
@@ -495,7 +604,7 @@ bthread("monitor:order:add", function () {
 bthread("monitor:order:delete", function () {
   while (true) {
     let ev = waitForAnyOrderDeleted();
-    let idField = "orderid";
+    let idField = "id";
     let idValue = ev[idField];
     let args = Object.values(ev);
     block(matchAddOrder.apply(null, args), function () {
@@ -523,7 +632,7 @@ bthread("crud:patient:nondet:negative:delete-nonexistent", function () {
 bthread("crud:patient:nondet:existing:update", function () {
   // Wait for some existing patient to be added (from any other story)
   let ev = waitForAnyPatientAdded();
-  let idField = "patientid";
+  let idField = "id";
   let idValue = ev[idField];
   let args = Object.values(ev);
 
@@ -540,7 +649,7 @@ bthread("crud:patient:nondet:existing:update", function () {
 bthread("crud:patient:nondet:existing:dup-add", function () {
   // Wait for some existing patient to be added first
   let ev = waitForAnyPatientAdded();
-  let idField = "patientid";
+  let idField = "id";
   let idValue = ev[idField];
   let args = Object.values(ev);
 
@@ -556,7 +665,7 @@ bthread("crud:patient:nondet:existing:dup-add", function () {
 bthread("monitor:patient:add", function () {
   while (true) {
     let ev = waitForAnyPatientAdded();
-    let idField = "patientid";
+    let idField = "id";
     let idValue = ev[idField];
     let args = Object.values(ev);
     block(matchDeletePatient.apply(null, args), function () {
@@ -569,7 +678,7 @@ bthread("monitor:patient:add", function () {
 bthread("monitor:patient:delete", function () {
   while (true) {
     let ev = waitForAnyPatientDeleted();
-    let idField = "patientid";
+    let idField = "id";
     let idValue = ev[idField];
     let args = Object.values(ev);
     block(matchAddPatient.apply(null, args), function () {
@@ -597,7 +706,7 @@ bthread("crud:prescription:nondet:negative:delete-nonexistent", function () {
 bthread("crud:prescription:nondet:existing:update", function () {
   // Wait for some existing prescription to be added (from any other story)
   let ev = waitForAnyPrescriptionAdded();
-  let idField = "prescriptionid";
+  let idField = "id";
   let idValue = ev[idField];
   let args = Object.values(ev);
 
@@ -614,7 +723,7 @@ bthread("crud:prescription:nondet:existing:update", function () {
 bthread("crud:prescription:nondet:existing:dup-add", function () {
   // Wait for some existing prescription to be added first
   let ev = waitForAnyPrescriptionAdded();
-  let idField = "prescriptionid";
+  let idField = "id";
   let idValue = ev[idField];
   let args = Object.values(ev);
 
@@ -630,7 +739,7 @@ bthread("crud:prescription:nondet:existing:dup-add", function () {
 bthread("monitor:prescription:add", function () {
   while (true) {
     let ev = waitForAnyPrescriptionAdded();
-    let idField = "prescriptionid";
+    let idField = "id";
     let idValue = ev[idField];
     let args = Object.values(ev);
     block(matchDeletePrescription.apply(null, args), function () {
@@ -643,7 +752,7 @@ bthread("monitor:prescription:add", function () {
 bthread("monitor:prescription:delete", function () {
   while (true) {
     let ev = waitForAnyPrescriptionDeleted();
-    let idField = "prescriptionid";
+    let idField = "id";
     let idValue = ev[idField];
     let args = Object.values(ev);
     block(matchAddPrescription.apply(null, args), function () {
@@ -651,3 +760,142 @@ bthread("monitor:prescription:delete", function () {
     });
   }
 });
+<<<<<<< HEAD
+=======
+
+// Story: crud:reset:nondet:negative:dup-add
+bthread("crud:reset:nondet:negative:dup-add", function () {
+  let resetId = 200;
+  addReset(resetId);
+  verifyResetExists(resetId);
+  tryToAddExistingReset(resetId);
+  verifyResetExists(resetId);
+});
+
+// Story: crud:reset:nondet:negative:delete-nonexistent
+bthread("crud:reset:nondet:negative:delete-nonexistent", function () {
+  let resetId = 201;
+  tryToDeleteANonExistingReset(resetId);
+});
+
+// Story: crud:reset:nondet:existing:update
+bthread("crud:reset:nondet:existing:update", function () {
+  // Wait for some existing reset to be added (from any other story)
+  let ev = waitForAnyResetAdded();
+  let idField = "id";
+  let idValue = ev[idField];
+  let args = Object.values(ev);
+
+  // Ensure it really exists, then update (with all key fields)
+  verifyResetExists.apply(null, args);
+  updateReset.apply(null, args);
+  verifyResetExists.apply(null, args);
+});
+
+// Story: crud:reset:nondet:existing:dup-add
+bthread("crud:reset:nondet:existing:dup-add", function () {
+  // Wait for some existing reset to be added first
+  let ev = waitForAnyResetAdded();
+  let idField = "id";
+  let idValue = ev[idField];
+  let args = Object.values(ev);
+
+  verifyResetExists.apply(null, args);
+  tryToAddExistingReset.apply(null, args);
+  verifyResetExists.apply(null, args);
+});
+
+// Story: monitor:reset:add
+bthread("monitor:reset:add", function () {
+  while (true) {
+    let ev = waitForAnyResetAdded();
+    let idField = "id";
+    let idValue = ev[idField];
+    let args = Object.values(ev);
+    block(matchDeleteReset.apply(null, args), function () {
+      verifyResetExists.apply(null, args);
+    });
+  }
+});
+
+// Story: monitor:reset:delete
+bthread("monitor:reset:delete", function () {
+  while (true) {
+    let ev = waitForAnyResetDeleted();
+    let idField = "id";
+    let idValue = ev[idField];
+    let args = Object.values(ev);
+    block(matchAddReset.apply(null, args), function () {
+      verifyResetDoesNotExist.apply(null, args);
+    });
+  }
+});
+
+// Story: crud:reset-all:nondet:negative:dup-add
+bthread("crud:reset-all:nondet:negative:dup-add", function () {
+  let resetAllId = 200;
+  addReset_all(resetAllId);
+  verifyReset_allExists(resetAllId);
+  tryToAddExistingReset_all(resetAllId);
+  verifyReset_allExists(resetAllId);
+});
+
+// Story: crud:reset-all:nondet:negative:delete-nonexistent
+bthread("crud:reset-all:nondet:negative:delete-nonexistent", function () {
+  let resetAllId = 201;
+  tryToDeleteANonExistingReset_all(resetAllId);
+});
+
+// Story: crud:reset-all:nondet:existing:update
+bthread("crud:reset-all:nondet:existing:update", function () {
+  // Wait for some existing reset-all to be added (from any other story)
+  let ev = waitForAnyReset_allAdded();
+  let idField = "id";
+  let idValue = ev[idField];
+  let args = Object.values(ev);
+
+  // Ensure it really exists, then update (with all key fields)
+  verifyReset_allExists.apply(null, args);
+  updateReset_all.apply(null, args);
+  verifyReset_allExists.apply(null, args);
+});
+
+// Story: crud:reset-all:nondet:existing:dup-add
+bthread("crud:reset-all:nondet:existing:dup-add", function () {
+  // Wait for some existing reset-all to be added first
+  let ev = waitForAnyReset_allAdded();
+  let idField = "id";
+  let idValue = ev[idField];
+  let args = Object.values(ev);
+
+  verifyReset_allExists.apply(null, args);
+  tryToAddExistingReset_all.apply(null, args);
+  verifyReset_allExists.apply(null, args);
+});
+
+// Story: monitor:reset-all:add
+bthread("monitor:reset-all:add", function () {
+  while (true) {
+    let ev = waitForAnyReset_allAdded();
+    let idField = "id";
+    let idValue = ev[idField];
+    let args = Object.values(ev);
+    block(matchDeleteReset_all.apply(null, args), function () {
+      verifyReset_allExists.apply(null, args);
+    });
+  }
+});
+
+// Story: monitor:reset-all:delete
+bthread("monitor:reset-all:delete", function () {
+  while (true) {
+    let ev = waitForAnyReset_allDeleted();
+    let idField = "id";
+    let idValue = ev[idField];
+    let args = Object.values(ev);
+    block(matchAddReset_all.apply(null, args), function () {
+      verifyReset_allDoesNotExist.apply(null, args);
+    });
+  }
+});
+>>>>>>> 7c0ef43 (comatibility between interfaces and stories)

@@ -94,6 +94,22 @@ def pascal_case(name: str) -> str:
     return "".join(p[:1].upper() + p[1:] for p in parts) if parts else ""
 
 
+
+def entity_cap_for_interfaces(ent: str) -> str:
+    """Map GOLD entity names to JS helper stems that match interfaces.readable.js.
+
+    Currently special-cases the 'reset_all' aggregate (appears as
+    '/reset_all' or 'reset-all' in the API), whose helpers are named with
+    'Reset_all' (e.g., addReset_all, waitForAnyReset_allAdded, etc.).
+
+    For all other entities we fall back to simple PascalCase.
+    """
+    norm = (ent or "").replace("-", "_").lower()
+    if norm == "reset_all":
+        return "Reset_all"
+    return pascal_case(ent)
+
+
 def camel_case(name: str) -> str:
     parts = [p for p in name.replace("-", "_").split("_") if p]
     if not parts:
@@ -147,6 +163,41 @@ def normalize_op_name(op: Any) -> str:
 # ---------------------------------------------------------------------------
 
 
+
+def postprocess_raw_js_for_compat(raw_js: str) -> str:
+    """
+    Normalize pre-rendered JS stories so that they are compatible with
+    interfaces.readable.js-style helpers:
+
+      - Helper stems for the aggregate reset_all use "Reset_all"
+        (e.g., addReset_all, verifyReset_allExists, etc.).
+      - CRUD / verify helpers are always called with a single ID argument
+        on the caller side; any extra GOLD arguments are dropped.
+    """
+    # 1) Fix reset_all helper stems: generated GOLD sometimes used
+    #    identifiers like addReset-all(...), which is invalid JS and does
+    #    not match the helpers defined in interfaces.readable.js.
+    raw_js = raw_js.replace("Reset-all", "Reset_all")
+
+    # 2) Collapse multi-argument CRUD/verify helper calls to a single ID arg.
+    #    We only touch top-level calls, not method calls like obj.fn().
+    pattern = re.compile(
+        r'(?<![.\w$])'
+        r'(add|tryToAddExisting|verify\w*|update|delete|tryToDeleteANonExisting)'
+        r'([A-Z_]\w*)'
+        r'\s*\(([^)]*)\)'
+    )
+
+    def _collapse_args(match: re.Match) -> str:
+        fn_name = match.group(1) + match.group(2)
+        args = match.group(3)
+        # Keep only the first argument expression and trim whitespace.
+        first_arg = args.split(",", 1)[0].strip()
+        return f"{fn_name}({first_arg})"
+
+    return pattern.sub(_collapse_args, raw_js)
+
+
 def load_hls_gold(path: Path) -> Tuple[Dict[str, Any], List[StorySpec]]:
     """
     Load a single HLS GOLD JSON file and return (meta, stories).
@@ -187,13 +238,15 @@ def load_hls_gold(path: Path) -> Tuple[Dict[str, Any], List[StorySpec]]:
         mode = s.get("mode") or "?"
 
         if "js" in s and s["js"]:
-            # Pre-rendered JS story; passthrough.
+            # Pre-rendered JS story; run through a small compatibility
+            # normalizer so that helper calls match interfaces.readable.js.
+            raw_js = postprocess_raw_js_for_compat(str(s["js"]))
             stories.append(
                 StorySpec(
                     name=name,
                     entity=entity,
                     mode=str(mode),
-                    raw_js=str(s["js"]),
+                    raw_js=raw_js,
                 )
             )
             continue
@@ -265,7 +318,7 @@ def inject_guards_for_story(story: StorySpec) -> None:
     if not ent:
         return
 
-    ent_cap = pascal_case(ent)
+    ent_cap = entity_cap_for_interfaces(ent)
 
     first_add_idx: Optional[int] = None
     delete_indices: List[int] = []
@@ -396,7 +449,7 @@ def synthesize_entity_stories(
                 e["_index"] = idx
 
     for ent in sorted(entities):
-        ent_cap = pascal_case(ent)
+        ent_cap = entity_cap_for_interfaces(ent)
         id_var, next_id = id_base_map.get(ent, (make_id_var(ent), 200))
 
         # Per-entity meta
@@ -407,15 +460,22 @@ def synthesize_entity_stories(
         e_meta = entities_meta.get(ent) or {}
 
         # Decide which field name carries the primary ID in events.
-        # Default: use the JS id variable name (e.g., 'userId').
-        id_field_name = sanitize_var_name(id_var)
+        # For compatibility with interfaces.readable.js, waitForAny* helpers
+        # currently return a *single* field:
+        #   - most entities: { id: ... }
+        #   - inventory:      { ndc: ... }
+        # We therefore default to "id" for all entities except "inventory".
+        # Optionally, GOLD meta may override this via an explicit "id_field".
+        id_field_name = "id"
         if isinstance(e_meta, dict):
-            raw_keys = e_meta.get("keys") or []
-            if isinstance(raw_keys, list) and raw_keys:
-                # Use the first key as the primary ID field name.
-                # This lets you keep OpenAPI-style IDs like 'idUser'
-                # while our internal JS variable stays 'userId'.
-                id_field_name = str(raw_keys[0])
+            # Allow explicit override from GOLD meta if present.
+            meta_id_field = e_meta.get("id_field")
+            if isinstance(meta_id_field, str) and meta_id_field.strip():
+                id_field_name = meta_id_field.strip()
+            else:
+                norm_ent = (ent or "").replace("-", "_").lower()
+                if norm_ent == "inventory":
+                    id_field_name = "ndc"
 
         # CRUD argument metadata
         add_args: List[str] = list(e_meta.get("add_args") or [])
@@ -801,12 +861,13 @@ bthread("monitor:{ent}:complex-keys:by-field", function () {{
 
 def build_call(fn_name: str, id_var: str, extra_args: Optional[List[str]] = None) -> str:
     """
-    Build a JS call expression: fn(id_var, ...extra_args...).
+    Build a JS call expression that always uses the canonical single-ID signature.
+
+    extra_args are kept for metadata but are not passed to the JS helper, so that
+    stories stay compatible with interfaces.readable.js, where helpers take
+    exactly one argument (the ID/primary key).
     """
-    args: List[str] = [id_var]
-    if extra_args:
-        args.extend(extra_args)
-    return f"{fn_name}({', '.join(args)})"
+    return f"{fn_name}({id_var})"
 
 
 def emit_story(story: StorySpec) -> str:
@@ -821,7 +882,7 @@ def emit_story(story: StorySpec) -> str:
     if not story.ops:
         return f"// [empty] {story.name} (no ops)"
 
-    ent_cap = pascal_case(story.entity or "Entity")
+    ent_cap = entity_cap_for_interfaces(story.entity or "Entity")
     id_var = story.id_var or make_id_var(story.entity or "entity")
 
     lines: List[str] = []

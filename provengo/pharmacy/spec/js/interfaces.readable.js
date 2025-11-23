@@ -5,7 +5,7 @@
  * From GOLD only – full CRUD + verifications + match/wait helpers.
  */
 
-var host = (typeof host !== 'undefined') ? host : '10.100.102.9';
+var host = (typeof host !== 'undefined') ? host : '/192.168.225.23';
 var port = (typeof port !== 'undefined') ? port : 5014;
 
 const svc = new RESTSession("http://" + host + ":" + port, "provengo basedclient", {
