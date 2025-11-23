@@ -1,3 +1,4 @@
+# scripts/readable/emit_readables_from_gold.py
 import argparse, json, re, sys
 from pathlib import Path
 from collections import defaultdict, Counter
@@ -124,25 +125,15 @@ def group_entities(ops):
         for b in info["bodies"]:
             body_keys += body_keys_from_payload(b)
         body_keys = unique_preserve(body_keys)
-        # Identity keys as before
         keys = prefer_keys(path_keys, body_keys)
         if not keys:
             keys = ["id"]
-        # All fields: keys first (in order), then remaining body fields
-        all_fields = []
-        for k in keys:
-            if k not in all_fields:
-                all_fields.append(k)
-        for k in body_keys:
-            if k not in all_fields:
-                all_fields.append(k)
         entities.append({
             "plural": plural,
             "singular": singular,
             "Singular": singular[:1].upper() + singular[1:],
             "Plural": plural[:1].upper() + plural[1:],
             "keys": keys,
-            "fields": all_fields,
             "methods": sorted(info["methods"]),
         })
     return sorted(entities, key=lambda e: e["plural"])
@@ -221,41 +212,6 @@ def _looks_like_id_field(name: str) -> bool:
     return n == "id" or n.endswith("id") or n.endswith("_id")
 
 
-def build_param_names_for_entity(ent: str, fields):
-    """
-    Build JS parameter names for an entity, compatible with HLS stories.
-
-    Rules (inferred from existing HLS):
-    - ID-like fields (id, userId, book_id, ...) keep their original name.
-    - Fields that already start with '<ent>_' keep their original name
-      (e.g., user_name, book_title, loan_userId).
-    - Fields whose lowercase name already contains the entity name and
-      'name' (e.g., api_name) also keep their original name.
-    - All other fields are prefixed with '<ent>_' (e.g., description -> api_description).
-    """
-    params = []
-    if not fields:
-        return params
-    for f in fields:
-        if not isinstance(f, str):
-            continue
-        fl = f.lower()
-        # 1) ID-like fields: keep as is
-        if _looks_like_id_field(f):
-            pname = f
-        # 2) Fields that already start with '<ent>_' (book_id, user_name, ...)
-        elif f.startswith(ent + "_"):
-            pname = f
-        # 3) Fields whose lowercase form already mentions the entity name and 'name'
-        elif ("name" in fl) and (ent.lower() in fl):
-            pname = f
-        # 4) Otherwise, prefix with '<ent>_'
-        else:
-            pname = f"{ent}_" + f
-        params.append(pname)
-    return params
-
-
 def build_body_id_props_from_openapi(spec):
     """Build mapping plural-entity-name -> ordered list of ID-like body fields.
 
@@ -315,35 +271,18 @@ def build_body_id_props_from_openapi(spec):
 def apply_body_id_props_to_entities(entities, body_id_props):
     """Override entity['keys'] with ID-like body properties when available.
 
-    This makes the generated interfaces trust the OpenAPI requestBody as the
+    This makes the generated interfaces trust the OpenAPI request body as the
     source of truth for JSON field names, instead of path placeholder names.
     """
     if not body_id_props:
         return
-
     for e in entities:
         plural = e.get("plural")
         if not plural:
             continue
-
         new_keys = body_id_props.get(plural)
-        if not new_keys:
-            continue
-
-        # Override keys from OpenAPI body and ensure fields stay in sync
-        e["keys"] = new_keys
-
-        fields = e.get("fields") or []
-        if not fields:
-            # If there were no fields collected from GOLD, use the ID keys
-            e["fields"] = list(new_keys)
-        else:
-            # Make sure all ID keys are present and appear first
-            for k in new_keys:
-                if k not in fields:
-                    fields.insert(0, k)
-            e["fields"] = fields
-
+        if new_keys:
+            e["keys"] = new_keys
 
 def apply_key_types_to_entities(entities, spec):
     """Attach per-entity key_types (field -> 'string' or 'number').
@@ -352,7 +291,7 @@ def apply_key_types_to_entities(entities, spec):
     absent or incomplete we fall back to simple name-based heuristics
     (param_is_numeric) so existing behavior is preserved.
     """
-    # 1. Start with heuristic defaults based on the key name
+    # Start with heuristic defaults based on the key name.
     for e in entities:
         keys = e.get("keys") or []
         key_types = {}
@@ -360,7 +299,6 @@ def apply_key_types_to_entities(entities, spec):
             key_types[k] = "number" if param_is_numeric(k) else "string"
         e["key_types"] = key_types
 
-    # 2. If there is no OpenAPI spec, keep the heuristic defaults
     if not spec:
         return
 
@@ -369,7 +307,6 @@ def apply_key_types_to_entities(entities, spec):
         for path, item in paths.items():
             if not isinstance(item, dict):
                 continue
-
             parts = [p for p in path.split("/") if p]
             if not parts:
                 continue
@@ -387,7 +324,6 @@ def apply_key_types_to_entities(entities, spec):
             key_types = target.setdefault("key_types", {})
             keys = target.get("keys") or []
 
-            # Look inside requestBody schemas for POST/PUT/PATCH
             for method_name, op in item.items():
                 if not isinstance(op, dict):
                     continue
@@ -414,7 +350,6 @@ def apply_key_types_to_entities(entities, spec):
                         continue
 
                     for name, prop in props.items():
-                        # Only care about ID keys for the type override
                         if name not in keys:
                             continue
                         t = (prop.get("type") or "").lower()
@@ -433,38 +368,26 @@ def get_codes(hints, plural, key):
 
 # -------------------- JS string helpers --------------------
 
-def desc_expr(prefix: str, ent: str, keys, field_to_param=None):
-    """Build a JS expression for the textual description, using field labels
-    (keys) but the actual JS parameter variables from field_to_param."""
+def desc_expr(prefix: str, ent: str, keys):
     if not keys:
         return f"\"{prefix} a {ent}\""
-    if field_to_param is None:
-        parts = ' + " and " + '.join([f"\"{k} \" + {k}" for k in keys])
-    else:
-        parts = ' + " and " + '.join(
-            [f"\"{k} \" + {field_to_param.get(k, k)}" for k in keys]
-        )
+    parts = ' + " and " + '.join([f"\"{k} \" + {k}" for k in keys])
     return f"\"{prefix} a {ent} with \" + {parts}"
 
-def delete_desc_expr(ent: str, keys, field_to_param=None):
-    return desc_expr("Delete", ent, keys, field_to_param)
+def delete_desc_expr(ent: str, keys):
+    return desc_expr("Delete", ent, keys)
 
-def verify_desc_expr(ent: str, keys, field_to_param=None, exists=True):
+def verify_desc_expr(ent: str, keys, exists=True):
     what = "exists" if exists else "does not exist"
     if not keys:
         return f"\"Verify {ent} {what}\""
-    if field_to_param is None:
-        parts = ' + " and " + '.join([f"\"{k} \" + {k}" for k in keys])
-    else:
-        parts = ' + " and " + '.join(
-            [f"\"{k} \" + {field_to_param.get(k, k)}" for k in keys]
-        )
+    parts = ' + " and " + '.join([f"\"{k} \" + {k}" for k in keys])
     return f"\"Verify {ent} with \" + {parts} + \" {what}\""
 
-def js_match_equals_desc(prefix, entity, keys, field_to_param=None):
+def js_match_equals_desc(prefix, entity, keys):
     if not keys:
         return f'return e.data.parameters.description === "{prefix} a {entity}";'
-    wanted = desc_expr(prefix, entity, keys, field_to_param)
+    wanted = desc_expr(prefix, entity, keys)
     return f"return e.data.parameters.description === {wanted};"
 
 def param_is_numeric(name):
@@ -515,7 +438,7 @@ f'''//@provengo summon rest
 
 /**
  * Auto-generated interfaces & lifecycle (readable)
- * From GOLD only - full CRUD + verifications + match/wait helpers.
+ * From GOLD only – full CRUD + verifications + match/wait helpers.
  */
 
 var host = (typeof host !== 'undefined') ? host : '{host_default}';
@@ -545,29 +468,25 @@ def render_entity_block(e, hints):
     plural = e["plural"]
     Plural = e["Plural"]
     keys = e["keys"]
-    fields = e.get("fields") or keys
     key_types = e.get("key_types") or {}
-    param_names = build_param_names_for_entity(ent, fields)
-    params = ", ".join(param_names) if param_names else ""
-    field_to_param = {f: p for f, p in zip(fields, param_names)}
+    params = ", ".join(keys) if keys else ""
 
     # When constructing the JSON body, normalize ID fields to the OpenAPI type:
-    # - string IDs  -> String(paramVar)
-    # - numeric IDs -> Number(paramVar)
+    # - string IDs  -> String(param)
+    # - numeric IDs -> Number(param)
     body_field_exprs = []
     for k in keys:
-        param_var = field_to_param.get(k, k)
         t = key_types.get(k)
         if t == "number":
-            body_field_exprs.append(f"{k}: Number({param_var})")
+            body_field_exprs.append(f"{k}: Number({k})")
         else:
-            body_field_exprs.append(f"{k}: String({param_var})")
+            body_field_exprs.append(f"{k}: String({k})")
     body_fields = ", ".join(body_field_exprs)
 
-    add_desc = desc_expr("Add", ent, keys, field_to_param)
-    del_desc = delete_desc_expr(ent, keys, field_to_param)
-    upd_desc = desc_expr("Update", ent, keys, field_to_param)
-    get_desc = desc_expr("Get", ent, keys, field_to_param)
+    add_desc = desc_expr("Add", ent, keys)
+    del_desc = delete_desc_expr(ent, keys)
+    upd_desc = desc_expr("Update", ent, keys)
+    get_desc = desc_expr("Get", ent, keys)
 
     # Codes from hints (OpenAPI or defaults)
     neg_delete_codes = get_codes(hints, plural, "neg_delete")  # [200,404,401]
@@ -589,12 +508,11 @@ def render_entity_block(e, hints):
     # canonical type before "===".
     cmp_terms = []
     for k in keys:
-        param_var = field_to_param.get(k, k)
         t = key_types.get(k)
         if t == "number":
-            cmp_terms.append(f"Number({ent}[i].{k}) === Number({param_var})")
+            cmp_terms.append(f"Number({ent}[i].{k}) === Number({k})")
         else:
-            cmp_terms.append(f"String({ent}[i].{k}) === String({param_var})")
+            cmp_terms.append(f"String({ent}[i].{k}) === String({k})")
     cmp_chain = " && ".join(cmp_terms) if cmp_terms else "true"
 
     extract_add = render_extract_from_desc("Add a", ent, keys, key_types)
@@ -667,7 +585,7 @@ function verify{Ent}Exists({params}) {{
       }}
       return pvg.fail("Expected a {ent} to exist but it does not");
     }},
-    parameters: {{ description: {verify_desc_expr(ent, keys, field_to_param, exists=True)} }}
+    parameters: {{ description: {verify_desc_expr(ent, keys, exists=True)} }}
   }});
 }}
 
@@ -683,7 +601,7 @@ function verify{Ent}DoesNotExist({params}) {{
       }}
       return pvg.success("{Ent} does not exist");
     }},
-    parameters: {{ description: {verify_desc_expr(ent, keys, field_to_param, exists=False)} }}
+    parameters: {{ description: {verify_desc_expr(ent, keys, exists=False)} }}
   }});
 }}
 
@@ -697,7 +615,7 @@ function matchAnyAdd{Ent}() {{
 function matchAdd{Ent}({params}) {{
   return bp.EventSet("add-{ent}", function (e) {{
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    {js_match_equals_desc("Add", ent, keys, field_to_param)}
+    {js_match_equals_desc("Add", ent, keys)}
   }});
 }}
 function matchAnyDelete{Ent}() {{
@@ -709,7 +627,7 @@ function matchAnyDelete{Ent}() {{
 function matchDelete{Ent}({params}) {{
   return bp.EventSet("del-{ent}", function (e) {{
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    {js_match_equals_desc("Delete", ent, keys, field_to_param)}
+    {js_match_equals_desc("Delete", ent, keys)}
   }});
 }}
 
@@ -723,7 +641,7 @@ function matchAnyUpdate{Ent}() {{
 function matchUpdate{Ent}({params}) {{
   return bp.EventSet("update-{ent}", function (e) {{
     if (!e.data || !e.data.parameters || !e.data.parameters.description) return false;
-    {js_match_equals_desc("Update", ent, keys, field_to_param)}
+    {js_match_equals_desc("Update", ent, keys)}
   }});
 }}
 
@@ -759,21 +677,20 @@ function verify{Ent}Updated({params}) {{
       }}
       return pvg.fail("Expected a {ent} to be present after update, but it is not");
     }},
-    parameters: {{ description: {verify_desc_expr(ent, keys, field_to_param, exists=True)} }}
+    parameters: {{ description: {verify_desc_expr(ent, keys, exists=True)} }}
   }});
 }}
 '''
 
 
 def build_lifecycle(entities):
-    lines = ['/** === Lifecycle smoke per entity (add->verify->tryToAddExisting->delete->verifyNotExist) === */']
+    lines = ['/** === Lifecycle smoke per entity (add→verify→tryAddExisting→delete→verifyNotExist) === */']
     for e in entities:
         Ent = e["Singular"]
         ent = e["singular"]
-        fields = e.get("fields") or e["keys"]
-        param_names = build_param_names_for_entity(ent, fields)
-        params = ", ".join(param_names) if param_names else ""
-        args = params
+        keys = e["keys"]
+        params = ", ".join(keys) if keys else ""
+        args = ", ".join(keys) if keys else ""
         lines.append(f'''
 function lifecycle_{ent}({params}) {{
   try {{ tryToDeleteANonExisting{Ent}({args}); }} catch (_e) {{}}
@@ -805,7 +722,7 @@ def main():
     ap.add_argument("--openapi", help="Optional OpenAPI JSON with x-* hints (Option 3)")
     args = ap.parse_args()
 
-    # GOLD -> ops -> entities
+    # GOLD → ops → entities
     golds = [load_json(p) for p in args.gold]
     ops = collect_ops_from_gold(golds)
     if not ops:
@@ -814,26 +731,13 @@ def main():
 
     entities = group_entities(ops)
 
-    # entity-map overrides (keys and optionally fields)
+    # entity-map overrides
     if args.entity_map and Path(args.entity_map).is_file():
         em = load_json(args.entity_map)
         for e in entities:
             ov = em.get(e["plural"]) or em.get(e["singular"])
-            if not ov:
-                continue
-            if isinstance(ov.get("keys"), list) and ov["keys"]:
+            if ov and isinstance(ov.get("keys"), list) and ov["keys"]:
                 e["keys"] = ov["keys"]
-            if isinstance(ov.get("fields"), list) and ov["fields"]:
-                e["fields"] = ov["fields"]
-
-    # Safety: ensure every entity has a fields list containing all keys
-    for e in entities:
-        if not e.get("fields"):
-            e["fields"] = list(e["keys"])
-        else:
-            for k in e["keys"]:
-                if k not in e["fields"]:
-                    e["fields"].insert(0, k)
 
     # OpenAPI hints; defaults if spec absent
     spec = try_load_openapi(args.openapi)
@@ -842,7 +746,7 @@ def main():
     if spec:
         host_default, port_default = parse_server_host_port(spec)
         hints = build_hint_maps_from_openapi(spec)
-        # Trust the OpenAPI requestBody for ID field names and types
+        # 🎯 Fun inline fix: trust the OpenAPI requestBody for ID field names
         body_id_props = build_body_id_props_from_openapi(spec)
         apply_body_id_props_to_entities(entities, body_id_props)
         apply_key_types_to_entities(entities, spec)

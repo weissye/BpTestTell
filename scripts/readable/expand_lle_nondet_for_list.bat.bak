@@ -106,11 +106,11 @@ if not exist "%DET%" (
   goto :eof
 )
 
-rem ---------- output + temp (A6: nondet_checked tree) ----------
-set "OUTDIR=artifacts\nondet_checked\%PROV%\%SUT%"
+rem ---------- output + temp (A6: lle_nondet tree) ----------
+set "OUTDIR=artifacts\lle_nondet\%PROV%\%SUT%"
 if not exist "%OUTDIR%" mkdir "%OUTDIR%" >nul 2>nul
 
-set "OUTP=%OUTDIR%\nondet_checked_gold.json"
+set "OUTP=%OUTDIR%\lle_nondet_gold.json"
 set "TMP=%OUTDIR%\__det_norm_%RANDOM%%RANDOM%.json"
 
 echo [INFO] SUT=%SUT% PROV=%PROV%
