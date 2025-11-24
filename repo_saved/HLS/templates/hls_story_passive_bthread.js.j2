@@ -1,0 +1,11 @@
+// Auto-generated PASSIVE HLS story (monitor as bthread)
+// HLS story: {story_id}
+bthread("{story_id}", function () {{
+  const p = {params_json};
+  // Wait for op
+  waitFor(E.{op_func}(p));
+  // Block inverse while verifying
+  {block_lines}
+  // Verify post-conditions
+  {check_lines}
+}});

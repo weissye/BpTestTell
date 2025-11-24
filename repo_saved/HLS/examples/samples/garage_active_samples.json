@@ -1,0 +1,7 @@
+{
+  "js": [
+    "bthread(\"Seed Parts \u2013 Batch A\", function () { addPart(\"P-001\", \"Oil Filter\", 35.00); addPart(\"P-002\", \"Brake Pads\", 220.00); addPart(\"P-003\", \"Air Filter\", 42.00); });",
+    "bthread(\"Customer C200 Lifecycle\", function () { addCustomer(200, \"Roni Cohen\"); updateCustomer(200, { phone: \"+972-200-0000\" }); updateCustomer(200, { email: \"roni200@garage.test\" }); addVehicle(\"VIN-200-A\", 200, \"Toyota Corolla\"); addWorkOrder(\"WO-200-A1\", \"VIN-200-A\", 200); addWorkOrderPart(\"WO-200-A1\", \"P-001\", 1); addInvoice(\"INV-200-A1\", \"WO-200-A1\", 35.00); addPayment(\"PAY-200-A1\", \"INV-200-A1\", 35.00); updateWorkOrder(\"WO-200-A1\", { status: \"closed\" }); deleteWorkOrder(\"WO-200-A1\"); deleteVehicle(\"VIN-200-A\"); deleteCustomer(200, \"Roni Cohen\"); });",
+    "bthread(\"WO contention for same vehicle\", function () { addCustomer(210, \"Alex Contend\"); addVehicle(\"VIN-210-A\", 210, \"Ford Focus\"); addWorkOrder(\"WO-210-A1\", \"VIN-210-A\", 210); tryAddCompetingWorkOrder(\"WO-210-A2\", \"VIN-210-A\", 210); updateWorkOrder(\"WO-210-A1\", { status: \"closed\" }); addInvoice(\"INV-210-A1\", \"WO-210-A1\", 100.00); addPayment(\"PAY-210-A1\", \"INV-210-A1\", 100.00); deleteWorkOrder(\"WO-210-A1\"); deleteVehicle(\"VIN-210-A\"); deleteCustomer(210, \"Alex Contend\"); });"
+  ]
+}

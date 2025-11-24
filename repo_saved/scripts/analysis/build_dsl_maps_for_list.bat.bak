@@ -1,0 +1,67 @@
+@echo off
+setlocal ENABLEDELAYEDEXPANSION
+
+REM ============================================
+REM Build DSL maps for a list of SUTs
+REM Usage: scripts\analysis\build_dsl_maps_for_list.bat [config\suts_and_rw.txt]
+REM Input list: one SUT per line, comments with # allowed.
+REM Lines may optionally be "provider\sut"; provider is auto-detected from graphs.
+REM ============================================
+
+set "LIST=%~1"
+if "%LIST%"=="" set "LIST=config\suts_and_rw.txt"
+
+echo ============================================
+echo Building DSL maps from: "%LIST%"
+echo CWD: %CD%
+echo ============================================
+echo.
+
+if not exist "%LIST%" (
+  echo [ERR ] List file not found: %LIST%
+  exit /b 1
+)
+
+for /f "usebackq tokens=* delims=" %%L in ("%LIST%") do (
+  set "RAW=%%L"
+  REM skip empty and comment lines
+  if not "!RAW!"=="" if not "!RAW:~0,1!"=="#" (
+    REM take first whitespace-delimited token (handles inline comments like "; ...")
+    for /f "tokens=1" %%A in ("!RAW!") do set "TMP=%%A"
+    REM if line had "provider\sut", take just the sut (last path element)
+    for %%P in ("!TMP!") do set "SUT=%%~nxP"
+
+    set "PROVIDER="
+    if exist "artifacts\analysis\7_suts_llm_provider\!SUT!\graph.json" set "PROVIDER=7_suts_llm_provider"
+    if not defined PROVIDER if exist "artifacts\analysis\real_world_llm_provider\!SUT!\graph.json" set "PROVIDER=real_world_llm_provider"
+
+    echo [SUT ] !SUT!  [PROVIDER] !PROVIDER!
+
+    if defined PROVIDER (
+      if /I "!PROVIDER!"=="7_suts_llm_provider" (
+        set "GRAPH=artifacts\analysis\7_suts_llm_provider\!SUT!\graph.json"
+        set "OUTDIR=models\hls\SUTs\!SUT!"
+      ) else (
+        set "GRAPH=artifacts\analysis\real_world_llm_provider\!SUT!\graph.json"
+        set "OUTDIR=models\hls\RWs\!SUT!"
+      )
+
+      echo   [GRPH] !GRAPH!
+      if exist "!GRAPH!" (
+        if not exist "!OUTDIR!" mkdir "!OUTDIR!" >NUL 2>&1
+        echo   [RUN ] python -u scripts\analysis\build_dsl_map.py --sut !SUT! --provider !PROVIDER! --graph "!GRAPH!" --out "!OUTDIR!\dsl_map.json"
+        python -u scripts\analysis\build_dsl_map.py --sut "!SUT!" --provider "!PROVIDER!" --graph "!GRAPH!" --out "!OUTDIR!\dsl_map.json"
+        echo.
+      ) else (
+        echo   [SKIP] no graph:  !GRAPH!
+        echo.
+      )
+    ) else (
+      echo   [SKIP] no graph under either provider for "!SUT!"
+      echo.
+    )
+  )
+)
+
+echo [DONE] build_dsl_maps_for_list.bat finished.
+endlocal

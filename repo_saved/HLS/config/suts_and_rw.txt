@@ -1,0 +1,19 @@
+# 7 SUTs
+banking
+books
+cinema
+library
+garage
+store
+clinic
+# 10 real-world systems
+rw_accounts
+rw_orders
+rw_inventory
+rw_payments
+rw_shipping
+rw_support
+rw_analytics
+rw_auth
+rw_catalog
+rw_marketing

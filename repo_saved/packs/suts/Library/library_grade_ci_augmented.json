@@ -1,0 +1,244 @@
+{
+  "system": "Library (SUT-aligned)",
+  "entities": [
+    {
+      "name": "User",
+      "events": {
+        "low": [
+          {
+            "name": "user.create.api",
+            "level": "low",
+            "maps_to": {
+              "method": "POST",
+              "path": "/users"
+            }
+          },
+          {
+            "name": "user.list.api",
+            "level": "low",
+            "maps_to": {
+              "method": "GET",
+              "path": "/users"
+            }
+          },
+          {
+            "name": "user.readById.viaList.api",
+            "level": "low",
+            "maps_to": {
+              "method": "GET",
+              "path": "/users"
+            },
+            "inputs": {
+              "q": "{user_id}"
+            }
+          },
+          {
+            "name": "user.delete.api",
+            "level": "low",
+            "maps_to": {
+              "method": "DELETE",
+              "path": "/users/{user_id}"
+            }
+          }
+        ],
+        "high": [
+          {
+            "name": "CreateUserThenVerify",
+            "level": "high",
+            "composition": [
+              "user.create.api",
+              "user.list.api"
+            ]
+          },
+          {
+            "name": "DeleteUserSafely",
+            "level": "high",
+            "composition": [
+              "user.readById.viaList.api",
+              "user.delete.api",
+              "user.readById.viaList.api"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Book",
+      "events": {
+        "low": [
+          {
+            "name": "book.create.api",
+            "level": "low",
+            "maps_to": {
+              "method": "POST",
+              "path": "/books"
+            }
+          },
+          {
+            "name": "book.list.api",
+            "level": "low",
+            "maps_to": {
+              "method": "GET",
+              "path": "/books"
+            }
+          },
+          {
+            "name": "book.read.api",
+            "level": "low",
+            "maps_to": {
+              "method": "GET",
+              "path": "/books/{book_id}"
+            }
+          },
+          {
+            "name": "book.delete.api",
+            "level": "low",
+            "maps_to": {
+              "method": "DELETE",
+              "path": "/books/{book_id}"
+            }
+          }
+        ],
+        "high": [
+          {
+            "name": "CreateBookThenVerify",
+            "level": "high",
+            "composition": [
+              "book.create.api",
+              "book.read.api"
+            ]
+          },
+          {
+            "name": "DeleteBookSafely",
+            "level": "high",
+            "composition": [
+              "book.read.api",
+              "book.delete.api",
+              "book.read.api"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Loan",
+      "events": {
+        "low": [
+          {
+            "name": "loan.create.api",
+            "level": "low",
+            "maps_to": {
+              "method": "POST",
+              "path": "/loans"
+            }
+          },
+          {
+            "name": "loan.list.api",
+            "level": "low",
+            "maps_to": {
+              "method": "GET",
+              "path": "/loans"
+            }
+          },
+          {
+            "name": "loan.readByComposite.viaList.api",
+            "level": "low",
+            "maps_to": {
+              "method": "GET",
+              "path": "/loans"
+            },
+            "inputs": {
+              "userId": "{user_id}",
+              "bookId": "{book_id}"
+            }
+          },
+          {
+            "name": "loan.delete.api",
+            "level": "low",
+            "maps_to": {
+              "method": "DELETE",
+              "path": "/loans/{user_id}/{book_id}"
+            }
+          }
+        ],
+        "high": [
+          {
+            "name": "CreateLoanThenVerify",
+            "level": "high",
+            "composition": [
+              "loan.create.api",
+              "loan.list.api"
+            ]
+          },
+          {
+            "name": "DeleteLoanSafely",
+            "level": "high",
+            "composition": [
+              "loan.readByComposite.viaList.api",
+              "loan.delete.api",
+              "loan.readByComposite.viaList.api"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Hold",
+      "events": {
+        "low": [
+          {
+            "name": "hold.create.api",
+            "level": "low",
+            "maps_to": {
+              "method": "POST",
+              "path": "/holds"
+            }
+          },
+          {
+            "name": "hold.list.api",
+            "level": "low",
+            "maps_to": {
+              "method": "GET",
+              "path": "/holds"
+            }
+          },
+          {
+            "name": "hold.readList.api",
+            "level": "low",
+            "maps_to": {
+              "method": "GET",
+              "path": "/holds"
+            }
+          },
+          {
+            "name": "hold.delete.api",
+            "level": "low",
+            "maps_to": {
+              "method": "DELETE",
+              "path": "/holds/{hold_id}"
+            }
+          }
+        ],
+        "high": [
+          {
+            "name": "CreateHoldThenVerify",
+            "level": "high",
+            "composition": [
+              "hold.create.api",
+              "hold.list.api"
+            ]
+          },
+          {
+            "name": "DeleteHoldSafely",
+            "level": "high",
+            "composition": [
+              "hold.readList.api",
+              "hold.delete.api",
+              "hold.readList.api"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

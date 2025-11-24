@@ -1,0 +1,58 @@
+@echo off
+setlocal EnableExtensions DisableDelayedExpansion
+set "ROOT=packs\realworld"
+set "FORCE=%FORCE%"  & rem set FORCE=1 to overwrite
+
+echo [INFO] Scanning "%ROOT%" for *.yaml / *.yml ...
+
+set /a FOUND=0
+set /a CONVERTED=0
+set /a SKIPPED=0
+set /a FAILED=0
+
+for /r "%ROOT%" %%F in (openapi.yaml) do call :convert "%%~fF"
+for /r "%ROOT%" %%F in (openapi.yml)  do call :convert "%%~fF"
+
+echo(
+echo [INFO] Scan done. FOUND=%FOUND%  CONVERTED=%CONVERTED%  SKIPPED=%SKIPPED%  FAILED=%FAILED%
+exit /b 0
+
+:convert
+set /a FOUND+=1
+set "SRC=%~1"
+for %%A in ("%SRC%") do set "DIR=%%~dpA"
+set "DST=%DIR%openapi.json"
+
+if defined FORCE goto :do_convert
+
+if exist "%DST%" (
+  for %%A in ("%SRC%") do set "MSRC=%%~tA"
+  for %%A in ("%DST%") do set "MDST=%%~tA"
+  rem If JSON is newer or same, skip
+  if "%MDST%" GEQ "%MSRC%" (
+    set /a SKIPPED+=1
+    goto :eof
+  )
+)
+
+:do_convert
+rem Use embedded Python to convert YAML->JSON
+"%~dp0..\..\..\.venv\Scripts\python.exe" - <<PY 1>"%DST%.tmp" 2>nul
+import sys, json, yaml, pathlib
+src = pathlib.Path(r"%SRC%")
+data = yaml.safe_load(src.read_text(encoding="utf-8"))
+# pretty, deterministic JSON
+print(json.dumps(data, ensure_ascii=False, indent=2))
+PY
+if errorlevel 1 (
+  set /a FAILED+=1
+  if exist "%DST%.tmp" del "%DST%.tmp"
+  goto :eof
+)
+move /y "%DST%.tmp" "%DST%" >nul
+if errorlevel 1 (
+  set /a FAILED+=1
+) else (
+  set /a CONVERTED+=1
+)
+goto :eof

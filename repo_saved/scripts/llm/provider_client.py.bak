@@ -1,0 +1,83 @@
+# scripts/llm/provider_client.py
+from __future__ import annotations
+import os
+from dataclasses import dataclass
+from typing import List, Dict, Any, Optional
+
+# Single file, no external imports beyond openai
+try:
+    from openai import OpenAI
+except Exception as e:
+    raise RuntimeError(
+        "Could not import OpenAI SDK. Activate your venv and `pip install openai`."
+    ) from e
+
+
+@dataclass
+class CallOptions:
+    model: str
+    temperature: float = 0.2
+    json_mode: bool = False
+    extra: Optional[Dict[str, Any]] = None
+
+
+class OpenAIChatClient:
+    """
+    Thin wrapper around the Chat Completions API.
+    Exposes a single __call__(system, user, ...) that returns the text.
+    """
+    def __init__(self, model: str):
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise RuntimeError("OPENAI_API_KEY is not set.")
+
+        self._client = OpenAI(api_key=api_key)
+        self._model = model
+
+    def __call__(
+        self,
+        system_prompt: str,
+        user_payload: str | Dict[str, Any],
+        *,
+        temperature: float = 0.2,
+        json_mode: bool = False,
+        extra: Optional[Dict[str, Any]] = None,
+    ) -> str:
+        messages: List[Dict[str, Any]] = [{"role": "system", "content": system_prompt}]
+        # if user_payload is dict, pass as a single string (caller decides serialization)
+        if isinstance(user_payload, dict):
+            import json
+            messages.append({"role": "user", "content": json.dumps(user_payload, ensure_ascii=False)})
+        else:
+            messages.append({"role": "user", "content": str(user_payload)})
+
+        kwargs: Dict[str, Any] = {
+            "model": self._model,
+            "messages": messages,
+            "temperature": temperature,
+        }
+
+        if json_mode:
+            # New SDK supports dict response_format={"type": "json_object"}
+            kwargs["response_format"] = {"type": "json_object"}
+
+        if extra:
+            kwargs.update(extra)
+
+        resp = self._client.chat.completions.create(**kwargs)
+        choice = resp.choices[0]
+        # tools/JSON mode return content here (we're not using tool calls in this wrapper)
+        return choice.message.content or ""
+
+
+def make_client(provider: str, model: str) -> OpenAIChatClient:
+    """
+    Factory expected by generate_gold_llm.py:
+        from provider_client import make_client
+        client = make_client(args.provider, args.model)
+        text = client(sys_prompt, user_payload, temperature=..., json_mode=..., extra=...)
+    """
+    provider = (provider or "openai").lower().strip()
+    if provider != "openai":
+        raise ValueError(f"Unsupported provider '{provider}'. Only 'openai' is implemented.")
+    return OpenAIChatClient(model=model)

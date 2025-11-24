@@ -1,0 +1,130 @@
+{
+  "sut": "library",
+  "mode": "det",
+  "stories": [
+    {
+      "story_id": "hls_User_add_0001",
+      "entity": "User",
+      "op": "add",
+      "params": {
+        "id": 100,
+        "name": "Roni"
+      },
+      "blocks": [
+        {
+          "op": "delete",
+          "keyFields": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "type": "exists",
+          "entity": "User",
+          "key": "id"
+        }
+      ]
+    },
+    {
+      "story_id": "hls_User_update_0002",
+      "entity": "User",
+      "op": "update",
+      "params": {
+        "id": 100,
+        "email": "r@x"
+      },
+      "blocks": [
+        {
+          "op": "update",
+          "keyFields": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "type": "updated",
+          "entity": "User",
+          "fields": [
+            "id",
+            "email"
+          ]
+        }
+      ]
+    },
+    {
+      "story_id": "hls_User_delete_0003",
+      "entity": "User",
+      "op": "delete",
+      "params": {
+        "id": 101,
+        "name": "Jane"
+      },
+      "blocks": [
+        {
+          "op": "add",
+          "keyFields": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "type": "absent",
+          "entity": "User",
+          "key": "id"
+        }
+      ]
+    },
+    {
+      "story_id": "hls_Book_add_0004",
+      "entity": "Book",
+      "op": "add",
+      "params": {
+        "id": 201,
+        "title": "1984"
+      },
+      "blocks": [
+        {
+          "op": "delete",
+          "keyFields": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "type": "exists",
+          "entity": "Book",
+          "key": "id"
+        }
+      ]
+    },
+    {
+      "story_id": "hls_Loan_add_0005",
+      "entity": "Loan",
+      "op": "add",
+      "params": {
+        "userId": 100,
+        "bookId": 201
+      },
+      "blocks": [
+        {
+          "op": "delete",
+          "keyFields": [
+            "userId",
+            "bookId"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "type": "exists",
+          "entity": "Loan",
+          "key": "userId"
+        }
+      ]
+    }
+  ]
+}

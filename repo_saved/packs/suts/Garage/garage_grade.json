@@ -1,0 +1,20 @@
+{
+  "score": 100,
+  "counts": {
+    "schema": 0,
+    "auto": 0,
+    "qa": 0,
+    "total": 0
+  },
+  "issues": [],
+  "endpoints_count": 32,
+  "entities": [
+    "Chain",
+    "Garage",
+    "Customer",
+    "Car",
+    "PeriodicMaintenance",
+    "RepairOrder"
+  ],
+  "answers": {}
+}

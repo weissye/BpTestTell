@@ -1,0 +1,121 @@
+@echo off
+setlocal EnableExtensions EnableDelayedExpansion
+
+REM ── Repo root (two levels up from scripts\readable\) ──────────────────────────
+set "SCRIPT_DIR=%~dp0"
+for %%I in ("%SCRIPT_DIR%\..\..") do set "ROOT=%%~fI"
+pushd "%ROOT%" >nul
+
+REM ── Config & knobs ────────────────────────────────────────────────────────────
+set "CONFIG_ARG=%~1"
+if not defined CONFIG_ARG set "CONFIG_ARG=config\suts_and_rw.txt"
+
+set "PROFILE=rich"
+set "PER_ENTITY_MAX=10"
+set "FAIL_UNDER=0"
+
+set "OUT_DET_BASE=artifacts\hls_det"
+set "OUT_NONDET_BASE=artifacts\hls_nondet"
+
+REM Resolve config path (absolute or root-relative)
+set "CONFIG_FILE="
+if exist "%CONFIG_ARG%" set "CONFIG_FILE=%CONFIG_ARG%"
+if not defined CONFIG_FILE if exist "%ROOT%\%CONFIG_ARG%" set "CONFIG_FILE=%ROOT%\%CONFIG_ARG%"
+
+if not defined CONFIG_FILE (
+  echo ============================================
+  echo [ERR] Config file not found:
+  echo       "%CONFIG_ARG%"
+  echo       "%ROOT%\%CONFIG_ARG%"
+  echo ============================================
+  popd >nul & exit /b 1
+)
+
+echo ============================================
+echo Emitting BPjs readables from: "%CONFIG_FILE%"
+echo CWD: %CD%
+echo PROFILE=%PROFILE%  PER_ENTITY_MAX=%PER_ENTITY_MAX%  FAIL_UNDER=%FAIL_UNDER%
+echo Providers: 7_suts_llm_provider ^| real_world_llm_provider
+echo ============================================
+
+for %%P in (7_suts_llm_provider real_world_llm_provider) do (
+  call :EMIT_FOR_PROVIDER "%%~P" "%CONFIG_FILE%"
+)
+
+echo.
+echo [DONE] %~nx0 finished.
+popd >nul
+exit /b 0
+
+REM =============================================================================
+:EMIT_FOR_PROVIDER
+set "PROVIDER=%~1"
+set "CFG=%~2"
+
+for /f "usebackq eol=# tokens=1 delims=" %%S in ("%CFG%") do (
+  set "SUT=%%~S"
+  if not "!SUT!"=="" call :EMIT_FOR_SUT "!PROVIDER!" "!SUT!"
+)
+exit /b
+
+REM =============================================================================
+:EMIT_FOR_SUT
+set "PROVIDER=%~1"
+set "SUT=%~2"
+
+set "GRAPH=artifacts\analysis\%PROVIDER%\%SUT%\graph.json"
+if not exist "%GRAPH%" (
+  echo   [SKIP] no graph:  %PROVIDER%\%SUT%
+  exit /b 0
+)
+
+if /i "%PROVIDER%"=="7_suts_llm_provider" (
+  set "DSL_DIR=models\hls\SUTs\%SUT%"
+) else (
+  set "DSL_DIR=models\hls\RWs\%SUT%"
+)
+if not exist "%DSL_DIR%" mkdir "%DSL_DIR%" >nul 2>&1
+set "DSL_MAP=%DSL_DIR%\dsl_map.json"
+
+echo.
+echo [SUT ] %SUT%
+echo   [GEN ] dsl_map: %PROVIDER%\%SUT%
+echo   [RUN ] python -u "%ROOT%\scripts\analysis\build_dsl_map.py" --sut "%SUT%" --provider "%PROVIDER%" --graph "%GRAPH%" --out "%DSL_MAP%"
+python -u "scripts\analysis\build_dsl_map.py" --sut "%SUT%" --provider "%PROVIDER%" --graph "%GRAPH%" --out "%DSL_MAP%"
+if errorlevel 1 (
+  echo   [ERR ] dsl_map generation failed for %PROVIDER%\%SUT%
+  exit /b 1
+)
+echo   [OK ] DSL map ready: %DSL_MAP%
+
+for %%M in (det nondet) do (
+  set "MODE=%%M"
+  if /i "!MODE!"=="det" ( set "OUT_BASE=%OUT_DET_BASE%" ) else ( set "OUT_BASE=%OUT_NONDET_BASE%" )
+
+  REM Unique output location per provider/SUT/mode
+  set "OUT_DIR=!OUT_BASE!\%PROVIDER%\%SUT%"
+  set "OUT_FILE=!OUT_DIR!\stories_hls.js"
+  if not exist "!OUT_DIR!" mkdir "!OUT_DIR!" >nul 2>&1
+
+  echo     using --graph "%GRAPH%"
+  echo     using --dsl_map "%DSL_MAP%"
+  echo     using --out "!OUT_FILE!"
+
+  python -u "scripts\analysis\emit_hls_all_in_one.py" ^
+    --sut_dir "%DSL_DIR%" ^
+    --mode "!MODE!" ^
+    --graph "%GRAPH%" ^
+    --dsl_map "%DSL_MAP%" ^
+    --profile "%PROFILE%" ^
+    --per_entity_max %PER_ENTITY_MAX% ^
+    --fail_under_stories %FAIL_UNDER% ^
+    --out "!OUT_FILE!"
+
+  if errorlevel 1 (
+    echo   [ERR ] emitter failed for %PROVIDER%\%SUT% mode=!MODE!
+  ) else (
+    echo   [OK ] emitter done for %PROVIDER%\%SUT% mode=!MODE!
+  )
+)
+
+exit /b 0

@@ -1,0 +1,247 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+from typing import Dict, List, Tuple, Any
+
+try:
+    import yaml
+except Exception:
+    yaml = None
+
+def _norm(p: Path) -> str:
+    return str(p).replace("/", "\\")
+
+def load_openapi(spec_path: Path) -> Dict[str, Any]:
+    if not spec_path.exists():
+        raise FileNotFoundError(f"Spec file not found: {spec_path}")
+    text = spec_path.read_text(encoding="utf-8", errors="ignore")
+    try:
+        return json.loads(text)
+    except Exception:
+        pass
+    if yaml is None:
+        raise RuntimeError("PyYAML not installed and JSON parse failed. Install pyyaml or provide JSON.")
+    return yaml.safe_load(text)
+
+def collect_operations(openapi: Dict[str, Any]) -> List[Dict[str, Any]]:
+    ops: List[Dict[str, Any]] = []
+    paths = openapi.get("paths") or {}
+    for path_str, path_item in paths.items():
+        if not isinstance(path_item, dict):
+            continue
+        for method, op in path_item.items():
+            if method.lower() not in ["get","put","post","delete","patch","options","head","trace"]:
+                continue
+            if not isinstance(op, dict):
+                continue
+            tags = op.get("tags") or []
+            summary = op.get("summary") or ""
+            operation_id = op.get("operationId") or f"{method.upper()} {path_str}"
+            ops.append({
+                "path": path_str,
+                "method": method.upper(),
+                "tags": tags,
+                "summary": summary,
+                "operationId": operation_id,
+            })
+    return ops
+
+def group_by_tag(ops: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]]:
+    g: Dict[str, List[Dict[str, Any]]] = {}
+    for op in ops:
+        if op["tags"]:
+            for t in op["tags"]:
+                g.setdefault(t, []).append(op)
+        else:
+            g.setdefault("_untagged_", []).append(op)
+    return g
+
+def chunk_list(xs: List[Any], n: int) -> List[List[Any]]:
+    if n <= 0:
+        return [xs]
+    buckets = [[] for _ in range(n)]
+    for i, x in enumerate(xs):
+        buckets[i % n].append(x)
+    return [b for b in buckets if b]
+
+def build_shards_payloads(
+    openapi: Dict[str, Any],
+    ops: List[Dict[str, Any]],
+    max_shards: int,
+    ops_per_shard: int
+) -> List[Dict[str, Any]]:
+    if ops:
+        # Primary: ops_per_shard if provided
+        if ops_per_shard > 0:
+            n = max(1, (len(ops) + ops_per_shard - 1) // ops_per_shard)
+            n = min(n, max_shards) if max_shards > 0 else n
+            shards_ops = chunk_list(ops, n)
+        else:
+            # Tag-based first, adjusted by max_shards
+            by_tag = group_by_tag(ops)
+            tag_buckets = [by_tag[k] for k in sorted(by_tag.keys())]
+            if max_shards and len(tag_buckets) > max_shards:
+                shards_ops = chunk_list(ops, max_shards)
+            elif max_shards and len(tag_buckets) < max_shards and len(tag_buckets) > 0:
+                shards_ops = chunk_list(ops, max_shards)
+            else:
+                shards_ops = tag_buckets if tag_buckets else [ops]
+
+        payloads: List[Dict[str, Any]] = []
+        for chunk in shards_ops:
+            payloads.append({
+                "openapi_meta": {
+                    "title": (openapi.get("info") or {}).get("title") or "",
+                    "version": (openapi.get("info") or {}).get("version") or "",
+                },
+                "instructions": (
+                    "Generate LLM GOLD examples for these API operations. "
+                    "Return JSON: {\"gold\": [ {\"path\",\"method\",\"operationId\",\"user\",\"ideal\"}, ... ]}."
+                ),
+                "operations": chunk,
+            })
+        return payloads
+
+    # fallback: whole spec one shard
+    return [{
+        "openapi_meta": {
+            "title": (openapi.get("info") or {}).get("title") or "",
+            "version": (openapi.get("info") or {}).get("version") or "",
+        },
+        "instructions": (
+            "Generate LLM GOLD examples across this API spec. "
+            "Return JSON: {\"gold\": [ ... ]}."
+        ),
+        "spec": openapi
+    }]
+
+def ensure_shards_exist(spec: Path, shards_dir: Path, n_shards: int, ops_per_shard: int, rebuild: bool) -> List[Path]:
+    shards_dir.mkdir(parents=True, exist_ok=True)
+    existing = sorted(shards_dir.glob("shard_*.json"))
+    if existing and not rebuild:
+        return existing
+
+    # rebuild shards
+    for f in existing:
+        try: f.unlink()
+        except Exception: pass
+
+    openapi = load_openapi(spec)
+    ops = collect_operations(openapi)
+    payloads = build_shards_payloads(openapi, ops, max_shards=max(0, n_shards), ops_per_shard=max(0, ops_per_shard))
+
+    out: List[Path] = []
+    for i, payload in enumerate(payloads, start=1):
+        p = shards_dir / f"shard_{i:02d}.json"
+        p.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        out.append(p)
+    return out
+
+def run_cmd(cmd: List[str]) -> Tuple[int, str]:
+    import subprocess
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    out = []
+    for line in proc.stdout:
+        sys.stdout.write(line)
+        out.append(line)
+    proc.wait()
+    return proc.returncode, "".join(out)
+
+def merge_gold_files(out_dir: Path, name: str) -> Path:
+    shard_gold = sorted(out_dir.glob(f"{name}_llm_gold_shard_*.json"))
+    if not shard_gold:
+        print(f"[WARN] No per-shard gold files found in '{_norm(out_dir)}'. Nothing to merge.")
+        return Path()
+
+    merged: List[Dict[str, Any]] = []
+    for f in shard_gold:
+        try:
+            obj = json.loads(f.read_text(encoding="utf-8"))
+        except Exception:
+            print(f"[WARN] Could not parse JSON: {f.name}; skipping.")
+            continue
+        if isinstance(obj, dict) and "gold" in obj and isinstance(obj["gold"], list):
+            merged.extend(obj["gold"])
+        else:
+            print(f"[WARN] {f.name} does not look like a gold file; skipping.")
+
+    if not merged:
+        print("[WARN] Merge found no 'gold' examples; not writing output.")
+        return Path()
+
+    out = out_dir / f"{name}_llm_gold.json"
+    out.write_text(json.dumps({"gold": merged}, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"[OK  ] wrote merged gold -> {out}")
+    return out
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--spec", required=True)
+    ap.add_argument("--name", required=True)
+    ap.add_argument("--out-dir", required=True)
+    ap.add_argument("--n-shards", type=int, default=0, help="0=auto")
+    ap.add_argument("--ops-per-shard", type=int, default=0, help="Force roughly this many ops per shard (overrides tag-only)")
+    ap.add_argument("--rebuild-shards", action="store_true", help="Recompute shard_XX.json files even if present")
+    ap.add_argument("--provider", default="openai")
+    ap.add_argument("--model", required=True, help="fine-tuned model id (for grading/future)")
+    ap.add_argument("--gen-model", default="gpt-4o-mini", help="model to use for gold generation")
+    ap.add_argument("--temperature", type=float, default=0.2)
+    ap.add_argument("--max-spec-chars", type=int, default=18000)
+    ap.add_argument("--max-user-chars", type=int, default=4000)
+    ap.add_argument("--json-mode", action="store_true")
+    ap.add_argument("--force", action="store_true")
+    args = ap.parse_args()
+
+    spec = Path(args.spec)
+    out_dir = Path(args.out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    # 1) Shards
+    shards_dir = out_dir / f"{args.name}_shards"
+    shards = ensure_shards_exist(spec, shards_dir, args.n_shards, args.ops_per_shard, args.rebuild_shards)
+    print(json.dumps({"shards": [ _norm(s) for s in shards ]}, indent=2))
+
+    # 2) Generate per-shard gold
+    for shard in shards:
+        m = re.search(r"shard_(\d+)\.json$", shard.name)
+        idx = m.group(1) if m else "XX"
+        out_json = out_dir / f"{args.name}_llm_gold_shard_{idx}.json"
+        if out_json.exists() and not args.force:
+            print(f"[SKIP] {out_json.name} (exists; use --force to regenerate)")
+            continue
+
+        cmd = [
+            sys.executable,
+            str(Path(__file__).parent / "generate_gold_llm.py"),
+            str(shard),
+            str(out_json),
+            "--temperature", str(args.temperature),
+            "--provider", args.provider,
+            "--model", args.gen_model,
+            "--max-spec-chars", str(args.max_spec_chars),
+            "--max-user-chars", str(args.max_user_chars),
+        ]
+        if args.json_mode:
+            cmd.append("--json-mode")
+
+        print(f"[RUN ] ({args.name}) {sys.executable} {Path(__file__).parent / 'generate_gold_llm.py'} {shard} {out_json} "
+              f"--temperature {args.temperature} --provider {args.provider} --model {args.gen_model} "
+              f"--max-spec-chars {args.max_spec_chars} --max-user-chars {args.max_user_chars}" + (" --json-mode" if args.json_mode else ""))
+
+        rc, _ = run_cmd(cmd)
+        if rc != 0:
+            print(f"[ERR ] generation failed for {shard.name} (rc={rc}); continuing.")
+
+    # 3) Merge
+    print("[RUN ] (merge) concatenating per-shard gold -> single file")
+    merged = merge_gold_files(out_dir, args.name)
+    if not merged:
+        print("[WARN] merge produced no output")
+
+if __name__ == "__main__":
+    main()
