@@ -1,0 +1,2794 @@
+{
+  "sut": "directus",
+  "model_id": "offline-fallback",
+  "trained_model_dir": "models/hls/directus",
+  "source_det": "artifacts/hls_det/real_world_llm_provider/directus/hls_det_gold.json",
+  "stories_js": "artifacts/hls_nondet/real_world_llm_provider/directus/readable/stories_hls.js",
+  "generated_at": "2025-11-08T21:50:46.122818+00:00",
+  "stories": [
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 0,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 1,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 2,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 3,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 4,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 5,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 6,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 7,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 8,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 9,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 10,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 11,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 12,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 13,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 14,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 15,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 16,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 17,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 18,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 19,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 20,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 21,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 22,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 23,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 24,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 25,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 26,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 27,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 28,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 29,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 30,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 31,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 32,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 33,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 34,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 35,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 36,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 37,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 38,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 39,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 40,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 41,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 42,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 43,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 44,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 45,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 46,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "add",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "deleteGold"
+      ],
+      "checks": [
+        "verifyGoldExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 47,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 0,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 1,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 2,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 3,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 4,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 5,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 6,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 7,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 8,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 9,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 10,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 11,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 12,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 13,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 14,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 15,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 16,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 17,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 18,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 19,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 20,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 21,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 22,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 23,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 24,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 25,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 26,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 27,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 28,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 29,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 30,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 31,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 32,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 33,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 34,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 35,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 36,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 37,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 38,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 39,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 40,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 41,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 42,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 43,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 44,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 45,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 46,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "delete",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "addGold"
+      ],
+      "checks": [
+        "verifyGoldNotExists"
+      ],
+      "_nondet_meta": {
+        "variant_index": 47,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 0,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 1,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 2,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 3,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 4,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 5,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 6,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 7,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 8,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 9,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 10,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 11,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 12,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 13,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 14,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 15,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 16,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 17,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 18,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 19,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 20,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 21,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 22,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 23,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 24,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 25,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 26,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 27,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 28,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 29,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 30,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 31,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 32,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 33,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 34,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 35,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 36,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 37,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 38,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 39,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 40,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 41,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 42,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 43,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 44,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 45,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 46,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    },
+    {
+      "entity": "Gold",
+      "op": "update",
+      "params": {
+        "id": "<id>"
+      },
+      "blocks": [
+        "updateGold"
+      ],
+      "checks": [
+        "verifyGoldExists",
+        "verifyGoldUpdated"
+      ],
+      "_nondet_meta": {
+        "variant_index": 47,
+        "generator": "offline-fallback",
+        "temperature": 0.7,
+        "top_p": 0.95
+      }
+    }
+  ]
+}

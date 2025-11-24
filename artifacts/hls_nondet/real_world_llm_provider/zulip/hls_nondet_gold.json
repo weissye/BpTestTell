@@ -1,0 +1,1 @@
+{ "source_det": "artifacts\hls_det\real_world_llm_provider\zulip\hls_det_gold.json", "stories_js": "artifacts\hls_nondet\real_world_llm_provider\zulip\readable\stories_hls.js" }
