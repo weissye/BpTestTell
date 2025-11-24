@@ -1,0 +1,148 @@
+{
+  "sut": "keycloak_admin",
+  "entities": {
+    "Realm": {
+      "displayName": "realm",
+      "params": [
+        "realm"
+      ],
+      "operations": {
+        "add": {
+          "name": "addRealm",
+          "method": "POST",
+          "path": "/{realm}",
+          "descriptionTemplate": "Add a realm with name {realm}",
+          "bodyTemplate": {
+            "realm": "{realm}"
+          }
+        },
+        "delete": {
+          "name": "deleteRealm",
+          "method": "DELETE",
+          "path": "/{realm}",
+          "descriptionTemplate": "Delete a realm with name {realm}"
+        },
+        "verifyExists": {
+          "name": "verifyRealmExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyRealmAdded",
+          "descriptionRegex": "Add a realm with name (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyRealmDeleted",
+          "descriptionRegex": "Delete a realm with name (.+)"
+        }
+      }
+    },
+    "Client": {
+      "displayName": "client",
+      "params": [
+        "id",
+        "clientId",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "addClient",
+          "method": "POST",
+          "path": "/{realm}/clients",
+          "descriptionTemplate": "Add a client with id {id} and clientId {clientId}",
+          "bodyTemplate": {
+            "id": "{id}",
+            "clientId": "{clientId}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteClient",
+          "method": "DELETE",
+          "path": "/{realm}/clients/{id}",
+          "descriptionTemplate": "Delete a client with id {id} and clientId {clientId}"
+        },
+        "verifyExists": {
+          "name": "verifyClientExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyClientAdded",
+          "descriptionRegex": "Add a client with id (.+) and clientId (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyClientDeleted",
+          "descriptionRegex": "Delete a client with id (.+) and clientId (.+)"
+        }
+      }
+    },
+    "User": {
+      "displayName": "user",
+      "params": [
+        "id",
+        "username",
+        "email"
+      ],
+      "operations": {
+        "add": {
+          "name": "addUser",
+          "method": "POST",
+          "path": "/{realm}/users",
+          "descriptionTemplate": "Add a user with id {id} and username {username}",
+          "bodyTemplate": {
+            "id": "{id}",
+            "username": "{username}",
+            "email": "{email}"
+          }
+        },
+        "delete": {
+          "name": "deleteUser",
+          "method": "DELETE",
+          "path": "/{realm}/users/{id}",
+          "descriptionTemplate": "Delete a user with id {id} and username {username}"
+        },
+        "verifyExists": {
+          "name": "verifyUserExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyUserAdded",
+          "descriptionRegex": "Add a user with id (.+) and username (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyUserDeleted",
+          "descriptionRegex": "Delete a user with id (.+) and username (.+)"
+        }
+      }
+    }
+  },
+  "stories": [
+    {
+      "name": "Realm_basicCrud",
+      "entity": "Realm",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Client_basicCrud",
+      "entity": "Client",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "User_basicCrud",
+      "entity": "User",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Client_duplicateAdd",
+      "entity": "Client",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "User_duplicateAdd",
+      "entity": "User",
+      "pattern": "duplicate_add"
+    }
+  ]
+}

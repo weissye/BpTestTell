@@ -1,0 +1,59 @@
+{
+  "sut": "example_sut",
+  "entities": {
+    "Api": {
+      "displayName": "api",
+      "params": [
+        "id",
+        "name",
+        "api_description",
+        "api_tags"
+      ],
+      "operations": {
+        "add": {
+          "name": "addApi",
+          "method": "POST",
+          "path": "/api/apis",
+          "descriptionTemplate": "Add a api with id {id} and name {name}",
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}",
+            "description": "{api_description}",
+            "tags": "{api_tags}"
+          }
+        },
+        "delete": {
+          "name": "deleteApi",
+          "method": "DELETE",
+          "path": "/api/apis/{id}",
+          "descriptionTemplate": "Delete a api with id {id} and name {name}"
+        },
+        "verifyExists": {
+          "name": "verifyApiExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyApiAdded",
+          "descriptionRegex": "Add a api with id (.+) and name (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyApiDeleted",
+          "descriptionRegex": "Delete a api with id (.+) and name (.+)"
+        }
+      }
+    }
+  },
+  "stories": [
+    {
+      "name": "Api_basicCrud",
+      "entity": "Api",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Api_duplicateAdd",
+      "entity": "Api",
+      "pattern": "duplicate_add"
+    }
+  ]
+}

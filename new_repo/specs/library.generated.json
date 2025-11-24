@@ -1,0 +1,201 @@
+{
+  "sut": "library",
+  "entities": {
+    "User": {
+      "displayName": "user",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "addUser",
+          "method": "POST",
+          "path": "/users",
+          "descriptionTemplate": "Add a user with id {id} and name {name}",
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteUser",
+          "method": "DELETE",
+          "path": "/users/{id}",
+          "descriptionTemplate": "Delete a user with id {id} and name {name}"
+        },
+        "verifyExists": {
+          "name": "verifyUserExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyUserAdded",
+          "descriptionRegex": "Add a user with id (.+) and name (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyUserDeleted",
+          "descriptionRegex": "Delete a user with id (.+) and name (.+)"
+        }
+      }
+    },
+    "Book": {
+      "displayName": "book",
+      "params": [
+        "id",
+        "title"
+      ],
+      "operations": {
+        "add": {
+          "name": "addBook",
+          "method": "POST",
+          "path": "/books",
+          "descriptionTemplate": "Add a book with id {id} and title {title}",
+          "bodyTemplate": {
+            "id": "{id}",
+            "title": "{title}"
+          }
+        },
+        "delete": {
+          "name": "deleteBook",
+          "method": "DELETE",
+          "path": "/books/{id}",
+          "descriptionTemplate": "Delete a book with id {id} and title {title}"
+        },
+        "verifyExists": {
+          "name": "verifyBookExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyBookAdded",
+          "descriptionRegex": "Add a book with id (.+) and title (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyBookDeleted",
+          "descriptionRegex": "Delete a book with id (.+) and title (.+)"
+        }
+      }
+    },
+    "Loan": {
+      "displayName": "loan",
+      "params": [
+        "userId",
+        "bookId"
+      ],
+      "operations": {
+        "add": {
+          "name": "addLoan",
+          "method": "POST",
+          "path": "/loans",
+          "descriptionTemplate": "Add a loan for user {userId} and book {bookId}",
+          "bodyTemplate": {
+            "userId": "{userId}",
+            "bookId": "{bookId}"
+          }
+        },
+        "delete": {
+          "name": "deleteLoan",
+          "method": "DELETE",
+          "path": "/loans/{userId}/{bookId}",
+          "descriptionTemplate": "Delete a loan for user {userId} and book {bookId}"
+        },
+        "verifyExists": {
+          "name": "verifyLoanExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyLoanAdded",
+          "descriptionRegex": "Add a loan for user (.+) and book (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyLoanDeleted",
+          "descriptionRegex": "Delete a loan for user (.+) and book (.+)"
+        }
+      }
+    },
+    "Hold": {
+      "displayName": "hold",
+      "params": [
+        "hold_id",
+        "userId",
+        "bookId"
+      ],
+      "operations": {
+        "add": {
+          "name": "addHold",
+          "method": "POST",
+          "path": "/holds",
+          "descriptionTemplate": "Add a hold with id {hold_id} for user {userId} and book {bookId}",
+          "bodyTemplate": {
+            "hold_id": "{hold_id}",
+            "userId": "{userId}",
+            "bookId": "{bookId}"
+          }
+        },
+        "delete": {
+          "name": "deleteHold",
+          "method": "DELETE",
+          "path": "/holds/{hold_id}",
+          "descriptionTemplate": "Delete a hold with id {hold_id} for user {userId} and book {bookId}"
+        },
+        "verifyExists": {
+          "name": "verifyHoldExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyHoldAdded",
+          "descriptionRegex": "Add a hold with id (.+) for user (.+) and book (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyHoldDeleted",
+          "descriptionRegex": "Delete a hold with id (.+) for user (.+) and book (.+)"
+        }
+      }
+    }
+  },
+  "stories": [
+    {
+      "name": "User_basicCrud",
+      "entity": "User",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "User_duplicateAdd",
+      "entity": "User",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Book_basicCrud",
+      "entity": "Book",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Book_duplicateAdd",
+      "entity": "Book",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Loan_basicCrud",
+      "entity": "Loan",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Loan_duplicateAdd",
+      "entity": "Loan",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Hold_basicCrud",
+      "entity": "Hold",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Hold_duplicateAdd",
+      "entity": "Hold",
+      "pattern": "duplicate_add"
+    }
+  ]
+}

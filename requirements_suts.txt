@@ -1,3 +1,0 @@
-# Minimal dependencies for the Flask-based SUTs.
-# Keep this list tiny so it won't interfere with your research pipeline.
-Flask>=2.3

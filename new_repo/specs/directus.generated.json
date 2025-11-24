@@ -1,0 +1,304 @@
+{
+  "sut": "directus",
+  "entities": {
+    "Activity": {
+      "displayName": "activity",
+      "params": [
+        "id",
+        "action",
+        "user",
+        "timestamp",
+        "ip"
+      ],
+      "operations": {
+        "add": {
+          "name": "addActivity",
+          "method": "POST",
+          "path": "/activity",
+          "descriptionTemplate": "Add a activity with id {id} and action {action}",
+          "bodyTemplate": {
+            "action": "{action}",
+            "user": "{user}",
+            "timestamp": "{timestamp}",
+            "ip": "{ip}"
+          }
+        },
+        "delete": {
+          "name": "deleteActivity",
+          "method": "DELETE",
+          "path": "/activity/{id}",
+          "descriptionTemplate": "Delete a activity with id {id} and action {action}"
+        },
+        "verifyExists": {
+          "name": "verifyActivityExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyActivityAdded",
+          "descriptionRegex": "Add a activity with id (.+) and action (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyActivityDeleted",
+          "descriptionRegex": "Delete a activity with id (.+) and action (.+)"
+        }
+      }
+    },
+    "Preset": {
+      "displayName": "preset",
+      "params": [
+        "id",
+        "collection",
+        "user",
+        "role"
+      ],
+      "operations": {
+        "add": {
+          "name": "addPreset",
+          "method": "POST",
+          "path": "/presets",
+          "descriptionTemplate": "Add a preset with id {id} for collection {collection}",
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "user": "{user}",
+            "role": "{role}"
+          }
+        },
+        "delete": {
+          "name": "deletePreset",
+          "method": "DELETE",
+          "path": "/presets/{id}",
+          "descriptionTemplate": "Delete a preset with id {id} for collection {collection}"
+        },
+        "verifyExists": {
+          "name": "verifyPresetExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyPresetAdded",
+          "descriptionRegex": "Add a preset with id (.+) for collection (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyPresetDeleted",
+          "descriptionRegex": "Delete a preset with id (.+) for collection (.+)"
+        }
+      }
+    },
+    "Collection": {
+      "displayName": "collection",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "addCollection",
+          "method": "POST",
+          "path": "/collections",
+          "descriptionTemplate": "Add a collection with id {id} and name {name}",
+          "bodyTemplate": {
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteCollection",
+          "method": "DELETE",
+          "path": "/collections/{id}",
+          "descriptionTemplate": "Delete a collection with id {id} and name {name}"
+        },
+        "verifyExists": {
+          "name": "verifyCollectionExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyCollectionAdded",
+          "descriptionRegex": "Add a collection with id (.+) and name (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyCollectionDeleted",
+          "descriptionRegex": "Delete a collection with id (.+) and name (.+)"
+        }
+      }
+    },
+    "Comment": {
+      "displayName": "comment",
+      "params": [
+        "id",
+        "collection",
+        "item",
+        "comment"
+      ],
+      "operations": {
+        "add": {
+          "name": "addComment",
+          "method": "POST",
+          "path": "/comments",
+          "descriptionTemplate": "Add a comment with id {id} for item {item} in collection {collection}",
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "item": "{item}",
+            "comment": "{comment}"
+          }
+        },
+        "delete": {
+          "name": "deleteComment",
+          "method": "DELETE",
+          "path": "/comments/{id}",
+          "descriptionTemplate": "Delete a comment with id {id} for item {item} in collection {collection}"
+        },
+        "verifyExists": {
+          "name": "verifyCommentExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyCommentAdded",
+          "descriptionRegex": "Add a comment with id (.+) for item (.+) in collection (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyCommentDeleted",
+          "descriptionRegex": "Delete a comment with id (.+) for item (.+) in collection (.+)"
+        }
+      }
+    },
+    "File": {
+      "displayName": "file",
+      "params": [
+        "id",
+        "title",
+        "filename_download"
+      ],
+      "operations": {
+        "add": {
+          "name": "addFile",
+          "method": "POST",
+          "path": "/files",
+          "descriptionTemplate": "Add a file with id {id} and title {title}",
+          "bodyTemplate": {
+            "title": "{title}",
+            "filename_download": "{filename_download}"
+          }
+        },
+        "delete": {
+          "name": "deleteFile",
+          "method": "DELETE",
+          "path": "/files/{id}",
+          "descriptionTemplate": "Delete a file with id {id} and title {title}"
+        },
+        "verifyExists": {
+          "name": "verifyFileExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyFileAdded",
+          "descriptionRegex": "Add a file with id (.+) and title (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyFileDeleted",
+          "descriptionRegex": "Delete a file with id (.+) and title (.+)"
+        }
+      }
+    },
+    "User": {
+      "displayName": "user",
+      "params": [
+        "id",
+        "email",
+        "first_name",
+        "last_name"
+      ],
+      "operations": {
+        "add": {
+          "name": "addUser",
+          "method": "POST",
+          "path": "/users",
+          "descriptionTemplate": "Add a user with id {id} and email {email}",
+          "bodyTemplate": {
+            "email": "{email}",
+            "first_name": "{first_name}",
+            "last_name": "{last_name}"
+          }
+        },
+        "delete": {
+          "name": "deleteUser",
+          "method": "DELETE",
+          "path": "/users/{id}",
+          "descriptionTemplate": "Delete a user with id {id} and email {email}"
+        },
+        "verifyExists": {
+          "name": "verifyUserExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyUserAdded",
+          "descriptionRegex": "Add a user with id (.+) and email (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyUserDeleted",
+          "descriptionRegex": "Delete a user with id (.+) and email (.+)"
+        }
+      }
+    }
+  },
+  "stories": [
+    {
+      "name": "Activity_basicCrud",
+      "entity": "Activity",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Preset_basicCrud",
+      "entity": "Preset",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Collection_basicCrud",
+      "entity": "Collection",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Comment_basicCrud",
+      "entity": "Comment",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "File_basicCrud",
+      "entity": "File",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "User_basicCrud",
+      "entity": "User",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Preset_duplicateAdd",
+      "entity": "Preset",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Collection_duplicateAdd",
+      "entity": "Collection",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Comment_duplicateAdd",
+      "entity": "Comment",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "File_duplicateAdd",
+      "entity": "File",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "User_duplicateAdd",
+      "entity": "User",
+      "pattern": "duplicate_add"
+    }
+  ]
+}

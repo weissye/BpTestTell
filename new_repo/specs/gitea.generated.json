@@ -1,0 +1,154 @@
+{
+  "sut": "gitea",
+  "entities": {
+    "User": {
+      "displayName": "user",
+      "params": [
+        "username",
+        "email",
+        "full_name"
+      ],
+      "operations": {
+        "add": {
+          "name": "addUser",
+          "method": "POST",
+          "path": "/admin/users",
+          "descriptionTemplate": "Add a user with username {username} and email {email}",
+          "bodyTemplate": {
+            "username": "{username}",
+            "email": "{email}",
+            "full_name": "{full_name}"
+          }
+        },
+        "delete": {
+          "name": "deleteUser",
+          "method": "DELETE",
+          "path": "/admin/users/{username}",
+          "descriptionTemplate": "Delete a user with username {username}"
+        },
+        "verifyExists": {
+          "name": "verifyUserExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyUserAdded",
+          "descriptionRegex": "Add a user with username (.+) and email (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyUserDeleted",
+          "descriptionRegex": "Delete a user with username (.+)"
+        }
+      }
+    },
+    "Repository": {
+      "displayName": "repository",
+      "params": [
+        "owner",
+        "repo"
+      ],
+      "operations": {
+        "add": {
+          "name": "createRepo",
+          "method": "POST",
+          "path": "/user/repos",
+          "descriptionTemplate": "Create a repository named {repo} owned by {owner}",
+          "bodyTemplate": {
+            "name": "{repo}",
+            "owner": "{owner}"
+          }
+        },
+        "delete": {
+          "name": "deleteRepo",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}",
+          "descriptionTemplate": "Delete the repository {repo} owned by {owner}"
+        },
+        "verifyExists": {
+          "name": "verifyRepoExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyRepoAdded",
+          "descriptionRegex": "Create a repository named (.+) owned by (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyRepoDeleted",
+          "descriptionRegex": "Delete the repository (.+) owned by (.+)"
+        }
+      }
+    },
+    "Issue": {
+      "displayName": "issue",
+      "params": [
+        "owner",
+        "repo",
+        "index"
+      ],
+      "operations": {
+        "add": {
+          "name": "createIssue",
+          "method": "POST",
+          "path": "/repos/{owner}/{repo}/issues",
+          "descriptionTemplate": "Create an issue in repository {repo} with title {title}",
+          "bodyTemplate": {
+            "title": "{title}",
+            "body": "{body}"
+          }
+        },
+        "delete": {
+          "name": "deleteIssue",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/issues/{index}",
+          "descriptionTemplate": "Delete issue {index} in repository {repo}"
+        },
+        "verifyExists": {
+          "name": "verifyIssueExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyIssueAdded",
+          "descriptionRegex": "Create an issue in repository (.+) with title (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyIssueDeleted",
+          "descriptionRegex": "Delete issue (.+) in repository (.+)"
+        }
+      }
+    }
+  },
+  "stories": [
+    {
+      "name": "User_basicCrud",
+      "entity": "User",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Repo_basicCrud",
+      "entity": "Repository",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Issue_basicCrud",
+      "entity": "Issue",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "User_duplicateAdd",
+      "entity": "User",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Repo_duplicateAdd",
+      "entity": "Repository",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Issue_duplicateAdd",
+      "entity": "Issue",
+      "pattern": "duplicate_add"
+    }
+  ]
+}

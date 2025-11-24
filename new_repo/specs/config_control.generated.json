@@ -1,0 +1,247 @@
+{
+  "sut": "config_control",
+  "entities": {
+    "App": {
+      "displayName": "app",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "addApp",
+          "method": "POST",
+          "path": "/apps",
+          "descriptionTemplate": "Add a app with id {id} and name {name}",
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteApp",
+          "method": "DELETE",
+          "path": "/apps/{id}",
+          "descriptionTemplate": "Delete a app with id {id} and name {name}"
+        },
+        "verifyExists": {
+          "name": "verifyAppExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyAppAdded",
+          "descriptionRegex": "Add a app with id (.+) and name (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyAppDeleted",
+          "descriptionRegex": "Delete a app with id (.+) and name (.+)"
+        }
+      }
+    },
+    "Env": {
+      "displayName": "env",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "addEnv",
+          "method": "POST",
+          "path": "/envs",
+          "descriptionTemplate": "Add a env with id {id} and name {name}",
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteEnv",
+          "method": "DELETE",
+          "path": "/envs/{id}",
+          "descriptionTemplate": "Delete a env with id {id} and name {name}"
+        },
+        "verifyExists": {
+          "name": "verifyEnvExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyEnvAdded",
+          "descriptionRegex": "Add a env with id (.+) and name (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyEnvDeleted",
+          "descriptionRegex": "Delete a env with id (.+) and name (.+)"
+        }
+      }
+    },
+    "Config": {
+      "displayName": "config",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "addConfig",
+          "method": "POST",
+          "path": "/configs",
+          "descriptionTemplate": "Add a config with id {id} and name {name}",
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteConfig",
+          "method": "DELETE",
+          "path": "/configs/{id}",
+          "descriptionTemplate": "Delete a config with id {id} and name {name}"
+        },
+        "verifyExists": {
+          "name": "verifyConfigExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyConfigAdded",
+          "descriptionRegex": "Add a config with id (.+) and name (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyConfigDeleted",
+          "descriptionRegex": "Delete a config with id (.+) and name (.+)"
+        }
+      }
+    },
+    "Release": {
+      "displayName": "release",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "addRelease",
+          "method": "POST",
+          "path": "/releases",
+          "descriptionTemplate": "Add a release with id {id} and name {name}",
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteRelease",
+          "method": "DELETE",
+          "path": "/releases/{id}",
+          "descriptionTemplate": "Delete a release with id {id} and name {name}"
+        },
+        "verifyExists": {
+          "name": "verifyReleaseExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyReleaseAdded",
+          "descriptionRegex": "Add a release with id (.+) and name (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyReleaseDeleted",
+          "descriptionRegex": "Delete a release with id (.+) and name (.+)"
+        }
+      }
+    },
+    "Policy": {
+      "displayName": "policy",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "addPolicy",
+          "method": "POST",
+          "path": "/policies",
+          "descriptionTemplate": "Add a policy with id {id} and name {name}",
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deletePolicy",
+          "method": "DELETE",
+          "path": "/policies/{id}",
+          "descriptionTemplate": "Delete a policy with id {id} and name {name}"
+        },
+        "verifyExists": {
+          "name": "verifyPolicyExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyPolicyAdded",
+          "descriptionRegex": "Add a policy with id (.+) and name (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyPolicyDeleted",
+          "descriptionRegex": "Delete a policy with id (.+) and name (.+)"
+        }
+      }
+    }
+  },
+  "stories": [
+    {
+      "name": "App_basicCrud",
+      "entity": "App",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Env_basicCrud",
+      "entity": "Env",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Config_basicCrud",
+      "entity": "Config",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Release_basicCrud",
+      "entity": "Release",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Policy_basicCrud",
+      "entity": "Policy",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "App_duplicateAdd",
+      "entity": "App",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Env_duplicateAdd",
+      "entity": "Env",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Config_duplicateAdd",
+      "entity": "Config",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Release_duplicateAdd",
+      "entity": "Release",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Policy_duplicateAdd",
+      "entity": "Policy",
+      "pattern": "duplicate_add"
+    }
+  ]
+}

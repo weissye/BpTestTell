@@ -1,0 +1,104 @@
+[
+  {
+    "name": "banking",
+    "group": "7_suts",
+    "provider": "7_suts_llm_provider",
+    "openapi": "packs/7_suts/banking/openapi.json"
+  },
+  {
+    "name": "config_control",
+    "group": "7_suts",
+    "provider": "7_suts_llm_provider",
+    "openapi": "packs/7_suts/config_control/openapi.json"
+  },
+  {
+    "name": "ecommerce",
+    "group": "7_suts",
+    "provider": "7_suts_llm_provider",
+    "openapi": "packs/7_suts/ecommerce/openapi.json"
+  },
+  {
+    "name": "factory",
+    "group": "7_suts",
+    "provider": "7_suts_llm_provider",
+    "openapi": "packs/7_suts/factory/openapi.json"
+  },
+  {
+    "name": "garage",
+    "group": "7_suts",
+    "provider": "7_suts_llm_provider",
+    "openapi": "packs/7_suts/garage/openapi.json"
+  },
+  {
+    "name": "library",
+    "group": "7_suts",
+    "provider": "7_suts_llm_provider",
+    "openapi": "packs/7_suts/library/openapi.json"
+  },
+  {
+    "name": "pharmacy",
+    "group": "7_suts",
+    "provider": "7_suts_llm_provider",
+    "openapi": "packs/7_suts/pharmacy/openapi.json"
+  },
+  {
+    "name": "directus",
+    "group": "real_world",
+    "provider": "real_world_llm_provider",
+    "openapi": "packs/real_world/directus/openapi.json"
+  },
+  {
+    "name": "gitea",
+    "group": "real_world",
+    "provider": "real_world_llm_provider",
+    "openapi": "packs/real_world/gitea/openapi.json"
+  },
+  {
+    "name": "github",
+    "group": "real_world",
+    "provider": "real_world_llm_provider",
+    "openapi": "packs/real_world/github/openapi.json"
+  },
+  {
+    "name": "jira_cloud",
+    "group": "real_world",
+    "provider": "real_world_llm_provider",
+    "openapi": "packs/real_world/jira_cloud/openapi.json"
+  },
+  {
+    "name": "keycloak_admin",
+    "group": "real_world",
+    "provider": "real_world_llm_provider",
+    "openapi": "packs/real_world/keycloak_admin/openapi.json"
+  },
+  {
+    "name": "meilisearch",
+    "group": "real_world",
+    "provider": "real_world_llm_provider",
+    "openapi": "packs/real_world/meilisearch/openapi.json"
+  },
+  {
+    "name": "netbox",
+    "group": "real_world",
+    "provider": "real_world_llm_provider",
+    "openapi": "packs/real_world/netbox/openapi.json"
+  },
+  {
+    "name": "trello",
+    "group": "real_world",
+    "provider": "real_world_llm_provider",
+    "openapi": "packs/real_world/trello/openapi.json"
+  },
+  {
+    "name": "twilio",
+    "group": "real_world",
+    "provider": "real_world_llm_provider",
+    "openapi": "packs/real_world/twilio/openapi.json"
+  },
+  {
+    "name": "zulip",
+    "group": "real_world",
+    "provider": "real_world_llm_provider",
+    "openapi": "packs/real_world/zulip/openapi.json"
+  }
+]

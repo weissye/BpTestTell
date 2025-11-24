@@ -1,0 +1,347 @@
+{
+  "sut": "garage",
+  "entities": {
+    "Chain": {
+      "displayName": "chain",
+      "params": [
+        "chainId",
+        "name",
+        "hqAddress",
+        "supportEmail",
+        "active"
+      ],
+      "operations": {
+        "add": {
+          "name": "addChain",
+          "method": "POST",
+          "path": "/chains",
+          "descriptionTemplate": "Add a chain with id {chainId} and name {name}",
+          "bodyTemplate": {
+            "chainId": "{chainId}",
+            "name": "{name}",
+            "hqAddress": "{hqAddress}",
+            "supportEmail": "{supportEmail}",
+            "active": "{active}"
+          }
+        },
+        "delete": {
+          "name": "deleteChain",
+          "method": "DELETE",
+          "path": "/chains/{chainId}",
+          "descriptionTemplate": "Delete a chain with id {chainId} and name {name}"
+        },
+        "verifyExists": {
+          "name": "verifyChainExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyChainAdded",
+          "descriptionRegex": "Add a chain with id (.+) and name (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyChainDeleted",
+          "descriptionRegex": "Delete a chain with id (.+) and name (.+)"
+        }
+      }
+    },
+    "Garage": {
+      "displayName": "garage",
+      "params": [
+        "garageId",
+        "chainId",
+        "name",
+        "address",
+        "phone",
+        "bayCount",
+        "servicesOffered",
+        "active"
+      ],
+      "operations": {
+        "add": {
+          "name": "addGarage",
+          "method": "POST",
+          "path": "/garages",
+          "descriptionTemplate": "Add a garage with id {garageId} and name {name}",
+          "bodyTemplate": {
+            "garageId": "{garageId}",
+            "chainId": "{chainId}",
+            "name": "{name}",
+            "address": "{address}",
+            "phone": "{phone}",
+            "bayCount": "{bayCount}",
+            "servicesOffered": "{servicesOffered}",
+            "active": "{active}"
+          }
+        },
+        "delete": {
+          "name": "deleteGarage",
+          "method": "DELETE",
+          "path": "/garages/{garageId}",
+          "descriptionTemplate": "Delete a garage with id {garageId} and name {name}"
+        },
+        "verifyExists": {
+          "name": "verifyGarageExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyGarageAdded",
+          "descriptionRegex": "Add a garage with id (.+) and name (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyGarageDeleted",
+          "descriptionRegex": "Delete a garage with id (.+) and name (.+)"
+        }
+      }
+    },
+    "Customer": {
+      "displayName": "customer",
+      "params": [
+        "customerId",
+        "type",
+        "fullName",
+        "email",
+        "phone",
+        "preferredGarageId"
+      ],
+      "operations": {
+        "add": {
+          "name": "addCustomer",
+          "method": "POST",
+          "path": "/customers",
+          "descriptionTemplate": "Add a customer with id {customerId} and name {fullName}",
+          "bodyTemplate": {
+            "customerId": "{customerId}",
+            "type": "{type}",
+            "fullName": "{fullName}",
+            "email": "{email}",
+            "phone": "{phone}",
+            "preferredGarageId": "{preferredGarageId}"
+          }
+        },
+        "delete": {
+          "name": "deleteCustomer",
+          "method": "DELETE",
+          "path": "/customers/{customerId}",
+          "descriptionTemplate": "Delete a customer with id {customerId} and name {fullName}"
+        },
+        "verifyExists": {
+          "name": "verifyCustomerExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyCustomerAdded",
+          "descriptionRegex": "Add a customer with id (.+) and name (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyCustomerDeleted",
+          "descriptionRegex": "Delete a customer with id (.+) and name (.+)"
+        }
+      }
+    },
+    "Car": {
+      "displayName": "car",
+      "params": [
+        "vin",
+        "make",
+        "model",
+        "year",
+        "mileage",
+        "ownerCustomerId",
+        "homeGarageId"
+      ],
+      "operations": {
+        "add": {
+          "name": "addCar",
+          "method": "POST",
+          "path": "/cars",
+          "descriptionTemplate": "Add a car with vin {vin} and make {make}",
+          "bodyTemplate": {
+            "vin": "{vin}",
+            "make": "{make}",
+            "model": "{model}",
+            "year": "{year}",
+            "mileage": "{mileage}",
+            "ownerCustomerId": "{ownerCustomerId}",
+            "homeGarageId": "{homeGarageId}"
+          }
+        },
+        "delete": {
+          "name": "deleteCar",
+          "method": "DELETE",
+          "path": "/cars/{vin}",
+          "descriptionTemplate": "Delete a car with vin {vin} and make {make}"
+        },
+        "verifyExists": {
+          "name": "verifyCarExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyCarAdded",
+          "descriptionRegex": "Add a car with vin (.+) and make (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyCarDeleted",
+          "descriptionRegex": "Delete a car with vin (.+) and make (.+)"
+        }
+      }
+    },
+    "PeriodicMaintenance": {
+      "displayName": "periodic maintenance",
+      "params": [
+        "pmId",
+        "carVin",
+        "garageId",
+        "planType",
+        "tasks",
+        "status"
+      ],
+      "operations": {
+        "add": {
+          "name": "addPeriodicMaintenance",
+          "method": "POST",
+          "path": "/periodic-maintenance",
+          "descriptionTemplate": "Add a periodic maintenance with id {pmId} and car vin {carVin}",
+          "bodyTemplate": {
+            "pmId": "{pmId}",
+            "carVin": "{carVin}",
+            "garageId": "{garageId}",
+            "planType": "{planType}",
+            "tasks": "{tasks}",
+            "status": "{status}"
+          }
+        },
+        "delete": {
+          "name": "deletePeriodicMaintenance",
+          "method": "DELETE",
+          "path": "/periodic-maintenance/{pmId}",
+          "descriptionTemplate": "Delete a periodic maintenance with id {pmId} and car vin {carVin}"
+        },
+        "verifyExists": {
+          "name": "verifyPeriodicMaintenanceExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyPeriodicMaintenanceAdded",
+          "descriptionRegex": "Add a periodic maintenance with id (.+) and car vin (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyPeriodicMaintenanceDeleted",
+          "descriptionRegex": "Delete a periodic maintenance with id (.+) and car vin (.+)"
+        }
+      }
+    },
+    "RepairOrder": {
+      "displayName": "repair order",
+      "params": [
+        "roId",
+        "carVin",
+        "customerId",
+        "garageId",
+        "complaint",
+        "status"
+      ],
+      "operations": {
+        "add": {
+          "name": "addRepairOrder",
+          "method": "POST",
+          "path": "/repair-orders",
+          "descriptionTemplate": "Add a repair order with id {roId} and car vin {carVin}",
+          "bodyTemplate": {
+            "roId": "{roId}",
+            "carVin": "{carVin}",
+            "customerId": "{customerId}",
+            "garageId": "{garageId}",
+            "complaint": "{complaint}",
+            "status": "{status}"
+          }
+        },
+        "delete": {
+          "name": "deleteRepairOrder",
+          "method": "DELETE",
+          "path": "/repair-orders/{roId}",
+          "descriptionTemplate": "Delete a repair order with id {roId} and car vin {carVin}"
+        },
+        "verifyExists": {
+          "name": "verifyRepairOrderExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyRepairOrderAdded",
+          "descriptionRegex": "Add a repair order with id (.+) and car vin (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyRepairOrderDeleted",
+          "descriptionRegex": "Delete a repair order with id (.+) and car vin (.+)"
+        }
+      }
+    }
+  },
+  "stories": [
+    {
+      "name": "Chain_basicCrud",
+      "entity": "Chain",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Garage_basicCrud",
+      "entity": "Garage",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Customer_basicCrud",
+      "entity": "Customer",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Car_basicCrud",
+      "entity": "Car",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "PeriodicMaintenance_basicCrud",
+      "entity": "PeriodicMaintenance",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "RepairOrder_basicCrud",
+      "entity": "RepairOrder",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Chain_duplicateAdd",
+      "entity": "Chain",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Garage_duplicateAdd",
+      "entity": "Garage",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Customer_duplicateAdd",
+      "entity": "Customer",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Car_duplicateAdd",
+      "entity": "Car",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "PeriodicMaintenance_duplicateAdd",
+      "entity": "PeriodicMaintenance",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "RepairOrder_duplicateAdd",
+      "entity": "RepairOrder",
+      "pattern": "duplicate_add"
+    }
+  ]
+}

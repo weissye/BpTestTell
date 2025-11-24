@@ -1,0 +1,241 @@
+{
+  "sut": "pharmacy",
+  "entities": {
+    "Drug": {
+      "displayName": "drug",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "addDrug",
+          "method": "POST",
+          "path": "/drugs",
+          "descriptionTemplate": "Add a drug with id {id} and name {name}",
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deleteDrug",
+          "method": "DELETE",
+          "path": "/drugs/{id}",
+          "descriptionTemplate": "Delete a drug with id {id} and name {name}"
+        },
+        "verifyExists": {
+          "name": "verifyDrugExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyDrugAdded",
+          "descriptionRegex": "Add a drug with id (.+) and name (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyDrugDeleted",
+          "descriptionRegex": "Delete a drug with id (.+) and name (.+)"
+        }
+      }
+    },
+    "Patient": {
+      "displayName": "patient",
+      "params": [
+        "id",
+        "name"
+      ],
+      "operations": {
+        "add": {
+          "name": "addPatient",
+          "method": "POST",
+          "path": "/patients",
+          "descriptionTemplate": "Add a patient with id {id} and name {name}",
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          }
+        },
+        "delete": {
+          "name": "deletePatient",
+          "method": "DELETE",
+          "path": "/patients/{id}",
+          "descriptionTemplate": "Delete a patient with id {id} and name {name}"
+        },
+        "verifyExists": {
+          "name": "verifyPatientExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyPatientAdded",
+          "descriptionRegex": "Add a patient with id (.+) and name (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyPatientDeleted",
+          "descriptionRegex": "Delete a patient with id (.+) and name (.+)"
+        }
+      }
+    },
+    "Order": {
+      "displayName": "order",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "addOrder",
+          "method": "POST",
+          "path": "/orders",
+          "descriptionTemplate": "Add an order with id {id}",
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "delete": {
+          "name": "deleteOrder",
+          "method": "DELETE",
+          "path": "/orders/{id}",
+          "descriptionTemplate": "Delete an order with id {id}"
+        },
+        "verifyExists": {
+          "name": "verifyOrderExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyOrderAdded",
+          "descriptionRegex": "Add an order with id (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyOrderDeleted",
+          "descriptionRegex": "Delete an order with id (.+)"
+        }
+      }
+    },
+    "Prescription": {
+      "displayName": "prescription",
+      "params": [
+        "id"
+      ],
+      "operations": {
+        "add": {
+          "name": "addPrescription",
+          "method": "POST",
+          "path": "/prescriptions",
+          "descriptionTemplate": "Add a prescription with id {id}",
+          "bodyTemplate": {
+            "id": "{id}"
+          }
+        },
+        "delete": {
+          "name": "deletePrescription",
+          "method": "DELETE",
+          "path": "/prescriptions/{id}",
+          "descriptionTemplate": "Delete a prescription with id {id}"
+        },
+        "verifyExists": {
+          "name": "verifyPrescriptionExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyPrescriptionAdded",
+          "descriptionRegex": "Add a prescription with id (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyPrescriptionDeleted",
+          "descriptionRegex": "Delete a prescription with id (.+)"
+        }
+      }
+    },
+    "Inventory": {
+      "displayName": "inventory",
+      "params": [
+        "ndc"
+      ],
+      "operations": {
+        "add": {
+          "name": "addInventory",
+          "method": "POST",
+          "path": "/inventory",
+          "descriptionTemplate": "Add an inventory with ndc {ndc}",
+          "bodyTemplate": {
+            "ndc": "{ndc}"
+          }
+        },
+        "delete": {
+          "name": "deleteInventory",
+          "method": "DELETE",
+          "path": "/inventory/{ndc}",
+          "descriptionTemplate": "Delete an inventory with ndc {ndc}"
+        },
+        "verifyExists": {
+          "name": "verifyInventoryExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyInventoryAdded",
+          "descriptionRegex": "Add an inventory with ndc (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyInventoryDeleted",
+          "descriptionRegex": "Delete an inventory with ndc (.+)"
+        }
+      }
+    }
+  },
+  "stories": [
+    {
+      "name": "Drug_basicCrud",
+      "entity": "Drug",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Drug_duplicateAdd",
+      "entity": "Drug",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Patient_basicCrud",
+      "entity": "Patient",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Patient_duplicateAdd",
+      "entity": "Patient",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Order_basicCrud",
+      "entity": "Order",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Order_duplicateAdd",
+      "entity": "Order",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Prescription_basicCrud",
+      "entity": "Prescription",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Prescription_duplicateAdd",
+      "entity": "Prescription",
+      "pattern": "duplicate_add"
+    },
+    {
+      "name": "Inventory_basicCrud",
+      "entity": "Inventory",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Inventory_duplicateAdd",
+      "entity": "Inventory",
+      "pattern": "duplicate_add"
+    }
+  ]
+}

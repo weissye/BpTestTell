@@ -1,0 +1,104 @@
+{
+  "sut": "meilisearch",
+  "entities": {
+    "Index": {
+      "displayName": "index",
+      "params": [
+        "uid",
+        "primaryKey"
+      ],
+      "operations": {
+        "add": {
+          "name": "addIndex",
+          "method": "POST",
+          "path": "/indexes",
+          "descriptionTemplate": "Add an index with uid {uid} and primaryKey {primaryKey}",
+          "bodyTemplate": {
+            "uid": "{uid}",
+            "primaryKey": "{primaryKey}"
+          }
+        },
+        "delete": {
+          "name": "deleteIndex",
+          "method": "DELETE",
+          "path": "/indexes/{uid}",
+          "descriptionTemplate": "Delete an index with uid {uid}"
+        },
+        "verifyExists": {
+          "name": "verifyIndexExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyIndexAdded",
+          "descriptionRegex": "Add an index with uid (.+) and primaryKey (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyIndexDeleted",
+          "descriptionRegex": "Delete an index with uid (.+)"
+        }
+      }
+    },
+    "Document": {
+      "displayName": "document",
+      "params": [
+        "id",
+        "title",
+        "poster",
+        "overview",
+        "release_date"
+      ],
+      "operations": {
+        "add": {
+          "name": "addDocument",
+          "method": "POST",
+          "path": "/indexes/{indexUid}/documents",
+          "descriptionTemplate": "Add a document with id {id}, title {title}, and overview {overview}",
+          "bodyTemplate": {
+            "id": "{id}",
+            "title": "{title}",
+            "poster": "{poster}",
+            "overview": "{overview}",
+            "release_date": "{release_date}"
+          }
+        },
+        "delete": {
+          "name": "deleteDocument",
+          "method": "DELETE",
+          "path": "/indexes/{indexUid}/documents/{id}",
+          "descriptionTemplate": "Delete a document with id {id}"
+        },
+        "verifyExists": {
+          "name": "verifyDocumentExists"
+        }
+      },
+      "waitForPatterns": {
+        "added": {
+          "name": "waitForAnyDocumentAdded",
+          "descriptionRegex": "Add a document with id (.+), title (.+), and overview (.+)"
+        },
+        "deleted": {
+          "name": "waitForAnyDocumentDeleted",
+          "descriptionRegex": "Delete a document with id (.+)"
+        }
+      }
+    }
+  },
+  "stories": [
+    {
+      "name": "Index_basicCrud",
+      "entity": "Index",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Document_basicCrud",
+      "entity": "Document",
+      "pattern": "crud_basic"
+    },
+    {
+      "name": "Document_duplicateAdd",
+      "entity": "Document",
+      "pattern": "duplicate_add"
+    }
+  ]
+}
