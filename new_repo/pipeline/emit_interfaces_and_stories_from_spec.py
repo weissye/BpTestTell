@@ -116,17 +116,11 @@ def _emit_interfaces(spec: Dict[str, Any], out_dir: Path):
                 lines.append('  bp.log.info("  URL: " + baseURL + url);')
                 lines.append('  bp.log.info("  BODY: " + bodyStr);')
                 
-                # CHANGE: Removed 'return'
-                lines.append(f'  svc.{method.lower()}(url, {{')
-                lines.append('    body: bodyStr,')
-                lines.append('    parameters: { description: description }')
-                lines.append('  });')
+                # FIX: Minimal signature (url, bodyString) - NO options object
+                lines.append(f'  svc.{method.lower()}(url, bodyStr);')
             else:
-                lines.append('  bp.log.info("  URL: " + baseURL + url);')
-                # CHANGE: Removed 'return'
-                lines.append(f'  svc.{method.lower()}(url, {{')
-                lines.append('    parameters: { description: description }')
-                lines.append('  });')
+                # FIX: Minimal signature (url) - NO options object
+                lines.append(f'  svc.{method.lower()}(url);')
                 
             lines.append('}')
             lines.append('')

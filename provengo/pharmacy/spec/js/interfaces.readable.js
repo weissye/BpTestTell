@@ -2,7 +2,7 @@
 // === Auto-generated interfaces.readable.js ===
 
 var host = (typeof host !== 'undefined') ? host : '10.100.102.9';
-var port = (typeof port !== 'undefined') ? port : 5012;
+var port = (typeof port !== 'undefined') ? port : 5014;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 
 var baseURL = protocol + "://" + host + ":" + port;
@@ -20,370 +20,320 @@ function matchesDescriptionRegex(re) {
 
 // ---- Entity: drug ----
 
-function createDrug(id) {
+function createDrug(id, name) {
   var url = "/drugs";
-  var description = "Create drug " + id;
+  var description = "Create drug " + name + " with id " + id;
   var body = {
     "id": String(id),
+    "name": String(name),
   };
   bp.log.info("[CALL] createDrug");
   if (body === undefined) { body = {}; }
   var bodyStr = JSON.stringify(body);
   bp.log.info("  URL: " + baseURL + url);
   bp.log.info("  BODY: " + bodyStr);
-  svc.post(url, {
-    body: bodyStr,
-    parameters: { description: description }
-  });
+  svc.post(url, bodyStr);
 }
 
-function getDrug(id) {
+function getDrug(id, name) {
   var url = "/drugs/" + id;
-  var description = "Get drug " + id;
+  var description = "Get drug with id " + id;
   var body = undefined;
   bp.log.info("[CALL] getDrug");
-  bp.log.info("  URL: " + baseURL + url);
-  svc.get(url, {
-    parameters: { description: description }
-  });
+  svc.get(url);
 }
 
-function updateDrug(id) {
+function updateDrug(id, name) {
   var url = "/drugs/" + id;
-  var description = "Update drug " + id;
+  var description = "Update drug " + name + " with id " + id;
   var body = {
     "id": String(id),
+    "name": String(name),
   };
   bp.log.info("[CALL] updateDrug");
   if (body === undefined) { body = {}; }
   var bodyStr = JSON.stringify(body);
   bp.log.info("  URL: " + baseURL + url);
   bp.log.info("  BODY: " + bodyStr);
-  svc.put(url, {
-    body: bodyStr,
-    parameters: { description: description }
-  });
+  svc.put(url, bodyStr);
 }
 
-function deleteDrug(id) {
+function deleteDrug(id, name) {
   var url = "/drugs/" + id;
-  var description = "Delete drug " + id;
+  var description = "Delete drug with id " + id;
   var body = undefined;
   bp.log.info("[CALL] deleteDrug");
-  bp.log.info("  URL: " + baseURL + url);
-  svc.delete(url, {
-    parameters: { description: description }
-  });
+  svc.delete(url);
 }
 
-function tryToAddExistingDrug(id) {
-  createDrug(id);
+function tryToAddExistingDrug(id, name) {
+  createDrug(id, name);
 }
 
-function verifyDrugExists(id) {
-  getDrug(id);
+function verifyDrugExists(id, name) {
+  getDrug(id, name);
 }
 
-function verifyDrugDoesNotExist(id) {
-  getDrug(id);
+function verifyDrugDoesNotExist(id, name) {
+  getDrug(id, name);
 }
 
-function tryToDeleteANonExistingDrug(id) {
-  deleteDrug(id);
+function tryToDeleteANonExistingDrug(id, name) {
+  deleteDrug(id, name);
 }
 
 // ---- Entity: patient ----
 
-function createPatient(id) {
+function createPatient(id, name) {
   var url = "/patients";
-  var description = "Create patient " + id;
+  var description = "Create patient " + name + " with id " + id;
   var body = {
     "id": String(id),
+    "name": String(name),
   };
   bp.log.info("[CALL] createPatient");
   if (body === undefined) { body = {}; }
   var bodyStr = JSON.stringify(body);
   bp.log.info("  URL: " + baseURL + url);
   bp.log.info("  BODY: " + bodyStr);
-  svc.post(url, {
-    body: bodyStr,
-    parameters: { description: description }
-  });
+  svc.post(url, bodyStr);
 }
 
-function getPatient(id) {
+function getPatient(id, name) {
   var url = "/patients/" + id;
-  var description = "Get patient " + id;
+  var description = "Get patient with id " + id;
   var body = undefined;
   bp.log.info("[CALL] getPatient");
-  bp.log.info("  URL: " + baseURL + url);
-  svc.get(url, {
-    parameters: { description: description }
-  });
+  svc.get(url);
 }
 
-function updatePatient(id) {
+function updatePatient(id, name) {
   var url = "/patients/" + id;
-  var description = "Update patient " + id;
+  var description = "Update patient " + name + " with id " + id;
   var body = {
     "id": String(id),
+    "name": String(name),
   };
   bp.log.info("[CALL] updatePatient");
   if (body === undefined) { body = {}; }
   var bodyStr = JSON.stringify(body);
   bp.log.info("  URL: " + baseURL + url);
   bp.log.info("  BODY: " + bodyStr);
-  svc.put(url, {
-    body: bodyStr,
-    parameters: { description: description }
-  });
+  svc.put(url, bodyStr);
 }
 
-function deletePatient(id) {
+function deletePatient(id, name) {
   var url = "/patients/" + id;
-  var description = "Delete patient " + id;
+  var description = "Delete patient with id " + id;
   var body = undefined;
   bp.log.info("[CALL] deletePatient");
-  bp.log.info("  URL: " + baseURL + url);
-  svc.delete(url, {
-    parameters: { description: description }
-  });
+  svc.delete(url);
 }
 
-function tryToAddExistingPatient(id) {
-  createPatient(id);
+function tryToAddExistingPatient(id, name) {
+  createPatient(id, name);
 }
 
-function verifyPatientExists(id) {
-  getPatient(id);
+function verifyPatientExists(id, name) {
+  getPatient(id, name);
 }
 
-function verifyPatientDoesNotExist(id) {
-  getPatient(id);
+function verifyPatientDoesNotExist(id, name) {
+  getPatient(id, name);
 }
 
-function tryToDeleteANonExistingPatient(id) {
-  deletePatient(id);
+function tryToDeleteANonExistingPatient(id, name) {
+  deletePatient(id, name);
 }
 
 // ---- Entity: order ----
 
-function createOrder(id) {
+function createOrder(id, orderNumber) {
   var url = "/orders";
-  var description = "Create order " + id;
+  var description = "Create order " + orderNumber + " with id " + id;
   var body = {
     "id": String(id),
+    "orderNumber": String(orderNumber),
   };
   bp.log.info("[CALL] createOrder");
   if (body === undefined) { body = {}; }
   var bodyStr = JSON.stringify(body);
   bp.log.info("  URL: " + baseURL + url);
   bp.log.info("  BODY: " + bodyStr);
-  svc.post(url, {
-    body: bodyStr,
-    parameters: { description: description }
-  });
+  svc.post(url, bodyStr);
 }
 
-function getOrder(id) {
+function getOrder(id, orderNumber) {
   var url = "/orders/" + id;
-  var description = "Get order " + id;
+  var description = "Get order with id " + id;
   var body = undefined;
   bp.log.info("[CALL] getOrder");
-  bp.log.info("  URL: " + baseURL + url);
-  svc.get(url, {
-    parameters: { description: description }
-  });
+  svc.get(url);
 }
 
-function updateOrder(id) {
+function updateOrder(id, orderNumber) {
   var url = "/orders/" + id;
-  var description = "Update order " + id;
+  var description = "Update order " + orderNumber + " with id " + id;
   var body = {
     "id": String(id),
+    "orderNumber": String(orderNumber),
   };
   bp.log.info("[CALL] updateOrder");
   if (body === undefined) { body = {}; }
   var bodyStr = JSON.stringify(body);
   bp.log.info("  URL: " + baseURL + url);
   bp.log.info("  BODY: " + bodyStr);
-  svc.put(url, {
-    body: bodyStr,
-    parameters: { description: description }
-  });
+  svc.put(url, bodyStr);
 }
 
-function deleteOrder(id) {
+function deleteOrder(id, orderNumber) {
   var url = "/orders/" + id;
-  var description = "Delete order " + id;
+  var description = "Delete order with id " + id;
   var body = undefined;
   bp.log.info("[CALL] deleteOrder");
-  bp.log.info("  URL: " + baseURL + url);
-  svc.delete(url, {
-    parameters: { description: description }
-  });
+  svc.delete(url);
 }
 
-function tryToAddExistingOrder(id) {
-  createOrder(id);
+function tryToAddExistingOrder(id, orderNumber) {
+  createOrder(id, orderNumber);
 }
 
-function verifyOrderExists(id) {
-  getOrder(id);
+function verifyOrderExists(id, orderNumber) {
+  getOrder(id, orderNumber);
 }
 
-function verifyOrderDoesNotExist(id) {
-  getOrder(id);
+function verifyOrderDoesNotExist(id, orderNumber) {
+  getOrder(id, orderNumber);
 }
 
-function tryToDeleteANonExistingOrder(id) {
-  deleteOrder(id);
+function tryToDeleteANonExistingOrder(id, orderNumber) {
+  deleteOrder(id, orderNumber);
 }
 
 // ---- Entity: prescription ----
 
-function createPrescription(id) {
+function createPrescription(id, prescriptionNumber) {
   var url = "/prescriptions";
-  var description = "Create prescription " + id;
+  var description = "Create prescription " + prescriptionNumber + " with id " + id;
   var body = {
     "id": String(id),
+    "prescriptionNumber": String(prescriptionNumber),
   };
   bp.log.info("[CALL] createPrescription");
   if (body === undefined) { body = {}; }
   var bodyStr = JSON.stringify(body);
   bp.log.info("  URL: " + baseURL + url);
   bp.log.info("  BODY: " + bodyStr);
-  svc.post(url, {
-    body: bodyStr,
-    parameters: { description: description }
-  });
+  svc.post(url, bodyStr);
 }
 
-function getPrescription(id) {
+function getPrescription(id, prescriptionNumber) {
   var url = "/prescriptions/" + id;
-  var description = "Get prescription " + id;
+  var description = "Get prescription with id " + id;
   var body = undefined;
   bp.log.info("[CALL] getPrescription");
-  bp.log.info("  URL: " + baseURL + url);
-  svc.get(url, {
-    parameters: { description: description }
-  });
+  svc.get(url);
 }
 
-function updatePrescription(id) {
+function updatePrescription(id, prescriptionNumber) {
   var url = "/prescriptions/" + id;
-  var description = "Update prescription " + id;
+  var description = "Update prescription " + prescriptionNumber + " with id " + id;
   var body = {
     "id": String(id),
+    "prescriptionNumber": String(prescriptionNumber),
   };
   bp.log.info("[CALL] updatePrescription");
   if (body === undefined) { body = {}; }
   var bodyStr = JSON.stringify(body);
   bp.log.info("  URL: " + baseURL + url);
   bp.log.info("  BODY: " + bodyStr);
-  svc.put(url, {
-    body: bodyStr,
-    parameters: { description: description }
-  });
+  svc.put(url, bodyStr);
 }
 
-function deletePrescription(id) {
+function deletePrescription(id, prescriptionNumber) {
   var url = "/prescriptions/" + id;
-  var description = "Delete prescription " + id;
+  var description = "Delete prescription with id " + id;
   var body = undefined;
   bp.log.info("[CALL] deletePrescription");
-  bp.log.info("  URL: " + baseURL + url);
-  svc.delete(url, {
-    parameters: { description: description }
-  });
+  svc.delete(url);
 }
 
-function tryToAddExistingPrescription(id) {
-  createPrescription(id);
+function tryToAddExistingPrescription(id, prescriptionNumber) {
+  createPrescription(id, prescriptionNumber);
 }
 
-function verifyPrescriptionExists(id) {
-  getPrescription(id);
+function verifyPrescriptionExists(id, prescriptionNumber) {
+  getPrescription(id, prescriptionNumber);
 }
 
-function verifyPrescriptionDoesNotExist(id) {
-  getPrescription(id);
+function verifyPrescriptionDoesNotExist(id, prescriptionNumber) {
+  getPrescription(id, prescriptionNumber);
 }
 
-function tryToDeleteANonExistingPrescription(id) {
-  deletePrescription(id);
+function tryToDeleteANonExistingPrescription(id, prescriptionNumber) {
+  deletePrescription(id, prescriptionNumber);
 }
 
 // ---- Entity: inventory ----
 
-function createInventory(ndc) {
+function createInventory(ndc, name) {
   var url = "/inventory";
-  var description = "Create inventory " + ndc;
+  var description = "Create inventory item with ndc " + ndc + " and name " + name;
   var body = {
     "ndc": String(ndc),
+    "name": String(name),
   };
   bp.log.info("[CALL] createInventory");
   if (body === undefined) { body = {}; }
   var bodyStr = JSON.stringify(body);
   bp.log.info("  URL: " + baseURL + url);
   bp.log.info("  BODY: " + bodyStr);
-  svc.post(url, {
-    body: bodyStr,
-    parameters: { description: description }
-  });
+  svc.post(url, bodyStr);
 }
 
-function getInventory(ndc) {
+function getInventory(ndc, name) {
   var url = "/inventory/" + ndc;
-  var description = "Get inventory " + ndc;
+  var description = "Get inventory item with ndc " + ndc;
   var body = undefined;
   bp.log.info("[CALL] getInventory");
-  bp.log.info("  URL: " + baseURL + url);
-  svc.get(url, {
-    parameters: { description: description }
-  });
+  svc.get(url);
 }
 
-function updateInventory(ndc) {
+function updateInventory(ndc, name) {
   var url = "/inventory/" + ndc;
-  var description = "Update inventory " + ndc;
+  var description = "Update inventory item with ndc " + ndc + " and name " + name;
   var body = {
     "ndc": String(ndc),
+    "name": String(name),
   };
   bp.log.info("[CALL] updateInventory");
   if (body === undefined) { body = {}; }
   var bodyStr = JSON.stringify(body);
   bp.log.info("  URL: " + baseURL + url);
   bp.log.info("  BODY: " + bodyStr);
-  svc.put(url, {
-    body: bodyStr,
-    parameters: { description: description }
-  });
+  svc.put(url, bodyStr);
 }
 
-function deleteInventory(ndc) {
+function deleteInventory(ndc, name) {
   var url = "/inventory/" + ndc;
-  var description = "Delete inventory " + ndc;
+  var description = "Delete inventory item with ndc " + ndc;
   var body = undefined;
   bp.log.info("[CALL] deleteInventory");
-  bp.log.info("  URL: " + baseURL + url);
-  svc.delete(url, {
-    parameters: { description: description }
-  });
+  svc.delete(url);
 }
 
-function tryToAddExistingInventory(ndc) {
-  createInventory(ndc);
+function tryToAddExistingInventory(ndc, name) {
+  createInventory(ndc, name);
 }
 
-function verifyInventoryExists(ndc) {
-  getInventory(ndc);
+function verifyInventoryExists(ndc, name) {
+  getInventory(ndc, name);
 }
 
-function verifyInventoryDoesNotExist(ndc) {
-  getInventory(ndc);
+function verifyInventoryDoesNotExist(ndc, name) {
+  getInventory(ndc, name);
 }
 
-function tryToDeleteANonExistingInventory(ndc) {
-  deleteInventory(ndc);
+function tryToDeleteANonExistingInventory(ndc, name) {
+  deleteInventory(ndc, name);
 }

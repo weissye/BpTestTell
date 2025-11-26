@@ -12,43 +12,47 @@
           "name": "createDrug",
           "method": "POST",
           "path": "/drugs",
-          "descriptionTemplate": "Create drug {id}",
-          "params": [],
+          "descriptionTemplate": "Create drug {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
           "bodyTemplate": {
-            "id": "{id}"
+            "id": "{id}",
+            "name": "{name}"
           }
         },
         "get": {
           "name": "getDrug",
           "method": "GET",
           "path": "/drugs/{id}",
-          "descriptionTemplate": "Get drug {id}",
+          "descriptionTemplate": "Get drug with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "updateDrug",
           "method": "PUT",
           "path": "/drugs/{id}",
-          "descriptionTemplate": "Update drug {id}",
+          "descriptionTemplate": "Update drug {name} with id {id}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
           "bodyTemplate": {
-            "id": "{id}"
+            "id": "{id}",
+            "name": "{name}"
           }
         },
         "delete": {
           "name": "deleteDrug",
           "method": "DELETE",
           "path": "/drugs/{id}",
-          "descriptionTemplate": "Delete drug {id}",
+          "descriptionTemplate": "Delete drug with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -62,43 +66,47 @@
           "name": "createPatient",
           "method": "POST",
           "path": "/patients",
-          "descriptionTemplate": "Create patient {id}",
-          "params": [],
+          "descriptionTemplate": "Create patient {name} with id {id}",
+          "params": [
+            "id",
+            "name"
+          ],
           "bodyTemplate": {
-            "id": "{id}"
+            "id": "{id}",
+            "name": "{name}"
           }
         },
         "get": {
           "name": "getPatient",
           "method": "GET",
           "path": "/patients/{id}",
-          "descriptionTemplate": "Get patient {id}",
+          "descriptionTemplate": "Get patient with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "updatePatient",
           "method": "PUT",
           "path": "/patients/{id}",
-          "descriptionTemplate": "Update patient {id}",
+          "descriptionTemplate": "Update patient {name} with id {id}",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
           "bodyTemplate": {
-            "id": "{id}"
+            "id": "{id}",
+            "name": "{name}"
           }
         },
         "delete": {
           "name": "deletePatient",
           "method": "DELETE",
           "path": "/patients/{id}",
-          "descriptionTemplate": "Delete patient {id}",
+          "descriptionTemplate": "Delete patient with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -112,43 +120,47 @@
           "name": "createOrder",
           "method": "POST",
           "path": "/orders",
-          "descriptionTemplate": "Create order {id}",
-          "params": [],
+          "descriptionTemplate": "Create order {orderNumber} with id {id}",
+          "params": [
+            "id",
+            "orderNumber"
+          ],
           "bodyTemplate": {
-            "id": "{id}"
+            "id": "{id}",
+            "orderNumber": "{orderNumber}"
           }
         },
         "get": {
           "name": "getOrder",
           "method": "GET",
           "path": "/orders/{id}",
-          "descriptionTemplate": "Get order {id}",
+          "descriptionTemplate": "Get order with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "updateOrder",
           "method": "PUT",
           "path": "/orders/{id}",
-          "descriptionTemplate": "Update order {id}",
+          "descriptionTemplate": "Update order {orderNumber} with id {id}",
           "params": [
-            "id"
+            "id",
+            "orderNumber"
           ],
           "bodyTemplate": {
-            "id": "{id}"
+            "id": "{id}",
+            "orderNumber": "{orderNumber}"
           }
         },
         "delete": {
           "name": "deleteOrder",
           "method": "DELETE",
           "path": "/orders/{id}",
-          "descriptionTemplate": "Delete order {id}",
+          "descriptionTemplate": "Delete order with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -162,43 +174,47 @@
           "name": "createPrescription",
           "method": "POST",
           "path": "/prescriptions",
-          "descriptionTemplate": "Create prescription {id}",
-          "params": [],
+          "descriptionTemplate": "Create prescription {prescriptionNumber} with id {id}",
+          "params": [
+            "id",
+            "prescriptionNumber"
+          ],
           "bodyTemplate": {
-            "id": "{id}"
+            "id": "{id}",
+            "prescriptionNumber": "{prescriptionNumber}"
           }
         },
         "get": {
           "name": "getPrescription",
           "method": "GET",
           "path": "/prescriptions/{id}",
-          "descriptionTemplate": "Get prescription {id}",
+          "descriptionTemplate": "Get prescription with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "updatePrescription",
           "method": "PUT",
           "path": "/prescriptions/{id}",
-          "descriptionTemplate": "Update prescription {id}",
+          "descriptionTemplate": "Update prescription {prescriptionNumber} with id {id}",
           "params": [
-            "id"
+            "id",
+            "prescriptionNumber"
           ],
           "bodyTemplate": {
-            "id": "{id}"
+            "id": "{id}",
+            "prescriptionNumber": "{prescriptionNumber}"
           }
         },
         "delete": {
           "name": "deletePrescription",
           "method": "DELETE",
           "path": "/prescriptions/{id}",
-          "descriptionTemplate": "Delete prescription {id}",
+          "descriptionTemplate": "Delete prescription with id {id}",
           "params": [
             "id"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     },
@@ -212,43 +228,47 @@
           "name": "createInventory",
           "method": "POST",
           "path": "/inventory",
-          "descriptionTemplate": "Create inventory {ndc}",
-          "params": [],
+          "descriptionTemplate": "Create inventory item with ndc {ndc} and name {name}",
+          "params": [
+            "ndc",
+            "name"
+          ],
           "bodyTemplate": {
-            "ndc": "{ndc}"
+            "ndc": "{ndc}",
+            "name": "{name}"
           }
         },
         "get": {
           "name": "getInventory",
           "method": "GET",
           "path": "/inventory/{ndc}",
-          "descriptionTemplate": "Get inventory {ndc}",
+          "descriptionTemplate": "Get inventory item with ndc {ndc}",
           "params": [
             "ndc"
-          ],
-          "bodyTemplate": {}
+          ]
         },
         "update": {
           "name": "updateInventory",
           "method": "PUT",
           "path": "/inventory/{ndc}",
-          "descriptionTemplate": "Update inventory {ndc}",
+          "descriptionTemplate": "Update inventory item with ndc {ndc} and name {name}",
           "params": [
-            "ndc"
+            "ndc",
+            "name"
           ],
           "bodyTemplate": {
-            "ndc": "{ndc}"
+            "ndc": "{ndc}",
+            "name": "{name}"
           }
         },
         "delete": {
           "name": "deleteInventory",
           "method": "DELETE",
           "path": "/inventory/{ndc}",
-          "descriptionTemplate": "Delete inventory {ndc}",
+          "descriptionTemplate": "Delete inventory item with ndc {ndc}",
           "params": [
             "ndc"
-          ],
-          "bodyTemplate": {}
+          ]
         }
       }
     }
