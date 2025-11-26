@@ -1,0 +1,195 @@
+{
+  "base_url": "/api",
+  "entities": {
+    "CircuitGroup": {
+      "displayName": "circuitgroup",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "id": "{id}"
+          },
+          "descriptionTemplate": "Add circuit group {id}",
+          "method": "POST",
+          "name": "addCircuitGroup",
+          "params": [
+            "id"
+          ],
+          "path": "/circuits/circuit-groups/"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete circuit group {id}",
+          "method": "DELETE",
+          "name": "deleteCircuitGroup",
+          "params": [
+            "id"
+          ],
+          "path": "/circuits/circuit-groups/{id}/"
+        },
+        "get": {
+          "descriptionTemplate": "Get circuit group {id}",
+          "method": "GET",
+          "name": "getCircuitGroup",
+          "params": [
+            "id"
+          ],
+          "path": "/circuits/circuit-groups/{id}/"
+        },
+        "update": {
+          "bodyTemplate": {
+            "id": "{id}"
+          },
+          "descriptionTemplate": "Update circuit group {id}",
+          "method": "PUT",
+          "name": "updateCircuitGroup",
+          "params": [
+            "id"
+          ],
+          "path": "/circuits/circuit-groups/{id}/"
+        },
+        "verifyExists": {
+          "name": "verifyCircuitGroupExists"
+        }
+      },
+      "params": [
+        "id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add circuit group (.+)",
+          "name": "waitForAnyCircuitGroupAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete circuit group (.+)",
+          "name": "waitForAnyCircuitGroupDeleted"
+        }
+      }
+    },
+    "CircuitGroupAssignment": {
+      "displayName": "circuitgroupassignment",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "id": "{id}"
+          },
+          "descriptionTemplate": "Add circuit group assignment {id}",
+          "method": "POST",
+          "name": "addCircuitGroupAssignment",
+          "params": [
+            "id"
+          ],
+          "path": "/circuits/circuit-group-assignments/"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete circuit group assignment {id}",
+          "method": "DELETE",
+          "name": "deleteCircuitGroupAssignment",
+          "params": [
+            "id"
+          ],
+          "path": "/circuits/circuit-group-assignments/{id}/"
+        },
+        "get": {
+          "descriptionTemplate": "Get circuit group assignment {id}",
+          "method": "GET",
+          "name": "getCircuitGroupAssignment",
+          "params": [
+            "id"
+          ],
+          "path": "/circuits/circuit-group-assignments/{id}/"
+        },
+        "update": {
+          "bodyTemplate": {
+            "id": "{id}"
+          },
+          "descriptionTemplate": "Update circuit group assignment {id}",
+          "method": "PUT",
+          "name": "updateCircuitGroupAssignment",
+          "params": [
+            "id"
+          ],
+          "path": "/circuits/circuit-group-assignments/{id}/"
+        },
+        "verifyExists": {
+          "name": "verifyCircuitGroupAssignmentExists"
+        }
+      },
+      "params": [
+        "id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add circuit group assignment (.+)",
+          "name": "waitForAnyCircuitGroupAssignmentAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete circuit group assignment (.+)",
+          "name": "waitForAnyCircuitGroupAssignmentDeleted"
+        }
+      }
+    },
+    "CircuitTermination": {
+      "displayName": "circuittermination",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "id": "{id}"
+          },
+          "descriptionTemplate": "Add circuit termination {id}",
+          "method": "POST",
+          "name": "addCircuitTermination",
+          "params": [
+            "id"
+          ],
+          "path": "/circuits/circuit-terminations/"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete circuit termination {id}",
+          "method": "DELETE",
+          "name": "deleteCircuitTermination",
+          "params": [
+            "id"
+          ],
+          "path": "/circuits/circuit-terminations/{id}/"
+        },
+        "get": {
+          "descriptionTemplate": "Get circuit termination {id}",
+          "method": "GET",
+          "name": "getCircuitTermination",
+          "params": [
+            "id"
+          ],
+          "path": "/circuits/circuit-terminations/{id}/"
+        },
+        "update": {
+          "bodyTemplate": {
+            "id": "{id}"
+          },
+          "descriptionTemplate": "Update circuit termination {id}",
+          "method": "PUT",
+          "name": "updateCircuitTermination",
+          "params": [
+            "id"
+          ],
+          "path": "/circuits/circuit-terminations/{id}/"
+        },
+        "verifyExists": {
+          "name": "verifyCircuitTerminationExists"
+        }
+      },
+      "params": [
+        "id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add circuit termination (.+)",
+          "name": "waitForAnyCircuitTerminationAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete circuit termination (.+)",
+          "name": "waitForAnyCircuitTerminationDeleted"
+        }
+      }
+    }
+  },
+  "sut": "netbox"
+}

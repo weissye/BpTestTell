@@ -1,304 +1,984 @@
 {
-  "sut": "directus",
+  "base_url": "",
   "entities": {
     "Activity": {
       "displayName": "activity",
-      "params": [
-        "id",
-        "action",
-        "user",
-        "timestamp",
-        "ip"
-      ],
       "operations": {
-        "add": {
-          "name": "addActivity",
-          "method": "POST",
-          "path": "/activity",
-          "descriptionTemplate": "Add a activity with id {id} and action {action}",
-          "bodyTemplate": {
-            "action": "{action}",
-            "user": "{user}",
-            "timestamp": "{timestamp}",
-            "ip": "{ip}"
-          }
+        "get": {
+          "descriptionTemplate": "Retrieve an Activity Action {id}",
+          "method": "GET",
+          "name": "getActivity",
+          "params": [
+            "id"
+          ],
+          "path": "/activity/{id}"
         },
-        "delete": {
-          "name": "deleteActivity",
-          "method": "DELETE",
-          "path": "/activity/{id}",
-          "descriptionTemplate": "Delete a activity with id {id} and action {action}"
-        },
-        "verifyExists": {
-          "name": "verifyActivityExists"
+        "list": {
+          "descriptionTemplate": "List Activity Actions",
+          "method": "GET",
+          "name": "listActivities",
+          "params": [],
+          "path": "/activity"
         }
       },
+      "params": [
+        "id"
+      ],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyActivityAdded",
-          "descriptionRegex": "Add a activity with id (.+) and action (.+)"
+          "descriptionRegex": "Add activity (.+)",
+          "name": "waitForAnyActivityAdded"
         },
         "deleted": {
-          "name": "waitForAnyActivityDeleted",
-          "descriptionRegex": "Delete a activity with id (.+) and action (.+)"
+          "descriptionRegex": "Delete activity (.+)",
+          "name": "waitForAnyActivityDeleted"
         }
       }
     },
-    "Preset": {
-      "displayName": "preset",
-      "params": [
-        "id",
-        "collection",
-        "user",
-        "role"
-      ],
+    "Assets": {
+      "displayName": "assets",
       "operations": {
-        "add": {
-          "name": "addPreset",
-          "method": "POST",
-          "path": "/presets",
-          "descriptionTemplate": "Add a preset with id {id} for collection {collection}",
-          "bodyTemplate": {
-            "collection": "{collection}",
-            "user": "{user}",
-            "role": "{role}"
-          }
-        },
-        "delete": {
-          "name": "deletePreset",
-          "method": "DELETE",
-          "path": "/presets/{id}",
-          "descriptionTemplate": "Delete a preset with id {id} for collection {collection}"
-        },
-        "verifyExists": {
-          "name": "verifyPresetExists"
+        "get": {
+          "descriptionTemplate": "Get an Asset {id}",
+          "method": "GET",
+          "name": "getAsset",
+          "params": [
+            "id"
+          ],
+          "path": "/assets/{id}"
         }
       },
-      "waitForPatterns": {
-        "added": {
-          "name": "waitForAnyPresetAdded",
-          "descriptionRegex": "Add a preset with id (.+) for collection (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyPresetDeleted",
-          "descriptionRegex": "Delete a preset with id (.+) for collection (.+)"
-        }
-      }
-    },
-    "Collection": {
-      "displayName": "collection",
       "params": [
-        "id",
-        "name"
+        "id"
       ],
+      "waitForPatterns": {}
+    },
+    "Authentication": {
+      "displayName": "authentication",
       "operations": {
         "add": {
-          "name": "addCollection",
-          "method": "POST",
-          "path": "/collections",
-          "descriptionTemplate": "Add a collection with id {id} and name {name}",
-          "bodyTemplate": {
-            "name": "{name}"
-          }
-        },
-        "delete": {
-          "name": "deleteCollection",
-          "method": "DELETE",
-          "path": "/collections/{id}",
-          "descriptionTemplate": "Delete a collection with id {id} and name {name}"
-        },
-        "verifyExists": {
-          "name": "verifyCollectionExists"
-        }
-      },
-      "waitForPatterns": {
-        "added": {
-          "name": "waitForAnyCollectionAdded",
-          "descriptionRegex": "Add a collection with id (.+) and name (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyCollectionDeleted",
-          "descriptionRegex": "Delete a collection with id (.+) and name (.+)"
-        }
-      }
-    },
-    "Comment": {
-      "displayName": "comment",
-      "params": [
-        "id",
-        "collection",
-        "item",
-        "comment"
-      ],
-      "operations": {
-        "add": {
-          "name": "addComment",
-          "method": "POST",
-          "path": "/comments",
-          "descriptionTemplate": "Add a comment with id {id} for item {item} in collection {collection}",
-          "bodyTemplate": {
-            "collection": "{collection}",
-            "item": "{item}",
-            "comment": "{comment}"
-          }
-        },
-        "delete": {
-          "name": "deleteComment",
-          "method": "DELETE",
-          "path": "/comments/{id}",
-          "descriptionTemplate": "Delete a comment with id {id} for item {item} in collection {collection}"
-        },
-        "verifyExists": {
-          "name": "verifyCommentExists"
-        }
-      },
-      "waitForPatterns": {
-        "added": {
-          "name": "waitForAnyCommentAdded",
-          "descriptionRegex": "Add a comment with id (.+) for item (.+) in collection (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyCommentDeleted",
-          "descriptionRegex": "Delete a comment with id (.+) for item (.+) in collection (.+)"
-        }
-      }
-    },
-    "File": {
-      "displayName": "file",
-      "params": [
-        "id",
-        "title",
-        "filename_download"
-      ],
-      "operations": {
-        "add": {
-          "name": "addFile",
-          "method": "POST",
-          "path": "/files",
-          "descriptionTemplate": "Add a file with id {id} and title {title}",
-          "bodyTemplate": {
-            "title": "{title}",
-            "filename_download": "{filename_download}"
-          }
-        },
-        "delete": {
-          "name": "deleteFile",
-          "method": "DELETE",
-          "path": "/files/{id}",
-          "descriptionTemplate": "Delete a file with id {id} and title {title}"
-        },
-        "verifyExists": {
-          "name": "verifyFileExists"
-        }
-      },
-      "waitForPatterns": {
-        "added": {
-          "name": "waitForAnyFileAdded",
-          "descriptionRegex": "Add a file with id (.+) and title (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyFileDeleted",
-          "descriptionRegex": "Delete a file with id (.+) and title (.+)"
-        }
-      }
-    },
-    "User": {
-      "displayName": "user",
-      "params": [
-        "id",
-        "email",
-        "first_name",
-        "last_name"
-      ],
-      "operations": {
-        "add": {
-          "name": "addUser",
-          "method": "POST",
-          "path": "/users",
-          "descriptionTemplate": "Add a user with id {id} and email {email}",
           "bodyTemplate": {
             "email": "{email}",
-            "first_name": "{first_name}",
-            "last_name": "{last_name}"
-          }
+            "mode": "{mode}",
+            "otp": "{otp}",
+            "password": "{password}"
+          },
+          "descriptionTemplate": "Retrieve a Temporary Access Token",
+          "method": "POST",
+          "name": "login",
+          "params": [
+            "email",
+            "password",
+            "mode",
+            "otp"
+          ],
+          "path": "/auth/login"
         },
-        "delete": {
-          "name": "deleteUser",
-          "method": "DELETE",
-          "path": "/users/{id}",
-          "descriptionTemplate": "Delete a user with id {id} and email {email}"
+        "addLogout": {
+          "bodyTemplate": {
+            "mode": "{mode}",
+            "refresh_token": "{refresh_token}"
+          },
+          "descriptionTemplate": "Log Out",
+          "method": "POST",
+          "name": "logout",
+          "params": [
+            "refresh_token",
+            "mode"
+          ],
+          "path": "/auth/logout"
         },
-        "verifyExists": {
-          "name": "verifyUserExists"
+        "addPasswordRequest": {
+          "bodyTemplate": {
+            "email": "{email}"
+          },
+          "descriptionTemplate": "Request a Password Reset {email}",
+          "method": "POST",
+          "name": "passwordRequest",
+          "params": [
+            "email"
+          ],
+          "path": "/auth/password/request"
+        },
+        "addPasswordReset": {
+          "bodyTemplate": {
+            "password": "{password}",
+            "token": "{token}"
+          },
+          "descriptionTemplate": "Reset a Password {token}",
+          "method": "POST",
+          "name": "passwordReset",
+          "params": [
+            "token",
+            "password"
+          ],
+          "path": "/auth/password/reset"
+        },
+        "addRefresh": {
+          "bodyTemplate": {
+            "mode": "{mode}",
+            "refresh_token": "{refresh_token}"
+          },
+          "descriptionTemplate": "Refresh a Temporary Access Token",
+          "method": "POST",
+          "name": "refresh",
+          "params": [
+            "refresh_token",
+            "mode"
+          ],
+          "path": "/auth/refresh"
+        },
+        "get": {
+          "descriptionTemplate": "List OAuth Providers",
+          "method": "GET",
+          "name": "oauth",
+          "params": [],
+          "path": "/auth/oauth"
+        },
+        "getProvider": {
+          "descriptionTemplate": "Authenticated using an OAuth provider {provider}",
+          "method": "GET",
+          "name": "oauthProvider",
+          "params": [
+            "provider",
+            "redirect"
+          ],
+          "path": "/auth/oauth/{provider}"
         }
       },
+      "params": [],
+      "waitForPatterns": {}
+    },
+    "Collections": {
+      "displayName": "collections",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Create a Collection",
+          "method": "POST",
+          "name": "addCollection",
+          "params": [],
+          "path": "/collections"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete a Collection {id}",
+          "method": "DELETE",
+          "name": "deleteCollection",
+          "params": [
+            "id"
+          ],
+          "path": "/collections/{id}"
+        },
+        "get": {
+          "descriptionTemplate": "Retrieve a Collection {id}",
+          "method": "GET",
+          "name": "getCollection",
+          "params": [
+            "id"
+          ],
+          "path": "/collections/{id}"
+        },
+        "list": {
+          "descriptionTemplate": "List Collections",
+          "method": "GET",
+          "name": "listCollections",
+          "params": [],
+          "path": "/collections"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update a Collection {id}",
+          "method": "PATCH",
+          "name": "updateCollection",
+          "params": [
+            "id"
+          ],
+          "path": "/collections/{id}"
+        }
+      },
+      "params": [
+        "id"
+      ],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyUserAdded",
-          "descriptionRegex": "Add a user with id (.+) and email (.+)"
+          "descriptionRegex": "Create a Collection",
+          "name": "waitForAnyCollectionAdded"
         },
         "deleted": {
-          "name": "waitForAnyUserDeleted",
-          "descriptionRegex": "Delete a user with id (.+) and email (.+)"
+          "descriptionRegex": "Delete a Collection (.+)",
+          "name": "waitForAnyCollectionDeleted"
         }
       }
+    },
+    "Comments": {
+      "displayName": "comments",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Create a Comment",
+          "method": "POST",
+          "name": "addComment",
+          "params": [],
+          "path": "/comments"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete a Comment {id}",
+          "method": "DELETE",
+          "name": "deleteComment",
+          "params": [
+            "id"
+          ],
+          "path": "/comments/{id}"
+        },
+        "deleteMultiple": {
+          "descriptionTemplate": "Delete Multiple Comments",
+          "method": "DELETE",
+          "name": "deleteComments",
+          "params": [],
+          "path": "/comments"
+        },
+        "get": {
+          "descriptionTemplate": "Retrieve a Comment {id}",
+          "method": "GET",
+          "name": "getComment",
+          "params": [
+            "id"
+          ],
+          "path": "/comments/{id}"
+        },
+        "list": {
+          "descriptionTemplate": "List Comments",
+          "method": "GET",
+          "name": "listComments",
+          "params": [],
+          "path": "/comments"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update a Comment {id}",
+          "method": "PATCH",
+          "name": "updateComment",
+          "params": [
+            "id"
+          ],
+          "path": "/comments/{id}"
+        },
+        "updateMultiple": {
+          "descriptionTemplate": "Update Multiple Comments",
+          "method": "PATCH",
+          "name": "updateComments",
+          "params": [],
+          "path": "/comments"
+        }
+      },
+      "params": [
+        "id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Create a Comment",
+          "name": "waitForAnyCommentAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete a Comment (.+)",
+          "name": "waitForAnyCommentDeleted"
+        }
+      }
+    },
+    "Extensions": {
+      "displayName": "extensions",
+      "operations": {
+        "list": {
+          "descriptionTemplate": "List Extensions",
+          "method": "GET",
+          "name": "listExtensions",
+          "params": [],
+          "path": "/extensions"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update an Extension {name}",
+          "method": "PATCH",
+          "name": "updateExtension",
+          "params": [
+            "name"
+          ],
+          "path": "/extensions/{name}"
+        },
+        "updateBundle": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update an Extension {name} in bundle {bundle}",
+          "method": "PATCH",
+          "name": "updateExtensionBundle",
+          "params": [
+            "bundle",
+            "name"
+          ],
+          "path": "/extensions/{bundle}/{name}"
+        }
+      },
+      "params": [
+        "name",
+        "bundle"
+      ],
+      "waitForPatterns": {}
+    },
+    "Fields": {
+      "displayName": "fields",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Create a Field in collection {collection}",
+          "method": "POST",
+          "name": "addField",
+          "params": [
+            "collection"
+          ],
+          "path": "/fields/{collection}"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete a Field {id} in collection {collection}",
+          "method": "DELETE",
+          "name": "deleteField",
+          "params": [
+            "collection",
+            "id"
+          ],
+          "path": "/fields/{collection}/{id}"
+        },
+        "get": {
+          "descriptionTemplate": "Retrieve a Field {id} in collection {collection}",
+          "method": "GET",
+          "name": "getField",
+          "params": [
+            "collection",
+            "id"
+          ],
+          "path": "/fields/{collection}/{id}"
+        },
+        "list": {
+          "descriptionTemplate": "List All Fields",
+          "method": "GET",
+          "name": "listFields",
+          "params": [],
+          "path": "/fields"
+        },
+        "listCollectionFields": {
+          "descriptionTemplate": "List Fields in collection {collection}",
+          "method": "GET",
+          "name": "listCollectionFields",
+          "params": [
+            "collection"
+          ],
+          "path": "/fields/{collection}"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update a Field {id} in collection {collection}",
+          "method": "PATCH",
+          "name": "updateField",
+          "params": [
+            "collection",
+            "id"
+          ],
+          "path": "/fields/{collection}/{id}"
+        }
+      },
+      "params": [
+        "collection",
+        "id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Create a Field in collection (.+)",
+          "name": "waitForAnyFieldAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete a Field (.+) in collection (.+)",
+          "name": "waitForAnyFieldDeleted"
+        }
+      }
+    },
+    "Files": {
+      "displayName": "files",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Create a File",
+          "method": "POST",
+          "name": "addFile",
+          "params": [],
+          "path": "/files"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete a File {id}",
+          "method": "DELETE",
+          "name": "deleteFile",
+          "params": [
+            "id"
+          ],
+          "path": "/files/{id}"
+        },
+        "deleteMultiple": {
+          "descriptionTemplate": "Delete Multiple Files",
+          "method": "DELETE",
+          "name": "deleteFiles",
+          "params": [],
+          "path": "/files"
+        },
+        "get": {
+          "descriptionTemplate": "Retrieve a File {id}",
+          "method": "GET",
+          "name": "getFile",
+          "params": [
+            "id"
+          ],
+          "path": "/files/{id}"
+        },
+        "list": {
+          "descriptionTemplate": "List Files",
+          "method": "GET",
+          "name": "listFiles",
+          "params": [],
+          "path": "/files"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update a File {id}",
+          "method": "PATCH",
+          "name": "updateFile",
+          "params": [
+            "id"
+          ],
+          "path": "/files/{id}"
+        },
+        "updateMultiple": {
+          "descriptionTemplate": "Update Multiple Files",
+          "method": "PATCH",
+          "name": "updateFiles",
+          "params": [],
+          "path": "/files"
+        }
+      },
+      "params": [
+        "id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Create a File",
+          "name": "waitForAnyFileAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete a File (.+)",
+          "name": "waitForAnyFileDeleted"
+        }
+      }
+    },
+    "Flows": {
+      "displayName": "flows",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Create a Flow",
+          "method": "POST",
+          "name": "addFlow",
+          "params": [],
+          "path": "/flows"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete a Flow {id}",
+          "method": "DELETE",
+          "name": "deleteFlow",
+          "params": [
+            "id"
+          ],
+          "path": "/flows/{id}"
+        },
+        "deleteMultiple": {
+          "descriptionTemplate": "Delete Multiple Flows",
+          "method": "DELETE",
+          "name": "deleteFlows",
+          "params": [],
+          "path": "/flows"
+        },
+        "get": {
+          "descriptionTemplate": "Retrieve a Flow {id}",
+          "method": "GET",
+          "name": "getFlow",
+          "params": [
+            "id"
+          ],
+          "path": "/flows/{id}"
+        },
+        "list": {
+          "descriptionTemplate": "List Flows",
+          "method": "GET",
+          "name": "listFlows",
+          "params": [],
+          "path": "/flows"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update a Flow {id}",
+          "method": "PATCH",
+          "name": "updateFlow",
+          "params": [
+            "id"
+          ],
+          "path": "/flows/{id}"
+        },
+        "updateMultiple": {
+          "descriptionTemplate": "Update Multiple Flows",
+          "method": "PATCH",
+          "name": "updateFlows",
+          "params": [],
+          "path": "/flows"
+        }
+      },
+      "params": [
+        "id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Create a Flow",
+          "name": "waitForAnyFlowAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete a Flow (.+)",
+          "name": "waitForAnyFlowDeleted"
+        }
+      }
+    },
+    "Folders": {
+      "displayName": "folders",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Create a Folder",
+          "method": "POST",
+          "name": "addFolder",
+          "params": [],
+          "path": "/folders"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete a Folder {id}",
+          "method": "DELETE",
+          "name": "deleteFolder",
+          "params": [
+            "id"
+          ],
+          "path": "/folders/{id}"
+        },
+        "deleteMultiple": {
+          "descriptionTemplate": "Delete Multiple Folders",
+          "method": "DELETE",
+          "name": "deleteFolders",
+          "params": [],
+          "path": "/folders"
+        },
+        "get": {
+          "descriptionTemplate": "Retrieve a Folder {id}",
+          "method": "GET",
+          "name": "getFolder",
+          "params": [
+            "id"
+          ],
+          "path": "/folders/{id}"
+        },
+        "list": {
+          "descriptionTemplate": "List Folders",
+          "method": "GET",
+          "name": "listFolders",
+          "params": [],
+          "path": "/folders"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update a Folder {id}",
+          "method": "PATCH",
+          "name": "updateFolder",
+          "params": [
+            "id"
+          ],
+          "path": "/folders/{id}"
+        },
+        "updateMultiple": {
+          "descriptionTemplate": "Update Multiple Folders",
+          "method": "PATCH",
+          "name": "updateFolders",
+          "params": [],
+          "path": "/folders"
+        }
+      },
+      "params": [
+        "id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Create a Folder",
+          "name": "waitForAnyFolderAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete a Folder (.+)",
+          "name": "waitForAnyFolderDeleted"
+        }
+      }
+    },
+    "Items": {
+      "displayName": "items",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Create an Item in collection {collection}",
+          "method": "POST",
+          "name": "addItem",
+          "params": [
+            "collection"
+          ],
+          "path": "/items/{collection}"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete an Item {id} in collection {collection}",
+          "method": "DELETE",
+          "name": "deleteItem",
+          "params": [
+            "collection",
+            "id"
+          ],
+          "path": "/items/{collection}/{id}"
+        },
+        "deleteMultiple": {
+          "descriptionTemplate": "Delete Multiple Items in collection {collection}",
+          "method": "DELETE",
+          "name": "deleteItems",
+          "params": [
+            "collection"
+          ],
+          "path": "/items/{collection}"
+        },
+        "get": {
+          "descriptionTemplate": "Retrieve an Item {id} in collection {collection}",
+          "method": "GET",
+          "name": "getItem",
+          "params": [
+            "collection",
+            "id"
+          ],
+          "path": "/items/{collection}/{id}"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update an Item {id} in collection {collection}",
+          "method": "PATCH",
+          "name": "updateItem",
+          "params": [
+            "collection",
+            "id"
+          ],
+          "path": "/items/{collection}/{id}"
+        },
+        "updateMultiple": {
+          "descriptionTemplate": "Update Multiple Items in collection {collection}",
+          "method": "PATCH",
+          "name": "updateItems",
+          "params": [
+            "collection"
+          ],
+          "path": "/items/{collection}"
+        }
+      },
+      "params": [
+        "collection",
+        "id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Create an Item in collection (.+)",
+          "name": "waitForAnyItemAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete an Item (.+) in collection (.+)",
+          "name": "waitForAnyItemDeleted"
+        }
+      }
+    },
+    "Operations": {
+      "displayName": "operations",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Create an Operation",
+          "method": "POST",
+          "name": "addOperation",
+          "params": [],
+          "path": "/operations"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete an Operation {id}",
+          "method": "DELETE",
+          "name": "deleteOperation",
+          "params": [
+            "id"
+          ],
+          "path": "/operations/{id}"
+        },
+        "deleteMultiple": {
+          "descriptionTemplate": "Delete Multiple Operations",
+          "method": "DELETE",
+          "name": "deleteOperations",
+          "params": [],
+          "path": "/operations"
+        },
+        "get": {
+          "descriptionTemplate": "Retrieve an Operation {id}",
+          "method": "GET",
+          "name": "getOperation",
+          "params": [
+            "id"
+          ],
+          "path": "/operations/{id}"
+        },
+        "list": {
+          "descriptionTemplate": "List Operations",
+          "method": "GET",
+          "name": "listOperations",
+          "params": [],
+          "path": "/operations"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update an Operation {id}",
+          "method": "PATCH",
+          "name": "updateOperation",
+          "params": [
+            "id"
+          ],
+          "path": "/operations/{id}"
+        },
+        "updateMultiple": {
+          "descriptionTemplate": "Update Multiple Operations",
+          "method": "PATCH",
+          "name": "updateOperations",
+          "params": [],
+          "path": "/operations"
+        }
+      },
+      "params": [
+        "id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Create an Operation",
+          "name": "waitForAnyOperationAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete an Operation (.+)",
+          "name": "waitForAnyOperationDeleted"
+        }
+      }
+    },
+    "Permissions": {
+      "displayName": "permissions",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Create a Permission",
+          "method": "POST",
+          "name": "addPermission",
+          "params": [],
+          "path": "/permissions"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete Multiple Permissions",
+          "method": "DELETE",
+          "name": "deletePermissions",
+          "params": [],
+          "path": "/permissions"
+        },
+        "get": {
+          "descriptionTemplate": "Retrieve a Permission {id}",
+          "method": "GET",
+          "name": "getPermission",
+          "params": [
+            "id"
+          ],
+          "path": "/permissions/{id}"
+        },
+        "list": {
+          "descriptionTemplate": "List Permissions",
+          "method": "GET",
+          "name": "listPermissions",
+          "params": [],
+          "path": "/permissions"
+        },
+        "listMyPermissions": {
+          "descriptionTemplate": "List My Permissions",
+          "method": "GET",
+          "name": "listMyPermissions",
+          "params": [],
+          "path": "/permissions/me"
+        },
+        "update": {
+          "descriptionTemplate": "Update Multiple Permissions",
+          "method": "PATCH",
+          "name": "updatePermissions",
+          "params": [],
+          "path": "/permissions"
+        }
+      },
+      "params": [
+        "id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Create a Permission",
+          "name": "waitForAnyPermissionAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete Multiple Permissions",
+          "name": "waitForAnyPermissionDeleted"
+        }
+      }
+    },
+    "Presets": {
+      "displayName": "presets",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Create a Preset",
+          "method": "POST",
+          "name": "addPreset",
+          "params": [],
+          "path": "/presets"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete a Preset {id}",
+          "method": "DELETE",
+          "name": "deletePreset",
+          "params": [
+            "id"
+          ],
+          "path": "/presets/{id}"
+        },
+        "deleteMultiple": {
+          "descriptionTemplate": "Delete Multiple Presets",
+          "method": "DELETE",
+          "name": "deletePresets",
+          "params": [],
+          "path": "/presets"
+        },
+        "get": {
+          "descriptionTemplate": "Retrieve a Preset {id}",
+          "method": "GET",
+          "name": "getPreset",
+          "params": [
+            "id"
+          ],
+          "path": "/presets/{id}"
+        },
+        "list": {
+          "descriptionTemplate": "List Presets",
+          "method": "GET",
+          "name": "listPresets",
+          "params": [],
+          "path": "/presets"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update a Preset {id}",
+          "method": "PATCH",
+          "name": "updatePreset",
+          "params": [
+            "id"
+          ],
+          "path": "/presets/{id}"
+        },
+        "updateMultiple": {
+          "descriptionTemplate": "Update Multiple Presets",
+          "method": "PATCH",
+          "name": "updatePresets",
+          "params": [],
+          "path": "/presets"
+        }
+      },
+      "params": [
+        "id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Create a Preset",
+          "name": "waitForAnyPresetAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete a Preset (.+)",
+          "name": "waitForAnyPresetDeleted"
+        }
+      }
+    },
+    "Roles": {
+      "displayName": "roles",
+      "operations": {
+        "list": {
+          "descriptionTemplate": "List Roles",
+          "method": "GET",
+          "name": "listRoles",
+          "params": [],
+          "path": "/roles"
+        }
+      },
+      "params": [
+        "id"
+      ],
+      "waitForPatterns": {}
+    },
+    "Settings": {
+      "displayName": "settings",
+      "operations": {
+        "list": {
+          "descriptionTemplate": "Settings control the way the platform works and acts.",
+          "method": "GET",
+          "name": "listSettings",
+          "params": [],
+          "path": "/settings"
+        }
+      },
+      "params": [
+        "id"
+      ],
+      "waitForPatterns": {}
+    },
+    "Users": {
+      "displayName": "users",
+      "operations": {
+        "list": {
+          "descriptionTemplate": "List Users",
+          "method": "GET",
+          "name": "listUsers",
+          "params": [],
+          "path": "/users"
+        }
+      },
+      "params": [
+        "id"
+      ],
+      "waitForPatterns": {}
+    },
+    "Webhooks": {
+      "displayName": "webhooks",
+      "operations": {
+        "list": {
+          "descriptionTemplate": "Webhooks.",
+          "method": "GET",
+          "name": "listWebhooks",
+          "params": [],
+          "path": "/webhooks"
+        }
+      },
+      "params": [
+        "id"
+      ],
+      "waitForPatterns": {}
     }
   },
-  "stories": [
-    {
-      "name": "Activity_basicCrud",
-      "entity": "Activity",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Preset_basicCrud",
-      "entity": "Preset",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Collection_basicCrud",
-      "entity": "Collection",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Comment_basicCrud",
-      "entity": "Comment",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "File_basicCrud",
-      "entity": "File",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "User_basicCrud",
-      "entity": "User",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Preset_duplicateAdd",
-      "entity": "Preset",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "Collection_duplicateAdd",
-      "entity": "Collection",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "Comment_duplicateAdd",
-      "entity": "Comment",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "File_duplicateAdd",
-      "entity": "File",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "User_duplicateAdd",
-      "entity": "User",
-      "pattern": "duplicate_add"
-    }
-  ]
+  "sut": "directus"
 }

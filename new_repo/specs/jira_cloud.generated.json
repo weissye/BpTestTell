@@ -1,0 +1,273 @@
+{
+  "base_url": "https://api.atlassian.com/ex/jira/{cloudid}/rest/api/3",
+  "entities": {
+    "Issue": {
+      "displayName": "issue",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "key": "{issueIdOrKey}"
+          },
+          "descriptionTemplate": "Add issue {issueIdOrKey}",
+          "method": "POST",
+          "name": "addIssue",
+          "params": [
+            "issueIdOrKey"
+          ],
+          "path": "/issue"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete issue {issueIdOrKey}",
+          "method": "DELETE",
+          "name": "deleteIssue",
+          "params": [
+            "issueIdOrKey"
+          ],
+          "path": "/issue/{issueIdOrKey}"
+        },
+        "get": {
+          "descriptionTemplate": "Get issue {issueIdOrKey}",
+          "method": "GET",
+          "name": "getIssue",
+          "params": [
+            "issueIdOrKey"
+          ],
+          "path": "/issue/{issueIdOrKey}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "key": "{issueIdOrKey}"
+          },
+          "descriptionTemplate": "Update issue {issueIdOrKey}",
+          "method": "PUT",
+          "name": "updateIssue",
+          "params": [
+            "issueIdOrKey"
+          ],
+          "path": "/issue/{issueIdOrKey}"
+        }
+      },
+      "params": [
+        "issueIdOrKey"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add issue (.+)",
+          "name": "waitForAnyIssueAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete issue (.+)",
+          "name": "waitForAnyIssueDeleted"
+        }
+      }
+    },
+    "Project": {
+      "displayName": "project",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "key": "{projectIdOrKey}"
+          },
+          "descriptionTemplate": "Add project {projectIdOrKey}",
+          "method": "POST",
+          "name": "addProject",
+          "params": [
+            "projectIdOrKey"
+          ],
+          "path": "/project"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete project {projectIdOrKey}",
+          "method": "DELETE",
+          "name": "deleteProject",
+          "params": [
+            "projectIdOrKey"
+          ],
+          "path": "/project/{projectIdOrKey}"
+        },
+        "get": {
+          "descriptionTemplate": "Get project {projectIdOrKey}",
+          "method": "GET",
+          "name": "getProject",
+          "params": [
+            "projectIdOrKey"
+          ],
+          "path": "/project/{projectIdOrKey}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "key": "{projectIdOrKey}"
+          },
+          "descriptionTemplate": "Update project {projectIdOrKey}",
+          "method": "PUT",
+          "name": "updateProject",
+          "params": [
+            "projectIdOrKey"
+          ],
+          "path": "/project/{projectIdOrKey}"
+        }
+      },
+      "params": [
+        "projectIdOrKey"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add project (.+)",
+          "name": "waitForAnyProjectAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete project (.+)",
+          "name": "waitForAnyProjectDeleted"
+        }
+      }
+    },
+    "User": {
+      "displayName": "user",
+      "operations": {
+        "get": {
+          "descriptionTemplate": "Get user {accountId}",
+          "method": "GET",
+          "name": "getUser",
+          "params": [
+            "accountId"
+          ],
+          "path": "/user?accountId={accountId}"
+        }
+      },
+      "params": [
+        "accountId"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add user (.+)",
+          "name": "waitForAnyUserAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete user (.+)",
+          "name": "waitForAnyUserDeleted"
+        }
+      }
+    },
+    "Webhook": {
+      "displayName": "webhook",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "webhookId": "{webhookId}"
+          },
+          "descriptionTemplate": "Add webhook {webhookId}",
+          "method": "POST",
+          "name": "addWebhook",
+          "params": [
+            "webhookId"
+          ],
+          "path": "/webhook"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete webhook {webhookId}",
+          "method": "DELETE",
+          "name": "deleteWebhook",
+          "params": [
+            "webhookId"
+          ],
+          "path": "/webhook/{webhookId}"
+        },
+        "get": {
+          "descriptionTemplate": "Get webhook {webhookId}",
+          "method": "GET",
+          "name": "getWebhook",
+          "params": [
+            "webhookId"
+          ],
+          "path": "/webhook/{webhookId}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "webhookId": "{webhookId}"
+          },
+          "descriptionTemplate": "Update webhook {webhookId}",
+          "method": "PUT",
+          "name": "updateWebhook",
+          "params": [
+            "webhookId"
+          ],
+          "path": "/webhook/{webhookId}"
+        }
+      },
+      "params": [
+        "webhookId"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add webhook (.+)",
+          "name": "waitForAnyWebhookAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete webhook (.+)",
+          "name": "waitForAnyWebhookDeleted"
+        }
+      }
+    },
+    "WebhookRegistration": {
+      "displayName": "webhookregistration",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "webhookId": "{webhookId}"
+          },
+          "descriptionTemplate": "Add webhookregistration {webhookId}",
+          "method": "POST",
+          "name": "addWebhookRegistration",
+          "params": [
+            "webhookId"
+          ],
+          "path": "/webhook"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete webhookregistration {webhookId}",
+          "method": "DELETE",
+          "name": "deleteWebhookRegistration",
+          "params": [
+            "webhookId"
+          ],
+          "path": "/webhook/{webhookId}"
+        },
+        "get": {
+          "descriptionTemplate": "Get webhookregistration {webhookId}",
+          "method": "GET",
+          "name": "getWebhookRegistration",
+          "params": [
+            "webhookId"
+          ],
+          "path": "/webhook/{webhookId}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "webhookId": "{webhookId}"
+          },
+          "descriptionTemplate": "Update webhookregistration {webhookId}",
+          "method": "PUT",
+          "name": "updateWebhookRegistration",
+          "params": [
+            "webhookId"
+          ],
+          "path": "/webhook/{webhookId}"
+        }
+      },
+      "params": [
+        "webhookId"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add webhookregistration (.+)",
+          "name": "waitForAnyWebhookRegistrationAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete webhookregistration (.+)",
+          "name": "waitForAnyWebhookRegistrationDeleted"
+        }
+      }
+    }
+  },
+  "sut": "jira_cloud"
+}

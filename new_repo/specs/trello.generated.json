@@ -1,0 +1,796 @@
+{
+  "base_url": "https://trello.com/1",
+  "entities": {
+    "action": {
+      "displayName": "action",
+      "operations": {
+        "delete": {
+          "descriptionTemplate": "Delete action {idAction}",
+          "method": "DELETE",
+          "name": "deleteAction",
+          "params": [
+            "idAction",
+            "key",
+            "token"
+          ],
+          "path": "/actions/{idAction}"
+        },
+        "get": {
+          "descriptionTemplate": "Get action {idAction}",
+          "method": "GET",
+          "name": "getAction",
+          "params": [
+            "idAction",
+            "key",
+            "token"
+          ],
+          "path": "/actions/{idAction}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "actions": "{actions}"
+          },
+          "descriptionTemplate": "Update action {idAction}",
+          "method": "PUT",
+          "name": "updateAction",
+          "params": [
+            "idAction",
+            "key",
+            "token"
+          ],
+          "path": "/actions/{idAction}"
+        },
+        "updateText": {
+          "bodyTemplate": {
+            "actions_text": "{actions_text}"
+          },
+          "descriptionTemplate": "Update action text {idAction}",
+          "method": "PUT",
+          "name": "updateActionText",
+          "params": [
+            "idAction",
+            "key",
+            "token"
+          ],
+          "path": "/actions/{idAction}/text"
+        },
+        "verifyExists": {
+          "name": "verifyActionExists"
+        }
+      },
+      "params": [
+        "idAction",
+        "key",
+        "token"
+      ],
+      "waitForPatterns": {
+        "deleted": {
+          "descriptionRegex": "Delete action (.+)",
+          "name": "waitForAnyActionDeleted"
+        },
+        "got": {
+          "descriptionRegex": "Get action (.+)",
+          "name": "waitForAnyActionGot"
+        },
+        "updated": {
+          "descriptionRegex": "Update action (.+)",
+          "name": "waitForAnyActionUpdated"
+        },
+        "updatedText": {
+          "descriptionRegex": "Update action text (.+)",
+          "name": "waitForAnyActionTextUpdated"
+        }
+      }
+    },
+    "board": {
+      "displayName": "board",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "boards": "{boards}"
+          },
+          "descriptionTemplate": "Add board",
+          "method": "POST",
+          "name": "addBoard",
+          "params": [
+            "key",
+            "token"
+          ],
+          "path": "/boards"
+        },
+        "get": {
+          "descriptionTemplate": "Get board {idBoard}",
+          "method": "GET",
+          "name": "getBoard",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "boards": "{boards}"
+          },
+          "descriptionTemplate": "Update board {idBoard}",
+          "method": "PUT",
+          "name": "updateBoard",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}"
+        },
+        "verifyExists": {
+          "name": "verifyBoardExists"
+        }
+      },
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add board",
+          "name": "waitForAnyBoardAdded"
+        },
+        "got": {
+          "descriptionRegex": "Get board (.+)",
+          "name": "waitForAnyBoardGot"
+        },
+        "updated": {
+          "descriptionRegex": "Update board (.+)",
+          "name": "waitForAnyBoardUpdated"
+        }
+      }
+    },
+    "boardsChecklists": {
+      "displayName": "boardschecklists",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "boards_checklists": "{boards_checklists}"
+          },
+          "descriptionTemplate": "Add boards checklist to board {idBoard}",
+          "method": "POST",
+          "name": "addBoardsChecklist",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/checklists"
+        },
+        "get": {
+          "descriptionTemplate": "Get boards checklists for board {idBoard}",
+          "method": "GET",
+          "name": "getBoardsChecklists",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/checklists"
+        },
+        "verifyExists": {
+          "name": "verifyBoardsChecklistsExists"
+        }
+      },
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add boards checklist to board (.+)",
+          "name": "waitForAnyBoardsChecklistAdded"
+        },
+        "got": {
+          "descriptionRegex": "Get boards checklists for board (.+)",
+          "name": "waitForAnyBoardsChecklistsGot"
+        }
+      }
+    },
+    "boardsLabels": {
+      "displayName": "boardslabels",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "boards_labels": "{boards_labels}"
+          },
+          "descriptionTemplate": "Add boards label to board {idBoard}",
+          "method": "POST",
+          "name": "addBoardsLabel",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/labels"
+        },
+        "get": {
+          "descriptionTemplate": "Get boards labels for board {idBoard}",
+          "method": "GET",
+          "name": "getBoardsLabels",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/labels"
+        },
+        "verifyExists": {
+          "name": "verifyBoardsLabelsExists"
+        }
+      },
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add boards label to board (.+)",
+          "name": "waitForAnyBoardsLabelAdded"
+        },
+        "got": {
+          "descriptionRegex": "Get boards labels for board (.+)",
+          "name": "waitForAnyBoardsLabelsGot"
+        }
+      }
+    },
+    "boardsLists": {
+      "displayName": "boardslists",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "boards_lists": "{boards_lists}"
+          },
+          "descriptionTemplate": "Add boards list to board {idBoard}",
+          "method": "POST",
+          "name": "addBoardsList",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/lists"
+        },
+        "get": {
+          "descriptionTemplate": "Get boards lists for board {idBoard}",
+          "method": "GET",
+          "name": "getBoardsLists",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/lists"
+        },
+        "verifyExists": {
+          "name": "verifyBoardsListsExists"
+        }
+      },
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add boards list to board (.+)",
+          "name": "waitForAnyBoardsListAdded"
+        },
+        "got": {
+          "descriptionRegex": "Get boards lists for board (.+)",
+          "name": "waitForAnyBoardsListsGot"
+        }
+      }
+    },
+    "boardsMembers": {
+      "displayName": "boardsmembers",
+      "operations": {
+        "get": {
+          "descriptionTemplate": "Get boards members for board {idBoard}",
+          "method": "GET",
+          "name": "getBoardsMembers",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/members"
+        },
+        "update": {
+          "bodyTemplate": {
+            "boards_members": "{boards_members}"
+          },
+          "descriptionTemplate": "Update boards members for board {idBoard}",
+          "method": "PUT",
+          "name": "updateBoardsMembers",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/members"
+        },
+        "verifyExists": {
+          "name": "verifyBoardsMembersExists"
+        }
+      },
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "waitForPatterns": {
+        "got": {
+          "descriptionRegex": "Get boards members for board (.+)",
+          "name": "waitForAnyBoardsMembersGot"
+        },
+        "updated": {
+          "descriptionRegex": "Update boards members for board (.+)",
+          "name": "waitForAnyBoardsMembersUpdated"
+        }
+      }
+    },
+    "boardsMembersByIdMember": {
+      "displayName": "boardsmembers",
+      "operations": {
+        "delete": {
+          "descriptionTemplate": "Delete boards member {idMember} from board {idBoard}",
+          "method": "DELETE",
+          "name": "deleteBoardsMember",
+          "params": [
+            "idBoard",
+            "idMember",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/members/{idMember}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "boards_members": "{boards_members}"
+          },
+          "descriptionTemplate": "Update boards member {idMember} on board {idBoard}",
+          "method": "PUT",
+          "name": "updateBoardsMember",
+          "params": [
+            "idBoard",
+            "idMember",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/members/{idMember}"
+        },
+        "verifyExists": {
+          "name": "verifyBoardsMemberExists"
+        }
+      },
+      "params": [
+        "idBoard",
+        "idMember",
+        "key",
+        "token"
+      ],
+      "waitForPatterns": {
+        "deleted": {
+          "descriptionRegex": "Delete boards member (.+) from board (.+)",
+          "name": "waitForAnyBoardsMemberDeleted"
+        },
+        "updated": {
+          "descriptionRegex": "Update boards member (.+) on board (.+)",
+          "name": "waitForAnyBoardsMemberUpdated"
+        }
+      }
+    },
+    "boardsMemberships": {
+      "displayName": "boardsmemberships",
+      "operations": {
+        "get": {
+          "descriptionTemplate": "Get boards memberships for board {idBoard}",
+          "method": "GET",
+          "name": "getBoardsMemberships",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/memberships"
+        },
+        "update": {
+          "bodyTemplate": {
+            "boards_memberships": "{boards_memberships}"
+          },
+          "descriptionTemplate": "Update boards membership {idMembership} on board {idBoard}",
+          "method": "PUT",
+          "name": "updateBoardsMemberships",
+          "params": [
+            "idBoard",
+            "idMembership",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/memberships/{idMembership}"
+        },
+        "verifyExists": {
+          "name": "verifyBoardsMembershipsExists"
+        }
+      },
+      "params": [
+        "idBoard",
+        "key",
+        "token"
+      ],
+      "waitForPatterns": {
+        "got": {
+          "descriptionRegex": "Get boards memberships for board (.+)",
+          "name": "waitForAnyBoardsMembershipGot"
+        },
+        "updated": {
+          "descriptionRegex": "Update boards membership (.+) on board (.+)",
+          "name": "waitForAnyBoardsMembershipUpdated"
+        }
+      }
+    },
+    "boardsMembershipsByIdMembership": {
+      "displayName": "boardsmemberships",
+      "operations": {
+        "get": {
+          "descriptionTemplate": "Get boards membership {idMembership} for board {idBoard}",
+          "method": "GET",
+          "name": "getBoardsMembershipById",
+          "params": [
+            "idBoard",
+            "idMembership",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/memberships/{idMembership}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "boards_memberships": "{boards_memberships}"
+          },
+          "descriptionTemplate": "Update boards membership {idMembership} on board {idBoard}",
+          "method": "PUT",
+          "name": "updateBoardsMembershipById",
+          "params": [
+            "idBoard",
+            "idMembership",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/memberships/{idMembership}"
+        },
+        "verifyExists": {
+          "name": "verifyBoardsMembershipExists"
+        }
+      },
+      "params": [
+        "idBoard",
+        "idMembership",
+        "key",
+        "token"
+      ],
+      "waitForPatterns": {
+        "got": {
+          "descriptionRegex": "Get boards membership (.+) for board (.+)",
+          "name": "waitForAnyBoardsMembershipGot"
+        },
+        "updated": {
+          "descriptionRegex": "Update boards membership (.+) on board (.+)",
+          "name": "waitForAnyBoardsMembershipUpdated"
+        }
+      }
+    },
+    "card": {
+      "displayName": "card",
+      "operations": {
+        "get": {
+          "descriptionTemplate": "Get card {idCard} from board {idBoard}",
+          "method": "GET",
+          "name": "getCard",
+          "params": [
+            "idBoard",
+            "idCard",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/cards/{idCard}"
+        },
+        "getAll": {
+          "descriptionTemplate": "Get cards for board {idBoard}",
+          "method": "GET",
+          "name": "getCards",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/cards"
+        },
+        "getByFilter": {
+          "descriptionTemplate": "Get cards from board {idBoard} filtered by {filter}",
+          "method": "GET",
+          "name": "getCardsByFilter",
+          "params": [
+            "idBoard",
+            "filter",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/cards/{filter}"
+        },
+        "verifyExists": {
+          "name": "verifyCardExists"
+        }
+      },
+      "params": [
+        "idBoard",
+        "idCard",
+        "key",
+        "token"
+      ],
+      "waitForPatterns": {
+        "got": {
+          "descriptionRegex": "Get card (.+) from board (.+)",
+          "name": "waitForAnyCardGot"
+        }
+      }
+    },
+    "list": {
+      "displayName": "list",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "boards_lists": "{boards_lists}"
+          },
+          "descriptionTemplate": "Add list to board {idBoard}",
+          "method": "POST",
+          "name": "addList",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/lists"
+        },
+        "get": {
+          "descriptionTemplate": "Get lists for board {idBoard}",
+          "method": "GET",
+          "name": "getLists",
+          "params": [
+            "idBoard",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/lists"
+        },
+        "getByFilter": {
+          "descriptionTemplate": "Get lists for board {idBoard} filtered by {filter}",
+          "method": "GET",
+          "name": "getListsByFilter",
+          "params": [
+            "idBoard",
+            "filter",
+            "key",
+            "token"
+          ],
+          "path": "/boards/{idBoard}/lists/{filter}"
+        },
+        "verifyExists": {
+          "name": "verifyListExists"
+        }
+      },
+      "params": [
+        "idBoard",
+        "idList",
+        "key",
+        "token"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add list to board (.+)",
+          "name": "waitForAnyListAdded"
+        },
+        "got": {
+          "descriptionRegex": "Get lists for board (.+)",
+          "name": "waitForAnyListGot"
+        }
+      }
+    },
+    "member": {
+      "displayName": "member",
+      "operations": {
+        "get": {
+          "descriptionTemplate": "Get member {idMember}",
+          "method": "GET",
+          "name": "getMember",
+          "params": [
+            "idMember",
+            "key",
+            "token"
+          ],
+          "path": "/members/{idMember}"
+        },
+        "verifyExists": {
+          "name": "verifyMemberExists"
+        }
+      },
+      "params": [
+        "idMember",
+        "key",
+        "token"
+      ],
+      "waitForPatterns": {
+        "got": {
+          "descriptionRegex": "Get member (.+)",
+          "name": "waitForAnyMemberGot"
+        }
+      }
+    },
+    "settings": {
+      "displayName": "settings",
+      "operations": {
+        "get": {
+          "descriptionTemplate": "Get settings",
+          "method": "GET",
+          "name": "getSettings",
+          "params": [
+            "key",
+            "token"
+          ],
+          "path": "/settings"
+        },
+        "update": {
+          "bodyTemplate": {
+            "settings": "{settings}"
+          },
+          "descriptionTemplate": "Update settings",
+          "method": "PUT",
+          "name": "updateSettings",
+          "params": [
+            "key",
+            "token"
+          ],
+          "path": "/settings"
+        },
+        "verifyExists": {
+          "name": "verifySettingsExists"
+        }
+      },
+      "params": [
+        "key",
+        "token"
+      ],
+      "waitForPatterns": {
+        "got": {
+          "descriptionRegex": "Get settings",
+          "name": "waitForAnySettingsGot"
+        },
+        "updated": {
+          "descriptionRegex": "Update settings",
+          "name": "waitForAnySettingsUpdated"
+        }
+      }
+    },
+    "user": {
+      "displayName": "user",
+      "operations": {
+        "get": {
+          "descriptionTemplate": "Get user {idUser}",
+          "method": "GET",
+          "name": "getUser",
+          "params": [
+            "idUser",
+            "key",
+            "token"
+          ],
+          "path": "/members/{idUser}"
+        },
+        "verifyExists": {
+          "name": "verifyUserExists"
+        }
+      },
+      "params": [
+        "idUser",
+        "key",
+        "token"
+      ],
+      "waitForPatterns": {
+        "got": {
+          "descriptionRegex": "Get user (.+)",
+          "name": "waitForAnyUserGot"
+        }
+      }
+    },
+    "webhook": {
+      "displayName": "webhook",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "webhook": "{webhook}"
+          },
+          "descriptionTemplate": "Add webhook",
+          "method": "POST",
+          "name": "addWebhook",
+          "params": [
+            "key",
+            "token"
+          ],
+          "path": "/webhooks"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete webhook {idWebhook}",
+          "method": "DELETE",
+          "name": "deleteWebhook",
+          "params": [
+            "idWebhook",
+            "key",
+            "token"
+          ],
+          "path": "/webhooks/{idWebhook}"
+        },
+        "get": {
+          "descriptionTemplate": "Get webhook {idWebhook}",
+          "method": "GET",
+          "name": "getWebhook",
+          "params": [
+            "idWebhook",
+            "key",
+            "token"
+          ],
+          "path": "/webhooks/{idWebhook}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "webhook": "{webhook}"
+          },
+          "descriptionTemplate": "Update webhook {idWebhook}",
+          "method": "PUT",
+          "name": "updateWebhook",
+          "params": [
+            "idWebhook",
+            "key",
+            "token"
+          ],
+          "path": "/webhooks/{idWebhook}"
+        },
+        "verifyExists": {
+          "name": "verifyWebhookExists"
+        }
+      },
+      "params": [
+        "idWebhook",
+        "key",
+        "token"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add webhook",
+          "name": "waitForAnyWebhookAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete webhook (.+)",
+          "name": "waitForAnyWebhookDeleted"
+        },
+        "got": {
+          "descriptionRegex": "Get webhook (.+)",
+          "name": "waitForAnyWebhookGot"
+        },
+        "updated": {
+          "descriptionRegex": "Update webhook (.+)",
+          "name": "waitForAnyWebhookUpdated"
+        }
+      }
+    }
+  },
+  "sut": "trello"
+}

@@ -1,154 +1,441 @@
 {
-  "sut": "gitea",
+  "base_url": "{{AppSubUrl | JSEscape}}/api/v1",
   "entities": {
-    "User": {
-      "displayName": "user",
-      "params": [
-        "username",
-        "email",
-        "full_name"
-      ],
+    "Activity": {
+      "displayName": "activity",
       "operations": {
-        "add": {
-          "name": "addUser",
-          "method": "POST",
-          "path": "/admin/users",
-          "descriptionTemplate": "Add a user with username {username} and email {email}",
-          "bodyTemplate": {
-            "username": "{username}",
-            "email": "{email}",
-            "full_name": "{full_name}"
-          }
-        },
-        "delete": {
-          "name": "deleteUser",
-          "method": "DELETE",
-          "path": "/admin/users/{username}",
-          "descriptionTemplate": "Delete a user with username {username}"
-        },
-        "verifyExists": {
-          "name": "verifyUserExists"
+        "get": {
+          "bodyTemplate": null,
+          "descriptionTemplate": "Get activity feeds for org {org}",
+          "method": "GET",
+          "name": "getActivityFeeds",
+          "params": [
+            "org"
+          ],
+          "path": "/orgs/{org}/activities/feeds"
         }
       },
+      "params": [
+        "org"
+      ],
+      "waitForPatterns": {}
+    },
+    "Branch": {
+      "displayName": "branch",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "branch": "{branch}"
+          },
+          "descriptionTemplate": "Add branch {branch} in repository {owner}/{repo}",
+          "method": "POST",
+          "name": "addBranch",
+          "params": [
+            "owner",
+            "repo",
+            "branch"
+          ],
+          "path": "/repos/{owner}/{repo}/branches"
+        },
+        "delete": {
+          "bodyTemplate": null,
+          "descriptionTemplate": "Delete branch {branch} in repository {owner}/{repo}",
+          "method": "DELETE",
+          "name": "deleteBranch",
+          "params": [
+            "owner",
+            "repo",
+            "branch"
+          ],
+          "path": "/repos/{owner}/{repo}/branches/{branch}"
+        },
+        "get": {
+          "bodyTemplate": null,
+          "descriptionTemplate": "Get branch {branch} in repository {owner}/{repo}",
+          "method": "GET",
+          "name": "getBranch",
+          "params": [
+            "owner",
+            "repo",
+            "branch"
+          ],
+          "path": "/repos/{owner}/{repo}/branches/{branch}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "branch": "{branch}"
+          },
+          "descriptionTemplate": "Update branch {branch} in repository {owner}/{repo}",
+          "method": "PATCH",
+          "name": "updateBranch",
+          "params": [
+            "owner",
+            "repo",
+            "branch"
+          ],
+          "path": "/repos/{owner}/{repo}/branches/{branch}"
+        },
+        "verifyExists": {
+          "name": "verifyBranchExists"
+        }
+      },
+      "params": [
+        "owner",
+        "repo",
+        "branch"
+      ],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyUserAdded",
-          "descriptionRegex": "Add a user with username (.+) and email (.+)"
+          "descriptionRegex": "Add branch (.+) in repository (.+)/(.+)",
+          "name": "waitForAnyBranchAdded"
         },
         "deleted": {
-          "name": "waitForAnyUserDeleted",
-          "descriptionRegex": "Delete a user with username (.+)"
+          "descriptionRegex": "Delete branch (.+) in repository (.+)/(.+)",
+          "name": "waitForAnyBranchDeleted"
+        }
+      }
+    },
+    "Label": {
+      "displayName": "label",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "id": "{id}"
+          },
+          "descriptionTemplate": "Add label {id} in organization {org}",
+          "method": "POST",
+          "name": "addLabel",
+          "params": [
+            "org",
+            "id"
+          ],
+          "path": "/orgs/{org}/labels"
+        },
+        "delete": {
+          "bodyTemplate": null,
+          "descriptionTemplate": "Delete label {id} in organization {org}",
+          "method": "DELETE",
+          "name": "deleteLabel",
+          "params": [
+            "org",
+            "id"
+          ],
+          "path": "/orgs/{org}/labels/{id}"
+        },
+        "get": {
+          "bodyTemplate": null,
+          "descriptionTemplate": "Get label {id} in organization {org}",
+          "method": "GET",
+          "name": "getLabel",
+          "params": [
+            "org",
+            "id"
+          ],
+          "path": "/orgs/{org}/labels/{id}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "id": "{id}"
+          },
+          "descriptionTemplate": "Update label {id} in organization {org}",
+          "method": "PATCH",
+          "name": "updateLabel",
+          "params": [
+            "org",
+            "id"
+          ],
+          "path": "/orgs/{org}/labels/{id}"
+        },
+        "verifyExists": {
+          "name": "verifyLabelExists"
+        }
+      },
+      "params": [
+        "org",
+        "id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add label (.+) in organization (.+)",
+          "name": "waitForAnyLabelAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete label (.+) in organization (.+)",
+          "name": "waitForAnyLabelDeleted"
+        }
+      }
+    },
+    "Organization": {
+      "displayName": "organization",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "org": "{org}"
+          },
+          "descriptionTemplate": "Add organization {org}",
+          "method": "POST",
+          "name": "addOrganization",
+          "params": [
+            "org"
+          ],
+          "path": "/orgs"
+        },
+        "delete": {
+          "bodyTemplate": null,
+          "descriptionTemplate": "Delete organization {org}",
+          "method": "DELETE",
+          "name": "deleteOrganization",
+          "params": [
+            "org"
+          ],
+          "path": "/orgs/{org}"
+        },
+        "get": {
+          "bodyTemplate": null,
+          "descriptionTemplate": "Get organization {org}",
+          "method": "GET",
+          "name": "getOrganization",
+          "params": [
+            "org"
+          ],
+          "path": "/orgs/{org}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "org": "{org}"
+          },
+          "descriptionTemplate": "Update organization {org}",
+          "method": "PATCH",
+          "name": "updateOrganization",
+          "params": [
+            "org"
+          ],
+          "path": "/orgs/{org}"
+        },
+        "verifyExists": {
+          "name": "verifyOrganizationExists"
+        }
+      },
+      "params": [
+        "org"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add organization (.+)",
+          "name": "waitForAnyOrganizationAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete organization (.+)",
+          "name": "waitForAnyOrganizationDeleted"
         }
       }
     },
     "Repository": {
       "displayName": "repository",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "owner": "{owner}",
+            "repo": "{repo}"
+          },
+          "descriptionTemplate": "Add repository {owner}/{repo}",
+          "method": "POST",
+          "name": "addRepository",
+          "params": [
+            "owner",
+            "repo"
+          ],
+          "path": "/repos/{owner}/{repo}"
+        },
+        "delete": {
+          "bodyTemplate": null,
+          "descriptionTemplate": "Delete repository {owner}/{repo}",
+          "method": "DELETE",
+          "name": "deleteRepository",
+          "params": [
+            "owner",
+            "repo"
+          ],
+          "path": "/repos/{owner}/{repo}"
+        },
+        "get": {
+          "bodyTemplate": null,
+          "descriptionTemplate": "Get repository {owner}/{repo}",
+          "method": "GET",
+          "name": "getRepository",
+          "params": [
+            "owner",
+            "repo"
+          ],
+          "path": "/repos/{owner}/{repo}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "owner": "{owner}",
+            "repo": "{repo}"
+          },
+          "descriptionTemplate": "Update repository {owner}/{repo}",
+          "method": "PATCH",
+          "name": "updateRepository",
+          "params": [
+            "owner",
+            "repo"
+          ],
+          "path": "/repos/{owner}/{repo}"
+        },
+        "verifyExists": {
+          "name": "verifyRepositoryExists"
+        }
+      },
       "params": [
         "owner",
         "repo"
       ],
-      "operations": {
-        "add": {
-          "name": "createRepo",
-          "method": "POST",
-          "path": "/user/repos",
-          "descriptionTemplate": "Create a repository named {repo} owned by {owner}",
-          "bodyTemplate": {
-            "name": "{repo}",
-            "owner": "{owner}"
-          }
-        },
-        "delete": {
-          "name": "deleteRepo",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}",
-          "descriptionTemplate": "Delete the repository {repo} owned by {owner}"
-        },
-        "verifyExists": {
-          "name": "verifyRepoExists"
-        }
-      },
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyRepoAdded",
-          "descriptionRegex": "Create a repository named (.+) owned by (.+)"
+          "descriptionRegex": "Add repository (.+)/(.+)",
+          "name": "waitForAnyRepositoryAdded"
         },
         "deleted": {
-          "name": "waitForAnyRepoDeleted",
-          "descriptionRegex": "Delete the repository (.+) owned by (.+)"
+          "descriptionRegex": "Delete repository (.+)/(.+)",
+          "name": "waitForAnyRepositoryDeleted"
         }
       }
     },
-    "Issue": {
-      "displayName": "issue",
-      "params": [
-        "owner",
-        "repo",
-        "index"
-      ],
+    "Setting": {
+      "displayName": "setting",
+      "operations": {},
+      "params": [],
+      "waitForPatterns": {}
+    },
+    "User": {
+      "displayName": "user",
       "operations": {
         "add": {
-          "name": "createIssue",
-          "method": "POST",
-          "path": "/repos/{owner}/{repo}/issues",
-          "descriptionTemplate": "Create an issue in repository {repo} with title {title}",
           "bodyTemplate": {
-            "title": "{title}",
-            "body": "{body}"
-          }
+            "username": "{username}"
+          },
+          "descriptionTemplate": "Add user {username}",
+          "method": "POST",
+          "name": "addUser",
+          "params": [
+            "username"
+          ],
+          "path": "/admin/users"
         },
         "delete": {
-          "name": "deleteIssue",
+          "bodyTemplate": null,
+          "descriptionTemplate": "Delete user {username}",
           "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/issues/{index}",
-          "descriptionTemplate": "Delete issue {index} in repository {repo}"
+          "name": "deleteUser",
+          "params": [
+            "username"
+          ],
+          "path": "/admin/users/{username}"
+        },
+        "get": {
+          "bodyTemplate": null,
+          "descriptionTemplate": "Get users list",
+          "method": "GET",
+          "name": "getUser",
+          "params": [],
+          "path": "/admin/users"
+        },
+        "update": {
+          "bodyTemplate": {
+            "username": "{username}"
+          },
+          "descriptionTemplate": "Update user {username}",
+          "method": "PATCH",
+          "name": "updateUser",
+          "params": [
+            "username"
+          ],
+          "path": "/admin/users/{username}"
         },
         "verifyExists": {
-          "name": "verifyIssueExists"
+          "name": "verifyUserExists"
         }
       },
+      "params": [
+        "username"
+      ],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyIssueAdded",
-          "descriptionRegex": "Create an issue in repository (.+) with title (.+)"
+          "descriptionRegex": "Add user (.+)",
+          "name": "waitForAnyUserAdded"
         },
         "deleted": {
-          "name": "waitForAnyIssueDeleted",
-          "descriptionRegex": "Delete issue (.+) in repository (.+)"
+          "descriptionRegex": "Delete user (.+)",
+          "name": "waitForAnyUserDeleted"
+        }
+      }
+    },
+    "Webhook": {
+      "displayName": "hook",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "id": "{id}"
+          },
+          "descriptionTemplate": "Add hook {id}",
+          "method": "POST",
+          "name": "addWebhook",
+          "params": [
+            "id"
+          ],
+          "path": "/admin/hooks"
+        },
+        "delete": {
+          "bodyTemplate": null,
+          "descriptionTemplate": "Delete hook {id}",
+          "method": "DELETE",
+          "name": "deleteWebhook",
+          "params": [
+            "id"
+          ],
+          "path": "/admin/hooks/{id}"
+        },
+        "get": {
+          "bodyTemplate": null,
+          "descriptionTemplate": "Get hook {id}",
+          "method": "GET",
+          "name": "getWebhook",
+          "params": [
+            "id"
+          ],
+          "path": "/admin/hooks/{id}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "id": "{id}"
+          },
+          "descriptionTemplate": "Update hook {id}",
+          "method": "PATCH",
+          "name": "updateWebhook",
+          "params": [
+            "id"
+          ],
+          "path": "/admin/hooks/{id}"
+        },
+        "verifyExists": {
+          "name": "verifyWebhookExists"
+        }
+      },
+      "params": [
+        "id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add hook (.+)",
+          "name": "waitForAnyHookAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete hook (.+)",
+          "name": "waitForAnyHookDeleted"
         }
       }
     }
   },
-  "stories": [
-    {
-      "name": "User_basicCrud",
-      "entity": "User",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Repo_basicCrud",
-      "entity": "Repository",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Issue_basicCrud",
-      "entity": "Issue",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "User_duplicateAdd",
-      "entity": "User",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "Repo_duplicateAdd",
-      "entity": "Repository",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "Issue_duplicateAdd",
-      "entity": "Issue",
-      "pattern": "duplicate_add"
-    }
-  ]
+  "sut": "gitea"
 }

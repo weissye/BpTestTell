@@ -1,0 +1,473 @@
+{
+  "base_url": "https://api.twilio.com",
+  "entities": {
+    "Account": {
+      "displayName": "account",
+      "operations": {
+        "get": {
+          "descriptionTemplate": "Get account {accountSid}",
+          "method": "GET",
+          "name": "getAccount",
+          "params": [
+            "accountSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}.json"
+        },
+        "update": {
+          "bodyTemplate": {
+            "FriendlyName": "{friendlyName}"
+          },
+          "descriptionTemplate": "Update account {accountSid}",
+          "method": "POST",
+          "name": "updateAccount",
+          "params": [
+            "accountSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}.json"
+        }
+      },
+      "params": [
+        "accountSid"
+      ],
+      "waitForPatterns": {
+        "updated": {
+          "descriptionRegex": "Update account (.+)",
+          "name": "waitForAnyAccountUpdated"
+        }
+      }
+    },
+    "Address": {
+      "displayName": "address",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "FriendlyName": "{friendlyName}"
+          },
+          "descriptionTemplate": "Add address {friendlyName}",
+          "method": "POST",
+          "name": "addAddress",
+          "params": [
+            "accountSid",
+            "friendlyName"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Addresses.json"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete address {addressSid}",
+          "method": "DELETE",
+          "name": "deleteAddress",
+          "params": [
+            "accountSid",
+            "addressSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Addresses/{addressSid}.json"
+        },
+        "get": {
+          "descriptionTemplate": "Get address {addressSid}",
+          "method": "GET",
+          "name": "getAddress",
+          "params": [
+            "accountSid",
+            "addressSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Addresses/{addressSid}.json"
+        },
+        "update": {
+          "bodyTemplate": {
+            "FriendlyName": "{friendlyName}"
+          },
+          "descriptionTemplate": "Update address {addressSid}",
+          "method": "POST",
+          "name": "updateAddress",
+          "params": [
+            "accountSid",
+            "addressSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Addresses/{addressSid}.json"
+        }
+      },
+      "params": [
+        "accountSid",
+        "addressSid"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add address (.+)",
+          "name": "waitForAnyAddressAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete address (.+)",
+          "name": "waitForAnyAddressDeleted"
+        }
+      }
+    },
+    "Application": {
+      "displayName": "application",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "FriendlyName": "{friendlyName}"
+          },
+          "descriptionTemplate": "Add application {friendlyName}",
+          "method": "POST",
+          "name": "addApplication",
+          "params": [
+            "accountSid",
+            "friendlyName"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Applications.json"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete application {applicationSid}",
+          "method": "DELETE",
+          "name": "deleteApplication",
+          "params": [
+            "accountSid",
+            "applicationSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Applications/{applicationSid}.json"
+        },
+        "get": {
+          "descriptionTemplate": "Get application {applicationSid}",
+          "method": "GET",
+          "name": "getApplication",
+          "params": [
+            "accountSid",
+            "applicationSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Applications/{applicationSid}.json"
+        },
+        "update": {
+          "bodyTemplate": {
+            "FriendlyName": "{friendlyName}"
+          },
+          "descriptionTemplate": "Update application {applicationSid}",
+          "method": "POST",
+          "name": "updateApplication",
+          "params": [
+            "accountSid",
+            "applicationSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Applications/{applicationSid}.json"
+        }
+      },
+      "params": [
+        "accountSid",
+        "applicationSid"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add application (.+)",
+          "name": "waitForAnyApplicationAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete application (.+)",
+          "name": "waitForAnyApplicationDeleted"
+        }
+      }
+    },
+    "Call": {
+      "displayName": "call",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "From": "{from}",
+            "To": "{to}"
+          },
+          "descriptionTemplate": "Add call to {to}",
+          "method": "POST",
+          "name": "addCall",
+          "params": [
+            "accountSid",
+            "to",
+            "from"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Calls.json"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete call {callSid}",
+          "method": "DELETE",
+          "name": "deleteCall",
+          "params": [
+            "accountSid",
+            "callSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Calls/{callSid}.json"
+        },
+        "get": {
+          "descriptionTemplate": "Get call {callSid}",
+          "method": "GET",
+          "name": "getCall",
+          "params": [
+            "accountSid",
+            "callSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Calls/{callSid}.json"
+        },
+        "update": {
+          "bodyTemplate": {
+            "Status": "{status}"
+          },
+          "descriptionTemplate": "Update call {callSid}",
+          "method": "POST",
+          "name": "updateCall",
+          "params": [
+            "accountSid",
+            "callSid",
+            "status"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Calls/{callSid}.json"
+        }
+      },
+      "params": [
+        "accountSid",
+        "callSid"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add call to (.+)",
+          "name": "waitForAnyCallAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete call (.+)",
+          "name": "waitForAnyCallDeleted"
+        }
+      }
+    },
+    "Conference": {
+      "displayName": "conference",
+      "operations": {
+        "get": {
+          "descriptionTemplate": "Get conference {conferenceSid}",
+          "method": "GET",
+          "name": "getConference",
+          "params": [
+            "accountSid",
+            "conferenceSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Conferences/{conferenceSid}.json"
+        },
+        "update": {
+          "bodyTemplate": {
+            "Status": "{status}"
+          },
+          "descriptionTemplate": "Update conference {conferenceSid}",
+          "method": "POST",
+          "name": "updateConference",
+          "params": [
+            "accountSid",
+            "conferenceSid",
+            "status"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Conferences/{conferenceSid}.json"
+        }
+      },
+      "params": [
+        "accountSid",
+        "conferenceSid"
+      ],
+      "waitForPatterns": {
+        "updated": {
+          "descriptionRegex": "Update conference (.+)",
+          "name": "waitForAnyConferenceUpdated"
+        }
+      }
+    },
+    "IncomingPhoneNumber": {
+      "displayName": "incomingphonenumber",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "PhoneNumber": "{phoneNumber}"
+          },
+          "descriptionTemplate": "Add incoming phone number {phoneNumber}",
+          "method": "POST",
+          "name": "addIncomingPhoneNumber",
+          "params": [
+            "accountSid",
+            "phoneNumber"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/IncomingPhoneNumbers.json"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete incoming phone number {phoneNumberSid}",
+          "method": "DELETE",
+          "name": "deleteIncomingPhoneNumber",
+          "params": [
+            "accountSid",
+            "phoneNumberSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/IncomingPhoneNumbers/{phoneNumberSid}.json"
+        },
+        "get": {
+          "descriptionTemplate": "Get incoming phone number {phoneNumberSid}",
+          "method": "GET",
+          "name": "getIncomingPhoneNumber",
+          "params": [
+            "accountSid",
+            "phoneNumberSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/IncomingPhoneNumbers/{phoneNumberSid}.json"
+        },
+        "update": {
+          "bodyTemplate": {
+            "FriendlyName": "{friendlyName}"
+          },
+          "descriptionTemplate": "Update incoming phone number {phoneNumberSid}",
+          "method": "POST",
+          "name": "updateIncomingPhoneNumber",
+          "params": [
+            "accountSid",
+            "phoneNumberSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/IncomingPhoneNumbers/{phoneNumberSid}.json"
+        }
+      },
+      "params": [
+        "accountSid",
+        "phoneNumberSid"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add incoming phone number (.+)",
+          "name": "waitForAnyIncomingPhoneNumberAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete incoming phone number (.+)",
+          "name": "waitForAnyIncomingPhoneNumberDeleted"
+        }
+      }
+    },
+    "User": {
+      "displayName": "user",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "Identity": "{identity}"
+          },
+          "descriptionTemplate": "Add user {identity}",
+          "method": "POST",
+          "name": "addUser",
+          "params": [
+            "accountSid",
+            "identity"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Users.json"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete user {userSid}",
+          "method": "DELETE",
+          "name": "deleteUser",
+          "params": [
+            "accountSid",
+            "userSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Users/{userSid}.json"
+        },
+        "get": {
+          "descriptionTemplate": "Get user {userSid}",
+          "method": "GET",
+          "name": "getUser",
+          "params": [
+            "accountSid",
+            "userSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Users/{userSid}.json"
+        },
+        "update": {
+          "bodyTemplate": {
+            "FriendlyName": "{friendlyName}"
+          },
+          "descriptionTemplate": "Update user {userSid}",
+          "method": "POST",
+          "name": "updateUser",
+          "params": [
+            "accountSid",
+            "userSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Users/{userSid}.json"
+        }
+      },
+      "params": [
+        "accountSid",
+        "userSid"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add user (.+)",
+          "name": "waitForAnyUserAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete user (.+)",
+          "name": "waitForAnyUserDeleted"
+        }
+      }
+    },
+    "Webhook": {
+      "displayName": "webhook",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "Url": "{url}"
+          },
+          "descriptionTemplate": "Add webhook {url}",
+          "method": "POST",
+          "name": "addWebhook",
+          "params": [
+            "accountSid",
+            "url"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Webhooks.json"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete webhook {webhookSid}",
+          "method": "DELETE",
+          "name": "deleteWebhook",
+          "params": [
+            "accountSid",
+            "webhookSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Webhooks/{webhookSid}.json"
+        },
+        "get": {
+          "descriptionTemplate": "Get webhook {webhookSid}",
+          "method": "GET",
+          "name": "getWebhook",
+          "params": [
+            "accountSid",
+            "webhookSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Webhooks/{webhookSid}.json"
+        },
+        "update": {
+          "bodyTemplate": {
+            "Url": "{url}"
+          },
+          "descriptionTemplate": "Update webhook {webhookSid}",
+          "method": "POST",
+          "name": "updateWebhook",
+          "params": [
+            "accountSid",
+            "webhookSid"
+          ],
+          "path": "/2010-04-01/Accounts/{accountSid}/Webhooks/{webhookSid}.json"
+        }
+      },
+      "params": [
+        "accountSid",
+        "webhookSid"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add webhook (.+)",
+          "name": "waitForAnyWebhookAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete webhook (.+)",
+          "name": "waitForAnyWebhookDeleted"
+        }
+      }
+    }
+  },
+  "sut": "twilio"
+}

@@ -1,0 +1,280 @@
+{
+  "base_url": "https://api.stripe.com",
+  "entities": {
+    "account": {
+      "displayName": "account",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add account {accountId}",
+          "method": "POST",
+          "name": "addAccount",
+          "params": [],
+          "path": "/v1/accounts"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete account {accountId}",
+          "method": "DELETE",
+          "name": "deleteAccount",
+          "params": [
+            "accountId"
+          ],
+          "path": "/v1/accounts/{accountId}"
+        },
+        "get": {
+          "descriptionTemplate": "Get account {accountId}",
+          "method": "GET",
+          "name": "getAccount",
+          "params": [
+            "accountId"
+          ],
+          "path": "/v1/accounts/{accountId}"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update account {accountId}",
+          "method": "POST",
+          "name": "updateAccount",
+          "params": [
+            "accountId"
+          ],
+          "path": "/v1/accounts/{accountId}"
+        },
+        "verifyExists": {
+          "name": "verifyAccountExists"
+        }
+      },
+      "params": [
+        "accountId"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add account (.+)",
+          "name": "waitForAnyAccountAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete account (.+)",
+          "name": "waitForAnyAccountDeleted"
+        }
+      }
+    },
+    "account_link": {
+      "displayName": "account_link",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add account_link",
+          "method": "POST",
+          "name": "addAccountLink",
+          "params": [],
+          "path": "/v1/account_links"
+        },
+        "get": {
+          "descriptionTemplate": "Get account_link {accountLinkId}",
+          "method": "GET",
+          "name": "getAccountLink",
+          "params": [
+            "accountLinkId"
+          ],
+          "path": "/v1/account_links/{accountLinkId}"
+        },
+        "verifyExists": {
+          "name": "verifyAccountLinkExists"
+        }
+      },
+      "params": [
+        "accountLinkId"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add account_link",
+          "name": "waitForAnyAccountLinkAdded"
+        }
+      }
+    },
+    "account_session": {
+      "displayName": "account_session",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add account_session",
+          "method": "POST",
+          "name": "addAccountSession",
+          "params": [],
+          "path": "/v1/account_sessions"
+        },
+        "get": {
+          "descriptionTemplate": "Get account_session {accountSessionId}",
+          "method": "GET",
+          "name": "getAccountSession",
+          "params": [
+            "accountSessionId"
+          ],
+          "path": "/v1/account_sessions/{accountSessionId}"
+        },
+        "verifyExists": {
+          "name": "verifyAccountSessionExists"
+        }
+      },
+      "params": [
+        "accountSessionId"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add account_session",
+          "name": "waitForAnyAccountSessionAdded"
+        }
+      }
+    },
+    "apple_pay_domain": {
+      "displayName": "apple_pay_domain",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add apple_pay_domain",
+          "method": "POST",
+          "name": "addApplePayDomain",
+          "params": [],
+          "path": "/v1/apple_pay/domains"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete apple_pay_domain {applePayDomainId}",
+          "method": "DELETE",
+          "name": "deleteApplePayDomain",
+          "params": [
+            "applePayDomainId"
+          ],
+          "path": "/v1/apple_pay/domains/{applePayDomainId}"
+        },
+        "get": {
+          "descriptionTemplate": "Get apple_pay_domain {applePayDomainId}",
+          "method": "GET",
+          "name": "getApplePayDomain",
+          "params": [
+            "applePayDomainId"
+          ],
+          "path": "/v1/apple_pay/domains/{applePayDomainId}"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update apple_pay_domain {applePayDomainId}",
+          "method": "POST",
+          "name": "updateApplePayDomain",
+          "params": [
+            "applePayDomainId"
+          ],
+          "path": "/v1/apple_pay/domains/{applePayDomainId}"
+        },
+        "verifyExists": {
+          "name": "verifyApplePayDomainExists"
+        }
+      },
+      "params": [
+        "applePayDomainId"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add apple_pay_domain",
+          "name": "waitForAnyApplePayDomainAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete apple_pay_domain (.+)",
+          "name": "waitForAnyApplePayDomainDeleted"
+        }
+      }
+    },
+    "application_fee": {
+      "displayName": "application_fee",
+      "operations": {
+        "get": {
+          "descriptionTemplate": "Get application_fee {applicationFeeId}",
+          "method": "GET",
+          "name": "getApplicationFee",
+          "params": [
+            "applicationFeeId"
+          ],
+          "path": "/v1/application_fees/{applicationFeeId}"
+        },
+        "list": {
+          "descriptionTemplate": "List application_fees",
+          "method": "GET",
+          "name": "listApplicationFees",
+          "params": [],
+          "path": "/v1/application_fees"
+        },
+        "verifyExists": {
+          "name": "verifyApplicationFeeExists"
+        }
+      },
+      "params": [
+        "applicationFeeId"
+      ],
+      "waitForPatterns": {}
+    },
+    "bank_account": {
+      "displayName": "bank_account",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "source": "{bankAccountId}"
+          },
+          "descriptionTemplate": "Add bank_account {bankAccountId}",
+          "method": "POST",
+          "name": "addBankAccount",
+          "params": [
+            "customerId"
+          ],
+          "path": "/v1/customers/{customerId}/sources"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete bank_account {bankAccountId}",
+          "method": "DELETE",
+          "name": "deleteBankAccount",
+          "params": [
+            "customerId",
+            "bankAccountId"
+          ],
+          "path": "/v1/customers/{customerId}/sources/{bankAccountId}"
+        },
+        "get": {
+          "descriptionTemplate": "Get bank_account {bankAccountId}",
+          "method": "GET",
+          "name": "getBankAccount",
+          "params": [
+            "customerId",
+            "bankAccountId"
+          ],
+          "path": "/v1/customers/{customerId}/sources/{bankAccountId}"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update bank_account {bankAccountId}",
+          "method": "POST",
+          "name": "updateBankAccount",
+          "params": [
+            "customerId",
+            "bankAccountId"
+          ],
+          "path": "/v1/customers/{customerId}/sources/{bankAccountId}"
+        },
+        "verifyExists": {
+          "name": "verifyBankAccountExists"
+        }
+      },
+      "params": [
+        "bankAccountId"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add bank_account (.+)",
+          "name": "waitForAnyBankAccountAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete bank_account (.+)",
+          "name": "waitForAnyBankAccountDeleted"
+        }
+      }
+    }
+  },
+  "sut": "stripe"
+}

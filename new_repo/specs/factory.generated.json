@@ -1,199 +1,114 @@
 {
-  "sut": "factory",
+  "base_url": "",
   "entities": {
     "Machine": {
       "displayName": "machine",
-      "params": [
-        "id",
-        "name"
-      ],
       "operations": {
         "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add machine",
+          "method": "POST",
           "name": "addMachine",
-          "method": "POST",
-          "path": "/machines",
-          "descriptionTemplate": "Add a machine with id {id} and name {name}",
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}"
-          }
+          "params": [],
+          "path": "/machines"
         },
-        "delete": {
-          "name": "deleteMachine",
-          "method": "DELETE",
-          "path": "/machines/{id}",
-          "descriptionTemplate": "Delete a machine with id {id} and name {name}"
-        },
-        "verifyExists": {
-          "name": "verifyMachineExists"
+        "get": {
+          "descriptionTemplate": "Get machines",
+          "method": "GET",
+          "name": "getMachines",
+          "params": [],
+          "path": "/machines"
         }
       },
+      "params": [],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyMachineAdded",
-          "descriptionRegex": "Add a machine with id (.+) and name (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyMachineDeleted",
-          "descriptionRegex": "Delete a machine with id (.+) and name (.+)"
-        }
-      }
-    },
-    "WorkOrder": {
-      "displayName": "work order",
-      "params": [
-        "id",
-        "description"
-      ],
-      "operations": {
-        "add": {
-          "name": "addWorkOrder",
-          "method": "POST",
-          "path": "/workorders",
-          "descriptionTemplate": "Add a work order with id {id} and description {description}",
-          "bodyTemplate": {
-            "id": "{id}",
-            "description": "{description}"
-          }
-        },
-        "delete": {
-          "name": "deleteWorkOrder",
-          "method": "DELETE",
-          "path": "/workorders/{id}",
-          "descriptionTemplate": "Delete a work order with id {id} and description {description}"
-        },
-        "verifyExists": {
-          "name": "verifyWorkOrderExists"
-        }
-      },
-      "waitForPatterns": {
-        "added": {
-          "name": "waitForAnyWorkOrderAdded",
-          "descriptionRegex": "Add a work order with id (.+) and description (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyWorkOrderDeleted",
-          "descriptionRegex": "Delete a work order with id (.+) and description (.+)"
+          "descriptionRegex": "Add machine",
+          "name": "waitForAnyMachineAdded"
         }
       }
     },
     "MaintenanceTicket": {
-      "displayName": "maintenance ticket",
-      "params": [
-        "id",
-        "issue"
-      ],
+      "displayName": "maintenanceticket",
       "operations": {
         "add": {
-          "name": "addMaintenanceTicket",
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add maintenanceticket",
           "method": "POST",
-          "path": "/maintenance-tickets",
-          "descriptionTemplate": "Add a maintenance ticket with id {id} and issue {issue}",
-          "bodyTemplate": {
-            "id": "{id}",
-            "issue": "{issue}"
-          }
+          "name": "addMaintenanceTicket",
+          "params": [],
+          "path": "/maintenance-tickets"
         },
-        "delete": {
-          "name": "deleteMaintenanceTicket",
-          "method": "DELETE",
-          "path": "/maintenance-tickets/{id}",
-          "descriptionTemplate": "Delete a maintenance ticket with id {id} and issue {issue}"
-        },
-        "verifyExists": {
-          "name": "verifyMaintenanceTicketExists"
+        "get": {
+          "descriptionTemplate": "Get maintenancetickets",
+          "method": "GET",
+          "name": "getMaintenanceTickets",
+          "params": [],
+          "path": "/maintenance-tickets"
         }
       },
+      "params": [],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyMaintenanceTicketAdded",
-          "descriptionRegex": "Add a maintenance ticket with id (.+) and issue (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyMaintenanceTicketDeleted",
-          "descriptionRegex": "Delete a maintenance ticket with id (.+) and issue (.+)"
+          "descriptionRegex": "Add maintenanceticket",
+          "name": "waitForAnyMaintenanceTicketAdded"
         }
       }
     },
     "SensorReading": {
-      "displayName": "sensor reading",
-      "params": [
-        "id",
-        "value"
-      ],
+      "displayName": "sensorreading",
       "operations": {
         "add": {
-          "name": "addSensorReading",
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add sensorreading",
           "method": "POST",
-          "path": "/sensor-readings",
-          "descriptionTemplate": "Add a sensor reading with id {id} and value {value}",
-          "bodyTemplate": {
-            "id": "{id}",
-            "value": "{value}"
-          }
+          "name": "addSensorReading",
+          "params": [],
+          "path": "/sensor-readings"
         },
-        "delete": {
-          "name": "deleteSensorReading",
-          "method": "DELETE",
-          "path": "/sensor-readings/{id}",
-          "descriptionTemplate": "Delete a sensor reading with id {id} and value {value}"
-        },
-        "verifyExists": {
-          "name": "verifySensorReadingExists"
+        "get": {
+          "descriptionTemplate": "Get sensorreadings",
+          "method": "GET",
+          "name": "getSensorReadings",
+          "params": [],
+          "path": "/sensor-readings"
         }
       },
+      "params": [],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnySensorReadingAdded",
-          "descriptionRegex": "Add a sensor reading with id (.+) and value (.+)"
+          "descriptionRegex": "Add sensorreading",
+          "name": "waitForAnySensorReadingAdded"
+        }
+      }
+    },
+    "Workorder": {
+      "displayName": "workorder",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add workorder",
+          "method": "POST",
+          "name": "addWorkorder",
+          "params": [],
+          "path": "/workorders"
         },
-        "deleted": {
-          "name": "waitForAnySensorReadingDeleted",
-          "descriptionRegex": "Delete a sensor reading with id (.+) and value (.+)"
+        "get": {
+          "descriptionTemplate": "Get workorders",
+          "method": "GET",
+          "name": "getWorkorders",
+          "params": [],
+          "path": "/workorders"
+        }
+      },
+      "params": [],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add workorder",
+          "name": "waitForAnyWorkorderAdded"
         }
       }
     }
   },
-  "stories": [
-    {
-      "name": "Machine_basicCrud",
-      "entity": "Machine",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "WorkOrder_basicCrud",
-      "entity": "WorkOrder",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "MaintenanceTicket_basicCrud",
-      "entity": "MaintenanceTicket",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "SensorReading_basicCrud",
-      "entity": "SensorReading",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Machine_duplicateAdd",
-      "entity": "Machine",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "WorkOrder_duplicateAdd",
-      "entity": "WorkOrder",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "MaintenanceTicket_duplicateAdd",
-      "entity": "MaintenanceTicket",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "SensorReading_duplicateAdd",
-      "entity": "SensorReading",
-      "pattern": "duplicate_add"
-    }
-  ]
+  "sut": "factory"
 }

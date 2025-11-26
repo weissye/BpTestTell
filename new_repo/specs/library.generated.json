@@ -1,201 +1,228 @@
 {
-  "sut": "library",
+  "base_url": "",
   "entities": {
-    "User": {
-      "displayName": "user",
-      "params": [
-        "id",
-        "name"
-      ],
-      "operations": {
-        "add": {
-          "name": "addUser",
-          "method": "POST",
-          "path": "/users",
-          "descriptionTemplate": "Add a user with id {id} and name {name}",
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}"
-          }
-        },
-        "delete": {
-          "name": "deleteUser",
-          "method": "DELETE",
-          "path": "/users/{id}",
-          "descriptionTemplate": "Delete a user with id {id} and name {name}"
-        },
-        "verifyExists": {
-          "name": "verifyUserExists"
-        }
-      },
-      "waitForPatterns": {
-        "added": {
-          "name": "waitForAnyUserAdded",
-          "descriptionRegex": "Add a user with id (.+) and name (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyUserDeleted",
-          "descriptionRegex": "Delete a user with id (.+) and name (.+)"
-        }
-      }
-    },
     "Book": {
       "displayName": "book",
-      "params": [
-        "id",
-        "title"
-      ],
       "operations": {
         "add": {
-          "name": "addBook",
-          "method": "POST",
-          "path": "/books",
-          "descriptionTemplate": "Add a book with id {id} and title {title}",
           "bodyTemplate": {
             "id": "{id}",
             "title": "{title}"
-          }
-        },
-        "delete": {
-          "name": "deleteBook",
-          "method": "DELETE",
-          "path": "/books/{id}",
-          "descriptionTemplate": "Delete a book with id {id} and title {title}"
-        },
-        "verifyExists": {
-          "name": "verifyBookExists"
-        }
-      },
-      "waitForPatterns": {
-        "added": {
-          "name": "waitForAnyBookAdded",
-          "descriptionRegex": "Add a book with id (.+) and title (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyBookDeleted",
-          "descriptionRegex": "Delete a book with id (.+) and title (.+)"
-        }
-      }
-    },
-    "Loan": {
-      "displayName": "loan",
-      "params": [
-        "userId",
-        "bookId"
-      ],
-      "operations": {
-        "add": {
-          "name": "addLoan",
+          },
+          "descriptionTemplate": "Add book {id}",
           "method": "POST",
-          "path": "/loans",
-          "descriptionTemplate": "Add a loan for user {userId} and book {bookId}",
-          "bodyTemplate": {
-            "userId": "{userId}",
-            "bookId": "{bookId}"
-          }
+          "name": "addBook",
+          "params": [
+            "id",
+            "title"
+          ],
+          "path": "/books"
         },
         "delete": {
-          "name": "deleteLoan",
+          "descriptionTemplate": "Delete book {book_id}",
           "method": "DELETE",
-          "path": "/loans/{userId}/{bookId}",
-          "descriptionTemplate": "Delete a loan for user {userId} and book {bookId}"
+          "name": "deleteBook",
+          "params": [
+            "book_id"
+          ],
+          "path": "/books/{book_id}"
         },
-        "verifyExists": {
-          "name": "verifyLoanExists"
+        "get": {
+          "descriptionTemplate": "Get book {book_id}",
+          "method": "GET",
+          "name": "getBook",
+          "params": [
+            "book_id"
+          ],
+          "path": "/books/{book_id}"
+        },
+        "list": {
+          "descriptionTemplate": "List books with query {q}",
+          "method": "GET",
+          "name": "listBooks",
+          "params": [
+            "q"
+          ],
+          "path": "/books"
         }
       },
+      "params": [
+        "book_id",
+        "q",
+        "id",
+        "title"
+      ],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyLoanAdded",
-          "descriptionRegex": "Add a loan for user (.+) and book (.+)"
+          "descriptionRegex": "Add book (.+)",
+          "name": "waitForAnyBookAdded"
         },
         "deleted": {
-          "name": "waitForAnyLoanDeleted",
-          "descriptionRegex": "Delete a loan for user (.+) and book (.+)"
+          "descriptionRegex": "Delete book (.+)",
+          "name": "waitForAnyBookDeleted"
         }
       }
     },
     "Hold": {
       "displayName": "hold",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "bookId": "{bookId}",
+            "hold_id": "{hold_id}",
+            "userId": "{userId}"
+          },
+          "descriptionTemplate": "Add hold {hold_id}",
+          "method": "POST",
+          "name": "addHold",
+          "params": [
+            "hold_id",
+            "userId",
+            "bookId"
+          ],
+          "path": "/holds"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete hold {hold_id}",
+          "method": "DELETE",
+          "name": "deleteHold",
+          "params": [
+            "hold_id"
+          ],
+          "path": "/holds/{hold_id}"
+        },
+        "get": {
+          "descriptionTemplate": "Get holds",
+          "method": "GET",
+          "name": "getHolds",
+          "params": [],
+          "path": "/holds"
+        }
+      },
       "params": [
         "hold_id",
         "userId",
         "bookId"
       ],
-      "operations": {
-        "add": {
-          "name": "addHold",
-          "method": "POST",
-          "path": "/holds",
-          "descriptionTemplate": "Add a hold with id {hold_id} for user {userId} and book {bookId}",
-          "bodyTemplate": {
-            "hold_id": "{hold_id}",
-            "userId": "{userId}",
-            "bookId": "{bookId}"
-          }
-        },
-        "delete": {
-          "name": "deleteHold",
-          "method": "DELETE",
-          "path": "/holds/{hold_id}",
-          "descriptionTemplate": "Delete a hold with id {hold_id} for user {userId} and book {bookId}"
-        },
-        "verifyExists": {
-          "name": "verifyHoldExists"
-        }
-      },
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyHoldAdded",
-          "descriptionRegex": "Add a hold with id (.+) for user (.+) and book (.+)"
+          "descriptionRegex": "Add hold (.+)",
+          "name": "waitForAnyHoldAdded"
         },
         "deleted": {
-          "name": "waitForAnyHoldDeleted",
-          "descriptionRegex": "Delete a hold with id (.+) for user (.+) and book (.+)"
+          "descriptionRegex": "Delete hold (.+)",
+          "name": "waitForAnyHoldDeleted"
+        }
+      }
+    },
+    "Loan": {
+      "displayName": "loan",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "bookId": "{bookId}",
+            "userId": "{userId}"
+          },
+          "descriptionTemplate": "Add loan user {userId} book {bookId}",
+          "method": "POST",
+          "name": "addLoan",
+          "params": [
+            "userId",
+            "bookId"
+          ],
+          "path": "/loans"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete loan user {user_id} book {book_id}",
+          "method": "DELETE",
+          "name": "deleteLoan",
+          "params": [
+            "user_id",
+            "book_id"
+          ],
+          "path": "/loans/{user_id}/{book_id}"
+        },
+        "get": {
+          "descriptionTemplate": "Get loans with userId {userId} and bookId {bookId}",
+          "method": "GET",
+          "name": "getLoans",
+          "params": [
+            "userId",
+            "bookId"
+          ],
+          "path": "/loans"
+        }
+      },
+      "params": [
+        "user_id",
+        "book_id",
+        "userId",
+        "bookId"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add loan user (.+) book (.+)",
+          "name": "waitForAnyLoanAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete loan user (.+) book (.+)",
+          "name": "waitForAnyLoanDeleted"
+        }
+      }
+    },
+    "User": {
+      "displayName": "user",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}"
+          },
+          "descriptionTemplate": "Add user {id}",
+          "method": "POST",
+          "name": "addUser",
+          "params": [
+            "id",
+            "name"
+          ],
+          "path": "/users"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete user {user_id}",
+          "method": "DELETE",
+          "name": "deleteUser",
+          "params": [
+            "user_id"
+          ],
+          "path": "/users/{user_id}"
+        },
+        "get": {
+          "descriptionTemplate": "Get users with query {q}",
+          "method": "GET",
+          "name": "getUsers",
+          "params": [
+            "q"
+          ],
+          "path": "/users"
+        }
+      },
+      "params": [
+        "user_id",
+        "q",
+        "id",
+        "name"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add user (.+)",
+          "name": "waitForAnyUserAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete user (.+)",
+          "name": "waitForAnyUserDeleted"
         }
       }
     }
   },
-  "stories": [
-    {
-      "name": "User_basicCrud",
-      "entity": "User",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "User_duplicateAdd",
-      "entity": "User",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "Book_basicCrud",
-      "entity": "Book",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Book_duplicateAdd",
-      "entity": "Book",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "Loan_basicCrud",
-      "entity": "Loan",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Loan_duplicateAdd",
-      "entity": "Loan",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "Hold_basicCrud",
-      "entity": "Hold",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Hold_duplicateAdd",
-      "entity": "Hold",
-      "pattern": "duplicate_add"
-    }
-  ]
+  "sut": "library"
 }

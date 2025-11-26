@@ -1,193 +1,161 @@
 {
-  "sut": "banking",
+  "base_url": "",
   "entities": {
-    "Customer": {
-      "displayName": "customer",
-      "params": [
-        "id",
-        "name"
-      ],
+    "Accounts": {
+      "displayName": "accounts",
       "operations": {
         "add": {
-          "name": "addCustomer",
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add accounts",
           "method": "POST",
-          "path": "/customers",
-          "descriptionTemplate": "Add a customer with id {id} and name {name}",
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}"
-          }
+          "name": "addAccounts",
+          "params": [],
+          "path": "/accounts"
         },
-        "delete": {
-          "name": "deleteCustomer",
-          "method": "DELETE",
-          "path": "/customers/{id}",
-          "descriptionTemplate": "Delete a customer with id {id} and name {name}"
+        "get": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Get accounts",
+          "method": "GET",
+          "name": "getAccounts",
+          "params": [],
+          "path": "/accounts"
         },
         "verifyExists": {
-          "name": "verifyCustomerExists"
+          "name": "verifyAccountsExists"
         }
       },
-      "waitForPatterns": {
-        "added": {
-          "name": "waitForAnyCustomerAdded",
-          "descriptionRegex": "Add a customer with id (.+) and name (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyCustomerDeleted",
-          "descriptionRegex": "Delete a customer with id (.+) and name (.+)"
-        }
-      }
-    },
-    "Account": {
-      "displayName": "account",
       "params": [
         "accountId"
       ],
-      "operations": {
-        "add": {
-          "name": "addAccount",
-          "method": "POST",
-          "path": "/accounts",
-          "descriptionTemplate": "Add an account with accountId {accountId}",
-          "bodyTemplate": {
-            "accountId": "{accountId}"
-          }
-        },
-        "delete": {
-          "name": "deleteAccount",
-          "method": "DELETE",
-          "path": "/accounts/{accountId}",
-          "descriptionTemplate": "Delete an account with accountId {accountId}"
-        },
-        "verifyExists": {
-          "name": "verifyAccountExists"
-        }
-      },
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyAccountAdded",
-          "descriptionRegex": "Add an account with accountId (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyAccountDeleted",
-          "descriptionRegex": "Delete an account with accountId (.+)"
+          "descriptionRegex": "Add accounts",
+          "name": "waitForAnyAccountsAdded"
         }
       }
     },
-    "Loan": {
-      "displayName": "loan",
-      "params": [
-        "loanId"
-      ],
+    "Cards": {
+      "displayName": "cards",
       "operations": {
         "add": {
-          "name": "addLoan",
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add cards",
           "method": "POST",
-          "path": "/loans",
-          "descriptionTemplate": "Add a loan with loanId {loanId}",
-          "bodyTemplate": {
-            "loanId": "{loanId}"
-          }
-        },
-        "delete": {
-          "name": "deleteLoan",
-          "method": "DELETE",
-          "path": "/loans/{loanId}",
-          "descriptionTemplate": "Delete a loan with loanId {loanId}"
+          "name": "addCards",
+          "params": [],
+          "path": "/cards"
         },
         "verifyExists": {
-          "name": "verifyLoanExists"
+          "name": "verifyCardsExists"
         }
       },
+      "params": [],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyLoanAdded",
-          "descriptionRegex": "Add a loan with loanId (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyLoanDeleted",
-          "descriptionRegex": "Delete a loan with loanId (.+)"
+          "descriptionRegex": "Add cards",
+          "name": "waitForAnyCardsAdded"
         }
       }
     },
-    "Card": {
-      "displayName": "card",
-      "params": [
-        "cardId"
-      ],
+    "Customers": {
+      "displayName": "customers",
       "operations": {
         "add": {
-          "name": "addCard",
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add customers",
           "method": "POST",
-          "path": "/cards",
-          "descriptionTemplate": "Add a card with cardId {cardId}",
-          "bodyTemplate": {
-            "cardId": "{cardId}"
-          }
-        },
-        "delete": {
-          "name": "deleteCard",
-          "method": "DELETE",
-          "path": "/cards/{cardId}",
-          "descriptionTemplate": "Delete a card with cardId {cardId}"
+          "name": "addCustomers",
+          "params": [],
+          "path": "/customers"
         },
         "verifyExists": {
-          "name": "verifyCardExists"
+          "name": "verifyCustomersExists"
         }
       },
+      "params": [],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyCardAdded",
-          "descriptionRegex": "Add a card with cardId (.+)"
+          "descriptionRegex": "Add customers",
+          "name": "waitForAnyCustomersAdded"
+        }
+      }
+    },
+    "Loans": {
+      "displayName": "loans",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add loans",
+          "method": "POST",
+          "name": "addLoans",
+          "params": [],
+          "path": "/loans"
         },
-        "deleted": {
-          "name": "waitForAnyCardDeleted",
-          "descriptionRegex": "Delete a card with cardId (.+)"
+        "get": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Get loans",
+          "method": "GET",
+          "name": "getLoans",
+          "params": [],
+          "path": "/loans"
+        },
+        "verifyExists": {
+          "name": "verifyLoansExists"
+        }
+      },
+      "params": [],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add loans",
+          "name": "waitForAnyLoansAdded"
+        }
+      }
+    },
+    "Transactions": {
+      "displayName": "transactions",
+      "operations": {
+        "get": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Get transactions for account {accountId}",
+          "method": "GET",
+          "name": "getTransactions",
+          "params": [
+            "accountId"
+          ],
+          "path": "/accounts/{accountId}/transactions"
+        },
+        "verifyExists": {
+          "name": "verifyTransactionsExists"
+        }
+      },
+      "params": [
+        "accountId"
+      ],
+      "waitForPatterns": {}
+    },
+    "Transfers": {
+      "displayName": "transfers",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add transfers",
+          "method": "POST",
+          "name": "addTransfers",
+          "params": [],
+          "path": "/transfers"
+        },
+        "verifyExists": {
+          "name": "verifyTransfersExists"
+        }
+      },
+      "params": [],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add transfers",
+          "name": "waitForAnyTransfersAdded"
         }
       }
     }
   },
-  "stories": [
-    {
-      "name": "Customer_basicCrud",
-      "entity": "Customer",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Account_basicCrud",
-      "entity": "Account",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Loan_basicCrud",
-      "entity": "Loan",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Card_basicCrud",
-      "entity": "Card",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Customer_duplicateAdd",
-      "entity": "Customer",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "Account_duplicateAdd",
-      "entity": "Account",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "Loan_duplicateAdd",
-      "entity": "Loan",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "Card_duplicateAdd",
-      "entity": "Card",
-      "pattern": "duplicate_add"
-    }
-  ]
+  "sut": "banking"
 }

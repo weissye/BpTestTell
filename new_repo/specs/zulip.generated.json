@@ -1,0 +1,218 @@
+{
+  "base_url": "https://{subdomain}.zulipchat.com/api/v1",
+  "entities": {
+    "Activity": {
+      "displayName": "activity",
+      "operations": {
+        "get": {
+          "descriptionTemplate": "Get activity",
+          "method": "GET",
+          "name": "getActivity",
+          "params": [],
+          "path": "/activity"
+        }
+      },
+      "params": [],
+      "waitForPatterns": {}
+    },
+    "ApiKey": {
+      "displayName": "apikey",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "password": "{password}",
+            "username": "{username}"
+          },
+          "descriptionTemplate": "Fetch an API key for user {username}",
+          "method": "POST",
+          "name": "fetchApiKey",
+          "params": [
+            "username",
+            "password"
+          ],
+          "path": "/fetch_api_key"
+        }
+      },
+      "params": [
+        "username",
+        "password"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Fetch an API key for user (.+)",
+          "name": "waitForAnyApiKeyFetched"
+        }
+      }
+    },
+    "DevApiKey": {
+      "displayName": "devapikey",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "username": "{username}"
+          },
+          "descriptionTemplate": "Fetch a development API key for user {username}",
+          "method": "POST",
+          "name": "devFetchApiKey",
+          "params": [
+            "username"
+          ],
+          "path": "/dev_fetch_api_key"
+        }
+      },
+      "params": [
+        "username"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Fetch a development API key for user (.+)",
+          "name": "waitForAnyDevApiKeyFetched"
+        }
+      }
+    },
+    "Events": {
+      "displayName": "events",
+      "operations": {
+        "get": {
+          "descriptionTemplate": "Get events from queue {queue_id} after event {last_event_id}",
+          "method": "GET",
+          "name": "getEvents",
+          "params": [
+            "queue_id",
+            "last_event_id",
+            "dont_block"
+          ],
+          "path": "/events"
+        }
+      },
+      "params": [
+        "queue_id",
+        "last_event_id",
+        "dont_block"
+      ],
+      "waitForPatterns": {}
+    },
+    "Settings": {
+      "displayName": "settings",
+      "operations": {
+        "get": {
+          "descriptionTemplate": "Get settings",
+          "method": "GET",
+          "name": "getSettings",
+          "params": [],
+          "path": "/settings"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update settings",
+          "method": "PATCH",
+          "name": "updateSettings",
+          "params": [],
+          "path": "/settings"
+        }
+      },
+      "params": [],
+      "waitForPatterns": {}
+    },
+    "Users": {
+      "displayName": "users",
+      "operations": {
+        "get": {
+          "descriptionTemplate": "Get user {user_id}",
+          "method": "GET",
+          "name": "getUser",
+          "params": [
+            "user_id"
+          ],
+          "path": "/users/{user_id}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "user_id": "{user_id}"
+          },
+          "descriptionTemplate": "Update user {user_id}",
+          "method": "PATCH",
+          "name": "updateUser",
+          "params": [
+            "user_id"
+          ],
+          "path": "/users/{user_id}"
+        }
+      },
+      "params": [
+        "user_id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add user (.+)",
+          "name": "waitForAnyUserAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete user (.+)",
+          "name": "waitForAnyUserDeleted"
+        }
+      }
+    },
+    "Webhooks": {
+      "displayName": "webhooks",
+      "operations": {
+        "add": {
+          "bodyTemplate": {
+            "webhook_id": "{webhook_id}"
+          },
+          "descriptionTemplate": "Add webhook {webhook_id}",
+          "method": "POST",
+          "name": "addWebhook",
+          "params": [
+            "webhook_id"
+          ],
+          "path": "/webhooks"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete webhook {webhook_id}",
+          "method": "DELETE",
+          "name": "deleteWebhook",
+          "params": [
+            "webhook_id"
+          ],
+          "path": "/webhooks/{webhook_id}"
+        },
+        "get": {
+          "descriptionTemplate": "Get webhook {webhook_id}",
+          "method": "GET",
+          "name": "getWebhook",
+          "params": [
+            "webhook_id"
+          ],
+          "path": "/webhooks/{webhook_id}"
+        },
+        "update": {
+          "bodyTemplate": {
+            "webhook_id": "{webhook_id}"
+          },
+          "descriptionTemplate": "Update webhook {webhook_id}",
+          "method": "PATCH",
+          "name": "updateWebhook",
+          "params": [
+            "webhook_id"
+          ],
+          "path": "/webhooks/{webhook_id}"
+        }
+      },
+      "params": [
+        "webhook_id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Add webhook (.+)",
+          "name": "waitForAnyWebhookAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete webhook (.+)",
+          "name": "waitForAnyWebhookDeleted"
+        }
+      }
+    }
+  },
+  "sut": "zulip"
+}

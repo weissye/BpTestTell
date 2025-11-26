@@ -1,199 +1,133 @@
 {
-  "sut": "ecommerce",
+  "base_url": "",
   "entities": {
-    "Patient": {
-      "displayName": "patient",
-      "params": [
-        "id",
-        "name"
-      ],
+    "drugs": {
+      "displayName": "drugs",
       "operations": {
         "add": {
-          "name": "addPatient",
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add drugs",
           "method": "POST",
-          "path": "/patients",
-          "descriptionTemplate": "Add a patient with id {id} and name {name}",
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}"
-          }
+          "name": "addDrugs",
+          "params": [],
+          "path": "/drugs"
         },
-        "delete": {
-          "name": "deletePatient",
-          "method": "DELETE",
-          "path": "/patients/{id}",
-          "descriptionTemplate": "Delete a patient with id {id} and name {name}"
+        "get": {
+          "descriptionTemplate": "Get drugs",
+          "method": "GET",
+          "name": "getDrugs",
+          "params": [],
+          "path": "/drugs"
         },
         "verifyExists": {
-          "name": "verifyPatientExists"
+          "name": "verifyDrugsExists"
         }
       },
+      "params": [],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyPatientAdded",
-          "descriptionRegex": "Add a patient with id (.+) and name (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyPatientDeleted",
-          "descriptionRegex": "Delete a patient with id (.+) and name (.+)"
+          "descriptionRegex": "Add drugs",
+          "name": "waitForAnyDrugsAdded"
         }
       }
     },
-    "Drug": {
-      "displayName": "drug",
-      "params": [
-        "id",
-        "name"
-      ],
+    "inventory": {
+      "displayName": "inventory",
       "operations": {
-        "add": {
-          "name": "addDrug",
-          "method": "POST",
-          "path": "/drugs",
-          "descriptionTemplate": "Add a drug with id {id} and name {name}",
-          "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}"
-          }
-        },
-        "delete": {
-          "name": "deleteDrug",
-          "method": "DELETE",
-          "path": "/drugs/{id}",
-          "descriptionTemplate": "Delete a drug with id {id} and name {name}"
+        "get": {
+          "descriptionTemplate": "Get inventory {ndc}",
+          "method": "GET",
+          "name": "getInventory",
+          "params": [
+            "ndc"
+          ],
+          "path": "/inventory/{ndc}"
         },
         "verifyExists": {
-          "name": "verifyDrugExists"
+          "name": "verifyInventoryExists"
         }
       },
+      "params": [
+        "ndc"
+      ],
+      "waitForPatterns": {}
+    },
+    "orders": {
+      "displayName": "orders",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add orders",
+          "method": "POST",
+          "name": "addOrders",
+          "params": [],
+          "path": "/orders"
+        },
+        "get": {
+          "descriptionTemplate": "Get orders",
+          "method": "GET",
+          "name": "getOrders",
+          "params": [],
+          "path": "/orders"
+        },
+        "verifyExists": {
+          "name": "verifyOrdersExists"
+        }
+      },
+      "params": [],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyDrugAdded",
-          "descriptionRegex": "Add a drug with id (.+) and name (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyDrugDeleted",
-          "descriptionRegex": "Delete a drug with id (.+) and name (.+)"
+          "descriptionRegex": "Add orders",
+          "name": "waitForAnyOrdersAdded"
         }
       }
     },
-    "Prescription": {
-      "displayName": "prescription",
-      "params": [
-        "id",
-        "details"
-      ],
+    "patients": {
+      "displayName": "patients",
       "operations": {
         "add": {
-          "name": "addPrescription",
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add patients",
           "method": "POST",
-          "path": "/prescriptions",
-          "descriptionTemplate": "Add a prescription with id {id} and details {details}",
-          "bodyTemplate": {
-            "id": "{id}",
-            "details": "{details}"
-          }
-        },
-        "delete": {
-          "name": "deletePrescription",
-          "method": "DELETE",
-          "path": "/prescriptions/{id}",
-          "descriptionTemplate": "Delete a prescription with id {id} and details {details}"
+          "name": "addPatients",
+          "params": [],
+          "path": "/patients"
         },
         "verifyExists": {
-          "name": "verifyPrescriptionExists"
+          "name": "verifyPatientsExists"
         }
       },
+      "params": [],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyPrescriptionAdded",
-          "descriptionRegex": "Add a prescription with id (.+) and details (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyPrescriptionDeleted",
-          "descriptionRegex": "Delete a prescription with id (.+) and details (.+)"
+          "descriptionRegex": "Add patients",
+          "name": "waitForAnyPatientsAdded"
         }
       }
     },
-    "Order": {
-      "displayName": "order",
-      "params": [
-        "id",
-        "details"
-      ],
+    "prescriptions": {
+      "displayName": "prescriptions",
       "operations": {
         "add": {
-          "name": "addOrder",
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add prescriptions",
           "method": "POST",
-          "path": "/orders",
-          "descriptionTemplate": "Add an order with id {id} and details {details}",
-          "bodyTemplate": {
-            "id": "{id}",
-            "details": "{details}"
-          }
-        },
-        "delete": {
-          "name": "deleteOrder",
-          "method": "DELETE",
-          "path": "/orders/{id}",
-          "descriptionTemplate": "Delete an order with id {id} and details {details}"
+          "name": "addPrescriptions",
+          "params": [],
+          "path": "/prescriptions"
         },
         "verifyExists": {
-          "name": "verifyOrderExists"
+          "name": "verifyPrescriptionsExists"
         }
       },
+      "params": [],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyOrderAdded",
-          "descriptionRegex": "Add an order with id (.+) and details (.+)"
-        },
-        "deleted": {
-          "name": "waitForAnyOrderDeleted",
-          "descriptionRegex": "Delete an order with id (.+) and details (.+)"
+          "descriptionRegex": "Add prescriptions",
+          "name": "waitForAnyPrescriptionsAdded"
         }
       }
     }
   },
-  "stories": [
-    {
-      "name": "Patient_basicCrud",
-      "entity": "Patient",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Drug_basicCrud",
-      "entity": "Drug",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Prescription_basicCrud",
-      "entity": "Prescription",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Order_basicCrud",
-      "entity": "Order",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Patient_duplicateAdd",
-      "entity": "Patient",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "Drug_duplicateAdd",
-      "entity": "Drug",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "Prescription_duplicateAdd",
-      "entity": "Prescription",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "Order_duplicateAdd",
-      "entity": "Order",
-      "pattern": "duplicate_add"
-    }
-  ]
+  "sut": "ecommerce"
 }

@@ -1,148 +1,656 @@
 {
-  "sut": "keycloak_admin",
+  "base_url": "https://keycloak.example.com/admin/realms",
   "entities": {
-    "Realm": {
-      "displayName": "realm",
+    "AdminEvent": {
+      "displayName": "adminevent",
+      "operations": {
+        "delete": {
+          "descriptionTemplate": "Delete all admin events for realm {realm}",
+          "method": "DELETE",
+          "name": "deleteAdminEvents",
+          "params": [
+            "realm"
+          ],
+          "path": "/{realm}/admin-events"
+        },
+        "get": {
+          "descriptionTemplate": "Get admin events for realm {realm}",
+          "method": "GET",
+          "name": "getAdminEvents",
+          "params": [
+            "realm",
+            "authClient",
+            "authIpAddress",
+            "authRealm",
+            "authUser",
+            "dateFrom",
+            "dateTo",
+            "first",
+            "max",
+            "operationTypes",
+            "resourcePath",
+            "resourceTypes"
+          ],
+          "path": "/{realm}/admin-events"
+        },
+        "verifyExists": {
+          "name": "verifyAdminEventExists"
+        }
+      },
       "params": [
         "realm"
       ],
+      "waitForPatterns": {
+        "deleted": {
+          "descriptionRegex": "Delete all admin events(.+)?",
+          "name": "waitForAnyAdminEventDeleted"
+        }
+      }
+    },
+    "AuthenticationExecution": {
+      "displayName": "authenticationexecution",
       "operations": {
         "add": {
-          "name": "addRealm",
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add new authentication execution in realm {realm}",
           "method": "POST",
-          "path": "/{realm}",
-          "descriptionTemplate": "Add a realm with name {realm}",
-          "bodyTemplate": {
-            "realm": "{realm}"
-          }
+          "name": "addAuthenticationExecution",
+          "params": [
+            "realm"
+          ],
+          "path": "/{realm}/authentication/executions"
         },
         "delete": {
-          "name": "deleteRealm",
+          "descriptionTemplate": "Delete authentication execution {executionId} in realm {realm}",
           "method": "DELETE",
-          "path": "/{realm}",
-          "descriptionTemplate": "Delete a realm with name {realm}"
+          "name": "deleteAuthenticationExecution",
+          "params": [
+            "realm",
+            "executionId"
+          ],
+          "path": "/{realm}/authentication/executions/{executionId}"
+        },
+        "get": {
+          "descriptionTemplate": "Get authentication execution {executionId} in realm {realm}",
+          "method": "GET",
+          "name": "getAuthenticationExecution",
+          "params": [
+            "realm",
+            "executionId"
+          ],
+          "path": "/{realm}/authentication/executions/{executionId}"
+        },
+        "updateConfig": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update execution {executionId} with new configuration in realm {realm}",
+          "method": "POST",
+          "name": "updateAuthenticationExecutionConfig",
+          "params": [
+            "realm",
+            "executionId"
+          ],
+          "path": "/{realm}/authentication/executions/{executionId}/config"
         },
         "verifyExists": {
-          "name": "verifyRealmExists"
+          "name": "verifyAuthenticationExecutionExists"
         }
       },
+      "params": [
+        "realm",
+        "executionId"
+      ],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyRealmAdded",
-          "descriptionRegex": "Add a realm with name (.+)"
+          "descriptionRegex": "Add new authentication execution(.+)?",
+          "name": "waitForAnyAuthenticationExecutionAdded"
         },
         "deleted": {
-          "name": "waitForAnyRealmDeleted",
-          "descriptionRegex": "Delete a realm with name (.+)"
+          "descriptionRegex": "Delete authentication execution(.+)?",
+          "name": "waitForAnyAuthenticationExecutionDeleted"
+        }
+      }
+    },
+    "AuthenticationFlow": {
+      "displayName": "authenticationflow",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Create a new authentication flow in realm {realm}",
+          "method": "POST",
+          "name": "addAuthenticationFlow",
+          "params": [
+            "realm"
+          ],
+          "path": "/{realm}/authentication/flows"
+        },
+        "addExecution": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add new authentication execution to flow {flowAlias} in realm {realm}",
+          "method": "POST",
+          "name": "addAuthenticationExecutionToFlow",
+          "params": [
+            "realm",
+            "flowAlias"
+          ],
+          "path": "/{realm}/authentication/flows/{flowAlias}/executions/execution"
+        },
+        "addFlowExecution": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Add new flow with new execution to existing flow {flowAlias} in realm {realm}",
+          "method": "POST",
+          "name": "addFlowWithExecutionToFlow",
+          "params": [
+            "realm",
+            "flowAlias"
+          ],
+          "path": "/{realm}/authentication/flows/{flowAlias}/executions/flow"
+        },
+        "copy": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Copy existing authentication flow {flowAlias} under a new name in realm {realm}",
+          "method": "POST",
+          "name": "copyAuthenticationFlow",
+          "params": [
+            "realm",
+            "flowAlias"
+          ],
+          "path": "/{realm}/authentication/flows/{flowAlias}/copy"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete authentication flow {id} in realm {realm}",
+          "method": "DELETE",
+          "name": "deleteAuthenticationFlow",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "path": "/{realm}/authentication/flows/{id}"
+        },
+        "get": {
+          "descriptionTemplate": "Get authentication flow {id} in realm {realm}",
+          "method": "GET",
+          "name": "getAuthenticationFlow",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "path": "/{realm}/authentication/flows/{id}"
+        },
+        "getExecutions": {
+          "descriptionTemplate": "Get authentication executions for flow {flowAlias} in realm {realm}",
+          "method": "GET",
+          "name": "getAuthenticationExecutionsForFlow",
+          "params": [
+            "realm",
+            "flowAlias"
+          ],
+          "path": "/{realm}/authentication/flows/{flowAlias}/executions"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update authentication flow {id} in realm {realm}",
+          "method": "PUT",
+          "name": "updateAuthenticationFlow",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "path": "/{realm}/authentication/flows/{id}"
+        },
+        "updateExecutions": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update authentication executions of flow {flowAlias} in realm {realm}",
+          "method": "PUT",
+          "name": "updateAuthenticationExecutionsOfFlow",
+          "params": [
+            "realm",
+            "flowAlias"
+          ],
+          "path": "/{realm}/authentication/flows/{flowAlias}/executions"
+        },
+        "verifyExists": {
+          "name": "verifyAuthenticationFlowExists"
+        }
+      },
+      "params": [
+        "realm",
+        "id",
+        "flowAlias"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Create a new authentication flow(.+)?",
+          "name": "waitForAnyAuthenticationFlowAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete authentication flow(.+)?",
+          "name": "waitForAnyAuthenticationFlowDeleted"
+        }
+      }
+    },
+    "AuthenticatorConfig": {
+      "displayName": "authenticatorconfig",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Create new authenticator configuration in realm {realm}",
+          "method": "POST",
+          "name": "addAuthenticatorConfig",
+          "params": [
+            "realm"
+          ],
+          "path": "/{realm}/authentication/config"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete authenticator configuration {id} in realm {realm}",
+          "method": "DELETE",
+          "name": "deleteAuthenticatorConfig",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "path": "/{realm}/authentication/config/{id}"
+        },
+        "get": {
+          "descriptionTemplate": "Get authenticator configuration {id} in realm {realm}",
+          "method": "GET",
+          "name": "getAuthenticatorConfig",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "path": "/{realm}/authentication/config/{id}"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update authenticator configuration {id} in realm {realm}",
+          "method": "PUT",
+          "name": "updateAuthenticatorConfig",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "path": "/{realm}/authentication/config/{id}"
+        },
+        "verifyExists": {
+          "name": "verifyAuthenticatorConfigExists"
+        }
+      },
+      "params": [
+        "realm",
+        "id"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Create new authenticator configuration(.+)?",
+          "name": "waitForAnyAuthenticatorConfigAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete authenticator configuration(.+)?",
+          "name": "waitForAnyAuthenticatorConfigDeleted"
+        }
+      }
+    },
+    "BruteForceUser": {
+      "displayName": "bruteforceuser",
+      "operations": {
+        "delete": {
+          "descriptionTemplate": "Clear any user login failures for user {userId} in realm {realm}",
+          "method": "DELETE",
+          "name": "deleteBruteForceUser",
+          "params": [
+            "realm",
+            "userId"
+          ],
+          "path": "/{realm}/attack-detection/brute-force/users/{userId}"
+        },
+        "get": {
+          "descriptionTemplate": "Get status of brute force user {userId} in realm {realm}",
+          "method": "GET",
+          "name": "getBruteForceUser",
+          "params": [
+            "realm",
+            "userId"
+          ],
+          "path": "/{realm}/attack-detection/brute-force/users/{userId}"
+        },
+        "verifyExists": {
+          "name": "verifyBruteForceUserExists"
+        }
+      },
+      "params": [
+        "realm",
+        "userId"
+      ],
+      "waitForPatterns": {
+        "deleted": {
+          "descriptionRegex": "Clear any user login failures for user (.+)",
+          "name": "waitForAnyBruteForceUserDeleted"
+        }
+      }
+    },
+    "BruteForceUsers": {
+      "displayName": "bruteforceusers",
+      "operations": {
+        "delete": {
+          "descriptionTemplate": "Clear any user login failures for all users in realm {realm}",
+          "method": "DELETE",
+          "name": "deleteBruteForceUsers",
+          "params": [
+            "realm"
+          ],
+          "path": "/{realm}/attack-detection/brute-force/users"
+        },
+        "verifyExists": {
+          "name": "verifyBruteForceUsersExists"
+        }
+      },
+      "params": [
+        "realm"
+      ],
+      "waitForPatterns": {
+        "deleted": {
+          "descriptionRegex": "Clear any user login failures for all users(.+)?",
+          "name": "waitForAnyBruteForceUsersDeleted"
         }
       }
     },
     "Client": {
       "displayName": "client",
-      "params": [
-        "id",
-        "clientId",
-        "name"
-      ],
       "operations": {
         "add": {
-          "name": "addClient",
+          "bodyTemplate": {},
+          "descriptionTemplate": "Create a new client in realm {realm}",
           "method": "POST",
-          "path": "/{realm}/clients",
-          "descriptionTemplate": "Add a client with id {id} and clientId {clientId}",
-          "bodyTemplate": {
-            "id": "{id}",
-            "clientId": "{clientId}",
-            "name": "{name}"
-          }
+          "name": "addClient",
+          "params": [
+            "realm"
+          ],
+          "path": "/{realm}/clients"
         },
         "delete": {
-          "name": "deleteClient",
+          "descriptionTemplate": "Delete the client {id} in realm {realm}",
           "method": "DELETE",
-          "path": "/{realm}/clients/{id}",
-          "descriptionTemplate": "Delete a client with id {id} and clientId {clientId}"
+          "name": "deleteClient",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "path": "/{realm}/clients/{id}"
+        },
+        "get": {
+          "descriptionTemplate": "Get representation of the client {id} in realm {realm}",
+          "method": "GET",
+          "name": "getClient",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "path": "/{realm}/clients/{id}"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update the client {id} in realm {realm}",
+          "method": "PUT",
+          "name": "updateClient",
+          "params": [
+            "realm",
+            "id"
+          ],
+          "path": "/{realm}/clients/{id}"
         },
         "verifyExists": {
           "name": "verifyClientExists"
         }
       },
+      "params": [
+        "realm",
+        "id"
+      ],
       "waitForPatterns": {
         "added": {
-          "name": "waitForAnyClientAdded",
-          "descriptionRegex": "Add a client with id (.+) and clientId (.+)"
+          "descriptionRegex": "Create a new client(.+)?",
+          "name": "waitForAnyClientAdded"
         },
         "deleted": {
-          "name": "waitForAnyClientDeleted",
-          "descriptionRegex": "Delete a client with id (.+) and clientId (.+)"
+          "descriptionRegex": "Delete the client(.+)?",
+          "name": "waitForAnyClientDeleted"
+        }
+      }
+    },
+    "Realm": {
+      "displayName": "realm",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Import a realm",
+          "method": "POST",
+          "name": "addRealm",
+          "params": [],
+          "path": "/"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete the realm {realm}",
+          "method": "DELETE",
+          "name": "deleteRealm",
+          "params": [
+            "realm"
+          ],
+          "path": "/{realm}"
+        },
+        "get": {
+          "descriptionTemplate": "Get the top-level representation of the realm {realm}",
+          "method": "GET",
+          "name": "getRealm",
+          "params": [
+            "realm"
+          ],
+          "path": "/{realm}"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update the top-level information of the realm {realm}",
+          "method": "PUT",
+          "name": "updateRealm",
+          "params": [
+            "realm"
+          ],
+          "path": "/{realm}"
+        },
+        "verifyExists": {
+          "name": "verifyRealmExists"
+        }
+      },
+      "params": [
+        "realm"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Import a realm",
+          "name": "waitForAnyRealmAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete the realm (.+)",
+          "name": "waitForAnyRealmDeleted"
+        }
+      }
+    },
+    "RequiredAction": {
+      "displayName": "requiredaction",
+      "operations": {
+        "add": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Register a new required action in realm {realm}",
+          "method": "POST",
+          "name": "addRequiredAction",
+          "params": [
+            "realm"
+          ],
+          "path": "/{realm}/authentication/register-required-action"
+        },
+        "delete": {
+          "descriptionTemplate": "Delete required action {alias} in realm {realm}",
+          "method": "DELETE",
+          "name": "deleteRequiredAction",
+          "params": [
+            "realm",
+            "alias"
+          ],
+          "path": "/{realm}/authentication/required-actions/{alias}"
+        },
+        "get": {
+          "descriptionTemplate": "Get required action {alias} in realm {realm}",
+          "method": "GET",
+          "name": "getRequiredAction",
+          "params": [
+            "realm",
+            "alias"
+          ],
+          "path": "/{realm}/authentication/required-actions/{alias}"
+        },
+        "getAll": {
+          "descriptionTemplate": "Get required actions in realm {realm}",
+          "method": "GET",
+          "name": "getRequiredActions",
+          "params": [
+            "realm"
+          ],
+          "path": "/{realm}/authentication/required-actions"
+        },
+        "lowerPriority": {
+          "descriptionTemplate": "Lower required action\u2019s priority {alias} in realm {realm}",
+          "method": "POST",
+          "name": "lowerRequiredActionPriority",
+          "params": [
+            "realm",
+            "alias"
+          ],
+          "path": "/{realm}/authentication/required-actions/{alias}/lower-priority"
+        },
+        "raisePriority": {
+          "descriptionTemplate": "Raise required action\u2019s priority {alias} in realm {realm}",
+          "method": "POST",
+          "name": "raiseRequiredActionPriority",
+          "params": [
+            "realm",
+            "alias"
+          ],
+          "path": "/{realm}/authentication/required-actions/{alias}/raise-priority"
+        },
+        "update": {
+          "bodyTemplate": {},
+          "descriptionTemplate": "Update required action {alias} in realm {realm}",
+          "method": "PUT",
+          "name": "updateRequiredAction",
+          "params": [
+            "realm",
+            "alias"
+          ],
+          "path": "/{realm}/authentication/required-actions/{alias}"
+        },
+        "verifyExists": {
+          "name": "verifyRequiredActionExists"
+        }
+      },
+      "params": [
+        "realm",
+        "alias"
+      ],
+      "waitForPatterns": {
+        "added": {
+          "descriptionRegex": "Register a new required action(.+)?",
+          "name": "waitForAnyRequiredActionAdded"
+        },
+        "deleted": {
+          "descriptionRegex": "Delete required action(.+)?",
+          "name": "waitForAnyRequiredActionDeleted"
         }
       }
     },
     "User": {
       "displayName": "user",
-      "params": [
-        "id",
-        "username",
-        "email"
-      ],
       "operations": {
-        "add": {
-          "name": "addUser",
-          "method": "POST",
-          "path": "/{realm}/users",
-          "descriptionTemplate": "Add a user with id {id} and username {username}",
-          "bodyTemplate": {
-            "id": "{id}",
-            "username": "{username}",
-            "email": "{email}"
-          }
-        },
         "delete": {
-          "name": "deleteUser",
+          "descriptionTemplate": "Clear any user login failures for the user {userId} in realm {realm}",
           "method": "DELETE",
-          "path": "/{realm}/users/{id}",
-          "descriptionTemplate": "Delete a user with id {id} and username {username}"
+          "name": "deleteBruteForceUser",
+          "params": [
+            "realm",
+            "userId"
+          ],
+          "path": "/{realm}/attack-detection/brute-force/users/{userId}"
+        },
+        "get": {
+          "descriptionTemplate": "Get status of a username in brute force detection for user {userId} in realm {realm}",
+          "method": "GET",
+          "name": "getBruteForceUser",
+          "params": [
+            "realm",
+            "userId"
+          ],
+          "path": "/{realm}/attack-detection/brute-force/users/{userId}"
         },
         "verifyExists": {
           "name": "verifyUserExists"
         }
       },
+      "params": [
+        "realm",
+        "userId"
+      ],
       "waitForPatterns": {
-        "added": {
-          "name": "waitForAnyUserAdded",
-          "descriptionRegex": "Add a user with id (.+) and username (.+)"
-        },
         "deleted": {
-          "name": "waitForAnyUserDeleted",
-          "descriptionRegex": "Delete a user with id (.+) and username (.+)"
+          "descriptionRegex": "Clear any user login failures for the user (.+)",
+          "name": "waitForAnyUserDeleted"
+        }
+      }
+    },
+    "Webhook": {
+      "displayName": "webhook",
+      "operations": {
+        "delete": {
+          "descriptionTemplate": "Delete all admin events for realm {realm}",
+          "method": "DELETE",
+          "name": "deleteAdminEvents",
+          "params": [
+            "realm"
+          ],
+          "path": "/{realm}/admin-events"
+        },
+        "get": {
+          "descriptionTemplate": "Get admin events for realm {realm}",
+          "method": "GET",
+          "name": "getAdminEvents",
+          "params": [
+            "realm",
+            "authClient",
+            "authIpAddress",
+            "authRealm",
+            "authUser",
+            "dateFrom",
+            "dateTo",
+            "first",
+            "max",
+            "operationTypes",
+            "resourcePath",
+            "resourceTypes"
+          ],
+          "path": "/{realm}/admin-events"
+        },
+        "verifyExists": {
+          "name": "verifyWebhookExists"
+        }
+      },
+      "params": [
+        "realm"
+      ],
+      "waitForPatterns": {
+        "deleted": {
+          "descriptionRegex": "Delete all admin events(.+)?",
+          "name": "waitForAnyWebhookDeleted"
         }
       }
     }
   },
-  "stories": [
-    {
-      "name": "Realm_basicCrud",
-      "entity": "Realm",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Client_basicCrud",
-      "entity": "Client",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "User_basicCrud",
-      "entity": "User",
-      "pattern": "crud_basic"
-    },
-    {
-      "name": "Client_duplicateAdd",
-      "entity": "Client",
-      "pattern": "duplicate_add"
-    },
-    {
-      "name": "User_duplicateAdd",
-      "entity": "User",
-      "pattern": "duplicate_add"
-    }
-  ]
+  "sut": "keycloak_admin"
 }
